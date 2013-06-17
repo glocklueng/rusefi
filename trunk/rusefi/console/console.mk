@@ -1,0 +1,4 @@
+
+CONSOLESRC = console/rficonsole.c \
+	console/console_io.c \
+	console/status_loop.c
