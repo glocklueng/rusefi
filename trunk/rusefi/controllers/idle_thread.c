@@ -56,7 +56,7 @@ static void setTargetIdle(int value) {
 }
 
 void startIdleThread() {
-	wePlainInit("Idle Valve", &idleValve, GPIOE, 5, 0, 0, 0.5);
+	wePlainInit("Idle Valve", &idleValve, IDLE_VALVE_PORT, IDLE_VALVE_PIN, 0, 0, 0.5);
 	idleValve.waveLen = freq2wave(200);
 
 	idleInit(&idle);
