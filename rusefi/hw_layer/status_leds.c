@@ -6,6 +6,7 @@
  */
 
 #include <board.h>
+#include "main.h"
 #include "status_leds.h"
 
 #include "pin_repository.h"
@@ -58,7 +59,7 @@ void initStatusLeds() {
 	ledRegister("sparkout", LED_SPARKOUT, GPIOD, 3);
 //	ledRegister(LED_SPARKOUT, GPIOD, 0);
 //	ledRegister(LED_EMULATOR, GPIOE, 3); // pin is shared with dist_emulator
-	ledRegister("injector1", LED_INJECTOR_1, GPIOC, 11);
+	ledRegister("injector1", LED_INJECTOR_1, INJECTOR_1_PORT, INJECTOR_1_PIN);
 	ledRegister("injector2", LED_INJECTOR_2, GPIOC, 7);
 	ledRegister("injector3", LED_INJECTOR_3, GPIOC, 9);
 	ledRegister("injector4", LED_INJECTOR_4, GPIOA, 9);

@@ -51,6 +51,13 @@
 
 #endif
 
+#define INJECTOR_1_PORT GPIOC
+#define INJECTOR_1_PIN 11
+
+#define IDLE_VALVE_PORT GPIOE
+#define IDLE_VALVE_PIN 5
+
+
 #define TICKS_IN_MS  (CH_FREQUENCY / 1000)
 #define currentTimeMillis() (chTimeNow() / TICKS_IN_MS)
 
