@@ -11,7 +11,18 @@
 #include "datalogging.h"
 
 typedef struct {
-	int led;
+	/**
+	 * name of this signal
+	 */
+	char *name;
+	/**
+	 * output signals use status led hardware layer
+	 * index of the output led which is used as output pin
+	 */
+	int ledIndex;
+	/**
+	 * active on high or active on low
+	 */
 	int xor;
 	// time in system ticks
 	volatile int offset;
@@ -22,20 +33,22 @@ typedef struct {
 	 */
 	VirtualTimer signalTimer;
 	/**
-	 * this timer is used to notify the worker thread
+	 * this timer is used to notify the worker thread when it's time to output
+	 * the signal
 	 */
 	Semaphore signalSemaphore;
 	WORKING_AREA(soThreadStack, 512);
 	Logging logging;
 	int initialized;
 
-} OutputSignal;
+	time_t last_scheduling_time;
 
+} OutputSignal;
 
 void scheduleSparkOut(int offset, int duration);
 void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks);
 
 void initOutputSignals(void);
-void pokeSparkOut(void);
+void pokeOutputSignals(void);
 
 #endif /* SPARKOUT_H_ */

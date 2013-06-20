@@ -19,7 +19,6 @@
 #include "adc_inputs.h"
 #include "fuel_map.h"
 
-
 //static int advance = 0;
 static Logging logging;
 
@@ -135,9 +134,6 @@ static void onRunningShaftSignal(int ckpSignalType) {
 	if (shaftCounter % getInjectionDivider() != 0)
 		return;
 
-
-//	int injectionPeriod = getInjectionPeriod() * MS_DIVIDER / 10;
-
 	int injectionPeriod = getFuel(rpm, getMaf()) * MS_DIVIDER;
 
 	int offset = getInjectionOffset();
@@ -145,8 +141,33 @@ static void onRunningShaftSignal(int ckpSignalType) {
 
 	int timeTillTDC2 = getWaveLengthByRpm2(getCurrentRpm());
 
-	scheduleFuelInjection(timeTillTDC2 + advanceTime2 - injectionPeriod,
-			injectionPeriod);
+	int delay = timeTillTDC2 + advanceTime2 - injectionPeriod;
+	if (delay <= 0) {
+		/**
+		 * we are here if injection period is so long that in order
+		 * to get desired injection advance we should have started in the past
+		 * in this case we ignore the desired injection advance and just inject
+		 * right away
+		 */
+		logStartLine(&logging);
+		append(&logging, "msg");
+		append(&logging, DELIMETER);
+		append(&logging, " rpm=");
+		appendInt(&logging, getCurrentRpm());
+		append(&logging, " delay=");
+		appendInt(&logging, delay);
+//		append(&logging, " timeTillTDC2=");
+//		appendInt(&logging, timeTillTDC2);
+//		append(&logging, " advanceTime2= ");
+//		appendInt(&logging, advanceTime2);
+//		append(&logging, " injectionPeriod= ");
+//		appendInt(&logging, injectionPeriod);
+		logPending(&logging);
+
+		delay = 0;
+	}
+
+	scheduleFuelInjection(delay, injectionPeriod);
 }
 
 static void onShaftSignal(int ckpSignalType) {
