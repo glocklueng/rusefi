@@ -10,14 +10,6 @@
 #include "rficonsole_logic.h"
 #include "rfiutil.h"
 
-#define	TAB_MODE	FALSE
-
-#if TAB_MODE
-#define DELIMETER	"\t"
-#else
-#define DELIMETER	","
-#endif
-
 static char* getCaption(int loggingPoint) {
 	switch (loggingPoint) {
 	case LP_RPM:
@@ -57,7 +49,7 @@ static char* get2ndCaption(int loggingPoint) {
 }
 
 
-static void append(Logging *logging, char *text) {
+void append(Logging *logging, char *text) {
 //	print("%s", text);
 	strcpy(logging->linePointer, text);
 	logging->linePointer += strlen(text);
@@ -67,12 +59,15 @@ void msgChar(Logging *logging, char *text) {
 	append(logging, text);
 }
 
-void msgInt(Logging *logging, char *caption, int value) {
-	append(logging, caption);
-
+void appendInt(Logging *logging, int value) {
 	char *p = itoa_signed(logging->SMALL_BUFFER, value, 10);
 	*p = 0;
 	append(logging, logging->SMALL_BUFFER);
+}
+
+void msgInt(Logging *logging, char *caption, int value) {
+	append(logging, caption);
+	appendInt(logging, value);
 	append(logging, DELIMETER);
 }
 
