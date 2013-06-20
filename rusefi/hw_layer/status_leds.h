@@ -15,13 +15,15 @@ typedef enum {
 	LED_RPM = 3, // Red on-board led
 	LED_DEBUG = 4,
 
-	LED_SPARKOUT = 5,
-	LED_EMULATOR = 6,
+	LED_SPARKOUT_1 = 5,
+	LED_SPARKOUT_2 = 6,
+
 	LED_INJECTOR_1 = 7,
 	LED_INJECTOR_2 = 8,
 	LED_INJECTOR_3 = 9,
-
 	LED_INJECTOR_4 = 10,
+
+	LED_EMULATOR = 11,
 
 	/* digit 1 */
 	LED_HUGE_0 = 20, // B2

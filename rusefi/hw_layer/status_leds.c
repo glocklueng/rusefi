@@ -20,12 +20,12 @@ int ledPin[LED_COUNT];
  */
 static WORKING_AREA(blinkingThreadStack, 128);
 
-void setStatusLed(int led, int value) {
-	if (ledCurrentStatus[led] == value)
+void setStatusLed(int ledIndex, int value) {
+	if (ledCurrentStatus[ledIndex] == value)
 		return;
 
-	GPIO_TypeDef *port = ledPort[led];
-	int pin = ledPin[led];
+	GPIO_TypeDef *port = ledPort[ledIndex];
+	int pin = ledPin[ledIndex];
 
 	palWritePad(port, pin, value);
 }
@@ -56,7 +56,8 @@ void initStatusLeds() {
 	ledRegister("is cranking status", LED_CRANKING, GPIOD, GPIOD_LED4);
 	ledRegister("alive1", LED_RPM, GPIOD, GPIOD_LED5);
 	ledRegister("alive1", LED_DEBUG, GPIOD, 2);
-	ledRegister("sparkout", LED_SPARKOUT, GPIOD, 3);
+	ledRegister("sparkout", LED_SPARKOUT_1, GPIOD, 3);
+	ledRegister("sparkout", LED_SPARKOUT_2, GPIOE, 6);
 //	ledRegister(LED_SPARKOUT, GPIOD, 0);
 //	ledRegister(LED_EMULATOR, GPIOE, 3); // pin is shared with dist_emulator
 	ledRegister("injector1", LED_INJECTOR_1, INJECTOR_1_PORT, INJECTOR_1_PIN);
