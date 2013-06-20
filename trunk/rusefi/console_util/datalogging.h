@@ -10,6 +10,14 @@
 
 #include "global.h"
 
+#define	TAB_MODE	FALSE
+
+#if TAB_MODE
+#define DELIMETER	"\t"
+#else
+#define DELIMETER	","
+#endif
+
 typedef enum {
 	LP_RPM, LP_ECT, LP_IAT, LP_THROTTLE, LP_SECONDS, LP_MAP,
 
@@ -35,7 +43,10 @@ void printLine(Logging *logging);
 
 void printSimpleMsg(Logging *logging, char *msg, int value);
 void queueSimpleMsg(Logging *logging, char *msg, int value);
+
 void logPending(Logging *logging);
+void append(Logging *logging, char *text);
+void appendInt(Logging *logging, int value);
 void printPending();
 
 #endif /* DATALOGGING_H_ */
