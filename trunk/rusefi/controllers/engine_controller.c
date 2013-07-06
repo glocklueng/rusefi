@@ -13,9 +13,9 @@
 #include "sparkout.h"
 #include "main_loop.h"
 
-
 int isCranking() {
-	return getCurrentRpm() < 350;
+	int rpm = getCurrentRpm();
+	return rpm > 0 && rpm < 350;
 }
 
 /**
@@ -38,11 +38,14 @@ void initEngineContoller() {
 	initOutputSignals();
 
 	initInjectorsControl();
+
+	/**
+	 * there is an implicit dependency on the fact that 'tachomenter' listener is the 1st listener - this case
+	 * other listeners can access current RPM value
+	 */
 	initAspireTachometer();
 
 	initMainLoop();
 
 	startIdleThread();
-
 }
-

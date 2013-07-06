@@ -7,7 +7,7 @@
 
 #include "main.h"
 #include "main_loop.h"
-#include "status_leds.h"
+#include "output_pins.h"
 #include "engine_controller.h"
 #include "injector_control.h"
 #include "crank_input.h"
@@ -19,61 +19,66 @@
 #include "adc_inputs.h"
 #include "fuel_map.h"
 
-//static int advance = 0;
-static Logging logging;
+#define RPM_HARD_LIMIT 8000
+static int isControlActive = TRUE;
 
-//static void setAdvance(int value) {
-//	if (value < -40 || value > 50) {
-//		print("Invalid: %d\r\n", value);
-//		return;
-//	}
-//	print("Setting advance: %d\r\n", value);
-//	advance = value;
-//}
+/**
+ * ignition order, same as fuel injection order: 1-3-4-2
+ */
+static int FIRING_ORDER[NUMBER_OF_CYLINDERS] = { 1, 3, 4, 2 };
+
+/**
+ * this is not cylinder number - this is the index of a cylinder in the ignition sequence
+ */
+static int currentCylinderIndex;
+
+static int shaftCounter = 0;
+static Logging log;
 
 void onEveryMillisecondTimerSignal(int ignore) {
 	if (!isCranking())
-		setStatusLed(LED_CRANKING, FALSE);
+		setOutputPinValue(LED_CRANKING, FALSE);
 	if (getCurrentRpm() == 0) {
-		setStatusLed(LED_RPM, FALSE);
-		setStatusLed(LED_DEBUG, FALSE);
+		setOutputPinValue(LED_RPM, FALSE);
+		setOutputPinValue(LED_DEBUG, FALSE);
 	}
 }
 
 myfloat getMaf() {
-	int adc5 = getAdcValue(5); /* PB1 - white MAF */
-	return adcToVolts2(adc5);
+	int mafAdc = getAdcValue(ADC_CHANNEL_MAF);
+	return adcToVolts2(mafAdc);
 }
 
 myfloat getVRef() {
-	int adc7 = getAdcValue(7);
-	myfloat volts_7 = adcToVolts2(adc7);
-	return volts_7;
+	int mafVref = getAdcValue(ADC_CHANNEL_VREF);
+	return adcToVolts2(mafVref);
 }
 
-static int getWaveLengthByRpm(int rpm) {
+static int getShortWaveLengthByRpm(int rpm) {
 	/**
 	 * we are dividing 1163100, should be fine with integer precision
 	 */
-	return (int) (STROKE_TIME_CONSTANT * ASPIRE_MAGIC_DUTY_CYCLE * MS_DIVIDER)
-			/ rpm;
+	return (int) (STROKE_TIME_CONSTANT * ASPIRE_MAGIC_DUTY_CYCLE) / rpm;
+}
+
+static int getFullWaveLengthByRpm(int rpm) {
+	return STROKE_TIME_CONSTANT / rpm;
 }
 
 static int getWaveLengthByRpm2(int rpm) {
 	/**
 	 * we are dividing 1163100, should be fine with integer precision
 	 */
-	return (int) (STROKE_TIME_CONSTANT * (1 - ASPIRE_MAGIC_DUTY_CYCLE)
-			* MS_DIVIDER) / rpm;
+	return (int) (STROKE_TIME_CONSTANT * (1 - ASPIRE_MAGIC_DUTY_CYCLE)) / rpm;
 }
 
-static int getWaveLength() {
-	return getWaveLengthByRpm(getCurrentRpm());
+static int getShortWaveLength() {
+	return getShortWaveLengthByRpm(getCurrentRpm());
 }
 
 static void onCrankingShaftSignal(int ckpSignalType) {
-	setStatusLed(LED_CRANKING, TRUE);
-	if (ckpSignalType != CKP_PRIMARY_FALL)
+	setOutputPinValue(LED_CRANKING, TRUE);
+	if (ckpSignalType != CKP_PRIMARY_UP)
 		return;
 
 	/**
@@ -81,25 +86,108 @@ static void onCrankingShaftSignal(int ckpSignalType) {
 	 * our implementation sets the wave width based on current RPM value
 	 *
 	 */
-	int duration = getWaveLength();
+	int duration = getShortWaveLength();
 	scheduleSparkOut(0, duration);
-	scheduleFuelInjection(MS_DIVIDER,
-			getCrankingInjectionPeriod() * MS_DIVIDER / 10);
+	for (int id = 1; id <= NUMBER_OF_CYLINDERS; id++)
+		scheduleFuelInjection(TICKS_IN_MS, getCrankingInjectionPeriod() * TICKS_IN_MS / 10, id);
 }
 
-static int getAdvanceByRpm2(int rpm, int advance) {
-	return (int) (advance * STROKE_TIME_CONSTANT * MS_DIVIDER / 90 / rpm);
+static int convertAngleToSysticks(int rpm, int advance) {
+	return (int) (advance * STROKE_TIME_CONSTANT / 90 / rpm);
 }
 
 //static int getAdvanceByRpm(int rpm) {
 //	return getAdvanceByRpm2(rpm, advance);
 //}
 
-int shaftCounter = 0;
+static int getSparkDwell(int rpm) {
+	int defaultDwell = TICKS_IN_MS * 4;
+	if (rpm <= 4500)
+		return defaultDwell;
+	rpm -= 4500;
+	// for each 2000 rpm above 4500 rom we reduce dwell by 1 ms
+	int dec = rpm * TICKS_IN_MS / 2000;
+	return defaultDwell - dec;
+}
+
+static void scheduleSpark(int rpm, int ckpSignalType) {
+	int timeTillNextRise = getFullWaveLengthByRpm(rpm);
+
+	float advance = getAdvance(rpm, getMaf());
+
+	//advance = 0;
+	int sparkAdvance = convertAngleToSysticks(rpm, advance);
+
+	int dwell = getSparkDwell(rpm);
+	chDbgCheck(dwell > 0, "invalid dwell");
+
+	int sparkDelay = timeTillNextRise + sparkAdvance - dwell;
+	if (sparkDelay < 0) {
+		scheduleSimpleMsg(&log, "Negative spark delay", sparkDelay);
+		return;
+	}
+	scheduleSparkOut(sparkDelay, dwell);
+}
+
+static void scheduleFuel(int rpm, CkpEvents ckpSignalType) {
+	if (currentCylinderIndex >= NUMBER_OF_CYLINDERS) {
+		scheduleSimpleMsg(&log, "what currentCylinderIndex? ", currentCylinderIndex);
+		return;
+	}
+
+	/**
+	 * ID is between 1 and NUMBER_OF_CYLINDERS
+	 */
+	int cylinderId = FIRING_ORDER[currentCylinderIndex];
+
+//	scheduleSimpleMsg(&log, "will squirt index ", currentCylinderIndex);
+	scheduleSimpleMsg(&log, "will squirt id ", cylinderId);
+
+	int injectionPeriod = getFuel(rpm, getMaf()) * TICKS_IN_MS;
+
+	int offset = getInjectionOffset();
+	int advanceTime2 = convertAngleToSysticks(getCurrentRpm(), offset);
+
+	int timeTillTDC2 = getWaveLengthByRpm2(getCurrentRpm());
+
+	int delay = 0;//timeTillTDC2 + advanceTime2 - injectionPeriod;
+	if (delay < 0) {
+		/**
+		 * we are here if injection period is so long that in order
+		 * to get desired injection advance we should have started in the past
+		 * in this case we ignore the desired injection advance and just inject
+		 * right away
+		 */
+		resetLogging(&log);
+		append(&log, "msg");
+		append(&log, DELIMETER);
+		append(&log, "ERROR: negative delay? rpm=");
+		appendInt(&log, getCurrentRpm());
+		append(&log, " delay=");
+		appendInt(&log, delay);
+		//		append(&logging, " timeTillTDC2=");
+		//		appendInt(&logging, timeTillTDC2);
+		//		append(&logging, " advanceTime2= ");
+		//		appendInt(&logging, advanceTime2);
+		//		append(&logging, " injectionPeriod= ");
+		//		appendInt(&logging, injectionPeriod);
+		scheduleLogging(&log);
+
+		delay = 0;
+	}
+
+	scheduleFuelInjection(delay, injectionPeriod, cylinderId);
+
+}
 
 static void onRunningShaftSignal(int ckpSignalType) {
-	if (ckpSignalType != CKP_PRIMARY_FALL)
+	int rpm = getCurrentRpm();
+
+	if (rpm > RPM_HARD_LIMIT) {
+		scheduleSimpleMsg(&log, "RPM above hard limit ", rpm);
 		return;
+	}
+
 	/**
 	 * while cranking, ignition wave is same as *MAGIC* wave
 	 * for a couple resolutions after cranking, ignition width is variable and finally
@@ -114,79 +202,51 @@ static void onRunningShaftSignal(int ckpSignalType) {
 
 	shaftCounter++;
 
-	int rpm = getCurrentRpm();
-
-	if (rpm > 15000) {
-		queueSimpleMsg(&logging, "CRAZY RPM ", rpm);
-		return;
-	}
-
-	int timeTillTDC = getWaveLength();
-
-	float advance = getAdvance(rpm, getMaf());
-
-	//advance = 0;
-	int advanceTime = getAdvanceByRpm2(rpm, advance);
-
-	int dwell = MS_DIVIDER * 4;
-	scheduleSparkOut(timeTillTDC - advanceTime - dwell, dwell);
-
-	if (shaftCounter % getInjectionDivider() != 0)
+	/**
+	 * with -15 spark advance at higher RPMs, 'CKP_PRIMARY_FALL' happens too late - we have to work with 'CKP_PRIMARY_RISE'
+	 */
+	if (ckpSignalType != CKP_PRIMARY_DOWN)
 		return;
 
-	int injectionPeriod = getFuel(rpm, getMaf()) * MS_DIVIDER;
+	scheduleSpark(rpm, ckpSignalType);
 
-	int offset = getInjectionOffset();
-	int advanceTime2 = getAdvanceByRpm2(getCurrentRpm(), offset);
-
-	int timeTillTDC2 = getWaveLengthByRpm2(getCurrentRpm());
-
-	int delay = timeTillTDC2 + advanceTime2 - injectionPeriod;
-	if (delay <= 0) {
-		/**
-		 * we are here if injection period is so long that in order
-		 * to get desired injection advance we should have started in the past
-		 * in this case we ignore the desired injection advance and just inject
-		 * right away
-		 */
-		logStartLine(&logging);
-		append(&logging, "msg");
-		append(&logging, DELIMETER);
-		append(&logging, " rpm=");
-		appendInt(&logging, getCurrentRpm());
-		append(&logging, " delay=");
-		appendInt(&logging, delay);
-//		append(&logging, " timeTillTDC2=");
-//		appendInt(&logging, timeTillTDC2);
-//		append(&logging, " advanceTime2= ");
-//		appendInt(&logging, advanceTime2);
-//		append(&logging, " injectionPeriod= ");
-//		appendInt(&logging, injectionPeriod);
-		logPending(&logging);
-
-		delay = 0;
-	}
-
-	scheduleFuelInjection(delay, injectionPeriod);
+	scheduleFuel(rpm, ckpSignalType);
 }
 
+/**
+ * This is the main entry point into the primary CKP signal. Both injection and ignition are controlled from this method.
+ */
 static void onShaftSignal(int ckpSignalType) {
-	int rpmBeforeUpdate = getCurrentRpm();
-
-	if (rpmBeforeUpdate == 0)
+	if (!isControlActive)
 		return;
+
+	if (ckpSignalType == CKP_SECONDARY_DOWN) {
+		/**
+		 * that's because we increment before handing the event, so this '-1' would be processed as 0
+		 */
+		currentCylinderIndex = -1;
+		return;
+	}
+
+	if (ckpSignalType == CKP_PRIMARY_DOWN) {
+		currentCylinderIndex++;
+	}
+
+//	scheduleSimpleMsg(&log, "event ", currentCylinderIndex);
 
 	if (isCranking()) {
 		onCrankingShaftSignal(ckpSignalType);
-		return;
+	} else {
+		onRunningShaftSignal(ckpSignalType);
 	}
-
-	onRunningShaftSignal(ckpSignalType);
 }
 
 void initMainLoop() {
-//	addConsoleAction1("sa", setAdvance);
-//	initTimers();
+	initLogging(&log, "main event handler", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	if (!isControlActive)
+		printSimpleMsg(&log, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! control disabled",
+				0);
+
 	registerCkpListener(&onShaftSignal, "main loop");
 }
 

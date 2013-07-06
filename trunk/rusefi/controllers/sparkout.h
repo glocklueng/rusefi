@@ -46,9 +46,8 @@ typedef struct {
 } OutputSignal;
 
 void scheduleSparkOut(int offset, int duration);
-void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks);
+void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, int cylinderId);
 
 void initOutputSignals(void);
-void pokeOutputSignals(void);
 
 #endif /* SPARKOUT_H_ */

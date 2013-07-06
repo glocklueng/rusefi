@@ -34,6 +34,7 @@ void addDefaultConsoleActions(void);
 void print(const char *fmt, ...);
 int systicks2ms(int systicks);
 
+void initConsoleLogic(void);
 void handleConsoleLine(char *line);
 void addConsoleAction(char *token, void (*callback)(void));
 void addConsoleAction1(char *token, void (*callback)(int));

@@ -7,7 +7,7 @@
 
 #include "hardware.h"
 #include "pin_repository.h"
-#include "status_leds.h"
+#include "output_pins.h"
 
 #include "adc_inputs.h"
 
@@ -21,11 +21,15 @@ void initHardware() {
 
 	initPinRepository();
 
-	initStatusLeds();
+	initOutputPins();
 	initAdcInputs();
 
 	initInputCapture();
 //	initFixedLeds();
 
 	//	initBooleanInputs();
+
+#if ADC_SNIFFER
+	initAdcDriver();
+#endif
 }

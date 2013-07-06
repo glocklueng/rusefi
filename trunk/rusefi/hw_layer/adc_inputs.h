@@ -10,6 +10,11 @@
 
 #include "global.h"
 
+//#define ADC_CHANNEL_MAF 7 // x2 board
+#define ADC_CHANNEL_MAF 9 // x1 board
+// channel 11: PA3
+#define ADC_CHANNEL_VREF 11
+
 void initAdcInputs(void);
 void pokeAdcInputs(void);
 int getAdcValue(int index);

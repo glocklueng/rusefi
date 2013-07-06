@@ -13,13 +13,18 @@
 
 typedef void (*IntListener)(int value);
 
+typedef void (*ArgIntListener)(void *arg, int value);
+
+
 typedef struct {
-	IntListener callbacks[MAX_INT_LISTENER_COUNT];
 	int currentListenersCount;
+	IntListener callbacks[MAX_INT_LISTENER_COUNT];
+	void * args[MAX_INT_LISTENER_COUNT];
 } IntListenerArray;
 
-void registerCallback(IntListenerArray *array, IntListener handler);
+void registerCallback(IntListenerArray *array, IntListener handler, void *arg);
 void invokeCallbacks(IntListenerArray *array, int value);
+void invokeArgCallbacks(IntListenerArray *array, int value);
 void invokeCallbacks2I(IntListenerArray *array, int value, int value2);
 
 #endif /* LISTENER_ARRAY_H_ */

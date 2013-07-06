@@ -13,7 +13,6 @@
 
 void initInputCapture(void);
 void registerCkpListener(IntListener handler, char *msg);
-systime_t getCrankWidthTime(void);
-systime_t getCrankPeriodTime(void);
+int getCrankEventCounter(void);
 
 #endif /* CRANK_INPUT_H_ */

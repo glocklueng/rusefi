@@ -61,6 +61,8 @@ void reportPins() {
 }
 
 void initPinRepository() {
+	initLogging(&log, "pin repos", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+
 	for (int i = 0; i < PIN_REPO_SIZE; i++)
 		PIN_USED[i] = 0;
 	initialized = TRUE;
@@ -75,15 +77,15 @@ void printpin(char *msg, GPIO_TypeDef* port, int pin) {
 	int index = portIndex * 16 + pin;
 	print("%s on %s:%d\r\n", msg, portname(port), pin);
 
-	logStartLine(&log);
-	msgChar(&log, "msg,");
-	msgChar(&log, msg);
-	msgChar(&log, " on ");
+	resetLogging(&log);
+	append(&log, "msg,");
+	append(&log, msg);
+	append(&log, " on ");
 	msgInt(&log, portname(port), pin);
 	printLine(&log);
 
 	if (PIN_USED[index]) {
-		print("Already used [%s] %d\r\n", msg, pin);
+		print("!!!!!!!!!!!!! Already used [%s] %d\r\n", msg, pin);
 		//fatal("pin already used");
 		fatal(msg);
 	}

@@ -28,6 +28,10 @@
 #define GPIO_AF_TIM5 2
 #endif
 
+#ifndef GPIO_AF_TIM9
+#define GPIO_AF_TIM9 3
+#endif
+
 #ifndef ADC_TwoSamplingDelay_20Cycles
 #define ADC_TwoSamplingDelay_20Cycles ((uint32_t)0x00000F00)
 #endif
