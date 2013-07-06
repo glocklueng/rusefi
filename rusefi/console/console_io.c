@@ -31,9 +31,9 @@ static bool_t getConsoleLine(BaseChannel *chp, char *line, unsigned size) {
 		if (c == 8) {
 			if (p != line) {
 				// backspace
-				consolePutChar((uint8_t)c);
+				consolePutChar((uint8_t) c);
 				consolePutChar(0x20);
-				consolePutChar((uint8_t)c);
+				consolePutChar((uint8_t) c);
 				p--;
 			}
 			continue;
@@ -47,7 +47,7 @@ static bool_t getConsoleLine(BaseChannel *chp, char *line, unsigned size) {
 		if (c < 0x20)
 			continue;
 		if (p < line + size - 1) {
-			consolePutChar((uint8_t)c);
+			consolePutChar((uint8_t) c);
 			*p++ = (char) c;
 		}
 	}
@@ -75,13 +75,8 @@ static msg_t sdThreadEntryPoint(void *arg) {
 	return FALSE;
 }
 
-static SerialConfig serialConfig =
-{
-		  SERIAL_SPEED,
-		  0,
-		  USART_CR2_STOP1_BITS | USART_CR2_LINEN,
-		  0
-};
+static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS
+		| USART_CR2_LINEN, 0 };
 
 void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
@@ -89,7 +84,7 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	 * Activates the serial using the driver default configuration (that's 38400)
 	 * it is important to set 'NONE' as flow control! in terminal application on the PC
 	 */
-	sdStart(CONSOLE_CHANNEL, &serialConfig );
+	sdStart(CONSOLE_CHANNEL, &serialConfig);
 
 	// cannot use pin repository here because pin repository prints to console
 	palSetPadMode(CONSOLE_PORT, CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(7));
@@ -97,4 +92,24 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 
 	chThdCreateStatic(consoleThread, sizeof(consoleThread), NORMALPRIO,
 			sdThreadEntryPoint, NULL );
+}
+
+extern cnt_t dbg_isr_cnt;
+
+void lockOutputBuffer() {
+	if (dbg_isr_cnt > 0) {
+		chSysLockFromIsr()
+		;
+	} else {
+		chSysLock()
+		;
+	}
+}
+
+void unlockOutputBuffer() {
+	if (dbg_isr_cnt > 0) {
+		chSysUnlockFromIsr();
+	} else {
+		chSysUnlock();
+	}
 }

@@ -50,33 +50,7 @@ int mylog10(int param) {
 	return mylog10(param / 10) + 1;
 }
 
-char * ftoa(char *pointer, myfloat val, int precision) {
-	char *p = pointer;
-	if (val < 0) {
-		*p++ = '-';
-		return ftoa(p, -val, precision);
-	}
-
-	int n = (int) val;
-	p = ltoa(p, n, 10);
-
-	if (precision < 1)
-		return p;
-	val -= n;
-	*p++ = '.';
-	val *= mypow10(precision);
-
-	int len = mylog10((int) val);
-	// leading zeros of decimal part
-	for (int i = len + 1; i < precision; i++)
-		*p++ = '0';
-	// decimal part
-	p = ltoa(p, (int) val, 10);
-	*p = 0;
-	return p;
-}
-
-char *ltoa(char *p, long num, unsigned radix) {
+static char *ltoa_internal(char *p, long num, unsigned radix) {
 	int i;
 	char *q;
 
@@ -97,12 +71,46 @@ char *ltoa(char *p, long num, unsigned radix) {
 	return p;
 }
 
+char * ftoa(char *pointer, myfloat val, int precision) {
+	char *p = pointer;
+	if (val < 0) {
+		*p++ = '-';
+		return ftoa(p, -val, precision);
+	}
+
+	int n = (int) val;
+	p = ltoa_internal(p, n, 10);
+
+	if (precision < 1)
+		return p;
+	val -= n;
+	*p++ = '.';
+	val *= mypow10(precision);
+
+	int len = mylog10((int) val);
+	// leading zeros of decimal part
+	for (int i = len + 1; i < precision; i++)
+		*p++ = '0';
+	// decimal part
+	p = ltoa_internal(p, (int) val, 10);
+	*p = 0;
+	return p;
+}
+
 char *itoa_signed(char *p, int num, unsigned radix) {
 	if (num < 0) {
 		*p++ = '-';
-		return ltoa(p, -num, radix);
+		char *end = ltoa_internal(p, -num, radix);
+		*end = 0;
+		return end;
 	}
-	return ltoa(p, num, radix);
+	char *end =  ltoa_internal(p, num, radix);
+	*end = 0;
+	return end;
+}
+
+void itoa(char *p, int num) {
+	itoa_signed(p, num, 10);
 }
 
 char hexChar(int v) {

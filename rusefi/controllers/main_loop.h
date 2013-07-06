@@ -19,7 +19,7 @@
  * One stroke is 90 degrees = so, we divide revolution constant by four
  */
 
-#define STROKE_TIME_CONSTANT (1000 * 60 * 2 / 4)
+#define STROKE_TIME_CONSTANT (1000 * 60 * 2 / 4 * TICKS_IN_MS)
 
 void initMainLoop(void);
 void onEveryMillisecondTimerSignal(int ignore);

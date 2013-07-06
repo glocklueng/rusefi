@@ -12,7 +12,7 @@
 #include "wave_math.h"
 #include "data_buffer.h"
 #include "ckp_events.h"
-#include "pin_repository.h"
+#include "wave_analyzer_hw.h"
 
 /**
  * ChibiOS uses only one channel 1
@@ -24,31 +24,39 @@
 
 IntListenerArray ckpListeneres;
 
-static volatile systime_t crankWidthTime;
-static volatile systime_t crankPeriodTime;
+static volatile int crpEventCounter;
+
+static WaveReaderHw primaryCrankInput;
+static WaveReaderHw secondaryCrankInput;
 
 #if RE_CRANK_INPUT
 // 'width' happens before the 'period' event
 static void crank_icuwidthcb(ICUDriver *icup) {
-	crankWidthTime = chTimeNow();
+	// this is not atomic, but it's fine here
+	crpEventCounter++;
 //	icucnt_t last_width = icuGetWidth(icup);
-
-	invokeCallbacks(&ckpListeneres, CKP_PRIMARY_FALL);
+	if (icup == &PRIMARY_CRANK_DRIVER) {
+		invokeCallbacks(&ckpListeneres, CKP_PRIMARY_UP);
+	} else {
+		invokeCallbacks(&ckpListeneres, CKP_SECONDARY_UP);
+	}
 }
 
 static void crank_icuperiodcb(ICUDriver *icup) {
-	crankPeriodTime = chTimeNow();
+	// this is not atomic, but it's fine here
+	crpEventCounter++;
 //	icucnt_t last_period = icuGetPeriod(icup);
 
-	invokeCallbacks(&ckpListeneres, CKP_PRIMARY_RISE);
+	if (icup == &PRIMARY_CRANK_DRIVER) {
+		invokeCallbacks(&ckpListeneres, CKP_PRIMARY_DOWN);
+	} else {
+		invokeCallbacks(&ckpListeneres, CKP_SECONDARY_DOWN);
+	}
 }
 #endif
-systime_t getCrankWidthTime() {
-	return crankWidthTime;
-}
 
-systime_t getCrankPeriodTime() {
-	return crankPeriodTime;
+int getCrankEventCounter() {
+	return crpEventCounter;
 }
 
 #if RE_CRANK_INPUT
@@ -58,17 +66,23 @@ crank_icuwidthcb, crank_icuperiodcb };
 
 void registerCkpListener(IntListener handler, char *msg) {
 	print("registerCkpListener: %s\r\n", msg);
-	registerCallback(&ckpListeneres, handler);
+	registerCallback(&ckpListeneres, handler, NULL);
 }
 
 void initInputCapture() {
 
 #if RE_CRANK_INPUT
 
-	icuStart(&CRANK_DRIVER, &crank_icucfg);
-	icuEnable(&CRANK_DRIVER);
-	mySetPadMode("crank input", CRANK_INPUT_PORT, CRANK_INPUT_PIN,
-			PAL_MODE_ALTERNATE(CRANK_AF));
+	initWaveAnalyzerDriver(&primaryCrankInput, &PRIMARY_CRANK_DRIVER, PRIMARY_CRANK_INPUT_PORT,
+	PRIMARY_CRANK_INPUT_PIN);
+	icuStart(&PRIMARY_CRANK_DRIVER, &crank_icucfg);
+	icuEnable(&PRIMARY_CRANK_DRIVER);
+
+	initWaveAnalyzerDriver(&secondaryCrankInput, &SECONDARY_CRANK_DRIVER, SECONDARY_CRANK_INPUT_PORT,
+	SECONDARY_CRANK_INPUT_PIN);
+	icuStart(&SECONDARY_CRANK_DRIVER, &crank_icucfg);
+	icuEnable(&SECONDARY_CRANK_DRIVER);
+
 #else
 	print("crank input disabled\r\n");
 #endif

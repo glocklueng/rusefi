@@ -9,8 +9,10 @@
 #define CKP_EVENTS_H_
 
 typedef enum {
-	CKP_PRIMARY_RISE = 0,
-	CKP_PRIMARY_FALL = 1,
+	CKP_PRIMARY_UP = 0,
+	CKP_PRIMARY_DOWN = 1,
+	CKP_SECONDARY_DOWN = 2,
+	CKP_SECONDARY_UP = 3,
 } CkpEvents;
 
 #endif /* CKP_EVENTS_H_ */

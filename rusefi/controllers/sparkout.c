@@ -6,7 +6,7 @@
  */
 
 #include "main.h"
-#include "status_leds.h"
+#include "output_pins.h"
 #include "sparkout.h"
 #include "rficonsole.h"
 #include "datalogging.h"
@@ -18,6 +18,8 @@ static OutputSignal injectorOut1;
 static OutputSignal injectorOut2;
 static OutputSignal injectorOut3;
 static OutputSignal injectorOut4;
+
+static OutputSignal* injectors[4] = { &injectorOut1, &injectorOut2, &injectorOut3, &injectorOut4 };
 
 static void signalOutputCallbackI(OutputSignal *signal) {
 	chSysLockFromIsr()
@@ -78,7 +80,7 @@ static void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 //		queueSimpleMsg(&signal->logging, "WAS ARMED ", offset);
 
 //		commonSimpleMsg(&signal->logging, "WAS ARMED ", delay);
-		logStartLine(&signal->logging);
+		resetLogging(&signal->logging);
 		append(&signal->logging, "msg");
 		append(&signal->logging, DELIMETER);
 		appendInt(&signal->logging, now - signal->last_scheduling_time);
@@ -94,7 +96,7 @@ static void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 		appendInt(&signal->logging, dwell);
 		msgInt(&signal->logging, " WAS ARMED ", delay);
 
-		logPending(&signal->logging);
+		scheduleLogging(&signal->logging);
 	}
 
 	signal->last_scheduling_time = now;
@@ -106,12 +108,11 @@ void scheduleSparkOut(int offset, int duration) {
 	scheduleOutput(&sparkOut2, offset, duration);
 }
 
-void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks) {
-// it's batch injection and currently all injectors are wired to the same output pin
-//	scheduleOutput(&injectorOut1, offsetSysTicks, lengthSysTicks);
-//	scheduleOutput(&injectorOut2, offsetSysTicks, lengthSysTicks);
-	scheduleOutput(&injectorOut3, offsetSysTicks, lengthSysTicks);
-//	scheduleOutput(&injectorOut4, offsetSysTicks, lengthSysTicks);
+void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, int cylinderId) {
+	chDbgCheck(cylinderId >= 1 && cylinderId<=NUMBER_OF_CYLINDERS, "invalid cylinderId");
+	OutputSignal *injector = injectors[cylinderId - 1];
+
+	scheduleOutput(injector, offsetSysTicks, lengthSysTicks);
 }
 
 static msg_t soThread(OutputSignal *signal) {
@@ -131,38 +132,36 @@ static msg_t soThread(OutputSignal *signal) {
 		}
 
 		// turn the output level ACTIVE
-		setStatusLed(signal->ledIndex, TRUE ^ signal->xor);
+		setOutputPinValue(signal->ledIndex, TRUE ^ signal->xor);
 		// sleep for the needed duration
 		chThdSleep(signal->duration);
 		// turn off the output
-		setStatusLed(signal->ledIndex, FALSE ^ signal->xor);
+		setOutputPinValue(signal->ledIndex, FALSE ^ signal->xor);
 	}
 	// unreachable
 	return 0;
 }
 
 static void initOutputSignal(char *name, OutputSignal *signal, int led, int xor) {
+	initLogging(&signal->logging, name, signal->logging.DEFAULT_BUFFER, sizeof(signal->logging.DEFAULT_BUFFER));
+
 	signal->ledIndex = led;
 	signal->xor = xor;
 	signal->name = name;
 	signal->duration = 0;
-	setStatusLed(led, xor); // initial state
+	setOutputPinValue(led, xor); // initial state
 	chSemInit(&signal->signalSemaphore, 1);
 
 	chThdCreateStatic(signal->soThreadStack, sizeof(signal->soThreadStack),
-			NORMALPRIO, soThread, signal);
+	NORMALPRIO, soThread, signal);
 	signal->initialized = TRUE;
 }
 
 void initOutputSignals() {
-	initOutputSignal("Spark Out1", &sparkOut1, LED_SPARKOUT_1, 1);
-	initOutputSignal("Spark Out2", &sparkOut2, LED_SPARKOUT_2, 1);
-	initOutputSignal("Injector 1", &injectorOut1, LED_INJECTOR_1, 0);
-	initOutputSignal("Injector 2", &injectorOut2, LED_INJECTOR_2, 0);
-	initOutputSignal("Injector 3", &injectorOut3, LED_INJECTOR_3, 0);
-	initOutputSignal("Injector 4", &injectorOut4, LED_INJECTOR_4, 0);
-}
-
-void pokeOutputSignals() {
-//	print("%d\r\n", sparkOutDuration);
+	initOutputSignal("Spark Out1", &sparkOut1, SPARKOUT_1_OUTPUT, 1);
+	initOutputSignal("Spark Out2", &sparkOut2, SPARKOUT_2_OUTPUT, 1);
+	initOutputSignal("Injector 1", &injectorOut1, INJECTOR_1_OUTPUT, 0);
+	initOutputSignal("Injector 2", &injectorOut2, INJECTOR_2_OUTPUT, 0);
+	initOutputSignal("Injector 3", &injectorOut3, INJECTOR_3_OUTPUT, 0);
+	initOutputSignal("Injector 4", &injectorOut4, INJECTOR_4_OUTPUT, 0);
 }

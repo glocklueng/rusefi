@@ -19,8 +19,11 @@ void consolePutChar(int x) {
 	chSequentialStreamPut(CONSOLE_CHANNEL, (uint8_t )(x));
 }
 
+static char fatalErrorMessage[200];
+
 void fatal(char *msg) {
-	chDbgPanic(msg);
+	strcpy(fatalErrorMessage, msg);
+	chDbgPanic(fatalErrorMessage);
 }
 
 static void myfatal() {
@@ -43,6 +46,11 @@ static void sayOsHello() {
 			CH_DBG_SYSTEM_STATE_CHECK);
 	printSimpleMsg(&log, "CH_DBG_ENABLE_STACK_CHECK=",
 			CH_DBG_ENABLE_STACK_CHECK);
+
+	/**
+	 * Time to finish output. This is needed to avoid mix-up of this methods output and console command confirmation
+	 */
+	chThdSleepMilliseconds(5);
 }
 
 static void cmd_threads() {
@@ -60,6 +68,8 @@ static void cmd_threads() {
 }
 
 void initializeConsole() {
+	initLogging(&log, "rfi console", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initConsoleLogic();
 	startChibiosConsole(&handleConsoleLine);
 
 	sayOsHello();

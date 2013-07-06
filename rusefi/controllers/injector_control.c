@@ -9,23 +9,22 @@
 
 #include "rficonsole.h"
 #include "datalogging.h"
+#include "main.h"
 
-volatile int injectionPeriod = 0;
-volatile int crankingInjectionPeriod = 0;
-volatile int injectionOffset = 0;
-volatile int injectorDivider = 0;
+static volatile int injectionPeriod = 0;
+static volatile int crankingInjectionPeriod = 0;
+static volatile int injectionOffset = 0;
 
-static Logging msg;
+static Logging log;
 
 static void printSettings() {
-	logStartLine(&msg);
+	resetLogging(&log);
 
-	msgInt(&msg, "msg,injectionPeriod ", injectionPeriod);
-	msgInt(&msg, "msg,cranking injectionPeriod ", crankingInjectionPeriod);
-	msgInt(&msg, "msg,injectionOffset ", injectionOffset);
-	msgInt(&msg, "msg,injDivider ", injectorDivider);
+	msgInt(&log, "msg,injectionPeriod ", injectionPeriod);
+	msgInt(&log, "msg,cranking injectionPeriod ", crankingInjectionPeriod);
+	msgInt(&log, "msg,injectionOffset ", injectionOffset);
 
-	printLine(&msg);
+	printLine(&log);
 }
 
 int getInjectionOffset() {
@@ -35,10 +34,6 @@ int getInjectionOffset() {
 void setInjectionOffset(int value) {
 	injectionOffset = value;
 	printSettings();
-}
-
-int getInjectionPeriod() {
-	return injectionPeriod;
 }
 
 void setInjectionPeriod(int value) {
@@ -54,29 +49,16 @@ void setCrankingInjectionPeriod(int value) {
 	crankingInjectionPeriod = value;
 	printSettings();
 }
-int getInjectionDivider() {
-	return injectorDivider;
-}
-
-void setInjectionDivider(int value) {
-	injectorDivider = value;
-	printSettings();
-}
-
-void pokeControl() {
-//	print("state %d counter %d\r\n", inState, crankingCount);
-}
 
 void initInjectorsControl() {
+	initLogging(&log, "inje control", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 
-	setInjectionOffset(-12);
+	setInjectionOffset(0);
 	setInjectionPeriod(30);
-	setCrankingInjectionPeriod(150);
-	setInjectionDivider(4);
+	setCrankingInjectionPeriod(TICKS_IN_MS * 1.5);
 
 	addConsoleAction1("p", &setInjectionPeriod);
 	addConsoleAction1("cp", &setCrankingInjectionPeriod);
 	addConsoleAction1("o", &setInjectionOffset);
-	addConsoleAction1("d", &setInjectionDivider);
 }
 

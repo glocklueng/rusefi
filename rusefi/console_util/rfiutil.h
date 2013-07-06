@@ -8,7 +8,7 @@
 
 #include "global.h"
 
-#ifndef CHIBIOS
+#ifndef TRUE
  #define TRUE 1
  #define FALSE 0
 #endif
@@ -16,7 +16,7 @@
 #define _MAX_FILLER 11
 
 int strLength(char *msgp);
-char *ltoa(char *p, long num, unsigned radix);
+void itoa(char *p, int num);
 char *itoa_signed(char *p, int num, unsigned radix);
 char hexC(int v);
 char * ftoa(char *pointer, myfloat val, int precision);

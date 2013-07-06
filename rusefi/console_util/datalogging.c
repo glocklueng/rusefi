@@ -26,7 +26,7 @@ static char* getCaption(int loggingPoint) {
 		return "MAP";
 	}
 	fatal("No such loggingPoint");
-	return NULL ;
+	return NULL;
 }
 
 static char* get2ndCaption(int loggingPoint) {
@@ -45,29 +45,63 @@ static char* get2ndCaption(int loggingPoint) {
 		return "MAP";
 	}
 	fatal("No such loggingPoint");
-	return NULL ;
+	return NULL;
 }
 
+static int validateBuffer(Logging *logging, int extraLen, char *text) {
+	if (logging->buffer == NULL) {
+		strcpy(logging->SMALL_BUFFER, "Logging not initialized: ");
+		strcat(logging->SMALL_BUFFER, logging->name);
+		strcat(logging->SMALL_BUFFER, text);
+		fatal(logging->SMALL_BUFFER);
+		return TRUE;
+	}
+
+	int currentLen = (int) logging->linePointer - (int) (logging->buffer);
+	if (currentLen + extraLen > logging->bufferSize - 1) {
+		strcpy(logging->SMALL_BUFFER, "Logging buffer overflow: ");
+		strcat(logging->SMALL_BUFFER, logging->name);
+		fatal(logging->SMALL_BUFFER);
+		return TRUE;
+	}
+	return FALSE;
+}
 
 void append(Logging *logging, char *text) {
+	int extraLen = strlen(text);
+	int errcode = validateBuffer(logging, extraLen, text);
+	if (errcode)
+		return;
 //	print("%s", text);
 	strcpy(logging->linePointer, text);
-	logging->linePointer += strlen(text);
+	logging->linePointer += extraLen;
 }
 
-void msgChar(Logging *logging, char *text) {
-	append(logging, text);
+void initLogging(Logging *logging, char *name, char *buffer, int bufferSize) {
+	logging->name = name;
+	logging->buffer = buffer;
+	logging->bufferSize = bufferSize;
 }
 
 void appendInt(Logging *logging, int value) {
-	char *p = itoa_signed(logging->SMALL_BUFFER, value, 10);
-	*p = 0;
+	itoa(logging->SMALL_BUFFER, value);
 	append(logging, logging->SMALL_BUFFER);
 }
 
 void msgInt(Logging *logging, char *caption, int value) {
 	append(logging, caption);
 	appendInt(logging, value);
+	append(logging, DELIMETER);
+}
+
+void debugInt2(Logging *logging, char *caption, int captionSuffix, int value) {
+	append(logging, caption);
+	itoa(logging->SMALL_BUFFER, captionSuffix);
+	append(logging, logging->SMALL_BUFFER);
+	append(logging, DELIMETER);
+
+	itoa(logging->SMALL_BUFFER, value);
+	append(logging, logging->SMALL_BUFFER);
 	append(logging, DELIMETER);
 }
 
@@ -85,8 +119,7 @@ void debugInt(Logging *logging, char *caption, int value) {
 #if TAB_MODE
 	if(lineNumber > 0) {
 #endif
-	char *p = itoa_signed(logging->SMALL_BUFFER, value, 10);
-	*p = 0;
+	itoa(logging->SMALL_BUFFER, value);
 	append(logging, logging->SMALL_BUFFER);
 	append(logging, DELIMETER);
 #if TAB_MODE
@@ -94,14 +127,25 @@ void debugInt(Logging *logging, char *caption, int value) {
 #endif
 }
 
-void debugFloat(Logging *logging, char *text, myfloat value, int precision) {
+void debugFloat2(Logging *logging, char *caption, int captionSuffix, myfloat value, int precision) {
+	append(logging, caption);
+	itoa(logging->SMALL_BUFFER, captionSuffix);
+	append(logging, logging->SMALL_BUFFER);
+	append(logging, DELIMETER);
+
+	ftoa(logging->SMALL_BUFFER, value, precision);
+	append(logging, logging->SMALL_BUFFER);
+	append(logging, DELIMETER);
+}
+
+void debugFloat(Logging *logging, char *caption, myfloat value, int precision) {
 #if TAB_MODE
 	if (lineNumber == 0) {
 		append(text);
 		append(DELIMETER);
 	}
 #else
-	append(logging, text);
+	append(logging, caption);
 	append(logging, DELIMETER);
 #endif
 
@@ -125,43 +169,80 @@ void logFloat(Logging *logging, int loggingPoint, myfloat value) {
 	debugFloat(logging, getCaption(loggingPoint), value, 1);
 }
 
-void logStartLine(Logging *logging) {
-	logging->linePointer = logging->LINE_BUFFER;
+void resetLogging(Logging *logging) {
+	logging->linePointer = logging->buffer;
+}
+
+static void printWithLength(char *line) {
+	int len = strlen(line);
+	// this is my way to detect serial port transmission errors
+	print("line:%d:%s\r\n", len, line);
 }
 
 void printLine(Logging *logging) {
-//	lineNumber++;
-	int len = strlen(logging->LINE_BUFFER);
-	print("line:%d:%s\r\n", len, logging->LINE_BUFFER);
+	printWithLength(logging->buffer);
 }
 
-volatile Logging *pending = NULL;
-
 static void commonSimpleMsg(Logging *logging, char *msg, int value) {
-	logStartLine(logging);
+	resetLogging(logging);
 	append(logging, "msg");
 	append(logging, DELIMETER);
 	msgInt(logging, msg, value);
 }
 
+/**
+ * This method would output a simple console message immediately.
+ * This method should only be invoked on main thread because only the main thread can write to the console
+ */
 void printSimpleMsg(Logging *logging, char *msg, int value) {
 	commonSimpleMsg(logging, msg, value);
 	printLine(logging);
 }
 
-void queueSimpleMsg(Logging *logging, char *msg, int value) {
+/**
+ * This method places a simple console message into the buffer for later output by the main thread
+ * TODO: detect current threadId and merge this method with printSimpleMsg?
+ */
+void scheduleSimpleMsg(Logging *logging, char *msg, int value) {
 	commonSimpleMsg(logging, msg, value);
-	logPending(logging);
+	scheduleLogging(logging);
 }
 
-void logPending(Logging *logging) {
-	pending = logging;
+//volatile Logging *pending = NULL;
+
+#define OUTPUT_BUFFER 5000
+
+static char pendingBuffer[OUTPUT_BUFFER];
+
+void lockOutputBuffer();
+void unlockOutputBuffer();
+
+void scheduleLogging(Logging *logging) {
+	// this could be done without locking
+	int newLength = strlen(logging->buffer);
+
+	lockOutputBuffer();
+	// I hope this is fast enougth to operate under sys lock
+	int curLength = strlen(pendingBuffer);
+	if (curLength + newLength >= OUTPUT_BUFFER) {
+		fatal("output buffer overflow");
+		unlockOutputBuffer();
+		return;
+	}
+
+	strcat(pendingBuffer, logging->buffer);
+	unlockOutputBuffer();
 }
+
+static char outputBuffer[OUTPUT_BUFFER];
 
 void printPending() {
-	Logging *p = pending;
-	if (p != NULL ) {
-		pending = NULL;
-		printLine(p);
-	}
+	lockOutputBuffer();
+	// we cannot output under syslock, so another buffer
+	strcpy(outputBuffer, pendingBuffer);
+	pendingBuffer[0] = 0; // reset pending buffer
+	unlockOutputBuffer();
+
+	if (strlen(outputBuffer) > 0)
+		printWithLength(outputBuffer);
 }

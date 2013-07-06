@@ -4,7 +4,7 @@
  *  Created on: Dec 29, 2012
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
-
+#pragma once
 #ifndef CONSOLE_IO_H_
 #define CONSOLE_IO_H_
 

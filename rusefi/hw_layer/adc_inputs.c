@@ -15,7 +15,7 @@
 /* Depth of the conversion buffer, channels are sampled X times each.*/
 #define ADC_GRP1_BUF_DEPTH      1
 
-#define ADC_NUMBER_CHANNELS		8
+#define ADC_NUMBER_CHANNELS		12
 
 /* PWM clock frequency. I wonder what does this setting mean?  */
 #define PWM_FREQ 50000
@@ -46,10 +46,17 @@ static const ADCConversionGroup adcgrpcfg =
 
 				ADC_SMPR1_SMP_AN10(ADC_SAMPLE_480) |
 				ADC_SMPR1_SMP_AN11(ADC_SAMPLE_480) |
-				ADC_SMPR1_SMP_AN12(ADC_SAMPLE_480) |
-				ADC_SMPR1_SMP_AN13(ADC_SAMPLE_480) , // sample times for channels 10...18
+				ADC_SMPR1_SMP_AN12(ADC_SAMPLE_480) , // sample times for channels 10...18
 						ADC_SMPR2_SMP_AN0(ADC_SAMPLE_480) |
-						ADC_SMPR2_SMP_AN1(ADC_SAMPLE_480)
+						ADC_SMPR2_SMP_AN1(ADC_SAMPLE_480) |
+						ADC_SMPR2_SMP_AN3(ADC_SAMPLE_480) |
+						ADC_SMPR2_SMP_AN4(ADC_SAMPLE_480) |
+						ADC_SMPR2_SMP_AN5(ADC_SAMPLE_480) |
+						ADC_SMPR2_SMP_AN6(ADC_SAMPLE_480) |
+						ADC_SMPR2_SMP_AN7(ADC_SAMPLE_480) |
+						ADC_SMPR2_SMP_AN8(ADC_SAMPLE_480) |
+						ADC_SMPR2_SMP_AN9(ADC_SAMPLE_480)
+
 						, // In this field must be specified the sample times for channels 0...9
 
 				ADC_SQR1_NUM_CH(ADC_NUMBER_CHANNELS), // Conversion group sequence 13...16 + sequence length
@@ -57,6 +64,11 @@ static const ADCConversionGroup adcgrpcfg =
 				0
 				| ADC_SQR2_SQ7_N(ADC_CHANNEL_IN12) /* PC2 - green */
 				| ADC_SQR2_SQ8_N(ADC_CHANNEL_IN13) /* PC3 - yellow */
+				| ADC_SQR2_SQ9_N(ADC_CHANNEL_IN0)  /* PA0 green */
+				| ADC_SQR2_SQ10_N(ADC_CHANNEL_IN1)  /* PA1 */
+				| ADC_SQR2_SQ11_N(ADC_CHANNEL_IN2) /* PA2 */
+				| ADC_SQR2_SQ12_N(ADC_CHANNEL_IN3) /* PA3 */
+
 				, // Conversion group sequence 7...12
 				0
 //				| ADC_SQR3_SQ1_N(ADC_CHANNEL_IN10) /* PC0 */ // careful - power switch on board
@@ -65,12 +77,9 @@ static const ADCConversionGroup adcgrpcfg =
 //				| ADC_SQR3_SQ1_N(ADC_CHANNEL_IN13) /* PC3 */
 				| ADC_SQR3_SQ3_N(ADC_CHANNEL_IN14) /* PC4 - green */
 				| ADC_SQR3_SQ4_N(ADC_CHANNEL_IN15) /* PC5 - yellow */
-//				| ADC_SQR3_SQ3_N(ADC_CHANNEL_IN0)  /* PA0 green */
-//				| ADC_SQR3_SQ2_N(ADC_CHANNEL_IN1)  /* PA1 */
-//				| ADC_SQR3_SQ4_N(ADC_CHANNEL_IN2)  /* PA2 yellow */
-//				| ADC_SQR3_SQ1_N(ADC_CHANNEL_IN2) /* PA2 */
-//				| ADC_SQR3_SQ2_N(ADC_CHANNEL_IN3) /* PA3 */
-//				| ADC_SQR3_SQ5_N(ADC_CHANNEL_IN4)  /* PA4 orange */
+
+
+				//				| ADC_SQR3_SQ5_N(ADC_CHANNEL_IN4)  /* PA4 orange */
 //				| ADC_SQR3_SQ2_N(ADC_CHANNEL_IN5) /* PA5 */
 				| ADC_SQR3_SQ1_N(ADC_CHANNEL_IN6) /* PA6 - white */
 				| ADC_SQR3_SQ2_N(ADC_CHANNEL_IN7) /* PA7 - blue */
@@ -143,12 +152,27 @@ static void initAdcPin(GPIO_TypeDef* port, int pin, char *msg) {
 	mySetPadMode("adc input", port, pin, PAL_MODE_INPUT_ANALOG);
 }
 
+void printAdcValue(int channel) {
+	int value = getAdcValue(channel);
+	myfloat volts = adcToVolts2(value);
+	scheduleSimpleMsg(&log, "adc voltage x100: ", (int)(100 * volts));
+}
+
+
 void initAdcInputs() {
+	initLogging(&log, "ADC", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 #ifdef EFI_ADC
 	/*
 	 * Initializes the ADC driver 1.
 	 */
 	adcStart(&ADCD1, NULL );
+
+	// PA0: ADC 0 (2nd pin on 1 amp board)
+	initAdcPin(GPIOA, 0, "a0");
+	initAdcPin(GPIOA, 1, "a1");
+	initAdcPin(GPIOA, 2, "MAF");
+	// PA3: ADC 3 (upper pin on x1 amp board)
+	initAdcPin(GPIOA, 3, "Vref");
 
 	// PC0, PC1, PC2 & PC3
 	initAdcPin(GPIOA, 6, "coolant temp");
@@ -165,11 +189,9 @@ void initAdcInputs() {
 	 * Initializes the PWM driver.
 	 */
 	pwmStart(ADC_PWM, &pwmcfg);
+	addConsoleAction1("adc", printAdcValue);
 #else
-	logStartLine(&log);
-	msgChar(&log, "msg,");
-	msgChar(&log, "ADC disabled");
-	printLine(&log);
+	printSimpleMsg(&log, "ADC disabled", 0);
 #endif
 }
 

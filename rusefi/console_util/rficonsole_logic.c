@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "rficonsole_logic.h"
+#include "datalogging.h"
 
 static int consoleActionCount = 0;
 static TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
@@ -97,8 +98,7 @@ static void help() {
 	int i;
 	for (i = 0; i < consoleActionCount; i++) {
 		TokenCallback *current = &consoleActions[i];
-		print("  %s: %d parameters\r\n", current->token,
-				current->parameterType);
+		print("  %s: %d parameters\r\n", current->token, current->parameterType);
 	}
 }
 
@@ -176,7 +176,45 @@ static int strEqual(char *str1, char *str2) {
 	return TRUE;
 }
 
+static Logging log;
+
+void initConsoleLogic() {
+	initLogging(&log, "console logic", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+}
+
+static char *validateSecureLine(char *line) {
+	if (strncmp("sec!", line, 4) == 0) {
+		// COM protocol looses bytes, this is a super-naive error detection
+
+		print("sec mode [%s]\r\n", line);
+		line += 4;
+		print("sec mode [%s]\r\n", line);
+
+		char *divider = line;
+		while (*divider != '!') {
+			if (*divider == '\0') {
+				print("Divider not found [%s]\r\n", line);
+				return NULL;
+			}
+			divider++;
+		}
+		*divider++ = 0; // replacing divider symbol with zero
+		int expectedLength = atoi(line);
+		line = divider;
+		int actualLength = strlen(line);
+		if (expectedLength != actualLength) {
+			print("Error detected: expected %d but got %d in [%s]\r\n", expectedLength, actualLength, line);
+			return NULL;
+		}
+	}
+	return line;
+}
+
 void handleConsoleLine(char *line) {
+	line = validateSecureLine(line);
+	if (line == NULL)
+		return; // error detected
+
 	int firstTokenLength = tokenLength(line);
 	int lineLength = strlen(line);
 
@@ -190,6 +228,8 @@ void handleConsoleLine(char *line) {
 			if (strEqual(line, current->token)) {
 				// invoke callback function by reference
 				(*current->callback)();
+				// confirmation happens after the command to avoid conflict with command own output
+				scheduleSimpleMsg(&log, line, lineLength);
 				return;
 			}
 		}
@@ -204,6 +244,8 @@ void handleConsoleLine(char *line) {
 			TokenCallback *current = &consoleActions[i];
 			if (strEqual(line, current->token)) {
 				handleActionWithParameter(current, ptr);
+				// confirmation happens after the command to avoid conflict with command own output
+				scheduleSimpleMsg(&log, line, lineLength);
 				return;
 			}
 		}

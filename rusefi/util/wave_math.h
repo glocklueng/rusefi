@@ -12,7 +12,7 @@
 #include "global.h"
 
 // number of ticks in one period of given frequency (per second)
-#define freq2wave(freq) (((myfloat)FREQ_MATH_FREQUENCY) / (freq))
+#define frequency2period(freq) (((myfloat)FREQ_MATH_FREQUENCY) / (freq))
 
 myfloat floatmod(myfloat value, myfloat divider);
 int waveState(time_t start, time_t now, myfloat waveLen, myfloat leftSide,

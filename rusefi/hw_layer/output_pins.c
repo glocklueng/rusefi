@@ -7,63 +7,68 @@
 
 #include <board.h>
 #include "main.h"
-#include "status_leds.h"
+#include "output_pins.h"
 
 #include "pin_repository.h"
 
-int ledCurrentStatus[LED_COUNT];
-GPIO_TypeDef *ledPort[LED_COUNT];
-int ledPin[LED_COUNT];
+static OutputPin outputs[LED_COUNT];
 
 /**
  * blinking thread to show that we are alive
  */
 static WORKING_AREA(blinkingThreadStack, 128);
 
-void setStatusLed(int ledIndex, int value) {
-	if (ledCurrentStatus[ledIndex] == value)
+void setPinValue(OutputPin * outputPin, int value) {
+	if (outputPin->currentValue == value)
 		return;
 
-	GPIO_TypeDef *port = ledPort[ledIndex];
-	int pin = ledPin[ledIndex];
+	palWritePad(outputPin->port, outputPin->pin, value);
+	outputPin->currentValue = value;
+}
 
-	palWritePad(port, pin, value);
+
+void setOutputPinValue(int ledIndex, int value) {
+	setPinValue(&outputs[ledIndex], value);
 }
 
 static void blinkingThread_s(void *arg) {
 	while (TRUE) {
-		setStatusLed(LED_ALIVE1, 0);
-		setStatusLed(LED_ALIVE2, 1);
+		setOutputPinValue(LED_ALIVE1, 0);
+		setOutputPinValue(LED_ALIVE2, 1);
 		chThdSleepMilliseconds(100);
-		setStatusLed(LED_ALIVE1, 1);
-		setStatusLed(LED_ALIVE2, 0);
+		setOutputPinValue(LED_ALIVE1, 1);
+		setOutputPinValue(LED_ALIVE2, 0);
 		chThdSleepMilliseconds(100);
 	}
 }
 
-void ledRegister(char *msg, int led, GPIO_TypeDef *port, uint32_t pinNumber) {
-	ledCurrentStatus[led] = -1;
-	ledPort[led] = port;
-	ledPin[led] = pinNumber;
+void initOutputPin(char *msg, OutputPin *outputPin, GPIO_TypeDef *port, uint32_t pinNumber) {
+	outputPin->currentValue = -1;
+	outputPin->port = port;
+	outputPin->pin = pinNumber;
 
 	mySetPadMode(msg, port, pinNumber, PAL_MODE_OUTPUT_PUSHPULL);
-	setStatusLed(led, FALSE);
 }
 
-void initStatusLeds() {
+void ledRegister(char *msg, int ledIndex, GPIO_TypeDef *port, uint32_t pin) {
+	initOutputPin(msg, &outputs[ledIndex], port, pin);
+
+	setOutputPinValue(ledIndex, FALSE);
+}
+
+void initOutputPins() {
 	ledRegister("is alive status", LED_ALIVE1, GPIOD, GPIOD_LED3);
 	ledRegister("is alive status 2", LED_ALIVE2, GPIOC, 13);
 	ledRegister("is cranking status", LED_CRANKING, GPIOD, GPIOD_LED4);
 	ledRegister("alive1", LED_RPM, GPIOD, GPIOD_LED5);
 	ledRegister("alive1", LED_DEBUG, GPIOD, 2);
-	ledRegister("sparkout", LED_SPARKOUT_1, GPIOD, 3);
-	ledRegister("sparkout", LED_SPARKOUT_2, GPIOE, 6);
-//	ledRegister(LED_SPARKOUT, GPIOD, 0);
-//	ledRegister(LED_EMULATOR, GPIOE, 3); // pin is shared with dist_emulator
-	ledRegister("injector1", LED_INJECTOR_1, INJECTOR_1_PORT, INJECTOR_1_PIN);
-	ledRegister("injector2", LED_INJECTOR_2, GPIOC, 7);
-	ledRegister("injector3", LED_INJECTOR_3, GPIOC, 9);
-	ledRegister("injector4", LED_INJECTOR_4, GPIOA, 9);
+	ledRegister("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN);
+	ledRegister("sparkout2", SPARKOUT_2_OUTPUT, GPIOE, 6);
+
+	ledRegister("injector1", INJECTOR_1_OUTPUT, INJECTOR_1_PORT, INJECTOR_1_PIN);
+	ledRegister("injector2", INJECTOR_2_OUTPUT, INJECTOR_2_PORT, INJECTOR_2_PIN);
+	ledRegister("injector3", INJECTOR_3_OUTPUT, INJECTOR_3_PORT, INJECTOR_3_PIN);
+	ledRegister("injector4", INJECTOR_4_OUTPUT, INJECTOR_4_PORT, INJECTOR_4_PIN);
 
 
 	/* digit 1 */
