@@ -9,6 +9,5 @@
 #define FUEL_MAP_H_
 
 float getFuel(int rpm, float maf);
-void initFuelMap(void);
 
 #endif /* FUEL_MAP_H_ */

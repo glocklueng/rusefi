@@ -9,9 +9,11 @@
 #define RPM_REPORTER_H_
 
 int getCurrentRpm(void);
-void initAspireTachometer(void);
+void initTachometer(void);
 void reportRpmValue(void);
 void pokeRpmStatus(void);
 void onFilteredEvent(int ckpEventType);
+
+int isRunning(void);
 
 #endif /* RPM_REPORTER_H_ */

@@ -8,6 +8,8 @@
 #ifndef MAIN_LOOP_H_
 #define MAIN_LOOP_H_
 
+#define MAF_MODE 1
+
 #define ASPIRE_MAGIC_DUTY_CYCLE 0.3877
 #define CYLINDERS	4
 
@@ -22,9 +24,14 @@
 #define STROKE_TIME_CONSTANT (1000 * 60 * 2 / 4 * TICKS_IN_MS)
 
 void initMainLoop(void);
-void onEveryMillisecondTimerSignal(int ignore);
+void onEveryMillisecondTimerSignal(void);
 
 myfloat getMaf(void);
+myfloat getAfr(void);
 myfloat getVRef(void);
+myfloat getTPS(void);
+myfloat getMap(void);
+myfloat getCoolantTemperature(void);
+myfloat getIntakeAirTemperature(void);
 
 #endif /* MAIN_LOOP_H_ */

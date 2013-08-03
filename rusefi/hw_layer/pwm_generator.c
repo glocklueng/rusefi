@@ -111,6 +111,7 @@ void weComplexInit(char *msg, PwmWave *state,
 
 	copyPwmParameters(state, phaseCount, switchTimes, waveCount, pinStates);
 
+	state->name = msg;
 	state->idleState = idleState;
 	state->phaseCount = phaseCount;
 	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack),

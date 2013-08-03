@@ -77,7 +77,6 @@ void printpin(char *msg, GPIO_TypeDef* port, int pin) {
 	int index = portIndex * 16 + pin;
 	print("%s on %s:%d\r\n", msg, portname(port), pin);
 
-	resetLogging(&log);
 	append(&log, "msg,");
 	append(&log, msg);
 	append(&log, " on ");
@@ -86,8 +85,8 @@ void printpin(char *msg, GPIO_TypeDef* port, int pin) {
 
 	if (PIN_USED[index]) {
 		print("!!!!!!!!!!!!! Already used [%s] %d\r\n", msg, pin);
-		//fatal("pin already used");
-		fatal(msg);
+		fatal("pin already used");
+		//fatal(msg);
 	}
 	PIN_USED[index] = TRUE;
 	totalPinsUsed++;

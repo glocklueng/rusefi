@@ -22,12 +22,13 @@ typedef struct {
 } OutputPin;
 
 typedef enum {
-	LED_ALIVE1 = 0, // Orange on-board led
+	LED_CRANKING = 0, // Orange on-board led
 	LED_ALIVE2 = 1, // ext board
-	LED_CRANKING = 2, // Green on-board led
-	LED_RPM = 3, // Red on-board led
+	LED_RUNNING = 2, // Green on-board led
+	LED_FATAL = 3, // Red on-board led
 	LED_DEBUG = 4,
 	LED_EMULATOR = 5,
+	LED_ALIVE3 = 6,
 
 	SPARKOUT_1_OUTPUT = 10,
 	SPARKOUT_2_OUTPUT = 11,

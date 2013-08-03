@@ -18,8 +18,6 @@ static volatile int injectionOffset = 0;
 static Logging log;
 
 static void printSettings() {
-	resetLogging(&log);
-
 	msgInt(&log, "msg,injectionPeriod ", injectionPeriod);
 	msgInt(&log, "msg,cranking injectionPeriod ", crankingInjectionPeriod);
 	msgInt(&log, "msg,injectionOffset ", injectionOffset);
@@ -55,7 +53,7 @@ void initInjectorsControl() {
 
 	setInjectionOffset(0);
 	setInjectionPeriod(30);
-	setCrankingInjectionPeriod(TICKS_IN_MS * 1.5);
+	//setCrankingInjectionPeriod(TICKS_IN_MS * 1.5);
 
 	addConsoleAction1("p", &setInjectionPeriod);
 	addConsoleAction1("cp", &setCrankingInjectionPeriod);

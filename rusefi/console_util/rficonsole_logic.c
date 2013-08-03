@@ -13,7 +13,7 @@ static TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
 
 void doAddAction(char *token, int type, void (*callback)(void)) {
 	if (consoleActionCount == CONSOLE_MAX_ACTIONS) {
-		print("Too many console actions\r\n");
+		fatal("Too many console actions\r\n");
 		return;
 	}
 	TokenCallback *current = &consoleActions[consoleActionCount++];
@@ -210,10 +210,16 @@ static char *validateSecureLine(char *line) {
 	return line;
 }
 
+static char confirmation[200];
+
 void handleConsoleLine(char *line) {
 	line = validateSecureLine(line);
 	if (line == NULL)
 		return; // error detected
+
+	strcpy(confirmation, "confirmation_");
+	strcat(confirmation, line);
+	strcat(confirmation, ":");
 
 	int firstTokenLength = tokenLength(line);
 	int lineLength = strlen(line);
@@ -229,7 +235,7 @@ void handleConsoleLine(char *line) {
 				// invoke callback function by reference
 				(*current->callback)();
 				// confirmation happens after the command to avoid conflict with command own output
-				scheduleSimpleMsg(&log, line, lineLength);
+				scheduleSimpleMsg(&log, confirmation, lineLength);
 				return;
 			}
 		}
@@ -245,10 +251,12 @@ void handleConsoleLine(char *line) {
 			if (strEqual(line, current->token)) {
 				handleActionWithParameter(current, ptr);
 				// confirmation happens after the command to avoid conflict with command own output
-				scheduleSimpleMsg(&log, line, lineLength);
+				scheduleSimpleMsg(&log, confirmation, lineLength);
 				return;
 			}
 		}
 	}
+	scheduleSimpleMsg(&log, "unknown command", 0);
+	scheduleSimpleMsg(&log, confirmation, -1);
 	help();
 }

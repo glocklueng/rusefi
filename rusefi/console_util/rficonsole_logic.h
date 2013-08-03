@@ -41,6 +41,10 @@ void addConsoleAction1(char *token, void (*callback)(int));
 void addConsoleAction2I(char *token, void (*callback)(int, int));
 void addConsoleActionF(char *token, void (*callback)(float));
 void addConsoleActionS(char *token, void (*callback)(char*));
-void fatal(char *msg);
+
+void fatal3(char *msg, char *file, int line);
+
+#define fatal(x) (fatal3(x, __FILE__, __LINE__));
+
 
 #endif /* RFICONSOLE_H_ */

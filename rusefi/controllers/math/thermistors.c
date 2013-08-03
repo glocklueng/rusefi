@@ -17,6 +17,7 @@
 #include "thermistors.h"
 #include "adc_inputs.h"
 #include "rficonsole.h"
+#include "engine_math.h"
 
 
 	//	myfloat tempC = 30;
@@ -38,21 +39,12 @@
 /**
  * http://en.wikipedia.org/wiki/Voltage_divider
  */
-myfloat getR1InVoltageDividor3(myfloat Vout, myfloat Vin, myfloat r2) {
+myfloat getR1InVoltageDividor(myfloat Vout, myfloat Vin, myfloat r2) {
 	return r2 * Vin / Vout - r2;
 }
 
-myfloat getR2InVoltageDividor3(myfloat Vout, myfloat Vin, myfloat r1) {
+myfloat getR2InVoltageDividor(myfloat Vout, myfloat Vin, myfloat r1) {
 	return r1 / (Vin / Vout - 1);
-}
-
-/**
- * R2 = R1 / (Vin / vout - 1)
- *
- * R2 = 2700 / (5 / vout - 1)
- */
-myfloat getR2InVoltageDividor(myfloat Vout) {
-	return getR2InVoltageDividor3(Vout, _5_VOLTS, BIAS_RESISTOR);
 }
 
 myfloat getVoutInVoltageDividor(myfloat Vin, myfloat r1, myfloat r2) {
@@ -63,21 +55,23 @@ myfloat getVoutInVoltageDividor(myfloat Vin, myfloat r1, myfloat r2) {
 #define S_H_B (0.0008205491888240184)
 #define S_H_C (-0.0000029438499727564513)
 
-myfloat getTempK(myfloat resistance) {
+myfloat convertResistanceToKelvinTemperature(myfloat resistance) {
 	myfloat logR = log(resistance);
 	return 1 / (S_H_A + S_H_B * logR + S_H_C * logR * logR * logR);
 }
 
-myfloat getResistance(myfloat tempK) {
-	myfloat y = (S_H_A - 1 / tempK) / 2 / S_H_C;
-	print("y=%d\r\n", (int) (y * 1000));
-	myfloat xx = pow(S_H_B / 3 / S_H_C, 3) + y * y;
-	print("xx=%d\r\n", (int) (xx * 1000));
-	myfloat x = sqrt(xx);
-	print("x=%d\r\n", (int) (x * 1000));
 
-	return exp(pow(x - y, 1.0 / 3) - pow(x + y, 1.0 / 3));
-}
+// I am not sure this method works, wonder where the bug is
+//myfloat getResistance(myfloat tempK) {
+//	myfloat y = (S_H_A - 1 / tempK) / 2 / S_H_C;
+//	print("y=%d\r\n", (int) (y * 1000));
+//	myfloat xx = pow(S_H_B / 3 / S_H_C, 3) + y * y;
+//	print("xx=%d\r\n", (int) (xx * 1000));
+//	myfloat x = sqrt(xx);
+//	print("x=%d\r\n", (int) (x * 1000));
+//
+//	return exp(pow(x - y, 1.0 / 3) - pow(x + y, 1.0 / 3));
+//}
 
 myfloat tempKtoC(myfloat tempK) {
 	return tempK - KELV;
@@ -95,25 +89,16 @@ myfloat tempFtoC(myfloat tempF) {
 	return (tempF - 32) / 9 * 5;
 }
 
-myfloat tempKtoF(myfloat tempK) {
+myfloat convertKelvinToFahrenheit(myfloat tempK) {
 	myfloat tempC = tempKtoC(tempK);
 	return tempCtoF(tempC);
 }
 
-myfloat getFtemp(int adcValue) {
-	myfloat volts = adcToVolts2(adcValue);
-	myfloat resistance = getR2InVoltageDividor(volts);
-	myfloat temp = tempKtoF(getTempK(resistance));
-	return temp;
-}
-
-#define Honda_Denso183_Min -6.64
-#define Honda_Denso183_Max 182.78
-#define Honda_Denso183_Range (Honda_Denso183_Max - Honda_Denso183_Min)
-
-myfloat getHondaMAPValue(int adcValue) {
-	myfloat volts = adcToVolts2(adcValue);
-	return Honda_Denso183_Range / 5 * volts + Honda_Denso183_Min;
+myfloat getFahrenheittemp(int adcValue) {
+	myfloat voltage = adcToVolts2(adcValue);
+	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS, THERMISTOR_BIAS_RESISTOR);
+	myfloat kelvinTemperature = convertResistanceToKelvinTemperature(resistance);
+	return convertKelvinToFahrenheit(kelvinTemperature);
 }
 
 #define TPS_IDLE 0.60

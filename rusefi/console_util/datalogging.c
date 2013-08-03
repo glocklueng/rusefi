@@ -9,6 +9,9 @@
 #include "datalogging.h"
 #include "rficonsole_logic.h"
 #include "rfiutil.h"
+#include "print.h"
+
+#define OUTPUT_BUFFER 5000
 
 static char* getCaption(int loggingPoint) {
 	switch (loggingPoint) {
@@ -52,6 +55,7 @@ static int validateBuffer(Logging *logging, int extraLen, char *text) {
 	if (logging->buffer == NULL) {
 		strcpy(logging->SMALL_BUFFER, "Logging not initialized: ");
 		strcat(logging->SMALL_BUFFER, logging->name);
+		strcpy(logging->SMALL_BUFFER, "/");
 		strcat(logging->SMALL_BUFFER, text);
 		fatal(logging->SMALL_BUFFER);
 		return TRUE;
@@ -61,6 +65,8 @@ static int validateBuffer(Logging *logging, int extraLen, char *text) {
 	if (currentLen + extraLen > logging->bufferSize - 1) {
 		strcpy(logging->SMALL_BUFFER, "Logging buffer overflow: ");
 		strcat(logging->SMALL_BUFFER, logging->name);
+		strcpy(logging->SMALL_BUFFER, "/");
+		strcat(logging->SMALL_BUFFER, text);
 		fatal(logging->SMALL_BUFFER);
 		return TRUE;
 	}
@@ -81,6 +87,7 @@ void initLogging(Logging *logging, char *name, char *buffer, int bufferSize) {
 	logging->name = name;
 	logging->buffer = buffer;
 	logging->bufferSize = bufferSize;
+	resetLogging(logging);
 }
 
 void appendInt(Logging *logging, int value) {
@@ -173,14 +180,34 @@ void resetLogging(Logging *logging) {
 	logging->linePointer = logging->buffer;
 }
 
+static char ioBuffer[OUTPUT_BUFFER];
+
+/**
+ * this method should invoked on the main thread only
+ */
 static void printWithLength(char *line) {
+	/**
+	 * this is my way to detect serial port transmission errors
+	 * following code is functionally identical to
+	 *   print("line:%d:%s\r\n", len, line);
+	 * but it is faster because it outputs the whole buffer, not single characters
+	 */
 	int len = strlen(line);
-	// this is my way to detect serial port transmission errors
-	print("line:%d:%s\r\n", len, line);
+	strcpy(ioBuffer, "line:");
+	char *p = ioBuffer + strlen(ioBuffer);
+	p = itoa(p, len);
+	*p++ = ':';
+	strcpy(p, line);
+	p += len;
+	*p++ = '\r';
+	*p++ = '\n';
+
+	consoleOututBuffer(ioBuffer, p - ioBuffer);
 }
 
 void printLine(Logging *logging) {
 	printWithLength(logging->buffer);
+	resetLogging(logging);
 }
 
 static void commonSimpleMsg(Logging *logging, char *msg, int value) {
@@ -208,30 +235,44 @@ void scheduleSimpleMsg(Logging *logging, char *msg, int value) {
 	scheduleLogging(logging);
 }
 
-//volatile Logging *pending = NULL;
 
-#define OUTPUT_BUFFER 5000
+void scheduleIntValue(Logging *logging, char *msg, int value) {
+	resetLogging(logging);
+
+	append(logging, msg);
+	append(logging, DELIMETER);
+	appendInt(logging, value);
+	append(logging, DELIMETER);
+
+	scheduleLogging(logging);
+}
 
 static char pendingBuffer[OUTPUT_BUFFER];
 
 void lockOutputBuffer();
 void unlockOutputBuffer();
 
+static char fatalMessage[200];
+
 void scheduleLogging(Logging *logging) {
 	// this could be done without locking
 	int newLength = strlen(logging->buffer);
 
 	lockOutputBuffer();
-	// I hope this is fast enougth to operate under sys lock
+	// I hope this is fast enough to operate under sys lock
 	int curLength = strlen(pendingBuffer);
 	if (curLength + newLength >= OUTPUT_BUFFER) {
-		fatal("output buffer overflow");
+		// this happens in case of serial-over-USB, todo: find a better solution
+//		strcpy(fatalMessage, "datalogging.c: output buffer overflow: ");
+//		strcat(fatalMessage, logging->name);
+//		fatal(fatalMessage);
 		unlockOutputBuffer();
 		return;
 	}
 
 	strcat(pendingBuffer, logging->buffer);
 	unlockOutputBuffer();
+	resetLogging(logging);
 }
 
 static char outputBuffer[OUTPUT_BUFFER];

@@ -26,17 +26,17 @@ void setPinValue(OutputPin * outputPin, int value) {
 	outputPin->currentValue = value;
 }
 
-
 void setOutputPinValue(int ledIndex, int value) {
 	setPinValue(&outputs[ledIndex], value);
 }
 
 static void blinkingThread_s(void *arg) {
+	chRegSetThreadName("blinking");
 	while (TRUE) {
-		setOutputPinValue(LED_ALIVE1, 0);
+		setOutputPinValue(LED_ALIVE3, 0);
 		setOutputPinValue(LED_ALIVE2, 1);
 		chThdSleepMilliseconds(100);
-		setOutputPinValue(LED_ALIVE1, 1);
+		setOutputPinValue(LED_ALIVE3, 1);
 		setOutputPinValue(LED_ALIVE2, 0);
 		chThdSleepMilliseconds(100);
 	}
@@ -57,10 +57,12 @@ void ledRegister(char *msg, int ledIndex, GPIO_TypeDef *port, uint32_t pin) {
 }
 
 void initOutputPins() {
-	ledRegister("is alive status", LED_ALIVE1, GPIOD, GPIOD_LED3);
+	ledRegister("is cranking status", LED_CRANKING, GPIOD, GPIOD_LED3);
+	ledRegister("is running status", LED_RUNNING, GPIOD, GPIOD_LED4);
+	ledRegister("alive1", LED_FATAL, GPIOD, GPIOD_LED5);
+	ledRegister("is alive status2", LED_ALIVE3, GPIOD, GPIOD_LED6);
+
 	ledRegister("is alive status 2", LED_ALIVE2, GPIOC, 13);
-	ledRegister("is cranking status", LED_CRANKING, GPIOD, GPIOD_LED4);
-	ledRegister("alive1", LED_RPM, GPIOD, GPIOD_LED5);
 	ledRegister("alive1", LED_DEBUG, GPIOD, 2);
 	ledRegister("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN);
 	ledRegister("sparkout2", SPARKOUT_2_OUTPUT, GPIOE, 6);
@@ -69,7 +71,6 @@ void initOutputPins() {
 	ledRegister("injector2", INJECTOR_2_OUTPUT, INJECTOR_2_PORT, INJECTOR_2_PIN);
 	ledRegister("injector3", INJECTOR_3_OUTPUT, INJECTOR_3_PORT, INJECTOR_3_PIN);
 	ledRegister("injector4", INJECTOR_4_OUTPUT, INJECTOR_4_PORT, INJECTOR_4_PIN);
-
 
 	/* digit 1 */
 /*

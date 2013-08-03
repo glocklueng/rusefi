@@ -62,9 +62,11 @@ void appendInt(Logging *logging, int value);
 void scheduleLogging(Logging *logging);
 void scheduleSimpleMsg(Logging *logging, char *msg, int value);
 
+void scheduleIntValue(Logging *logging, char *msg, int value);
+
 /**
  * this should only be invoked by the 'main' thread in order to keep the console safe
  */
-void printPending();
+void printPending(void);
 
 #endif /* DATALOGGING_H_ */
