@@ -9,5 +9,6 @@
 #define IDLE_THREAD_H_
 
 void startIdleThread(void);
+int getIdleSwitch(void);
 
 #endif /* IDLE_THREAD_H_ */

@@ -15,6 +15,7 @@
 
 #include "rpm_reporter.h"
 #include "thermistors.h"
+#include "output_pins.h"
 
 #include "datalogging.h"
 #include "crank_input.h"
@@ -23,6 +24,8 @@
 
 #include "fuel_map.h"
 #include "main_loop.h"
+#include "engine_math.h"
+#include "idle_thread.h"
 
 #define INITIAL_FULL_LOG TRUE
 //#define INITIAL_FULL_LOG FALSE
@@ -33,6 +36,7 @@ static int prevCkpEventCounter = -1;
 
 static Logging log;
 static char LOGGING_BUFFER[500];
+#define FULL_LOGGING_KEY "fl"
 
 static char* boolean2string(int value) {
 	return value ? "YES" : "NO";
@@ -40,6 +44,7 @@ static char* boolean2string(int value) {
 
 void setFullLog(int value) {
 	print("Setting full logging: %s\r\n", boolean2string(value));
+	printSimpleMsg(&log, FULL_LOGGING_KEY, value);
 	fullLog = value;
 }
 
@@ -48,58 +53,42 @@ static void printStatus() {
 }
 
 static void printSensors() {
-//	int adc0 = getAdcValue(0); /* PA6 - white */
-//	int adc1 = getAdcValue(1); /* PA7 - blue TP */
-//	int adc2 = getAdcValue(2); /* PC4 - green */
-//	int adc3 = getAdcValue(3); /* PC5 - yellow */
-//	int adc4 = getAdcValue(4); /* PB0 - blue */
-////	int adc5 = getAdcValue(5); /* PB1 - white MAF */
-//	int adc6 = getAdcValue(6); /* PC2 - green */
-//	int adc7 = getAdcValue(7); /* PC3 - yellow VREF */
-
-	//	debugInt("adc6", adc6);
-
 	debugFloat(&log, "vref", getVRef(), 2);
 
-	//	debugInt("adc0", adc0);
-	//	debugInt("adc1", adc1);
-	//	debugInt("adc2", adc2);
-	//	debugInt("adc3", adc3);
-
-	// blue, O2
-	//	debugInt("adc4", adc4);
-
-	// white, MAF
+// white, MAF
 	myfloat maf = getMaf();
 	debugFloat(&log, "maf", maf, 2);
 
-	// white
-//	myfloat volts_0 = adcToVolts2(adc0);
-	//	debugInt("adc0", (int)(volts_0 * 100));
-//	myfloat map = getHondaMAPValue(adc0);
-	//	logFloat(LP_MAP, map);
+	myfloat map = getMap();
+	logFloat(&log, LP_MAP, map);
 
-	// blue, 1st board
-//	myfloat volts_1 = adcToVolts2(adc1);
-//	int tpsValue = getTpsValue(volts_1);
-//	logInt(&log, LP_THROTTLE, tpsValue);
+	myfloat tps = getTPS();
+	logInt(&log, LP_THROTTLE, tps);
 
-	// green
-//	myfloat temp2 = getFtemp(adc2);
-//	logFloat(&log, LP_ECT, temp2);
+	myfloat coolantTemp = getCoolantTemperature();
+	logFloat(&log, LP_ECT, coolantTemp);
+	myfloat airTemp = getIntakeAirTemperature();
+	logFloat(&log, LP_IAT, airTemp);
 
-	// yellow
-//	myfloat volts3 = adcToVolts2(adc3);
-//		myfloat resistance3 = getR2InVoltageDividor(volts3);
-//		myfloat temp3 = tempKtoF(getTempK(resistance3));
-	//	print("adc3,%d,", (int)(volts3 * 100));
-	//	logFloat(LP_IAT, temp3);
+	myfloat tcharge = getTCharge(getCurrentRpm(), tps, coolantTemp, airTemp);
+	debugFloat(&log, "tch", tcharge, 2);
 }
+
+#if EFI_CUSTOM_PANIC_METHOD
+extern char *dbg_panic_file;
+extern int dbg_panic_line;
+#endif
 
 static void checkIfShouldHalt() {
 #if CH_DBG_ENABLED
-	if (dbg_panic_msg != NULL ) {
-		print("my FATAL [%s]\r\n", dbg_panic_msg);
+	if (dbg_panic_msg != NULL) {
+		setOutputPinValue(LED_FATAL, 1);
+#if EFI_CUSTOM_PANIC_METHOD
+		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg, dbg_panic_file, dbg_panic_line);
+#else
+		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg);
+#endif
+		chThdSleepSeconds(1);
 		while (TRUE) {
 		}
 		chSysHalt();
@@ -107,56 +96,76 @@ static void checkIfShouldHalt() {
 #endif
 }
 
+static int timeOfPreviousReport = -1;
+
 void printState() {
 	checkIfShouldHalt();
 	printPending();
 
-//	if (needToReportStatus) {
-//		needToReportStatus = FALSE;
-//		debugInt(&logging, "wavemode0", getWaveMode(0));
-//		debugInt(&logging, "wavemode1", getWaveMode(1));
-//	}
+	pokeAdcInputs();
 
 	if (!fullLog)
 		return;
 
+	int nowSeconds = chTimeNow() / SECOND_AS_TICKS;
+
 	int currentCkpEventCounter = getCrankEventCounter();
+	if (prevCkpEventCounter == currentCkpEventCounter && timeOfPreviousReport == nowSeconds)
+		return;
+
+	timeOfPreviousReport = nowSeconds;
 
 	// current time, in milliseconds
 	int nowMs = GetSysclockCounter() / TICKS_IN_MS;
 	int rpm = getCurrentRpm();
 
-	if (1
-			&& prevCkpEventCounter == currentCkpEventCounter
-					)
-		return;
-//	prevNow = nowMs;
 	prevCkpEventCounter = currentCkpEventCounter;
-
-	resetLogging(&log);
 
 	myfloat sec = ((myfloat) nowMs) / 1000;
 	debugFloat(&log, "time", sec, 3);
 
+	debugInt(&log, "ckp_c", currentCkpEventCounter);
 
 	debugInt(&log, "rpm", rpm);
 
-	debugFloat(&log, "table_spark", getAdvance(rpm, getMaf()), 2);
-	debugFloat(&log, "table_fuel", getFuel(rpm, getMaf()), 2);
+
+	debugInt(&log, "idl", getIdleSwitch());
+
+//	debugFloat(&log, "table_spark", getAdvance(rpm, getMaf()), 2);
+
+	if (MAF_MODE)
+		debugFloat(&log, "table_fuel", getFuel(rpm, getMaf()), 2);
+	else {
+		myfloat map = getMap();
+		myfloat fuel = getDefaultFuel(rpm, map);
+		debugFloat(&log, "d_fuel", fuel, 2);
+	}
+
+	debugFloat(&log, "af", getAfr(), 2);
 
 	printSensors();
 
-#ifdef EFI_WAVE_ANALYZER
+#if EFI_WAVE_ANALYZER
 	printWave(&log);
 #endif
 
 	printLine(&log);
 }
 
+static void showFuelMap(int rpm, int maf100) {
+	myfloat maf = maf100 / 100.0;
+	myfloat value = getFuel(rpm, maf);
+	print("fuel map rpm=%d, maf=%d: %d\r\n", rpm, maf100, (int)(100 * value));
+}
+
 void initStatusLoop() {
 	initLogging(&log, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+
 	setFullLog(INITIAL_FULL_LOG);
 
-	addConsoleAction1("fl", &setFullLog);
+	addConsoleAction2I("sfm", showFuelMap);
+	showFuelMap(2400, 280);
+
+	addConsoleAction1(FULL_LOGGING_KEY, &setFullLog);
 	addConsoleAction("status", printStatus);
 }

@@ -12,26 +12,12 @@
 #include "rpm_reporter.h"
 #include "sparkout.h"
 #include "main_loop.h"
+#include "map_multiplier_thread.h"
+#include "timers.h"
 
 int isCranking() {
 	int rpm = getCurrentRpm();
-	return rpm > 0 && rpm < 350;
-}
-
-/**
- * return the index of sorted array such that array[i] is
- * greater that value
- *
- * return index of last array element (size - 1) is value is
- * higher than last value
- */
-int findIndex(myfloat array[], int size, float value) {
-
-	for (int i = 0; i < size; i++) {
-		if (value < array[i])
-			return i;
-	}
-	return size - 1;
+	return rpm > 0 && rpm < 400;
 }
 
 void initEngineContoller() {
@@ -43,8 +29,10 @@ void initEngineContoller() {
 	 * there is an implicit dependency on the fact that 'tachomenter' listener is the 1st listener - this case
 	 * other listeners can access current RPM value
 	 */
-	initAspireTachometer();
+	initTachometer();
 
+	initMapAdjusterThread();
+	initTimers();
 	initMainLoop();
 
 	startIdleThread();

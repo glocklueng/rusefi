@@ -97,7 +97,7 @@ char * ftoa(char *pointer, myfloat val, int precision) {
 	return p;
 }
 
-char *itoa_signed(char *p, int num, unsigned radix) {
+char* itoa_signed(char *p, int num, unsigned radix) {
 	if (num < 0) {
 		*p++ = '-';
 		char *end = ltoa_internal(p, -num, radix);
@@ -109,8 +109,8 @@ char *itoa_signed(char *p, int num, unsigned radix) {
 	return end;
 }
 
-void itoa(char *p, int num) {
-	itoa_signed(p, num, 10);
+char* itoa(char *p, int num) {
+	return itoa_signed(p, num, 10);
 }
 
 char hexChar(int v) {

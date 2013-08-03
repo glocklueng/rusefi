@@ -8,6 +8,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdbool.h>
+#include "main.h"
 #include "ch.h"
 #include "rficonsole.h"
 #include "console_io.h"
@@ -19,11 +20,19 @@ void consolePutChar(int x) {
 	chSequentialStreamPut(CONSOLE_CHANNEL, (uint8_t )(x));
 }
 
+void consoleOututBuffer(char *buf, int size) {
+	chSequentialStreamWrite(CONSOLE_CHANNEL, buf, size);
+}
+
 static char fatalErrorMessage[200];
 
-void fatal(char *msg) {
+void fatal3(char *msg, char *file, int line) {
 	strcpy(fatalErrorMessage, msg);
+#if EFI_CUSTOM_PANIC_METHOD
+	chDbgPanic(fatalErrorMessage, file, line);
+#else
 	chDbgPanic(fatalErrorMessage);
+#endif
 }
 
 static void myfatal() {
@@ -39,6 +48,7 @@ static void sayOsHello() {
 	printSimpleMsg(&log, "VERSION=", VERSION_STRING);
 	printSimpleMsg(&log, "CH_FREQUENCY=", CH_FREQUENCY);
 	printSimpleMsg(&log, "SERIAL_SPEED=", SERIAL_SPEED);
+	printSimpleMsg(&log, "STM32_ADCCLK=", STM32_ADCCLK);
 
 	printSimpleMsg(&log, "CH_DBG_ENABLE_ASSERTS=", CH_DBG_ENABLE_ASSERTS);
 	printSimpleMsg(&log, "CH_DBG_ENABLED=", CH_DBG_ENABLED);

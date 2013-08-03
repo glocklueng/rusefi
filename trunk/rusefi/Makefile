@@ -77,6 +77,7 @@ include console_util/console_util.mk
 include console/console.mk
 include hw_layer/hw_layer.mk
 include controllers/controllers.mk
+include controllers/math/math.mk
 
 # Define linker script file here
 LDSCRIPT= $(PORTLD)/STM32F407xG.ld
@@ -92,6 +93,7 @@ CSRC = $(PORTSRC) \
        $(HALSRC) \
 	$(HW_LAYERESRC) \
 	$(CONTROLLERSSRC) \
+	$(CONTROLLERS_MATH_SRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
        main.c
@@ -130,6 +132,7 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	console_util \
 	console \
 	hw_layer \
+	controllers/math \
 	controllers \
          $(CHIBIOS)/os/various
 

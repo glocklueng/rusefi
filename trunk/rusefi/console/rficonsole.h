@@ -10,6 +10,5 @@
 #include "rficonsole_logic.h"
 
 void initializeConsole(void);
-void fatal(char *msg);
 
 #endif /* RFICONSOLE_H_ */

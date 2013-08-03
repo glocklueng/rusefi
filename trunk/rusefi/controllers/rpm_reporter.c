@@ -18,9 +18,6 @@ static volatile int rpm = 0;
 // we need this initial to have not_running at first invocation
 static volatile time_t lastRpmEventTime = -10 * SECOND_AS_TICKS;
 
-static volatile int firstEvent = -1;
-
-
 /**
  * @return true if previous signal is too old
  */
@@ -31,10 +28,13 @@ int isNotRunning(int previousCrankSignalTime) {
 
 //static Logging log;
 
+int isRunning() {
+	time_t now = GetSysclockCounter();
+	return overflowDiff(now, lastRpmEventTime) < 2 * SECOND_AS_TICKS;
+}
+
 static void updateRpmValue(int ckpEventType) {
 	// this code is invoked on interrupt thread
-	if (firstEvent == -1)
-		firstEvent = ckpEventType;
 
 	if (ckpEventType != CKP_PRIMARY_UP)
 		return;
@@ -43,20 +43,17 @@ static void updateRpmValue(int ckpEventType) {
 //	msgInt(&log, "msg,event ", rpmEventCounter++);
 //	logPending(&log);
 
-	setOutputPinValue(LED_RPM, TRUE);
-
 	time_t now = GetSysclockCounter();
 
 	// todo: wonder what is the RPM during cranking?
-	int hadRpmRecently = overflowDiff(now, lastRpmEventTime)
-			< 5 * SECOND_AS_TICKS;
+	int hadRpmRecently = isRunning();
+	;
 
 // 60000 because per minute
 // * 2 because each revolution of crankshaft consists of two camshaft revolutions
 // / 4 because each cylinder sends a signal
 	// need to measure time from the previous non-skipped event
 	if (hadRpmRecently) {
-		setOutputPinValue(LED_DEBUG, TRUE);
 		int diff = now - lastRpmEventTime;
 		if (diff == 0)
 			rpm = -1;
@@ -66,13 +63,12 @@ static void updateRpmValue(int ckpEventType) {
 	lastRpmEventTime = now;
 }
 
-
 int getCurrentRpm() {
 	if (isNotRunning(lastRpmEventTime))
 		return 0;
 	return rpm;
 }
 
-void initAspireTachometer() {
+void initTachometer() {
 	registerCkpListener(&updateRpmValue, "rpm reporter");
 }

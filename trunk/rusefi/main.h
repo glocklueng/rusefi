@@ -21,6 +21,10 @@
 
 #define RE_CRANK_INPUT TRUE
 
+//#define EFI_CUSTOM_PANIC_METHOD TRUE
+
+#define EFI_DEFAILED_LOGGING TRUE
+#define EFI_WAVE_ANALYZER FALSE
 //#define EFI_WAVE_ANALYZER TRUE
 #define EFI_ADC TRUE
 
@@ -61,13 +65,18 @@
 #define INJECTOR_2_PIN 9
 
 #define INJECTOR_3_PORT GPIOE
-#define INJECTOR_3_PIN 0
+#define INJECTOR_3_PIN 1
 
 #define INJECTOR_4_PORT GPIOE
-#define INJECTOR_4_PIN 1
+#define INJECTOR_4_PIN 0
 
 #define IDLE_VALVE_PORT GPIOE
 #define IDLE_VALVE_PIN 3
+
+#define IDLE_SWITCH_PORT GPIOC
+#define IDLE_SWITCH_PIN 8
+
+
 
 // number of SysClock ticks in one ms
 #define TICKS_IN_MS  (CH_FREQUENCY / 1000)

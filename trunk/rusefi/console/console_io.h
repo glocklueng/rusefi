@@ -18,9 +18,19 @@
 #define FALSE 0
 #endif
 
-#define SERIAL_SPEED (8 * 115200)
+//#define SERIAL_SPEED (8 * 115200)
+//#define SERIAL_SPEED (2 * 115200)
+#define SERIAL_SPEED 115200
 
-#define CONSOLE_CHANNEL (&SD3)
+//#define USE_INTERNAL_USB TRUE
+
+#ifdef USE_INTERNAL_USB
+ #include "usbcfg.h"
+ extern SerialUSBDriver SDU1;
+ #define CONSOLE_CHANNEL (&SDU1)
+#else
+ #define CONSOLE_CHANNEL (&SD3)
+#endif
 
 //#define CONSOLE_PORT GPIOB
 //#define CONSOLE_TX_PIN 10

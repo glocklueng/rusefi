@@ -59,7 +59,7 @@ static char consoleInput[] =
 
 void (*console_line_callback)(char *);
 
-static WORKING_AREA(consoleThread, 512);
+static WORKING_AREA(consoleThread, 1024);
 static msg_t sdThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("console thread");
@@ -80,6 +80,17 @@ static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS
 
 void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
+#ifdef USE_INTERNAL_USB
+	usb_serial_start();
+
+	while (TRUE) {
+		if (SDU1.config->usbp->state == USB_ACTIVE) {
+			break;
+		}
+		chThdSleepMilliseconds(500);
+	}
+
+#else
 	/*
 	 * Activates the serial using the driver default configuration (that's 38400)
 	 * it is important to set 'NONE' as flow control! in terminal application on the PC
@@ -89,7 +100,7 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	// cannot use pin repository here because pin repository prints to console
 	palSetPadMode(CONSOLE_PORT, CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(7));
 	palSetPadMode(CONSOLE_PORT, CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(7));
-
+#endif
 	chThdCreateStatic(consoleThread, sizeof(consoleThread), NORMALPRIO,
 			sdThreadEntryPoint, NULL );
 }

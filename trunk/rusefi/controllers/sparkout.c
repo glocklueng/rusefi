@@ -12,6 +12,11 @@
 #include "datalogging.h"
 #include "rpm_reporter.h"
 
+#if EFI_WAVE_ANALYZER
+#include "wave_chart.h"
+extern WaveChart crankChart;
+#endif
+
 static OutputSignal sparkOut1;
 static OutputSignal sparkOut2;
 static OutputSignal injectorOut1;
@@ -34,15 +39,14 @@ static void signalOutputCallbackI(OutputSignal *signal) {
 
 /**
  *
- *
  * @param	delay	the number of ticks before the output signal
  * 					immediate output if delay is zero
  * @param	dwell	the number of ticks of output duration
  *
  */
 static void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
-	if (!signal->initialized)
-		chDbgPanic("Signal not initialized");
+	chDbgCheck(signal->initialized, "Signal not initialized");
+	chDbgCheck(dwell >= 0, "dwell cannot be negative");
 
 	signal->duration = dwell;
 	if (delay == 0) {
@@ -104,10 +108,13 @@ static void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 }
 
 void scheduleSparkOut(int offset, int duration) {
-	scheduleOutput(&sparkOut1, offset, duration);
-	scheduleOutput(&sparkOut2, offset, duration);
+//	scheduleOutput(&sparkOut1, offset, duration);
+//	scheduleOutput(&sparkOut2, offset, duration);
 }
 
+/**
+ * This method schedules asynchronous fuel squirt
+ */
 void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, int cylinderId) {
 	chDbgCheck(cylinderId >= 1 && cylinderId<=NUMBER_OF_CYLINDERS, "invalid cylinderId");
 	OutputSignal *injector = injectors[cylinderId - 1];
@@ -131,12 +138,28 @@ static msg_t soThread(OutputSignal *signal) {
 			continue;
 		}
 
+		int now = chTimeNow();
 		// turn the output level ACTIVE
 		setOutputPinValue(signal->ledIndex, TRUE ^ signal->xor);
 		// sleep for the needed duration
+
+#if EFI_WAVE_ANALYZER
+		addWaveChartEvent(&crankChart, signal->name, "up");
+#endif
+
 		chThdSleep(signal->duration);
 		// turn off the output
 		setOutputPinValue(signal->ledIndex, FALSE ^ signal->xor);
+		int after = chTimeNow();
+
+#if EFI_DEFAILED_LOGGING
+		debugInt(&signal->logging, "a_time", after - now);
+		scheduleLogging(&signal->logging);
+#endif
+
+#if EFI_WAVE_ANALYZER
+		addWaveChartEvent(&crankChart, signal->name, "down");
+#endif
 	}
 	// unreachable
 	return 0;
@@ -152,8 +175,7 @@ static void initOutputSignal(char *name, OutputSignal *signal, int led, int xor)
 	setOutputPinValue(led, xor); // initial state
 	chSemInit(&signal->signalSemaphore, 1);
 
-	chThdCreateStatic(signal->soThreadStack, sizeof(signal->soThreadStack),
-	NORMALPRIO, soThread, signal);
+	chThdCreateStatic(signal->soThreadStack, sizeof(signal->soThreadStack), NORMALPRIO, soThread, signal);
 	signal->initialized = TRUE;
 }
 
