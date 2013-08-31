@@ -19,6 +19,7 @@
 #include "wave_math.h"
 #include "idle_thread.h"
 #include "pin_repository.h"
+#include "pinout.h"
 
 #define IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY 200
 
@@ -32,7 +33,7 @@ static int isIdleActive = TRUE;
  */
 static volatile int idleSwitchState;
 
-static PwmWave idleValve;
+static PwmConfig idleValve;
 
 static IdleValveState idle;
 static Logging log;

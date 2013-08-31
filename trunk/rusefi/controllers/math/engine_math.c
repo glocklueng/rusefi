@@ -6,7 +6,6 @@
  */
 
 #include "engine_math.h"
-//#include "stdio.h"
 
 #define INTERPOLATION_A(x1, y1, x2, y2) ((y1 - y2) / (x1 - x2))
 
@@ -32,8 +31,7 @@ float interpolate(float x1, float y1, float x2, float y2, float x) {
 /**
  * returns kPa value
  */
-float getMAPValue(int adcValue) {
-	float volts = adcToVolts2(adcValue);
+float getMAPValue(float volts) {
 	return Honda_Denso183_Range / 5 * volts + Honda_Denso183_Min;
 }
 
@@ -73,14 +71,6 @@ float getTCharge(int rpm, int tps, float coolantTemp, float airTemp) {
 	float Tcharge = coolantTemp * (1 - Tcharge_coff) + airTemp * Tcharge_coff;
 
 	return Tcharge;
-}
-
-float adcToVolts(int adc) {
-	return ((float) 3.0) * adc / 4095;
-}
-
-float adcToVolts2(int adc) {
-	return adcToVolts(adc) * 2;
 }
 
 /**

@@ -13,6 +13,7 @@
 #include "data_buffer.h"
 #include "ckp_events.h"
 #include "wave_analyzer_hw.h"
+#include "pinout.h"
 
 /**
  * ChibiOS uses only one channel 1
@@ -29,7 +30,11 @@ static volatile int crpEventCounter;
 static WaveReaderHw primaryCrankInput;
 static WaveReaderHw secondaryCrankInput;
 
-#if RE_CRANK_INPUT
+int getCrankEventCounter() {
+	return crpEventCounter;
+}
+
+#if EFI_CRANK_INPUT
 // 'width' happens before the 'period' event
 static void crank_icuwidthcb(ICUDriver *icup) {
 	// this is not atomic, but it's fine here
@@ -53,13 +58,7 @@ static void crank_icuperiodcb(ICUDriver *icup) {
 		invokeCallbacks(&ckpListeneres, CKP_SECONDARY_DOWN);
 	}
 }
-#endif
 
-int getCrankEventCounter() {
-	return crpEventCounter;
-}
-
-#if RE_CRANK_INPUT
 static ICUConfig crank_icucfg = { ICU_INPUT_ACTIVE_LOW, 100000, /* 100kHz ICU clock frequency.   */
 crank_icuwidthcb, crank_icuperiodcb };
 #endif
@@ -71,7 +70,7 @@ void registerCkpListener(IntListener handler, char *msg) {
 
 void initInputCapture() {
 
-#if RE_CRANK_INPUT
+#if EFI_CRANK_INPUT
 
 	initWaveAnalyzerDriver(&primaryCrankInput, &PRIMARY_CRANK_DRIVER, PRIMARY_CRANK_INPUT_PORT,
 	PRIMARY_CRANK_INPUT_PIN);

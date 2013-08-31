@@ -1,9 +1,13 @@
 /*
- * datalogging.h
- *
  *  Created on: Feb 25, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
+
+/**
+ * @file    datalogging.h
+ * @brief   Buffered console output stream header
+ */
+
 
 #ifndef DATALOGGING_H_
 #define DATALOGGING_H_

@@ -5,6 +5,14 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
+/**
+ * @file    pin_repository.c
+ * @brief   I/O pin registry code
+ *
+ * This job of this class is to make sure that we are not using same hardware pin for two
+ * different purposes.
+ */
+
 #include "ch.h"
 #include "hal.h"
 #include "pin_repository.h"

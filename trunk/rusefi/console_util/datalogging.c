@@ -1,9 +1,13 @@
 /*
- * datalogging.c
- *
  *  Created on: Feb 25, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
+
+/**
+ * @file    datalogging.c
+ * @brief   Buffered console output stream code
+ */
+
 
 #include <string.h>
 #include "datalogging.h"
@@ -55,7 +59,7 @@ static int validateBuffer(Logging *logging, int extraLen, char *text) {
 	if (logging->buffer == NULL) {
 		strcpy(logging->SMALL_BUFFER, "Logging not initialized: ");
 		strcat(logging->SMALL_BUFFER, logging->name);
-		strcpy(logging->SMALL_BUFFER, "/");
+		strcat(logging->SMALL_BUFFER, "/");
 		strcat(logging->SMALL_BUFFER, text);
 		fatal(logging->SMALL_BUFFER);
 		return TRUE;
@@ -65,7 +69,7 @@ static int validateBuffer(Logging *logging, int extraLen, char *text) {
 	if (currentLen + extraLen > logging->bufferSize - 1) {
 		strcpy(logging->SMALL_BUFFER, "Logging buffer overflow: ");
 		strcat(logging->SMALL_BUFFER, logging->name);
-		strcpy(logging->SMALL_BUFFER, "/");
+		strcat(logging->SMALL_BUFFER, "/");
 		strcat(logging->SMALL_BUFFER, text);
 		fatal(logging->SMALL_BUFFER);
 		return TRUE;
@@ -173,7 +177,7 @@ void logInt(Logging *logging, int loggingPoint, int value) {
 }
 
 void logFloat(Logging *logging, int loggingPoint, myfloat value) {
-	debugFloat(logging, getCaption(loggingPoint), value, 1);
+	debugFloat(logging, getCaption(loggingPoint), value, 2);
 }
 
 void resetLogging(Logging *logging) {
@@ -235,7 +239,6 @@ void scheduleSimpleMsg(Logging *logging, char *msg, int value) {
 	scheduleLogging(logging);
 }
 
-
 void scheduleIntValue(Logging *logging, char *msg, int value) {
 	resetLogging(logging);
 
@@ -262,11 +265,16 @@ void scheduleLogging(Logging *logging) {
 	// I hope this is fast enough to operate under sys lock
 	int curLength = strlen(pendingBuffer);
 	if (curLength + newLength >= OUTPUT_BUFFER) {
-		// this happens in case of serial-over-USB, todo: find a better solution
+		/**
+		 * if noone is consuming the data we have to drop it
+		 * this happens in case of serial-over-USB, todo: find a better solution
+		 *
+		 */
 //		strcpy(fatalMessage, "datalogging.c: output buffer overflow: ");
 //		strcat(fatalMessage, logging->name);
 //		fatal(fatalMessage);
 		unlockOutputBuffer();
+		resetLogging(logging);
 		return;
 	}
 

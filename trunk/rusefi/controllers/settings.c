@@ -5,7 +5,7 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
-#include "injector_control.h"
+#include "settings.h"
 
 #include "rficonsole.h"
 #include "datalogging.h"
@@ -48,7 +48,7 @@ void setCrankingInjectionPeriod(int value) {
 	printSettings();
 }
 
-void initInjectorsControl() {
+void initSettings() {
 	initLogging(&log, "inje control", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 
 	setInjectionOffset(0);

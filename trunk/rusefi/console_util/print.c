@@ -1,9 +1,11 @@
-/*
- * print.c
+/**
+ * @file    print.c
+ * @brief   print() code
  *
  * print function with float support.
  * It kinda seems like float support is a bit broken :(
  */
+
 
 #include <stdarg.h>
 #include <string.h>

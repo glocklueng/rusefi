@@ -14,6 +14,11 @@
     limitations under the License.
 */
 
+/**
+ * @file    usbcfg.h
+ * @brief   Serial-over-USB header
+ */
+
 #ifndef _USBCFG_H_
 #define _USBCFG_H_
 

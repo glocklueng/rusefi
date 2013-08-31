@@ -5,9 +5,8 @@ CONTROLLERSSRC = controllers/main_loop.c \
 	controllers/fuel_map.c \
 	controllers/idle_thread.c \
 	controllers/idle_controller.c \
-	controllers/timers.c \
-	controllers/injector_control.c \
+	controllers/settings.c \
 	controllers/rpm_reporter.c \
 	controllers/map_multiplier_thread.c \
 	controllers/map_adjuster.c \
-	controllers/sparkout.c
+	controllers/signal_executor.c

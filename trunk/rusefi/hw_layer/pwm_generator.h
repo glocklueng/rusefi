@@ -9,19 +9,24 @@
 #define PWM_GENERATOR_H_
 
 #include "main.h"
-#include "output_pins.h"
+#include "gpio_helper.h"
 
 #define PWM_PHASE_MAX_COUNT 16
 #define PWM_PHASE_MAX_WAVE_PER_PWM 2
 
 #define FREQ_MATH_FREQUENCY CH_FREQUENCY
 
-
+/**
+ * @brief   PWM configuration for the specific output pin
+ */
 typedef struct {
 	OutputPin outputPin;
 	int pinStates[PWM_PHASE_MAX_COUNT];
 } SingleWave;
 
+/**
+ * @brief   Multi-channel software PWM output configuration
+ */
 typedef struct {
 	SingleWave waves[PWM_PHASE_MAX_WAVE_PER_PWM];
 	int waveCount;
@@ -39,14 +44,14 @@ typedef struct {
 	 */
 	myfloat period;
 	WORKING_AREA(deThreadStack, 256);
-} PwmWave;
+} PwmConfig;
 
-void initModulation(PwmWave *state, int count, myfloat *switchTimes,
+void initModulation(PwmConfig *state, int count, myfloat *switchTimes,
 		int *pinStates);
 
-void wePlainInit(char *msg, PwmWave *state, GPIO_TypeDef * port, int pin,
+void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
 		int idleState, myfloat dutyCycle);
-void weComplexInit(char *msg, PwmWave *state,
+void weComplexInit(char *msg, PwmConfig *state,
 		int idleState, int phaseCount, myfloat *swithcTimes, int waveCount, int **pinStates);
 
 #endif /* PWM_GENERATOR_H_ */

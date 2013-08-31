@@ -1,13 +1,19 @@
 /*
- * sparkout.c
+ * signal_executor.c
  *
  *  Created on: Feb 10, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
+ *
+ */
+
+/**
+ * @file	signal_executor.c
+ * @brief   Asynchronous output signal code
  */
 
 #include "main.h"
 #include "output_pins.h"
-#include "sparkout.h"
+#include "signal_executor.h"
 #include "rficonsole.h"
 #include "datalogging.h"
 #include "rpm_reporter.h"

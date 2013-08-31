@@ -127,7 +127,8 @@ ASMSRC = $(PORTASM)
 
 INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) \
-	system \
+	config/system \
+	config \
 	util \
 	console_util \
 	console \

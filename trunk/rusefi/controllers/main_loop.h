@@ -1,8 +1,11 @@
 /*
- * main_loop.h
- *
  *  Created on: Feb 9, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
+ */
+
+/**
+ * @file    main_loop.h
+ * @brief   Main logic header
  */
 
 #ifndef MAIN_LOOP_H_
@@ -23,7 +26,7 @@
 
 #define STROKE_TIME_CONSTANT (1000 * 60 * 2 / 4 * TICKS_IN_MS)
 
-void initMainLoop(void);
+void initMainEventListener(void);
 void onEveryMillisecondTimerSignal(void);
 
 myfloat getMaf(void);
@@ -31,7 +34,11 @@ myfloat getAfr(void);
 myfloat getVRef(void);
 myfloat getTPS(void);
 myfloat getMap(void);
-myfloat getCoolantTemperature(void);
-myfloat getIntakeAirTemperature(void);
+
+myfloat getCoolantTemperatureF(void);
+myfloat getIntakeAirTemperatureF(void);
+
+myfloat getCoolantTemperatureK(void);
+myfloat getIntakeAirTemperatureK(void);
 
 #endif /* MAIN_LOOP_H_ */
