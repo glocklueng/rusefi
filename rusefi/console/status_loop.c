@@ -65,12 +65,12 @@ static void printSensors() {
 	myfloat tps = getTPS();
 	logInt(&log, LP_THROTTLE, tps);
 
-	myfloat coolantTemp = getCoolantTemperature();
+	myfloat coolantTemp = getCoolantTemperatureF();
 	logFloat(&log, LP_ECT, coolantTemp);
-	myfloat airTemp = getIntakeAirTemperature();
+	myfloat airTemp = getIntakeAirTemperatureF();
 	logFloat(&log, LP_IAT, airTemp);
 
-	myfloat tcharge = getTCharge(getCurrentRpm(), tps, coolantTemp, airTemp);
+	myfloat tcharge = getTCharge(getCurrentRpm(), tps, getCoolantTemperatureK(), getIntakeAirTemperatureK());
 	debugFloat(&log, "tch", tcharge, 2);
 }
 
@@ -116,7 +116,7 @@ void printState() {
 	timeOfPreviousReport = nowSeconds;
 
 	// current time, in milliseconds
-	int nowMs = GetSysclockCounter() / TICKS_IN_MS;
+	int nowMs = chTimeNow() / TICKS_IN_MS;
 	int rpm = getCurrentRpm();
 
 	prevCkpEventCounter = currentCkpEventCounter;

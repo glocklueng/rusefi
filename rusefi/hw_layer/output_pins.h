@@ -11,15 +11,6 @@
 #include "stm32f4xx_specific.h"
 #include "stm32f4xx.h"
 
-typedef struct {
-	GPIO_TypeDef *port;
-	int pin;
-	/**
-	 * we track current pin status so that we do not touch the actual hardware if we want to write new pin bit
-	 * which is same as current pin value. This maybe helps in case of status leds, but maybe it's a total over-engineering
-	 */
-	int currentValue;
-} OutputPin;
 
 typedef enum {
 	LED_CRANKING = 0, // Orange on-board led
@@ -66,10 +57,6 @@ typedef enum {
 } PinEnum;
 
 #define LED_COUNT 100
-
-// todo: decide on one API and eliminate the other one. Need to decide between enum for pin indexes and OutputPin?
-void initOutputPin(char *msg, OutputPin *outputPin, GPIO_TypeDef *port, uint32_t pinNumber);
-void setPinValue(OutputPin * outputPin, int value);
 
 void initOutputPins(void);
 void setOutputPinValue(int statusLedEnum, int value);

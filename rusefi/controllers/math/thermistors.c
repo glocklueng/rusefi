@@ -94,10 +94,15 @@ myfloat convertKelvinToFahrenheit(myfloat tempK) {
 	return tempCtoF(tempC);
 }
 
-myfloat getFahrenheittemp(int adcValue) {
-	myfloat voltage = adcToVolts2(adcValue);
+myfloat getKelvinTemperature(int adcValue) {
+	myfloat voltage = adcToVolts(adcValue);
 	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS, THERMISTOR_BIAS_RESISTOR);
 	myfloat kelvinTemperature = convertResistanceToKelvinTemperature(resistance);
+	return kelvinTemperature;
+}
+
+myfloat getFahrenheitTemperature(int adcValue) {
+	myfloat kelvinTemperature = getKelvinTemperature(adcValue);
 	return convertKelvinToFahrenheit(kelvinTemperature);
 }
 

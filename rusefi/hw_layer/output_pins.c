@@ -10,6 +10,8 @@
 #include "output_pins.h"
 
 #include "pin_repository.h"
+#include "gpio_helper.h"
+#include "pinout.h"
 
 static OutputPin outputs[LED_COUNT];
 
@@ -17,14 +19,6 @@ static OutputPin outputs[LED_COUNT];
  * blinking thread to show that we are alive
  */
 static WORKING_AREA(blinkingThreadStack, 128);
-
-void setPinValue(OutputPin * outputPin, int value) {
-	if (outputPin->currentValue == value)
-		return;
-
-	palWritePad(outputPin->port, outputPin->pin, value);
-	outputPin->currentValue = value;
-}
 
 void setOutputPinValue(int ledIndex, int value) {
 	setPinValue(&outputs[ledIndex], value);
@@ -40,14 +34,6 @@ static void blinkingThread_s(void *arg) {
 		setOutputPinValue(LED_ALIVE2, 0);
 		chThdSleepMilliseconds(100);
 	}
-}
-
-void initOutputPin(char *msg, OutputPin *outputPin, GPIO_TypeDef *port, uint32_t pinNumber) {
-	outputPin->currentValue = -1;
-	outputPin->port = port;
-	outputPin->pin = pinNumber;
-
-	mySetPadMode(msg, port, pinNumber, PAL_MODE_OUTPUT_PUSHPULL);
 }
 
 void ledRegister(char *msg, int ledIndex, GPIO_TypeDef *port, uint32_t pin) {

@@ -8,7 +8,7 @@
 #ifndef INJECTOR_CONTROL_H_
 #define INJECTOR_CONTROL_H_
 
-void initInjectorsControl();
+void initSettings();
 void pokeControl();
 int getInjectionPeriod();
 int getCrankingInjectionPeriod();

@@ -22,7 +22,7 @@
 //#define SERIAL_SPEED (2 * 115200)
 #define SERIAL_SPEED 115200
 
-//#define USE_INTERNAL_USB TRUE
+#define USE_INTERNAL_USB TRUE
 
 #ifdef USE_INTERNAL_USB
  #include "usbcfg.h"

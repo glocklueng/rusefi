@@ -3,6 +3,11 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
+/**
+ * @file    rfiutil.c
+ * @brief   Number to string conversion code
+ */
+
 #include <string.h>
 #include "rfiutil.h"
 

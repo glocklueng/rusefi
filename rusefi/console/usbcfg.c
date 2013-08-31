@@ -17,6 +17,11 @@
 #include "ch.h"
 #include "hal.h"
 
+/**
+ * @file    usbcfg.c
+ * @brief   Serial-over-USB code
+ */
+
 /*
  * Endpoints to be used for USBD1.
  */

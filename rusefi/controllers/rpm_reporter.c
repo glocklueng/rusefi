@@ -5,6 +5,11 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
+/**
+ * @file    rpm_reporter.c
+ * @brief   Shaft position sensor(s) decoder code
+ */
+
 #include "ckp_events.h"
 #include "crank_input.h"
 #include "datalogging.h"
@@ -22,14 +27,14 @@ static volatile time_t lastRpmEventTime = -10 * SECOND_AS_TICKS;
  * @return true if previous signal is too old
  */
 int isNotRunning(int previousCrankSignalTime) {
-	return overflowDiff(GetSysclockCounter(), previousCrankSignalTime)
+	return overflowDiff(chTimeNow(), previousCrankSignalTime)
 			> SECOND_AS_TICKS;
 }
 
 //static Logging log;
 
 int isRunning() {
-	time_t now = GetSysclockCounter();
+	time_t now = chTimeNow();
 	return overflowDiff(now, lastRpmEventTime) < 2 * SECOND_AS_TICKS;
 }
 
@@ -43,7 +48,7 @@ static void updateRpmValue(int ckpEventType) {
 //	msgInt(&log, "msg,event ", rpmEventCounter++);
 //	logPending(&log);
 
-	time_t now = GetSysclockCounter();
+	time_t now = chTimeNow();
 
 	// todo: wonder what is the RPM during cranking?
 	int hadRpmRecently = isRunning();

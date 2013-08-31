@@ -128,7 +128,8 @@ ADC_TwoSamplingDelay_20Cycles,   // cr1
 
 		ADC_SMPR1_SMP_AN10(MY_SAMPLING_SLOW) |
 		ADC_SMPR1_SMP_AN11(MY_SAMPLING_SLOW) |
-		ADC_SMPR1_SMP_AN12(MY_SAMPLING_SLOW), // sample times for channels 10...18
+		ADC_SMPR1_SMP_AN12(MY_SAMPLING_SLOW) |
+		ADC_SMPR1_SMP_AN13(MY_SAMPLING_SLOW) , // sample times for channels 10...18
 		ADC_SMPR2_SMP_AN0(MY_SAMPLING_SLOW) |
 		ADC_SMPR2_SMP_AN1(MY_SAMPLING_SLOW) |
 		ADC_SMPR2_SMP_AN3(MY_SAMPLING_SLOW) |
@@ -176,7 +177,7 @@ ADC_TwoSamplingDelay_5Cycles,   // cr1
 		};
 
 static void pwmpcb_slow(PWMDriver *pwmp) {
-#ifdef EFI_ADC
+#ifdef EFI_INTERNAL_ADC
 	(void) pwmp;
 
 	/* Starts an asynchronous ADC conversion operation, the conversion
@@ -190,7 +191,7 @@ static void pwmpcb_slow(PWMDriver *pwmp) {
 }
 
 static void pwmpcb_fast(PWMDriver *pwmp) {
-#ifdef EFI_ADC
+#ifdef EFI_INTERNAL_ADC
 	(void) pwmp;
 
 	/* Starts an asynchronous ADC conversion operation, the conversion
@@ -203,7 +204,7 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 #endif
 }
 
-int getAdcValue(int index) {
+int getInternalAdcValue(int index) {
 	if (index >= ADC_NUMBER_CHANNELS_SLOW)
 		return -1;
 	return newState.adc_data[index];
@@ -289,7 +290,7 @@ void initSlowChannel(int logicChannel, int hwChannel) {
 
 void printAdcValue(int channel) {
 	int value = getAdcValue(channel);
-	myfloat volts = adcToVolts2(value);
+	myfloat volts = adcToVolts(value);
 	scheduleSimpleMsg(&log, "adc voltage x100: ", (int) (100 * volts));
 }
 
@@ -298,7 +299,7 @@ void printFullAdcReport() {
 		msgInt(&log, " ch", i);
 		int value = getAdcValue(i);
 		msgInt(&log, " val= ", value);
-		myfloat volts = adcToVolts2(value);
+		myfloat volts = adcToVolts(value);
 		debugFloat(&log, "v ", volts, 1);
 	}
 	scheduleLogging(&log);
@@ -321,7 +322,7 @@ void initAdcInputs() {
 
 	addConsoleAction1(ADC_DEBUG_KEY, &setAdcDebugReporting);
 
-#ifdef EFI_ADC
+#ifdef EFI_INTERNAL_ADC
 	/*
 	 * Initializes the ADC driver.
 	 */

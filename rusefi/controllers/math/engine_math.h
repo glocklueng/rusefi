@@ -10,16 +10,13 @@
 
 float interpolate(float x1, float y1, float x2, float y2, float x);
 
-float getMAPValue(int adcValue);
+float getMAPValue(float volts);
 
 float getDefaultVE(int rpm);
 
 float getDefaultFuel(int rpm, float map);
 float getTCharge(int rpm, int tps, float coolantTemp, float airTemp);
 
-float adcToVolts(int adc);
-// this method should be used to display real voltage if we have divided it by two to fit it under +3v
-float adcToVolts2(int adc);
 int findIndex(float array[], int size, float value);
 float getStartingFuel(int coolantTemperature);
 

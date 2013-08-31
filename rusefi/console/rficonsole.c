@@ -14,6 +14,11 @@
 #include "console_io.h"
 #include "datalogging.h"
 
+/**
+ * @file    rficonsole.c
+ * @brief   Console package entry point code
+ */
+
 static Logging log;
 
 void consolePutChar(int x) {
@@ -63,6 +68,9 @@ static void sayOsHello() {
 	chThdSleepMilliseconds(5);
 }
 
+/**
+ * This methods prints all threads and their total times
+ */
 static void cmd_threads() {
 	static const char *states[] = { THD_STATE_NAMES };
 	Thread *tp;
@@ -78,7 +86,7 @@ static void cmd_threads() {
 }
 
 void initializeConsole() {
-	initLogging(&log, "rfi console", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&log, "console", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 	initConsoleLogic();
 	startChibiosConsole(&handleConsoleLine);
 

@@ -2,6 +2,12 @@
  *  Created on: Nov 15, 2012
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
+
+/**
+ * @file    rficonsole_logic.c
+ * @brief   Console interactive shell code
+ */
+
 #include <stdarg.h>
 #include <string.h>
 #include <stdbool.h>

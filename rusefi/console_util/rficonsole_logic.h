@@ -3,6 +3,11 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
+/**
+ * @file    rficonsole_logic.h
+ * @brief   Console interactive shell header
+ */
+
 #ifndef RFICONSOLE_LOGIC_H_
 #define RFICONSOLE_LOGIC_H_
 

@@ -31,7 +31,8 @@ myfloat tempFtoC(myfloat tempF);
 
 myfloat tempKtoF(myfloat tempK);
 int getTpsValue(myfloat volts);
-myfloat getFahrenheittemp(int adcValue);
+myfloat getKelvinTemperature(int adcValue);
+myfloat getFahrenheitTemperature(int adcValue);
 myfloat getResistance(myfloat tempK);
 
 

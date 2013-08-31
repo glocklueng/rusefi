@@ -6,10 +6,7 @@
  */
 
 #include "advance_map.h"
-#include "engine_controller.h"
-
-
-#include "thermistors.h"
+#include "engine_math.h"
 
 
 #define AD_RPM_COUNT 23

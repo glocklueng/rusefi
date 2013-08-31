@@ -1,19 +1,21 @@
 /*
- * main_loop.c
- *
  *  Created on: Feb 7, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
+/**
+ * @file    main_loop.c
+ * @brief   Main logic code
+ */
+
 #include "main.h"
 #include "main_loop.h"
-#include "output_pins.h"
 #include "engine_controller.h"
-#include "injector_control.h"
+#include "settings.h"
 #include "crank_input.h"
 #include "rpm_reporter.h"
 #include "ckp_events.h"
-#include "sparkout.h"
+#include "signal_executor.h"
 #include "rficonsole.h"
 #include "advance_map.h"
 #include "adc_inputs.h"
@@ -41,51 +43,51 @@ static int currentCylinderIndex;
 static Logging log;
 static myfloat fuelMult = 1;
 
-void onEveryMillisecondTimerSignal() {
-	int is_cranking = isCranking();
-	setOutputPinValue(LED_RUNNING, getCurrentRpm() > 0 && !is_cranking);
-	setOutputPinValue(LED_CRANKING, is_cranking);
-}
-
 myfloat getMaf() {
-	int mafAdc = getAdcValue(ADC_LOGIC_MAF);
-	return adcToVolts2(mafAdc);
+	return getVoltage(ADC_LOGIC_MAF);
 }
 
 myfloat getAfr() {
-	int adc = getAdcValue(ADC_LOGIC_AFR);
-	myfloat volts = adcToVolts2(adc);
+	myfloat volts = getVoltage(ADC_LOGIC_AFR);
 
 	return interpolate(0, 9, 5, 19, volts);
 }
 
 myfloat getVRef() {
-	int mafVref = getAdcValue(ADC_CHANNEL_VREF);
-	return adcToVolts2(mafVref);
+	return getAdcValue(ADC_CHANNEL_VREF);
+//	return getVoltage(ADC_CHANNEL_VREF);
 }
 
 myfloat getTPS(void) {
 	// blue, 1st board
-	int adc1 = getAdcValue(ADC_LOGIC_TPS); /* PA7 - blue TP */
-	myfloat volts_1 = adcToVolts2(adc1);
-	int tpsValue = getTpsValue(volts_1);
+	/* PA7 - blue TP */
+	int tpsValue = getTpsValue(getVoltage(ADC_LOGIC_TPS));
 	return tpsValue;
 }
 
-myfloat getIntakeAirTemperature() {
-	/* PC5 - yellow */
-	return getFahrenheittemp(getAdcValue(ADC_LOGIC_AIR));
+myfloat getIntakeAirTemperatureF() {
+	return getFahrenheitTemperature(getAdcValue(ADC_LOGIC_AIR));
 }
 
-myfloat getCoolantTemperature() {
-	return getFahrenheittemp(getAdcValue(ADC_LOGIC_COOLANT));
+myfloat getCoolantTemperatureF() {
+	return getFahrenheitTemperature(getAdcValue(ADC_LOGIC_COOLANT));
+}
+
+myfloat getIntakeAirTemperatureK() {
+	return getKelvinTemperature(getAdcValue(ADC_LOGIC_AIR));
+}
+
+myfloat getCoolantTemperatureK() {
+	return getKelvinTemperature(getAdcValue(ADC_LOGIC_COOLANT));
 }
 
 myfloat getMap(void) {
 	int adc0 = getAdcValue(ADC_LOGIC_MAP);
 //	myfloat volts_0 = adcToVolts2(adc0);
 	//	debugInt("adc0", (int)(volts_0 * 100));
-	return getMAPValue(adc0);
+	float volts = adcToVolts(adc0);
+
+	return getMAPValue(volts);
 }
 
 static int getShortWaveLengthByRpm(int rpm) {
@@ -99,12 +101,12 @@ static int getFullWaveLengthByRpm(int rpm) {
 	return STROKE_TIME_CONSTANT / rpm;
 }
 
-static int getWaveLengthByRpm2(int rpm) {
-	/**
-	 * we are dividing 1163100, should be fine with integer precision
-	 */
-	return (int) (STROKE_TIME_CONSTANT * (1 - ASPIRE_MAGIC_DUTY_CYCLE)) / rpm;
-}
+//static int getWaveLengthByRpm2(int rpm) {
+//	/**
+//	 * we are dividing 1163100, should be fine with integer precision
+//	 */
+//	return (int) (STROKE_TIME_CONSTANT * (1 - ASPIRE_MAGIC_DUTY_CYCLE)) / rpm;
+//}
 
 static int getShortWaveLength() {
 	return getShortWaveLengthByRpm(getCurrentRpm());
@@ -117,20 +119,20 @@ static void onCrankingShaftSignal(int ckpSignalType) {
 	/**
 	 * while cranking, ignition wave is same as the *MAGIC* wave
 	 * our implementation sets the wave width based on current RPM value
-	 *
 	 */
 	int duration = getShortWaveLength();
 	scheduleSparkOut(0, duration);
 
 	int crankingFuel;
-	const int customCrankingFuel = getCrankingInjectionPeriod();
-	if (customCrankingFuel != 0) {
-		crankingFuel = customCrankingFuel * TICKS_IN_MS / 10;
+	const int fuelOverride = getCrankingInjectionPeriod();
+	if (fuelOverride != 0) {
+		crankingFuel = fuelOverride * TICKS_IN_MS / 10;
 	} else {
-		crankingFuel = getStartingFuel(getCoolantTemperature()) * TICKS_IN_MS;
+		crankingFuel = getStartingFuel(getCoolantTemperatureF()) * TICKS_IN_MS;
 	}
 	scheduleSimpleMsg(&log, "crankingFuel", crankingFuel);
 
+	// while cranking we inject into all cylinders at the same time
 	for (int id = 1; id <= NUMBER_OF_CYLINDERS; id++)
 		scheduleFuelInjection(TICKS_IN_MS, crankingFuel, id);
 }
@@ -175,6 +177,10 @@ static void scheduleSpark(int rpm, int ckpSignalType) {
 static int problemReported;
 
 static myfloat prevM;
+
+void fuelMapDebug(char *msg, float value) {
+	scheduleSimpleMsg(&log, msg, 100 * value);
+}
 
 static void scheduleFuel(int rpm, CkpEvents ckpSignalType) {
 	if (currentCylinderIndex >= NUMBER_OF_CYLINDERS) {
@@ -369,7 +375,7 @@ static void setFuelMult(int value) {
 	fuelMult = value / 100.0;
 }
 
-void initMainLoop() {
+void initMainEventListener() {
 	initLogging(&log, "main event handler", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 	printSimpleMsg(&log, "initMainLoop: ", chTimeNow());
 

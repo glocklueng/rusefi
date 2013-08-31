@@ -5,6 +5,11 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
+/**
+ * @file    pin_repository.h
+ * @brief   I/O pin registry header
+ */
+
 #ifndef PIN_REPOSITORY_H_
 #define PIN_REPOSITORY_H_
 

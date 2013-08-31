@@ -3,6 +3,11 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
+/**
+ * @file    rfiutil.h
+ * @brief   Number to string conversion header
+ */
+
 #ifndef RFIUTIL_H_
 #define RFIUTIL_H_
 

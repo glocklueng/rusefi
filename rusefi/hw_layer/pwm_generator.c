@@ -5,7 +5,7 @@
 
 /**
  * @file    pwm_generator.c
- * @brief   PWM generator code.
+ * @brief   software PWM generator
  *
  * Software PWM implementation. Considering how low all frequencies are, we can totally afford a couple of float multiplications.
  * By generating PWM programmatically we are saving the timers for better purposes. This implementation also supports generating
@@ -17,7 +17,7 @@
 #include "pin_repository.h"
 #include "wave_math.h"
 
-static msg_t deThread(PwmWave *state) {
+static msg_t deThread(PwmConfig *state) {
 	chRegSetThreadName("Wave");
 
 //	setPadValue(state, state->idleState); todo: currently pin is always zero at first iteration.
@@ -72,7 +72,7 @@ static msg_t deThread(PwmWave *state) {
  * Incoming parameters are potentially just values on current stack, so we have to copy
  * into our own permanent storage, right?
  */
-void copyPwmParameters(PwmWave *state, int phaseCount, myfloat *switchTimes,
+void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes,
 		int waveCount, int **pinStates) {
 	for (int phaseIndex = 0; phaseIndex < phaseCount; phaseIndex++) {
 		state->switchTimes[phaseIndex] = switchTimes[phaseIndex];
@@ -85,7 +85,7 @@ void copyPwmParameters(PwmWave *state, int phaseCount, myfloat *switchTimes,
 	}
 }
 
-void wePlainInit(char *msg, PwmWave *state, GPIO_TypeDef * port, int pin,
+void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
 		int idleState, myfloat dutyCycle) {
 	myfloat switchTimes[] = { dutyCycle, 1 };
 	int pinStates0[] = { 0, 1 };
@@ -97,7 +97,7 @@ void wePlainInit(char *msg, PwmWave *state, GPIO_TypeDef * port, int pin,
 	weComplexInit(msg, state, idleState, 2, switchTimes, 1, pinStates);
 }
 
-void weComplexInit(char *msg, PwmWave *state,
+void weComplexInit(char *msg, PwmConfig *state,
 		int idleState, int phaseCount, myfloat *switchTimes, int waveCount, int **pinStates) {
 	chDbgCheck(phaseCount > 1, "count is too small");
 	chDbgCheck(phaseCount <= PWM_PHASE_MAX_COUNT, "count is too large");
