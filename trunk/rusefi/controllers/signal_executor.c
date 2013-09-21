@@ -80,7 +80,7 @@ static void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 	/**
 	 * this timer implements the delay before the signal output
 	 */
-	chVTSetI(&signal->signalTimer, delay, &signalOutputCallbackI, signal);
+	chVTSetI(&signal->signalTimer, delay, (vtfunc_t)&signalOutputCallbackI, (void *)signal);
 	chSysUnlockFromIsr()
 	;
 
@@ -181,7 +181,7 @@ static void initOutputSignal(char *name, OutputSignal *signal, int led, int xor)
 	setOutputPinValue(led, xor); // initial state
 	chSemInit(&signal->signalSemaphore, 1);
 
-	chThdCreateStatic(signal->soThreadStack, sizeof(signal->soThreadStack), NORMALPRIO, soThread, signal);
+	chThdCreateStatic(signal->soThreadStack, sizeof(signal->soThreadStack), NORMALPRIO, (tfunc_t)soThread, signal);
 	signal->initialized = TRUE;
 }
 

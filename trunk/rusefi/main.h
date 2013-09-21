@@ -29,7 +29,6 @@
 #define SECOND_AS_TICKS (1000 * TICKS_IN_MS)
 
 #define GetCurrentTime() chTimeNow()
-#define GetSysclockCounter() chTimeNow()
 #define GetCurrentSec() (chTimeNow() / CH_FREQUENCY)
 
 #define CHIBIOS TRUE

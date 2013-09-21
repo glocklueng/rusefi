@@ -20,7 +20,7 @@
 #include "engine_emulator.h"
 #endif
 #include "rficonsole_logic.h"
-#include "datalogging.h"
+#include "tunerstudio.h"
 
 int main(void) {
 	/*
@@ -51,6 +51,9 @@ int main(void) {
 	print("Running main loop\r\n");
 	while (TRUE) {
 		printState();
+#if EFI_TUNER_STUDIO
+		updateTunerStudioState();
+#endif
 		chThdSleepMilliseconds(5);
 	}
 	return 0;

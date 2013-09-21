@@ -11,7 +11,6 @@
 #include "main.h"
 
 #define _5_VOLTS 5.0
-#define THERMISTOR_BIAS_RESISTOR 2700
 #define KELV 273.15
 
 /**
@@ -23,16 +22,16 @@ myfloat getTempK(myfloat resistance);
 /**
  * converts Kelvin temperature into Celcius temperature
  */
-myfloat tempKtoC(myfloat tempK);
-myfloat tempCtoK(myfloat tempC);
+myfloat convertKelvinToC(myfloat tempK);
+myfloat tempCtoKelvin(myfloat tempC);
 
 myfloat tempCtoF(myfloat tempC);
 myfloat tempFtoC(myfloat tempF);
 
 myfloat tempKtoF(myfloat tempK);
 int getTpsValue(myfloat volts);
-myfloat getKelvinTemperature(int adcValue);
-myfloat getFahrenheitTemperature(int adcValue);
+myfloat getKelvinTemperature(int adcValue, float hiR);
+myfloat getTemperatureC(int adcValue, float hiR);
 myfloat getResistance(myfloat tempK);
 
 

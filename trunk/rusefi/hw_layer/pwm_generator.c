@@ -52,8 +52,7 @@ static msg_t deThread(PwmConfig *state) {
 		myfloat period = state->period;
 
 		for (int phaseIndex = 0; phaseIndex < state->phaseCount; phaseIndex++) {
-			systime_t timeToSwitch = (systime_t) ((iteration
-					+ state->switchTimes[phaseIndex]) * period);
+			systime_t timeToSwitch = (systime_t) ((iteration + state->switchTimes[phaseIndex]) * period);
 			chThdSleepUntil(start + timeToSwitch);
 
 			for (int waveIndex = 0; waveIndex < state->waveCount; waveIndex++) {
@@ -72,12 +71,11 @@ static msg_t deThread(PwmConfig *state) {
  * Incoming parameters are potentially just values on current stack, so we have to copy
  * into our own permanent storage, right?
  */
-void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes,
-		int waveCount, int **pinStates) {
+void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes, int waveCount, int **pinStates) {
 	for (int phaseIndex = 0; phaseIndex < phaseCount; phaseIndex++) {
 		state->switchTimes[phaseIndex] = switchTimes[phaseIndex];
 
-		for(int waveIndex = 0;waveIndex < waveCount; waveIndex ++) {
+		for (int waveIndex = 0; waveIndex < waveCount; waveIndex++) {
 //			print("output switch time index (%d/%d) at %f to %d\r\n", phaseIndex,waveIndex,
 //					switchTimes[phaseIndex], pinStates[waveIndex][phaseIndex]);
 			state->waves[waveIndex].pinStates[phaseIndex] = pinStates[waveIndex][phaseIndex];
@@ -85,20 +83,19 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes,
 	}
 }
 
-void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
-		int idleState, myfloat dutyCycle) {
+void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, int idleState, myfloat dutyCycle) {
 	myfloat switchTimes[] = { dutyCycle, 1 };
 	int pinStates0[] = { 0, 1 };
 
-	int *pinStates[1] = {pinStates0};
+	int *pinStates[1] = { pinStates0 };
 
 	initOutputPin(msg, &state->waves[0].outputPin, port, pin);
 
 	weComplexInit(msg, state, idleState, 2, switchTimes, 1, pinStates);
 }
 
-void weComplexInit(char *msg, PwmConfig *state,
-		int idleState, int phaseCount, myfloat *switchTimes, int waveCount, int **pinStates) {
+void weComplexInit(char *msg, PwmConfig *state, int idleState, int phaseCount, myfloat *switchTimes, int waveCount,
+		int **pinStates) {
 	chDbgCheck(phaseCount > 1, "count is too small");
 	chDbgCheck(phaseCount <= PWM_PHASE_MAX_COUNT, "count is too large");
 	chDbgCheck(switchTimes[phaseCount - 1] == 1, "last end has to be 1");
@@ -114,7 +111,6 @@ void weComplexInit(char *msg, PwmConfig *state,
 	state->name = msg;
 	state->idleState = idleState;
 	state->phaseCount = phaseCount;
-	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack),
-	NORMALPRIO, deThread, state);
+	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack), NORMALPRIO, (tfunc_t) deThread, state);
 }
 

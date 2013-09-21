@@ -17,6 +17,7 @@
 #include "main_loop.h"
 #include "map_multiplier_thread.h"
 #include "output_pins.h"
+#include "tunerstudio.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -24,7 +25,7 @@ static VirtualTimer everyMsTimer;
 
 int isCranking() {
 	int rpm = getCurrentRpm();
-	return rpm > 0 && rpm < 400;
+	return rpm > 0 && rpm < ENGINE_CRANKING_RPM;
 }
 
 int systicks2ms(int systicks) {
@@ -63,6 +64,11 @@ void initEngineContoller() {
 	 * other listeners can access current RPM value
 	 */
 	initTachometer();
+
+
+#if EFI_TUNER_STUDIO
+	startTunerStudioConnectivity();
+#endif
 
 	initMapAdjusterThread();
 	initPeriodicEvents();

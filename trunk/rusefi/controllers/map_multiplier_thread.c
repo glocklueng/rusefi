@@ -74,5 +74,5 @@ void initMapAdjusterThread(void) {
 
 	initMapAdjuster();
 
-	chThdCreateStatic(maThreadStack, sizeof(maThreadStack), NORMALPRIO, maThread, NULL);
+	chThdCreateStatic(maThreadStack, sizeof(maThreadStack), NORMALPRIO, (tfunc_t)maThread, NULL);
 }

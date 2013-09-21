@@ -73,11 +73,11 @@ myfloat convertResistanceToKelvinTemperature(myfloat resistance) {
 //	return exp(pow(x - y, 1.0 / 3) - pow(x + y, 1.0 / 3));
 //}
 
-myfloat tempKtoC(myfloat tempK) {
+myfloat convertKelvinToC(myfloat tempK) {
 	return tempK - KELV;
 }
 
-myfloat tempCtoK(myfloat tempC) {
+myfloat tempCtoKelvin(myfloat tempC) {
 	return tempC + KELV;
 }
 
@@ -90,32 +90,20 @@ myfloat tempFtoC(myfloat tempF) {
 }
 
 myfloat convertKelvinToFahrenheit(myfloat tempK) {
-	myfloat tempC = tempKtoC(tempK);
+	myfloat tempC = convertKelvinToC(tempK);
 	return tempCtoF(tempC);
 }
 
-myfloat getKelvinTemperature(int adcValue) {
+myfloat getKelvinTemperature(int adcValue, float hiR) {
 	myfloat voltage = adcToVolts(adcValue);
-	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS, THERMISTOR_BIAS_RESISTOR);
+	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS, hiR);
 	myfloat kelvinTemperature = convertResistanceToKelvinTemperature(resistance);
 	return kelvinTemperature;
 }
 
-myfloat getFahrenheitTemperature(int adcValue) {
-	myfloat kelvinTemperature = getKelvinTemperature(adcValue);
-	return convertKelvinToFahrenheit(kelvinTemperature);
-}
-
-#define TPS_IDLE 0.60
-#define TPS_WOT 4.23
-
-// not a thermistor, but I am too lazy to create a new file
-int getTpsValue(myfloat volts) {
-	if (volts <= TPS_IDLE)
-		return 0;
-	if (volts >= TPS_WOT)
-		return 100;
-	return (int) (100 * (volts - TPS_IDLE) / (TPS_WOT - TPS_IDLE));
+myfloat getTemperatureC(int adcValue, float hiR) {
+	myfloat kelvinTemperature = getKelvinTemperature(adcValue, hiR);
+	return convertKelvinToC(kelvinTemperature);
 }
 
 #endif /* THERMISTORS_C_ */

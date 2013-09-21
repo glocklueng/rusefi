@@ -40,11 +40,11 @@ void fatal3(char *msg, char *file, int line) {
 #endif
 }
 
-static void myfatal() {
+static void myfatal(void) {
 	chDbgCheck(0, "my fatal");
 }
 
-static void sayOsHello() {
+static void sayOsHello(void) {
 	print("*** rusEFI (c) Andrey Belomutskiy, 2012-2013. All rights reserved.\r\n");
 	print("*** Chibios Kernel:       %s\r\n", CH_KERNEL_VERSION);
 	print("*** Compiled:     ");
@@ -54,6 +54,8 @@ static void sayOsHello() {
 	printSimpleMsg(&log, "CH_FREQUENCY=", CH_FREQUENCY);
 	printSimpleMsg(&log, "SERIAL_SPEED=", SERIAL_SPEED);
 	printSimpleMsg(&log, "STM32_ADCCLK=", STM32_ADCCLK);
+	printSimpleMsg(&log, "STM32_TIMCLK1=", STM32_TIMCLK1);
+	printSimpleMsg(&log, "STM32_TIMCLK2=", STM32_TIMCLK2);
 
 	printSimpleMsg(&log, "CH_DBG_ENABLE_ASSERTS=", CH_DBG_ENABLE_ASSERTS);
 	printSimpleMsg(&log, "CH_DBG_ENABLED=", CH_DBG_ENABLED);
@@ -71,7 +73,7 @@ static void sayOsHello() {
 /**
  * This methods prints all threads and their total times
  */
-static void cmd_threads() {
+static void cmd_threads(void) {
 	static const char *states[] = { THD_STATE_NAMES };
 	Thread *tp;
 

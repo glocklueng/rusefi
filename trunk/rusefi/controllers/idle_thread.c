@@ -25,7 +25,7 @@
 
 static WORKING_AREA(ivThreadStack, 512);
 
-static int isIdleActive = TRUE;
+static int isIdleActive = RFI_IDLE_CONTROL;
 //static int isIdleActive = FALSE;
 
 /**
@@ -103,7 +103,7 @@ void startIdleThread() {
 
 	addConsoleAction1("target", &setTargetIdle);
 
-	chThdCreateStatic(ivThreadStack, sizeof(ivThreadStack), NORMALPRIO, ivThread, NULL);
+	chThdCreateStatic(ivThreadStack, sizeof(ivThreadStack), NORMALPRIO, (tfunc_t)ivThread, NULL);
 
 	mySetPadMode("idle switch", IDLE_SWITCH_PORT, IDLE_SWITCH_PIN, PAL_MODE_INPUT);
 

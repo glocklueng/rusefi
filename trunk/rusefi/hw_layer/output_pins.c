@@ -58,7 +58,7 @@ void initOutputPins() {
 	ledRegister("injector3", INJECTOR_3_OUTPUT, INJECTOR_3_PORT, INJECTOR_3_PIN);
 	ledRegister("injector4", INJECTOR_4_OUTPUT, INJECTOR_4_PORT, INJECTOR_4_PIN);
 
-	/* digit 1 */
+	// digit 1
 /*
 	ledRegister(LED_HUGE_0, GPIOB, 2);
 	ledRegister(LED_HUGE_1, GPIOE, 7);
@@ -67,8 +67,8 @@ void initOutputPins() {
 	ledRegister(LED_HUGE_4, GPIOE, 10);
 	ledRegister(LED_HUGE_5, GPIOE, 11);
 	ledRegister(LED_HUGE_6, GPIOE, 12);
-	/* digit 2 */
-	/*
+
+	// digit 2
 	ledRegister(LED_HUGE_7, GPIOE, 13);
 	ledRegister(LED_HUGE_8, GPIOE, 14);
 	ledRegister(LED_HUGE_9, GPIOE, 15);
@@ -76,8 +76,8 @@ void initOutputPins() {
 	ledRegister(LED_HUGE_11, GPIOB, 11);
 	ledRegister(LED_HUGE_12, GPIOB, 12);
 	ledRegister(LED_HUGE_13, GPIOB, 13);
-	/* digit 3 */
-/*
+
+	// digit 3
 	ledRegister(LED_HUGE_14, GPIOE, 0);
 	ledRegister(LED_HUGE_15, GPIOE, 2);
 	ledRegister(LED_HUGE_16, GPIOE, 4);
@@ -88,5 +88,5 @@ void initOutputPins() {
 */
 
 	chThdCreateStatic(blinkingThreadStack, sizeof(blinkingThreadStack),
-			NORMALPRIO, blinkingThread_s, NULL );
+			NORMALPRIO, (tfunc_t)blinkingThread_s, NULL );
 }

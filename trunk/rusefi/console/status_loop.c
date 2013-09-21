@@ -35,6 +35,7 @@ volatile int needToReportStatus = FALSE;
 static int prevCkpEventCounter = -1;
 
 static Logging log;
+static Logging log2;
 static char LOGGING_BUFFER[500];
 #define FULL_LOGGING_KEY "fl"
 
@@ -52,6 +53,12 @@ static void printStatus() {
 	needToReportStatus = TRUE;
 }
 
+//float getTCharge1(myfloat tps) {
+//	myfloat cltK = tempCtoKelvin(getCoolantTemperature());
+//	myfloat iatK = tempCtoKelvin(getIntakeAirTemperature());
+//	return getTCharge(getCurrentRpm(), tps, cltK, iatK);
+//}
+
 static void printSensors() {
 	debugFloat(&log, "vref", getVRef(), 2);
 
@@ -59,19 +66,23 @@ static void printSensors() {
 	myfloat maf = getMaf();
 	debugFloat(&log, "maf", maf, 2);
 
+#if ENGINE_HAS_MAP_SENSOR
 	myfloat map = getMap();
 	logFloat(&log, LP_MAP, map);
+#endif
 
 	myfloat tps = getTPS();
 	logInt(&log, LP_THROTTLE, tps);
 
-	myfloat coolantTemp = getCoolantTemperatureF();
+#if ENGINE_HAS_COOLANT_SENSOR
+	myfloat coolantTemp = getCoolantTemperature();
 	logFloat(&log, LP_ECT, coolantTemp);
-	myfloat airTemp = getIntakeAirTemperatureF();
+#endif
+
+	myfloat airTemp = getIntakeAirTemperature();
 	logFloat(&log, LP_IAT, airTemp);
 
-	myfloat tcharge = getTCharge(getCurrentRpm(), tps, getCoolantTemperatureK(), getIntakeAirTemperatureK());
-	debugFloat(&log, "tch", tcharge, 2);
+//	debugFloat(&log, "tch", getTCharge1(tps), 2);
 }
 
 #if EFI_CUSTOM_PANIC_METHOD
@@ -136,9 +147,11 @@ void printState() {
 	if (MAF_MODE)
 		debugFloat(&log, "table_fuel", getFuel(rpm, getMaf()), 2);
 	else {
+#if ENGINE_HAS_MAP_SENSOR
 		myfloat map = getMap();
 		myfloat fuel = getDefaultFuel(rpm, map);
 		debugFloat(&log, "d_fuel", fuel, 2);
+#endif
 	}
 
 	debugFloat(&log, "af", getAfr(), 2);
@@ -152,14 +165,24 @@ void printState() {
 	printLine(&log);
 }
 
+/*
+ * command example:
+ * sfm 3500 400
+ * that would be 'show fuel for rpm 3500 maf 4.0'
+ */
+
+
 static void showFuelMap(int rpm, int maf100) {
 	myfloat maf = maf100 / 100.0;
 	myfloat value = getFuel(rpm, maf);
 	print("fuel map rpm=%d, maf=%d: %d\r\n", rpm, maf100, (int)(100 * value));
+
+	scheduleSimpleMsg(&log2, "fuel map value *100 = ", 100 * value);
 }
 
 void initStatusLoop() {
 	initLogging(&log, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+	initLogging(&log2, "main event handler", log2.DEFAULT_BUFFER, sizeof(log2.DEFAULT_BUFFER));
 
 	setFullLog(INITIAL_FULL_LOG);
 
