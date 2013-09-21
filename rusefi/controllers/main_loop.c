@@ -23,6 +23,9 @@
 #include "thermistors.h"
 #include "engine_math.h"
 #include "map_adjuster.h"
+#include "injector_central.h"
+
+#if EFI_ENGINE_FORD_ASPIRE
 
 #define RPM_HARD_LIMIT 8000
 static int isControlActive = TRUE;
@@ -32,8 +35,6 @@ static int isControlActive = TRUE;
  */
 static int FIRING_ORDER[NUMBER_OF_CYLINDERS] = { 1, 3, 4, 2 };
 
-static int isInjectorEnabled[NUMBER_OF_CYLINDERS];
-
 /**
  * this is not cylinder number - this is the index of a cylinder in the ignition sequence
  */
@@ -42,53 +43,6 @@ static int currentCylinderIndex;
 //static int shaftCounter = 0;
 static Logging log;
 static myfloat fuelMult = 1;
-
-myfloat getMaf() {
-	return getVoltage(ADC_LOGIC_MAF);
-}
-
-myfloat getAfr() {
-	myfloat volts = getVoltage(ADC_LOGIC_AFR);
-
-	return interpolate(0, 9, 5, 19, volts);
-}
-
-myfloat getVRef() {
-	return getAdcValue(ADC_CHANNEL_VREF);
-//	return getVoltage(ADC_CHANNEL_VREF);
-}
-
-myfloat getTPS(void) {
-	// blue, 1st board
-	/* PA7 - blue TP */
-	int tpsValue = getTpsValue(getVoltage(ADC_LOGIC_TPS));
-	return tpsValue;
-}
-
-myfloat getIntakeAirTemperatureF() {
-	return getFahrenheitTemperature(getAdcValue(ADC_LOGIC_AIR));
-}
-
-myfloat getCoolantTemperatureF() {
-	return getFahrenheitTemperature(getAdcValue(ADC_LOGIC_COOLANT));
-}
-
-myfloat getIntakeAirTemperatureK() {
-	return getKelvinTemperature(getAdcValue(ADC_LOGIC_AIR));
-}
-
-myfloat getCoolantTemperatureK() {
-	return getKelvinTemperature(getAdcValue(ADC_LOGIC_COOLANT));
-}
-
-myfloat getMap(void) {
-	int adc0 = getAdcValue(ADC_LOGIC_MAP);
-//	myfloat volts_0 = adcToVolts2(adc0);
-	//	debugInt("adc0", (int)(volts_0 * 100));
-	float volts = adcToVolts(adc0);
-
-	return getMAPValue(volts);
-}
 
 static int getShortWaveLengthByRpm(int rpm) {
 	/**
@@ -123,18 +77,13 @@ static void onCrankingShaftSignal(int ckpSignalType) {
 	int duration = getShortWaveLength();
 	scheduleSparkOut(0, duration);
 
-	int crankingFuel;
-	const int fuelOverride = getCrankingInjectionPeriod();
-	if (fuelOverride != 0) {
-		crankingFuel = fuelOverride * TICKS_IN_MS / 10;
-	} else {
-		crankingFuel = getStartingFuel(getCoolantTemperatureF()) * TICKS_IN_MS;
-	}
-	scheduleSimpleMsg(&log, "crankingFuel", crankingFuel);
+	int fuelTicks = getFuelMs() * TICKS_IN_MS;
+	if (isCranking())
+		scheduleSimpleMsg(&log, "crankingFuel", fuelTicks);
 
 	// while cranking we inject into all cylinders at the same time
 	for (int id = 1; id <= NUMBER_OF_CYLINDERS; id++)
-		scheduleFuelInjection(TICKS_IN_MS, crankingFuel, id);
+		scheduleFuelInjection(TICKS_IN_MS, fuelTicks, id);
 }
 
 static int convertAngleToSysticks(int rpm, int advance) {
@@ -176,12 +125,6 @@ static void scheduleSpark(int rpm, int ckpSignalType) {
 
 static int problemReported;
 
-static myfloat prevM;
-
-void fuelMapDebug(char *msg, float value) {
-	scheduleSimpleMsg(&log, msg, 100 * value);
-}
-
 static void scheduleFuel(int rpm, CkpEvents ckpSignalType) {
 	if (currentCylinderIndex >= NUMBER_OF_CYLINDERS) {
 		if (!problemReported) {
@@ -197,32 +140,20 @@ static void scheduleFuel(int rpm, CkpEvents ckpSignalType) {
 	 */
 	int cylinderId = FIRING_ORDER[currentCylinderIndex];
 
-	if (!isInjectorEnabled[cylinderId])
+	if (!isInjectorEnabled(cylinderId))
 		return;
 
 //	scheduleSimpleMsg(&log, "will squirt index ", currentCylinderIndex);
 //	scheduleSimpleMsg(&log, "will squirt id ", cylinderId);
 
-	myfloat maf = getMaf();
 
-	myfloat m = 1;//getMultiplier(rpm, maf);
-	if (m != prevM)
-		scheduleSimpleMsg(&log, "mult=", 100 * m);
-	prevM = m;
-
-	myfloat fuel;
-	if (MAF_MODE)
-		fuel = getFuel(rpm, maf);
-	else
-		fuel = getDefaultFuel(rpm, getMap());
-
-	const int injectionPeriod = fuel * TICKS_IN_MS * m;
+	float fuelMs = getFuelMs();
+	const int injectionPeriod = fuelMs * TICKS_IN_MS;
 
 	if (injectionPeriod < 0) {
 		// todo: that's a bug! fix it
 		scheduleSimpleMsg(&log, "negative p ", injectionPeriod);
-		scheduleSimpleMsg(&log, "negative f ", 100 * fuel);
-		scheduleSimpleMsg(&log, "negative m ", 100 * m);
+		scheduleSimpleMsg(&log, "negative f ", 100 * fuelMs);
 		return;
 	}
 
@@ -348,26 +279,6 @@ static void onShaftSignal(int ckpSignalType) {
 	}
 }
 
-static void printStatus() {
-	for (int id = 0; id < NUMBER_OF_CYLINDERS; id++) {
-		resetLogging(&log);
-
-		append(&log, "injector");
-		appendInt(&log, id);
-		append(&log, DELIMETER);
-		appendInt(&log, isInjectorEnabled[id]);
-		append(&log, DELIMETER);
-		scheduleLogging(&log);
-	}
-}
-
-static void setInjectorEnabled(int id, int value) {
-	chDbgCheck(id >=0 && id < NUMBER_OF_CYLINDERS, "injector id");
-	isInjectorEnabled[id] = value;
-	printStatus();
-
-}
-
 static void setFuelMult(int value) {
 	if (value < 10 || value > 200)
 		return;
@@ -383,12 +294,11 @@ void initMainEventListener() {
 		printSimpleMsg(&log, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! control disabled",
 				0);
 
-	for (int i = 0; i < NUMBER_OF_CYLINDERS; i++)
-		isInjectorEnabled[i] = true;
-	printStatus();
-	addConsoleAction2I("injector", setInjectorEnabled);
+	initInjectorCentral();
+
 	addConsoleAction1("fm", setFuelMult);
 
 	registerCkpListener(&onShaftSignal, "main loop");
 }
 
+#endif

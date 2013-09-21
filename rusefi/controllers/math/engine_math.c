@@ -6,11 +6,12 @@
  */
 
 #include "engine_math.h"
+#include "stdio.h"
 
 #define INTERPOLATION_A(x1, y1, x2, y2) ((y1 - y2) / (x1 - x2))
 
 /**
- * linear interpolation
+ * @brief linear interpolation
  */
 
 float interpolate(float x1, float y1, float x2, float y2, float x) {
@@ -20,7 +21,10 @@ float interpolate(float x1, float y1, float x2, float y2, float x) {
 	float a = INTERPOLATION_A(x1, y1, x2, y2);
 	float b = y1 - a * x1;
 	float result = a * x + b;
-//	printf("a=%f b=%f x=%f result=%f\r\n", a, b, x, result);
+#if	DEBUG_FUEL
+	printf("x1=%f y1=%f x2=%f y2=%f\r\n", x1, y1, x2, y2);
+	printf("a=%f b=%f result=%f\r\n", a, b, result);
+#endif
 	return result;
 }
 
@@ -31,7 +35,7 @@ float interpolate(float x1, float y1, float x2, float y2, float x) {
 /**
  * returns kPa value
  */
-float getMAPValue(float volts) {
+float getMAPValueHonda_Denso183(float volts) {
 	return Honda_Denso183_Range / 5 * volts + Honda_Denso183_Min;
 }
 
@@ -74,17 +78,15 @@ float getTCharge(int rpm, int tps, float coolantTemp, float airTemp) {
 }
 
 /**
- * return the index of sorted array such that array[i] is
- * greater that value
- *
- * return index of last array element (size - 1) is value is
- * higher than last value
+ * return the highest index within sorted array such that array[i] is
+ * smaller that value
  */
 int findIndex(float array[], int size, float value) {
 
+	// todo: MAYBE implement binary search? just maybe (because does not matter much for small arrays)
 	for (int i = 0; i < size; i++) {
-		if (value <= array[i])
-			return i;
+		if (array[i] >= value)
+			return i - 1;
 	}
 	return size - 1;
 }
@@ -93,9 +95,9 @@ int findIndex(float array[], int size, float value) {
 #define MIN_STARTING_FUEL 8
 
 float getStartingFuel(int coolantTemperature) {
-	if (coolantTemperature < 60)
+	if (coolantTemperature < 15)
 		return MAX_STARTING_FUEL;
-	if (coolantTemperature > 150)
+	if (coolantTemperature > 65)
 		return MIN_STARTING_FUEL;
-	return interpolate(60, MAX_STARTING_FUEL, 150, MIN_STARTING_FUEL, coolantTemperature);
+	return interpolate(15, MAX_STARTING_FUEL, 65, MIN_STARTING_FUEL, coolantTemperature);
 }

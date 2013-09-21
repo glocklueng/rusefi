@@ -3,6 +3,8 @@
 # NOTE: Can be overridden externally.
 #
 
+CHIBIOS = ../../ChibiOS_2.6.1
+
 # Compiler options here.
 ifeq ($(USE_OPT),)
   USE_OPT = -O2 -ggdb -fomit-frame-pointer -falign-functions=16 -std=gnu99 -Werror-implicit-function-declaration
@@ -63,10 +65,9 @@ endif
 #
 
 # Define project name here
-PROJECT = ch
+PROJECT = chi_dist
 
 # Imported source files and paths
-CHIBIOS = ../../ChibiOS_2.6.0
 include $(CHIBIOS)/boards/ST_STM32F4_DISCOVERY/board.mk
 include $(CHIBIOS)/os/hal/platforms/STM32F4xx/platform.mk
 include $(CHIBIOS)/os/hal/hal.mk
@@ -74,9 +75,11 @@ include $(CHIBIOS)/os/ports/GCC/ARMCMx/STM32F4xx/port.mk
 include $(CHIBIOS)/os/kernel/kernel.mk
 include util/util.mk
 include console_util/console_util.mk
+include config/engines/engines.mk
 include console/console.mk
 include hw_layer/hw_layer.mk
 include controllers/controllers.mk
+include controllers/algo/algo.mk
 include controllers/math/math.mk
 
 # Define linker script file here
@@ -88,11 +91,13 @@ LDSCRIPT= $(PORTLD)/STM32F407xG.ld
 CSRC = $(PORTSRC) \
        $(KERNSRC) \
        $(UTILSRC) \
+       $(ENGINES_SRC) \
        $(CONSOLESRC) \
        $(CONSOLEUTILSRC) \
        $(HALSRC) \
 	$(HW_LAYERESRC) \
 	$(CONTROLLERSSRC) \
+	$(CONTROLLERS_ALGO_SRC) \
 	$(CONTROLLERS_MATH_SRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
@@ -128,13 +133,15 @@ ASMSRC = $(PORTASM)
 INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) \
 	config/system \
+	config/engines \
 	config \
 	util \
 	console_util \
 	console \
 	hw_layer \
-	controllers/math \
 	controllers \
+	controllers/algo \
+	controllers/math \
          $(CHIBIOS)/os/various
 
 #

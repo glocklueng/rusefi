@@ -34,20 +34,26 @@ static WaveReaderHw * findWaveReaderHw(ICUDriver *driver) {
 }
 
 static void icuWidthCallback(ICUDriver *driver) {
+	/*
+	 * see comment in icuPeriordCallBack
 	int rowWidth = icuGetWidth(driver);
-
+	*/
 	WaveReaderHw * hw = findWaveReaderHw(driver);
-	invokeArgCallbacks(&hw->widthListeners, rowWidth);
+	invokeJustArgCallbacks(&hw->widthListeners);
 }
 
 static void icuPeriordCallBack(ICUDriver *driver) {
-	int period = icuGetPeriod(driver);
+/*
+ * 	we do not use timer period at all - we just need the event. For all time characteristics,
+ * 	we use system time
+ * 	int period = icuGetPeriod(driver);
+ */
 
 	WaveReaderHw * hw = findWaveReaderHw(driver);
-	invokeArgCallbacks(&hw->periodListeners, period);
+	invokeJustArgCallbacks(&hw->periodListeners);
 }
 
-static int getAlt(ICUDriver *driver) {
+static int getAlternateFunctions(ICUDriver *driver) {
 #if STM32_ICU_USE_TIM1
 	if (driver == &ICUD1)
 		return GPIO_AF_TIM1;
@@ -77,7 +83,7 @@ void initWaveAnalyzerDriver(WaveReaderHw *hw, ICUDriver *driver,
 	hw->driver = driver;
 	hw->port = port;
 	hw->pin = pin;
-	mySetPadMode("wave input", port, pin, PAL_MODE_ALTERNATE(getAlt(driver)));
+	mySetPadMode("wave input", port, pin, PAL_MODE_ALTERNATE(getAlternateFunctions(driver)));
 
 //	hw->widthListeners.currentListenersCount = 0;
 

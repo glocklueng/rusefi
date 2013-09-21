@@ -21,9 +21,17 @@ void invokeCallbacks(IntListenerArray *array, int value) {
 		(array->callbacks[i])(value);
 }
 
-void invokeArgCallbacks(IntListenerArray *array, int value) {
+void invokeJustArgCallbacks(IntListenerArray *array) {
 	for (int i = 0; i < array->currentListenersCount; i++) {
-		ArgIntListener listener = array->callbacks[i];
+		ArgListener listener = (ArgListener)array->callbacks[i];
+		void *arg = array->args[i];
+		(listener)(arg);
+	}
+}
+
+void invokeArgIntCallbacks(IntListenerArray *array, int value) {
+	for (int i = 0; i < array->currentListenersCount; i++) {
+		ArgIntListener listener = (ArgIntListener)array->callbacks[i];
 		void *arg = array->args[i];
 		(listener)(arg, value);
 	}
@@ -32,8 +40,8 @@ void invokeArgCallbacks(IntListenerArray *array, int value) {
 
 void invokeCallbacks2I(IntListenerArray *array, int value, int value2) {
 	for (int i = 0; i < array->currentListenersCount; i++) {
-		void (*callback2I)(int, int) = array->callbacks[i];
-		(callback2I)(value, value2);
+		IntIntListener listener = (IntIntListener)array->callbacks[i];
+		(listener)(value, value2);
 	}
 }
 

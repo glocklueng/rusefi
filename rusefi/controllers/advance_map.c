@@ -7,6 +7,8 @@
 
 #include "advance_map.h"
 #include "engine_math.h"
+// that's for 'max' function
+#include "idle_controller.h"
 
 
 #define AD_RPM_COUNT 23
@@ -43,7 +45,9 @@ static float ad_table[23][35] = {
 
 float getAdvance(int rpm, float maf) {
 	int rpm_index = findIndex(ad_rpm_table, AD_RPM_COUNT, rpm);
+	rpm_index = max(rpm_index, 0);
 	int maf_index = findIndex(ad_maf_table, AD_MAF_COUNT, maf);
+	maf_index = max(maf_index, 0);
 
 	return ad_table[rpm_index][maf_index];
 }

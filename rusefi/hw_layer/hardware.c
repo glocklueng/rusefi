@@ -19,6 +19,8 @@
 #include "crank_input.h"
 #include "mcp3208.h"
 
+#include "flash_main.h"
+
 
 McpAdcState adcState;
 
@@ -29,6 +31,11 @@ void initHardware() {
 
 	initPinRepository();
 
+	/**
+	 * this call reads configuration from flash memeory
+	 */
+	initFlash();
+
 	initOutputPins();
 	initAdcInputs();
 
@@ -36,6 +43,7 @@ void initHardware() {
 	requestAdcValue(&adcState, 0);
 
 	initInputCapture();
+
 //	initFixedLeds();
 
 	//	initBooleanInputs();

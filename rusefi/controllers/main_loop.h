@@ -11,7 +11,9 @@
 #ifndef MAIN_LOOP_H_
 #define MAIN_LOOP_H_
 
-#define MAF_MODE 1
+#include "global.h"
+
+
 
 #define ASPIRE_MAGIC_DUTY_CYCLE 0.3877
 #define CYLINDERS	4
@@ -24,21 +26,11 @@
  * One stroke is 90 degrees = so, we divide revolution constant by four
  */
 
-#define STROKE_TIME_CONSTANT (1000 * 60 * 2 / 4 * TICKS_IN_MS)
+#define STROKE_TIME_CONSTANT (1000 * 60 * RPM_MULT * TICKS_IN_MS)
 
 void initMainEventListener(void);
 void onEveryMillisecondTimerSignal(void);
 
-myfloat getMaf(void);
-myfloat getAfr(void);
 myfloat getVRef(void);
-myfloat getTPS(void);
-myfloat getMap(void);
-
-myfloat getCoolantTemperatureF(void);
-myfloat getIntakeAirTemperatureF(void);
-
-myfloat getCoolantTemperatureK(void);
-myfloat getIntakeAirTemperatureK(void);
 
 #endif /* MAIN_LOOP_H_ */

@@ -107,7 +107,7 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 
 extern cnt_t dbg_isr_cnt;
 
-void lockOutputBuffer() {
+void lockOutputBuffer(void) {
 	if (dbg_isr_cnt > 0) {
 		chSysLockFromIsr()
 		;
@@ -117,7 +117,7 @@ void lockOutputBuffer() {
 	}
 }
 
-void unlockOutputBuffer() {
+void unlockOutputBuffer(void) {
 	if (dbg_isr_cnt > 0) {
 		chSysUnlockFromIsr();
 	} else {

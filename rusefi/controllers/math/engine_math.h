@@ -10,7 +10,7 @@
 
 float interpolate(float x1, float y1, float x2, float y2, float x);
 
-float getMAPValue(float volts);
+float getMAPValueHonda_Denso183(float volts);
 
 float getDefaultVE(int rpm);
 
