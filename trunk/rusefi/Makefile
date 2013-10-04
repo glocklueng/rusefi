@@ -3,7 +3,7 @@
 # NOTE: Can be overridden externally.
 #
 
-CHIBIOS = ../../ChibiOS_2.6.1
+CHIBIOS = chibios
 
 # Compiler options here.
 ifeq ($(USE_OPT),)
@@ -83,7 +83,7 @@ include controllers/algo/algo.mk
 include controllers/math/math.mk
 
 # Define linker script file here
-LDSCRIPT= $(PORTLD)/STM32F407xG.ld
+LDSCRIPT= config/system/STM32F407xG.ld
 #LDSCRIPT= $(PORTLD)/STM32F407xG_CCM.ld
 
 # C sources that can be compiled in ARM or THUMB mode depending on the global
