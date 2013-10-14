@@ -22,7 +22,6 @@
 #ifndef _USBCFG_H_
 #define _USBCFG_H_
 
-void usb_serial_start(void);
 
 #endif  /* _USBCFG_H_ */
 
