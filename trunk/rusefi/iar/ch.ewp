@@ -2007,6 +2007,12 @@
     <file>
       <name>$PROJ_DIR$\..\console\usbcfg.h</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\console\usbconsole.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\console\usbconsole.h</name>
+    </file>
   </group>
   <group>
     <name>console_util</name>
