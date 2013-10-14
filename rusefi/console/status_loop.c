@@ -21,6 +21,7 @@
 #include "crank_input.h"
 #include "rficonsole_logic.h"
 #include "advance_map.h"
+#include "print.h"
 
 #include "fuel_map.h"
 #include "main_loop.h"
@@ -110,6 +111,8 @@ static void checkIfShouldHalt() {
 static int timeOfPreviousReport = -1;
 
 void printState() {
+	if (!is_serial_ready())
+		return;
 	checkIfShouldHalt();
 	printPending();
 
@@ -138,7 +141,6 @@ void printState() {
 	debugInt(&log, "ckp_c", currentCkpEventCounter);
 
 	debugInt(&log, "rpm", rpm);
-
 
 	debugInt(&log, "idl", getIdleSwitch());
 
@@ -171,11 +173,10 @@ void printState() {
  * that would be 'show fuel for rpm 3500 maf 4.0'
  */
 
-
 static void showFuelMap(int rpm, int maf100) {
 	myfloat maf = maf100 / 100.0;
 	myfloat value = getFuel(rpm, maf);
-	print("fuel map rpm=%d, maf=%d: %d\r\n", rpm, maf100, (int)(100 * value));
+	print("fuel map rpm=%d, maf=%d: %d\r\n", rpm, maf100, (int) (100 * value));
 
 	scheduleSimpleMsg(&log2, "fuel map value *100 = ", 100 * value);
 }

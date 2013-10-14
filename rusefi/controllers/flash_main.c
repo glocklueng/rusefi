@@ -18,8 +18,11 @@
 
 static Logging log;
 
+#if defined __GNUC__
 static FlashState flashState __attribute__((section(".bss2")));
-//static FlashState fs_write;
+#else
+static FlashState flashState;
+#endif
 
 EngineConfiguration *engineConfiguration = &flashState.configuration;
 
@@ -30,7 +33,7 @@ EngineConfiguration *engineConfiguration = &flashState.configuration;
 void writeToFlash(void) {
 	flashState.version = FLASH_DATA_VERSION;
 	scheduleSimpleMsg(&log, "FLASH_DATA_VERSION=", flashState.version);
-	crc result = calc_crc(&flashState.configuration, sizeof(EngineConfiguration));
+	crc result = calc_crc((const crc*)&flashState.configuration, sizeof(EngineConfiguration));
 	flashState.value = result;
 	scheduleSimpleMsg(&log, "Reseting flash=", FLASH_USAGE);
 	flashErase(FLASH_ADDR, FLASH_USAGE);
@@ -43,7 +46,7 @@ static void printConfiguration() {
 	for (int i = 0; i < FUEL_RPM_COUNT; i++) {
 		print("line %d: ", i);
 		for (int j = 0; j < FUEL_RPM_COUNT; j++) {
-			print("%d ", engineConfiguration->fuelTable[i][j]);
+			print("%f ", engineConfiguration->fuelTable[i][j]);
 		}
 		print("\r\n");
 	}
@@ -60,7 +63,7 @@ static int isValid(FlashState *state) {
 		scheduleSimpleMsg(&log, "Not valid flash version: ", state->version);
 		return FALSE;
 	}
-	crc result = calc_crc(&state->configuration, sizeof(EngineConfiguration));
+	crc result = calc_crc((const crc*)&state->configuration, sizeof(EngineConfiguration));
 	if (result != state->value) {
 		scheduleSimpleMsg(&log, "CRC got: ", result);
 		scheduleSimpleMsg(&log, "CRC expected: ", state->value);
@@ -69,17 +72,20 @@ static int isValid(FlashState *state) {
 }
 
 extern float fuel_rpm_bins[];
+extern float fuel_maf_bins[];
+extern float fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT];
 
 static void setDefaultConfiguration() {
 	for (int i = 0; i < FUEL_MAF_COUNT; i++)
-		engineConfiguration->mapBins[i] = i;
+		engineConfiguration->fuelKeyBins[i] = fuel_maf_bins[i];
 	for (int i = 0; i < FUEL_RPM_COUNT; i++)
-		engineConfiguration->fuelRpmBins[i] = 5 * i;//fuel_rpm_bins[i];
+		engineConfiguration->fuelRpmBins[i] = fuel_rpm_bins[i];
 	for (int i = 0; i < FUEL_MAF_COUNT; i++) {
-		for (int j = 0; j < FUEL_RPM_COUNT; j++) {
-			engineConfiguration->fuelTable[i][j] = j;
+		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
+			engineConfiguration->fuelTable[i][r] = fuel_table[r][i];
 		}
 	}
+	syncTunerStudioCopy();
 }
 
 static void readFromFlash() {
@@ -102,6 +108,7 @@ void initFlash(void) {
 
 	addConsoleAction("readconfig", readFromFlash);
 	addConsoleAction("writeconfig", writeToFlash);
+	addConsoleAction("resetconfig", setDefaultConfiguration);
 
 	readFromFlash();
 }

@@ -19,30 +19,34 @@
 #define TS_SERIAL_TX_PIN 8
 #define TS_SERIAL_RX_PIN 9
 
-#define TS_FLOAT_MULT 100
-
 typedef struct {
-	char fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT];
-	char mapBins[FUEL_MAF_COUNT];
-	char fuelRpmBins[FUEL_RPM_COUNT];
+	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT];
+	float fuelKeyBins[FUEL_MAF_COUNT];
+	int fuelRpmBins[FUEL_RPM_COUNT];
 } EngineConfiguration;
 
 typedef struct {
 	int rpm; // as is
-	int coolant_temperature; // packed float
-	int intake_air_temperature; // packed float
-	int throttle_positon; // packed float
-	int mass_air_flow; // packed float
-	int air_fuel_ratio; // packed float
-	int fuel_load; // packed float
+	float coolant_temperature;
+	float intake_air_temperature;
+	float throttle_positon;
+	float mass_air_flow;
+	float air_fuel_ratio;
+	float fuel_load;
 } TunerStudioOutputChannels;
 
+#if defined __GNUC__
 typedef struct __attribute__((packed)) {
-	short int offset;
-	unsigned char value;
+#else
+typedef __packed struct {
+#endif
+
+short int offset;
+unsigned char value;
 } TunerStudioWriteRequest;
 
 void startTunerStudioConnectivity(void);
+void syncTunerStudioCopy(void);
 void updateTunerStudioState(void);
 
 #endif /* TUNERSTUDIO_H_ */

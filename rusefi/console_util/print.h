@@ -13,8 +13,9 @@
 #define PRINT_H_
 
 void print(const char *fmt, ...);
-void consolePutChar(int x);
 
-void consoleOututBuffer(char *buf, int size);
+void consolePutChar(int x);
+void consoleOutputBuffer(char *buf, int size);
+int is_serial_ready(void);
 
 #endif /* PRINT_H_ */

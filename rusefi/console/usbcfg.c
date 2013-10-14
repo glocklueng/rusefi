@@ -17,6 +17,10 @@
 #include "ch.h"
 #include "hal.h"
 
+#include "usbcfg.h"
+
+#include "features.h"
+
 /**
  * @file    usbcfg.c
  * @brief   Serial-over-USB code
@@ -275,6 +279,12 @@ USBD1_INTERRUPT_REQUEST_EP };
 
 /* Virtual serial port over USB.*/
 SerialUSBDriver SDU1;
+
+#ifdef EFI_SERIAL_OVER_USB
+int is_serial_ready(void) {
+	return SDU1.config->usbp->state == USB_ACTIVE;
+}
+#endif
 
 void usb_serial_start(void) {
 	/*

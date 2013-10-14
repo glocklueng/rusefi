@@ -17,7 +17,7 @@
 #include "hal.h"
 
 void initPinRepository(void);
-void printpin(char *msg, GPIO_TypeDef* port, int pin);
+void printpin(char *msg, ioportid_t port, int pin);
 void mySetPadMode(char *msg, ioportid_t port, ioportmask_t pin, iomode_t mode);
 char *portname(GPIO_TypeDef* GPIOx);
 

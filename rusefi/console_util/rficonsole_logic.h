@@ -39,13 +39,19 @@ void addDefaultConsoleActions(void);
 void print(const char *fmt, ...);
 int systicks2ms(int systicks);
 
+typedef void (*Void)();
+typedef void (*VoidInt)(int);
+typedef void (*VoidFloat)(float);
+typedef void (*VoidIntInt)(int, int);
+typedef void (*VoidCharPtr)(char *);
+
 void initConsoleLogic(void);
 void handleConsoleLine(char *line);
-void addConsoleAction(char *token, void (*callback)(void));
-void addConsoleAction1(char *token, void (*callback)(int));
-void addConsoleAction2I(char *token, void (*callback)(int, int));
-void addConsoleActionF(char *token, void (*callback)(float));
-void addConsoleActionS(char *token, void (*callback)(char*));
+void addConsoleAction(char *token, Void callback);
+void addConsoleAction1(char *token, VoidInt callback);
+void addConsoleAction2I(char *token, VoidIntInt callback);
+void addConsoleActionF(char *token, VoidFloat callback);
+void addConsoleActionS(char *token, VoidCharPtr callback);
 
 void fatal3(char *msg, char *file, int line);
 

@@ -23,7 +23,7 @@ typedef struct {
 } WaveReaderHw;
 
 void initWaveAnalyzerDriver(WaveReaderHw *hw, ICUDriver *driver,
-		ioportid_t *port, int pin);
+		ioportid_t port, int pin);
 void setWaveReaderMode(WaveReaderHw *hw, int mode);
 
 #endif /* WAVE_ANALYZER_HW_H_ */

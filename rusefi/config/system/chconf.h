@@ -529,8 +529,6 @@
 }
 #endif
 
-void print (const char *format, ...);
-
 /**
  * @brief   System halt hook.
  * @details This hook is invoked in case to a system halting error before

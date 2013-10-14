@@ -8,7 +8,6 @@
  * @brief   Buffered console output stream code
  */
 
-
 #include <string.h>
 #include "datalogging.h"
 #include "rficonsole_logic.h"
@@ -206,7 +205,9 @@ static void printWithLength(char *line) {
 	*p++ = '\r';
 	*p++ = '\n';
 
-	consoleOututBuffer(ioBuffer, p - ioBuffer);
+	if (!is_serial_ready())
+		return;
+	consoleOutputBuffer(ioBuffer, p - ioBuffer);
 }
 
 void printLine(Logging *logging) {
@@ -251,9 +252,6 @@ void scheduleIntValue(Logging *logging, char *msg, int value) {
 }
 
 static char pendingBuffer[OUTPUT_BUFFER];
-
-void lockOutputBuffer();
-void unlockOutputBuffer();
 
 static char fatalMessage[200];
 

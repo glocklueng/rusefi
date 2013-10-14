@@ -65,7 +65,7 @@ static msg_t sdThreadEntryPoint(void *arg) {
 	chRegSetThreadName("console thread");
 
 	while (TRUE) {
-		bool_t end = getConsoleLine(CONSOLE_CHANNEL, consoleInput,
+		bool_t end = getConsoleLine((BaseChannel *)CONSOLE_CHANNEL, consoleInput,
 				sizeof(consoleInput));
 		if (end)
 			break;
@@ -78,17 +78,16 @@ static msg_t sdThreadEntryPoint(void *arg) {
 static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS
 		| USART_CR2_LINEN, 0 };
 
+#ifndef EFI_SERIAL_OVER_USB
+int is_serial_ready(void) {
+	return TRUE;
+}
+#endif
+
 void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
-#ifdef USE_INTERNAL_USB
+#ifdef EFI_SERIAL_OVER_USB
 	usb_serial_start();
-
-	while (TRUE) {
-		if (SDU1.config->usbp->state == USB_ACTIVE) {
-			break;
-		}
-		chThdSleepMilliseconds(500);
-	}
 
 #else
 	/*
