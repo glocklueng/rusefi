@@ -63,12 +63,12 @@ static int getPortIndex(GPIO_TypeDef* port) {
 	fatal("portindex");
 }
 
-static void reportPins() {
+static void reportPins(void) {
 	pinRegistrationComplete = TRUE;
 	print("Total pins count: %d\r\n", totalPinsUsed);
 }
 
-void initPinRepository() {
+void initPinRepository(void) {
 	initLogging(&log, "pin repos", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 
 	for (int i = 0; i < PIN_REPO_SIZE; i++)

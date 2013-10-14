@@ -8,7 +8,7 @@
 #include "idle_controller.h"
 
 void idleDebug(char *msg, int value);
-int isCranking();
+int isCranking(void);
 
 static int lastGoodValue = DEFAULT_IDLE_DUTY;
 

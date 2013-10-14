@@ -39,7 +39,7 @@ void addDefaultConsoleActions(void);
 void print(const char *fmt, ...);
 int systicks2ms(int systicks);
 
-typedef void (*Void)();
+typedef void (*Void)(void);
 typedef void (*VoidInt)(int);
 typedef void (*VoidFloat)(float);
 typedef void (*VoidIntInt)(int, int);

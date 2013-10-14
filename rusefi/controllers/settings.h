@@ -8,11 +8,11 @@
 #ifndef INJECTOR_CONTROL_H_
 #define INJECTOR_CONTROL_H_
 
-void initSettings();
-void pokeControl();
-int getInjectionPeriod();
-int getCrankingInjectionPeriod();
-int getInjectionOffset();
-int getInjectionDivider();
+void initSettings(void);
+void pokeControl(void);
+int getInjectionPeriod(void);
+int getCrankingInjectionPeriod(void);
+int getInjectionOffset(void);
+int getInjectionDivider(void);
 
 #endif /* INJECTOR_CONTROL_H_ */

@@ -141,8 +141,7 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	hw_layer \
 	controllers \
 	controllers/algo \
-	controllers/math \
-         $(CHIBIOS)/os/various
+	controllers/math 
 
 #
 # Project, sources and paths
