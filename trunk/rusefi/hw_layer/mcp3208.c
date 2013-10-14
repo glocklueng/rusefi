@@ -47,7 +47,7 @@ void spiCallback(SPIDriver *spip) {
 		//fatal("ADC: first byte");
 	}
 
-	if ((state->rx_buff[1] & 0b11100000) != 0b11100000) {
+	if ((state->rx_buff[1] & 0xE0) != 0xE0) {
 		withError = 1;
 		//fatal("ADC: second byte");
 	}
@@ -77,7 +77,7 @@ static void createRequest(McpAdcState *state, int channel) {
 
 	state->requestedChannel = channel;
 
-	state->tx_buff[0] = 0b00000110 + (channel >> 2);
+	state->tx_buff[0] = 0x06 + (channel >> 2);
 	state->tx_buff[1] = (channel & 3) << 6;
 }
 

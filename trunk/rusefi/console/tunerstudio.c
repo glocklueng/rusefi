@@ -38,7 +38,11 @@ static int errorCounter = 0;
 static TunerStudioWriteRequest writeRequest;
 
 static TunerStudioOutputChannels tsOutputChannels;
+#if defined __GNUC__
+static EngineConfiguration tsContstants __attribute__((section(".bss2")));
+#else
 static EngineConfiguration tsContstants;
+#endif
 
 char *constantsAsPtr = (char *)&tsContstants;
 
@@ -67,7 +71,7 @@ static void handleHelloCommand(void) {
 static void handleOutputChannelsCommand(void) {
 //  this happends too often	to log it
 //	chprintf(CONSOLE_DEVICE, "got O (OutputChannels)\r\n");
-	chSequentialStreamWrite(TS_SERIAL_DEVICE, &tsOutputChannels, sizeof(tsOutputChannels));
+	chSequentialStreamWrite(TS_SERIAL_DEVICE, (const uint8_t *)&tsOutputChannels, sizeof(tsOutputChannels));
 }
 
 
@@ -83,7 +87,7 @@ static void handleWriteCommand(void) {
 	int size = sizeof(TunerStudioWriteRequest);
 	print("Reading %d\r\n", size);
 
-	int recieved = chSequentialStreamRead(TS_SERIAL_DEVICE, &writeRequest, size);
+	int recieved = chSequentialStreamRead(TS_SERIAL_DEVICE, (uint8_t *)&writeRequest, size);
 	print("got %d\r\n", recieved);
 
 //	unsigned char offset = writeBuffer[0];
@@ -112,7 +116,7 @@ static void handleConstantsCommand(void) {
 	print("got C (Constants)\r\n");
 	printStats();
 #endif
-	chSequentialStreamWrite(TS_SERIAL_DEVICE, &tsContstants, sizeof(EngineConfiguration));
+	chSequentialStreamWrite(TS_SERIAL_DEVICE, (const uint8_t *)&tsContstants, sizeof(EngineConfiguration));
 }
 
 static void handleTSCommand(short code) {
@@ -154,7 +158,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 extern EngineConfiguration *engineConfiguration;
 
-static void syncLocalCopy() {
+void syncTunerStudioCopy(void) {
 	memcpy(&tsContstants, engineConfiguration, sizeof(EngineConfiguration));
 }
 
@@ -164,7 +168,7 @@ void startTunerStudioConnectivity(void) {
 
 	sdStart(TS_SERIAL_DEVICE, &tsSerialConfig);
 
-	syncLocalCopy();
+	syncTunerStudioCopy();
 
 	addConsoleAction("tss", printStats);
 
@@ -173,9 +177,9 @@ void startTunerStudioConnectivity(void) {
 
 void updateTunerStudioState() {
 	tsOutputChannels.rpm = getCurrentRpm();
-	tsOutputChannels.coolant_temperature = getCoolantTemperature() * TS_FLOAT_MULT;
-	tsOutputChannels.intake_air_temperature = getIntakeAirTemperature() * TS_FLOAT_MULT;
-	tsOutputChannels.throttle_positon = getTPS() * TS_FLOAT_MULT;
-	tsOutputChannels.mass_air_flow = getMaf() * TS_FLOAT_MULT;
-	tsOutputChannels.air_fuel_ratio = getAfr() * TS_FLOAT_MULT;
+	tsOutputChannels.coolant_temperature = getCoolantTemperature();
+	tsOutputChannels.intake_air_temperature = getIntakeAirTemperature();
+	tsOutputChannels.throttle_positon = getTPS();
+	tsOutputChannels.mass_air_flow = getMaf();
+	tsOutputChannels.air_fuel_ratio = getAfr();
 }

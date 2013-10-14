@@ -18,13 +18,14 @@
 #define FALSE 0
 #endif
 
+#include "features.h"
+
 //#define SERIAL_SPEED (8 * 115200)
 //#define SERIAL_SPEED (2 * 115200)
 #define SERIAL_SPEED 115200
 
-#define USE_INTERNAL_USB TRUE
 
-#ifdef USE_INTERNAL_USB
+#ifdef EFI_SERIAL_OVER_USB
  #include "usbcfg.h"
  extern SerialUSBDriver SDU1;
  #define CONSOLE_CHANNEL (&SDU1)

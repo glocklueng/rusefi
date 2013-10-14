@@ -38,7 +38,7 @@ static void updateStatusLeds() {
 	setOutputPinValue(LED_CRANKING, is_cranking);
 }
 
-static void onEveny10Milliseconds() {
+static void onEveny10Milliseconds(void *arg) {
 	updateStatusLeds();
 
 	// schedule next invocation

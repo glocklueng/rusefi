@@ -22,9 +22,6 @@
 #ifndef _USBCFG_H_
 #define _USBCFG_H_
 
-extern const USBConfig usbcfg;
-extern SerialUSBConfig serusbcfg;
-
 void usb_serial_start(void);
 
 #endif  /* _USBCFG_H_ */

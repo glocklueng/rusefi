@@ -63,7 +63,7 @@ static int getPortIndex(GPIO_TypeDef* port) {
 	fatal("portindex");
 }
 
-void reportPins() {
+static void reportPins() {
 	pinRegistrationComplete = TRUE;
 	print("Total pins count: %d\r\n", totalPinsUsed);
 }
@@ -75,10 +75,10 @@ void initPinRepository() {
 		PIN_USED[i] = 0;
 	initialized = TRUE;
 	print("Initializing pin repository\r\n");
-	addConsoleAction1("pins", reportPins);
+	addConsoleAction("pins", reportPins);
 }
 
-void printpin(char *msg, GPIO_TypeDef* port, int pin) {
+void printpin(char *msg, ioportid_t port, int pin) {
 	if (!initialized)
 		fatal("repo not initialized");
 	int portIndex = getPortIndex(port);

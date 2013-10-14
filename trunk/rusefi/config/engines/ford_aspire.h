@@ -3,6 +3,11 @@
  *
  *  Created on: Aug 30, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
+ *
+ *
+ *	Injectors: Denso 195500-2110, 120cc, purple, 13.9 ohms
+ *	camshaft position sensor(s): two Hall sensors
+ *	single ignition coil(s), low-side driven with 5v pull-up resistor
  */
 
 #ifndef FORD_ASPIRE_H_

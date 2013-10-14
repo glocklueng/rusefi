@@ -10,8 +10,6 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdbool.h>
-#include <sys\types.h>
-
 #include "print.h"
 
 #define  PAD_RIGHT   1
@@ -34,11 +32,11 @@ static const float round_nums[8] = {
    0.00000005
 } ;
 
-static uint my_strlen(char *str)
+static unsigned int my_strlen(char *str)
 {
    if (str == 0)
       return 0;
-   uint slen = 0 ;
+   unsigned int slen = 0 ;
    while (*str != 0) {
       slen++ ;
       str++ ;
@@ -71,14 +69,14 @@ static unsigned dbl2stri(char *outbfr, float dbl, unsigned dec_digits)
    //**************************************************************************
    //  construct fractional multiplier for specified number of digits.
    //**************************************************************************
-   uint mult = 1 ;
-   uint idx ;
+   unsigned int mult = 1 ;
+   unsigned int idx ;
    for (idx=0; idx < dec_digits; idx++)
       mult *= 10 ;
 
    // printf("mult=%u\n", mult) ;
-   uint wholeNum = (uint) dbl ;
-   uint decimalNum = (uint) ((dbl - wholeNum) * mult);
+   unsigned int wholeNum = (unsigned int) dbl ;
+   unsigned int decimalNum = (unsigned int) ((dbl - wholeNum) * mult);
 
    //*******************************************
    //  convert integer portion
@@ -306,7 +304,7 @@ static int theprint (int *varg)
             // compared to the previous 4-byte alignment.
             char *cptr = (char *) varg ;  //lint !e740 !e826  convert to double pointer
             // just a bit of hell related to parameters alignment
-            uint caddr = (uint) cptr ;
+            unsigned int caddr = (unsigned int) cptr ;
             if ((caddr & 0x7) != 0) {
                cptr += 4 ;
             }
@@ -345,6 +343,9 @@ out_lbl:
 
 void print (const char *format, ...)
 {
+	if (!is_serial_ready())
+		return;
+
    //  create a pointer into the stack.
    //  Thematically this should be a void*, since the actual usage of the
    //  pointer will vary.  However, int* works fine too.

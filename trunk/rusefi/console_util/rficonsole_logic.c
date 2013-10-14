@@ -17,7 +17,7 @@
 static int consoleActionCount = 0;
 static TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
 
-void doAddAction(char *token, int type, void (*callback)(void)) {
+static void doAddAction(char *token, int type, Void callback) {
 	if (consoleActionCount == CONSOLE_MAX_ACTIONS) {
 		fatal("Too many console actions\r\n");
 		return;
@@ -28,23 +28,23 @@ void doAddAction(char *token, int type, void (*callback)(void)) {
 	current->callback = callback;
 }
 
-void addConsoleAction1(char *token, void (*callback)(int)) {
-	doAddAction(token, ONE_PARAMETER, callback);
+void addConsoleAction1(char *token, VoidInt callback) {
+	doAddAction(token, ONE_PARAMETER, (Void)callback);
 }
 
-void addConsoleAction2I(char *token, void (*callback)(int, int)) {
-	doAddAction(token, TWO_INTS_PARAMETER, callback);
+void addConsoleAction2I(char *token, VoidIntInt callback) {
+	doAddAction(token, TWO_INTS_PARAMETER, (Void)callback);
 }
 
-void addConsoleActionS(char *token, void (*callback)(char*)) {
-	doAddAction(token, STRING_PARAMETER, callback);
+void addConsoleActionS(char *token, VoidCharPtr callback) {
+	doAddAction(token, STRING_PARAMETER, (Void)callback);
 }
 
-void addConsoleActionF(char *token, void (*callback)(float)) {
-	doAddAction(token, FLOAT_PARAMETER, callback);
+void addConsoleActionF(char *token, VoidFloat callback) {
+	doAddAction(token, FLOAT_PARAMETER, (Void) callback);
 }
 
-void addConsoleAction(char *token, void (*callback)(void)) {
+void addConsoleAction(char *token, Void callback) {
 	doAddAction(token, NO_PARAMETER, callback);
 }
 
@@ -119,7 +119,7 @@ void addDefaultConsoleActions() {
 
 void handleActionWithParameter(TokenCallback *current, char *parameter) {
 	if (current->parameterType == STRING_PARAMETER) {
-		void (*callbackS)(char*) = current->callback;
+		VoidCharPtr callbackS = (VoidCharPtr)current->callback;
 		(*callbackS)(parameter);
 		return;
 	}
@@ -132,14 +132,14 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 		int value1 = atoi(parameter);
 		parameter += spaceIndex + 1;
 		int value2 = atoi(parameter);
-		void (*callbackS)(int, int) = current->callback;
+		VoidIntInt callbackS = (VoidIntInt) current->callback;
 		(*callbackS)(value1, value2);
 		return;
 	}
 
 	if (current->parameterType == FLOAT_PARAMETER) {
 		float value = atof(parameter);
-		void (*callbackF)(float) = current->callback;
+		VoidFloat callbackF = (VoidFloat) current->callback;
 
 		// invoke callback function by reference
 		(*callbackF)(value);
@@ -152,7 +152,7 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 		return;
 	}
 
-	void (*callback1)(int) = current->callback;
+	VoidInt callback1 = (VoidInt) current->callback;
 
 	// invoke callback function by reference
 	(*callback1)(value);

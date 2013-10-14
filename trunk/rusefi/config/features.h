@@ -33,6 +33,9 @@
 //#define EFI_ENGINE_EMULATOR TRUE
 #define EFI_EMULATE_POSITION_SENSORS TRUE
 
+#define EFI_SERIAL_OVER_USB TRUE
+
+
 /**
  * 1996 1.3 Ford Aspire
  */

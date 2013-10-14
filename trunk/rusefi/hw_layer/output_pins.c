@@ -12,6 +12,7 @@
 #include "pin_repository.h"
 #include "gpio_helper.h"
 #include "pinout.h"
+#include "print.h"
 
 static OutputPin outputs[LED_COUNT];
 
@@ -27,12 +28,14 @@ void setOutputPinValue(int ledIndex, int value) {
 static void blinkingThread_s(void *arg) {
 	chRegSetThreadName("blinking");
 	while (TRUE) {
+		int delay = is_serial_ready() ? 100 : 33;
+
 		setOutputPinValue(LED_ALIVE3, 0);
 		setOutputPinValue(LED_ALIVE2, 1);
-		chThdSleepMilliseconds(100);
+		chThdSleepMilliseconds(delay);
 		setOutputPinValue(LED_ALIVE3, 1);
 		setOutputPinValue(LED_ALIVE2, 0);
-		chThdSleepMilliseconds(100);
+		chThdSleepMilliseconds(delay);
 	}
 }
 

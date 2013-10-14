@@ -79,7 +79,7 @@ static int getAlternateFunctions(ICUDriver *driver) {
 }
 
 void initWaveAnalyzerDriver(WaveReaderHw *hw, ICUDriver *driver,
-		ioportid_t *port, int pin) {
+		ioportid_t port, int pin) {
 	hw->driver = driver;
 	hw->port = port;
 	hw->pin = pin;

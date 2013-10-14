@@ -13,7 +13,7 @@
 #include "tunerstudio.h"
 #include "crc.h"
 
-#define FLASH_DATA_VERSION 239000002
+#define FLASH_DATA_VERSION 239000005
 
 typedef struct {
 	int version;
