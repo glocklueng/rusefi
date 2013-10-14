@@ -39,8 +39,8 @@ typedef struct {
 	int bufferSize;
 } Logging;
 
-void lockOutputBuffer();
-void unlockOutputBuffer();
+void lockOutputBuffer(void);
+void unlockOutputBuffer(void);
 
 void initLogging(Logging *logging, char *name, char *buffer, int bufferSize);
 

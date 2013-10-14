@@ -62,7 +62,7 @@ static int getFullWaveLengthByRpm(int rpm) {
 //	return (int) (STROKE_TIME_CONSTANT * (1 - ASPIRE_MAGIC_DUTY_CYCLE)) / rpm;
 //}
 
-static int getShortWaveLength() {
+static int getShortWaveLength(void) {
 	return getShortWaveLengthByRpm(getCurrentRpm());
 }
 

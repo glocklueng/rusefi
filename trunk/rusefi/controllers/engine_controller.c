@@ -23,7 +23,7 @@
 
 static VirtualTimer everyMsTimer;
 
-int isCranking() {
+int isCranking(void) {
 	int rpm = getCurrentRpm();
 	return rpm > 0 && rpm < ENGINE_CRANKING_RPM;
 }
@@ -32,7 +32,7 @@ int systicks2ms(int systicks) {
 	return systicks / TICKS_IN_MS;
 }
 
-static void updateStatusLeds() {
+static void updateStatusLeds(void) {
 	int is_cranking = isCranking();
 	setOutputPinValue(LED_RUNNING, getCurrentRpm() > 0 && !is_cranking);
 	setOutputPinValue(LED_CRANKING, is_cranking);
@@ -49,12 +49,12 @@ static void onEveny10Milliseconds(void *arg) {
 	;
 }
 
-static void initPeriodicEvents() {
+static void initPeriodicEvents(void) {
 	// schedule first invocation
 	chVTSet(&everyMsTimer, _10_MILLISECONDS, &onEveny10Milliseconds, 0);
 }
 
-void initEngineContoller() {
+void initEngineContoller(void) {
 	initOutputSignals();
 
 	initSettings();

@@ -17,7 +17,7 @@ static volatile int injectionOffset = 0;
 
 static Logging log;
 
-static void printSettings() {
+static void printSettings(void) {
 	msgInt(&log, "msg,injectionPeriod ", injectionPeriod);
 	msgInt(&log, "msg,cranking injectionPeriod ", crankingInjectionPeriod);
 	msgInt(&log, "msg,injectionOffset ", injectionOffset);
@@ -25,7 +25,7 @@ static void printSettings() {
 	printLine(&log);
 }
 
-int getInjectionOffset() {
+int getInjectionOffset(void) {
 	return injectionOffset;
 }
 
@@ -39,7 +39,7 @@ void setInjectionPeriod(int value) {
 	printSettings();
 }
 
-int getCrankingInjectionPeriod() {
+int getCrankingInjectionPeriod(void) {
 	return crankingInjectionPeriod;
 }
 
@@ -48,7 +48,7 @@ void setCrankingInjectionPeriod(int value) {
 	printSettings();
 }
 
-void initSettings() {
+void initSettings(void) {
 	initLogging(&log, "inje control", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 
 	setInjectionOffset(0);

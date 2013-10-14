@@ -42,7 +42,7 @@ void writeToFlash(void) {
 	scheduleSimpleMsg(&log, "Flashed: ", result);
 }
 
-static void printConfiguration() {
+static void printConfiguration(void) {
 	for (int i = 0; i < FUEL_RPM_COUNT; i++) {
 		print("line %d: ", i);
 		for (int j = 0; j < FUEL_RPM_COUNT; j++) {
@@ -75,7 +75,7 @@ extern float fuel_rpm_bins[];
 extern float fuel_maf_bins[];
 extern float fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT];
 
-static void setDefaultConfiguration() {
+static void setDefaultConfiguration(void) {
 	for (int i = 0; i < FUEL_MAF_COUNT; i++)
 		engineConfiguration->fuelKeyBins[i] = fuel_maf_bins[i];
 	for (int i = 0; i < FUEL_RPM_COUNT; i++)
@@ -88,7 +88,7 @@ static void setDefaultConfiguration() {
 	syncTunerStudioCopy();
 }
 
-static void readFromFlash() {
+static void readFromFlash(void) {
 	flashRead(FLASH_ADDR, (char *) &flashState, FLASH_USAGE);
 
 	if (!isValid(&flashState)) {

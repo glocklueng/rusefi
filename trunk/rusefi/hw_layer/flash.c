@@ -43,7 +43,7 @@ flashsector_t flashSectorAt(flashaddr_t address) {
  * @return CH_SUCCESS  Unlock was successful.
  * @return CH_FAILED    Unlock failed.
  */
-static bool_t flashUnlock() {
+static bool_t flashUnlock(void) {
 	/* Check if unlock is really needed */
 	if (!(FLASH->CR & FLASH_CR_LOCK))
 		return CH_SUCCESS;
