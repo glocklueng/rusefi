@@ -65,7 +65,7 @@ endif
 #
 
 # Define project name here
-PROJECT = chi_dist
+PROJECT = rusefi
 
 # Imported source files and paths
 include $(CHIBIOS)/boards/ST_STM32F4_DISCOVERY/board.mk

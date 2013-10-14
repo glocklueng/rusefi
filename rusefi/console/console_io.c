@@ -8,6 +8,8 @@
 #include "console_io.h"
 #include "ch.h"
 
+#include "usbconsole.h"
+
 /**
  * @brief   Reads a whole line from the input channel.
  *
@@ -22,6 +24,12 @@ static bool_t getConsoleLine(BaseChannel *chp, char *line, unsigned size) {
 	char *p = line;
 
 	while (TRUE) {
+		if (!is_serial_ready()) {
+			// we better do not read from USB serial before it is ready
+			chThdSleepMilliseconds(10);
+			continue;
+		}
+
 		short c = (short) chSequentialStreamGet(chp);
 		if (c < 0)
 			return TRUE;
@@ -54,8 +62,7 @@ static bool_t getConsoleLine(BaseChannel *chp, char *line, unsigned size) {
 }
 
 // todo: this is ugly as hell!
-static char consoleInput[] =
-		"                                                                              ";
+static char consoleInput[] = "                                                                              ";
 
 void (*console_line_callback)(char *);
 
@@ -65,8 +72,7 @@ static msg_t sdThreadEntryPoint(void *arg) {
 	chRegSetThreadName("console thread");
 
 	while (TRUE) {
-		bool_t end = getConsoleLine((BaseChannel *)CONSOLE_CHANNEL, consoleInput,
-				sizeof(consoleInput));
+		bool_t end = getConsoleLine((BaseChannel *) CONSOLE_CHANNEL, consoleInput, sizeof(consoleInput));
 		if (end)
 			break;
 
@@ -75,8 +81,7 @@ static msg_t sdThreadEntryPoint(void *arg) {
 	return FALSE;
 }
 
-static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS
-		| USART_CR2_LINEN, 0 };
+static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 
 #ifndef EFI_SERIAL_OVER_USB
 int is_serial_ready(void) {
@@ -100,8 +105,7 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	palSetPadMode(CONSOLE_PORT, CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(7));
 	palSetPadMode(CONSOLE_PORT, CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(7));
 #endif
-	chThdCreateStatic(consoleThread, sizeof(consoleThread), NORMALPRIO,
-			sdThreadEntryPoint, NULL );
+	chThdCreateStatic(consoleThread, sizeof(consoleThread), NORMALPRIO, sdThreadEntryPoint, NULL);
 }
 
 extern cnt_t dbg_isr_cnt;
@@ -118,8 +122,10 @@ void lockOutputBuffer(void) {
 
 void unlockOutputBuffer(void) {
 	if (dbg_isr_cnt > 0) {
-		chSysUnlockFromIsr();
+		chSysUnlockFromIsr()
+		;
 	} else {
-		chSysUnlock();
+		chSysUnlock()
+		;
 	}
 }

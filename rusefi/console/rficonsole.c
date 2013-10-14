@@ -47,9 +47,8 @@ static void myfatal(void) {
 static void sayOsHello(void) {
 	print("*** rusEFI (c) Andrey Belomutskiy, 2012-2013. All rights reserved.\r\n");
 	print("*** Chibios Kernel:       %s\r\n", CH_KERNEL_VERSION);
-	print("*** Compiled:     ");
-	print(__DATE__);
-	print(" - " __TIME__ " \r\n");
+	print("*** Compiled:     " __DATE__ " - " __TIME__ " \r\n");
+	print("COMPILER=%s\r\n", __VERSION__);
 	printSimpleMsg(&log, "VERSION=", VERSION_STRING);
 	printSimpleMsg(&log, "CH_FREQUENCY=", CH_FREQUENCY);
 	printSimpleMsg(&log, "SERIAL_SPEED=", SERIAL_SPEED);
