@@ -89,19 +89,20 @@ LDSCRIPT= config/system/STM32F407xG.ld
 # C sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
 CSRC = $(PORTSRC) \
-       $(KERNSRC) \
-       $(UTILSRC) \
-       $(ENGINES_SRC) \
-       $(CONSOLESRC) \
-       $(CONSOLEUTILSRC) \
-       $(HALSRC) \
+	$(KERNSRC) \
+	$(UTILSRC) \
+	$(ENGINES_SRC) \
+	$(CONSOLESRC) \
+	$(CONSOLEUTILSRC) \
+	$(HALSRC) \
+	$(EMULATIONSRC) \
 	$(HW_LAYERESRC) \
 	$(CONTROLLERSSRC) \
 	$(CONTROLLERS_ALGO_SRC) \
 	$(CONTROLLERS_MATH_SRC) \
-       $(PLATFORMSRC) \
-       $(BOARDSRC) \
-       main.c
+	$(PLATFORMSRC) \
+	$(BOARDSRC) \
+	main.c
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -139,6 +140,9 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	console_util \
 	console \
 	hw_layer \
+	hw_layer/algo \
+	emulation/hw_layer \
+	emulation \
 	controllers \
 	controllers/algo \
 	controllers/math 
