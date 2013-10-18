@@ -11,6 +11,8 @@
 
 #if EFI_ENGINE_FORD_ASPIRE
 
+#include "ford_aspire.h"
+
 #include "engine.h"
 #include "engine_math.h"
 #include "settings.h"
@@ -84,4 +86,31 @@ float getFuelMs() {
 	}
 }
 
-#endif
+void confgiureShaftPositionEmulatorShape(PwmConfig *state) {
+	myfloat x = ASPIRE_MAGIC_DUTY_CYCLE / 4;
+
+	/**
+	 * 1993 Ford Aspire has two hall sensors for CKP sensor
+	 *
+	 * X__X__X__X__  38% duty cycle
+	 * __XXXXXX____  50% duty cycle
+	 */
+
+	myfloat secondStart = 0.17; //x + (0.25 - x) / 2;
+
+	myfloat switchTimes[] = { x, secondStart, 0.25, 0.25 + x, 0.5, 0.5 + x,
+			secondStart + 0.5,
+			0.75, 0.75 + x, 1 };
+
+	int pinStates0[] = { 0, 0, 1 /* start of 2nd signal*/ , 0, 1 /* start of 3rd signal*/, 0, 0, 1, 0, 1 };
+
+	int pinStates1[] = { 1, 0, 0, 0, 0,
+			             0, 1, 1, 1, 1};
+
+	int *pinStates[2] = { pinStates0, pinStates1 };
+
+	weComplexInit("distributor", state, 0, 10, switchTimes, 2, pinStates);
+}
+
+
+#endif /* EFI_ENGINE_FORD_ASPIRE */

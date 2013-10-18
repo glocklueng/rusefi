@@ -6,11 +6,7 @@
  *      http://rusefi.com/
  */
 
-#include <halconf.h>
-#include <ch.h>
-#include <hal.h>
-
-#include "main.h"
+#include "global.h"
 
 #include "rficonsole.h"
 #include "hardware.h"
@@ -21,6 +17,8 @@
 #endif
 #include "rficonsole_logic.h"
 #include "tunerstudio.h"
+
+int main_loop_started = FALSE;
 
 int main(void) {
 	/*
@@ -49,6 +47,7 @@ int main(void) {
 	initStatusLoop();
 
 	print("Running main loop\r\n");
+	main_loop_started = TRUE;
 	while (TRUE) {
 		printState();
 #if EFI_TUNER_STUDIO

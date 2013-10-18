@@ -9,16 +9,17 @@
 #define ENGINE_H_
 
 #include "features.h"
-#include "global.h"
+
+#if EFI_ENGINE_DENISVAK
+#include "denisvak_mcu.h"
+#endif
 
 #if EFI_ENGINE_FORD_ASPIRE
-#include "ford_aspire.h"
+#include "ford_aspire_mcu.h"
 #endif
 
 #if EFI_ENGINE_SNOW_BLOWER
-#include "snow_blower.h"
+#include "snow_blower_mcu.h"
 #endif
-
-float getFuelMs(void);
 
 #endif /* ENGINE_H_ */

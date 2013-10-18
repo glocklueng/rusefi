@@ -11,7 +11,7 @@
 #include "datalogging.h"
 #include "rpm_reporter.h"
 #include "ckp_events.h"
-#include "crank_input.h"
+#include "shaft_position_input.h"
 
 #if EFI_ENGINE_SNOW_BLOWER
 

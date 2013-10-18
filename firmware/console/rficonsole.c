@@ -9,7 +9,6 @@
 #include <string.h>
 #include <stdbool.h>
 #include "main.h"
-#include "ch.h"
 #include "rficonsole.h"
 #include "console_io.h"
 #include "datalogging.h"
@@ -62,6 +61,30 @@ static void sayOsHello(void) {
 			CH_DBG_SYSTEM_STATE_CHECK);
 	printSimpleMsg(&log, "CH_DBG_ENABLE_STACK_CHECK=",
 			CH_DBG_ENABLE_STACK_CHECK);
+
+	resetLogging(&log);
+	append(&log, "msg");
+	append(&log, DELIMETER);
+	append(&log, EFI_ENGINE_ID);
+	printLine(&log);
+
+	printSimpleMsg(&log, "EFI_WAVE_ANALYZER", EFI_WAVE_ANALYZER);
+#ifdef EFI_TUNER_STUDIO
+	printSimpleMsg(&log, "EFI_TUNER_STUDIO", EFI_TUNER_STUDIO);
+#endif
+	printSimpleMsg(&log, "EFI_SHAFT_POSITION_INPUT", EFI_SHAFT_POSITION_INPUT);
+	printSimpleMsg(&log, "EFI_INTERNAL_ADC", EFI_INTERNAL_ADC);
+	printSimpleMsg(&log, "NUMBER_OF_CYLINDERS", NUMBER_OF_CYLINDERS);
+	printSimpleMsg(&log, "ENGINE_CRANKING_RPM", ENGINE_CRANKING_RPM);
+#ifdef EFI_USE_MULTI_SENSOR_SHAFT_SENSOR
+	printSimpleMsg(&log, "EFI_USE_MULTI_SENSOR_SHAFT_SENSOR", EFI_USE_MULTI_SENSOR_SHAFT_SENSOR);
+#endif
+#ifdef EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR
+	printSimpleMsg(&log, "EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR", EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR);
+#endif
+//	printSimpleMsg(&log, "", );
+//	printSimpleMsg(&log, "", );
+
 
 	/**
 	 * Time to finish output. This is needed to avoid mix-up of this methods output and console command confirmation

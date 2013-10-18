@@ -5,16 +5,14 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
-#include <ch.h>
-#include <hal.h>
 #include <string.h>
+#include "main.h"
 
 #include "tunerstudio.h"
 #include "pin_repository.h"
 
 #include "rpm_reporter.h"
 #include "main_loop.h"
-#include "engine.h"
 #include "flash_main.h"
 #include "rficonsole_logic.h"
 
@@ -46,7 +44,7 @@ static EngineConfiguration tsContstants;
 
 char *constantsAsPtr = (char *)&tsContstants;
 
-static void printStats() {
+static void printStats(void) {
 	print("TS RX on %s%d\r\n", portname(TS_SERIAL_PORT), TS_SERIAL_RX_PIN);
 	print("TS TX on %s%d\r\n", portname(TS_SERIAL_PORT), TS_SERIAL_TX_PIN);
 	print("TunerStudio total/error counter=%d/%d\r\n", tsCounter, errorCounter);

@@ -13,11 +13,6 @@
 
 #include "global.h"
 
-
-
-#define ASPIRE_MAGIC_DUTY_CYCLE 0.3877
-#define CYLINDERS	4
-
 /**
  * "For ALL 4 cycle (four-stroke) engines, no matter how many cylinders, the crankshaft
  * turns twice for every turn of the camshaft."

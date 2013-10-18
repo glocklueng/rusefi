@@ -8,13 +8,17 @@
 #ifndef PWM_GENERATOR_H_
 #define PWM_GENERATOR_H_
 
-#include "main.h"
-#include "gpio_helper.h"
+#include "global.h"
 
-#define PWM_PHASE_MAX_COUNT 16
+
+#define PWM_PHASE_MAX_COUNT 150
+
 #define PWM_PHASE_MAX_WAVE_PER_PWM 2
 
 #define FREQ_MATH_FREQUENCY CH_FREQUENCY
+
+#include "gpio_helper.h"
+
 
 /**
  * @brief   PWM configuration for the specific output pin

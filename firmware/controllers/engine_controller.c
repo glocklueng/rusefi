@@ -70,7 +70,7 @@ void initEngineContoller(void) {
 	startTunerStudioConnectivity();
 #endif
 
-	initMapAdjusterThread();
+// multiple issues with this	initMapAdjusterThread();
 	initPeriodicEvents();
 	/**
 	 * This method initialized the main listener which actually runs injectors & ignition

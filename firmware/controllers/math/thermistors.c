@@ -15,26 +15,6 @@
 
 #include <math.h>
 #include "thermistors.h"
-#include "adc_inputs.h"
-#include "rficonsole.h"
-#include "engine_math.h"
-
-
-	//	myfloat tempC = 30;
-	//	myfloat tempK = tempCtoK(tempC);
-	//	print("k=%d\r\n", (int) (tempK * 1000));
-	//	print("k=%d\r\n", (int) (tempK * 1000.0));
-	//	myfloat r = getResistance(tempK);
-	//	myfloat tt = getTempK(r);
-	//	myfloat tc = tempKtoC(tt);
-	//
-	//	print("r=%d, t=%d\r\n", (int) (r * 1000), (int) (1000 * tc));
-
-
-	//	myfloat r1 = getR1InVoltageDividor3(2, _5_VOLTS, 1000);
-//	print("r1=%f\r\n", r1);
-//	print("r2=%f\r\n", getR2InVoltageDividor3(2, _5_VOLTS, 1000));
-//	print("pot %d\r\n", getPotStep(r1));
 
 /**
  * http://en.wikipedia.org/wiki/Voltage_divider
@@ -60,49 +40,35 @@ myfloat convertResistanceToKelvinTemperature(myfloat resistance) {
 	return 1 / (S_H_A + S_H_B * logR + S_H_C * logR * logR * logR);
 }
 
-
-// I am not sure this method works, wonder where the bug is
-//myfloat getResistance(myfloat tempK) {
-//	myfloat y = (S_H_A - 1 / tempK) / 2 / S_H_C;
-//	print("y=%d\r\n", (int) (y * 1000));
-//	myfloat xx = pow(S_H_B / 3 / S_H_C, 3) + y * y;
-//	print("xx=%d\r\n", (int) (xx * 1000));
-//	myfloat x = sqrt(xx);
-//	print("x=%d\r\n", (int) (x * 1000));
-//
-//	return exp(pow(x - y, 1.0 / 3) - pow(x + y, 1.0 / 3));
-//}
-
 myfloat convertKelvinToC(myfloat tempK) {
 	return tempK - KELV;
 }
 
-myfloat tempCtoKelvin(myfloat tempC) {
+myfloat convertCelciustoKelvin(myfloat tempC) {
 	return tempC + KELV;
 }
 
-myfloat tempCtoF(myfloat tempC) {
+myfloat convertCelciustoF(myfloat tempC) {
 	return tempC * 9 / 5 + 32;
 }
 
-myfloat tempFtoC(myfloat tempF) {
+myfloat convertFtoCelcius(myfloat tempF) {
 	return (tempF - 32) / 9 * 5;
 }
 
-myfloat convertKelvinToFahrenheit(myfloat tempK) {
-	myfloat tempC = convertKelvinToC(tempK);
-	return tempCtoF(tempC);
+myfloat convertKelvinToFahrenheit(myfloat kelvin) {
+	myfloat tempC = convertKelvinToC(kelvin);
+	return convertCelciustoF(tempC);
 }
 
-myfloat getKelvinTemperature(int adcValue, float hiR) {
-	myfloat voltage = adcToVolts(adcValue);
+myfloat getKelvinTemperature(myfloat voltage, float hiR) {
 	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS, hiR);
 	myfloat kelvinTemperature = convertResistanceToKelvinTemperature(resistance);
 	return kelvinTemperature;
 }
 
-myfloat getTemperatureC(int adcValue, float hiR) {
-	myfloat kelvinTemperature = getKelvinTemperature(adcValue, hiR);
+myfloat getTemperatureC(myfloat voltage, float hiR) {
+	myfloat kelvinTemperature = getKelvinTemperature(voltage, hiR);
 	return convertKelvinToC(kelvinTemperature);
 }
 
