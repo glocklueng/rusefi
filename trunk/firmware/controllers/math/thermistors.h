@@ -22,17 +22,14 @@ myfloat getTempK(myfloat resistance);
 /**
  * converts Kelvin temperature into Celcius temperature
  */
-myfloat convertKelvinToC(myfloat tempK);
-myfloat tempCtoKelvin(myfloat tempC);
+myfloat convertKelvinToCelcius(myfloat tempK);
+myfloat convertCelciustoKelvin(myfloat tempC);
 
-myfloat tempCtoF(myfloat tempC);
-myfloat tempFtoC(myfloat tempF);
+myfloat convertCelciustoF(myfloat tempC);
+myfloat convertFtoCelcius(myfloat tempF);
 
-myfloat tempKtoF(myfloat tempK);
 int getTpsValue(myfloat volts);
-myfloat getKelvinTemperature(int adcValue, float hiR);
-myfloat getTemperatureC(int adcValue, float hiR);
-myfloat getResistance(myfloat tempK);
-
+myfloat getKelvinTemperature(myfloat voltage, float hiR);
+myfloat getTemperatureC(myfloat voltage, float hiR);
 
 #endif /* THERMISTORS_H_ */

@@ -49,7 +49,7 @@ static void maThread(int param) {
 			continue;
 		}
 
-		int wasNotRunningRecently = overflowDiff(now, timeAtNotRunning) < 60 * SECOND_AS_TICKS;
+		int wasNotRunningRecently = overflowDiff(now, timeAtNotRunning) < 60 * CH_FREQUENCY;
 		if (!wasNotRunningRecently)
 			continue;
 		if (isNewState)

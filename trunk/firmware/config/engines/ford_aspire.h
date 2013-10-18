@@ -13,7 +13,18 @@
 #ifndef FORD_ASPIRE_H_
 #define FORD_ASPIRE_H_
 
-#define EPS_MESSAGE "Emulating Aspire distributor\r\n"
+#if EFI_ENGINE_FORD_ASPIRE
+
+#include "global.h"
+#include "adc_inputs.h"
+#include "thermistors.h"
+#include "pwm_generator.h"
+
+#define EFI_USE_MULTI_SENSOR_SHAFT_SENSOR TRUE
+
+#define EFI_ENGINE_ID "Ford Aspire"
+
+#define ASPIRE_MAGIC_DUTY_CYCLE 0.3877
 
 #define NUMBER_OF_CYLINDERS 4
 
@@ -31,19 +42,45 @@
 // todo: this value is way off! I am pretty sure temp coeffs are off also
 #define IAT_HI_RESISTOR 2700
 
-#include "adc_inputs.h"
-#include "thermistors.h"
-
 /**
  * @brief Engine coolant temperature, C
  */
-#define getCoolantTemperature() (getTemperatureC(getAdcValue(ADC_LOGIC_COOLANT), CLT_HI_RESISTOR))
+#define getCoolantTemperature() (getTemperatureC(adcToVolts(getAdcValue(ADC_LOGIC_COOLANT)), CLT_HI_RESISTOR))
 
-#define getIntakeAirTemperature() (getTemperatureC(getAdcValue(ADC_LOGIC_AIR), IAT_HI_RESISTOR))
+#define getIntakeAirTemperature() (getTemperatureC(adcToVolts(getAdcValue(ADC_LOGIC_AIR)), IAT_HI_RESISTOR))
 
 myfloat getMaf(void);
 myfloat getAfr(void);
 myfloat getTPS(void);
 myfloat getMap(void);
+
+void confgiureShaftPositionEmulatorShape(PwmConfig *state);
+
+#define PRIMARY_SHAFT_POSITION_INPUT_DRIVER ICUD2
+#define PRIMARY_SHAFT_POSITION_INPUT_PORT GPIOA
+#define PRIMARY_SHAFT_POSITION_INPUT_PIN 5
+#define PRIMARY_SHAFT_POSITION_INPUT_CHANNEL ICU_CHANNEL_1
+
+#define EFI_SHAFT_POSTION_NEEDS_SECONDARY TRUE
+
+#define SECONDARY_SHAFT_POSITION_INPUT_DRIVER ICUD3
+#define SECONDARY_SHAFT_POSITION_INPUT_PORT GPIOC
+#define SECONDARY_SHAFT_POSITION_INPUT_PIN 6
+#define SECONDARY_SHAFT_POSITION_INPUT_CHANNEL ICU_CHANNEL_1
+
+#define INJECTOR_1_PORT GPIOB
+#define INJECTOR_1_PIN 8
+
+#define INJECTOR_2_PORT GPIOB
+#define INJECTOR_2_PIN 9
+
+#define INJECTOR_3_PORT GPIOE
+#define INJECTOR_3_PIN 1
+
+#define INJECTOR_4_PORT GPIOE
+#define INJECTOR_4_PIN 0
+
+#endif /* EFI_ENGINE_FORD_ASPIRE */
+
 
 #endif /* FORD_ASPIRE_H_ */

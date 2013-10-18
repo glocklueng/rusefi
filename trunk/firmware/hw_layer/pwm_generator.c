@@ -98,7 +98,7 @@ void weComplexInit(char *msg, PwmConfig *state, int idleState, int phaseCount, m
 		int **pinStates) {
 	chDbgCheck(phaseCount > 1, "count is too small");
 	chDbgCheck(phaseCount <= PWM_PHASE_MAX_COUNT, "count is too large");
-	chDbgCheck(switchTimes[phaseCount - 1] == 1, "last end has to be 1");
+	chDbgCheck(switchTimes[phaseCount - 1] == 1, "last switch time has to be 1");
 	chDbgCheck(waveCount > 0, "waveCount should be positive");
 	for (int i = 0; i < phaseCount - 1; i++)
 		chDbgCheck(switchTimes[i] < switchTimes[i + 1], "invalid switchTimes");

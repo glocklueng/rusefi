@@ -1,5 +1,13 @@
-/*
- * idle_controller.c
+/**
+ * @file	idle_controller.c
+ * @brief	Simple Idle Air Valve control algorithm
+ *
+ *			This algorithm is trying to get current RPM to the desired 'target' value
+ *			by changing Idle Air Valve solenoid duty cycle. Depending on how far current RPM
+ *			is from the target RPM, the incremental change would be smaller or bigger.
+ *
+ *
+ * todo: DEFAULT_IDLE_DUTY should be a field on the IdleValveState, not a constant
  *
  *  Created on: May 22, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
@@ -33,6 +41,9 @@ int max(int i1, int i2) {
 
 static int wasCrankingTime;
 
+/**
+ * @brief	sets new idle valve duty cycle: checks the bounds and reports new value
+ */
 static int setNewValue(IdleValveState *idle, int currentRpm, int now, char * msg, int newValue) {
 	newValue = max(newValue, MIN_IDLE);
 	newValue = min(newValue, MAX_IDLE);

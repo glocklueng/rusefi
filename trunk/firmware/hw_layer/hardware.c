@@ -16,7 +16,7 @@
 
 #include "adc_inputs.h"
 
-#include "crank_input.h"
+#include "shaft_position_input.h"
 #include "mcp3208.h"
 
 #include "flash_main.h"
@@ -42,7 +42,7 @@ void initHardware() {
 	init_adc_mcp3208(&adcState, &SPID2);
 	requestAdcValue(&adcState, 0);
 
-	initInputCapture();
+	initShaftPositionInputCapture();
 
 //	initFixedLeds();
 

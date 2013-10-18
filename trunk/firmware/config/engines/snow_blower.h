@@ -10,11 +10,13 @@
 #ifndef SNOW_BLOWER_H_
 #define SNOW_BLOWER_H_
 
+#if EFI_ENGINE_SNOW_BLOWER
+
 #define ENGINE_CRANKING_RPM 400
 
 #define NUMBER_OF_CYLINDERS 1
 
-#define EPS_MESSAGE "Emulating Snow Blower position sensor\r\n"
+#define EFI_ENGINE_ID "Snow Blower"
 
 #define RPM_MULT (1)
 
@@ -24,5 +26,7 @@
 #define getMaf() 0
 #define getTPS() 0
 #define getAfr() 0
+
+#endif /* EFI_ENGINE_SNOW_BLOWER */
 
 #endif /* SNOW_BLOWER_H_ */

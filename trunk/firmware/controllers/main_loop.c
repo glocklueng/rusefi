@@ -12,7 +12,7 @@
 #include "main_loop.h"
 #include "engine_controller.h"
 #include "settings.h"
-#include "crank_input.h"
+#include "shaft_position_input.h"
 #include "rpm_reporter.h"
 #include "ckp_events.h"
 #include "signal_executor.h"
@@ -67,7 +67,7 @@ static int getShortWaveLength(void) {
 }
 
 static void onCrankingShaftSignal(int ckpSignalType) {
-	if (ckpSignalType != CKP_PRIMARY_UP)
+	if (ckpSignalType != SHAFT_PRIMARY_UP)
 		return;
 
 	/**
@@ -125,7 +125,7 @@ static void scheduleSpark(int rpm, int ckpSignalType) {
 
 static int problemReported;
 
-static void scheduleFuel(int rpm, CkpEvents ckpSignalType) {
+static void scheduleFuel(int rpm, ShaftEvents ckpSignalType) {
 	if (currentCylinderIndex >= NUMBER_OF_CYLINDERS) {
 		if (!problemReported) {
 			scheduleSimpleMsg(&log, "what currentCylinderIndex? ", currentCylinderIndex);
@@ -219,7 +219,7 @@ static void onRunningShaftSignal(int ckpSignalType) {
 	/**
 	 * with -15 spark advance at higher RPMs, 'CKP_PRIMARY_FALL' happens too late - we have to work with 'CKP_PRIMARY_RISE'
 	 */
-	if (ckpSignalType != CKP_PRIMARY_DOWN)
+	if (ckpSignalType != SHAFT_PRIMARY_DOWN)
 		return;
 
 //	scheduleSpark(rpm, ckpSignalType);
@@ -235,13 +235,13 @@ static int secondaryDownEventCounter = 0;
 /**
  * This is the main entry point into the primary CKP signal. Both injection and ignition are controlled from this method.
  */
-static void onShaftSignal(int ckpSignalType) {
+static void onShaftSignal(ShaftEvents ckpSignalType, int index) {
 	if (!isControlActive)
 		return;
 
 	int now = chTimeNow();
 
-	if (ckpSignalType == CKP_SECONDARY_DOWN) {
+	if (ckpSignalType == SHAFT_SECONDARY_DOWN) {
 		/**
 		 * that's because we increment before handing the event, so this '-1' would be processed as 0
 		 */
@@ -257,7 +257,7 @@ static void onShaftSignal(int ckpSignalType) {
 		return;
 	}
 
-	if (ckpSignalType == CKP_PRIMARY_DOWN) {
+	if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
 		currentCylinderIndex++;
 
 		primaryDownEventCounter++;
@@ -298,7 +298,7 @@ void initMainEventListener() {
 
 	addConsoleAction1("fm", setFuelMult);
 
-	registerCkpListener(&onShaftSignal, "main loop");
+	registerShaftPositionListener(&onShaftSignal, "main loop");
 }
 
 #endif

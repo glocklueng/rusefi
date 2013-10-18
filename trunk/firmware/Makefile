@@ -78,6 +78,7 @@ include console_util/console_util.mk
 include config/engines/engines.mk
 include console/console.mk
 include hw_layer/hw_layer.mk
+include emulation/emulation.mk
 include controllers/controllers.mk
 include controllers/algo/algo.mk
 include controllers/math/math.mk

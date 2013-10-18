@@ -11,7 +11,7 @@
  */
 
 #include "ckp_events.h"
-#include "crank_input.h"
+#include "shaft_position_input.h"
 #include "datalogging.h"
 #include "rpm_reporter.h"
 #include "rficonsole.h"
@@ -21,27 +21,27 @@
 
 static volatile int rpm = 0;
 // we need this initial to have not_running at first invocation
-static volatile time_t lastRpmEventTime = -10 * SECOND_AS_TICKS;
+static volatile time_t lastRpmEventTime = -10 * CH_FREQUENCY;
 
 /**
  * @return true if previous signal is too old
  */
 int isNotRunning(int previousCrankSignalTime) {
 	return overflowDiff(chTimeNow(), previousCrankSignalTime)
-			> SECOND_AS_TICKS;
+			> CH_FREQUENCY;
 }
 
 //static Logging log;
 
 int isRunning() {
 	time_t now = chTimeNow();
-	return overflowDiff(now, lastRpmEventTime) < 2 * SECOND_AS_TICKS;
+	return overflowDiff(now, lastRpmEventTime) < 2 * CH_FREQUENCY;
 }
 
-static void updateRpmValue(int ckpEventType) {
+static void updateRpmValue(ShaftEvents ckpEventType, int index) {
 	// this code is invoked on interrupt thread
 
-	if (ckpEventType != CKP_PRIMARY_UP)
+	if (index != 0)
 		return;
 
 //	logStartLine(&log, 0);
@@ -75,5 +75,5 @@ int getCurrentRpm() {
 }
 
 void initTachometer() {
-	registerCkpListener(&updateRpmValue, "rpm reporter");
+	registerShaftPositionListener(&updateRpmValue, "rpm reporter");
 }

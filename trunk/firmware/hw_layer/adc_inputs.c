@@ -12,7 +12,7 @@
 #include "datalogging.h"
 #include "pin_repository.h"
 #include "engine_math.h"
-#include "crank_input.h"
+#include "shaft_position_input.h"
 #include "idle_controller.h" // that's for min/max
 /* Depth of the conversion buffer, channels are sampled X times each.*/
 #define ADC_GRP1_BUF_DEPTH_SLOW      1
@@ -26,10 +26,8 @@
 #define PWM_FREQ_FAST 1500000   /* PWM clock frequency. I wonder what does this setting mean?  */
 #define PWM_PERIOD_FAST 50  /* PWM period (in PWM ticks).    */
 
-#define ADC_PWM_SLOW	&PWMD5
 #define ADC_SLOW ADCD1
 
-#define ADC_PWM_FAST	&PWMD4
 #define ADC_FAST ADCD2
 
 #define ADC_DEBUG_KEY "adcDebug"
@@ -348,8 +346,8 @@ void initAdcInputs() {
 	/*
 	 * Initializes the PWM driver.
 	 */
-	pwmStart(ADC_PWM_SLOW, &pwmcfg_slow);
-	pwmStart(ADC_PWM_FAST, &pwmcfg_fast);
+	pwmStart(EFI_INTERNAL_SLOW_ADC_PWM, &pwmcfg_slow);
+	pwmStart(EFI_INTERNAL_FAST_ADC_PWM, &pwmcfg_fast);
 	addConsoleAction1("adc", printAdcValue);
 	addConsoleAction("fadc", printFullAdcReport);
 #else

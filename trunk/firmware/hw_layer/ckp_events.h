@@ -9,10 +9,10 @@
 #define CKP_EVENTS_H_
 
 typedef enum {
-	CKP_PRIMARY_UP = 0,
-	CKP_PRIMARY_DOWN = 1,
-	CKP_SECONDARY_DOWN = 2,
-	CKP_SECONDARY_UP = 3,
-} CkpEvents;
+	SHAFT_PRIMARY_UP = 0,
+	SHAFT_PRIMARY_DOWN = 1,
+	SHAFT_SECONDARY_UP = 2,
+	SHAFT_SECONDARY_DOWN = 3,
+} ShaftEvents;
 
 #endif /* CKP_EVENTS_H_ */

@@ -56,6 +56,7 @@
  */
 
 #include "ch.h"
+#include "print.h"
 
 /*===========================================================================*/
 /* System state checker related code and variables.                          */
@@ -270,13 +271,21 @@ int dbg_panic_line;
  *
  * @param[in] msg       the pointer to the panic message string
  */
+
+extern int main_loop_started;
+
 void chDbgPanic(const char *msg, char * file, int line) {
 #if CH_DBG_ENABLED
 	if(dbg_panic_msg!=NULL)
 		return;
 	dbg_panic_file = file;
 	dbg_panic_line = line;
-  dbg_panic_msg = msg;
+	dbg_panic_msg = msg;
+	if (!main_loop_started) {
+		print("fatal %s %s:%d\r\n", dbg_panic_msg, dbg_panic_file, dbg_panic_line);
+		chThdSleepSeconds(1);
+		chSysHalt();
+	}
 #else
   chSysHalt();
 #endif

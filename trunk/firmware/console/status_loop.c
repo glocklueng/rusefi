@@ -18,7 +18,7 @@
 #include "output_pins.h"
 
 #include "datalogging.h"
-#include "crank_input.h"
+#include "shaft_position_input.h"
 #include "rficonsole_logic.h"
 #include "advance_map.h"
 #include "print.h"
@@ -50,7 +50,7 @@ void setFullLog(int value) {
 	fullLog = value;
 }
 
-static void printStatus() {
+static void printStatus(void) {
 	needToReportStatus = TRUE;
 }
 
@@ -60,7 +60,7 @@ static void printStatus() {
 //	return getTCharge(getCurrentRpm(), tps, cltK, iatK);
 //}
 
-static void printSensors() {
+static void printSensors(void) {
 	debugFloat(&log, "vref", getVRef(), 2);
 
 // white, MAF
@@ -110,7 +110,7 @@ static void checkIfShouldHalt() {
 
 static int timeOfPreviousReport = -1;
 
-void printState() {
+void printState(void) {
 	if (!is_serial_ready())
 		return;
 	checkIfShouldHalt();
@@ -121,7 +121,7 @@ void printState() {
 	if (!fullLog)
 		return;
 
-	int nowSeconds = chTimeNow() / SECOND_AS_TICKS;
+	int nowSeconds = chTimeNowSeconds();
 
 	int currentCkpEventCounter = getCrankEventCounter();
 	if (prevCkpEventCounter == currentCkpEventCounter && timeOfPreviousReport == nowSeconds)
@@ -181,7 +181,7 @@ static void showFuelMap(int rpm, int maf100) {
 	scheduleSimpleMsg(&log2, "fuel map value *100 = ", 100 * value);
 }
 
-void initStatusLoop() {
+void initStatusLoop(void) {
 	initLogging(&log, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 	initLogging(&log2, "main event handler", log2.DEFAULT_BUFFER, sizeof(log2.DEFAULT_BUFFER));
 

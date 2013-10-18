@@ -37,8 +37,7 @@ void invokeArgIntCallbacks(IntListenerArray *array, int value) {
 	}
 }
 
-
-void invokeCallbacks2I(IntListenerArray *array, int value, int value2) {
+void invokeIntIntCallbacks(IntListenerArray *array, int value, int value2) {
 	for (int i = 0; i < array->currentListenersCount; i++) {
 		IntIntListener listener = (IntIntListener)array->callbacks[i];
 		(listener)(value, value2);

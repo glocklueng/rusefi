@@ -28,6 +28,6 @@ void registerCallback(IntListenerArray *array, IntListener handler, void *arg);
 void invokeCallbacks(IntListenerArray *array, int value);
 void invokeJustArgCallbacks(IntListenerArray *array);
 void invokeArgIntCallbacks(IntListenerArray *array, int value);
-void invokeCallbacks2I(IntListenerArray *array, int value, int value2);
+void invokeIntIntCallbacks(IntListenerArray *array, int value, int value2);
 
 #endif /* LISTENER_ARRAY_H_ */
