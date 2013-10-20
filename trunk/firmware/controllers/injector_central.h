@@ -12,5 +12,6 @@
 
 void initInjectorCentral(void);
 int isInjectorEnabled(int cylinderId);
+void assertCylinderId(int cylinderId, char *msg);
 
 #endif /* INJECTOR_CENTRAL_H_ */

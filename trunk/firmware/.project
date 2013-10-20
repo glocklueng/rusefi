@@ -3,7 +3,6 @@
 	<name>chibios_template</name>
 	<comment></comment>
 	<projects>
-		<project>common_c_code</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

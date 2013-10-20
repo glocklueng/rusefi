@@ -1,16 +1,12 @@
-/*
- * pin_repository.c
- *
- *  Created on: Jan 15, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
 /**
  * @file    pin_repository.c
  * @brief   I/O pin registry code
  *
  * This job of this class is to make sure that we are not using same hardware pin for two
  * different purposes.
+ *
+ *  Created on: Jan 15, 2013
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "ch.h"
@@ -20,7 +16,7 @@
 #include "datalogging.h"
 
 #define PIN_REPO_SIZE 7 * 16
-int PIN_USED[PIN_REPO_SIZE];
+char *PIN_USED[PIN_REPO_SIZE];
 static int initialized = FALSE;
 
 static Logging log;
@@ -28,37 +24,37 @@ static int pinRegistrationComplete = FALSE;
 static int totalPinsUsed = 0;
 
 char *portname(GPIO_TypeDef* GPIOx) {
-	if (GPIOx == GPIOA )
+	if (GPIOx == GPIOA)
 		return "PA";
-	if (GPIOx == GPIOB )
+	if (GPIOx == GPIOB)
 		return "PB";
-	if (GPIOx == GPIOC )
+	if (GPIOx == GPIOC)
 		return "PC";
-	if (GPIOx == GPIOD )
+	if (GPIOx == GPIOD)
 		return "PD";
-	if (GPIOx == GPIOE )
+	if (GPIOx == GPIOE)
 		return "PE";
-	if (GPIOx == GPIOF )
+	if (GPIOx == GPIOF)
 		return "PF";
-	if (GPIOx == GPIOH )
+	if (GPIOx == GPIOH)
 		return "PH";
 	return "unknown";
 }
 
 static int getPortIndex(GPIO_TypeDef* port) {
-	if (port == GPIOA )
+	if (port == GPIOA)
 		return 0;
-	if (port == GPIOB )
+	if (port == GPIOB)
 		return 1;
-	if (port == GPIOC )
+	if (port == GPIOC)
 		return 2;
-	if (port == GPIOD )
+	if (port == GPIOD)
 		return 3;
-	if (port == GPIOE )
+	if (port == GPIOE)
 		return 4;
-	if (port == GPIOF )
+	if (port == GPIOF)
 		return 5;
-	if (port == GPIOH )
+	if (port == GPIOH)
 		return 6;
 	fatal("portindex");
 }
@@ -91,12 +87,12 @@ void printpin(char *msg, ioportid_t port, int pin) {
 	msgInt(&log, portname(port), pin);
 	printLine(&log);
 
-	if (PIN_USED[index]) {
+	if (PIN_USED[index] != NULL) {
 		print("!!!!!!!!!!!!! Already used [%s] %d\r\n", msg, pin);
+		print("!!!!!!!!!!!!! Already used by [%s]\r\n", PIN_USED[index]);
 		fatal("pin already used");
-		//fatal(msg);
 	}
-	PIN_USED[index] = TRUE;
+	PIN_USED[index] = msg;
 	totalPinsUsed++;
 }
 

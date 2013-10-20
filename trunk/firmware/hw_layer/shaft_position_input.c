@@ -6,7 +6,7 @@
  */
 
 #include "shaft_position_input.h"
-#include "engine.h"
+
 
 #include "rficonsole.h"
 
@@ -23,6 +23,8 @@
 static volatile time_t previousShaftEventTime = -10 * CH_FREQUENCY;
 
 IntListenerArray ckpListeneres;
+
+static Logging log;
 
 ShaftPositionState shaftPositionState;
 
@@ -86,6 +88,7 @@ shaft_icu_width_callback, shaft_icu_period_callback };
 #endif
 
 void initShaftPositionInputCapture() {
+	initLogging(&log, "ShaftPosition", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 
 #if EFI_SHAFT_POSITION_INPUT
 

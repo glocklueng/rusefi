@@ -17,6 +17,7 @@
 #include "rficonsole.h"
 #include "datalogging.h"
 #include "rpm_reporter.h"
+#include "injector_central.h"
 
 #if EFI_WAVE_ANALYZER
 #include "wave_chart.h"
@@ -80,7 +81,7 @@ static void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 	/**
 	 * this timer implements the delay before the signal output
 	 */
-	chVTSetI(&signal->signalTimer, delay, (vtfunc_t)&signalOutputCallbackI, (void *)signal);
+	chVTSetI(&signal->signalTimer, delay, (vtfunc_t) &signalOutputCallbackI, (void *) signal);
 	chSysUnlockFromIsr()
 	;
 
@@ -122,7 +123,11 @@ void scheduleSparkOut(int offset, int duration) {
  * This method schedules asynchronous fuel squirt
  */
 void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, int cylinderId) {
-	chDbgCheck(cylinderId >= 1 && cylinderId<=NUMBER_OF_CYLINDERS, "invalid cylinderId");
+	assertCylinderId(cylinderId, "scheduleFuelInjection");
+
+	if (!isInjectorEnabled(cylinderId))
+		return;
+
 	OutputSignal *injector = injectors[cylinderId - 1];
 
 	scheduleOutput(injector, offsetSysTicks, lengthSysTicks);
@@ -181,7 +186,7 @@ static void initOutputSignal(char *name, OutputSignal *signal, int led, int xor)
 	setOutputPinValue(led, xor); // initial state
 	chSemInit(&signal->signalSemaphore, 1);
 
-	chThdCreateStatic(signal->soThreadStack, sizeof(signal->soThreadStack), NORMALPRIO, (tfunc_t)soThread, signal);
+	chThdCreateStatic(signal->soThreadStack, sizeof(signal->soThreadStack), NORMALPRIO, (tfunc_t) soThread, signal);
 	signal->initialized = TRUE;
 }
 

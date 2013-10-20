@@ -11,17 +11,11 @@
 #ifndef MAIN_LOOP_H_
 #define MAIN_LOOP_H_
 
-#include "global.h"
+#include "main.h"
 
-/**
- * "For ALL 4 cycle (four-stroke) engines, no matter how many cylinders, the crankshaft
- * turns twice for every turn of the camshaft."
- *
- * Cam revolution time in milliseconds = 1000 / (RPM / 60 / 2) = 120000 / RPM
- * One stroke is 90 degrees = so, we divide revolution constant by four
- */
-
-#define STROKE_TIME_CONSTANT (1000 * 60 * 2 / 4 * TICKS_IN_MS)
+typedef struct {
+	int fireAtEventIndex[SHAFT_POSITION_EVENT_COUNT];
+} InjectionConfiguration;
 
 void initMainEventListener(void);
 void onEveryMillisecondTimerSignal(void);
