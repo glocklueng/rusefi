@@ -18,7 +18,10 @@
 #include "snow_blower.h"
 #include "denisvak.h"
 
-float getFuelMs(void);
+#include "datalogging.h"
+
+
+float getFuelMs(int rpm);
 
 
 #include "stm32f4xx_specific.h"

@@ -142,7 +142,7 @@ static int getCrankPeriod() {
 }
 
 static void onWaveShaftSignal(ShaftEvents ckpSignalType, int index) {
-	if (ckpSignalType != SHAFT_PRIMARY_DOWN)
+	if (index != 0)
 		return;
 	int now = chTimeNow();
 	ckpPeriod = now - previousCrankSignalStart;

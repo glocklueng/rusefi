@@ -71,18 +71,14 @@ static float getCrankingFuel() {
 }
 
 /**
- * @brief	Amount of fuel we should inject
+ * @brief	Length of fuel injection, in milliseconds
  */
-float getFuelMs() {
+float getFuelMs(int rpm) {
 	if (isCranking()) {
 		return getCrankingFuel();
 	} else {
-		int rpm = getCurrentRpm();
-		myfloat fuel;
-		if (MAF_MODE)
-			fuel = getFuel(rpm, getMaf());
-		else
-			fuel = getDefaultFuel(rpm, getMap());
+		myfloat fuel = getFuel(rpm, getMaf());
+		return fuel;
 	}
 }
 
@@ -102,15 +98,26 @@ void confgiureShaftPositionEmulatorShape(PwmConfig *state) {
 			secondStart + 0.5,
 			0.75, 0.75 + x, 1 };
 
-	int pinStates0[] = { 0, 0, 1 /* start of 2nd signal*/ , 0, 1 /* start of 3rd signal*/, 0, 0, 1, 0, 1 };
-
-	int pinStates1[] = { 1, 0, 0, 0, 0,
+	/**
+	 * One signal per cam shaft revolution
+	 */
+	int pinStates0[] = { 1, 0, 0, 0, 0,
 			             0, 1, 1, 1, 1};
+
+	/**
+	 * Four signals per cam shaft revolution
+	 */
+	int pinStates1[] = { 0, 0, 1 /* start of 2nd signal*/ , 0, 1 /* start of 3rd signal*/, 0, 0, 1, 0, 1 };
+
 
 	int *pinStates[2] = { pinStates0, pinStates1 };
 
 	weComplexInit("distributor", state, 0, 10, switchTimes, 2, pinStates);
 }
 
+void configureInjection(InjectionConfiguration *injectionConfiguration) {
+	injectionConfiguration->fireAtEventIndex[1] = 1;
+	injectionConfiguration->fireAtEventIndex[3] = 1;
+}
 
 #endif /* EFI_ENGINE_FORD_ASPIRE */

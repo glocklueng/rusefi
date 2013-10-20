@@ -20,6 +20,10 @@
 #include "thermistors.h"
 #include "pwm_generator.h"
 
+#define SHAFT_POSITION_EVENT_COUNT 10
+
+#include "main_loop.h"
+
 #define EFI_USE_MULTI_SENSOR_SHAFT_SENSOR TRUE
 
 #define EFI_ENGINE_ID "Ford Aspire"
@@ -27,6 +31,7 @@
 #define ASPIRE_MAGIC_DUTY_CYCLE 0.3877
 
 #define NUMBER_OF_CYLINDERS 4
+
 
 #define ENGINE_CRANKING_RPM 400
 
@@ -37,7 +42,7 @@
 
 // be careful not to put brackets around the value, otherwise integer math would trigger
 // and you would get zero multiplier
-#define RPM_MULT 2 / 4
+#define RPM_MULT 2
 
 // todo: this value is way off! I am pretty sure temp coeffs are off also
 #define IAT_HI_RESISTOR 2700
@@ -55,6 +60,7 @@ myfloat getTPS(void);
 myfloat getMap(void);
 
 void confgiureShaftPositionEmulatorShape(PwmConfig *state);
+void configureInjection(InjectionConfiguration *config);
 
 #define PRIMARY_SHAFT_POSITION_INPUT_DRIVER ICUD2
 #define PRIMARY_SHAFT_POSITION_INPUT_PORT GPIOA
@@ -79,6 +85,18 @@ void confgiureShaftPositionEmulatorShape(PwmConfig *state);
 
 #define INJECTOR_4_PORT GPIOE
 #define INJECTOR_4_PIN 0
+
+#if EFI_EMULATE_POSITION_SENSORS
+// One signal per cam shaft revolution
+#define PRIMARY_SHAFT_POSITION_EMULATION_PIN 4
+#define PRIMARY_SHAFT_POSITION_EMULATION_PORT GPIOD
+// Four signals per cam shaft revolution
+#define SECONDARY_SHAFT_POSITION_EMULATION_PORT GPIOD
+#define SECONDARY_SHAFT_POSITION_EMULATION_PIN 1
+#endif /* EFI_EMULATE_POSITION_SENSORS */
+
+#define SPARK_1_PORT GPIOD
+#define SPARK_1_PIN 3
 
 #endif /* EFI_ENGINE_FORD_ASPIRE */
 

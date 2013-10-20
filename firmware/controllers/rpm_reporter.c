@@ -63,7 +63,7 @@ static void updateRpmValue(ShaftEvents ckpEventType, int index) {
 		if (diff == 0)
 			rpm = -1;
 		else
-			rpm = 60000 * TICKS_IN_MS * RPM_MULT / diff;
+			rpm = 60000 * TICKS_IN_MS / RPM_MULT / diff;
 	}
 	lastRpmEventTime = now;
 }

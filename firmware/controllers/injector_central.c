@@ -1,10 +1,10 @@
 /*
+ * @file    injector_central.c
+ * @brief	Some utilities related to fuel injection
+ *
+ *
  *  Created on: Sep 8, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
-/**
- * @file    injector_central.c
  */
 
 #include "main.h"
@@ -15,14 +15,30 @@
 
 static Logging log;
 
+int isInjectionEnabled = TRUE;
+myfloat globalFuelCorrection = 1;
+
 static int is_injector_enabled[NUMBER_OF_CYLINDERS];
 
+void assertCylinderId(int cylinderId, char *msg) {
+	int isValid = cylinderId >= 1 && cylinderId <= NUMBER_OF_CYLINDERS;
+	if (!isValid) {
+		//scheduleSimpleMsg(&log, "cid=", cylinderId);
+		print("ERROR [%s] cid=%d\r\n", msg, cylinderId);
+		chDbgAssert(isValid, "Cylinder ID", null);
+	}
+}
+
+/**
+ * @param cylinderId - from 1 to NUMBER_OF_CYLINDERS
+ */
 int isInjectorEnabled(int cylinderId) {
-	return is_injector_enabled[cylinderId];
+	assertCylinderId(cylinderId, "isInjectorEnabled");
+	return is_injector_enabled[cylinderId - 1];
 }
 
 static void printStatus() {
-	for (int id = 0; id < NUMBER_OF_CYLINDERS; id++) {
+	for (int id = 1; id <= NUMBER_OF_CYLINDERS; id++) {
 		resetLogging(&log);
 
 		append(&log, "injector");
@@ -40,6 +56,13 @@ static void setInjectorEnabled(int id, int value) {
 	printStatus();
 }
 
+static void setGlobalFuelCorrection(int value) {
+	if (value < 10 || value > 500)
+		return;
+	scheduleSimpleMsg(&log, "setting fuel mult=", value);
+	globalFuelCorrection = value / 100.0;
+}
+
 void initInjectorCentral(void) {
 	initLogging(&log, "InjectorCentral", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 
@@ -47,4 +70,6 @@ void initInjectorCentral(void) {
 		is_injector_enabled[i] = true;
 	printStatus();
 	addConsoleAction2I("injector", setInjectorEnabled);
+
+	addConsoleAction1("gfc", setGlobalFuelCorrection);
 }

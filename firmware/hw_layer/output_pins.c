@@ -52,7 +52,7 @@ void initOutputPins() {
 	ledRegister("is alive status2", LED_ALIVE3, GPIOD, GPIOD_LED6);
 
 	ledRegister("is alive status 2", LED_ALIVE2, GPIOC, 13);
-	ledRegister("alive1", LED_DEBUG, GPIOD, 2);
+	ledRegister("alive1", LED_DEBUG, GPIOD, 6);
 	ledRegister("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN);
 	ledRegister("sparkout2", SPARKOUT_2_OUTPUT, GPIOE, 6);
 

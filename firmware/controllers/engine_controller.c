@@ -9,6 +9,7 @@
  */
 
 #include "main.h"
+#include "engine_controller.h"
 #include "rpm_reporter.h"
 #include "idle_thread.h"
 #include "settings.h"
@@ -18,6 +19,7 @@
 #include "map_multiplier_thread.h"
 #include "output_pins.h"
 #include "tunerstudio.h"
+#include "injector_central.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -72,6 +74,8 @@ void initEngineContoller(void) {
 
 // multiple issues with this	initMapAdjusterThread();
 	initPeriodicEvents();
+
+	initInjectorCentral();
 	/**
 	 * This method initialized the main listener which actually runs injectors & ignition
 	 */

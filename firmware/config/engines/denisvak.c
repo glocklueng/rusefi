@@ -9,6 +9,9 @@
 
 #include "main.h"
 #include "print.h"
+#include "engine_controller.h"
+#include "denisvak.h"
+
 
 #if EFI_ENGINE_DENISVAK
 
@@ -16,12 +19,13 @@ float getVRef(void) {
 	return 12;
 }
 
-float getFuelMs() {
-	return 1;
-}
-
-void initMainEventListener() {
-
+float getFuelMs(int rpm) {
+	if (isCranking()) {
+		return 5;
+	} else {
+//		return = getFuel(rpm, getMap());
+		return 2.2;
+	}
 }
 
 static myfloat switchTimes[2 * TOTAL_TEETH_COUNT];
@@ -45,6 +49,13 @@ void confgiureShaftPositionEmulatorShape(PwmConfig *state) {
 	int *pinStates[1] = { pinStates0 };
 
 	weComplexInit("position sensor", state, 0, 2 * TOTAL_TEETH_COUNT, switchTimes, 1, pinStates);
+}
+
+void configureInjection(InjectionConfiguration *injectionConfiguration) {
+	injectionConfiguration->fireAtEventIndex[0] = 1;
+	injectionConfiguration->fireAtEventIndex[2 * 15] = 2;
+	injectionConfiguration->fireAtEventIndex[2 * 30] = 3;
+	injectionConfiguration->fireAtEventIndex[2 * 45] = 4;
 }
 
 #endif /* EFI_ENGINE_DENISVAK */

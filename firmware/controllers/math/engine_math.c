@@ -59,9 +59,9 @@ float getDefaultVE(int rpm) {
 #define tpMin 0
 #define tpMax 100
 
-float getDefaultFuel(int rpm, float map) {
-	return 0.11558472166666668 * map + 0.01037;
-}
+//float getDefaultFuel(int rpm, float map) {
+//	return 0.11558472166666668 * map + 0.01037;
+//}
 
 /**
  * http://rusefi.com/math/t_charge.html

@@ -13,7 +13,7 @@
 
 #define STM32_ICU_USE_TIM1                  TRUE // wave input
 #define STM32_ICU_USE_TIM2                  TRUE // primary position sensor
-#define STM32_ICU_USE_TIM3                  TRUE // wave input
+#define STM32_ICU_USE_TIM3                  TRUE // secondary position sensor
 #define STM32_ICU_USE_TIM4                  FALSE
 #define STM32_ICU_USE_TIM5                  FALSE
 #define STM32_ICU_USE_TIM8                  FALSE

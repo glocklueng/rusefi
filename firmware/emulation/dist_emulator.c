@@ -46,8 +46,11 @@ void initShaftPositionEmulator() {
 
 	initOutputPin("distributor ch1", &configuration.waves[0].outputPin,
 			PRIMARY_SHAFT_POSITION_EMULATION_PORT, PRIMARY_SHAFT_POSITION_EMULATION_PIN);
+
+#if EFI_SHAFT_POSTION_NEEDS_SECONDARY
 	initOutputPin("distributor ch2", &configuration.waves[1].outputPin,
 			SECONDARY_SHAFT_POSITION_EMULATION_PORT, SECONDARY_SHAFT_POSITION_EMULATION_PIN);
+#endif
 
 	confgiureShaftPositionEmulatorShape(&configuration);
 
