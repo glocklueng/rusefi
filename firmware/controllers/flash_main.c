@@ -14,6 +14,8 @@
 #include "rficonsole.h"
 #include "flash.h"
 
+#include "tunerstudio.h"
+
 #include "datalogging.h"
 
 static Logging log;
@@ -43,8 +45,8 @@ void writeToFlash(void) {
 }
 
 static void printConfiguration(void) {
-	for (int i = 0; i < FUEL_RPM_COUNT; i++) {
-		print("line %d: ", i);
+	for (int i = 0; i < FUEL_MAF_COUNT; i++) {
+		print("line %d (%f): ", i, engineConfiguration->fuelKeyBins[i]);
 		for (int j = 0; j < FUEL_RPM_COUNT; j++) {
 			print("%f ", engineConfiguration->fuelTable[i][j]);
 		}
@@ -52,9 +54,13 @@ static void printConfiguration(void) {
 	}
 
 	print("RPM bin: ");
-	for (int j = 0; j < FUEL_RPM_COUNT; j++) {
+	for (int j = 0; j < FUEL_RPM_COUNT; j++)
 		print("%d ", engineConfiguration->fuelRpmBins[j]);
-	}
+	print("\r\n");
+
+	print("Y bin: ");
+	for (int j = 0; j < FUEL_MAF_COUNT; j++)
+		print("%f ", engineConfiguration->fuelKeyBins[j]);
 	print("\r\n");
 }
 
@@ -85,7 +91,9 @@ static void setDefaultConfiguration(void) {
 			engineConfiguration->fuelTable[i][r] = fuel_table[r][i];
 		}
 	}
+#if EFI_TUNER_STUDIO
 	syncTunerStudioCopy();
+#endif
 }
 
 static void readFromFlash(void) {
@@ -101,7 +109,7 @@ static void readFromFlash(void) {
 }
 
 void initFlash(void) {
-	initLogging(&log, "Idle Valve Control", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&log, "Flash memory", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 	print("initFlash()\r\n");
 
 	addConsoleAction("showconfig", printConfiguration);

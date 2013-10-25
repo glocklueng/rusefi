@@ -22,8 +22,8 @@
 #define ADC_LOGIC_8 8
 #define ADC_LOGIC_9 9
 
-#include "adc_internal_nice_board.h"
-//#include "adc_internal_dual_amp.h"
+//#include "adc_internal_nice_board.h"
+#include "adc_internal_dual_amp.h"
 //#include "adc_external.h"
 
 // extra board

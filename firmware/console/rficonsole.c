@@ -68,19 +68,27 @@ static void sayOsHello(void) {
 	append(&log, EFI_ENGINE_ID);
 	printLine(&log);
 
-	printSimpleMsg(&log, "EFI_WAVE_ANALYZER", EFI_WAVE_ANALYZER);
+	printSimpleMsg(&log, "EFI_WAVE_ANALYZER=", EFI_WAVE_ANALYZER);
 #ifdef EFI_TUNER_STUDIO
-	printSimpleMsg(&log, "EFI_TUNER_STUDIO", EFI_TUNER_STUDIO);
+	printSimpleMsg(&log, "EFI_TUNER_STUDIO=", EFI_TUNER_STUDIO);
+#else
+	printSimpleMsg(&log, "EFI_TUNER_STUDIO=", 0);
 #endif
-	printSimpleMsg(&log, "EFI_SHAFT_POSITION_INPUT", EFI_SHAFT_POSITION_INPUT);
-	printSimpleMsg(&log, "EFI_INTERNAL_ADC", EFI_INTERNAL_ADC);
-	printSimpleMsg(&log, "NUMBER_OF_CYLINDERS", NUMBER_OF_CYLINDERS);
-	printSimpleMsg(&log, "ENGINE_CRANKING_RPM", ENGINE_CRANKING_RPM);
+
+#ifdef EFI_TUNER_STUDIO_OVER_USB
+	printSimpleMsg(&log, "EFI_TUNER_STUDIO_OVER_USB=", EFI_TUNER_STUDIO_OVER_USB);
+#else
+	printSimpleMsg(&log, "EFI_TUNER_STUDIO_OVER_USB=", 0);
+#endif
+	printSimpleMsg(&log, "EFI_SHAFT_POSITION_INPUT=", EFI_SHAFT_POSITION_INPUT);
+	printSimpleMsg(&log, "EFI_INTERNAL_ADC=", EFI_INTERNAL_ADC);
+	printSimpleMsg(&log, "NUMBER_OF_CYLINDERS=", NUMBER_OF_CYLINDERS);
+	printSimpleMsg(&log, "ENGINE_CRANKING_RPM=", ENGINE_CRANKING_RPM);
 #ifdef EFI_USE_MULTI_SENSOR_SHAFT_SENSOR
-	printSimpleMsg(&log, "EFI_USE_MULTI_SENSOR_SHAFT_SENSOR", EFI_USE_MULTI_SENSOR_SHAFT_SENSOR);
+	printSimpleMsg(&log, "EFI_USE_MULTI_SENSOR_SHAFT_SENSOR=", EFI_USE_MULTI_SENSOR_SHAFT_SENSOR);
 #endif
 #ifdef EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR
-	printSimpleMsg(&log, "EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR", EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR);
+	printSimpleMsg(&log, "EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR=", EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR);
 #endif
 //	printSimpleMsg(&log, "", );
 //	printSimpleMsg(&log, "", );

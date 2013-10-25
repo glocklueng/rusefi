@@ -10,7 +10,7 @@
 #ifndef FLASH_MAIN_H_
 #define FLASH_MAIN_H_
 
-#include "tunerstudio.h"
+#include "tunerstudio_configuration.h"
 #include "crc.h"
 
 #define FLASH_DATA_VERSION 239000005

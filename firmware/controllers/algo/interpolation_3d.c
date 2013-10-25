@@ -19,11 +19,27 @@ float interpolate3d(int rpm, float y, float rpmBin[], int rpmBinSize, float yBin
 	printf("rpm index=%d\r\n", rpm_index);
 #endif
 	int key_index = findIndex(yBin, yBinSize, y);
-	if (rpm_index < 0 || key_index < 0) {
+	if (rpm_index < 0 && key_index < 0) {
 #if	DEBUG_INTERPOLATION
-		printf("rpm or key is lower then smallest cell in table: %f\r\n", rpm_index);
+		printf("rpm and key are smaller than smallest cell in table: %f\r\n", rpm_index);
 #endif
 		return map[0][0];
+	}
+
+	if (rpm_index < 0) {
+#if	DEBUG_INTERPOLATION
+		printf("rpm is smaller than smallest cell in table: %f\r\n", rpm_index);
+#endif
+		// no interpolation should be fine here.
+		return map[0][key_index];
+	}
+
+	if (key_index < 0) {
+#if	DEBUG_INTERPOLATION
+		printf("rpm and key are smaller than smallest cell in table: %f\r\n", rpm_index);
+#endif
+		// no interpolation should be fine here.
+		return map[rpm_index][0];
 	}
 
 	/**

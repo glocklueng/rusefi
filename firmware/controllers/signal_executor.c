@@ -149,7 +149,7 @@ static msg_t soThread(OutputSignal *signal) {
 			continue;
 		}
 
-		int now = chTimeNow();
+		systime_t now = chTimeNow();
 		// turn the output level ACTIVE
 		setOutputPinValue(signal->ledIndex, TRUE ^ signal->xor);
 		// sleep for the needed duration
@@ -161,7 +161,7 @@ static msg_t soThread(OutputSignal *signal) {
 		chThdSleep(signal->duration);
 		// turn off the output
 		setOutputPinValue(signal->ledIndex, FALSE ^ signal->xor);
-		int after = chTimeNow();
+		systime_t after = chTimeNow();
 
 #if EFI_DEFAILED_LOGGING
 		debugInt(&signal->logging, "a_time", after - now);

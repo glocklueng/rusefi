@@ -43,7 +43,7 @@ static void maThread(int param) {
 	while (TRUE) {
 		chThdSleepMilliseconds(100);
 
-		int now = chTimeNow();
+		systime_t now = chTimeNow();
 		if (!isRunning()) {
 			timeAtNotRunning = now;
 			continue;

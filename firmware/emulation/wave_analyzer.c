@@ -46,7 +46,7 @@ static void ensureInitialized(WaveReader *reader) {
 #ifdef EFI_WAVE_ANALYZER
 
 static void waAnaWidthCallback(WaveReader *reader) {
-	int now = chTimeNow();
+	systime_t now = chTimeNow();
 	reader->eventCounter++;
 	reader->lastActivityTime = now;
 	addWaveChartEvent(&crankChart, reader->name, "up");
@@ -59,7 +59,7 @@ static void waAnaWidthCallback(WaveReader *reader) {
 }
 
 static void waIcuPeriodCallback(WaveReader *reader) {
-	int now = chTimeNow();
+	systime_t now = chTimeNow();
 	reader->eventCounter++;
 	reader->lastActivityTime = now;
 	addWaveChartEvent(&crankChart, reader->name, "down");
@@ -144,7 +144,7 @@ static int getCrankPeriod() {
 static void onWaveShaftSignal(ShaftEvents ckpSignalType, int index) {
 	if (index != 0)
 		return;
-	int now = chTimeNow();
+	systime_t now = chTimeNow();
 	ckpPeriod = now - previousCrankSignalStart;
 	previousCrankSignalStart = now;
 }

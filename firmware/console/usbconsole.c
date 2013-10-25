@@ -10,6 +10,7 @@
 #include "ch.h"
 #include "hal.h"
 
+#include "usbconsole.h"
 #include "usbcfg.h"
 #include "features.h"
 
@@ -39,12 +40,16 @@ void usb_serial_start(void) {
 	 * PA2(TX) and PA3(RX) are routed to USART2.
 	 */
 	sdStart(&SD2, NULL);
-	palSetPadMode(GPIOA, 2, PAL_MODE_ALTERNATE(7)); palSetPadMode(GPIOA, 3, PAL_MODE_ALTERNATE(7));
+	palSetPadMode(GPIOA, 2, PAL_MODE_ALTERNATE(7));
+	palSetPadMode(GPIOA, 3, PAL_MODE_ALTERNATE(7));
+}
+
+int is_usb_serial_ready(void) {
+	return SDU1.config->usbp->state == USB_ACTIVE;
 }
 
 #ifdef EFI_SERIAL_OVER_USB
 int is_serial_ready(void) {
-	return SDU1.config->usbp->state == USB_ACTIVE;
+	return is_usb_serial_ready();
 }
 #endif
-

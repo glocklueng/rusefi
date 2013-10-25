@@ -11,7 +11,8 @@
 #include "print.h"
 #include "engine_controller.h"
 #include "denisvak.h"
-
+#include "adc_inputs.h"
+#include "fuel_map.h"
 
 #if EFI_ENGINE_DENISVAK
 
@@ -19,12 +20,19 @@ float getVRef(void) {
 	return 12;
 }
 
+myfloat getMap(void) {
+	// PA6 adc input
+	int adc0 = getAdcValue(ADC_LOGIC_MAP);
+	float volts = adcToVolts(adc0);
+	return volts;
+//	return 3;
+}
+
 float getFuelMs(int rpm) {
 	if (isCranking()) {
 		return 5;
 	} else {
-//		return = getFuel(rpm, getMap());
-		return 2.2;
+		return 1.8;//getFuel(rpm, getMap());
 	}
 }
 

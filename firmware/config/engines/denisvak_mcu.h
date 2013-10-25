@@ -27,6 +27,30 @@
 #define STM32_PWM_USE_TIM8                  FALSE
 #define STM32_PWM_USE_TIM9                  FALSE
 
+#define STM32_SPI_USE_SPI1                  FALSE
+#define STM32_SPI_USE_SPI2                  TRUE // external ADC
+#define STM32_SPI_USE_SPI3                  FALSE // potentiometer
+
+//#define POT_SPI_CK_PORT GPIOA
+//#define POT_SPI_CK_PIN 5
+//#define POT_SPI_MO_PORT GPIOA
+//#define POT_SPI_MO_PIN 7
+//#define POT_SPI_AF 5
+
+//#define POT_SPI_CK_PORT GPIOC
+//#define POT_SPI_CK_PIN 10
+//#define POT_SPI_MO_PORT GPIOC
+//#define POT_SPI_MO_PIN 12
+//#define POT_SPI_AF 6
+
+#define EFI_SPI2_SCK_PORT GPIOB
+#define EFI_SPI2_SCK_PIN 13
+#define EFI_SPI2_MISO_PORT GPIOB
+#define EFI_SPI2_MISO_PIN 14
+#define EFI_SPI2_MOSI_PORT GPIOB
+#define EFI_SPI2_MOSI_PIN 15
+#define EFI_SPI2_AF 5
+
 #define EFI_INTERNAL_SLOW_ADC_PWM	&PWMD5
 #define EFI_INTERNAL_FAST_ADC_PWM	&PWMD2
 

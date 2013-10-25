@@ -15,72 +15,74 @@
 #include "main_loop.h"
 #include "flash_main.h"
 #include "rficonsole_logic.h"
+#include "usbconsole.h"
+
+#include "tunerstudio_algo.h"
+#include "tunerstudio_configuration.h"
+
+#if EFI_TUNER_STUDIO
+
+static Logging log;
 
 extern EngineConfiguration *engineConfiguration;
 
 extern SerialUSBDriver SDU1;
 #define CONSOLE_DEVICE &SDU1
 
-static SerialConfig tsSerialConfig = { TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
+#if EFI_TUNER_STUDIO_OVER_USB
+#define ts_serail_ready() is_usb_serial_ready()
+#else
+#define ts_serail_ready() TRUE
+static SerialConfig tsSerialConfig = {TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0};
+#endif /* EFI_TUNER_STUDIO_OVER_USB */
 
 static WORKING_AREA(TS_WORKING_AREA, 512);
 
 static int tsCounter = 0;
-static int helloCounter = 0;
-static int channelsCounter = 0;
-static int constantsCounter = 0;
-static int burnCounter = 0;
 static int writeCounter = 0;
-static int errorCounter = 0;
 
 static TunerStudioWriteRequest writeRequest;
 
-static TunerStudioOutputChannels tsOutputChannels;
-#if defined __GNUC__
-static EngineConfiguration tsContstants __attribute__((section(".bss2")));
-#else
-static EngineConfiguration tsContstants;
-#endif
+extern TunerStudioOutputChannels tsOutputChannels;
 
-char *constantsAsPtr = (char *)&tsContstants;
+extern EngineConfiguration tsContstants;
+
+char *constantsAsPtr = (char *) &tsContstants;
+
+extern TunerStudioState tsState;
 
 static void printStats(void) {
+#if EFI_TUNER_STUDIO_OVER_USB
+#else
 	print("TS RX on %s%d\r\n", portname(TS_SERIAL_PORT), TS_SERIAL_RX_PIN);
 	print("TS TX on %s%d\r\n", portname(TS_SERIAL_PORT), TS_SERIAL_TX_PIN);
-	print("TunerStudio total/error counter=%d/%d\r\n", tsCounter, errorCounter);
-	print("TunerStudio H counter=%d\r\n", helloCounter);
-	print("TunerStudio O counter=%d size=%d\r\n", channelsCounter, sizeof(tsOutputChannels));
-	print("TunerStudio C counter=%d size=%d\r\n", constantsCounter, sizeof(tsContstants));
-	print("TunerStudio B counter=%d size=%d\r\n", burnCounter, sizeof(tsContstants));
+#endif /* EFI_TUNER_STUDIO_OVER_USB */
+	print("TunerStudio total/error counter=%d/%d\r\n", tsCounter, tsState.errorCounter);
+	print("TunerStudio H counter=%d\r\n", tsState.queryCommandCounter);
+	print("TunerStudio O counter=%d size=%d\r\n", tsState.outputChannelsCommandCounter, sizeof(tsOutputChannels));
+	print("TunerStudio C counter=%d size=%d\r\n", tsState.readPageCommandsCounter, sizeof(tsContstants));
+	print("TunerStudio B counter=%d size=%d\r\n", tsState.burnCommandCounter, sizeof(tsContstants));
 	print("TunerStudio W counter=%d\r\n", writeCounter);
 }
 
-static void handleHelloCommand(void) {
+void tunerStudioWriteData(const uint8_t * buffer, int size) {
+	chSequentialStreamWrite(TS_SERIAL_DEVICE, buffer, size);
+}
+
+void tunerStudioDebug(char *msg) {
 #if EFI_TUNER_STUDIO_VERBOSE
-	print("got H (Hello)\r\n");
+	print("%s\r\n", msg);
 	printStats();
 #endif
-	chSequentialStreamWrite(TS_SERIAL_DEVICE, SIGNATURE, strlen(SIGNATURE) + 1);
 }
 
 /**
- * @brief 'Output' command sends out a snapshot of current values
+ * 'Write' command receives a single value at a given offset
  */
-static void handleOutputChannelsCommand(void) {
-//  this happends too often	to log it
-//	chprintf(CONSOLE_DEVICE, "got O (OutputChannels)\r\n");
-	chSequentialStreamWrite(TS_SERIAL_DEVICE, (const uint8_t *)&tsOutputChannels, sizeof(tsOutputChannels));
-}
+void handleValueWriteCommand(void) {
+	writeCounter++;
 
-
-/**
- * 'Write' command recieves a single value at a given offset
- */
-static void handleWriteCommand(void) {
-#if EFI_TUNER_STUDIO_VERBOSE
-	print("got W (Write)\r\n");
-	printStats();
-#endif
+	tunerStudioDebug("got W (Write)");
 
 	int size = sizeof(TunerStudioWriteRequest);
 	print("Reading %d\r\n", size);
@@ -98,57 +100,38 @@ static void handleWriteCommand(void) {
 /**
  * 'Burn' command is a command to commit the changes
  */
-static void handleBurnCommand(void) {
+void handleBurnCommand(void) {
+	tsState.burnCommandCounter++;
 
-#if EFI_TUNER_STUDIO_VERBOSE
-	print("got B (Burn)\r\n");
-	printStats();
-#endif
+	tunerStudioDebug("got B (Burn)");
+
 	// todo: how about some multi-threading?
 	memcpy(engineConfiguration, &tsContstants, sizeof(EngineConfiguration));
 	writeToFlash();
-}
-
-static void handleConstantsCommand(void) {
-#if EFI_TUNER_STUDIO_VERBOSE
-	print("got C (Constants)\r\n");
-	printStats();
-#endif
-	chSequentialStreamWrite(TS_SERIAL_DEVICE, (const uint8_t *)&tsContstants, sizeof(EngineConfiguration));
-}
-
-static void handleTSCommand(short code) {
-	if (code == 'H') {
-		helloCounter++;
-		handleHelloCommand();
-	} else if (code == 'O') {
-		channelsCounter++;
-		handleOutputChannelsCommand();
-	} else if (code == 'W') {
-		writeCounter++;
-		handleWriteCommand();
-	} else if (code == 'B') {
-		burnCounter++;
-		handleBurnCommand();
-	} else if (code == 'C') {
-		constantsCounter++;
-		handleConstantsCommand();
-	} else if (code == 't' || code == 'T') {
-		print("got T (Test)\r\n");
-		chSequentialStreamWrite(TS_SERIAL_DEVICE, "alive\r\n", 7);
-	} else {
-		errorCounter++;
-		print("got unexpected command %c:%d\r\n", code, code);
-	}
 }
 
 static msg_t tsThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("tunerstudio thread");
 
+	int wasReady = FALSE;
 	while (true) {
-		short code = (short) chSequentialStreamGet(TS_SERIAL_DEVICE);
-		handleTSCommand(code);
+		int isReady = ts_serail_ready();
+		if (!isReady) {
+			chThdSleepMilliseconds(10);
+			wasReady = FALSE;
+			continue;
+		}
+		if (!wasReady) {
+			wasReady = TRUE;
+//			scheduleSimpleMsg(&log, "ts channel is now ready ", chTimeNow());
+		}
+
+		short command = (short) chSequentialStreamGet(TS_SERIAL_DEVICE);
+		int success = tunerStudioHandleCommand(command);
+		if (!success)
+			print("got unexpected command %c:%d\r\n", command, command);
+
 		tsCounter++;
 	}
 	return 0;
@@ -161,16 +144,23 @@ void syncTunerStudioCopy(void) {
 }
 
 void startTunerStudioConnectivity(void) {
+	initLogging(&log, "tuner studio", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+#if EFI_TUNER_STUDIO_OVER_USB
+	print("TunerStudio over USB serial");
+	usb_serial_start();
+#else
+	print("TunerStudio over USART");
 	mySetPadMode("tunerstudio rx", TS_SERIAL_PORT, TS_SERIAL_RX_PIN, PAL_MODE_ALTERNATE(7));
 	mySetPadMode("tunerstudio tx", TS_SERIAL_PORT, TS_SERIAL_TX_PIN, PAL_MODE_ALTERNATE(7));
 
 	sdStart(TS_SERIAL_DEVICE, &tsSerialConfig);
+#endif
 
 	syncTunerStudioCopy();
 
 	addConsoleAction("tss", printStats);
 
-	chThdCreateStatic(TS_WORKING_AREA, sizeof(TS_WORKING_AREA), NORMALPRIO, tsThreadEntryPoint, NULL);
+	chThdCreateStatic(TS_WORKING_AREA, sizeof(TS_WORKING_AREA), NORMALPRIO, tsThreadEntryPoint, NULL );
 }
 
 void updateTunerStudioState() {
@@ -181,3 +171,5 @@ void updateTunerStudioState() {
 	tsOutputChannels.mass_air_flow = getMaf();
 	tsOutputChannels.air_fuel_ratio = getAfr();
 }
+
+#endif /* EFI_TUNER_STUDIO */

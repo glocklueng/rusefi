@@ -16,25 +16,6 @@
 #ifndef MCP3208_H_
 #define MCP3208_H_
 
-//#define ADC_SPI &SPID1
-
-#define ADC_SPI_AF 5
-
-// pin13
-// violet
-#define SPI_SCK_PORT GPIOB
-#define SPI_SCK_PIN 13
-
-// pin12
-// yellow
-#define SPI_MISO_PORT GPIOB
-#define SPI_MISO_PIN 14
-
-// pin11
-// green
-#define SPI_MOSI_PORT GPIOB
-#define SPI_MOSI_PIN 15
-
 #define MCP3208_CS_PORT GPIOD
 #define MCP3208_CS_PIN 11
 

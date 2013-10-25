@@ -8,6 +8,7 @@
 #ifndef FUEL_MAP_H_
 #define FUEL_MAP_H_
 
+void initFuelMap(void);
 float getFuel(int rpm, float maf);
 
 #define FUEL_RPM_COUNT 23

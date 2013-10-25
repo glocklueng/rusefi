@@ -39,11 +39,11 @@ myfloat getTPS(void) {
 	return tpsValue;
 }
 
-myfloat getMaf() {
+myfloat getMaf(void) {
 	return getVoltage(ADC_LOGIC_MAF);
 }
 
-myfloat getAfr() {
+myfloat getAfr(void) {
 	myfloat volts = getVoltage(ADC_LOGIC_AFR);
 
 	return interpolate(0, 9, 5, 19, volts);
