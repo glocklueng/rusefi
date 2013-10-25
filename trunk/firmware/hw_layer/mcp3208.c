@@ -128,17 +128,16 @@ void adc_in_out(McpAdcState *state) {
 }
 
 void init_adc_mcp3208(McpAdcState *state, SPIDriver *driver) {
+
+//	initSpiModules();
+
 	state->driver = driver;
 	state->tx_buff[2] = 0;
 
 	hack = state;
 
-	mySetPadMode("adc chip select", MCP3208_CS_PORT, MCP3208_CS_PIN, PAL_STM32_MODE_OUTPUT);
+	mySetPadMode("ext adc chip select", MCP3208_CS_PORT, MCP3208_CS_PIN, PAL_STM32_MODE_OUTPUT);
 
-	mySetPadMode("adc SPI clock", SPI_SCK_PORT, SPI_SCK_PIN, PAL_MODE_ALTERNATE(ADC_SPI_AF));
-
-	mySetPadMode("adc SPI master out", SPI_MOSI_PORT, SPI_MOSI_PIN, PAL_MODE_ALTERNATE(ADC_SPI_AF));
-	mySetPadMode("adc SPI master in ", SPI_MISO_PORT, SPI_MISO_PIN, PAL_MODE_ALTERNATE(ADC_SPI_AF));
 
 	spiStart(driver, &spicfg);
 }

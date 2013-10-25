@@ -89,7 +89,7 @@ static void initECUstimulator() {
 void initEngineEmulator() {
 //	initTimePerfActions();
 
-	initPotentiometer();
+	initPotentiometers();
 	//initECUstimulator();
 	initShaftPositionEmulator();
 #ifdef EFI_WAVE_ANALYZER

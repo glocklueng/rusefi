@@ -336,6 +336,7 @@
           <state>$PROJ_DIR$\..\controllers\math</state>
           <state>$PROJ_DIR$\..\util</state>
           <state>$PROJ_DIR$\..\console</state>
+          <state>$PROJ_DIR$\..\console\algo</state>
           <state>$PROJ_DIR$\..\console_util</state>
           <state>$PROJ_DIR$\..\config\engines</state>
           <state>$PROJ_DIR$\..</state>
@@ -1993,6 +1994,15 @@
   </group>
   <group>
     <name>console</name>
+    <group>
+      <name>algo</name>
+      <file>
+        <name>$PROJ_DIR$\..\console\algo\tunerstudio_algo.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\console\algo\tunerstudio_algo.h</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\console\console_io.c</name>
     </file>

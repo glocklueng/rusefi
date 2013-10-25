@@ -60,6 +60,7 @@ void initEngineContoller(void) {
 	initOutputSignals();
 
 	initSettings();
+	initFuelMap();
 
 	/**
 	 * there is an implicit dependency on the fact that 'tachometer' listener is the 1st listener - this case

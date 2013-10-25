@@ -13,5 +13,6 @@
 
 void usb_serial_start(void);
 int is_serial_ready(void);
+int is_usb_serial_ready(void);
 
 #endif /* USBCONSOLE_H_ */

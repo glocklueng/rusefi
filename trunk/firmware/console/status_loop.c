@@ -121,7 +121,7 @@ void printState(void) {
 	if (!fullLog)
 		return;
 
-	int nowSeconds = chTimeNowSeconds();
+	systime_t nowSeconds = chTimeNowSeconds();
 
 	int currentCkpEventCounter = getCrankEventCounter();
 	if (prevCkpEventCounter == currentCkpEventCounter && timeOfPreviousReport == nowSeconds)
@@ -173,10 +173,10 @@ void printState(void) {
  * that would be 'show fuel for rpm 3500 maf 4.0'
  */
 
-static void showFuelMap(int rpm, int maf100) {
-	myfloat maf = maf100 / 100.0;
-	myfloat value = getFuel(rpm, maf);
-	print("fuel map rpm=%d, maf=%d: %d\r\n", rpm, maf100, (int) (100 * value));
+static void showFuelMap(int rpm, int key100) {
+	myfloat key = key100 / 100.0;
+	myfloat value = getFuel(rpm, key);
+	print("fuel map rpm=%d, key=%f: %d\r\n", rpm, key, (int) (100 * value));
 
 	scheduleSimpleMsg(&log2, "fuel map value *100 = ", 100 * value);
 }

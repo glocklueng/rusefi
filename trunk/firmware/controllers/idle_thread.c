@@ -25,8 +25,7 @@
 
 static WORKING_AREA(ivThreadStack, 512);
 
-static int isIdleActive = RFI_IDLE_CONTROL;
-//static int isIdleActive = FALSE;
+static int isIdleActive = EFI_IDLE_CONTROL;
 
 /**
  * here we keep the value we got from IDLE SWITCH input

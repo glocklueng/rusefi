@@ -5,9 +5,10 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
+#include "main.h"
 #include "fuel_map.h"
 #include "interpolation_3d.h"
-
+#include "tunerstudio_configuration.h"
 
 float fuel_rpm_bins[] = {/*0*/400.0, /*1*/650.0, /*2*/900.0, /*3*/1150.0, /*4*/1400.0, /*5*/1650.0, /*6*/1900.0, /*7*/
 		2150.0, /*8*/2400.0, /*9*/2650.0, /*10*/2900.0, /*11*/3150.0, /*12*/3400.0, /*13*/3650.0, /*14*/3900.0, /*15*/
@@ -22,8 +23,6 @@ float fuel_maf_bins[] = {/*0*/1.2000000476837158, /*1*/1.300000047683716, /*2*/1
 		3.500000047683718, /*24*/3.600000047683718, /*25*/3.700000047683718, /*26*/3.800000047683718, /*27*/
 		3.900000047683718, /*28*/4.000000047683718, /*29*/4.100000047683718, /*30*/4.200000047683718, /*31*/
 		4.300000047683717, /*32*/4.400000047683717 };
-
-float *fuel_ptrs[FUEL_RPM_COUNT];
 
 float fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT] = { {/*0 rpm=400.0*//*0 1.2000000476837158*/1.55, /*1 1.300000047683716*/
 		1.55, /*2 1.400000047683716*/1.52, /*3 1.500000047683716*/1.54, /*4 1.6000000476837162*/1.58, /*5 1.7000000476837163*/
@@ -221,9 +220,18 @@ float fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT] = { {/*0 rpm=400.0*//*0 1.20000
 		15.19, /*30 4.200000047683718*/15.13, /*31 4.300000047683717*/15.17, /*32 4.400000047683717*/15.15 } };
 
 
-float getFuel(int rpm, float maf) {
-	for (int i = 0; i < FUEL_RPM_COUNT; i++)
-		fuel_ptrs[i] = fuel_table[i];
+static float *fuel_ptrs[FUEL_RPM_COUNT];
+static int initialized = FALSE;
+extern EngineConfiguration *engineConfiguration;
 
-	return interpolate3d(rpm, maf, fuel_rpm_bins, FUEL_RPM_COUNT, fuel_maf_bins, FUEL_MAF_COUNT, fuel_ptrs);
+void initFuelMap(void) {
+	for (int i = 0; i < FUEL_RPM_COUNT; i++)
+		fuel_ptrs[i] = engineConfiguration->fuelTable[i];
+	initialized = TRUE;
+}
+
+float getFuel(int rpm, float key) {
+	chDbgAssert(initialized, "fuel map initialized", NULL);
+	// todo: fix this type error - keyBin should be float[]
+	return interpolate3d(rpm, key, fuel_rpm_bins, FUEL_RPM_COUNT, engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT, fuel_ptrs);
 }

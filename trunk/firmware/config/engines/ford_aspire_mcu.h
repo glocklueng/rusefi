@@ -27,6 +27,10 @@
 #define STM32_PWM_USE_TIM8                  FALSE
 #define STM32_PWM_USE_TIM9                  FALSE
 
+#define STM32_SPI_USE_SPI1                  FALSE
+#define STM32_SPI_USE_SPI2                  TRUE // external ADC
+#define STM32_SPI_USE_SPI3                  TRUE // potentiometer
+
 #define EFI_INTERNAL_SLOW_ADC_PWM	&PWMD5
 #define EFI_INTERNAL_FAST_ADC_PWM	&PWMD4
 

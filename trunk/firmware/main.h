@@ -39,7 +39,7 @@ float getFuelMs(int rpm);
 #define chTimeNowSeconds() (chTimeNow() / CH_FREQUENCY)
 
 /**
- * @brief   Current system time in milliseconds.
+ * @brief   Returns the number of milliseconds since the board initialization.
  */
 #define currentTimeMillis() (chTimeNow() / TICKS_IN_MS)
 

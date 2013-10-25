@@ -10,43 +10,33 @@
 
 #include "fuel_map.h"
 
-#define SIGNATURE "MShift v0.01"
 
-#define TS_SERIAL_SPEED 115200
+#if EFI_TUNER_STUDIO_OVER_USB
+#define TS_SERIAL_DEVICE (&SDU1)
+#else
 #define TS_SERIAL_DEVICE &SD3
+#define TS_SERIAL_SPEED 115200
 
 #define TS_SERIAL_PORT GPIOD
 #define TS_SERIAL_TX_PIN 8
 #define TS_SERIAL_RX_PIN 9
+#endif /* EFI_TUNER_STUDIO_OVER_USB */
 
-typedef struct {
-	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT];
-	float fuelKeyBins[FUEL_MAF_COUNT];
-	int fuelRpmBins[FUEL_RPM_COUNT];
-} EngineConfiguration;
 
-typedef struct {
-	int rpm; // as is
-	float coolant_temperature;
-	float intake_air_temperature;
-	float throttle_positon;
-	float mass_air_flow;
-	float air_fuel_ratio;
-	float fuel_load;
-} TunerStudioOutputChannels;
 
 #if defined __GNUC__
-typedef struct __attribute__((packed)) {
+typedef struct
+	__attribute__((packed)) {
 #else
-typedef __packed struct {
+		typedef __packed struct {
 #endif
 
-short int offset;
-unsigned char value;
-} TunerStudioWriteRequest;
+			short int offset;
+			unsigned char value;
+		} TunerStudioWriteRequest;
 
-void startTunerStudioConnectivity(void);
-void syncTunerStudioCopy(void);
-void updateTunerStudioState(void);
+		void startTunerStudioConnectivity(void);
+		void syncTunerStudioCopy(void);
+		void updateTunerStudioState(void);
 
 #endif /* TUNERSTUDIO_H_ */

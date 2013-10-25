@@ -140,6 +140,7 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	util \
 	console_util \
 	console \
+	console/algo \
 	hw_layer \
 	hw_layer/algo \
 	emulation/hw_layer \

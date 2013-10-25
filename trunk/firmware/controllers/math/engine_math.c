@@ -78,8 +78,8 @@ float getTCharge(int rpm, int tps, float coolantTemp, float airTemp) {
 }
 
 /**
- * return the highest index within sorted array such that array[i] is
- * smaller that value
+ * Returns the highest index within sorted array such that array[i] is greater than the parameter
+ * If the parameter is greater than the first element of the array, -1 is returned.
  */
 int findIndex(float array[], int size, float value) {
 
