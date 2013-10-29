@@ -1,14 +1,12 @@
-/*
- * signal_executor.c
+/**
+ * @file	signal_executor_sleep.c
+ * @brief   Asynchronous output signal code
+ *
+ * Here we have the simplest, thread-based implementation of signal executor.
+ * TODO: https://sourceforge.net/p/rusefi/tickets/6/
  *
  *  Created on: Feb 10, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
- *
- */
-
-/**
- * @file	signal_executor.c
- * @brief   Asynchronous output signal code
  */
 
 #include "main.h"
@@ -22,16 +20,9 @@
 #if EFI_WAVE_ANALYZER
 #include "wave_chart.h"
 extern WaveChart crankChart;
-#endif
+#endif /* EFI_WAVE_ANALYZER */
 
-static OutputSignal sparkOut1;
-static OutputSignal sparkOut2;
-static OutputSignal injectorOut1;
-static OutputSignal injectorOut2;
-static OutputSignal injectorOut3;
-static OutputSignal injectorOut4;
-
-static OutputSignal* injectors[4] = { &injectorOut1, &injectorOut2, &injectorOut3, &injectorOut4 };
+#if EFI_SIGNAL_EXECUTOR_SLEEP
 
 static void signalOutputCallbackI(OutputSignal *signal) {
 	chSysLockFromIsr()
@@ -39,7 +30,7 @@ static void signalOutputCallbackI(OutputSignal *signal) {
 	/**
 	 * this would awaken the actual output thread
 	 */
-	chSemSignalI(&signal->signalSemaphore);
+	chSemSignalI(&signal->hw.signalSemaphore);
 	chSysUnlockFromIsr()
 	;
 }
@@ -51,7 +42,7 @@ static void signalOutputCallbackI(OutputSignal *signal) {
  * @param	dwell	the number of ticks of output duration
  *
  */
-static void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
+void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 	chDbgCheck(signal->initialized, "Signal not initialized");
 	chDbgCheck(dwell >= 0, "dwell cannot be negative");
 
@@ -74,14 +65,14 @@ static void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 // schedule signal output callback after the 'delay'
 	chSysLockFromIsr()
 	;
-	int isArmed = chVTIsArmedI(&signal->signalTimer);
+	int isArmed = chVTIsArmedI(&signal->hw.signalTimer);
 	if (isArmed)
-		chVTResetI(&signal->signalTimer);
+		chVTResetI(&signal->hw.signalTimer);
 
 	/**
 	 * this timer implements the delay before the signal output
 	 */
-	chVTSetI(&signal->signalTimer, delay, (vtfunc_t) &signalOutputCallbackI, (void *) signal);
+	chVTSetI(&signal->hw.signalTimer, delay, (vtfunc_t) &signalOutputCallbackI, (void *) signal);
 	chSysUnlockFromIsr()
 	;
 
@@ -114,25 +105,6 @@ static void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 
 }
 
-void scheduleSparkOut(int offset, int duration) {
-//	scheduleOutput(&sparkOut1, offset, duration);
-//	scheduleOutput(&sparkOut2, offset, duration);
-}
-
-/**
- * This method schedules asynchronous fuel squirt
- */
-void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, int cylinderId) {
-	assertCylinderId(cylinderId, "scheduleFuelInjection");
-
-	if (!isInjectorEnabled(cylinderId))
-		return;
-
-	OutputSignal *injector = injectors[cylinderId - 1];
-
-	scheduleOutput(injector, offsetSysTicks, lengthSysTicks);
-}
-
 static msg_t soThread(OutputSignal *signal) {
 	chRegSetThreadName(signal->name);
 	/**
@@ -142,41 +114,43 @@ static msg_t soThread(OutputSignal *signal) {
 
 	while (1) {
 		// sleep till signal is needed
-		chSemWait(&signal->signalSemaphore);
+		chSemWait(&signal->hw.signalSemaphore);
 		if (signal->duration == 0) {
 			// todo: when exactly does this happen?
 			chThdSleep(1);
 			continue;
 		}
 
+#if EFI_DEFAILED_LOGGING
 		systime_t now = chTimeNow();
+#endif /* EFI_DEFAILED_LOGGING */
 		// turn the output level ACTIVE
 		setOutputPinValue(signal->ledIndex, TRUE ^ signal->xor);
 		// sleep for the needed duration
 
 #if EFI_WAVE_ANALYZER
 		addWaveChartEvent(&crankChart, signal->name, "up");
-#endif
+#endif /* EFI_WAVE_ANALYZER */
 
 		chThdSleep(signal->duration);
 		// turn off the output
 		setOutputPinValue(signal->ledIndex, FALSE ^ signal->xor);
-		systime_t after = chTimeNow();
 
 #if EFI_DEFAILED_LOGGING
+		systime_t after = chTimeNow();
 		debugInt(&signal->logging, "a_time", after - now);
 		scheduleLogging(&signal->logging);
-#endif
+#endif /* EFI_DEFAILED_LOGGING */
 
 #if EFI_WAVE_ANALYZER
 		addWaveChartEvent(&crankChart, signal->name, "down");
-#endif
+#endif /* EFI_WAVE_ANALYZER */
 	}
 	// unreachable
 	return 0;
 }
 
-static void initOutputSignal(char *name, OutputSignal *signal, int led, int xor) {
+void initOutputSignal(char *name, OutputSignal *signal, int led, int xor) {
 	initLogging(&signal->logging, name, signal->logging.DEFAULT_BUFFER, sizeof(signal->logging.DEFAULT_BUFFER));
 
 	signal->ledIndex = led;
@@ -184,17 +158,10 @@ static void initOutputSignal(char *name, OutputSignal *signal, int led, int xor)
 	signal->name = name;
 	signal->duration = 0;
 	setOutputPinValue(led, xor); // initial state
-	chSemInit(&signal->signalSemaphore, 1);
+	chSemInit(&signal->hw.signalSemaphore, 1);
 
-	chThdCreateStatic(signal->soThreadStack, sizeof(signal->soThreadStack), NORMALPRIO, (tfunc_t) soThread, signal);
+	chThdCreateStatic(signal->hw.soThreadStack, sizeof(signal->hw.soThreadStack), NORMALPRIO, (tfunc_t) soThread, signal);
 	signal->initialized = TRUE;
 }
 
-void initOutputSignals() {
-	initOutputSignal("Spark Out1", &sparkOut1, SPARKOUT_1_OUTPUT, 1);
-	initOutputSignal("Spark Out2", &sparkOut2, SPARKOUT_2_OUTPUT, 1);
-	initOutputSignal("Injector 1", &injectorOut1, INJECTOR_1_OUTPUT, 0);
-	initOutputSignal("Injector 2", &injectorOut2, INJECTOR_2_OUTPUT, 0);
-	initOutputSignal("Injector 3", &injectorOut3, INJECTOR_3_OUTPUT, 0);
-	initOutputSignal("Injector 4", &injectorOut4, INJECTOR_4_OUTPUT, 0);
-}
+#endif /* EFI_SIGNAL_EXECUTOR_SLEEP */

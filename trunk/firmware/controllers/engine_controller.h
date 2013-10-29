@@ -12,6 +12,7 @@
 #define ENGINE_STATUS_H_
 
 #include "global.h"
+#include "signal_executor.h"
 
 int isCranking(void);
 void initEngineContoller(void);

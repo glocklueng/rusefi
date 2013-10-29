@@ -34,9 +34,9 @@ typedef struct {
 //#define WAVE_INPUT_PORT GPIOC
 //#define WAVE_INPUT_PIN 6
 
-void initWaveAnalyzer();
-void pokeWaveInfo();
-void reportWaveInfo();
+void initWaveAnalyzer(void);
+void pokeWaveInfo(void);
+void reportWaveInfo(void);
 int getWaveLowWidth(int index);
 int getWaveHighWidth(int index);
 int getWaveOffset(int index);

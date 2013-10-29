@@ -2178,10 +2178,19 @@
       <name>$PROJ_DIR$\..\controllers\settings.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\controllers\signal_executor.c</name>
+      <name>$PROJ_DIR$\..\controllers\signal_executor_hw_timer.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\signal_executor_sleep.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\signal_executor.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\signal_executor_sleep.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\signal_executor_hw_timer.h</name>
     </file>
   </group>
   <group>

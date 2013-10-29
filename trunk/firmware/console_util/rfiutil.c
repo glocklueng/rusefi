@@ -125,3 +125,23 @@ char hexChar(int v) {
 	return 'A' - 10 + v;
 }
 
+// todo: why does it not compile if I make this function 'inline'?
+int isIsrContext(void) {
+	/**
+	 * Unfortunately ChibiOS has two versions of methods for different
+	 * contexts.
+	 */
+	return dbg_isr_cnt > 0;
+}
+
+void chVTSetAny(VirtualTimer *vtp, systime_t time, vtfunc_t vtfunc, void *par) {
+	if (isIsrContext()) {
+		chSysLockFromIsr()
+		;
+		chVTSetI(vtp, time, vtfunc, par);
+		chSysUnlockFromIsr()
+		;
+	} else {
+		chVTSet(vtp, time, vtfunc, par);
+	}
+}

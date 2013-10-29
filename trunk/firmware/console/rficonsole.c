@@ -3,7 +3,7 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
-#define VERSION_STRING 0.0000001
+#define VERSION_STRING 2
 
 #include <stdarg.h>
 #include <string.h>
@@ -45,10 +45,10 @@ static void myfatal(void) {
 
 static void sayOsHello(void) {
 	print("*** rusEFI (c) Andrey Belomutskiy, 2012-2013. All rights reserved.\r\n");
+	printSimpleMsg(&log, "rusEFI VERSION=", VERSION_STRING);
 	print("*** Chibios Kernel:       %s\r\n", CH_KERNEL_VERSION);
 	print("*** Compiled:     " __DATE__ " - " __TIME__ " \r\n");
 	print("COMPILER=%s\r\n", __VERSION__);
-	printSimpleMsg(&log, "VERSION=", VERSION_STRING);
 	printSimpleMsg(&log, "CH_FREQUENCY=", CH_FREQUENCY);
 	printSimpleMsg(&log, "SERIAL_SPEED=", SERIAL_SPEED);
 	printSimpleMsg(&log, "STM32_ADCCLK=", STM32_ADCCLK);
@@ -74,6 +74,16 @@ static void sayOsHello(void) {
 #else
 	printSimpleMsg(&log, "EFI_TUNER_STUDIO=", 0);
 #endif
+
+#ifdef EFI_SIGNAL_EXECUTOR_SLEEP
+	printSimpleMsg(&log, "EFI_SIGNAL_EXECUTOR_SLEEP=", EFI_SIGNAL_EXECUTOR_SLEEP);
+#endif
+
+#ifdef EFI_SIGNAL_EXECUTOR_HW_TIMER
+	printSimpleMsg(&log, "EFI_SIGNAL_EXECUTOR_HW_TIMER=", EFI_SIGNAL_EXECUTOR_HW_TIMER);
+#endif
+
+
 
 #ifdef EFI_TUNER_STUDIO_OVER_USB
 	printSimpleMsg(&log, "EFI_TUNER_STUDIO_OVER_USB=", EFI_TUNER_STUDIO_OVER_USB);

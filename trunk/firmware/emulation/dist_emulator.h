@@ -20,7 +20,7 @@
  */
 #define DEFAULT_EMULATION_RPM 1200
 
-void initShaftPositionEmulator();
+void initShaftPositionEmulator(void);
 void setRevolutionPeriod(int value);
 
 #endif /* DIST_EMULATOR_H_ */

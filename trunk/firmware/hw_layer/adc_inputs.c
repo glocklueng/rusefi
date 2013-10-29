@@ -37,9 +37,9 @@ static Logging log;
 static int adcCallbackCounter_slow = 0;
 static int adcCallbackCounter_fast = 0;
 
-static int adcPokeCounter = 0;
-
 static int adcDebugReporting = TRUE;
+
+static int internalAdcIndex[20];
 
 static volatile int fastValue = 0;
 static volatile int fastCounter = 0;
@@ -50,7 +50,7 @@ static volatile int fastMin = 9999999;
 /*
  * ADC samples buffer.
  */
-static adcsample_t samples_slow[ADC_NUMBER_CHANNELS_SLOW * ADC_GRP1_BUF_DEPTH_SLOW];
+static adcsample_t samples_slow[EFI_ADC_SLOW_CHANNELS_COUNT * ADC_GRP1_BUF_DEPTH_SLOW];
 static adcsample_t samples_fast[ADC_NUMBER_CHANNELS_FAST * ADC_GRP1_BUF_DEPTH_FAST];
 
 static adcsample_t getAvgAdcValue(int index, adcsample_t *samples, int bufDepth, int numChannels) {
@@ -76,8 +76,8 @@ static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 		adcCallbackCounter_slow++;
 
 		newState.time = chTimeNow();
-		for (int i = 0; i < ADC_NUMBER_CHANNELS_SLOW; i++) {
-			int value = getAvgAdcValue(i, samples_slow, ADC_GRP1_BUF_DEPTH_SLOW, ADC_NUMBER_CHANNELS_SLOW);
+		for (int i = 0; i < EFI_ADC_SLOW_CHANNELS_COUNT; i++) {
+			int value = getAvgAdcValue(i, samples_slow, ADC_GRP1_BUF_DEPTH_SLOW, EFI_ADC_SLOW_CHANNELS_COUNT);
 			newState.adc_data[i] = value;
 		}
 	}
@@ -119,7 +119,7 @@ static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 /*
  * ADC conversion group.
  */
-static ADCConversionGroup adcgrpcfg_slow = { FALSE, ADC_NUMBER_CHANNELS_SLOW, adc_callback_slow, NULL,
+static ADCConversionGroup adcgrpcfg_slow = { FALSE, EFI_ADC_SLOW_CHANNELS_COUNT, adc_callback_slow, NULL,
 /* HW dependent part.*/
 ADC_TwoSamplingDelay_20Cycles,   // cr1
 		ADC_CR2_SWSTART, // cr2
@@ -127,7 +127,7 @@ ADC_TwoSamplingDelay_20Cycles,   // cr1
 		ADC_SMPR1_SMP_AN10(MY_SAMPLING_SLOW) |
 		ADC_SMPR1_SMP_AN11(MY_SAMPLING_SLOW) |
 		ADC_SMPR1_SMP_AN12(MY_SAMPLING_SLOW) |
-		ADC_SMPR1_SMP_AN13(MY_SAMPLING_SLOW) , // sample times for channels 10...18
+		ADC_SMPR1_SMP_AN13(MY_SAMPLING_SLOW), // sample times for channels 10...18
 		ADC_SMPR2_SMP_AN0(MY_SAMPLING_SLOW) |
 		ADC_SMPR2_SMP_AN1(MY_SAMPLING_SLOW) |
 		ADC_SMPR2_SMP_AN3(MY_SAMPLING_SLOW) |
@@ -140,7 +140,7 @@ ADC_TwoSamplingDelay_20Cycles,   // cr1
 
 		, // In this field must be specified the sample times for channels 0...9
 
-		ADC_SQR1_NUM_CH(ADC_NUMBER_CHANNELS_SLOW), // Conversion group sequence 13...16 + sequence length
+		ADC_SQR1_NUM_CH(EFI_ADC_SLOW_CHANNELS_COUNT), // Conversion group sequence 13...16 + sequence length
 
 		0
 //		| ADC_SQR2_SQ7_N(ADC_CHANNEL_IN12) /* PC2 - green */
@@ -202,10 +202,13 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 #endif
 }
 
-int getInternalAdcValue(int index) {
-	if (index >= ADC_NUMBER_CHANNELS_SLOW)
-		return -1;
-	return newState.adc_data[index];
+static int getAdcValueByIndex(int internalIndex) {
+	return newState.adc_data[internalIndex];
+}
+
+int getInternalAdcValue(int hwIndex) {
+	int internalIndex = internalAdcIndex[hwIndex];
+	return getAdcValueByIndex(internalIndex);
 }
 
 static PWMConfig pwmcfg_slow = { PWM_FREQ_SLOW, PWM_PERIOD_SLOW, pwmpcb_slow, { {
@@ -220,7 +223,7 @@ PWM_OUTPUT_DISABLED, NULL }, { PWM_OUTPUT_DISABLED, NULL } },
 /* HW dependent part.*/
 0 };
 
-static void initAdcPin(GPIO_TypeDef* port, int pin, char *msg) {
+static void initAdcPin(ioportid_t port, int pin, char *msg) {
 	print("adc %s\r\n", msg);
 	mySetPadMode("adc input", port, pin, PAL_MODE_INPUT_ANALOG);
 }
@@ -230,6 +233,30 @@ static void initAdcHwChannel(int channel) {
 	int pin;
 
 	switch (channel) {
+	case ADC_CHANNEL_IN0:
+		port = GPIOA;
+		pin = 0;
+		break;
+	case ADC_CHANNEL_IN1:
+		port = GPIOA;
+		pin = 1;
+		break;
+	case ADC_CHANNEL_IN2:
+		port = GPIOA;
+		pin = 2;
+		break;
+	case ADC_CHANNEL_IN3:
+		port = GPIOA;
+		pin = 3;
+		break;
+	case ADC_CHANNEL_IN4:
+		port = GPIOA;
+		pin = 4;
+		break;
+	case ADC_CHANNEL_IN5:
+		port = GPIOA;
+		pin = 5;
+		break;
 	case ADC_CHANNEL_IN6:
 		port = GPIOA;
 		pin = 6;
@@ -271,12 +298,14 @@ static void initAdcHwChannel(int channel) {
 		pin = 5;
 		break;
 	default:
-		fatal("Unknown hw channel");
+		fatal("Unknown hw channel")
+		;
 	}
 	initAdcPin(port, pin, "hw");
 }
 
 void initSlowChannel(int logicChannel, int hwChannel) {
+	internalAdcIndex[hwChannel] = logicChannel;
 	if (logicChannel < 6) {
 		adcgrpcfg_slow.sqr3 += (hwChannel) << (5 * logicChannel);
 	} else {
@@ -286,16 +315,16 @@ void initSlowChannel(int logicChannel, int hwChannel) {
 	initAdcHwChannel(hwChannel);
 }
 
-void printAdcValue(int channel) {
+static void printAdcValue(int channel) {
 	int value = getAdcValue(channel);
 	myfloat volts = adcToVolts(value);
 	scheduleSimpleMsg(&log, "adc voltage x100: ", (int) (100 * volts));
 }
 
-void printFullAdcReport() {
-	for (int i = 0; i < ADC_NUMBER_CHANNELS_SLOW; i++) {
+static void printFullAdcReport() {
+	for (int i = 0; i < EFI_ADC_SLOW_CHANNELS_COUNT; i++) {
 		msgInt(&log, " ch", i);
-		int value = getAdcValue(i);
+		int value = getAdcValueByIndex(i);
 		msgInt(&log, " val= ", value);
 		myfloat volts = adcToVolts(value);
 		debugFloat(&log, "v ", volts, 1);
@@ -330,18 +359,55 @@ void initAdcInputs() {
 	adcgrpcfg_slow.sqr2 = 0;
 	adcgrpcfg_slow.sqr3 = 0;
 
-	initSlowChannel(ADC_LOGIC_0, ADC_CHANNEL_IN6); // PA6 right white
-	initSlowChannel(ADC_LOGIC_1, ADC_CHANNEL_IN7); // PA7 right blue
-	initSlowChannel(ADC_LOGIC_2, ADC_CHANNEL_IN14); // PC4 right green
-	initSlowChannel(ADC_LOGIC_3, ADC_CHANNEL_IN15); // PC5 right yellow
+	int index = 0;
 
-	initSlowChannel(ADC_LOGIC_4, ADC_CHANNEL_IN8); // PB0 left blue
-	initSlowChannel(ADC_LOGIC_5, ADC_CHANNEL_IN9); // PB1 left white
-	initSlowChannel(ADC_LOGIC_6, ADC_CHANNEL_IN12); // PC2 left green. extra board ch 4
-	initSlowChannel(ADC_LOGIC_7, ADC_CHANNEL_IN13); // PC3 left yellow, extra board ch 1
+#if EFI_USE_ADC_CHANNEL_IN0
+	initSlowChannel(index++, ADC_CHANNEL_IN0); // PA0
+#endif
+#if EFI_USE_ADC_CHANNEL_IN1
+	initSlowChannel(index++, ADC_CHANNEL_IN1); // PA1
+#endif
+#if EFI_USE_ADC_CHANNEL_IN6
+	initSlowChannel(index++, ADC_CHANNEL_IN6); // PA6
+#endif
 
-	initSlowChannel(ADC_LOGIC_8, ADC_CHANNEL_IN10); // extra board ch 3
-	initSlowChannel(ADC_LOGIC_9, ADC_CHANNEL_IN11); // extra board ch 2
+#if EFI_USE_ADC_CHANNEL_IN7
+	initSlowChannel(index++, ADC_CHANNEL_IN7); // PA7
+#endif
+
+#if EFI_USE_ADC_CHANNEL_IN8
+	initSlowChannel(index++, ADC_CHANNEL_IN8); // PB0
+#endif
+
+#if EFI_USE_ADC_CHANNEL_IN9
+	initSlowChannel(index++, ADC_CHANNEL_IN9); // PB1
+#endif
+
+#if EFI_USE_ADC_CHANNEL_IN10
+	initSlowChannel(index++, ADC_CHANNEL_IN10); //
+#endif
+
+#if EFI_USE_ADC_CHANNEL_IN11
+	initSlowChannel(index++, ADC_CHANNEL_IN11); //
+#endif
+
+#if EFI_USE_ADC_CHANNEL_IN12
+	initSlowChannel(index++, ADC_CHANNEL_IN12); // PC2
+#endif
+
+#if EFI_USE_ADC_CHANNEL_IN13
+	initSlowChannel(index++, ADC_CHANNEL_IN13); // PC3
+#endif
+
+#if EFI_USE_ADC_CHANNEL_IN14
+	initSlowChannel(index++, ADC_CHANNEL_IN14); // PC4
+#endif
+#if EFI_USE_ADC_CHANNEL_IN15
+	initSlowChannel(index++, ADC_CHANNEL_IN15); // PC5
+#endif
+
+	if (index != EFI_ADC_SLOW_CHANNELS_COUNT)
+		fatal("Invalud internal ADC config");
 
 	/*
 	 * Initializes the PWM driver.
@@ -355,50 +421,9 @@ void initAdcInputs() {
 #endif
 }
 
-static int prevCkpEventCounter = -1;
-
 void pokeAdcInputs() {
 	if (!adcDebugReporting)
 		return;
-
-	int currentCkpEventCounter = getCrankEventCounter();
-	if (prevCkpEventCounter == currentCkpEventCounter)
-		return;
-	prevCkpEventCounter = currentCkpEventCounter;
-
-//	if (adcPokeCounter++ % 40 != 0)
-//		return;
-
-//	myfloat sec = ((myfloat) GetSysclockCounter() / TICKS_IN_MS) / 1000;
-//	debugFloat(&log, "time", sec, 3);
-//	scheduleIntValue(&log, "adc10", newState.adc_data[10]);
-
-	chSysLock()
-	;
-	int lFastValue = fastValue;
-	int lFastCounter = fastCounter;
-	int lFastAccumulator = fastAccumulator;
-	int lFastMax = fastMax;
-	int lFastMin = fastMin;
-	fastCounter = fastAccumulator = fastMax = 0;
-	fastMin = 9999999;
-	chSysUnlock()
-	;
-
-	if (lFastCounter > 0) {
-//		scheduleIntValue(&log, "adcfast", lFastValue);
-//		scheduleIntValue(&log, "adcfastavg", lFastAccumulator / lFastCounter);
-//		scheduleIntValue(&log, "adcfast_co", lFastCounter);
-//		scheduleIntValue(&log, "adcfast_min", lFastMin);
-//		scheduleIntValue(&log, "adcfast_max", lFastMax);
-	}
-
-	//scheduleIntValue(&log, "adcfastavg", lFastAccumulator);
-
-//	print("adc slow %4d    adc fast %d\r\n", newState.adc_data[10], fastValue);
-
-//	for (int i = 0; i< ADC_NUMBER_CHANNELS_SLOW; i++) {
-//		print("adc%d:%d\r\n", i, newState.adc_data[i]);
-//	}
+	printFullAdcReport();
 }
 

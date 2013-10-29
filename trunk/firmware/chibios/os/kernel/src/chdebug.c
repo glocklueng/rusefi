@@ -139,7 +139,7 @@ void dbg_check_unlock(void) {
 void dbg_check_lock_from_isr(void) {
 
   if ((dbg_isr_cnt <= 0) || (dbg_lock_cnt != 0))
-    chDbgPanic("SV#6", __FILE__, __LINE__);
+    chDbgPanic("SV#6 chSysLockFromIsr", __FILE__, __LINE__);
   dbg_enter_lock();
 }
 

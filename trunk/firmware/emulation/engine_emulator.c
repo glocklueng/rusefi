@@ -86,7 +86,7 @@ static void initECUstimulator() {
 	chThdCreateStatic(eeThreadStack, sizeof(eeThreadStack), NORMALPRIO, (tfunc_t) eeThread, NULL);
 }
 
-void initEngineEmulator() {
+void initEngineEmulator(void) {
 //	initTimePerfActions();
 
 	initPotentiometers();

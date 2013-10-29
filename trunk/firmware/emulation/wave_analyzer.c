@@ -223,7 +223,7 @@ data_buffer_s *waveTable[WAVE_COLUMNS] = { &waveWidthCounters, &waveWidth, &wave
 
 char *waveCaptions[WAVE_COLUMNS] = { "count", "wid", "time", "ptime" };
 
-void pokeWaveInfo() {
+void pokeWaveInfo(void) {
 	if (!waveBufferReported && dbIsFull(&waveWidthTime)) {
 		waveBufferReported = 1;
 		dbPrintTable(waveTable, waveCaptions, WAVE_COLUMNS);
@@ -253,7 +253,7 @@ void printWave(Logging *logging) {
 	reportWave(logging, 1);
 }
 
-void initWaveAnalyzer() {
+void initWaveAnalyzer(void) {
 #ifdef EFI_WAVE_ANALYZER
 
 	initLogging(&log, "wave", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
