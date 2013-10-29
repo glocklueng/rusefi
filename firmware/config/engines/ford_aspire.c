@@ -23,12 +23,12 @@
 #define TPS_IDLE 0.60
 #define TPS_WOT 4.23
 
-// not a thermistor, but I am too lazy to create a new file
 int getTpsValue(myfloat volts) {
 	if (volts <= TPS_IDLE)
 		return 0;
 	if (volts >= TPS_WOT)
 		return 100;
+	// todo: replace with 'interpolate' function invocation
 	return (int) (100 * (volts - TPS_IDLE) / (TPS_WOT - TPS_IDLE));
 }
 
@@ -61,7 +61,7 @@ myfloat getMap(void) {
 	return getMAPValueHonda_Denso183(volts);
 }
 
-static float getCrankingFuel() {
+static float getCrankingFuel(void) {
 	const int fuelOverride = getCrankingInjectionPeriod();
 	if (fuelOverride != 0) {
 		return fuelOverride / 10.0;

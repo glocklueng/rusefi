@@ -56,7 +56,7 @@ typedef enum {
 
 } PinEnum;
 
-#define LED_COUNT 100
+#define OUTPUT_PIN_COUNT 100
 
 void initOutputPins(void);
 void setOutputPinValue(int statusLedEnum, int value);

@@ -20,6 +20,7 @@
 #include "output_pins.h"
 #include "tunerstudio.h"
 #include "injector_central.h"
+#include "rfiutil.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -44,21 +45,15 @@ static void onEveny10Milliseconds(void *arg) {
 	updateStatusLeds();
 
 	// schedule next invocation
-	chSysLockFromIsr()
-	;
-	chVTSetI(&everyMsTimer, _10_MILLISECONDS, &onEveny10Milliseconds, 0);
-	chSysUnlockFromIsr()
-	;
+	chVTSetAny(&everyMsTimer, _10_MILLISECONDS, &onEveny10Milliseconds, 0);
 }
 
 static void initPeriodicEvents(void) {
 	// schedule first invocation
-	chVTSet(&everyMsTimer, _10_MILLISECONDS, &onEveny10Milliseconds, 0);
+	chVTSetAny(&everyMsTimer, _10_MILLISECONDS, &onEveny10Milliseconds, 0);
 }
 
 void initEngineContoller(void) {
-	initOutputSignals();
-
 	initSettings();
 	initFuelMap();
 

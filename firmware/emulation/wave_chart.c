@@ -40,7 +40,7 @@ void resetWaveChart(WaveChart *chart) {
 
 static char LOGGING_BUFFER[5000];
 
-static void printStatus() {
+static void printStatus(void) {
 	scheduleIntValue(&log, "chart", isChartActive);
 	scheduleIntValue(&log, "chartsize", chartSize);
 }

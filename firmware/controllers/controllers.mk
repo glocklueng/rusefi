@@ -8,4 +8,5 @@ CONTROLLERSSRC = controllers/main_loop.c \
 	controllers/flash_main.c \
 	controllers/rpm_reporter.c \
 	controllers/map_multiplier_thread.c \
-	controllers/signal_executor.c
+	controllers/signal_executor_sleep.c \
+	controllers/signal_executor_hw_timer.c

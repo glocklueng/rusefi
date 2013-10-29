@@ -13,7 +13,8 @@
 #ifndef SPARKOUT_H_
 #define SPARKOUT_H_
 
-#include "datalogging.h"
+#include "main.h"
+#include "signal_executor_sleep.h"
 
 /**
  * @brief   Asynchronous output signal data structure
@@ -36,26 +37,21 @@ typedef struct {
 	volatile int offset;
 	// time in system ticks
 	volatile int duration;
-	/**
-	 * this timer is used to wait for the time to activate the thread
-	 */
-	VirtualTimer signalTimer;
-	/**
-	 * this timer is used to notify the worker thread when it's time to output
-	 * the signal
-	 */
-	Semaphore signalSemaphore;
-	WORKING_AREA(soThreadStack, 512);
 	Logging logging;
 	int initialized;
 
 	time_t last_scheduling_time;
 
+#if EFI_SIGNAL_EXECUTOR_SLEEP
+	SignalExecutorSleep hw;
+#endif
+
+#if EFI_SIGNAL_EXECUTOR_HW_TIMER
+	// todo
+#endif
 } OutputSignal;
 
-void scheduleSparkOut(int offset, int duration);
-void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, int cylinderId);
-
-void initOutputSignals(void);
+void initOutputSignal(char *name, OutputSignal *signal, int led, int xor);
+void scheduleOutput(OutputSignal *signal, int delay, int dwell);
 
 #endif /* SPARKOUT_H_ */

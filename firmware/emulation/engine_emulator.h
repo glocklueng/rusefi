@@ -8,6 +8,6 @@
 #ifndef ENGINE_EMULATOR_H_
 #define ENGINE_EMULATOR_H_
 
-void initEngineEmulator();
+void initEngineEmulator(void);
 
 #endif /* ENGINE_EMULATOR_H_ */

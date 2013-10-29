@@ -25,5 +25,7 @@ char* itoa(char *p, int num);
 char* itoa_signed(char *p, int num, unsigned radix);
 char hexC(int v);
 char* ftoa(char *pointer, myfloat val, int precision);
+int isIsrContext(void);
+void chVTSetAny(VirtualTimer *vtp, systime_t time, vtfunc_t vtfunc, void *par);
 
 #endif /* RFIUTIL_H_ */

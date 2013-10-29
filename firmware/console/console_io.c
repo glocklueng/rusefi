@@ -9,6 +9,7 @@
 #include "ch.h"
 
 #include "usbconsole.h"
+#include "rfiutil.h"
 
 /**
  * @brief   Reads a whole line from the input channel.
@@ -111,7 +112,7 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 extern cnt_t dbg_isr_cnt;
 
 void lockOutputBuffer(void) {
-	if (dbg_isr_cnt > 0) {
+	if (isIsrContext()) {
 		chSysLockFromIsr()
 		;
 	} else {
@@ -121,7 +122,7 @@ void lockOutputBuffer(void) {
 }
 
 void unlockOutputBuffer(void) {
-	if (dbg_isr_cnt > 0) {
+	if (isIsrContext()) {
 		chSysUnlockFromIsr()
 		;
 	} else {

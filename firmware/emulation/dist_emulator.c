@@ -37,7 +37,7 @@ void setRevolutionPeriod(int value) {
 	scheduleSimpleMsg(&log, "Emulating position sensor(s). RPM=", value);
 }
 
-void initShaftPositionEmulator() {
+void initShaftPositionEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
 	print("Emulating %s\r\n", EFI_ENGINE_ID);
 

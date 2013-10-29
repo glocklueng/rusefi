@@ -95,6 +95,7 @@ int findIndex(float array[], int size, float value) {
 #define MIN_STARTING_FUEL 8
 
 float getStartingFuel(int coolantTemperature) {
+	// these magic constants are in Celsius
 	if (coolantTemperature < 15)
 		return MAX_STARTING_FUEL;
 	if (coolantTemperature > 65)
