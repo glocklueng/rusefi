@@ -115,6 +115,9 @@ void configureInjection(InjectionConfiguration *config);
 #define INJECTOR_4_PORT GPIOE
 #define INJECTOR_4_PIN 0
 
+#define FUEL_PUMP_PORT GPIOE
+#define FUEL_PUMP_PIN 4
+
 #if EFI_EMULATE_POSITION_SENSORS
 // One signal per cam shaft revolution
 #define PRIMARY_SHAFT_POSITION_EMULATION_PIN 4

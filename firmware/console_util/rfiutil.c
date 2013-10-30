@@ -109,7 +109,7 @@ char* itoa_signed(char *p, int num, unsigned radix) {
 		*end = 0;
 		return end;
 	}
-	char *end =  ltoa_internal(p, num, radix);
+	char *end = ltoa_internal(p, num, radix);
 	*end = 0;
 	return end;
 }
@@ -138,10 +138,20 @@ void chVTSetAny(VirtualTimer *vtp, systime_t time, vtfunc_t vtfunc, void *par) {
 	if (isIsrContext()) {
 		chSysLockFromIsr()
 		;
+
+		if (chVTIsArmedI(vtp))
+			chVTResetI(vtp);
+
 		chVTSetI(vtp, time, vtfunc, par);
 		chSysUnlockFromIsr()
 		;
 	} else {
-		chVTSet(vtp, time, vtfunc, par);
+		chSysLock()
+		;
+		if (chVTIsArmedI(vtp))
+			chVTResetI(vtp);
+		chVTSetI(vtp, time, vtfunc, par);
+		chSysUnlock()
+		;
 	}
 }

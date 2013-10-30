@@ -37,7 +37,7 @@ int isInjectorEnabled(int cylinderId) {
 	return is_injector_enabled[cylinderId - 1];
 }
 
-static void printStatus() {
+static void printStatus(void) {
 	for (int id = 1; id <= NUMBER_OF_CYLINDERS; id++) {
 		resetLogging(&log);
 
