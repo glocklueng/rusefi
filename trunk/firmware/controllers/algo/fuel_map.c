@@ -8,7 +8,7 @@
 #include "main.h"
 #include "fuel_map.h"
 #include "interpolation_3d.h"
-#include "tunerstudio_configuration.h"
+#include "engine_configuration.h"
 
 float fuel_rpm_bins[] = {/*0*/400.0, /*1*/650.0, /*2*/900.0, /*3*/1150.0, /*4*/1400.0, /*5*/1650.0, /*6*/1900.0, /*7*/
 		2150.0, /*8*/2400.0, /*9*/2650.0, /*10*/2900.0, /*11*/3150.0, /*12*/3400.0, /*13*/3650.0, /*14*/3900.0, /*15*/

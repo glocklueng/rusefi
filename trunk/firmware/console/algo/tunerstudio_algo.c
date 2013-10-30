@@ -29,6 +29,7 @@
 #include <string.h>
 #include "tunerstudio_algo.h"
 #include "tunerstudio_configuration.h"
+#include "engine_configuration.h"
 
 #ifndef FALSE
 #define FALSE 0
