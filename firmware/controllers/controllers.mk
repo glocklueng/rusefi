@@ -3,6 +3,7 @@ CONTROLLERSSRC = controllers/main_loop.c \
 	controllers/advance_map.c \
 	controllers/engine_controller.c \
 	controllers/idle_thread.c \
+	controllers/fuel_map.c \
 	controllers/injector_central.c \
 	controllers/settings.c \
 	controllers/flash_main.c \
