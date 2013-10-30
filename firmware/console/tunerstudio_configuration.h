@@ -27,11 +27,4 @@ typedef struct {
 	float fuel_load;
 } TunerStudioOutputChannels;
 
-// todo: this structure definition should be moved somewhere else
-typedef struct {
-	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT];
-	float fuelKeyBins[FUEL_MAF_COUNT];
-	int fuelRpmBins[FUEL_RPM_COUNT];
-} EngineConfiguration;
-
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */
