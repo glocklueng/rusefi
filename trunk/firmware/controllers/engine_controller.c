@@ -9,6 +9,7 @@
  */
 
 #include "main.h"
+#include "shaft_position_input.h"
 #include "engine_controller.h"
 #include "rpm_reporter.h"
 #include "idle_thread.h"
@@ -23,8 +24,13 @@
 #include "rfiutil.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
+/**
+ * CH_FREQUENCY is the number of system ticks in a second
+ */
+#define FUEL_PUMP_DELAY (4 * CH_FREQUENCY)
 
 static VirtualTimer everyMsTimer;
+static VirtualTimer fuelPumpTimer;
 
 int isCranking(void) {
 	int rpm = getCurrentRpm();
@@ -53,6 +59,27 @@ static void initPeriodicEvents(void) {
 	chVTSetAny(&everyMsTimer, _10_MILLISECONDS, &onEveny10Milliseconds, 0);
 }
 
+static void fuelPumpOff(void *arg) {
+	setOutputPinValue(FUEL_PUMP, 0);
+}
+
+static void fuelPumpOn(ShaftEvents signal, int index) {
+	if (index != 0)
+		return; // let's not abuse the timer - one time per revolution would be enough
+	setOutputPinValue(FUEL_PUMP, 1);
+	/**
+	 * the idea of this implementation is that we turn the pump when the ECU turns on or
+	 * if the shafts are spinning and then we are constantly postponing the time when we
+	 * will turn it off. Only if the shafts stop the turn off would actually happen.
+	 */
+	chVTSetAny(&fuelPumpTimer, FUEL_PUMP_DELAY, &fuelPumpOff, 0);
+}
+
+static void initFuelPump(void) {
+	registerShaftPositionListener(&fuelPumpOn, "fuel pump");
+	fuelPumpOn(SHAFT_PRIMARY_UP, 0);
+}
+
 void initEngineContoller(void) {
 	initSettings();
 	initFuelMap();
@@ -62,7 +89,6 @@ void initEngineContoller(void) {
 	 * other listeners can access current RPM value
 	 */
 	initTachometer();
-
 
 #if EFI_TUNER_STUDIO
 	startTunerStudioConnectivity();
@@ -78,4 +104,6 @@ void initEngineContoller(void) {
 	initMainEventListener();
 
 	startIdleThread();
+
+	initFuelPump();
 }
