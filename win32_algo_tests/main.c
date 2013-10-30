@@ -10,8 +10,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "main.h"
+
 #include "test_idle_controller.h"
 #include "test_interpolation_3d.h"
+#include "test_find_index.h"
 
 static float absF(float value) {
 	return value > 0 ? value : -value;
@@ -34,6 +37,7 @@ void assertEquals(float expected, float actual) {
 int main(void) {
 
 	testInterpolate3d();
+	testFindIndex();
 
 	printf("Success\r\n");
 	return EXIT_SUCCESS;
