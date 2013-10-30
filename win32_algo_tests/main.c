@@ -10,7 +10,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "test_idle_controller.h"
+#include "test_interpolation_3d.h"
+
+static float absF(float value) {
+	return value > 0 ? value : -value;
+}
+
+void assertEqualsM(char *msg, float expected, float actual) {
+	float delta = absF(actual - expected);
+	if (delta > 0.0001) {
+		printf("delta: %.7f\r\n", delta);
+		printf("Unexpected: %s %.4f while expected %.4f\r\n", msg, actual, expected);
+		exit(-1);
+	}
+	printf("Validated%s: %f\r\n", msg, expected);
+}
+
+void assertEquals(float expected, float actual) {
+	assertEqualsM("", expected, actual);
+}
+
 int main(void) {
-	puts("!!!Hello World!!!"); /* prints !!!Hello World!!! */
+
+	testInterpolate3d();
+
+	printf("Success\r\n");
 	return EXIT_SUCCESS;
 }
+
