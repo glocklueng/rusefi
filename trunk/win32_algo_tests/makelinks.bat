@@ -1,3 +1,3 @@
 
-junction controllers_algo ..\rusefi\controllers\algo 
-junction controllers_math ..\rusefi\controllers\math 
+junction controllers_algo ..\firmware\controllers\algo 
+junction controllers_math ..\firmware\controllers\math 

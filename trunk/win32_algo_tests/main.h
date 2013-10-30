@@ -10,4 +10,8 @@
 
 typedef float myfloat;
 
+#define DEBUG_INTERPOLATION 1
+
+void assertEquals(float expected, float actual);
+
 #endif /* MAIN_H_ */
