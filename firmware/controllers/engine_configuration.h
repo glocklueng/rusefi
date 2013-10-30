@@ -10,11 +10,22 @@
 
 #include "fuel_map.h"
 
+/**
+ *
+ */
 typedef struct {
 	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT];
 	float fuelKeyBins[FUEL_MAF_COUNT];
 	int fuelRpmBins[FUEL_RPM_COUNT];
 } EngineConfiguration;
+
+/**
+ * this part of the structure is separate just because so far
+ * these fields are not integrated with Tuner Studio. Step by step :)
+ */
+typedef struct {
+	float injectionLag;
+} EngineConfiguration2;
 
 
 #endif /* ENGINE_CONFIGURATION_H_ */
