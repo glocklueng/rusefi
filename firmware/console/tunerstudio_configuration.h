@@ -18,13 +18,14 @@
  * support 'float' (F32) type. You would need a beta version to handle floats
  */
 typedef struct {
-	int rpm;
-	float coolant_temperature;
-	float intake_air_temperature;
-	float throttle_positon;
-	float mass_air_flow;
-	float air_fuel_ratio;
-	float fuel_load;
+	int rpm; // size 4, offset 0
+	float coolant_temperature; // size 4, offset 4
+	float intake_air_temperature; // size 4, offset 8
+	float throttle_positon; // size 4, offset 12
+	float mass_air_flow; // size 4, offset 16
+	float air_fuel_ratio; // size 4, offset 20
+	float fuel_load; // size 4, offset 24
+	float v_batt; // size 4, offset 28
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */

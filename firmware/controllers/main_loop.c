@@ -20,8 +20,12 @@
 #include "engine_math.h"
 #include "injector_central.h"
 #include "output_pins.h"
+#include "engine_configuration.h"
 
+// todo: move this to EngineConfiguration2 for now
 #define RPM_HARD_LIMIT 8000
+
+extern EngineConfiguration *engineConfiguration;
 
 extern int isInjectionEnabled;
 
@@ -88,6 +92,29 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 
 	scheduleFuelInjection(0, fuelTicks, cylinderId);
 }
+
+static float getCltCorrection(float clt) {
+	return 1;
+}
+
+static float getIatCorrection(float iat) {
+	return 1;
+}
+
+float getInjectorLag(float vBatt) {
+	return engineConfiguration->injectorLag;
+}
+
+float getFuel(int rpm, float key) {
+	float baseFuel = getBaseFuel(rpm, key);
+
+	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
+	float cltCorrection = getCltCorrection(getCoolantTemperature());
+	float injectorLag = getInjectorLag(getVBatt());
+
+	return baseFuel * cltCorrection * iatCorrection + injectorLag;
+}
+
 
 void initMainEventListener() {
 	initLogging(&log, "main event handler", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));

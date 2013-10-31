@@ -49,9 +49,13 @@ myfloat getAfr(void) {
 	return interpolate(0, 9, 5, 19, volts);
 }
 
-myfloat getVRef() {
+myfloat getVRef(void) {
 //	return getAdcValue(ADC_CHANNEL_VREF);
 	return getVoltage(ADC_CHANNEL_VREF);
+}
+
+myfloat getVBatt(void) {
+	return 12; // todo: take it from ADC
 }
 
 myfloat getMap(void) {
