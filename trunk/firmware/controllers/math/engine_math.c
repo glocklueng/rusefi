@@ -5,8 +5,9 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
+#include <stdio.h>
 #include "engine_math.h"
-#include "stdio.h"
+#include "main.h"
 
 #define INTERPOLATION_A(x1, y1, x2, y2) ((y1 - y2) / (x1 - x2))
 
@@ -67,10 +68,13 @@ float getDefaultVE(int rpm) {
  * http://rusefi.com/math/t_charge.html
  */
 float getTCharge(int rpm, int tps, float coolantTemp, float airTemp) {
-	float minRpmKcurrentTPS = interpolate(tpMin, K_AT_MIN_RPM_MIN_TPS, tpMax, K_AT_MIN_RPM_MAX_TPS, tps);
-	float maxRpmKcurrentTPS = interpolate(tpMin, K_AT_MAX_RPM_MIN_TPS, tpMax, K_AT_MAX_RPM_MAX_TPS, tps);
+	float minRpmKcurrentTPS = interpolate(tpMin, K_AT_MIN_RPM_MIN_TPS, tpMax,
+			K_AT_MIN_RPM_MAX_TPS, tps);
+	float maxRpmKcurrentTPS = interpolate(tpMin, K_AT_MAX_RPM_MIN_TPS, tpMax,
+			K_AT_MAX_RPM_MAX_TPS, tps);
 
-	float Tcharge_coff = interpolate(rpmMin, minRpmKcurrentTPS, rpmMax, maxRpmKcurrentTPS, rpm);
+	float Tcharge_coff = interpolate(rpmMin, minRpmKcurrentTPS, rpmMax,
+			maxRpmKcurrentTPS, rpm);
 
 	float Tcharge = coolantTemp * (1 - Tcharge_coff) + airTemp * Tcharge_coff;
 
@@ -82,13 +86,32 @@ float getTCharge(int rpm, int tps, float coolantTemp, float airTemp) {
  * If the parameter is smaller than the first element of the array, -1 is returned.
  */
 int findIndex(float array[], int size, float value) {
+	if (value < array[0])
+		return -1;
+	int middle;
 
-	// todo: MAYBE implement binary search? just maybe (because does not matter much for small arrays)
-	for (int i = 0; i < size; i++) {
-		if (value < array[i])
-			return i - 1;
+	int left = 0;
+	int right = size;
+
+	while (1) {
+		if (size-- == 0)
+			fatal("Unexpected state in binary search.");
+
+		middle = (left + right) / 2;
+
+		if (middle == left)
+			break;
+
+		if (value < array[middle]) {
+			right = middle;
+		} else if (value > array[middle]) {
+			left = middle;
+		} else {
+			break;
+		}
 	}
-	return size - 1;
+
+	return middle;
 }
 
 #define MAX_STARTING_FUEL 15
@@ -100,5 +123,6 @@ float getStartingFuel(int coolantTemperature) {
 		return MAX_STARTING_FUEL;
 	if (coolantTemperature > 65)
 		return MIN_STARTING_FUEL;
-	return interpolate(15, MAX_STARTING_FUEL, 65, MIN_STARTING_FUEL, coolantTemperature);
+	return interpolate(15, MAX_STARTING_FUEL, 65, MIN_STARTING_FUEL,
+			coolantTemperature);
 }
