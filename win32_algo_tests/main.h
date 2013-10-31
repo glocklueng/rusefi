@@ -10,6 +10,10 @@
 
 typedef float myfloat;
 
+#include <stdio.h>
+
+#define fatal(x) printf(x)
+
 #define DEBUG_INTERPOLATION 1
 
 void assertEquals(float expected, float actual);
