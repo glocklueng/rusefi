@@ -78,14 +78,14 @@ float getTCharge(int rpm, int tps, float coolantTemp, float airTemp) {
 }
 
 /**
- * Returns the highest index within sorted array such that array[i] is greater than the parameter
- * If the parameter is greater than the first element of the array, -1 is returned.
+ * Returns the highest index within sorted array such that array[i] is greater than or equal to the parameter
+ * If the parameter is smaller than the first element of the array, -1 is returned.
  */
 int findIndex(float array[], int size, float value) {
 
 	// todo: MAYBE implement binary search? just maybe (because does not matter much for small arrays)
 	for (int i = 0; i < size; i++) {
-		if (array[i] >= value)
+		if (value < array[i])
 			return i - 1;
 	}
 	return size - 1;

@@ -34,17 +34,17 @@ void testInterpolate3d(void) {
 	float dwell;
 	printf("no interpolation here\r\n");
 	dwell = getValue(100, 2);
-	assertEquals(1, dwell);
+	assertEquals(2, dwell);
 
 	printf("no interpolation here\r\n");
 	dwell = getValue(200, 4);
 	assertEquals(5, dwell);
 
-	printf("rpm interpolated value expected\r\n");
+	printf("rpm interpolated value expected1\r\n");
 	dwell = getValue(150, 2);
 	assertEquals(2.5, dwell);
 
-	printf("rpm interpolated value expected\r\n");
+	printf("rpm interpolated value expected2\r\n");
 	dwell = getValue(250, 3);
 	assertEquals(102, dwell);
 

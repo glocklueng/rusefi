@@ -26,7 +26,7 @@ void testFindIndex(void) {
 
 	printf("On the edge\r\n");
 	result = findIndex(array, size, 4.0);
-	assertEquals(2, result);
+	assertEquals(3, result);
 
 	printf("Another1\r\n");
 	result = findIndex(array, size, 3.9);
@@ -38,11 +38,11 @@ void testFindIndex(void) {
 
 	printf("Another3\r\n");
 	result = findIndex(array, size, 2);
-	assertEquals(0, result);
+	assertEquals(1, result);
 
 	printf("Left edge1\r\n");
 	result = findIndex(array, size, 1);
-	assertEquals(-1, result);
+	assertEquals(0, result);
 
 	printf("Left edge2\r\n");
 	result = findIndex(array, size, 1.1);
@@ -50,13 +50,16 @@ void testFindIndex(void) {
 
 	printf("Middle\r\n");
 	result = findIndex(array, size, 3);
-	assertEquals(1, result);
+	assertEquals(2, result);
 
 	size = 5; // now test with off array size
 
 	printf("Middle2\r\n");
 	result = findIndex(array, size, 4);
-	assertEquals(2, result);
+	assertEquals(3, result);
 
+	printf("Middle2\r\n");
+	result = findIndex(array, size, 3.1);
+	assertEquals(2, result);
 }
 
