@@ -19,10 +19,13 @@ void testFindIndex(void) {
 	result = findIndex(array, size, -1.0);
 	assertEquals(-1, result);
 
-
-	printf("To the right\r\n");
+	printf("To the right4\r\n");
 	result = findIndex(array, size, 10.0);
 	assertEquals(3, result);
+
+	printf("To the right5\r\n");
+	result = findIndex(array, 5, 10.0);
+	assertEquals(4, result);
 
 	printf("On the edge\r\n");
 	result = findIndex(array, size, 4.0);
