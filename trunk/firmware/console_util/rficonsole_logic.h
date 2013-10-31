@@ -53,9 +53,4 @@ void addConsoleAction2I(char *token, VoidIntInt callback);
 void addConsoleActionF(char *token, VoidFloat callback);
 void addConsoleActionS(char *token, VoidCharPtr callback);
 
-void fatal3(char *msg, char *file, int line);
-
-#define fatal(x) (fatal3(x, __FILE__, __LINE__));
-
-
 #endif /* RFICONSOLE_H_ */

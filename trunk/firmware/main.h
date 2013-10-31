@@ -45,4 +45,7 @@ float getFuelMs(int rpm);
 
 #define Delay(ms) chThdSleepMilliseconds(ms)
 
+void fatal3(char *msg, char *file, int line);
+#define fatal(x) (fatal3(x, __FILE__, __LINE__));
+
 #endif /* MAIN_H_ */

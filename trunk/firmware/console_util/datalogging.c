@@ -10,7 +10,7 @@
 
 #include <string.h>
 #include "datalogging.h"
-#include "rficonsole_logic.h"
+#include "main.h"
 #include "rfiutil.h"
 #include "print.h"
 
