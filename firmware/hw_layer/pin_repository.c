@@ -9,8 +9,7 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
-#include "ch.h"
-#include "hal.h"
+#include "main.h"
 #include "pin_repository.h"
 #include "rficonsole.h"
 #include "datalogging.h"

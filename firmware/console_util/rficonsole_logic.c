@@ -11,6 +11,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdbool.h>
+#include "main.h"
 #include "rficonsole_logic.h"
 #include "datalogging.h"
 

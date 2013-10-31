@@ -6,7 +6,7 @@
  */
 
 #include "listener_array.h"
-#include "rficonsole_logic.h"
+#include "main.h"
 
 void registerCallback(IntListenerArray *array, IntListener handler, void *arg) {
 	if (array->currentListenersCount == MAX_INT_LISTENER_COUNT)
