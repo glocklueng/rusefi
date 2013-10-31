@@ -14,10 +14,14 @@
  *
  */
 typedef struct {
-	float injectorLag;
-	float injectorFlow;
-	int injBattCorrBins[8];
-	float injBattCorr[8];
+	float injectorLag;	// size 4
+	float injectorFlow; // size 4
+	float battInjectorLagCorrBins[8]; // size 32
+	float battInjectorLagCorr[8]; // size 32
+	float cltFuelCorrBins[16]; // size 64
+	float cltFuelCorr[16]; // size 64
+	float iatFuelCorrBins[16]; // size 64
+	float iatFuelCorr[16]; // size 64
 	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT];
 	float fuelKeyBins[FUEL_MAF_COUNT];
 	int fuelRpmBins[FUEL_RPM_COUNT];
