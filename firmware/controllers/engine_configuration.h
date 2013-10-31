@@ -14,6 +14,9 @@
  *
  */
 typedef struct {
+	float injLag;
+	int battCorrBins[8];
+	float battCorr[8];
 	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT];
 	float fuelKeyBins[FUEL_MAF_COUNT];
 	int fuelRpmBins[FUEL_RPM_COUNT];
