@@ -35,13 +35,26 @@ EngineConfiguration *engineConfiguration = &flashState.configuration;
 void writeToFlash(void) {
 	flashState.version = FLASH_DATA_VERSION;
 	scheduleSimpleMsg(&log, "FLASH_DATA_VERSION=", flashState.version);
-	crc result = calc_crc((const crc*)&flashState.configuration, sizeof(EngineConfiguration));
+	crc result = calc_crc((const crc*) &flashState.configuration,
+			sizeof(EngineConfiguration));
 	flashState.value = result;
 	scheduleSimpleMsg(&log, "Reseting flash=", FLASH_USAGE);
 	flashErase(FLASH_ADDR, FLASH_USAGE);
 	scheduleSimpleMsg(&log, "Flashing with CRC=", result);
 	result = flashWrite(FLASH_ADDR, (const char *) &flashState, FLASH_USAGE);
 	scheduleSimpleMsg(&log, "Flashed: ", result);
+}
+
+static void printIntArray(int array[], int size) {
+	for (int j = 0; j < size; j++)
+		print("%d ", array[j]);
+	print("\r\n");
+}
+
+static void printFloatArray(float array[], int size) {
+	for (int j = 0; j < size; j++)
+		print("%f ", array[j]);
+	print("\r\n");
 }
 
 static void printConfiguration(void) {
@@ -54,14 +67,10 @@ static void printConfiguration(void) {
 	}
 
 	print("RPM bin: ");
-	for (int j = 0; j < FUEL_RPM_COUNT; j++)
-		print("%d ", engineConfiguration->fuelRpmBins[j]);
-	print("\r\n");
+	printIntArray(engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT);
 
 	print("Y bin: ");
-	for (int j = 0; j < FUEL_MAF_COUNT; j++)
-		print("%f ", engineConfiguration->fuelKeyBins[j]);
-	print("\r\n");
+	printFloatArray(engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT);
 }
 
 static int isValid(FlashState *state) {
@@ -69,7 +78,8 @@ static int isValid(FlashState *state) {
 		scheduleSimpleMsg(&log, "Not valid flash version: ", state->version);
 		return FALSE;
 	}
-	crc result = calc_crc((const crc*)&state->configuration, sizeof(EngineConfiguration));
+	crc result = calc_crc((const crc*) &state->configuration,
+			sizeof(EngineConfiguration));
 	if (result != state->value) {
 		scheduleSimpleMsg(&log, "CRC got: ", result);
 		scheduleSimpleMsg(&log, "CRC expected: ", state->value);
@@ -82,6 +92,8 @@ extern float fuel_maf_bins[];
 extern float fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT];
 
 static void setDefaultConfiguration(void) {
+	engineConfiguration->injectorLag = 0.5;
+
 	for (int i = 0; i < FUEL_MAF_COUNT; i++)
 		engineConfiguration->fuelKeyBins[i] = fuel_maf_bins[i];
 	for (int i = 0; i < FUEL_RPM_COUNT; i++)
@@ -109,7 +121,8 @@ static void readFromFlash(void) {
 }
 
 void initFlash(void) {
-	initLogging(&log, "Flash memory", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&log, "Flash memory", log.DEFAULT_BUFFER,
+			sizeof(log.DEFAULT_BUFFER));
 	print("initFlash()\r\n");
 
 	addConsoleAction("showconfig", printConfiguration);
