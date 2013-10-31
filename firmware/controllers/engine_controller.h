@@ -16,5 +16,6 @@
 
 int isCranking(void);
 void initEngineContoller(void);
+void setDefaultEngineConfiguration(void);
 
 #endif /* ENGINE_STATUS_H_ */

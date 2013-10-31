@@ -25,6 +25,8 @@ typedef struct {
  */
 typedef struct {
 	float injectionLag;
+	float tps_idle;
+	float tps_wot;
 } EngineConfiguration2;
 
 

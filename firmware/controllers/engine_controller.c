@@ -22,6 +22,7 @@
 #include "tunerstudio.h"
 #include "injector_central.h"
 #include "rfiutil.h"
+#include "engine_configuration.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 /**
@@ -31,6 +32,8 @@
 
 static VirtualTimer everyMsTimer;
 static VirtualTimer fuelPumpTimer;
+
+EngineConfiguration2 engineConfiguration2;
 
 int isCranking(void) {
 	int rpm = getCurrentRpm();
@@ -82,6 +85,7 @@ static void initFuelPump(void) {
 
 void initEngineContoller(void) {
 	initSettings();
+	setDefaultEngineConfiguration();
 	initFuelMap();
 
 	/**

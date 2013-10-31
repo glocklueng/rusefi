@@ -19,17 +19,17 @@
 #include "rpm_reporter.h"
 #include "fuel_map.h"
 #include "engine_controller.h"
+#include "engine_configuration.h"
 
-#define TPS_IDLE 0.60
-#define TPS_WOT 4.23
+extern EngineConfiguration2 engineConfiguration2;
 
 int getTpsValue(myfloat volts) {
-	if (volts <= TPS_IDLE)
+	if (volts <= engineConfiguration2.tps_idle)
 		return 0;
-	if (volts >= TPS_WOT)
+	if (volts >= engineConfiguration2.tps_wot)
 		return 100;
 	// todo: replace with 'interpolate' function invocation
-	return (int) (100 * (volts - TPS_IDLE) / (TPS_WOT - TPS_IDLE));
+	return (int) (100 * (volts - engineConfiguration2.tps_idle) / (engineConfiguration2.tps_wot - engineConfiguration2.tps_idle));
 }
 
 myfloat getTPS(void) {
@@ -120,4 +120,8 @@ void configureInjection(InjectionConfiguration *injectionConfiguration) {
 	injectionConfiguration->fireAtEventIndex[3] = 1;
 }
 
+void setDefaultEngineConfiguration(void) {
+	engineConfiguration2.tps_idle = 0.60;
+	engineConfiguration2.tps_wot = 4.23;
+}
 #endif /* EFI_ENGINE_FORD_ASPIRE */
