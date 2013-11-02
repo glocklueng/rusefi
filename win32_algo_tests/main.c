@@ -38,6 +38,7 @@ int main(void) {
 
 	testInterpolate3d();
 	testFindIndex();
+	testInterpolate2d();
 
 	printf("Success\r\n");
 	return EXIT_SUCCESS;
