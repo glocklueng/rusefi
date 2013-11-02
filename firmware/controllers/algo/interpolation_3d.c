@@ -12,7 +12,20 @@
 #include "interpolation_3d.h"
 #include "engine_math.h"
 
-float interpolate3d(int rpm, float y, float rpmBin[], int rpmBinSize, float yBin[], int yBinSize, float* map[]) {
+float interpolate2d(float value, float bin[], float values[], int size) {
+	int index = findIndex(bin, size, value);
+
+	if (index == -1)
+		return values[0];
+	if (index == size - 1)
+		return values[size - 1];
+
+	return interpolate(bin[index], values[index], bin[index + 1],
+			values[index + 1], value);
+}
+
+float interpolate3d(int rpm, float y, float rpmBin[], int rpmBinSize,
+		float yBin[], int yBinSize, float* map[]) {
 
 	int rpm_index = findIndex(rpmBin, rpmBinSize, rpm);
 #if	DEBUG_INTERPOLATION
@@ -21,14 +34,15 @@ float interpolate3d(int rpm, float y, float rpmBin[], int rpmBinSize, float yBin
 	int key_index = findIndex(yBin, yBinSize, y);
 	if (rpm_index < 0 && key_index < 0) {
 #if	DEBUG_INTERPOLATION
-		printf("rpm and key are smaller than smallest cell in table: %f\r\n", rpm_index);
+		printf("rpm and key are smaller than smallest cell in table: %d\r\n",
+				rpm_index);
 #endif
 		return map[0][0];
 	}
 
 	if (rpm_index < 0) {
 #if	DEBUG_INTERPOLATION
-		printf("rpm is smaller than smallest cell in table: %f\r\n", rpm_index);
+		printf("rpm is smaller than smallest cell in table: %dr\n", rpm_index);
 #endif
 		// no interpolation should be fine here.
 		return map[0][key_index];
@@ -36,7 +50,8 @@ float interpolate3d(int rpm, float y, float rpmBin[], int rpmBinSize, float yBin
 
 	if (key_index < 0) {
 #if	DEBUG_INTERPOLATION
-		printf("rpm and key are smaller than smallest cell in table: %f\r\n", rpm_index);
+		printf("rpm and key are smaller than smallest cell in table: %d\r\n",
+				rpm_index);
 #endif
 		// no interpolation should be fine here.
 		return map[rpm_index][0];
@@ -52,11 +67,13 @@ float interpolate3d(int rpm, float y, float rpmBin[], int rpmBinSize, float yBin
 	float rpmMinKeyMinValue = map[rpm_index][key_index];
 	float rpmMaxKeyMinValue = map[rpmMaxIndex][key_index];
 
-	float keyMinValue = interpolate(rpmMin, rpmMinKeyMinValue, rpmMax, rpmMaxKeyMinValue, rpm);
+	float keyMinValue = interpolate(rpmMin, rpmMinKeyMinValue, rpmMax,
+			rpmMaxKeyMinValue, rpm);
 
 #if	DEBUG_INTERPOLATION
 	printf("rpm=%d:\r\nrange %d - %d\r\n", rpm, rpmMin, rpmMax);
-	printf("rpm interpolation range %f   %f result %f\r\n", rpmMinKeyMinValue, rpmMaxKeyMinValue, keyMinValue);
+	printf("rpm interpolation range %f   %f result %f\r\n", rpmMinKeyMinValue,
+			rpmMaxKeyMinValue, keyMinValue);
 #endif
 
 	int keyMaxIndex = key_index == yBinSize - 1 ? key_index : key_index + 1;
@@ -65,11 +82,13 @@ float interpolate3d(int rpm, float y, float rpmBin[], int rpmBinSize, float yBin
 	float rpmMinKeyMaxValue = map[rpm_index][keyMaxIndex];
 	float rpmMaxKeyMaxValue = map[rpmMaxIndex][keyMaxIndex];
 
-	float keyMaxValue = interpolate(rpmMin, rpmMinKeyMaxValue, rpmMax, rpmMaxKeyMaxValue, rpm);
+	float keyMaxValue = interpolate(rpmMin, rpmMinKeyMaxValue, rpmMax,
+			rpmMaxKeyMaxValue, rpm);
 
 #if	DEBUG_INTERPOLATION
 	printf("key=%f:\r\nrange %f - %f\r\n", y, keyMin, keyMax);
-	printf("key interpolation range %f   %f result %f\r\n", rpmMinKeyMaxValue, rpmMaxKeyMaxValue, keyMaxValue);
+	printf("key interpolation range %f   %f result %f\r\n", rpmMinKeyMaxValue,
+			rpmMaxKeyMaxValue, keyMaxValue);
 #endif
 
 	float result = interpolate(keyMin, keyMinValue, keyMax, keyMaxValue, y);
