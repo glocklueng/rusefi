@@ -11,6 +11,7 @@
 #ifndef INTERPOLATION_3D_H_
 #define INTERPOLATION_3D_H_
 
+float interpolate2d(float value, float bin[], float values[], int size);
 float interpolate3d(int rpm, float y, float rpmBin[], int rpmBinSize, float yBin[], int yBinSize, float* map[]);
 
 #endif /* INTERPOLATION_3D_H_ */
