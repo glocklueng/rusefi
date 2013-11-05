@@ -263,7 +263,7 @@ void initWaveAnalyzer(void) {
 
 	initWaveChart(&crankChart, "crank");
 
-	initWave("input1 A8", 0, &ICUD1, GPIOA, 8, 1);
+	initWave("input1 A8", 0, &LOGIC_ANALYZER_ONE_DRIVER, LOGIC_ANALYZER_PORT, LOGIC_ANALYZER_PIN, 1);
 	initWave("input2 E5", 1, &ICUD9, GPIOE, 5, 1);
 	//	initWave("input0 C6", 2, &WAVE_TIMER, WAVE_INPUT_PORT, WAVE_INPUT_PIN, 0);
 
