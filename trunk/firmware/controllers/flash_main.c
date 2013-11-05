@@ -71,6 +71,12 @@ static void printConfiguration(void) {
 
 	print("Y bin: ");
 	printFloatArray(engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT);
+
+	print("CLT: ");
+	printFloatArray(engineConfiguration->cltFuelCorr, CLT_CURVE_SIZE);
+
+	print("IAT: ");
+	printFloatArray(engineConfiguration->iatFuelCorr, IAT_CURVE_SIZE);
 }
 
 static int isValid(FlashState *state) {
@@ -93,6 +99,16 @@ extern float fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT];
 
 static void setDefaultConfiguration(void) {
 	engineConfiguration->injectorLag = 0.5;
+
+	for (int i = 0; i < IAT_CURVE_SIZE; i++) {
+		engineConfiguration->iatFuelCorrBins[i] = -40 + i * 10;
+		engineConfiguration->iatFuelCorr[i] = 1;
+	}
+
+	for (int i = 0; i < CLT_CURVE_SIZE; i++) {
+		engineConfiguration->cltFuelCorrBins[i] = -40 + i * 10;
+		engineConfiguration->cltFuelCorr[i] = 1;
+	}
 
 	for (int i = 0; i < FUEL_MAF_COUNT; i++)
 		engineConfiguration->fuelKeyBins[i] = fuel_maf_bins[i];
