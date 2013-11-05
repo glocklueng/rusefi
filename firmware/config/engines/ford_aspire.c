@@ -120,8 +120,10 @@ void confgiureShaftPositionEmulatorShape(PwmConfig *state) {
 }
 
 void configureInjection(InjectionConfiguration *injectionConfiguration) {
-	injectionConfiguration->fireAtEventIndex[1] = 1;
-	injectionConfiguration->fireAtEventIndex[3] = 1;
+	injectionConfiguration->fireAtEventIndex[6] = 1;
+	injectionConfiguration->fireAtEventIndex[3] = 2;
+	injectionConfiguration->fireAtEventIndex[8] = 3;
+	injectionConfiguration->fireAtEventIndex[1] = 4;
 }
 
 void setDefaultEngineConfiguration(void) {
