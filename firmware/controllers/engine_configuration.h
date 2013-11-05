@@ -21,10 +21,10 @@ typedef struct {
 	float cltFuelCorrBins[16]; // size 64, offset 72
 	float cltFuelCorr[16]; // size 64, offset 136
 	float iatFuelCorrBins[16]; // size 64, offset 200
-	float iatFuelCorr[16]; // size 64
-	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT];
-	float fuelKeyBins[FUEL_MAF_COUNT];
-	int fuelRpmBins[FUEL_RPM_COUNT];
+	float iatFuelCorr[16]; // size 64, offset 264
+	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 328
+	float fuelKeyBins[FUEL_MAF_COUNT]; // offset 3364
+	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3496
 } EngineConfiguration;
 
 /**

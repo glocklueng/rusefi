@@ -67,7 +67,7 @@ static void printConfiguration(void) {
 	}
 
 	print("RPM bin: ");
-	printIntArray(engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT);
+	printFloatArray(engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT);
 
 	print("Y bin: ");
 	printFloatArray(engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT);
