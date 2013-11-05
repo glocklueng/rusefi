@@ -10,6 +10,9 @@
 
 #include "fuel_map.h"
 
+#define CLT_CURVE_SIZE 16
+#define IAT_CURVE_SIZE 16
+
 /**
  *
  */
@@ -18,10 +21,13 @@ typedef struct {
 	float injectorFlow; // size 4, offset 4
 	float battInjectorLagCorrBins[8]; // size 32, offset 8
 	float battInjectorLagCorr[8]; // size 32, offset 40
-	float cltFuelCorrBins[16]; // size 64, offset 72
-	float cltFuelCorr[16]; // size 64, offset 136
-	float iatFuelCorrBins[16]; // size 64, offset 200
-	float iatFuelCorr[16]; // size 64, offset 264
+
+	float cltFuelCorrBins[CLT_CURVE_SIZE]; // size 64, offset 72
+	float cltFuelCorr[CLT_CURVE_SIZE]; // size 64, offset 136
+
+	float iatFuelCorrBins[IAT_CURVE_SIZE]; // size 64, offset 200
+	float iatFuelCorr[IAT_CURVE_SIZE]; // size 64, offset 264
+
 	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 328
 	float fuelKeyBins[FUEL_MAF_COUNT]; // offset 3364
 	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3496
