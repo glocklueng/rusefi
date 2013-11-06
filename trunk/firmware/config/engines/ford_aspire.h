@@ -45,7 +45,7 @@
 
 // be careful not to put brackets around the value, otherwise integer math would trigger
 // and you would get zero multiplier
-#define RPM_MULT 2
+#define RPM_MULT 0.5
 
 // todo: this value is way off! I am pretty sure temp coeffs are off also
 #define IAT_HI_RESISTOR 2700
