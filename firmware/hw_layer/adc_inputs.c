@@ -37,7 +37,7 @@ static Logging log;
 static int adcCallbackCounter_slow = 0;
 static int adcCallbackCounter_fast = 0;
 
-static int adcDebugReporting = TRUE;
+static int adcDebugReporting = FALSE;
 
 static int internalAdcIndex[20];
 
@@ -367,38 +367,42 @@ void initAdcInputs() {
 #if EFI_USE_ADC_CHANNEL_IN1
 	initSlowChannel(index++, ADC_CHANNEL_IN1); // PA1
 #endif
+#if EFI_USE_ADC_CHANNEL_IN2
+	initSlowChannel(index++, ADC_CHANNEL_IN2); // PA2
+#endif
+#if EFI_USE_ADC_CHANNEL_IN3
+	initSlowChannel(index++, ADC_CHANNEL_IN3); // PA3
+#endif
+#if EFI_USE_ADC_CHANNEL_IN4
+	initSlowChannel(index++, ADC_CHANNEL_IN4); // PA4
+#endif
+#if EFI_USE_ADC_CHANNEL_IN5
+	initSlowChannel(index++, ADC_CHANNEL_IN5); // PA5 - this is also TIM2_CH1
+#endif
 #if EFI_USE_ADC_CHANNEL_IN6
 	initSlowChannel(index++, ADC_CHANNEL_IN6); // PA6
 #endif
-
 #if EFI_USE_ADC_CHANNEL_IN7
 	initSlowChannel(index++, ADC_CHANNEL_IN7); // PA7
 #endif
-
 #if EFI_USE_ADC_CHANNEL_IN8
 	initSlowChannel(index++, ADC_CHANNEL_IN8); // PB0
 #endif
-
 #if EFI_USE_ADC_CHANNEL_IN9
 	initSlowChannel(index++, ADC_CHANNEL_IN9); // PB1
 #endif
-
 #if EFI_USE_ADC_CHANNEL_IN10
-	initSlowChannel(index++, ADC_CHANNEL_IN10); //
+	initSlowChannel(index++, ADC_CHANNEL_IN10); // PC0
 #endif
-
 #if EFI_USE_ADC_CHANNEL_IN11
-	initSlowChannel(index++, ADC_CHANNEL_IN11); //
+	initSlowChannel(index++, ADC_CHANNEL_IN11); // PC1
 #endif
-
 #if EFI_USE_ADC_CHANNEL_IN12
 	initSlowChannel(index++, ADC_CHANNEL_IN12); // PC2
 #endif
-
 #if EFI_USE_ADC_CHANNEL_IN13
 	initSlowChannel(index++, ADC_CHANNEL_IN13); // PC3
 #endif
-
 #if EFI_USE_ADC_CHANNEL_IN14
 	initSlowChannel(index++, ADC_CHANNEL_IN14); // PC4
 #endif
