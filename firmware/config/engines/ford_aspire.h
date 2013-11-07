@@ -115,6 +115,9 @@ void configureInjection(InjectionConfiguration *config);
 #define INJECTOR_4_PORT GPIOE
 #define INJECTOR_4_PIN 0
 
+#define IDLE_VALVE_PORT GPIOE
+#define IDLE_VALVE_PIN 3
+
 #define FUEL_PUMP_PORT GPIOE
 #define FUEL_PUMP_PIN 4
 

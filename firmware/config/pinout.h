@@ -27,9 +27,6 @@
 
 #endif
 
-#define IDLE_VALVE_PORT GPIOE
-#define IDLE_VALVE_PIN 3
-
 #define IDLE_SWITCH_PORT GPIOC
 #define IDLE_SWITCH_PIN 8
 
