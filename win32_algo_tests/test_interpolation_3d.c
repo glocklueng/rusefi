@@ -27,37 +27,40 @@ float *map[5] = { map0, map1, map2, map3, map4 };
 
 
 static float getValue(float rpm, float maf) {
-	return interpolate3d(rpm, maf, rpmBins, 5, mafBins, 4, map);
+	return interpolate3d(rpm, rpmBins, 5, maf, mafBins, 4, map);
 }
 
 void testInterpolate3d(void) {
 	float dwell;
-	printf("no interpolation here\r\n");
+	printf("*** no interpolation here\r\n");
 	dwell = getValue(100, 2);
 	assertEquals(2, dwell);
 
-	printf("no interpolation here\r\n");
+	printf("*** no interpolation here\r\n");
 	dwell = getValue(200, 4);
 	assertEquals(5, dwell);
 
-	printf("rpm interpolated value expected1\r\n");
+	printf("*** rpm interpolated value expected1\r\n");
 	dwell = getValue(150, 2);
 	assertEquals(2.5, dwell);
 
-	printf("rpm interpolated value expected2\r\n");
+	printf("*** rpm interpolated value expected2\r\n");
 	dwell = getValue(250, 3);
 	assertEquals(102, dwell);
 
-	printf("both rpm and maf interpolated value expected\r\n");
+	printf("*** both rpm and maf interpolated value expected\r\n");
 	dwell = getValue(335.3, 3.551);
-	assertEquals(360.1, dwell);
+	assertEquals(361, dwell);
 
+	printf("*** both rpm and maf interpolated value expected 2\r\n");
 	dwell = getValue(410.01, 2.012);
 	assertEquals(203.6, dwell);
 
+	printf("*** both rpm and maf interpolated value expected 3\r\n");
 	dwell = getValue(1000000, 1000);
 	assertEquals(4, dwell);
 
+	printf("*** both rpm and maf interpolated value expected 4\r\n");
 	dwell = getValue(410.01, -1);
 	assertEquals(4, dwell);
 
