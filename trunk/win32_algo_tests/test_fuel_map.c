@@ -15,8 +15,7 @@ EngineConfiguration *engineConfiguration = &ec;
 void testFuelMap(void) {
 	printf("*************************************************** testFuelMap\r\n");
 
-
+	setDefaultFuelMap();
 	initFuelMap();
-	assertEquals(11, getBaseFuel(1398, 2.15));
-
+	assertEquals(2.9334, getBaseFuel(1398, 2.15));
 }
