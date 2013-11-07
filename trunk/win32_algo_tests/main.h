@@ -12,9 +12,14 @@ typedef float myfloat;
 
 #include <stdio.h>
 
+#define TRUE 1
+#define FALSE 0
+
 #define fatal(x) printf(x)
 
 #define DEBUG_INTERPOLATION 1
+
+void chDbgAssert(int c, char *msg, void *arg);
 
 void assertEquals(float expected, float actual);
 

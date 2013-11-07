@@ -15,6 +15,7 @@
 #include "test_idle_controller.h"
 #include "test_interpolation_3d.h"
 #include "test_find_index.h"
+#include "test_fuel_map.h"
 
 static float absF(float value) {
 	return value > 0 ? value : -value;
@@ -34,11 +35,16 @@ void assertEquals(float expected, float actual) {
 	assertEqualsM("", expected, actual);
 }
 
+void chDbgAssert(int c, char *msg, void *arg) {
+
+}
+
 int main(void) {
 
 	testInterpolate3d();
 	testFindIndex();
 	testInterpolate2d();
+	testFuelMap();
 
 	printf("Success\r\n");
 	return EXIT_SUCCESS;
