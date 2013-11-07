@@ -58,10 +58,10 @@ static void printFloatArray(float array[], int size) {
 }
 
 static void printConfiguration(void) {
-	for (int i = 0; i < FUEL_MAF_COUNT; i++) {
-		print("line %d (%f): ", i, engineConfiguration->fuelKeyBins[i]);
-		for (int j = 0; j < FUEL_RPM_COUNT; j++) {
-			print("%f ", engineConfiguration->fuelTable[i][j]);
+	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
+		print("line %d (%f): ", k, engineConfiguration->fuelKeyBins[k]);
+		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
+			print("%f ", engineConfiguration->fuelTable[k][r]);
 		}
 		print("\r\n");
 	}
@@ -114,10 +114,10 @@ static void setDefaultConfiguration(void) {
 		engineConfiguration->fuelKeyBins[i] = fuel_maf_bins[i];
 	for (int i = 0; i < FUEL_RPM_COUNT; i++)
 		engineConfiguration->fuelRpmBins[i] = fuel_rpm_bins[i];
-	for (int i = 0; i < FUEL_MAF_COUNT; i++) {
+	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
 		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
 			// todo: this is BAD, this needs to be fixed - TS table indexes are different from default indexes
-			engineConfiguration->fuelTable[i][r] = fuel_table[r][i];
+			engineConfiguration->fuelTable[k][r] = fuel_table[r][k];
 		}
 	}
 #if EFI_TUNER_STUDIO
