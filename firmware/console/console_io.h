@@ -20,11 +20,6 @@
 
 #include "features.h"
 
-//#define SERIAL_SPEED (8 * 115200)
-//#define SERIAL_SPEED (2 * 115200)
-#define SERIAL_SPEED 115200
-
-
 #ifdef EFI_SERIAL_OVER_USB
  #include "usbcfg.h"
  extern SerialUSBDriver SDU1;
