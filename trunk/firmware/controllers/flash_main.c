@@ -116,6 +116,7 @@ static void setDefaultConfiguration(void) {
 		engineConfiguration->fuelRpmBins[i] = fuel_rpm_bins[i];
 	for (int i = 0; i < FUEL_MAF_COUNT; i++) {
 		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
+			// todo: this is BAD, this needs to be fixed - TS table indexes are different from default indexes
 			engineConfiguration->fuelTable[i][r] = fuel_table[r][i];
 		}
 	}
