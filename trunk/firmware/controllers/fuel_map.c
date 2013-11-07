@@ -233,5 +233,5 @@ void initFuelMap(void) {
 float getBaseFuel(int rpm, float key) {
 	chDbgAssert(initialized, "fuel map initialized", NULL);
 	// todo: fix this type error - keyBin should be float[]
-	return interpolate3d(rpm, key, fuel_rpm_bins, FUEL_RPM_COUNT, engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT, fuel_ptrs);
+	return interpolate3d(rpm, fuel_rpm_bins, FUEL_RPM_COUNT, key, engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT, fuel_ptrs);
 }
