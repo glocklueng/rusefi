@@ -128,9 +128,10 @@ static void cmd_threads(void) {
 }
 
 void initializeConsole() {
-	initLogging(&log, "console", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 	initConsoleLogic();
 	startChibiosConsole(&handleConsoleLine);
+
+	initLogging(&log, "console", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 
 	sayOsHello();
 	addConsoleAction("hello", &sayOsHello);
