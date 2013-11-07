@@ -31,14 +31,15 @@ static float getValue(float rpm, float maf) {
 }
 
 void testInterpolate3d(void) {
+	printf("*************************************************** testInterpolate3d\r\n");
 	float dwell;
-	printf("*** no interpolation here\r\n");
+	printf("*** no interpolation here 1\r\n");
 	dwell = getValue(100, 2);
 	assertEquals(2, dwell);
 
-	printf("*** no interpolation here\r\n");
+	printf("*** no interpolation here 2\r\n");
 	dwell = getValue(200, 4);
-	assertEquals(5, dwell);
+	assertEquals(600, dwell);
 
 	printf("*** rpm interpolated value expected1\r\n");
 	dwell = getValue(150, 2);
@@ -58,7 +59,7 @@ void testInterpolate3d(void) {
 
 	printf("*** both rpm and maf interpolated value expected 3\r\n");
 	dwell = getValue(1000000, 1000);
-	assertEquals(4, dwell);
+	assertEquals(600, dwell);
 
 	printf("*** both rpm and maf interpolated value expected 4\r\n");
 	dwell = getValue(410.01, -1);
