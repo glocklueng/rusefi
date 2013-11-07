@@ -87,6 +87,7 @@ void append(Logging *logging, char *text) {
 }
 
 void initLogging(Logging *logging, char *name, char *buffer, int bufferSize) {
+	print("Init logging\r\n");
 	logging->name = name;
 	logging->buffer = buffer;
 	logging->bufferSize = bufferSize;
