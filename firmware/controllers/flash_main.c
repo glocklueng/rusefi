@@ -93,10 +93,6 @@ static int isValid(FlashState *state) {
 	return result == state->value;
 }
 
-extern float fuel_rpm_bins[];
-extern float fuel_maf_bins[];
-extern float fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT];
-
 static void setDefaultConfiguration(void) {
 	engineConfiguration->injectorLag = 0.5;
 
@@ -110,16 +106,8 @@ static void setDefaultConfiguration(void) {
 		engineConfiguration->cltFuelCorr[i] = 1;
 	}
 
-	for (int i = 0; i < FUEL_MAF_COUNT; i++)
-		engineConfiguration->fuelKeyBins[i] = fuel_maf_bins[i];
-	for (int i = 0; i < FUEL_RPM_COUNT; i++)
-		engineConfiguration->fuelRpmBins[i] = fuel_rpm_bins[i];
-	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
-		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
-			// todo: this is BAD, this needs to be fixed - TS table indexes are different from default indexes
-			engineConfiguration->fuelTable[k][r] = fuel_table[r][k];
-		}
-	}
+	setDefaultFuelMap();
+
 #if EFI_TUNER_STUDIO
 	syncTunerStudioCopy();
 #endif

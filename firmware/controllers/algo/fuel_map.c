@@ -230,6 +230,19 @@ void initFuelMap(void) {
 	initialized = TRUE;
 }
 
+void setDefaultFuelMap(void) {
+	for (int i = 0; i < FUEL_MAF_COUNT; i++)
+		engineConfiguration->fuelKeyBins[i] = fuel_maf_bins[i];
+	for (int i = 0; i < FUEL_RPM_COUNT; i++)
+		engineConfiguration->fuelRpmBins[i] = fuel_rpm_bins[i];
+	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
+		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
+			// todo: this is BAD, this needs to be fixed - TS table indexes are different from default indexes
+			engineConfiguration->fuelTable[k][r] = fuel_table[r][k];
+		}
+	}
+}
+
 float getBaseFuel(int rpm, float key) {
 	chDbgAssert(initialized, "fuel map initialized", NULL);
 	// todo: fix this type error - keyBin should be float[]
