@@ -220,13 +220,13 @@ float fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT] = { {/*0 rpm=400.0*//*0 1.20000
 		15.19, /*30 4.200000047683718*/15.13, /*31 4.300000047683717*/15.17, /*32 4.400000047683717*/15.15 } };
 
 
-static float *fuel_ptrs[FUEL_RPM_COUNT];
+static float *fuel_ptrs[FUEL_MAF_COUNT];
 static int initialized = FALSE;
 extern EngineConfiguration *engineConfiguration;
 
 void initFuelMap(void) {
-	for (int i = 0; i < FUEL_RPM_COUNT; i++)
-		fuel_ptrs[i] = engineConfiguration->fuelTable[i];
+	for (int k = 0; k < FUEL_MAF_COUNT; k++)
+		fuel_ptrs[k] = engineConfiguration->fuelTable[k];
 	initialized = TRUE;
 }
 
@@ -245,6 +245,6 @@ void setDefaultFuelMap(void) {
 
 float getBaseFuel(int rpm, float key) {
 	chDbgAssert(initialized, "fuel map initialized", NULL);
-	// todo: fix this type error - keyBin should be float[]
-	return interpolate3d(rpm, fuel_rpm_bins, FUEL_RPM_COUNT, key, engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT, fuel_ptrs);
+	// todo: use bins from the engineConfiguration
+	return interpolate3d(key, fuel_maf_bins, FUEL_MAF_COUNT, rpm, fuel_rpm_bins, FUEL_RPM_COUNT, fuel_ptrs);
 }
