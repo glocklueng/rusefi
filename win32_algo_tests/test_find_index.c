@@ -11,6 +11,7 @@
 #include <stdio.h>
 
 void testFindIndex(void) {
+	printf("*************************************************** testFindIndex\r\n");
 
 	float array[] = { 1, 2, 3, 4, 5 };
 	int size = 4;
@@ -72,6 +73,7 @@ void testFindIndex(void) {
 //}
 
 void testInterpolate2d(void) {
+	printf("*************************************************** testInterpolate2d\r\n");
 
 	float bins4[] = { 1, 2, 3, 4 };
 	float values4[] = { 1, 20, 30, 400 };
