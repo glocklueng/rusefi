@@ -53,4 +53,9 @@
 #define EFI_USE_ADC_CHANNEL_IN14 TRUE
 #define EFI_USE_ADC_CHANNEL_IN15 TRUE
 
+/**
+ * Patched version of ChibiOS/RT support extra details in the system error messages
+ */
+#define EFI_CUSTOM_PANIC_METHOD TRUE
+
 #endif /* FORD_ASPIRE_MCU_H_ */

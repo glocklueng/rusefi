@@ -11,11 +11,6 @@
 #define MAF_MODE 1
 
 /**
- * Patched version of ChibiOS/RT support extra details in the system error messages
- */
-#define EFI_CUSTOM_PANIC_METHOD TRUE
-
-/**
  * Build-in logic analyzer support. Logic analyzer viewer is one of the java console panes.
  */
 #define EFI_WAVE_ANALYZER TRUE
@@ -55,19 +50,6 @@
 
 #define EFI_ENGINE_EMULATOR TRUE
 #define EFI_EMULATE_POSITION_SENSORS TRUE
-
-
-/**
- * 1996 1.3 Ford Aspire
- */
-#define EFI_ENGINE_FORD_ASPIRE TRUE
-
-//#define EFI_ENGINE_SNOW_BLOWER TRUE
-
-/**
- * 60-2 toothed wheel
- */
-//#define EFI_ENGINE_DENISVAK TRUE
 
 #if EFI_TUNER_STUDIO
 #if EFI_SERIAL_OVER_USB
