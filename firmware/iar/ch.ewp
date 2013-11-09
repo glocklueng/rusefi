@@ -2072,10 +2072,10 @@
     <group>
       <name>algo</name>
       <file>
-        <name>$PROJ_DIR$\..\controllers\fuel_map.c</name>
+        <name>$PROJ_DIR$\..\controllers\algo\fuel_map.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\fuel_map.h</name>
+        <name>$PROJ_DIR$\..\controllers\algo\fuel_map.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\idle_controller.c</name>
