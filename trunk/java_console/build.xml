@@ -1,0 +1,45 @@
+<project default="jar">
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac destdir="build/classes" classpath="lib/junit.jar:lib/jssc.jar:lib/SteelSeries-3.9.30.jar:lib/annotations.jar:lib/miglayout-4.0.jar:lib/surfaceplotter-2.0.1.jar">
+		<src path="io/src"/>
+		<src path="models/src"/>
+		<src path="ui/src"/>
+	</javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="../java_console_binary/rusefi_console.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="com.irnems.Launcher"/>
+            </manifest>
+		<zipfileset src="lib/SteelSeries-3.9.30.jar" includes="**/*.class"/>
+		<zipfileset src="lib/trident-6.2.jar" includes="**/*.class"/>
+
+		<zipfileset src="lib/jssc.jar" includes="**/*.class"/>
+
+		<zipfileset src="lib/annotations.jar" includes="**/*.class"/>
+
+		<zipfileset src="lib/miglayout-4.0.jar" includes="**/*.class"/>
+
+		<zipfileset src="lib/surfaceplotter-2.0.1.jar" includes="**/*.class **/*.properties"/>
+		<zipfileset src="lib/batik/batik-svggen.jar" includes="**/*.class"/>
+		<zipfileset src="lib/batik/batik-awt-util.jar" includes="**/*.class"/>
+		<zipfileset src="lib/batik/batik-util.jar" includes="**/*.class"/>
+
+
+		<zipfileset dir="build/classes" includes="**/*.class"/>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="../java_console_binary/rusefi_console.jar" fork="true"/>
+    </target>
+
+</project>
