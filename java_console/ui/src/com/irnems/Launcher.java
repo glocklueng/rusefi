@@ -1,0 +1,74 @@
+package com.irnems;
+
+import com.irnems.ui.*;
+import jssc.SerialPortException;
+import jssc.SerialPortList;
+
+import javax.swing.*;
+import java.util.Arrays;
+
+/**
+ * Date: 12/25/12
+ * (c) Andrey Belomutskiy
+ */
+public class Launcher extends FrameHelper {
+
+    public Launcher(String port) throws SerialPortException {
+        SerialManager.port = port;
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        RpmPanel rpmPanel = new RpmPanel();
+        tabbedPane.addTab("RPM", rpmPanel.createRpmPanel());
+        tabbedPane.addTab("ADC", new AdcPanel(new BooleanInputsModel()).createAdcPanel());
+        tabbedPane.addTab("Gauges", new GaugePanel());
+        tabbedPane.addTab("Waves", new WavePanel());
+        tabbedPane.add("Emulation Map", EcuStimulator.panel);
+        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
+        tabbedPane.add("MessagesCentral", new MsgPanel());
+
+        tabbedPane.setSelectedIndex(0);
+        showFrame(tabbedPane);
+    }
+
+    @Override
+    protected void onWindowOpened() {
+        super.onWindowOpened();
+        SerialManager.scheduleOpening();
+    }
+
+    @Override
+    protected void onWindowClosed() {
+        super.onWindowClosed();
+        /**
+         * looks like reconnectTimer in {@link RpmPanel} keeps AWT alive. Simplest solution would be to 'exit'
+         */
+        System.exit(0);
+    }
+
+    public static void main(String[] args) throws Exception {
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler());
+
+        final String port = args.length > 0 ? args[0] : lookupPort();
+
+        SwingUtilities.invokeAndWait(new Runnable() {
+            public void run() {
+                try {
+                    new Launcher(port);
+                } catch (SerialPortException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    private static String lookupPort() {
+        String[] ports = new String[]{};
+        if (!SerialManager.onlyUI) {
+            ports = SerialPortList.getPortNames();
+            if (ports.length < 2)
+                throw new IllegalStateException("expected two ports but got only " + Arrays.toString(ports));
+        }
+        return ports.length > 1 ? ports[1] : null;
+    }
+}
