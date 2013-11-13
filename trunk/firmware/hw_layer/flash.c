@@ -1,3 +1,9 @@
+/*
+ * @file    flash_main.c
+ * @brief	Lower-level code related to internal flash memory
+ */
+
+
 #include "flash.h"
 #include <string.h>
 

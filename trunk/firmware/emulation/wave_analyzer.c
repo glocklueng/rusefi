@@ -1,5 +1,7 @@
 /*
- * wave_analyzer.c
+ * @file	wave_analyzer.c
+ * @brief	Initialization of Input Capture pins used for dev console sniffer
+ *
  *
  *  Created on: Jan 7, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

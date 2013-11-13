@@ -1,11 +1,12 @@
 /*
- *  Created on: Dec 9, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
-/**
  * @file    dist_emulator.c
  * @brief   Position sensor(s) emulation code
+ *
+ * This file is mostly about initialization, the configuration is
+ * provided by the confgiureShaftPositionEmulatorShape method
+ *
+ *  Created on: Dec 9, 2012
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "dist_emulator.h"

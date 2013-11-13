@@ -1,5 +1,6 @@
 /*
- * engine_emulator.c
+ * @file	engine_emulator.c
+ * @brief	Entry point for all the emulation and analysis code
  *
  *  Created on: Mar 15, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

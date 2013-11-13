@@ -1,5 +1,6 @@
 /*
- * wave_chart.c
+ * @file	wave_chart.c
+ * @brief	Dev console wave sniffer logic
  *
  *  Created on: Jun 23, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

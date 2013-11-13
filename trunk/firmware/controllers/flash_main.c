@@ -1,10 +1,10 @@
 /*
+ * @file    flash_main.c
+ * @brief	Higher-level logic of saving data into internal flash memory
+ *
+ *
  *  Created on: Sep 19, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
-/**
- * @file    flash_main.c
  */
 
 #include <ch.h>

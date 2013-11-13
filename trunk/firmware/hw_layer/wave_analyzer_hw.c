@@ -1,5 +1,6 @@
 /*
- * wave_analyzer_hw.c
+ * @file	wave_analyzer_hw.c
+ * @brief	Helper methods related to Input Capture Unit (ICU)
  *
  *  Created on: Jun 23, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
@@ -8,8 +9,6 @@
 #include "wave_analyzer_hw.h"
 #include "rficonsole.h"
 #include "pin_repository.h"
-
-#if 1
 
 static void icuWidthCallback(ICUDriver *driver);
 static void icuPeriordCallBack(ICUDriver *driver);
@@ -106,5 +105,4 @@ void setWaveReaderMode(WaveReaderHw *hw, int mode) {
 	icuStart(driver, &wave_icucfg);
 	icuEnable(driver);
 	hw->started = TRUE;
-#endif
 }
