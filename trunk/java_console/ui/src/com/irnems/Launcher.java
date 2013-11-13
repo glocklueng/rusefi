@@ -1,5 +1,6 @@
 package com.irnems;
 
+import com.irnems.core.MessagesCentral;
 import com.irnems.ui.*;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
@@ -8,6 +9,9 @@ import javax.swing.*;
 import java.util.Arrays;
 
 /**
+ * this is the main entry point of rusEfi ECU console
+ * <p/>
+ * <p/>
  * Date: 12/25/12
  * (c) Andrey Belomutskiy
  */
@@ -19,15 +23,19 @@ public class Launcher extends FrameHelper {
         JTabbedPane tabbedPane = new JTabbedPane();
 
         RpmPanel rpmPanel = new RpmPanel();
-        tabbedPane.addTab("RPM", rpmPanel.createRpmPanel());
-        tabbedPane.addTab("ADC", new AdcPanel(new BooleanInputsModel()).createAdcPanel());
+        tabbedPane.addTab("Main", rpmPanel.createRpmPanel());
         tabbedPane.addTab("Gauges", new GaugePanel());
-        tabbedPane.addTab("Waves", new WavePanel());
-        tabbedPane.add("Emulation Map", EcuStimulator.panel);
-        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
+        tabbedPane.addTab("Sniffer", new WavePanel());
+//        tabbedPane.addTab("ADC", new AdcPanel(new BooleanInputsModel()).createAdcPanel());
+//        tabbedPane.add("Emulation Map", EcuStimulator.panel);
+//        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
         tabbedPane.add("MessagesCentral", new MsgPanel());
 
         tabbedPane.setSelectedIndex(0);
+
+        for (String p : SerialPortList.getPortNames())
+            MessagesCentral.getInstance().postMessage(Launcher.class, "Available port: " + p);
+
         showFrame(tabbedPane);
     }
 
