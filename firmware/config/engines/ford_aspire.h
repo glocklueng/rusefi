@@ -57,32 +57,6 @@
 
 #define getIntakeAirTemperature() (getTemperatureC(adcToVolts(getAdcValue(ADC_LOGIC_AIR)), IAT_HI_RESISTOR))
 
-
-/*
- * 10 channel board is (from left to right):
- * ADC 15	PC5		TPS
- * ADC 14	PC4
- * ADC 7 	PA7
- * ADC 6	PA6		CLT
- * ADC 5	PA5		TIM2_CH1
- * ADC 4	PA4
- * ADC 3
- * ADC 2
- * ADC 1			MAF
- * ADC 0
- */
-
-#define ADC_LOGIC_TPS ADC_CHANNEL_IN15
-#define ADC_LOGIC_COOLANT ADC_CHANNEL_IN6
-#define ADC_LOGIC_MAF ADC_CHANNEL_IN1
-
-
-#define ADC_LOGIC_MAP ADC_CHANNEL_IN14
-#define ADC_LOGIC_AFR ADC_CHANNEL_IN14
-
-#define ADC_CHANNEL_VREF ADC_CHANNEL_IN14
-#define ADC_LOGIC_AIR ADC_CHANNEL_IN14
-
 myfloat getMaf(void);
 myfloat getAfr(void);
 myfloat getTPS(void);
