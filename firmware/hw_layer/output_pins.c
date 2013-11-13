@@ -1,5 +1,6 @@
 /*
- * status_leds.c
+ * @file	status_leds.c
+ * @brief	It could be that the main purpose of this file is the status LED blinking
  *
  *  Created on: Jan 24, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

@@ -1,8 +1,3 @@
-/*
- *  Created on: May 28, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
 /**
  * @file    pwm_generator.c
  * @brief   software PWM generator
@@ -10,6 +5,11 @@
  * Software PWM implementation. Considering how low all frequencies are, we can totally afford a couple of float multiplications.
  * By generating PWM programmatically we are saving the timers for better purposes. This implementation also supports generating
  * synchronized waves as needed for example to emulate dual Hall-effect crankshaft position sensors.
+ *
+ *
+ *  Created on: May 28, 2013
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
+ *
  */
 
 #include "pwm_generator.h"

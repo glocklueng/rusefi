@@ -1,11 +1,11 @@
-/*
- *  Created on: Feb 7, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
 /**
  * @file    engine_controller.c
  * @brief   Controllers package entry point code
+ *
+ *
+ *
+ *  Created on: Feb 7, 2013
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"

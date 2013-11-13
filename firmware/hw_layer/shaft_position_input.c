@@ -1,5 +1,6 @@
 /*
- * chibi_input_capture.c
+ * @file	shaft_position_input.c
+ * @brief	Position sensor hardware layer
  *
  *  Created on: Dec 30, 2012
  *      Author: Andrey Belomutskiy, (c) 2012-2013

@@ -1,4 +1,7 @@
 /*
+ * @brief dead code
+ *
+ *
  * map_multiplier.c
  *
  *  Created on: Jul 23, 2013

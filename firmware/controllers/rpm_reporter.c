@@ -1,13 +1,9 @@
 /*
- * rpm_reporter.c
+ * @file    rpm_reporter.c
+ * @brief   Shaft position sensor(s) decoder code
  *
  *  Created on: Jan 1, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
-/**
- * @file    rpm_reporter.c
- * @brief   Shaft position sensor(s) decoder code
  */
 
 #include "ckp_events.h"
