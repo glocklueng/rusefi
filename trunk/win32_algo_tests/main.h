@@ -1,5 +1,6 @@
 /*
- * main.h
+ * @file	main.h
+ * @brief	Test version of main.h
  *
  *  Created on: Oct 17, 2013
  *      Author: Andrey Belomutskiy (C) 2012-2013
@@ -22,5 +23,10 @@ typedef float myfloat;
 void chDbgAssert(int c, char *msg, void *arg);
 
 void assertEquals(float expected, float actual);
+
+float getIntakeAirTemperature();
+float getCoolantTemperature();
+float getVBatt();
+
 
 #endif /* MAIN_H_ */

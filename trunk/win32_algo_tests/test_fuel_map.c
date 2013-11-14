@@ -12,10 +12,53 @@ static EngineConfiguration ec;
 
 EngineConfiguration *engineConfiguration = &ec;
 
+
+float getCoolantTemperature() {
+	return 1;
+}
+
+float getIntakeAirTemperature() {
+	return 1;
+}
+
+float getVBatt() {
+	return 12;
+}
+
 void testFuelMap(void) {
 	printf("*************************************************** testFuelMap\r\n");
 
-	setDefaultFuelMap();
+	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
+		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
+			engineConfiguration->fuelTable[k][r] = k * 200 + r;
+		}
+	}
+
+	for (int i = 0; i < FUEL_MAF_COUNT; i++)
+		engineConfiguration->fuelKeyBins[i] = i;
+	for (int i = 0; i < FUEL_RPM_COUNT; i++)
+		engineConfiguration->fuelRpmBins[i] = i;
+
+
 	initFuelMap();
-	assertEquals(2.9334, getBaseFuel(1398, 2.15));
+	assertEquals(1005, getBaseFuel(5, 5));
+
+	engineConfiguration->injectorLag = 0.5;
+	// because all the correction tables are zero
+	assertEquals(0.5, getFuel(5, 5));
+
+	for (int i = 0; i < IAT_CURVE_SIZE; i++) {
+		engineConfiguration->iatFuelCorrBins[i] = i;
+		engineConfiguration->iatFuelCorr[i] = 2 * i;
+	}
+
+	for (int i = 0; i < CLT_CURVE_SIZE; i++) {
+		engineConfiguration->cltFuelCorrBins[i] = i;
+		engineConfiguration->cltFuelCorr[i] = 1;
+	}
+	engineConfiguration->injectorLag = 0;
+
+	// 1005 * 2 for IAT correction
+	assertEquals(2010, getFuel(5, 5));
+
 }

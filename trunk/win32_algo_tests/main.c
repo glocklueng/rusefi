@@ -44,7 +44,10 @@ void assertEquals(float expected, float actual) {
 }
 
 void chDbgAssert(int c, char *msg, void *arg) {
-
+	if (!c) {
+		printf("assert failed: %s\r\n", msg);
+		exit(-1);
+	}
 }
 
 int main(void) {
