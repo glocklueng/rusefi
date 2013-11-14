@@ -8,6 +8,8 @@
 #ifndef ENGINE_H_
 #define ENGINE_H_
 
+#include "boards.h"
+
 /**
  * 1996 1.3 Ford Aspire
  */
