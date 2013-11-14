@@ -12,6 +12,7 @@
 
 #define CLT_CURVE_SIZE 16
 #define IAT_CURVE_SIZE 16
+#define VBAT_INJECTOR_CURVE_SIZE 8
 
 /**
  *
@@ -19,8 +20,8 @@
 typedef struct {
 	float injectorLag;	// size 4, offset 0
 	float injectorFlow; // size 4, offset 4
-	float battInjectorLagCorrBins[8]; // size 32, offset 8
-	float battInjectorLagCorr[8]; // size 32, offset 40
+	float battInjectorLagCorrBins[VBAT_INJECTOR_CURVE_SIZE]; // size 32, offset 8
+	float battInjectorLagCorr[VBAT_INJECTOR_CURVE_SIZE]; // size 32, offset 40
 
 	float cltFuelCorrBins[CLT_CURVE_SIZE]; // size 64, offset 72
 	float cltFuelCorr[CLT_CURVE_SIZE]; // size 64, offset 136
