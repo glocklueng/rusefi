@@ -21,6 +21,7 @@
 #include "injector_central.h"
 #include "output_pins.h"
 #include "engine_configuration.h"
+#include "interpolation_3d.h"
 
 // todo: move this to EngineConfiguration2 for now
 #define RPM_HARD_LIMIT 8000
@@ -94,14 +95,15 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 }
 
 static float getCltCorrection(float clt) {
-	return 1;
+	return interpolate2d(clt, engineConfiguration->cltFuelCorrBins, engineConfiguration->cltFuelCorr, CLT_CURVE_SIZE);
 }
 
 static float getIatCorrection(float iat) {
-	return 1;
+	return interpolate2d(iat, engineConfiguration->iatFuelCorrBins, engineConfiguration->iatFuelCorr, IAT_CURVE_SIZE);
 }
 
 float getInjectorLag(float vBatt) {
+	myfloat vBattCorrection = interpolate2d(vBatt, engineConfiguration->battInjectorLagCorrBins, engineConfiguration->battInjectorLagCorr, VBAT_INJECTOR_CURVE_SIZE);
 	return engineConfiguration->injectorLag;
 }
 
@@ -114,7 +116,6 @@ float getFuel(int rpm, float key) {
 
 	return baseFuel * cltCorrection * iatCorrection + injectorLag;
 }
-
 
 void initMainEventListener() {
 	initLogging(&log, "main event handler", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
