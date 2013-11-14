@@ -50,8 +50,8 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[],
 
 	if (yIndex < 0) {
 #if	DEBUG_INTERPOLATION
-		printf("X and Y are smaller than smallest cell in table: %d\r\n",
-				xIndex);
+		printf("Y is smaller than smallest cell in table: %d\r\n",
+				yIndex);
 #endif
 		// no interpolation should be fine here.
 		return map[xIndex][0];

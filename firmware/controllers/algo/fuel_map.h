@@ -10,7 +10,11 @@
 
 void initFuelMap(void);
 void setDefaultFuelMap(void);
+
 float getBaseFuel(int rpm, float key);
+float getIatCorrection(float iat);
+float getCltCorrection(float clt);
+float getFuel(int rpm, float key);
 
 #define FUEL_RPM_COUNT 23
 #define FUEL_MAF_COUNT 33

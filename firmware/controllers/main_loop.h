@@ -20,8 +20,6 @@ typedef struct {
 void initMainEventListener(void);
 void onEveryMillisecondTimerSignal(void);
 
-float getBaseFuel(int rpm, float key);
-
 myfloat getVRef(void);
 myfloat getVBatt(void);
 myfloat getFuel(int rpm, float key);

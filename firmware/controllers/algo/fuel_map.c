@@ -243,8 +243,31 @@ void setDefaultFuelMap(void) {
 	}
 }
 
+float getCltCorrection(float clt) {
+	return interpolate2d(clt, engineConfiguration->cltFuelCorrBins, engineConfiguration->cltFuelCorr, CLT_CURVE_SIZE);
+}
+
+float getIatCorrection(float iat) {
+	return interpolate2d(iat, engineConfiguration->iatFuelCorrBins, engineConfiguration->iatFuelCorr, IAT_CURVE_SIZE);
+}
+
+float getInjectorLag(float vBatt) {
+	myfloat vBattCorrection = interpolate2d(vBatt, engineConfiguration->battInjectorLagCorrBins, engineConfiguration->battInjectorLagCorr, VBAT_INJECTOR_CURVE_SIZE);
+	return engineConfiguration->injectorLag;
+}
+
 float getBaseFuel(int rpm, float key) {
 	chDbgAssert(initialized, "fuel map initialized", NULL);
 	// todo: use bins from the engineConfiguration
-	return interpolate3d(key, fuel_maf_bins, FUEL_MAF_COUNT, rpm, fuel_rpm_bins, FUEL_RPM_COUNT, fuel_ptrs);
+	return interpolate3d(key, engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT, rpm, engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT, fuel_ptrs);
+}
+
+float getFuel(int rpm, float key) {
+	float baseFuel = getBaseFuel(rpm, key);
+
+	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
+	float cltCorrection = getCltCorrection(getCoolantTemperature());
+	float injectorLag = getInjectorLag(getVBatt());
+
+	return baseFuel * cltCorrection * iatCorrection + injectorLag;
 }

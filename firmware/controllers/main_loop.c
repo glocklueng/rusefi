@@ -94,29 +94,6 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 	scheduleFuelInjection(0, fuelTicks, cylinderId);
 }
 
-static float getCltCorrection(float clt) {
-	return interpolate2d(clt, engineConfiguration->cltFuelCorrBins, engineConfiguration->cltFuelCorr, CLT_CURVE_SIZE);
-}
-
-static float getIatCorrection(float iat) {
-	return interpolate2d(iat, engineConfiguration->iatFuelCorrBins, engineConfiguration->iatFuelCorr, IAT_CURVE_SIZE);
-}
-
-float getInjectorLag(float vBatt) {
-	myfloat vBattCorrection = interpolate2d(vBatt, engineConfiguration->battInjectorLagCorrBins, engineConfiguration->battInjectorLagCorr, VBAT_INJECTOR_CURVE_SIZE);
-	return engineConfiguration->injectorLag;
-}
-
-float getFuel(int rpm, float key) {
-	float baseFuel = getBaseFuel(rpm, key);
-
-	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
-	float cltCorrection = getCltCorrection(getCoolantTemperature());
-	float injectorLag = getInjectorLag(getVBatt());
-
-	return baseFuel * cltCorrection * iatCorrection + injectorLag;
-}
-
 void initMainEventListener() {
 	initLogging(&log, "main event handler", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 	printSimpleMsg(&log, "initMainLoop: ", chTimeNow());
