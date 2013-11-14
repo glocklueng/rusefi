@@ -136,6 +136,7 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) \
 	config/system \
 	config/engines \
+	config/boards \
 	config \
 	util \
 	console_util \
