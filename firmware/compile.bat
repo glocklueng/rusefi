@@ -1,5 +1,5 @@
 rm -rf .dep/
 make
-svn info > ../firmware_binary/version
+svn info > ../firmware_binary/version.txt
 cp config/features.h ../firmware_binary
 cp build/rusefi.hex ../firmware_binary
