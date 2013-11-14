@@ -147,8 +147,10 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	emulation/hw_layer \
 	emulation \
 	controllers \
+	controllers/sensors \
 	controllers/algo \
 	controllers/math 
+	
 
 #
 # Project, sources and paths
