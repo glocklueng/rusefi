@@ -1,15 +1,17 @@
 /*
- * @file    rpm_reporter.c
- * @brief   Shaft position sensor(s) decoder code
+ * @file    rpm_calculator.c
+ * @brief   RPM calculator
+ *
+ * Here we listen to position sensor events in order to figure our if engine is currently running or not.
  *
  *  Created on: Jan 1, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
+#include "rpm_calculator.h"
 #include "ckp_events.h"
 #include "shaft_position_input.h"
 #include "datalogging.h"
-#include "rpm_reporter.h"
 #include "rficonsole.h"
 
 #include "output_pins.h"
@@ -20,23 +22,22 @@ static volatile int rpm = 0;
 static volatile time_t lastRpmEventTime = -10 * CH_FREQUENCY;
 
 /**
- * @return true if previous signal is too old
+ * @return true if there was a full shaft revolution within the last second
  */
-int isNotRunning(int previousCrankSignalTime) {
-	return overflowDiff(chTimeNow(), previousCrankSignalTime)
-			> CH_FREQUENCY;
-}
-
-//static Logging log;
-
 int isRunning() {
 	time_t now = chTimeNow();
-	return overflowDiff(now, lastRpmEventTime) < 2 * CH_FREQUENCY;
+	return overflowDiff(now, lastRpmEventTime) < CH_FREQUENCY;
 }
 
-static void updateRpmValue(ShaftEvents ckpEventType, int index) {
-	// this code is invoked on interrupt thread
 
+int getCurrentRpm() {
+	if (!isRunning())
+		return 0;
+	return rpm;
+}
+
+static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
+	// this callback is invoked on interrupt thread
 	if (index != 0)
 		return;
 
@@ -64,12 +65,6 @@ static void updateRpmValue(ShaftEvents ckpEventType, int index) {
 	lastRpmEventTime = now;
 }
 
-int getCurrentRpm() {
-	if (isNotRunning(lastRpmEventTime))
-		return 0;
-	return rpm;
-}
-
-void initTachometer() {
-	registerShaftPositionListener(&updateRpmValue, "rpm reporter");
+void initRpmCalculator() {
+	registerShaftPositionListener(&shaftPositionCallback, "rpm reporter");
 }

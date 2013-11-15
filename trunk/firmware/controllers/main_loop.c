@@ -13,7 +13,7 @@
 #include "engine_controller.h"
 #include "settings.h"
 #include "shaft_position_input.h"
-#include "rpm_reporter.h"
+#include "rpm_calculator.h"
 #include "ckp_events.h"
 #include "signal_executor.h"
 #include "rficonsole.h"

@@ -12,7 +12,7 @@
 #include "tunerstudio.h"
 #include "pin_repository.h"
 
-#include "rpm_reporter.h"
+#include "rpm_calculator.h"
 #include "main_loop.h"
 #include "flash_main.h"
 #include "rficonsole_logic.h"
