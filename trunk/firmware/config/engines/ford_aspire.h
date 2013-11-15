@@ -57,10 +57,6 @@
 
 #define getIntakeAirTemperature() (getTemperatureC(adcToVolts(getAdcValue(ADC_LOGIC_AIR)), IAT_HI_RESISTOR))
 
-myfloat getMaf(void);
-myfloat getAfr(void);
-myfloat getMap(void);
-
 void confgiureShaftPositionEmulatorShape(PwmConfig *state);
 void configureInjection(InjectionConfiguration *config);
 

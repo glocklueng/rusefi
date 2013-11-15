@@ -23,6 +23,7 @@
 #include "engine_configuration.h"
 #include "interpolation_3d.h"
 #include "advance_map.h"
+#include "sensors.h"
 
 // todo: move this to EngineConfiguration2 for now
 #define RPM_HARD_LIMIT 8000
