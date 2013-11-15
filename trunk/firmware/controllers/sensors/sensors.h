@@ -1,7 +1,6 @@
 #ifndef SENSORS_H_
 #define SENSORS_H_
 
-#include "adc_inputs.h"
 #include "tps.h"
 #include "map.h"
 #include "maf.h"

@@ -1,7 +1,7 @@
 #ifndef VOLTAGE_H_
 #define VOLTAGE_H_
 
-#include "global.h"
+#include "main.h"
 
 myfloat getVRef(void);
 myfloat getVBatt(void);

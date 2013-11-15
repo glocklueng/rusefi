@@ -1,6 +1,7 @@
 #include "main.h"
 #include "engine_configuration.h"
 #include "engine_math.h"
+#include "boards.h"
 
 myfloat getAfr(void) {
 	myfloat volts = getVoltage(ADC_LOGIC_AFR);
