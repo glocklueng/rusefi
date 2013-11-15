@@ -13,6 +13,8 @@
 
 #include "main.h"
 
+#define MAX_INJECTOR_COUNT 12
+
 typedef struct {
 	int fireAtEventIndex[SHAFT_POSITION_EVENT_COUNT];
 } InjectionConfiguration;
