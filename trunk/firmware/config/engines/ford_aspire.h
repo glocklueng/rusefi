@@ -59,16 +59,12 @@
 
 myfloat getMaf(void);
 myfloat getAfr(void);
-myfloat getTPS(void);
 myfloat getMap(void);
 
 void confgiureShaftPositionEmulatorShape(PwmConfig *state);
 void configureInjection(InjectionConfiguration *config);
 
-
-
 #define EFI_SHAFT_POSTION_NEEDS_SECONDARY TRUE
-
 
 
 #if EFI_EMULATE_POSITION_SENSORS

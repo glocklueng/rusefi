@@ -13,6 +13,7 @@
 #include "wave_analyzer.h"
 #endif
 
+#include "sensors.h"
 #include "rpm_reporter.h"
 #include "thermistors.h"
 #include "output_pins.h"
