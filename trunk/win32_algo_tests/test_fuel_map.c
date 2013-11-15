@@ -21,10 +21,6 @@ float getIntakeAirTemperature() {
 	return 1;
 }
 
-float getVBatt() {
-	return 12;
-}
-
 void testFuelMap(void) {
 	printf("*************************************************** testFuelMap\r\n");
 
