@@ -18,6 +18,7 @@
 #include "test_find_index.h"
 #include "test_fuel_map.h"
 #include "test_engine_math.h"
+#include "engine_configuration.h"
 
 static float absF(float value) {
 	return value > 0 ? value : -value;
@@ -50,6 +51,8 @@ void chDbgAssert(int c, char *msg, void *arg) {
 		exit(-1);
 	}
 }
+
+EngineConfiguration2 engineConfiguration2;
 
 int main(void) {
 
