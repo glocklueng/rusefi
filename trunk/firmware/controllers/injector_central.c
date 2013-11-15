@@ -1,17 +1,21 @@
 /*
  * @file    injector_central.c
- * @brief	Some utilities related to fuel injection
+ * @brief	Utility methods related to fuel injection.
  *
  *
  *  Created on: Sep 8, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
+#include "injector_central.h"
 #include "main.h"
 #include "engines.h"
 #include "datalogging.h"
-#include "injector_central.h"
+#include "output_pins.h"
+#include "signal_executor.h"
 #include "rficonsole_logic.h"
+
+static OutputSignal injectors[MAX_INJECTOR_COUNT];
 
 static Logging log;
 
@@ -27,6 +31,20 @@ void assertCylinderId(int cylinderId, char *msg) {
 		print("ERROR [%s] cid=%d\r\n", msg, cylinderId);
 		chDbgAssert(isValid, "Cylinder ID", null);
 	}
+}
+
+/**
+ * This method schedules asynchronous fuel squirt
+ */
+void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, int cylinderId) {
+	assertCylinderId(cylinderId, "scheduleFuelInjection");
+
+	if (!isInjectorEnabled(cylinderId))
+		return;
+
+	OutputSignal *injector = &injectors[cylinderId - 1];
+
+	scheduleOutput(injector, offsetSysTicks, lengthSysTicks);
 }
 
 /**
@@ -69,7 +87,12 @@ void initInjectorCentral(void) {
 	for (int i = 0; i < NUMBER_OF_CYLINDERS; i++)
 		is_injector_enabled[i] = true;
 	printStatus();
-	addConsoleAction2I("injector", setInjectorEnabled);
 
+	initOutputSignal("Injector 1", &injectors[0], INJECTOR_1_OUTPUT, 0);
+	initOutputSignal("Injector 2", &injectors[1], INJECTOR_2_OUTPUT, 0);
+	initOutputSignal("Injector 3", &injectors[2], INJECTOR_3_OUTPUT, 0);
+	initOutputSignal("Injector 4", &injectors[3], INJECTOR_4_OUTPUT, 0);
+
+	addConsoleAction2I("injector", setInjectorEnabled);
 	addConsoleAction1("gfc", setGlobalFuelCorrection);
 }
