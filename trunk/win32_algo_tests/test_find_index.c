@@ -2,7 +2,7 @@
  * test_find_index.c
  *
  *  Created on: Oct 30, 2013
- *      Author: Andrey
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "engine_math.h"

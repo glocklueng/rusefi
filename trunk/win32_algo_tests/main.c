@@ -17,6 +17,7 @@
 #include "test_interpolation_3d.h"
 #include "test_find_index.h"
 #include "test_fuel_map.h"
+#include "test_engine_math.h"
 
 static float absF(float value) {
 	return value > 0 ? value : -value;
@@ -56,6 +57,7 @@ int main(void) {
 	testFindIndex();
 	testInterpolate2d();
 	testFuelMap();
+	testEngineMath();
 
 	printf("Success\r\n");
 	return EXIT_SUCCESS;

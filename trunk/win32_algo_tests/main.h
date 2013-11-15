@@ -18,10 +18,13 @@ typedef float myfloat;
 
 #define fatal(x) printf(x)
 
+#define TICKS_IN_MS 100
+
 #define DEBUG_INTERPOLATION 1
 
 void chDbgAssert(int c, char *msg, void *arg);
 
+void assertEqualsM(char *msg, float expected, float actual);
 void assertEquals(float expected, float actual);
 
 float getIntakeAirTemperature();
