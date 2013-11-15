@@ -15,6 +15,7 @@
 #include "rpm_reporter.h"
 #include "main_loop.h"
 #include "wave_math.h"
+#include "sensors.h"
 
 static Logging log;
 

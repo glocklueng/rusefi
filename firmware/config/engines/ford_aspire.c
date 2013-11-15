@@ -13,6 +13,7 @@
 
 #include "ford_aspire.h"
 
+#include "sensors.h"
 #include "engines.h"
 #include "engine_math.h"
 #include "settings.h"
@@ -22,34 +23,6 @@
 #include "engine_configuration.h"
 
 extern EngineConfiguration2 engineConfiguration2;
-
-
-
-myfloat getMaf(void) {
-	return getVoltage(ADC_LOGIC_MAF);
-}
-
-myfloat getAfr(void) {
-	myfloat volts = getVoltage(ADC_LOGIC_AFR);
-
-	return interpolate(0, 9, 5, 19, volts);
-}
-
-myfloat getVRef(void) {
-//	return getAdcValue(ADC_CHANNEL_VREF);
-	return getVoltage(ADC_CHANNEL_VREF);
-}
-
-myfloat getVBatt(void) {
-	return 12; // todo: take it from ADC
-}
-
-myfloat getMap(void) {
-	int adc0 = getAdcValue(ADC_LOGIC_MAP);
-	float volts = adcToVolts(adc0);
-
-	return getMAPValueHonda_Denso183(volts);
-}
 
 static float getCrankingFuel(void) {
 	const int fuelOverride = getCrankingInjectionPeriod();
