@@ -4,8 +4,7 @@
 #include "engine_math.h"
 
 myfloat getMap(void) {
-	int adc0 = getAdcValue(ADC_LOGIC_MAP);
-	float volts = adcToVolts(adc0);
+	float volts = getVoltage(ADC_LOGIC_MAP);
 
 	return getMAPValueHonda_Denso183(volts);
 }

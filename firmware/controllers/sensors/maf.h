@@ -1,6 +1,7 @@
 #ifndef MAF_H_
 #define MAF_H_
-#include "global.h"
+
+#include "main.h"
 
 myfloat getMaf(void);
 
