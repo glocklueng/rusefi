@@ -17,7 +17,7 @@
 #include "engines.h"
 #include "engine_math.h"
 #include "settings.h"
-#include "rpm_reporter.h"
+#include "rpm_calculator.h"
 #include "fuel_map.h"
 #include "engine_controller.h"
 #include "engine_configuration.h"

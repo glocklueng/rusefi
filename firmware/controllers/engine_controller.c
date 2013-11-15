@@ -11,10 +11,9 @@
 #include "main.h"
 #include "shaft_position_input.h"
 #include "engine_controller.h"
-#include "rpm_reporter.h"
+#include "rpm_calculator.h"
 #include "idle_thread.h"
 #include "settings.h"
-#include "rpm_reporter.h"
 #include "signal_executor.h"
 #include "main_loop.h"
 #include "map_multiplier_thread.h"
@@ -92,7 +91,7 @@ void initEngineContoller(void) {
 	 * there is an implicit dependency on the fact that 'tachometer' listener is the 1st listener - this case
 	 * other listeners can access current RPM value
 	 */
-	initTachometer();
+	initRpmCalculator();
 
 #if EFI_TUNER_STUDIO
 	startTunerStudioConnectivity();

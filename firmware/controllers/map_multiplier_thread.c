@@ -12,7 +12,7 @@
 #include "map_multiplier_thread.h"
 #include "datalogging.h"
 #include "map_adjuster.h"
-#include "rpm_reporter.h"
+#include "rpm_calculator.h"
 #include "main_loop.h"
 #include "wave_math.h"
 #include "sensors.h"

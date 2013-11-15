@@ -14,7 +14,7 @@
 #endif
 
 #include "sensors.h"
-#include "rpm_reporter.h"
+#include "rpm_calculator.h"
 #include "thermistors.h"
 #include "output_pins.h"
 
