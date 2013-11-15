@@ -102,8 +102,10 @@ static int getSparkDwell(int rpm) {
 }
 
 static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
-
 	int rpm = getCurrentRpm();
+
+	int timeTillNextRise = convertAngleToSysticks(rpm, 90);
+
 	float advance = getAdvance(rpm, getMaf());
 
 	int sparkAdvance = convertAngleToSysticks(rpm, advance);
@@ -111,6 +113,12 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	int dwell = getSparkDwell(rpm);
 //todo	chDbgCheck(dwell > 0, "invalid dwell");
 
+	int sparkDelay = timeTillNextRise + sparkAdvance - dwell;
+	if (sparkDelay < 0) {
+		scheduleSimpleMsg(&log, "Negative spark delay", sparkDelay);
+		return;
+	}
+//	scheduleSparkOut(sparkDelay, dwell);
 
 
 }

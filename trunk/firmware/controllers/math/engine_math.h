@@ -30,7 +30,6 @@ float getStartingFuel(int coolantTemperature);
 
 #define STROKE_TIME_CONSTANT (1000 * 60 * 2 / 4 * TICKS_IN_MS)
 
-int getFullWaveLengthByRpm(int rpm);
 int convertAngleToSysticks(int rpm, int angle);
 
 #endif /* ENGINE_MATH_H_ */
