@@ -127,11 +127,6 @@ float getStartingFuel(int coolantTemperature) {
 			coolantTemperature);
 }
 
-int getFullWaveLengthByRpm(int rpm) {
-	return STROKE_TIME_CONSTANT / rpm;
-}
-
 int convertAngleToSysticks(int rpm, int angle) {
 	return (int) (angle * STROKE_TIME_CONSTANT / 90 / rpm);
 }
-
