@@ -44,6 +44,7 @@ static float ad_table[23][35] = {
 };
 
 float getAdvance(int rpm, float maf) {
+	// todo: use interpolation
 	int rpm_index = findIndex(ad_rpm_table, AD_RPM_COUNT, rpm);
 	rpm_index = max(rpm_index, 0);
 	int maf_index = findIndex(ad_maf_table, AD_MAF_COUNT, maf);

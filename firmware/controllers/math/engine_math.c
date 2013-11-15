@@ -1,5 +1,5 @@
 /*
- * engine_math.c
+ * @file	engine_math.c
  *
  *  Created on: Jul 13, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
@@ -126,3 +126,12 @@ float getStartingFuel(int coolantTemperature) {
 	return interpolate(15, MAX_STARTING_FUEL, 65, MIN_STARTING_FUEL,
 			coolantTemperature);
 }
+
+int getFullWaveLengthByRpm(int rpm) {
+	return STROKE_TIME_CONSTANT / rpm;
+}
+
+int convertAngleToSysticks(int rpm, int angle) {
+	return (int) (angle * STROKE_TIME_CONSTANT / 90 / rpm);
+}
+
