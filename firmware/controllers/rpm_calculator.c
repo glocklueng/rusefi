@@ -13,8 +13,6 @@
 #include "shaft_position_input.h"
 #include "datalogging.h"
 #include "rficonsole.h"
-
-#include "output_pins.h"
 #include "wave_math.h"
 
 static volatile int rpm = 0;
@@ -28,7 +26,6 @@ int isRunning() {
 	time_t now = chTimeNow();
 	return overflowDiff(now, lastRpmEventTime) < CH_FREQUENCY;
 }
-
 
 int getCurrentRpm() {
 	if (!isRunning())
@@ -47,20 +44,22 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 
 	time_t now = chTimeNow();
 
-	// todo: wonder what is the RPM during cranking?
 	int hadRpmRecently = isRunning();
 	;
 
-// 60000 because per minute
-// * 2 because each revolution of crankshaft consists of two camshaft revolutions
-// / 4 because each cylinder sends a signal
-	// need to measure time from the previous non-skipped event
 	if (hadRpmRecently) {
 		int diff = now - lastRpmEventTime;
-		if (diff == 0)
+		if (diff == 0) {
+			// unexpected state. Noise?
 			rpm = -1;
-		else
+		} else {
+			// 60000 because per minute
+			// * 2 because each revolution of crankshaft consists of two camshaft revolutions
+			// / 4 because each cylinder sends a signal
+			// need to measure time from the previous non-skipped event
+
 			rpm = 60000 * TICKS_IN_MS / RPM_MULT / diff;
+		}
 	}
 	lastRpmEventTime = now;
 }
