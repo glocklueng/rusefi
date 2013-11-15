@@ -82,6 +82,7 @@ include emulation/emulation.mk
 include controllers/controllers.mk
 include controllers/algo/algo.mk
 include controllers/math/math.mk
+include controllers/sensors/sensors.mk
 
 # Define linker script file here
 LDSCRIPT= config/system/STM32F407xG.ld
@@ -101,6 +102,7 @@ CSRC = $(PORTSRC) \
 	$(CONTROLLERSSRC) \
 	$(CONTROLLERS_ALGO_SRC) \
 	$(CONTROLLERS_MATH_SRC) \
+	$(CONTROLLERS_SENSORS_SRC) \
 	$(PLATFORMSRC) \
 	$(BOARDSRC) \
 	main.c

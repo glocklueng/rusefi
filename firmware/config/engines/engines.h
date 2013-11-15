@@ -27,7 +27,7 @@
 #endif
 
 #if EFI_ENGINE_FORD_ASPIRE
-#include "ford_aspire_mcu.h"
+//#include "ford_aspire_mcu.h"
 #endif
 
 #if EFI_ENGINE_SNOW_BLOWER
