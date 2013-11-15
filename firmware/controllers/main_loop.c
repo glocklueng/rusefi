@@ -19,7 +19,6 @@
 #include "rficonsole.h"
 #include "engine_math.h"
 #include "injector_central.h"
-#include "output_pins.h"
 #include "engine_configuration.h"
 #include "interpolation_3d.h"
 #include "advance_map.h"
@@ -37,22 +36,6 @@ static InjectionConfiguration injectionConfiguration;
 extern myfloat globalFuelCorrection;
 
 static Logging log;
-
-static OutputSignal injectors[MAX_INJECTOR_COUNT];
-
-/**
- * This method schedules asynchronous fuel squirt
- */
-static void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, int cylinderId) {
-	assertCylinderId(cylinderId, "scheduleFuelInjection");
-
-	if (!isInjectorEnabled(cylinderId))
-		return;
-
-	OutputSignal *injector = &injectors[cylinderId - 1];
-
-	scheduleOutput(injector, offsetSysTicks, lengthSysTicks);
-}
 
 static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 
@@ -140,11 +123,6 @@ void initMainEventListener() {
 		printSimpleMsg(&log, "!!!!!!!!!!!!!!!!!!! injection disabled", 0);
 
 	configureInjection(&injectionConfiguration);
-
-	initOutputSignal("Injector 1", &injectors[0], INJECTOR_1_OUTPUT, 0);
-	initOutputSignal("Injector 2", &injectors[1], INJECTOR_2_OUTPUT, 0);
-	initOutputSignal("Injector 3", &injectors[2], INJECTOR_3_OUTPUT, 0);
-	initOutputSignal("Injector 4", &injectors[3], INJECTOR_4_OUTPUT, 0);
 
 	registerShaftPositionListener(&onShaftSignal, "main loop");
 }
