@@ -10,6 +10,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 #include "print.h"
 
 #define  PAD_RIGHT   1
@@ -46,6 +47,12 @@ static unsigned int my_strlen(char *str)
 
 static unsigned dbl2stri(char *outbfr, float dbl, unsigned dec_digits)
 {
+	if(isnan(dbl)) {
+		strcpy(outbfr, "NaN");
+		return;
+	}
+
+
    static char local_bfr[128] ;
    char *output = (outbfr == 0) ? local_bfr : outbfr ;
 
