@@ -18,15 +18,13 @@
 #if EFI_USE_MULTI_SENSOR_SHAFT_SENSOR
 
 void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaftPositionState) {
-
 	shaftPositionState->shaft_is_synchronized = TRUE;
 
-	if (signal == SHAFT_SECONDARY_UP) {
+	if (signal == SHAFT_PRIMARY_UP) {
 		shaftPositionState->current_index = 0;
 	} else {
 		shaftPositionState->current_index++;
 	}
-
 }
 
 #endif /* EFI_USE_MULTI_SENSOR_SHAFT_SENSOR */
