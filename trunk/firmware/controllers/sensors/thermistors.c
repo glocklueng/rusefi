@@ -38,7 +38,7 @@ myfloat getVoutInVoltageDividor(myfloat Vin, myfloat r1, myfloat r2) {
 
 myfloat convertResistanceToKelvinTemperature(myfloat resistance) {
 	if (resistance <= 0) {
-		warning("Invalid resistance in convertResistanceToKelvinTemperature", resistance);
+		warning("Invalid resistance in convertResistanceToKelvinTemperature=", resistance);
 		return 0;
 	}
 	myfloat logR = log(resistance);

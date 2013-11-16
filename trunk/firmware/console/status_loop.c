@@ -24,6 +24,8 @@
 #include "advance_map.h"
 #include "print.h"
 
+#include "wave_math.h"
+
 #include "fuel_map.h"
 #include "main_loop.h"
 #include "engine_math.h"
@@ -40,6 +42,8 @@ static Logging log;
 static Logging log2;
 static char LOGGING_BUFFER[500];
 #define FULL_LOGGING_KEY "fl"
+
+static time_t timeOfPreviousWarning = -10 * CH_FREQUENCY;
 
 static char* boolean2string(int value) {
 	return value ? "YES" : "NO";
@@ -97,7 +101,8 @@ static void checkIfShouldHalt(void) {
 	if (dbg_panic_msg != NULL) {
 		setOutputPinValue(LED_FATAL, 1);
 #if EFI_CUSTOM_PANIC_METHOD
-		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg, dbg_panic_file, dbg_panic_line);
+		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg, dbg_panic_file,
+				dbg_panic_line);
 #else
 		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg);
 #endif
@@ -125,7 +130,8 @@ void printState(void) {
 	systime_t nowSeconds = chTimeNowSeconds();
 
 	int currentCkpEventCounter = getCrankEventCounter();
-	if (prevCkpEventCounter == currentCkpEventCounter && timeOfPreviousReport == nowSeconds)
+	if (prevCkpEventCounter == currentCkpEventCounter
+			&& timeOfPreviousReport == nowSeconds)
 		return;
 
 	timeOfPreviousReport = nowSeconds;
@@ -184,8 +190,8 @@ static void showFuelMap(int rpm, int key100) {
 	float injectorLag = getInjectorLag(getVBatt());
 	print("baseFuel=%f\r\n", baseFuel);
 
-	print("iatCorrection=%f cltCorrection=%f injectorLag=%d\r\n", iatCorrection, cltCorrection,
-			(int) (100 * injectorLag));
+	print("iatCorrection=%f cltCorrection=%f injectorLag=%d\r\n", iatCorrection,
+			cltCorrection, (int) (100 * injectorLag));
 
 	myfloat value = getFuel(rpm, key);
 
@@ -196,7 +202,8 @@ static void showFuelMap(int rpm, int key100) {
 
 void initStatusLoop(void) {
 	initLogging(&log, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
-	initLogging(&log2, "main event handler", log2.DEFAULT_BUFFER, sizeof(log2.DEFAULT_BUFFER));
+	initLogging(&log2, "main event handler", log2.DEFAULT_BUFFER,
+			sizeof(log2.DEFAULT_BUFFER));
 
 	setFullLog(INITIAL_FULL_LOG);
 
@@ -208,5 +215,10 @@ void initStatusLoop(void) {
 }
 
 void warning(char *msg, float value) {
+	time_t now = chTimeNow();
+	if (overflowDiff(now, timeOfPreviousWarning) < CH_FREQUENCY)
+		return; // we just had another warning, let's not spam
+	timeOfPreviousWarning = now;
+
 	scheduleSimpleMsg(&log, msg, 1000 * value);
 }
