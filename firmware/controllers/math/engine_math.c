@@ -6,6 +6,8 @@
  */
 
 #include <stdio.h>
+#include <math.h>
+
 #include "engine_math.h"
 #include "main.h"
 
@@ -69,9 +71,9 @@ float getDefaultVE(int rpm) {
  */
 float getTCharge(int rpm, int tps, float coolantTemp, float airTemp) {
 	float minRpmKcurrentTPS = interpolate(tpMin, K_AT_MIN_RPM_MIN_TPS, tpMax,
-			K_AT_MIN_RPM_MAX_TPS, tps);
+	K_AT_MIN_RPM_MAX_TPS, tps);
 	float maxRpmKcurrentTPS = interpolate(tpMin, K_AT_MAX_RPM_MIN_TPS, tpMax,
-			K_AT_MAX_RPM_MAX_TPS, tps);
+	K_AT_MAX_RPM_MAX_TPS, tps);
 
 	float Tcharge_coff = interpolate(rpmMin, minRpmKcurrentTPS, rpmMax,
 			maxRpmKcurrentTPS, rpm);
@@ -86,6 +88,9 @@ float getTCharge(int rpm, int tps, float coolantTemp, float airTemp) {
  * If the parameter is smaller than the first element of the array, -1 is returned.
  */
 int findIndex(float array[], int size, float value) {
+	if (isnan(value))
+		fatal("NaN in findIndex\r\n");
+
 	if (value < array[0])
 		return -1;
 	int middle;
@@ -98,6 +103,8 @@ int findIndex(float array[], int size, float value) {
 			fatal("Unexpected state in binary search.");
 
 		middle = (left + right) / 2;
+
+//		print("left=%d middle=%d right=%d: %f\r\n", left, middle, right, array[middle]);
 
 		if (middle == left)
 			break;

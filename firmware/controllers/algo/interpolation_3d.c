@@ -8,6 +8,8 @@
  */
 
 #include <stdio.h>
+#include <math.h>
+
 #include "main.h"
 #include "interpolation_3d.h"
 #include "engine_math.h"
@@ -26,6 +28,10 @@ float interpolate2d(float value, float bin[], float values[], int size) {
 
 float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[],
 		int yBinSize, float* map[]) {
+	if (isnan(y))
+		fatal("x is NaN in interpolate3d\r\n");
+	if (isnan(y))
+		fatal("y is NaN in interpolate3d\r\n");
 
 	int xIndex = findIndex(xBin, xBinSize, x);
 #if	DEBUG_INTERPOLATION
