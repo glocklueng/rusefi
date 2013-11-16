@@ -13,6 +13,7 @@ void setDefaultFuelMap(void);
 
 float getBaseFuel(int rpm, float key);
 float getIatCorrection(float iat);
+float getInjectorLag(float vBatt);
 float getCltCorrection(float clt);
 float getFuel(int rpm, float key);
 

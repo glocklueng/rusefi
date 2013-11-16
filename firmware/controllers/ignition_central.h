@@ -10,5 +10,6 @@
 #define IGNITION_CENTRAL_H_
 
 void initIgnitionCentral(void);
+void scheduleSparkOut(int igniterId, int offsetSysTicks, int lengthSysTicks);
 
 #endif /* IGNITION_CENTRAL_H_ */
