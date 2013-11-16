@@ -22,6 +22,8 @@
 
 float getFuelMs(int rpm);
 
+void warning(char *msg, float value);
+
 #include "stm32f4xx_specific.h"
 
 #define CORE_CLOCK 168000000
