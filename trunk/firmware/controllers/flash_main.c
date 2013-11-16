@@ -51,7 +51,8 @@ static void printIntArray(int array[], int size) {
 	print("\r\n");
 }
 
-static void printFloatArray(float array[], int size) {
+static void printFloatArray(char *prefix, float array[], int size) {
+	print(prefix);
 	for (int j = 0; j < size; j++)
 		print("%f ", array[j]);
 	print("\r\n");
@@ -66,17 +67,15 @@ static void printConfiguration(void) {
 		print("\r\n");
 	}
 
-	print("RPM bin: ");
-	printFloatArray(engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT);
+	printFloatArray("RPM bin: ", engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT);
 
-	print("Y bin: ");
-	printFloatArray(engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT);
+	printFloatArray("Y bin: ", engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT);
 
-	print("CLT: ");
-	printFloatArray(engineConfiguration->cltFuelCorr, CLT_CURVE_SIZE);
+	printFloatArray("CLT: ", engineConfiguration->cltFuelCorr, CLT_CURVE_SIZE);
+	printFloatArray("CLT bins: ", engineConfiguration->cltFuelCorrBins, CLT_CURVE_SIZE);
 
-	print("IAT: ");
-	printFloatArray(engineConfiguration->iatFuelCorr, IAT_CURVE_SIZE);
+	printFloatArray("IAT: ", engineConfiguration->iatFuelCorr, IAT_CURVE_SIZE);
+	printFloatArray("IAT bins: ", engineConfiguration->iatFuelCorrBins, IAT_CURVE_SIZE);
 }
 
 static int isValid(FlashState *state) {

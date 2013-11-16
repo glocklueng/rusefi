@@ -19,5 +19,10 @@ void initIgnitionCentral(void) {
 	initLogging(&log, "IgnitionCentral", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
 
 	initOutputSignal("Spark 1", &igniters[0], SPARKOUT_1_OUTPUT, 0);
+}
 
+void scheduleSparkOut(int igniterId, int offsetSysTicks, int lengthSysTicks) {
+	OutputSignal *igniter = &igniters[igniterId - 1];
+
+	scheduleOutput(igniter, offsetSysTicks, lengthSysTicks);
 }

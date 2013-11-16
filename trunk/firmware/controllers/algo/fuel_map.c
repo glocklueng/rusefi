@@ -254,7 +254,7 @@ float getIatCorrection(float iat) {
 
 float getInjectorLag(float vBatt) {
 	myfloat vBattCorrection = interpolate2d(vBatt, engineConfiguration->battInjectorLagCorrBins, engineConfiguration->battInjectorLagCorr, VBAT_INJECTOR_CURVE_SIZE);
-	return engineConfiguration->injectorLag;
+	return engineConfiguration->injectorLag + vBattCorrection;
 }
 
 float getBaseFuel(int rpm, float key) {

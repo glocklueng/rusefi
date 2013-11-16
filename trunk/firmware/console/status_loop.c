@@ -176,7 +176,18 @@ void printState(void) {
 
 static void showFuelMap(int rpm, int key100) {
 	myfloat key = key100 / 100.0;
+
+	float baseFuel = getBaseFuel(rpm, key);
+
+	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
+	float cltCorrection = getCltCorrection(getCoolantTemperature());
+	float injectorLag = getInjectorLag(getVBatt());
+	print("baseFuel=%f\r\n", baseFuel);
+
+	print("iatCorrection=%f cltCorrection=%f injectorLag=%d\r\n", iatCorrection, cltCorrection, (int) (100 * injectorLag));
+
 	myfloat value = getFuel(rpm, key);
+
 	print("fuel map rpm=%d, key=%f: %d\r\n", rpm, key, (int) (100 * value));
 
 	scheduleSimpleMsg(&log2, "fuel map value *100 = ", 100 * value);
