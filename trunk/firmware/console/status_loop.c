@@ -184,7 +184,8 @@ static void showFuelMap(int rpm, int key100) {
 	float injectorLag = getInjectorLag(getVBatt());
 	print("baseFuel=%f\r\n", baseFuel);
 
-	print("iatCorrection=%f cltCorrection=%f injectorLag=%d\r\n", iatCorrection, cltCorrection, (int) (100 * injectorLag));
+	print("iatCorrection=%f cltCorrection=%f injectorLag=%d\r\n", iatCorrection, cltCorrection,
+			(int) (100 * injectorLag));
 
 	myfloat value = getFuel(rpm, key);
 
@@ -204,4 +205,8 @@ void initStatusLoop(void) {
 
 	addConsoleAction1(FULL_LOGGING_KEY, &setFullLog);
 	addConsoleAction("status", printStatus);
+}
+
+void warning(char *msg, float value) {
+	scheduleSimpleMsg(&log, msg, 1000 * value);
 }

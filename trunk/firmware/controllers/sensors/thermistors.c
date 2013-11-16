@@ -36,6 +36,10 @@ myfloat getVoutInVoltageDividor(myfloat Vin, myfloat r1, myfloat r2) {
 #define S_H_C (-0.0000029438499727564513)
 
 myfloat convertResistanceToKelvinTemperature(myfloat resistance) {
+	if (resistance <= 0) {
+		warning("Invalid resistance in convertResistanceToKelvinTemperature", resistance);
+		return 0;
+	}
 	myfloat logR = log(resistance);
 	return 1 / (S_H_A + S_H_B * logR + S_H_C * logR * logR * logR);
 }
