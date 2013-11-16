@@ -19,6 +19,7 @@
 #include "rficonsole.h"
 #include "engine_math.h"
 #include "injector_central.h"
+#include "ignition_central.h"
 #include "engine_configuration.h"
 #include "interpolation_3d.h"
 #include "advance_map.h"

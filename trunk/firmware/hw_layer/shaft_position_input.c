@@ -8,7 +8,6 @@
 
 #include "shaft_position_input.h"
 
-
 #include "rficonsole.h"
 
 #include "wave_math.h"

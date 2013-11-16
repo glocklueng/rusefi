@@ -9,7 +9,6 @@
 #include "adc_inputs.h"
 
 #include "rficonsole.h"
-#include "datalogging.h"
 #include "pin_repository.h"
 #include "engine_math.h"
 #include "shaft_position_input.h"

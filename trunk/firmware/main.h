@@ -20,9 +20,7 @@
 
 #include "datalogging.h"
 
-
 float getFuelMs(int rpm);
-
 
 #include "stm32f4xx_specific.h"
 
