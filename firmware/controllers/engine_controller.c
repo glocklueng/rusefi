@@ -20,6 +20,7 @@
 #include "output_pins.h"
 #include "tunerstudio.h"
 #include "injector_central.h"
+#include "ignition_central.h"
 #include "rfiutil.h"
 #include "engine_configuration.h"
 
@@ -101,6 +102,8 @@ void initEngineContoller(void) {
 	initPeriodicEvents();
 
 	initInjectorCentral();
+	initIgnitionCentral();
+
 	/**
 	 * This method initialized the main listener which actually runs injectors & ignition
 	 */
