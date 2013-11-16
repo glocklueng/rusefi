@@ -14,6 +14,7 @@
 #define THERMISTORS_C_
 
 #include <math.h>
+#include "main.h"
 #include "thermistors.h"
 
 /**
