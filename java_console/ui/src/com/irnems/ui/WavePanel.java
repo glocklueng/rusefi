@@ -87,6 +87,8 @@ public class WavePanel extends JPanel {
         createSecondaryImage("input1 A8");
         createSecondaryImage("input2 E5");
 
+        createSecondaryImage("Spark 1");
+
         createSecondaryImage("Injector 1");
         createSecondaryImage("Injector 2");
         createSecondaryImage("Injector 3");
