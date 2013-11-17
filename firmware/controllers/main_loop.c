@@ -36,7 +36,7 @@ static InjectionConfiguration injectionConfiguration;
 
 extern myfloat globalFuelCorrection;
 
-static Logging log;
+static Logging logger;
 
 static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 
@@ -44,7 +44,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 		return;
 
 	if (eventIndex < 0 || eventIndex >= SHAFT_POSITION_EVENT_COUNT) {
-		scheduleSimpleMsg(&log, "ERROR: eventIndex ", eventIndex);
+		scheduleSimpleMsg(&logger, "ERROR: eventIndex ", eventIndex);
 		return;
 	}
 
@@ -55,20 +55,20 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 
 	int rpm = getCurrentRpm();
 	if (rpm > RPM_HARD_LIMIT) {
-		scheduleSimpleMsg(&log, "RPM above hard limit ", rpm);
+		scheduleSimpleMsg(&logger, "RPM above hard limit ", rpm);
 		return;
 	}
 
-	scheduleSimpleMsg(&log, "eventId ", eventIndex);
+	scheduleSimpleMsg(&logger, "eventId ", eventIndex);
 
 	int fuelTicks = getFuelMs(rpm) * globalFuelCorrection * TICKS_IN_MS;
 	if (fuelTicks < 0) {
-		scheduleSimpleMsg(&log, "ERROR: negative injectionPeriod ", fuelTicks);
+		scheduleSimpleMsg(&logger, "ERROR: negative injectionPeriod ", fuelTicks);
 		return;
 	}
 
 	if (isCranking())
-		scheduleSimpleMsg(&log, "crankingFuel=", fuelTicks);
+		scheduleSimpleMsg(&logger, "crankingFuel=", fuelTicks);
 
 	scheduleFuelInjection(0, fuelTicks, cylinderId);
 }
@@ -100,7 +100,7 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 
 	int sparkDelay = timeTillNextRise + sparkAdvance - dwell;
 	if (sparkDelay < 0) {
-		scheduleSimpleMsg(&log, "Negative spark delay", sparkDelay);
+		scheduleSimpleMsg(&logger, "Negative spark delay", sparkDelay);
 		return;
 	}
 //	scheduleSparkOut(sparkDelay, dwell);
@@ -117,11 +117,11 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 }
 
 void initMainEventListener() {
-	initLogging(&log, "main event handler", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
-	printSimpleMsg(&log, "initMainLoop: ", chTimeNow());
+	initLogging(&logger, "main event handler", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	printSimpleMsg(&logger, "initMainLoop: ", chTimeNow());
 
 	if (!isInjectionEnabled)
-		printSimpleMsg(&log, "!!!!!!!!!!!!!!!!!!! injection disabled", 0);
+		printSimpleMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled", 0);
 
 	configureInjection(&injectionConfiguration);
 

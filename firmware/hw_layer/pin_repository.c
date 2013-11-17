@@ -17,7 +17,7 @@
 char *PIN_USED[PIN_REPO_SIZE];
 static int initialized = FALSE;
 
-static Logging log;
+static Logging logger;
 static int pinRegistrationComplete = FALSE;
 static int totalPinsUsed = 0;
 
@@ -63,7 +63,7 @@ static void reportPins(void) {
 }
 
 void initPinRepository(void) {
-	initLogging(&log, "pin repos", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "pin repos", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	for (int i = 0; i < PIN_REPO_SIZE; i++)
 		PIN_USED[i] = 0;
@@ -79,11 +79,11 @@ void printpin(char *msg, ioportid_t port, int pin) {
 	int index = portIndex * 16 + pin;
 	print("%s on %s:%d\r\n", msg, portname(port), pin);
 
-	append(&log, "msg,");
-	append(&log, msg);
-	append(&log, " on ");
-	msgInt(&log, portname(port), pin);
-	printLine(&log);
+	append(&logger, "msg,");
+	append(&logger, msg);
+	append(&logger, " on ");
+	msgInt(&logger, portname(port), pin);
+	printLine(&logger);
 
 	if (PIN_USED[index] != NULL) {
 		print("!!!!!!!!!!!!! Already used [%s] %d\r\n", msg, pin);

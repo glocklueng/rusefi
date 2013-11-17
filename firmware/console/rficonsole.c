@@ -18,7 +18,7 @@
  * @brief   Console package entry point code
  */
 
-static Logging log;
+static Logging logger;
 
 void consolePutChar(int x) {
 	chSequentialStreamPut(CONSOLE_CHANNEL, (uint8_t )(x));
@@ -45,63 +45,63 @@ static void myfatal(void) {
 
 static void sayOsHello(void) {
 	print("*** rusEFI (c) Andrey Belomutskiy, 2012-2013. All rights reserved.\r\n");
-	printSimpleMsg(&log, "rusEFI VERSION=", VERSION_STRING);
+	printSimpleMsg(&logger, "rusEFI VERSION=", VERSION_STRING);
 	print("*** Chibios Kernel:       %s\r\n", CH_KERNEL_VERSION);
 	print("*** Compiled:     " __DATE__ " - " __TIME__ " \r\n");
 	print("COMPILER=%s\r\n", __VERSION__);
-	printSimpleMsg(&log, "CH_FREQUENCY=", CH_FREQUENCY);
-	printSimpleMsg(&log, "SERIAL_SPEED=", SERIAL_SPEED);
-	printSimpleMsg(&log, "STM32_ADCCLK=", STM32_ADCCLK);
-	printSimpleMsg(&log, "STM32_TIMCLK1=", STM32_TIMCLK1);
-	printSimpleMsg(&log, "STM32_TIMCLK2=", STM32_TIMCLK2);
+	printSimpleMsg(&logger, "CH_FREQUENCY=", CH_FREQUENCY);
+	printSimpleMsg(&logger, "SERIAL_SPEED=", SERIAL_SPEED);
+	printSimpleMsg(&logger, "STM32_ADCCLK=", STM32_ADCCLK);
+	printSimpleMsg(&logger, "STM32_TIMCLK1=", STM32_TIMCLK1);
+	printSimpleMsg(&logger, "STM32_TIMCLK2=", STM32_TIMCLK2);
 
-	printSimpleMsg(&log, "CH_DBG_ENABLE_ASSERTS=", CH_DBG_ENABLE_ASSERTS);
-	printSimpleMsg(&log, "CH_DBG_ENABLED=", CH_DBG_ENABLED);
-	printSimpleMsg(&log, "CH_DBG_SYSTEM_STATE_CHECK=",
+	printSimpleMsg(&logger, "CH_DBG_ENABLE_ASSERTS=", CH_DBG_ENABLE_ASSERTS);
+	printSimpleMsg(&logger, "CH_DBG_ENABLED=", CH_DBG_ENABLED);
+	printSimpleMsg(&logger, "CH_DBG_SYSTEM_STATE_CHECK=",
 			CH_DBG_SYSTEM_STATE_CHECK);
-	printSimpleMsg(&log, "CH_DBG_ENABLE_STACK_CHECK=",
+	printSimpleMsg(&logger, "CH_DBG_ENABLE_STACK_CHECK=",
 			CH_DBG_ENABLE_STACK_CHECK);
 
-	resetLogging(&log);
-	append(&log, "msg");
-	append(&log, DELIMETER);
-	append(&log, EFI_ENGINE_ID);
-	printLine(&log);
+	resetLogging(&logger);
+	append(&logger, "msg");
+	append(&logger, DELIMETER);
+	append(&logger, EFI_ENGINE_ID);
+	printLine(&logger);
 
-	printSimpleMsg(&log, "EFI_WAVE_ANALYZER=", EFI_WAVE_ANALYZER);
+	printSimpleMsg(&logger, "EFI_WAVE_ANALYZER=", EFI_WAVE_ANALYZER);
 #ifdef EFI_TUNER_STUDIO
-	printSimpleMsg(&log, "EFI_TUNER_STUDIO=", EFI_TUNER_STUDIO);
+	printSimpleMsg(&logger, "EFI_TUNER_STUDIO=", EFI_TUNER_STUDIO);
 #else
-	printSimpleMsg(&log, "EFI_TUNER_STUDIO=", 0);
+	printSimpleMsg(&logger, "EFI_TUNER_STUDIO=", 0);
 #endif
 
 #ifdef EFI_SIGNAL_EXECUTOR_SLEEP
-	printSimpleMsg(&log, "EFI_SIGNAL_EXECUTOR_SLEEP=", EFI_SIGNAL_EXECUTOR_SLEEP);
+	printSimpleMsg(&logger, "EFI_SIGNAL_EXECUTOR_SLEEP=", EFI_SIGNAL_EXECUTOR_SLEEP);
 #endif
 
 #ifdef EFI_SIGNAL_EXECUTOR_HW_TIMER
-	printSimpleMsg(&log, "EFI_SIGNAL_EXECUTOR_HW_TIMER=", EFI_SIGNAL_EXECUTOR_HW_TIMER);
+	printSimpleMsg(&logger, "EFI_SIGNAL_EXECUTOR_HW_TIMER=", EFI_SIGNAL_EXECUTOR_HW_TIMER);
 #endif
 
 
 
 #ifdef EFI_TUNER_STUDIO_OVER_USB
-	printSimpleMsg(&log, "EFI_TUNER_STUDIO_OVER_USB=", EFI_TUNER_STUDIO_OVER_USB);
+	printSimpleMsg(&logger, "EFI_TUNER_STUDIO_OVER_USB=", EFI_TUNER_STUDIO_OVER_USB);
 #else
-	printSimpleMsg(&log, "EFI_TUNER_STUDIO_OVER_USB=", 0);
+	printSimpleMsg(&logger, "EFI_TUNER_STUDIO_OVER_USB=", 0);
 #endif
-	printSimpleMsg(&log, "EFI_SHAFT_POSITION_INPUT=", EFI_SHAFT_POSITION_INPUT);
-	printSimpleMsg(&log, "EFI_INTERNAL_ADC=", EFI_INTERNAL_ADC);
-	printSimpleMsg(&log, "NUMBER_OF_CYLINDERS=", NUMBER_OF_CYLINDERS);
-	printSimpleMsg(&log, "ENGINE_CRANKING_RPM=", ENGINE_CRANKING_RPM);
+	printSimpleMsg(&logger, "EFI_SHAFT_POSITION_INPUT=", EFI_SHAFT_POSITION_INPUT);
+	printSimpleMsg(&logger, "EFI_INTERNAL_ADC=", EFI_INTERNAL_ADC);
+	printSimpleMsg(&logger, "NUMBER_OF_CYLINDERS=", NUMBER_OF_CYLINDERS);
+	printSimpleMsg(&logger, "ENGINE_CRANKING_RPM=", ENGINE_CRANKING_RPM);
 #ifdef EFI_USE_MULTI_SENSOR_SHAFT_SENSOR
-	printSimpleMsg(&log, "EFI_USE_MULTI_SENSOR_SHAFT_SENSOR=", EFI_USE_MULTI_SENSOR_SHAFT_SENSOR);
+	printSimpleMsg(&logger, "EFI_USE_MULTI_SENSOR_SHAFT_SENSOR=", EFI_USE_MULTI_SENSOR_SHAFT_SENSOR);
 #endif
 #ifdef EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR
-	printSimpleMsg(&log, "EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR=", EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR);
+	printSimpleMsg(&logger, "EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR=", EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR);
 #endif
-//	printSimpleMsg(&log, "", );
-//	printSimpleMsg(&log, "", );
+//	printSimpleMsg(&logger, "", );
+//	printSimpleMsg(&logger, "", );
 
 
 	/**
@@ -131,7 +131,7 @@ void initializeConsole() {
 	initConsoleLogic();
 	startChibiosConsole(&handleConsoleLine);
 
-	initLogging(&log, "console", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "console", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	sayOsHello();
 	addConsoleAction("hello", &sayOsHello);

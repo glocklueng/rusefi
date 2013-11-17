@@ -16,7 +16,7 @@
 
 static OutputSignal injectors[MAX_INJECTOR_COUNT];
 
-static Logging log;
+static Logging logger;
 
 int isInjectionEnabled = TRUE;
 myfloat globalFuelCorrection = 1;
@@ -26,7 +26,7 @@ static int is_injector_enabled[NUMBER_OF_CYLINDERS];
 void assertCylinderId(int cylinderId, char *msg) {
 	int isValid = cylinderId >= 1 && cylinderId <= NUMBER_OF_CYLINDERS;
 	if (!isValid) {
-		//scheduleSimpleMsg(&log, "cid=", cylinderId);
+		//scheduleSimpleMsg(&logger, "cid=", cylinderId);
 		print("ERROR [%s] cid=%d\r\n", msg, cylinderId);
 		chDbgAssert(isValid, "Cylinder ID", null);
 	}
@@ -56,14 +56,14 @@ int isInjectorEnabled(int cylinderId) {
 
 static void printStatus(void) {
 	for (int id = 1; id <= NUMBER_OF_CYLINDERS; id++) {
-		resetLogging(&log);
+		resetLogging(&logger);
 
-		append(&log, "injector");
-		appendInt(&log, id);
-		append(&log, DELIMETER);
-		appendInt(&log, isInjectorEnabled(id));
-		append(&log, DELIMETER);
-		scheduleLogging(&log);
+		append(&logger, "injector");
+		appendInt(&logger, id);
+		append(&logger, DELIMETER);
+		appendInt(&logger, isInjectorEnabled(id));
+		append(&logger, DELIMETER);
+		scheduleLogging(&logger);
 	}
 }
 
@@ -76,12 +76,12 @@ static void setInjectorEnabled(int id, int value) {
 static void setGlobalFuelCorrection(int value) {
 	if (value < 10 || value > 500)
 		return;
-	scheduleSimpleMsg(&log, "setting fuel mult=", value);
+	scheduleSimpleMsg(&logger, "setting fuel mult=", value);
 	globalFuelCorrection = value / 100.0;
 }
 
 void initInjectorCentral(void) {
-	initLogging(&log, "InjectorCentral", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "InjectorCentral", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	for (int i = 0; i < NUMBER_OF_CYLINDERS; i++)
 		is_injector_enabled[i] = true;

@@ -15,14 +15,14 @@ static volatile int injectionPeriod = 0;
 static volatile int crankingInjectionPeriod = 0;
 static volatile int injectionOffset = 0;
 
-static Logging log;
+static Logging logger;
 
 static void printSettings(void) {
-	msgInt(&log, "msg,injectionPeriod ", injectionPeriod);
-	msgInt(&log, "msg,cranking injectionPeriod ", crankingInjectionPeriod);
-	msgInt(&log, "msg,injectionOffset ", injectionOffset);
+	msgInt(&logger, "msg,injectionPeriod ", injectionPeriod);
+	msgInt(&logger, "msg,cranking injectionPeriod ", crankingInjectionPeriod);
+	msgInt(&logger, "msg,injectionOffset ", injectionOffset);
 
-	printLine(&log);
+	printLine(&logger);
 }
 
 int getInjectionOffset(void) {
@@ -49,7 +49,7 @@ void setCrankingInjectionPeriod(int value) {
 }
 
 void initSettings(void) {
-	initLogging(&log, "inje control", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "inje control", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	setInjectionOffset(0);
 	setInjectionPeriod(30);

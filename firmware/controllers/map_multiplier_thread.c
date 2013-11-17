@@ -17,12 +17,12 @@
 #include "wave_math.h"
 #include "sensors.h"
 
-static Logging log;
+static Logging logger;
 
 static WORKING_AREA(maThreadStack, 256);
 
 static void mapCallback(int rpm, float key, float value) {
-	Logging *logging = &log;
+	Logging *logging = &logger;
 	append(logging, "msg");
 	append(logging, DELIMETER);
 
@@ -57,7 +57,7 @@ static void maThread(int param) {
 		if (!wasNotRunningRecently)
 			continue;
 		if (isNewState)
-			scheduleSimpleMsg(&log, "starting fuel map adjustment at ", now);
+			scheduleSimpleMsg(&logger, "starting fuel map adjustment at ", now);
 		isNewState = FALSE;
 
 		// ideally this should be atomic, but hopefully it's good enough
@@ -68,13 +68,13 @@ static void maThread(int param) {
 		addAfr(rpm, key, afr);
 		int total = runMapAdjustments(mapCallback);
 		if (total > 0) {
-//			scheduleSimpleMsg(&log, "map adjusted for maf ", 100 * key);
+//			scheduleSimpleMsg(&logger, "map adjusted for maf ", 100 * key);
 		}
 	}
 }
 
 void initMapAdjusterThread(void) {
-	initLogging(&log, "Map self learning thread", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "Map self learning thread", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	initMapAdjuster();
 

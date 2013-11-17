@@ -18,7 +18,7 @@
 
 #include "datalogging.h"
 
-static Logging log;
+static Logging logger;
 
 #if defined __GNUC__
 static FlashState flashState __attribute__((section(".bss2")));
@@ -34,15 +34,15 @@ EngineConfiguration *engineConfiguration = &flashState.configuration;
 
 void writeToFlash(void) {
 	flashState.version = FLASH_DATA_VERSION;
-	scheduleSimpleMsg(&log, "FLASH_DATA_VERSION=", flashState.version);
+	scheduleSimpleMsg(&logger, "FLASH_DATA_VERSION=", flashState.version);
 	crc result = calc_crc((const crc*) &flashState.configuration,
 			sizeof(EngineConfiguration));
 	flashState.value = result;
-	scheduleSimpleMsg(&log, "Reseting flash=", FLASH_USAGE);
+	scheduleSimpleMsg(&logger, "Reseting flash=", FLASH_USAGE);
 	flashErase(FLASH_ADDR, FLASH_USAGE);
-	scheduleSimpleMsg(&log, "Flashing with CRC=", result);
+	scheduleSimpleMsg(&logger, "Flashing with CRC=", result);
 	result = flashWrite(FLASH_ADDR, (const char *) &flashState, FLASH_USAGE);
-	scheduleSimpleMsg(&log, "Flashed: ", result);
+	scheduleSimpleMsg(&logger, "Flashed: ", result);
 }
 
 static void printIntArray(int array[], int size) {
@@ -84,14 +84,14 @@ static void printConfiguration(void) {
 
 static int isValid(FlashState *state) {
 	if (state->version != FLASH_DATA_VERSION) {
-		scheduleSimpleMsg(&log, "Not valid flash version: ", state->version);
+		scheduleSimpleMsg(&logger, "Not valid flash version: ", state->version);
 		return FALSE;
 	}
 	crc result = calc_crc((const crc*) &state->configuration,
 			sizeof(EngineConfiguration));
 	if (result != state->value) {
-		scheduleSimpleMsg(&log, "CRC got: ", result);
-		scheduleSimpleMsg(&log, "CRC expected: ", state->value);
+		scheduleSimpleMsg(&logger, "CRC got: ", result);
+		scheduleSimpleMsg(&logger, "CRC expected: ", state->value);
 	}
 	return result == state->value;
 }
@@ -125,17 +125,17 @@ static void readFromFlash(void) {
 	flashRead(FLASH_ADDR, (char *) &flashState, FLASH_USAGE);
 
 	if (!isValid(&flashState)) {
-		scheduleSimpleMsg(&log, "Not valid flash state, setting default", 0);
+		scheduleSimpleMsg(&logger, "Not valid flash state, setting default", 0);
 		setDefaultConfiguration();
 		return;
 	} else {
-		scheduleSimpleMsg(&log, "Got valid state from flash!", 0);
+		scheduleSimpleMsg(&logger, "Got valid state from flash!", 0);
 	}
 }
 
 void initFlash(void) {
-	initLogging(&log, "Flash memory", log.DEFAULT_BUFFER,
-			sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "Flash memory", logger.DEFAULT_BUFFER,
+			sizeof(logger.DEFAULT_BUFFER));
 	print("initFlash()\r\n");
 
 	addConsoleAction("showconfig", printConfiguration);

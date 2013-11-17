@@ -35,22 +35,22 @@ static volatile int idleSwitchState;
 static PwmConfig idleValve;
 
 static IdleValveState idle;
-static Logging log;
+static Logging logger;
 
 int getIdleSwitch() {
 	return idleSwitchState;
 }
 
 void idleDebug(char *msg, int value) {
-	printSimpleMsg(&log, msg, value);
-	scheduleLogging(&log);
+	printSimpleMsg(&logger, msg, value);
+	scheduleLogging(&logger);
 }
 
 static void setIdle(int value) {
 	// todoL change parameter type, maybe change parameter validation
 	if (value < 1 || value > 999)
 		return;
-	scheduleSimpleMsg(&log, "setting idle valve PWM ", value);
+	scheduleSimpleMsg(&logger, "setting idle valve PWM ", value);
 	myfloat v = 0.001 * value;
 	idleValve.switchTimes[0] = 1 - v;
 }
@@ -85,19 +85,19 @@ static msg_t ivThread(int param) {
 
 static void setTargetIdle(int value) {
 	setTargetRpm(&idle, value);
-	scheduleSimpleMsg(&log, "target idle RPM", value);
+	scheduleSimpleMsg(&logger, "target idle RPM", value);
 }
 
 void startIdleThread() {
-	initLogging(&log, "Idle Valve Control", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "Idle Valve Control", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	wePlainInit("Idle Valve", &idleValve, IDLE_VALVE_PORT, IDLE_VALVE_PIN, 0, 0.5);
 	idleValve.period = frequency2period(IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY);
 
 	idleInit(&idle);
-	scheduleSimpleMsg(&log, "initial idle", idle.value);
+	scheduleSimpleMsg(&logger, "initial idle", idle.value);
 	if (!isIdleActive)
-		printSimpleMsg(&log,
+		printSimpleMsg(&logger,
 				"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! idle control disabled", 0);
 
 	addConsoleAction1("target", &setTargetIdle);

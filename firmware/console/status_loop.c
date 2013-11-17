@@ -38,8 +38,8 @@ volatile int fullLog;
 volatile int needToReportStatus = FALSE;
 static int prevCkpEventCounter = -1;
 
-static Logging log;
-static Logging log2;
+static Logging logger;
+static Logging logger2;
 static char LOGGING_BUFFER[500];
 #define FULL_LOGGING_KEY "fl"
 
@@ -51,7 +51,7 @@ static char* boolean2string(int value) {
 
 void setFullLog(int value) {
 	print("Setting full logging: %s\r\n", boolean2string(value));
-	printSimpleMsg(&log, FULL_LOGGING_KEY, value);
+	printSimpleMsg(&logger, FULL_LOGGING_KEY, value);
 	fullLog = value;
 }
 
@@ -66,29 +66,29 @@ static void printStatus(void) {
 //}
 
 static void printSensors(void) {
-	debugFloat(&log, "vref", getVRef(), 2);
+	debugFloat(&logger, "vref", getVRef(), 2);
 
 // white, MAF
 	myfloat maf = getMaf();
-	debugFloat(&log, "maf", maf, 2);
+	debugFloat(&logger, "maf", maf, 2);
 
 #if ENGINE_HAS_MAP_SENSOR
 	myfloat map = getMap();
-	logFloat(&log, LP_MAP, map);
+	logFloat(&logger, LP_MAP, map);
 #endif
 
 	myfloat tps = getTPS();
-	logInt(&log, LP_THROTTLE, tps);
+	logInt(&logger, LP_THROTTLE, tps);
 
 #if ENGINE_HAS_COOLANT_SENSOR
 	myfloat coolantTemp = getCoolantTemperature();
-	logFloat(&log, LP_ECT, coolantTemp);
+	logFloat(&logger, LP_ECT, coolantTemp);
 #endif
 
 	myfloat airTemp = getIntakeAirTemperature();
-	logFloat(&log, LP_IAT, airTemp);
+	logFloat(&logger, LP_IAT, airTemp);
 
-//	debugFloat(&log, "tch", getTCharge1(tps), 2);
+//	debugFloat(&logger, "tch", getTCharge1(tps), 2);
 }
 
 #if EFI_CUSTOM_PANIC_METHOD
@@ -101,8 +101,7 @@ static void checkIfShouldHalt(void) {
 	if (dbg_panic_msg != NULL) {
 		setOutputPinValue(LED_FATAL, 1);
 #if EFI_CUSTOM_PANIC_METHOD
-		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg, dbg_panic_file,
-				dbg_panic_line);
+		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg, dbg_panic_file, dbg_panic_line);
 #else
 		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg);
 #endif
@@ -130,8 +129,7 @@ void printState(void) {
 	systime_t nowSeconds = chTimeNowSeconds();
 
 	int currentCkpEventCounter = getCrankEventCounter();
-	if (prevCkpEventCounter == currentCkpEventCounter
-			&& timeOfPreviousReport == nowSeconds)
+	if (prevCkpEventCounter == currentCkpEventCounter && timeOfPreviousReport == nowSeconds)
 		return;
 
 	timeOfPreviousReport = nowSeconds;
@@ -143,35 +141,35 @@ void printState(void) {
 	prevCkpEventCounter = currentCkpEventCounter;
 
 	myfloat sec = ((myfloat) nowMs) / 1000;
-	debugFloat(&log, "time", sec, 3);
+	debugFloat(&logger, "time", sec, 3);
 
-	debugInt(&log, "ckp_c", currentCkpEventCounter);
+	debugInt(&logger, "ckp_c", currentCkpEventCounter);
 
-	debugInt(&log, "rpm", rpm);
+	debugInt(&logger, "rpm", rpm);
 
-	debugInt(&log, "idl", getIdleSwitch());
+	debugInt(&logger, "idl", getIdleSwitch());
 
-//	debugFloat(&log, "table_spark", getAdvance(rpm, getMaf()), 2);
+//	debugFloat(&logger, "table_spark", getAdvance(rpm, getMaf()), 2);
 
 	if (MAF_MODE)
-		debugFloat(&log, "table_fuel", getFuel(rpm, getMaf()), 2);
+		debugFloat(&logger, "table_fuel", getFuel(rpm, getMaf()), 2);
 	else {
 #if ENGINE_HAS_MAP_SENSOR
 		myfloat map = getMap();
 		myfloat fuel = getDefaultFuel(rpm, map);
-		debugFloat(&log, "d_fuel", fuel, 2);
+		debugFloat(&logger, "d_fuel", fuel, 2);
 #endif
 	}
 
-	debugFloat(&log, "af", getAfr(), 2);
+	debugFloat(&logger, "af", getAfr(), 2);
 
 	printSensors();
 
 #if EFI_WAVE_ANALYZER
-	printWave(&log);
+	printWave(&logger);
 #endif
 
-	printLine(&log);
+	printLine(&logger);
 }
 
 /*
@@ -190,20 +188,19 @@ static void showFuelMap(int rpm, int key100) {
 	float injectorLag = getInjectorLag(getVBatt());
 	print("baseFuel=%f\r\n", baseFuel);
 
-	print("iatCorrection=%f cltCorrection=%f injectorLag=%d\r\n", iatCorrection,
-			cltCorrection, (int) (100 * injectorLag));
+	print("iatCorrection=%f cltCorrection=%f injectorLag=%d\r\n", iatCorrection, cltCorrection,
+			(int) (100 * injectorLag));
 
 	myfloat value = getFuel(rpm, key);
 
 	print("fuel map rpm=%d, key=%f: %d\r\n", rpm, key, (int) (100 * value));
 
-	scheduleSimpleMsg(&log2, "fuel map value *100 = ", 100 * value);
+	scheduleSimpleMsg(&logger2, "fuel map value *100 = ", 100 * value);
 }
 
 void initStatusLoop(void) {
-	initLogging(&log, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
-	initLogging(&log2, "main event handler", log2.DEFAULT_BUFFER,
-			sizeof(log2.DEFAULT_BUFFER));
+	initLogging(&logger, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+	initLogging(&logger2, "main event handler", logger2.DEFAULT_BUFFER, sizeof(logger2.DEFAULT_BUFFER));
 
 	setFullLog(INITIAL_FULL_LOG);
 
@@ -220,5 +217,5 @@ void warning(char *msg, float value) {
 		return; // we just had another warning, let's not spam
 	timeOfPreviousWarning = now;
 
-	scheduleSimpleMsg(&log, msg, 1000 * value);
+	scheduleSimpleMsg(&logger, msg, 1000 * value);
 }

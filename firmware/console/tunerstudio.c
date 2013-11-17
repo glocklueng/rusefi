@@ -23,7 +23,7 @@
 
 #if EFI_TUNER_STUDIO
 
-static Logging log;
+static Logging logger;
 
 extern EngineConfiguration *engineConfiguration;
 
@@ -125,7 +125,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 		}
 		if (!wasReady) {
 			wasReady = TRUE;
-//			scheduleSimpleMsg(&log, "ts channel is now ready ", chTimeNow());
+//			scheduleSimpleMsg(&logger, "ts channel is now ready ", chTimeNow());
 		}
 
 		short command = (short) chSequentialStreamGet(TS_SERIAL_DEVICE);
@@ -145,7 +145,7 @@ void syncTunerStudioCopy(void) {
 }
 
 void startTunerStudioConnectivity(void) {
-	initLogging(&log, "tuner studio", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "tuner studio", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 #if EFI_TUNER_STUDIO_OVER_USB
 	print("TunerStudio over USB serial");
 	usb_serial_start();

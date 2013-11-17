@@ -70,7 +70,7 @@ void initPotentiometer(Mcp42010Driver *driver, SPIDriver *spi, ioportid_t port, 
 }
 #endif
 
-static Logging log;
+static Logging logger;
 
 static int getPotStep(int resistanceWA) {
 	return 256 - (int) ((resistanceWA - 52) * 256 / 10000);
@@ -90,16 +90,16 @@ static void sendToPot(Mcp42010Driver *driver, int channel, int value) {
 void setPotResistance(Mcp42010Driver *driver, int channel, int resistance) {
 	int value = getPotStep(resistance);
 
-	Logging *logging = &log;
+	Logging *logging = &logger;
 	resetLogging(logging);
 	append(logging, "msg");
 	append(logging, DELIMETER);
 	append(logging, "Sending to potentiometer");
 	appendInt(logging, channel);
-	append(&log, ": ");
-	appendInt(&log, value);
-	append(&log, " for R=");
-	appendInt(&log, resistance);
+	append(&logger, ": ");
+	appendInt(&logger, value);
+	append(&logger, " for R=");
+	appendInt(&logger, resistance);
 	append(logging, DELIMETER);
 
 
@@ -122,7 +122,7 @@ static void setPotValue1(int value) {
 
 void initPotentiometers() {
 #ifdef EFI_POTENTIOMETER
-	initLogging(&log, "potentiometer", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "potentiometer", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	initPotentiometer(&config0, _POT_SPI, POTEN_CS_PORT, POTEN_CS_PIN);
 

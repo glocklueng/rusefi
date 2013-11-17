@@ -38,7 +38,7 @@ data_buffer_s wavePeriod;
 
 int waveWidthCounter = 0;
 
-static Logging log;
+static Logging logger;
 
 static void ensureInitialized(WaveReader *reader) {
 	if (!reader->hw.started)
@@ -153,7 +153,7 @@ static void onWaveShaftSignal(ShaftEvents ckpSignalType, int index) {
 
 static WORKING_AREA(waThreadStack, 256);
 
-//static Logging log;
+//static Logging logger;
 
 static msg_t waThread(void *arg) {
 	chRegSetThreadName("Wave Analyzer");
@@ -258,7 +258,7 @@ void printWave(Logging *logging) {
 void initWaveAnalyzer(void) {
 #ifdef EFI_WAVE_ANALYZER
 
-	initLogging(&log, "wave", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "wave", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 
 	registerShaftPositionListener(&onWaveShaftSignal, "wave analyzer");

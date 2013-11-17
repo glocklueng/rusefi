@@ -24,7 +24,7 @@ static volatile time_t previousShaftEventTime = -10 * CH_FREQUENCY;
 
 IntListenerArray ckpListeneres;
 
-static Logging log;
+static Logging logger;
 
 ShaftPositionState shaftPositionState;
 
@@ -88,7 +88,7 @@ shaft_icu_width_callback, shaft_icu_period_callback };
 #endif
 
 void initShaftPositionInputCapture() {
-	initLogging(&log, "ShaftPosition", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "ShaftPosition", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 #if EFI_SHAFT_POSITION_INPUT
 
