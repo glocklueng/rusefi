@@ -76,6 +76,10 @@ static void printConfiguration(void) {
 
 	printFloatArray("IAT: ", engineConfiguration->iatFuelCorr, IAT_CURVE_SIZE);
 	printFloatArray("IAT bins: ", engineConfiguration->iatFuelCorrBins, IAT_CURVE_SIZE);
+
+	printFloatArray("vBatt: ", engineConfiguration->battInjectorLagCorr, VBAT_INJECTOR_CURVE_SIZE);
+	printFloatArray("vBatt bins: ", engineConfiguration->battInjectorLagCorrBins, VBAT_INJECTOR_CURVE_SIZE);
+
 }
 
 static int isValid(FlashState *state) {
@@ -103,6 +107,11 @@ static void setDefaultConfiguration(void) {
 	for (int i = 0; i < CLT_CURVE_SIZE; i++) {
 		engineConfiguration->cltFuelCorrBins[i] = -40 + i * 10;
 		engineConfiguration->cltFuelCorr[i] = 1;
+	}
+
+	for (int i = 0; i < VBAT_INJECTOR_CURVE_SIZE; i++) {
+		engineConfiguration->battInjectorLagCorrBins[i] = 12 - VBAT_INJECTOR_CURVE_SIZE / 2 + i;
+		engineConfiguration->battInjectorLagCorr[i] = 1;
 	}
 
 	setDefaultFuelMap();
