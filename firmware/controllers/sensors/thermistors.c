@@ -13,7 +13,6 @@
 #ifndef THERMISTORS_C_
 #define THERMISTORS_C_
 
-#include <math.h>
 #include "main.h"
 #include "thermistors.h"
 

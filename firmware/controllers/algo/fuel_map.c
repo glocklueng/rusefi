@@ -6,7 +6,6 @@
  */
 
 #include "main.h"
-#include <math.h>
 #include "fuel_map.h"
 #include "interpolation_3d.h"
 #include "engine_configuration.h"
