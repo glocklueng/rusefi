@@ -65,10 +65,10 @@
  * ADC 6	PA6		CLT
  * ADC 5	PA5		TIM2_CH1
  * ADC 4	PA4
- * ADC 3
- * ADC 2
- * ADC 1			MAF
- * ADC 0
+ * ADC 3	PA3
+ * ADC 2	PA2
+ * ADC 1	PA1		MAF
+ * ADC 0	PA0
  */
 
 #define ADC_LOGIC_TPS ADC_CHANNEL_IN15
