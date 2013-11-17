@@ -25,7 +25,7 @@ static int isChartActive = TRUE;
 static Logging debugLogging;
 #endif
 
-static Logging log;
+static Logging logger;
 
 void resetWaveChart(WaveChart *chart) {
 #if DEBUG_WAVE
@@ -42,8 +42,8 @@ void resetWaveChart(WaveChart *chart) {
 static char LOGGING_BUFFER[5000];
 
 static void printStatus(void) {
-	scheduleIntValue(&log, "chart", isChartActive);
-	scheduleIntValue(&log, "chartsize", chartSize);
+	scheduleIntValue(&logger, "chart", isChartActive);
+	scheduleIntValue(&logger, "chartsize", chartSize);
 }
 
 static void setChartActive(int value) {
@@ -91,10 +91,10 @@ void addWaveChartEvent(WaveChart *chart, char *name, char * msg) {
 }
 
 void initWaveChart(WaveChart *chart, char *name) {
-	initLogging(&log, "wave info", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "wave info", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	if (!isChartActive)
-		printSimpleMsg(&log, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! chart disabled",
+		printSimpleMsg(&logger, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! chart disabled",
 				0);
 
 	printStatus();

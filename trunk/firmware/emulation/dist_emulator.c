@@ -18,7 +18,7 @@
 // because each cam revolution is half of crank revolution
 #define EXTRA_RPM_COEFF (1.0 / 2)
 
-static Logging log;
+static Logging logger;
 static volatile int deRpm = 0; // distributor RPM is camshaft RPM
 
 #if defined __GNUC__
@@ -35,15 +35,15 @@ void setRevolutionPeriod(int value) {
 	} else {
 		configuration.period = frequency2period(gRpm);
 	}
-	scheduleSimpleMsg(&log, "Emulating position sensor(s). RPM=", value);
+	scheduleSimpleMsg(&logger, "Emulating position sensor(s). RPM=", value);
 }
 
 void initShaftPositionEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
 	print("Emulating %s\r\n", EFI_ENGINE_ID);
 
-	initLogging(&log, "position sensor(s) emulator", log.DEFAULT_BUFFER,
-			sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "position sensor(s) emulator", logger.DEFAULT_BUFFER,
+			sizeof(logger.DEFAULT_BUFFER));
 
 	initOutputPin("distributor ch1", &configuration.waves[0].outputPin,
 			PRIMARY_SHAFT_POSITION_EMULATION_PORT, PRIMARY_SHAFT_POSITION_EMULATION_PIN);

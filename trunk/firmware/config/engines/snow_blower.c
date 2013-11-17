@@ -17,7 +17,7 @@
 
 extern OutputSignal injectorOut1;
 
-static Logging log;
+static Logging logger;
 
 float getVRef(void) {
 	return 12;
@@ -45,7 +45,7 @@ static void onShaftSignal(int ckpSignalType) {
 }
 
 void initMainEventListener() {
-	initLogging(&log, "main event handler", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "main event handler", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	registerCkpListener(&onShaftSignal, "main loop");
 

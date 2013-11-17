@@ -11,12 +11,12 @@
 #include "signal_executor.h"
 #include "main_loop.h"
 
-static Logging log;
+static Logging logger;
 
 static OutputSignal igniters[MAX_IGNITER_COUNT];
 
 void initIgnitionCentral(void) {
-	initLogging(&log, "IgnitionCentral", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "IgnitionCentral", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	initOutputSignal("Spark 1", &igniters[0], SPARKOUT_1_OUTPUT, 0);
 }

@@ -183,10 +183,10 @@ static int strEqual(char *str1, char *str2) {
 	return TRUE;
 }
 
-static Logging log;
+static Logging logger;
 
 void initConsoleLogic() {
-	initLogging(&log, "console logic", log.DEFAULT_BUFFER, sizeof(log.DEFAULT_BUFFER));
+	initLogging(&logger, "console logic", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 }
 
 static char *validateSecureLine(char *line) {
@@ -242,7 +242,7 @@ void handleConsoleLine(char *line) {
 				// invoke callback function by reference
 				(*current->callback)();
 				// confirmation happens after the command to avoid conflict with command own output
-				scheduleSimpleMsg(&log, confirmation, lineLength);
+				scheduleSimpleMsg(&logger, confirmation, lineLength);
 				return;
 			}
 		}
@@ -258,12 +258,12 @@ void handleConsoleLine(char *line) {
 			if (strEqual(line, current->token)) {
 				handleActionWithParameter(current, ptr);
 				// confirmation happens after the command to avoid conflict with command own output
-				scheduleSimpleMsg(&log, confirmation, lineLength);
+				scheduleSimpleMsg(&logger, confirmation, lineLength);
 				return;
 			}
 		}
 	}
-	scheduleSimpleMsg(&log, "unknown command", 0);
-	scheduleSimpleMsg(&log, confirmation, -1);
+	scheduleSimpleMsg(&logger, "unknown command", 0);
+	scheduleSimpleMsg(&logger, confirmation, -1);
 	help();
 }

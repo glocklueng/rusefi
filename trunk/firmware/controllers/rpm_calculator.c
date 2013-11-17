@@ -38,8 +38,8 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	if (index != 0)
 		return;
 
-//	logStartLine(&log, 0);
-//	msgInt(&log, "msg,event ", rpmEventCounter++);
+//	logStartLine(&logger, 0);
+//	msgInt(&logger, "msg,event ", rpmEventCounter++);
 //	logPending(&log);
 
 	time_t now = chTimeNow();

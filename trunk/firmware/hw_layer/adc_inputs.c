@@ -32,7 +32,7 @@
 #define ADC_DEBUG_KEY "adcDebug"
 
 static char LOGGING_BUFFER[500];
-static Logging log;
+static Logging logger;
 static int adcCallbackCounter_slow = 0;
 static int adcCallbackCounter_fast = 0;
 
@@ -317,22 +317,22 @@ void initSlowChannel(int logicChannel, int hwChannel) {
 static void printAdcValue(int channel) {
 	int value = getAdcValue(channel);
 	myfloat volts = adcToVolts(value);
-	scheduleSimpleMsg(&log, "adc voltage x100: ", (int) (100 * volts));
+	scheduleSimpleMsg(&logger, "adc voltage x100: ", (int) (100 * volts));
 }
 
 static void printFullAdcReport() {
 	for (int i = 0; i < EFI_ADC_SLOW_CHANNELS_COUNT; i++) {
-		msgInt(&log, " ch", i);
+		msgInt(&logger, " ch", i);
 		int value = getAdcValueByIndex(i);
-		msgInt(&log, " val= ", value);
+		msgInt(&logger, " val= ", value);
 		myfloat volts = adcToVolts(value);
-		debugFloat(&log, "v ", volts, 1);
+		debugFloat(&logger, "v ", volts, 1);
 	}
-	scheduleLogging(&log);
+	scheduleLogging(&logger);
 }
 
 static void printStatus() {
-	scheduleIntValue(&log, ADC_DEBUG_KEY, adcDebugReporting);
+	scheduleIntValue(&logger, ADC_DEBUG_KEY, adcDebugReporting);
 }
 
 static void setAdcDebugReporting(int value) {
@@ -342,7 +342,7 @@ static void setAdcDebugReporting(int value) {
 
 void initAdcInputs() {
 
-	initLogging(&log, "ADC", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+	initLogging(&logger, "ADC", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 
 	printStatus();
 
@@ -420,7 +420,7 @@ void initAdcInputs() {
 	addConsoleAction1("adc", printAdcValue);
 	addConsoleAction("fadc", printFullAdcReport);
 #else
-	printSimpleMsg(&log, "ADC disabled", 0);
+	printSimpleMsg(&logger, "ADC disabled", 0);
 #endif
 }
 
