@@ -6,7 +6,6 @@
  */
 
 #include <stdio.h>
-#include <math.h>
 
 #include "engine_math.h"
 #include "main.h"

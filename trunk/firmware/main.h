@@ -9,6 +9,7 @@
 #define MAIN_H_
 
 #include <time.h>
+#include <math.h>
 
 #include "global.h"
 #include "features.h"
