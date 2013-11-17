@@ -93,6 +93,11 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 
 	float advance = getAdvance(rpm, getMaf());
 
+	if (eventIndex != 0 && eventIndex != 5)
+		return;
+	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
+
+
 	int sparkAdvance = convertAngleToSysticks(rpm, advance);
 
 	int dwell = getSparkDwell(rpm);
@@ -103,9 +108,8 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 		scheduleSimpleMsg(&logger, "Negative spark delay", sparkDelay);
 		return;
 	}
-//	scheduleSparkOut(sparkDelay, dwell);
 
-
+	scheduleSparkOut(1, sparkDelay, dwell);
 }
 
 /**

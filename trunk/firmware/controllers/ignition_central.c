@@ -7,6 +7,7 @@
  */
 
 #include "main.h"
+#include "ignition_central.h"
 #include "output_pins.h"
 #include "signal_executor.h"
 #include "main_loop.h"
@@ -22,6 +23,8 @@ void initIgnitionCentral(void) {
 }
 
 void scheduleSparkOut(int igniterId, int offsetSysTicks, int lengthSysTicks) {
+	chDbgAssert(igniterId >= 1 && igniterId <= MAX_IGNITER_COUNT, "igniter ID", null);
+
 	OutputSignal *igniter = &igniters[igniterId - 1];
 
 	scheduleOutput(igniter, offsetSysTicks, lengthSysTicks);
