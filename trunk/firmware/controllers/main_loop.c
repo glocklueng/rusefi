@@ -93,17 +93,17 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 
 	float advance = getAdvance(rpm, getMaf());
 
-	if (eventIndex != 0 && eventIndex != 5)
+	// this will be configurable tomorrow
+	if (eventIndex != 1 && eventIndex != 6 && eventIndex != 3 && eventIndex != 8)
 		return;
 	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
-
 
 	int sparkAdvance = convertAngleToSysticks(rpm, advance);
 
 	int dwell = getSparkDwell(rpm);
-//todo	chDbgCheck(dwell > 0, "invalid dwell");
+	chDbgCheck(dwell > 0, "invalid dwell");
 
-	int sparkDelay = timeTillNextRise + sparkAdvance - dwell;
+	int sparkDelay = 0;//timeTillNextRise + sparkAdvance - dwell;
 	if (sparkDelay < 0) {
 		scheduleSimpleMsg(&logger, "Negative spark delay", sparkDelay);
 		return;
