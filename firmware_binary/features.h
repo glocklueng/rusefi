@@ -15,7 +15,7 @@
  */
 #define EFI_WAVE_ANALYZER TRUE
 
-//#define EFI_SERIAL_OVER_USB TRUE
+#define EFI_SERIAL_OVER_USB TRUE
 
 //#define SERIAL_SPEED (8 * 115200)
 //#define SERIAL_SPEED (2 * 115200)
@@ -25,7 +25,7 @@
  * TunerStudio support.
  */
 #define EFI_TUNER_STUDIO TRUE
-#define EFI_TUNER_STUDIO_OVER_USB TRUE
+//#define EFI_TUNER_STUDIO_OVER_USB TRUE
 
 /**
  * TunerStudio debug output
