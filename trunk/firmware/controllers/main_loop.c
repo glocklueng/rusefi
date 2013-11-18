@@ -63,7 +63,8 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 
 	int fuelTicks = getFuelMs(rpm) * globalFuelCorrection * TICKS_IN_MS;
 	if (fuelTicks < 0) {
-		scheduleSimpleMsg(&logger, "ERROR: negative injectionPeriod ", fuelTicks);
+		scheduleSimpleMsg(&logger, "ERROR: negative injectionPeriod ",
+				fuelTicks);
 		return;
 	}
 
@@ -74,6 +75,10 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 }
 
 static int getSparkDwell(int rpm) {
+	if (rpm > RPM_HARD_LIMIT) {
+		warning("skipping spark due to rpm=", rpm);
+		return 0;
+	}
 	int defaultDwell = TICKS_IN_MS * 4;
 	if (rpm <= 4500)
 		return defaultDwell;
@@ -94,7 +99,8 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	float advance = getAdvance(rpm, getMaf());
 
 	// this will be configurable tomorrow
-	if (eventIndex != 1 && eventIndex != 6 && eventIndex != 3 && eventIndex != 8)
+	if (eventIndex != 1 && eventIndex != 6 && eventIndex != 3
+			&& eventIndex != 8)
 		return;
 	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
 
@@ -103,7 +109,7 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	int dwell = getSparkDwell(rpm);
 	chDbgCheck(dwell > 0, "invalid dwell");
 
-	int sparkDelay = 0;//timeTillNextRise + sparkAdvance - dwell;
+	int sparkDelay = 0; //timeTillNextRise + sparkAdvance - dwell;
 	if (sparkDelay < 0) {
 		scheduleSimpleMsg(&logger, "Negative spark delay", sparkDelay);
 		return;
@@ -121,7 +127,8 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 }
 
 void initMainEventListener() {
-	initLogging(&logger, "main event handler", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "main event handler", logger.DEFAULT_BUFFER,
+			sizeof(logger.DEFAULT_BUFFER));
 	printSimpleMsg(&logger, "initMainLoop: ", chTimeNow());
 
 	if (!isInjectionEnabled)
