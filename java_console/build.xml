@@ -22,7 +22,7 @@
 		<zipfileset src="lib/SteelSeries-3.9.30.jar" includes="**/*.class"/>
 		<zipfileset src="lib/trident-6.2.jar" includes="**/*.class"/>
 
-		<zipfileset src="lib/jssc.jar" includes="**/*.class"/>
+		<zipfileset src="lib/jssc.jar" includes="**/*.class **/*.so **/*.dll **/*.jnilib"/>
 
 		<zipfileset src="lib/annotations.jar" includes="**/*.class"/>
 
