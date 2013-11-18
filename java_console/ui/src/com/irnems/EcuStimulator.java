@@ -44,7 +44,7 @@ public class EcuStimulator {
     private static final String TABLE_FILE_NAME = "table" + RPM_INCREMENT + "_" + MAF_INCREMENT + ".csv";
 
     private static final int MEASURES = 7;
-//    private static final String C_FILE_NAME = "advance_map.c";
+    //    private static final String C_FILE_NAME = "advance_map.c";
 //    private static final String C_PREFIX = "ad_";
     private static final String C_FILE_NAME = "fuel_map.c";
     private static final String C_PREFIX = "fuel_";
@@ -191,6 +191,10 @@ public class EcuStimulator {
         log("Current voltage: " + getValue(sensor) + ", setting " + voltage);
         int attempt = 0;
         int resistance = PotCommand.getPotResistance(voltage);
+        if (resistance <= 0) {
+            log("Invalid resistance " + resistance + ". Invalid voltage " + voltage + "?");
+            return;
+        }
 
         double actual;
         do {
