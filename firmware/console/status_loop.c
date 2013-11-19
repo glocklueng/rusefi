@@ -96,6 +96,10 @@ extern char *dbg_panic_file;
 extern int dbg_panic_line;
 #endif
 
+void onDbgPanic(void) {
+	setOutputPinValue(LED_FATAL, 1);
+}
+
 static void checkIfShouldHalt(void) {
 #if CH_DBG_ENABLED
 	if (dbg_panic_msg != NULL) {

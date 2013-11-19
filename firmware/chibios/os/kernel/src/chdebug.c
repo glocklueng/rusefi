@@ -58,8 +58,6 @@
 #include "ch.h"
 #include "print.h"
 
-#include "output_pins.h"
-
 /*===========================================================================*/
 /* System state checker related code and variables.                          */
 /*===========================================================================*/
@@ -276,11 +274,13 @@ int dbg_panic_line;
 
 extern int main_loop_started;
 
+void onDbgPanic(void);
+
 void chDbgPanic(const char *msg, char * file, int line) {
 #if CH_DBG_ENABLED
 	if(dbg_panic_msg!=NULL)
 		return;
-	setOutputPinValue(LED_FATAL, 1);
+	onDbgPanic();
 	dbg_panic_file = file;
 	dbg_panic_line = line;
 	dbg_panic_msg = msg;
