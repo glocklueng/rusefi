@@ -49,7 +49,7 @@ static unsigned dbl2stri(char *outbfr, float dbl, unsigned dec_digits)
 {
 	if(isnan(dbl)) {
 		strcpy(outbfr, "NaN");
-		return;
+		return my_strlen(outbfr);
 	}
 
 
