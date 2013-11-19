@@ -32,7 +32,7 @@ typedef enum {
 typedef struct {
 	char *name;
 	char SMALL_BUFFER[40];
-	// todo: explicitly defilt buffer externally so that we do not have default_buffer where we do not need it?
+	// todo: explicitly default buffer externally so that we do not have default_buffer where we do not need it?
 	char DEFAULT_BUFFER[200];
 	char *buffer;
 	char *linePointer;
