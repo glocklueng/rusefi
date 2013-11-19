@@ -265,7 +265,7 @@ void scheduleLogging(Logging *logging) {
 	int curLength = strlen(pendingBuffer);
 	if (curLength + newLength >= OUTPUT_BUFFER) {
 		/**
-		 * if noone is consuming the data we have to drop it
+		 * if no one is consuming the data we have to drop it
 		 * this happens in case of serial-over-USB, todo: find a better solution
 		 *
 		 */
