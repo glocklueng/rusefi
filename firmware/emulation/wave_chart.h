@@ -15,10 +15,11 @@ typedef struct {
 	Logging logging;
 	int counter;
 	int isPrinted;
+	volatile isInitialized;
 } WaveChart;
 
 void addWaveChartEvent(WaveChart *chart, char *name, char * msg);
-void initWaveChart(WaveChart *chart, char *name);
+void initWaveChart(WaveChart *chart);
 void resetWaveChart(WaveChart *chart);
 int isWaveChartFull(WaveChart *chart);
 
