@@ -77,6 +77,7 @@ static int validateBuffer(Logging *logging, int extraLen, char *text) {
 }
 
 void append(Logging *logging, char *text) {
+	chDbgAssert(text!=NULL, "append NULL", 0);
 	int extraLen = strlen(text);
 	int errcode = validateBuffer(logging, extraLen, text);
 	if (errcode)
@@ -181,7 +182,9 @@ void logFloat(Logging *logging, int loggingPoint, myfloat value) {
 }
 
 void resetLogging(Logging *logging) {
-	logging->linePointer = logging->buffer;
+	char *buffer = logging->buffer;
+	chDbgAssert(buffer!=NULL, "null buffer", 0);
+	logging->linePointer = buffer;
 }
 
 static char ioBuffer[OUTPUT_BUFFER];
