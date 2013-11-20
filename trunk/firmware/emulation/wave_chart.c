@@ -63,6 +63,7 @@ int isWaveChartFull(WaveChart *chart) {
 }
 
 void addWaveChartEvent(WaveChart *chart, char *name, char * msg) {
+	chDbgAssert(chart->isInitialized, "chart not initizlied" , 0);
 #if DEBUG_WAVE
 	scheduleSimpleMsg(&debugLogging, "current", chart->counter);
 #endif
@@ -90,7 +91,7 @@ void addWaveChartEvent(WaveChart *chart, char *name, char * msg) {
 	unlockOutputBuffer();
 }
 
-void initWaveChart(WaveChart *chart, char *name) {
+void initWaveChart(WaveChart *chart) {
 	initLogging(&logger, "wave info", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	if (!isChartActive)
@@ -100,11 +101,11 @@ void initWaveChart(WaveChart *chart, char *name) {
 	printStatus();
 
 	initLogging(&chart->logging, "wave chart", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+	chart->isInitialized = TRUE;
 #if DEBUG_WAVE
 	initLogging(&debugLogging, "wave chart debug", &debugLogging.DEFAULT_BUFFER, sizeof(debugLogging.DEFAULT_BUFFER));
 #endif
 
-//	chart->name = name;
 	resetWaveChart(chart);
 	addConsoleAction1("chartsize", setChartSize);
 	addConsoleAction1("chart", setChartActive);
