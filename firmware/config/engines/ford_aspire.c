@@ -83,6 +83,11 @@ void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	config->injectAtEventIndex[3] = 2;
 	config->injectAtEventIndex[8] = 3;
 	config->injectAtEventIndex[1] = 4;
+
+	config->igniteAtEventIndex[1] = 1;
+	config->igniteAtEventIndex[1] = 3;
+	config->igniteAtEventIndex[1] = 6;
+	config->igniteAtEventIndex[1] = 8;
 }
 
 void setDefaultEngineConfiguration(void) {
