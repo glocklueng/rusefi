@@ -23,6 +23,7 @@
 #include "ignition_central.h"
 #include "rfiutil.h"
 #include "engine_configuration.h"
+#include "wave_analyzer.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 /**
@@ -85,6 +86,11 @@ static void initFuelPump(void) {
 
 void initEngineContoller(void) {
 	initSettings();
+
+#ifdef EFI_WAVE_ANALYZER
+	initWaveAnalyzer();
+#endif
+
 	setDefaultEngineConfiguration();
 	initFuelMap();
 

@@ -15,7 +15,7 @@ typedef struct {
 	Logging logging;
 	int counter;
 	int isPrinted;
-	volatile isInitialized;
+	volatile int isInitialized;
 } WaveChart;
 
 void addWaveChartEvent(WaveChart *chart, char *name, char * msg);
