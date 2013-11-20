@@ -17,8 +17,8 @@
 #define MAX_IGNITER_COUNT 4
 
 typedef struct {
-	int fireAtEventIndex[SHAFT_POSITION_EVENT_COUNT];
-} InjectionConfiguration;
+	int injectAtEventIndex[SHAFT_POSITION_EVENT_COUNT];
+} EventHandlerConfiguration;
 
 void initMainEventListener(void);
 void onEveryMillisecondTimerSignal(void);
