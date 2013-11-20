@@ -93,7 +93,4 @@ void initEngineEmulator(void) {
 	initPotentiometers();
 	//initECUstimulator();
 	initShaftPositionEmulator();
-#ifdef EFI_WAVE_ANALYZER
-	initWaveAnalyzer();
-#endif
 }
