@@ -13,6 +13,7 @@
 #include "flash_main.h"
 #include "rficonsole.h"
 #include "flash.h"
+#include "print.h"
 
 #include "tunerstudio.h"
 
