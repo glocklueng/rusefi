@@ -73,6 +73,7 @@ include $(CHIBIOS)/os/hal/platforms/STM32F4xx/platform.mk
 include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/ports/GCC/ARMCMx/STM32F4xx/port.mk
 include $(CHIBIOS)/os/kernel/kernel.mk
+include $(CHIBIOS)/os/various/various.mk
 include util/util.mk
 include console_util/console_util.mk
 include config/engines/engines.mk
@@ -92,6 +93,7 @@ LDSCRIPT= config/system/STM32F407xG.ld
 # setting.
 CSRC = $(PORTSRC) \
 	$(KERNSRC) \
+	$(VARIOUSRC) \
 	$(UTILSRC) \
 	$(ENGINES_SRC) \
 	$(CONSOLESRC) \
