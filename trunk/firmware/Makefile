@@ -142,6 +142,7 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	config/engines \
 	config/boards \
 	config \
+	cbibios\os\various \
 	util \
 	console_util \
 	console \
