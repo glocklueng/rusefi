@@ -18,6 +18,7 @@
 
 typedef struct {
 	int injectAtEventIndex[SHAFT_POSITION_EVENT_COUNT];
+	int igniteAtEventIndex[SHAFT_POSITION_EVENT_COUNT];
 } EventHandlerConfiguration;
 
 void initMainEventListener(void);

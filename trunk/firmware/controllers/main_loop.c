@@ -63,8 +63,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 
 	int fuelTicks = getFuelMs(rpm) * globalFuelCorrection * TICKS_IN_MS;
 	if (fuelTicks < 0) {
-		scheduleSimpleMsg(&logger, "ERROR: negative injectionPeriod ",
-				fuelTicks);
+		scheduleSimpleMsg(&logger, "ERROR: negative injectionPeriod ", fuelTicks);
 		return;
 	}
 
@@ -98,10 +97,10 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 
 	float advance = getAdvance(rpm, getMaf());
 
-	// this will be configurable tomorrow
-	if (eventIndex != 1 && eventIndex != 6 && eventIndex != 3
-			&& eventIndex != 8)
+	int igniterId = engineEventConfiguration.igniteAtEventIndex[eventIndex];
+	if (igniterId == 0)
 		return;
+
 	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
 
 	int sparkAdvance = convertAngleToSysticks(rpm, advance);
@@ -115,7 +114,7 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 		return;
 	}
 
-	scheduleSparkOut(1, sparkDelay, dwell);
+	scheduleSparkOut(igniterId, sparkDelay, dwell);
 }
 
 /**
@@ -127,8 +126,7 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 }
 
 void initMainEventListener() {
-	initLogging(&logger, "main event handler", logger.DEFAULT_BUFFER,
-			sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "main event handler", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 	printSimpleMsg(&logger, "initMainLoop: ", chTimeNow());
 
 	if (!isInjectionEnabled)
