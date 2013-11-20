@@ -58,7 +58,7 @@
 #define getIntakeAirTemperature() (getTemperatureC(adcToVolts(getAdcValue(ADC_LOGIC_AIR)), IAT_HI_RESISTOR))
 
 void confgiureShaftPositionEmulatorShape(PwmConfig *state);
-void configureInjection(InjectionConfiguration *config);
+void configureEngineEventHandler(EventHandlerConfiguration *config);
 
 #define EFI_SHAFT_POSTION_NEEDS_SECONDARY TRUE
 

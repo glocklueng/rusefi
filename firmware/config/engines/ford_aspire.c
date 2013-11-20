@@ -78,11 +78,11 @@ void confgiureShaftPositionEmulatorShape(PwmConfig *state) {
 	weComplexInit("distributor", state, 0, 10, switchTimes, 2, pinStates);
 }
 
-void configureInjection(InjectionConfiguration *injectionConfiguration) {
-	injectionConfiguration->fireAtEventIndex[6] = 1;
-	injectionConfiguration->fireAtEventIndex[3] = 2;
-	injectionConfiguration->fireAtEventIndex[8] = 3;
-	injectionConfiguration->fireAtEventIndex[1] = 4;
+void configureEngineEventHandler(EventHandlerConfiguration *config) {
+	config->injectAtEventIndex[6] = 1;
+	config->injectAtEventIndex[3] = 2;
+	config->injectAtEventIndex[8] = 3;
+	config->injectAtEventIndex[1] = 4;
 }
 
 void setDefaultEngineConfiguration(void) {

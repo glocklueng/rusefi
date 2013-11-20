@@ -32,7 +32,7 @@ extern EngineConfiguration *engineConfiguration;
 
 extern int isInjectionEnabled;
 
-static InjectionConfiguration injectionConfiguration;
+static EventHandlerConfiguration engineEventConfiguration;
 
 extern myfloat globalFuelCorrection;
 
@@ -48,7 +48,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 		return;
 	}
 
-	int cylinderId = injectionConfiguration.fireAtEventIndex[eventIndex];
+	int cylinderId = engineEventConfiguration.injectAtEventIndex[eventIndex];
 	if (cylinderId == 0)
 		return; // no cylinder should be fired at this event
 	assertCylinderId(cylinderId, "onShaftSignal");
@@ -134,7 +134,7 @@ void initMainEventListener() {
 	if (!isInjectionEnabled)
 		printSimpleMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled", 0);
 
-	configureInjection(&injectionConfiguration);
+	configureEngineEventHandler(&engineEventConfiguration);
 
 	registerShaftPositionListener(&onShaftSignal, "main loop");
 }
