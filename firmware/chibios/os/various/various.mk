@@ -1,2 +1,1 @@
-
-VARIOUS_SRC = chibios\os\various\chprintf.c
+VARIOUS_SRC = ${CHIBIOS}/os/various/chprintf.c
