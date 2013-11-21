@@ -1,4 +1,3 @@
-
 #include "main.h"
 #include "boards.h"
 #include "engine_configuration.h"
@@ -11,22 +10,22 @@ extern EngineConfiguration *engineConfiguration;
  *
  * */
 myfloat getTpsValue(int adc) {
-	return interpolate( engineConfiguration->tpsMin, 0, engineConfiguration->tpsMax, 100, adc);
+	return interpolate(engineConfiguration->tpsMin, 0, engineConfiguration->tpsMax, 100, adc);
 }
 
 /*
  * Return voltage on TPS AND channel
  * */
-myfloat getTPSVoltage(void){
+myfloat getTPSVoltage(void) {
 	return getVoltage(ADC_LOGIC_TPS);
 }
 
 /*
  * Return TPS ADC readings
  */
-int getTPSAdc(void){
+int getTPSAdc(void) {
 	int adc = getAdcValue(ADC_LOGIC_TPS);
-	return (int)adc/4; // Only for TunerStudio compatibility. Max TS adc value in 1023
+	return (int) adc / 4; // Only for TunerStudio compatibility. Max TS adc value in 1023
 }
 
 /*
