@@ -91,8 +91,7 @@ void initEngineContoller(void) {
 	initWaveAnalyzer();
 #endif
 
-	setDefaultEngineConfiguration();
-	initFuelMap();
+	prepareFuelMap();
 
 	/**
 	 * there is an implicit dependency on the fact that 'tachometer' listener is the 1st listener - this case

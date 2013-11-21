@@ -16,6 +16,7 @@
 #include "print.h"
 
 #include "tunerstudio.h"
+#include "engine_controller.h"
 
 #include "datalogging.h"
 
@@ -118,9 +119,8 @@ static void setDefaultConfiguration(void) {
 		engineConfiguration->battInjectorLagCorrBins[i] = 12 - VBAT_INJECTOR_CURVE_SIZE / 2 + i;
 		engineConfiguration->battInjectorLagCorr[i] = 1;
 	}
-	engineConfiguration->tpsMin = 0;
-	engineConfiguration->tpsMax = 1023;
-	setDefaultFuelMap();
+
+	setDefaultEngineConfiguration();
 
 #if EFI_TUNER_STUDIO
 	syncTunerStudioCopy();
