@@ -35,6 +35,8 @@ int main(void) {
 	 * Initialize hardware drivers
 	 */
 	initHardware();
+
+	initStatusLoop();
 	/**
 	 * Now let's initialize actual engine control logic
 	 */
@@ -43,8 +45,6 @@ int main(void) {
 #if EFI_ENGINE_EMULATOR
 	initEngineEmulator();
 #endif
-
-	initStatusLoop();
 
 	print("Running main loop\r\n");
 	main_loop_started = TRUE;
