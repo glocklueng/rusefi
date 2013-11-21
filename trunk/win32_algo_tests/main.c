@@ -66,3 +66,7 @@ int main(void) {
 	return EXIT_SUCCESS;
 }
 
+void warning(char *msg, float value) {
+	printf("Warning: %s %f\r\n", msg, value);
+}
+

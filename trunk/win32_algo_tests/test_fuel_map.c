@@ -30,6 +30,8 @@ void testFuelMap(void) {
 		}
 	}
 
+	assertEquals(0, getInjectorLag(12));
+
 	for (int i = 0; i < FUEL_MAF_COUNT; i++)
 		engineConfiguration->fuelKeyBins[i] = i;
 	for (int i = 0; i < FUEL_RPM_COUNT; i++)
