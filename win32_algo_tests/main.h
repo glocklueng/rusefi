@@ -31,5 +31,7 @@ float getIntakeAirTemperature();
 float getCoolantTemperature();
 float getVBatt();
 
+void warning(char *msg, float value);
+
 
 #endif /* MAIN_H_ */
