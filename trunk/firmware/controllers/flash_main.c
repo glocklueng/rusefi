@@ -114,7 +114,8 @@ static void setDefaultConfiguration(void) {
 		engineConfiguration->battInjectorLagCorrBins[i] = 12 - VBAT_INJECTOR_CURVE_SIZE / 2 + i;
 		engineConfiguration->battInjectorLagCorr[i] = 1;
 	}
-
+	engineConfiguration->tpsMin = 0;
+	engineConfiguration->tpsMax = 1023;
 	setDefaultFuelMap();
 
 #if EFI_TUNER_STUDIO

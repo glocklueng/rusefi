@@ -28,8 +28,23 @@ myfloat convertCelciustoKelvin(myfloat tempC);
 myfloat convertCelciustoF(myfloat tempC);
 myfloat convertFtoCelcius(myfloat tempF);
 
-int getTpsValue(myfloat volts);
 myfloat getKelvinTemperature(myfloat voltage, float hiR);
 myfloat getTemperatureC(myfloat voltage, float hiR);
+myfloat getCoolantTemperature(void);
+myfloat getIntakeAirTemperature(void);
+
+/**
+ * @brief thermisor curve params
+ */
+typedef struct {
+	float s_h_a;
+	float s_h_b;
+	float s_h_c;
+} ThermistorCurve;
+
+typedef struct {
+	ThermistorCurve curve;
+	int pin;
+} Thermistor;
 
 #endif /* THERMISTORS_H_ */

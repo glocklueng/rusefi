@@ -172,6 +172,7 @@ void updateTunerStudioState() {
 	tsOutputChannels.mass_air_flow = getMaf();
 	tsOutputChannels.air_fuel_ratio = getAfr();
 	tsOutputChannels.v_batt = getVBatt();
+	tsOutputChannels.tpsADC= getTPSAdc();
 }
 
 #endif /* EFI_TUNER_STUDIO */
