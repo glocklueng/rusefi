@@ -50,13 +50,6 @@
 // todo: this value is way off! I am pretty sure temp coeffs are off also
 #define IAT_HI_RESISTOR 2700
 
-/**
- * @brief Engine coolant temperature, C
- */
-#define getCoolantTemperature() (getTemperatureC(adcToVolts(getAdcValue(ADC_LOGIC_COOLANT)), CLT_HI_RESISTOR))
-
-#define getIntakeAirTemperature() (getTemperatureC(adcToVolts(getAdcValue(ADC_LOGIC_AIR)), IAT_HI_RESISTOR))
-
 void confgiureShaftPositionEmulatorShape(PwmConfig *state);
 void configureEngineEventHandler(EventHandlerConfiguration *config);
 

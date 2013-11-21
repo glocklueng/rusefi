@@ -26,6 +26,7 @@ typedef struct {
 	float air_fuel_ratio; // size 4, offset 20
 	float fuel_load; // size 4, offset 24
 	float v_batt; // size 4, offset 28
+	int tpsADC; // size 2, offset 32
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */

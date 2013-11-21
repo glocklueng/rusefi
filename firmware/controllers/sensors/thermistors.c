@@ -16,6 +16,7 @@
 #include "main.h"
 #include "thermistors.h"
 
+static Thermistor thermistors[];
 /**
  * http://en.wikipedia.org/wiki/Voltage_divider
  */
@@ -37,7 +38,7 @@ myfloat getVoutInVoltageDividor(myfloat Vin, myfloat r1, myfloat r2) {
 
 myfloat convertResistanceToKelvinTemperature(myfloat resistance) {
 	if (resistance <= 0) {
-		warning("Invalid resistance in convertResistanceToKelvinTemperature=", resistance);
+		//warning("Invalid resistance in convertResistanceToKelvinTemperature=", resistance);
 		return 0;
 	}
 	myfloat logR = log(resistance);
@@ -74,6 +75,14 @@ myfloat getKelvinTemperature(myfloat voltage, float hiR) {
 myfloat getTemperatureC(myfloat voltage, float hiR) {
 	myfloat kelvinTemperature = getKelvinTemperature(voltage, hiR);
 	return convertKelvinToC(kelvinTemperature);
+}
+
+myfloat  getCoolantTemperature(void) {
+	return getTemperatureC(adcToVolts(getAdcValue(ADC_LOGIC_COOLANT)), CLT_HI_RESISTOR);
+}
+
+myfloat  getIntakeAirTemperature(void) {
+	return getTemperatureC(adcToVolts(getAdcValue(ADC_LOGIC_AIR)), IAT_HI_RESISTOR);
 }
 
 #endif /* THERMISTORS_C_ */

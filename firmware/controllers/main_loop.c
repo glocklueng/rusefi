@@ -26,7 +26,6 @@
 #include "sensors.h"
 
 // todo: move this to EngineConfiguration2 for now
-#define RPM_HARD_LIMIT 8000
 
 extern EngineConfiguration *engineConfiguration;
 
@@ -54,7 +53,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 	assertCylinderId(cylinderId, "onShaftSignal");
 
 	int rpm = getCurrentRpm();
-	if (rpm > RPM_HARD_LIMIT) {
+	if (rpm > engineConfiguration->rpmHardLimit) {
 		scheduleSimpleMsg(&logger, "RPM above hard limit ", rpm);
 		return;
 	}
@@ -74,7 +73,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 }
 
 static int getSparkDwell(int rpm) {
-	if (rpm > RPM_HARD_LIMIT) {
+	if (rpm > engineConfiguration->rpmHardLimit) {
 		warning("skipping spark due to rpm=", rpm);
 		return 0;
 	}
