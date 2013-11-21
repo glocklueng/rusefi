@@ -106,7 +106,10 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	int sparkAdvance = convertAngleToSysticks(rpm, advance);
 
 	int dwell = getSparkDwell(rpm);
-	chDbgCheck(dwell > 0, "invalid dwell");
+	chDbgCheck(dwell >= 0, "invalid dwell");
+
+	if (dwell == 0)
+		return; // hard RPM limit was hit
 
 	int sparkDelay = 0; //timeTillNextRise + sparkAdvance - dwell;
 	if (sparkDelay < 0) {
