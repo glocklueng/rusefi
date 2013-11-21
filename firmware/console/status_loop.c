@@ -208,7 +208,6 @@ void initStatusLoop(void) {
 	setFullLog(INITIAL_FULL_LOG);
 
 	addConsoleAction2I("sfm", showFuelMap);
-	showFuelMap(2400, 280);
 
 	addConsoleAction1(FULL_LOGGING_KEY, &setFullLog);
 	addConsoleAction("status", printStatus);
