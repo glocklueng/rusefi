@@ -276,9 +276,11 @@ extern int main_loop_started;
 
 void onDbgPanic(void);
 
+int hasFatalError(void);
+
 void chDbgPanic(const char *msg, char * file, int line) {
 #if CH_DBG_ENABLED
-	if(dbg_panic_msg!=NULL)
+	if(hasFatalError())
 		return;
 	onDbgPanic();
 	dbg_panic_file = file;
