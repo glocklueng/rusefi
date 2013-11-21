@@ -6,5 +6,6 @@
 #include "maf.h"
 #include "ego.h"
 #include "voltage.h"
+#include "thermistors.h"
 
 #endif /*SENSORS_H_*/

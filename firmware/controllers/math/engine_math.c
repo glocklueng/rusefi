@@ -14,6 +14,13 @@
 
 /**
  * @brief linear interpolation
+ * interpolate(engineConfiguration.tpsMin, 0, engineConfiguration.tpsMax, 100, adc);
+ * x1 low point value at y1 input
+ * y1 input level for x1 value
+ * x2 hight point value at y2 input
+ * y2 input level for x2 value
+ * x input value to get intorpolated value between x1 and x2
+ * function returns value between y1 and y2
  */
 
 float interpolate(float x1, float y1, float x2, float y2, float x) {
