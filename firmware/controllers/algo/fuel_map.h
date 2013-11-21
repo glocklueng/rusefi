@@ -8,8 +8,7 @@
 #ifndef FUEL_MAP_H_
 #define FUEL_MAP_H_
 
-void initFuelMap(void);
-void setDefaultFuelMap(void);
+void prepareFuelMap(void);
 
 float getBaseFuel(int rpm, float key);
 float getIatCorrection(float iat);

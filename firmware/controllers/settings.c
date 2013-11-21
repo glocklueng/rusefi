@@ -11,14 +11,12 @@
 #include "datalogging.h"
 #include "main.h"
 
-static volatile int injectionPeriod = 0;
 static volatile int crankingInjectionPeriod = 0;
 static volatile int injectionOffset = 0;
 
 static Logging logger;
 
 static void printSettings(void) {
-	msgInt(&logger, "msg,injectionPeriod ", injectionPeriod);
 	msgInt(&logger, "msg,cranking injectionPeriod ", crankingInjectionPeriod);
 	msgInt(&logger, "msg,injectionOffset ", injectionOffset);
 
@@ -34,11 +32,6 @@ void setInjectionOffset(int value) {
 	printSettings();
 }
 
-void setInjectionPeriod(int value) {
-	injectionPeriod = value;
-	printSettings();
-}
-
 int getCrankingInjectionPeriod(void) {
 	return crankingInjectionPeriod;
 }
@@ -49,13 +42,13 @@ void setCrankingInjectionPeriod(int value) {
 }
 
 void initSettings(void) {
+	// todo: this whole method is legacy stuff
+	// todo: the whole file is prettu much legacy pre-TunerStudio stuff
 	initLogging(&logger, "inje control", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	setInjectionOffset(0);
-	setInjectionPeriod(30);
 	//setCrankingInjectionPeriod(TICKS_IN_MS * 1.5);
 
-	addConsoleAction1("p", &setInjectionPeriod);
 	addConsoleAction1("cp", &setCrankingInjectionPeriod);
 	addConsoleAction1("o", &setInjectionOffset);
 }

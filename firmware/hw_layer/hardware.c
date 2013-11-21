@@ -52,7 +52,8 @@ void initHardware() {
 
 	/**
 	 * this call reads configuration from flash memory or sets default configuration
-	 * if flash state does not look right
+	 * if flash state does not look right.
+	 * todo: Technically this is not hardware, should we move this?
 	 */
 	initFlash();
 
