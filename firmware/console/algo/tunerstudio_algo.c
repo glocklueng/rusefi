@@ -41,6 +41,10 @@
 
 TunerStudioState tsState;
 TunerStudioOutputChannels tsOutputChannels;
+/**
+ * this is a local copy of the configuration. Any changes to this copy
+ * have no effect until this copy is explicitly propagated to the main working copy
+ */
 EngineConfiguration tsContstants;
 
 int tunerStudioHandleCommand(short command) {

@@ -121,10 +121,10 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
  * This is the main entry point into the primary shaft signal handler signal. Both injection and ignition are controlled from this method.
  */
 static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
-  if(eventIndex>=SHAFT_POSITION_EVENT_COUNT) {
-    warning("unexpected eventIndex=", eventIndex);
-    return;
-  }
+	if (eventIndex >= SHAFT_POSITION_EVENT_COUNT) {
+		warning("unexpected eventIndex=", eventIndex);
+		return;
+	}
 	handleFuel(ckpSignalType, eventIndex);
 	handleSpark(ckpSignalType, eventIndex);
 }
