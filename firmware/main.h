@@ -22,9 +22,8 @@
 
 #include "datalogging.h"
 
+// todo: why the heck is this declaration here?
 float getFuelMs(int rpm);
-
-void warning(char *msg, float value);
 
 #include "stm32f4xx_specific.h"
 
@@ -47,6 +46,8 @@ void warning(char *msg, float value);
 
 #define Delay(ms) chThdSleepMilliseconds(ms)
 
+void warning(char *msg, float value);
+int hasFatalError(void);
 void fatal3(char *msg, char *file, int line);
 #define fatal(x) (fatal3(x, __FILE__, __LINE__));
 

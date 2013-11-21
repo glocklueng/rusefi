@@ -22,16 +22,18 @@ float interpolate2d(float value, float bin[], float values[], int size) {
 	if (index == size - 1)
 		return values[size - 1];
 
-	return interpolate(bin[index], values[index], bin[index + 1],
-			values[index + 1], value);
+	return interpolate(bin[index], values[index], bin[index + 1], values[index + 1], value);
 }
 
-float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[],
-		int yBinSize, float* map[]) {
-	if (isnan(y))
-		fatal("x is NaN in interpolate3d\r\n");
-	if (isnan(y))
-		fatal("y is NaN in interpolate3d\r\n");
+float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], int yBinSize, float* map[]) {
+	if (isnan(y)) {
+		warning("x is NaN in interpolate3d\r\n", x);
+		return NAN;
+	}
+	if (isnan(y)) {
+		warning("y is NaN in interpolate3d\r\n", y);
+		return NAN;
+	}
 
 	int xIndex = findIndex(xBin, xBinSize, x);
 #if	DEBUG_INTERPOLATION
@@ -83,8 +85,7 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[],
 	float rpmMinKeyMinValue = map[xIndex][yIndex];
 	float rpmMaxKeyMinValue = map[xIndex + 1][yIndex];
 
-	float keyMinValue = interpolate(xMin, rpmMinKeyMinValue, xMax,
-			rpmMaxKeyMinValue, x);
+	float keyMinValue = interpolate(xMin, rpmMinKeyMinValue, xMax, rpmMaxKeyMinValue, x);
 
 #if	DEBUG_INTERPOLATION
 	printf("X=%f:\r\nrange %f - %f\r\n", x, xMin, xMax);
@@ -98,8 +99,7 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[],
 	float rpmMinKeyMaxValue = map[xIndex][keyMaxIndex];
 	float rpmMaxKeyMaxValue = map[rpmMaxIndex][keyMaxIndex];
 
-	float keyMaxValue = interpolate(xMin, rpmMinKeyMaxValue, xMax,
-			rpmMaxKeyMaxValue, x);
+	float keyMaxValue = interpolate(xMin, rpmMinKeyMaxValue, xMax, rpmMaxKeyMaxValue, x);
 
 #if	DEBUG_INTERPOLATION
 	printf("key=%f:\r\nrange %f - %f\r\n", y, keyMin, keyMax);
