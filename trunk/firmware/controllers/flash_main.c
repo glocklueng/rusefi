@@ -81,6 +81,10 @@ static void printConfiguration(void) {
 	printFloatArray("vBatt: ", engineConfiguration->battInjectorLagCorr, VBAT_INJECTOR_CURVE_SIZE);
 	printFloatArray("vBatt bins: ", engineConfiguration->battInjectorLagCorrBins, VBAT_INJECTOR_CURVE_SIZE);
 
+	print("rpmHardLimit: %d\r\n", engineConfiguration->rpmHardLimit);
+
+	print("tpsMin: %d\r\n", engineConfiguration->tpsMin);
+	print("tpsMax: %d\r\n", engineConfiguration->tpsMax);
 }
 
 static int isValid(FlashState *state) {

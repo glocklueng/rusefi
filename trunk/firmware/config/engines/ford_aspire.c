@@ -24,6 +24,7 @@
 #include "engine_configuration.h"
 
 extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration *engineConfiguration;
 
 static float getCrankingFuel(void) {
 	const int fuelOverride = getCrankingInjectionPeriod();
@@ -94,7 +95,9 @@ void configureEngineEventHandler(EventHandlerConfiguration *config) {
 }
 
 void setDefaultEngineConfiguration(void) {
-	engineConfiguration2.tps_idle = 0.60;
-	engineConfiguration2.tps_wot = 4.23;
+	engineConfiguration->tpsMin = 1;
+	engineConfiguration->tpsMax = 1000;
+
+	engineConfiguration->rpmHardLimit = 7000;
 }
 #endif /* EFI_ENGINE_FORD_ASPIRE */

@@ -46,9 +46,6 @@ typedef struct {
  * these fields are not integrated with Tuner Studio. Step by step :)
  */
 typedef struct {
-	float injectionLag;
-	float tps_idle;
-	float tps_wot;
 } EngineConfiguration2;
 
 
