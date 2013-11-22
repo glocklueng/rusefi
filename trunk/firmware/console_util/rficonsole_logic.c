@@ -100,7 +100,7 @@ static float atof(char *string) {
 	return result;
 }
 
-static void help() {
+static void help(void) {
 	print("%d actions available:\r\n", consoleActionCount);
 	int i;
 	for (i = 0; i < consoleActionCount; i++) {
