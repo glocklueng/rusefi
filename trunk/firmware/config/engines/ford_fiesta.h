@@ -31,7 +31,7 @@
 #define CLT_HI_RESISTOR 1500
 #define IAT_HI_RESISTOR 2700
 
-void confgiureShaftPositionEmulatorShape(PwmConfig *state);
+void configureShaftPositionEmulatorShape(PwmConfig *state);
 void configureEngineEventHandler(EventHandlerConfiguration *config);
 
 #endif /* EFI_ENGINE_FORD_FIESTA */

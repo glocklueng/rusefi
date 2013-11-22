@@ -35,7 +35,7 @@ float getFuelMs(int rpm) {
 	}
 }
 
-void confgiureShaftPositionEmulatorShape(PwmConfig *state) {
+void configureShaftPositionEmulatorShape(PwmConfig *state) {
 	skippedToothPositionEmulatorShape(state);
 }
 
