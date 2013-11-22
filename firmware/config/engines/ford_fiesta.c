@@ -9,6 +9,7 @@
 
 #if EFI_ENGINE_FORD_FIESTA
 
+#include "ford_fiesta.h"
 #include "engine_configuration.h"
 
 extern EngineConfiguration2 engineConfiguration2;
