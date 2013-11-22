@@ -43,7 +43,7 @@
 #define getTPS() 0
 #define getAfr() 0
 
-void confgiureShaftPositionEmulatorShape(PwmConfig *state);
+void configureShaftPositionEmulatorShape(PwmConfig *state);
 
 #define PRIMARY_SHAFT_POSITION_INPUT_DRIVER ICUD4
 #define PRIMARY_SHAFT_POSITION_INPUT_PORT GPIOB

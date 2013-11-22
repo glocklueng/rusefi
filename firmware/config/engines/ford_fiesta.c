@@ -14,7 +14,7 @@
 extern EngineConfiguration2 engineConfiguration2;
 extern EngineConfiguration *engineConfiguration;
 
-void confgiureShaftPositionEmulatorShape(PwmConfig *state) {
+void configureShaftPositionEmulatorShape(PwmConfig *state) {
 
 }
 

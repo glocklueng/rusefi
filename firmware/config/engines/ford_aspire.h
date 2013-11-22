@@ -44,7 +44,7 @@
 // and you would get zero multiplier
 #define RPM_MULT 0.5
 
-void confgiureShaftPositionEmulatorShape(PwmConfig *state);
+void configureShaftPositionEmulatorShape(PwmConfig *state);
 void configureEngineEventHandler(EventHandlerConfiguration *config);
 
 #define EFI_SHAFT_POSTION_NEEDS_SECONDARY TRUE

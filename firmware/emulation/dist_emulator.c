@@ -3,7 +3,7 @@
  * @brief   Position sensor(s) emulation code
  *
  * This file is mostly about initialization, the configuration is
- * provided by the confgiureShaftPositionEmulatorShape method
+ * provided by the configureShaftPositionEmulatorShape method
  *
  *  Created on: Dec 9, 2012
  *      Author: Andrey Belomutskiy, (c) 2012-2013
@@ -53,8 +53,7 @@ void initShaftPositionEmulator(void) {
 			SECONDARY_SHAFT_POSITION_EMULATION_PORT, SECONDARY_SHAFT_POSITION_EMULATION_PIN);
 #endif
 
-	confgiureShaftPositionEmulatorShape(&configuration);
-
+	configureShaftPositionEmulatorShape(&configuration);
 
 	setRevolutionPeriod(DEFAULT_EMULATION_RPM);
 

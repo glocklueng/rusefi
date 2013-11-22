@@ -235,7 +235,7 @@ float fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT] = { {/*0 rpm=400.0*//*0 1.20000
 9.23, /*26 3.800000047683718*/12.56, /*27 3.900000047683718*/14.61, /*28 4.000000047683718*/15.22, /*29 4.100000047683718*/
 15.19, /*30 4.200000047683718*/15.13, /*31 4.300000047683717*/15.17, /*32 4.400000047683717*/15.15 } };
 
-void confgiureShaftPositionEmulatorShape(PwmConfig *state) {
+void configureShaftPositionEmulatorShape(PwmConfig *state) {
 	myfloat x = ASPIRE_MAGIC_DUTY_CYCLE / 4;
 
 	/**
@@ -295,7 +295,7 @@ static void setDefaultFuelMap(void) {
 	}
 }
 
-void setDefaultEngineConfiguration(void) {
+void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->tpsMin = 1;
 	engineConfiguration->tpsMax = 1000;
 
