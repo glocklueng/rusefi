@@ -15,6 +15,9 @@
 #define SKIPPED_TEETH_COUNT 1
 #define SHAFT_POSITION_EVENT_COUNT ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2)
 
+// this should be included after 'SHAFT_POSITION_EVENT_COUNT'. todo - fix this
+#include "main_loop.h"
+
 #define EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR TRUE
 
 #define RPM_MULT (1)
@@ -25,7 +28,11 @@
 
 #define ENGINE_CRANKING_RPM 400
 
+#define CLT_HI_RESISTOR 1500
+#define IAT_HI_RESISTOR 2700
+
 void confgiureShaftPositionEmulatorShape(PwmConfig *state);
+void configureEngineEventHandler(EventHandlerConfiguration *config);
 
 #endif /* EFI_ENGINE_FORD_FIESTA */
 #endif /* FORD_FIESTA_H_ */

@@ -15,6 +15,7 @@
 
 #include "main.h"
 #include "thermistors.h"
+#include "adc_inputs.h"
 
 static Thermistor thermistors[];
 /**

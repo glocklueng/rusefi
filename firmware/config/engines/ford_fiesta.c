@@ -9,9 +9,21 @@
 
 #if EFI_ENGINE_FORD_FIESTA
 
+#include "engine_configuration.h"
+
+extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration *engineConfiguration;
 
 void confgiureShaftPositionEmulatorShape(PwmConfig *state) {
 
+}
+
+void configureEngineEventHandler(EventHandlerConfiguration *config) {
+
+}
+
+void setDefaultEngineConfiguration(void) {
+	engineConfiguration->rpmHardLimit = 7000;
 }
 
 #endif /* EFI_ENGINE_FORD_FIESTA */

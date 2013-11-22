@@ -13,6 +13,7 @@
 #include "output_pins.h"
 #include "signal_executor.h"
 #include "rficonsole_logic.h"
+#include "main_loop.h"
 
 static OutputSignal injectors[MAX_INJECTOR_COUNT];
 

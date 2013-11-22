@@ -2,6 +2,7 @@
 #include "boards.h"
 #include "engine_configuration.h"
 #include "engine_math.h"
+#include "adc_inputs.h"
 
 myfloat getMap(void) {
 	float volts = getVoltage(ADC_LOGIC_MAP);
