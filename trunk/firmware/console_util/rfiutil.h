@@ -20,7 +20,6 @@
 
 #define _MAX_FILLER 11
 
-int strLength(char *msgp);
 char* itoa(char *p, int num);
 char* itoa_signed(char *p, int num, unsigned radix);
 char hexC(int v);
