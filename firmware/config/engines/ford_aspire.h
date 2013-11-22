@@ -55,17 +55,6 @@ void configureEngineEventHandler(EventHandlerConfiguration *config);
 
 #define EFI_SHAFT_POSTION_NEEDS_SECONDARY TRUE
 
-
-#if EFI_EMULATE_POSITION_SENSORS
-// One signal per cam shaft revolution
-#define PRIMARY_SHAFT_POSITION_EMULATION_PIN 4
-#define PRIMARY_SHAFT_POSITION_EMULATION_PORT GPIOD
-// Four signals per cam shaft revolution
-#define SECONDARY_SHAFT_POSITION_EMULATION_PORT GPIOD
-#define SECONDARY_SHAFT_POSITION_EMULATION_PIN 1
-#endif /* EFI_EMULATE_POSITION_SENSORS */
-
 #endif /* EFI_ENGINE_FORD_ASPIRE */
-
 
 #endif /* FORD_ASPIRE_H_ */
