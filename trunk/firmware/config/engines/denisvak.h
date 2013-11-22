@@ -36,36 +36,13 @@
 
 #define NUMBER_OF_CYLINDERS 4
 
-#define getCoolantTemperature() 0
-#define getIntakeAirTemperature() 0
-
-#define getMaf() 0
-#define getTPS() 0
-#define getAfr() 0
-
 void configureShaftPositionEmulatorShape(PwmConfig *state);
 
-#define PRIMARY_SHAFT_POSITION_INPUT_DRIVER ICUD4
-#define PRIMARY_SHAFT_POSITION_INPUT_PORT GPIOB
-#define PRIMARY_SHAFT_POSITION_INPUT_PIN 7
-#define PRIMARY_SHAFT_POSITION_INPUT_CHANNEL ICU_CHANNEL_2
+void configureEngineEventHandler(EventHandlerConfiguration *config);
 
-#define INJECTOR_1_PORT GPIOD
-#define INJECTOR_1_PIN 3
-
-#define INJECTOR_2_PORT GPIOD
-#define INJECTOR_2_PIN 0
-
-#define INJECTOR_3_PORT GPIOD
-#define INJECTOR_3_PIN 2
-
-#define INJECTOR_4_PORT GPIOD
-#define INJECTOR_4_PIN 1
-
-#define SPARK_1_PORT GPIOD
-#define SPARK_1_PIN 7
-
-void configureInjection(InjectionConfiguration *injectionConfiguration);
+#define CLT_HI_RESISTOR 1500
+// todo: this value is way off! I am pretty sure temp coeffs are off also
+#define IAT_HI_RESISTOR 2700
 
 #endif /* EFI_ENGINE_DENISVAK */
 
