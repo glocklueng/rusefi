@@ -10,6 +10,8 @@
 
 #if EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR
 
+#include "toothed_wheel_emulator.h"
+
 static myfloat switchTimes[2 * TOTAL_TEETH_COUNT];
 static int pinStates0[2 * TOTAL_TEETH_COUNT];
 
