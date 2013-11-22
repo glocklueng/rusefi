@@ -186,6 +186,7 @@ static int strEqual(char *str1, char *str2) {
 static Logging logger;
 
 void initConsoleLogic() {
+	initIntermediateLoggingBuffer();
 	initLogging(&logger, "console logic", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 }
 
