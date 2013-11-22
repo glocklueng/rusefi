@@ -74,6 +74,10 @@ static char *ltoa(char *p, long num, unsigned radix) {
 #if CHPRINTF_USE_FLOAT
 static char *ftoa(char *p, double num) {
   long l;
+  if (num != num)
+  {
+    return "NaN";
+  };
   unsigned long precision = FLOAT_PRECISION;
 
   l = num;
@@ -105,8 +109,16 @@ static char *ftoa(char *p, double num) {
  * @param[in] chp       pointer to a @p BaseSequentialStream implementing object
  * @param[in] fmt       formatting string
  */
-void chprintf(BaseSequentialStream *chp, const char *fmt, ...) {
+void chprintf(BaseSequentialStream *chp, const char *fmt, ...) 
+{
   va_list ap;
+  va_start(ap, fmt);
+  vchprintf(chp, fmt, ap);
+  va_end(ap);
+} 
+ 
+void vchprintf(BaseSequentialStream *chp, const char *fmt, va_list ap) {
+  
   char *p, *s, c, filler;
   int i, precision, width;
   bool_t is_long, left_align;
@@ -117,8 +129,6 @@ void chprintf(BaseSequentialStream *chp, const char *fmt, ...) {
 #else
   char tmpbuf[MAX_FILLER + 1];
 #endif
-
-  va_start(ap, fmt);
   while (TRUE) {
     c = *fmt++;
     if (c == 0) {
