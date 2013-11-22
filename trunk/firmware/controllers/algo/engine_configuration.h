@@ -1,8 +1,9 @@
 /*
- * engine_configuration.h
+ * @file	engine_configuration.h
+ * @brief	Main engine configuration data structure.
  *
  *  Created on: Oct 30, 2013
- *      Author: Andrey
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef ENGINE_CONFIGURATION_H_
@@ -46,8 +47,10 @@ typedef struct {
  * these fields are not integrated with Tuner Studio. Step by step :)
  */
 typedef struct {
-  int unused;
+	int unused;
 } EngineConfiguration2;
 
+void setDefaultConfiguration(EngineConfiguration *engineConfiguration);
+void printConfiguration(EngineConfiguration *engineConfiguration);
 
 #endif /* ENGINE_CONFIGURATION_H_ */
