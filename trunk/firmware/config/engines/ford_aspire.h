@@ -16,14 +16,10 @@
 #if EFI_ENGINE_FORD_ASPIRE
 
 #include "global.h"
-#include "adc_inputs.h"
 #include "thermistors.h"
 #include "pwm_generator.h"
 
 #define SHAFT_POSITION_EVENT_COUNT 10
-
-#define EFI_SIGNAL_EXECUTOR_SLEEP TRUE
-//#define EFI_SIGNAL_EXECUTOR_HW_TIMER TRUE
 
 #include "main_loop.h"
 
@@ -41,13 +37,12 @@
 #define ENGINE_HAS_MAP_SENSOR TRUE
 
 #define CLT_HI_RESISTOR 1500
+// todo: this value is way off! I am pretty sure temp coeffs are off also
+#define IAT_HI_RESISTOR 2700
 
 // be careful not to put brackets around the value, otherwise integer math would trigger
 // and you would get zero multiplier
 #define RPM_MULT 0.5
-
-// todo: this value is way off! I am pretty sure temp coeffs are off also
-#define IAT_HI_RESISTOR 2700
 
 void confgiureShaftPositionEmulatorShape(PwmConfig *state);
 void configureEngineEventHandler(EventHandlerConfiguration *config);

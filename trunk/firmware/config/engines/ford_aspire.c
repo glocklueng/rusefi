@@ -235,28 +235,6 @@ float fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT] = { {/*0 rpm=400.0*//*0 1.20000
 9.23, /*26 3.800000047683718*/12.56, /*27 3.900000047683718*/14.61, /*28 4.000000047683718*/15.22, /*29 4.100000047683718*/
 15.19, /*30 4.200000047683718*/15.13, /*31 4.300000047683717*/15.17, /*32 4.400000047683717*/15.15 } };
 
-
-static float getCrankingFuel(void) {
-	const int fuelOverride = getCrankingInjectionPeriod();
-	if (fuelOverride != 0) {
-		return fuelOverride / 10.0;
-	} else {
-		return getStartingFuel(getCoolantTemperature());
-	}
-}
-
-/**
- * @brief	Length of fuel injection, in milliseconds
- */
-float getFuelMs(int rpm) {
-	if (isCranking()) {
-		return getCrankingFuel();
-	} else {
-		myfloat fuel = getFuel(rpm, getMaf());
-		return fuel;
-	}
-}
-
 void confgiureShaftPositionEmulatorShape(PwmConfig *state) {
 	myfloat x = ASPIRE_MAGIC_DUTY_CYCLE / 4;
 

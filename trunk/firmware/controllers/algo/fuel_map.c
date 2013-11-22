@@ -10,6 +10,9 @@
 #include "interpolation_3d.h"
 #include "engine_configuration.h"
 #include "sensors.h"
+#include "engine_controller.h"
+#include "engine_math.h"
+#include "settings.h"
 
 static float *fuel_ptrs[FUEL_MAF_COUNT];
 static int initialized = FALSE;
@@ -52,6 +55,27 @@ float getBaseFuel(int rpm, float key) {
 	// todo: use bins from the engineConfiguration
 	return interpolate3d(key, engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT, rpm, engineConfiguration->fuelRpmBins,
 	FUEL_RPM_COUNT, fuel_ptrs);
+}
+
+float getCrankingFuel(void) {
+	const int fuelOverride = getCrankingInjectionPeriod();
+	if (fuelOverride != 0) {
+		return fuelOverride / 10.0;
+	} else {
+		return getStartingFuel(getCoolantTemperature());
+	}
+}
+
+/**
+ * @brief	Length of fuel injection, in milliseconds
+ */
+float getFuelMs(int rpm) {
+	if (isCranking()) {
+		return getCrankingFuel();
+	} else {
+		myfloat fuel = getFuel(rpm, getMaf());
+		return fuel;
+	}
 }
 
 float getFuel(int rpm, float key) {
