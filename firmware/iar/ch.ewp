@@ -2692,6 +2692,15 @@
         <name>$PROJ_DIR$\..\chibios\os\ports\common\ARMCMx\nvic.h</name>
       </file>
     </group>
+    <group>
+      <name>various</name>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\various\chprintf.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\various\chprintf.h</name>
+      </file>
+    </group>
   </group>
   <group>
     <name>util</name>
