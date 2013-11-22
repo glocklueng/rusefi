@@ -139,7 +139,7 @@ static void initWave(char *name, int index, ICUDriver *driver, ioportid_t port, 
 //	return previousCrankSignalStart;
 //}
 
-static int getCrankPeriod() {
+static int getCrankPeriod(void) {
 	return ckpPeriod;
 }
 
