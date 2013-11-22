@@ -12,8 +12,6 @@
 
 #if EFI_ENGINE_SNOW_BLOWER
 
-#define ENGINE_CRANKING_RPM 400
-
 #define NUMBER_OF_CYLINDERS 1
 
 #define EFI_ENGINE_ID "Snow Blower"

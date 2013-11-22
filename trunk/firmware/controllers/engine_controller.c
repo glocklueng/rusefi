@@ -26,6 +26,9 @@
 #include "wave_analyzer.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
+
+extern EngineConfiguration *engineConfiguration;
+
 /**
  * CH_FREQUENCY is the number of system ticks in a second
  */
@@ -38,7 +41,7 @@ EngineConfiguration2 engineConfiguration2;
 
 int isCranking(void) {
 	int rpm = getCurrentRpm();
-	return rpm > 0 && rpm < ENGINE_CRANKING_RPM;
+	return rpm > 0 && rpm < engineConfiguration->crankingRpm;
 }
 
 int systicks2ms(int systicks) {

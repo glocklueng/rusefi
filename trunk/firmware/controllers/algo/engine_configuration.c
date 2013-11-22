@@ -28,6 +28,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	}
 
 	engineConfiguration->rpmHardLimit = 7000;
+	engineConfiguration->crankingRpm = 400;
 }
 
 static void printIntArray(int array[], int size) {
@@ -69,4 +70,6 @@ void printConfiguration(EngineConfiguration *engineConfiguration) {
 
 	print("tpsMin: %d\r\n", engineConfiguration->tpsMin);
 	print("tpsMax: %d\r\n", engineConfiguration->tpsMax);
+
+	print("crankingRpm: %d\r\n", engineConfiguration->crankingRpm);
 }
