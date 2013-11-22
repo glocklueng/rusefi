@@ -63,6 +63,7 @@ static msg_t eeThread(void *arg) {
 		flag = FALSE;
 		emulate();
 	}
+	return (msg_t)NULL;
 }
 
 void startEmulator() {

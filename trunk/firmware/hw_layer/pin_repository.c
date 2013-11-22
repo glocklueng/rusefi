@@ -55,6 +55,7 @@ static int getPortIndex(GPIO_TypeDef* port) {
 	if (port == GPIOH)
 		return 6;
 	fatal("portindex");
+	return -1;
 }
 
 static void reportPins(void) {

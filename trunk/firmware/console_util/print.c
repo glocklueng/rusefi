@@ -6,7 +6,6 @@
  * It kinda seems like float support is a bit broken :(
  */
 
-
 #include <stdarg.h>
 #include <string.h>
 #include <stdbool.h>
@@ -19,10 +18,9 @@
 #include "chstreams.h"
 #include "chprintf.h"
 
-void print (const char *format, ...)
-{
-  va_list ap;
-  va_start(ap, format);
-  vchprintf(CONSOLE_CHANNEL, format, ap);
-  va_end(ap);
+void print(const char *format, ...) {
+	va_list ap;
+	va_start(ap, format);
+	vchprintf((BaseSequentialStream *) CONSOLE_CHANNEL, format, ap);
+	va_end(ap);
 }
