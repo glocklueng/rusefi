@@ -34,7 +34,7 @@ typedef struct {
 
 	short int tpsMin; // size 2, offset 330
 	short int tpsMax; // size 2, offset 332
-	short int fake;   // size 2, offset 334       for alignment
+	short int crankingRpm;   // size 2, offset 334
 
 	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 336
 	float fuelKeyBins[FUEL_MAF_COUNT]; // offset 3372

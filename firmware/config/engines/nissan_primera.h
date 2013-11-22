@@ -32,8 +32,6 @@
 
 #define EFI_ENGINE_ID "DenisVak"
 
-#define ENGINE_CRANKING_RPM 400
-
 #define NUMBER_OF_CYLINDERS 4
 
 void configureShaftPositionEmulatorShape(PwmConfig *state);

@@ -37,8 +37,7 @@ EngineConfiguration *engineConfiguration = &flashState.configuration;
 void writeToFlash(void) {
 	flashState.version = FLASH_DATA_VERSION;
 	scheduleSimpleMsg(&logger, "FLASH_DATA_VERSION=", flashState.version);
-	crc result = calc_crc((const crc*) &flashState.configuration,
-			sizeof(EngineConfiguration));
+	crc result = calc_crc((const crc*) &flashState.configuration, sizeof(EngineConfiguration));
 	flashState.value = result;
 	scheduleSimpleMsg(&logger, "Reseting flash=", FLASH_USAGE);
 	flashErase(FLASH_ADDR, FLASH_USAGE);
@@ -52,8 +51,7 @@ static int isValid(FlashState *state) {
 		scheduleSimpleMsg(&logger, "Not valid flash version: ", state->version);
 		return FALSE;
 	}
-	crc result = calc_crc((const crc*) &state->configuration,
-			sizeof(EngineConfiguration));
+	crc result = calc_crc((const crc*) &state->configuration, sizeof(EngineConfiguration));
 	if (result != state->value) {
 		scheduleSimpleMsg(&logger, "CRC got: ", result);
 		scheduleSimpleMsg(&logger, "CRC expected: ", state->value);
@@ -62,8 +60,13 @@ static int isValid(FlashState *state) {
 }
 
 static void resetConfiguration(void) {
+	/**
+	 * Let's apply global defaults first
+	 */
 	setDefaultConfiguration(engineConfiguration);
-
+	/**
+	 * And override them with engine-specific defaults
+	 */
 	setDefaultEngineConfiguration(engineConfiguration);
 
 #if EFI_TUNER_STUDIO
@@ -88,8 +91,7 @@ static void doPrintConfiguration(void) {
 }
 
 void initFlash(void) {
-	initLogging(&logger, "Flash memory", logger.DEFAULT_BUFFER,
-			sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "Flash memory", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 	print("initFlash()\r\n");
 
 	addConsoleAction("showconfig", doPrintConfiguration);
