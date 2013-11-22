@@ -9,11 +9,29 @@
  */
 
 #include <string.h>
+#include <stdarg.h>
+#include <stdbool.h>
 #include "datalogging.h"
 #include "main.h"
 #include "rfiutil.h"
+#include "chprintf.h"
+#include "chsem.h"
+#include "memstreams.h"
 
 #define OUTPUT_BUFFER 5000
+#define INTERMEDIATE_LOGGING_BUFFER_SIZE 2000
+
+static MemoryStream intermediateLoggingBuffer;
+static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE]; //todo define max-printf-buffer
+// this semaphore guards the 'intermediateLoggingBuffer'
+static Semaphore semPrintfLogging;
+static bool intermediateLoggingBufferInited = FALSE;
+
+void initIntermediateLoggingBuffer(void) {
+	msObjectInit(&intermediateLoggingBuffer, intermediateLoggingBufferData, INTERMEDIATE_LOGGING_BUFFER_SIZE, 0);
+	chSemInit(&semPrintfLogging, 1);
+	intermediateLoggingBufferInited = TRUE;
+}
 
 static char* getCaption(int loggingPoint) {
 	switch (loggingPoint) {
@@ -31,7 +49,7 @@ static char* getCaption(int loggingPoint) {
 		return "MAP";
 	}
 	fatal("No such loggingPoint");
-	return NULL;
+	return NULL ;
 }
 
 static char* get2ndCaption(int loggingPoint) {
@@ -50,11 +68,11 @@ static char* get2ndCaption(int loggingPoint) {
 		return "MAP";
 	}
 	fatal("No such loggingPoint");
-	return NULL;
+	return NULL ;
 }
 
 static int validateBuffer(Logging *logging, int extraLen, char *text) {
-	if (logging->buffer == NULL) {
+	if (logging->buffer == NULL ) {
 		strcpy(logging->SMALL_BUFFER, "Logging not initialized: ");
 		strcat(logging->SMALL_BUFFER, logging->name);
 		strcat(logging->SMALL_BUFFER, "/");
@@ -102,17 +120,6 @@ void appendInt(Logging *logging, int value) {
 void msgInt(Logging *logging, char *caption, int value) {
 	append(logging, caption);
 	appendInt(logging, value);
-	append(logging, DELIMETER);
-}
-
-void debugInt2(Logging *logging, char *caption, int captionSuffix, int value) {
-	append(logging, caption);
-	itoa(logging->SMALL_BUFFER, captionSuffix);
-	append(logging, logging->SMALL_BUFFER);
-	append(logging, DELIMETER);
-
-	itoa(logging->SMALL_BUFFER, value);
-	append(logging, logging->SMALL_BUFFER);
 	append(logging, DELIMETER);
 }
 
@@ -255,8 +262,6 @@ void scheduleIntValue(Logging *logging, char *msg, int value) {
 }
 
 static char pendingBuffer[OUTPUT_BUFFER];
-
-static char fatalMessage[200];
 
 void scheduleLogging(Logging *logging) {
 	// this could be done without locking

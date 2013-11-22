@@ -42,11 +42,12 @@ typedef struct {
 void lockOutputBuffer(void);
 void unlockOutputBuffer(void);
 
+void initIntermediateLoggingBuffer(void);
+
 void initLogging(Logging *logging, char *name, char *buffer, int bufferSize);
 
 void msgInt(Logging *logging, char *caption, int value);
 void debugInt(Logging *logging, char *caption, int value);
-void debugInt2(Logging *logging, char *caption, int captionSuffix, int value);
 
 void debugFloat(Logging *logging, char *text, myfloat value, int precision);
 void debugFloat2(Logging *logging, char *caption, int captionSuffix, myfloat value, int precision);
