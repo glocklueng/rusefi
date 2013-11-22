@@ -19,7 +19,7 @@
 #include "ford_aspire.h"
 #include "ford_fiesta.h"
 #include "snow_blower.h"
-#include "denisvak.h"
+#include "nissan_primera.h"
 
 #include "datalogging.h"
 
