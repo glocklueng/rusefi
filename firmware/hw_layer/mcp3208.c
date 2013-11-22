@@ -27,7 +27,7 @@ int getMcp3208adc(int channel) {
 	return getValue(hack, channel);
 }
 
-static int getNextChannel() {
+static int getNextChannel(void) {
 	return adcEventCounter % 2;
 }
 
