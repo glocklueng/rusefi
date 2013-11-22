@@ -22,7 +22,7 @@ void configureEngineEventHandler(EventHandlerConfiguration *config) {
 
 }
 
-void setDefaultEngineConfiguration(void) {
+void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 }
 

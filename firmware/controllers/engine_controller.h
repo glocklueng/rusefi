@@ -11,9 +11,10 @@
 
 #include "global.h"
 #include "signal_executor.h"
+#include "engine_configuration.h"
 
 int isCranking(void);
 void initEngineContoller(void);
-void setDefaultEngineConfiguration(void);
+void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration);
 
 #endif /* ENGINE_STATUS_H_ */

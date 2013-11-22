@@ -47,47 +47,6 @@ void writeToFlash(void) {
 	scheduleSimpleMsg(&logger, "Flashed: ", result);
 }
 
-static void printIntArray(int array[], int size) {
-	for (int j = 0; j < size; j++)
-		print("%d ", array[j]);
-	print("\r\n");
-}
-
-static void printFloatArray(char *prefix, float array[], int size) {
-	print(prefix);
-	for (int j = 0; j < size; j++)
-		print("%f ", array[j]);
-	print("\r\n");
-}
-
-static void printConfiguration(void) {
-	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
-		print("line %d (%f): ", k, engineConfiguration->fuelKeyBins[k]);
-		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
-			print("%f ", engineConfiguration->fuelTable[k][r]);
-		}
-		print("\r\n");
-	}
-
-	printFloatArray("RPM bin: ", engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT);
-
-	printFloatArray("Y bin: ", engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT);
-
-	printFloatArray("CLT: ", engineConfiguration->cltFuelCorr, CLT_CURVE_SIZE);
-	printFloatArray("CLT bins: ", engineConfiguration->cltFuelCorrBins, CLT_CURVE_SIZE);
-
-	printFloatArray("IAT: ", engineConfiguration->iatFuelCorr, IAT_CURVE_SIZE);
-	printFloatArray("IAT bins: ", engineConfiguration->iatFuelCorrBins, IAT_CURVE_SIZE);
-
-	printFloatArray("vBatt: ", engineConfiguration->battInjectorLagCorr, VBAT_INJECTOR_CURVE_SIZE);
-	printFloatArray("vBatt bins: ", engineConfiguration->battInjectorLagCorrBins, VBAT_INJECTOR_CURVE_SIZE);
-
-	print("rpmHardLimit: %d\r\n", engineConfiguration->rpmHardLimit);
-
-	print("tpsMin: %d\r\n", engineConfiguration->tpsMin);
-	print("tpsMax: %d\r\n", engineConfiguration->tpsMax);
-}
-
 static int isValid(FlashState *state) {
 	if (state->version != FLASH_DATA_VERSION) {
 		scheduleSimpleMsg(&logger, "Not valid flash version: ", state->version);
@@ -102,25 +61,10 @@ static int isValid(FlashState *state) {
 	return result == state->value;
 }
 
-static void setDefaultConfiguration(void) {
-	engineConfiguration->injectorLag = 0.5;
+static void resetConfiguration(void) {
+	setDefaultConfiguration(engineConfiguration);
 
-	for (int i = 0; i < IAT_CURVE_SIZE; i++) {
-		engineConfiguration->iatFuelCorrBins[i] = -40 + i * 10;
-		engineConfiguration->iatFuelCorr[i] = 1;
-	}
-
-	for (int i = 0; i < CLT_CURVE_SIZE; i++) {
-		engineConfiguration->cltFuelCorrBins[i] = -40 + i * 10;
-		engineConfiguration->cltFuelCorr[i] = 1;
-	}
-
-	for (int i = 0; i < VBAT_INJECTOR_CURVE_SIZE; i++) {
-		engineConfiguration->battInjectorLagCorrBins[i] = 12 - VBAT_INJECTOR_CURVE_SIZE / 2 + i;
-		engineConfiguration->battInjectorLagCorr[i] = 1;
-	}
-
-	setDefaultEngineConfiguration();
+	setDefaultEngineConfiguration(engineConfiguration);
 
 #if EFI_TUNER_STUDIO
 	syncTunerStudioCopy();
@@ -132,11 +76,15 @@ static void readFromFlash(void) {
 
 	if (!isValid(&flashState)) {
 		scheduleSimpleMsg(&logger, "Not valid flash state, setting default", 0);
-		setDefaultConfiguration();
+		resetConfiguration();
 		return;
 	} else {
 		scheduleSimpleMsg(&logger, "Got valid state from flash!", 0);
 	}
+}
+
+static void doPrintConfiguration(void) {
+	printConfiguration(engineConfiguration);
 }
 
 void initFlash(void) {
@@ -144,11 +92,11 @@ void initFlash(void) {
 			sizeof(logger.DEFAULT_BUFFER));
 	print("initFlash()\r\n");
 
-	addConsoleAction("showconfig", printConfiguration);
+	addConsoleAction("showconfig", doPrintConfiguration);
 
 	addConsoleAction("readconfig", readFromFlash);
 	addConsoleAction("writeconfig", writeToFlash);
-	addConsoleAction("resetconfig", setDefaultConfiguration);
+	addConsoleAction("resetconfig", resetConfiguration);
 
 	readFromFlash();
 }
