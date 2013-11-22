@@ -124,4 +124,7 @@
 #define SPARK_1_PORT GPIOD
 #define SPARK_1_PIN 3
 
+#define IDLE_SWITCH_PORT GPIOC
+#define IDLE_SWITCH_PIN 8
+
 #endif /*ARRO_BOARD_H_*/

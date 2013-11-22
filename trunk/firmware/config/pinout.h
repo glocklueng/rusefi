@@ -27,7 +27,4 @@
 
 #endif
 
-#define IDLE_SWITCH_PORT GPIOC
-#define IDLE_SWITCH_PIN 8
-
 #endif /* PINOUT_H_ */
