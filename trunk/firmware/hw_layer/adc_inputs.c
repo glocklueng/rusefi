@@ -320,7 +320,7 @@ static void printAdcValue(int channel) {
 	scheduleSimpleMsg(&logger, "adc voltage x100: ", (int) (100 * volts));
 }
 
-static void printFullAdcReport() {
+static void printFullAdcReport(void) {
 	for (int i = 0; i < EFI_ADC_SLOW_CHANNELS_COUNT; i++) {
 		msgInt(&logger, " ch", i);
 		int value = getAdcValueByIndex(i);
@@ -331,7 +331,7 @@ static void printFullAdcReport() {
 	scheduleLogging(&logger);
 }
 
-static void printStatus() {
+static void printStatus(void) {
 	scheduleIntValue(&logger, ADC_DEBUG_KEY, adcDebugReporting);
 }
 

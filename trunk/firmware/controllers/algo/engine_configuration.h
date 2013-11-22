@@ -46,6 +46,7 @@ typedef struct {
  * these fields are not integrated with Tuner Studio. Step by step :)
  */
 typedef struct {
+  int unused;
 } EngineConfiguration2;
 
 

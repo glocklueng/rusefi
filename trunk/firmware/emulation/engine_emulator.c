@@ -31,7 +31,7 @@ void setDiag(int value) {
 
 #define PERIOD 3000
 
-void emulate() {
+void emulate(void) {
 	print("Emulating...\r\n");
 	setDiag(1);
 	chThdSleep(1);
@@ -66,7 +66,7 @@ static msg_t eeThread(void *arg) {
 	return (msg_t)NULL;
 }
 
-void startEmulator() {
+void startEmulator(void) {
 	flag = TRUE;
 }
 
@@ -75,7 +75,7 @@ static void printAdvance(int rpm, int maf100) {
 	print("advance for %d rpm %d maf100: %f\r\n", rpm, maf100, advance);
 }
 
-static void initECUstimulator() {
+static void initECUstimulator(void) {
 	mySetPadMode("TEN", DIAG_PORT, DIAG_PIN,
 	PAL_MODE_OUTPUT_PUSHPULL);
 

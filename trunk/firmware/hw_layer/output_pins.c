@@ -50,7 +50,7 @@ void outputPinRegister(char *msg, int ledIndex, GPIO_TypeDef *port, uint32_t pin
 /**
  * This method would blink all the LEDs just to test them
  */
-static void initialLedsBlink() {
+static void initialLedsBlink(void) {
 	int size = sizeof(leds) / sizeof(leds[0]);
 	for (int i = 0; i < size; i++)
 		setOutputPinValue(leds[i], 1);
@@ -61,7 +61,7 @@ static void initialLedsBlink() {
 		setOutputPinValue(leds[i], 0);
 }
 
-void initOutputPins() {
+void initOutputPins(void) {
 	outputPinRegister("is cranking status", LED_CRANKING, GPIOD, GPIOD_LED3);
 	outputPinRegister("is running status", LED_RUNNING, GPIOD, GPIOD_LED4);
 	outputPinRegister("alive1", LED_FATAL, GPIOD, GPIOD_LED5);

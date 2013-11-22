@@ -10,7 +10,7 @@
 #include "print.h"
 
 size_t flashSectorSize(flashsector_t sector) {
-	if (sector >= 0 && sector <= 3)
+	if (sector <= 3)
 		return 16 * 1024;
 	else if (sector == 4)
 		return 64 * 1024;
