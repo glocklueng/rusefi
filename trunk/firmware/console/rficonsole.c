@@ -7,7 +7,7 @@
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
-#define VERSION_STRING 20131122
+#define VERSION_STRING 20131123
 
 #include <stdarg.h>
 #include <string.h>

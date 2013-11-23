@@ -1,7 +1,7 @@
 #include "main.h"
 #include "boards.h"
 #include "engine_configuration.h"
-#include "engine_math.h"
+#include "interpolation.h"
 #include "adc_inputs.h"
 
 extern EngineConfiguration *engineConfiguration;

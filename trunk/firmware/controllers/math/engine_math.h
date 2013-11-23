@@ -8,16 +8,11 @@
 #ifndef ENGINE_MATH_H_
 #define ENGINE_MATH_H_
 
-float interpolate(float x1, float y1, float x2, float y2, float x);
-
-float getMAPValueHonda_Denso183(float volts);
-
-float getDefaultVE(int rpm);
+//float getDefaultVE(int rpm);
 
 float getDefaultFuel(int rpm, float map);
-float getTCharge(int rpm, int tps, float coolantTemp, float airTemp);
+//float getTCharge(int rpm, int tps, float coolantTemp, float airTemp);
 
-int findIndex(float array[], int size, float value);
 float getStartingFuel(int coolantTemperature);
 
 /**

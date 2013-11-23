@@ -7,7 +7,7 @@
 
 #include "main.h"
 #include "fuel_map.h"
-#include "interpolation_3d.h"
+#include "interpolation.h"
 #include "engine_configuration.h"
 #include "sensors.h"
 #include "engine_controller.h"
