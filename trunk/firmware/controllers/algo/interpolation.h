@@ -1,5 +1,5 @@
 /**
- * @file    interpolation_3d.h
+ * @file    interpolation.h
  *
  *  Created on: Oct 17, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

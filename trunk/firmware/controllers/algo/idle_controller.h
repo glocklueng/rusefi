@@ -1,5 +1,5 @@
-/*
- * idle_controller.h
+/**
+ * @file	idle_controller.h
  *
  *  Created on: May 22, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

@@ -1,4 +1,4 @@
-/*
+/**
  * @file	engine_configuration.h
  * @brief	Main engine configuration data structure.
  *

@@ -159,7 +159,7 @@ void printState(void) {
 //	debugFloat(&logger, "table_spark", getAdvance(rpm, getMaf()), 2);
 
 	if (MAF_MODE)
-		debugFloat(&logger, "table_fuel", getFuel(rpm, getMaf()), 2);
+		debugFloat(&logger, "table_fuel", getRunningFuel(rpm, getMaf()), 2);
 	else {
 #if ENGINE_HAS_MAP_SENSOR
 		myfloat map = getMap();
@@ -198,7 +198,7 @@ static void showFuelMap(int rpm, int key100) {
 	print("iatCorrection=%f cltCorrection=%f injectorLag=%d\r\n", iatCorrection, cltCorrection,
 			(int) (100 * injectorLag));
 
-	myfloat value = getFuel(rpm, key);
+	myfloat value = getRunningFuel(rpm, key);
 
 	print("fuel map rpm=%d, key=%f: %d\r\n", rpm, key, (int) (100 * value));
 
