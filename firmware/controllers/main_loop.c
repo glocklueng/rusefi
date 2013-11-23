@@ -20,7 +20,7 @@
 #include "injector_central.h"
 #include "ignition_central.h"
 #include "engine_configuration.h"
-#include "interpolation_3d.h"
+#include "interpolation.h"
 #include "advance_map.h"
 #include "sensors.h"
 

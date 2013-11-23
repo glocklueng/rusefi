@@ -6,7 +6,7 @@
  */
 
 #include "advance_map.h"
-#include "engine_math.h"
+#include "interpolation.h"
 // that's for 'max' function
 #include "idle_controller.h"
 

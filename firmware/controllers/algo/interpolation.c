@@ -1,19 +1,84 @@
-/*
+/**
+ * @file    interpolation.c
+ * @brief	Linear interpolation algorithms
+ *
  *  Created on: Oct 17, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
-/**
- * @file    interpolation_3d.c
  */
 
 #include <stdio.h>
 #include <math.h>
 
 #include "main.h"
-#include "interpolation_3d.h"
-#include "engine_math.h"
+#include "interpolation.h"
 
+#define INTERPOLATION_A(x1, y1, x2, y2) ((y1 - y2) / (x1 - x2))
+
+/** @brief	Linear interpolation by two points
+ *
+ * @param	x1 key of the first point
+ * @param	y1 value of the first point
+ * @param	x2 key of the second point
+ * @param	y2 value of the second point
+ * @param	X key to be interpolated
+ *
+ * @note	For example, "interpolate(engineConfiguration.tpsMin, 0, engineConfiguration.tpsMax, 100, adc);"
+ */
+float interpolate(float x1, float y1, float x2, float y2, float x) {
+	// a*x1 + b = y1
+	// a*x2 + b = y2
+//	chDbgCheck(x1 != x2, "no way we can interpolate");
+	float a = INTERPOLATION_A(x1, y1, x2, y2);
+	float b = y1 - a * x1;
+	float result = a * x + b;
+#if	DEBUG_FUEL
+	printf("x1=%f y1=%f x2=%f y2=%f\r\n", x1, y1, x2, y2);
+	printf("a=%f b=%f result=%f\r\n", a, b, result);
+#endif
+	return result;
+}
+
+/** @brief	Binary search
+ * @returns	the highest index within sorted array such that array[i] is greater than or equal to the parameter
+ * @note If the parameter is smaller than the first element of the array, -1 is returned.
+ */
+int findIndex(float array[], int size, float value) {
+	if (isnan(value))
+		fatal("NaN in findIndex\r\n");
+
+	if (value < array[0])
+		return -1;
+	int middle;
+
+	int left = 0;
+	int right = size;
+
+	while (1) {
+		if (size-- == 0)
+			fatal("Unexpected state in binary search.");
+
+		middle = (left + right) / 2;
+
+//		print("left=%d middle=%d right=%d: %f\r\n", left, middle, right, array[middle]);
+
+		if (middle == left)
+			break;
+
+		if (value < array[middle]) {
+			right = middle;
+		} else if (value > array[middle]) {
+			left = middle;
+		} else {
+			break;
+		}
+	}
+
+	return middle;
+}
+
+/**
+ * @brief	One-dimensional table lookup with linear interpolation
+ */
 float interpolate2d(float value, float bin[], float values[], int size) {
 	int index = findIndex(bin, size, value);
 
@@ -25,6 +90,9 @@ float interpolate2d(float value, float bin[], float values[], int size) {
 	return interpolate(bin[index], values[index], bin[index + 1], values[index + 1], value);
 }
 
+/**
+ * @brief	Two-dimensional table lookup with linear interpolation
+ */
 float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], int yBinSize, float* map[]) {
 	if (isnan(y)) {
 		warning("x is NaN in interpolate3d\r\n", x);
@@ -75,7 +143,7 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 		return map[xBinSize - 1][yBinSize - 1];
 	}
 
-	/**
+	/*
 	 * first we find the interpolated value for this RPM
 	 */
 	int rpmMaxIndex = xIndex + 1;
