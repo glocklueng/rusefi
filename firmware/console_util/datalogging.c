@@ -33,6 +33,24 @@ void initIntermediateLoggingBuffer(void) {
 	intermediateLoggingBufferInited = TRUE;
 }
 
+void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
+	if (!intermediateLoggingBufferInited) {
+		fatal("intermediateLoggingBufferInited not inited!");
+		return;
+	}
+	chSemWait(&semPrintfLogging);
+	chvprintf((BaseSequentialStream *) &intermediateLoggingBuffer, fmt, arg);
+	append(logging, (char *) intermediateLoggingBufferData);
+	chSemSignal(&semPrintfLogging);
+}
+
+void appendPrintf(Logging *logging, const char *fmt, ...) {
+	va_list ap;
+	va_start(ap, fmt);
+	vappendPrintf(logging, fmt, ap);
+	va_end(ap);
+}
+
 static char* getCaption(int loggingPoint) {
 	switch (loggingPoint) {
 	case LP_RPM:
