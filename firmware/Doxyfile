@@ -734,16 +734,16 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = \
-	../common_c_code/console_util \
-	../common_c_code/util \
 	config \
 	config/engines \
+	config/boards \
 	console \
 	controllers \
 	controllers/math \
-	hw_layer \
-	linked \
-	linked/controllers
+	controllers/algo \
+	controllers/sensors \
+	emulation \
+	hw_layer
 			
 
 # This tag can be used to specify the character encoding of the source files
