@@ -16,7 +16,8 @@
 #define VBAT_INJECTOR_CURVE_SIZE 8
 
 /**
- *
+ * @brief	Engine configuration.
+ * 		Values in this data structure are adjustable and persisted in on-board flash RAM.
  */
 typedef struct {
 	float injectorLag;	// size 4, offset 0

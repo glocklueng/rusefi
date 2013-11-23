@@ -9,6 +9,11 @@
 #include "engine_configuration.h"
 #include "print.h"
 
+/**
+ * @brief	Global default engine configuration
+ * This method sets the default global engine configuration. These values are later overridden by engine-specific defaults
+ * and the settings saves in flash memory.
+ */
 void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->injectorLag = 0.0;
 
@@ -25,6 +30,13 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	for (int i = 0; i < VBAT_INJECTOR_CURVE_SIZE; i++) {
 		engineConfiguration->battInjectorLagCorrBins[i] = 12 - VBAT_INJECTOR_CURVE_SIZE / 2 + i;
 		engineConfiguration->battInjectorLagCorr[i] = 1;
+	}
+
+	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
+		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
+			// 3ms would be the global default
+			engineConfiguration->fuelTable[k][r] = 3;
+		}
 	}
 
 	engineConfiguration->rpmHardLimit = 7000;
@@ -44,6 +56,9 @@ static void printFloatArray(char *prefix, float array[], int size) {
 	print("\r\n");
 }
 
+/**
+ * @brief	Prints current engine configuration to human-readable console.
+ */
 void printConfiguration(EngineConfiguration *engineConfiguration) {
 	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
 		print("line %d (%f): ", k, engineConfiguration->fuelKeyBins[k]);
