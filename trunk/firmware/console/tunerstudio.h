@@ -1,5 +1,5 @@
-/*
- * tunerstudio.h
+/**
+ * @file	tunerstudio.h
  *
  *  Created on: Aug 26, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

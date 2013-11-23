@@ -1,4 +1,4 @@
-/*
+/**
  * @file    dist_emulator.c
  * @brief   Position sensor(s) emulation code
  *

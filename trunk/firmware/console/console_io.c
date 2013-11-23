@@ -1,5 +1,5 @@
-/*
- * console_io.c
+/**
+ * @file	console_io.c
  *
  *  Created on: Dec 29, 2012
  *      Author: Andrey Belomutskiy, (c) 2012-2013

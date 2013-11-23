@@ -1,5 +1,6 @@
 /**
  * @file    injector_central.h
+ * @brief	Utility methods related to fuel injection.
  *
  *
  *  Created on: Sep 8, 2013

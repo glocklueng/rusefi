@@ -1,5 +1,5 @@
-/*
- * console_loop.c
+/**
+ * @file	status_loop.c
  *
  *  Created on: Mar 15, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

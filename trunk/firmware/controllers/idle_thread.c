@@ -1,13 +1,12 @@
-/*
- *  Created on: May 23, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
 /**
  * @file    idle_thread.c
  * @brief   Idle Air Control valve thread.
  *
  * 			This thread looks at current RPM and decides if it should increase or decrease IAC duty cycle
+ *
+ *
+ *  Created on: May 23, 2013
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"

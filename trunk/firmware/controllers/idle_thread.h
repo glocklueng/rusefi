@@ -1,5 +1,6 @@
-/*
- * idle_thread.h
+/**
+ * @file	idle_thread.h
+ * @brief	Idle Valve Control thread
  *
  *  Created on: May 23, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

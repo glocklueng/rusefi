@@ -1,4 +1,4 @@
-/*
+/**
  * @file	wave_analyzer.c
  * @brief	Initialization of Input Capture pins used for dev console sniffer
  *

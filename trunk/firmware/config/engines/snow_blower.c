@@ -1,10 +1,9 @@
-/*
- *  Created on: Sep 9, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
 /**
  * @file    snow_blower.c
+ * @brief	Default configuration of a single-cylinder engine
+ *
+ *  Created on: Sep 9, 2013
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"

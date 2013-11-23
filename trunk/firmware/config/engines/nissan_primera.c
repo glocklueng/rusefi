@@ -1,10 +1,8 @@
-/*
+/**
+ * @file	nissan_primera.c
+ *
  *  Created on: Oct 14, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
-/**
- * @file    denisvak.c
  */
 
 #include "main.h"

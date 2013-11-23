@@ -1,11 +1,9 @@
-/*
- *  Created on: Nov 15, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
 /**
  * @file    rfiutil.c
  * @brief   Number to string conversion code
+ *
+ *  Created on: Nov 15, 2012
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include <string.h>

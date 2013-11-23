@@ -1,12 +1,8 @@
-/*
+/**
+ * @file	nissan_primera.h
+ *
  *  Created on: Oct 14, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
-/**
- * @file    denisvak.h
- *
- * 		This file should only be included from engine.h
  */
 
 #include "features.h"

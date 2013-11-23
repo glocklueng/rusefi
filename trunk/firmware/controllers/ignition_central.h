@@ -1,4 +1,4 @@
-/*
+/**
  * @file	ignition_central.h
  * @brirf	TODO
  *
