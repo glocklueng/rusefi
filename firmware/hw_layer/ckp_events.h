@@ -1,5 +1,6 @@
-/*
- * ckp_events.h
+/**
+ * @file	ckp_events.h
+ * @brief	Position sensor event enum
  *
  *  Created on: Feb 9, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

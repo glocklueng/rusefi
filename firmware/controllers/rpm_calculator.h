@@ -1,4 +1,4 @@
-/*
+/**
  * @file    rpm_calculator.h
  * @brief   Shaft position sensor(s) decoder header
  *
