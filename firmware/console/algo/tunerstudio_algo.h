@@ -1,4 +1,4 @@
-/*
+/**
  * @file	tunerstudio_algo.h
  *
  *  Created on: Oct 22, 2013

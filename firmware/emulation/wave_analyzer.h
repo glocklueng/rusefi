@@ -1,5 +1,6 @@
-/*
- * wave_analyzer.h
+/**
+ * @file	wave_analyzer.h
+ *
  *
  *  Created on: Jan 7, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

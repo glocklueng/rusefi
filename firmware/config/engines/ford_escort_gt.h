@@ -1,5 +1,6 @@
-/*
- * ford_escort_gt.h
+/**
+ * @file	ford_escort_gt.h
+ * @brief	1993 Ford Escort GT engine configuration. The US Escort.
  *
  *  Created on: Oct 31, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

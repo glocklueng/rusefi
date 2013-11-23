@@ -1,10 +1,9 @@
-/*
- *  Created on: Sep 9, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
 /**
  * @file    ford_aspire.c
+ * @brief	1996 Ford Aspire default engine configuraion
+ *
+ *  Created on: Sep 9, 2013
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"

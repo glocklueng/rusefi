@@ -1,5 +1,6 @@
-/*
+/**
  * @file	ford_fiesta.c
+ * @brief	European 1990 Ford Fiesta
  *
  *  Created on: Nov 22, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

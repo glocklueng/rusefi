@@ -1,11 +1,10 @@
-/*
- *  Created on: Feb 9, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
 /**
  * @file    main_loop.h
  * @brief   Main logic header
+ *
+ *
+ *  Created on: Feb 9, 2013
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef MAIN_LOOP_H_

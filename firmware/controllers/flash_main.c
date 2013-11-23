@@ -1,4 +1,4 @@
-/*
+/**
  * @file    flash_main.c
  * @brief	Higher-level logic of saving data into internal flash memory
  *

@@ -1,12 +1,9 @@
-/*
+/**
+ * @file    usbconsole.h
+ *
  *  Created on: Oct 14, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
-
-/**
- * @file    usbconsole.h
- */
-
 
 #ifndef USBCONSOLE_H_
 #define USBCONSOLE_H_

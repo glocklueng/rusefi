@@ -1,4 +1,4 @@
-/*
+/**
  * @file    injector_central.c
  * @brief	Utility methods related to fuel injection.
  *

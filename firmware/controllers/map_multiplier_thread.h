@@ -1,9 +1,7 @@
-/*
- * @brief dead code
+/**
+ * @file	map_multiplier.h
+ * @brief	dead code
  *
- *
- *
- * map_multiplier.h
  *
  *  Created on: Jul 23, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

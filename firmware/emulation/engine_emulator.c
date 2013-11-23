@@ -1,4 +1,4 @@
-/*
+/**
  * @file	engine_emulator.c
  * @brief	Entry point for all the emulation and analysis code
  *

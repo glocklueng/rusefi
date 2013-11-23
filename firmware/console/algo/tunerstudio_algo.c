@@ -1,4 +1,4 @@
-/*
+/**
  * @file	tunerstudio_algo.c
  * @brief	Tuner Studio plain protocol implementation
  *

@@ -1,4 +1,4 @@
-/*
+/**
  * @file	toothed_wheel_emulator.h
  * @brief	Missing-tooth wheel signal emulator
  *

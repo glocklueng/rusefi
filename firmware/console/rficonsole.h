@@ -1,13 +1,10 @@
-/*
- *  Created on: Nov 15, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
 /**
  * @file    rficonsole.h
  * @brief   Console package entry point header
+ *
+ *  Created on: Nov 15, 2012
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
-
 
 #pragma once
 #ifndef RFICONSOLE_H_

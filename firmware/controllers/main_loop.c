@@ -1,7 +1,6 @@
-/*
+/**
  * @file    main_loop.c
  * @brief   Main logic code
- *
  *
  *
  *  Created on: Feb 7, 2013

@@ -1,5 +1,6 @@
-/*
- * poten.h
+/**
+ * @file	poten.h
+ * @brief	MCP42010 digital potentiometer driver
  *
  *  Created on: Mar 16, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

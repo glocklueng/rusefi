@@ -1,5 +1,5 @@
-/*
- * wave_chart.h
+/**
+ * @file	wave_chart.h
  *
  *  Created on: Jun 23, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013

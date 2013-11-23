@@ -1,10 +1,9 @@
-/*
- *  Created on: Sep 19, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
 /**
  * @file    flash_main.h
+ * @brief
+ *
+ *  Created on: Sep 19, 2013
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef FLASH_MAIN_H_
