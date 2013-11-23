@@ -1,4 +1,4 @@
-/*
+/**
  * @file    rpm_calculator.c
  * @brief   RPM calculator
  *

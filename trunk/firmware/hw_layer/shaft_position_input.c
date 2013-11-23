@@ -1,4 +1,4 @@
-/*
+/**
  * @file	shaft_position_input.c
  * @brief	Position sensor hardware layer
  *
