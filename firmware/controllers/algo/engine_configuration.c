@@ -1,4 +1,4 @@
-/*
+/**
  * @file	engine_controller.c
  * @brief	Utility method related to the engine configuration data structure.
  *

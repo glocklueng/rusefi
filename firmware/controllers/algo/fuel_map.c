@@ -1,5 +1,6 @@
-/*
- * fuel.c
+/**
+ * @file	fuel_map.c
+ * @brief	Fuel calculation methods
  *
  *  Created on: May 27, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
@@ -19,7 +20,8 @@ static int initialized = FALSE;
 extern EngineConfiguration *engineConfiguration;
 
 /**
- * this method has nothing to do with fuel map VALUES - it's job
+ * @brief	Initialize fuel map data structure
+ * @note this method has nothing to do with fuel map VALUES - it's job
  * is to prepare the fuel map data structure for 3d interpolation
  */
 void prepareFuelMap(void) {
@@ -40,6 +42,11 @@ float getIatCorrection(float iat) {
 	return interpolate2d(iat, engineConfiguration->iatFuelCorrBins, engineConfiguration->iatFuelCorr, IAT_CURVE_SIZE);
 }
 
+/**
+ * @brief	Injector lag correction
+ * @param	vBatt	Battery voltage.
+ * @return	Time in ms for injection opening time based on current battery voltage
+ */
 float getInjectorLag(float vBatt) {
 	if (isnan(vBatt)) {
 		warning("vBatt=", vBatt);
@@ -52,7 +59,6 @@ float getInjectorLag(float vBatt) {
 
 float getBaseFuel(int rpm, float key) {
 	chDbgAssert(initialized, "fuel map initialized", NULL);
-	// todo: use bins from the engineConfiguration
 	return interpolate3d(key, engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT, rpm, engineConfiguration->fuelRpmBins,
 	FUEL_RPM_COUNT, fuel_ptrs);
 }
@@ -67,18 +73,18 @@ float getCrankingFuel(void) {
 }
 
 /**
- * @brief	Length of fuel injection, in milliseconds
+ * @returns	Length of fuel injection, in milliseconds
  */
 float getFuelMs(int rpm) {
 	if (isCranking()) {
 		return getCrankingFuel();
 	} else {
-		myfloat fuel = getFuel(rpm, getMaf());
+		myfloat fuel = getRunningFuel(rpm, getMaf());
 		return fuel;
 	}
 }
 
-float getFuel(int rpm, float key) {
+float getRunningFuel(int rpm, float key) {
 	float baseFuel = getBaseFuel(rpm, key);
 
 	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
