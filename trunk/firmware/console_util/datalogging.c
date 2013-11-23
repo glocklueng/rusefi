@@ -38,8 +38,11 @@ void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
 		fatal("intermediateLoggingBufferInited not inited!");
 		return;
 	}
+	// todo: use? lockOutputBuffer? fix lockOutputBuffer?
 	chSemWait(&semPrintfLogging);
+	intermediateLoggingBuffer.eos = 0; // reset
 	chvprintf((BaseSequentialStream *) &intermediateLoggingBuffer, fmt, arg);
+	intermediateLoggingBuffer.buffer[intermediateLoggingBuffer.eos] = 0; // need to terminate explicitly
 	append(logging, (char *) intermediateLoggingBufferData);
 	chSemSignal(&semPrintfLogging);
 }
