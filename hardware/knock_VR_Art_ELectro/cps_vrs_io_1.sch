@@ -24,13 +24,14 @@ LIBS:display
 LIBS:cypress
 LIBS:siliconi
 LIBS:contrib
-EELAYER 24 0
+LIBS:cps_vrs_io_1-cache
+EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "cps_vrs_io_1"
-Date "18 nov 2013"
+Date "24 nov 2013"
 Rev ""
 Comp "based on http://code.google.com/p/daecu/"
 Comment1 "cps_vrs_io_1"
@@ -65,7 +66,7 @@ Wire Wire Line
 Wire Wire Line
 	11000 2425 10375 2425
 Wire Wire Line
-	14775 1825 14250 1825
+	14250 1825 14775 1825
 Wire Bus Line
 	1000 1650 1000 3525
 Connection ~ -4675 3450
@@ -80,7 +81,7 @@ Connection ~ 12250 2925
 Wire Wire Line
 	12250 2925 12250 2825
 Wire Wire Line
-	12750 2525 12750 2925
+	12750 2925 12750 2525
 Connection ~ 12600 1425
 Wire Wire Line
 	12100 1425 12750 1425
@@ -96,7 +97,7 @@ Wire Wire Line
 Connection ~ 12750 2325
 Connection ~ 12750 2225
 Wire Wire Line
-	12750 2350 12750 2125
+	12750 2125 12750 2350
 Wire Wire Line
 	12100 1925 12750 1925
 Connection ~ 12250 1925
@@ -114,7 +115,7 @@ Wire Wire Line
 	12250 1425 12250 1525
 Connection ~ 12250 1425
 Wire Wire Line
-	12750 2925 12100 2925
+	12100 2925 12750 2925
 Connection ~ 12600 2925
 Wire Wire Line
 	10575 1225 10600 1225
@@ -626,7 +627,7 @@ F 5 "digi,CR0805-FX-1002ELFCT-ND" V 880 2900 60  0001 C CNN "vend1,vend1#"
 	0    1    -1   0   
 $EndComp
 Wire Bus Line
-	2950 5600 2950 850 
+	2950 850  2950 5600
 Wire Wire Line
 	5450 2100 5725 2100
 Wire Notes Line
@@ -681,7 +682,7 @@ Connection ~ 8000 2400
 Connection ~ 7250 1800
 Wire Wire Line
 	7675 1800 7250 1800
-Connection ~ 8325 1800
+Connection ~ 8300 1800
 Wire Wire Line
 	6925 2300 7000 2300
 Wire Wire Line
@@ -691,9 +692,9 @@ Wire Wire Line
 Wire Wire Line
 	8650 2400 8650 2500
 Wire Wire Line
-	8075 1575 8325 1575
+	8075 1575 8300 1575
 Wire Wire Line
-	8325 1575 8325 1925
+	8300 1500 8300 1925
 Wire Wire Line
 	7675 1575 7250 1575
 Wire Wire Line
@@ -817,12 +818,12 @@ $EndComp
 $Comp
 L GND #PWR05
 U 1 1 4E39E4F8
-P 8325 1925
-F 0 "#PWR05" H 8325 1925 30  0001 C CNN
-F 1 "GND" H 8325 1855 30  0001 C CNN
-F 2 "" H 8325 1925 60  0001 C CNN
-F 3 "" H 8325 1925 60  0001 C CNN
-	1    8325 1925
+P 8300 1925
+F 0 "#PWR05" H 8300 1925 30  0001 C CNN
+F 1 "GND" H 8300 1855 30  0001 C CNN
+F 2 "" H 8300 1925 60  0001 C CNN
+F 3 "" H 8300 1925 60  0001 C CNN
+	1    8300 1925
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1041,4 +1042,16 @@ F 3 "" H 5725 2300 60  0001 C CNN
 	1    5725 2300
 	0    1    1    0   
 $EndComp
+$Comp
+L PWR_FLAG #FLG09
+U 1 1 5291FC2F
+P 8300 1500
+F 0 "#FLG09" H 8300 1595 30  0001 C CNN
+F 1 "PWR_FLAG" H 8300 1680 30  0000 C CNN
+F 2 "" H 8300 1500 60  0000 C CNN
+F 3 "" H 8300 1500 60  0000 C CNN
+	1    8300 1500
+	1    0    0    -1  
+$EndComp
+Connection ~ 8300 1575
 $EndSCHEMATC
