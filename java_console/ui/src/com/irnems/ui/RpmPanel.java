@@ -24,6 +24,10 @@ public class RpmPanel {
     public final WaveInfoPanel wave1 = new WaveInfoPanel(1);
     public final WaveInfoPanel wave2 = new WaveInfoPanel(2);
 
+    public RpmPanel() {
+        rpmControl.setSize(15);
+    }
+
     private WaveInfoPanel findWavePanel(int index) {
         WaveInfoPanel wave;
         if (index == 0)
@@ -54,13 +58,6 @@ public class RpmPanel {
 //        gauges.add(GaugePanel.createGauge(Sensor.MAF));
 
 
-        final Timer timer1 = new Timer(2000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                rpmControl.rpmValue.setForeground(Color.red);
-            }
-        });
-
         final Timer reconnectTimer = new Timer(10000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,11 +69,6 @@ public class RpmPanel {
         SerialManager.engineState.timeListeners.add(new EngineTimeListener() {
             @Override
             public void onTime(double time) {
-                rpmControl.rpmValue.setForeground(Color.green);
-                /**
-                 * this timer will catch engine inactivity and display a warning
-                 */
-                postponeReconnecting(timer1);
                 /**
                  * this timer will reconnect
                  */
@@ -88,7 +80,7 @@ public class RpmPanel {
         JComponent rpmPanel = new JPanel(new BorderLayout());
         rpmPanel.setBorder(BorderFactory.createLineBorder(Color.white));
 
-        rpmPanel.add(rpmControl.upperPanel, BorderLayout.NORTH);
+        rpmPanel.add(rpmControl.getContent(), BorderLayout.NORTH);
         rpmPanel.add(controls, BorderLayout.WEST);
         rpmPanel.add(gauges, BorderLayout.CENTER);
         MsgPanel msgPanel = new MsgPanel();

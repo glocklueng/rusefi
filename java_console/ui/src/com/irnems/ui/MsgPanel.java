@@ -2,7 +2,6 @@ package com.irnems.ui;
 
 import com.irnems.core.MessagesCentral;
 import com.irnems.ui.widgets.IdleLabel;
-import com.irnems.ui.widgets.RpmLabel;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -65,7 +64,7 @@ public class MsgPanel extends JPanel {
 
         JPanel statsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        statsPanel.add(new RpmLabel());
+        statsPanel.add(new RpmControl().getContent());
         statsPanel.add(new IdleLabel());
 
         add(statsPanel, BorderLayout.SOUTH);
