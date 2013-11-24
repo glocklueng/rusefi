@@ -1,6 +1,6 @@
 /**
  * @file    ford_aspire.c
- * @brief	1996 Ford Aspire default engine configuraion
+ * @brief	1996 Ford Aspire default engine configuration
  *
  *  Created on: Sep 9, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
