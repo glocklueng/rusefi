@@ -277,8 +277,8 @@ void configureEngineEventHandler(EventHandlerConfiguration *config) {
 
 	config->igniteAtEventIndex[1] = 1;
 	config->igniteAtEventIndex[3] = 1;
-	config->igniteAtEventIndex[8] = 1;
 	config->igniteAtEventIndex[6] = 1;
+	config->igniteAtEventIndex[8] = 1;
 }
 
 static void setDefaultFuelMap(void) {
