@@ -270,15 +270,15 @@ void configureShaftPositionEmulatorShape(PwmConfig *state) {
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
   memset(config->injectAtEventIndex, sizeof(config->injectAtEventIndex), 0);
   memset(config->igniteAtEventIndex, sizeof(config->igniteAtEventIndex), 0);
-	config->injectAtEventIndex[6] = 1;
-	config->injectAtEventIndex[3] = 2;
-	config->injectAtEventIndex[8] = 3;
 	config->injectAtEventIndex[1] = 4;
+	config->injectAtEventIndex[3] = 2;
+	config->injectAtEventIndex[6] = 1;
+	config->injectAtEventIndex[8] = 3;
 
 	config->igniteAtEventIndex[1] = 1;
 	config->igniteAtEventIndex[3] = 1;
-	config->igniteAtEventIndex[6] = 1;
 	config->igniteAtEventIndex[8] = 1;
+	config->igniteAtEventIndex[6] = 1;
 }
 
 static void setDefaultFuelMap(void) {
