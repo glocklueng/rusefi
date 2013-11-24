@@ -63,6 +63,7 @@ public class WavePanel extends JPanel {
         buttonPanel.add(resetButton);
         buttonPanel.add(saveImageButton);
         buttonPanel.add(pauseButton);
+        buttonPanel.add(new RpmControl().setSize(2).getContent());
 
         JTextField command = AnyCommand.createCommandControl();
         command.setText("chartsize 90");
