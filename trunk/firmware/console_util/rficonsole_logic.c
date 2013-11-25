@@ -29,7 +29,10 @@ static void doAddAction(char *token, int type, Void callback) {
 	current->callback = callback;
 }
 
-void addConsoleAction1(char *token, VoidInt callback) {
+/**
+ * @breif	Register a console commant with one Integer parameter
+ */
+void addConsoleActionI(char *token, VoidInt callback) {
 	doAddAction(token, ONE_PARAMETER, (Void)callback);
 }
 
@@ -45,6 +48,9 @@ void addConsoleActionF(char *token, VoidFloat callback) {
 	doAddAction(token, FLOAT_PARAMETER, (Void) callback);
 }
 
+/**
+ * @breif	Register console action without parameters
+ */
 void addConsoleAction(char *token, Void callback) {
 	doAddAction(token, NO_PARAMETER, callback);
 }
@@ -115,7 +121,7 @@ static void echo(int value) {
 
 void addDefaultConsoleActions() {
 	addConsoleAction("help", &help);
-	addConsoleAction1("echo", &echo);
+	addConsoleActionI("echo", &echo);
 }
 
 void handleActionWithParameter(TokenCallback *current, char *parameter) {

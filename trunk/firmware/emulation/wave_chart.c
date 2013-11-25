@@ -107,6 +107,6 @@ void initWaveChart(WaveChart *chart) {
 #endif
 
 	resetWaveChart(chart);
-	addConsoleAction1("chartsize", setChartSize);
-	addConsoleAction1("chart", setChartActive);
+	addConsoleActionI("chartsize", setChartSize);
+	addConsoleActionI("chart", setChartActive);
 }

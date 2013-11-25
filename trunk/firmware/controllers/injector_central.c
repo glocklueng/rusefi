@@ -94,5 +94,5 @@ void initInjectorCentral(void) {
 	initOutputSignal("Injector 4", &injectors[3], INJECTOR_4_OUTPUT, 0);
 
 	addConsoleAction2I("injector", setInjectorEnabled);
-	addConsoleAction1("gfc", setGlobalFuelCorrection);
+	addConsoleActionI("gfc", setGlobalFuelCorrection);
 }

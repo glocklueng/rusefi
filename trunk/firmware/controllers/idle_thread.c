@@ -99,11 +99,11 @@ void startIdleThread() {
 		printSimpleMsg(&logger,
 				"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! idle control disabled", 0);
 
-	addConsoleAction1("target", &setTargetIdle);
+	addConsoleActionI("target", &setTargetIdle);
 
 	chThdCreateStatic(ivThreadStack, sizeof(ivThreadStack), NORMALPRIO, (tfunc_t)ivThread, NULL);
 
 	mySetPadMode("idle switch", IDLE_SWITCH_PORT, IDLE_SWITCH_PIN, PAL_MODE_INPUT);
 
-	addConsoleAction1("idle", &setIdle);
+	addConsoleActionI("idle", &setIdle);
 }
