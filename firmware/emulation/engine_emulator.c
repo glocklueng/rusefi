@@ -81,7 +81,7 @@ static void initECUstimulator(void) {
 
 	addConsoleActionI("diag", setDiag);
 	addConsoleAction("emu", startEmulator);
-	addConsoleAction2I("ad", printAdvance);
+	addConsoleActionII("ad", printAdvance);
 
 	setDiag(1);
 
