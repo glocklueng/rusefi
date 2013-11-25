@@ -30,6 +30,13 @@ static void doAddAction(char *token, int type, Void callback) {
 }
 
 /**
+ * @brief	Register console action without parameters
+ */
+void addConsoleAction(char *token, Void callback) {
+	doAddAction(token, NO_PARAMETER, callback);
+}
+
+/**
  * @brief	Register a console command with one Integer parameter
  */
 void addConsoleActionI(char *token, VoidInt callback) {
@@ -49,13 +56,6 @@ void addConsoleActionS(char *token, VoidCharPtr callback) {
 
 void addConsoleActionF(char *token, VoidFloat callback) {
 	doAddAction(token, FLOAT_PARAMETER, (Void) callback);
-}
-
-/**
- * @breif	Register console action without parameters
- */
-void addConsoleAction(char *token, Void callback) {
-	doAddAction(token, NO_PARAMETER, callback);
 }
 
 // string to integer
