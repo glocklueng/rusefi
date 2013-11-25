@@ -23,8 +23,19 @@ static PinEnum leds[] = { LED_CRANKING, LED_RUNNING, LED_FATAL, LED_ALIVE3, LED_
  */
 static WORKING_AREA(blinkingThreadStack, 128);
 
-void setOutputPinValue(int ledIndex, int value) {
-	setPinValue(&outputs[ledIndex], value);
+void turnOutputPinOn(PinEnum pin) {
+	setOutputPinValue(pin, TRUE);
+}
+
+void turnOutputPinOff(PinEnum pin) {
+	setOutputPinValue(pin, FALSE);
+}
+
+/**
+ * @brief todo
+ */
+void setOutputPinValue(PinEnum pin, int value) {
+	setPinValue(&outputs[pin], value);
 }
 
 static void blinkingThread_s(void *arg) {
