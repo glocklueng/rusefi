@@ -60,6 +60,8 @@ typedef enum {
 #define OUTPUT_PIN_COUNT 100
 
 void initOutputPins(void);
-void setOutputPinValue(int statusLedEnum, int value);
+void turnOutputPinOn(PinEnum pin);
+void turnOutputPinOff(PinEnum pin);
+void setOutputPinValue(PinEnum pin, int value);
 
 #endif /* STATUS_LEDS_H_ */
