@@ -79,7 +79,7 @@ static void initECUstimulator(void) {
 	mySetPadMode("TEN", DIAG_PORT, DIAG_PIN,
 	PAL_MODE_OUTPUT_PUSHPULL);
 
-	addConsoleAction1("diag", setDiag);
+	addConsoleActionI("diag", setDiag);
 	addConsoleAction("emu", startEmulator);
 	addConsoleAction2I("ad", printAdvance);
 

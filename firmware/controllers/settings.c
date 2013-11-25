@@ -49,7 +49,7 @@ void initSettings(void) {
 	setInjectionOffset(0);
 	//setCrankingInjectionPeriod(TICKS_IN_MS * 1.5);
 
-	addConsoleAction1("cp", &setCrankingInjectionPeriod);
-	addConsoleAction1("o", &setInjectionOffset);
+	addConsoleActionI("cp", &setCrankingInjectionPeriod);
+	addConsoleActionI("o", &setInjectionOffset);
 }
 

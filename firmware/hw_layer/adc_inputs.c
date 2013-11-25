@@ -347,7 +347,7 @@ void initAdcInputs() {
 
 	printStatus();
 
-	addConsoleAction1(ADC_DEBUG_KEY, &setAdcDebugReporting);
+	addConsoleActionI(ADC_DEBUG_KEY, &setAdcDebugReporting);
 
 #ifdef EFI_INTERNAL_ADC
 	/*
@@ -418,7 +418,7 @@ void initAdcInputs() {
 	 */
 	pwmStart(EFI_INTERNAL_SLOW_ADC_PWM, &pwmcfg_slow);
 	pwmStart(EFI_INTERNAL_FAST_ADC_PWM, &pwmcfg_fast);
-	addConsoleAction1("adc", printAdcValue);
+	addConsoleActionI("adc", printAdcValue);
 	addConsoleAction("fadc", printFullAdcReport);
 #else
 	printSimpleMsg(&logger, "ADC disabled", 0);

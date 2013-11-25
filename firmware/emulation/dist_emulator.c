@@ -57,7 +57,7 @@ void initShaftPositionEmulator(void) {
 
 	setRevolutionPeriod(DEFAULT_EMULATION_RPM);
 
-	addConsoleAction1("rpm", &setRevolutionPeriod);
+	addConsoleActionI("rpm", &setRevolutionPeriod);
 
 #else
 	print("No position sensor(s) emulation\r\n");

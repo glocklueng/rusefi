@@ -127,10 +127,10 @@ void initPotentiometers() {
 
 	initPotentiometer(&config0, _POT_SPI, POTEN_CS_PORT, POTEN_CS_PIN);
 
-	addConsoleAction1("pot0", setPotResistance0);
-	addConsoleAction1("pot1", setPotResistance1);
+	addConsoleActionI("pot0", setPotResistance0);
+	addConsoleActionI("pot1", setPotResistance1);
 
-	addConsoleAction1("potd1", setPotValue1);
+	addConsoleActionI("potd1", setPotValue1);
 
 	setPotResistance0(3000);
 	setPotResistance1(7000);
