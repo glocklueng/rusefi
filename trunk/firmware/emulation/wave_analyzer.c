@@ -271,7 +271,7 @@ void initWaveAnalyzer(void) {
 
 	registerShaftPositionListener(&onShaftSignalWA, "crank chart");
 
-	addConsoleAction2I("wm", setWaveModeSilent);
+	addConsoleActionII("wm", setWaveModeSilent);
 
 	chThdCreateStatic(waThreadStack, sizeof(waThreadStack), NORMALPRIO, waThread, NULL);
 

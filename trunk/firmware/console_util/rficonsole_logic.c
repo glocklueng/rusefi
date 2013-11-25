@@ -30,13 +30,16 @@ static void doAddAction(char *token, int type, Void callback) {
 }
 
 /**
- * @breif	Register a console commant with one Integer parameter
+ * @brief	Register a console command with one Integer parameter
  */
 void addConsoleActionI(char *token, VoidInt callback) {
 	doAddAction(token, ONE_PARAMETER, (Void)callback);
 }
 
-void addConsoleAction2I(char *token, VoidIntInt callback) {
+/**
+ * @brief	Register a console command with two Integer parameters
+ */
+void addConsoleActionII(char *token, VoidIntInt callback) {
 	doAddAction(token, TWO_INTS_PARAMETER, (Void)callback);
 }
 

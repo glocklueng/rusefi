@@ -93,6 +93,6 @@ void initInjectorCentral(void) {
 	initOutputSignal("Injector 3", &injectors[2], INJECTOR_3_OUTPUT, 0);
 	initOutputSignal("Injector 4", &injectors[3], INJECTOR_4_OUTPUT, 0);
 
-	addConsoleAction2I("injector", setInjectorEnabled);
+	addConsoleActionII("injector", setInjectorEnabled);
 	addConsoleActionI("gfc", setGlobalFuelCorrection);
 }

@@ -48,7 +48,7 @@ void initConsoleLogic(void);
 void handleConsoleLine(char *line);
 void addConsoleAction(char *token, Void callback);
 void addConsoleActionI(char *token, VoidInt callback);
-void addConsoleAction2I(char *token, VoidIntInt callback);
+void addConsoleActionII(char *token, VoidIntInt callback);
 void addConsoleActionF(char *token, VoidFloat callback);
 void addConsoleActionS(char *token, VoidCharPtr callback);
 
