@@ -81,7 +81,7 @@ void initOutputPins(void) {
 	outputPinRegister("is alive status 2", LED_ALIVE2, GPIOC, 13);
 	outputPinRegister("alive1", LED_DEBUG, GPIOD, 6);
 	outputPinRegister("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN);
-	outputPinRegister("sparkout2", SPARKOUT_2_OUTPUT, GPIOE, 6);
+	outputPinRegister("sparkout2", SPARKOUT_2_OUTPUT, SPARK_2_PORT, SPARK_2_PIN);
 
 	// todo: should we move this code closer to the injection logic?
 	outputPinRegister("injector1", INJECTOR_1_OUTPUT, INJECTOR_1_PORT, INJECTOR_1_PIN);
