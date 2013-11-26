@@ -298,8 +298,8 @@ static void initAdcHwChannel(int channel) {
 		pin = 5;
 		break;
 	default:
-		fatal("Unknown hw channel")
-		;
+		fatal("Unknown hw channel");
+		return;
 	}
 	initAdcPin(port, pin, "hw");
 }
