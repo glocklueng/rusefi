@@ -25,13 +25,13 @@ LIBS:cypress
 LIBS:siliconi
 LIBS:contrib
 LIBS:cps_vrs_io_1-cache
-EELAYER 27 0
+EELAYER 24 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "cps_vrs_io_1"
-Date "24 nov 2013"
+Date "25 nov 2013"
 Rev ""
 Comp "based on http://code.google.com/p/daecu/"
 Comment1 "cps_vrs_io_1"
@@ -1054,4 +1054,32 @@ F 3 "" H 8300 1500 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 8300 1575
+$Comp
+L LED D1
+U 1 1 529380F6
+P 11450 3300
+F 0 "D1" H 11450 3400 50  0000 C CNN
+F 1 "LED" H 11450 3200 50  0000 C CNN
+F 2 "SM0805" H 11450 3300 60  0001 C CNN
+F 3 "" H 11450 3300 60  0000 C CNN
+	1    11450 3300
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR010
+U 1 1 52938112
+P 11450 3500
+F 0 "#PWR010" H 11450 3500 30  0001 C CNN
+F 1 "GND" H 11450 3430 30  0001 C CNN
+F 2 "" H 11450 3500 60  0001 C CNN
+F 3 "" H 11450 3500 60  0001 C CNN
+	1    11450 3500
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	11400 2725 11400 2825
+Wire Wire Line
+	11400 2825 11450 2825
+Wire Wire Line
+	11450 2825 11450 3100
 $EndSCHEMATC
