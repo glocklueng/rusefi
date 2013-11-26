@@ -125,6 +125,7 @@ static msg_t soThread(OutputSignal *signal) {
 		systime_t now = chTimeNow();
 #endif /* EFI_DEFAILED_LOGGING */
 		// turn the output level ACTIVE
+		// todo: this XOR should go inside the setOutputPinValue method
 		setOutputPinValue(signal->ledIndex, TRUE ^ signal->xor);
 		// sleep for the needed duration
 
@@ -134,6 +135,7 @@ static msg_t soThread(OutputSignal *signal) {
 
 		chThdSleep(signal->duration);
 		// turn off the output
+		// todo: this XOR should go inside the setOutputPinValue method
 		setOutputPinValue(signal->ledIndex, FALSE ^ signal->xor);
 
 #if EFI_DEFAILED_LOGGING
