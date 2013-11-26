@@ -1,14 +1,21 @@
-update=11/17/2013 7:16:47 PM
+update=11/18/2013 5:21:21 AM
 version=1
 last_client=eeschema
+[general]
+version=1
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [pcbnew]
 version=1
 LastNetListRead=
 UseCmpFile=1
-PadDrill=0.600000000000
-PadDrillOvalY=0.600000000000
-PadSizeH=1.500000000000
-PadSizeV=1.500000000000
+PadDrill=3.000000000000
+PadDrillOvalY=3.000000000000
+PadSizeH=3.000000000000
+PadSizeV=3.000000000000
 PcbTextSizeV=1.500000000000
 PcbTextSizeH=1.500000000000
 PcbTextThickness=0.300000000000
@@ -21,6 +28,7 @@ DrawSegmentWidth=0.200000000000
 BoardOutlineThickness=0.100000000000
 ModuleOutlineThickness=0.150000000000
 [pcbnew/libraries]
+LibDir=
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -38,14 +46,7 @@ LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
 LibName17=PIN_ARRAY_10X2
-LibDir=
-[general]
-version=1
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+LibName18=C:/Users/owner/Desktop/project-desktop/rusefi/all.tar/all/converted/m-pad-2.1
 [eeschema]
 version=1
 LibDir=
@@ -86,3 +87,4 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=project_specific
+LibName32=C:/Users/owner/Desktop/project-desktop/rusefi/all.tar/all/converted/m-pad-2.1
