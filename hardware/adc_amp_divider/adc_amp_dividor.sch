@@ -126,7 +126,6 @@ Text Label 14650 8350 0    60   ~ 0
 OUT1
 Text Label 1700 8600 0    60   ~ 0
 INP1
-NoConn ~ 15050 7850
 NoConn ~ 15050 7550
 NoConn ~ 15850 7450
 NoConn ~ 15850 7550
@@ -1404,7 +1403,7 @@ Wire Wire Line
 	15050 7650 14750 7650
 Text Label 16050 8150 0    60   ~ 0
 OUT6
-Text Label 14650 8150 0    60   ~ 0
+Text Label 14650 7850 0    60   ~ 0
 OUT5
 Text Label 14650 8050 0    60   ~ 0
 OUT7
@@ -2376,4 +2375,23 @@ F 3 "" H 15950 3100 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 NoConn ~ 15800 3100
+$Comp
+L CONN_1 P6
+U 1 1 52941801
+P 15050 6550
+F 0 "P6" H 15130 6550 40  0000 L CNN
+F 1 "CONN_1" H 15050 6605 30  0001 C CNN
+F 2 "" H 15050 6550 60  0000 C CNN
+F 3 "" H 15050 6550 60  0000 C CNN
+	1    15050 6550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14250 6550 14900 6550
+Text Label 14250 6550 0    60   ~ 0
+PA5
+Wire Wire Line
+	14650 7850 15050 7850
+Text Label 14650 8150 0    60   ~ 0
+PA5
 $EndSCHEMATC
