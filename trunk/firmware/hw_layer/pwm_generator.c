@@ -25,8 +25,8 @@ static msg_t deThread(PwmConfig *state) {
 	// todo: figure out overflow
 	myfloat rpmHere = -1;
 	// initial values will be assigned during first state reset
-	systime_t start;
-	int iteration;
+	systime_t start = -1;
+	int iteration = -1;
 
 	while (TRUE) {
 		if (state->period == 0) {
