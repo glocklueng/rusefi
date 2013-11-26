@@ -12,12 +12,13 @@
 
 #include "ford_fiesta.h"
 #include "engine_configuration.h"
+#include "toothed_wheel_emulator.h"
 
 extern EngineConfiguration2 engineConfiguration2;
 extern EngineConfiguration *engineConfiguration;
 
 void configureShaftPositionEmulatorShape(PwmConfig *state) {
-
+	skippedToothPositionEmulatorShape(state);
 }
 
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
