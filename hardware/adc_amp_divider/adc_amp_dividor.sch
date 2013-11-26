@@ -37,7 +37,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "Analgo Protection board for RUSEFI.com"
-Date "18 nov 2013"
+Date "26 nov 2013"
 Rev "A-1"
 Comp "RUSEFI.com"
 Comment1 ""
@@ -1359,7 +1359,7 @@ Wire Wire Line
 Wire Wire Line
 	6300 7700 6300 7750
 Wire Wire Line
-	6050 7200 6500 7200
+	6000 7200 6500 7200
 Wire Wire Line
 	7950 8550 8300 8550
 Connection ~ 9500 7300
