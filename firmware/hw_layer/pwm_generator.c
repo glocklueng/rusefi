@@ -23,8 +23,9 @@ static msg_t deThread(PwmConfig *state) {
 //	setPadValue(state, state->idleState); todo: currently pin is always zero at first iteration.
 // we can live with that for now
 	// todo: figure out overflow
-	systime_t start;
 	myfloat rpmHere = -1;
+	// initial values will be assigned during first state reset
+	systime_t start;
 	int iteration;
 
 	while (TRUE) {
