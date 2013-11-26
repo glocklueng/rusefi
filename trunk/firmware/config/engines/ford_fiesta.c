@@ -22,6 +22,8 @@ void configureShaftPositionEmulatorShape(PwmConfig *state) {
 
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
 
+	config->igniteAtEventIndex[1] = 1;
+	config->igniteAtEventIndex[36] = 2;
 }
 
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
