@@ -2,6 +2,11 @@
  * @file	wave_chart.c
  * @brief	Dev console wave sniffer logic
  *
+ * Here we have our own build-in logic analyzer. The data we aggregate here is sent to the
+ * java UI Dev Console so that it can be displayed nicely in the Sniffer tab.
+ *
+ * Both external events (see wave_analyzer.c) and internal (see signal executors) are supported
+ *
  *  Created on: Jun 23, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
@@ -61,6 +66,9 @@ int isWaveChartFull(WaveChart *chart) {
 	return chart->counter >= chartSize;
 }
 
+/**
+ * @brief	Register a change in sniffed signal
+ */
 void addWaveChartEvent(WaveChart *chart, char *name, char * msg) {
 	chDbgAssert(chart->isInitialized, "chart not initizlied" , 0);
 #if DEBUG_WAVE

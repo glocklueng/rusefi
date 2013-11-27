@@ -1,5 +1,6 @@
 /**
  * @file	wave_chart.h
+ * @brief	Dev console wave sniffer
  *
  *  Created on: Jun 23, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
@@ -10,8 +11,10 @@
 
 #include "datalogging.h"
 
+/**
+ * @brief	Dev console sniffer data buffer
+ */
 typedef struct {
-//	char *name;
 	Logging logging;
 	int counter;
 	int isPrinted;
