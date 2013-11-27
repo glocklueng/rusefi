@@ -24,6 +24,8 @@ import java.util.Map;
  */
 public class WavePanel extends JPanel {
     public static final String DELI = "!";
+    private static final int EFI_DEFAULT_CHART_SIZE = 180;
+
     private final Map<String, UpDownImage> images = new LinkedHashMap<String, UpDownImage>();
     private final JPanel imagePanel = new JPanel();
     private boolean isPaused;
@@ -66,7 +68,7 @@ public class WavePanel extends JPanel {
         buttonPanel.add(new RpmControl().setSize(2).getContent());
 
         JTextField command = AnyCommand.createCommandControl();
-        command.setText("chartsize 90");
+        command.setText("chartsize " + EFI_DEFAULT_CHART_SIZE);
         buttonPanel.add(command);
 
         buttonPanel.add(zoomControl);
@@ -89,6 +91,7 @@ public class WavePanel extends JPanel {
         createSecondaryImage("input2 E5");
 
         createSecondaryImage("Spark 1");
+        createSecondaryImage("Spark 2");
 
         createSecondaryImage("Injector 1");
         createSecondaryImage("Injector 2");
