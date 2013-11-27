@@ -1,4 +1,4 @@
-update=11/18/2013 5:21:21 AM
+update=11/26/2013 9:46:12 PM
 version=1
 last_client=eeschema
 [general]
@@ -87,4 +87,3 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=project_specific
-LibName32=C:/Users/owner/Desktop/project-desktop/rusefi/all.tar/all/converted/m-pad-2.1
