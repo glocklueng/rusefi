@@ -10,4 +10,5 @@ CONTROLLERSSRC = controllers/main_loop.c \
 	controllers/rpm_calculator.c \
 	controllers/map_multiplier_thread.c \
 	controllers/signal_executor_sleep.c \
+	controllers/signal_executor_single_timer.c \
 	controllers/signal_executor_hw_timer.c
