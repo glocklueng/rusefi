@@ -11,8 +11,6 @@
 
 #include "main.h"
 
-#include "adc_internal_common.h"
-
 void initAdcInputs(void);
 void pokeAdcInputs(void);
 int getInternalAdcValue(int index);
