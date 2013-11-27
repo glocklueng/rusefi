@@ -1,5 +1,5 @@
-/*
- * main.c
+/**
+ * @file	main.c
  *
  *  Created on: Nov 29, 2012
  *      Author: Andrey Belomutskiy, (c) 2012-2013
