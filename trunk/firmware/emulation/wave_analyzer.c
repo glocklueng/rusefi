@@ -2,6 +2,9 @@
  * @file	wave_analyzer.c
  * @brief	Initialization of Input Capture pins used for dev console sniffer
  *
+ * This file is responsible for sniffing of external digital signals and registering
+ * these digital events in WaveChart used by the Sniffer tab of Dev Console.
+ *
  *
  *  Created on: Jan 7, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
@@ -26,7 +29,7 @@ volatile int previousCrankSignalStart = 0;
 
 static int waveReaderCount = 0;
 static WaveReader readers[MAX_ICU_COUNT];
-WaveChart crankChart;
+WaveChart waveChart;
 
 data_buffer_s waveWidthCounters;
 
@@ -51,7 +54,7 @@ static void waAnaWidthCallback(WaveReader *reader) {
 	systime_t now = chTimeNow();
 	reader->eventCounter++;
 	reader->lastActivityTime = now;
-	addWaveChartEvent(&crankChart, reader->name, "up");
+	addWaveChartEvent(&waveChart, reader->name, "up");
 
 	int width = overflowDiff(now, reader->periodEventTime);
 	reader->last_wave_low_width = width;
@@ -64,7 +67,7 @@ static void waIcuPeriodCallback(WaveReader *reader) {
 	systime_t now = chTimeNow();
 	reader->eventCounter++;
 	reader->lastActivityTime = now;
-	addWaveChartEvent(&crankChart, reader->name, "down");
+	addWaveChartEvent(&waveChart, reader->name, "down");
 
 	int width = overflowDiff(now, reader->widthEventTime);
 	reader->last_wave_high_width = width;
@@ -161,21 +164,21 @@ static msg_t waThread(void *arg) {
 	while (1) {
 		chThdSleepSeconds(CHART_RESET_DELAY);
 
-		if (crankChart.isPrinted)
-			resetWaveChart(&crankChart);
+		if (waveChart.isPrinted)
+			resetWaveChart(&waveChart);
 	}
 	return -1;
 }
 
 static void onShaftSignalWA(ShaftEvents ckpSignalType, int index) {
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
-		addWaveChartEvent(&crankChart, "crank", "up");
+		addWaveChartEvent(&waveChart, "crank", "up");
 	} else if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
-		addWaveChartEvent(&crankChart, "crank", "down");
+		addWaveChartEvent(&waveChart, "crank", "down");
 	} else if (ckpSignalType == SHAFT_SECONDARY_UP) {
-		addWaveChartEvent(&crankChart, "crank2", "up");
+		addWaveChartEvent(&waveChart, "crank2", "up");
 	} else if (ckpSignalType == SHAFT_SECONDARY_DOWN) {
-		addWaveChartEvent(&crankChart, "crank2", "down");
+		addWaveChartEvent(&waveChart, "crank2", "down");
 	}
 }
 
@@ -263,7 +266,7 @@ void initWaveAnalyzer(void) {
 
 	registerShaftPositionListener(&onWaveShaftSignal, "wave analyzer");
 
-	initWaveChart(&crankChart);
+	initWaveChart(&waveChart);
 
 	initWave("input1 A8", 0, &LOGIC_ANALYZER_1_DRIVER, LOGIC_ANALYZER_1_PORT, LOGIC_ANALYZER_1_PIN, 1);
 	initWave("input2 E5", 1, &LOGIC_ANALYZER_2_DRIVER, LOGIC_ANALYZER_2_PORT, LOGIC_ANALYZER_2_PIN, 1);

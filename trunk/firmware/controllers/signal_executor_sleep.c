@@ -19,7 +19,10 @@
 
 #if EFI_WAVE_ANALYZER
 #include "wave_chart.h"
-extern WaveChart crankChart;
+/**
+ * Signal executors feed digital events right into WaveChart used by Sniffer tab of Dev Console
+ */
+extern WaveChart waveChart;
 #endif /* EFI_WAVE_ANALYZER */
 
 #if EFI_SIGNAL_EXECUTOR_SLEEP
@@ -130,7 +133,7 @@ static msg_t soThread(OutputSignal *signal) {
 		// sleep for the needed duration
 
 #if EFI_WAVE_ANALYZER
-		addWaveChartEvent(&crankChart, signal->name, "up");
+		addWaveChartEvent(&waveChart, signal->name, "up");
 #endif /* EFI_WAVE_ANALYZER */
 
 		chThdSleep(signal->duration);
@@ -145,7 +148,7 @@ static msg_t soThread(OutputSignal *signal) {
 #endif /* EFI_DEFAILED_LOGGING */
 
 #if EFI_WAVE_ANALYZER
-		addWaveChartEvent(&crankChart, signal->name, "down");
+		addWaveChartEvent(&waveChart, signal->name, "down");
 #endif /* EFI_WAVE_ANALYZER */
 	}
 	// unreachable
