@@ -33,6 +33,9 @@ void turnOutputPinOff(PinEnum pin) {
 
 /**
  * @brief todo
+ *
+ * TODO: should add 'xor' logic right at the output pin level in order to distinguish
+ * TODO: logical levels from physical levels?
  */
 void setOutputPinValue(PinEnum pin, int value) {
 	setPinValue(&outputs[pin], value);
