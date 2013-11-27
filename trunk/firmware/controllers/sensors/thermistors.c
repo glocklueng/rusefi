@@ -78,12 +78,12 @@ myfloat getTemperatureC(myfloat voltage, float hiR) {
 	return convertKelvinToC(kelvinTemperature);
 }
 
-myfloat  getCoolantTemperature(void) {
-	return getTemperatureC(adcToVolts(getAdcValue(ADC_LOGIC_COOLANT)), CLT_HI_RESISTOR);
+myfloat getCoolantTemperature(void) {
+	return getTemperatureC(getVoltage(ADC_LOGIC_COOLANT), CLT_HI_RESISTOR);
 }
 
-myfloat  getIntakeAirTemperature(void) {
-	return getTemperatureC(adcToVolts(getAdcValue(ADC_LOGIC_AIR)), IAT_HI_RESISTOR);
+myfloat getIntakeAirTemperature(void) {
+	return getTemperatureC(getVoltage(ADC_LOGIC_AIR), IAT_HI_RESISTOR);
 }
 
 #endif /* THERMISTORS_C_ */
