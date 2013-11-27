@@ -27,9 +27,6 @@ void skippedToothPositionEmulatorShape(PwmConfig *state) {
 		print("pinstate %d: %d\r\n", i, pinStates0[i]);
 	}
 
-	print("last %d\r\n", pinStates0[119]);
-	print("last %d\r\n", pinStates0[119] == 1);
-
 	int *pinStates[1] = { pinStates0 };
 
 	weComplexInit("position sensor", state, 0, 2 * TOTAL_TEETH_COUNT, switchTimes, 1, pinStates);
