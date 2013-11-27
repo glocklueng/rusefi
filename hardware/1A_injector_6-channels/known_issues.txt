@@ -1,2 +1,1 @@
-this board design is not complete, it's a draft and has not been mfg'ed as of 12/30/12
-
+1) Not an issue, but a resistor before the gate to limit output current from the MCU pin would be nice to have
