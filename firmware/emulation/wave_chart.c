@@ -8,13 +8,12 @@
 
 #include <string.h>
 #include "wave_chart.h"
-#include "ch.h"
-#include "hal.h"
+#include "main.h"
 #include "rficonsole.h"
 
 #define CHART_DELIMETER	"!"
 
-static volatile int chartSize = 90;
+static volatile int chartSize = EFI_DEFAULT_CHART_SIZE;
 
 static int isChartActive = TRUE;
 //static int isChartActive = FALSE;

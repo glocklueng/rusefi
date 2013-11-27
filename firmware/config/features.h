@@ -67,6 +67,7 @@
 #endif
 #endif /* EFI_TUNER_STUDIO */
 
+#define EFI_DEFAULT_CHART_SIZE 180
 
 #endif /* EFI_SERIAL_OVER_USB */
 
