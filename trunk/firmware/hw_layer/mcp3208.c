@@ -31,7 +31,7 @@ static int getNextChannel(void) {
 	return adcEventCounter % 2;
 }
 
-void spiCallback(SPIDriver *spip) {
+static void spiCallback(SPIDriver *spip) {
 	spiUnselectI(spip);
 	adcEventCounter++;
 
