@@ -1,8 +1,8 @@
-/*
- * test_fuel_map.c
+/**
+ * @file	test_fuel_map.c
  *
  *  Created on: Nov 6, 2013
- *      Author: pc
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"
@@ -19,6 +19,10 @@ float getCoolantTemperature() {
 }
 
 float getVBatt() {
+	return 1;
+}
+
+float getMaf() {
 	return 1;
 }
 

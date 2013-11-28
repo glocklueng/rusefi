@@ -1,4 +1,4 @@
-/*
+/**
  * @file	main.h
  * @brief	Test version of main.h
  *
@@ -35,6 +35,7 @@ void assertEquals(float expected, float actual);
 float getIntakeAirTemperature();
 float getCoolantTemperature();
 float getVBatt();
+float getMaf();
 
 void warning(char *msg, float value);
 
