@@ -93,22 +93,10 @@ static int getSparkDwell(int rpm) {
  */
 static ActuatorEventList ignitionEvents;
 
-static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
-	int rpm = getCurrentRpm();
-
-	int timeTillNextRise = convertAngleToSysticks(rpm, 90);
-
-	float advance = getAdvance(rpm, getMaf());
-
-	findEvents(eventIndex, &engineEventConfiguration.ignitionEvents, &ignitionEvents);
-	if (ignitionEvents.size == 0)
-		return;
-
-	int igniterId = ignitionEvents.events[0].actuatorId;
+static void handleSparkEvent(ActuatorEvent *event, int rpm, float advance) {
+	int igniterId = event->actuatorId;
 	if (igniterId == 0)
 		return;
-
-	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
 
 	int sparkAdvance = convertAngleToSysticks(rpm, advance);
 
@@ -125,6 +113,25 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	}
 
 	scheduleSparkOut(igniterId, sparkDelay, dwell);
+}
+
+static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
+	int rpm = getCurrentRpm();
+
+	int timeTillNextRise = convertAngleToSysticks(rpm, 90);
+
+	float advance = getAdvance(rpm, getMaf());
+
+	findEvents(eventIndex, &engineEventConfiguration.ignitionEvents, &ignitionEvents);
+	if (ignitionEvents.size == 0)
+		return;
+
+	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
+
+	for (int i = 0; i < ignitionEvents.size; i++) {
+		ActuatorEvent *event = &ignitionEvents.events[i];
+		handleSparkEvent(event, rpm, advance);
+	}
 }
 
 /**

@@ -13,9 +13,20 @@
 #include "engine_controller.h"
 
 void configureShaftPositionEmulatorShape(PwmConfig *state) {
+	/**
+	 * One signal per cam shaft revolution
+	 */
+	int pinStates0[] = { 1, 0 };
+	myfloat switchTimes[] = { 0.8, 1 };
+
+	int *pinStates[2] = { pinStates0 };
+
+	weComplexInit("distributor", state, 0, 2, switchTimes, 1, pinStates);
 }
 
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
+	registerActuatorEvent(&config->ignitionEvents, 0, 1, 0);
+	registerActuatorEvent(&config->ignitionEvents, 0, 2, 0);
 }
 
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
