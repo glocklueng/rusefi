@@ -23,6 +23,11 @@
 //#define EFI_ENGINE_SNOW_BLOWER TRUE
 
 /**
+ * 5 cylinder engine!
+ */
+//#define EFI_ENGINE_AUDI_AAN TRUE
+
+/**
  * 60-2 toothed wheel engine
  */
 //#define EFI_ENGINE_DENISVAK TRUE

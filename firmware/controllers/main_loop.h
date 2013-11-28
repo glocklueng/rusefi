@@ -23,6 +23,10 @@ typedef struct {
 
 void initMainEventListener(void);
 void onEveryMillisecondTimerSignal(void);
+/**
+ * @brief	Implementation would be provided by engine configutation file
+ */
+void configureEngineEventHandler(EventHandlerConfiguration *config);
 
 myfloat getFuel(int rpm, float key);
 

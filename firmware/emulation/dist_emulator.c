@@ -51,7 +51,7 @@ void initShaftPositionEmulator(void) {
 #if EFI_SHAFT_POSTION_NEEDS_SECONDARY
 	initOutputPin("distributor ch2", &configuration.waves[1].outputPin,
 			SECONDARY_SHAFT_POSITION_EMULATION_PORT, SECONDARY_SHAFT_POSITION_EMULATION_PIN);
-#endif
+#endif /* EFI_SHAFT_POSTION_NEEDS_SECONDARY */
 
 	configureShaftPositionEmulatorShape(&configuration);
 
@@ -61,5 +61,5 @@ void initShaftPositionEmulator(void) {
 
 #else
 	print("No position sensor(s) emulation\r\n");
-#endif
+#endif /* EFI_EMULATE_POSITION_SENSORS */
 }
