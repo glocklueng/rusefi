@@ -7,6 +7,7 @@ HW_LAYERESRC = hw_layer/hardware.c \
 	hw_layer/algo/multi_shaft_sensor.c \
 	hw_layer/algo/toothed_shaft_sensor.c \
 	hw_layer/mcp3208.c \
+	hw_layer/HIP9011.c \
 	hw_layer/flash.c \
 	hw_layer/gpio_helper.c \
 	hw_layer/wave_analyzer_hw.c \
