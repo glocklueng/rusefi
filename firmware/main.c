@@ -57,3 +57,7 @@ int main(void) {
 	}
 	return 0;
 }
+
+int systicks2ms(int systicks) {
+	return systicks / TICKS_IN_MS;
+}

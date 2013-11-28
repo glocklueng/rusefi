@@ -1,13 +1,12 @@
-/*
- * data_buffer.c
+/*@
+ * @file	data_buffer.c
  *
  * @date Dec 8, 2012
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "data_buffer.h"
-#include "rficonsole_logic.h"
-#include "print.h"
+#include "main.h"
 
 int dbIsFull(data_buffer_s *db) {
 	return db->size == MAX_SIZE;

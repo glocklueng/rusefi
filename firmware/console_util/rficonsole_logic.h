@@ -36,7 +36,6 @@ typedef struct {
 } TokenCallback;
 
 void addDefaultConsoleActions(void);
-int systicks2ms(int systicks);
 
 typedef void (*Void)(void);
 typedef void (*VoidInt)(int);

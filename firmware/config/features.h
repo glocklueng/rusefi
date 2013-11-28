@@ -69,6 +69,9 @@
 
 #define EFI_DEFAULT_CHART_SIZE 180
 
+// not unit test
+#define EFI_PROD_CODE TRUE
+
 #endif /* EFI_SERIAL_OVER_USB */
 
 #endif /* FEATURES_H_ */
