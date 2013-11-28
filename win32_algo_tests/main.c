@@ -19,6 +19,7 @@
 #include "test_find_index.h"
 #include "test_fuel_map.h"
 #include "test_engine_math.h"
+#include "test_event_registry.h"
 #include "engine_configuration.h"
 
 static float absF(float value) {
@@ -62,6 +63,7 @@ int main(void) {
 	testInterpolate2d();
 	testFuelMap();
 	testEngineMath();
+	testEventRegistry();
 
 	printf("Success\r\n");
 	return EXIT_SUCCESS;
