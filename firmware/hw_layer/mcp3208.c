@@ -3,7 +3,7 @@
  * @brief   MCP3208 external ADC chip implementation. Not really used right now.
  *
  *  Created on: Aug 12, 2013
- *      Author: Andrey Belomutskiy
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include <ch.h>

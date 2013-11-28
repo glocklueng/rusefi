@@ -8,8 +8,8 @@
  */
 
 
-#ifndef SIGNAL_EXECUTIR_SLEEP_H_
-#define SIGNAL_EXECUTIR_SLEEP_H_
+#ifndef SIGNAL_EXECUTOR_SLEEP_H_
+#define SIGNAL_EXECUTOR_SLEEP_H_
 
 #include "main.h"
 
@@ -31,4 +31,4 @@ typedef struct {
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
 
 
-#endif /* SIGNAL_EXECUTIR_SLEEP_H_ */
+#endif /* SIGNAL_EXECUTOR_SLEEP_H_ */

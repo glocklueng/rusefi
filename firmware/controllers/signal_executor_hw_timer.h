@@ -1,10 +1,9 @@
 /*
+ * @file    signal_executor_hw_timer.h
+ *
+ *
  *  Created on: Oct 28, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
-/**
- * @file    signal_executor_hw_timer.h
  */
 
 
