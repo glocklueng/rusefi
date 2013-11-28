@@ -44,10 +44,6 @@ int isCranking(void) {
 	return rpm > 0 && rpm < engineConfiguration->crankingRpm;
 }
 
-int systicks2ms(int systicks) {
-	return systicks / TICKS_IN_MS;
-}
-
 static void updateStatusLeds(void) {
 	int is_cranking = isCranking();
 	setOutputPinValue(LED_RUNNING, getCurrentRpm() > 0 && !is_cranking);

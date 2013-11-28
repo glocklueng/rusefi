@@ -52,5 +52,6 @@ void warning(char *msg, float value);
 int hasFatalError(void);
 void fatal3(char *msg, char *file, int line);
 #define fatal(x) (fatal3(x, __FILE__, __LINE__));
+int systicks2ms(int systicks);
 
 #endif /* MAIN_H_ */

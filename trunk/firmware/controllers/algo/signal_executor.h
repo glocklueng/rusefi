@@ -10,12 +10,15 @@
 #define SPARKOUT_H_
 
 #include "main.h"
+#if EFI_SIGNAL_EXECUTOR_SLEEP
 #include "signal_executor_sleep.h"
+#endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
 
 /**
  * @brief   Asynchronous output signal data structure
  */
-typedef struct {
+typedef struct OutputSignal_struct OutputSignal;
+struct OutputSignal_struct {
 	/**
 	 * name of this signal
 	 */
@@ -33,7 +36,9 @@ typedef struct {
 	volatile int offset;
 	// time in system ticks
 	volatile int duration;
+#if EFI_PROD_CODE
 	Logging logging;
+#endif /* EFI_PROD_CODE */
 	int initialized;
 
 	time_t last_scheduling_time;
@@ -45,7 +50,9 @@ typedef struct {
 #if EFI_SIGNAL_EXECUTOR_HW_TIMER
 	// todo
 #endif
-} OutputSignal;
+
+	OutputSignal *next;
+};
 
 void initOutputSignal(char *name, OutputSignal *signal, int led, int xor);
 void scheduleOutput(OutputSignal *signal, int delay, int dwell);
