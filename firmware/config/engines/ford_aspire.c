@@ -246,21 +246,17 @@ void configureShaftPositionEmulatorShape(PwmConfig *state) {
 
 	myfloat secondStart = 0.17; //x + (0.25 - x) / 2;
 
-	myfloat switchTimes[] = { x, secondStart, 0.25, 0.25 + x, 0.5, 0.5 + x,
-			secondStart + 0.5,
-			0.75, 0.75 + x, 1 };
+	myfloat switchTimes[] = { x, secondStart, 0.25, 0.25 + x, 0.5, 0.5 + x, secondStart + 0.5, 0.75, 0.75 + x, 1 };
 
 	/**
 	 * One signal per cam shaft revolution
 	 */
-	int pinStates0[] = { 1, 0, 0, 0, 0,
-			             0, 1, 1, 1, 1};
+	int pinStates0[] = { 1, 0, 0, 0, 0, 0, 1, 1, 1, 1 };
 
 	/**
 	 * Four signals per cam shaft revolution
 	 */
-	int pinStates1[] = { 0, 0, 1 /* start of 2nd signal*/ , 0, 1 /* start of 3rd signal*/, 0, 0, 1, 0, 1 };
-
+	int pinStates1[] = { 0, 0, 1 /* start of 2nd signal*/, 0, 1 /* start of 3rd signal*/, 0, 0, 1, 0, 1 };
 
 	int *pinStates[2] = { pinStates0, pinStates1 };
 
@@ -268,17 +264,17 @@ void configureShaftPositionEmulatorShape(PwmConfig *state) {
 }
 
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
-  memset(config->injectAtEventIndex, sizeof(config->injectAtEventIndex), 0);
-  memset(config->igniteAtEventIndex, sizeof(config->igniteAtEventIndex), 0);
+	memset(config->injectAtEventIndex, sizeof(config->injectAtEventIndex), 0);
+	resetEventList(&config->ignitionEvents);
 	config->injectAtEventIndex[1] = 4;
 	config->injectAtEventIndex[3] = 2;
 	config->injectAtEventIndex[6] = 1;
 	config->injectAtEventIndex[8] = 3;
 
-	config->igniteAtEventIndex[1] = 1;
-	config->igniteAtEventIndex[3] = 1;
-	config->igniteAtEventIndex[6] = 1;
-	config->igniteAtEventIndex[8] = 1;
+	registerActuatorEvent(&config->ignitionEvents, 1, 1, 0);
+	registerActuatorEvent(&config->ignitionEvents, 3, 1, 0);
+	registerActuatorEvent(&config->ignitionEvents, 6, 1, 0);
+	registerActuatorEvent(&config->ignitionEvents, 8, 1, 0);
 }
 
 static void setDefaultFuelMap(void) {
