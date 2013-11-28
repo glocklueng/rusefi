@@ -28,6 +28,8 @@ void resetEventList(ActuatorEventList *list);
  *
  * In the future implementation we will drop the 'eventIndex' parameter and everything will be
  * angle-driven. But that's just a plan for next iteration.
+ *
+ * @param	actuatorId injector ID or coil ID
  */
 void registerActuatorEvent(ActuatorEventList *list, int eventIndex, int actuatorId, float angleOffset);
 
