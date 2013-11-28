@@ -17,7 +17,6 @@ static volatile int injectionOffset = 0;
 static Logging logger;
 
 static void printSettings(void) {
-	msgInt(&logger, "msg,cranking injectionPeriod ", crankingInjectionPeriod);
 	msgInt(&logger, "msg,injectionOffset ", injectionOffset);
 
 	printLine(&logger);
@@ -32,15 +31,6 @@ void setInjectionOffset(int value) {
 	printSettings();
 }
 
-int getCrankingInjectionPeriod(void) {
-	return crankingInjectionPeriod;
-}
-
-void setCrankingInjectionPeriod(int value) {
-	crankingInjectionPeriod = value;
-	printSettings();
-}
-
 void initSettings(void) {
 	// todo: this whole method is legacy stuff
 	// todo: the whole file is prettu much legacy pre-TunerStudio stuff
@@ -49,7 +39,6 @@ void initSettings(void) {
 	setInjectionOffset(0);
 	//setCrankingInjectionPeriod(TICKS_IN_MS * 1.5);
 
-	addConsoleActionI("cp", &setCrankingInjectionPeriod);
 	addConsoleActionI("o", &setInjectionOffset);
 }
 
