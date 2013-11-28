@@ -21,4 +21,8 @@
 void initShaftPositionEmulator(void);
 void setRevolutionPeriod(int value);
 
+#if EFI_EMULATE_POSITION_SENSORS
+void configureShaftPositionEmulatorShape(PwmConfig *state);
+#endif /* EFI_EMULATE_POSITION_SENSORS */
+
 #endif /* DIST_EMULATOR_H_ */
