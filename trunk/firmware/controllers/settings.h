@@ -11,7 +11,6 @@
 void initSettings(void);
 void pokeControl(void);
 int getInjectionPeriod(void);
-int getCrankingInjectionPeriod(void);
 int getInjectionOffset(void);
 int getInjectionDivider(void);
 

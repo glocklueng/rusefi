@@ -11,9 +11,7 @@
 #include "interpolation.h"
 #include "engine_configuration.h"
 #include "sensors.h"
-#include "engine_controller.h"
 #include "engine_math.h"
-#include "settings.h"
 
 static float *fuel_ptrs[FUEL_MAF_COUNT];
 static int initialized = FALSE;
@@ -64,13 +62,10 @@ float getBaseFuel(int rpm, float key) {
 }
 
 float getCrankingFuel(void) {
-	const int fuelOverride = getCrankingInjectionPeriod();
-	if (fuelOverride != 0) {
-		return fuelOverride / 10.0;
-	} else {
-		return getStartingFuel(getCoolantTemperature());
-	}
+	return getStartingFuel(getCoolantTemperature());
 }
+
+int isCranking(void);
 
 /**
  * @returns	Length of fuel injection, in milliseconds
