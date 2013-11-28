@@ -20,6 +20,7 @@
 #include "test_fuel_map.h"
 #include "test_engine_math.h"
 #include "test_event_registry.h"
+#include "test_signal_executor.h"
 #include "engine_configuration.h"
 
 static float absF(float value) {
@@ -64,6 +65,8 @@ int main(void) {
 	testFuelMap();
 	testEngineMath();
 	testEventRegistry();
+
+	testSignalExecutor();
 
 	printf("Success\r\n");
 	return EXIT_SUCCESS;

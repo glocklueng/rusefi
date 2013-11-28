@@ -37,6 +37,8 @@ float getCoolantTemperature();
 float getVBatt();
 float getMaf();
 
+#define systicks2ms(x) (0)
+
 void warning(char *msg, float value);
 
 
