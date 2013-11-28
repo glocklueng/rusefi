@@ -1,13 +1,9 @@
-/*
- * signal_executor.h
- *
- *  Created on: Feb 10, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
 /**
  * @file	signal_executor.h
  * @brief   Asynchronous output signal header
+ *
+ *  Created on: Feb 10, 2013
+ *      Author: Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef SPARKOUT_H_
