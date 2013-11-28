@@ -88,6 +88,11 @@ static int getSparkDwell(int rpm) {
 	return defaultDwell - dec;
 }
 
+/**
+ * this field is accessed only from shaft sensor event handler
+ */
+static ActuatorEventList ignitionEvents;
+
 static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	int rpm = getCurrentRpm();
 
@@ -95,7 +100,11 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 
 	float advance = getAdvance(rpm, getMaf());
 
-	int igniterId = engineEventConfiguration.igniteAtEventIndex[eventIndex];
+	findEvents(eventIndex, &engineEventConfiguration.ignitionEvents, &ignitionEvents);
+	if (ignitionEvents.size == 0)
+		return;
+
+	int igniterId = ignitionEvents.events[0].actuatorId;
 	if (igniterId == 0)
 		return;
 
