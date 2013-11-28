@@ -1,8 +1,8 @@
 /*
  * pin_repository.h
  *
- *  Created on: Jan 15, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jan 15, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 /**

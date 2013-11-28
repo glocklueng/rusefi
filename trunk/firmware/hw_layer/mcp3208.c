@@ -2,8 +2,8 @@
  * @file    mcp3208.c
  * @brief   MCP3208 external ADC chip implementation. Not really used right now.
  *
- *  Created on: Aug 12, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Aug 12, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include <ch.h>

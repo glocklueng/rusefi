@@ -1,12 +1,9 @@
 /*
- *  Created on: Oct 28, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
- */
-
-/**
  * @file    signal_executir_sleep.h
- */
 
+ * @date Oct 28, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
+ */
 
 #ifndef SIGNAL_EXECUTOR_SLEEP_H_
 #define SIGNAL_EXECUTOR_SLEEP_H_

@@ -1,8 +1,8 @@
 /*
  * thermistors.c
  *
- *  Created on: Feb 17, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Feb 17, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 /**

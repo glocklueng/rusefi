@@ -22,8 +22,8 @@
  * tuner studio, three more commands should be implemented:
  *
  *
- *  Created on: Oct 22, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Oct 22, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include <string.h>

@@ -2,8 +2,8 @@
  * @file	engine_math.c
  * @brief
  *
- *  Created on: Jul 13, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jul 13, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include <stdio.h>

@@ -1,8 +1,8 @@
 /**
  * @file	output_pins.h
  *
- *  Created on: Jan 24, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jan 24, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef STATUS_LEDS_H_

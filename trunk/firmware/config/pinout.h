@@ -1,8 +1,8 @@
 /*
  * pinout.h
  *
- *  Created on: Aug 29, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Aug 29, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef PINOUT_H_

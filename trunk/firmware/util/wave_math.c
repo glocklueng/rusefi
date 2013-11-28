@@ -1,8 +1,8 @@
 /*
  * wave_math.c
  *
- *  Created on: Dec 25, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Dec 25, 2012
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "wave_math.h"

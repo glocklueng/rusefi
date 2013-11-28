@@ -4,8 +4,8 @@
  *
  * map_multiplier.c
  *
- *  Created on: Jul 23, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jul 23, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"

@@ -2,8 +2,8 @@
  * @file	audi_aan.h
  * @brief	Audo AAN default engine configuration
  *
- *  Created on: Nov 24, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Nov 24, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef AUDI_AAN_H_

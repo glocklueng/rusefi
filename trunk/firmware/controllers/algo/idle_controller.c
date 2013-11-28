@@ -9,8 +9,8 @@
  *
  * todo: DEFAULT_IDLE_DUTY should be a field on the IdleValveState, not a constant
  *
- *  Created on: May 22, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date May 22, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "idle_controller.h"

@@ -5,8 +5,8 @@
  * Here we have the simplest, thread-based implementation of signal executor.
  * TODO: https://sourceforge.net/p/rusefi/tickets/6/
  *
- *  Created on: Feb 10, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Feb 10, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"

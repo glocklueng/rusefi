@@ -1,8 +1,8 @@
 /*
  * arro_board.h
  *
- *  Created on: Nov 14, 2013
- *      Author: frig
+ * @date Nov 14, 2013
+ * @author frig
  *
  *      This file contents a configuration of arro239 ecu board. Pinout and other.
  */

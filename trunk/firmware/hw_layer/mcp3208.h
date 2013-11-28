@@ -1,8 +1,8 @@
 /*
  * @file    mcp3208.h
  *
- *  Created on: Aug 12, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Aug 12, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  *
  *
  * MCP3208 pins:

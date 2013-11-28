@@ -2,8 +2,8 @@
  * @file    dist_emulator.h
  * @brief   Position sensor(s) emulation header
  *
- *  Created on: Dec 9, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Dec 9, 2012
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef DIST_EMULATOR_H_

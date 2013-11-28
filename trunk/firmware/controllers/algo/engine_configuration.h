@@ -2,8 +2,8 @@
  * @file	engine_configuration.h
  * @brief	Main engine configuration data structure.
  *
- *  Created on: Oct 30, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Oct 30, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef ENGINE_CONFIGURATION_H_

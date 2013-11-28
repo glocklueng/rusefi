@@ -1,8 +1,8 @@
 /**
  * @file	event_registry.c
  *
- *  Created on: Nov 27, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Nov 27, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "event_registry.h"

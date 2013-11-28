@@ -6,8 +6,8 @@
  * these digital events in WaveChart used by the Sniffer tab of Dev Console.
  *
  *
- *  Created on: Jan 7, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jan 7, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"

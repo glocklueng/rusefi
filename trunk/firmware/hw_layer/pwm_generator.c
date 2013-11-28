@@ -7,8 +7,8 @@
  * synchronized waves as needed for example to emulate dual Hall-effect crankshaft position sensors.
  *
  *
- *  Created on: May 28, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date May 28, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  *
  */
 

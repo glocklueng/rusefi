@@ -2,8 +2,8 @@
  * @file    rpm_calculator.h
  * @brief   Shaft position sensor(s) decoder header
  *
- *  Created on: Jan 1, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jan 1, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef RPM_REPORTER_H_

@@ -4,8 +4,8 @@
  *
  * In this file the configuration of TunerStudio is defined
  *
- *  Created on: Oct 22, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Oct 22, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef TUNERSTUDIO_CONFIGURATION_H_

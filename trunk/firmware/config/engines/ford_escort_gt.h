@@ -2,8 +2,8 @@
  * @file	ford_escort_gt.h
  * @brief	1993 Ford Escort GT engine configuration. The US Escort.
  *
- *  Created on: Oct 31, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Oct 31, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  *
  *
  * Injectors: Denso 195500-2180, 230-265cc (?), tan, 13.9 ohms

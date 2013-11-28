@@ -3,8 +3,8 @@
  * @brief   Buffered console output stream code
  *
  *
- *  Created on: Feb 25, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Feb 25, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include <string.h>

@@ -1,8 +1,8 @@
 /*
  * gpio_helper.h
  *
- *  Created on: Aug 25, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Aug 25, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef GPIO_HELPER_H_

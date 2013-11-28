@@ -1,8 +1,8 @@
 /*
  * signal_filtering.h
  *
- *  Created on: Aug 5, 2013
- *      Author: pc
+ * @date Aug 5, 2013
+ * @author pc
  */
 
 #ifndef SIGNAL_FILTERING_H_

@@ -1,7 +1,7 @@
 /*
  * print.h
  *
- *  Created on: Jun 15, 2013
+ * @date Jun 15, 2013
  */
 
 /**

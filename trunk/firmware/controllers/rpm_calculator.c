@@ -4,8 +4,8 @@
  *
  * Here we listen to position sensor events in order to figure our if engine is currently running or not.
  *
- *  Created on: Jan 1, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jan 1, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "rpm_calculator.h"

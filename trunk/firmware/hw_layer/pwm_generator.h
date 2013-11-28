@@ -1,8 +1,8 @@
 /*
  * pwm_generator.h
  *
- *  Created on: May 28, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date May 28, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef PWM_GENERATOR_H_
