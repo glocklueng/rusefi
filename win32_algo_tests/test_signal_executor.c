@@ -10,7 +10,7 @@
 #include "test_signal_executor.h"
 #include "utlist.h"
 
-static OutputSignal *st_output_list;
+extern OutputSignal *st_output_list;
 
 void testSignalExecutor() {
 	OutputSignal s1;
@@ -22,5 +22,5 @@ void testSignalExecutor() {
 	OutputSignal *out;
 	int count;
 	LL_COUNT(st_output_list, out, count);
-	// todo: why does it fail? assertEquals(2, count);
+	assertEquals(2, count);
 }
