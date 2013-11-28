@@ -7,6 +7,7 @@
 
 #include "main.h"
 #include "engine_configuration.h"
+#include "fuel_map.h"
 
 static EngineConfiguration ec;
 
@@ -14,6 +15,10 @@ EngineConfiguration *engineConfiguration = &ec;
 
 
 float getCoolantTemperature() {
+	return 1;
+}
+
+float getVBatt() {
 	return 1;
 }
 
@@ -38,12 +43,12 @@ void testFuelMap(void) {
 		engineConfiguration->fuelRpmBins[i] = i;
 
 
-	initFuelMap();
+	prepareFuelMap();
 	assertEquals(1005, getBaseFuel(5, 5));
 
 	engineConfiguration->injectorLag = 0.5;
 	// because all the correction tables are zero
-	assertEquals(0.5, getFuel(5, 5));
+	assertEquals(0.5, getRunningFuel(5, 5));
 
 	for (int i = 0; i < IAT_CURVE_SIZE; i++) {
 		engineConfiguration->iatFuelCorrBins[i] = i;
@@ -57,6 +62,6 @@ void testFuelMap(void) {
 	engineConfiguration->injectorLag = 0;
 
 	// 1005 * 2 for IAT correction
-	assertEquals(2010, getFuel(5, 5));
+	assertEquals(2010, getRunningFuel(5, 5));
 
 }

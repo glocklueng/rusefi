@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "interpolation_3d.h"
+#include "interpolation.h"
 #include "main.h"
 
 float rpmBins[5] = { 100, 200, 300, 400, 500 };
