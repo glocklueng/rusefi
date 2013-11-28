@@ -13,5 +13,5 @@ void idleDebug(char *msg, int value) {
 }
 
 void isCranking() {
-	return 1;
+	return;
 }

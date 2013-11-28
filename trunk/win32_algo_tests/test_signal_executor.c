@@ -5,6 +5,7 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
+#include <time.h>
 #include "signal_executor.h"
 #include "signal_executor_single_timer_algo.h"
 #include "test_signal_executor.h"
