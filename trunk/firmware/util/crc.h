@@ -1,12 +1,9 @@
-/*
+/**
+ * @file    crc.h
+ *
  * @date Sep 20, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
-
-/**
- * @file    crc.h
- */
-
 
 #ifndef CRC_H_
 #define CRC_H_
