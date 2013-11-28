@@ -26,7 +26,7 @@ void configureShaftPositionEmulatorShape(PwmConfig *state) {
 
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	registerActuatorEvent(&config->ignitionEvents, 0, 1, 0);
-	registerActuatorEvent(&config->ignitionEvents, 0, 2, 0);
+	registerActuatorEvent(&config->ignitionEvents, 0, 2, 90);
 }
 
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {

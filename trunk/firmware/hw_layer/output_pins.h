@@ -27,6 +27,7 @@ typedef enum {
 	INJECTOR_2_OUTPUT,
 	INJECTOR_3_OUTPUT,
 	INJECTOR_4_OUTPUT,
+	INJECTOR_5_OUTPUT,
 
 	/* digit 1 */
 	LED_HUGE_0, // B2

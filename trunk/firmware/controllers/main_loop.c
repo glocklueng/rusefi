@@ -106,7 +106,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm, float advance) {
 	if (dwell == 0)
 		return; // hard RPM limit was hit
 
-	int sparkDelay = 0; //timeTillNextRise + sparkAdvance - dwell;
+	int sparkDelay = convertAngleToSysticks(rpm, event->angleOffset); //timeTillNextRise + sparkAdvance - dwell;
 	if (sparkDelay < 0) {
 		scheduleSimpleMsg(&logger, "Negative spark delay", sparkDelay);
 		return;
