@@ -7,8 +7,8 @@
  *
  * Both external events (see wave_analyzer.c) and internal (see signal executors) are supported
  *
- *  Created on: Jun 23, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jun 23, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include <string.h>

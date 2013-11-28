@@ -2,8 +2,8 @@
  * @file	HIP9011.h
  * @brief	HIP9011/TPIC8101 driver
  *
- *  Created on: Nov 27, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Nov 27, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef HIP9011_H_

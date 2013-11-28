@@ -1,8 +1,8 @@
 /*
  * data_buffer.c
  *
- *  Created on: Dec 8, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Dec 8, 2012
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "data_buffer.h"

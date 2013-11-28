@@ -1,8 +1,8 @@
 /*
  * @file	engine_math.h
  *
- *  Created on: Jul 13, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jul 13, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef ENGINE_MATH_H_

@@ -5,8 +5,8 @@
  * This job of this class is to make sure that we are not using same hardware pin for two
  * different purposes.
  *
- *  Created on: Jan 15, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jan 15, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"

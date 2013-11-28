@@ -2,8 +2,8 @@
  * @file    adc_external.h
  *
  *
- *  Created on: Aug 18, 2013
- *      Author: pc
+ * @date Aug 18, 2013
+ * @author pc
  */
 
 #ifndef ADC_EXTERNAL_H_

@@ -5,8 +5,8 @@
  * This file is mostly about initialization, the configuration is
  * provided by the configureShaftPositionEmulatorShape method
  *
- *  Created on: Dec 9, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Dec 9, 2012
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "dist_emulator.h"

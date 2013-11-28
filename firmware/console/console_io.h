@@ -1,8 +1,8 @@
 /**
  * @file	console_io.h
  *
- *  Created on: Dec 29, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Dec 29, 2012
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 #pragma once
 #ifndef CONSOLE_IO_H_

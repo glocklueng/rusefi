@@ -2,8 +2,8 @@
  * @file    datalogging.h
  * @brief   Buffered console output stream header
  *
- *  Created on: Feb 25, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Feb 25, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef DATALOGGING_H_

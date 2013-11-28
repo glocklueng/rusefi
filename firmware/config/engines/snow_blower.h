@@ -2,8 +2,8 @@
  * @file    snow_blower.h
  * @brief	Default configuration of a single-cylinder engine
 
- *  Created on: Sep 8, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Sep 8, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef SNOW_BLOWER_H_

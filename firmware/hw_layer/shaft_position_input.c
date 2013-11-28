@@ -2,8 +2,8 @@
  * @file	shaft_position_input.c
  * @brief	Position sensor hardware layer
  *
- *  Created on: Dec 30, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Dec 30, 2012
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "shaft_position_input.h"

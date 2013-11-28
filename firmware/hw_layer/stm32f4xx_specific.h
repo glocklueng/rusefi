@@ -1,8 +1,8 @@
 /*
  * stm32f4xx_specific.h
  *
- *  Created on: Jun 16, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jun 16, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef STM32F4XX_SPECIFIC_H_

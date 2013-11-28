@@ -1,8 +1,8 @@
 /**
  * @file	ford_fiesta.h
  *
- *  Created on: Nov 22, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Nov 22, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef FORD_FIESTA_H_

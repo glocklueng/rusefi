@@ -1,8 +1,8 @@
 /*
  * map_adjuster.h
  *
- *  Created on: Jul 23, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jul 23, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef MAP_ADJUSTER_H_

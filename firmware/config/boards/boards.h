@@ -1,8 +1,8 @@
 /*
  * board.h
  *
- *  Created on: Nov 14, 2013
- *      Author: frig
+ * @date Nov 14, 2013
+ * @author frig
  *
  *  Board configuration. Only general confuration, and including custom configs
  */

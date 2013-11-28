@@ -1,8 +1,8 @@
 /**
  * @file	idle_controller.h
  *
- *  Created on: May 22, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date May 22, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef IDLE_CONTROLLER_H_

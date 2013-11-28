@@ -2,8 +2,8 @@
  * @file	ford_aspire.h
  * @brief	1996 Ford Aspire default engine configuration
  *
- *  Created on: Aug 30, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Aug 30, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  *
  *
  *	Injectors: Denso 195500-2110, 120cc, purple, 13.9 ohms

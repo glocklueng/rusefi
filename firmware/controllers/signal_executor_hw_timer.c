@@ -3,8 +3,8 @@
  *
  * this is a future home of hardware TIM signal executor https://sourceforge.net/p/rusefi/tickets/6/
  *
- *  Created on: Oct 28, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Oct 28, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"

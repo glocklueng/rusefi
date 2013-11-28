@@ -2,8 +2,8 @@
  * @file	engine_controller.c
  * @brief	Utility method related to the engine configuration data structure.
  *
- *  Created on: Nov 22, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Nov 22, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "engine_configuration.h"

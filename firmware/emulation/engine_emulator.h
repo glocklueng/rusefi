@@ -1,8 +1,8 @@
 /*
  * engine_emulator.h
  *
- *  Created on: Mar 15, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Mar 15, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef ENGINE_EMULATOR_H_

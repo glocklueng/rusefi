@@ -1,8 +1,8 @@
 /**
  * @file	fuel_map.h
  *
- *  Created on: May 27, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date May 27, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef FUEL_MAP_H_

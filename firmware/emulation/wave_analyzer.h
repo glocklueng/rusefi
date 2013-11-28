@@ -2,8 +2,8 @@
  * @file	wave_analyzer.h
  *
  *
- *  Created on: Jan 7, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jan 7, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef WAVE_ANALYZER_H_

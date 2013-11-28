@@ -2,8 +2,8 @@
  * @file    flash_main.h
  * @brief
  *
- *  Created on: Sep 19, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Sep 19, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef FLASH_MAIN_H_

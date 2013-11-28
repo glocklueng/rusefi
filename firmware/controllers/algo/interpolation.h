@@ -1,8 +1,8 @@
 /**
  * @file    interpolation.h
  *
- *  Created on: Oct 17, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Oct 17, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef INTERPOLATION_3D_H_

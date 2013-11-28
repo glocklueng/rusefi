@@ -1,8 +1,8 @@
 /**
  * @file	main.c
  *
- *  Created on: Nov 29, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Nov 29, 2012
+ * @author Andrey Belomutskiy, (c) 2012-2013
  *      http://rusefi.com/
  */
 

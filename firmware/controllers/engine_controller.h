@@ -2,8 +2,8 @@
  * @file    engine_controller.h
  * @brief   Controllers package entry point header
  *
- *  Created on: Feb 7, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Feb 7, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef ENGINE_STATUS_H_

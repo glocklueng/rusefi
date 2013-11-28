@@ -1,8 +1,8 @@
-/*
- * advance.c
+/**
+ * @file	advance_map.c
  *
- *  Created on: Mar 27, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Mar 27, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "advance_map.h"

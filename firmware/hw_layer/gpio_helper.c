@@ -1,8 +1,8 @@
 /*
  * gpio_helper.c
  *
- *  Created on: Aug 25, 2013
- *      Author: pc
+ * @date Aug 25, 2013
+ * @author pc
  */
 
 /**

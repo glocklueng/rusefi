@@ -1,8 +1,8 @@
 /*
  * listener_array.c
  *
- *  Created on: Jan 1, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jan 1, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "listener_array.h"

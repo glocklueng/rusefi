@@ -2,8 +2,8 @@
  * @file	wave_analyzer_hw.c
  * @brief	Helper methods related to Input Capture Unit (ICU)
  *
- *  Created on: Jun 23, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Jun 23, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "wave_analyzer_hw.h"
