@@ -11,13 +11,14 @@
 #define MAIN_LOOP_H_
 
 #include "main.h"
+#include "event_registry.h"
 
 #define MAX_INJECTOR_COUNT 12
 #define MAX_IGNITER_COUNT 4
 
 typedef struct {
 	int injectAtEventIndex[SHAFT_POSITION_EVENT_COUNT];
-	int igniteAtEventIndex[SHAFT_POSITION_EVENT_COUNT];
+	ActuatorEventList ignitionEvents;
 } EventHandlerConfiguration;
 
 void initMainEventListener(void);

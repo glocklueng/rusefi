@@ -14,17 +14,13 @@
 #include "engine_configuration.h"
 #include "toothed_wheel_emulator.h"
 
-extern EngineConfiguration2 engineConfiguration2;
-extern EngineConfiguration *engineConfiguration;
-
 void configureShaftPositionEmulatorShape(PwmConfig *state) {
 	skippedToothPositionEmulatorShape(state);
 }
 
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
-
-	config->igniteAtEventIndex[1] = 1;
-	config->igniteAtEventIndex[36] = 2;
+	registerActuatorEvent(&config->ignitionEvents, 1, 1, 0);
+	registerActuatorEvent(&config->ignitionEvents, 36, 2, 0);
 }
 
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
