@@ -12,11 +12,16 @@
 typedef float myfloat;
 
 #include <stdio.h>
+#include <math.h>
+
+#include "boards.h"
 
 #define TRUE 1
 #define FALSE 0
 
 #define fatal(x) printf(x)
+
+void print(const char *fmt, ...);
 
 #define TICKS_IN_MS 100
 

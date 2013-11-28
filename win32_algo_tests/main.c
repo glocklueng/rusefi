@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdarg.h>
 
 #include "main.h"
 
@@ -68,5 +69,12 @@ int main(void) {
 
 void warning(char *msg, float value) {
 	printf("Warning: %s %f\r\n", msg, value);
+}
+
+void print(const char *format, ...) {
+	va_list ap;
+	va_start(ap, format);
+	vprintf(format, ap);
+	va_end(ap);
 }
 
