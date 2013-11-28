@@ -7,7 +7,7 @@
 
 #include "engine_math.h"
 #include "main.h"
-#include "interpolation_3d.h"
+#include "interpolation.h"
 #include <stdio.h>
 
 void testFindIndex(void) {
