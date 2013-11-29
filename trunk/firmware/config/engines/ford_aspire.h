@@ -21,6 +21,7 @@
 #include "pwm_generator.h"
 
 #define SHAFT_POSITION_EVENT_COUNT 10
+#define EFI_DEFAULT_CHART_SIZE 90
 
 #include "main_loop.h"
 

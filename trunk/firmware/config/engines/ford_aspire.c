@@ -265,22 +265,22 @@ void configureShaftPositionEmulatorShape(PwmConfig *state) {
 
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	resetEventList(&config->crankingInjectionEvents);
-	registerActuatorEvent(&config->injectionEvents, 1, 1, 0);
-	registerActuatorEvent(&config->injectionEvents, 1, 2, 0);
-	registerActuatorEvent(&config->injectionEvents, 1, 3, 0);
-	registerActuatorEvent(&config->injectionEvents, 1, 4, 0);
-	registerActuatorEvent(&config->injectionEvents, 3, 1, 0);
-	registerActuatorEvent(&config->injectionEvents, 3, 2, 0);
-	registerActuatorEvent(&config->injectionEvents, 3, 3, 0);
-	registerActuatorEvent(&config->injectionEvents, 3, 4, 0);
-	registerActuatorEvent(&config->injectionEvents, 6, 1, 0);
-	registerActuatorEvent(&config->injectionEvents, 6, 2, 0);
-	registerActuatorEvent(&config->injectionEvents, 6, 3, 0);
-	registerActuatorEvent(&config->injectionEvents, 6, 4, 0);
-	registerActuatorEvent(&config->injectionEvents, 8, 1, 0);
-	registerActuatorEvent(&config->injectionEvents, 8, 2, 0);
-	registerActuatorEvent(&config->injectionEvents, 8, 3, 0);
-	registerActuatorEvent(&config->injectionEvents, 8, 4, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 1, 1, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 1, 2, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 1, 3, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 1, 4, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 3, 1, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 3, 2, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 3, 3, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 3, 4, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 6, 1, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 6, 2, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 6, 3, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 6, 4, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 8, 1, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 8, 2, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 8, 3, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 8, 4, 0);
 
 	resetEventList(&config->injectionEvents);
 	registerActuatorEvent(&config->injectionEvents, 1, 4, 0);
