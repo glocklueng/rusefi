@@ -13,12 +13,12 @@
 /**
  * 1996 1.3 Ford Aspire
  */
-//#define EFI_ENGINE_FORD_ASPIRE TRUE
+#define EFI_ENGINE_FORD_ASPIRE TRUE
 
 /**
  * 36-1 toothed wheel engine
  */
-#define EFI_ENGINE_FORD_FIESTA TRUE
+//#define EFI_ENGINE_FORD_FIESTA TRUE
 
 //#define EFI_ENGINE_SNOW_BLOWER TRUE
 

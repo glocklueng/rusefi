@@ -16,15 +16,19 @@
 #define MAX_INJECTOR_COUNT 12
 #define MAX_IGNITER_COUNT 4
 
+/**
+ * @brief Here we store information about which injectior or spark should be fired when.
+ */
 typedef struct {
-	int injectAtEventIndex[SHAFT_POSITION_EVENT_COUNT];
+	ActuatorEventList crankingInjectionEvents;
+	ActuatorEventList injectionEvents;
 	ActuatorEventList ignitionEvents;
 } EventHandlerConfiguration;
 
 void initMainEventListener(void);
 void onEveryMillisecondTimerSignal(void);
 /**
- * @brief	Implementation would be provided by engine configutation file
+ * @brief	Implementation would be provided by engine configuration file
  */
 void configureEngineEventHandler(EventHandlerConfiguration *config);
 
