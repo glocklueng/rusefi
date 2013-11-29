@@ -67,8 +67,6 @@
 #endif
 #endif /* EFI_TUNER_STUDIO */
 
-#define EFI_DEFAULT_CHART_SIZE 180
-
 // not unit test
 #define EFI_PROD_CODE TRUE
 
