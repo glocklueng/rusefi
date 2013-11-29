@@ -36,28 +36,22 @@ extern myfloat globalFuelCorrection;
 
 static Logging logger;
 
-static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
+/**
+ * this field is accessed only from shaft sensor event handler.
+ * This is not a method variable just to save us from stack overflow.
+ */
+static ActuatorEventList events;
 
-	if (!isInjectionEnabled)
-		return;
-
-	if (eventIndex < 0 || eventIndex >= SHAFT_POSITION_EVENT_COUNT) {
-		scheduleSimpleMsg(&logger, "ERROR: eventIndex ", eventIndex);
-		return;
-	}
-
-	int cylinderId = engineEventConfiguration.injectAtEventIndex[eventIndex];
+static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
+	int cylinderId = event->actuatorId;
 	if (cylinderId == 0)
 		return; // no cylinder should be fired at this event
 	assertCylinderId(cylinderId, "onShaftSignal");
 
-	int rpm = getCurrentRpm();
 	if (rpm > engineConfiguration->rpmHardLimit) {
 		scheduleSimpleMsg(&logger, "RPM above hard limit ", rpm);
 		return;
 	}
-
-	scheduleSimpleMsg(&logger, "eventId ", eventIndex);
 
 	int fuelTicks = getFuelMs(rpm) * globalFuelCorrection * TICKS_IN_MS;
 	if (fuelTicks < 0) {
@@ -69,6 +63,31 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 		scheduleSimpleMsg(&logger, "crankingFuel=", fuelTicks);
 
 	scheduleFuelInjection(0, fuelTicks, cylinderId);
+}
+
+static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
+	if (!isInjectionEnabled)
+		return;
+
+	if (eventIndex < 0 || eventIndex >= SHAFT_POSITION_EVENT_COUNT) {
+		scheduleSimpleMsg(&logger, "ERROR: eventIndex ", eventIndex);
+		return;
+	}
+
+	ActuatorEventList *source = isCranking() ? &engineEventConfiguration.crankingInjectionEvents : &engineEventConfiguration.injectionEvents;
+	findEvents(eventIndex, source, &events);
+
+	if (events.size == 0)
+		return;
+
+	scheduleSimpleMsg(&logger, "eventId size=", events.size);
+
+	int rpm = getCurrentRpm();
+
+	for (int i = 0; i < events.size; i++) {
+		ActuatorEvent *event = &events.events[i];
+		handleFuelInjectionEvent(event, rpm);
+	}
 }
 
 static int getSparkDwell(int rpm) {
@@ -87,11 +106,6 @@ static int getSparkDwell(int rpm) {
 	int dec = rpm * TICKS_IN_MS / 2000;
 	return defaultDwell - dec;
 }
-
-/**
- * this field is accessed only from shaft sensor event handler
- */
-static ActuatorEventList ignitionEvents;
 
 static void handleSparkEvent(ActuatorEvent *event, int rpm, float advance) {
 	int igniterId = event->actuatorId;
@@ -122,14 +136,14 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 
 	float advance = getAdvance(rpm, getMaf());
 
-	findEvents(eventIndex, &engineEventConfiguration.ignitionEvents, &ignitionEvents);
-	if (ignitionEvents.size == 0)
+	findEvents(eventIndex, &engineEventConfiguration.ignitionEvents, &events);
+	if (events.size == 0)
 		return;
 
 	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
 
-	for (int i = 0; i < ignitionEvents.size; i++) {
-		ActuatorEvent *event = &ignitionEvents.events[i];
+	for (int i = 0; i < events.size; i++) {
+		ActuatorEvent *event = &events.events[i];
 		handleSparkEvent(event, rpm, advance);
 	}
 }
