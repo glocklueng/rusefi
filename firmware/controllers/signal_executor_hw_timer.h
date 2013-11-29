@@ -6,7 +6,6 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
-
 #ifndef SIGNAL_EXECUTOR_HW_TIMER_H_
 #define SIGNAL_EXECUTOR_HW_TIMER_H_
 
@@ -15,6 +14,4 @@
 #if EFI_SIGNAL_EXECUTOR_HW_TIMER
 
 #endif /* EFI_SIGNAL_EXECUTOR_HW_TIMER */
-
-
 #endif /* SIGNAL_EXECUTOR_HW_TIMER_H_ */
