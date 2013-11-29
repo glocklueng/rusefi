@@ -61,6 +61,13 @@ int tunerStudioHandleCommand(short command) {
 	} else if (command == 't' || command == 'T') {
 		handleTestCommand();
 	} else {
+#if EFI_TUNER_STUDIO_OVER_USB
+		/**
+		 * With TTL there is a real chance of corrupted messages.
+		 * With serial-over-USB we are not expecting communication errors
+		 */
+		fatal("unexpected TunerStudio command in USB mode: ", command);
+#endif /* EFI_TUNER_STUDIO_OVER_USB */
 		tsState.errorCounter++;
 		return FALSE;
 	}
