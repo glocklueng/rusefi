@@ -42,12 +42,11 @@ static const SPIConfig spicfg = { spiCallback,
 HIP9011_CS_PORT,
 HIP9011_CS_PIN,
 //SPI_CR1_MSTR |
-		SPI_CR1_BR_0 | SPI_CR1_BR_1 | SPI_CR1_BR_2
-//SPI_CR1_BR_0
-		};
+//SPI_CR1_BR_1 // 5MHz
+		SPI_CR1_BR_0 | SPI_CR1_BR_1 | SPI_CR1_BR_2 };
 
-static unsigned char tx_buff[3];
-static unsigned char rx_buff[3];
+static unsigned char tx_buff[8];
+static unsigned char rx_buff[8];
 
 static SPIDriver *driver = &SPID2;
 
@@ -57,17 +56,20 @@ static msg_t ivThread(int param) {
 
 	int counter = 0;
 
-	tx_buff[0] = 0b11100001;
+//	tx_buff[0] = 0b11100001;
 
-	while (1)
-	{
+	tx_buff[0] = HIP_ADVANCED_MODE;
+
+	tx_buff[4] = 0b11111000;
+
+	while (1) {
 		chThdSleepMilliseconds(10);
 
 		scheduleSimpleMsg(&logger, "poking HIP=", counter++);
 
 		spiSelect(driver);
 
-		spiStartExchange(driver, 3, tx_buff, rx_buff);
+		spiStartExchange(driver, 8, tx_buff, rx_buff);
 //		spiUnselect(driver);
 
 	}
@@ -76,9 +78,10 @@ static msg_t ivThread(int param) {
 }
 
 void initHip9011(void) {
+	if (1 == 1)
+		return; // not needed yet
 
-	initLogging(&logger, "HIP driver", logger.DEFAULT_BUFFER,
-			sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "HIP driver", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	print("Starting HIP9011/TPIC8101 driver\r\n");
 	spiStart(driver, &spicfg);
