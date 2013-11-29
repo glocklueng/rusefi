@@ -50,7 +50,8 @@ static unsigned char rx_buff[8];
 
 static SPIDriver *driver = &SPID2;
 
-#define HIP_ADVANCED_MODE 0b01110001
+// 0b01110001
+#define HIP_ADVANCED_MODE 0x71
 
 static msg_t ivThread(int param) {
 
@@ -60,7 +61,7 @@ static msg_t ivThread(int param) {
 
 	tx_buff[0] = HIP_ADVANCED_MODE;
 
-	tx_buff[4] = 0b11111000;
+	tx_buff[4] = 0xF8;// 0b11111000;
 
 	while (1) {
 		chThdSleepMilliseconds(10);
