@@ -91,7 +91,8 @@ static void initECUstimulator(void) {
 void initEngineEmulator(void) {
 //	initTimePerfActions();
 
-	initPotentiometers();
+//	initPotentiometers();
+
 	//initECUstimulator();
 	initShaftPositionEmulator();
 }
