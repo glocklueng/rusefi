@@ -239,13 +239,15 @@ int flashWrite(flashaddr_t address, const char* buffer, size_t size) {
 	/* Now, address is correctly aligned. One can copy data directly from
 	 * buffer's data to flash memory until the size of the data remaining to be
 	 * copied requires special treatment. */
+	time_t now = chTimeNow();
 	while (size >= sizeof(flashdata_t)) {
-		print("flash write size=%d\r\n", size);
+//		print("flash write size=%d\r\n", size);
 		flashWriteData(address, *(const flashdata_t*) buffer);
 		address += sizeof(flashdata_t);
 		buffer += sizeof(flashdata_t);
 		size -= sizeof(flashdata_t);
 	}
+	print("Flash programmed in %d ticks\r\n", chTimeNow() - now);
 
 	/* Now, address is correctly aligned, but the remaining data are to
 	 * small to fill a entier flashdata_t. Thus, one must read data already
