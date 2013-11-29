@@ -2,8 +2,7 @@
 #ifndef FLASH_H
 #define FLASH_H
 
-#include <ch.h>
-#include <hal.h>
+#include "main.h"
 #include <stdint.h>
 
 /**
