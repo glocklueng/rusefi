@@ -115,8 +115,8 @@
 #define IDLE_VALVE_PIN 3
 
 /* Fuel pump */
-#define FUEL_PUMP_PORT GPIOE
-#define FUEL_PUMP_PIN 4
+#define FUEL_PUMP_PORT GPIOC
+#define FUEL_PUMP_PIN 13
 
 /* Logic analyzer */
 #define LOGIC_ANALYZER_1_DRIVER ICUD1
@@ -128,8 +128,8 @@
 #define LOGIC_ANALYZER_2_PIN 5
 
 /* Spark ports */
-#define SPARK_1_PORT GPIOD
-#define SPARK_1_PIN 3
+#define SPARK_1_PORT GPIOC
+#define SPARK_1_PIN 15
 
 #define SPARK_2_PORT GPIOE
 #define SPARK_2_PIN 6
