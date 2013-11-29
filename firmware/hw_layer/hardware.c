@@ -17,9 +17,11 @@
 #include "adc_inputs.h"
 
 #include "shaft_position_input.h"
-#include "mcp3208.h"
 
 #include "flash_main.h"
+
+#include "mcp3208.h"
+#include "HIP9011.h"
 
 
 McpAdcState adcState;
@@ -59,6 +61,9 @@ void initHardware() {
 
 	initOutputPins();
 	initAdcInputs();
+
+	initHip9011();
+
 
 //	init_adc_mcp3208(&adcState, &SPID2);
 //	requestAdcValue(&adcState, 0);
