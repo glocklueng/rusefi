@@ -1906,13 +1906,10 @@
     <group>
       <name>engines</name>
       <file>
-        <name>$PROJ_DIR$\..\config\engines\denisvak.c</name>
+        <name>$PROJ_DIR$\..\config\engines\audi_aan.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\config\engines\denisvak.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\config\engines\denisvak_mcu.h</name>
+        <name>$PROJ_DIR$\..\config\engines\audi_aan.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\engine.h</name>
@@ -1924,16 +1921,22 @@
         <name>$PROJ_DIR$\..\config\engines\ford_aspire.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\config\engines\ford_aspire_mcu.h</name>
+        <name>$PROJ_DIR$\..\config\engines\ford_fiesta.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\ford_fiesta.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\nissan_primera.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\nissan_primera.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\snow_blower.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\snow_blower.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\config\engines\snow_blower_mcu.h</name>
       </file>
     </group>
     <group>
@@ -2029,6 +2032,18 @@
     <group>
       <name>algo</name>
       <file>
+        <name>$PROJ_DIR$\..\controllers\algo\engine_configuration.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\engine_configuration.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\event_registry.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\event_registry.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\fuel_map.c</name>
       </file>
       <file>
@@ -2041,16 +2056,22 @@
         <name>$PROJ_DIR$\..\controllers\algo\idle_controller.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\interpolation_3d.c</name>
+        <name>$PROJ_DIR$\..\controllers\algo\interpolation.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\interpolation_3d.h</name>
+        <name>$PROJ_DIR$\..\controllers\algo\interpolation.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\map_adjuster.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\map_adjuster.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\signal_executor_single_timer_algo.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\signal_executor_single_timer_algo.h</name>
       </file>
     </group>
     <group>
@@ -2283,6 +2304,12 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\hardware.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\HIP9011.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\HIP9011.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\mcp3208.c</name>
@@ -2699,6 +2726,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\various\chprintf.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\various\memstreams.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\various\memstreams.h</name>
       </file>
     </group>
   </group>
