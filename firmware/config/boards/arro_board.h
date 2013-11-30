@@ -108,8 +108,8 @@
 #define INJECTOR_4_PORT GPIOE
 #define INJECTOR_4_PIN 0
 
-#define INJECTOR_5_PORT GPIOC
-#define INJECTOR_5_PIN 14
+#define INJECTOR_5_PORT GPIOE
+#define INJECTOR_5_PIN 6
 
 #define IDLE_VALVE_PORT GPIOE
 #define IDLE_VALVE_PIN 3
@@ -132,7 +132,11 @@
 #define SPARK_1_PIN 15
 
 #define SPARK_2_PORT GPIOE
-#define SPARK_2_PIN 6
+#define SPARK_2_PIN 4
+
+/* Additional PINs on top of the standard discovery pins */
+#define EXTRA_LED_1_PORT GPIOC
+#define EXTRA_LED_1_PIN 14
 
 #define PRIMARY_SHAFT_POSITION_EMULATION_PIN 1
 #define PRIMARY_SHAFT_POSITION_EMULATION_PORT GPIOD
