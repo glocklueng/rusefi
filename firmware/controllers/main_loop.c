@@ -27,6 +27,7 @@
 // todo: move this to EngineConfiguration2 for now
 
 extern EngineConfiguration *engineConfiguration;
+extern EngineConfiguration2 engineConfiguration2;
 
 extern int isInjectionEnabled;
 
@@ -112,6 +113,8 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm, float advance) {
 	if (igniterId == 0)
 		return;
 
+	advance += engineConfiguration2.ignitonOffset;
+
 	int sparkAdvance = convertAngleToSysticks(rpm, advance);
 
 	int dwell = getSparkDwell(rpm);
@@ -120,7 +123,9 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm, float advance) {
 	if (dwell == 0)
 		return; // hard RPM limit was hit
 
-	int sparkDelay = convertAngleToSysticks(rpm, event->angleOffset); //timeTillNextRise + sparkAdvance - dwell;
+	//int timeTillNextRise = convertAngleToSysticks(rpm, 90);
+
+	int sparkDelay = convertAngleToSysticks(rpm, event->angleOffset) + sparkAdvance - dwell;
 	if (sparkDelay < 0) {
 		scheduleSimpleMsg(&logger, "Negative spark delay", sparkDelay);
 		return;
@@ -132,7 +137,6 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm, float advance) {
 static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	int rpm = getCurrentRpm();
 
-	int timeTillNextRise = convertAngleToSysticks(rpm, 90);
 
 	float advance = getAdvance(rpm, getMaf());
 
@@ -163,6 +167,8 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 void initMainEventListener() {
 	initLogging(&logger, "main event handler", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 	printSimpleMsg(&logger, "initMainLoop: ", chTimeNow());
+
+	engineConfiguration2.ignitonOffset = 35;
 
 	if (!isInjectionEnabled)
 		printSimpleMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled", 0);
