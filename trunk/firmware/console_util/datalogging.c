@@ -14,7 +14,7 @@
 #include "main.h"
 #include "rfiutil.h"
 #include "chprintf.h"
-#include "chsem.h"
+#include "chmtx.h"
 #include "memstreams.h"
 
 #define OUTPUT_BUFFER 5000
@@ -22,14 +22,18 @@
 
 static MemoryStream intermediateLoggingBuffer;
 static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE]; //todo define max-printf-buffer
-// this semaphore guards the 'intermediateLoggingBuffer'
-static Semaphore semPrintfLogging;
 static bool intermediateLoggingBufferInited = FALSE;
 
 void initIntermediateLoggingBuffer(void) {
 	msObjectInit(&intermediateLoggingBuffer, intermediateLoggingBufferData, INTERMEDIATE_LOGGING_BUFFER_SIZE, 0);
-	chSemInit(&semPrintfLogging, 1);
 	intermediateLoggingBufferInited = TRUE;
+}
+
+static void vappendPrintfI(Logging *logging, const char *fmt, va_list arg) {
+	intermediateLoggingBuffer.eos = 0; // reset
+	chvprintf((BaseSequentialStream *) &intermediateLoggingBuffer, fmt, arg);
+	intermediateLoggingBuffer.buffer[intermediateLoggingBuffer.eos] = 0; // need to terminate explicitly
+	append(logging, (char *) intermediateLoggingBufferData);
 }
 
 void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
@@ -37,13 +41,25 @@ void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
 		fatal("intermediateLoggingBufferInited not inited!");
 		return;
 	}
-	// todo: use? lockOutputBuffer? fix lockOutputBuffer?
-	chSemWait(&semPrintfLogging);
-	intermediateLoggingBuffer.eos = 0; // reset
-	chvprintf((BaseSequentialStream *) &intermediateLoggingBuffer, fmt, arg);
-	intermediateLoggingBuffer.buffer[intermediateLoggingBuffer.eos] = 0; // need to terminate explicitly
-	append(logging, (char *) intermediateLoggingBufferData);
-	chSemSignal(&semPrintfLogging);
+	int isLocked = dbg_lock_cnt != 0;
+	uint32_t icsr_vectactive = SCB->ICSR & 0x1fU;
+	if (isLocked) {
+		vappendPrintfI(logging, fmt, arg);
+	} else {
+		if (icsr_vectactive == 0) {
+			chSysLock()
+			;
+			vappendPrintfI(logging, fmt, arg);
+			chSysUnlock()
+			;
+		} else {
+			chSysLockFromIsr()
+			;
+			vappendPrintfI(logging, fmt, arg);
+			chSysUnlockFromIsr()
+			;
+		}
+	}
 }
 
 void appendPrintf(Logging *logging, const char *fmt, ...) {
@@ -69,7 +85,7 @@ static char* getCaption(int loggingPoint) {
 		return "MAP";
 	}
 	fatal("No such loggingPoint");
-	return NULL ;
+	return NULL;
 }
 
 static char* get2ndCaption(int loggingPoint) {
@@ -88,11 +104,11 @@ static char* get2ndCaption(int loggingPoint) {
 		return "MAP";
 	}
 	fatal("No such loggingPoint");
-	return NULL ;
+	return NULL;
 }
 
 static int validateBuffer(Logging *logging, int extraLen, char *text) {
-	if (logging->buffer == NULL ) {
+	if (logging->buffer == NULL) {
 		strcpy(logging->SMALL_BUFFER, "Logging not initialized: ");
 		strcat(logging->SMALL_BUFFER, logging->name);
 		strcat(logging->SMALL_BUFFER, "/");
@@ -133,8 +149,7 @@ void initLogging(Logging *logging, char *name, char *buffer, int bufferSize) {
 }
 
 void appendInt(Logging *logging, int value) {
-	itoa(logging->SMALL_BUFFER, value);
-	append(logging, logging->SMALL_BUFFER);
+	appendPrintf(logging, "%d", value);
 }
 
 void msgInt(Logging *logging, char *caption, int value) {
