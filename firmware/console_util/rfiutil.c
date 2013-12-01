@@ -9,30 +9,6 @@
 #include <string.h>
 #include "rfiutil.h"
 
-static int mypow10(int param) {
-	switch (param) {
-	case 0:
-		return 1;
-	case 1:
-		return 10;
-	case 2:
-		return 100;
-	case 3:
-		return 1000;
-	case 4:
-		return 10000;
-	case 5:
-		return 100000;
-	case 6:
-		return 1000000;
-	case 7:
-		return 10000000;
-	case 8:
-		return 100000000;
-	}
-	return 10 * mypow10(10 - 1);
-}
-
 int mylog10(int param) {
 	if (param < 10)
 		return 0;
@@ -74,33 +50,7 @@ static char *ltoa_internal(char *p, long num, unsigned radix) {
 	return p;
 }
 
-char * ftoa(char *pointer, myfloat val, int precision) {
-	char *p = pointer;
-	if (val < 0) {
-		*p++ = '-';
-		return ftoa(p, -val, precision);
-	}
-
-	int n = (int) val;
-	p = ltoa_internal(p, n, 10);
-
-	if (precision < 1)
-		return p;
-	val -= n;
-	*p++ = '.';
-	val *= mypow10(precision);
-
-	int len = mylog10((int) val);
-	// leading zeros of decimal part
-	for (int i = len + 1; i < precision; i++)
-		*p++ = '0';
-	// decimal part
-	p = ltoa_internal(p, (int) val, 10);
-	*p = 0;
-	return p;
-}
-
-char* itoa_signed(char *p, int num, unsigned radix) {
+static char* itoa_signed(char *p, int num, unsigned radix) {
 	if (num < 0) {
 		*p++ = '-';
 		char *end = ltoa_internal(p, -num, radix);
