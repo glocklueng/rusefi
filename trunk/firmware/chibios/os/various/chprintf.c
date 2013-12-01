@@ -32,7 +32,7 @@
 
 #define MAX_FILLER 11
 #define FLOAT_PRECISION 100000
-
+#define MYFLOAT_PRECISION 5
 static char *long_to_string_with_divisor(char *p,
                                          long num,
                                          unsigned radix,
@@ -72,14 +72,18 @@ static char *ltoa(char *p, long num, unsigned radix) {
 }
 
 #if CHPRINTF_USE_FLOAT
-static char *ftoa(char *p, double num) {
-	  if (isnan(num))
-	    return "NaN";
+static char *ftoa(char *p, double num, unsigned long precision) {
+  if (isnan(num)) {
+    *p++ = 'N';
+    *p++ = 'a';
+    *p++ = 'N';
+    return p;
+  }
 
-	long l;
-  unsigned long precision = FLOAT_PRECISION;
+  if (precision == 0)
+    precision = FLOAT_PRECISION;
 
-  l = num;
+  long l = num;
   p = long_to_string_with_divisor(p, l, 10, 0);
   *p++ = '.';
   l = (num - l) * precision;
@@ -208,12 +212,14 @@ void chvprintf(BaseSequentialStream *chp, const char *fmt, va_list ap) {
       break;
 #if CHPRINTF_USE_FLOAT
     case 'f':
+
       f = (float) va_arg(ap, double);
+
       if (f < 0) {
         *p++ = '-';
         f = -f;
       }
-      p = ftoa(p, f);
+      p = ftoa(p, f, precision);
       break;
 #endif
     case 'X':
