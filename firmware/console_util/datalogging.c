@@ -135,7 +135,6 @@ void append(Logging *logging, char *text) {
 	int errcode = validateBuffer(logging, extraLen, text);
 	if (errcode)
 		return;
-//	print("%s", text);
 	strcpy(logging->linePointer, text);
 	logging->linePointer += extraLen;
 }
@@ -172,22 +171,42 @@ void debugInt(Logging *logging, char *caption, int value) {
 #if TAB_MODE
 	if(lineNumber > 0) {
 #endif
-	itoa(logging->SMALL_BUFFER, value);
-	append(logging, logging->SMALL_BUFFER);
-	append(logging, DELIMETER);
+	appendPrintf(logging, "%d%s", value, DELIMETER);
 #if TAB_MODE
 }
 #endif
 }
 
-void debugFloat2(Logging *logging, char *caption, int captionSuffix, myfloat value, int precision) {
-	append(logging, caption);
-	itoa(logging->SMALL_BUFFER, captionSuffix);
-	append(logging, logging->SMALL_BUFFER);
-	append(logging, DELIMETER);
+void appendFloat(Logging *logging, myfloat value, int precision) {
+	switch (precision) {
+	case 1:
+	  appendPrintf(logging, "%..10f",  value);
+	  break;
+	case 2:
+	  appendPrintf(logging, "%..100f",  value);
+	  break;
+	case 3:
+	  appendPrintf(logging, "%..1000f",  value);
+	  	  break;
+	case 4:
+	  appendPrintf(logging, "%..10000f",  value);
+	  	  break;
+	case 5:
+	  appendPrintf(logging, "%..100000f",  value);
+	  	  break;
+	case 6:
+	  appendPrintf(logging, "%..1000000f",  value);
+	  	  break;
 
-	ftoa(logging->SMALL_BUFFER, value, precision);
-	append(logging, logging->SMALL_BUFFER);
+	default:
+	  appendPrintf(logging, "%f",  value);
+	}
+}
+
+void debugFloat2(Logging *logging, char *caption, int captionSuffix, myfloat value, int precision) {
+	appendPrintf(logging, "%s%d", caption, captionSuffix);
+	append(logging, DELIMETER);
+	appendFloat(logging, value, precision);
 	append(logging, DELIMETER);
 }
 
@@ -205,8 +224,7 @@ void debugFloat(Logging *logging, char *caption, myfloat value, int precision) {
 #if TAB_MODE
 	if(lineNumber > 0) {
 #endif
-	ftoa(logging->SMALL_BUFFER, value, precision);
-	append(logging, logging->SMALL_BUFFER);
+	appendFloat(logging, value, precision);
 	append(logging, DELIMETER);
 #if TAB_MODE
 }
