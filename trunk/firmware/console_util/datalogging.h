@@ -60,10 +60,12 @@ void printSimpleMsg(Logging *logging, char *msg, int value);
 void append(Logging *logging, char *text);
 void appendInt(Logging *logging, int value);
 
+void appendPrintf(Logging *logging, const char *fmt, ...);
 /**
  * this method copies the line into the intermediate buffer for later output by
  * the main thread
  */
+ 
 void scheduleLogging(Logging *logging);
 void scheduleSimpleMsg(Logging *logging, char *msg, int value);
 
