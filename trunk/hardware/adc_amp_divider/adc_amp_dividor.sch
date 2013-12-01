@@ -38,7 +38,7 @@ encoding utf-8
 Sheet 1 1
 Title "Analgo Protection board for RUSEFI.com"
 Date "29 nov 2013"
-Rev "A-1"
+Rev "A-.01"
 Comp "RUSEFI.com"
 Comment1 ""
 Comment2 ""
