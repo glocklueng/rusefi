@@ -31,8 +31,8 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "6 Channel Injector"
-Date "10 nov 2013"
-Rev "A-5"
+Date "1 dec 2013"
+Rev "A-6"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""
 Comment2 ""
@@ -125,8 +125,6 @@ Wire Wire Line
 Wire Wire Line
 	3900 3525 3950 3525
 Connection ~ 3900 2225
-Wire Wire Line
-	3900 2125 4450 2125
 Wire Wire Line
 	3900 2125 3900 2275
 Wire Wire Line
@@ -334,9 +332,9 @@ F 5 "digi,CRCW0805100KFKEA" V 1130 600 60  0001 C CNN "vend1,vend1#"
 $EndComp
 Text Label 4875 2375 0    60   ~ 0
 iGND1
-Text Label 3900 2725 2    60   ~ 0
+Text Label 3450 2725 2    60   ~ 0
 INJ-05_5V
-Text Label 4425 2125 2    60   ~ 0
+Text Label 3400 2225 2    60   ~ 0
 INJ-06_5V
 $Comp
 L R R18
@@ -396,9 +394,9 @@ F 5 "digi,CRCW0805100KFKEA" V 1130 3100 60  0001 C CNN "vend1,vend1#"
 $EndComp
 Text Label 4900 3625 0    60   ~ 0
 iGND1
-Text Label 3900 3975 2    60   ~ 0
+Text Label 3450 3975 2    60   ~ 0
 INJ-03_5V
-Text Label 4425 3375 2    60   ~ 0
+Text Label 3400 3475 2    60   ~ 0
 INJ-04_5V
 $Comp
 L R R16
@@ -434,9 +432,9 @@ F 5 "digi,CRCW0805100KFKEA" V 1130 4900 60  0001 C CNN "vend1,vend1#"
 	1    4200 4775
 	0    1    1    0   
 $EndComp
-Text Label 4425 4625 2    60   ~ 0
+Text Label 3400 4725 2    60   ~ 0
 INJ-02_5V
-Text Label 3900 5225 2    60   ~ 0
+Text Label 3450 5225 2    60   ~ 0
 INJ-01_5V
 Text Label 4875 4875 0    60   ~ 0
 iGND1
@@ -870,4 +868,84 @@ Wire Wire Line
 	5800 7275 5475 7275
 Text Label 5400 2375 3    60   ~ 0
 INJ-06_2
+$Comp
+L R R4
+U 1 1 529A8640
+P 3650 2225
+F 0 "R4" V 3730 2225 50  0000 C CNN
+F 1 "20R" V 3650 2225 50  0000 C CNN
+F 2 "SM0805" V 580 -150 60  0001 C CNN
+F 3 "" H 3650 2225 60  0001 C CNN
+F 4 "Panasonic,ECG ERJ-6ENF20R0V" V 580 -150 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,ERJ-6ENF20R0V" V 580 -150 60  0001 C CNN "vend1,vend1#"
+	1    3650 2225
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3900 2125 4450 2125
+$Comp
+L R R7
+U 1 1 529A8879
+P 3700 2725
+F 0 "R7" V 3780 2725 50  0000 C CNN
+F 1 "20R" V 3700 2725 50  0000 C CNN
+F 2 "SM0805" V 630 350 60  0001 C CNN
+F 3 "" H 3700 2725 60  0001 C CNN
+F 4 "Panasonic,ECG ERJ-6ENF20R0V" V 630 350 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,ERJ-6ENF20R0V" V 630 350 60  0001 C CNN "vend1,vend1#"
+	1    3700 2725
+	0    1    1    0   
+$EndComp
+$Comp
+L R R5
+U 1 1 529A8883
+P 3650 3475
+F 0 "R5" V 3730 3475 50  0000 C CNN
+F 1 "20R" V 3650 3475 50  0000 C CNN
+F 2 "SM0805" V 580 1100 60  0001 C CNN
+F 3 "" H 3650 3475 60  0001 C CNN
+F 4 "Panasonic,ECG ERJ-6ENF20R0V" V 580 1100 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,ERJ-6ENF20R0V" V 580 1100 60  0001 C CNN "vend1,vend1#"
+	1    3650 3475
+	0    1    1    0   
+$EndComp
+$Comp
+L R R8
+U 1 1 529A888D
+P 3700 3975
+F 0 "R8" V 3780 3975 50  0000 C CNN
+F 1 "20R" V 3700 3975 50  0000 C CNN
+F 2 "SM0805" V 630 1600 60  0001 C CNN
+F 3 "" H 3700 3975 60  0001 C CNN
+F 4 "Panasonic,ECG ERJ-6ENF20R0V" V 630 1600 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,ERJ-6ENF20R0V" V 630 1600 60  0001 C CNN "vend1,vend1#"
+	1    3700 3975
+	0    1    1    0   
+$EndComp
+$Comp
+L R R6
+U 1 1 529A8899
+P 3650 4725
+F 0 "R6" V 3730 4725 50  0000 C CNN
+F 1 "20R" V 3650 4725 50  0000 C CNN
+F 2 "SM0805" V 580 2350 60  0001 C CNN
+F 3 "" H 3650 4725 60  0001 C CNN
+F 4 "Panasonic,ECG ERJ-6ENF20R0V" V 580 2350 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,ERJ-6ENF20R0V" V 580 2350 60  0001 C CNN "vend1,vend1#"
+	1    3650 4725
+	0    1    1    0   
+$EndComp
+$Comp
+L R R9
+U 1 1 529A88A3
+P 3700 5225
+F 0 "R9" V 3780 5225 50  0000 C CNN
+F 1 "20R" V 3700 5225 50  0000 C CNN
+F 2 "SM0805" V 630 2850 60  0001 C CNN
+F 3 "" H 3700 5225 60  0001 C CNN
+F 4 "Panasonic,ECG ERJ-6ENF20R0V" V 630 2850 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,ERJ-6ENF20R0V" V 630 2850 60  0001 C CNN "vend1,vend1#"
+	1    3700 5225
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
