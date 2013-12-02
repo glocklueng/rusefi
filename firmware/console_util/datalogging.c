@@ -257,7 +257,9 @@ static void printWithLength(char *line) {
 	 * following code is functionally identical to
 	 *   print("line:%d:%s\r\n", len, line);
 	 * but it is faster because it outputs the whole buffer, not single characters
-	 * We need this optimization because when we output larger chunks of data like the wave_chart
+	 * We need this optimization because when we output larger chunks of data like the wave_chart:
+	 * When we work with actual hardware, it is faster to invoke 'chSequentialStreamWrite' for the
+	 * whole buffer then to invoke 'chSequentialStreamPut' once per character.
 	 */
 	int len = strlen(line);
 	strcpy(ioBuffer, "line:");
