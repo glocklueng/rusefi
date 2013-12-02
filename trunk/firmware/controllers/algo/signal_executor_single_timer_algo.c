@@ -1,4 +1,4 @@
-/*
+/**
  * @file	signal_executor_single_timer_algo.c
  *
  * @date Nov 28, 2013
@@ -22,3 +22,10 @@ void registerSignal(OutputSignal *signal) {
 	LL_APPEND(st_output_list, signal);
 }
 
+/**
+ * @return time of next event within for this signal
+ */
+time_t toggleSignalIfNeeded(OutputSignal *signal, time_t now) {
+	// todo: actual implementation
+	return 0;
+}
