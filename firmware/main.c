@@ -8,6 +8,7 @@
 
 #include "global.h"
 
+#include "main.h"
 #include "rficonsole.h"
 #include "hardware.h"
 #include "engine_controller.h"
