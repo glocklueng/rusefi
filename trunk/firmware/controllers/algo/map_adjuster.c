@@ -15,6 +15,8 @@
 #define HOW_MANY_MEASURMENTS_ARE_NEEDED 5
 #define MULT_STEP_DOWN 0.92
 
+#if 0
+
 static AvgTable adjustments;
 
 static AvgTable afrs;
@@ -68,3 +70,5 @@ void addAfr(int rpm, float key, float afr) {
 float getMultiplier(int rpm, float key) {
 	return avgGetValue(&adjustments, rpm, key);
 }
+
+#endif /* 0 */
