@@ -24,14 +24,15 @@ LIBS:display
 LIBS:cypress
 LIBS:siliconi
 LIBS:contrib
+LIBS:logo_flipped
 LIBS:cps_vrs_io_1-cache
-EELAYER 24 0
+EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "cps_vrs_io_1"
-Date "02 Dec 2013"
+Date "2 dec 2013"
 Rev ""
 Comp "based on http://code.google.com/p/daecu/"
 Comment1 "cps_vrs_io_1"
@@ -921,4 +922,15 @@ Wire Bus Line
 	2600 850  2600 1825
 Wire Bus Line
 	2600 850  2975 850 
+$Comp
+L LOGO G1
+U 1 1 529CF98B
+P 8150 5650
+F 0 "G1" H 8150 5547 60  0001 C CNN
+F 1 "LOGO" H 8150 5753 60  0001 C CNN
+F 2 "" H 8150 5650 60  0000 C CNN
+F 3 "" H 8150 5650 60  0000 C CNN
+	1    8150 5650
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
