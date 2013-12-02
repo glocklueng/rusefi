@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Пнд 25 Ноя 2013 21:08:07
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Пнд 02 Дек 2013 16:14:22
 
 BeginCmp
 TimeStamp = /4AD9C851;
@@ -64,24 +64,24 @@ IdModule  = SM0805;
 EndCmp
 
 BeginCmp
-TimeStamp = /50D43A3B;
-Reference = JP1;
-ValeurCmp = JUMPER3;
-IdModule  = SIL-3;
+TimeStamp = /529C6F58;
+Reference = D2;
+ValeurCmp = LED;
+IdModule  = SM0805;
 EndCmp
 
 BeginCmp
-TimeStamp = /5288FEA9;
+TimeStamp = /529C78A8;
 Reference = P1;
-ValeurCmp = CONN_2;
-IdModule  = bornier2;
+ValeurCmp = CONN_1;
+IdModule  = PIN_ARRAY_1;
 EndCmp
 
 BeginCmp
-TimeStamp = /5288FADF;
+TimeStamp = /529C79C8;
 Reference = P2;
-ValeurCmp = CONN_2;
-IdModule  = bornier2;
+ValeurCmp = CONN_1;
+IdModule  = PIN_ARRAY_1;
 EndCmp
 
 BeginCmp
@@ -95,26 +95,12 @@ BeginCmp
 TimeStamp = /5288FF50;
 Reference = P4;
 ValeurCmp = CONN_4;
-IdModule  = bornier4;
+IdModule  = PIN_ARRAY_4x1;
 EndCmp
 
 BeginCmp
-TimeStamp = /5288EC5C;
-Reference = P31;
-ValeurCmp = CONN_1;
-IdModule  = SIL-1;
-EndCmp
-
-BeginCmp
-TimeStamp = /5288EC5B;
-Reference = P32;
-ValeurCmp = CONN_1;
-IdModule  = SIL-1;
-EndCmp
-
-BeginCmp
-TimeStamp = /4E39E3AF;
-Reference = R37;
+TimeStamp = /529C6F52;
+Reference = R1;
 ValeurCmp = 1K;
 IdModule  = SM0805;
 EndCmp
@@ -250,27 +236,6 @@ TimeStamp = /4E39E4FD;
 Reference = U24;
 ValeurCmp = MAX9939;
 IdModule  = uMAX-uSOP_10;
-EndCmp
-
-BeginCmp
-TimeStamp = /50D4384F;
-Reference = W1;
-ValeurCmp = JMP;
-IdModule  = SIL-2;
-EndCmp
-
-BeginCmp
-TimeStamp = /50CE3DD7;
-Reference = W2;
-ValeurCmp = JMP;
-IdModule  = SIL-2;
-EndCmp
-
-BeginCmp
-TimeStamp = /50CE3E18;
-Reference = W3;
-ValeurCmp = JMP;
-IdModule  = SIL-2;
 EndCmp
 
 EndListe
