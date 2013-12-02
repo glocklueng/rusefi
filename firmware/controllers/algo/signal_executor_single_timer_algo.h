@@ -1,4 +1,4 @@
-/*
+/**
  * @file	signal_executor_single_timer_algo.h
  *
  * @date Nov 28, 2013
