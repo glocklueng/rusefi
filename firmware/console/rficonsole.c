@@ -62,9 +62,7 @@ static void sayOsHello(void) {
 			CH_DBG_ENABLE_STACK_CHECK);
 
 	resetLogging(&logger);
-	appendPrintf(&logger, "msg");
-	appendPrintf(&logger, DELIMETER);
-	appendPrintf(&logger, EFI_ENGINE_ID);
+	appendPrintf(&logger, "msg%s%s", DELIMETER, EFI_ENGINE_ID);
 	printLine(&logger);
 
 	printSimpleMsg(&logger, "EFI_WAVE_ANALYZER=", EFI_WAVE_ANALYZER);

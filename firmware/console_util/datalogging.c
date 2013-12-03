@@ -270,8 +270,7 @@ void printLine(Logging *logging) {
 
 static void commonSimpleMsg(Logging *logging, char *msg, int value) {
 	resetLogging(logging);
-	append(logging, "msg");
-	append(logging, DELIMETER);
+	appendPrintf(logging, "msg%s", DELIMETER);
 	appendPrintf(logging, "%s%d%s", msg, value, DELIMETER);
 }
 
