@@ -56,8 +56,6 @@ void printLine(Logging *logging);
 
 void printSimpleMsg(Logging *logging, char *msg, int value);
 
-void append(Logging *logging, char *text);
-
 void appendPrintf(Logging *logging, const char *fmt, ...);
 /**
  * this method copies the line into the intermediate buffer for later output by

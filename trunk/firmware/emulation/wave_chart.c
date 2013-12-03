@@ -38,9 +38,9 @@ void resetWaveChart(WaveChart *chart) {
 	resetLogging(&chart->logging);
 	chart->counter = 0;
 	chart->isPrinted = FALSE;
-	append(&chart->logging, "wave_chart");
+	appendPrintf(&chart->logging, "wave_chart");
 //	append(&chart->logging, chart->name);
-	append(&chart->logging, DELIMETER);
+	appendPrintf(&chart->logging, DELIMETER);
 }
 
 static char LOGGING_BUFFER[5000];
@@ -76,7 +76,7 @@ void addWaveChartEvent(WaveChart *chart, char *name, char * msg) {
 #endif
 	if (isWaveChartFull(chart)) {
 		if (!chart->isPrinted) {
-			append(&chart->logging, DELIMETER);
+			appendPrintf(&chart->logging, DELIMETER);
 #if DEBUG_WAVE
 			Logging *l = &chart->logging;
 			scheduleSimpleMsg(&debugLogging, "IT'S TIME", strlen(l->buffer));
