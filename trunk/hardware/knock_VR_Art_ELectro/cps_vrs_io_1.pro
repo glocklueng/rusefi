@@ -1,38 +1,9 @@
-update=02/12/2013 15:15:19
-last_client=eeschema
+update=02/12/2013 19:49:05
+last_client=pcbnew
 [common]
 NetDir=
 [general]
 version=1
-[pcbnew]
-version=1
-LastNetListRead=p3-4.net
-UseCmpFile=0
-PadDrill="    0,000000"
-PadDrillOvalY="    0,000000"
-PadSizeH="    0,350520"
-PadSizeV="    0,701040"
-PcbTextSizeV="    2,032000"
-PcbTextSizeH="    1,524000"
-PcbTextThickness="    0,431800"
-ModuleTextSizeV="    1,524000"
-ModuleTextSizeH="    1,524000"
-ModuleTextSizeThickness="    0,254000"
-SolderMaskClearance="    0,254000"
-SolderMaskMinWidth="    0,000000"
-DrawSegmentWidth="    0,254000"
-BoardOutlineThickness="    0,254000"
-ModuleOutlineThickness="    0,099060"
-[pcbnew/libraries]
-LibName1=connect
-LibName2=discret
-LibName3=pin_array
-LibName4=divers
-LibName5=libcms
-LibName6=display
-LibName7=PCB-modules/project_specific_modules
-LibName8=logo_flipped
-LibDir=
 [cvpcb]
 version=1
 NetIExt=net
@@ -74,3 +45,32 @@ LibName24=siliconi
 LibName25=contrib
 LibName26=logo_flipped
 LibName27=logo
+[pcbnew]
+version=1
+LastNetListRead=cps_vrs_io_1.net
+UseCmpFile=1
+PadDrill=0.600000000000
+PadDrillOvalY=0.600000000000
+PadSizeH=0.350520000000
+PadSizeV=0.701040000000
+PcbTextSizeV=2.032000000000
+PcbTextSizeH=1.524000000000
+PcbTextThickness=0.431800000000
+ModuleTextSizeV=1.524000000000
+ModuleTextSizeH=1.524000000000
+ModuleTextSizeThickness=0.254000000000
+SolderMaskClearance=0.254000000000
+SolderMaskMinWidth=0.000000000000
+DrawSegmentWidth=0.254000000000
+BoardOutlineThickness=0.254000000000
+ModuleOutlineThickness=0.099060000000
+[pcbnew/libraries]
+LibDir=
+LibName1=connect
+LibName2=discret
+LibName3=pin_array
+LibName4=divers
+LibName5=libcms
+LibName6=display
+LibName7=PCB-modules/project_specific_modules
+LibName8=logo_flipped
