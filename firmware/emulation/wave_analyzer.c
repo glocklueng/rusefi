@@ -242,9 +242,17 @@ static void reportWave(Logging *logging, int index) {
 	int dwell = getWaveHighWidth(index);
 	int period = getSignalPeriod(index);
 
-	debugFloat2(logging, "duty", index, 100.0 * dwell / period, 2);
-	debugFloat2(logging, "dwell", index, ((myfloat) dwell) / TICKS_IN_MS, 2);
-	debugFloat2(logging, "period", index, ((myfloat) period) / TICKS_IN_MS, 2);
+	appendPrintf(logging, "duty%d%s", index, DELIMETER);
+	appendFloat(logging, 100.0 * dwell / period, 2);
+	appendPrintf(logging, "%s", DELIMETER);
+
+	appendPrintf(logging, "dwell%d%s", index, DELIMETER);
+	appendFloat(logging, ((myfloat) dwell) / TICKS_IN_MS, 2);
+	appendPrintf(logging, "%s", DELIMETER);
+
+	appendPrintf(logging, "period%d%s", index, DELIMETER);
+	appendFloat(logging, ((myfloat) period) / TICKS_IN_MS, 2);
+	appendPrintf(logging, "%s", DELIMETER);
 
 	int crank = getCrankPeriod();
 
