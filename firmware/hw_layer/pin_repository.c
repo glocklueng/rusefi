@@ -83,7 +83,7 @@ void printpin(char *msg, ioportid_t port, int pin) {
 	append(&logger, "msg,");
 	append(&logger, msg);
 	append(&logger, " on ");
-	msgInt(&logger, portname(port), pin);
+	appendPrintf(&logger, "%s%d%s", portname(port), pin, DELIMETER);
 	printLine(&logger);
 
 	if (PIN_USED[index] != NULL) {

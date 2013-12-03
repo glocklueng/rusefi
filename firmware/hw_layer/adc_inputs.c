@@ -323,9 +323,9 @@ static void printAdcValue(int channel) {
 
 static void printFullAdcReport(void) {
 	for (int i = 0; i < EFI_ADC_SLOW_CHANNELS_COUNT; i++) {
-		msgInt(&logger, " ch", i);
 		int value = getAdcValueByIndex(i);
-		msgInt(&logger, " val= ", value);
+		appendPrintf(&logger, " ch%d%s", i, DELIMETER);
+		appendPrintf(&logger, " val= %d%s", value, DELIMETER);
 		myfloat volts = adcToVolts(value);
 		debugFloat(&logger, "v ", volts, 1);
 	}
