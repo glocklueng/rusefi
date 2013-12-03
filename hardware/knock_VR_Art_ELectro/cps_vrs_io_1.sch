@@ -25,14 +25,15 @@ LIBS:cypress
 LIBS:siliconi
 LIBS:contrib
 LIBS:logo_flipped
+LIBS:logo
 LIBS:cps_vrs_io_1-cache
-EELAYER 27 0
+EELAYER 24 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "cps_vrs_io_1"
-Date "2 dec 2013"
+Date "3 dec 2013"
 Rev ""
 Comp "based on http://code.google.com/p/daecu/"
 Comment1 "cps_vrs_io_1"
@@ -64,7 +65,6 @@ Wire Wire Line
 	11000 2425 10375 2425
 Wire Wire Line
 	14250 1825 14775 1825
-Connection ~ -4675 3450
 Connection ~ 12250 2425
 Wire Wire Line
 	14800 2225 14250 2225
@@ -430,7 +430,7 @@ U 1 1 4AD9CB8E
 P 14250 1625
 F 0 "C10" H 14325 1525 50  0000 L CNN
 F 1 "10uF" H 14025 1725 50  0000 L CNN
-F 2 "SM1206" V 12605 3425 60  0001 C CNN
+F 2 "SM0805" V 12605 3425 60  0001 C CNN
 F 3 "" H 14250 1625 60  0001 C CNN
 F 4 "Taiyo,TMK316BJ106KL-T" V 12605 3425 60  0001 C CNN "mfg,mfg#"
 F 5 "digi,587-1337-1-ND" V 12605 3425 60  0001 C CNN "vend1,vend1#"
@@ -933,4 +933,6 @@ F 3 "" H 8150 5650 60  0000 C CNN
 	1    8150 5650
 	1    0    0    -1  
 $EndComp
+Text Label 11000 1425 2    60   ~ 0
+CRK2+
 $EndSCHEMATC
