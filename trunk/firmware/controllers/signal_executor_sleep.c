@@ -97,9 +97,8 @@ void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 		append(&signal->logging, " delay= ");
 		appendPrintf(&signal->logging, "%d", delay);
 
-		append(&signal->logging, " dwell=");
-		appendPrintf(&signal->logging, "%d", dwell);
-		msgInt(&signal->logging, " WAS ARMED ", delay);
+		appendPrintf(&signal->logging, " dwell=%d ", dwell);
+		appendPrintf(&signal->logging, "WAS ARMED %d%s", delay, DELIMETER);
 
 		scheduleLogging(&signal->logging);
 	}

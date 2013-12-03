@@ -151,10 +151,6 @@ void initLogging(Logging *logging, char *name) {
 	initLoggingExt(logging, name, logging->DEFAULT_BUFFER, sizeof(logging->DEFAULT_BUFFER));
 }
 
-void msgInt(Logging *logging, char *caption, int value) {
-	appendPrintf(logging, "%s%d%s", caption, value, DELIMETER);
-}
-
 void debugInt(Logging *logging, char *caption, int value) {
 #if TAB_MODE
 	if (lineNumber == 0) {
@@ -283,7 +279,7 @@ static void commonSimpleMsg(Logging *logging, char *msg, int value) {
 	resetLogging(logging);
 	append(logging, "msg");
 	append(logging, DELIMETER);
-	msgInt(logging, msg, value);
+	appendPrintf(logging, "%s%d%s", msg, value, DELIMETER);
 }
 
 /**

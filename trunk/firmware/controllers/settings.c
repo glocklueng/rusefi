@@ -17,7 +17,7 @@ static volatile int injectionOffset = 0;
 static Logging logger;
 
 static void printSettings(void) {
-	msgInt(&logger, "msg,injectionOffset ", injectionOffset);
+	appendPrintf(&logger, "msg,injectionOffset %d%s", injectionOffset, DELIMETER);
 
 	printLine(&logger);
 }
