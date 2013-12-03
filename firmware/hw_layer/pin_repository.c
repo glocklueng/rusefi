@@ -80,10 +80,8 @@ void printpin(char *msg, ioportid_t port, int pin) {
 	int index = portIndex * 16 + pin;
 	print("%s on %s:%d\r\n", msg, portname(port), pin);
 
-	append(&logger, "msg,");
-	append(&logger, msg);
-	append(&logger, " on ");
-	appendPrintf(&logger, "%s%d%s", portname(port), pin, DELIMETER);
+	appendPrintf(&logger, "msg,%s", msg);
+	appendPrintf(&logger, " on %s%d%s", portname(port), pin, DELIMETER);
 	printLine(&logger);
 
 	if (PIN_USED[index] != NULL) {
