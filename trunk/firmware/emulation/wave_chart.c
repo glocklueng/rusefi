@@ -38,9 +38,7 @@ void resetWaveChart(WaveChart *chart) {
 	resetLogging(&chart->logging);
 	chart->counter = 0;
 	chart->isPrinted = FALSE;
-	appendPrintf(&chart->logging, "wave_chart");
-//	append(&chart->logging, chart->name);
-	appendPrintf(&chart->logging, DELIMETER);
+	appendPrintf(&chart->logging, "wave_chart%s", DELIMETER);
 }
 
 static char LOGGING_BUFFER[5000];

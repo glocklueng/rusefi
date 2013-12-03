@@ -95,12 +95,9 @@ void setPotResistance(Mcp42010Driver *driver, int channel, int resistance) {
 	resetLogging(logging);
 	appendPrintf(logging, "msg");
 	appendPrintf(logging, DELIMETER);
-	appendPrintf(logging, "Sending to potentiometer");
-	appendPrintf(&logger, "%d", channel);
+	appendPrintf(logging, "Sending to potentiometer%d", channel);
 	appendPrintf(&logger, ": ");
-	appendPrintf(&logger, "%d", value);
-	appendPrintf(&logger, " for R=");
-	appendPrintf(&logger, "%d", resistance);
+	appendPrintf(&logger, "%d for R=%d", value, resistance);
 	appendPrintf(logging, DELIMETER);
 
 
