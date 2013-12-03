@@ -64,7 +64,7 @@ static void reportPins(void) {
 }
 
 void initPinRepository(void) {
-	initLogging(&logger, "pin repos", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLoggingExt(&logger, "pin repos", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	for (int i = 0; i < PIN_REPO_SIZE; i++)
 		PIN_USED[i] = 0;

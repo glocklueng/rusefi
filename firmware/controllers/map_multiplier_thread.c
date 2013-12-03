@@ -74,7 +74,7 @@ static void maThread(int param) {
 }
 
 void initMapAdjusterThread(void) {
-	initLogging(&logger, "Map self learning thread", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLoggingExt(&logger, "Map self learning thread", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	initMapAdjuster();
 

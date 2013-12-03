@@ -206,8 +206,8 @@ static void showFuelMap(int rpm, int key100) {
 }
 
 void initStatusLoop(void) {
-	initLogging(&logger, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
-	initLogging(&logger2, "main event handler", logger2.DEFAULT_BUFFER, sizeof(logger2.DEFAULT_BUFFER));
+	initLoggingExt(&logger, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+	initLogging(&logger2, "main event handler");
 
 	setFullLog(INITIAL_FULL_LOG);
 

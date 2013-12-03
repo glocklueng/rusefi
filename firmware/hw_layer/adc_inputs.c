@@ -343,7 +343,7 @@ static void setAdcDebugReporting(int value) {
 
 void initAdcInputs() {
 
-	initLogging(&logger, "ADC", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+	initLoggingExt(&logger, "ADC", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 
 	printStatus();
 

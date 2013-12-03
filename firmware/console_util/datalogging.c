@@ -139,12 +139,16 @@ void append(Logging *logging, char *text) {
 	logging->linePointer += extraLen;
 }
 
-void initLogging(Logging *logging, char *name, char *buffer, int bufferSize) {
+void initLoggingExt(Logging *logging, char *name, char *buffer, int bufferSize) {
 	print("Init logging\r\n");
 	logging->name = name;
 	logging->buffer = buffer;
 	logging->bufferSize = bufferSize;
 	resetLogging(logging);
+}
+
+void initLogging(Logging *logging, char *name) {
+	initLoggingExt(logging, name, logging->DEFAULT_BUFFER, sizeof(logging->DEFAULT_BUFFER));
 }
 
 void appendInt(Logging *logging, int value) {
