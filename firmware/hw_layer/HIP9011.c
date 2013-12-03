@@ -82,7 +82,7 @@ void initHip9011(void) {
 	if (1 == 1)
 		return; // not needed yet
 
-	initLoggingExt(&logger, "HIP driver", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "HIP driver");
 
 	print("Starting HIP9011/TPIC8101 driver\r\n");
 	spiStart(driver, &spicfg);

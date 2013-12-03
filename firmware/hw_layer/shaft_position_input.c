@@ -88,7 +88,7 @@ shaft_icu_width_callback, shaft_icu_period_callback };
 #endif
 
 void initShaftPositionInputCapture() {
-	initLoggingExt(&logger, "ShaftPosition", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "ShaftPosition");
 
 #if EFI_SHAFT_POSITION_INPUT
 
