@@ -88,17 +88,17 @@ void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 		resetLogging(&signal->logging);
 		append(&signal->logging, "msg");
 		append(&signal->logging, DELIMETER);
-		appendInt(&signal->logging, now - signal->last_scheduling_time);
+		appendPrintf(&signal->logging, "%d", now - signal->last_scheduling_time);
 		append(&signal->logging, " ticks ago ");
 		append(&signal->logging, signal->name);
 
 		append(&signal->logging, " rpm=");
-		appendInt(&signal->logging, getCurrentRpm());
+		appendPrintf(&signal->logging, "%d", getCurrentRpm());
 		append(&signal->logging, " delay= ");
-		appendInt(&signal->logging, delay);
+		appendPrintf(&signal->logging, "%d", delay);
 
 		append(&signal->logging, " dwell=");
-		appendInt(&signal->logging, dwell);
+		appendPrintf(&signal->logging, "%d", dwell);
 		msgInt(&signal->logging, " WAS ARMED ", delay);
 
 		scheduleLogging(&signal->logging);

@@ -27,11 +27,11 @@ static void mapCallback(int rpm, float key, float value) {
 	append(logging, DELIMETER);
 
 	append(logging, "map_adjusted: ");
-	appendInt(logging, rpm);
+	appendPrintf(logging, "%d", rpm);
 	append(logging, " ");
-	appendInt(logging, 100 * key);
+	appendPrintf(logging, "%d", 100 * key);
 	append(logging, " ");
-	appendInt(logging, 100 * value);
+	appendPrintf(logging, "%d", 100 * value);
 
 	append(logging, DELIMETER);
 	scheduleLogging(logging);

@@ -151,14 +151,8 @@ void initLogging(Logging *logging, char *name) {
 	initLoggingExt(logging, name, logging->DEFAULT_BUFFER, sizeof(logging->DEFAULT_BUFFER));
 }
 
-void appendInt(Logging *logging, int value) {
-	appendPrintf(logging, "%d", value);
-}
-
 void msgInt(Logging *logging, char *caption, int value) {
-	append(logging, caption);
-	appendInt(logging, value);
-	append(logging, DELIMETER);
+	appendPrintf(logging, "%s%d%s", caption, value, DELIMETER);
 }
 
 void debugInt(Logging *logging, char *caption, int value) {
@@ -209,9 +203,9 @@ void appendFloat(Logging *logging, myfloat value, int precision) {
 
 void debugFloat2(Logging *logging, char *caption, int captionSuffix, myfloat value, int precision) {
 	appendPrintf(logging, "%s%d", caption, captionSuffix);
-	append(logging, DELIMETER);
+	appendPrintf(logging, "%s", DELIMETER);
 	appendFloat(logging, value, precision);
-	append(logging, DELIMETER);
+	appendPrintf(logging, "%s", DELIMETER);
 }
 
 void debugFloat(Logging *logging, char *caption, myfloat value, int precision) {
@@ -315,7 +309,7 @@ void scheduleIntValue(Logging *logging, char *msg, int value) {
 
 	append(logging, msg);
 	append(logging, DELIMETER);
-	appendInt(logging, value);
+	appendPrintf(logging, "%d", value);
 	append(logging, DELIMETER);
 
 	scheduleLogging(logging);
