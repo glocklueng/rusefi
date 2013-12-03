@@ -44,14 +44,12 @@ void initIntermediateLoggingBuffer(void);
 void initLogging(Logging *logging, char *name);
 void initLoggingExt(Logging *logging, char *name, char *buffer, int bufferSize);
 
-void msgInt(Logging *logging, char *caption, int value);
 void debugInt(Logging *logging, char *caption, int value);
+void logInt(Logging *logging, int loggingPoint, int value);
 
 void debugFloat(Logging *logging, char *text, myfloat value, int precision);
-void debugFloat2(Logging *logging, char *caption, int captionSuffix, myfloat value, int precision);
-
-void logInt(Logging *logging, int loggingPoint, int value);
 void logFloat(Logging *logging, int loggingPoint, myfloat value);
+void appendFloat(Logging *logging, myfloat value, int precision);
 
 void resetLogging(Logging *logging);
 void printLine(Logging *logging);
@@ -59,7 +57,6 @@ void printLine(Logging *logging);
 void printSimpleMsg(Logging *logging, char *msg, int value);
 
 void append(Logging *logging, char *text);
-void appendInt(Logging *logging, int value);
 
 void appendPrintf(Logging *logging, const char *fmt, ...);
 /**

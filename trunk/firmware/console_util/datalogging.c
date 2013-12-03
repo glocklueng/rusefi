@@ -197,13 +197,6 @@ void appendFloat(Logging *logging, myfloat value, int precision) {
 	}
 }
 
-void debugFloat2(Logging *logging, char *caption, int captionSuffix, myfloat value, int precision) {
-	appendPrintf(logging, "%s%d", caption, captionSuffix);
-	appendPrintf(logging, "%s", DELIMETER);
-	appendFloat(logging, value, precision);
-	appendPrintf(logging, "%s", DELIMETER);
-}
-
 void debugFloat(Logging *logging, char *caption, myfloat value, int precision) {
 #if TAB_MODE
 	if (lineNumber == 0) {
