@@ -123,7 +123,7 @@ static void setPotValue1(int value) {
 
 void initPotentiometers() {
 #ifdef EFI_POTENTIOMETER
-	initLogging(&logger, "potentiometer", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLoggingExt(&logger, "potentiometer", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	initPotentiometer(&config0, _POT_SPI, POTEN_CS_PORT, POTEN_CS_PIN);
 

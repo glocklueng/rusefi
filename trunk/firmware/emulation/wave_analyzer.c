@@ -261,7 +261,7 @@ void printWave(Logging *logging) {
 void initWaveAnalyzer(void) {
 #ifdef EFI_WAVE_ANALYZER
 
-	initLogging(&logger, "wave", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLoggingExt(&logger, "wave", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 
 	registerShaftPositionListener(&onWaveShaftSignal, "wave analyzer");

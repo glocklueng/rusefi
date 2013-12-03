@@ -41,7 +41,8 @@ void unlockOutputBuffer(void);
 
 void initIntermediateLoggingBuffer(void);
 
-void initLogging(Logging *logging, char *name, char *buffer, int bufferSize);
+void initLogging(Logging *logging, char *name);
+void initLoggingExt(Logging *logging, char *name, char *buffer, int bufferSize);
 
 void msgInt(Logging *logging, char *caption, int value);
 void debugInt(Logging *logging, char *caption, int value);

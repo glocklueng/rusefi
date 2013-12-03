@@ -34,7 +34,7 @@ void setInjectionOffset(int value) {
 void initSettings(void) {
 	// todo: this whole method is legacy stuff
 	// todo: the whole file is prettu much legacy pre-TunerStudio stuff
-	initLogging(&logger, "inje control", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLoggingExt(&logger, "inje control", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	setInjectionOffset(0);
 	//setCrankingInjectionPeriod(TICKS_IN_MS * 1.5);

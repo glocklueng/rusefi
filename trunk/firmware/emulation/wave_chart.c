@@ -99,7 +99,7 @@ void addWaveChartEvent(WaveChart *chart, char *name, char * msg) {
 }
 
 void initWaveChart(WaveChart *chart) {
-	initLogging(&logger, "wave info", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLoggingExt(&logger, "wave info", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
 
 	if (!isChartActive)
 		printSimpleMsg(&logger, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! chart disabled",
@@ -107,10 +107,10 @@ void initWaveChart(WaveChart *chart) {
 
 	printStatus();
 
-	initLogging(&chart->logging, "wave chart", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+	initLoggingExt(&chart->logging, "wave chart", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 	chart->isInitialized = TRUE;
 #if DEBUG_WAVE
-	initLogging(&debugLogging, "wave chart debug", &debugLogging.DEFAULT_BUFFER, sizeof(debugLogging.DEFAULT_BUFFER));
+	initLoggingExt(&debugLogging, "wave chart debug", &debugLogging.DEFAULT_BUFFER, sizeof(debugLogging.DEFAULT_BUFFER));
 #endif
 
 	resetWaveChart(chart);
