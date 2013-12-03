@@ -92,7 +92,7 @@ void addWaveChartEvent(WaveChart *chart, char *name, char * msg) {
 	append(&chart->logging, CHART_DELIMETER);
 	append(&chart->logging, msg);
 	append(&chart->logging, CHART_DELIMETER);
-	appendInt(&chart->logging, chTimeNow());
+	appendPrintf(&chart->logging, "%d", chTimeNow());
 	append(&chart->logging, CHART_DELIMETER);
 	chart->counter++;
 	unlockOutputBuffer();

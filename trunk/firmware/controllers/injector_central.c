@@ -60,9 +60,9 @@ static void printStatus(void) {
 		resetLogging(&logger);
 
 		append(&logger, "injector");
-		appendInt(&logger, id);
+		appendPrintf(&logger, "%d", id);
 		append(&logger, DELIMETER);
-		appendInt(&logger, isInjectorEnabled(id));
+		appendPrintf(&logger, "%d", isInjectorEnabled(id));
 		append(&logger, DELIMETER);
 		scheduleLogging(&logger);
 	}
