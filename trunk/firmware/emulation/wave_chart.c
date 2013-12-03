@@ -99,7 +99,7 @@ void addWaveChartEvent(WaveChart *chart, char *name, char * msg) {
 }
 
 void initWaveChart(WaveChart *chart) {
-	initLoggingExt(&logger, "wave info", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "wave info");
 
 	if (!isChartActive)
 		printSimpleMsg(&logger, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! chart disabled",

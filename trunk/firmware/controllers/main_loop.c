@@ -165,7 +165,7 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 }
 
 void initMainEventListener() {
-	initLoggingExt(&logger, "main event handler", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "main event handler");
 	printSimpleMsg(&logger, "initMainLoop: ", chTimeNow());
 
 	engineConfiguration2.ignitonOffset = 35;

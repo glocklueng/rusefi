@@ -42,8 +42,7 @@ void initShaftPositionEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
 	print("Emulating %s\r\n", EFI_ENGINE_ID);
 
-	initLoggingExt(&logger, "position sensor(s) emulator", logger.DEFAULT_BUFFER,
-			sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "position sensor(s) emulator");
 
 	initOutputPin("distributor ch1", &configuration.waves[0].outputPin,
 			PRIMARY_SHAFT_POSITION_EMULATION_PORT, PRIMARY_SHAFT_POSITION_EMULATION_PIN);
