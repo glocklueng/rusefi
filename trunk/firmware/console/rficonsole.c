@@ -130,7 +130,7 @@ void initializeConsole() {
 	initConsoleLogic();
 	startChibiosConsole(&handleConsoleLine);
 
-	initLoggingExt(&logger, "console", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "console");
 
 	sayOsHello();
 	addConsoleAction("hello", &sayOsHello);

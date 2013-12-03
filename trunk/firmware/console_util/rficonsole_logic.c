@@ -196,7 +196,7 @@ static Logging logger;
 
 void initConsoleLogic() {
 	initIntermediateLoggingBuffer();
-	initLoggingExt(&logger, "console logic", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "console logic");
 }
 
 static char *validateSecureLine(char *line) {

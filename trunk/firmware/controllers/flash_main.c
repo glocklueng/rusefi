@@ -91,7 +91,7 @@ static void doPrintConfiguration(void) {
 }
 
 void initFlash(void) {
-	initLoggingExt(&logger, "Flash memory", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "Flash memory");
 	print("initFlash()\r\n");
 
 	addConsoleAction("showconfig", doPrintConfiguration);

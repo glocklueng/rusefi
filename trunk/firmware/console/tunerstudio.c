@@ -146,7 +146,7 @@ void syncTunerStudioCopy(void) {
 }
 
 void startTunerStudioConnectivity(void) {
-	initLoggingExt(&logger, "tuner studio", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "tuner studio");
 #if EFI_TUNER_STUDIO_OVER_USB
 	print("TunerStudio over USB serial");
 	usb_serial_start();
