@@ -29,6 +29,38 @@ void initIntermediateLoggingBuffer(void) {
 	intermediateLoggingBufferInited = TRUE;
 }
 
+static int validateBuffer(Logging *logging, int extraLen, char *text) {
+	if (logging->buffer == NULL) {
+		strcpy(logging->SMALL_BUFFER, "Logging not initialized: ");
+		strcat(logging->SMALL_BUFFER, logging->name);
+		strcat(logging->SMALL_BUFFER, "/");
+		strcat(logging->SMALL_BUFFER, text);
+		fatal(logging->SMALL_BUFFER);
+		return TRUE;
+	}
+
+	int currentLen = (int) logging->linePointer - (int) (logging->buffer);
+	if (currentLen + extraLen > logging->bufferSize - 1) {
+		strcpy(logging->SMALL_BUFFER, "Logging buffer overflow: ");
+		strcat(logging->SMALL_BUFFER, logging->name);
+		strcat(logging->SMALL_BUFFER, "/");
+		strcat(logging->SMALL_BUFFER, text);
+		fatal(logging->SMALL_BUFFER);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+static void append(Logging *logging, char *text) {
+	chDbgAssert(text!=NULL, "append NULL", 0);
+	int extraLen = strlen(text);
+	int errcode = validateBuffer(logging, extraLen, text);
+	if (errcode)
+		return;
+	strcpy(logging->linePointer, text);
+	logging->linePointer += extraLen;
+}
+
 static void vappendPrintfI(Logging *logging, const char *fmt, va_list arg) {
 	intermediateLoggingBuffer.eos = 0; // reset
 	chvprintf((BaseSequentialStream *) &intermediateLoggingBuffer, fmt, arg);
@@ -105,38 +137,6 @@ static char* get2ndCaption(int loggingPoint) {
 	}
 	fatal("No such loggingPoint");
 	return NULL;
-}
-
-static int validateBuffer(Logging *logging, int extraLen, char *text) {
-	if (logging->buffer == NULL) {
-		strcpy(logging->SMALL_BUFFER, "Logging not initialized: ");
-		strcat(logging->SMALL_BUFFER, logging->name);
-		strcat(logging->SMALL_BUFFER, "/");
-		strcat(logging->SMALL_BUFFER, text);
-		fatal(logging->SMALL_BUFFER);
-		return TRUE;
-	}
-
-	int currentLen = (int) logging->linePointer - (int) (logging->buffer);
-	if (currentLen + extraLen > logging->bufferSize - 1) {
-		strcpy(logging->SMALL_BUFFER, "Logging buffer overflow: ");
-		strcat(logging->SMALL_BUFFER, logging->name);
-		strcat(logging->SMALL_BUFFER, "/");
-		strcat(logging->SMALL_BUFFER, text);
-		fatal(logging->SMALL_BUFFER);
-		return TRUE;
-	}
-	return FALSE;
-}
-
-void append(Logging *logging, char *text) {
-	chDbgAssert(text!=NULL, "append NULL", 0);
-	int extraLen = strlen(text);
-	int errcode = validateBuffer(logging, extraLen, text);
-	if (errcode)
-		return;
-	strcpy(logging->linePointer, text);
-	logging->linePointer += extraLen;
 }
 
 void initLoggingExt(Logging *logging, char *name, char *buffer, int bufferSize) {

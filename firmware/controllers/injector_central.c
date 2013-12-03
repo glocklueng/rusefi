@@ -59,11 +59,11 @@ static void printStatus(void) {
 	for (int id = 1; id <= NUMBER_OF_CYLINDERS; id++) {
 		resetLogging(&logger);
 
-		append(&logger, "injector");
+		appendPrintf(&logger, "injector");
 		appendPrintf(&logger, "%d", id);
-		append(&logger, DELIMETER);
+		appendPrintf(&logger, DELIMETER);
 		appendPrintf(&logger, "%d", isInjectorEnabled(id));
-		append(&logger, DELIMETER);
+		appendPrintf(&logger, DELIMETER);
 		scheduleLogging(&logger);
 	}
 }

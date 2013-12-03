@@ -23,17 +23,16 @@ static WORKING_AREA(maThreadStack, 256);
 
 static void mapCallback(int rpm, float key, float value) {
 	Logging *logging = &logger;
-	append(logging, "msg");
-	append(logging, DELIMETER);
+	appendPrintf(logging, "msg%s", DELIMETER);
 
-	append(logging, "map_adjusted: ");
+	appendPrintf(logging, "map_adjusted: ");
 	appendPrintf(logging, "%d", rpm);
-	append(logging, " ");
+	appendPrintf(logging, " ");
 	appendPrintf(logging, "%d", 100 * key);
-	append(logging, " ");
+	appendPrintf(logging, " ");
 	appendPrintf(logging, "%d", 100 * value);
 
-	append(logging, DELIMETER);
+	appendPrintf(logging, DELIMETER);
 	scheduleLogging(logging);
 }
 
