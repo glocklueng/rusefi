@@ -156,7 +156,7 @@ static msg_t soThread(OutputSignal *signal) {
 }
 
 void initOutputSignal(char *name, OutputSignal *signal, int led, int xor) {
-	initLoggingExt(&signal->logging, name, signal->logging.DEFAULT_BUFFER, sizeof(signal->logging.DEFAULT_BUFFER));
+	initLogging(&signal->logging, name);
 
 	signal->ledIndex = led;
 	signal->xor = xor;

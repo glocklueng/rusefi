@@ -82,7 +82,7 @@ static void setGlobalFuelCorrection(int value) {
 }
 
 void initInjectorCentral(void) {
-	initLoggingExt(&logger, "InjectorCentral", logger.DEFAULT_BUFFER, sizeof(logger.DEFAULT_BUFFER));
+	initLogging(&logger, "InjectorCentral");
 
 	for (int i = 0; i < NUMBER_OF_CYLINDERS; i++)
 		is_injector_enabled[i] = true;
