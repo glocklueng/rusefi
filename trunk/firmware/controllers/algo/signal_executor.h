@@ -67,5 +67,7 @@ struct OutputSignal_struct {
 
 void initOutputSignal(char *name, OutputSignal *signal, int led, int xor);
 void scheduleOutput(OutputSignal *signal, int delay, int dwell);
+void initOutputSignalBase(OutputSignal *signal);
+void scheduleOutputBase(OutputSignal *signal, int offset, int duration);
 
 #endif /* SPARKOUT_H_ */

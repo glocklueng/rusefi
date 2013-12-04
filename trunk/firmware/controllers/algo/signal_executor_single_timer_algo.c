@@ -8,7 +8,7 @@
 #include "signal_executor.h"
 #include "main.h"
 #include "utlist.h"
-
+#include "output_pins.h"
 
 #if EFI_WAVE_ANALYZER
 #include "wave_chart.h"
@@ -31,7 +31,7 @@ void registerSignal(OutputSignal *signal) {
 
 #define GET_DURATION(o) ((o)->status ? (o)->duration : (o)->offset)
 
-//void setOutputPinValue(PinEnum pin, int value);
+void setOutputPinValue(PinEnum pin, int value);
 
 /**
  * @return time of next event within for this signal

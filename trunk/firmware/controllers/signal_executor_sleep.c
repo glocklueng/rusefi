@@ -46,10 +46,10 @@ static void signalOutputCallbackI(OutputSignal *signal) {
  *
  */
 void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
-	chDbgCheck(signal->initialized, "Signal not initialized");
 	chDbgCheck(dwell >= 0, "dwell cannot be negative");
 
-	signal->duration = dwell;
+	scheduleOutputBase(signal, delay, dwell);
+
 	if (delay == 0) {
 		/**
 		 * in case of zero delay, we should notify the output thread right away
@@ -161,7 +161,7 @@ void initOutputSignal(char *name, OutputSignal *signal, int led, int xor) {
 	chSemInit(&signal->hw.signalSemaphore, 1);
 
 	chThdCreateStatic(signal->hw.soThreadStack, sizeof(signal->hw.soThreadStack), NORMALPRIO, (tfunc_t) soThread, signal);
-	signal->initialized = TRUE;
+	initOutputSignalBase(signal);
 }
 
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
