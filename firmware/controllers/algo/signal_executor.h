@@ -10,9 +10,18 @@
 #define SPARKOUT_H_
 
 #include "main.h"
+
 #if EFI_SIGNAL_EXECUTOR_SLEEP
 #include "signal_executor_sleep.h"
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
+
+#if EFI_SIGNAL_EXECUTOR_SINGLE_TIMER
+#include "signal_executor_single_timer.h"
+#endif /* EFI_SIGNAL_EXECUTOR_SINGLE_TIMER */
+
+typedef enum {
+	IDLE = 0, ACTIVE
+} executor_status_t;
 
 /**
  * @brief   Asynchronous output signal data structure
@@ -46,6 +55,8 @@ struct OutputSignal_struct {
 #if EFI_SIGNAL_EXECUTOR_SLEEP
 	SignalExecutorSleep hw;
 #endif
+
+	executor_status_t status;
 
 #if EFI_SIGNAL_EXECUTOR_HW_TIMER
 	// todo

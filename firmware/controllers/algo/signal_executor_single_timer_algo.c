@@ -8,6 +8,10 @@
 #include "signal_executor.h"
 #include "utlist.h"
 
+#if EFI_WAVE_ANALYZER
+#include "wave_chart.h"
+#endif
+
 /**
  * @brief Output list
  *
@@ -22,10 +26,30 @@ void registerSignal(OutputSignal *signal) {
 	LL_APPEND(st_output_list, signal);
 }
 
+#define GET_DURATION(o) ((o)->status ? (o)->duration : (o)->offset)
+
+void setOutputPinValue(PinEnum pin, int value);
+
 /**
  * @return time of next event within for this signal
  */
-time_t toggleSignalIfNeeded(OutputSignal *signal, time_t now) {
-	// todo: actual implementation
-	return 0;
+time_t toggleSignalIfNeeded(OutputSignal *out, time_t now) {
+//	if (0 == GET_DURATION(out)) { /* Ignore non-active outputs */
+//		return 0;
+//	}
+	time_t last = out->last_scheduling_time;
+	//estimated = last + out->timing[out->status];
+	time_t estimated = last + GET_DURATION(out);
+	if (now >= estimated) {
+		setOutputPinValue(out->ledIndex, out->status ^ out->xor); /* Toggle output */
+#if EFI_WAVE_ANALYZER
+		addWaveChartEvent(&waveChart, out->name, out->status ? "up" : "down");
+#endif /* EFI_WAVE_ANALYZER */
+
+		out->status = !out->status;
+		out->last_scheduling_time = now; /* store last update */
+		//estimated = now + out->timing[out->energized];	/* update estimation */
+		estimated = now + GET_DURATION(out); /* update estimation */
+	}
+	return estimated - now;
 }
