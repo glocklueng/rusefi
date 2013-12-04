@@ -1,8 +1,8 @@
 /*
  * features.h
  *
- *  Created on: Aug 29, 2013
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Aug 29, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #ifndef FEATURES_H_
@@ -15,7 +15,7 @@
  */
 #define EFI_WAVE_ANALYZER TRUE
 
-#define EFI_SERIAL_OVER_USB TRUE
+//#define EFI_SERIAL_OVER_USB TRUE
 
 //#define SERIAL_SPEED (8 * 115200)
 //#define SERIAL_SPEED (2 * 115200)
@@ -25,7 +25,7 @@
  * TunerStudio support.
  */
 #define EFI_TUNER_STUDIO TRUE
-//#define EFI_TUNER_STUDIO_OVER_USB TRUE
+#define EFI_TUNER_STUDIO_OVER_USB TRUE
 
 /**
  * TunerStudio debug output
@@ -67,6 +67,8 @@
 #endif
 #endif /* EFI_TUNER_STUDIO */
 
+// not unit test
+#define EFI_PROD_CODE TRUE
 
 #endif /* EFI_SERIAL_OVER_USB */
 
