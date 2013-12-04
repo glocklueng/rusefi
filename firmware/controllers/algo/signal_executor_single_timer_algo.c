@@ -6,10 +6,13 @@
  */
 
 #include "signal_executor.h"
+#include "main.h"
 #include "utlist.h"
+
 
 #if EFI_WAVE_ANALYZER
 #include "wave_chart.h"
+extern WaveChart waveChart;
 #endif
 
 /**
@@ -28,7 +31,7 @@ void registerSignal(OutputSignal *signal) {
 
 #define GET_DURATION(o) ((o)->status ? (o)->duration : (o)->offset)
 
-void setOutputPinValue(PinEnum pin, int value);
+//void setOutputPinValue(PinEnum pin, int value);
 
 /**
  * @return time of next event within for this signal
@@ -41,7 +44,7 @@ time_t toggleSignalIfNeeded(OutputSignal *out, time_t now) {
 	//estimated = last + out->timing[out->status];
 	time_t estimated = last + GET_DURATION(out);
 	if (now >= estimated) {
-		setOutputPinValue(out->ledIndex, out->status ^ out->xor); /* Toggle output */
+//		setOutputPinValue(out->ledIndex, out->status ^ out->xor); /* Toggle output */
 #if EFI_WAVE_ANALYZER
 		addWaveChartEvent(&waveChart, out->name, out->status ? "up" : "down");
 #endif /* EFI_WAVE_ANALYZER */
