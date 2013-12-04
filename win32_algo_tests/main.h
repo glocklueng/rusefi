@@ -29,6 +29,8 @@ void print(const char *fmt, ...);
 
 void chDbgAssert(int c, char *msg, void *arg);
 
+#define chDbgCheck(x, y) chDbgAssert(x, y, NULL)
+
 void assertEqualsM(char *msg, float expected, float actual);
 void assertEquals(float expected, float actual);
 
