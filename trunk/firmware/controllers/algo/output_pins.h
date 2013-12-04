@@ -8,9 +8,6 @@
 #ifndef STATUS_LEDS_H_
 #define STATUS_LEDS_H_
 
-#include "stm32f4xx_specific.h"
-#include "stm32f4xx.h"
-
 typedef enum {
 	LED_CRANKING, // Orange on-board led
 	LED_ALIVE2, // ext board
