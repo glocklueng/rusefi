@@ -11,9 +11,20 @@
 #include "signal_executor.h"
 #include "signal_executor_single_timer_algo.h"
 #include "test_signal_executor.h"
+#include "output_pins.h"
 #include "utlist.h"
 
 extern OutputSignal *st_output_list;
+
+static PinEnum testLastToggledPin;
+static int testToggleCounter;
+
+void setOutputPinValue(PinEnum pin, int value) {
+	// this is a test implementation of the method - we use it to see what's going on
+	testLastToggledPin = pin;
+	testToggleCounter++;
+}
+
 
 void testSignalExecutor() {
 	OutputSignal s1;
@@ -31,10 +42,17 @@ void testSignalExecutor() {
 	scheduleOutputBase(&s1, 10, 100);
 
 	long now = 1;
+	testToggleCounter = 0;
 	assertEquals(99, toggleSignalIfNeeded(&s1, now));
-	now = 100;
-	assertEquals(10, toggleSignalIfNeeded(&s1, now));
+	assertEquals(0, testToggleCounter);
 
-	now = 300; // let's see what happends if the handler is late
-	//assertEquals(10, toggleSignalIfNeeded(&s1, now));
+	now = 100;
+	testToggleCounter = 0;
+	assertEquals(10, toggleSignalIfNeeded(&s1, now));
+	assertEquals(1, testToggleCounter);
+
+	now = 300; // let's see what happens if the handler is late
+	testToggleCounter = 0;
+	assertEquals(100, toggleSignalIfNeeded(&s1, now));
+	assertEquals(1, testToggleCounter);
 }
