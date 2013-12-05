@@ -2068,6 +2068,9 @@
         <name>$PROJ_DIR$\..\controllers\algo\map_adjuster.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\controllers\algo\signal_executor.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\signal_executor_single_timer_algo.c</name>
       </file>
       <file>
