@@ -31,7 +31,7 @@ int getPinValue(OutputPin * outputPin) {
 }
 
 void setPinValue(OutputPin * outputPin, int value) {
-	if (getPinValue(outputPin))
+	if (getPinValue(outputPin) == value)
 		return;
 
 	palWritePad(outputPin->port, outputPin->pin, value);
