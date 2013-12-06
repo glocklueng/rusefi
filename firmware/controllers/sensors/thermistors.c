@@ -17,7 +17,6 @@
 #include "thermistors.h"
 #include "adc_inputs.h"
 
-static Thermistor thermistors[];
 /**
  * http://en.wikipedia.org/wiki/Voltage_divider
  */
