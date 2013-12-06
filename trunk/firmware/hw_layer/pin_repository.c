@@ -60,6 +60,13 @@ static int getPortIndex(GPIO_TypeDef* port) {
 
 static void reportPins(void) {
 	pinRegistrationComplete = TRUE;
+
+	for (int i = 0; i < PIN_REPO_SIZE; i++) {
+		char *name = PIN_USED[i];
+		if (name != NULL)
+			print("ping %d: %s\r\n", i, name);
+	}
+
 	print("Total pins count: %d\r\n", totalPinsUsed);
 }
 
