@@ -9,6 +9,8 @@
 #include "engine_configuration.h"
 #include "main.h"
 
+extern EngineConfiguration2 engineConfiguration2;
+
 /**
  * @brief	Global default engine configuration
  * This method sets the default global engine configuration. These values are later overridden by engine-specific defaults
@@ -38,6 +40,20 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 			engineConfiguration->fuelTable[k][r] = 3;
 		}
 	}
+
+	engineConfiguration2.clt.config.s_h_a = -0.0015925922146267837;
+	engineConfiguration2.clt.config.s_h_b = 0.0008205491888240184;
+	engineConfiguration2.clt.config.s_h_c =-0.0000029438499727564513;
+
+	engineConfiguration2.iat.config.s_h_a = -0.0015925922146267837;
+	engineConfiguration2.iat.config.s_h_b = 0.0008205491888240184;
+	engineConfiguration2.iat.config.s_h_c =-0.0000029438499727564513;
+
+	engineConfiguration2.clt.config.bias_resistor =  1500;
+// todo: this value is way off! I am pretty sure temp coeffs are off also
+	engineConfiguration2.iat.config.bias_resistor = 2700;
+
+
 
 	engineConfiguration->rpmHardLimit = 7000;
 	engineConfiguration->crankingRpm = 400;

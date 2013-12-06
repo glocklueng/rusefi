@@ -10,6 +10,7 @@
 #define ENGINE_CONFIGURATION_H_
 
 #include "fuel_map.h"
+#include "thermistors.h"
 
 #define CLT_CURVE_SIZE 16
 #define IAT_CURVE_SIZE 16

@@ -16,6 +16,9 @@
 #include "main.h"
 #include "thermistors.h"
 #include "adc_inputs.h"
+#include "engine_configuration.h"
+
+extern EngineConfiguration2 engineConfiguration2;
 
 /**
  * http://en.wikipedia.org/wiki/Voltage_divider
@@ -32,17 +35,17 @@ myfloat getVoutInVoltageDividor(myfloat Vin, myfloat r1, myfloat r2) {
 	return r2 * Vin / (r1 + r2);
 }
 
-#define S_H_A (-0.0015925922146267837)
-#define S_H_B (0.0008205491888240184)
-#define S_H_C (-0.0000029438499727564513)
 
-myfloat convertResistanceToKelvinTemperature(myfloat resistance) {
+myfloat convertResistanceToKelvinTemperature(myfloat resistance,
+		ThermistorConf *thermistor) {
 	if (resistance <= 0) {
 		//warning("Invalid resistance in convertResistanceToKelvinTemperature=", resistance);
 		return 0;
 	}
 	myfloat logR = log(resistance);
-	return 1 / (S_H_A + S_H_B * logR + S_H_C * logR * logR * logR);
+	return 1
+			/ (thermistor->s_h_a + thermistor->s_h_b * logR
+					+ thermistor->s_h_c * logR * logR * logR);
 }
 
 myfloat convertKelvinToC(myfloat tempK) {
@@ -66,23 +69,25 @@ myfloat convertKelvinToFahrenheit(myfloat kelvin) {
 	return convertCelciustoF(tempC);
 }
 
-myfloat getKelvinTemperature(myfloat voltage, float hiR) {
-	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS, hiR);
-	myfloat kelvinTemperature = convertResistanceToKelvinTemperature(resistance);
+myfloat getKelvinTemperature(myfloat voltage, ThermistorConf *thermistor) {
+	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS,
+			thermistor->bias_resistor);
+	myfloat kelvinTemperature = convertResistanceToKelvinTemperature(resistance,
+			thermistor);
 	return kelvinTemperature;
 }
 
-myfloat getTemperatureC(myfloat voltage, float hiR) {
-	myfloat kelvinTemperature = getKelvinTemperature(voltage, hiR);
+myfloat getTemperatureC(myfloat voltage, ThermistorConf *thermistor) {
+	myfloat kelvinTemperature = getKelvinTemperature(voltage, thermistor);
 	return convertKelvinToC(kelvinTemperature);
 }
 
 myfloat getCoolantTemperature(void) {
-	return getTemperatureC(getVoltage(ADC_LOGIC_COOLANT), CLT_HI_RESISTOR);
+	return getTemperatureC(getVoltage(ADC_LOGIC_COOLANT), &engineConfiguration2.clt.config);
 }
 
 myfloat getIntakeAirTemperature(void) {
-	return getTemperatureC(getVoltage(ADC_LOGIC_AIR), IAT_HI_RESISTOR);
+	return getTemperatureC(getVoltage(ADC_LOGIC_AIR), &engineConfiguration2.iat.config);
 }
 
 #endif /* THERMISTORS_C_ */

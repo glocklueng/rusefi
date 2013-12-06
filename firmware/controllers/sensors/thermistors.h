@@ -51,8 +51,8 @@ myfloat convertCelciustoKelvin(myfloat tempC);
 myfloat convertCelciustoF(myfloat tempC);
 myfloat convertFtoCelcius(myfloat tempF);
 
-myfloat getKelvinTemperature(myfloat voltage, float hiR);
-myfloat getTemperatureC(myfloat voltage, float hiR);
+myfloat getKelvinTemperature(myfloat voltage, ThermistorConf *thermistor);
+myfloat getTemperatureC(myfloat voltage, ThermistorConf *thermistor);
 myfloat getCoolantTemperature(void);
 myfloat getIntakeAirTemperature(void);
 
