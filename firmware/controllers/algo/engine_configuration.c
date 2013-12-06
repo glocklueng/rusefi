@@ -41,15 +41,17 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 		}
 	}
 
+	engineConfiguration2.clt.pin = ADC_LOGIC_COOLANT;
 	engineConfiguration2.clt.config.s_h_a = -0.0015925922146267837;
 	engineConfiguration2.clt.config.s_h_b = 0.0008205491888240184;
 	engineConfiguration2.clt.config.s_h_c =-0.0000029438499727564513;
+	engineConfiguration2.clt.config.bias_resistor =  1500;
 
+	engineConfiguration2.iat.pin = ADC_LOGIC_AIR;
 	engineConfiguration2.iat.config.s_h_a = -0.0015925922146267837;
 	engineConfiguration2.iat.config.s_h_b = 0.0008205491888240184;
 	engineConfiguration2.iat.config.s_h_c =-0.0000029438499727564513;
 
-	engineConfiguration2.clt.config.bias_resistor =  1500;
 // todo: this value is way off! I am pretty sure temp coeffs are off also
 	engineConfiguration2.iat.config.bias_resistor = 2700;
 
