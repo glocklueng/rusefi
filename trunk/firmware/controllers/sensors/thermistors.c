@@ -77,17 +77,19 @@ myfloat getKelvinTemperature(myfloat voltage, ThermistorConf *thermistor) {
 	return kelvinTemperature;
 }
 
-myfloat getTemperatureC(myfloat voltage, ThermistorConf *thermistor) {
-	myfloat kelvinTemperature = getKelvinTemperature(voltage, thermistor);
+myfloat getTemperatureC(Thermistor *thermistor) {
+
+	myfloat voltage = getVoltage(thermistor->pin);
+	myfloat kelvinTemperature = getKelvinTemperature(voltage, &thermistor->config);
 	return convertKelvinToC(kelvinTemperature);
 }
 
 myfloat getCoolantTemperature(void) {
-	return getTemperatureC(getVoltage(ADC_LOGIC_COOLANT), &engineConfiguration2.clt.config);
+	return getTemperatureC(&engineConfiguration2.clt);
 }
 
 myfloat getIntakeAirTemperature(void) {
-	return getTemperatureC(getVoltage(ADC_LOGIC_AIR), &engineConfiguration2.iat.config);
+	return getTemperatureC(&engineConfiguration2.iat);
 }
 
 #endif /* THERMISTORS_C_ */
