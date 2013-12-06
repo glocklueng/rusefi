@@ -88,6 +88,27 @@ myfloat getCoolantTemperature(void) {
 	return getTemperatureC(&engineConfiguration2.clt);
 }
 
+static void prepareThermistorCurve(ThermistorConf * config) {
+	float T1 = config->temp_1 + 273.15;
+	float T2 = config->temp_2 + 273.15;
+	float T3 = config->temp_3 + 273.15;
+
+	float L1 = log(config->resistance_1);
+	float L2 = log(config->resistance_2);
+	float L3 = log(config->resistance_3);
+
+	float Y1 = 1 / T1;
+	float Y2 = 1 / T2;
+	float Y3 = 1 / T3;
+
+	float U2 = (Y2 - Y1) / (L2 - L1);
+	float U3 = (Y3 - Y1) / (L3 - L1);
+
+	config->s_h_c = (U3 - U2) / (L3 - L2) * pow(L1 + L2 + L3, -1);
+	config->s_h_b = U2 - config->s_h_c * (L1 * L1 + L1 * L2 + L2 * L2);
+	config->s_h_a = Y1 - (config->s_h_b + L1 * L1 * config->s_h_c) * L1;
+}
+
 myfloat getIntakeAirTemperature(void) {
 	return getTemperatureC(&engineConfiguration2.iat);
 }
