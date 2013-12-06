@@ -33,7 +33,7 @@ typedef struct {
 
 typedef struct {
 	ThermistorConf config;
-	int pin;
+	int channel;
 } Thermistor;
 
 /**
