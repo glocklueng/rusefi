@@ -36,10 +36,6 @@
 #define ENGINE_HAS_COOLANT_SENSOR TRUE
 #define ENGINE_HAS_MAP_SENSOR TRUE
 
-#define CLT_HI_RESISTOR 1500
-// todo: this value is way off! I am pretty sure temp coeffs are off also
-#define IAT_HI_RESISTOR 2700
-
 // be careful not to put brackets around the value, otherwise integer math would trigger
 // and you would get zero multiplier
 #define RPM_MULT 0.5
