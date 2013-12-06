@@ -30,10 +30,6 @@
 
 #define NUMBER_OF_CYLINDERS 4
 
-#define CLT_HI_RESISTOR 1500
-// todo: this value is way off! I am pretty sure temp coeffs are off also
-#define IAT_HI_RESISTOR 2700
-
 #endif /* EFI_ENGINE_DENISVAK */
 
 #endif /* DENISVAK_H_ */
