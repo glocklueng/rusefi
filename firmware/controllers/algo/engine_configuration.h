@@ -38,9 +38,12 @@ typedef struct {
 	short int tpsMax; // size 2, offset 332
 	short int crankingRpm;   // size 2, offset 334
 
-	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 336
-	float fuelKeyBins[FUEL_MAF_COUNT]; // offset 3372
-	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3504
+	ThermistorConf cltThermistorConf; // size 40 (10*4), offset 336
+	ThermistorConf iatThermistorConf; // size 40, offset 376
+
+	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 414
+	float fuelKeyBins[FUEL_MAF_COUNT]; // offset 3450
+	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
 
 } EngineConfiguration;
 
