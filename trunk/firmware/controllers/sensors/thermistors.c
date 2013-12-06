@@ -80,7 +80,7 @@ myfloat getKelvinTemperature(myfloat voltage, ThermistorConf *thermistor) {
 myfloat getTemperatureC(Thermistor *thermistor) {
 
 	myfloat voltage = getVoltage(thermistor->channel);
-	myfloat kelvinTemperature = getKelvinTemperature(voltage, &thermistor->config);
+	myfloat kelvinTemperature = getKelvinTemperature(voltage, thermistor->config);
 	return convertKelvinToC(kelvinTemperature);
 }
 

@@ -32,7 +32,7 @@ typedef struct {
 } ThermistorConf;
 
 typedef struct {
-	ThermistorConf config;
+	ThermistorConf *config;
 	int channel;
 } Thermistor;
 
