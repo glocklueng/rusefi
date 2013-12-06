@@ -14,6 +14,29 @@
 #define KELV 273.15
 
 /**
+ * @brief thermisor curve params
+ */
+typedef struct {
+	float temp_1;
+	float temp_2;
+	float temp_3;
+	float resistance_1;
+	float resistance_2;
+	float resistance_3;
+
+	float bias_resistor;
+
+	float s_h_a;
+	float s_h_b;
+	float s_h_c;
+} ThermistorConf;
+
+typedef struct {
+	ThermistorConf config;
+	int pin;
+} Thermistor;
+
+/**
  * Vout=r2/(r1+r2)*Vin
  */
 myfloat getR1InVoltageDividor(myfloat Vout, myfloat Vin, myfloat r2);
@@ -32,19 +55,5 @@ myfloat getKelvinTemperature(myfloat voltage, float hiR);
 myfloat getTemperatureC(myfloat voltage, float hiR);
 myfloat getCoolantTemperature(void);
 myfloat getIntakeAirTemperature(void);
-
-/**
- * @brief thermisor curve params
- */
-typedef struct {
-	float s_h_a;
-	float s_h_b;
-	float s_h_c;
-} ThermistorCurve;
-
-typedef struct {
-	ThermistorCurve curve;
-	int pin;
-} Thermistor;
 
 #endif /* THERMISTORS_H_ */
