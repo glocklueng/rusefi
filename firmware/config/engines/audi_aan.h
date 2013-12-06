@@ -20,9 +20,6 @@
 // this should be included after 'SHAFT_POSITION_EVENT_COUNT'. todo - fix this
 #include "main_loop.h"
 
-#define CLT_HI_RESISTOR 1500
-#define IAT_HI_RESISTOR 2700
-
 #define RPM_MULT 0.5
 
 #define EFI_USE_MULTI_SENSOR_SHAFT_SENSOR TRUE

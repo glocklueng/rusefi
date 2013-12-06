@@ -27,8 +27,5 @@
 
 #define NUMBER_OF_CYLINDERS 4
 
-#define CLT_HI_RESISTOR 1500
-#define IAT_HI_RESISTOR 2700
-
 #endif /* EFI_ENGINE_FORD_FIESTA */
 #endif /* FORD_FIESTA_H_ */
