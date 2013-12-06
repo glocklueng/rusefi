@@ -97,22 +97,22 @@
 
 /* Injector ports */
 #define INJECTOR_1_PORT GPIOB
-#define INJECTOR_1_PIN 8
+#define INJECTOR_1_PIN 9
 
-#define INJECTOR_2_PORT GPIOB
-#define INJECTOR_2_PIN 9
+#define INJECTOR_2_PORT GPIOE
+#define INJECTOR_2_PIN 1
 
 #define INJECTOR_3_PORT GPIOE
-#define INJECTOR_3_PIN 1
+#define INJECTOR_3_PIN 3
 
 #define INJECTOR_4_PORT GPIOE
-#define INJECTOR_4_PIN 0
+#define INJECTOR_4_PIN 5
 
 #define INJECTOR_5_PORT GPIOE
 #define INJECTOR_5_PIN 6
 
 #define IDLE_VALVE_PORT GPIOE
-#define IDLE_VALVE_PIN 3
+#define IDLE_VALVE_PIN 2
 
 /* Fuel pump */
 #define FUEL_PUMP_PORT GPIOC
@@ -125,7 +125,7 @@
 
 #define LOGIC_ANALYZER_2_DRIVER ICUD9
 #define LOGIC_ANALYZER_2_PORT GPIOE
-#define LOGIC_ANALYZER_2_PIN 5
+#define LOGIC_ANALYZER_2_PIN 7
 
 /* Spark ports */
 #define SPARK_1_PORT GPIOC
