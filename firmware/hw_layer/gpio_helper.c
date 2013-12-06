@@ -26,8 +26,12 @@ void initOutputPin(char *msg, OutputPin *outputPin, GPIO_TypeDef *port, uint32_t
 	mySetPadMode(msg, port, pinNumber, PAL_MODE_OUTPUT_PUSHPULL);
 }
 
+int getPinValue(OutputPin * outputPin) {
+	return outputPin->currentValue;
+}
+
 void setPinValue(OutputPin * outputPin, int value) {
-	if (outputPin->currentValue == value)
+	if (getPinValue(outputPin))
 		return;
 
 	palWritePad(outputPin->port, outputPin->pin, value);

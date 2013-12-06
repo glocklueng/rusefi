@@ -41,6 +41,10 @@ void setOutputPinValue(PinEnum pin, int value) {
 	setPinValue(&outputs[pin], value);
 }
 
+int getOutputPinValue(PinEnum pin) {
+	return getPinValue(&outputs[pin]);
+}
+
 static void blinkingThread_s(void *arg) {
 	chRegSetThreadName("blinking");
 	while (TRUE) {
