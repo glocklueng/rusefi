@@ -37,6 +37,8 @@ extern EngineConfiguration *engineConfiguration;
 static VirtualTimer everyMsTimer;
 static VirtualTimer fuelPumpTimer;
 
+static Logging logger;
+
 EngineConfiguration2 engineConfiguration2;
 
 int isCranking(void) {
@@ -63,12 +65,16 @@ static void initPeriodicEvents(void) {
 }
 
 static void fuelPumpOff(void *arg) {
+	if (getOutputPinValue(FUEL_PUMP))
+		scheduleSimpleMsg(&logger, "fuelPump=", FALSE);
 	turnOutputPinOff(FUEL_PUMP);
 }
 
 static void fuelPumpOn(ShaftEvents signal, int index) {
 	if (index != 0)
 		return; // let's not abuse the timer - one time per revolution would be enough
+	if (!getOutputPinValue(FUEL_PUMP))
+		scheduleSimpleMsg(&logger, "fuelPump=", TRUE);
 	turnOutputPinOn(FUEL_PUMP);
 	/**
 	 * the idea of this implementation is that we turn the pump when the ECU turns on or
@@ -84,6 +90,8 @@ static void initFuelPump(void) {
 }
 
 void initEngineContoller(void) {
+	initLogging(&logger, "Engine Controller");
+
 	initSettings();
 
 #ifdef EFI_WAVE_ANALYZER

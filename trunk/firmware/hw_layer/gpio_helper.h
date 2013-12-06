@@ -22,6 +22,7 @@ typedef struct {
 } OutputPin;
 
 void initOutputPin(char *msg, OutputPin *outputPin, GPIO_TypeDef *port, uint32_t pinNumber);
+int getPinValue(OutputPin * outputPin);
 void setPinValue(OutputPin * outputPin, int value);
 
 #endif /* GPIO_HELPER_H_ */

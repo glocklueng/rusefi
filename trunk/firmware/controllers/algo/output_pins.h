@@ -61,5 +61,6 @@ void initOutputPins(void);
 void turnOutputPinOn(PinEnum pin);
 void turnOutputPinOff(PinEnum pin);
 void setOutputPinValue(PinEnum pin, int value);
+int getOutputPinValue(PinEnum pin);
 
 #endif /* STATUS_LEDS_H_ */
