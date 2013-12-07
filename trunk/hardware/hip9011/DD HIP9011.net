@@ -1,7 +1,7 @@
 (export (version D)
   (design
-    (source "E:\\Моя папка -SlipknoT-\\Rusefi\\DD HIP9011\\DD HIP9011.sch")
-    (date "07.12.2013 2:20:35")
+    (source "C:/stuff/rusefi_sourceforge/hardware/hip9011/DD HIP9011.sch")
+    (date "06/12/2013 22:45:24")
     (tool "eeschema (2013-07-07 BZR 4022)-stable"))
   (components
     (comp (ref D1)
@@ -272,15 +272,15 @@
         (pin (num 20) (name CH0NI) (type input)))))
   (libraries
     (library (logical device)
-      (uri D:\KiCad\share\library\device.lib))
+      (uri "C:\\Program Files (x86)\\KiCad\\share\\library\\device.lib"))
     (library (logical conn)
-      (uri D:\KiCad\share\library\conn.lib))
+      (uri "C:\\Program Files (x86)\\KiCad\\share\\library\\conn.lib"))
     (library (logical quartz)
       (uri lib\quartz.lib))
     (library (logical 7805-sot89)
       (uri lib\7805-sot89.lib))
     (library (logical "DD HIP9011-cache")
-      (uri "E:\\Моя папка -SlipknoT-\\Rusefi\\DD HIP9011\\DD HIP9011-cache.lib")))
+      (uri "C:\\stuff\\rusefi_sourceforge\\hardware\\hip9011\\DD HIP9011-cache.lib")))
   (nets
     (net (code 1) (name /INT/HLD)
       (node (ref P4) (pin 1))
