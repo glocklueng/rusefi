@@ -11,15 +11,7 @@
 static ThermistorConf tc;
 
 void testSensors(void) {
-
-	tc.resistance_1 = 9500;
-	tc.temp_1 = 32;
-
-	tc.resistance_2 = 2100;
-	tc.temp_2 = 75;
-
-	tc.resistance_3 = 1000;
-	tc.temp_3 = 120;
+	setThermistorConfiguration(&tc, 32, 9500, 75, 2100, 120, 1000);
 
 	prepareThermistorCurve(&tc);
 
