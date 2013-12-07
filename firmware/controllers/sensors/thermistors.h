@@ -56,6 +56,7 @@ myfloat getTemperatureC(Thermistor *thermistor);
 myfloat getCoolantTemperature(void);
 myfloat getIntakeAirTemperature(void);
 
+void prepareThermistorCurve(ThermistorConf * config);
 void initThermistors(void);
 
 #endif /* THERMISTORS_H_ */
