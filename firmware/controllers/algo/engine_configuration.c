@@ -67,7 +67,7 @@ static void printIntArray(int array[], int size) {
 	print("\r\n");
 }
 
-static void printFloatArray(char *prefix, float array[], int size) {
+void printFloatArray(char *prefix, float array[], int size) {
 	print(prefix);
 	for (int j = 0; j < size; j++)
 		print("%f ", array[j]);
