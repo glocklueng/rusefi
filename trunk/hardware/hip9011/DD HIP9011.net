@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source "C:/stuff/rusefi_sourceforge/hardware/hip9011/DD HIP9011.sch")
-    (date "06/12/2013 22:45:24")
+    (date "06/12/2013 22:51:12")
     (tool "eeschema (2013-07-07 BZR 4022)-stable"))
   (components
     (comp (ref D1)
@@ -153,7 +153,12 @@
       (value 7805-SOT89)
       (libsource (lib 7805-sot89) (part 7805-SOT89))
       (sheetpath (names /) (tstamps /))
-      (tstamp 52A25C32)))
+      (tstamp 52A25C32))
+    (comp (ref G1)
+      (value LOGO)
+      (libsource (lib logo_flipped) (part LOGO))
+      (sheetpath (names /) (tstamps /))
+      (tstamp 52A2A9AB)))
   (libparts
     (libpart (lib device) (part C)
       (description "Condensateur non polarise")
@@ -224,15 +229,6 @@
         (pin (num 6) (name 6) (type passive))
         (pin (num 7) (name 7) (type passive))
         (pin (num 8) (name 8) (type passive))))
-    (libpart (lib quartz) (part QUARTZ)
-      (fields
-        (field (name Reference) X)
-        (field (name Value) QUARTZ)
-        (field (name Footprint) ~)
-        (field (name Datasheet) ~))
-      (pins
-        (pin (num 1) (name 1) (type passive))
-        (pin (num 2) (name 2) (type passive))))
     (libpart (lib 7805-sot89) (part 7805-SOT89)
       (fields
         (field (name Reference) U)
@@ -243,6 +239,15 @@
         (pin (num 1) (name 1) (type input))
         (pin (num 2) (name 2) (type input))
         (pin (num 3) (name 3) (type power_out))))
+    (libpart (lib quartz) (part QUARTZ)
+      (fields
+        (field (name Reference) X)
+        (field (name Value) QUARTZ)
+        (field (name Footprint) ~)
+        (field (name Datasheet) ~))
+      (pins
+        (pin (num 1) (name 1) (type passive))
+        (pin (num 2) (name 2) (type passive))))
     (libpart (lib "DD HIP9011-cache") (part HIP9011)
       (fields
         (field (name Reference) D)
@@ -269,18 +274,24 @@
         (pin (num 17) (name GH1FB) (type input))
         (pin (num 18) (name CH0FB) (type input))
         (pin (num 19) (name CH0IN) (type input))
-        (pin (num 20) (name CH0NI) (type input)))))
+        (pin (num 20) (name CH0NI) (type input))))
+    (libpart (lib logo_flipped) (part LOGO)
+      (fields
+        (field (name Reference) "#G")
+        (field (name Value) LOGO))))
   (libraries
     (library (logical device)
       (uri "C:\\Program Files (x86)\\KiCad\\share\\library\\device.lib"))
     (library (logical conn)
       (uri "C:\\Program Files (x86)\\KiCad\\share\\library\\conn.lib"))
-    (library (logical quartz)
-      (uri lib\quartz.lib))
     (library (logical 7805-sot89)
       (uri lib\7805-sot89.lib))
+    (library (logical quartz)
+      (uri lib\quartz.lib))
     (library (logical "DD HIP9011-cache")
-      (uri "C:\\stuff\\rusefi_sourceforge\\hardware\\hip9011\\DD HIP9011-cache.lib")))
+      (uri "C:\\stuff\\rusefi_sourceforge\\hardware\\hip9011\\DD HIP9011-cache.lib"))
+    (library (logical logo_flipped)
+      (uri lib\logo_flipped.lib)))
   (nets
     (net (code 1) (name /INT/HLD)
       (node (ref P4) (pin 1))
