@@ -1,3 +1,12 @@
+/**
+ * @file    voltage.c
+ * @brief
+ *
+ *
+ * @date Nov 15, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
+ */
+
 #include "main.h"
 #include "boards.h"
 #include "engine_configuration.h"
