@@ -35,11 +35,10 @@ void setOutputPinValue(PinEnum pin, int value);
 
 /**
  * @return time of next event within for this signal
+ * @todo Find better name.
  */
 time_t toggleSignalIfNeeded(OutputSignal *out, time_t now) {
-//	if (0 == GET_DURATION(out)) { /* Ignore non-active outputs */
-//		return 0;
-//	}
+	chDbgCheck(out!=NULL, "out is NULL");
 	time_t last = out->last_scheduling_time;
 	//estimated = last + out->timing[out->status];
 	time_t estimated = last + GET_DURATION(out);
@@ -49,9 +48,8 @@ time_t toggleSignalIfNeeded(OutputSignal *out, time_t now) {
 		addWaveChartEvent(&waveChart, out->name, out->status ? "up" : "down");
 #endif /* EFI_WAVE_ANALYZER */
 
-		out->status = !out->status;
+		out->status = !out->status; /* update status */
 		out->last_scheduling_time = now; /* store last update */
-		//estimated = now + out->timing[out->energized];	/* update estimation */
 		estimated = now + GET_DURATION(out); /* update estimation */
 	}
 	return estimated - now;
