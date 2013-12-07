@@ -26,6 +26,9 @@ typedef enum {
 	INJECTOR_4_OUTPUT,
 	INJECTOR_5_OUTPUT,
 
+	ELECTRONIC_THROTTLE_CONTROL_1,
+	ELECTRONIC_THROTTLE_CONTROL_2,
+
 	/* digit 1 */
 	LED_HUGE_0, // B2
 	LED_HUGE_1,
@@ -62,5 +65,6 @@ void turnOutputPinOn(PinEnum pin);
 void turnOutputPinOff(PinEnum pin);
 void setOutputPinValue(PinEnum pin, int value);
 int getOutputPinValue(PinEnum pin);
+void outputPinRegister(char *msg, int ledIndex, GPIO_TypeDef *port, uint32_t pin);
 
 #endif /* STATUS_LEDS_H_ */
