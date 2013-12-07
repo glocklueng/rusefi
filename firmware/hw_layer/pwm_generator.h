@@ -54,7 +54,7 @@ void initModulation(PwmConfig *state, int count, myfloat *switchTimes,
 		int *pinStates);
 
 void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
-		int idleState, myfloat dutyCycle);
+		int idleState, myfloat dutyCycle, myfloat freq);
 void weComplexInit(char *msg, PwmConfig *state,
 		int idleState, int phaseCount, myfloat *swithcTimes, int waveCount, int **pinStates);
 
