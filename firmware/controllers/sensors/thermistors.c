@@ -104,9 +104,9 @@ void setThermistorConfiguration(ThermistorConf * tc, float temp1, float r1, floa
 }
 
 void prepareThermistorCurve(ThermistorConf * config) {
-	float T1 = config->temp_1 + 273.15;
-	float T2 = config->temp_2 + 273.15;
-	float T3 = config->temp_3 + 273.15;
+	float T1 = config->temp_1 + KELV;
+	float T2 = config->temp_2 + KELV;
+	float T3 = config->temp_3 + KELV;
 
 	float L1 = log(config->resistance_1);
 	float L2 = log(config->resistance_2);

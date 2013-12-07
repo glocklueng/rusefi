@@ -24,6 +24,7 @@
 #include "rfiutil.h"
 #include "engine_configuration.h"
 #include "wave_analyzer.h"
+#include "sensors.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -93,6 +94,7 @@ void initEngineContoller(void) {
 	initLogging(&logger, "Engine Controller");
 
 	initSettings();
+	initSensors();
 
 #ifdef EFI_WAVE_ANALYZER
 	initWaveAnalyzer();
