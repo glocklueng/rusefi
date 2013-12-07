@@ -115,6 +115,9 @@ void initEngineContoller(void) {
 // multiple issues with this	initMapAdjusterThread();
 	initPeriodicEvents();
 
+#if EFI_SIGNAL_EXECUTOR_SINGLE_TIMER
+	initOutputScheduler();
+#endif
 	initInjectorCentral();
 	initIgnitionCentral();
 
