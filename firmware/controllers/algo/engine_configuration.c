@@ -42,20 +42,13 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	}
 
 	engineConfiguration2.clt.channel = ADC_LOGIC_COOLANT;
-	engineConfiguration->cltThermistorConf.s_h_a = -0.0015925922146267837;
-	engineConfiguration->cltThermistorConf.s_h_b = 0.0008205491888240184;
-	engineConfiguration->cltThermistorConf.s_h_c =-0.0000029438499727564513;
+	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 32, 9500, 75, 2100, 120, 1000);
 	engineConfiguration->cltThermistorConf.bias_resistor =  1500;
 
 	engineConfiguration2.iat.channel = ADC_LOGIC_AIR;
-	engineConfiguration->iatThermistorConf.s_h_a = -0.0015925922146267837;
-	engineConfiguration->iatThermistorConf.s_h_b = 0.0008205491888240184;
-	engineConfiguration->iatThermistorConf.s_h_c =-0.0000029438499727564513;
-
+	setThermistorConfiguration(&engineConfiguration->iatThermistorConf, 32, 9500, 75, 2100, 120, 1000);
 // todo: this value is way off! I am pretty sure temp coeffs are off also
 	engineConfiguration->iatThermistorConf.bias_resistor = 2700;
-
-
 
 	engineConfiguration->rpmHardLimit = 7000;
 	engineConfiguration->crankingRpm = 400;

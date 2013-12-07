@@ -91,6 +91,18 @@ myfloat getCoolantTemperature(void) {
 	return getTemperatureC(&engineConfiguration2.clt);
 }
 
+void setThermistorConfiguration(ThermistorConf * tc, float temp1, float r1, float temp2, float r2, float temp3,
+		float r3) {
+	tc->temp_1 = temp1;
+	tc->resistance_1 = r1;
+
+	tc->temp_2 = temp2;
+	tc->resistance_2 = r2;
+
+	tc->temp_3 = temp3;
+	tc->resistance_3 = r3;
+}
+
 void prepareThermistorCurve(ThermistorConf * config) {
 	float T1 = config->temp_1 + 273.15;
 	float T2 = config->temp_2 + 273.15;
@@ -123,7 +135,9 @@ static void initThermistorCurve(Thermistor * t, ThermistorConf *config, int pin)
 }
 
 void initThermistors(void) {
-	engineConfiguration2.iat.config = &engineConfiguration->iatThermistorConf;
-	engineConfiguration2.clt.config = &engineConfiguration->cltThermistorConf;
+	initThermistorCurve(&engineConfiguration2.clt, &engineConfiguration->cltThermistorConf,
+			ADC_LOGIC_COOLANT);
+	initThermistorCurve(&engineConfiguration2.iat, &engineConfiguration->iatThermistorConf,
+			ADC_LOGIC_AIR);
 }
 #endif /* THERMISTORS_C_ */
