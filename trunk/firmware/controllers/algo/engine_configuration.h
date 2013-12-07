@@ -59,5 +59,6 @@ typedef struct {
 
 void setDefaultConfiguration(EngineConfiguration *engineConfiguration);
 void printConfiguration(EngineConfiguration *engineConfiguration);
+void printFloatArray(char *prefix, float array[], int size);
 
 #endif /* ENGINE_CONFIGURATION_H_ */
