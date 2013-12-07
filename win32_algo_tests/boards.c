@@ -1,14 +1,18 @@
-/*
- * board.c
+/**
+ * @file board.c
  *
- *  Created on: Nov 15, 2013
- *      Author: pc
+ * @date Nov 15, 2013
+ * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
-
 #include "boards.h"
-
 
 float getVoltage(int channel) {
 	return 0;
 }
+
+int getAdcValue(int channel) {
+	return 0;
+}
+
+
