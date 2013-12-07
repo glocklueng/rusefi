@@ -59,7 +59,7 @@
     (aux_axis_origin 67 21)
     (visible_elements 7FFF7FFF)
     (pcbplotparams
-      (layerselection 3178497)
+      (layerselection 284983297)
       (usegerberextensions true)
       (excludeedgelayer true)
       (linewidth 0.100000)
@@ -81,9 +81,9 @@
       (subtractmaskfromsilk false)
       (outputformat 1)
       (mirror false)
-      (drillshape 1)
+      (drillshape 0)
       (scaleselection 1)
-      (outputdirectory ""))
+      (outputdirectory gerber))
   )
 
   (net 0 "")
