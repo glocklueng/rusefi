@@ -91,7 +91,7 @@ myfloat getCoolantTemperature(void) {
 	return getTemperatureC(&engineConfiguration2.clt);
 }
 
-static void prepareThermistorCurve(ThermistorConf * config) {
+void prepareThermistorCurve(ThermistorConf * config) {
 	float T1 = config->temp_1 + 273.15;
 	float T2 = config->temp_2 + 273.15;
 	float T3 = config->temp_3 + 273.15;
