@@ -1,4 +1,4 @@
-update=30.11.2013 22:28:03
+update=07.12.2013 1:22:11
 version=1
 last_client=eeschema
 [cvpcb]
@@ -47,7 +47,7 @@ LibName16=valves
 version=1
 [eeschema]
 version=1
-LibDir=
+LibDir=lib/STAB
 NetFmtName=
 RptD_X=0
 RptD_Y=100
@@ -84,3 +84,5 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
+LibName31=lib/quartz
+LibName32=lib/7805-sot89
