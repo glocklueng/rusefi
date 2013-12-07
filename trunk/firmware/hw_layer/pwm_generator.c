@@ -84,7 +84,7 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes, i
 	}
 }
 
-void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, int idleState, myfloat dutyCycle) {
+void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, int idleState, myfloat dutyCycle, myfloat freq) {
 	myfloat switchTimes[] = { dutyCycle, 1 };
 	int pinStates0[] = { 0, 1 };
 
@@ -93,6 +93,8 @@ void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, int 
 	initOutputPin(msg, &state->waves[0].outputPin, port, pin);
 
 	weComplexInit(msg, state, idleState, 2, switchTimes, 1, pinStates);
+
+	state->period = frequency2period(freq);
 }
 
 void weComplexInit(char *msg, PwmConfig *state, int idleState, int phaseCount, myfloat *switchTimes, int waveCount,
