@@ -113,4 +113,13 @@ myfloat getIntakeAirTemperature(void) {
 	return getTemperatureC(&engineConfiguration2.iat);
 }
 
+static void initThermistorCurve(Thermistor * t, ThermistorConf *config, int pin) {
+	prepareThermistorCurve(config);
+	t->config = config;
+	t->channel = pin;
+}
+
+void initThermistors(void) {
+
+}
 #endif /* THERMISTORS_C_ */
