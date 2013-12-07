@@ -18,6 +18,7 @@
 #include "adc_inputs.h"
 #include "engine_configuration.h"
 
+extern EngineConfiguration *engineConfiguration;
 extern EngineConfiguration2 engineConfiguration2;
 
 /**
@@ -70,6 +71,8 @@ myfloat convertKelvinToFahrenheit(myfloat kelvin) {
 }
 
 myfloat getKelvinTemperature(myfloat voltage, ThermistorConf *thermistor) {
+	chDbgCheck(thermistor!=NULL, "thermistor pointer is NULL");
+
 	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS,
 			thermistor->bias_resistor);
 	myfloat kelvinTemperature = convertResistanceToKelvinTemperature(resistance,
@@ -120,6 +123,7 @@ static void initThermistorCurve(Thermistor * t, ThermistorConf *config, int pin)
 }
 
 void initThermistors(void) {
-
+	engineConfiguration2.iat.config = &engineConfiguration->iatThermistorConf;
+	engineConfiguration2.clt.config = &engineConfiguration->cltThermistorConf;
 }
 #endif /* THERMISTORS_C_ */
