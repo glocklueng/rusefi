@@ -23,6 +23,9 @@
 #include "test_signal_executor.h"
 #include "engine_configuration.h"
 
+static EngineConfiguration ec;
+EngineConfiguration *engineConfiguration = &ec;
+
 static float absF(float value) {
 	return value > 0 ? value : -value;
 }

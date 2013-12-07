@@ -33,6 +33,7 @@
 								<option id="gnu.c.compiler.option.include.paths.52656911" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/win32_algo_tests/&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/win32_algo_tests/controllers_math&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/win32_algo_tests/controllers_sensors&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/win32_algo_tests/controllers_algo&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/win32_algo_tests/util&quot;"/>
 								</option>
