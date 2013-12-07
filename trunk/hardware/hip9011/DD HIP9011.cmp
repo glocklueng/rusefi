@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 30.11.2013 23:34:55
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 07.12.2013 0:38:17
 
 BeginCmp
 TimeStamp = /52928AD9;
@@ -74,21 +74,21 @@ BeginCmp
 TimeStamp = /52928116;
 Reference = P1;
 ValeurCmp = KNOCK 1;
-IdModule  = PINHEAD1-2;
+IdModule  = PIN_ARRAY_2X1;
 EndCmp
 
 BeginCmp
 TimeStamp = /52928125;
 Reference = P2;
 ValeurCmp = KNOCK 2;
-IdModule  = PINHEAD1-2;
+IdModule  = PIN_ARRAY_2X1;
 EndCmp
 
 BeginCmp
 TimeStamp = /52928AC0;
 Reference = P3;
 ValeurCmp = 12V;
-IdModule  = PINHEAD1-2;
+IdModule  = PIN_ARRAY_2X1;
 EndCmp
 
 BeginCmp
@@ -162,9 +162,44 @@ IdModule  = SM1206;
 EndCmp
 
 BeginCmp
-TimeStamp = /529A59EF;
+TimeStamp = /52A255C1;
+Reference = R10;
+ValeurCmp = 1K;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A255D0;
+Reference = R11;
+ValeurCmp = 1K;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A255DF;
+Reference = R12;
+ValeurCmp = 1K;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A255EE;
+Reference = R13;
+ValeurCmp = 1K;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A255FD;
+Reference = R14;
+ValeurCmp = 1K;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A250DB;
 Reference = U1;
-ValeurCmp = 78L05;
+ValeurCmp = 7805;
 IdModule  = sot89;
 EndCmp
 
