@@ -1,5 +1,5 @@
-/*
- * thermistors.h
+/**
+ * @file thermistors.h
  *
  * @date Feb 17, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -14,7 +14,7 @@
 #define KELV 273.15
 
 /**
- * @brief thermisor curve params
+ * @brief thermistor curve parameters
  */
 typedef struct {
 	float temp_1;
@@ -55,5 +55,7 @@ myfloat getKelvinTemperature(myfloat voltage, ThermistorConf *thermistor);
 myfloat getTemperatureC(Thermistor *thermistor);
 myfloat getCoolantTemperature(void);
 myfloat getIntakeAirTemperature(void);
+
+void initThermistors(void);
 
 #endif /* THERMISTORS_H_ */
