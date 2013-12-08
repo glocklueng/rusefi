@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 07/12/2013 21:22:20
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 12/8/2013 11:06:13 AM
 
 BeginCmp
 TimeStamp = /52928AD9;
@@ -71,24 +71,31 @@ IdModule  = LED-1206;
 EndCmp
 
 BeginCmp
+TimeStamp = /52A48DD8;
+Reference = D3;
+ValeurCmp = DIODE;
+IdModule  = SOD-123;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A4A7F6;
+Reference = D4;
+ValeurCmp = ZENER;
+IdModule  = SOT23;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A4A828;
+Reference = D5;
+ValeurCmp = ZENER;
+IdModule  = SOT23;
+EndCmp
+
+BeginCmp
 TimeStamp = /52A3E360;
 Reference = G1;
 ValeurCmp = LOGO;
 IdModule  = LOGO_F;
-EndCmp
-
-BeginCmp
-TimeStamp = /52A3E69D;
-Reference = M1;
-ValeurCmp = CONN_1;
-IdModule  = PIN_ARRAY_1;
-EndCmp
-
-BeginCmp
-TimeStamp = /52A3E68E;
-Reference = M2;
-ValeurCmp = CONN_1;
-IdModule  = PIN_ARRAY_1;
 EndCmp
 
 BeginCmp
@@ -117,6 +124,13 @@ TimeStamp = /529A3D4E;
 Reference = P4;
 ValeurCmp = CONN_4X2;
 IdModule  = pin_array_4x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A48C95;
+Reference = Q1;
+ValeurCmp = MOS_PRO;
+IdModule  = sot23;
 EndCmp
 
 BeginCmp
