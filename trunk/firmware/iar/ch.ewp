@@ -2119,6 +2119,9 @@
         <name>$PROJ_DIR$\..\controllers\sensors\map.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\controllers\sensors\sensors.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\sensors\sensors.h</name>
       </file>
       <file>
@@ -2145,6 +2148,12 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\advance_map.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\electronic_throttle.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\electronic_throttle.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\engine_controller.c</name>
