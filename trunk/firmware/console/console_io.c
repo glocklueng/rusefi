@@ -103,8 +103,8 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	sdStart(CONSOLE_CHANNEL, &serialConfig);
 
 	// cannot use pin repository here because pin repository prints to console
-	palSetPadMode(CONSOLE_PORT, CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(CONSOLE_AF));
-	palSetPadMode(CONSOLE_PORT, CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(CONSOLE_AF));
+	palSetPadMode(EFI_CONSOLE_PORT, EFI_CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
+	palSetPadMode(EFI_CONSOLE_PORT, EFI_CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
 #endif
 	chThdCreateStatic(consoleThread, sizeof(consoleThread), NORMALPRIO, sdThreadEntryPoint, NULL);
 }
