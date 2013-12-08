@@ -11,10 +11,37 @@
 #include "output_pins.h"
 #include "rficonsole_logic.h"
 #include "idle_controller.h"
+#include "tps.h"
+#include "engine_configuration.h"
 
 static Logging logger;
-
+/**
+ * @brief Control Thread stack
+ */
+static WORKING_AREA(etbTreadStack, 512);
+/**
+ * @brief Pulse-Width Modulation state
+ */
 static PwmConfig etbPwm;
+
+static float prevTps;
+
+extern EngineConfiguration *engineConfiguration;
+
+static msg_t etbThread(void *arg) {
+	while (TRUE) {
+		int tps = getTPS();
+
+		if (tps != prevTps) {
+			prevTps = tps;
+			scheduleSimpleMsg(&logger, "tps=", (int) tps);
+		}
+
+		// this thread is activated 10 times per second
+		chThdSleepMilliseconds(100);
+	}
+	return -1;
+}
 
 static void setThrottleConsole(int level) {
 	scheduleSimpleMsg(&logger, "setting throttle=", level);
@@ -26,6 +53,9 @@ static void setThrottleConsole(int level) {
 void initElectronicThrottle(void) {
 	initLogging(&logger, "Electronic Throttle");
 
+	engineConfiguration->tpsMin = 140;
+	engineConfiguration->tpsMax = 898;
+
 	// these two lines are controlling direction
 	outputPinRegister("etb1", ELECTRONIC_THROTTLE_CONTROL_1, ETB_CONTROL_LINE_1_PORT, ETB_CONTROL_LINE_1_PIN);
 	outputPinRegister("etb2", ELECTRONIC_THROTTLE_CONTROL_2, ETB_CONTROL_LINE_2_PORT, ETB_CONTROL_LINE_2_PIN);
@@ -34,4 +64,5 @@ void initElectronicThrottle(void) {
 	wePlainInit("etb", &etbPwm, ETB_CONTROL_LINE_3_PORT, ETB_CONTROL_LINE_3_PIN, 0, 0.80, 500);
 
 	addConsoleActionI("e", setThrottleConsole);
+	chThdCreateStatic(etbTreadStack, sizeof(etbTreadStack), NORMALPRIO, (tfunc_t) etbThread, NULL);
 }
