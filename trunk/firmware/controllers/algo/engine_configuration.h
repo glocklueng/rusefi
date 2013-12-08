@@ -34,6 +34,8 @@ typedef struct {
 
 	short int rpmHardLimit; // size 2, offset 328
 
+	// todo: extract these two fields into a structure
+	// todo: we need two sets of TPS parameters - modern ETBs have to sensors
 	short int tpsMin; // size 2, offset 330
 	short int tpsMax; // size 2, offset 332
 	short int crankingRpm;   // size 2, offset 334
