@@ -30,7 +30,7 @@ int getTPSAdc(void) {
 }
 
 /*
- * Return current TPS position
+ * @return Current TPS position. 0 means idle and 100 means Wide Open Throttle
  * */
 myfloat getTPS(void) {
 	// blue, 1st board

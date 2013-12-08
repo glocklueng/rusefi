@@ -2,6 +2,7 @@
 CONTROLLERSSRC = controllers/main_loop.c \
 	controllers/advance_map.c \
 	controllers/engine_controller.c \
+	controllers/electronic_throttle.c \
 	controllers/idle_thread.c \
 	controllers/injector_central.c \
 	controllers/ignition_central.c \
