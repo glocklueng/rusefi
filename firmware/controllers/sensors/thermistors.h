@@ -56,6 +56,8 @@ myfloat getTemperatureC(Thermistor *thermistor);
 myfloat getCoolantTemperature(void);
 myfloat getIntakeAirTemperature(void);
 
+myfloat convertResistanceToKelvinTemperature(myfloat resistance,
+		ThermistorConf *thermistor);
 void setThermistorConfiguration(ThermistorConf * tc, float temp1, float r1, float temp2, float r2, float temp3,
 		float r3);
 void prepareThermistorCurve(ThermistorConf * config);

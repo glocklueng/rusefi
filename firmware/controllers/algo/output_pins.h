@@ -66,6 +66,5 @@ void turnOutputPinOn(PinEnum pin);
 void turnOutputPinOff(PinEnum pin);
 void setOutputPinValue(PinEnum pin, int value);
 int getOutputPinValue(PinEnum pin);
-void outputPinRegister(char *msg, int ledIndex, GPIO_TypeDef *port, uint32_t pin);
 
 #endif /* STATUS_LEDS_H_ */

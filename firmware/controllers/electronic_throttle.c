@@ -11,10 +11,11 @@
 #include "main.h"
 #include "electronic_throttle.h"
 #include "boards.h"
-#include "output_pins.h"
+#include "pin_repository.h"
 #include "rficonsole_logic.h"
 #include "idle_controller.h"
 #include "tps.h"
+#include "output_pins.h"
 #include "engine_configuration.h"
 
 static Logging logger;
