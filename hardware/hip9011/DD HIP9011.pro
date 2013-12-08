@@ -1,4 +1,4 @@
-update=06/12/2013 22:51:39
+update=07/12/2013 21:11:10
 version=1
 last_client=cvpcb
 [pcbnew]
@@ -43,7 +43,7 @@ LibDir=
 version=1
 [eeschema]
 version=1
-LibDir=
+LibDir=lib/STAB
 NetFmtName=
 RptD_X=0
 RptD_Y=100
@@ -82,7 +82,7 @@ LibName29=contrib
 LibName30=valves
 LibName31=lib/quartz
 LibName32=lib/7805-sot89
-LibName33=logo_flipped
+LibName33=lib/logo_flipped
 [cvpcb]
 version=1
 NetIExt=net
