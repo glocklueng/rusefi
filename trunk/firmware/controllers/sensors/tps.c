@@ -11,6 +11,10 @@ extern EngineConfiguration *engineConfiguration;
  *
  * */
 myfloat getTpsValue(int adc) {
+	if (adc < engineConfiguration->tpsMin)
+		return 0;
+	if (adc > engineConfiguration->tpsMax)
+		return 100;
 	return interpolate(engineConfiguration->tpsMin, 0, engineConfiguration->tpsMax, 100, adc);
 }
 
