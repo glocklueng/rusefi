@@ -8,12 +8,12 @@
 #ifndef DATA_BUFFER_H_
 #define DATA_BUFFER_H_
 
-#define MAX_SIZE 1024
+#define DB_MAX_SIZE 1024
 
 #define EF_PERIOD 100000000
 
 typedef struct {
-	int elements[MAX_SIZE];
+	int elements[DB_MAX_SIZE];
 	int size;
 } data_buffer_s;
 

@@ -9,7 +9,7 @@
 #include "main.h"
 
 int dbIsFull(data_buffer_s *db) {
-	return db->size == MAX_SIZE;
+	return db->size == DB_MAX_SIZE;
 }
 
 void dbClear(data_buffer_s *db) {
@@ -24,7 +24,7 @@ void dbCopy(data_buffer_s *source, data_buffer_s *target) {
 }
 
 void dbAdd(data_buffer_s *db, int value) {
-	if (db->size == MAX_SIZE)
+	if (db->size == DB_MAX_SIZE)
 		return;
 	int s = db->size;
 	db->elements[s] = value;
@@ -57,7 +57,7 @@ void dbPrintTable(data_buffer_s *table[], char *caption[], int columns) {
 		print("%7s", caption[c]);
 	print("\r\n");
 
-	for (int r = 0; r < MAX_SIZE; r++) {
+	for (int r = 0; r < DB_MAX_SIZE; r++) {
 		for (int c = 0; c < columns; c++) {
 			data_buffer_s *buf = table[c];
 			print("%7d", buf->elements[r]);
