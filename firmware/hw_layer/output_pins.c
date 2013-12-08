@@ -80,10 +80,10 @@ static void initialLedsBlink(void) {
 }
 
 void initOutputPins(void) {
-	outputPinRegister("is cranking status", LED_CRANKING, GPIOD, GPIOD_LED3);
-	outputPinRegister("is running status", LED_RUNNING, GPIOD, GPIOD_LED4);
-	outputPinRegister("alive1", LED_FATAL, GPIOD, GPIOD_LED5);
-	outputPinRegister("is alive status2", LED_ALIVE3, GPIOD, GPIOD_LED6);
+	outputPinRegister("is cranking status", LED_CRANKING, STATUS_LED_1_PORT, STATUS_LED_1_PIN);
+	outputPinRegister("is running status", LED_RUNNING, STATUS_LED_2_PORT, STATUS_LED_2_PIN);
+	outputPinRegister("alive1", LED_FATAL, STATUS_LED_3_PORT, STATUS_LED_3_PIN);
+	outputPinRegister("is alive status2", LED_ALIVE3, STATUS_LED_4_PORT, STATUS_LED_4_PIN);
 
 	outputPinRegister("is alive status 2", LED_ALIVE2, EXTRA_LED_1_PORT, EXTRA_LED_1_PIN);
 	outputPinRegister("alive1", LED_DEBUG, GPIOD, 6);
