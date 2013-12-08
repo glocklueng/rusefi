@@ -39,7 +39,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "noname.sch"
-Date "7 dec 2013"
+Date "8 dec 2013"
 Rev ""
 Comp ""
 Comment1 ""
@@ -363,11 +363,8 @@ Wire Wire Line
 Connection ~ 2200 4050
 Wire Wire Line
 	2050 4450 2050 4250
-Wire Wire Line
-	2650 4450 2650 4350
 Connection ~ 2200 4450
 Connection ~ 3300 4050
-Connection ~ 2650 4450
 Connection ~ 3300 4450
 Wire Wire Line
 	4500 4250 4650 4250
@@ -463,8 +460,6 @@ Text Label 7200 4650 0    60   ~ 0
 INT/HLD
 Text Label 7200 4750 0    60   ~ 0
 CS
-Text Label 8500 4750 0    60   ~ 0
-INTOUT
 Wire Wire Line
 	4650 4350 4350 4350
 Text Label 4350 4350 0    60   ~ 0
@@ -579,27 +574,59 @@ $EndComp
 $Comp
 L 7805-SOT89 U1
 U 1 1 52A25C32
-P 2650 4100
-F 0 "U1" H 2800 3904 60  0000 C CNN
-F 1 "7805-SOT89" H 2650 4300 60  0000 C CNN
-F 2 "~" H 2650 4100 60  0000 C CNN
-F 3 "~" H 2650 4100 60  0000 C CNN
-	1    2650 4100
-	1    0    0    -1  
+P 2650 4000
+F 0 "U1" H 2800 3804 60  0000 C CNN
+F 1 "7805-SOT89" H 2650 4200 60  0000 C CNN
+F 2 "~" H 2650 4000 60  0000 C CNN
+F 3 "~" H 2650 4000 60  0000 C CNN
+	1    2650 4000
+	-1   0    0    1   
 $EndComp
 Text Label 2200 4050 0    60   ~ 0
 +12V
 Text Notes 1600 1700 0    118  ~ 0
-DD HIP9011 ver.2\nRusEfi.com
+DD HIP9011 ver 0.1\nRusEfi.com
+$Comp
+L R R15
+U 1 1 52A2E159
+P 8400 3450
+F 0 "R15" V 8480 3450 40  0000 C CNN
+F 1 "10k" V 8407 3451 40  0000 C CNN
+F 2 "~" V 8330 3450 30  0000 C CNN
+F 3 "~" H 8400 3450 30  0000 C CNN
+	1    8400 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R16
+U 1 1 52A2E168
+P 8400 3950
+F 0 "R16" V 8480 3950 40  0000 C CNN
+F 1 "10k" V 8407 3951 40  0000 C CNN
+F 2 "~" V 8330 3950 30  0000 C CNN
+F 3 "~" H 8400 3950 30  0000 C CNN
+	1    8400 3950
+	1    0    0    -1  
+$EndComp
+Text Label 8400 4200 0    60   ~ 0
+GND
+Text Label 8400 3700 0    60   ~ 0
+OUT
+Text Label 8400 3200 0    60   ~ 0
+INTOUT
+Text Label 8500 4750 0    60   ~ 0
+OUT
+Text Label 2650 3750 0    60   ~ 0
+GND
 $Comp
 L LOGO G1
-U 1 1 52A2A9AB
-P 2800 5300
-F 0 "G1" H 2800 5197 60  0001 C CNN
-F 1 "LOGO" H 2800 5403 60  0001 C CNN
-F 2 "" H 2800 5300 60  0000 C CNN
-F 3 "" H 2800 5300 60  0000 C CNN
-	1    2800 5300
+U 1 1 52A3E360
+P 3800 1700
+F 0 "G1" H 3800 1597 60  0001 C CNN
+F 1 "LOGO" H 3800 1803 60  0001 C CNN
+F 2 "" H 3800 1700 60  0000 C CNN
+F 3 "" H 3800 1700 60  0000 C CNN
+	1    3800 1700
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
