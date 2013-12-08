@@ -18,4 +18,7 @@ void testSensors(void) {
 	assertEquals(-0.003, tc.s_h_a);
 	assertEquals(0.001, tc.s_h_b);
 	assertEquals(0.0, tc.s_h_c);
+
+	float t = convertResistanceToKelvinTemperature(2100, &tc);
+//todo: fix it!	assertEquals(75, t);
 }
