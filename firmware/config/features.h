@@ -67,7 +67,10 @@
 #endif
 #endif /* EFI_TUNER_STUDIO */
 
-// not unit test
+/**
+ * This macros is used to hide pieces of the code from unit tests, so it only makes sense in folders exposed to the tests project.
+ * This macros is NOT about taking out logging in general.
+ */
 #define EFI_PROD_CODE TRUE
 
 #endif /* EFI_SERIAL_OVER_USB */
