@@ -1,6 +1,6 @@
-update=08/12/2013 20:38:04
+update=08/12/2013 20:42:54
 version=1
-last_client=cvpcb
+last_client=eeschema
 [general]
 version=1
 [pcbnew]
@@ -43,6 +43,11 @@ LibName17=PIN_ARRAY_10X2
 LibName18=logo
 LibName19=logo_flipped
 LibDir=lib
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [eeschema]
 version=1
 LibDir=lib
@@ -82,11 +87,6 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=project_specific
+LibName31=LMV324IDR
 LibName32=logo
 LibName33=logo_flipped
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
