@@ -2756,6 +2756,12 @@
       <name>$PROJ_DIR$\..\util\crc.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\util\cyclic_buffer.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\util\cyclic_buffer.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\util\data_buffer.c</name>
     </file>
     <file>
