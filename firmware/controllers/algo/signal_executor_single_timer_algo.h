@@ -10,7 +10,7 @@
 
 #include "signal_executor.h"
 
-void registerSignal(OutputSignal *signal);
-time_t toggleSignalIfNeeded(OutputSignal *out, time_t now);
+inline void registerSignal(OutputSignal *signal);
+inline time_t toggleSignalIfNeeded(OutputSignal *out, time_t now);
 
 #endif /* SIGNAL_EXECUTOR_SINGLE_TIMER_ALGO_H_ */
