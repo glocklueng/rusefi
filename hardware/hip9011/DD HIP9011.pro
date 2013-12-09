@@ -1,17 +1,12 @@
-update=12/8/2013 10:31:05 AM
+update=09.12.2013 22:13:55
 version=1
 last_client=pcbnew
 [general]
 version=1
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
 [eeschema]
 version=1
 LibDir=lib/STAB
-NetFmtName=PcbnewAdvanced
+NetFmtName=
 RptD_X=0
 RptD_Y=100
 RptLab=1
@@ -50,15 +45,19 @@ LibName30=valves
 LibName31=lib/quartz
 LibName32=lib/7805-sot89
 LibName33=lib/logo_flipped
-LibName34=lib/project_specific_libs
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [pcbnew]
 version=1
 LastNetListRead=DD HIP9011.net
 UseCmpFile=1
-PadDrill=1.016000000000
-PadDrillOvalY=1.016000000000
-PadSizeH=4.000000000000
-PadSizeV=4.000000000000
+PadDrill=3.048000000000
+PadDrillOvalY=3.048000000000
+PadSizeH=3.050000000000
+PadSizeV=3.050000000000
 PcbTextSizeV=1.500000000000
 PcbTextSizeH=1.500000000000
 PcbTextThickness=0.300000000000
@@ -88,5 +87,4 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
-LibName17=lib/logo_flipped
-LibName18=lib/project_specific_modules
+LibName17=lib/pin
