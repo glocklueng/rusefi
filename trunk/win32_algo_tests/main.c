@@ -22,6 +22,7 @@
 #include "test_event_registry.h"
 #include "test_sensors.h"
 #include "test_signal_executor.h"
+#include "test_cyclic_buffer.h"
 #include "engine_configuration.h"
 
 static EngineConfiguration ec;
@@ -70,6 +71,7 @@ int main(void) {
 	testEngineMath();
 	testEventRegistry();
 	testSensors();
+	testCyclicBuffer();
 
 	testSignalExecutor();
 
