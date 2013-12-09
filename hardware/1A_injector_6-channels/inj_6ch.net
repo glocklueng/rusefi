@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source C:/stuff/rusefi_sourceforge/hardware/1A_injector_6-channels/inj_6ch.sch)
-    (date "08/12/2013 20:49:49")
+    (date "08/12/2013 20:55:12")
     (tool "eeschema (2013-07-07 BZR 4022)-stable"))
   (components
     (comp (ref Q6)
@@ -395,7 +395,7 @@
         (pin (num 3) (name P3) (type passive)))))
   (libraries
     (library (logical project_specific_libs)
-      (uri sch-libs\project_specific_libs.lib))
+      (uri lib\project_specific_libs.lib))
     (library (logical device)
       (uri "C:\\Program Files (x86)\\KiCad\\share\\library\\device.lib"))
     (library (logical conn)
