@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source C:/stuff/rusefi_sourceforge/hardware/adc_amp_divider/adc_amp_divider.sch)
-    (date "08/12/2013 20:37:14")
+    (date "08/12/2013 20:40:15")
     (tool "eeschema (2013-07-07 BZR 4022)-stable"))
   (components
     (comp (ref R215)
@@ -800,7 +800,7 @@
     (library (logical conn)
       (uri "C:\\Program Files (x86)\\KiCad\\share\\library\\conn.lib"))
     (library (logical project_specific)
-      (uri project_specific.lib))
+      (uri lib\project_specific.lib))
     (library (logical logo)
       (uri lib\logo.lib)))
   (nets
