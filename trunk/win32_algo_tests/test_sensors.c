@@ -13,6 +13,7 @@ static ThermistorConf tc;
 void testSensors(void) {
 	setThermistorConfiguration(&tc, 32, 9500, 75, 2100, 120, 1000);
 
+	print("testSensors\r\n");
 	prepareThermistorCurve(&tc);
 
 	assertEquals(-0.003, tc.s_h_a);
@@ -20,5 +21,5 @@ void testSensors(void) {
 	assertEquals(0.0, tc.s_h_c);
 
 	float t = convertResistanceToKelvinTemperature(2100, &tc);
-//todo: fix it!	assertEquals(75, t);
+	assertEquals(75 + KELV, t);
 }
