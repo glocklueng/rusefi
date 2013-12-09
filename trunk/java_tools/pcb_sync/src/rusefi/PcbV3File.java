@@ -2,7 +2,7 @@ package rusefi;
 
 /**
  * User: user
- * Date: 12/8/13
+ * 12/8/13
  */
 public class PcbV3File {
 
