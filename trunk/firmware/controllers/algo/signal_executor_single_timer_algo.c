@@ -25,7 +25,7 @@ extern WaveChart waveChart;
  */
 OutputSignal *st_output_list = NULL;
 
-void registerSignal(OutputSignal *signal) {
+inline void registerSignal(OutputSignal *signal) {
 	LL_APPEND(st_output_list, signal);
 }
 
@@ -37,7 +37,7 @@ void setOutputPinValue(PinEnum pin, int value);
  * @return time of next event within for this signal
  * @todo Find better name.
  */
-time_t toggleSignalIfNeeded(OutputSignal *out, time_t now) {
+inline time_t toggleSignalIfNeeded(OutputSignal *out, time_t now) {
 	chDbgCheck(out!=NULL, "out is NULL");
 	time_t last = out->last_scheduling_time;
 	//estimated = last + out->timing[out->status];
