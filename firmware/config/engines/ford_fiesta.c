@@ -14,6 +14,8 @@
 #include "engine_configuration.h"
 #include "toothed_wheel_emulator.h"
 
+extern EngineConfiguration2 engineConfiguration2;
+
 void configureShaftPositionEmulatorShape(PwmConfig *state) {
 	skippedToothPositionEmulatorShape(state);
 }
@@ -39,8 +41,6 @@ void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 
 	engineConfiguration2.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
-
-
 }
 
 #endif /* EFI_ENGINE_FORD_FIESTA */

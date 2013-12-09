@@ -15,6 +15,8 @@
 #include "fuel_map.h"
 #include "toothed_wheel_emulator.h"
 
+extern EngineConfiguration2 engineConfiguration2;
+
 void configureShaftPositionEmulatorShape(PwmConfig *state) {
 	skippedToothPositionEmulatorShape(state);
 }

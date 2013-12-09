@@ -11,6 +11,12 @@
 #include "toothed_shaft_sensor.h"
 
 #if EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR
+#include "cyclic_buffer.h"
+#include "engine_configuration.h"
+
+static Logging logger;
+static cyclic_buffer errorDetection;
+extern EngineConfiguration2 engineConfiguration2;
 
 void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaftPositionState) {
 	if (signal != SHAFT_PRIMARY_UP) {
@@ -24,6 +30,9 @@ void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaft
 
 	if (current_duration > shaftPositionState->toothed_previous_duration * 1.5
 			&& current_duration < shaftPositionState->toothed_previous_duration * 4) {
+		int isDecodingError = shaftPositionState->current_index != engineConfiguration2.shaftPositionEventCount - 1;
+		cbAdd(&errorDetection, isDecodingError);
+
 		shaftPositionState->shaft_is_synchronized = TRUE;
 		shaftPositionState->current_index = 0;
 	} else {
@@ -35,10 +44,12 @@ void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaft
 }
 
 void initShaftSignalDecoder(void) {
+	initLogging(&logger, "toothed_shaft_sensor");
+	cbInit(&errorDetection);
 }
 
 int isSignalDecoderError(void) {
-	return FALSE;
+	return cbSum(&errorDetection, 6) > 4;
 }
 
 #endif /* EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR */
