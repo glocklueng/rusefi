@@ -32,7 +32,7 @@ LIBS:valves
 LIBS:project_specific
 LIBS:logo
 LIBS:logo_flipped
-LIBS:adc_amp_dividor-cache
+LIBS:adc_amp_divider-cache
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000

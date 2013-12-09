@@ -1,6 +1,6 @@
 
-(session adc_amp_dividor.ses
-  (base_design adc_amp_dividor.dsn)
+(session adc_amp_divider.ses
+  (base_design adc_amp_divider.dsn)
   (placement
     (resolution um 10)
     (component SM1206
