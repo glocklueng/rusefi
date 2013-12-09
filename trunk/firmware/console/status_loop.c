@@ -96,7 +96,7 @@ extern int dbg_panic_line;
 #endif
 
 void onDbgPanic(void) {
-	setOutputPinValue(LED_FATAL, 1);
+	setOutputPinValue(LED_ERROR, 1);
 }
 
 int hasFatalError(void) {
@@ -106,7 +106,7 @@ int hasFatalError(void) {
 static void checkIfShouldHalt(void) {
 #if CH_DBG_ENABLED
 	if (hasFatalError()) {
-		setOutputPinValue(LED_FATAL, 1);
+		setOutputPinValue(LED_ERROR, 1);
 #if EFI_CUSTOM_PANIC_METHOD
 		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg, dbg_panic_file, dbg_panic_line);
 #else

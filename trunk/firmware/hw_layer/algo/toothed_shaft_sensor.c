@@ -34,4 +34,11 @@ void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaft
 	shaftPositionState->toothed_previous_time = now;
 }
 
+void initShaftSignalDecoder(void) {
+}
+
+int isSignalDecoderError(void) {
+	return FALSE;
+}
+
 #endif /* EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR */

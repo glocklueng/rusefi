@@ -314,6 +314,8 @@ void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 
 	engineConfiguration->rpmHardLimit = 7000;
 
+	engineConfiguration2.shaftPositionEventCount = 10;
+
 	setDefaultFuelMap();
 }
 #endif /* EFI_ENGINE_FORD_ASPIRE */

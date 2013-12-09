@@ -55,6 +55,8 @@ static void setThrottleConsole(int level) {
 }
 
 void initElectronicThrottle(void) {
+	if (1 == 1)
+		return;
 	initLogging(&logger, "Electronic Throttle");
 
 	engineConfiguration->tpsMin = 140;

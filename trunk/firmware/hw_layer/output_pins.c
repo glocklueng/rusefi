@@ -13,15 +13,21 @@
 #include "pin_repository.h"
 #include "gpio_helper.h"
 #include "pinout.h"
-#include "print.h"
+#include "status_loop.h"
+#include "shaft_position_input.h"
 
 static OutputPin outputs[OUTPUT_PIN_COUNT];
-static PinEnum leds[] = { LED_CRANKING, LED_RUNNING, LED_FATAL, LED_ALIVE3, LED_ALIVE2, LED_DEBUG };
+static PinEnum leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG };
 
 /**
  * blinking thread to show that we are alive
  */
-static WORKING_AREA(blinkingThreadStack, 128);
+static WORKING_AREA(comBlinkingStack, 128);
+
+/**
+ * error thread to show error condition (blinking LED means non-fatal error)
+ */
+static WORKING_AREA(errBlinkingStack, 128);
 
 void turnOutputPinOn(PinEnum pin) {
 	setOutputPinValue(pin, TRUE);
@@ -45,16 +51,29 @@ int getOutputPinValue(PinEnum pin) {
 	return getPinValue(&outputs[pin]);
 }
 
-static void blinkingThread_s(void *arg) {
-	chRegSetThreadName("blinking");
+static void comBlinkingThread(void *arg) {
+	chRegSetThreadName("comm blinking");
 	while (TRUE) {
 		int delay = is_serial_ready() ? 100 : 33;
 
-		setOutputPinValue(LED_ALIVE3, 0);
+		setOutputPinValue(LED_COMMUNICATION_1, 0);
 		setOutputPinValue(LED_ALIVE2, 1);
 		chThdSleepMilliseconds(delay);
-		setOutputPinValue(LED_ALIVE3, 1);
+		setOutputPinValue(LED_COMMUNICATION_1, 1);
 		setOutputPinValue(LED_ALIVE2, 0);
+		chThdSleepMilliseconds(delay);
+	}
+}
+
+static void errBlinkingThread(void *arg) {
+	chRegSetThreadName("err blinking");
+	while (TRUE) {
+		int delay = 33;
+		if (isSignalDecoderError())
+			setOutputPinValue(LED_ERROR, 1);
+		chThdSleepMilliseconds(delay);
+		if (!hasFatalError())
+			setOutputPinValue(LED_ERROR, 0);
 		chThdSleepMilliseconds(delay);
 	}
 }
@@ -82,10 +101,10 @@ static void initialLedsBlink(void) {
 void initOutputPins(void) {
 	outputPinRegister("is cranking status", LED_CRANKING, STATUS_LED_1_PORT, STATUS_LED_1_PIN);
 	outputPinRegister("is running status", LED_RUNNING, STATUS_LED_2_PORT, STATUS_LED_2_PIN);
-	outputPinRegister("alive1", LED_FATAL, STATUS_LED_3_PORT, STATUS_LED_3_PIN);
-	outputPinRegister("is alive status2", LED_ALIVE3, STATUS_LED_4_PORT, STATUS_LED_4_PIN);
+	outputPinRegister("error", LED_ERROR, STATUS_LED_3_PORT, STATUS_LED_3_PIN);
+	outputPinRegister("communication status 1", LED_COMMUNICATION_1, STATUS_LED_4_PORT, STATUS_LED_4_PIN);
 
-	outputPinRegister("is alive status 2", LED_ALIVE2, EXTRA_LED_1_PORT, EXTRA_LED_1_PIN);
+	outputPinRegister("communication status 2", LED_ALIVE2, EXTRA_LED_1_PORT, EXTRA_LED_1_PIN);
 	outputPinRegister("alive1", LED_DEBUG, GPIOD, 6);
 	outputPinRegister("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN);
 	outputPinRegister("sparkout2", SPARKOUT_2_OUTPUT, SPARK_2_PORT, SPARK_2_PIN);
@@ -131,7 +150,7 @@ void initOutputPins(void) {
 	 ledRegister(LED_HUGE_20, GPIOE, 1);
 	 */
 
-	chThdCreateStatic(blinkingThreadStack, sizeof(blinkingThreadStack),
-	NORMALPRIO, (tfunc_t) blinkingThread_s, NULL);
+	chThdCreateStatic(comBlinkingStack, sizeof(comBlinkingStack), NORMALPRIO, (tfunc_t) comBlinkingThread, NULL);
+	chThdCreateStatic(errBlinkingStack, sizeof(errBlinkingStack), NORMALPRIO, (tfunc_t) errBlinkingThread, NULL);
 }
 

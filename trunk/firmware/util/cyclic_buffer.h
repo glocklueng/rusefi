@@ -11,9 +11,9 @@
 #define CB_MAX_SIZE 16
 
 typedef struct {
-	int elements[CB_MAX_SIZE];
-	int currentIndex;
-	int count;
+	volatile int elements[CB_MAX_SIZE];
+	volatile int currentIndex;
+	volatile int count;
 } cyclic_buffer;
 
 void cbInit(cyclic_buffer *cb);

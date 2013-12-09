@@ -37,6 +37,10 @@ void configureEngineEventHandler(EventHandlerConfiguration *config) {
 
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
+
+	engineConfiguration2.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
+
+
 }
 
 #endif /* EFI_ENGINE_FORD_FIESTA */

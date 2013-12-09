@@ -12,5 +12,6 @@ void initStatusLoop(void);
 void printState(void);
 void setFullLog(int value);
 void sayOsHello(void);
+int hasFatalError(void);
 
 #endif /* CONSOLE_LOOP_H_ */
