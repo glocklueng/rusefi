@@ -1,6 +1,6 @@
 CC=gcc
-CFLAGS=-c -Wall -std=c99 -I. -I../firmware/controllers/algo -I../firmware/controllers/math -I../firmware/util -I../firmware/controllers/sensors
-LDFLAGS=
+CFLAGS=-c -Wall -std=gnu99 -fgnu89-inline -I. -I../firmware/controllers/algo -I../firmware/controllers/math -I../firmware/util -I../firmware/controllers/sensors
+LDFLAGS=-lm
 SOURCES= main.c boards.c \
 	test_engine_math.c \
 	test_event_registry.c \
