@@ -1,7 +1,7 @@
 (export (version D)
   (design
-    (source C:\Users\owner\Desktop\daecu\Hardware\trunk\rusefi.com\1A_injector_6-channels\inj_6ch.sch)
-    (date "11/30/2013 7:52:58 PM")
+    (source C:/stuff/rusefi_sourceforge/hardware/1A_injector_6-channels/inj_6ch.sch)
+    (date "08/12/2013 20:49:49")
     (tool "eeschema (2013-07-07 BZR 4022)-stable"))
   (components
     (comp (ref Q6)

@@ -1,4 +1,4 @@
-PCBNEW-BOARD Version 2 date 01.12.2013 18:08:36
+PCBNEW-BOARD Version 2 date 08/12/2013 20:50:12
 
 # Created by Pcbnew(2013-07-07 BZR 4022)-stable
 
@@ -21,7 +21,7 @@ $EndGENERAL
 $SHEETDESCR
 Sheet A 11000 8500
 Title "6 Channel Injector board"
-Date "2 dec 2013"
+Date "9 dec 2013"
 Rev "Spin A R0.1"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""
