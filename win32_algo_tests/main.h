@@ -13,6 +13,7 @@ typedef float myfloat;
 
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 
 #include "boards.h"
 
