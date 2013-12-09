@@ -37,7 +37,7 @@
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/win32_algo_tests/controllers_algo&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/win32_algo_tests/util&quot;"/>
 								</option>
-								<option id="gnu.c.compiler.option.misc.other.707542371" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -std=gnu99 -Werror-implicit-function-declaration" valueType="string"/>
+								<option id="gnu.c.compiler.option.misc.other.707542371" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -std=gnu99 -fgnu89-inline -Werror-implicit-function-declaration" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1034149802" superClass="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.cygwin.exe.debug.756102559" name="Cygwin C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.cygwin.exe.debug">
