@@ -1,4 +1,4 @@
-update=Пнд 09 Дек 2013 16:01:06
+update=Пнд 09 Дек 2013 19:02:03
 version=1
 last_client=cvpcb
 [general]
@@ -39,7 +39,7 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
-LibName17=sch-libs/art-electro-conn
+LibName17=lib/art-electro-conn
 LibDir=
 [eeschema]
 version=1
@@ -80,7 +80,7 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=sch-libs/art-electro-conn
+LibName31=lib/art-electro-conn
 [cvpcb]
 version=1
 NetIExt=net
