@@ -29,7 +29,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:project_specific
+LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
 LIBS:adc_amp_divider-cache
