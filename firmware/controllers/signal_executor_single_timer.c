@@ -14,13 +14,13 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
-
 #include <stdint.h>
 #include <stm32_tim.h>
 #include "hal.h"
 #include "utlist.h"
 #include "output_pins.h"
 #include "signal_executor.h"
+#include "signal_executor_single_timer_algo.h"
 
 #if EFI_WAVE_ANALYZER
 #include "wave_chart.h"
@@ -101,20 +101,23 @@ CH_FAST_IRQ_HANDLER(STM32_TIM7_HANDLER)
 {
 #define MIN(a, b) (((a) > (b)) ? (b) : (a))
 #define PRESCALLER ((STM32_HCLK) / (STM32_PCLK1))
+/* Convert chSys tick to CPU tick */
+#define ST2CT(st) ((st) * (STM32_SYSCLK) / (CH_FREQUENCY))
+//#pragma message VAR_NAME_VALUE(STM32_SYSCLK)
 #define GET_DURATION(o) ((o)->status ? (o)->duration : (o)->offset)
 	OutputSignal *out;
 	time_t next;	/* Time to next output event */
 	time_t now;
 
 	now = chTimeNow();
-	next = now;
+	next = S2ST(1); /* one second in system ticks */
 	LL_FOREACH(output_list, out) {
 		time_t n = toggleSignalIfNeeded(out, now);
 		/* Find closest output event in time */
 		next = MIN(next, n);
 	}
 	if (next) {
-		TIM7->ARR = next / PRESCALLER;	/* Update scheduler timing */
+		TIM7->ARR = ST2CT(next) / PRESCALLER;	/* Update scheduler timing */
 	}
 	TIM7->SR &= ~STM32_TIM_SR_UIF;	/* Reset interrupt flag */
 }
@@ -128,9 +131,7 @@ CH_FAST_IRQ_HANDLER(STM32_TIM7_HANDLER)
  * @param [in] xor Option to invert output signal.
  */
 void initOutputSignal(char *name, OutputSignal *signal, int led, int xor) {
-#if EFI_PROD_CODE
-	initLogging(&signal->logging, name, signal->logging.DEFAULT_BUFFER, sizeof(signal->logging.DEFAULT_BUFFER));
-#endif
+	initLogging(&signal->logging, name);
 
 	signal->ledIndex = led;
 	signal->xor = xor;
