@@ -30,9 +30,6 @@ void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaft
 		int isDecodingError = shaftPositionState->current_index != engineConfiguration2.shaftPositionEventCount - 1;
 		cbAdd(&errorDetection, isDecodingError);
 
-		scheduleSimpleMsg(&logger, "isE", isSignalDecoderError());
-
-		//scheduleSimpleMsg(&logger, "sig=", shaftPositionState->current_index);
 		shaftPositionState->current_index = 0;
 	} else {
 		shaftPositionState->current_index++;
