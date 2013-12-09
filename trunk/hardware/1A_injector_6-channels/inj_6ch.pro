@@ -37,7 +37,7 @@ LibName3=pin_array
 LibName4=divers
 LibName5=libcms
 LibName6=display
-LibName7=PCB-modules/project_specific_modules
+LibName7=lib/project_specific_modules
 [eeschema]
 version=1
 LibDir=
@@ -47,7 +47,7 @@ RptD_Y=100
 RptLab=1
 LabSize=60
 [eeschema/libraries]
-LibName1=sch-libs/project_specific_libs
+LibName1=lib/project_specific_libs
 LibName2=power
 LibName3=device
 LibName4=conn
