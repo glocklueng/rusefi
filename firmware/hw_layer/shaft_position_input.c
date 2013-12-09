@@ -90,6 +90,8 @@ shaft_icu_width_callback, shaft_icu_period_callback };
 void initShaftPositionInputCapture() {
 	initLogging(&logger, "ShaftPosition");
 
+	initShaftSignalDecoder();
+
 #if EFI_SHAFT_POSITION_INPUT
 
 	// initialize primary Input Capture Unit pin

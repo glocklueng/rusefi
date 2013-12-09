@@ -9,7 +9,7 @@
 #include <string.h>
 
 void cbInit(cyclic_buffer *cb) {
-	memset(cb->elements, 0, sizeof(cb->elements));
+	memset((void*) cb->elements, 0, sizeof(cb->elements));
 	cb->currentIndex = 0;
 }
 
@@ -25,8 +25,9 @@ void cbAdd(cyclic_buffer *cb, int value) {
 int cbSum(cyclic_buffer *cb, int length) {
 	int l = length > cb->count ? cb->count : length;
 	int result = 0;
+	int ci = cb->currentIndex; // local copy to increase thread-safery
 	for (int i = 0; i < l; i++) {
-		int index = cb->currentIndex - i;
+		int index = ci - i;
 		while (index < 0)
 			index += CB_MAX_SIZE;
 

@@ -15,8 +15,6 @@
 
 #define NUMBER_OF_CYLINDERS 4
 
-#define SHAFT_POSITION_EVENT_COUNT 2
-
 // this should be included after 'SHAFT_POSITION_EVENT_COUNT'. todo - fix this
 #include "main_loop.h"
 

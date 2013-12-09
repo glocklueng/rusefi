@@ -27,6 +27,7 @@ void configureEngineEventHandler(EventHandlerConfiguration *injectionConfigurati
 }
 
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
+	engineConfiguration2.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
 }
 
 #endif /* EFI_ENGINE_DENISVAK */

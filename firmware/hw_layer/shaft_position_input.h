@@ -36,5 +36,6 @@ typedef void (*ShaftPositionListener)(ShaftEvents signal, int index);
 void initShaftPositionInputCapture(void);
 void registerShaftPositionListener(ShaftPositionListener handler, char *msg);
 int getCrankEventCounter(void);
+int isSignalDecoderError(void);
 
 #endif /* CRANK_INPUT_H_ */

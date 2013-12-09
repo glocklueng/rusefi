@@ -57,6 +57,7 @@ typedef struct {
 	float ignitonOffset;
 	Thermistor iat;
 	Thermistor clt;
+	int shaftPositionEventCount;
 } EngineConfiguration2;
 
 void setDefaultConfiguration(EngineConfiguration *engineConfiguration);

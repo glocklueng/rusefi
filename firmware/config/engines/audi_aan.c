@@ -30,6 +30,7 @@ void configureEngineEventHandler(EventHandlerConfiguration *config) {
 }
 
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
+	engineConfiguration2.shaftPositionEventCount = 2;
 }
 
 #endif /* EFI_ENGINE_AUDI_AAN */

@@ -9,13 +9,13 @@
 #define STATUS_LEDS_H_
 
 typedef enum {
-	LED_CRANKING, // Orange on-board led
-	LED_ALIVE2, // ext board
-	LED_RUNNING, // Green on-board led
-	LED_FATAL, // Red on-board led
+	LED_CRANKING, // Orange on-board LED
+	LED_RUNNING, // Green on-board LED
+	LED_ERROR, // Red on-board LED
+	LED_COMMUNICATION_1, // Blue on-board LED
+	LED_ALIVE2, // external board LED
 	LED_DEBUG,
 	LED_EMULATOR,
-	LED_ALIVE3,
 
 	SPARKOUT_1_OUTPUT,
 	SPARKOUT_2_OUTPUT,

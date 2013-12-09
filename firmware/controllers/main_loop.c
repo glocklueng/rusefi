@@ -70,7 +70,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 	if (!isInjectionEnabled)
 		return;
 
-	if (eventIndex < 0 || eventIndex >= SHAFT_POSITION_EVENT_COUNT) {
+	if (eventIndex < 0 || eventIndex >= engineConfiguration2.shaftPositionEventCount) {
 		scheduleSimpleMsg(&logger, "ERROR: eventIndex ", eventIndex);
 		return;
 	}
@@ -156,7 +156,7 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
  * This is the main entry point into the primary shaft signal handler signal. Both injection and ignition are controlled from this method.
  */
 static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
-	if (eventIndex >= SHAFT_POSITION_EVENT_COUNT) {
+	if (eventIndex >= engineConfiguration2.shaftPositionEventCount) {
 		warning("unexpected eventIndex=", eventIndex);
 		return;
 	}
