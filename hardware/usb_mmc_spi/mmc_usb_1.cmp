@@ -1,0 +1,129 @@
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Пнд 09 Дек 2013 18:34:26
+
+BeginCmp
+TimeStamp = /52A59B39;
+Reference = C1;
+ValeurCmp = 4700pF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A5A67B;
+Reference = C2;
+ValeurCmp = 47pF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A5A68B;
+Reference = C3;
+ValeurCmp = 47pF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A59B20;
+Reference = C4;
+ValeurCmp = 4.7uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A59B31;
+Reference = C5;
+ValeurCmp = .1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A59B38;
+Reference = C6;
+ValeurCmp = .1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A59B2C;
+Reference = D1;
+ValeurCmp = GREEN;
+IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A5A380;
+Reference = D2;
+ValeurCmp = RED;
+IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A5C8BF;
+Reference = D3;
+ValeurCmp = RED;
+IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A5A473;
+Reference = J1;
+ValeurCmp = USB_MINI_MICRO;
+IdModule  = USB_multi;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A5D5AA;
+Reference = K1;
+ValeurCmp = CONN_3;
+IdModule  = PIN_ARRAY_3_A;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A5A901;
+Reference = P1;
+ValeurCmp = SD/MMC;
+IdModule  = SD-MMC;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A5AABA;
+Reference = P3;
+ValeurCmp = CONN_4X2;
+IdModule  = pin_array_4x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A59B3A;
+Reference = R1;
+ValeurCmp = 1M;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A59B2D;
+Reference = R2;
+ValeurCmp = 1k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A5A342;
+Reference = R3;
+ValeurCmp = 1k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A5C8B9;
+Reference = R4;
+ValeurCmp = 1k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52A59B51;
+Reference = U1;
+ValeurCmp = FT232RL;
+IdModule  = ssop-28;
+EndCmp
+
+EndListe
