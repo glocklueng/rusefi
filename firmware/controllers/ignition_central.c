@@ -19,8 +19,8 @@ static OutputSignal igniters[MAX_IGNITER_COUNT];
 void initIgnitionCentral(void) {
 	initLogging(&logger, "IgnitionCentral");
 
-	initOutputSignal("Spark 1", &igniters[0], SPARKOUT_1_OUTPUT, 1);
-	initOutputSignal("Spark 2", &igniters[1], SPARKOUT_2_OUTPUT, 1);
+	initOutputSignal("Spark 1", &igniters[0], SPARKOUT_1_OUTPUT, SPARK_1_XOR);
+	initOutputSignal("Spark 2", &igniters[1], SPARKOUT_2_OUTPUT, SPARK_2_XOR);
 }
 
 void scheduleSparkOut(int igniterId, int offsetSysTicks, int lengthSysTicks) {
