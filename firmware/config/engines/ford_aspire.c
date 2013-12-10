@@ -25,11 +25,14 @@
 extern EngineConfiguration2 engineConfiguration2;
 extern EngineConfiguration *engineConfiguration;
 
-float fuel_rpm_bins[FUEL_RPM_COUNT] = {/*0*/400.0, /*1*/650.0, /*2*/900.0, /*3*/1150.0, /*4*/1400.0, /*5*/1650.0, /*6*/1900.0, /*7*/
+/**
+ * Just the default RPM bin - with TunerStudio you can adjust even the bins
+ */
+static float default_fuel_rpm_bins[FUEL_RPM_COUNT] = {/*0*/400.0, /*1*/650.0, /*2*/900.0, /*3*/1150.0, /*4*/1400.0, /*5*/1650.0, /*6*/1900.0, /*7*/
 2150.0, /*8*/2400.0, /*9*/2650.0, /*10*/2900.0, /*11*/3150.0, /*12*/3400.0, /*13*/3650.0, /*14*/3900.0, /*15*/
 4150.0, /*16*/4400.0, /*17*/4650.0, /*18*/4900.0, /*19*/5150.0, /*20*/5400.0, /*21*/5650.0, /*22*/5900.0 };
 
-float fuel_maf_bins[FUEL_MAF_COUNT] = {/*0*/1.2000000476837158, /*1*/1.300000047683716, /*2*/1.400000047683716, /*3*/
+static float default_fuel_maf_bins[FUEL_MAF_COUNT] = {/*0*/1.2000000476837158, /*1*/1.300000047683716, /*2*/1.400000047683716, /*3*/
 1.500000047683716, /*4*/1.6000000476837162, /*5*/1.7000000476837163, /*6*/1.8000000476837164, /*7*/
 1.9000000476837164, /*8*/2.0000000476837165, /*9*/2.1000000476837166, /*10*/2.2000000476837167, /*11*/
 2.300000047683717, /*12*/2.400000047683717, /*13*/2.500000047683717, /*14*/2.600000047683717, /*15*/
@@ -39,7 +42,12 @@ float fuel_maf_bins[FUEL_MAF_COUNT] = {/*0*/1.2000000476837158, /*1*/1.300000047
 3.900000047683718, /*28*/4.000000047683718, /*29*/4.100000047683718, /*30*/4.200000047683718, /*31*/
 4.300000047683717, /*32*/4.400000047683717 };
 
-float	fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT] = {
+/**
+ * This is just the default map which is stored into flash memory in case flash is empty
+ * The convenient way to override these default would be to tune this map using TunerStudio software
+ * with which rusEfi is integrated
+ */
+static float default_fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT] = {
 	/*	Load		1.2		1.3		1.4		1.5		1.6		1.7		1.8		1.9		2.0		2.1		2.2		2.3		2.4		2.5		2.6		2.7		2.8		2.9		3.0		3.1		3.2		3.3		3.4		3.5		3.6		3.7		3.8		3.9		4.0		4.1		4.2		4.3		4.4	*/
 	/* RPM__400 */ {1.55,	1.55,	1.52,	1.54,	1.58,	1.52,	1.53,	4.03,	6.55,	8.13,	13.69,	16.14,	16.35,	25.07,	25.11,	25.13,	25.12,	25.09,	25.09,	25.13,	25.1,	25.12,	25.12,	25.12,	25.14,	25.12,	25.1,	25.12,	25.11,	24.39,	24.06,	23.21,	22.55	},
 	/* RPM__650 */ {1.53,	1.55,	1.54,	1.52,	1.52,	1.52,	1.52,	1.54,	1.53,	1.54,	6.01,	10.64,	11.93,	18.35,	17.72,	22.67,	21.79,	21.12,	20.25,	19.4,	18.7,	18.29,	17.68,	17.14,	16.98,	16.98,	16.97,	16.92,	17.01,	16.97,	16.92,	16.97,	17.01	},
@@ -129,13 +137,13 @@ void configureEngineEventHandler(EventHandlerConfiguration *config) {
 
 static void setDefaultFuelMap(void) {
 	for (int i = 0; i < FUEL_MAF_COUNT; i++)
-		engineConfiguration->fuelKeyBins[i] = fuel_maf_bins[i];
+		engineConfiguration->fuelKeyBins[i] = default_fuel_maf_bins[i];
 	for (int i = 0; i < FUEL_RPM_COUNT; i++)
-		engineConfiguration->fuelRpmBins[i] = fuel_rpm_bins[i];
+		engineConfiguration->fuelRpmBins[i] = default_fuel_rpm_bins[i];
 	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
 		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
 			// todo: this is BAD, this needs to be fixed - TS table indexes are different from default indexes
-			engineConfiguration->fuelTable[k][r] = fuel_table[r][k];
+			engineConfiguration->fuelTable[k][r] = default_fuel_table[r][k];
 		}
 	}
 }
