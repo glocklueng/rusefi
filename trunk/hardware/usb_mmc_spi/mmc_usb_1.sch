@@ -37,9 +37,9 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "09 Dec2013"
+Date "10 Dec2013"
 Rev ""
-Comp "http://code.google.com/p/daecu/"
+Comp ""
 Comment1 ""
 Comment2 "Art_Electro"
 Comment3 "Art_Electro"
