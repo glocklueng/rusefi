@@ -56,6 +56,9 @@ ifeq ($(USE_FWLIB),)
   USE_FWLIB = no
 endif
 
+# List all default C defines here, like -D_DEBUG=1
+DDEFS =
+
 #
 # Architecture or project specific options
 ##############################################################################
@@ -67,8 +70,14 @@ endif
 # Define project name here
 PROJECT = rusefi
 
+#PROJECT_BOARD = OLIMEX_STM32_E407
+ifneq ($(PROJECT_BOARD),OLIMEX_STM32_E407)
+  PROJECT_BOARD = ST_STM32F4_DISCOVERY
+endif
+DDEFS += -D$(PROJECT_BOARD)
+
 # Imported source files and paths
-include $(CHIBIOS)/boards/ST_STM32F4_DISCOVERY/board.mk
+include $(CHIBIOS)/boards/$(PROJECT_BOARD)/board.mk
 include $(CHIBIOS)/os/hal/platforms/STM32F4xx/platform.mk
 include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/ports/GCC/ARMCMx/STM32F4xx/port.mk
@@ -201,9 +210,6 @@ CPPWARN = -Wall -Wextra
 ##############################################################################
 # Start of default section
 #
-
-# List all default C defines here, like -D_DEBUG=1
-DDEFS =
 
 # List all default ASM defines here, like -D_DEBUG=1
 DADEFS =
