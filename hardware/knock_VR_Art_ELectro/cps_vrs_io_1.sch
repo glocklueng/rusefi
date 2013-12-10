@@ -26,6 +26,7 @@ LIBS:siliconi
 LIBS:contrib
 LIBS:logo_flipped
 LIBS:logo
+LIBS:art-electro-conn
 LIBS:cps_vrs_io_1-cache
 EELAYER 24 0
 EELAYER END
@@ -33,7 +34,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "cps_vrs_io_1"
-Date "3 dec 2013"
+Date "10 Dec 2013"
 Rev ""
 Comp "based on http://code.google.com/p/daecu/"
 Comment1 "cps_vrs_io_1"
@@ -894,28 +895,6 @@ F 3 "" H 6350 1575 60  0001 C CNN
 	0    1    1    0   
 $EndComp
 Connection ~ 14250 1150
-$Comp
-L CONN_1 P1
-U 1 1 529C78A8
-P 4975 2400
-F 0 "P1" H 5055 2400 40  0000 L CNN
-F 1 "CONN_1" H 4975 2455 30  0001 C CNN
-F 2 "PIN_ARRAY_1" H 4975 2400 60  0001 C CNN
-F 3 "" H 4975 2400 60  0000 C CNN
-	1    4975 2400
-	-1   0    0    1   
-$EndComp
-$Comp
-L CONN_1 P2
-U 1 1 529C79C8
-P 4975 2500
-F 0 "P2" H 5055 2500 40  0000 L CNN
-F 1 "CONN_1" H 4975 2555 30  0001 C CNN
-F 2 "PIN_ARRAY_1" H 4975 2500 60  0001 C CNN
-F 3 "" H 4975 2500 60  0000 C CNN
-	1    4975 2500
-	-1   0    0    1   
-$EndComp
 Wire Bus Line
 	4550 850  4550 1825
 Wire Bus Line
@@ -935,4 +914,17 @@ F 3 "" H 8150 5650 60  0000 C CNN
 $EndComp
 Text Label 11000 1425 2    60   ~ 0
 CRK2+
+$Comp
+L CONN_2 P1
+U 1 1 52A72119
+P 4775 2500
+F 0 "P1" V 4725 2500 40  0000 C CNN
+F 1 "CONN_2" V 4825 2500 40  0000 C CNN
+F 2 "" H 4775 2500 60  0000 C CNN
+F 3 "" H 4775 2500 60  0000 C CNN
+	1    4775 2500
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5125 2500 5125 2600
 $EndSCHEMATC
