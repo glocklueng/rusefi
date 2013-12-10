@@ -86,10 +86,11 @@ void initInjectorCentral(void) {
 		is_injector_enabled[i] = true;
 	printStatus();
 
-	initOutputSignal("Injector 1", &injectors[0], INJECTOR_1_OUTPUT, 0);
-	initOutputSignal("Injector 2", &injectors[1], INJECTOR_2_OUTPUT, 0);
-	initOutputSignal("Injector 3", &injectors[2], INJECTOR_3_OUTPUT, 0);
-	initOutputSignal("Injector 4", &injectors[3], INJECTOR_4_OUTPUT, 0);
+	initOutputSignal("Injector 1", &injectors[0], INJECTOR_1_OUTPUT, INJECTOR_1_XOR);
+	initOutputSignal("Injector 2", &injectors[1], INJECTOR_2_OUTPUT, INJECTOR_2_XOR);
+	initOutputSignal("Injector 3", &injectors[2], INJECTOR_3_OUTPUT, INJECTOR_3_XOR);
+	initOutputSignal("Injector 4", &injectors[3], INJECTOR_4_OUTPUT, INJECTOR_4_XOR);
+	initOutputSignal("Injector 5", &injectors[4], INJECTOR_5_OUTPUT, INJECTOR_5_XOR);
 
 	addConsoleActionII("injector", setInjectorEnabled);
 	addConsoleActionI("gfc", setGlobalFuelCorrection);
