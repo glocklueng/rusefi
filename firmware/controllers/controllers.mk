@@ -1,5 +1,6 @@
 
 CONTROLLERSSRC = controllers/main_loop.c \
+	controllers/adc_averaging.c \
 	controllers/advance_map.c \
 	controllers/engine_controller.c \
 	controllers/electronic_throttle.c \

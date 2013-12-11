@@ -13,7 +13,8 @@
 #include "pin_repository.h"
 #include "engine_math.h"
 #include "shaft_position_input.h"
-#include "idle_controller.h" // that's for min/max
+#include "adc_averaging.h"
+
 /* Depth of the conversion buffer, channels are sampled X times each.*/
 #define ADC_GRP1_BUF_DEPTH_SLOW      1
 #define ADC_GRP1_BUF_DEPTH_FAST      1
@@ -35,17 +36,10 @@
 static char LOGGING_BUFFER[500];
 static Logging logger;
 static int adcCallbackCounter_slow = 0;
-static int adcCallbackCounter_fast = 0;
 
 static int adcDebugReporting = FALSE;
 
 static int internalAdcIndex[20];
-
-static volatile int fastValue = 0;
-static volatile int fastCounter = 0;
-static volatile int fastAccumulator = 0;
-static volatile int fastMax = 0;
-static volatile int fastMin = 9999999;
 
 /*
  * ADC samples buffer.
@@ -89,27 +83,8 @@ static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 //	/* Note, only in the ADC_COMPLETE state because the ADC driver fires an
 //	 intermediate callback when the buffer is half full.*/
 	if (adcp->state == ADC_COMPLETE) {
-		/* Calculates the average values from the ADC samples.*/
-//
-		adcCallbackCounter_fast++;
-//
-//
-
-		chSysLockFromIsr()
-		;
-//		newState.time = chTimeNow();
-//		for (int i = 0; i < ADC_NUMBER_CHANNELS_SLOW; i++) {
-		fastValue = getAvgAdcValue(0, samples_fast, ADC_GRP1_BUF_DEPTH_FAST, ADC_NUMBER_CHANNELS_FAST);
-
-		fastAccumulator += fastValue;
-		fastMax = max(fastMax, fastValue);
-		fastMin = min(fastMin, fastValue);
-		fastCounter++;
-		chSysUnlockFromIsr()
-		;
-
-//			newState.adc_data[i] = value;
-//		}
+		int newValue = getAvgAdcValue(0, samples_fast, ADC_GRP1_BUF_DEPTH_FAST, ADC_NUMBER_CHANNELS_FAST);
+		adcAveragingLogic(newValue);
 	}
 }
 
