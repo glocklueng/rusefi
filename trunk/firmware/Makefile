@@ -3,6 +3,7 @@
 # NOTE: Can be overridden externally.
 #
 
+PROJECT_DIR = .
 CHIBIOS = chibios
 
 # Compiler options here.
