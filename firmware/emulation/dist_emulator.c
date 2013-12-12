@@ -22,7 +22,7 @@ static Logging logger;
 static volatile int deRpm = 0; // distributor RPM is camshaft RPM
 
 #if defined __GNUC__
-static PwmConfig configuration __attribute__((section(".bss2")));
+static PwmConfig configuration __attribute__((section(".ccm")));
 #else
 static PwmConfig configuration;
 #endif

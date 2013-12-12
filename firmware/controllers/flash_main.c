@@ -23,7 +23,7 @@
 static Logging logger;
 
 #if defined __GNUC__
-static FlashState flashState __attribute__((section(".bss2")));
+static FlashState flashState __attribute__((section(".ccm")));
 #else
 static FlashState flashState;
 #endif
