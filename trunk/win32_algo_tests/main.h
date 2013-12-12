@@ -35,10 +35,10 @@ void chDbgAssert(int c, char *msg, void *arg);
 void assertEqualsM(char *msg, float expected, float actual);
 void assertEquals(float expected, float actual);
 
-float getIntakeAirTemperature();
-float getCoolantTemperature();
-float getVBatt();
-float getMaf();
+float getIntakeAirTemperature(void);
+float getCoolantTemperature(void);
+float getVBatt(void);
+float getMaf(void);
 
 #define systicks2ms(x) (0)
 

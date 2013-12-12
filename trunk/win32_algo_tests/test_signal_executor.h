@@ -8,6 +8,6 @@
 #ifndef TEST_SIGNAL_EXECUTOR_H_
 #define TEST_SIGNAL_EXECUTOR_H_
 
-void testSignalExecutor();
+void testSignalExecutor(void);
 
 #endif /* TEST_SIGNAL_EXECUTOR_H_ */
