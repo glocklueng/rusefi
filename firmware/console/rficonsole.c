@@ -53,6 +53,8 @@ static void sayOsHello(void) {
 	printSimpleMsg(&logger, "STM32_ADCCLK=", STM32_ADCCLK);
 	printSimpleMsg(&logger, "STM32_TIMCLK1=", STM32_TIMCLK1);
 	printSimpleMsg(&logger, "STM32_TIMCLK2=", STM32_TIMCLK2);
+	printSimpleMsg(&logger, "STM32_PCLK1=", STM32_PCLK1);
+	printSimpleMsg(&logger, "STM32_PCLK2=", STM32_PCLK2);
 
 	printSimpleMsg(&logger, "CH_DBG_ENABLE_ASSERTS=", CH_DBG_ENABLE_ASSERTS);
 	printSimpleMsg(&logger, "CH_DBG_ENABLED=", CH_DBG_ENABLED);
