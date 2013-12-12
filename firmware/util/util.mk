@@ -1,6 +1,6 @@
 
-UTILSRC = util/data_buffer.c \
-	util/listener_array.c \
-	util/crc.c \
-	util/cyclic_buffer.c \
-	util/wave_math.c
+UTILSRC = $(PROJECT_DIR)/util/data_buffer.c \
+	$(PROJECT_DIR)/util/listener_array.c \
+	$(PROJECT_DIR)/util/crc.c \
+	$(PROJECT_DIR)/util/cyclic_buffer.c \
+	$(PROJECT_DIR)/util/wave_math.c

@@ -1,9 +1,9 @@
 
-CONTROLLERS_SENSORS_SRC = controllers/sensors/tps.c \
-    controllers/sensors/sensors.c \
-	controllers/sensors/maf.c \
-	controllers/sensors/map.c \
-	controllers/sensors/ego.c \
-	controllers/sensors/voltage.c \
-	controllers/sensors/thermistors.c   	
+CONTROLLERS_SENSORS_SRC = $(PROJECT_DIR)/controllers/sensors/tps.c \
+	$(PROJECT_DIR)/controllers/sensors/sensors.c \
+	$(PROJECT_DIR)/controllers/sensors/maf.c \
+	$(PROJECT_DIR)/controllers/sensors/map.c \
+	$(PROJECT_DIR)/controllers/sensors/ego.c \
+	$(PROJECT_DIR)/controllers/sensors/voltage.c \
+	$(PROJECT_DIR)/controllers/sensors/thermistors.c   	
 																																				
