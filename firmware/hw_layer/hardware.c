@@ -22,6 +22,7 @@
 
 #include "mcp3208.h"
 #include "HIP9011.h"
+#include "can_hw.h"
 
 
 McpAdcState adcState;
@@ -63,6 +64,8 @@ void initHardware() {
 	initAdcInputs();
 
 	initHip9011();
+
+	initCan();
 
 
 //	init_adc_mcp3208(&adcState, &SPID2);

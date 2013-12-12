@@ -30,8 +30,21 @@
 #define STM32_SPI_USE_SPI2                  TRUE // external ADC
 #define STM32_SPI_USE_SPI3                  TRUE // potentiometer
 
+#define STM32_CAN_USE_CAN1                  TRUE
+#define STM32_CAN_USE_CAN2                  TRUE
+
 #define EFI_INTERNAL_SLOW_ADC_PWM	&PWMD5
 #define EFI_INTERNAL_FAST_ADC_PWM	&PWMD4
+
+#define EFI_CAN_RX_PORT GPIOB
+#define EFI_CAN_RX_PIN 12
+#define EFI_CAN_RX_AF 9
+
+#define EFI_CAN_DEVICE CAND2
+
+#define EFI_CAN_TX_PORT GPIOB
+#define EFI_CAN_TX_PIN 6
+#define EFI_CAN_TX_AF 9
 
 #define EFI_SPI2_SCK_PORT GPIOB
 #define EFI_SPI2_SCK_PIN 13
