@@ -65,7 +65,7 @@ void initHardware() {
 
 	initHip9011();
 
-	initCan();
+//	initCan();
 
 
 //	init_adc_mcp3208(&adcState, &SPID2);
