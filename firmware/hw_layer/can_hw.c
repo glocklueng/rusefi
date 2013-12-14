@@ -31,9 +31,11 @@ static CANTxFrame txmsg;
 
 static int canRpm = 0;
 static int canKph = 0;
+static int canTemperature = 0;
 
 #define CAN_BMW_E46_SPEED 0x153
 #define CAN_BMW_E46_RPM 0x316
+#define CAN_BMW_E46_DME2 0x329
 #define CAN_BMW_E46_CLUSTER_STATUS 0x613
 
 static void printPacket(CANRxFrame *rx) {
@@ -46,7 +48,7 @@ static void printPacket(CANRxFrame *rx) {
 		int odometerKm = 10 * (rx->data8[1] << 8) + rx->data8[0];
 		int odometerMi = odometerKm * 0.621371;
 		scheduleSimpleMsg(&logger, "GOT odometerKm ", odometerKm);
-		scheduleSimpleMsg(&logger, "GOT odometerMi ", odometerKm);
+		scheduleSimpleMsg(&logger, "GOT odometerMi ", odometerMi);
 		int timeValue = (rx->data8[4] << 8) + rx->data8[3];
 		scheduleSimpleMsg(&logger, "GOT time ", timeValue);
 	}
@@ -62,34 +64,47 @@ static void printPacket(CANRxFrame *rx) {
 	print("d7 %d\r\n", rx->data8[7]);
 
 	chThdSleepMilliseconds(5);
+}
 
+static void setShortValue(CANTxFrame *txmsg, int value, int offset) {
+	txmsg->data8[offset] = value;
+	txmsg->data8[offset + 1] = value >> 8;
+}
+
+static void commonTxInit(int eid) {
+	memset(&txmsg, 0, sizeof(txmsg));
+	txmsg.IDE = CAN_IDE_STD;
+	txmsg.EID = eid;
+	txmsg.RTR = CAN_RTR_DATA;
+	txmsg.DLC = 8;
 }
 
 static void sendRpm(int rpm) {
-	memset(&txmsg, 0, sizeof(txmsg));
-	txmsg.IDE = CAN_IDE_STD;
-	txmsg.EID = CAN_BMW_E46_RPM;
-	txmsg.RTR = CAN_RTR_DATA;
-	txmsg.DLC = 8;
-	txmsg.data16[1] = rpm * 6.4;
+	commonTxInit(CAN_BMW_E46_RPM);
+	setShortValue(&txmsg, rpm * 6.4, 2);
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE);
 }
 
 static void sendSpeed(int kph) {
-	memset(&txmsg, 0, sizeof(txmsg));
-	txmsg.IDE = CAN_IDE_STD;
-	txmsg.EID = CAN_BMW_E46_SPEED;
-	txmsg.RTR = CAN_RTR_DATA;
-	txmsg.DLC = 8;
-	int val = kph * 8;
-	txmsg.data8[1] = val;
-	txmsg.data8[2] = val >> 8;
+	commonTxInit(CAN_BMW_E46_SPEED);
+	setShortValue(&txmsg, kph * 8, 1);
+	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE);
+}
+
+static void sendTemp(int temperatureC) {
+	commonTxInit(CAN_BMW_E46_DME2);
+	setShortValue(&txmsg, (temperatureC + 48.373 ) / 0.75, 1);
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE);
 }
 
 static void canSendRpm(int rpm) {
 	scheduleSimpleMsg(&logger, "Setting RPM=", rpm);
 	canRpm = rpm;
+}
+
+static void canSendTemperature(int temperature) {
+	scheduleSimpleMsg(&logger, "Setting temperature=", temperature);
+	canTemperature = temperature;
 }
 
 static void canSendSpeed(int kph) {
@@ -106,6 +121,8 @@ static void canRead(void) {
 
 static msg_t canThread(void *arg) {
 	while (TRUE) {
+		sendTemp(canTemperature);
+		chThdSleepMilliseconds(1);
 		sendRpm(canRpm);
 		chThdSleepMilliseconds(1);
 		sendSpeed(canKph);
@@ -117,7 +134,14 @@ static msg_t canThread(void *arg) {
 void initCan(void) {
 	initLogging(&logger, "CAN driver");
 
-	canObjectInit(&EFI_CAN_DEVICE);
+#if STM32_CAN_USE_CAN2
+	// CAN1 is required for CAN2
+	canStart(&CAND1, &canConfig);
+	canStart(&CAND2, &canConfig);
+#else
+	canStart(&CAND1, &canConfig);
+#endif
+
 	canStart(&EFI_CAN_DEVICE, &canConfig);
 	chThdCreateStatic(canTreadStack, sizeof(canTreadStack), NORMALPRIO, (tfunc_t) canThread, NULL);
 
@@ -126,9 +150,11 @@ void initCan(void) {
 
 	canSendRpm(1000);
 	canSendSpeed(70);
+	canSendTemperature(90);
 
-	addConsoleAction("canr", canRead);
-	addConsoleActionI("showr", canSendRpm);
-	addConsoleActionI("shows", canSendSpeed);
+	addConsoleAction("canshow", canRead);
+	addConsoleActionI("canrpm", canSendRpm);
+	addConsoleActionI("canspeed", canSendSpeed);
+	addConsoleActionI("cantemp", canSendTemperature);
 }
 
