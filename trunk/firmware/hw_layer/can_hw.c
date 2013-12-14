@@ -33,6 +33,9 @@ static int canRpm = 0;
 static int canKph = 0;
 static int canTemperature = 0;
 
+/**
+ * e46 data is from http://forums.bimmerforums.com/forum/showthread.php?1887229
+ */
 #define CAN_BMW_E46_SPEED 0x153
 #define CAN_BMW_E46_RPM 0x316
 #define CAN_BMW_E46_DME2 0x329
@@ -86,6 +89,7 @@ static void sendRpm(int rpm) {
 }
 
 static void sendSpeed(int kph) {
+	// turned out, this instrument cluster speedometer is not on CAN bus
 	commonTxInit(CAN_BMW_E46_SPEED);
 	setShortValue(&txmsg, kph * 8, 1);
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE);
