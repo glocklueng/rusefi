@@ -10,11 +10,15 @@
 #include "can_hw.h"
 #include "pin_repository.h"
 #include "rficonsole_logic.h"
+#include "string.h"
 
 static Logging logger;
+static WORKING_AREA(canTreadStack, 512);
+
 /*
- * Internal loopback mode, 500KBaud, automatic wakeup, automatic recover
- * from abort mode.
+ * 500KBaud
+ * automatic wakeup
+ * automatic recover from abort mode
  * See section 22.7.7 on the STM32 reference manual.
  */
 static const CANConfig canConfig = {
@@ -25,6 +29,11 @@ CAN_BTR_TS1(8) | CAN_BTR_BRP(6) };
 static CANRxFrame rxBuffer;
 static CANTxFrame txmsg;
 
+static int canRpm = 0;
+static int canKph = 0;
+
+#define CAN_BMW_E46_SPEED 0x153
+#define CAN_BMW_E46_RPM 0x316
 #define CAN_BMW_E46_CLUSTER_STATUS 0x613
 
 static void printPacket(CANRxFrame *rx) {
@@ -33,7 +42,7 @@ static void printPacket(CANRxFrame *rx) {
 	scheduleSimpleMsg(&logger, "GOT DLC ", rx->DLC);
 	scheduleSimpleMsg(&logger, "GOT SID ", rx->SID);
 
-	if ( rx->SID == CAN_BMW_E46_CLUSTER_STATUS) {
+	if (rx->SID == CAN_BMW_E46_CLUSTER_STATUS) {
 		int odometerKm = 10 * (rx->data8[1] << 8) + rx->data8[0];
 		int odometerMi = odometerKm * 0.621371;
 		scheduleSimpleMsg(&logger, "GOT odometerKm ", odometerKm);
@@ -56,15 +65,36 @@ static void printPacket(CANRxFrame *rx) {
 
 }
 
-void sendRpm(void) {
+static void sendRpm(int rpm) {
+	memset(&txmsg, 0, sizeof(txmsg));
 	txmsg.IDE = CAN_IDE_STD;
-	txmsg.EID = 0x316;
+	txmsg.EID = CAN_BMW_E46_RPM;
 	txmsg.RTR = CAN_RTR_DATA;
 	txmsg.DLC = 8;
-	txmsg.data16[1] = 1500 * 6.4;
-//	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, MS2ST(100));
+	txmsg.data16[1] = rpm * 6.4;
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE);
+}
 
+static void sendSpeed(int kph) {
+	memset(&txmsg, 0, sizeof(txmsg));
+	txmsg.IDE = CAN_IDE_STD;
+	txmsg.EID = CAN_BMW_E46_SPEED;
+	txmsg.RTR = CAN_RTR_DATA;
+	txmsg.DLC = 8;
+	int val = kph * 8;
+	txmsg.data8[1] = val;
+	txmsg.data8[2] = val >> 8;
+	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE);
+}
+
+static void canSendRpm(int rpm) {
+	scheduleSimpleMsg(&logger, "Setting RPM=", rpm);
+	canRpm = rpm;
+}
+
+static void canSendSpeed(int kph) {
+	scheduleSimpleMsg(&logger, "Setting KPH=", kph);
+	canKph = kph;
 }
 
 static void canRead(void) {
@@ -72,13 +102,16 @@ static void canRead(void) {
 	canReceive(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &rxBuffer, TIME_INFINITE);
 
 	printPacket(&rxBuffer);
+}
 
-//	while(1) {
-	sendRpm();
-//		chThdSleepMilliseconds(1);
-//	}
-
-//txmsg.IDE = CAN_IDE_EXT;
+static msg_t canThread(void *arg) {
+	while (TRUE) {
+		sendRpm(canRpm);
+		chThdSleepMilliseconds(1);
+		sendSpeed(canKph);
+		chThdSleepMilliseconds(1);
+	}
+	return -1;
 }
 
 void initCan(void) {
@@ -86,10 +119,16 @@ void initCan(void) {
 
 	canObjectInit(&EFI_CAN_DEVICE);
 	canStart(&EFI_CAN_DEVICE, &canConfig);
+	chThdCreateStatic(canTreadStack, sizeof(canTreadStack), NORMALPRIO, (tfunc_t) canThread, NULL);
 
 	mySetPadMode("CAN TX", EFI_CAN_TX_PORT, EFI_CAN_TX_PIN, PAL_MODE_ALTERNATE(EFI_CAN_TX_AF));
 	mySetPadMode("CAN RX", EFI_CAN_RX_PORT, EFI_CAN_RX_PIN, PAL_MODE_ALTERNATE(EFI_CAN_RX_AF));
 
+	canSendRpm(1000);
+	canSendSpeed(70);
+
 	addConsoleAction("canr", canRead);
+	addConsoleActionI("showr", canSendRpm);
+	addConsoleActionI("shows", canSendSpeed);
 }
 
