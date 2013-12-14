@@ -45,6 +45,7 @@ typedef struct {
 
 	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 414
 	float fuelKeyBins[FUEL_MAF_COUNT]; // offset 3450
+	// RPM is float and not integer in order to use unified methods for interpolation
 	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
 
 } EngineConfiguration;
