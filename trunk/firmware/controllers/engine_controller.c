@@ -43,9 +43,13 @@ static Logging logger;
 
 EngineConfiguration2 engineConfiguration2;
 
+int isCrankingR(int rpm) {
+	return rpm > 0 && rpm < engineConfiguration->crankingRpm;
+}
+
 int isCranking(void) {
 	int rpm = getCurrentRpm();
-	return rpm > 0 && rpm < engineConfiguration->crankingRpm;
+	return isCrankingR(rpm);
 }
 
 static void updateStatusLeds(void) {
