@@ -1,5 +1,8 @@
 /**
  * @file	cyclic_buffer.c
+ * @brief	A cyclic buffer is a data structure that uses a single, fixed-size buffer as if it were connected end-to-end.
+ *
+ * http://en.wikipedia.org/wiki/Circular_buffer
  *
  * @date Dec 8, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013

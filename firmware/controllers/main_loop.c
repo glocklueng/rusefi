@@ -23,11 +23,14 @@
 #include "interpolation.h"
 #include "advance_map.h"
 #include "sensors.h"
+#include "cyclic_buffer.h"
 
 // todo: move this to EngineConfiguration2 for now
 
 extern EngineConfiguration *engineConfiguration;
 extern EngineConfiguration2 engineConfiguration2;
+
+static cyclic_buffer ignitionErrorDetection;
 
 extern int isInjectionEnabled;
 
@@ -129,10 +132,15 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	if (dwell == 0)
 		return; // hard RPM limit was hit
 
+
+
 	int sparkDelay = convertAngleToSysticks(rpm, event->angleOffset) + sparkAdvance - dwell;
-	if (sparkDelay < 0) {
+	int isIgnitionError = sparkDelay < 0;
+	cbAdd(&ignitionErrorDetection, isIgnitionError);
+	if (isIgnitionError) {
 		scheduleSimpleMsg(&logger, "Negative spark delay", sparkDelay);
-		return;
+		sparkDelay = 0;
+		//return;
 	}
 
 	scheduleSparkOut(igniterId, sparkDelay, dwell);
@@ -168,6 +176,7 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 void initMainEventListener() {
 	initLogging(&logger, "main event handler");
 	printSimpleMsg(&logger, "initMainLoop: ", chTimeNow());
+	cbInit(&ignitionErrorDetection);
 
 	engineConfiguration2.ignitonOffset = 35;
 
@@ -177,4 +186,8 @@ void initMainEventListener() {
 	configureEngineEventHandler(&engineEventConfiguration);
 
 	registerShaftPositionListener(&onShaftSignal, "main loop");
+}
+
+int isIgnitionTimingError(void) {
+	return cbSum(&ignitionErrorDetection, 6) > 4;
 }

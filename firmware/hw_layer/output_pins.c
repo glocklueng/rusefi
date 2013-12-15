@@ -69,7 +69,7 @@ static void errBlinkingThread(void *arg) {
 	chRegSetThreadName("err blinking");
 	while (TRUE) {
 		int delay = 33;
-		if (isSignalDecoderError())
+		if (isSignalDecoderError() || isIgnitionTimingError())
 			setOutputPinValue(LED_ERROR, 1);
 		chThdSleepMilliseconds(delay);
 		if (!hasFatalError())
