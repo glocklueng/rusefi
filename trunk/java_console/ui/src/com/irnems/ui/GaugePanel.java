@@ -29,12 +29,17 @@ public class GaugePanel extends JComponent {
 
 
         box2.add(createControls());
-        box2.add(createGauge(Sensor.TABLE_FUEL));
+        box2.add(createGauge(Sensor.T_CHARGE));
         box2.add(createGauge(Sensor.DWELL1));
         box2.add(createGauge(Sensor.DWELL0));
         box2.add(createGauge(Sensor.DUTY0));
         box2.add(createGauge(Sensor.ADVANCE0));
         box2.add(createGauge(Sensor.MAF));
+        box2.add(createGauge(Sensor.FUEL));
+        box2.add(createGauge(Sensor.FUEL_BASE));
+        box2.add(createGauge(Sensor.FUEL_CLT));
+        box2.add(createGauge(Sensor.FUEL_IAT));
+        box2.add(createGauge(Sensor.FUEL_LAG));
 
 //        box2.add(createGauge(Sensor.TABLE_SPARK));
 
@@ -48,7 +53,6 @@ public class GaugePanel extends JComponent {
 
         box2.add(createGauge(Sensor.MAP));
         box2.add(createGauge(Sensor.THROTTLE));
-        box2.add(createGauge(Sensor.MAF));
         box2.add(createGauge(Sensor.VREF, PotCommand.VOLTAGE_CORRECTION));
 //        box2.add(createGauge(Sensor.VREF_WIDTH));
 
@@ -56,7 +60,6 @@ public class GaugePanel extends JComponent {
 //        box2.add(createGauge(Sensor.ADC_FAST_AVG));
 
 
-        box2.add(createGauge(Sensor.T_CHARGE));
         box2.add(createGauge(Sensor.AFR));
         box2.add(createGauge(Sensor.DEFAULT_FUEL));
 

@@ -27,7 +27,11 @@ public enum Sensor {
     PERIOD0("Period", "dg", 0, 400),
     DUTY0("Duty0", "%", 0, 100, BackgroundColor.RED),
     DUTY1("Duty1", "%", 0, 100, BackgroundColor.RED),
-    TABLE_FUEL("table fuel", "ms", 0, 30),
+    FUEL("Fuel", "ms", 0, 30),
+    FUEL_BASE("Fuel Base", "ms", 0, 30),
+    FUEL_IAT("F IAT", "", 0, 10),
+    FUEL_CLT("F CLT", "", 0, 10),
+    FUEL_LAG("F Lag", "", 0, 30),
 
     IDLE_SWITCH("idle switch"),
 
