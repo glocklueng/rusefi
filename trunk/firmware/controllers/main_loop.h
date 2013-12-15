@@ -27,6 +27,7 @@ typedef struct {
 
 void initMainEventListener(void);
 void onEveryMillisecondTimerSignal(void);
+int isIgnitionTimingError(void);
 /**
  * @brief	Implementation would be provided by engine configuration file
  */
