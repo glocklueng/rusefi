@@ -21,17 +21,17 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 
 	for (int i = 0; i < IAT_CURVE_SIZE; i++) {
 		engineConfiguration->iatFuelCorrBins[i] = -40 + i * 10;
-		engineConfiguration->iatFuelCorr[i] = 1;
+		engineConfiguration->iatFuelCorr[i] = 1; // this correction is a multiplier
 	}
 
 	for (int i = 0; i < CLT_CURVE_SIZE; i++) {
 		engineConfiguration->cltFuelCorrBins[i] = -40 + i * 10;
-		engineConfiguration->cltFuelCorr[i] = 1;
+		engineConfiguration->cltFuelCorr[i] = 1; // this correction is a multiplier
 	}
 
 	for (int i = 0; i < VBAT_INJECTOR_CURVE_SIZE; i++) {
 		engineConfiguration->battInjectorLagCorrBins[i] = 12 - VBAT_INJECTOR_CURVE_SIZE / 2 + i;
-		engineConfiguration->battInjectorLagCorr[i] = 1;
+		engineConfiguration->battInjectorLagCorr[i] = 0; // zero extra time by default
 	}
 
 	for (int k = 0; k < FUEL_MAF_COUNT; k++) {

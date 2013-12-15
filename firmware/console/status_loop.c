@@ -158,15 +158,16 @@ void printState(void) {
 
 //	debugFloat(&logger, "table_spark", getAdvance(rpm, getMaf()), 2);
 
-	if (MAF_MODE)
-		debugFloat(&logger, "table_fuel", getRunningFuel(rpm, getMaf()), 2);
-	else {
-#if ENGINE_HAS_MAP_SENSOR
-		myfloat map = getMap();
-		myfloat fuel = getDefaultFuel(rpm, map);
-		debugFloat(&logger, "d_fuel", fuel, 2);
-#endif
-	}
+	myfloat key = getMaf();
+	debugFloat(&logger, "fuel_base", getBaseFuel(rpm, key), 2);
+	debugFloat(&logger, "fuel_iat", getIatCorrection(getIntakeAirTemperature()), 2);
+	debugFloat(&logger, "fuel_clt", getCltCorrection(getCoolantTemperature()), 2);
+	debugFloat(&logger, "fuel_lag", getInjectorLag(getVBatt()), 2);
+	debugFloat(&logger, "fuel", getRunningFuel(rpm, getMaf()), 2);
+
+//		myfloat map = getMap();
+//		myfloat fuel = getDefaultFuel(rpm, map);
+//		debugFloat(&logger, "d_fuel", fuel, 2);
 
 	debugFloat(&logger, "af", getAfr(), 2);
 
