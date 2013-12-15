@@ -75,7 +75,9 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 		return;
 	}
 
-	ActuatorEventList *source = isCranking() ? &engineEventConfiguration.crankingInjectionEvents : &engineEventConfiguration.injectionEvents;
+	ActuatorEventList *source =
+			isCranking() ?
+					&engineEventConfiguration.crankingInjectionEvents : &engineEventConfiguration.injectionEvents;
 	findEvents(eventIndex, source, &events);
 
 	if (events.size == 0)
@@ -92,6 +94,11 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 }
 
 static int getSparkDwell(int rpm) {
+	if (isCrankingR(rpm)) {
+		int angle = engineConfiguration2.crankingChargeAngle;
+		return convertAngleToSysticks(rpm, angle);;
+	}
+
 	if (rpm > engineConfiguration->rpmHardLimit) {
 		warning("skipping spark due to rpm=", rpm);
 		return 0;
@@ -108,12 +115,11 @@ static int getSparkDwell(int rpm) {
 	return defaultDwell - dec;
 }
 
-static void handleSparkEvent(ActuatorEvent *event, int rpm, float advance) {
+static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	int igniterId = event->actuatorId;
-	if (igniterId == 0)
-		return;
+	chDbgAssert(igniterId > 0, "act id", NULL);
 
-	advance += engineConfiguration2.ignitonOffset;
+	float advance = getAdvance(rpm, getMaf());
 
 	int sparkAdvance = convertAngleToSysticks(rpm, advance);
 
@@ -122,8 +128,6 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm, float advance) {
 
 	if (dwell == 0)
 		return; // hard RPM limit was hit
-
-	//int timeTillNextRise = convertAngleToSysticks(rpm, 90);
 
 	int sparkDelay = convertAngleToSysticks(rpm, event->angleOffset) + sparkAdvance - dwell;
 	if (sparkDelay < 0) {
@@ -137,9 +141,6 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm, float advance) {
 static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	int rpm = getCurrentRpm();
 
-
-	float advance = getAdvance(rpm, getMaf());
-
 	findEvents(eventIndex, &engineEventConfiguration.ignitionEvents, &events);
 	if (events.size == 0)
 		return;
@@ -148,7 +149,7 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 
 	for (int i = 0; i < events.size; i++) {
 		ActuatorEvent *event = &events.events[i];
-		handleSparkEvent(event, rpm, advance);
+		handleSparkEvent(event, rpm);
 	}
 }
 

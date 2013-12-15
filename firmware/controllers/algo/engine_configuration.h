@@ -59,6 +59,7 @@ typedef struct {
 	Thermistor iat;
 	Thermistor clt;
 	int shaftPositionEventCount;
+	int crankingChargeAngle;
 } EngineConfiguration2;
 
 void setDefaultConfiguration(EngineConfiguration *engineConfiguration);

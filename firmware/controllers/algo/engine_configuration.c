@@ -52,6 +52,9 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 
 	engineConfiguration->rpmHardLimit = 7000;
 	engineConfiguration->crankingRpm = 400;
+
+
+	engineConfiguration2.crankingChargeAngle = 38;
 }
 
 static void printIntArray(int array[], int size) {

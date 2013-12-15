@@ -10,6 +10,9 @@
 // that's for 'max' function
 #include "idle_controller.h"
 
+#include "engine_controller.h"
+
+extern EngineConfiguration2 engineConfiguration2;
 
 #define AD_RPM_COUNT 23
 static float ad_rpm_table[] = {400.0, 650.0, 900.0, 1150.0, 1400.0, 1650.0, 1900.0, 2150.0, 2400.0, 2650.0, 2900.0, 3150.0, 3400.0, 3650.0, 3900.0, 4150.0, 4400.0, 4650.0, 4900.0, 5150.0, 5400.0, 5650.0, 5900.0};
@@ -43,12 +46,20 @@ static float ad_table[23][35] = {
 {/*22*//*0*/-12.542, /*1*/-12.578, /*2*/-12.73, /*3*/-12.426, /*4*/-12.781, /*5*/-12.757, /*6*/-13.084, /*7*/-12.73, /*8*/-17.746, /*9*/-12.607, /*10*/-12.176, /*11*/-13.136, /*12*/-12.709, /*13*/-13.261, /*14*/-12.755, /*15*/-13.261, /*16*/-12.61, /*17*/-12.603, /*18*/-12.094, /*19*/-13.996, /*20*/-13.438, /*21*/-15.984, /*22*/-12.562, /*23*/-12.578, /*24*/-11.846, /*25*/-10.785, /*26*/-11.161, /*27*/-10.255, /*28*/-6.365, /*29*/-6.011, /*30*/-6.568, /*31*/-6.188, /*32*/-6.011, /*33*/-6.352, /*34*/-6.176}
 };
 
-float getAdvance(int rpm, float maf) {
+float getBaseAdvance(int rpm, float key) {
 	// todo: use interpolation
 	int rpm_index = findIndex(ad_rpm_table, AD_RPM_COUNT, rpm);
 	rpm_index = max(rpm_index, 0);
-	int maf_index = findIndex(ad_maf_table, AD_MAF_COUNT, maf);
+	int maf_index = findIndex(ad_maf_table, AD_MAF_COUNT, key);
 	maf_index = max(maf_index, 0);
 
 	return ad_table[rpm_index][maf_index];
+}
+
+float getAdvance(int rpm, float key) {
+	if(isCrankingR(rpm))
+		return engineConfiguration2.crankingChargeAngle;
+
+
+	return getBaseAdvance(rpm, key) + engineConfiguration2.ignitonOffset;
 }
