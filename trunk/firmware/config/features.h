@@ -8,8 +8,6 @@
 #ifndef FEATURES_H_
 #define FEATURES_H_
 
-#define MAF_MODE 1
-
 /**
  * Build-in logic analyzer support. Logic analyzer viewer is one of the java console panes.
  */
