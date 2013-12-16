@@ -31,6 +31,7 @@ LIBS:contrib
 LIBS:valves
 LIBS:quartz
 LIBS:7805-sot89
+LIBS:logo_flipped
 LIBS:DD HIP9011-cache
 EELAYER 27 0
 EELAYER END
@@ -640,4 +641,15 @@ Text Label 8350 5750 0    60   ~ 0
 OUT
 Text Label 8350 5950 0    60   ~ 0
 GND
+$Comp
+L LOGO G1
+U 1 1 52AF4640
+P 3950 2700
+F 0 "G1" H 3950 2597 60  0001 C CNN
+F 1 "LOGO" H 3950 2803 60  0001 C CNN
+F 2 "" H 3950 2700 60  0000 C CNN
+F 3 "" H 3950 2700 60  0000 C CNN
+	1    3950 2700
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

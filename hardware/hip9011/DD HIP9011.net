@@ -1,7 +1,7 @@
 (export (version D)
   (design
-    (source "E:/Моя папка -SlipknoT-/Rusefi/DD HIP9011 v2/DD HIP9011.sch")
-    (date "16.12.2013 9:41:45")
+    (source "C:/stuff/rusefi_sourceforge/hardware/hip9011/DD HIP9011.sch")
+    (date "16/12/2013 12:59:16")
     (tool "eeschema (2013-07-07 BZR 4022)-stable"))
   (components
     (comp (ref D1)
@@ -173,7 +173,12 @@
       (value CONN_2)
       (libsource (lib conn) (part CONN_2))
       (sheetpath (names /) (tstamps /))
-      (tstamp 52AEAE96)))
+      (tstamp 52AEAE96))
+    (comp (ref G1)
+      (value LOGO)
+      (libsource (lib logo_flipped) (part LOGO))
+      (sheetpath (names /) (tstamps /))
+      (tstamp 52AF4640)))
   (libparts
     (libpart (lib device) (part C)
       (description "Condensateur non polarise")
@@ -265,6 +270,10 @@
         (pin (num 1) (name 1) (type input))
         (pin (num 2) (name 2) (type input))
         (pin (num 3) (name 3) (type power_out))))
+    (libpart (lib logo_flipped) (part LOGO)
+      (fields
+        (field (name Reference) "#G")
+        (field (name Value) LOGO)))
     (libpart (lib "DD HIP9011-cache") (part HIP9011)
       (fields
         (field (name Reference) D)
@@ -294,15 +303,17 @@
         (pin (num 20) (name CH0NI) (type input)))))
   (libraries
     (library (logical device)
-      (uri D:\KiCad\share\library\device.lib))
+      (uri "C:\\Program Files (x86)\\KiCad\\share\\library\\device.lib"))
     (library (logical conn)
-      (uri D:\KiCad\share\library\conn.lib))
+      (uri "C:\\Program Files (x86)\\KiCad\\share\\library\\conn.lib"))
     (library (logical quartz)
       (uri lib\quartz.lib))
     (library (logical 7805-sot89)
       (uri lib\7805-sot89.lib))
+    (library (logical logo_flipped)
+      (uri lib\logo_flipped.lib))
     (library (logical "DD HIP9011-cache")
-      (uri "E:\\Моя папка -SlipknoT-\\Rusefi\\DD HIP9011 v2\\DD HIP9011-cache.lib")))
+      (uri "C:\\stuff\\rusefi_sourceforge\\hardware\\hip9011\\DD HIP9011-cache.lib")))
   (nets
     (net (code 1) (name /TEST)
       (node (ref R12) (pin 2))
