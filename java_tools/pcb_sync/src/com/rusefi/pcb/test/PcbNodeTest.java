@@ -1,7 +1,7 @@
-package rusefi.test;
+package com.rusefi.pcb.test;
 
 import org.junit.Test;
-import rusefi.PcbNode;
+import com.rusefi.pcb.PcbNode;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
  * (c) Andrey Belomutskiy
  * 12/8/13
  */
-public class PcbV4FileTest {
+public class PcbNodeTest {
     @Test
     public void testParser() {
         PcbNode n = PcbNode.parse("(version 3\r\n)");
