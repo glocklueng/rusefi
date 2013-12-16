@@ -9,15 +9,23 @@ import java.io.IOException;
  */
 public class PcbV3File {
     public static void main(String[] args) throws IOException {
+        if (args.length != 3) {
+            System.out.println("Three parameters expected: FILENAME X Y");
+            return;
+        }
+        String fileName = args[0];
+        double x = Double.parseDouble(args[1]);
+        double y = Double.parseDouble(args[2]);
+
+
         new File("output").mkdir();
 
-        String content = CommonUtils.readFile("inj_6ch.kicad_pcb");
+        String content = CommonUtils.readFile(fileName);
         PcbNode node = PcbNode.parse(content);
 
         System.out.println(node);
 
-        node.move(97.917, -5.207);
-
-        node.write("output" + File.separator + "inj_6ch.kicad_pcb");
+        node.move(x, y);
+        node.write("output" + File.separator + fileName);
     }
 }
