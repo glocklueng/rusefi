@@ -1,8 +1,5 @@
 package com.rusefi.pcb;
 
-import com.rusefi.pcb.PcbNode;
-import com.rusefi.util.FileUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -24,8 +21,7 @@ public class PcbMoveTool {
 
         new File("output").mkdir();
 
-        String content = FileUtils.readFile(fileName);
-        PcbNode node = PcbNode.parse(content);
+        PcbNode node = PcbNode.readFromFile(fileName);
 
         System.out.println(node);
 

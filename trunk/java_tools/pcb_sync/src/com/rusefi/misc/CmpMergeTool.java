@@ -9,8 +9,8 @@ import java.util.List;
  * 12/8/13
  * (c) Andrey Belomutskiy
  */
-public class CmpMerge {
-    private CmpMerge() {
+public class CmpMergeTool {
+    private CmpMergeTool() {
     }
 
     public static void main(String[] args) throws IOException {

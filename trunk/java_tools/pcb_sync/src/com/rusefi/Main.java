@@ -1,6 +1,7 @@
 package com.rusefi;
 
-import com.rusefi.misc.CmpMerge;
+import com.rusefi.misc.CmpMergeTool;
+import com.rusefi.pcb.PcbMergeTool;
 import com.rusefi.pcb.PcbMoveTool;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,7 +20,9 @@ public class Main {
 
     static {
         registerTool("pcb_move", PcbMoveTool.class);
-        registerTool("cmp_merge", CmpMerge.class);
+        registerTool("pcb_merge", PcbMergeTool.class);
+
+        registerTool("cmp_merge", CmpMergeTool.class);
     }
 
     private static void registerTool(String name, Class<?> clazz) {
