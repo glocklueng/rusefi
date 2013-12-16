@@ -1,6 +1,6 @@
 package com.rusefi.util;
 
-import com.rusefi.misc.CmpMerge;
+import com.rusefi.misc.CmpMergeTool;
 
 import java.io.BufferedReader;
 import java.io.File;

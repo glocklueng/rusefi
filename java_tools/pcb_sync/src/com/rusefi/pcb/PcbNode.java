@@ -1,9 +1,12 @@
 package com.rusefi.pcb;
 
+import com.rusefi.util.FileUtils;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,6 +22,11 @@ public class PcbNode {
         this.nodeName = nodeName;
         this.closingIndex = closingIndex;
         this.children = children;
+    }
+
+    static PcbNode readFromFile(String fileName) throws IOException {
+        String content = FileUtils.readFile(fileName);
+        return parse(content);
     }
 
     @Override
@@ -162,5 +170,13 @@ public class PcbNode {
                 result.add(p);
         }
         return result;
+    }
+
+    public void addChild(PcbNode node) {
+        children.add(node);
+    }
+
+    public List<Object> getChildren() {
+        return Collections.unmodifiableList(children);
     }
 }
