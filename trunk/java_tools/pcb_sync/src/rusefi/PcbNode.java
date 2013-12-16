@@ -167,8 +167,12 @@ public class PcbNode {
         List<PcbNode> zones = iterate("zone");
         System.out.println("Moving " + zones.size() + " zones");
         for (PcbNode zone : zones) {
-            PcbNode polygon = zone.find("polygon");
-            movePts(dx, dy, polygon);
+            List<PcbNode> filledPolygons = zone.iterate("filled_polygon");
+            for (PcbNode filledPolygon : filledPolygons)
+                movePts(dx, dy, filledPolygon);
+            List<PcbNode> polygons = zone.iterate("polygon");
+            for (PcbNode polygon : polygons)
+                movePts(dx, dy, polygon);
         }
 
 
@@ -233,7 +237,7 @@ public class PcbNode {
     private PcbNode find(String key) {
         List<PcbNode> r = iterate(key);
         if (r.size() != 1)
-            throw new IllegalStateException(key);
+            throw new IllegalStateException("More that one " + key + " in " + nodeName);
         return r.get(0);
     }
 
