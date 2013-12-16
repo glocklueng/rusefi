@@ -10,6 +10,8 @@
 #include "idle_controller.h" // that's for min/max. todo: move these somewhere?
 #include "ckp_events.h"
 #include "shaft_position_input.h"
+#include "adc_inputs.h"
+#include "map.h"
 
 static Logging logger;
 
@@ -26,19 +28,23 @@ float getAtmosphericPressure(void) {
 	return atmosphericPressure;
 }
 
-void mapAveragingCallback(adcsample_t newValue) {
+void mapAveragingCallback(adcsample_t value) {
 	/* Calculates the average values from the ADC samples.*/
 	adcCallbackCounter_fast++;
 
+	float voltage = adcToVolts(value);
+	float currentPressure = getMapByVoltage(voltage);
+
+	currentMaxPressure = max(currentMaxPressure, currentPressure);
 
 	chSysLockFromIsr()
 	;
 //		newState.time = chTimeNow();
 //		for (int i = 0; i < ADC_NUMBER_CHANNELS_SLOW; i++) {
 
-	fastAccumulator += newValue;
-	fastMax = max(fastMax, newValue);
-	fastMin = min(fastMin, newValue);
+	fastAccumulator += value;
+	fastMax = max(fastMax, value);
+	fastMin = min(fastMin, value);
 	fastCounter++;
 	chSysUnlockFromIsr()
 	;
@@ -52,8 +58,10 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	if (index != 0)
 		return;
 
-}
+	atmosphericPressure = currentMaxPressure;
+	currentMaxPressure = 0;
 
+}
 
 void initMapAveraging(void) {
 	initLogging(&logger, "Map Averaging");
