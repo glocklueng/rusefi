@@ -1,4 +1,4 @@
-package rusefi;
+package com.rusefi.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,14 +6,21 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
+ * Generic file utilities
+ * <p/>
  * 12/9/13
  * (c) Andrey Belomutskiy
  */
-public class CommonUtils {
-    private CommonUtils() {
+public class FileUtils {
+    private FileUtils() {
     }
 
-    static String readFile(String fileName) throws IOException {
+    /**
+     * @param fileName
+     * @return Full content of the file as one String
+     * @throws IOException
+     */
+    public static String readFile(String fileName) throws IOException {
         checkExistence(fileName);
 
         System.out.println("Reading " + fileName);
