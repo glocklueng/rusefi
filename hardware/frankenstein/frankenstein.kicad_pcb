@@ -3,9 +3,9 @@
   (general
     (links 0)
     (no_connects 0)
-    (area 120.549999 93.244999 186.790001 190.600001)
+    (area 120.549999 92.024999 225.550001 192.074001)
     (thickness 1.6)
-    (drawings 12)
+    (drawings 16)
     (tracks 0)
     (zones 0)
     (modules 0)
@@ -33,7 +33,7 @@
 
   (setup
     (last_trace_width 0.254)
-    (trace_clearance 0.254)
+    (trace_clearance 0.2032)
     (zone_clearance 0.508)
     (zone_45_only no)
     (trace_min 0.254)
@@ -89,7 +89,7 @@
   (net 0 "")
 
   (net_class Default "This is the default net class."
-    (clearance 0.254)
+    (clearance 0.2032)
     (trace_width 0.254)
     (via_dia 0.889)
     (via_drill 0.635)
@@ -98,6 +98,10 @@
     (add_net "")
   )
 
+  (gr_line (start 125.5 192.024) (end 125.5 92.075) (angle 90) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 225.5 192.024) (end 125.5 192.024) (angle 90) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 225.5 92.075) (end 225.5 192.024) (angle 90) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 125.5 92.075) (end 225.5 92.075) (angle 90) (layer Edge.Cuts) (width 0.1))
   (gr_line (start 120.65 93.345) (end 186.69 93.345) (angle 90) (layer Cmts.User) (width 0.2))
   (gr_line (start 186.69 190.5) (end 186.69 93.472) (angle 90) (layer Cmts.User) (width 0.2))
   (gr_line (start 120.65 190.5) (end 186.69 190.5) (angle 90) (layer Cmts.User) (width 0.2))
