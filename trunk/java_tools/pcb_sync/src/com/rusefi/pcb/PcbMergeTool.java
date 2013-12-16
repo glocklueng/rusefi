@@ -23,44 +23,63 @@ public class PcbMergeTool {
 
         PcbNode destNode = PcbNode.readFromFile(destFileName);
 
-        for (int i = 1; i < args.length; i++) {
+        for (int i = 1; i < args.length; i++)
+             mergePcb(args[i], destNode);
 
-            PcbNode source = PcbNode.readFromFile(args[i]);
+        destNode.write("output" + File.separator + destFileName);
+    }
 
-            Map<String, String> netMapping = new HashMap<String, String>();
+    private static void mergePcb(String fileName, PcbNode destNode) throws IOException {
+        PcbNode source = PcbNode.readFromFile(fileName);
 
-            for (PcbNode net : source.iterate("net")) {
-                String netName = net.getChild(1);
-                String newName = networks.registerNetworkIfPcbSpecific(netName);
-                netMapping.put(netName, newName);
+        Map<String, String> netNameMapping = new HashMap<String, String>();
+        Map<String, Integer> netIdMapping = new HashMap<String, Integer>();
+
+        for (PcbNode net : source.iterate("net")) {
+            String netId = net.getChild(0);
+            String netName = net.getChild(1);
+            String newName = networks.registerNetworkIfPcbSpecific(netName);
+            netNameMapping.put(netName, newName);
+            netIdMapping.put(netId, networks.getId(newName));
+        }
+
+        for (PcbNode module : source.iterate("module")) {
+            for (PcbNode pad : module.iterate("pad")) {
+                if (!pad.hasChild("net"))
+                    continue;
+
+                PcbNode net = pad.find("net");
+
+                String localName = netNameMapping.get(net.getChild(1));
+
+                net.setString(1, localName);
+
+                net.setInt(0, networks.getId(localName));
             }
+            destNode.addChild(module);
+        }
 
-            for (PcbNode module : source.iterate("module")) {
+        for (PcbNode segment : source.iterate("segment")) {
+//            if (!segment.hasChild("net"))
+//                continue;
+            PcbNode net = segment.find("net");
 
-                for (PcbNode pad : module.iterate("pad")) {
-                    if (!pad.hasChild("net"))
-                        continue;
+            String originalId = net.getChild(0);
+            net.setInt(0, netIdMapping.get(originalId));
 
-                    PcbNode net = pad.find("net");
+            destNode.addChild(segment);
+        }
 
-                    String localName = netMapping.get(net.getChild(1));
+        for (PcbNode via : source.iterate("via")) {
+            PcbNode net = via.find("net");
+            String originalId = net.getChild(0);
+            net.setInt(0, netIdMapping.get(originalId));
 
-                    net.setString(1, localName);
-
-                    net.setInt(0, networks.getId(localName));
-
-
-                }
-
-
-                destNode.addChild(module);
-            }
-
-
+            destNode.addChild(via);
         }
 
 
-        destNode.write("output" + File.separator + destFileName);
+
     }
 
     private static class Networks {
