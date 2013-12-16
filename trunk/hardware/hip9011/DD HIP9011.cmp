@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 09.12.2013 20:57:31
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 16.12.2013 9:42:04
 
 BeginCmp
 TimeStamp = /52928AD9;
@@ -60,7 +60,7 @@ BeginCmp
 TimeStamp = /52928107;
 Reference = D1;
 ValeurCmp = HIP9011;
-IdModule  = tssop-20;
+IdModule  = SO20L;
 EndCmp
 
 BeginCmp
@@ -68,20 +68,6 @@ TimeStamp = /529A403B;
 Reference = D2;
 ValeurCmp = LED;
 IdModule  = LED-1206;
-EndCmp
-
-BeginCmp
-TimeStamp = /52A6131B;
-Reference = D3;
-ValeurCmp = DIODE;
-IdModule  = SM1206;
-EndCmp
-
-BeginCmp
-TimeStamp = /52A3E360;
-Reference = G1;
-ValeurCmp = LOGO;
-IdModule  = LOGO_F;
 EndCmp
 
 BeginCmp
@@ -106,10 +92,24 @@ IdModule  = PIN_ARRAY_2X1;
 EndCmp
 
 BeginCmp
-TimeStamp = /529A3D4E;
+TimeStamp = /52AEAD0B;
 Reference = P4;
-ValeurCmp = CONN_4X2;
-IdModule  = pin_array_4x2;
+ValeurCmp = CONN_5X2;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52AEADCD;
+Reference = P5;
+ValeurCmp = CONN_2;
+IdModule  = PIN_ARRAY_2X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /52AEAE96;
+Reference = P6;
+ValeurCmp = CONN_2;
+IdModule  = PIN_ARRAY_2X1;
 EndCmp
 
 BeginCmp
