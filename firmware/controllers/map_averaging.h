@@ -8,7 +8,8 @@
 #ifndef ADC_AVERAGING_H_
 #define ADC_AVERAGING_H_
 
-void adcAveragingLogic(adcsample_t newValue);
-
+void mapAveragingCallback(adcsample_t newValue);
+void initMapAveraging(void);
+float getAtmosphericPressure(void);
 
 #endif /* ADC_AVERAGING_H_ */

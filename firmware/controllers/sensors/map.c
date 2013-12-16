@@ -9,15 +9,24 @@
 #define Honda_Denso183_Range (Honda_Denso183_Max - Honda_Denso183_Min)
 
 /**
- * @brief	MAP value decoder for a 1.83 Honda sensor
+ * @brief	MAP value decoded for a 1.83 Honda sensor
  * @returns kPa value
  */
 static float getMAPValueHonda_Denso183(float volts) {
 	return Honda_Denso183_Range / 5 * volts + Honda_Denso183_Min;
 }
 
-myfloat getMap(void) {
-	float volts = getVoltage(ADC_LOGIC_MAP);
+/**
+ * @brief	MAP value decoded according to current settings
+ * @returns kPa value
+ */
+float getMapByVoltage(float voltage) {
+	// todo: here is the place where we should read the settings and decide
+	// todo: how to translate voltage into pressure
+	return getMAPValueHonda_Denso183(voltage);
+}
 
-	return getMAPValueHonda_Denso183(volts);
+myfloat getMap(void) {
+	float voltage = getVoltage(ADC_LOGIC_MAP);
+	return getMapByVoltage(voltage);
 }

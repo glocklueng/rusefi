@@ -18,6 +18,7 @@
 #include "flash_main.h"
 #include "rficonsole_logic.h"
 #include "usbconsole.h"
+#include "map_averaging.h"
 
 #include "tunerstudio_algo.h"
 #include "tunerstudio_configuration.h"
@@ -174,6 +175,7 @@ void updateTunerStudioState() {
 	tsOutputChannels.air_fuel_ratio = getAfr();
 	tsOutputChannels.v_batt = getVBatt();
 	tsOutputChannels.tpsADC= getTPSAdc();
+	tsOutputChannels.atmospherePressure = getAtmosphericPressure();
 }
 
 #endif /* EFI_TUNER_STUDIO */
