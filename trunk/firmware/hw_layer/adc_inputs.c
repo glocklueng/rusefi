@@ -13,7 +13,7 @@
 #include "pin_repository.h"
 #include "engine_math.h"
 #include "shaft_position_input.h"
-#include "adc_averaging.h"
+#include "map_averaging.h"
 
 /* Depth of the conversion buffer, channels are sampled X times each.*/
 #define ADC_GRP1_BUF_DEPTH_SLOW      1
@@ -84,7 +84,7 @@ static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 //	 intermediate callback when the buffer is half full.*/
 	if (adcp->state == ADC_COMPLETE) {
 		int newValue = getAvgAdcValue(0, samples_fast, ADC_GRP1_BUF_DEPTH_FAST, ADC_NUMBER_CHANNELS_FAST);
-		adcAveragingLogic(newValue);
+		mapAveragingCallback(newValue);
 	}
 }
 
