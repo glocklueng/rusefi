@@ -1,9 +1,13 @@
 package com.rusefi.util;
 
+import com.rusefi.misc.CmpMerge;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Generic file utilities
@@ -38,5 +42,19 @@ public class FileUtils {
             System.err.println("File not found: " + fileName);
             System.exit(-1);
         }
+    }
+
+    public static List<String> readFileToList(String fileName) throws IOException {
+        checkExistence(fileName);
+
+        List<String> result = new ArrayList<String>();
+
+        System.out.println("Reading " + fileName);
+        String line;
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+
+        while (((line = br.readLine()) != null))
+            result.add(line);
+        return result;
     }
 }
