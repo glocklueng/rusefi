@@ -13,19 +13,19 @@ public class PcbMergeTool {
     private static Networks networks = new Networks();
 
     public static void main(String[] args) throws IOException {
-        if (args.length < 2) {
-            System.out.println("At least two parameters expected: DEST_FILENAME SOURCE1 SOURCE2");
+        if (args.length < 3) {
+            System.out.println("At least three parameters expected: TEMPLATE DESTINATION SOURCE1 SOURCE2");
             return;
         }
 
-        String destFileName = args[0];
+        String template = args[0];
+        String destination = args[1];
+        PcbNode destNode = PcbNode.readFromFile(template);
 
-        PcbNode destNode = PcbNode.readFromFile(destFileName);
+        for (int i = 2; i < args.length; i++)
+            mergePcb(args[i], destNode);
 
-        for (int i = 1; i < args.length; i++)
-             mergePcb(args[i], destNode);
-
-        destNode.write("output" + File.separator + destFileName);
+        destNode.write(destination);
     }
 
     private static void mergePcb(String fileName, PcbNode destNode) throws IOException {
