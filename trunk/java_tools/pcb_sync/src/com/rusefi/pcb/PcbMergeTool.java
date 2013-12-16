@@ -10,8 +10,7 @@ import java.util.Map;
  * 12/16/13.
  */
 public class PcbMergeTool {
-
-    static Networks networks = new Networks();
+    private static Networks networks = new Networks();
 
     public static void main(String[] args) throws IOException {
         if (args.length < 2) {
@@ -62,24 +61,28 @@ public class PcbMergeTool {
         for (PcbNode segment : source.iterate("segment")) {
 //            if (!segment.hasChild("net"))
 //                continue;
-            PcbNode net = segment.find("net");
-
-            String originalId = net.getChild(0);
-            net.setInt(0, netIdMapping.get(originalId));
+            fixNetId(netIdMapping, segment);
 
             destNode.addChild(segment);
         }
 
         for (PcbNode via : source.iterate("via")) {
-            PcbNode net = via.find("net");
-            String originalId = net.getChild(0);
-            net.setInt(0, netIdMapping.get(originalId));
+            fixNetId(netIdMapping, via);
 
             destNode.addChild(via);
         }
 
+        for (PcbNode zone : source.iterate("zone")) {
+            fixNetId(netIdMapping, zone);
 
+            destNode.addChild(zone);
+        }
+    }
 
+    private static void fixNetId(Map<String, Integer> netIdMapping, PcbNode via) {
+        PcbNode net = via.find("net");
+        String originalId = net.getChild(0);
+        net.setInt(0, netIdMapping.get(originalId));
     }
 
     private static class Networks {
