@@ -17,6 +17,7 @@
 #include "engines.h"
 
 #include "audi_aan.h"
+#include "dodge_neon.h"
 #include "ford_aspire.h"
 #include "ford_fiesta.h"
 #include "snow_blower.h"

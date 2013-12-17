@@ -19,7 +19,7 @@ void skippedToothPositionEmulatorShape(PwmConfig *state) {
 
 	for (int i = 0; i < 2 * TOTAL_TEETH_COUNT; i++) {
 		switchTimes[i] = 1.0 * (i + 1) / (2 * TOTAL_TEETH_COUNT);
-		if (i < 4) {
+		if (i < 2 * SKIPPED_TEETH_COUNT) {
 			pinStates0[i] = 0;
 		} else {
 			pinStates0[i] = i % 2;
