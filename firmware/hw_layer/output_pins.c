@@ -15,6 +15,7 @@
 #include "pinout.h"
 #include "status_loop.h"
 #include "shaft_position_input.h"
+#include "main_loop.h"
 
 static OutputPin outputs[OUTPUT_PIN_COUNT];
 static PinEnum leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG };
