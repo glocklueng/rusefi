@@ -9,7 +9,7 @@
 #include <string.h>
 #include "main.h"
 
-#include "sensors.h"
+#include "allsensors.h"
 #include "tunerstudio.h"
 #include "pin_repository.h"
 

@@ -15,7 +15,7 @@
 #include "rpm_calculator.h"
 #include "main_loop.h"
 #include "wave_math.h"
-#include "sensors.h"
+#include "allsensors.h"
 
 static Logging logger;
 

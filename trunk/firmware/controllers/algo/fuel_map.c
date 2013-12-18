@@ -10,7 +10,7 @@
 #include "fuel_map.h"
 #include "interpolation.h"
 #include "engine_configuration.h"
-#include "sensors.h"
+#include "allsensors.h"
 #include "engine_math.h"
 
 static float *fuel_ptrs[FUEL_MAF_COUNT];

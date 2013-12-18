@@ -1,6 +1,6 @@
 
 CONTROLLERS_SENSORS_SRC = $(PROJECT_DIR)/controllers/sensors/tps.c \
-	$(PROJECT_DIR)/controllers/sensors/sensors.c \
+	$(PROJECT_DIR)/controllers/sensors/allsensors.c \
 	$(PROJECT_DIR)/controllers/sensors/maf.c \
 	$(PROJECT_DIR)/controllers/sensors/map.c \
 	$(PROJECT_DIR)/controllers/sensors/ego.c \
