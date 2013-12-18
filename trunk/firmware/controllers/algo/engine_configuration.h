@@ -48,6 +48,16 @@ typedef struct {
 	// RPM is float and not integer in order to use unified methods for interpolation
 	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
 
+	/**
+	 * this value could be used to offset the whole ignition timing table by a constant
+	 */
+	float ignitonOffset;
+
+	/**
+	 * While cranking which causes battery voltage we can calculate dwell time in shaft
+	 * degrees, not in absolute time as in running mode.
+	 */
+	int crankingChargeAngle;
 } EngineConfiguration;
 
 /**
@@ -55,10 +65,6 @@ typedef struct {
  * these fields are not integrated with Tuner Studio. Step by step :)
  */
 typedef struct {
-	/**
-	 * this value could be used to offset the whole ignition timing table by a constant
-	 */
-	float ignitonOffset;
 
 	/**
 	 * This value is used in 'fixed timing' mode, i.e. constant timing
@@ -68,8 +74,12 @@ typedef struct {
 
 	Thermistor iat;
 	Thermistor clt;
+	/**
+	 * Total time of shaft events per CAM or CRANK shaft revolution.
+	 * TODO this should be migrated to CRANKshaft revolution, this would go together
+	 * TODO with eliminating RPM_MULT magic constant
+	 */
 	int shaftPositionEventCount;
-	int crankingChargeAngle;
 } EngineConfiguration2;
 
 void setDefaultConfiguration(EngineConfiguration *engineConfiguration);

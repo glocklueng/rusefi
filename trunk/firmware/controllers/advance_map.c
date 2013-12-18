@@ -12,6 +12,7 @@
 
 #include "engine_controller.h"
 
+extern EngineConfiguration *engineConfiguration;
 extern EngineConfiguration2 engineConfiguration2;
 
 #define AD_RPM_COUNT 23
@@ -58,8 +59,8 @@ float getBaseAdvance(int rpm, float key) {
 
 float getAdvance(int rpm, float key) {
 	if(isCrankingR(rpm))
-		return engineConfiguration2.crankingChargeAngle;
+		return engineConfiguration->crankingChargeAngle;
 
 
-	return getBaseAdvance(rpm, key) + engineConfiguration2.ignitonOffset;
+	return getBaseAdvance(rpm, key) + engineConfiguration->ignitonOffset;
 }

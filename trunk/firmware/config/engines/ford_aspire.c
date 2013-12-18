@@ -152,6 +152,8 @@ void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->tpsMin = 1;
 	engineConfiguration->tpsMax = 1000;
 
+
+	engineConfiguration->ignitonOffset = 35;
 	engineConfiguration->rpmHardLimit = 7000;
 
 	engineConfiguration2.shaftPositionEventCount = 10;

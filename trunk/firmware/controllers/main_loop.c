@@ -98,7 +98,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 
 static int getSparkDwell(int rpm) {
 	if (isCrankingR(rpm)) {
-		int angle = engineConfiguration2.crankingChargeAngle;
+		int angle = engineConfiguration->crankingChargeAngle;
 		return convertAngleToSysticks(rpm, angle);;
 	}
 
@@ -177,8 +177,6 @@ void initMainEventListener() {
 	initLogging(&logger, "main event handler");
 	printSimpleMsg(&logger, "initMainLoop: ", chTimeNow());
 	cbInit(&ignitionErrorDetection);
-
-	engineConfiguration2.ignitonOffset = 35;
 
 	if (!isInjectionEnabled)
 		printSimpleMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled", 0);

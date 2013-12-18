@@ -1,5 +1,6 @@
-/*
- * injector_control.h
+/**
+ * @file settings.h
+ * @brief This file is about configuring engine via the human-readable protocol
  *
  * @date Dec 30, 2012
  * @author Andrey Belomutskiy, (c) 2012-2013

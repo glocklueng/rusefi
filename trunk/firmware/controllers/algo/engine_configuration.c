@@ -54,7 +54,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->crankingRpm = 400;
 
 
-	engineConfiguration2.crankingChargeAngle = 38;
+	engineConfiguration->crankingChargeAngle = 38;
 }
 
 static void printIntArray(int array[], int size) {
