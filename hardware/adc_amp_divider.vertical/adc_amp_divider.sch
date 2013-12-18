@@ -32,6 +32,7 @@ LIBS:valves
 LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
+LIBS:adc_amp_divider-cache
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
@@ -1380,13 +1381,11 @@ F 3 "" H 15050 7650 60  0000 C CNN
 	1    15050 7650
 	1    0    0    -1  
 $EndComp
-Text Label 16050 8150 0    60   ~ 0
+Text Label 16050 8050 0    60   ~ 0
 OUT5
-Text Label 14650 7850 0    60   ~ 0
-OUT10
 Text Label 14650 8050 0    60   ~ 0
 OUT6
-Text Label 16050 8050 0    60   ~ 0
+Text Label 16050 7950 0    60   ~ 0
 OUT7
 Wire Wire Line
 	16050 8350 15850 8350
@@ -1396,8 +1395,6 @@ Wire Wire Line
 	15850 8150 16050 8150
 Wire Wire Line
 	16050 8050 15850 8050
-Text Label 16050 7950 0    60   ~ 0
-OUT9
 Text Label 14650 7950 0    60   ~ 0
 OUT8
 Wire Wire Line
@@ -1923,22 +1920,12 @@ Wire Wire Line
 	15300 2500 15950 2500
 Text Label 15300 2500 0    60   ~ 0
 PA5
-Wire Wire Line
-	14650 7850 15050 7850
 Text Label 14650 8150 0    60   ~ 0
 PA5
-Text Label 16050 7850 0    60   ~ 0
-OUT11
-Wire Wire Line
-	16050 7850 15850 7850
 Text Label 16050 7750 0    60   ~ 0
 PC0
 Wire Wire Line
 	15850 7750 16050 7750
-Text Label 14650 7750 0    60   ~ 0
-OUT12
-Wire Wire Line
-	14650 7750 15050 7750
 $Comp
 L GND #PWR060
 U 1 1 5295D2D9
@@ -2062,8 +2049,6 @@ F 3 "" H 6750 2350 60  0000 C CNN
 $EndComp
 NoConn ~ 15050 7750
 NoConn ~ 15050 7850
-NoConn ~ 15850 7850
-NoConn ~ 15850 7950
 $Comp
 L CONN_2 P207
 U 1 1 52B19EF3
@@ -2075,4 +2060,22 @@ F 3 "" H 700 7650 60  0000 C CNN
 	1    700  7650
 	-1   0    0    1   
 $EndComp
+NoConn ~ 15850 7850
+Text Label 16050 8150 0    60   ~ 0
+PA4
+$Comp
+L CONN_1 P209
+U 1 1 52B1A4B4
+P 16100 2800
+F 0 "P209" H 16180 2800 40  0000 L CNN
+F 1 "CONN_1" H 16100 2855 30  0001 C CNN
+F 2 "" H 16100 2800 60  0000 C CNN
+F 3 "" H 16100 2800 60  0000 C CNN
+	1    16100 2800
+	1    0    0    -1  
+$EndComp
+Text Label 15300 2800 0    60   ~ 0
+PA4
+Wire Wire Line
+	15300 2800 15950 2800
 $EndSCHEMATC
