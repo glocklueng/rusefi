@@ -32,14 +32,13 @@ LIBS:valves
 LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
-LIBS:adc_amp_divider-cache
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "Analgo Protection board for RUSEFI.com"
-Date "15 dec 2013"
+Date "18 dec 2013"
 Rev "A-.01"
 Comp "RUSEFI.com"
 Comment1 ""
@@ -1415,7 +1414,7 @@ Wire Wire Line
 	15050 7950 14650 7950
 Connection ~ 16200 900 
 Connection ~ 16200 800 
-Text Label 1250 7650 0    60   ~ 0
+Text Label 1250 7550 0    60   ~ 0
 INP8
 Text Label 1250 7750 0    60   ~ 0
 INP7
@@ -1423,33 +1422,10 @@ Text Label 1250 8000 0    60   ~ 0
 INP6
 Text Label 1250 8100 0    60   ~ 0
 INP5
-$Comp
-L CONN_6 P209
-U 1 1 524F7A58
-P 700 7500
-F 0 "P209" V 650 7500 60  0000 C CNN
-F 1 "CONN_6" V 750 7500 60  0000 C CNN
-F 2 "" H 700 7500 60  0000 C CNN
-F 3 "" H 700 7500 60  0000 C CNN
-	1    700  7500
-	-1   0    0    -1  
-$EndComp
-Text Label 1250 7550 0    60   ~ 0
-INP9
-Text Label 1250 7450 0    60   ~ 0
-INP10
 Wire Wire Line
 	1250 7750 1050 7750
 Wire Wire Line
-	1050 7650 1250 7650
-Wire Wire Line
-	1250 7550 1050 7550
-Wire Wire Line
-	1050 7450 1250 7450
-Wire Wire Line
-	1250 7350 1050 7350
-Wire Wire Line
-	1050 7250 1250 7250
+	1050 7550 1250 7550
 $Comp
 L DOUBLE_SCHOTTKY D240
 U 1 1 524F7ED1
@@ -2004,10 +1980,6 @@ Wire Wire Line
 	1050 8100 1250 8100
 Wire Wire Line
 	1050 8000 1250 8000
-Text Label 1250 7350 0    60   ~ 0
-INP11
-Text Label 1250 7250 0    60   ~ 0
-INP12
 Text Notes 15500 3600 0    60   ~ 0
 mountng screws
 Wire Notes Line
@@ -2088,12 +2060,19 @@ F 3 "" H 6750 2350 60  0000 C CNN
 	1    6750 2350
 	1    0    0    -1  
 $EndComp
-NoConn ~ 1050 7550
-NoConn ~ 1050 7450
-NoConn ~ 1050 7350
-NoConn ~ 1050 7250
 NoConn ~ 15050 7750
 NoConn ~ 15050 7850
 NoConn ~ 15850 7850
 NoConn ~ 15850 7950
+$Comp
+L CONN_2 P207
+U 1 1 52B19EF3
+P 700 7650
+F 0 "P207" V 650 7650 40  0000 C CNN
+F 1 "CONN_2" V 750 7650 40  0000 C CNN
+F 2 "" H 700 7650 60  0000 C CNN
+F 3 "" H 700 7650 60  0000 C CNN
+	1    700  7650
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
