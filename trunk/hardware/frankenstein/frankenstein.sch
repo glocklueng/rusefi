@@ -53,7 +53,7 @@ $EndSheet
 $Sheet
 S 5350 2750 500  400 
 U 52A5358C
-F0 "adc_amp_divider" 50
-F1 "adc_amp_divider.sch" 50
+F0 "adc_amp_divider_vert" 50
+F1 "adc_amp_divider_vert.sch" 50
 $EndSheet
 $EndSCHEMATC
