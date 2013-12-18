@@ -55,7 +55,17 @@ typedef struct {
  * these fields are not integrated with Tuner Studio. Step by step :)
  */
 typedef struct {
+	/**
+	 * this value could be used to offset the whole ignition timing table by a constant
+	 */
 	float ignitonOffset;
+
+	/**
+	 * This value is used in 'fixed timing' mode, i.e. constant timing
+	 * This mode is useful for instance while adjusting distributor location
+	 */
+	float fixedModeTiming;
+
 	Thermistor iat;
 	Thermistor clt;
 	int shaftPositionEventCount;
