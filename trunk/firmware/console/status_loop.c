@@ -163,7 +163,9 @@ void printState(void) {
 	debugFloat(&logger, "fuel_iat", getIatCorrection(getIntakeAirTemperature()), 2);
 	debugFloat(&logger, "fuel_clt", getCltCorrection(getCoolantTemperature()), 2);
 	debugFloat(&logger, "fuel_lag", getInjectorLag(getVBatt()), 2);
-	debugFloat(&logger, "fuel", getRunningFuel(rpm, getMaf()), 2);
+	debugFloat(&logger, "fuel", getRunningFuel(rpm, key), 2);
+
+	debugFloat(&logger, "timing", getAdvance(rpm, key), 2);
 
 //		myfloat map = getMap();
 //		myfloat fuel = getDefaultFuel(rpm, map);
