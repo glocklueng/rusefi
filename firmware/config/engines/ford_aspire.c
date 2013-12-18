@@ -13,7 +13,7 @@
 
 #include "ford_aspire.h"
 
-#include "sensors.h"
+#include "allsensors.h"
 #include "engines.h"
 #include "engine_math.h"
 #include "settings.h"

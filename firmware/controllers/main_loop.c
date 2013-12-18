@@ -22,7 +22,7 @@
 #include "engine_configuration.h"
 #include "interpolation.h"
 #include "advance_map.h"
-#include "sensors.h"
+#include "allsensors.h"
 #include "cyclic_buffer.h"
 
 // todo: move this to EngineConfiguration2 for now

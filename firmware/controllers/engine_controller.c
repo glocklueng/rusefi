@@ -24,7 +24,7 @@
 #include "rfiutil.h"
 #include "engine_configuration.h"
 #include "wave_analyzer.h"
-#include "sensors.h"
+#include "allsensors.h"
 #include "electronic_throttle.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
