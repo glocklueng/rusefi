@@ -106,8 +106,19 @@ static void canDashboardFiat(void) {
 	//Fiat Dashboard
 	// todo: replace this magic constant with a macros
 	commonTxInit(0x561);
-	setShortValue(&txmsg, engine_clt - 40, 3);
-	setShortValue(&txmsg, engine_rpm / 32, 6);
+	setShortValue(&txmsg, engine_clt - 40, 3); //Coolant Temp
+	setShortValue(&txmsg, engine_rpm / 32, 6); //RPM
+	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
+}
+
+static void canDashboardVAG(void) {
+	//VAG Dashboard
+	commonTxInit(0x280);
+	setShortValue(&txmsg, engine_rpm * 4, 2); //RPM
+	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
+
+	commonTxInit(0x289);
+	setShortValue(&txmsg, (engine_clt + 48.373) / 0.75, 1); //Coolant Temp
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 }
 
@@ -119,6 +130,9 @@ static void canInfoBCNBroadcast(int typeOfBCN) {
 		break;
 	case 1:
 		canDashboardFiat();
+		break;
+	case 2:
+		canDashboardVAG();
 		break;
 	default:
 		break;
