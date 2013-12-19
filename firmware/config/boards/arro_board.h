@@ -79,7 +79,7 @@
 /*
  * 10 channel board is (from left to right):
  * ADC 15	PC5		TPS
- * ADC 14	PC4
+ * ADC 14	PC4		MAP
  * ADC 7 	PA7
  * ADC 6	PA6		CLT
  * ADC 5	PA5		TIM2_CH1
@@ -93,6 +93,7 @@
 #define ADC_LOGIC_TPS ADC_CHANNEL_IN15
 #define ADC_LOGIC_COOLANT ADC_CHANNEL_IN6
 #define ADC_LOGIC_MAF ADC_CHANNEL_IN1
+#define ADC_LOGIC_TPS_2 ADC_CHANNEL_IN0
 
 
 #define ADC_LOGIC_MAP ADC_CHANNEL_IN14
