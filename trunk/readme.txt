@@ -3,6 +3,7 @@
 *****************************************************************************
 *** Releases                                                              ***
 *****************************************************************************
+12/19/2013	r605	ignition control & a little bit of CAN bus
 11/08/2013	r100	Tuner Studio fuel map tuning, fuel pump control
 10/14/2013	r39	USB serial bug, missing IAR files, self-containted Makefile
 10/13/2013	r33	IAR project file
