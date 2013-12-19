@@ -2,6 +2,9 @@
  * @file	can_hw.c
  * @brief	CAN bus low level code
  *
+ * todo: this file should be split into two - one for CAN transport level ONLY and
+ * another one with actual messages
+ *
  * @date Dec 11, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
@@ -31,6 +34,7 @@ CAN_BTR_TS1(8) | CAN_BTR_BRP(6) };
 static CANRxFrame rxBuffer;
 static CANTxFrame txmsg;
 
+// todo: we would need a data structure here
 static int engine_rpm = 0;
 static int engine_clt = 0;
 
@@ -100,12 +104,14 @@ static void canDashboardBMW(void) {
 
 static void canDashboardFiat(void) {
 	//Fiat Dashboard
+	// todo: replace this magic constant with a macros
 	commonTxInit(0x561);
 	setShortValue(&txmsg, engine_clt - 40, 3);
 	setShortValue(&txmsg, engine_rpm / 32, 6);
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 }
 
+// todo: 'typeOfBCN' should become a enum
 static void canInfoBCNBroadcast(int typeOfBCN) {
 	switch (typeOfBCN) {
 	case 0:
