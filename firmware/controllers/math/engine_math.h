@@ -27,4 +27,13 @@ float getStartingFuel(int coolantTemperature);
 
 int convertAngleToSysticks(int rpm, int angle);
 
+typedef struct {
+	float coolantTempMin;
+	float coolantTempMax;
+	float minTempPW;
+	float maxTempPW;
+
+	short int crankingRpm;
+} CrankingMode;
+
 #endif /* ENGINE_MATH_H_ */
