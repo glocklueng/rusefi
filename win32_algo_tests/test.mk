@@ -1,5 +1,5 @@
 TEST_SRC = boards.c \
-	test_cyclic_buffer.c \
+	test_util.c \
 	test_engine_math.c \
 	test_event_registry.c \
 	test_find_index.c \
