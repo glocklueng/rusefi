@@ -11,6 +11,8 @@
 #include "pin_repository.h"
 #include "rficonsole_logic.h"
 #include "string.h"
+#include "rpm_calculator.h"
+#include "allsensors.h"
 
 static Logging logger;
 static WORKING_AREA(canTreadStack, 512);
@@ -29,9 +31,8 @@ CAN_BTR_TS1(8) | CAN_BTR_BRP(6) };
 static CANRxFrame rxBuffer;
 static CANTxFrame txmsg;
 
-static int canRpm = 0;
-static int canKph = 0;
-static int canTemperature = 0;
+static int engine_rpm = 0;
+static int engine_clt = 0;
 
 /**
  * e46 data is from http://forums.bimmerforums.com/forum/showthread.php?1887229
@@ -82,55 +83,56 @@ static void commonTxInit(int eid) {
 	txmsg.DLC = 8;
 }
 
-static void sendRpm(int rpm) {
-	commonTxInit(CAN_BMW_E46_RPM);
-	setShortValue(&txmsg, rpm * 6.4, 2);
-	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE);
-}
-
-static void sendSpeed(int kph) {
-	// turned out, this instrument cluster speedometer is not on CAN bus
+static void canDashboardBMW(void) {
+	//BMW Dashboard
 	commonTxInit(CAN_BMW_E46_SPEED);
-	setShortValue(&txmsg, kph * 8, 1);
-	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE);
-}
+	setShortValue(&txmsg, 10 * 8, 1);
+	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 
-static void sendTemp(int temperatureC) {
+	commonTxInit(CAN_BMW_E46_RPM);
+	setShortValue(&txmsg, engine_rpm * 6.4, 2);
+	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
+
 	commonTxInit(CAN_BMW_E46_DME2);
-	setShortValue(&txmsg, (temperatureC + 48.373 ) / 0.75, 1);
-	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE);
+	setShortValue(&txmsg, (engine_clt + 48.373) / 0.75, 1);
+	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 }
 
-static void canSendRpm(int rpm) {
-	scheduleSimpleMsg(&logger, "Setting RPM=", rpm);
-	canRpm = rpm;
+static void canDashboardFiat(void) {
+	//Fiat Dashboard
+	commonTxInit(0x561);
+	setShortValue(&txmsg, engine_clt - 40, 3);
+	setShortValue(&txmsg, engine_rpm / 32, 6);
+	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 }
 
-static void canSendTemperature(int temperature) {
-	scheduleSimpleMsg(&logger, "Setting temperature=", temperature);
-	canTemperature = temperature;
-}
-
-static void canSendSpeed(int kph) {
-	scheduleSimpleMsg(&logger, "Setting KPH=", kph);
-	canKph = kph;
+static void canInfoBCNBroadcast(int typeOfBCN) {
+	switch (typeOfBCN) {
+	case 0:
+		canDashboardBMW();
+		break;
+	case 1:
+		canDashboardFiat();
+		break;
+	default:
+		break;
+	}
 }
 
 static void canRead(void) {
 	scheduleSimpleMsg(&logger, "waiting for CAN ", 0);
-	canReceive(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &rxBuffer, TIME_INFINITE);
+	canReceive(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &rxBuffer, TIME_INFINITE );
 
 	printPacket(&rxBuffer);
 }
 
 static msg_t canThread(void *arg) {
 	while (TRUE) {
-		sendTemp(canTemperature);
-		chThdSleepMilliseconds(1);
-		sendRpm(canRpm);
-		chThdSleepMilliseconds(1);
-		sendSpeed(canKph);
-		chThdSleepMilliseconds(1);
+		engine_rpm = getCurrentRpm();
+		engine_clt = getCoolantTemperature();
+
+		canInfoBCNBroadcast(0);
+		chThdSleepMilliseconds(50);
 	}
 	return -1;
 }
@@ -147,18 +149,9 @@ void initCan(void) {
 #endif
 
 	canStart(&EFI_CAN_DEVICE, &canConfig);
-	chThdCreateStatic(canTreadStack, sizeof(canTreadStack), NORMALPRIO, (tfunc_t) canThread, NULL);
+	chThdCreateStatic(canTreadStack, sizeof(canTreadStack), NORMALPRIO, (tfunc_t) canThread, NULL );
 
 	mySetPadMode("CAN TX", EFI_CAN_TX_PORT, EFI_CAN_TX_PIN, PAL_MODE_ALTERNATE(EFI_CAN_TX_AF));
 	mySetPadMode("CAN RX", EFI_CAN_RX_PORT, EFI_CAN_RX_PIN, PAL_MODE_ALTERNATE(EFI_CAN_RX_AF));
 
-	canSendRpm(1000);
-	canSendSpeed(70);
-	canSendTemperature(90);
-
-	addConsoleAction("canshow", canRead);
-	addConsoleActionI("canrpm", canSendRpm);
-	addConsoleActionI("canspeed", canSendSpeed);
-	addConsoleActionI("cantemp", canSendTemperature);
 }
-
