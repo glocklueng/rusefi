@@ -10,12 +10,17 @@
 #define ENGINE_CONFIGURATION_H_
 
 #include "fuel_map.h"
-#include "thermistors.h"
+#include "allsensors.h"
+#include "engine_math.h"
 
 #define CLT_CURVE_SIZE 16
 #define IAT_CURVE_SIZE 16
 #define VBAT_INJECTOR_CURVE_SIZE 8
 
+#define IGN_LOAD_COUNT 16
+#define IGN_RPM_COUNT 16
+
+#define DWELL_COUNT 8
 /**
  * @brief	Engine configuration.
  * 		Values in this data structure are adjustable and persisted in on-board flash RAM.
@@ -38,10 +43,21 @@ typedef struct {
 	// todo: we need two sets of TPS parameters - modern ETBs have to sensors
 	short int tpsMin; // size 2, offset 330
 	short int tpsMax; // size 2, offset 332
-	short int crankingRpm;   // size 2, offset 334
+	short int align1;
+
+	CrankingMode crankingSettings;
+
+	Map map;
 
 	ThermistorConf cltThermistorConf; // size 40 (10*4), offset 336
 	ThermistorConf iatThermistorConf; // size 40, offset 376
+
+	float ignitionDwellBins[DWELL_COUNT];
+	float ignitionDwell[DWELL_COUNT];
+
+	float ignitionTable[IGN_LOAD_COUNT][IGN_RPM_COUNT];
+	float ignitionKeyBins[IGN_LOAD_COUNT]; // offset 3450
+	float ignitionRpmBins[IGN_RPM_COUNT]; // offset 3542
 
 	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 414
 	float fuelKeyBins[FUEL_MAF_COUNT]; // offset 3450

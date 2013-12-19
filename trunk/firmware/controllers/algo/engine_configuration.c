@@ -51,7 +51,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->iatThermistorConf.bias_resistor = 2700;
 
 	engineConfiguration->rpmHardLimit = 7000;
-	engineConfiguration->crankingRpm = 400;
+	engineConfiguration->crankingSettings.crankingRpm = 400;
 
 
 	engineConfiguration->crankingChargeAngle = 38;
@@ -100,5 +100,5 @@ void printConfiguration(EngineConfiguration *engineConfiguration) {
 	print("tpsMin: %d\r\n", engineConfiguration->tpsMin);
 	print("tpsMax: %d\r\n", engineConfiguration->tpsMax);
 
-	print("crankingRpm: %d\r\n", engineConfiguration->crankingRpm);
+	print("crankingRpm: %d\r\n", engineConfiguration->crankingSettings.crankingRpm);
 }
