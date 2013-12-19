@@ -10,7 +10,16 @@
 
 #include <stdint.h>
 
+#define BOUND_LENGTH 895
+
+typedef struct {
+	int64_t total_value;
+	int64_t total_count;
+	int values[BOUND_LENGTH];
+} histogram_s;
+
 void initHistograms(void);
 int histogramGetIndex(int64_t value);
+void resetHistogram(histogram_s *h);
 
 #endif /* HISTOGRAM_H_ */
