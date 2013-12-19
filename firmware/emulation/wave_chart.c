@@ -1,4 +1,4 @@
-/*
+/**
  * @file	wave_chart.c
  * @brief	Dev console wave sniffer logic
  *
