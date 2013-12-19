@@ -5,16 +5,25 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
+#include <string.h>
 #include "histogram.h"
+#include "main.h"
 
 #define H_ACCURACY 0.05
 #define H_CONFIDENCE 0.8
-#define BOUND_LENGTH 895
 #define LONG_MAX_INT 0x7fffffffffffffffL
 #define SBI_SIZE 1000
 
+static float confidence_bounds[] = {0.5 - H_CONFIDENCE * 0.5, 0.5, 0.5 + H_CONFIDENCE * 0.5};
+
+/**
+ * magic curve lookup table
+ */
 static int64_t bounds[BOUND_LENGTH];
-static int small_bounds_index[1000];
+/**
+ * just an optimization - faster lookup for small values
+ */
+static int small_bounds_index[SBI_SIZE];
 
 void initHistograms(void) {
 	bounds[0] = 0;
@@ -53,3 +62,43 @@ int histogramGetIndex(int64_t value) {
 	return l;
 }
 
+void resetHistogram(histogram_s *h) {
+	h->total_value = 0;
+	h->total_count = 0;
+	memset(h, 0, sizeof(histogram_s));
+}
+
+void hsAdd(histogram_s *h, int64_t value) {
+	int index = histogramGetIndex(value);
+	int count = 1;
+	h->total_value += value;
+	h->total_count += count;
+	chDbgAssert(index < BOUND_LENGTH, "histogram issue", NULL);
+
+	h->values[index] += count;
+}
+
+int hsReport(histogram_s *h, int* report) {
+	int index = 0;
+
+	if (h->total_count <= 5) {
+		for (int j = 0; j < BOUND_LENGTH; j++)
+			for (int k = 0; k < h->values[j]; k++) {
+				report[index] = (bounds[j] + bounds[j + 1]) / 2;
+			}
+		return index;
+	}
+
+    int min = 0;
+    while (h->values[min] == 0)
+        min++;
+    report[index++] = h->values[min];
+
+
+    int max = BOUND_LENGTH - 1;
+    while (h->values[max] == 0)
+        max--;
+    report[index++] = h->values[max];
+
+    return index;
+}
