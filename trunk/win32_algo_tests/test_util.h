@@ -9,5 +9,6 @@
 #define TEST_CYCLIC_BUFFER_H_
 
 void testCyclicBuffer(void);
+void testHistogram(void);
 
 #endif /* TEST_CYCLIC_BUFFER_H_ */
