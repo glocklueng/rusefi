@@ -8,14 +8,12 @@
 #ifndef FEATURES_H_
 #define FEATURES_H_
 
-#define MAF_MODE 1
-
 /**
  * Build-in logic analyzer support. Logic analyzer viewer is one of the java console panes.
  */
 #define EFI_WAVE_ANALYZER TRUE
 
-//#define EFI_SERIAL_OVER_USB TRUE
+#define EFI_SERIAL_OVER_USB TRUE
 
 //#define SERIAL_SPEED (8 * 115200)
 //#define SERIAL_SPEED (2 * 115200)
@@ -25,7 +23,7 @@
  * TunerStudio support.
  */
 #define EFI_TUNER_STUDIO TRUE
-#define EFI_TUNER_STUDIO_OVER_USB TRUE
+//#define EFI_TUNER_STUDIO_OVER_USB TRUE
 
 /**
  * TunerStudio debug output
@@ -67,7 +65,10 @@
 #endif
 #endif /* EFI_TUNER_STUDIO */
 
-// not unit test
+/**
+ * This macros is used to hide pieces of the code from unit tests, so it only makes sense in folders exposed to the tests project.
+ * This macros is NOT about taking out logging in general.
+ */
 #define EFI_PROD_CODE TRUE
 
 #endif /* EFI_SERIAL_OVER_USB */
