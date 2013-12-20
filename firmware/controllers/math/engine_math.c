@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "engine_math.h"
+#include "engine_configuration.h"
 #include "main.h"
 #include "interpolation.h"
 
@@ -51,14 +52,19 @@
 
 #define MAX_STARTING_FUEL 15
 #define MIN_STARTING_FUEL 8
+extern EngineConfiguration *engineConfiguration;
 
 float getStartingFuel(int coolantTemperature) {
 	// these magic constants are in Celsius
-	if (coolantTemperature < 15)
-		return MAX_STARTING_FUEL;
-	if (coolantTemperature > 65)
-		return MIN_STARTING_FUEL;
-	return interpolate(15, MAX_STARTING_FUEL, 65, MIN_STARTING_FUEL,
+	if (coolantTemperature < engineConfiguration->crankingSettings.coolantTempMin)
+		return engineConfiguration->crankingSettings.minTempPW;
+	if (coolantTemperature > engineConfiguration->crankingSettings.coolantTempMax)
+		return engineConfiguration->crankingSettings.maxTempPW;
+	return interpolate(
+			engineConfiguration->crankingSettings.coolantTempMin,
+			engineConfiguration->crankingSettings.minTempPW,
+			engineConfiguration->crankingSettings.coolantTempMax,
+			engineConfiguration->crankingSettings.maxTempPW,
 			coolantTemperature);
 }
 
