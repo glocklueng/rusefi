@@ -1,5 +1,13 @@
 /**
  * @file	histogram.h
+ * @brief This data structure is used to analyze CPU performance
+ *
+ * User can report data into a histogram and later get an aggregated represenation, i.e.
+ * a histogram, of these values.
+ *
+ * A typicsl use-case would be reporting the times it took to execure a particular section of
+ * code - and later analyzing the histogram.
+ *
  *
  * @date Dec 18, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -21,5 +29,7 @@ typedef struct {
 void initHistograms(void);
 int histogramGetIndex(int64_t value);
 void resetHistogram(histogram_s *h);
+void hsAdd(histogram_s *h, int64_t value);
+int hsReport(histogram_s *h, int* report);
 
 #endif /* HISTOGRAM_H_ */

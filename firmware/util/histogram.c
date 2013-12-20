@@ -14,7 +14,7 @@
 #define LONG_MAX_INT 0x7fffffffffffffffL
 #define SBI_SIZE 1000
 
-static float confidence_bounds[] = {0.5 - H_CONFIDENCE * 0.5, 0.5, 0.5 + H_CONFIDENCE * 0.5};
+static float confidence_bounds[] = { 0.5 - H_CONFIDENCE * 0.5, 0.5, 0.5 + H_CONFIDENCE * 0.5 };
 
 /**
  * magic curve lookup table
@@ -73,7 +73,7 @@ void hsAdd(histogram_s *h, int64_t value) {
 	int count = 1;
 	h->total_value += value;
 	h->total_count += count;
-	chDbgAssert(index < BOUND_LENGTH, "histogram issue", NULL);
+	chDbgAssert(index < BOUND_LENGTH, "histogram issue", NULL );
 
 	h->values[index] += count;
 }
@@ -84,21 +84,44 @@ int hsReport(histogram_s *h, int* report) {
 	if (h->total_count <= 5) {
 		for (int j = 0; j < BOUND_LENGTH; j++)
 			for (int k = 0; k < h->values[j]; k++) {
-				report[index] = (bounds[j] + bounds[j + 1]) / 2;
+				report[index++] = (bounds[j] + bounds[j + 1]) / 2;
 			}
 		return index;
 	}
 
-    int min = 0;
-    while (h->values[min] == 0)
-        min++;
-    report[index++] = h->values[min];
+	int minIndex = 0;
+	while (h->values[minIndex] == 0)
+		minIndex++;
+	report[index++] = h->values[minIndex];
 
+	int64_t acc = 0;
+	// 'acc' is accumulated number of samples in [0, min - 1].
+	for (int j = 0; j < 3; j++) {
+		int64_t k = confidence_bounds[j] * h->total_count;
+		// Always drop at least 1 'non-confident' sample...
+		if (k == 0)
+			k = 1;
+		if (k == h->total_count)
+			k = h->total_count - 1;
+		// 'k' is desired number of samples.
+		while (acc + h->values[minIndex] < k)
+			acc += h->values[minIndex++];
+		if (k < h->total_count / 2) // Converge to median (from left).
+			while (acc + h->values[minIndex] <= k)
+				acc += h->values[minIndex++];
+		// Now: acc <= k <= acc + st.histogram[min]
+		// And desired number of samples is within [min, min + 1)
+		float d = bounds[minIndex];
+		if (acc != k)
+			d += (bounds[minIndex + 1] - 1 - bounds[minIndex]) * (k - acc) / h->values[minIndex];
+		report[index++] = d;
+	}
 
-    int max = BOUND_LENGTH - 1;
-    while (h->values[max] == 0)
-        max--;
-    report[index++] = h->values[max];
+	int maxIndex = BOUND_LENGTH - 1;
+	while (h->values[maxIndex] == 0)
+		maxIndex--;
+	int64_t maxValue = bounds[maxIndex + 1] - 1;
+	report[index++] = maxValue;
 
-    return index;
+	return index;
 }
