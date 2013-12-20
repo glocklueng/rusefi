@@ -386,36 +386,14 @@ Wire Wire Line
 Wire Wire Line
 	4700 2075 2300 2075
 $Comp
-L SD/MMC P1
-U 1 1 52A5A901
-P 3525 4275
-F 0 "P1" H 3375 4775 60  0000 C CNN
-F 1 "SD/MMC" H 3525 3775 60  0000 C CNN
-F 2 "" H 3525 4275 60  0000 C CNN
-F 3 "" H 3525 4275 60  0000 C CNN
-	1    3525 4275
-	-1   0    0    -1  
-$EndComp
-$Comp
 L GND #PWR7
 U 1 1 52A5A913
-P 3925 4075
-F 0 "#PWR7" H 3925 4075 30  0001 C CNN
-F 1 "GND" H 3925 4005 30  0001 C CNN
-F 2 "" H 3925 4075 60  0001 C CNN
-F 3 "" H 3925 4075 60  0001 C CNN
-	1    3925 4075
-	0    -1   -1   0   
-$EndComp
-$Comp
-L GND #PWR8
-U 1 1 52A5A919
-P 3925 4375
-F 0 "#PWR8" H 3925 4375 30  0001 C CNN
-F 1 "GND" H 3925 4305 30  0001 C CNN
-F 2 "" H 3925 4375 60  0001 C CNN
-F 3 "" H 3925 4375 60  0001 C CNN
-	1    3925 4375
+P 3825 3875
+F 0 "#PWR7" H 3825 3875 30  0001 C CNN
+F 1 "GND" H 3825 3805 30  0001 C CNN
+F 2 "" H 3825 3875 60  0001 C CNN
+F 3 "" H 3825 3875 60  0001 C CNN
+	1    3825 3875
 	0    -1   -1   0   
 $EndComp
 $Comp
@@ -444,8 +422,6 @@ Text Label 5475 4175 2    60   ~ 0
 RX
 Text Label 6275 4075 0    60   ~ 0
 TX
-Text Label 5475 4075 2    60   ~ 0
-SPI_MOSI
 Wire Wire Line
 	5475 4175 5475 4375
 Wire Wire Line
@@ -455,8 +431,6 @@ SPI_MISO
 Text Label 5475 3975 2    60   ~ 0
 SPI_SCK
 NoConn ~ 5475 3875
-Text Label 6275 3875 0    60   ~ 0
-SPI_CS
 $Comp
 L GND #PWR6
 U 1 1 52A5AE4C
@@ -473,29 +447,9 @@ Text Label 3775 3200 0    60   ~ 0
 Wire Wire Line
 	5475 3975 4650 3975
 Wire Wire Line
-	4650 3975 4650 5400
-Wire Wire Line
-	4650 4275 3925 4275
-Wire Wire Line
-	6275 3875 6275 3700
-Wire Wire Line
-	6275 3700 3925 3700
-Wire Wire Line
-	3925 3700 3925 3875
-Wire Wire Line
-	3925 4475 6500 4475
-Wire Wire Line
 	6500 4475 6500 3975
 Wire Wire Line
 	6500 3975 6275 3975
-Wire Wire Line
-	5475 4075 4300 4075
-Wire Wire Line
-	4300 3975 4300 5200
-Wire Wire Line
-	4300 3975 3925 3975
-NoConn ~ 3925 4575
-NoConn ~ 3925 4675
 $Comp
 L PWR_FLAG #FLG1
 U 1 1 52A5AFCB
@@ -507,8 +461,6 @@ F 3 "" H 3300 2525 60  0000 C CNN
 	1    3300 2525
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	3925 4175 4075 4175
 Wire Wire Line
 	4075 3100 4075 5300
 Wire Wire Line
@@ -529,7 +481,7 @@ $EndComp
 Wire Wire Line
 	3775 3200 4000 3200
 Wire Wire Line
-	4000 3200 4000 1375
+	4000 1375 4000 3475
 Connection ~ 4000 1375
 $Comp
 L PWR_FLAG #FLG2
@@ -611,7 +563,6 @@ F 3 "" H 3600 5400 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	4650 5400 4000 5400
-Connection ~ 4650 4275
 NoConn ~ 4000 5000
 NoConn ~ 4000 5700
 NoConn ~ 4000 5800
@@ -627,19 +578,83 @@ F 3 "" H 4000 5500 60  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	4300 5200 4000 5200
-Connection ~ 4300 4075
-Wire Wire Line
 	4000 5600 4175 5600
 Wire Wire Line
 	4175 5600 4175 4475
 Connection ~ 4175 4475
 Wire Wire Line
-	4000 5100 4475 5100
-Wire Wire Line
-	4475 5100 4475 3700
-Connection ~ 4475 3700
-Wire Wire Line
 	4075 5300 4000 5300
-Connection ~ 4075 4175
+$Comp
+L CONN_5X2 P1
+U 1 1 52B45CE3
+P 3425 4075
+F 0 "P1" H 3425 4375 60  0000 C CNN
+F 1 "CONN_5X2" V 3425 4075 50  0000 C CNN
+F 2 "" H 3425 4075 60  0000 C CNN
+F 3 "" H 3425 4075 60  0000 C CNN
+	1    3425 4075
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_4X2 P4
+U 1 1 52B45D03
+P 5875 5000
+F 0 "P4" H 5875 5250 50  0000 C CNN
+F 1 "CONN_4X2" V 5875 5000 40  0000 C CNN
+F 2 "" H 5875 5000 60  0000 C CNN
+F 3 "" H 5875 5000 60  0000 C CNN
+	1    5875 5000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3025 3875 3025 3550
+Wire Wire Line
+	3025 3550 4075 3550
+Wire Wire Line
+	3025 3975 2950 3975
+Wire Wire Line
+	2950 3975 2950 3475
+Wire Wire Line
+	2950 3475 4000 3475
+Connection ~ 4000 3200
+Wire Wire Line
+	2950 4475 2950 4175
+Wire Wire Line
+	2950 4175 3025 4175
+Wire Wire Line
+	2950 4475 6500 4475
+Wire Wire Line
+	3025 4275 3025 4350
+Wire Wire Line
+	3025 4350 4650 4350
+Wire Wire Line
+	4650 3975 4650 5400
+Connection ~ 4650 4350
+Text Label 5475 4075 2    60   ~ 0
+SPI_MOSI
+Wire Wire Line
+	3825 4175 4300 4175
+Wire Wire Line
+	4300 5200 4000 5200
+Wire Wire Line
+	4300 4075 5475 4075
+Wire Wire Line
+	4300 4075 4300 5200
+Connection ~ 4300 4175
+Text Label 6275 3875 0    60   ~ 0
+SPI_CS
+Wire Wire Line
+	4475 5100 4000 5100
+Wire Wire Line
+	6275 3700 6275 3875
+Wire Wire Line
+	4475 3700 4475 5100
+Wire Wire Line
+	4475 3700 6275 3700
+Text Notes 3300 3700 0    60   ~ 0
+Ext SPI
+Text Notes 5600 3650 0    60   ~ 0
+For left conn
+Text Notes 5600 4700 0    60   ~ 0
+For right conn
 $EndSCHEMATC
