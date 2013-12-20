@@ -14,8 +14,7 @@
 #include "pin_repository.h"
 #include "rficonsole_logic.h"
 #include "string.h"
-#include "rpm_calculator.h"
-#include "allsensors.h"
+#include "engine_state.h"
 
 static Logging logger;
 static WORKING_AREA(canTreadStack, 512);
