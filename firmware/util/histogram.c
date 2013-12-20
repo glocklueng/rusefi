@@ -1,5 +1,6 @@
 /**
  * @file	histogram.c
+ * @brief This data structure is used to analyze CPU performance
  *
  * @date Dec 18, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -25,6 +26,11 @@ static int64_t bounds[BOUND_LENGTH];
  */
 static int small_bounds_index[SBI_SIZE];
 
+static int initialized = FALSE;
+
+/**
+ * @breif Internal histogram data structure
+ */
 void initHistograms(void) {
 	bounds[0] = 0;
 	for (int i = 1; i < BOUND_LENGTH; i++) {
@@ -41,9 +47,14 @@ void initHistograms(void) {
 	for (int i = 0, j = 0; j < SBI_SIZE; i++)
 		while (j < bounds[i + 1] && j < SBI_SIZE)
 			small_bounds_index[j++] = i;
+	initialized = TRUE;
 }
 
+/**
+ * @brief This internal method is only public so that we can test it.
+ */
 int histogramGetIndex(int64_t value) {
+	chDbgAssert(initialized, "histo initialized", NULL);
 	if (value < 0)
 		return 0;
 	if (value < SBI_SIZE)
@@ -62,12 +73,18 @@ int histogramGetIndex(int64_t value) {
 	return l;
 }
 
+/**
+ * @brief Reset histogram_s to orignal state
+ */
 void resetHistogram(histogram_s *h) {
 	h->total_value = 0;
 	h->total_count = 0;
 	memset(h, 0, sizeof(histogram_s));
 }
 
+/**
+ * @breif Add a new value into histogram_s
+ */
 void hsAdd(histogram_s *h, int64_t value) {
 	int index = histogramGetIndex(value);
 	int count = 1;
@@ -78,6 +95,9 @@ void hsAdd(histogram_s *h, int64_t value) {
 	h->values[index] += count;
 }
 
+/**
+ * @brief Prepare histogram report
+ */
 int hsReport(histogram_s *h, int* report) {
 	int index = 0;
 
