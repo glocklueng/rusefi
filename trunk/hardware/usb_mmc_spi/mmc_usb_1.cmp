@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Птн 20 Дек 2013 19:41:32
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Птн 20 Дек 2013 21:03:05
 
 BeginCmp
 TimeStamp = /52A59B39;
@@ -103,6 +103,20 @@ TimeStamp = /52B45D03;
 Reference = P4;
 ValeurCmp = CONN_4X2;
 IdModule  = PLD-8;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B479E1;
+Reference = P5;
+ValeurCmp = CONN_10X2;
+IdModule  = PLD-20;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B479EE;
+Reference = P6;
+ValeurCmp = CONN_10X2;
+IdModule  = PLD-20;
 EndCmp
 
 BeginCmp
