@@ -9,11 +9,10 @@
 #include <string.h>
 #include "main.h"
 
-#include "allsensors.h"
+#include "engine_state.h"
 #include "tunerstudio.h"
 #include "pin_repository.h"
 
-#include "rpm_calculator.h"
 #include "main_loop.h"
 #include "flash_main.h"
 #include "rficonsole_logic.h"

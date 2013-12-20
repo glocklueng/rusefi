@@ -13,9 +13,7 @@
 #include "wave_analyzer.h"
 #endif
 
-#include "allsensors.h"
-#include "rpm_calculator.h"
-#include "thermistors.h"
+#include "engine_state.h"
 #include "output_pins.h"
 
 #include "datalogging.h"
