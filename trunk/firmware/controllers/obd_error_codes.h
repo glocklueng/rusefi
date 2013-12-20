@@ -116,7 +116,7 @@ typedef enum {
 	//P0097 Intake Air Temperature Sensor 2 Circuit Low
 	//P0098 Intake Air Temperature Sensor 2 Circuit High
 	//P0099 Intake Air Temperature Sensor 2 Circuit Intermittent/Erratic
-	//P0100 Mass or Volume Air Flow Circuit Malfunction
+	Mass_or_Volume_Air_Flow_Circuit_Malfunction = 100,
 	//P0101 Mass or Volume Air Flow Circuit Range/Performance Problem
 	//P0102 Mass or Volume Air Flow Circuit Low Input
 	//P0103 Mass or Volume Air Flow Circuit High Input
@@ -1455,6 +1455,207 @@ typedef enum {
 	//P2668 Fuel Mode Indicator Lamp Ctrl Circ
 	//P2669 Actuator Supply Voltage B Circ /Open
 
+
+
+	//P2670 Actuator Supply Voltage B Circ Low
+	//P2671 Actuator Supply Voltage B Circ High
+	//P2700 Trans Friction Element A Apply Time Range/Perf
+	//P2701 Trans Friction Element B Apply Time Range/Perf
+	//P2702 Trans Friction Element C Apply Time Range/Perf
+	//P2703 Trans Friction Element D Apply Time Range/Perf
+	//P2704 Trans Friction Element E Apply Time Range/Perf
+	//P2705 Trans Friction Element F Apply Time Range/Perf
+	//P2706 Shift Solenoid F
+	//P2707 Shift Solenoid F Perf or Stuck Off
+	//P2708 Shift Solenoid F Stuck On
+	//P2709 Shift Solenoid F Electrical
+	//P2710 Shift Solenoid F Interm
+	//P2711 Unexpected Mechanical Gear Disengagement
+	//P2712 Hydraulic Power Unit Leakage
+	//P2713 Press Ctrl Solenoid D
+	//P2714 Press Ctrl Solenoid D Perf or Stuck Off
+	//P2715 Press Ctrl Solenoid D Stuck On
+	//P2716 Press Ctrl Solenoid D Electrical
+	//P2717 Press Ctrl Solenoid D Interm
+	//P2718 Press Ctrl Solenoid D Ctrl Circ / Open
+	//P2719 Press Ctrl Solenoid D Ctrl Circ Range/Perf
+	//P2720 Press Ctrl Solenoid D Ctrl Circ Low
+	//P2721 Press Ctrl Solenoid D Ctrl Circ High
+	//P2722 Press Ctrl Solenoid E
+	//P2723 Press Ctrl Solenoid E Perf or Stuck Off
+	//P2724 Press Ctrl Solenoid E Stuck On
+	//P2725 Press Ctrl Solenoid E Electrical
+	//P2726 Press Ctrl Solenoid E Interm
+	//P2727 Press Ctrl Solenoid E Ctrl Circ / Open
+	//P2728 Press Ctrl Solenoid E Ctrl Circ Range/Perf
+	//P2729 Press Ctrl Solenoid E Ctrl Circ Low
+	//P2730 Press Ctrl Solenoid E Ctrl Circ High
+	//P2731 Press Ctrl Solenoid F
+	//P2732 Press Ctrl Solenoid F Perf or Stuck Off
+	//P2733 Press Ctrl Solenoid F Stuck On
+	//P2734 Press Ctrl Solenoid F Electrical
+	//P2735 Press Ctrl Solenoid F Interm
+	//P2736 Press Ctrl Solenoid F Ctrl Circ/Open
+	//P2737 Press Ctrl Solenoid F Ctrl Circ Range/Perf
+	//P2738 Press Ctrl Solenoid F Ctrl Circ Low
+	//P2739 Press Ctrl Solenoid F Ctrl Circ High
+	//P2740 Trans Fluid Temp SensorB Circ
+	//P2741 Trans Fluid Temp SensorB Circ Range Perf
+	//P2742 Trans Fluid Temp SensorB Circ Low
+	//P2743 Trans Fluid Temp SensorB Circ High
+	//P2744 Trans Fluid Temp SensorB Circ Interm
+	//P2745 Intermediate Shaft Speed SensorB Circ
+	//P2746 Intermediate Shaft Speed SensorB Circ Range/Perf
+	//P2747 Intermediate Shaft Speed SensorB Circ No Signal
+	//P2748 Intermediate Shaft Speed SensorB Circ Interm
+	//P2749 Intermediate Shaft Speed Sensor C Circ
+	//P2750 Intermediate Shaft Speed Sensor C Circ Range/Perf
+	//P2751 Intermediate Shaft Speed Sensor C Circ No Signal
+	//P2752 Intermediate Shaft Speed Sensor C Circ Interm
+	//P2753 Trans Fluid Cooler Ctrl Circ/Open
+	//P2754 Trans Fluid Cooler Ctrl Circ Low
+	//P2755 Trans Fluid Cooler Ctrl Circ High
+	//P2756 Torq Conv Clutch Press Ctrl Solenoid
+	//P2757 Torq Conv Clutch Press Ctrl Solenoid Ctrl Circ Perf or Stuck Off
+	//P2758 Torq Conv Clutch Press Ctrl Solenoid Ctrl Circ Stuck On
+	//P2759 Torq Conv Clutch Press Ctrl Solenoid Ctrl Circ Electrical
+	//P2760 Torq Conv Clutch Press Ctrl Solenoid Ctrl Circ Interm
+	//P2761 Torq Conv Clutch Press Ctrl Solenoid Ctrl Circ/Open
+	//P2762 Torq Conv Clutch Press Ctrl Solenoid Ctrl Circ Range/Perf
+	//P2763 Torq Conv Clutch Press Ctrl Solenoid Ctrl Circ High
+	//P2764 Torq Conv Clutch Press Ctrl Solenoid Ctrl Circ Low
+	//P2765 Input/Turbine Speed SensorB Circ
+	//P2766 Input/Turbine Speed SensorB Circ Range/Perf
+	//P2767 Input/Turbine Speed SensorB Circ No Signal
+	//P2768 Input/Turbine Speed SensorB Circ Interm
+	//P2769 Torq Conv Clutch Circ Low
+	//P2770 Torq Conv Clutch Circ High
+	//P2771 4WD Low Switch Circ
+	//P2772 4WD Low Switch Circ Range/Perf
+	//P2773 4WD Low Switch Circ Low
+	//P2774 4WD Low Switch Circ High
+	//P2775 Upshift Switch Circ Range/Perf
+	//P2776 Upshift Switch Circ Low
+	//P2777 Upshift Switch Circ High
+	//P2778 Upshift Switch Circ Interm/Erratic
+	//P2779 Downshift Switch Circ Range/Perf
+	//P2780 Downshift Switch Circ Low
+	//P2781 Downshift Switch Circ High
+	//P2782 Downshift Switch Circ Interm/Erratic
+	//P2783 Torq Conv Temp Too High
+	//P2784 Input/Turbine Speed SensorA/B Correlation
+	//P2785 Clutch Actuator Temp Too High
+	//P2786 Gear Shift Actuator Temp Too High
+	//P2787 Clutch Temp Too High
+	//P2788 Auto Shift Manual Adaptive Learning at Limit
+	//P2789 Clutch Adaptive Learning at Limit
+	//P2790 Gate Select Direction Circ
+	//P2791 Gate Select Direction Circ Low
+	//P2792 Gate Select Direction Circ High
+	//P2793 Gear Shift Direction Circ
+	//P2794 Gear Shift Direction Circ Low
+	//P2795 Gear Shift Direction Circ High
+	//P2A00 O2 Sensor Circ Range/Perf Bank1 Sensor 1
+	//P2A01 O2 Sensor Circ Range/Perf Bank1 Sensor 2
+	//P2A02 O2 Sensor Circ Range/Perf Bank1 Sensor 3
+	//P2A03 O2 Sensor Circ Range/Perf Bank2 Sensor 1
+	//P2A04 O2 Sensor Circ Range/Perf Bank2 Sensor 2
+	//P2A05 O2 Sensor Circ Range/Perf Bank2 Sensor 3
+	//P3xxx Generic Powertrain Diagnostic Codes DTC
+	//P3400 Cylinder Deactivation Sys Bank1
+	//P3401 Cyl1 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3402 Cyl1 Deactivation/Intake Valve Ctrl Perf
+	//P3403 Cyl1 Deactivation/Intake Valve Ctrl Circ Low
+	//P3404 Cyl1 Deactivation/Intake Valve Ctrl Circ High
+	//P3405 Cyl1 Exhaust Valve Ctrl Circ/Open
+	//P3406 Cyl1 Exhaust Valve Ctrl Perf
+	//P3407 Cyl1 Exhaust Valve Ctrl Circ Low
+	//P3408 Cyl1 Exhaust Valve Ctrl Circ High
+	//P3409 Cyl2 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3410 Cyl2 Deactivation/Intake Valve Ctrl Perf
+	//P3411 Cyl2 Deactivation/Intake Valve Ctrl Circ Low
+	//P3412 Cyl2 Deactivation/Intake Valve Ctrl Circ High
+	//P3413 Cyl2 Exhaust Valve Ctrl Circ/Open
+	//P3414 Cyl2 Exhaust Valve Ctrl Perf
+	//P3415 Cyl2 Exhaust Valve Ctrl Circ Low
+	//P3416 Cyl2 Exhaust Valve Ctrl Circ High
+	//P3417 Cyl3 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3418 Cyl3 Deactivation/Intake Valve Ctrl Perf
+	//P3419 Cyl3 Deactivation/Intake Valve Ctrl Circ Low
+	//P3420 Cyl3 Deactivation/Intake Valve Ctrl Circ High
+	//P3421 Cyl3 Exhaust Valve Ctrl Circ/Open
+	//P3422 Cyl3 Exhaust Valve Ctrl Perf
+	//P3423 Cyl3 Exhaust Valve Ctrl Circ Low
+	//P3424 Cyl3 Exhaust Valve Ctrl Circ High
+	//P3425 Cyl4 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3426 Cyl4 Deactivation/Intake Valve Ctrl Perf
+	//P3427 Cyl4 Deactivation/Intake Valve Ctrl Circ Low
+	//P3428 Cyl4 Deactivation/Intake Valve Ctrl Circ High
+	//P3429 Cyl4 Exhaust Valve Ctrl Circ/Open
+	//P3430 Cyl4 Exhaust Valve Ctrl Perf
+	//P3431 Cyl4 Exhaust Valve Ctrl Circ Low
+	//P3432 Cyl4 Exhaust Valve Ctrl Circ High
+	//P3433 Cyl5 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3434 Cyl5 Deactivation/Intake Valve Ctrl Perf
+	//P3435 Cyl5 Deactivation/Intake Valve Ctrl Circ Low
+	//P3436 Cyl5 Deactivation/Intake Valve Ctrl Circ High
+	//P3437 Cyl5 Exhaust Valve Ctrl Circ/Open
+	//P3438 Cyl5 Exhaust Valve Ctrl Perf
+	//P3439 Cyl5 Exhaust Valve Ctrl Circ Low
+	//P3440 Cyl5 Exhaust Valve Ctrl Circ High
+	//P3441 Cyl6 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3442 Cyl6 Deactivation/Intake Valve Ctrl Perf
+	//P3443 Cyl6 Deactivation/Intake Valve Ctrl Circ Low
+	//P3444 Cyl6 Deactivation/Intake Valve Ctrl Circ High
+	//P3445 Cyl6 Exhaust Valve Ctrl Circ/Open
+	//P3446 Cyl6 Exhaust Valve Ctrl Perf
+	//P3447 Cyl6 Exhaust Valve Ctrl Circ Low
+	//P3448 Cyl6 Exhaust Valve Ctrl Circ High
+	//P3449 Cyl7 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3450 Cyl7 Deactivation/Intake Valve Ctrl Perf
+	//P3451 Cyl7 Deactivation/Intake Valve Ctrl Circ Low
+	//P3452 Cyl7 Deactivation/Intake Valve Ctrl Circ High
+	//P3453 Cyl7 Exhaust Valve Ctrl Circ/Open
+	//P3454 Cyl7 Exhaust Valve Ctrl Perf
+	//P3455 Cyl7 Exhaust Valve Ctrl Circ Low
+	//P3456 Cyl7 Exhaust Valve Ctrl Circ High
+	//P3457 Cyl8 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3458 Cyl8 Deactivation/Intake Valve Ctrl Perf
+	//P3459 Cyl8 Deactivation/Intake Valve Ctrl Circ Low
+	//P3460 Cyl8 Deactivation/Intake Valve Ctrl Circ High
+	//P3461 Cyl8 Exhaust Valve Ctrl Circ/Open
+	//P3462 Cyl8 Exhaust Valve Ctrl Perf
+	//P3463 Cyl8 Exhaust Valve Ctrl Circ Low
+	//P3464 Cyl8 Exhaust Valve Ctrl Circ High
+	//P3465 Cyl9 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3466 Cyl9 Deactivation/Intake Valve Ctrl Perf
+	//P3467 Cyl9 Deactivation/Intake Valve Ctrl Circ Low
+	//P3468 Cyl9 Deactivation/Intake Valve Ctrl Circ High
+	//P3469 Cyl9 Exhaust Valve Ctrl Circ/Open
+	//P3470 Cyl9 Exhaust Valve Ctrl Perf
+	//P3471 Cyl9 Exhaust Valve Ctrl Circ Low
+	//P3472 Cyl9 Exhaust Valve Ctrl Circ High
+	//P3473 Cyl10 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3474 Cyl10 Deactivation/Intake Valve Ctrl Perf
+	//P3475 Cyl10 Deactivation/Intake Valve Ctrl Circ Low
+	//P3476 Cyl10 Deactivation/Intake Valve Ctrl Circ High
+	//P3477 Cyl10 Exhaust Valve Ctrl Circ/Open
+	//P3478 Cyl10 Exhaust Valve Ctrl Perf
+	//P3479 Cyl10 Exhaust Valve Ctrl Circ Low
+	//P3480 Cyl10 Exhaust Valve Ctrl Circ High
+	//P3481 Cyl11 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3482 Cyl11 Deactivation/Intake Valve Ctrl Perf
+	//P3483 Cyl11 Deactivation/Intake Valve Ctrl Circ Low
+	//P3484 Cyl11 Deactivation/Intake Valve Ctrl Circ High
+	//P3485 Cyl11 Exhaust Valve Ctrl Circ/Open
+	//P3486 Cyl11 Exhaust Valve Ctrl Perf
+	//P3487 Cyl11 Exhaust Valve Ctrl Circ Low
+	//P3488 Cyl11 Exhaust Valve Ctrl Circ High
+	//P3489 Cyl12 Deactivation/Intake Valve Ctrl Circ/Open
+	//P3490 Cyl12 Deactivation/Intake Valve Ctrl Perf
+	//P3491 Cyl12 Deactivation/Intake Valve Ctrl Circ Low
+	//P3492 Cyl12 Deactivation/Intake Valve Ctrl Circ High
+	//P3493 Cyl12 Exhaust Valve Ctrl Circ/Open
 } obd_code_e;
 
 #endif /* OBD_ERROR_CODES_H_ */
