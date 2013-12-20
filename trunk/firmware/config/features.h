@@ -72,6 +72,11 @@
  */
 #define EFI_PROD_CODE TRUE
 
+/**
+ * Do we need Malfunction Indicator blinking logic?
+ */
+#define EFI_MALFUNCTIONAL_INDICATOR TRUE
+
 #endif /* EFI_SERIAL_OVER_USB */
 
 #endif /* FEATURES_H_ */
