@@ -301,7 +301,7 @@ public final class Histograms {
     /**
      * Appends specified statistics (main part) for logging.
      */
-    private void appendStatistics(StringBuffer sb, Statistics st) {
+    public void appendStatistics(StringBuffer sb, Statistics st, List<Long> report) {
         format(st.total_value, sb).append(" / ").append(st.total_count).append(" = ");
         format((double) st.total_value / (double) st.total_count, sb);
 
@@ -328,6 +328,8 @@ public final class Histograms {
             min++;
         // 'min' is index of interval with min sample.
         format(bounds[min], sb).append(confidence_separators[1]);
+        report.add(bounds[min]);
+
 
         long acc = 0;
         // 'acc' is accumulated number of samples in [0, min - 1].
@@ -352,13 +354,16 @@ public final class Histograms {
                         (double) (k - acc) /
                         (double) st.histogram[min];
             format(d, sb).append(confidence_separators[j + 2]);
+            report.add((long)d);
         }
 
         int max = st.histogram.length - 1;
         while (st.histogram[max] == 0)
             max--;
         // 'max' is index of interval with max sample.
-        format(bounds[max + 1] - 1, sb).append(confidence_separators[5]);
+        long maxValue = bounds[max + 1] - 1;
+        format(maxValue, sb).append(confidence_separators[5]);
+        report.add(maxValue);
     }
 
     /**
@@ -370,7 +375,7 @@ public final class Histograms {
         Statistics[] sts = sg.data.values().toArray(new Statistics[sg.data.size()]);
         sortStatistics(sg, sts);
         for (Statistics st : sts) {
-            appendStatistics(sb, st);
+            appendStatistics(sb, st, new ArrayList<Long>());
         }
         return sb.toString();
     }
