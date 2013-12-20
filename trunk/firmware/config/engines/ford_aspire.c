@@ -158,6 +158,11 @@ void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 
 	engineConfiguration2.shaftPositionEventCount = 10;
 
+	engineConfiguration->crankingSettings.coolantTempMin = 15;
+	engineConfiguration->crankingSettings.coolantTempMax = 65;
+	engineConfiguration->crankingSettings.minTempPW = 16;
+	engineConfiguration->crankingSettings.maxTempPW = 8;
+
 	setDefaultFuelMap();
 }
 #endif /* EFI_ENGINE_FORD_ASPIRE */
