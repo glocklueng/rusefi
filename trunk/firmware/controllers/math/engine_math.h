@@ -15,16 +15,6 @@ float getDefaultFuel(int rpm, float map);
 
 float getStartingFuel(int coolantTemperature);
 
-/**
- * "For ALL 4 cycle (four-stroke) engines, no matter how many cylinders, the crankshaft
- * turns twice for every turn of the camshaft."
- *
- * Cam revolution time in milliseconds = 1000 / (RPM / 60 / 2) = 120000 / RPM
- * One stroke is 90 degrees = so, we divide revolution constant by four
- */
-
-#define STROKE_TIME_CONSTANT (1000 * 60 * 2 / 4 * TICKS_IN_MS)
-
 int convertAngleToSysticks(int rpm, int angle);
 
 typedef struct {
