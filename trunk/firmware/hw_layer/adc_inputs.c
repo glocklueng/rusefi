@@ -41,6 +41,8 @@ static int adcDebugReporting = FALSE;
 
 static int internalAdcIndex[20];
 
+static int fastAdcValue;
+
 /*
  * ADC samples buffer.
  */
@@ -83,8 +85,8 @@ static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 //	/* Note, only in the ADC_COMPLETE state because the ADC driver fires an
 //	 intermediate callback when the buffer is half full.*/
 	if (adcp->state == ADC_COMPLETE) {
-		int newValue = getAvgAdcValue(0, samples_fast, ADC_GRP1_BUF_DEPTH_FAST, ADC_NUMBER_CHANNELS_FAST);
-		mapAveragingCallback(newValue);
+		fastAdcValue = getAvgAdcValue(0, samples_fast, ADC_GRP1_BUF_DEPTH_FAST, ADC_NUMBER_CHANNELS_FAST);
+		mapAveragingCallback(fastAdcValue);
 	}
 }
 
@@ -182,6 +184,9 @@ static int getAdcValueByIndex(int internalIndex) {
 }
 
 int getInternalAdcValue(int hwIndex) {
+	if (hwIndex==ADC_NUMBER_CHANNELS_FAST)
+		return fastAdcValue;
+
 	int internalIndex = internalAdcIndex[hwIndex];
 	return getAdcValueByIndex(internalIndex);
 }

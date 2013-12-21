@@ -9,6 +9,8 @@
 #include "engine_configuration.h"
 #include "main.h"
 
+#define ADC_CHANNEL_FAST_ADC 256
+
 extern EngineConfiguration2 *engineConfiguration2;
 
 /**
@@ -64,6 +66,10 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration2->crankAngleRange = 720;
 
 	engineConfiguration->crankingChargeAngle = 38;
+
+	engineConfiguration2->hasMapSensor = TRUE;
+	engineConfiguration2->mapSensorAdcChannel = ADC_CHANNEL_FAST_ADC;
+
 }
 
 static void printIntArray(int array[], int size) {
