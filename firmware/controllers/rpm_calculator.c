@@ -8,6 +8,7 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
+#include "main.h"
 #include "rpm_calculator.h"
 #include "ckp_events.h"
 #include "shaft_position_input.h"
@@ -15,7 +16,7 @@
 #include "rficonsole.h"
 #include "wave_math.h"
 #include "engine_configuration.h"
-			#include "analog_chart.h"
+#include "analog_chart.h"
 
 static rpm_s rpmState;
 
@@ -43,7 +44,7 @@ float getCrankshaftAngle(time_t time) {
 
 	float crt = getCrankshaftRevolutionTime(rpmState.rpm);
 
-	return engineConfiguration2->crankAngleRange * timeSinceZeroAngle / crt;
+	return 360 * timeSinceZeroAngle / crt;
 }
 
 int getRevolutionCounter(void) {
@@ -57,7 +58,9 @@ int getRevolutionCounter(void) {
  */
 static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	if (index != 0) {
+#if EFI_CHART_POSITION_SENSOR
 		acAddData(getCrankshaftAngle(chTimeNow()), index);
+#endif
 		return;
 	}
 	rpmState.revolutionCounter++;
@@ -81,6 +84,9 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 		}
 	}
 	rpmState.lastRpmEventTime = now;
+#if EFI_CHART_POSITION_SENSOR
+	acAddData(getCrankshaftAngle(now), index);
+#endif
 }
 
 void initRpmCalculator(void) {

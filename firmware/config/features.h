@@ -77,6 +77,13 @@
  */
 #define EFI_MALFUNCTIONAL_INDICATOR TRUE
 
+/**
+ * Engineering feature: Do we want to chart position sensor events?
+ */
+//#define EFI_CHART_POSITION_SENSOR TRUE
+
+#define EFI_CHART_MAP_SENSOR TRUE
+
 #endif /* EFI_SERIAL_OVER_USB */
 
 #endif /* FEATURES_H_ */
