@@ -88,6 +88,9 @@ typedef struct {
 	 */
 	float fixedModeTiming;
 
+	int hasMapSensor;
+	int mapSensorAdcChannel;
+
 	Thermistor iat;
 	Thermistor clt;
 	/**

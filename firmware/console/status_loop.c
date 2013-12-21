@@ -27,6 +27,9 @@
 #include "main_loop.h"
 #include "engine_math.h"
 #include "idle_thread.h"
+#include "engine_configuration.h"
+
+extern EngineConfiguration2 * engineConfiguration2;
 
 #define INITIAL_FULL_LOG TRUE
 //#define INITIAL_FULL_LOG FALSE
@@ -69,10 +72,10 @@ static void printSensors(void) {
 	myfloat maf = getMaf();
 	debugFloat(&logger, "maf", maf, 2);
 
-#if ENGINE_HAS_MAP_SENSOR
-	myfloat map = getMap();
-	logFloat(&logger, LP_MAP, map);
-#endif
+	if (engineConfiguration2->hasMapSensor) {
+		myfloat map = getMap();
+		logFloat(&logger, LP_MAP, map);
+	}
 
 	myfloat tps = getTPS();
 	logInt(&logger, LP_THROTTLE, tps);
@@ -98,7 +101,7 @@ void onDbgPanic(void) {
 }
 
 int hasFatalError(void) {
-	return dbg_panic_msg != NULL ;
+	return dbg_panic_msg != NULL;
 }
 
 static void checkIfShouldHalt(void) {

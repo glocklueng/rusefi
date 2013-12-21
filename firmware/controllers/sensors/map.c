@@ -8,6 +8,8 @@
 #define Honda_Denso183_Max 182.78
 #define Honda_Denso183_Range (Honda_Denso183_Max - Honda_Denso183_Min)
 
+extern EngineConfiguration2 * engineConfiguration2;
+
 /**
  * @brief	MAP value decoded for a 1.83 Honda sensor
  * @returns kPa value
@@ -27,6 +29,6 @@ float getMapByVoltage(float voltage) {
 }
 
 myfloat getMap(void) {
-	float voltage = getVoltage(ADC_LOGIC_MAP);
+	float voltage = getVoltage(engineConfiguration2->mapSensorAdcChannel);
 	return getMapByVoltage(voltage);
 }
