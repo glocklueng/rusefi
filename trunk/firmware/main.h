@@ -37,6 +37,8 @@ float getFuelMs(int rpm);
  */
 #define TICKS_IN_MS  (CH_FREQUENCY / 1000)
 
+#define UTILITY_THREAD_STACK_SIZE 512
+
 /**
  * @brief   Current system time in seconds.
  */
