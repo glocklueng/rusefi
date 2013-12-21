@@ -15,13 +15,25 @@ static Logging logging;
 static int pendingData = FALSE;
 
 void acAddData(float angle, float value) {
-	if (getRevolutionCounter() % 20 != 0)
+	if (getRevolutionCounter() % 20 != 0) {
+		if (pendingData) {
+			// message terminator
+			appendPrintf(&logging, DELIMETER);
+			// output pending data
+			scheduleLogging(&logging);
+			pendingData = FALSE;
+		}
 		return;
+	}
+	if (!pendingData) {
+		pendingData = TRUE;
+		resetLogging(&logging);
+		// message header
+		appendPrintf(&logging, "msg%s", DELIMETER);
+		appendPrintf(&logging, "analog_chart|");
+	}
 
-	resetLogging(&logging);
-	appendPrintf(&logging, "msg%s", DELIMETER);
-	appendPrintf(&logging, "%s|%f|%f%s", "angle", angle, value, DELIMETER);
-	scheduleLogging(&logging);
+	appendPrintf(&logging, "%f|%f|", angle, value);
 }
 
 void initAnalogChart(void) {
