@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * Date: 6/23/13
- * (c) Andrey Belomutskiy
+ * Andrey Belomutskiy (c) 2012-2013
  */
 public class WavePanel extends JPanel {
     public static final String DELI = "!";

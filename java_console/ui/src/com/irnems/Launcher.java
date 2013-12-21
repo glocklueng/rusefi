@@ -2,6 +2,7 @@ package com.irnems;
 
 import com.irnems.core.MessagesCentral;
 import com.irnems.ui.*;
+import com.rusefi.AnalogChartPanel;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
 
@@ -25,13 +26,15 @@ public class Launcher extends FrameHelper {
         RpmPanel rpmPanel = new RpmPanel();
         tabbedPane.addTab("Main", rpmPanel.createRpmPanel());
         tabbedPane.addTab("Gauges", new GaugePanel());
-        tabbedPane.addTab("Sniffer", new WavePanel());
+        tabbedPane.addTab("Digital Sniffer", new WavePanel());
+        tabbedPane.addTab("Analog Sniffer", new AnalogChartPanel());
+
 //        tabbedPane.addTab("ADC", new AdcPanel(new BooleanInputsModel()).createAdcPanel());
 //        tabbedPane.add("Emulation Map", EcuStimulator.panel);
 //        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
         tabbedPane.add("MessagesCentral", new MsgPanel());
 
-        tabbedPane.setSelectedIndex(0);
+        tabbedPane.setSelectedIndex(3);
 
         for (String p : SerialPortList.getPortNames())
             MessagesCentral.getInstance().postMessage(Launcher.class, "Available port: " + p);
