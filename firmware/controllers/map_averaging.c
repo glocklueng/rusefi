@@ -16,7 +16,7 @@
 #include "rficonsole_logic.h"
 #include "engine_state.h"
 
-#define FAST_MAP_CHART_SKIP_FACTOR 32
+#define FAST_MAP_CHART_SKIP_FACTOR 16
 
 static Logging logger;
 
