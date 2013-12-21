@@ -12,14 +12,20 @@
 #include "shaft_position_input.h"
 #include "adc_inputs.h"
 #include "map.h"
+#include "analog_chart.h"
+#include "rficonsole_logic.h"
+#include "engine_state.h"
+
+#define FAST_MAP_CHART_SKIP_FACTOR 32
 
 static Logging logger;
 
-static volatile int fastCounter = 0;
+static volatile int perRevolutionCounter = 0;
+static volatile int perRevolution = 0;
+
 static volatile int fastAccumulator = 0;
 static volatile int fastMax = 0;
 static volatile int fastMin = 9999999;
-static int adcCallbackCounter_fast = 0;
 
 static float atmosphericPressure;
 static float currentMaxPressure;
@@ -30,10 +36,13 @@ float getAtmosphericPressure(void) {
 
 void mapAveragingCallback(adcsample_t value) {
 	/* Calculates the average values from the ADC samples.*/
-	adcCallbackCounter_fast++;
+	perRevolutionCounter++;
 
 	float voltage = adcToVolts(value);
 	float currentPressure = getMapByVoltage(voltage);
+
+	if (perRevolutionCounter % FAST_MAP_CHART_SKIP_FACTOR == 0)
+		acAddData(getCrankshaftAngle(chTimeNow()), currentPressure);
 
 	currentMaxPressure = max(currentMaxPressure, currentPressure);
 
@@ -45,7 +54,6 @@ void mapAveragingCallback(adcsample_t value) {
 	fastAccumulator += value;
 	fastMax = max(fastMax, value);
 	fastMin = min(fastMin, value);
-	fastCounter++;
 	chSysUnlockFromIsr()
 	;
 
@@ -58,12 +66,20 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	if (index != 0)
 		return;
 
+	perRevolution = perRevolutionCounter;
+	perRevolutionCounter = 0;
+
 	atmosphericPressure = currentMaxPressure;
 	currentMaxPressure = 0;
 
 }
 
+static void showMapStats(void) {
+	scheduleSimpleMsg(&logger, "per revolution", perRevolution);
+}
+
 void initMapAveraging(void) {
 	initLogging(&logger, "Map Averaging");
 	registerShaftPositionListener(&shaftPositionCallback, "rpm reporter");
+	addConsoleAction("faststat", showMapStats);
 }
