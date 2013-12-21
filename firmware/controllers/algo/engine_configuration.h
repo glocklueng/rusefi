@@ -12,6 +12,7 @@
 #include "fuel_map.h"
 #include "allsensors.h"
 #include "engine_math.h"
+#include "can_hw.h"
 
 #define CLT_CURVE_SIZE 16
 #define IAT_CURVE_SIZE 16
@@ -111,6 +112,8 @@ typedef struct {
 	float rpmMultiplier;
 
 	int crankAngleRange;
+
+	can_nbc_e can_nbc_type;
 
 } EngineConfiguration2;
 
