@@ -28,7 +28,7 @@
 // todo: move this to EngineConfiguration2 for now
 
 extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration2 *engineConfiguration2;
 
 static cyclic_buffer ignitionErrorDetection;
 
@@ -73,7 +73,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 	if (!isInjectionEnabled)
 		return;
 
-	if (eventIndex < 0 || eventIndex >= engineConfiguration2.shaftPositionEventCount) {
+	if (eventIndex < 0 || eventIndex >= engineConfiguration2->shaftPositionEventCount) {
 		scheduleSimpleMsg(&logger, "ERROR: eventIndex ", eventIndex);
 		return;
 	}
@@ -165,7 +165,7 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
  * This is the main entry point into the primary shaft signal handler signal. Both injection and ignition are controlled from this method.
  */
 static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
-	if (eventIndex >= engineConfiguration2.shaftPositionEventCount) {
+	if (eventIndex >= engineConfiguration2->shaftPositionEventCount) {
 		warning("unexpected eventIndex=", eventIndex);
 		return;
 	}

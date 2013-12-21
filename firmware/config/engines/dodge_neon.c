@@ -13,7 +13,7 @@
 #include "engine_configuration.h"
 #include "main_loop.h"
 
-extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration2 *engineConfiguration2;
 
 void configureShaftPositionEmulatorShape(PwmConfig *state) {
 

@@ -22,7 +22,7 @@
 #include "engine_controller.h"
 #include "engine_configuration.h"
 
-extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration2 *engineConfiguration2;
 extern EngineConfiguration *engineConfiguration;
 
 /**
@@ -156,7 +156,7 @@ void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->ignitonOffset = 35;
 	engineConfiguration->rpmHardLimit = 7000;
 
-	engineConfiguration2.shaftPositionEventCount = 10;
+	engineConfiguration2->shaftPositionEventCount = 10;
 
 	engineConfiguration->crankingSettings.coolantTempMin = 15;
 	engineConfiguration->crankingSettings.coolantTempMax = 65;

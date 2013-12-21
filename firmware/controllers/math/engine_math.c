@@ -53,7 +53,7 @@
 #define MAX_STARTING_FUEL 15
 #define MIN_STARTING_FUEL 8
 extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration2 *engineConfiguration2;
 
 float getStartingFuel(int coolantTemperature) {
 	// these magic constants are in Celsius
@@ -69,9 +69,15 @@ float getStartingFuel(int coolantTemperature) {
 			coolantTemperature);
 }
 
-// todo: the problem with this method is that it returns CAMSHAFT angle
-int convertAngleToSysticks(int rpm, int angle) {
-	float temp = 1000.0 * 60 / engineConfiguration2.rpmMultiplier * TICKS_IN_MS;
+/**
+ * @return number of system it needed for one crankshaft revolution
+ */
+float getCrankshaftRevolutionTime(int rpm) {
+	return 1000.0 * 60 * TICKS_IN_MS / rpm;
+}
 
-	return (int) (angle * temp / 360 / rpm);
+// todo: the problem with this method is that it takes CAMSHAFT angle
+int convertAngleToSysticks(int rpm, int angle) {
+
+	return (int) (angle * getCrankshaftRevolutionTime(rpm) / engineConfiguration2->rpmMultiplier / 360);
 }

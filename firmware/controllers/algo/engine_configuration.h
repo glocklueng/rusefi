@@ -107,6 +107,8 @@ typedef struct {
 
 	float rpmMultiplier;
 
+	int crankAngleRange;
+
 } EngineConfiguration2;
 
 void setDefaultConfiguration(EngineConfiguration *engineConfiguration);

@@ -19,7 +19,7 @@
 #include "engine_configuration.h"
 
 extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration2 *engineConfiguration2;
 
 /**
  * http://en.wikipedia.org/wiki/Voltage_divider
@@ -88,7 +88,7 @@ myfloat getTemperatureC(Thermistor *thermistor) {
 }
 
 myfloat getCoolantTemperature(void) {
-	return getTemperatureC(&engineConfiguration2.clt);
+	return getTemperatureC(&engineConfiguration2->clt);
 }
 
 void setThermistorConfiguration(ThermistorConf * tc, float temp1, float r1, float temp2, float r2, float temp3,
@@ -125,7 +125,7 @@ void prepareThermistorCurve(ThermistorConf * config) {
 }
 
 myfloat getIntakeAirTemperature(void) {
-	return getTemperatureC(&engineConfiguration2.iat);
+	return getTemperatureC(&engineConfiguration2->iat);
 }
 
 static void initThermistorCurve(Thermistor * t, ThermistorConf *config, int channel) {
@@ -135,9 +135,9 @@ static void initThermistorCurve(Thermistor * t, ThermistorConf *config, int chan
 }
 
 void initThermistors(void) {
-	initThermistorCurve(&engineConfiguration2.clt, &engineConfiguration->cltThermistorConf,
+	initThermistorCurve(&engineConfiguration2->clt, &engineConfiguration->cltThermistorConf,
 			ADC_LOGIC_COOLANT);
-	initThermistorCurve(&engineConfiguration2.iat, &engineConfiguration->iatThermistorConf,
+	initThermistorCurve(&engineConfiguration2->iat, &engineConfiguration->iatThermistorConf,
 			ADC_LOGIC_AIR);
 }
 #endif /* THERMISTORS_C_ */

@@ -25,6 +25,7 @@
 #include "engine_configuration.h"
 #include "wave_analyzer.h"
 #include "allsensors.h"
+#include "analog_chart.h"
 #include "electronic_throttle.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
@@ -41,7 +42,8 @@ static VirtualTimer fuelPumpTimer;
 
 static Logging logger;
 
-EngineConfiguration2 engineConfiguration2;
+static EngineConfiguration2 ec2;
+EngineConfiguration2 * engineConfiguration2 = &ec2;
 
 int isCrankingR(int rpm) {
 	return rpm > 0 && rpm < engineConfiguration->crankingSettings.crankingRpm;
@@ -100,6 +102,8 @@ void initEngineContoller(void) {
 
 	initSettings();
 	initSensors();
+
+	initAnalogChart();
 
 #ifdef EFI_WAVE_ANALYZER
 	initWaveAnalyzer();
