@@ -1,5 +1,5 @@
 /**
- * @file	adc_averaging.c
+ * @file	map_averaging.c
  *
  * @date Dec 11, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
