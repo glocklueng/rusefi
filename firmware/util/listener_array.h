@@ -9,7 +9,7 @@
 #define LISTENER_ARRAY_H_
 
 
-#define MAX_INT_LISTENER_COUNT 5
+#define MAX_INT_LISTENER_COUNT 15
 
 typedef void (*IntListener)(int value);
 typedef void (*IntIntListener)(int value1, int value2);

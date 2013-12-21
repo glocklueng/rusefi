@@ -28,6 +28,7 @@
 #include "analog_chart.h"
 #include "electronic_throttle.h"
 #include "malfunction_indicator.h"
+#include "map_averaging.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -133,6 +134,7 @@ void initEngineContoller(void) {
 
 	initElectronicThrottle();
 	initMalfunctionIndicator();
+	initMapAveraging();
 
 	/**
 	 * This method initialized the main listener which actually runs injectors & ignition
