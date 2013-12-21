@@ -34,12 +34,16 @@ typedef struct {
 	char *buffer;
 	char *linePointer;
 	int bufferSize;
+	volatile int isInitialized;
 } Logging;
 
 void lockOutputBuffer(void);
 void unlockOutputBuffer(void);
 
 void initIntermediateLoggingBuffer(void);
+int loggingSize(Logging *logging);
+
+int isInitialized(Logging *logging);
 
 void initLogging(Logging *logging, char *name);
 void initLoggingExt(Logging *logging, char *name, char *buffer, int bufferSize);
