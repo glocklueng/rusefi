@@ -86,7 +86,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 	if (events.size == 0)
 		return;
 
-	scheduleSimpleMsg(&logger, "eventId size=", events.size);
+//	scheduleSimpleMsg(&logger, "eventId size=", events.size);
 
 	int rpm = getCurrentRpm();
 
@@ -153,7 +153,7 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	if (events.size == 0)
 		return;
 
-	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
+//	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
 
 	for (int i = 0; i < events.size; i++) {
 		ActuatorEvent *event = &events.events[i];

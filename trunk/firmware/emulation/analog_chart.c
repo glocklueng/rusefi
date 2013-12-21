@@ -9,7 +9,7 @@
 #include "rpm_calculator.h"
 #include "analog_chart.h"
 
-static char LOGGING_BUFFER[2000];
+static char LOGGING_BUFFER[5000];
 static Logging logging;
 
 static int pendingData = FALSE;
