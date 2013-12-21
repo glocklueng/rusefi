@@ -20,8 +20,6 @@
 
 #define EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR TRUE
 
-#define RPM_MULT (1)
-
 #define EFI_ENGINE_ID "Ford Fiesta"
 
 #define NUMBER_OF_CYLINDERS 4

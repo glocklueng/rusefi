@@ -14,9 +14,9 @@
 #include "main_loop.h"
 #include "datalogging.h"
 #include "pinout.h"
+#include "engine_configuration.h"
 
-// because each cam revolution is half of crank revolution
-#define EXTRA_RPM_COEFF (1.0 / 2)
+extern EngineConfiguration2 engineConfiguration2;
 
 static Logging logger;
 static volatile int deRpm = 0; // distributor RPM is camshaft RPM
@@ -28,7 +28,7 @@ static PwmConfig configuration;
 #endif
 
 void setRevolutionPeriod(int value) {
-	deRpm = value * RPM_MULT;
+	deRpm = value * engineConfiguration2.rpmMultiplier;
 	myfloat gRpm = deRpm / 60.0; // per minute converted to per second
 	if (gRpm == 0) {
 		configuration.period = 0;

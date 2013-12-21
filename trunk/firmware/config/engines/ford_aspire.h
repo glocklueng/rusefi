@@ -35,10 +35,6 @@
 #define ENGINE_HAS_COOLANT_SENSOR TRUE
 #define ENGINE_HAS_MAP_SENSOR TRUE
 
-// be careful not to put brackets around the value, otherwise integer math would trigger
-// and you would get zero multiplier
-#define RPM_MULT 0.5
-
 #define EFI_SHAFT_POSTION_NEEDS_SECONDARY TRUE
 
 #endif /* EFI_ENGINE_FORD_ASPIRE */

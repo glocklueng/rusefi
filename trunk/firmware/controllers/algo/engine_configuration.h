@@ -96,6 +96,17 @@ typedef struct {
 	 * TODO with eliminating RPM_MULT magic constant
 	 */
 	int shaftPositionEventCount;
+
+	/**
+	 * This magic constant is about four-stroke engines with camshaft position sensors.
+	 * On any four stroke engine, each revolution of the camshaft is two revolutions
+	 * of the crankshaft. If camshaft position is our primary sensor, we use this multiplier
+	 * to convert from camshaft angles to crankshaft angles. All angels across the system
+	 * should be crankshaft angles.
+	 */
+
+	float rpmMultiplier;
+
 } EngineConfiguration2;
 
 void setDefaultConfiguration(EngineConfiguration *engineConfiguration);

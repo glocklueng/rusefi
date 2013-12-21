@@ -40,6 +40,9 @@ void configureEngineEventHandler(EventHandlerConfiguration *config) {
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 
+	// only crankshaft sensor so far
+	engineConfiguration2.rpmMultiplier = 1;
+
 	engineConfiguration2.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
 }
 

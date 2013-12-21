@@ -9,6 +9,13 @@
 #ifndef RPM_REPORTER_H_
 #define RPM_REPORTER_H_
 
+#include <time.h>
+
+typedef struct {
+	volatile int rpm;
+	volatile time_t lastRpmEventTime;
+} rpm_s;
+
 /**
  * @brief   Initialize RPM calculator
  */
