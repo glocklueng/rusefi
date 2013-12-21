@@ -14,6 +14,11 @@
 typedef struct {
 	volatile int rpm;
 	volatile time_t lastRpmEventTime;
+	/**
+	 * This counter is incremented with each revolution of one of the shafts. Could be
+	 * crankshaft could be camshaft.
+	 */
+	volatile int revolutionCounter;
 } rpm_s;
 
 /**
@@ -24,6 +29,7 @@ void initRpmCalculator(void);
  * @brief   Current RPM
  */
 int getCurrentRpm(void);
+int getRevolutionCounter(void);
 int isRunning(void);
 
 #endif /* RPM_REPORTER_H_ */
