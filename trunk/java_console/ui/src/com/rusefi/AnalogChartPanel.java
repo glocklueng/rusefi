@@ -2,10 +2,9 @@ package com.rusefi;
 
 import com.irnems.FileLog;
 import com.irnems.core.MessagesCentral;
-import com.irnems.core.Sensor;
-import com.irnems.core.SensorCentral;
 import com.irnems.ui.RpmModel;
 import com.irnems.ui.UiUtils;
+import com.irnems.ui.widgets.UpDownImage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,13 +18,13 @@ import java.util.List;
  * Andrey Belomutskiy (c) 2012-2013
  */
 public class AnalogChartPanel extends JPanel {
+    private static final String KEY = "analog_chart";
+
     private final TreeMap<Double, Double> values = new TreeMap<Double, Double>();
+    private final AnalogChart analogChart = new AnalogChart();
 
     private double minX;
     private double maxX;
-
-    private static final String KEY = "analog_chart";
-
     private double minY;
     private double maxY;
 
@@ -42,10 +41,10 @@ public class AnalogChartPanel extends JPanel {
                 unpackValues(values, message);
 
                 processValues();
+                UpDownImage.trueRepaint(analogChart);
+
             }
         });
-
-        final AnalogChart analogChart = new AnalogChart();
 
         JPanel upperPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
