@@ -37,14 +37,6 @@ static CANTxFrame txmsg;
 static int engine_rpm = 0;
 static int engine_clt = 0;
 
-/**
- * e46 data is from http://forums.bimmerforums.com/forum/showthread.php?1887229
- */
-#define CAN_BMW_E46_SPEED 0x153
-#define CAN_BMW_E46_RPM 0x316
-#define CAN_BMW_E46_DME2 0x329
-#define CAN_BMW_E46_CLUSTER_STATUS 0x613
-
 static void printPacket(CANRxFrame *rx) {
 	scheduleSimpleMsg(&logger, "GOT FMI ", rx->FMI);
 	scheduleSimpleMsg(&logger, "GOT TIME ", rx->TIME);
@@ -103,8 +95,7 @@ static void canDashboardBMW(void) {
 
 static void canDashboardFiat(void) {
 	//Fiat Dashboard
-	// todo: replace this magic constant with a macros
-	commonTxInit(0x561);
+	commonTxInit(CAN_FIAT_MOTOR_INFO);
 	setShortValue(&txmsg, engine_clt - 40, 3); //Coolant Temp
 	setShortValue(&txmsg, engine_rpm / 32, 6); //RPM
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
@@ -112,18 +103,18 @@ static void canDashboardFiat(void) {
 
 static void canDashboardVAG(void) {
 	//VAG Dashboard
-	commonTxInit(0x280);
+	commonTxInit(CAN_VAG_RPM);
 	setShortValue(&txmsg, engine_rpm * 4, 2); //RPM
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 
-	commonTxInit(0x289);
+	commonTxInit(CAN_VAG_CLT);
 	setShortValue(&txmsg, (engine_clt + 48.373) / 0.75, 1); //Coolant Temp
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 }
 
 // todo: 'typeOfBCN' should become a enum
-static void canInfoBCNBroadcast(int typeOfBCN) {
-	switch (typeOfBCN) {
+static void canInfoNBCBroadcast(int typeOfNBC) {
+	switch (typeOfNBC) {
 	case 0:
 		canDashboardBMW();
 		break;
@@ -150,7 +141,7 @@ static msg_t canThread(void *arg) {
 		engine_rpm = getCurrentRpm();
 		engine_clt = getCoolantTemperature();
 
-		canInfoBCNBroadcast(0);
+		canInfoNBCBroadcast(0);
 		chThdSleepMilliseconds(50);
 	}
 	return -1;
