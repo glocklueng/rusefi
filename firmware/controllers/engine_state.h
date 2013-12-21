@@ -10,6 +10,6 @@
 #define ENGINE_STATE_H_
 
 #include "allsensors.h"
-int getCurrentRpm(void);
+#include "rpm_calculator.h"
 
 #endif /* ENGINE_STATE_H_ */
