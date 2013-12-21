@@ -86,6 +86,7 @@ public class EngineState {
         addDoubleSensor("period1", Sensor.PERIOD0);
         addDoubleSensor("duty0", Sensor.DUTY0);
         addDoubleSensor("duty1", Sensor.DUTY1);
+        addDoubleSensor("timing", Sensor.DUTY1);
 
         addDoubleSensor("idl", Sensor.IDLE_SWITCH);
 

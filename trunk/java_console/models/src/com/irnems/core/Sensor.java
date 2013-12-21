@@ -9,6 +9,7 @@ import eu.hansolo.steelseries.tools.BackgroundColor;
 public enum Sensor {
     RPM("RPM"),
     MAP("MAP"),
+    TIMING("Timing"),
     THROTTLE("throttle", "%", 100),
     COOLANT("coolant", "F", 300),
     COOLANT_WIDTH("c w", "", 30),
