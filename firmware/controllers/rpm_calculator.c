@@ -15,10 +15,11 @@
 #include "rficonsole.h"
 #include "wave_math.h"
 #include "engine_configuration.h"
+			#include "analog_chart.h"
 
 static rpm_s rpmState;
 
-extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration2 *engineConfiguration2;
 
 /**
  * @return true if there was a full shaft revolution within the last second
@@ -35,13 +36,31 @@ int getCurrentRpm() {
 }
 
 /**
+ * @return Current crankshaft angle, 0 to 720 for four-stroke
+ */
+float getCrankshaftAngle(time_t time) {
+	int timeSinceZeroAngle = overflowDiff(time, rpmState.lastRpmEventTime);
+
+	float crt = getCrankshaftRevolutionTime(rpmState.rpm);
+
+	return engineConfiguration2->crankAngleRange * timeSinceZeroAngle / crt;
+}
+
+int getRevolutionCounter(void) {
+	return rpmState.revolutionCounter;
+}
+
+/**
  * @brief Shaft position callback used by RPM calculation logic.
  *
  * This callback is invoked on interrupt thread.
  */
 static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
-	if (index != 0)
+	if (index != 0) {
+		acAddData(getCrankshaftAngle(chTimeNow()), index);
 		return;
+	}
+	rpmState.revolutionCounter++;
 
 	time_t now = chTimeNow();
 
@@ -58,7 +77,7 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 			// / 4 because each cylinder sends a signal
 			// need to measure time from the previous non-skipped event
 
-			rpmState.rpm = 60000 * TICKS_IN_MS / engineConfiguration2.rpmMultiplier / diff;
+			rpmState.rpm = 60000 * TICKS_IN_MS / engineConfiguration2->rpmMultiplier / diff;
 		}
 	}
 	rpmState.lastRpmEventTime = now;
