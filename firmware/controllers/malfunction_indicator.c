@@ -10,6 +10,7 @@
 
 #include "main.h"
 #include "malfunction_indicator.h"
+#include "malfunction_central.h"
 
 
 static WORKING_AREA(mfiThreadStack, UTILITY_THREAD_STACK_SIZE);	// declare thread
