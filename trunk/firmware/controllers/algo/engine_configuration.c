@@ -9,7 +9,7 @@
 #include "engine_configuration.h"
 #include "main.h"
 
-extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration2 *engineConfiguration2;
 
 /**
  * @brief	Global default engine configuration
@@ -41,11 +41,11 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 		}
 	}
 
-	engineConfiguration2.clt.channel = ADC_LOGIC_COOLANT;
+	engineConfiguration2->clt.channel = ADC_LOGIC_COOLANT;
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 32, 9500, 75, 2100, 120, 1000);
 	engineConfiguration->cltThermistorConf.bias_resistor =  1500;
 
-	engineConfiguration2.iat.channel = ADC_LOGIC_AIR;
+	engineConfiguration2->iat.channel = ADC_LOGIC_AIR;
 	setThermistorConfiguration(&engineConfiguration->iatThermistorConf, 32, 9500, 75, 2100, 120, 1000);
 // todo: this value is way off! I am pretty sure temp coeffs are off also
 	engineConfiguration->iatThermistorConf.bias_resistor = 2700;
@@ -53,7 +53,15 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 	engineConfiguration->crankingSettings.crankingRpm = 400;
 
-	engineConfiguration2.rpmMultiplier = 0.5;
+	/**
+	 * 0.5 means primary position sensor is on a camshaft
+	 */
+	engineConfiguration2->rpmMultiplier = 0.5;
+
+	/**
+	 * 720 is the range for four stroke
+	 */
+	engineConfiguration2->crankAngleRange = 720;
 
 	engineConfiguration->crankingChargeAngle = 38;
 }

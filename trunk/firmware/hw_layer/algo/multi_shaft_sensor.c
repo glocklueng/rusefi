@@ -21,13 +21,13 @@
 static Logging logger;
 static cyclic_buffer errorDetection;
 
-extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration2 *engineConfiguration2;
 
 void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaftPositionState) {
 	shaftPositionState->shaft_is_synchronized = TRUE;
 
 	if (signal == SHAFT_PRIMARY_UP) {
-		int isDecodingError = shaftPositionState->current_index != engineConfiguration2.shaftPositionEventCount - 1;
+		int isDecodingError = shaftPositionState->current_index != engineConfiguration2->shaftPositionEventCount - 1;
 		cbAdd(&errorDetection, isDecodingError);
 
 		shaftPositionState->current_index = 0;

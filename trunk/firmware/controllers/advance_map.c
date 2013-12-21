@@ -13,7 +13,7 @@
 #include "engine_controller.h"
 
 extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration2 *engineConfiguration2;
 
 #define AD_RPM_COUNT 23
 static float ad_rpm_table[] = {400.0, 650.0, 900.0, 1150.0, 1400.0, 1650.0, 1900.0, 2150.0, 2400.0, 2650.0, 2900.0, 3150.0, 3400.0, 3650.0, 3900.0, 4150.0, 4400.0, 4650.0, 4900.0, 5150.0, 5400.0, 5650.0, 5900.0};

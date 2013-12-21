@@ -16,7 +16,7 @@
 #include "pinout.h"
 #include "engine_configuration.h"
 
-extern EngineConfiguration2 engineConfiguration2;
+extern EngineConfiguration2 *engineConfiguration2;
 
 static Logging logger;
 static volatile int deRpm = 0; // distributor RPM is camshaft RPM
@@ -28,7 +28,7 @@ static PwmConfig configuration;
 #endif
 
 void setRevolutionPeriod(int value) {
-	deRpm = value * engineConfiguration2.rpmMultiplier;
+	deRpm = value * engineConfiguration2->rpmMultiplier;
 	myfloat gRpm = deRpm / 60.0; // per minute converted to per second
 	if (gRpm == 0) {
 		configuration.period = 0;

@@ -16,6 +16,7 @@ float getDefaultFuel(int rpm, float map);
 float getStartingFuel(int coolantTemperature);
 
 int convertAngleToSysticks(int rpm, int angle);
+float getCrankshaftRevolutionTime(int rpm);
 
 typedef struct {
 	float coolantTempMin;
