@@ -163,6 +163,7 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	emulation \
 	controllers \
 	controllers/sensors \
+	controllers/system \
 	controllers/algo \
 	controllers/math 
 	
