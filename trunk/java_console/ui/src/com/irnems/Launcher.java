@@ -34,7 +34,7 @@ public class Launcher extends FrameHelper {
 //        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
         tabbedPane.add("MessagesCentral", new MsgPanel());
 
-        tabbedPane.setSelectedIndex(3);
+        tabbedPane.setSelectedIndex(0);
 
         for (String p : SerialPortList.getPortNames())
             MessagesCentral.getInstance().postMessage(Launcher.class, "Available port: " + p);
