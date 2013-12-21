@@ -12,7 +12,7 @@
 #include "fuel_map.h"
 #include "allsensors.h"
 #include "engine_math.h"
-#include "can_hw.h"
+#include "can_header.h"
 
 #define CLT_CURVE_SIZE 16
 #define IAT_CURVE_SIZE 16

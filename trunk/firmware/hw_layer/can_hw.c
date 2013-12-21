@@ -15,6 +15,8 @@
 #include "rficonsole_logic.h"
 #include "string.h"
 #include "engine_state.h"
+#include "can_header.h"
+
 
 static Logging logger;
 static WORKING_AREA(canTreadStack, 512);
