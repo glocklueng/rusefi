@@ -26,9 +26,6 @@
 
 #define EFI_ENGINE_ID "Dodge Neon"
 
-// todo: do we actually need this?...
-#define RPM_MULT 0.5
-
 #endif /* EFI_ENGINE_DODGE_NEON */
 
 #endif /* DODGE_NEON_H_ */

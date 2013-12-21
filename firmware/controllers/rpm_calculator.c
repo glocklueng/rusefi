@@ -14,56 +14,61 @@
 #include "datalogging.h"
 #include "rficonsole.h"
 #include "wave_math.h"
+#include "engine_configuration.h"
 
-static volatile int rpm = 0;
-// we need this initial to have not_running at first invocation
-static volatile time_t lastRpmEventTime = -10 * CH_FREQUENCY;
+static rpm_s rpmState;
+
+extern EngineConfiguration2 engineConfiguration2;
 
 /**
  * @return true if there was a full shaft revolution within the last second
  */
 int isRunning() {
 	time_t now = chTimeNow();
-	return overflowDiff(now, lastRpmEventTime) < CH_FREQUENCY;
+	return overflowDiff(now, rpmState.lastRpmEventTime) < CH_FREQUENCY;
 }
 
 int getCurrentRpm() {
 	if (!isRunning())
 		return 0;
-	return rpm;
+	return rpmState.rpm;
 }
 
+/**
+ * @brief Shaft position callback used by RPM calculation logic.
+ *
+ * This callback is invoked on interrupt thread.
+ */
 static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
-	// this callback is invoked on interrupt thread
 	if (index != 0)
 		return;
-
-//	logStartLine(&logger, 0);
-//	msgInt(&logger, "msg,event ", rpmEventCounter++);
-//	logPending(&log);
 
 	time_t now = chTimeNow();
 
 	int hadRpmRecently = isRunning();
-	;
 
 	if (hadRpmRecently) {
-		int diff = now - lastRpmEventTime;
+		int diff = now - rpmState.lastRpmEventTime;
 		if (diff == 0) {
 			// unexpected state. Noise?
-			rpm = -1;
+			rpmState.rpm = -1;
 		} else {
 			// 60000 because per minute
 			// * 2 because each revolution of crankshaft consists of two camshaft revolutions
 			// / 4 because each cylinder sends a signal
 			// need to measure time from the previous non-skipped event
 
-			rpm = 60000 * TICKS_IN_MS / RPM_MULT / diff;
+			rpmState.rpm = 60000 * TICKS_IN_MS / engineConfiguration2.rpmMultiplier / diff;
 		}
 	}
-	lastRpmEventTime = now;
+	rpmState.lastRpmEventTime = now;
 }
 
-void initRpmCalculator() {
+void initRpmCalculator(void) {
+	rpmState.rpm = 0;
+
+	// we need this initial to have not_running at first invocation
+	rpmState.lastRpmEventTime = -10 * CH_FREQUENCY;
+
 	registerShaftPositionListener(&shaftPositionCallback, "rpm reporter");
 }

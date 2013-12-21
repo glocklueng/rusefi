@@ -53,6 +53,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 	engineConfiguration->crankingSettings.crankingRpm = 400;
 
+	engineConfiguration2.rpmMultiplier = 0.5;
 
 	engineConfiguration->crankingChargeAngle = 38;
 }
