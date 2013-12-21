@@ -13,8 +13,12 @@ static char LOGGING_BUFFER[2000];
 static Logging logging;
 
 static int pendingData = FALSE;
+static int initialized = FALSE;
 
 void acAddData(float angle, float value) {
+	if (!initialized)
+		return; // this is possible because of initialization sequence
+
 	if (getRevolutionCounter() % 20 != 0) {
 		if (pendingData) {
 			// message terminator
@@ -33,9 +37,11 @@ void acAddData(float angle, float value) {
 		appendPrintf(&logging, "analog_chart|");
 	}
 
-	appendPrintf(&logging, "%f|%f|", angle, value);
+	if (loggingSize(&logging) < sizeof(LOGGING_BUFFER) - 100)
+		appendPrintf(&logging, "%f|%f|", angle, value);
 }
 
 void initAnalogChart(void) {
 	initLoggingExt(&logging, "analog chart", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+	initialized = TRUE;
 }
