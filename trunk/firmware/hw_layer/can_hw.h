@@ -20,6 +20,15 @@
 #define CAN_VAG_RPM 0x280
 #define CAN_VAG_CLT 0x289
 
+/**
+ * Net Body Computer types
+ */
+typedef enum {
+	CAN_BUS_NBC_BMW = 0,
+	CAN_BUS_NBC_FIAT = 1,
+	CAN_BUS_NBC_VAG = 2,
+} can_nbc_e;
+
 void initCan(void);
 
 #endif /* CAN_HW_H_ */
