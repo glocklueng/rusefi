@@ -19,6 +19,9 @@
 
 #define OUTPUT_BUFFER 5000
 #define INTERMEDIATE_LOGGING_BUFFER_SIZE 2000
+// we use this magic constant to make sure it's not just a random non-zero int in memory
+#define MAGIC_LOGGING_FLAG 45234441
+
 
 static MemoryStream intermediateLoggingBuffer;
 static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE]; //todo define max-printf-buffer
@@ -27,6 +30,10 @@ static bool intermediateLoggingBufferInited = FALSE;
 void initIntermediateLoggingBuffer(void) {
 	msObjectInit(&intermediateLoggingBuffer, intermediateLoggingBufferData, INTERMEDIATE_LOGGING_BUFFER_SIZE, 0);
 	intermediateLoggingBufferInited = TRUE;
+}
+
+int loggingSize(Logging *logging) {
+	return (int) logging->linePointer - (int) (logging->buffer);
 }
 
 static int validateBuffer(Logging *logging, int extraLen, char *text) {
@@ -39,7 +46,7 @@ static int validateBuffer(Logging *logging, int extraLen, char *text) {
 		return TRUE;
 	}
 
-	int currentLen = (int) logging->linePointer - (int) (logging->buffer);
+	int currentLen = loggingSize(logging);
 	if (currentLen + extraLen > logging->bufferSize - 1) {
 		strcpy(logging->SMALL_BUFFER, "Logging buffer overflow: ");
 		strcat(logging->SMALL_BUFFER, logging->name);
@@ -145,6 +152,11 @@ void initLoggingExt(Logging *logging, char *name, char *buffer, int bufferSize) 
 	logging->buffer = buffer;
 	logging->bufferSize = bufferSize;
 	resetLogging(logging);
+	logging->isInitialized = MAGIC_LOGGING_FLAG;
+}
+
+int isInitialized(Logging *logging) {
+	return logging->isInitialized == MAGIC_LOGGING_FLAG;
 }
 
 void initLogging(Logging *logging, char *name) {
