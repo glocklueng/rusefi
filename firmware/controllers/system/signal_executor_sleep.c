@@ -58,12 +58,6 @@ void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 		return;
 	}
 
-//	logStartLine(&signal->logging, 0);
-//	msgInt(&signal->logging, "msg,spark offset ", offset);
-//	msgInt(&signal->logging, "duration ", duration);
-//	msgInt(&signal->logging, "now ", GetCurrentTime());
-//	msgInt(&signal->logging, "conter ", scheCounter++);
-//	logPending(&signal->logging);
 
 // schedule signal output callback after the 'delay'
 	chSysLockFromIsr()
@@ -81,23 +75,6 @@ void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 
 	time_t now = chTimeNow();
 
-	if (isArmed) {
-//		queueSimpleMsg(&signal->logging, "WAS ARMED ", offset);
-
-//		commonSimpleMsg(&signal->logging, "WAS ARMED ", delay);
-		resetLogging(&signal->logging);
-		appendPrintf(&signal->logging, "msg%s", DELIMETER);
-		appendPrintf(&signal->logging, "%d ticks ago ", now - signal->last_scheduling_time);
-		appendPrintf(&signal->logging, signal->name);
-
-		appendPrintf(&signal->logging, " rpm=%d", getCurrentRpm());
-		appendPrintf(&signal->logging, " delay=%d", delay);
-
-		appendPrintf(&signal->logging, " dwell=%d ", dwell);
-		appendPrintf(&signal->logging, "WAS ARMED %d%s", delay, DELIMETER);
-
-		scheduleLogging(&signal->logging);
-	}
 
 	signal->last_scheduling_time = now;
 
@@ -120,7 +97,7 @@ static msg_t soThread(OutputSignal *signal) {
 		}
 
 #if EFI_DEFAILED_LOGGING
-		systime_t now = chTimeNow();
+		signal->hi_time = chTimeNow();
 #endif /* EFI_DEFAILED_LOGGING */
 		// turn the output level ACTIVE
 		// todo: this XOR should go inside the setOutputPinValue method
@@ -138,7 +115,7 @@ static msg_t soThread(OutputSignal *signal) {
 
 #if EFI_DEFAILED_LOGGING
 		systime_t after = chTimeNow();
-		debugInt(&signal->logging, "a_time", after - now);
+		debugInt(&signal->logging, "a_time", after - signal->hi_time);
 		scheduleLogging(&signal->logging);
 #endif /* EFI_DEFAILED_LOGGING */
 
