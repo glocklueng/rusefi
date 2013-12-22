@@ -35,15 +35,28 @@ int getTPSAdc(void) {
 	return (int) adc / 4; // Only for TunerStudio compatibility. Max TS adc value in 1023
 }
 
-/*
- * todo: if we assume that TPS is a potentiometer, then voltage is probably NOT linear
- * todo: function of position - I guess internal RESISTENCE would be liner. Should we improve the logic here?
- *
- * @return Current TPS position. 0 means idle and 100 means Wide Open Throttle
+/**
+ * @brief Position on physical primary TPS
  */
-myfloat getTPS(void) {
+static myfloat getPrimatyRawTPS(void) {
 	// blue, 1st board
 	/* PA7 - blue TP */
 	myfloat tpsValue = getTpsValue(getTPSAdc());
 	return tpsValue;
 }
+
+// todo: static myfloat getSecondaryRawTPS
+
+/*
+ * In case of dual TPS this function would return logical TPS position
+ *
+ * @return Current TPS position. 0 means idle and 100 means Wide Open Throttle
+ */
+myfloat getTPS(void) {
+	// todo: if (config->isDualTps)
+	// todo: blah blah
+	// todo: if two TPS do not match - show OBD code via malfunction_central.c
+
+	return getPrimatyRawTPS();
+}
+
