@@ -13,9 +13,10 @@ import java.awt.event.ActionListener;
  * (c) Andrey Belomutskiy
  */
 public class RpmControl {
+    private static final String NO_CONNECTION = "N/C";
     private JPanel content = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
 
-    private final JLabel rpmValue = new JLabel("N/A");
+    private final JLabel rpmValue = new JLabel(NO_CONNECTION);
     private final JLabel rpmCaption = new JLabel("RPM:");
 
     public RpmControl() {
@@ -39,6 +40,7 @@ public class RpmControl {
         final Timer timer1 = new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                rpmValue.setText(NO_CONNECTION);
                 rpmValue.setForeground(Color.red);
             }
         });
