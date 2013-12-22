@@ -282,9 +282,13 @@ void printLine(Logging *logging) {
 	resetLogging(logging);
 }
 
+void appendMsgPrefix(Logging *logging) {
+	appendPrintf(logging, "msg%s", DELIMETER);
+}
+
 static void commonSimpleMsg(Logging *logging, char *msg, int value) {
 	resetLogging(logging);
-	appendPrintf(logging, "msg%s", DELIMETER);
+	appendMsgPrefix(logging);
 	appendPrintf(logging, "%s%d%s", msg, value, DELIMETER);
 }
 

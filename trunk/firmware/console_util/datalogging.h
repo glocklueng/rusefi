@@ -58,6 +58,7 @@ void appendFloat(Logging *logging, myfloat value, int precision);
 void resetLogging(Logging *logging);
 void printLine(Logging *logging);
 
+void appendMsgPrefix(Logging *logging);
 void printSimpleMsg(Logging *logging, char *msg, int value);
 
 void appendPrintf(Logging *logging, const char *fmt, ...);
