@@ -24,12 +24,14 @@ typedef struct {
  * The error code stays in the data structure till it is removed by 'clearError'
  *
  */
-void setError(obd_code_e errorCode);
+void addError(obd_code_e errorCode);
 /**
  * @brief Removed the error code from the set of current errors.
  *
  */
-void clearError(obd_code_e errorCode);
+void removeError(obd_code_e errorCode);
+
+void setError(int flag, obd_code_e errorCode);
 
 /**
  * @brief Copies the current set of errors into the specified buffer

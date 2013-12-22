@@ -116,7 +116,7 @@ typedef enum {
 	//P0097 Intake Air Temperature Sensor 2 Circuit Low
 	//P0098 Intake Air Temperature Sensor 2 Circuit High
 	//P0099 Intake Air Temperature Sensor 2 Circuit Intermittent/Erratic
-	Mass_or_Volume_Air_Flow_Circuit_Malfunction = 100,
+	OBD_Mass_or_Volume_Air_Flow_Circuit_Malfunction = 100,
 	//P0101 Mass or Volume Air Flow Circuit Range/Performance Problem
 	//P0102 Mass or Volume Air Flow Circuit Low Input
 	//P0103 Mass or Volume Air Flow Circuit High Input
@@ -126,7 +126,7 @@ typedef enum {
 	//P0107 Manifold Absolute Pressure/Barometric Pressure Circuit Low Input
 	//P0108 Manifold Absolute Pressure/Barometric Pressure Circuit High Input
 	//P0109 Manifold Absolute Pressure/Barometric Pressure Circuit Intermittent
-	//P0110 Intake Air Temperature Circuit Malfunction
+	OBD_Intake_Air_Temperature_Circuit_Malfunction = 110,
 	//P0111 Intake Air Temperature Circuit Range/Performance Problem
 	//P0112 Intake Air Temperature Circuit Low Input
 	//P0113 Intake Air Temperature Circuit High Input

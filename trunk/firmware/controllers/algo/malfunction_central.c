@@ -13,3 +13,18 @@ static error_codes_set_s error_codes_set;
 void initMalfunctionCentral(void) {
 	error_codes_set.count = 0;
 }
+
+void addError(obd_code_e errorCode) {
+
+}
+
+void removeError(obd_code_e errorCode) {
+
+}
+
+void setError(int flag, obd_code_e errorCode) {
+	if (flag)
+		addError(errorCode);
+	else
+		removeError(errorCode);
+}

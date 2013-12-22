@@ -29,6 +29,7 @@
 #include "electronic_throttle.h"
 #include "malfunction_indicator.h"
 #include "map_averaging.h"
+#include "malfunction_central.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -62,8 +63,18 @@ static void updateStatusLeds(void) {
 	setOutputPinValue(LED_CRANKING, is_cranking);
 }
 
+static void updateErrorCodes(void) {
+	/**
+	 * technically we can set error codes right inside the getMethods, but I a bit on a fance about it
+	 */
+	setError(isValidIntakeAirTemperature(getIntakeAirTemperature()), OBD_Intake_Air_Temperature_Circuit_Malfunction);
+	setError(isValidCoolantTemperature(getCoolantTemperature()), OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
+}
+
 static void onEveny10Milliseconds(void *arg) {
 	updateStatusLeds();
+
+	updateErrorCodes();
 
 	// schedule next invocation
 	chVTSetAny(&everyMsTimer, _10_MILLISECONDS, &onEveny10Milliseconds, 0);
