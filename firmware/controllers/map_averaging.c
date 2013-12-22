@@ -15,25 +15,62 @@
 #include "analog_chart.h"
 #include "rficonsole_logic.h"
 #include "engine_state.h"
+#include "engine_configuration.h"
+#include "interpolation.h"
+#include "signal_executor.h"
 
 #define FAST_MAP_CHART_SKIP_FACTOR 16
 
 static Logging logger;
 
+/**
+ * Running counter of measurements per revolution
+ */
 static volatile int perRevolutionCounter = 0;
+/**
+ * Number of measurements in previous shaft revolution
+ */
 static volatile int perRevolution = 0;
-
-static volatile int fastAccumulator = 0;
-static volatile int fastMax = 0;
-static volatile int fastMin = 9999999;
+/**
+ * Running MAP accumulator
+ * v_ for Voltage
+ */
+static volatile float v_mapAccumulator = 0;
+/**
+ * Running counter of measurements to consider for averaging
+ */
+static volatile int mapMeasurementsCounter = 0;
 
 static float atmosphericPressure;
 static float currentMaxPressure;
+
+/**
+ * v_ for Voltage
+ */
+static float v_averagedMapValue;
+
+extern EngineConfiguration *engineConfiguration;
+
+static VirtualTimer startTimer;
+static VirtualTimer endTimer;
 
 float getAtmosphericPressure(void) {
 	return atmosphericPressure;
 }
 
+static void startAveraging(void*arg) {
+	chSysLockFromIsr()
+	;
+	// with locking we would have a consistent state
+	v_mapAccumulator = 0;
+	mapMeasurementsCounter = 0;
+	chSysUnlockFromIsr()
+	;
+}
+
+/**
+ * This method is invoked from ADC callback
+ */
 void mapAveragingCallback(adcsample_t value) {
 	/* Calculates the average values from the ADC samples.*/
 	perRevolutionCounter++;
@@ -48,19 +85,26 @@ void mapAveragingCallback(adcsample_t value) {
 
 	chSysLockFromIsr()
 	;
-//		newState.time = chTimeNow();
-//		for (int i = 0; i < ADC_NUMBER_CHANNELS_SLOW; i++) {
+	// with locking we would have a consistent state
 
-	fastAccumulator += value;
-	fastMax = max(fastMax, value);
-	fastMin = min(fastMin, value);
+	v_mapAccumulator += voltage;
+	mapMeasurementsCounter++;
 	chSysUnlockFromIsr()
 	;
-
-//			newState.adc_data[i] = value;
-
 }
 
+static void endAveraging(void *arg) {
+	chSysLockFromIsr()
+	;
+	// with locking we would have a consistent state
+	v_averagedMapValue = v_mapAccumulator / mapMeasurementsCounter;
+	chSysUnlockFromIsr()
+	;
+}
+
+/**
+ * Shaft Position callback used to schedule start and end of MAP averaging
+ */
 static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	// this callback is invoked on interrupt thread
 	if (index != 0)
@@ -72,10 +116,21 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	atmosphericPressure = currentMaxPressure;
 	currentMaxPressure = 0;
 
+	MapConf_s * config = &engineConfiguration->map.config;
+
+	float a_samplingStart =  interpolate2d(getCurrentRpm(), config->samplingAngleBins, config->samplingAngle, MAP_ANGLE_SIZE);
+	float a_samplingWindow =  interpolate2d(getCurrentRpm(), config->samplingWindowBins, config->samplingWindow, MAP_WINDOW_SIZE);
+
+	scheduleByAngle(&startTimer, a_samplingStart, startAveraging, NULL);
+	scheduleByAngle(&endTimer, a_samplingStart + a_samplingWindow, endAveraging, NULL);
 }
 
 static void showMapStats(void) {
 	scheduleSimpleMsg(&logger, "per revolution", perRevolution);
+}
+
+myfloat getMap(void) {
+	return getMapByVoltage(v_averagedMapValue);
 }
 
 void initMapAveraging(void) {

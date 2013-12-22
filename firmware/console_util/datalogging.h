@@ -20,7 +20,7 @@
 #endif
 
 typedef enum {
-	LP_RPM, LP_ECT, LP_IAT, LP_THROTTLE, LP_SECONDS, LP_MAP,
+	LP_RPM, LP_ECT, LP_IAT, LP_THROTTLE, LP_SECONDS, LP_MAP,LP_MAP_RAW,
 
 } LoggingPoints;
 

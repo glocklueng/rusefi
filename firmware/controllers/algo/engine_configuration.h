@@ -48,7 +48,7 @@ typedef struct {
 
 	CrankingMode crankingSettings;
 
-	Map map;
+	map_s map;
 
 	ThermistorConf cltThermistorConf; // size 40 (10*4), offset 336
 	ThermistorConf iatThermistorConf; // size 40, offset 376
@@ -90,7 +90,6 @@ typedef struct {
 	float fixedModeTiming;
 
 	int hasMapSensor;
-	int mapSensorAdcChannel;
 
 	Thermistor iat;
 	Thermistor clt;

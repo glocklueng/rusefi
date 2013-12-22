@@ -122,6 +122,8 @@ static char* getCaption(int loggingPoint) {
 		return "SecL";
 	case LP_MAP:
 		return "MAP";
+	case LP_MAP_RAW:
+		return "MAP_R";
 	}
 	fatal("No such loggingPoint");
 	return NULL;
