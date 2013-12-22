@@ -52,8 +52,9 @@ public class GaugePanel extends JComponent {
 //        box2.add(createGauge(Sensor.COOLANT_WIDTH));
 
         box2.add(createGauge(Sensor.MAP));
+        box2.add(createGauge(Sensor.MAP_RAW));
         box2.add(createGauge(Sensor.THROTTLE));
-        box2.add(createGauge(Sensor.VREF, PotCommand.VOLTAGE_CORRECTION));
+//        box2.add(createGauge(Sensor.VREF, PotCommand.VOLTAGE_CORRECTION));
 //        box2.add(createGauge(Sensor.VREF_WIDTH));
 
 //        box2.add(createGauge(Sensor.ADC_FAST));
