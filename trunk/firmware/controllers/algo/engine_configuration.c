@@ -71,7 +71,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->crankingChargeAngle = 38;
 
 	engineConfiguration2->hasMapSensor = TRUE;
-	engineConfiguration2->mapSensorAdcChannel = ADC_CHANNEL_FAST_ADC;
+	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
 
 }
 

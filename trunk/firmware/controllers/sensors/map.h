@@ -4,24 +4,31 @@
 #define MAP_ANGLE_SIZE 8
 #define MAP_WINDOW_SIZE 8
 
+/**
+ * @return Raw MAP sensor value right now
+ */
+myfloat getRawMap(void);
+/**
+ * @return MAP value averaged within a window of measurement
+ */
 myfloat getMap(void);
 float getMapByVoltage(float voltage);
 
 typedef struct {
-	float mapSamplingAngleBins[MAP_ANGLE_SIZE];
-	float mapSamplingAngle[MAP_ANGLE_SIZE];
+	float samplingAngleBins[MAP_ANGLE_SIZE];
+	float samplingAngle[MAP_ANGLE_SIZE];
 
-	float mapSamplingWindowBins[MAP_WINDOW_SIZE];
-	float mapSamplingWindow[MAP_WINDOW_SIZE];
+	float samplingWindowBins[MAP_WINDOW_SIZE];
+	float samplingWindow[MAP_WINDOW_SIZE];
 
 	float Min;
 	float Max;
 	float Range;
-} MapConf;
+} MapConf_s;
 
 typedef struct {
-	MapConf config;
+	MapConf_s config;
 	int channel;
-} Map;
+} map_s;
 
 #endif
