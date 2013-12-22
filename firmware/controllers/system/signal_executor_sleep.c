@@ -47,15 +47,13 @@ static void commonSchedule(VirtualTimer *timer, int delay, vtfunc_t callback, vo
 		return;
 	}
 
-	chSysLockFromIsr()
-	;
+	lockAnyContext();
 	int isArmed = chVTIsArmedI(timer);
 	if (isArmed)
 		chVTResetI(timer);
 
 	chVTSetI(timer, delay, callback, param);
-	chSysUnlockFromIsr()
-	;
+	unlockAnyContext();
 }
 
 /**
@@ -126,9 +124,7 @@ static msg_t soThread(OutputSignal *signal) {
 
 		turnHi(signal);
 
-		chThdSleep(signal->duration);
-
-		turnLow(signal);
+		commonSchedule(&signal->hw.signalTimerDown, signal->duration, (vtfunc_t) &turnLow, (void*)signal);
 	}
 	// unreachable
 	return 0;
