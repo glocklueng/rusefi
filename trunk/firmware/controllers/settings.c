@@ -13,16 +13,16 @@
 #include "main.h"
 #include "engine_configuration.h"
 
-static volatile int injectionOffset = 0;
-
 static Logging logger;
 
 extern EngineConfiguration *engineConfiguration;
 
 static void printSettings(void) {
-	appendPrintf(&logger, "msg,injectionOffset %d%s", injectionOffset, DELIMETER);
+}
 
-	printLine(&logger);
+static void setAnalogChartMode(int value) {
+	engineConfiguration->analogChartMode = value;
+	printSettings();
 }
 
 static void setIgnitonOffset(int value) {
@@ -34,5 +34,6 @@ void initSettings(void) {
 	initLogging(&logger, "settings control");
 
 	addConsoleActionI("set_ignition_offset", &setIgnitonOffset);
+	addConsoleActionI("set_analog_chart_mode", &setAnalogChartMode);
 }
 

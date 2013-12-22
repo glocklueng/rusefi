@@ -70,6 +70,8 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 
 	engineConfiguration->crankingChargeAngle = 38;
 
+	engineConfiguration->analogChartMode = AC_OFF;
+
 	engineConfiguration2->hasMapSensor = TRUE;
 	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
 
@@ -117,6 +119,8 @@ void printConfiguration(EngineConfiguration *engineConfiguration) {
 
 	print("tpsMin: %d\r\n", engineConfiguration->tpsMin);
 	print("tpsMax: %d\r\n", engineConfiguration->tpsMax);
+
+	print("analogChartMode: %d\r\n", engineConfiguration->analogChartMode);
 
 	print("crankingRpm: %d\r\n", engineConfiguration->crankingSettings.crankingRpm);
 }

@@ -21,6 +21,13 @@
 #define IGN_LOAD_COUNT 16
 #define IGN_RPM_COUNT 16
 
+typedef enum {
+	AC_OFF = 0,
+	AC_SHAFT = 1,
+	AC_MAP = 2,
+} analog_chart_e;
+
+
 #define DWELL_COUNT 8
 /**
  * @brief	Engine configuration.
@@ -44,7 +51,7 @@ typedef struct {
 	// todo: we need two sets of TPS parameters - modern ETBs have to sensors
 	short int tpsMin; // size 2, offset 330
 	short int tpsMax; // size 2, offset 332
-	short int align1;
+	short int analogChartMode;
 
 	CrankingMode crankingSettings;
 
