@@ -175,6 +175,7 @@ void updateTunerStudioState() {
 	tsOutputChannels.v_batt = getVBatt();
 	tsOutputChannels.tpsADC= getTPSAdc();
 	tsOutputChannels.atmospherePressure = getAtmosphericPressure();
+	tsOutputChannels.manifold_air_pressure = getMap();
 }
 
 #endif /* EFI_TUNER_STUDIO */
