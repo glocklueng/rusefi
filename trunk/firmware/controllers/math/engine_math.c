@@ -70,11 +70,20 @@ float getStartingFuel(int coolantTemperature) {
 }
 
 /**
+ * @return time needed to rotate crankshaft by one degree
+ */
+float getOneDegreeTime(int rpm) {
+	return 1000.0 * 60 * TICKS_IN_MS  / 360 / rpm;
+}
+
+/**
  * @return number of system it needed for one crankshaft revolution
  */
 float getCrankshaftRevolutionTime(int rpm) {
-	return 1000.0 * 60 * TICKS_IN_MS / rpm;
+	return 360 * getOneDegreeTime(rpm);
 }
+
+
 
 // todo: the problem with this method is that it takes CAMSHAFT angle
 int convertAngleToSysticks(int rpm, int angle) {
