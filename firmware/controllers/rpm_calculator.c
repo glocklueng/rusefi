@@ -20,6 +20,7 @@
 
 static rpm_s rpmState;
 
+extern EngineConfiguration *engineConfiguration;
 extern EngineConfiguration2 *engineConfiguration2;
 
 /**
@@ -58,9 +59,8 @@ int getRevolutionCounter(void) {
  */
 static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	if (index != 0) {
-#if EFI_CHART_POSITION_SENSOR
-		acAddData(getCrankshaftAngle(chTimeNow()), index);
-#endif
+		if (engineConfiguration->analogChartMode == AC_SHAFT)
+			acAddData(getCrankshaftAngle(chTimeNow()), index);
 		return;
 	}
 	rpmState.revolutionCounter++;
@@ -84,9 +84,8 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 		}
 	}
 	rpmState.lastRpmEventTime = now;
-#if EFI_CHART_POSITION_SENSOR
-	acAddData(getCrankshaftAngle(now), index);
-#endif
+	if (engineConfiguration->analogChartMode == AC_SHAFT)
+		acAddData(getCrankshaftAngle(now), index);
 }
 
 void initRpmCalculator(void) {

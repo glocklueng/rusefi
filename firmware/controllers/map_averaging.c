@@ -78,8 +78,9 @@ void mapAveragingCallback(adcsample_t value) {
 	float voltage = adcToVolts(value);
 	float currentPressure = getMapByVoltage(voltage);
 
-	if (perRevolutionCounter % FAST_MAP_CHART_SKIP_FACTOR == 0)
-		acAddData(getCrankshaftAngle(chTimeNow()), currentPressure);
+	if (engineConfiguration->analogChartMode == AC_MAP)
+		if (perRevolutionCounter % FAST_MAP_CHART_SKIP_FACTOR == 0)
+			acAddData(getCrankshaftAngle(chTimeNow()), currentPressure);
 
 	currentMaxPressure = max(currentMaxPressure, currentPressure);
 
@@ -118,8 +119,10 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 
 	MapConf_s * config = &engineConfiguration->map.config;
 
-	float a_samplingStart =  interpolate2d(getCurrentRpm(), config->samplingAngleBins, config->samplingAngle, MAP_ANGLE_SIZE);
-	float a_samplingWindow =  interpolate2d(getCurrentRpm(), config->samplingWindowBins, config->samplingWindow, MAP_WINDOW_SIZE);
+	float a_samplingStart = interpolate2d(getCurrentRpm(), config->samplingAngleBins, config->samplingAngle,
+			MAP_ANGLE_SIZE);
+	float a_samplingWindow = interpolate2d(getCurrentRpm(), config->samplingWindowBins, config->samplingWindow,
+			MAP_WINDOW_SIZE);
 
 	scheduleByAngle(&startTimer, a_samplingStart, startAveraging, NULL);
 	scheduleByAngle(&endTimer, a_samplingStart + a_samplingWindow, endAveraging, NULL);
