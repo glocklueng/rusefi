@@ -1,5 +1,6 @@
-/*
- * features.h
+/**
+ * @file features.h
+ * @brief In this header we can configure which firmware modules are used.
  *
  * @date Aug 29, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -70,6 +71,16 @@
  * This macros is NOT about taking out logging in general.
  */
 #define EFI_PROD_CODE TRUE
+
+/**
+ * Do we need Malfunction Indicator blinking logic?
+ */
+#define EFI_MALFUNCTIONAL_INDICATOR TRUE
+
+/**
+ * Engineering feature: Do we want to chart position sensor events?
+ */
+//#define EFI_CHART_POSITION_SENSOR TRUE
 
 #endif /* EFI_SERIAL_OVER_USB */
 
