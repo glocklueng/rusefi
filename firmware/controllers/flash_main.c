@@ -75,6 +75,9 @@ static void resetConfiguration(void) {
 }
 
 static void readFromFlash(void) {
+
+	resetConfiguration(); // this call is here only to have a valid EngineConfiguration2
+
 	flashRead(FLASH_ADDR, (char *) &flashState, FLASH_USAGE);
 
 	if (!isValid(&flashState)) {
