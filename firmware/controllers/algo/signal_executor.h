@@ -67,6 +67,7 @@ struct OutputSignal_struct {
 };
 
 void initOutputSignal(char *name, OutputSignal *signal, int led, int xor);
+void scheduleByAngle(VirtualTimer *timer, float angle, vtfunc_t callback, void *param);
 void scheduleOutput(OutputSignal *signal, int delay, int dwell);
 void initOutputSignalBase(OutputSignal *signal);
 void scheduleOutputBase(OutputSignal *signal, int offset, int duration);

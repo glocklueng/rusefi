@@ -16,6 +16,7 @@
 #include "datalogging.h"
 #include "rpm_calculator.h"
 #include "injector_central.h"
+#include "engine_math.h"
 
 #if EFI_WAVE_ANALYZER
 #include "wave_chart.h"
@@ -54,6 +55,11 @@ static void commonSchedule(VirtualTimer *timer, int delay, vtfunc_t callback, vo
 
 	chVTSetI(timer, delay, callback, param);
 	unlockAnyContext();
+}
+
+void scheduleByAngle(VirtualTimer *timer, float angle, vtfunc_t callback, void *param) {
+	int delay = getOneDegreeTime(getCurrentRpm()) * angle;
+	commonSchedule(timer, delay, callback, param);
 }
 
 /**
