@@ -16,10 +16,12 @@
 #include "string.h"
 #include "engine_state.h"
 #include "can_header.h"
-
+#include "engine_configuration.h"
 
 static Logging logger;
 static WORKING_AREA(canTreadStack, 512);
+
+extern EngineConfiguration2 *engineConfiguration2;
 
 /*
  * 500KBaud
@@ -115,15 +117,15 @@ static void canDashboardVAG(void) {
 }
 
 // todo: 'typeOfBCN' should become a enum
-static void canInfoNBCBroadcast(int typeOfNBC) {
+static void canInfoNBCBroadcast(can_nbc_e typeOfNBC) {
 	switch (typeOfNBC) {
-	case 0:
+	case CAN_BUS_NBC_BMW:
 		canDashboardBMW();
 		break;
-	case 1:
+	case CAN_BUS_NBC_FIAT:
 		canDashboardFiat();
 		break;
-	case 2:
+	case CAN_BUS_NBC_VAG:
 		canDashboardVAG();
 		break;
 	default:
@@ -143,8 +145,8 @@ static msg_t canThread(void *arg) {
 		engine_rpm = getCurrentRpm();
 		engine_clt = getCoolantTemperature();
 
-		canInfoNBCBroadcast(0);
-		chThdSleepMilliseconds(50);
+		canInfoNBCBroadcast(engineConfiguration2->can_nbc_type);
+		chThdSleepMilliseconds(engineConfiguration2->can_nbc_broadcast_period);
 	}
 	return -1;
 }

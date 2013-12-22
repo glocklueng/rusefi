@@ -65,6 +65,9 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	 */
 	engineConfiguration2->crankAngleRange = 720;
 
+	engineConfiguration2->can_nbc_type = CAN_BUS_NBC_BMW;
+	engineConfiguration2->can_nbc_broadcast_period = 50;
+
 	engineConfiguration->crankingChargeAngle = 38;
 
 	engineConfiguration2->hasMapSensor = TRUE;

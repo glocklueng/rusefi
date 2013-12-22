@@ -114,6 +114,7 @@ typedef struct {
 	int crankAngleRange;
 
 	can_nbc_e can_nbc_type;
+	int can_nbc_broadcast_period;
 
 } EngineConfiguration2;
 
