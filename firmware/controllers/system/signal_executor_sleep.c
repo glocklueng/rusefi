@@ -80,6 +80,36 @@ void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 
 }
 
+static void turnHi(OutputSignal *signal) {
+#if EFI_DEFAILED_LOGGING
+		signal->hi_time = chTimeNow();
+#endif /* EFI_DEFAILED_LOGGING */
+		// turn the output level ACTIVE
+		// todo: this XOR should go inside the setOutputPinValue method
+		setOutputPinValue(signal->ledIndex, TRUE ^ signal->xor);
+		// sleep for the needed duration
+
+#if EFI_WAVE_ANALYZER
+		addWaveChartEvent(&waveChart, signal->name, "up");
+#endif /* EFI_WAVE_ANALYZER */
+}
+
+static void turnLow(OutputSignal *signal) {
+	// turn off the output
+	// todo: this XOR should go inside the setOutputPinValue method
+	setOutputPinValue(signal->ledIndex, FALSE ^ signal->xor);
+
+#if EFI_DEFAILED_LOGGING
+	systime_t after = chTimeNow();
+	debugInt(&signal->logging, "a_time", after - signal->hi_time);
+	scheduleLogging(&signal->logging);
+#endif /* EFI_DEFAILED_LOGGING */
+
+#if EFI_WAVE_ANALYZER
+	addWaveChartEvent(&waveChart, signal->name, "down");
+#endif /* EFI_WAVE_ANALYZER */
+}
+
 static msg_t soThread(OutputSignal *signal) {
 	chRegSetThreadName(signal->name);
 	/**
@@ -96,32 +126,11 @@ static msg_t soThread(OutputSignal *signal) {
 			continue;
 		}
 
-#if EFI_DEFAILED_LOGGING
-		signal->hi_time = chTimeNow();
-#endif /* EFI_DEFAILED_LOGGING */
-		// turn the output level ACTIVE
-		// todo: this XOR should go inside the setOutputPinValue method
-		setOutputPinValue(signal->ledIndex, TRUE ^ signal->xor);
-		// sleep for the needed duration
-
-#if EFI_WAVE_ANALYZER
-		addWaveChartEvent(&waveChart, signal->name, "up");
-#endif /* EFI_WAVE_ANALYZER */
+		turnHi(signal);
 
 		chThdSleep(signal->duration);
-		// turn off the output
-		// todo: this XOR should go inside the setOutputPinValue method
-		setOutputPinValue(signal->ledIndex, FALSE ^ signal->xor);
 
-#if EFI_DEFAILED_LOGGING
-		systime_t after = chTimeNow();
-		debugInt(&signal->logging, "a_time", after - signal->hi_time);
-		scheduleLogging(&signal->logging);
-#endif /* EFI_DEFAILED_LOGGING */
-
-#if EFI_WAVE_ANALYZER
-		addWaveChartEvent(&waveChart, signal->name, "down");
-#endif /* EFI_WAVE_ANALYZER */
+		turnLow(signal);
 	}
 	// unreachable
 	return 0;
