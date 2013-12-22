@@ -51,6 +51,7 @@ struct OutputSignal_struct {
 	int initialized;
 
 	time_t last_scheduling_time;
+	time_t hi_time;
 
 #if EFI_SIGNAL_EXECUTOR_SLEEP
 	SignalExecutorSleep hw;
