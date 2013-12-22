@@ -17,6 +17,8 @@ typedef struct {
 	 * this timer is used to wait for the time to activate the thread
 	 */
 	VirtualTimer signalTimer;
+
+	VirtualTimer signalTimerDown;
 	/**
 	 * this timer is used to notify the worker thread when it's time to output
 	 * the signal
