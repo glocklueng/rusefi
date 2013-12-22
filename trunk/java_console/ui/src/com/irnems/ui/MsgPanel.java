@@ -1,6 +1,7 @@
 package com.irnems.ui;
 
 import com.irnems.core.MessagesCentral;
+import com.irnems.ui.widgets.AnyCommand;
 import com.irnems.ui.widgets.IdleLabel;
 
 import javax.swing.*;
@@ -60,6 +61,7 @@ public class MsgPanel extends JPanel {
         JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.add(resetButton);
         buttonPanel.add(pauseButton);
+        buttonPanel.add(new AnyCommand());
         add(buttonPanel, BorderLayout.NORTH);
 
         JPanel statsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
