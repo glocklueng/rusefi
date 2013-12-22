@@ -38,6 +38,26 @@ static void signalOutputCallbackI(OutputSignal *signal) {
 	;
 }
 
+static void commonSchedule(VirtualTimer *timer, int delay, vtfunc_t callback, void *param) {
+	if (delay == 0) {
+		/**
+		 * in case of zero delay, we should invoke the callback
+		 */
+		callback(param);
+		return;
+	}
+
+	chSysLockFromIsr()
+	;
+	int isArmed = chVTIsArmedI(timer);
+	if (isArmed)
+		chVTResetI(timer);
+
+	chVTSetI(timer, delay, callback, param);
+	chSysUnlockFromIsr()
+	;
+}
+
 /**
  *
  * @param	delay	the number of ticks before the output signal
@@ -50,31 +70,9 @@ void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 
 	scheduleOutputBase(signal, delay, dwell);
 
-	if (delay == 0) {
-		/**
-		 * in case of zero delay, we should notify the output thread right away
-		 */
-		signalOutputCallbackI(signal);
-		return;
-	}
-
-
-// schedule signal output callback after the 'delay'
-	chSysLockFromIsr()
-	;
-	int isArmed = chVTIsArmedI(&signal->hw.signalTimer);
-	if (isArmed)
-		chVTResetI(&signal->hw.signalTimer);
-
-	/**
-	 * this timer implements the delay before the signal output
-	 */
-	chVTSetI(&signal->hw.signalTimer, delay, (vtfunc_t) &signalOutputCallbackI, (void *) signal);
-	chSysUnlockFromIsr()
-	;
+	commonSchedule(&signal->hw.signalTimer, delay, (vtfunc_t) &signalOutputCallbackI, (void *) signal);
 
 	time_t now = chTimeNow();
-
 
 	signal->last_scheduling_time = now;
 
@@ -82,15 +80,15 @@ void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 
 static void turnHi(OutputSignal *signal) {
 #if EFI_DEFAILED_LOGGING
-		signal->hi_time = chTimeNow();
+	signal->hi_time = chTimeNow();
 #endif /* EFI_DEFAILED_LOGGING */
-		// turn the output level ACTIVE
-		// todo: this XOR should go inside the setOutputPinValue method
-		setOutputPinValue(signal->ledIndex, TRUE ^ signal->xor);
-		// sleep for the needed duration
+	// turn the output level ACTIVE
+	// todo: this XOR should go inside the setOutputPinValue method
+	setOutputPinValue(signal->ledIndex, TRUE ^ signal->xor);
+	// sleep for the needed duration
 
 #if EFI_WAVE_ANALYZER
-		addWaveChartEvent(&waveChart, signal->name, "up");
+	addWaveChartEvent(&waveChart, signal->name, "up");
 #endif /* EFI_WAVE_ANALYZER */
 }
 
@@ -146,7 +144,8 @@ void initOutputSignal(char *name, OutputSignal *signal, int led, int xor) {
 	setOutputPinValue(led, xor); // initial state
 	chSemInit(&signal->hw.signalSemaphore, 1);
 
-	chThdCreateStatic(signal->hw.soThreadStack, sizeof(signal->hw.soThreadStack), NORMALPRIO, (tfunc_t) soThread, signal);
+	chThdCreateStatic(signal->hw.soThreadStack, sizeof(signal->hw.soThreadStack), NORMALPRIO, (tfunc_t) soThread,
+			signal);
 	initOutputSignalBase(signal);
 }
 
