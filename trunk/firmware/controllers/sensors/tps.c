@@ -26,7 +26,9 @@ myfloat getTPSVoltage(void) {
 }
 
 /*
- * Return TPS ADC readings
+ * Return TPS ADC readings.
+ * We need ADC value because TunerStudio has a nice TPS configuration wizard, and this wizard
+ * wants a TPS value.
  */
 int getTPSAdc(void) {
 	int adc = getAdcValue(ADC_LOGIC_TPS);
@@ -34,8 +36,11 @@ int getTPSAdc(void) {
 }
 
 /*
+ * todo: if we assume that TPS is a potentiometer, then voltage is probably NOT linear
+ * todo: function of position - I guess internal RESISTENCE would be liner. Should we improve the logic here?
+ *
  * @return Current TPS position. 0 means idle and 100 means Wide Open Throttle
- * */
+ */
 myfloat getTPS(void) {
 	// blue, 1st board
 	/* PA7 - blue TP */
