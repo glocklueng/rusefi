@@ -36,17 +36,13 @@ myfloat getVoutInVoltageDividor(myfloat Vin, myfloat r1, myfloat r2) {
 	return r2 * Vin / (r1 + r2);
 }
 
-
-myfloat convertResistanceToKelvinTemperature(myfloat resistance,
-		ThermistorConf *thermistor) {
+myfloat convertResistanceToKelvinTemperature(myfloat resistance, ThermistorConf *thermistor) {
 	if (resistance <= 0) {
 		//warning("Invalid resistance in convertResistanceToKelvinTemperature=", resistance);
 		return 0;
 	}
 	myfloat logR = log(resistance);
-	return 1
-			/ (thermistor->s_h_a + thermistor->s_h_b * logR
-					+ thermistor->s_h_c * logR * logR * logR);
+	return 1 / (thermistor->s_h_a + thermistor->s_h_b * logR + thermistor->s_h_c * logR * logR * logR);
 }
 
 myfloat convertKelvinToC(myfloat tempK) {
@@ -73,10 +69,8 @@ myfloat convertKelvinToFahrenheit(myfloat kelvin) {
 myfloat getKelvinTemperature(myfloat voltage, ThermistorConf *thermistor) {
 	chDbgCheck(thermistor!=NULL, "thermistor pointer is NULL");
 
-	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS,
-			thermistor->bias_resistor);
-	myfloat kelvinTemperature = convertResistanceToKelvinTemperature(resistance,
-			thermistor);
+	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS, thermistor->bias_resistor);
+	myfloat kelvinTemperature = convertResistanceToKelvinTemperature(resistance, thermistor);
 	return kelvinTemperature;
 }
 
@@ -87,8 +81,21 @@ myfloat getTemperatureC(Thermistor *thermistor) {
 	return convertKelvinToC(kelvinTemperature);
 }
 
-myfloat getCoolantTemperature(void) {
-	return getTemperatureC(&engineConfiguration2->clt);
+int isValidCoolantTemperature(float temperature) {
+	// I hope magic constants are appropriate here
+	return !isnan(temperature) && temperature > -50 && temperature < 250;
+}
+
+int isValidIntakeAirTemperature(float temperature) {
+	// I hope magic constants are appropriate here
+	return !isnan(temperature) && temperature > -50 && temperature < 100;
+}
+
+float getCoolantTemperature(void) {
+	myfloat temperature = getTemperatureC(&engineConfiguration2->clt);
+	if (!isValidCoolantTemperature(temperature))
+		return NAN;
+	return temperature;
 }
 
 void setThermistorConfiguration(ThermistorConf * tc, float temp1, float r1, float temp2, float r2, float temp3,
@@ -125,7 +132,10 @@ void prepareThermistorCurve(ThermistorConf * config) {
 }
 
 myfloat getIntakeAirTemperature(void) {
-	return getTemperatureC(&engineConfiguration2->iat);
+	myfloat temperature = getTemperatureC(&engineConfiguration2->iat);
+	if (!isValidIntakeAirTemperature(temperature))
+		return NAN;
+	return temperature;
 }
 
 static void initThermistorCurve(Thermistor * t, ThermistorConf *config, int channel) {
@@ -136,8 +146,8 @@ static void initThermistorCurve(Thermistor * t, ThermistorConf *config, int chan
 
 void initThermistors(void) {
 	initThermistorCurve(&engineConfiguration2->clt, &engineConfiguration->cltThermistorConf,
-			ADC_LOGIC_COOLANT);
+	ADC_LOGIC_COOLANT);
 	initThermistorCurve(&engineConfiguration2->iat, &engineConfiguration->iatThermistorConf,
-			ADC_LOGIC_AIR);
+	ADC_LOGIC_AIR);
 }
 #endif /* THERMISTORS_C_ */
