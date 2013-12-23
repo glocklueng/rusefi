@@ -44,11 +44,11 @@ void initShaftPositionEmulator(void) {
 
 	initLogging(&logger, "position sensor(s) emulator");
 
-	initOutputPin("distributor ch1", &configuration.waves[0].outputPin,
+	initOutputPin("distributor ch1", &configuration.outputPins[0],
 			PRIMARY_SHAFT_POSITION_EMULATION_PORT, PRIMARY_SHAFT_POSITION_EMULATION_PIN);
 
 #if EFI_SHAFT_POSTION_NEEDS_SECONDARY
-	initOutputPin("distributor ch2", &configuration.waves[1].outputPin,
+	initOutputPin("distributor ch2", &configuration.outputPins[1],
 			SECONDARY_SHAFT_POSITION_EMULATION_PORT, SECONDARY_SHAFT_POSITION_EMULATION_PIN);
 #endif /* EFI_SHAFT_POSTION_NEEDS_SECONDARY */
 

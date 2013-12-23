@@ -24,7 +24,6 @@
  * @brief   PWM configuration for the specific output pin
  */
 typedef struct {
-	OutputPin outputPin;
 	int pinStates[PWM_PHASE_MAX_COUNT];
 } SingleWave;
 
@@ -33,6 +32,7 @@ typedef struct {
  */
 typedef struct {
 	SingleWave waves[PWM_PHASE_MAX_WAVE_PER_PWM];
+	OutputPin outputPins[PWM_PHASE_MAX_WAVE_PER_PWM];
 	int waveCount;
 	int idleState;
 	int phaseCount;
