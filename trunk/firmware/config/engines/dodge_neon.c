@@ -12,54 +12,31 @@
 #include "dodge_neon.h"
 #include "engine_configuration.h"
 #include "main_loop.h"
+#include "dist_emulator.h"
 
 extern EngineConfiguration2 *engineConfiguration2;
 
 void configureShaftPositionEmulatorShape(PwmConfig *state) {
 
-	float x = 90.0;
+	trigger_shape_s * s = &engineConfiguration2->triggerShape;
+	triggerShapeInit(s);
 
-	float y1 = 110;
-	float y2 = 110 + 360;
-	float z = 8;
+	triggerAddEvent(s, 60, T_PRIMARY, 1);
+	triggerAddEvent(s, 210, T_PRIMARY, 0);
+	triggerAddEvent(s, 420, T_PRIMARY, 1);
+	triggerAddEvent(s, 630, T_PRIMARY, 0);
+	// voodoo magic - we always need 720 at the end
+	triggerAddEvent(s, 720, T_PRIMARY, 1);
 
-	float f = z * 6;
-	float t1 = 230;
-	float t2 = t1 + 360;
-	myfloat switchTimes[] = { x / 720 ,
-			y1 / 720, (y1  + 1 * z)/ 720, (y1  + 2 * z)/ 720, (y1  + 3 * z)/ 720, (y1  + 4 * z)/ 720, (y1  + 5 * z)/ 720, (y1  + 6 * z)/ 720, (y1  + 7 * z)/ 720,
-			/* TDC 2 - 180 */
-			(x + 210) / 720, (x + 360 ) / 720,
-			y2 / 720, (y2  + 1 * z)/ 720, (y2  + 2 * z)/ 720, (y2  + 3 * z)/ 720, (y2  + 4 * z)/ 720, (y2  + 5 * z)/ 720, (y2  + 6 * z)/ 720, (y2  + 7 * z)/ 720,
-			/* TDC 3 - 540 */
-			(x + 510) / 720, 1 };
+	int *pinStates[2] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates };
 
-	int pinStates0[] = { 1,
-			1, 1, 1, 1, 1, 1, 1, 1,
-			/* TDC 2 - 180 */
-			0, 1,
-			1, 1, 1, 1, 1, 1, 1, 1,
-			/* TDC 3 - 540 */
-			0, 0};
-
-	int pinStates1[] = { 0,
-			1, 0, 1, 0, 1, 0, 1, 0,
-			/* TDC 2 - 180 */
-			0, 0,
-			1, 0, 1, 0, 1, 0, 1, 0,
-			/* TDC 3 - 540 */
-			0, 0
-	};
-
-	int *pinStates[2] = { pinStates0, pinStates1 };
-
-	weComplexInit("distributor", state, 0, 21, switchTimes, 2, pinStates);
+	weComplexInit("distributor", state, 0, s->size, s->wave.switchTimes, 2, pinStates);
 }
 
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 
-	engineConfiguration2.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
+	engineConfiguration2->shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
 }
 
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
