@@ -51,7 +51,7 @@ static void setIdle(int value) {
 		return;
 	scheduleSimpleMsg(&logger, "setting idle valve PWM ", value);
 	myfloat v = 0.001 * value;
-	idleValve.switchTimes[0] = 1 - v;
+	idleValve.multiWave.switchTimes[0] = 1 - v;
 }
 
 static msg_t ivThread(int param) {
