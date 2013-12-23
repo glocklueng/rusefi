@@ -11,6 +11,12 @@
 #include "boards.h"
 
 /**
+ * 1995 Dodge Neon
+ * http://rusefi.com/forum/viewtopic.php?t=360
+ */
+//#define EFI_ENGINE_DODGE_NEON TRUE
+
+/**
  * 1996 1.3 Ford Aspire
  * http://rusefi.com/forum/viewtopic.php?t=375
  */
