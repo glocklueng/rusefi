@@ -11,20 +11,11 @@
 
 #include "main.h"
 #include "wave_math.h"
-#include "pwm_generator.h"
 
-typedef enum {
-	T_PRIMARY = 0,
-	T_SECONDARY = 1
-} trigger_wheel_e;
+#include "trigger_structure.h"
 
-typedef struct {
-	multi_wave_s wave;
-	int currentIndex;
-} trigger_simulator_s;
-
-void triggerSimulatorInit(trigger_simulator_s *trigger);
-void triggerAddEvent(trigger_simulator_s *trigger, float angle, trigger_wheel_e waveIndex, int state);
+void triggerShapeInit(trigger_shape_s *trigger);
+void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, int state);
 
 /**
  * this is RPM. 10000 rpm is only 166Hz, 800 rpm is 13Hz

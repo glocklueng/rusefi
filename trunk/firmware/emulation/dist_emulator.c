@@ -38,14 +38,14 @@ void setRevolutionPeriod(int value) {
 	scheduleSimpleMsg(&logger, "Emulating position sensor(s). RPM=", value);
 }
 
-void triggerSimulatorInit(trigger_simulator_s *trigger) {
-	trigger->currentIndex = -1;
+void triggerShapeInit(trigger_shape_s *trigger) {
+	trigger->size = 0;
 }
 
-void triggerAddEvent(trigger_simulator_s *trigger, float angle, trigger_wheel_e waveIndex, int state) {
+void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, int state) {
 	angle /= 720;
-	if (trigger->currentIndex == -1) {
-		trigger->currentIndex = 0;
+	if (trigger->size == 0) {
+		trigger->size = 1;
 		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
 			trigger->wave.waves[i].pinStates[0] = 0;
 
@@ -56,7 +56,7 @@ void triggerAddEvent(trigger_simulator_s *trigger, float angle, trigger_wheel_e 
 
 //	if(angle!=trigger->wave.switchTimes[trigger->currentIndex])
 
-	int index = ++trigger->currentIndex;
+	int index = trigger->size++;
 
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
 		trigger->wave.waves[i].pinStates[index] = trigger->wave.waves[i].pinStates[index - 1];

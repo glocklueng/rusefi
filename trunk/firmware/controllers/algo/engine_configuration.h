@@ -13,6 +13,7 @@
 #include "allsensors.h"
 #include "engine_math.h"
 #include "can_header.h"
+#include "trigger_structure.h"
 
 #define CLT_CURVE_SIZE 16
 #define IAT_CURVE_SIZE 16
@@ -105,8 +106,6 @@ typedef struct {
  * these fields are not integrated with Tuner Studio. Step by step :)
  */
 typedef struct {
-
-
 	int hasMapSensor;
 
 	Thermistor iat;
@@ -133,6 +132,7 @@ typedef struct {
 	can_nbc_e can_nbc_type;
 	int can_nbc_broadcast_period;
 
+	trigger_shape_s triggerShape;
 } EngineConfiguration2;
 
 void setDefaultConfiguration(EngineConfiguration *engineConfiguration);
