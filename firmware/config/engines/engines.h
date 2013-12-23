@@ -12,11 +12,13 @@
 
 /**
  * 1996 1.3 Ford Aspire
+ * http://rusefi.com/forum/viewtopic.php?t=375
  */
 #define EFI_ENGINE_FORD_ASPIRE TRUE
 
 /**
  * 36-1 toothed wheel engine
+ * http://rusefi.com/forum/viewtopic.php?t=282
  */
 //#define EFI_ENGINE_FORD_FIESTA TRUE
 

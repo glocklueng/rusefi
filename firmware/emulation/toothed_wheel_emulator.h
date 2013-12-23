@@ -9,6 +9,8 @@
 #ifndef TOOTHED_WHEEL_EMULATOR_H_
 #define TOOTHED_WHEEL_EMULATOR_H_
 
-void skippedToothPositionEmulatorShape(PwmConfig *state, int totalTeethCount, int skippedCount);
+#include "dist_emulator.h"
+
+void skippedToothTriggerShape(trigger_shape_s *s, PwmConfig *state, int totalTeethCount, int skippedCount);
 
 #endif /* TOOTHED_WHEEL_EMULATOR_H_ */
