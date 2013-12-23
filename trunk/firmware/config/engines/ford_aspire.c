@@ -21,6 +21,7 @@
 #include "fuel_map.h"
 #include "engine_controller.h"
 #include "engine_configuration.h"
+#include "dist_emulator.h"
 
 extern EngineConfiguration2 *engineConfiguration2;
 extern EngineConfiguration *engineConfiguration;
@@ -74,33 +75,26 @@ static float default_fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT] = {
 	/* RPM_5900 */ {0.81,	0.8,	0.81,	0.81,	0.0,	0.0,	0.0,	0.0,	0.0,	0.0,	0.0,	0.0,	0.0,	2.42,	2.78,	3.34,	4.03,	4.01,	3.97,	5.73,	6.86,	6.9,	6.92,	9.23,	9.31,	9.23,	12.56,	14.61,	15.22,	15.19,	15.13,	15.17,	15.15	}
 };
 
+static trigger_simulator_s s;
+
 void configureShaftPositionEmulatorShape(PwmConfig *state) {
-	myfloat angles[] = {53.747, 121.90, 232.76, 300.54, 358.06, 409.8412, 478.6505918, 588.045, 657.03, 720};
+	triggerSimulatorInit(&s);
 
-	myfloat switchTimes[10];
+	triggerAddEvent(&s, 53.747, T_SECONDARY, 1);
+	triggerAddEvent(&s, 121.90, T_SECONDARY, 0);
+	triggerAddEvent(&s, 232.76, T_SECONDARY, 1);
+	triggerAddEvent(&s, 300.54, T_SECONDARY, 0);
+	triggerAddEvent(&s, 360, T_PRIMARY, 1);
 
-	for(int i=0;i<10;i++)
-		switchTimes[i] = angles[i] / 720.0;
+	triggerAddEvent(&s, 409.8412, T_SECONDARY, 1);
+	triggerAddEvent(&s, 478.6505, T_SECONDARY, 0);
+	triggerAddEvent(&s, 588.045, T_SECONDARY, 1);
+	triggerAddEvent(&s, 657.03, T_SECONDARY, 0);
+	triggerAddEvent(&s, 720, T_PRIMARY, 0);
 
+	int *pinStates[2] = { s.wave.waves[0].pinStates, s.wave.waves[1].pinStates };
 
-	/**
-	 * One signal per cam shaft revolution
-	 */
-	int pinStates0[] = { 0, 0, 0, 0, 1, 1, 1, 1, 1, 0 };
-
-	/**
-	 * Four signals per cam shaft revolution
-	 */
-	int pinStates1[] = {  1, 0, 1, 0, 0, 1, 0, 1, 0 };
-
-
-
-
-
-
-	int *pinStates[2] = { pinStates0, pinStates1 };
-
-	weComplexInit("distributor", state, 0, 10, switchTimes, 2, pinStates);
+	weComplexInit("distributor", state, 0, s.currentIndex + 1, s.wave.switchTimes, 2, pinStates);
 }
 
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
