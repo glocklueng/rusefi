@@ -27,6 +27,14 @@ typedef enum {
 	AC_MAP = 2,
 } analog_chart_e;
 
+typedef enum {
+	TM_DYNAMIC = 0,
+	/**
+	 * Fixed timing is useful while you are playing with a timing gun
+	 */
+	TM_FIXED = 1,
+} timing_mode_e;
+
 
 #define DWELL_COUNT 8
 /**
@@ -82,6 +90,14 @@ typedef struct {
 	 * degrees, not in absolute time as in running mode.
 	 */
 	int crankingChargeAngle;
+
+	timing_mode_e timingMode;
+	/**
+	 * This value is used in 'fixed timing' mode, i.e. constant timing
+	 * This mode is useful for instance while adjusting distributor location
+	 */
+	float fixedModeTiming;
+
 } EngineConfiguration;
 
 /**
@@ -90,11 +106,6 @@ typedef struct {
  */
 typedef struct {
 
-	/**
-	 * This value is used in 'fixed timing' mode, i.e. constant timing
-	 * This mode is useful for instance while adjusting distributor location
-	 */
-	float fixedModeTiming;
 
 	int hasMapSensor;
 

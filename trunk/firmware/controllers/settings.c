@@ -66,6 +66,10 @@ void printConfiguration(EngineConfiguration *engineConfiguration) {
 	scheduleSimpleMsg(&logger, "tpsMin: ", engineConfiguration->tpsMin);
 	scheduleSimpleMsg(&logger, "tpsMax: ", engineConfiguration->tpsMax);
 
+	scheduleSimpleMsg(&logger, "timingMode: ", engineConfiguration->timingMode);
+	scheduleSimpleMsg(&logger, "fixedModeTiming: ", engineConfiguration->fixedModeTiming);
+	scheduleSimpleMsg(&logger, "crankingChargeAngle: ", engineConfiguration->crankingChargeAngle);
+
 	scheduleSimpleMsg(&logger, "analogChartMode: ", engineConfiguration->analogChartMode);
 
 	scheduleSimpleMsg(&logger, "crankingRpm: ", engineConfiguration->crankingSettings.crankingRpm);
@@ -73,8 +77,13 @@ void printConfiguration(EngineConfiguration *engineConfiguration) {
 //	scheduleLogging(&logger);
 }
 
-static void setAnalogChartMode(int value) {
-	engineConfiguration->analogChartMode = value;
+static void setFixedModeTiming(int value) {
+	engineConfiguration->fixedModeTiming = value;
+	printConfiguration(engineConfiguration);
+}
+
+static void setTimingMode(int value) {
+	engineConfiguration->timingMode = value;
 	printConfiguration(engineConfiguration);
 }
 
@@ -83,10 +92,17 @@ static void setIgnitonOffset(int value) {
 	printConfiguration(engineConfiguration);
 }
 
+static void setAnalogChartMode(int value) {
+	engineConfiguration->analogChartMode = value;
+	printConfiguration(engineConfiguration);
+}
+
 void initSettings(void) {
 	initLoggingExt(&logger, "settings control", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 
 	addConsoleActionI("set_ignition_offset", &setIgnitonOffset);
 	addConsoleActionI("set_analog_chart_mode", &setAnalogChartMode);
+	addConsoleActionI("set_fixed_mode_timing", &setFixedModeTiming);
+	addConsoleActionI("set_timing_mode", &setTimingMode);
 }
 

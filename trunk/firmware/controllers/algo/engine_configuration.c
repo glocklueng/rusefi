@@ -69,6 +69,8 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration2->can_nbc_broadcast_period = 50;
 
 	engineConfiguration->crankingChargeAngle = 38;
+	engineConfiguration->timingMode = TM_DYNAMIC;
+	engineConfiguration->fixedModeTiming = 50;
 
 	engineConfiguration->analogChartMode = AC_OFF;
 
