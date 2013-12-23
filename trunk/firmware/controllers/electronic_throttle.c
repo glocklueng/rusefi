@@ -22,7 +22,7 @@ static Logging logger;
 /**
  * @brief Control Thread stack
  */
-static WORKING_AREA(etbTreadStack, 512);
+static WORKING_AREA(etbTreadStack, UTILITY_THREAD_STACK_SIZE);
 /**
  * @brief Pulse-Width Modulation state
  */

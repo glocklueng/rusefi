@@ -24,7 +24,7 @@ typedef struct {
 	 * the signal
 	 */
 	Semaphore signalSemaphore;
-	WORKING_AREA(soThreadStack, 512);
+	WORKING_AREA(soThreadStack, UTILITY_THREAD_STACK_SIZE);
 } SignalExecutorSleep;
 
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */

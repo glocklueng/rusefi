@@ -19,7 +19,7 @@
 #include "poten.h"
 //#include "rfi_perftest.h"
 
-static WORKING_AREA(eeThreadStack, 256);
+static WORKING_AREA(eeThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 #define DIAG_PORT GPIOD
 #define DIAG_PIN 0

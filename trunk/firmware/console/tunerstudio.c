@@ -38,7 +38,7 @@ extern SerialUSBDriver SDU1;
 static SerialConfig tsSerialConfig = {TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0};
 #endif /* EFI_TUNER_STUDIO_OVER_USB */
 
-static WORKING_AREA(TS_WORKING_AREA, 512);
+static WORKING_AREA(TS_WORKING_AREA, UTILITY_THREAD_STACK_SIZE);
 
 static int tsCounter = 0;
 static int writeCounter = 0;

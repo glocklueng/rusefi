@@ -19,7 +19,7 @@
 
 static Logging logger;
 
-static WORKING_AREA(maThreadStack, 256);
+static WORKING_AREA(maThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static void mapCallback(int rpm, float key, float value) {
 	Logging *logging = &logger;
