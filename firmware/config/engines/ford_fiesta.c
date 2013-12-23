@@ -17,7 +17,7 @@
 extern EngineConfiguration2 engineConfiguration2;
 
 void configureShaftPositionEmulatorShape(PwmConfig *state) {
-	skippedToothPositionEmulatorShape(state);
+	skippedToothPositionEmulatorShape(state, TOTAL_TEETH_COUNT, SKIPPED_TEETH_COUNT);
 }
 
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
