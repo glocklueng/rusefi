@@ -1,5 +1,5 @@
-/*
- * pwm_generator.h
+/**
+ * @file pwm_generator.h
  *
  * @date May 28, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -27,15 +27,19 @@ typedef struct {
 	int pinStates[PWM_PHASE_MAX_COUNT];
 } SingleWave;
 
+typedef struct {
+	SingleWave waves[PWM_PHASE_MAX_WAVE_PER_PWM];
+	int waveCount;
+	int phaseCount;
+} multi_wave_s;
+
 /**
  * @brief   Multi-channel software PWM output configuration
  */
 typedef struct {
-	SingleWave waves[PWM_PHASE_MAX_WAVE_PER_PWM];
 	OutputPin outputPins[PWM_PHASE_MAX_WAVE_PER_PWM];
-	int waveCount;
+	multi_wave_s multiWave;
 	int idleState;
-	int phaseCount;
 	char *name;
 	/**
 	 * values in the (0..1] range which refer to points within the period at at which pin state should be changed
