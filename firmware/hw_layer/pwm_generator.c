@@ -52,13 +52,13 @@ static msg_t deThread(PwmConfig *state) {
 		 */
 		myfloat period = state->period;
 
-		for (int phaseIndex = 0; phaseIndex < state->phaseCount; phaseIndex++) {
+		for (int phaseIndex = 0; phaseIndex < state->multiWave.phaseCount; phaseIndex++) {
 			systime_t timeToSwitch = (systime_t) ((iteration + state->switchTimes[phaseIndex]) * period);
 			chThdSleepUntil(start + timeToSwitch);
 
-			for (int waveIndex = 0; waveIndex < state->waveCount; waveIndex++) {
+			for (int waveIndex = 0; waveIndex < state->multiWave.waveCount; waveIndex++) {
 				OutputPin *outputPin = &state->outputPins[waveIndex];
-				int value = state->waves[waveIndex].pinStates[phaseIndex];
+				int value = state->multiWave.waves[waveIndex].pinStates[phaseIndex];
 				setPinValue(outputPin, value ^ state->idleState);
 			}
 		}
@@ -79,7 +79,7 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes, i
 		for (int waveIndex = 0; waveIndex < waveCount; waveIndex++) {
 //			print("output switch time index (%d/%d) at %f to %d\r\n", phaseIndex,waveIndex,
 //					switchTimes[phaseIndex], pinStates[waveIndex][phaseIndex]);
-			state->waves[waveIndex].pinStates[phaseIndex] = pinStates[waveIndex][phaseIndex];
+			state->multiWave.waves[waveIndex].pinStates[phaseIndex] = pinStates[waveIndex][phaseIndex];
 		}
 	}
 }
@@ -106,14 +106,14 @@ void weComplexInit(char *msg, PwmConfig *state, int idleState, int phaseCount, m
 	for (int i = 0; i < phaseCount - 1; i++)
 		chDbgCheck(switchTimes[i] < switchTimes[i + 1], "invalid switchTimes");
 
-	state->waveCount = waveCount;
+	state->multiWave.waveCount = waveCount;
 	state->period = frequency2period(10);
 
 	copyPwmParameters(state, phaseCount, switchTimes, waveCount, pinStates);
 
 	state->name = msg;
 	state->idleState = idleState;
-	state->phaseCount = phaseCount;
+	state->multiWave.phaseCount = phaseCount;
 	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack), NORMALPRIO, (tfunc_t) deThread, state);
 }
 
