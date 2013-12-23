@@ -11,15 +11,19 @@
 #if EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR
 
 #include "toothed_wheel_emulator.h"
+#include "dist_emulator.h"
 
 static myfloat switchTimes[2 * TOTAL_TEETH_COUNT];
 static int pinStates0[2 * TOTAL_TEETH_COUNT];
 
-void skippedToothPositionEmulatorShape(PwmConfig *state) {
+static trigger_simulator_s s;
 
-	for (int i = 0; i < 2 * TOTAL_TEETH_COUNT; i++) {
-		switchTimes[i] = 1.0 * (i + 1) / (2 * TOTAL_TEETH_COUNT);
-		if (i < 2 * SKIPPED_TEETH_COUNT) {
+void skippedToothPositionEmulatorShape(PwmConfig *state, int totalTeethCount, int skippedCount) {
+	triggerSimulatorInit(&s);
+
+	for (int i = 0; i < 2 * totalTeethCount; i++) {
+		switchTimes[i] = 1.0 * (i + 1) / (2 * totalTeethCount);
+		if (i < 2 * skippedCount) {
 			pinStates0[i] = 0;
 		} else {
 			pinStates0[i] = i % 2;
@@ -29,7 +33,7 @@ void skippedToothPositionEmulatorShape(PwmConfig *state) {
 
 	int *pinStates[1] = { pinStates0 };
 
-	weComplexInit("position sensor", state, 0, 2 * TOTAL_TEETH_COUNT, switchTimes, 1, pinStates);
+	weComplexInit("position sensor", state, 0, 2 * totalTeethCount, switchTimes, 1, pinStates);
 }
 
 #endif /* EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR */
