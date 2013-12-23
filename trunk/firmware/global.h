@@ -23,4 +23,7 @@ typedef float myfloat;
 #define VALUE(x) VALUE_TO_STRING(x)
 #define VAR_NAME_VALUE(var) #var "="  VALUE(var)
 
+// declare project thread stack size default 512 bytes 
+#define UTILITY_THREAD_STACK_SIZE 512 
+
 #endif /* GLOBAL_H_ */

@@ -23,12 +23,12 @@ static PinEnum leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATIO
 /**
  * blinking thread to show that we are alive
  */
-static WORKING_AREA(comBlinkingStack, 128);
+static WORKING_AREA(comBlinkingStack, UTILITY_THREAD_STACK_SIZE);
 
 /**
  * error thread to show error condition (blinking LED means non-fatal error)
  */
-static WORKING_AREA(errBlinkingStack, 128);
+static WORKING_AREA(errBlinkingStack, UTILITY_THREAD_STACK_SIZE);
 
 void turnOutputPinOn(PinEnum pin) {
 	setOutputPinValue(pin, TRUE);
