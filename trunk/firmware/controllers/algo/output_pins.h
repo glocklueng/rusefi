@@ -55,6 +55,9 @@ typedef enum {
 	LED_HUGE_19,
 	LED_HUGE_20,
 
+	// malfunction LED indicator - CheckEngine
+	LED_CHECK_ENGINE,
+	
 	FUEL_PUMP,
 
 } PinEnum;

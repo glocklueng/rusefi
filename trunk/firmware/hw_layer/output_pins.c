@@ -18,7 +18,7 @@
 #include "main_loop.h"
 
 static OutputPin outputs[OUTPUT_PIN_COUNT];
-static PinEnum leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG };
+static PinEnum leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG, LED_CHECK_ENGINE };
 
 /**
  * blinking thread to show that we are alive
@@ -107,6 +107,10 @@ void initOutputPins(void) {
 
 	outputPinRegister("communication status 2", LED_ALIVE2, EXTRA_LED_1_PORT, EXTRA_LED_1_PIN);
 	outputPinRegister("alive1", LED_DEBUG, GPIOD, 6);
+	
+	// CheckEngine LED pin -> PC7
+	outputPinRegister("MalfunctionIndicator",LED_CHECK_ENGINE, GPIOC, 7);
+
 	outputPinRegister("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN);
 	outputPinRegister("sparkout2", SPARKOUT_2_OUTPUT, SPARK_2_PORT, SPARK_2_PIN);
 
