@@ -50,8 +50,8 @@ static msg_t etbThread(void *arg) {
 static void setThrottleConsole(int level) {
 	scheduleSimpleMsg(&logger, "setting throttle=", level);
 
-	etbPwm.switchTimes[0] = 0.01 + (min(level, 98)) / 100.0;
-	print("st = %f\r\n", etbPwm.switchTimes[0]);
+	etbPwm.multiWave.switchTimes[0] = 0.01 + (min(level, 98)) / 100.0;
+	print("st = %f\r\n", etbPwm.multiWave.switchTimes[0]);
 }
 
 void initElectronicThrottle(void) {

@@ -53,7 +53,7 @@ static msg_t deThread(PwmConfig *state) {
 		myfloat period = state->period;
 
 		for (int phaseIndex = 0; phaseIndex < state->multiWave.phaseCount; phaseIndex++) {
-			systime_t timeToSwitch = (systime_t) ((iteration + state->switchTimes[phaseIndex]) * period);
+			systime_t timeToSwitch = (systime_t) ((iteration + state->multiWave.switchTimes[phaseIndex]) * period);
 			chThdSleepUntil(start + timeToSwitch);
 
 			for (int waveIndex = 0; waveIndex < state->multiWave.waveCount; waveIndex++) {
@@ -74,7 +74,7 @@ static msg_t deThread(PwmConfig *state) {
  */
 void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes, int waveCount, int **pinStates) {
 	for (int phaseIndex = 0; phaseIndex < phaseCount; phaseIndex++) {
-		state->switchTimes[phaseIndex] = switchTimes[phaseIndex];
+		state->multiWave.switchTimes[phaseIndex] = switchTimes[phaseIndex];
 
 		for (int waveIndex = 0; waveIndex < waveCount; waveIndex++) {
 //			print("output switch time index (%d/%d) at %f to %d\r\n", phaseIndex,waveIndex,

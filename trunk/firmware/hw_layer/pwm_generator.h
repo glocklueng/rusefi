@@ -28,9 +28,20 @@ typedef struct {
 } SingleWave;
 
 typedef struct {
-	SingleWave waves[PWM_PHASE_MAX_WAVE_PER_PWM];
-	int waveCount;
+	/**
+	 * Number of events in the cycle
+	 */
 	int phaseCount;
+	/**
+	 * Number of signal wires
+	 */
+	int waveCount;
+	SingleWave waves[PWM_PHASE_MAX_WAVE_PER_PWM];
+	/**
+	 * values in the (0..1] range which refer to points within the period at at which pin state should be changed
+	 * So, in the simplest case we turn pin off at 0.3 and turn it on at 1 - that would give us a 70% duty cycle PWM
+	 */
+	volatile myfloat switchTimes[PWM_PHASE_MAX_COUNT];
 } multi_wave_s;
 
 /**
@@ -41,11 +52,6 @@ typedef struct {
 	multi_wave_s multiWave;
 	int idleState;
 	char *name;
-	/**
-	 * values in the (0..1] range which refer to points within the period at at which pin state should be changed
-	 * So, in the simplest case we turn pin off at 0.3 and turn it on at 1 - that would give us a 70% duty cycle PWM
-	 */
-	volatile myfloat switchTimes[PWM_PHASE_MAX_COUNT];
 	/**
 	 * float value of PWM period
 	 * PWM generation is not happening while this value is zero
