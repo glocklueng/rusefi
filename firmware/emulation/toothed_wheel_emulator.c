@@ -13,7 +13,7 @@
 #include "toothed_wheel_emulator.h"
 #include "dist_emulator.h"
 
-void skippedToothTriggerShape(trigger_simulator_s *s, PwmConfig *state, int totalTeethCount, int skippedCount) {
+void skippedToothTriggerShape(trigger_shape_s *s, PwmConfig *state, int totalTeethCount, int skippedCount) {
 	triggerShapeInit(s);
 
 	float toothWidth = 0.5;
