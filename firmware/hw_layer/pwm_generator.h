@@ -41,7 +41,7 @@ typedef struct {
 	 * values in the (0..1] range which refer to points within the period at at which pin state should be changed
 	 * So, in the simplest case we turn pin off at 0.3 and turn it on at 1 - that would give us a 70% duty cycle PWM
 	 */
-	volatile myfloat switchTimes[PWM_PHASE_MAX_COUNT];
+	myfloat switchTimes[PWM_PHASE_MAX_COUNT];
 } multi_wave_s;
 
 /**

@@ -38,6 +38,32 @@ void setRevolutionPeriod(int value) {
 	scheduleSimpleMsg(&logger, "Emulating position sensor(s). RPM=", value);
 }
 
+void triggerSimulatorInit(trigger_simulator_s *trigger) {
+	trigger->currentIndex = -1;
+}
+
+void triggerAddEvent(trigger_simulator_s *trigger, float angle, trigger_wheel_e waveIndex, int state) {
+	angle /= 720;
+	if (trigger->currentIndex == -1) {
+		trigger->currentIndex = 0;
+		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
+			trigger->wave.waves[i].pinStates[0] = 0;
+
+		trigger->wave.switchTimes[0] = angle;
+		trigger->wave.waves[waveIndex].pinStates[0] = state;
+		return;
+	}
+
+//	if(angle!=trigger->wave.switchTimes[trigger->currentIndex])
+
+	int index = ++trigger->currentIndex;
+
+	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
+		trigger->wave.waves[i].pinStates[index] = trigger->wave.waves[i].pinStates[index - 1];
+	trigger->wave.switchTimes[index] = angle;
+	trigger->wave.waves[waveIndex].pinStates[index] = state;
+}
+
 void initShaftPositionEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
 	print("Emulating %s\r\n", EFI_ENGINE_ID);
@@ -45,11 +71,11 @@ void initShaftPositionEmulator(void) {
 	initLogging(&logger, "position sensor(s) emulator");
 
 	initOutputPin("distributor ch1", &configuration.outputPins[0],
-			PRIMARY_SHAFT_POSITION_EMULATION_PORT, PRIMARY_SHAFT_POSITION_EMULATION_PIN);
+	PRIMARY_SHAFT_POSITION_EMULATION_PORT, PRIMARY_SHAFT_POSITION_EMULATION_PIN);
 
 #if EFI_SHAFT_POSTION_NEEDS_SECONDARY
 	initOutputPin("distributor ch2", &configuration.outputPins[1],
-			SECONDARY_SHAFT_POSITION_EMULATION_PORT, SECONDARY_SHAFT_POSITION_EMULATION_PIN);
+	SECONDARY_SHAFT_POSITION_EMULATION_PORT, SECONDARY_SHAFT_POSITION_EMULATION_PIN);
 #endif /* EFI_SHAFT_POSTION_NEEDS_SECONDARY */
 
 	configureShaftPositionEmulatorShape(&configuration);
