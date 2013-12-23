@@ -24,11 +24,9 @@ int iMFIerror = 32;			// in future this error code will be check from main statu
 // todo: we need to add a new output PIN (new value for PinEnum and new PIN configuration and initialization)
 int MFIled = LED_RUNNING;	// specify what pin must be lighting
 
-// todo: we need to extract '512' as a global constant UTILITY_THREAD_STACK_SIZE
-static WORKING_AREA(mfiThreadStack, 512);	// declare thread
+static WORKING_AREA(mfiThreadStack, UTILITY_THREAD_STACK_SIZE);	// declare thread
 
-// todo: make this method 'static': we do not need to expose this method to other files, it's an internal method
-void blink_digits(int digit, int duration) {
+static void blink_digits(int digit, int duration) {
 	for (int iter = 0; iter < digit; iter++) {
 		turnOutputPinOn(MFIled);
 		chThdSleepMilliseconds(duration);
@@ -39,21 +37,31 @@ void blink_digits(int digit, int duration) {
 
 //  our main thread for show check engine error
 static msg_t mfiThread(void) {
-	int MFerr, digit;
+	// todo: while it is the an C tradition to declare fields in the beginning of a method
+	// todo: I think we better move declarations closer to the usages to reduce visibility
+	// todo: and simply future refactoring
+	int MFerr, digit, ErrLength;
 	chRegSetThreadName("MFIndicator");
 
 	while (TRUE) {
 		// todo: extract this as 'blinkOneCode' method
 		if (iMFIerror > 0) {
-			// swith on check engine lihjt on 10sec (one long blink)
+			// First at all calculate how many digits in this integer
+			ErrLength = iMFIerror;
+			int i=0;
+			while (ErrLength>0) {
+				ErrLength = ErrLength / 10;
+				++i;
+			}
+			ErrLength = i;
+			print("size of ErrKegth = %d == %d\n\r", iMFIerror, i);
+			// switch on check engine light on 10sec (one long blink)
 			blink_digits(1, MFI_CHECKENGINE_LIGHT);
 			// MFerr - local copy of iMFIerror (part of general structure)
 			MFerr = iMFIerror;
-			for (int iter = 3; iter >= 0; iter--) {
+			for (int iter = ErrLength-1; iter >= 0; iter--) {
 				int ourDigit = pow(10, iter);		// 10^0 = 1, 10^1 = 10, 10^2=100, 10^3 = 1000
 				// todo: '0' as one blink and '1' as two blinks is crazy! we should make '0' ten blinks
-				// todo: this is related to the issue that we are blinking out 'leading zero' - i.e
-				// todo: in our case '20' is blinked as '0020' and this is not needed
 				digit = 1;				// as we remember "0" we show as one blink 
 				while (MFerr >= ourDigit) {
 					MFerr = MFerr - ourDigit;
