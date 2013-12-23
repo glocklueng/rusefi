@@ -10,39 +10,11 @@
 
 #include "global.h"
 
-
-#define PWM_PHASE_MAX_COUNT 150
-
-#define PWM_PHASE_MAX_WAVE_PER_PWM 2
+#include "trigger_structure.h"
 
 #define FREQ_MATH_FREQUENCY CH_FREQUENCY
 
 #include "gpio_helper.h"
-
-
-/**
- * @brief   PWM configuration for the specific output pin
- */
-typedef struct {
-	int pinStates[PWM_PHASE_MAX_COUNT];
-} SingleWave;
-
-typedef struct {
-	/**
-	 * Number of events in the cycle
-	 */
-	int phaseCount;
-	/**
-	 * Number of signal wires
-	 */
-	int waveCount;
-	SingleWave waves[PWM_PHASE_MAX_WAVE_PER_PWM];
-	/**
-	 * values in the (0..1] range which refer to points within the period at at which pin state should be changed
-	 * So, in the simplest case we turn pin off at 0.3 and turn it on at 1 - that would give us a 70% duty cycle PWM
-	 */
-	myfloat switchTimes[PWM_PHASE_MAX_COUNT];
-} multi_wave_s;
 
 /**
  * @brief   Multi-channel software PWM output configuration
