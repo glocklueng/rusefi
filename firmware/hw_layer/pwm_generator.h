@@ -57,7 +57,7 @@ typedef struct {
 	 * PWM generation is not happening while this value is zero
 	 */
 	myfloat period;
-	WORKING_AREA(deThreadStack, 256);
+	WORKING_AREA(deThreadStack, UTILITY_THREAD_STACK_SIZE);
 } PwmConfig;
 
 void initModulation(PwmConfig *state, int count, myfloat *switchTimes,

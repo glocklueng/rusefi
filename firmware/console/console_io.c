@@ -67,7 +67,7 @@ static char consoleInput[] = "                                                  
 
 void (*console_line_callback)(char *);
 
-static WORKING_AREA(consoleThread, 1024);
+static WORKING_AREA(consoleThread, UTILITY_THREAD_STACK_SIZE);
 static msg_t sdThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("console thread");
