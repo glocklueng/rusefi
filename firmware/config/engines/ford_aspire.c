@@ -75,28 +75,28 @@ static float default_fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT] = {
 };
 
 void configureShaftPositionEmulatorShape(PwmConfig *state) {
-	myfloat x = ASPIRE_MAGIC_DUTY_CYCLE / 4;
+	myfloat angles[] = {53.747, 121.90, 232.76, 300.54, 358.06, 409.8412, 478.6505918, 588.045, 657.03, 720};
 
-	/**
-	 * 1993 Ford Aspire has two hall sensors for CKP sensor
-	 *
-	 * X__X__X__X__  38% duty cycle
-	 * __XXXXXX____  50% duty cycle
-	 */
+	myfloat switchTimes[10];
 
-	myfloat secondStart = 0.17; //x + (0.25 - x) / 2;
+	for(int i=0;i<10;i++)
+		switchTimes[i] = angles[i] / 720.0;
 
-	myfloat switchTimes[] = { x, secondStart, 0.25, 0.25 + x, 0.5, 0.5 + x, secondStart + 0.5, 0.75, 0.75 + x, 1 };
 
 	/**
 	 * One signal per cam shaft revolution
 	 */
-	int pinStates0[] = { 1, 0, 0, 0, 0, 0, 1, 1, 1, 1 };
+	int pinStates0[] = { 0, 0, 0, 0, 1, 1, 1, 1, 1, 0 };
 
 	/**
 	 * Four signals per cam shaft revolution
 	 */
-	int pinStates1[] = { 0, 0, 1 /* start of 2nd signal*/, 0, 1 /* start of 3rd signal*/, 0, 0, 1, 0, 1 };
+	int pinStates1[] = {  1, 0, 1, 0, 0, 1, 0, 1, 0 };
+
+
+
+
+
 
 	int *pinStates[2] = { pinStates0, pinStates1 };
 
