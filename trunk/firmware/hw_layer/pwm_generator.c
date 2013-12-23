@@ -57,7 +57,7 @@ static msg_t deThread(PwmConfig *state) {
 			chThdSleepUntil(start + timeToSwitch);
 
 			for (int waveIndex = 0; waveIndex < state->waveCount; waveIndex++) {
-				OutputPin *outputPin = &state->waves[waveIndex].outputPin;
+				OutputPin *outputPin = &state->outputPins[waveIndex];
 				int value = state->waves[waveIndex].pinStates[phaseIndex];
 				setPinValue(outputPin, value ^ state->idleState);
 			}
@@ -90,7 +90,7 @@ void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, int 
 
 	int *pinStates[1] = { pinStates0 };
 
-	initOutputPin(msg, &state->waves[0].outputPin, port, pin);
+	initOutputPin(msg, &state->outputPins[0], port, pin);
 
 	weComplexInit(msg, state, idleState, 2, switchTimes, 1, pinStates);
 
