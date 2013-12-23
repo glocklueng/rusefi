@@ -19,7 +19,7 @@
 #include "engine_configuration.h"
 
 static Logging logger;
-static WORKING_AREA(canTreadStack, 512);
+static WORKING_AREA(canTreadStack, UTILITY_THREAD_STACK_SIZE);
 
 extern EngineConfiguration2 *engineConfiguration2;
 

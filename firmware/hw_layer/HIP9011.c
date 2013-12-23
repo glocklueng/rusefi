@@ -24,7 +24,7 @@
 
 static Logging logger;
 
-static WORKING_AREA(htThreadStack, 512);
+static WORKING_AREA(htThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static int callbackc = 0;
 
