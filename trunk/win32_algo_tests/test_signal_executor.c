@@ -11,15 +11,15 @@
 #include "signal_executor.h"
 #include "signal_executor_single_timer_algo.h"
 #include "test_signal_executor.h"
-#include "output_pins.h"
+#include "io_pins.h"
 #include "utlist.h"
 
 extern OutputSignal *st_output_list;
 
-static PinEnum testLastToggledPin;
+static io_pin_e testLastToggledPin;
 static int testToggleCounter;
 
-void setOutputPinValue(PinEnum pin, int value) {
+void setOutputPinValue(io_pin_e pin, int value) {
 	// this is a test implementation of the method - we use it to see what's going on
 	testLastToggledPin = pin;
 	testToggleCounter++;
