@@ -60,14 +60,20 @@ typedef enum {
 	
 	FUEL_PUMP,
 
-} PinEnum;
+	SPI_CS_1,
+	SPI_CS_2,
+	SPI_CS_3,
+	SPI_CS_4,
+	SPI_CS_5,
 
-#define OUTPUT_PIN_COUNT 100
+} io_pin_e;
+
+#define IO_PIN_COUNT 100
 
 void initOutputPins(void);
-void turnOutputPinOn(PinEnum pin);
-void turnOutputPinOff(PinEnum pin);
-void setOutputPinValue(PinEnum pin, int value);
-int getOutputPinValue(PinEnum pin);
+void turnOutputPinOn(io_pin_e pin);
+void turnOutputPinOff(io_pin_e pin);
+void setOutputPinValue(io_pin_e pin, int value);
+int getOutputPinValue(io_pin_e pin);
 
 #endif /* STATUS_LEDS_H_ */

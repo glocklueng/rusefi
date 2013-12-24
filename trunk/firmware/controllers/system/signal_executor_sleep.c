@@ -10,7 +10,7 @@
  */
 
 #include "main.h"
-#include "output_pins.h"
+#include "io_pins.h"
 #include "signal_executor.h"
 #include "rficonsole.h"
 #include "datalogging.h"
