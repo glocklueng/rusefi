@@ -1,5 +1,6 @@
 EESchema Schematic File Version 2
 LIBS:project_specific_libs
+LIBS:header_10x2
 LIBS:power
 LIBS:device
 LIBS:conn
@@ -31,7 +32,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "6 Channel Injector"
-Date "1 dec 2013"
+Date "24 dec 2013"
 Rev "A-6"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""
@@ -487,17 +488,6 @@ Connection ~ 5050 3625
 Wire Notes Line
 	9350 3425 8025 3425
 $Comp
-L CONN_10X2 P1
-U 1 1 527CB514
-P 1675 6825
-F 0 "P1" H 1675 7375 60  0000 C CNN
-F 1 "CONN_10X2" V 1675 6725 50  0000 C CNN
-F 2 "pin_array_10x2" H 1675 6825 60  0001 C CNN
-F 3 "" H 1675 6825 60  0000 C CNN
-	1    1675 6825
-	1    0    0    -1  
-$EndComp
-$Comp
 L CONN_3 P3
 U 1 1 527D6DAD
 P 5800 3625
@@ -607,17 +597,6 @@ Wire Wire Line
 	1275 6475 1075 6475
 Wire Wire Line
 	1075 6375 1275 6375
-$Comp
-L CONN_10X2 P7
-U 1 1 527E2500
-P 2975 6825
-F 0 "P7" H 2975 7375 60  0000 C CNN
-F 1 "CONN_10X2" V 2975 6800 50  0000 C CNN
-F 2 "pin_array_10x2" H 2975 6825 60  0001 C CNN
-F 3 "" H 2975 6825 60  0000 C CNN
-	1    2975 6825
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2075 6375 2575 6375
 Wire Wire Line
@@ -947,5 +926,31 @@ F 4 "Panasonic,ECG ERJ-6ENF20R0V" V 630 2850 60  0001 C CNN "mfg,mfg#"
 F 5 "digi,ERJ-6ENF20R0V" V 630 2850 60  0001 C CNN "vend1,vend1#"
 	1    3700 5225
 	0    1    1    0   
+$EndComp
+$Comp
+L HEADER_10X2 P1
+U 1 1 52B99314
+P 1675 6825
+F 0 "P1" H 1675 7375 60  0000 C CNN
+F 1 "HEADER_10X2" V 1675 6725 50  0000 C CNN
+F 2 "~" H 1675 6825 60  0000 C CNN
+F 3 "~" H 1675 6825 60  0000 C CNN
+F 4 "TE,1-215307-0" H 1775 7475 60  0000 C CNN "mfg,mfg#"
+F 5 "digi,A106616-ND" H 1875 7575 60  0000 C CNN "vend1,vend1#"
+	1    1675 6825
+	1    0    0    -1  
+$EndComp
+$Comp
+L HEADER_10X2 P7
+U 1 1 52B99443
+P 2975 6825
+F 0 "P7" H 2975 7375 60  0000 C CNN
+F 1 "HEADER_10X2" V 2975 6725 50  0000 C CNN
+F 2 "~" H 2975 6825 60  0000 C CNN
+F 3 "~" H 2975 6825 60  0000 C CNN
+F 4 "TE,1-215307-0" H 3075 7475 60  0000 C CNN "mfg,mfg#"
+F 5 "digi,A106616-ND" H 3175 7575 60  0000 C CNN "vend1,vend1#"
+	1    2975 6825
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
