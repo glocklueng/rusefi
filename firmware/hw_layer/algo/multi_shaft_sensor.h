@@ -16,7 +16,7 @@
 
 #if EFI_USE_MULTI_SENSOR_SHAFT_SENSOR
 
-void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaftPositionState);
+void handleShaftSignal(ShaftEvents signal, time_t now, trigger_state_s *shaftPositionState);
 void initShaftSignalDecoder(void);
 
 #endif /* EFI_USE_MULTI_SENSOR_SHAFT_SENSOR */

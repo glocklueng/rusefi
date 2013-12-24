@@ -110,12 +110,6 @@ typedef struct {
 
 	Thermistor iat;
 	Thermistor clt;
-	/**
-	 * Total time of shaft events per CAM or CRANK shaft revolution.
-	 * TODO this should be migrated to CRANKshaft revolution, this would go together
-	 * TODO with eliminating RPM_MULT magic constant
-	 */
-	int shaftPositionEventCount;
 
 	/**
 	 * This magic constant is about four-stroke engines with camshaft position sensors.

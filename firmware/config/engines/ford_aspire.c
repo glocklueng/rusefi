@@ -152,7 +152,7 @@ void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->ignitonOffset = 35;
 	engineConfiguration->rpmHardLimit = 7000;
 
-	engineConfiguration2->shaftPositionEventCount = 10;
+	engineConfiguration2->triggerShape.shaftPositionEventCount = 10;
 
 	engineConfiguration->crankingSettings.coolantTempMin = 15;
 	engineConfiguration->crankingSettings.coolantTempMax = 65;

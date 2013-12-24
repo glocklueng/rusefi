@@ -26,7 +26,7 @@ IntListenerArray ckpListeneres;
 
 static Logging logger;
 
-ShaftPositionState shaftPositionState;
+trigger_state_s shaftPositionState;
 
 static volatile int shaftEventCounter;
 

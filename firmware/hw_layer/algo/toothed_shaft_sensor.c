@@ -18,29 +18,7 @@ static Logging logger;
 static cyclic_buffer errorDetection;
 extern EngineConfiguration2 engineConfiguration2;
 
-void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaftPositionState) {
-	if (signal != SHAFT_PRIMARY_UP) {
-		shaftPositionState->current_index++;
-		return;
-	}
-
-	int current_duration = now - shaftPositionState->toothed_previous_time;
-
-// todo: skip a number of signal from the beginning
-
-	if (current_duration > shaftPositionState->toothed_previous_duration * 1.5
-			&& current_duration < shaftPositionState->toothed_previous_duration * 4) {
-		int isDecodingError = shaftPositionState->current_index != engineConfiguration2.shaftPositionEventCount - 1;
-		cbAdd(&errorDetection, isDecodingError);
-
-		shaftPositionState->shaft_is_synchronized = TRUE;
-		shaftPositionState->current_index = 0;
-	} else {
-		shaftPositionState->current_index++;
-	}
-
-	shaftPositionState->toothed_previous_duration = current_duration;
-	shaftPositionState->toothed_previous_time = now;
+void handleShaftSignal(ShaftEvents signal, time_t now, trigger_state_s *shaftPositionState) {
 }
 
 void initShaftSignalDecoder(void) {
