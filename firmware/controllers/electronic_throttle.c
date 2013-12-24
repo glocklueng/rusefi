@@ -15,7 +15,7 @@
 #include "rficonsole_logic.h"
 #include "idle_controller.h"
 #include "tps.h"
-#include "output_pins.h"
+#include "io_pins.h"
 #include "engine_configuration.h"
 
 static Logging logger;

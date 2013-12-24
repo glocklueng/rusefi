@@ -8,7 +8,7 @@
 
 #include "hardware.h"
 #include "pin_repository.h"
-#include "output_pins.h"
+#include "io_pins.h"
 
 #include "adc_inputs.h"
 

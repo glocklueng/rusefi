@@ -10,7 +10,7 @@
 #include "injector_central.h"
 #include "main.h"
 #include "engines.h"
-#include "output_pins.h"
+#include "io_pins.h"
 #include "signal_executor.h"
 #include "rficonsole_logic.h"
 #include "main_loop.h"

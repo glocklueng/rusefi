@@ -12,7 +12,7 @@
  */
 
 #include "main.h"
-#include "output_pins.h"
+#include "io_pins.h"
 #include "malfunction_indicator.h"
 
 #define MFI_LONG_BLINK	1500

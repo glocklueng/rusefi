@@ -14,7 +14,7 @@
 #endif
 
 #include "engine_state.h"
-#include "output_pins.h"
+#include "io_pins.h"
 
 #include "datalogging.h"
 #include "shaft_position_input.h"

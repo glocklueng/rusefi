@@ -8,7 +8,7 @@
 
 #include "main.h"
 #include "ignition_central.h"
-#include "output_pins.h"
+#include "io_pins.h"
 #include "signal_executor.h"
 #include "main_loop.h"
 

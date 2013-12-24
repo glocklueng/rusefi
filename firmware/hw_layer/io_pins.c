@@ -8,7 +8,7 @@
 
 #include <board.h>
 #include "main.h"
-#include "output_pins.h"
+#include "io_pins.h"
 
 #include "pin_repository.h"
 #include "gpio_helper.h"
@@ -17,8 +17,8 @@
 #include "shaft_position_input.h"
 #include "main_loop.h"
 
-static OutputPin outputs[OUTPUT_PIN_COUNT];
-static PinEnum leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG, LED_CHECK_ENGINE };
+static OutputPin outputs[IO_PIN_COUNT];
+static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG, LED_CHECK_ENGINE };
 
 /**
  * blinking thread to show that we are alive
@@ -30,11 +30,11 @@ static WORKING_AREA(comBlinkingStack, UTILITY_THREAD_STACK_SIZE);
  */
 static WORKING_AREA(errBlinkingStack, UTILITY_THREAD_STACK_SIZE);
 
-void turnOutputPinOn(PinEnum pin) {
+void turnOutputPinOn(io_pin_e pin) {
 	setOutputPinValue(pin, TRUE);
 }
 
-void turnOutputPinOff(PinEnum pin) {
+void turnOutputPinOff(io_pin_e pin) {
 	setOutputPinValue(pin, FALSE);
 }
 
@@ -44,11 +44,11 @@ void turnOutputPinOff(PinEnum pin) {
  * TODO: should add 'xor' logic right at the output pin level in order to distinguish
  * TODO: logical levels from physical levels?
  */
-void setOutputPinValue(PinEnum pin, int value) {
+void setOutputPinValue(io_pin_e pin, int value) {
 	setPinValue(&outputs[pin], value);
 }
 
-int getOutputPinValue(PinEnum pin) {
+int getOutputPinValue(io_pin_e pin) {
 	return getPinValue(&outputs[pin]);
 }
 
@@ -58,9 +58,22 @@ static void comBlinkingThread(void *arg) {
 		int delay = is_serial_ready() ? 100 : 33;
 
 		setOutputPinValue(LED_COMMUNICATION_1, 0);
+
+		setOutputPinValue(SPI_CS_1, 0);
+		setOutputPinValue(SPI_CS_2, 0);
+		setOutputPinValue(SPI_CS_3, 0);
+		setOutputPinValue(SPI_CS_4, 0);
+		setOutputPinValue(SPI_CS_5, 0);
+
 		setOutputPinValue(LED_ALIVE2, 1);
 		chThdSleepMilliseconds(delay);
-		setOutputPinValue(LED_COMMUNICATION_1, 1);
+
+		setOutputPinValue(SPI_CS_1, 1);
+		setOutputPinValue(SPI_CS_2, 1);
+		setOutputPinValue(SPI_CS_3, 1);
+		setOutputPinValue(SPI_CS_4, 1);
+		setOutputPinValue(SPI_CS_5, 1);
+setOutputPinValue(LED_COMMUNICATION_1, 1);
 		setOutputPinValue(LED_ALIVE2, 0);
 		chThdSleepMilliseconds(delay);
 	}
@@ -108,11 +121,17 @@ void initOutputPins(void) {
 	outputPinRegister("communication status 2", LED_ALIVE2, EXTRA_LED_1_PORT, EXTRA_LED_1_PIN);
 	outputPinRegister("alive1", LED_DEBUG, GPIOD, 6);
 	
-	// CheckEngine LED pin -> PC7
 	outputPinRegister("MalfunctionIndicator",LED_CHECK_ENGINE, LED_CHECK_ENGINE_PORT, LED_CHECK_ENGINE_PIN);
 
 	outputPinRegister("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN);
 	outputPinRegister("sparkout2", SPARKOUT_2_OUTPUT, SPARK_2_PORT, SPARK_2_PIN);
+
+	outputPinRegister("spi CS1", SPI_CS_1, SPI_CS1_PORT, SPI_CS1_PIN);
+	outputPinRegister("spi CS2", SPI_CS_2, SPI_CS2_PORT, SPI_CS2_PIN);
+	outputPinRegister("spi CS3", SPI_CS_3, SPI_CS3_PORT, SPI_CS3_PIN);
+	outputPinRegister("spi CS4", SPI_CS_4, SPI_CS4_PORT, SPI_CS4_PIN);
+	outputPinRegister("spi CS5", SPI_CS_5, SPI_CS5_PORT, SPI_CS5_PIN);
+
 
 	// todo: should we move this code closer to the injection logic?
 	outputPinRegister("injector1", INJECTOR_1_OUTPUT, INJECTOR_1_PORT, INJECTOR_1_PIN);

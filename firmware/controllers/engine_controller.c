@@ -17,7 +17,7 @@
 #include "signal_executor.h"
 #include "main_loop.h"
 #include "map_multiplier_thread.h"
-#include "output_pins.h"
+#include "io_pins.h"
 #include "tunerstudio.h"
 #include "injector_central.h"
 #include "ignition_central.h"

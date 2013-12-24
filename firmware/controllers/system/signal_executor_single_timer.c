@@ -18,7 +18,7 @@
 #include <stm32_tim.h>
 #include "hal.h"
 #include "utlist.h"
-#include "output_pins.h"
+#include "io_pins.h"
 #include "signal_executor.h"
 #include "signal_executor_single_timer_algo.h"
 
