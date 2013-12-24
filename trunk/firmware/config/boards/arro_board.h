@@ -137,6 +137,10 @@
 #define IDLE_VALVE_PORT GPIOE
 #define IDLE_VALVE_PIN 2
 
+/* Check Engine light */
+#define LED_CHECK_ENGINE_PORT GPIOC
+#define LED_CHECK_ENGINE_PIN 7
+
 /* Fuel pump */
 #define FUEL_PUMP_PORT GPIOC
 #define FUEL_PUMP_PIN 13
