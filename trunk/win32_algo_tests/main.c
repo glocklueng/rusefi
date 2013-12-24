@@ -60,7 +60,8 @@ void chDbgAssert(int c, char *msg, void *arg) {
 	}
 }
 
-EngineConfiguration2 engineConfiguration2;
+static EngineConfiguration2 ec2;
+EngineConfiguration2 *engineConfiguration2 = &ec2;
 
 int main(void) {
 

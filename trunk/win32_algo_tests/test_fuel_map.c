@@ -21,10 +21,11 @@ void testFuelMap(void) {
 			engineConfiguration->fuelTable[k][r] = k * 200 + r;
 		}
 	}
+	printf("*************************************************** initThermistors\r\n");
 
 	initThermistors();
 
-	printf("getInjectorLag\r\n");
+	printf("*** getInjectorLag\r\n");
 	assertEquals(0, getInjectorLag(12));
 
 	for (int i = 0; i < FUEL_MAF_COUNT; i++)
@@ -32,23 +33,23 @@ void testFuelMap(void) {
 	for (int i = 0; i < FUEL_RPM_COUNT; i++)
 		engineConfiguration->fuelRpmBins[i] = i;
 
-	printf("prepareFuelMap\r\n");
+	printf("*************************************************** prepareFuelMap\r\n");
 	prepareFuelMap();
 	assertEquals(1005, getBaseFuel(5, 5));
 
 	engineConfiguration->injectorLag = 0.5;
 	// because all the correction tables are zero
-	printf("getRunningFuel\r\n");
-	assertEquals(0.5, getRunningFuel(5, 5));
+	printf("*************************************************** getRunningFuel\r\n");
+	assertEquals(1005.5, getRunningFuel(5, 5));
 
-	printf("setting IAT table\r\n");
+	printf("*************************************************** setting IAT table\r\n");
 	for (int i = 0; i < IAT_CURVE_SIZE; i++) {
 		engineConfiguration->iatFuelCorrBins[i] = i;
 		engineConfiguration->iatFuelCorr[i] = 2 * i;
 	}
 	engineConfiguration->iatFuelCorr[0] = 2;
 
-	printf("setting CLT table\r\n");
+	printf("*************************************************** setting CLT table\r\n");
 	for (int i = 0; i < CLT_CURVE_SIZE; i++) {
 		engineConfiguration->cltFuelCorrBins[i] = i;
 		engineConfiguration->cltFuelCorr[i] = 1;
