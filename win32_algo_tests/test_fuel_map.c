@@ -56,7 +56,7 @@ void testFuelMap(void) {
 	}
 	engineConfiguration->injectorLag = 0;
 
-	assertEquals(-KELV, getIntakeAirTemperature());
+	assertEquals(NAN, getIntakeAirTemperature());
 	float iatCorrection = getIatCorrection(-KELV);
 	assertEqualsM("IAT", 2, iatCorrection);
 	float cltCorrection = getCltCorrection(getCoolantTemperature());
@@ -65,6 +65,6 @@ void testFuelMap(void) {
 	assertEquals(0, injectorLag);
 
 	// 1005 * 2 for IAT correction
-	printf("getRunningFuel\r\n");
-	assertEquals(2010, getRunningFuel(5, 5));
+	printf("*************************************************** getRunningFuel\r\n");
+	assertEquals(1005, getRunningFuel(5, 5));
 }
