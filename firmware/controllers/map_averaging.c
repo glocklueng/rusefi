@@ -8,7 +8,6 @@
 #include "main.h"
 #include "map_averaging.h"
 #include "idle_controller.h" // that's for min/max. todo: move these somewhere?
-#include "ckp_events.h"
 #include "shaft_position_input.h"
 #include "adc_inputs.h"
 #include "map.h"

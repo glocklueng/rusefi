@@ -8,9 +8,30 @@
 #ifndef TRIGGER_STRUCTURE_H_
 #define TRIGGER_STRUCTURE_H_
 
+#include "global.h"
+
 #define PWM_PHASE_MAX_COUNT 150
 #define PWM_PHASE_MAX_WAVE_PER_PWM 2
 
+typedef enum {
+	SHAFT_PRIMARY_UP = 0,
+	SHAFT_PRIMARY_DOWN = 1,
+	SHAFT_SECONDARY_UP = 2,
+	SHAFT_SECONDARY_DOWN = 3,
+} ShaftEvents;
+
+typedef struct {
+	/**
+	 * TRUE if we know where we are
+	 */
+	unsigned char shaft_is_synchronized;
+
+	int current_index;
+
+	int toothed_previous_duration;
+	int toothed_previous_time;
+
+} ShaftPositionState;
 
 /**
  * @brief   PWM configuration for the specific output pin

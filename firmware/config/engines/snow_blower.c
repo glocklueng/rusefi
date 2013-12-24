@@ -9,7 +9,6 @@
 #include "main.h"
 #include "datalogging.h"
 #include "rpm_calculator.h"
-#include "ckp_events.h"
 #include "shaft_position_input.h"
 
 #if EFI_ENGINE_SNOW_BLOWER
