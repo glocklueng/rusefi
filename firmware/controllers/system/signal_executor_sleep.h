@@ -27,6 +27,8 @@ typedef struct {
 	WORKING_AREA(soThreadStack, UTILITY_THREAD_STACK_SIZE);
 } SignalExecutorSleep;
 
+void scheduleByAngle(VirtualTimer *timer, float angle, vtfunc_t callback, void *param);
+
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
 
 
