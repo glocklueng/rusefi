@@ -109,7 +109,7 @@ void initOutputPins(void) {
 	outputPinRegister("alive1", LED_DEBUG, GPIOD, 6);
 	
 	// CheckEngine LED pin -> PC7
-	outputPinRegister("MalfunctionIndicator",LED_CHECK_ENGINE, GPIOC, 7);
+	outputPinRegister("MalfunctionIndicator",LED_CHECK_ENGINE, LED_CHECK_ENGINE_PORT, LED_CHECK_ENGINE_PIN);
 
 	outputPinRegister("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN);
 	outputPinRegister("sparkout2", SPARKOUT_2_OUTPUT, SPARK_2_PORT, SPARK_2_PIN);
