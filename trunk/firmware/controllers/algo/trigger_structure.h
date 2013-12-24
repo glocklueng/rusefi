@@ -31,7 +31,7 @@ typedef struct {
 	int toothed_previous_duration;
 	int toothed_previous_time;
 
-} ShaftPositionState;
+} trigger_state_s;
 
 /**
  * @brief   PWM configuration for the specific output pin
@@ -66,6 +66,13 @@ typedef enum {
 typedef struct {
 	multi_wave_s wave;
 	int size;
+
+	/**
+	 * Total count of shaft events per CAM or CRANK shaft revolution.
+	 * TODO this should be migrated to CRANKshaft revolution, this would go together
+	 * TODO with eliminating RPM_MULT magic constant
+	 */
+	int shaftPositionEventCount;
 } trigger_shape_s;
 
 #endif /* TRIGGER_STRUCTURE_H_ */

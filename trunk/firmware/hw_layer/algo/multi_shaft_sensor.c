@@ -11,6 +11,7 @@
 #include "multi_shaft_sensor.h"
 #include "cyclic_buffer.h"
 #include "engine_configuration.h"
+#include "trigger_decoder.h"
 
 #if defined __GNUC__
 #pragma message VAR_NAME_VALUE(EFI_USE_MULTI_SENSOR_SHAFT_SENSOR)
@@ -19,16 +20,15 @@
 #if EFI_USE_MULTI_SENSOR_SHAFT_SENSOR
 
 static Logging logger;
-static cyclic_buffer errorDetection;
 
 extern EngineConfiguration2 *engineConfiguration2;
 
-void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaftPositionState) {
+void handleShaftSignal(ShaftEvents signal, time_t now, trigger_state_s *shaftPositionState) {
 	shaftPositionState->shaft_is_synchronized = TRUE;
 
 	if (signal == SHAFT_PRIMARY_UP) {
-		int isDecodingError = shaftPositionState->current_index != engineConfiguration2->shaftPositionEventCount - 1;
-		cbAdd(&errorDetection, isDecodingError);
+		int isDecodingError = shaftPositionState->current_index != engineConfiguration2->triggerShape.shaftPositionEventCount - 1;
+//		cbAdd(&errorDetection, isDecodingError);
 
 		shaftPositionState->current_index = 0;
 	} else {
@@ -38,11 +38,11 @@ void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaft
 
 void initShaftSignalDecoder(void) {
 	initLogging(&logger, "multi_shaft_sensor");
-	cbInit(&errorDetection);
+	initTriggerDecoder();
 }
 
 int isSignalDecoderError(void) {
-	return cbSum(&errorDetection, 6) > 4;
+	return isTriggerDecoderError();
 }
 
 #endif /* EFI_USE_MULTI_SENSOR_SHAFT_SENSOR */

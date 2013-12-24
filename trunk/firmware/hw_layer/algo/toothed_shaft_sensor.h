@@ -16,7 +16,7 @@
 
 #include "shaft_position_input.h"
 
-void handleShaftSignal(ShaftEvents signal, time_t now, ShaftPositionState *shaftPositionState);
+void handleShaftSignal(ShaftEvents signal, time_t now, trigger_state_s *shaftPositionState);
 void initShaftSignalDecoder(void);
 
 #endif /* EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR */

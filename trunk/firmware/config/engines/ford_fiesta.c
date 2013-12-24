@@ -49,7 +49,7 @@ void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	// only crankshaft sensor so far
 	engineConfiguration2->rpmMultiplier = 1;
 
-	engineConfiguration2->shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
+	engineConfiguration2->triggerShape.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
 }
 
 #endif /* EFI_ENGINE_FORD_FIESTA */
