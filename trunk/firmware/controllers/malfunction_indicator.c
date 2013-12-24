@@ -1,4 +1,4 @@
-/*
+/**
  * @file malfunction_indicator.c
  * @brief We can blink out OBD-II error codes using Malfunction Indicator Light (MIL)
  *
@@ -45,6 +45,7 @@ static int DigitLength(int digit) {
 
 // display code
 static void DisplayErrorCode(int length, int code) {
+	// todo: I suggest we use 'itoa' method to simplify this logic
 	for (int iter = length - 1; iter >= 0; iter--) {
 		int ourDigit = pow(10, iter);		// 10^0 = 1, 10^1 = 10, 10^2=100, 10^3 = 1000, ....
 		int digit = 1;						// as we remember "0" we show as one blink
@@ -64,7 +65,6 @@ static msg_t mfiThread(void) {
 	chRegSetThreadName("MFIndicator");
 
 	while (TRUE) {
-		// todo: extract this as 'blinkOneCode' method
 		if (iMFIerror > 0) {
 			// switch on check engine light on 10sec (one long blink)
 			// todo: this needs to be a SLEEP, this has nothing to do with digits!
@@ -81,6 +81,5 @@ static msg_t mfiThread(void) {
 
 void initMalfunctionIndicator(void) {
 	// create static thread
-	chThdCreateStatic(mfiThreadStack, sizeof(mfiThreadStack), LOWPRIO, (tfunc_t) mfiThread, NULL );
+	chThdCreateStatic(mfiThreadStack, sizeof(mfiThreadStack), LOWPRIO, (tfunc_t) mfiThread, NULL);
 }
-
