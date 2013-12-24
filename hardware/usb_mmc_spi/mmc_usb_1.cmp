@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Птн 20 Дек 2013 21:03:05
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Втр 24 Дек 2013 19:28:43
 
 BeginCmp
 TimeStamp = /52A59B39;
@@ -92,31 +92,17 @@ IdModule  = MICRO-SDCARD-CONNECTOR-3300060P1;
 EndCmp
 
 BeginCmp
-TimeStamp = /52A5AABA;
-Reference = P3;
-ValeurCmp = CONN_4X2;
-IdModule  = PLD-8;
-EndCmp
-
-BeginCmp
-TimeStamp = /52B45D03;
-Reference = P4;
-ValeurCmp = CONN_4X2;
-IdModule  = PLD-8;
-EndCmp
-
-BeginCmp
 TimeStamp = /52B479E1;
-Reference = P5;
+Reference = P3;
 ValeurCmp = CONN_10X2;
-IdModule  = PLD-20;
+IdModule  = PIN_ARRAY_10X2;
 EndCmp
 
 BeginCmp
 TimeStamp = /52B479EE;
-Reference = P6;
+Reference = P4;
 ValeurCmp = CONN_10X2;
-IdModule  = PLD-20;
+IdModule  = PIN_ARRAY_10X2;
 EndCmp
 
 BeginCmp
