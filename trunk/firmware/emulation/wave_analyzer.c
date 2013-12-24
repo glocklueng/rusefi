@@ -16,7 +16,6 @@
 #include "rficonsole.h"
 #include "wave_math.h"
 #include "data_buffer.h"
-#include "ckp_events.h"
 #include "pin_repository.h"
 #include "datalogging.h"
 

@@ -10,7 +10,6 @@
 
 #include "main.h"
 #include "rpm_calculator.h"
-#include "ckp_events.h"
 #include "shaft_position_input.h"
 #include "datalogging.h"
 #include "rficonsole.h"
