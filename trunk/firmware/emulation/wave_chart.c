@@ -38,7 +38,6 @@ void resetWaveChart(WaveChart *chart) {
 #endif
 	resetLogging(&chart->logging);
 	chart->counter = 0;
-	chart->isPrinted = FALSE;
 	appendPrintf(&chart->logging, "wave_chart%s", DELIMETER);
 }
 
@@ -65,6 +64,16 @@ int isWaveChartFull(WaveChart *chart) {
 	return chart->counter >= chartSize;
 }
 
+void publishChart(WaveChart *chart) {
+	appendPrintf(&chart->logging, DELIMETER);
+#if DEBUG_WAVE
+	Logging *l = &chart->logging;
+	scheduleSimpleMsg(&debugLogging, "IT'S TIME", strlen(l->buffer));
+#endif
+	if (isChartActive && getFullLog())
+		scheduleLogging(&chart->logging);
+}
+
 /**
  * @brief	Register a change in sniffed signal
  */
@@ -73,19 +82,8 @@ void addWaveChartEvent3(WaveChart *chart, char *name, char * msg) {
 #if DEBUG_WAVE
 	scheduleSimpleMsg(&debugLogging, "current", chart->counter);
 #endif
-	if (isWaveChartFull(chart)) {
-		if (!chart->isPrinted) {
-			appendPrintf(&chart->logging, DELIMETER);
-#if DEBUG_WAVE
-			Logging *l = &chart->logging;
-			scheduleSimpleMsg(&debugLogging, "IT'S TIME", strlen(l->buffer));
-#endif
-			if (isChartActive && getFullLog())
-				scheduleLogging(&chart->logging);
-			chart->isPrinted = TRUE;
-		}
+	if (isWaveChartFull(chart))
 		return;
-	}
 	lockOutputBuffer(); // we have multiple threads writing to the same output buffer
 	appendPrintf(&chart->logging, "%s%s%s%s", name, CHART_DELIMETER, msg, CHART_DELIMETER);
 	appendPrintf(&chart->logging, "%d%s", chTimeNow(), CHART_DELIMETER);

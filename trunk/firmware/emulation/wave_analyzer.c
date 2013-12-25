@@ -157,8 +157,10 @@ static msg_t waThread(void *arg) {
 	while (1) {
 		chThdSleepSeconds(CHART_RESET_DELAY);
 
-		if (waveChart.isPrinted)
+		if (isWaveChartFull(&waveChart)) {
+			publishChart(&waveChart);
 			resetWaveChart(&waveChart);
+		}
 	}
 	return -1;
 }

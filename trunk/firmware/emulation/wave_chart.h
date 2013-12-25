@@ -17,11 +17,11 @@
 typedef struct {
 	Logging logging;
 	int counter;
-	int isPrinted;
 	volatile int isInitialized;
 } WaveChart;
 
 void addWaveChartEvent3(WaveChart *chart, char *name, char * msg);
+void publishChart(WaveChart *chart);
 void initWaveChart(WaveChart *chart);
 void resetWaveChart(WaveChart *chart);
 void setChartSize(int newSize);
