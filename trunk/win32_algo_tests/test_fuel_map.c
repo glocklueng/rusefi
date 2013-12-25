@@ -8,6 +8,7 @@
 #include "main.h"
 #include "engine_configuration.h"
 #include "fuel_map.h"
+#include "allsensors.h"
 
 extern EngineConfiguration *engineConfiguration;
 
