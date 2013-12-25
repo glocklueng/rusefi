@@ -18,17 +18,24 @@
 
 #include "trigger_decoder.h"
 #include "engine_configuration.h"
+#include "histogram.h"
+
+#if defined __GNUC__
+static histogram_s triggerCallback __attribute__((section(".ccm")));
+#else
+static histogram_s triggerCallback;
+#endif
 
 extern EngineConfiguration2 *engineConfiguration2;
 
 // we need this initial to have not_running at first invocation
 static volatile time_t previousShaftEventTime = -10 * CH_FREQUENCY;
 
-IntListenerArray ckpListeneres;
+static IntListenerArray triggerListeneres;
 
 static Logging logger;
 
-trigger_state_s shaftPositionState;
+static trigger_state_s triggerState;
 
 static volatile int shaftEventCounter;
 
@@ -41,28 +48,46 @@ int getCrankEventCounter() {
 
 void registerShaftPositionListener(ShaftPositionListener handler, char *msg) {
 	print("registerCkpListener: %s\r\n", msg);
-	registerCallback(&ckpListeneres, (IntListener) handler, NULL);
+	registerCallback(&triggerListeneres, (IntListener) handler, NULL);
 }
 
 #if EFI_SHAFT_POSITION_INPUT
 
 void hwHandleShaftSignal(ShaftEvents signal) {
+	int beforeCallback = hal_lld_get_counter_value();
+
 	time_t now = chTimeNow();
 
 	if (overflowDiff(now, previousShaftEventTime) > CH_FREQUENCY) {
-		// we are here if there is a time gap between now and previous shaft event
-		shaftPositionState.shaft_is_synchronized = FALSE;
+		/**
+		 * We are here if there is a time gap between now and previous shaft event - that means the engine is not runnig.
+		 * That means we have lost synchronization since the engine is not running :)
+		 */
+		triggerState.shaft_is_synchronized = FALSE;
 	}
 	previousShaftEventTime = now;
 	// this is not atomic, but it's fine here
 	shaftEventCounter++;
 
-	processTriggerEvent(&shaftPositionState, &engineConfiguration2->triggerShape, signal, now);
+	/**
+	 * This invocation changes the state of
+	 */
+	processTriggerEvent(&triggerState, &engineConfiguration2->triggerShape, signal, now);
 
-	if (!shaftPositionState.shaft_is_synchronized)
+	if (!triggerState.shaft_is_synchronized)
 		return; // we should not propagate event if we do not know where we are
 
-	invokeIntIntCallbacks(&ckpListeneres, signal, shaftPositionState.current_index);
+
+	/**
+	 * Here we invoke all the listeners - the main engine control logic is inside these listeners
+	 */
+	invokeIntIntCallbacks(&triggerListeneres, signal, triggerState.current_index);
+	int afterCallback = hal_lld_get_counter_value();
+	int diff = afterCallback - beforeCallback;
+	// this counter is only 32 bits so it overflows every minute, let's ignore the value in case of the overflow for simplicity
+	if (diff > 0) {
+		hsAdd(&triggerCallback, diff);
+	}
 }
 
 /**
@@ -89,10 +114,16 @@ static ICUConfig shaft_icucfg = { ICU_INPUT_ACTIVE_LOW, 100000, /* 100kHz ICU cl
 shaft_icu_width_callback, shaft_icu_period_callback };
 #endif
 
+static void showTriggerHistogram(void) {
+	printHistogram(&logger, &triggerCallback);
+}
+
 void initShaftPositionInputCapture() {
 	initLogging(&logger, "ShaftPosition");
 
 	initTriggerDecoder();
+
+	addConsoleAction("trigger_hist", showTriggerHistogram);
 
 #if EFI_SHAFT_POSITION_INPUT
 
@@ -104,15 +135,18 @@ void initShaftPositionInputCapture() {
 	 * @see shaft_icucfg for callback entry points
 	 */
 	shaft_icucfg.channel = PRIMARY_SHAFT_POSITION_INPUT_CHANNEL;
-	print("initShaftPositionInputCapture 1 %s:%d\r\n", portname(PRIMARY_SHAFT_POSITION_INPUT_PORT), PRIMARY_SHAFT_POSITION_INPUT_PIN);
+	print("initShaftPositionInputCapture 1 %s:%d\r\n", portname(PRIMARY_SHAFT_POSITION_INPUT_PORT),
+			PRIMARY_SHAFT_POSITION_INPUT_PIN);
 	icuStart(&PRIMARY_SHAFT_POSITION_INPUT_DRIVER, &shaft_icucfg);
 	icuEnable(&PRIMARY_SHAFT_POSITION_INPUT_DRIVER);
 
 	// initialize secondary Input Capture Unit pin
-	initWaveAnalyzerDriver(&secondaryCrankInput, &SECONDARY_SHAFT_POSITION_INPUT_DRIVER, SECONDARY_SHAFT_POSITION_INPUT_PORT,
-	SECONDARY_SHAFT_POSITION_INPUT_PIN);
+	initWaveAnalyzerDriver(&secondaryCrankInput, &SECONDARY_SHAFT_POSITION_INPUT_DRIVER,
+			SECONDARY_SHAFT_POSITION_INPUT_PORT,
+			SECONDARY_SHAFT_POSITION_INPUT_PIN);
 	shaft_icucfg.channel = SECONDARY_SHAFT_POSITION_INPUT_CHANNEL;
-	print("initShaftPositionInputCapture 2 %s:%d\r\n", portname(SECONDARY_SHAFT_POSITION_INPUT_PORT), SECONDARY_SHAFT_POSITION_INPUT_PIN);
+	print("initShaftPositionInputCapture 2 %s:%d\r\n", portname(SECONDARY_SHAFT_POSITION_INPUT_PORT),
+			SECONDARY_SHAFT_POSITION_INPUT_PIN);
 	icuStart(&SECONDARY_SHAFT_POSITION_INPUT_DRIVER, &shaft_icucfg);
 	icuEnable(&SECONDARY_SHAFT_POSITION_INPUT_DRIVER);
 
