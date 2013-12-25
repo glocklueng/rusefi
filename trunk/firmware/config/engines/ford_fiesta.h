@@ -7,16 +7,12 @@
 
 #ifndef FORD_FIESTA_H_
 #define FORD_FIESTA_H_
-#if EFI_ENGINE_FORD_FIESTA
+#if EFI_SUPPORT_FORD_FIESTA
 
-#include "pwm_generator.h"
+#include "engine_configuration.h"
 
-#define TOTAL_TEETH_COUNT 36
-#define SKIPPED_TEETH_COUNT 1
+void setFordFiestaDefaultEngineConfiguration(EngineConfiguration *engineConfiguration);
+void setFordFiestaEngineConfiguration2(EngineConfiguration2 *engineConfiguration2);
 
-// this should be included after 'SHAFT_POSITION_EVENT_COUNT'. todo - fix this
-#include "main_loop.h"
-
-
-#endif /* EFI_ENGINE_FORD_FIESTA */
+#endif /* EFI_SUPPORT_FORD_FIESTA */
 #endif /* FORD_FIESTA_H_ */
