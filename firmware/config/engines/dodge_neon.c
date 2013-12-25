@@ -7,11 +7,12 @@
 
 #include "main.h"
 
-#if EFI_ENGINE_DODGE_NEON
+#if EFI_SUPPORT_DODGE_NEON
 
 #include "dodge_neon.h"
 #include "engine_configuration.h"
 #include "main_loop.h"
+#include "dist_emulator.h"
 
 extern EngineConfiguration2 *engineConfiguration2;
 
@@ -30,7 +31,7 @@ static void configureShaftPositionEmulatorShape(trigger_shape_s *s) {
 void setDodgeNeonEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 
-	engineConfiguration2->shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
+	engineConfiguration2->triggerShape.shaftPositionEventCount = ((2 - 1) * 2);
 }
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {
@@ -41,5 +42,5 @@ void setDodgeNeonEngineConfiguration2(EngineConfiguration2 *engineConfiguration2
 	configureShaftPositionEmulatorShape(&engineConfiguration2->triggerShape);
 }
 
-#endif /* EFI_ENGINE_DODGE_NEON */
+#endif /* EFI_SUPPORT_DODGE_NEON */
 
