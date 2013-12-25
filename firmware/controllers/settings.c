@@ -12,6 +12,7 @@
 #include "rficonsole.h"
 #include "datalogging.h"
 #include "engine_configuration.h"
+#include "flash_main.h"
 
 static Logging logger;
 
@@ -108,6 +109,12 @@ static void setTimingMode(int value) {
 	doPrintConfiguration();
 }
 
+static void setEngineType(int value) {
+	engineConfiguration->engineType = value;
+	writeToFlash();
+	doPrintConfiguration();
+}
+
 static void setIgnitonOffset(int value) {
 	engineConfiguration->ignitonOffset = value;
 	doPrintConfiguration();
@@ -125,5 +132,6 @@ void initSettings(void) {
 	addConsoleActionI("set_analog_chart_mode", &setAnalogChartMode);
 	addConsoleActionI("set_fixed_mode_timing", &setFixedModeTiming);
 	addConsoleActionI("set_timing_mode", &setTimingMode);
+	addConsoleActionI("set_engine_type", &setEngineType);
 }
 
