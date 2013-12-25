@@ -100,7 +100,7 @@ void configureShaftPositionEmulatorShape(PwmConfig *state) {
 	weComplexInit("distributor", state, 0, s->size, s->wave.switchTimes, 2, pinStates);
 }
 
-void configureEngineEventHandler(EventHandlerConfiguration *config) {
+static void configureAspireEngineEventHandler(EventHandlerConfiguration *config) {
 	resetEventList(&config->crankingInjectionEvents);
 	registerActuatorEvent(&config->crankingInjectionEvents, 1, 1, 0);
 	registerActuatorEvent(&config->crankingInjectionEvents, 1, 2, 0);
@@ -146,6 +146,8 @@ static void setDefaultFuelMap(void) {
 }
 
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
+	configureAspireEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
+
 	engineConfiguration->tpsMin = 1;
 	engineConfiguration->tpsMax = 1000;
 
