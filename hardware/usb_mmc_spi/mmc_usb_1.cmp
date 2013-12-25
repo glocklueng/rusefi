@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Втр 24 Дек 2013 19:28:43
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Срд 25 Дек 2013 15:52:53
 
 BeginCmp
 TimeStamp = /52A59B39;
@@ -67,7 +67,7 @@ BeginCmp
 TimeStamp = /52A7387D;
 Reference = J1;
 ValeurCmp = MINI-USB-5P-3400030P1;
-IdModule  = MINI-USB-5P-3400030P1;
+IdModule  = MINI-USB-5P-3400020P1;
 EndCmp
 
 BeginCmp
@@ -81,7 +81,7 @@ BeginCmp
 TimeStamp = /52B45CE3;
 Reference = P1;
 ValeurCmp = CONN_5X2;
-IdModule  = PLD-10;
+IdModule  = PIN_ARRAY_5x2;
 EndCmp
 
 BeginCmp
@@ -103,6 +103,13 @@ TimeStamp = /52B479EE;
 Reference = P4;
 ValeurCmp = CONN_10X2;
 IdModule  = PIN_ARRAY_10X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52BAA4A8;
+Reference = P5;
+ValeurCmp = CONN_1;
+IdModule  = PIN_ARRAY_1;
 EndCmp
 
 BeginCmp
