@@ -1,6 +1,7 @@
 package com.irnems;
 
 import com.irnems.core.MessagesCentral;
+import com.irnems.core.Pair;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
@@ -19,7 +20,7 @@ public class CommandQueue {
     private String latestConfirmation;
 
     private static final CommandQueue instance = new CommandQueue();
-    private final BlockingQueue<String> pendingCommands = new LinkedBlockingQueue<String>();
+    private final BlockingQueue<Pair<String, Integer>> pendingCommands = new LinkedBlockingQueue<Pair<String, Integer>>();
 
     private final Runnable runnable = new Runnable() {
         @SuppressWarnings("InfiniteLoopStatement")
@@ -47,7 +48,7 @@ public class CommandQueue {
          * here we block in case there is no command to send
          */
         @NotNull
-        final String command = pendingCommands.take();
+        final Pair<String, Integer> command = pendingCommands.take();
         // got a command? let's send it!
         sendCommand(command);
     }
@@ -55,15 +56,16 @@ public class CommandQueue {
     /**
      * this method keeps retrying till a confirmation is received
      */
-    private void sendCommand(final String command) throws InterruptedException {
+    private void sendCommand(final Pair<String, Integer> pair) throws InterruptedException {
         int counter = 0;
         latestConfirmation = null;
+        String command = pair.first;
 
         while (!command.equals(latestConfirmation)) {
             counter++;
             PortHolder.getInstance().packAndSend(command);
             synchronized (lock) {
-                lock.wait(300);
+                lock.wait(pair.second);
             }
         }
 
@@ -107,6 +109,10 @@ public class CommandQueue {
     }
 
     public void write(String command) {
-        pendingCommands.add(command);
+        write(command, 300);
+    }
+
+    public void write(String command, int timeout) {
+        pendingCommands.add(new Pair<String, Integer>(command, timeout));
     }
 }

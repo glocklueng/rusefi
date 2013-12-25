@@ -31,7 +31,9 @@ public class AnyCommand extends JPanel {
         text.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CommandQueue.getInstance().write(text.getText());
+                String cmd = text.getText();
+                int timeout = cmd.toLowerCase().startsWith("set_engine_type") ? 5000 : 300;
+                CommandQueue.getInstance().write(cmd, timeout);
             }
         });
         return text;
