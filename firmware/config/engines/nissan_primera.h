@@ -11,18 +11,11 @@
 #ifndef DENISVAK_H_
 #define DENISVAK_H_
 
-#if EFI_ENGINE_DENISVAK
+#if EFI_SUPPORT_NISSAN_PRIMERA
 
-#define TOTAL_TEETH_COUNT 60
+void setNissanPrimeraEngineConfiguration(EngineConfiguration *engineConfiguration);
+void setNissanPrimeraEngineConfiguration2(EngineConfiguration2 *engineConfiguration2);
 
-#define SKIPPED_TEETH_COUNT 2
-
-#include "main_loop.h"
-
-#define EFI_ENGINE_ID "DenisVak"
-
-#define NUMBER_OF_CYLINDERS 4
-
-#endif /* EFI_ENGINE_DENISVAK */
+#endif /* EFI_SUPPORT_NISSAN_PRIMERA */
 
 #endif /* DENISVAK_H_ */

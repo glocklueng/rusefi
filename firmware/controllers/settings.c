@@ -50,6 +50,10 @@ char* getConfigurationName(EngineConfiguration *engineConfiguration) {
 	case FORD_FIESTA:
 		return "Ford Fiesta";
 #endif /* EFI_SUPPORT_FORD_FIESTA */
+#if EFI_SUPPORT_NISSAN_PRIMERA
+	case NISSAN_PRIMERA:
+		return "Nissan Primera";
+#endif /* EFI_SUPPORT_NISSAN_PRIMERA */
 	default:
 		return NULL;
 	}
