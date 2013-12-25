@@ -33,8 +33,6 @@ static cyclic_buffer ignitionErrorDetection;
 
 extern int isInjectionEnabled;
 
-static EventHandlerConfiguration engineEventConfiguration;
-
 extern myfloat globalFuelCorrection;
 
 static Logging logger;
@@ -79,7 +77,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 
 	ActuatorEventList *source =
 			isCranking() ?
-					&engineEventConfiguration.crankingInjectionEvents : &engineEventConfiguration.injectionEvents;
+					&engineConfiguration2->engineEventConfiguration.crankingInjectionEvents : &engineConfiguration2->engineEventConfiguration.injectionEvents;
 	findEvents(eventIndex, source, &events);
 
 	if (events.size == 0)
@@ -148,7 +146,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	int rpm = getCurrentRpm();
 
-	findEvents(eventIndex, &engineEventConfiguration.ignitionEvents, &events);
+	findEvents(eventIndex, &engineConfiguration2->engineEventConfiguration.ignitionEvents, &events);
 	if (events.size == 0)
 		return;
 
@@ -179,8 +177,6 @@ void initMainEventListener() {
 
 	if (!isInjectionEnabled)
 		printSimpleMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled", 0);
-
-	configureEngineEventHandler(&engineEventConfiguration);
 
 	registerShaftPositionListener(&onShaftSignal, "main loop");
 }

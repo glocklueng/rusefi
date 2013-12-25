@@ -14,6 +14,7 @@
 #include "engine_math.h"
 #include "can_header.h"
 #include "trigger_structure.h"
+#include "event_registry.h"
 
 typedef enum {
 	AUDI_AAN = 1,
@@ -26,6 +27,16 @@ typedef enum {
 	FORD_FIESTA = 4,
 	NISSAN_PRIMERA = 5,
 } engine_type_e;
+
+/**
+ * @brief Here we store information about which injector or spark should be fired when.
+ */
+typedef struct {
+	ActuatorEventList crankingInjectionEvents;
+	ActuatorEventList injectionEvents;
+	ActuatorEventList ignitionEvents;
+} EventHandlerConfiguration;
+
 
 #define CLT_CURVE_SIZE 16
 #define IAT_CURVE_SIZE 16
@@ -144,6 +155,8 @@ typedef struct {
 	int can_nbc_broadcast_period;
 
 	trigger_shape_s triggerShape;
+
+	EventHandlerConfiguration engineEventConfiguration;
 } EngineConfiguration2;
 
 char* getConfigurationName(EngineConfiguration *engineConfiguration);
