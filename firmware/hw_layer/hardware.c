@@ -17,7 +17,7 @@
 #include "mcp3208.h"
 #include "HIP9011.h"
 #include "can_hw.h"
-
+#include "histogram.h"
 
 McpAdcState adcState;
 
@@ -43,6 +43,8 @@ void initHardware() {
 	// todo: enable protection. it's disabled because it takes
 	// 10 extra seconds to re-flash the chip
 	//flashProtect();
+
+	initHistograms();
 
 	initPinRepository();
 	initSpiModules();

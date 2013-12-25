@@ -157,6 +157,7 @@
 /* Spark ports */
 #define SPARK_1_PORT GPIOC
 #define SPARK_1_PIN 15
+// non-zero XOR means that default level is HI
 #define SPARK_1_XOR 1
 
 #define SPARK_2_PORT GPIOE

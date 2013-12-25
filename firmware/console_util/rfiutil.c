@@ -103,3 +103,16 @@ void chVTSetAny(VirtualTimer *vtp, systime_t time, vtfunc_t vtfunc, void *par) {
 		;
 	}
 }
+
+void printHistogram(Logging *logging, histogram_s *histogram) {
+	int report[5];
+	int len = hsReport(histogram, report);
+
+	resetLogging(logging);
+	appendMsgPrefix(logging);
+	appendPrintf(logging, "histogram [", len);
+	for (int i = 0; i < len; i++)
+		appendPrintf(logging, "%d ", report[i]);
+	appendPrintf(logging, "]%s", DELIMETER);
+	scheduleLogging(logging);
+}

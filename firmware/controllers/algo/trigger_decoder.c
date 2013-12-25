@@ -18,6 +18,9 @@ int isTriggerDecoderError(void) {
 	return cbSum(&errorDetection, 6) > 4;
 }
 
+/**
+ * @brief This method changes the state of trigger_state_s data structure according to the trigger event
+ */
 void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape, ShaftEvents signal,
 		time_t now) {
 
