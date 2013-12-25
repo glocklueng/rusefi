@@ -9,6 +9,21 @@
 #define ENGINE_H_
 
 #include "boards.h"
+#include "features.h"
+
+typedef enum {
+	AUDI_AAN = 1,
+	DODGE_NEON_1995 = 2,
+	/**
+	 * 1996 1.3 Ford Aspire
+	 * http://rusefi.com/forum/viewtopic.php?t=375
+	 */
+#if EFI_SUPPORT_FORD_ASPIRE
+	FORD_ASPIRE_1996 = 3,
+#endif /* EFI_SUPPORT_FORD_ASPIRE */
+	FORD_FIESTA = 4,
+	NISSAN_PRIMERA = 5,
+} engine_type_e;
 
 /**
  * 1995 Dodge Neon

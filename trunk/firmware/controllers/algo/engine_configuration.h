@@ -17,20 +17,6 @@
 #include "trigger_structure.h"
 #include "event_registry.h"
 
-typedef enum {
-	AUDI_AAN = 1,
-	DODGE_NEON_1995 = 2,
-	/**
-	 * 1996 1.3 Ford Aspire
-	 * http://rusefi.com/forum/viewtopic.php?t=375
-	 */
-#if EFI_SUPPORT_FORD_ASPIRE
-	FORD_ASPIRE_1996 = 3,
-#endif /* EFI_SUPPORT_FORD_ASPIRE */
-	FORD_FIESTA = 4,
-	NISSAN_PRIMERA = 5,
-} engine_type_e;
-
 /**
  * @brief Here we store information about which injector or spark should be fired when.
  */
