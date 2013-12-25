@@ -22,6 +22,8 @@
 #include "dist_emulator.h"
 #include "main_loop.h"
 
+#ifdef EFI_SUPPORT_FORD_ASPIRE
+
 /**
  * Just the default RPM bin - with TunerStudio you can adjust even the bins
  */
@@ -159,3 +161,5 @@ void setFordAspireEngineConfiguration2(EngineConfiguration2 *engineConfiguration
 	configureAspireEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 	engineConfiguration2->triggerShape.shaftPositionEventCount = 10;
 }
+
+#endif /* EFI_SUPPORT_FORD_ASPIRE */
