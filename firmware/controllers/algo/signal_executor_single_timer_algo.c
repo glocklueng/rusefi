@@ -9,6 +9,7 @@
 #include "main.h"
 #include "utlist.h"
 #include "io_pins.h"
+#include "wave_analyzer.h"
 
 #if EFI_WAVE_ANALYZER
 #include "wave_chart.h"
@@ -45,7 +46,7 @@ inline time_t toggleSignalIfNeeded(OutputSignal *out, time_t now) {
 	if (now >= estimated) {
 		setOutputPinValue(out->ledIndex, out->status ^ out->xor); /* Toggle output */
 #if EFI_WAVE_ANALYZER
-		addWaveChartEvent(&waveChart, out->name, out->status ? "up" : "down");
+		addWaveChartEvent(out->name, out->status ? "up" : "down");
 #endif /* EFI_WAVE_ANALYZER */
 
 		out->status = !out->status; /* update status */
