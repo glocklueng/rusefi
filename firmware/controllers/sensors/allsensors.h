@@ -13,7 +13,6 @@
 #ifndef SENSORS_H_
 #define SENSORS_H_
 
-#include "main.h"
 #include "tps.h"
 #include "map.h"
 #include "maf.h"

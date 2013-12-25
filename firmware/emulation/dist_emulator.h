@@ -13,6 +13,7 @@
 #include "wave_math.h"
 
 #include "trigger_structure.h"
+#include "engine_configuration.h"
 
 void triggerShapeInit(trigger_shape_s *trigger);
 void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, int state);
@@ -26,7 +27,7 @@ void initShaftPositionEmulator(void);
 void setRevolutionPeriod(int value);
 
 #if EFI_EMULATE_POSITION_SENSORS
-void configureShaftPositionEmulatorShape(PwmConfig *state);
+void configureShaftPositionEmulatorShape(PwmConfig *state, EngineConfiguration2 * engineConfiguration2);
 #endif /* EFI_EMULATE_POSITION_SENSORS */
 
 #endif /* DIST_EMULATOR_H_ */

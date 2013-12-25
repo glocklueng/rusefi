@@ -77,7 +77,7 @@ void initShaftPositionEmulator(void) {
 	initOutputPin("distributor ch2", &configuration.outputPins[1],
 	SECONDARY_SHAFT_POSITION_EMULATION_PORT, SECONDARY_SHAFT_POSITION_EMULATION_PIN);
 
-	configureShaftPositionEmulatorShape(&configuration);
+	configureShaftPositionEmulatorShape(&configuration, engineConfiguration2);
 
 	setRevolutionPeriod(DEFAULT_EMULATION_RPM);
 

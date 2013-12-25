@@ -13,28 +13,8 @@
 #define _5_VOLTS 5.0
 #define KELV 273.15
 
-/**
- * @brief thermistor curve parameters
- */
-typedef struct {
-	float temp_1;
-	float temp_2;
-	float temp_3;
-	float resistance_1;
-	float resistance_2;
-	float resistance_3;
+#include "sensor_types.h"
 
-	float bias_resistor;
-
-	float s_h_a;
-	float s_h_b;
-	float s_h_c;
-} ThermistorConf;
-
-typedef struct {
-	ThermistorConf *config;
-	int channel;
-} Thermistor;
 
 /**
  * Vout=r2/(r1+r2)*Vin
