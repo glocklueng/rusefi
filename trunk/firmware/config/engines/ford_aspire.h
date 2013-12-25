@@ -5,13 +5,16 @@
  * @date Aug 30, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
  *
+ * http://rusefi.com/forum/viewtopic.php?t=375
  *
- *	Injectors: Denso 195500-2110, 120cc, purple, 13.9 ohms
- *	camshaft position sensor(s): two Hall sensors
- *	single ignition coil(s), low-side driven with 5v pull-up resistor
  */
 
 #ifndef FORD_ASPIRE_H_
 #define FORD_ASPIRE_H_
+
+#include "engine_configuration.h"
+
+void setFordAspireEngineConfiguration(EngineConfiguration *engineConfiguration);
+void setFordAspireEngineConfiguration2(EngineConfiguration2 *engineConfiguration2);
 
 #endif /* FORD_ASPIRE_H_ */

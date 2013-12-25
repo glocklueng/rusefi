@@ -28,7 +28,7 @@ float getMapByVoltage(float voltage) {
 	return getMAPValueHonda_Denso183(voltage);
 }
 
-myfloat getRawMap(void) {
+float getRawMap(void) {
 	float voltage = getVoltage(engineConfiguration->map.channel);
 	return getMapByVoltage(voltage);
 }

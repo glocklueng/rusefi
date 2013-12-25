@@ -6,8 +6,9 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
-#include "engine_configuration.h"
 #include "main.h"
+#include "engine_configuration.h"
+#include "allsensors.h"
 
 #define ADC_CHANNEL_FAST_ADC 256
 

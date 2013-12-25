@@ -10,7 +10,7 @@
 #define ENGINE_CONFIGURATION_H_
 
 #include "fuel_map.h"
-#include "allsensors.h"
+#include "sensor_types.h"
 #include "engine_math.h"
 #include "can_header.h"
 #include "trigger_structure.h"

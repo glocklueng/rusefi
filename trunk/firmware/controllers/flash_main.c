@@ -68,7 +68,15 @@ static void resetConfiguration(void) {
 	/**
 	 * And override them with engine-specific defaults
 	 */
-	setDefaultEngineConfiguration(engineConfiguration);
+	switch (engineConfiguration->engineType) {
+	case FORD_ASPIRE_1996:
+		setFordAspireEngineConfiguration(engineConfiguration);
+		setFordAspireEngineConfiguration2(engineConfiguration2);
+		break;
+	default:
+		fatal("Unexpected engine type")
+		;
+	}
 
 #if EFI_TUNER_STUDIO
 	syncTunerStudioCopy();

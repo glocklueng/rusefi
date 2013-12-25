@@ -131,7 +131,7 @@ static void showMapStats(void) {
 	scheduleSimpleMsg(&logger, "per revolution", perRevolution);
 }
 
-myfloat getMap(void) {
+float getMap(void) {
 	return getMapByVoltage(v_averagedMapValue);
 }
 

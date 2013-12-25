@@ -9,8 +9,6 @@
 #include "main.h"
 #include <string.h>
 
-#if EFI_ENGINE_FORD_ASPIRE
-
 #include "ford_aspire.h"
 
 #include "allsensors.h"
@@ -23,9 +21,6 @@
 #include "engine_configuration.h"
 #include "dist_emulator.h"
 #include "main_loop.h"
-
-extern EngineConfiguration2 *engineConfiguration2;
-extern EngineConfiguration *engineConfiguration;
 
 /**
  * Just the default RPM bin - with TunerStudio you can adjust even the bins
@@ -77,7 +72,7 @@ static float default_fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT] = {
 };
 
 
-void configureShaftPositionEmulatorShape(PwmConfig *state) {
+void configureShaftPositionEmulatorShape(PwmConfig *state, EngineConfiguration2 *engineConfiguration2) {
 
 	trigger_shape_s * s = &engineConfiguration2->triggerShape;
 
@@ -132,7 +127,7 @@ static void configureAspireEngineEventHandler(EventHandlerConfiguration *config)
 	registerActuatorEvent(&config->ignitionEvents, 8, 1, 0);
 }
 
-static void setDefaultFuelMap(void) {
+static void setDefaultFuelMap(EngineConfiguration *engineConfiguration) {
 	for (int i = 0; i < FUEL_MAF_COUNT; i++)
 		engineConfiguration->fuelKeyBins[i] = default_fuel_maf_bins[i];
 	for (int i = 0; i < FUEL_RPM_COUNT; i++)
@@ -145,23 +140,22 @@ static void setDefaultFuelMap(void) {
 	}
 }
 
-void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
-	configureAspireEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
-
-	engineConfiguration->tpsMin = 1;
+void setFordAspireEngineConfiguration(EngineConfiguration *engineConfiguration) {
+engineConfiguration->tpsMin = 1;
 	engineConfiguration->tpsMax = 1000;
-
 
 	engineConfiguration->ignitonOffset = 35;
 	engineConfiguration->rpmHardLimit = 7000;
-
-	engineConfiguration2->triggerShape.shaftPositionEventCount = 10;
 
 	engineConfiguration->crankingSettings.coolantTempMin = 15;
 	engineConfiguration->crankingSettings.coolantTempMax = 65;
 	engineConfiguration->crankingSettings.minTempPW = 16;
 	engineConfiguration->crankingSettings.maxTempPW = 8;
 
-	setDefaultFuelMap();
+	setDefaultFuelMap(engineConfiguration);
 }
-#endif /* EFI_ENGINE_FORD_ASPIRE */
+
+void setFordAspireEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
+	configureAspireEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
+	engineConfiguration2->triggerShape.shaftPositionEventCount = 10;
+}
