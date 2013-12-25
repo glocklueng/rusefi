@@ -92,7 +92,7 @@ void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfigur
 //	scheduleLogging(&logger);
 }
 
-static void doPrintConfiguration() {
+static void doPrintConfiguration(void) {
 	printConfiguration(engineConfiguration, engineConfiguration2);
 }
 
