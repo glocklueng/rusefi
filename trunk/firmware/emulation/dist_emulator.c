@@ -77,7 +77,11 @@ void initShaftPositionEmulator(void) {
 	initOutputPin("distributor ch2", &configuration.outputPins[1],
 	SECONDARY_SHAFT_POSITION_EMULATION_PORT, SECONDARY_SHAFT_POSITION_EMULATION_PIN);
 
-	configureShaftPositionEmulatorShape(&configuration, engineConfiguration2);
+	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+
+	int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
+	weComplexInit("position sensor", &configuration, 0, s->size, s->wave.switchTimes, 2, pinStates);
+
 
 	setRevolutionPeriod(DEFAULT_EMULATION_RPM);
 

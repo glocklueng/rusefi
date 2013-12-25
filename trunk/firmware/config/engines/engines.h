@@ -33,13 +33,11 @@ typedef enum {
  */
 //#define EFI_ENGINE_DODGE_NEON TRUE
 
-#define EFI_ENGINE_FORD_ASPIRE TRUE
-
 /**
  * 36-1 toothed wheel engine
  * http://rusefi.com/forum/viewtopic.php?t=282
  */
-//#define EFI_ENGINE_FORD_FIESTA TRUE
+#define EFI_ENGINE_FORD_FIESTA TRUE
 
 //#define EFI_ENGINE_SNOW_BLOWER TRUE
 

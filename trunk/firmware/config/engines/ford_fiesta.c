@@ -15,17 +15,6 @@
 #include "toothed_wheel_emulator.h"
 #include "dist_emulator.h"
 
-extern EngineConfiguration2 *engineConfiguration2;
-
-void configureShaftPositionEmulatorShape(PwmConfig *state) {
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
-
-	skippedToothTriggerShape(s, state, TOTAL_TEETH_COUNT, SKIPPED_TEETH_COUNT);
-
-	int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
-	weComplexInit("position sensor", state, 0, s->size, s->wave.switchTimes, 2, pinStates);
-}
-
 void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	// injector 1 activated at the 1st tooth event while cranking
 	registerActuatorEvent(&config->crankingInjectionEvents, 1, 1, 0);
@@ -46,10 +35,16 @@ void configureEngineEventHandler(EventHandlerConfiguration *config) {
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 
+}
+
+void setFordFiestaEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
 	// only crankshaft sensor so far
 	engineConfiguration2->rpmMultiplier = 1;
 
 	engineConfiguration2->triggerShape.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
+
+	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+	skippedToothTriggerShape(s, TOTAL_TEETH_COUNT, SKIPPED_TEETH_COUNT);
 }
 
 #endif /* EFI_ENGINE_FORD_FIESTA */
