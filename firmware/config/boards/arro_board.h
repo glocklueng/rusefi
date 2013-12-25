@@ -221,7 +221,7 @@
 #define SPI_CS1_PIN 7
 
 #define SPI_CS2_PORT GPIOB
-#define SPI_CS2_PIN 3
+#define SPI_CS2_PIN 7
 
 #define SPI_CS3_PORT GPIOD
 #define SPI_CS3_PIN 5
