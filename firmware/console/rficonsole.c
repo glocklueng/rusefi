@@ -63,10 +63,6 @@ static void sayOsHello(void) {
 	printSimpleMsg(&logger, "CH_DBG_ENABLE_STACK_CHECK=",
 			CH_DBG_ENABLE_STACK_CHECK);
 
-	resetLogging(&logger);
-	appendPrintf(&logger, "msg%s%s", DELIMETER, EFI_ENGINE_ID);
-	printLine(&logger);
-
 	printSimpleMsg(&logger, "EFI_WAVE_ANALYZER=", EFI_WAVE_ANALYZER);
 #ifdef EFI_TUNER_STUDIO
 	printSimpleMsg(&logger, "EFI_TUNER_STUDIO=", EFI_TUNER_STUDIO);
@@ -91,7 +87,6 @@ static void sayOsHello(void) {
 #endif
 	printSimpleMsg(&logger, "EFI_SHAFT_POSITION_INPUT=", EFI_SHAFT_POSITION_INPUT);
 	printSimpleMsg(&logger, "EFI_INTERNAL_ADC=", EFI_INTERNAL_ADC);
-	printSimpleMsg(&logger, "NUMBER_OF_CYLINDERS=", NUMBER_OF_CYLINDERS);
 
 //	printSimpleMsg(&logger, "", );
 //	printSimpleMsg(&logger, "", );

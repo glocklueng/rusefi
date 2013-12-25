@@ -77,6 +77,9 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 
 	engineConfiguration->analogChartMode = AC_OFF;
 
+	engineConfiguration2->cylindersCount = 4;
+
 	engineConfiguration2->hasMapSensor = TRUE;
+	engineConfiguration2->hasCltSensor = TRUE;
 	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
 }

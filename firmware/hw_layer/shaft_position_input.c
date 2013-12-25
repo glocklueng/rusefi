@@ -108,7 +108,6 @@ void initShaftPositionInputCapture() {
 	icuStart(&PRIMARY_SHAFT_POSITION_INPUT_DRIVER, &shaft_icucfg);
 	icuEnable(&PRIMARY_SHAFT_POSITION_INPUT_DRIVER);
 
-#if EFI_SHAFT_POSTION_NEEDS_SECONDARY
 	// initialize secondary Input Capture Unit pin
 	initWaveAnalyzerDriver(&secondaryCrankInput, &SECONDARY_SHAFT_POSITION_INPUT_DRIVER, SECONDARY_SHAFT_POSITION_INPUT_PORT,
 	SECONDARY_SHAFT_POSITION_INPUT_PIN);
@@ -116,7 +115,6 @@ void initShaftPositionInputCapture() {
 	print("initShaftPositionInputCapture 2 %s:%d\r\n", portname(SECONDARY_SHAFT_POSITION_INPUT_PORT), SECONDARY_SHAFT_POSITION_INPUT_PIN);
 	icuStart(&SECONDARY_SHAFT_POSITION_INPUT_DRIVER, &shaft_icucfg);
 	icuEnable(&SECONDARY_SHAFT_POSITION_INPUT_DRIVER);
-#endif /* EFI_SHAFT_POSTION_NEEDS_SECONDARY */
 
 #else
 	print("crank input disabled\r\n");

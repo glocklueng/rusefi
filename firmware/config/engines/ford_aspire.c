@@ -22,6 +22,7 @@
 #include "engine_controller.h"
 #include "engine_configuration.h"
 #include "dist_emulator.h"
+#include "main_loop.h"
 
 extern EngineConfiguration2 *engineConfiguration2;
 extern EngineConfiguration *engineConfiguration;

@@ -14,25 +14,4 @@
 #ifndef FORD_ASPIRE_H_
 #define FORD_ASPIRE_H_
 
-#if EFI_ENGINE_FORD_ASPIRE
-
-#include "global.h"
-#include "thermistors.h"
-#include "pwm_generator.h"
-
-#define EFI_DEFAULT_CHART_SIZE 90
-
-#include "main_loop.h"
-
-#define EFI_ENGINE_ID "Ford Aspire"
-
-#define NUMBER_OF_CYLINDERS 4
-
-#define ENGINE_HAS_COOLANT_SENSOR TRUE
-#define ENGINE_HAS_MAP_SENSOR TRUE
-
-#define EFI_SHAFT_POSTION_NEEDS_SECONDARY TRUE
-
-#endif /* EFI_ENGINE_FORD_ASPIRE */
-
 #endif /* FORD_ASPIRE_H_ */

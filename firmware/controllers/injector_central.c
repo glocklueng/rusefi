@@ -14,6 +14,7 @@
 #include "signal_executor.h"
 #include "rficonsole_logic.h"
 #include "main_loop.h"
+#include "engine_configuration.h"
 
 static OutputSignal injectors[MAX_INJECTOR_COUNT];
 
@@ -22,10 +23,12 @@ static Logging logger;
 int isInjectionEnabled = TRUE;
 myfloat globalFuelCorrection = 1;
 
-static int is_injector_enabled[NUMBER_OF_CYLINDERS];
+extern EngineConfiguration2 *engineConfiguration2;
+
+static int is_injector_enabled[MAX_INJECTOR_COUNT];
 
 void assertCylinderId(int cylinderId, char *msg) {
-	int isValid = cylinderId >= 1 && cylinderId <= NUMBER_OF_CYLINDERS;
+	int isValid = cylinderId >= 1 && cylinderId <= engineConfiguration2->cylindersCount;
 	if (!isValid) {
 		//scheduleSimpleMsg(&logger, "cid=", cylinderId);
 		print("ERROR [%s] cid=%d\r\n", msg, cylinderId);
@@ -56,7 +59,7 @@ int isInjectorEnabled(int cylinderId) {
 }
 
 static void printStatus(void) {
-	for (int id = 1; id <= NUMBER_OF_CYLINDERS; id++) {
+	for (int id = 1; id <= engineConfiguration2->cylindersCount; id++) {
 		resetLogging(&logger);
 
 		appendPrintf(&logger, "injector%d%s", id, DELIMETER);
@@ -67,7 +70,7 @@ static void printStatus(void) {
 }
 
 static void setInjectorEnabled(int id, int value) {
-	chDbgCheck(id >=0 && id < NUMBER_OF_CYLINDERS, "injector id");
+	chDbgCheck(id >=0 && id < engineConfiguration2->cylindersCount, "injector id");
 	is_injector_enabled[id] = value;
 	printStatus();
 }
@@ -82,7 +85,7 @@ static void setGlobalFuelCorrection(int value) {
 void initInjectorCentral(void) {
 	initLogging(&logger, "InjectorCentral");
 
-	for (int i = 0; i < NUMBER_OF_CYLINDERS; i++)
+	for (int i = 0; i < engineConfiguration2->cylindersCount; i++)
 		is_injector_enabled[i] = true;
 	printStatus();
 

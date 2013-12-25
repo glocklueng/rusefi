@@ -16,15 +16,14 @@ void skippedToothTriggerShape(trigger_shape_s *s, PwmConfig *state, int totalTee
 
 	float toothWidth = 0.5;
 
-	for(int i =0;i< totalTeethCount - skippedCount - 1;i++) {
-		float angleDown = 720.0 / totalTeethCount * ( i + toothWidth);
-		float angleUp = 720.0 / totalTeethCount * ( i + 1);
+	for (int i = 0; i < totalTeethCount - skippedCount - 1; i++) {
+		float angleDown = 720.0 / totalTeethCount * (i + toothWidth);
+		float angleUp = 720.0 / totalTeethCount * (i + 1);
 		triggerAddEvent(s, angleDown, T_PRIMARY, 1);
 		triggerAddEvent(s, angleUp, T_PRIMARY, 0);
 	}
 
-	float angleDown = 720.0 / totalTeethCount * ( totalTeethCount - skippedCount + toothWidth);
+	float angleDown = 720.0 / totalTeethCount * (totalTeethCount - skippedCount + toothWidth);
 	triggerAddEvent(s, angleDown, T_PRIMARY, 1);
 	triggerAddEvent(s, 720, T_PRIMARY, 0);
-
 }

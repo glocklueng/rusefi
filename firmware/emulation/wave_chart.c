@@ -18,7 +18,7 @@
 
 #define CHART_DELIMETER	"!"
 
-static volatile int chartSize = EFI_DEFAULT_CHART_SIZE;
+static volatile int chartSize = 100;
 
 static int isChartActive = TRUE;
 //static int isChartActive = FALSE;
@@ -53,7 +53,7 @@ static void setChartActive(int value) {
 	printStatus();
 }
 
-static void setChartSize(int newSize) {
+void setChartSize(int newSize) {
 	if (newSize < 5)
 		return;
 	chartSize = newSize;

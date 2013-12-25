@@ -14,8 +14,6 @@
 
 #include "shaft_position_input.h"
 
-#include "flash_main.h"
-
 #include "mcp3208.h"
 #include "HIP9011.h"
 #include "can_hw.h"
@@ -48,13 +46,6 @@ void initHardware() {
 
 	initPinRepository();
 	initSpiModules();
-
-	/**
-	 * this call reads configuration from flash memory or sets default configuration
-	 * if flash state does not look right.
-	 * todo: Technically this is not hardware, should we move this?
-	 */
-	initFlash();
 
 	initOutputPins();
 	initAdcInputs();

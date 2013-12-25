@@ -40,5 +40,11 @@
  */
 //#define EFI_ENGINE_DENISVAK TRUE
 
+typedef enum {
+	FORD_ASPIRE_1996,
+	DODGE_NEON_1995,
+	NISSAN_PRIMERA,
+	AUDI_AAN,
+} engine_type_e;
 
 #endif /* ENGINE_H_ */

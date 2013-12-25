@@ -16,6 +16,7 @@
 #include "pinout.h"
 #include "engine_configuration.h"
 
+extern EngineConfiguration *engineConfiguration;
 extern EngineConfiguration2 *engineConfiguration2;
 
 static Logging logger;
@@ -66,17 +67,15 @@ void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e wave
 
 void initShaftPositionEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
-	print("Emulating %s\r\n", EFI_ENGINE_ID);
+	print("Emulating %s\r\n", getConfigurationName(engineConfiguration));
 
 	initLogging(&logger, "position sensor(s) emulator");
 
 	initOutputPin("distributor ch1", &configuration.outputPins[0],
 	PRIMARY_SHAFT_POSITION_EMULATION_PORT, PRIMARY_SHAFT_POSITION_EMULATION_PIN);
 
-#if EFI_SHAFT_POSTION_NEEDS_SECONDARY
 	initOutputPin("distributor ch2", &configuration.outputPins[1],
 	SECONDARY_SHAFT_POSITION_EMULATION_PORT, SECONDARY_SHAFT_POSITION_EMULATION_PIN);
-#endif /* EFI_SHAFT_POSTION_NEEDS_SECONDARY */
 
 	configureShaftPositionEmulatorShape(&configuration);
 
