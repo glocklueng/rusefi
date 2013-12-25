@@ -1,5 +1,8 @@
 /**
  * @file	main.c
+ * @brief C main entry point
+ *
+ * This file is so simple in anticipation of C++ migration under https://sourceforge.net/p/rusefi/tickets/33/
  *
  * @date Nov 29, 2012
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -9,18 +12,8 @@
 #include "global.h"
 
 #include "main.h"
-#include "rficonsole.h"
-#include "hardware.h"
-#include "engine_controller.h"
-#include "flash_main.h"
-#include "status_loop.h"
-#if EFI_ENGINE_EMULATOR
-#include "engine_emulator.h"
-#endif
-#include "rficonsole_logic.h"
-#include "tunerstudio.h"
 
-int main_loop_started = FALSE;
+#include "rusefi.h"
 
 int main(void) {
 	/*
@@ -29,42 +22,6 @@ int main(void) {
 	halInit();
 	chSysInit();
 
-	/**
-	 * First we should initialize serial port console, it's important to know what's going on
-	 */
-	initializeConsole();
-	/**
-	 * this call reads configuration from flash memory or sets default configuration
-	 * if flash state does not look right.
-	 */
-	initFlash();
-	/**
-	 * Initialize hardware drivers
-	 */
-	initHardware();
-
-	initStatusLoop();
-	/**
-	 * Now let's initialize actual engine control logic
-	 */
-	initEngineContoller();
-
-#if EFI_ENGINE_EMULATOR
-	initEngineEmulator();
-#endif
-
-	print("Running main loop\r\n");
-	main_loop_started = TRUE;
-	while (TRUE) {
-		printState();
-#if EFI_TUNER_STUDIO
-		updateTunerStudioState();
-#endif
-		chThdSleepMilliseconds(5);
-	}
+	runRusEfi();
 	return 0;
-}
-
-int systicks2ms(int systicks) {
-	return systicks / TICKS_IN_MS;
 }

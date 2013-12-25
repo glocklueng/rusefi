@@ -1,6 +1,6 @@
 /**
  * @file	ignition_central.c
- * @brirf	TODO
+ * @brief	TODO
  *
  * @date Nov 15, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013

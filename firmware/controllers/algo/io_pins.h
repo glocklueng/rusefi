@@ -1,5 +1,5 @@
 /**
- * @file	output_pins.h
+ * @file	io_pins.h
  *
  * @date Jan 24, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
