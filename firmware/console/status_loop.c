@@ -1,5 +1,6 @@
 /**
  * @file	status_loop.c
+ * @brief Human-readable protocol status messages
  *
  * @date Mar 15, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -34,7 +35,7 @@ extern EngineConfiguration2 * engineConfiguration2;
 #define INITIAL_FULL_LOG TRUE
 //#define INITIAL_FULL_LOG FALSE
 
-volatile int fullLog;
+static volatile int fullLog;
 volatile int needToReportStatus = FALSE;
 static int prevCkpEventCounter = -1;
 
@@ -53,6 +54,10 @@ void setFullLog(int value) {
 	print("Setting full logging: %s\r\n", boolean2string(value));
 	printSimpleMsg(&logger, FULL_LOGGING_KEY, value);
 	fullLog = value;
+}
+
+int getFullLog(void) {
+	return fullLog;
 }
 
 static void printStatus(void) {

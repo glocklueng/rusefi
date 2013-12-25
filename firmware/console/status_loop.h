@@ -1,4 +1,4 @@
-/*
+/**
  * @file	console_loop.h
  *
  * @date Mar 15, 2013
@@ -10,6 +10,7 @@
 
 void initStatusLoop(void);
 void printState(void);
+int getFullLog(void);
 void setFullLog(int value);
 void sayOsHello(void);
 int hasFatalError(void);
