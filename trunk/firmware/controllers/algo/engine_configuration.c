@@ -62,7 +62,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration2->rpmMultiplier = 0.5;
 
 
-	engineConfiguration2->triggerShape.onlyOneTeeth = TRUE;
+	engineConfiguration2->triggerShape.onlyOneTeeth = FALSE;
 
 	/**
 	 * 720 is the range for four stroke
@@ -76,7 +76,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->timingMode = TM_DYNAMIC;
 	engineConfiguration->fixedModeTiming = 50;
 
-	engineConfiguration->engineType = FORD_ASPIRE_1996;
+	engineConfiguration->engineType = FORD_FIESTA;
 
 	engineConfiguration->analogChartMode = AC_OFF;
 

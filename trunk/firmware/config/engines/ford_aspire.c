@@ -150,6 +150,7 @@ engineConfiguration->tpsMin = 1;
 }
 
 void setFordAspireEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
+	engineConfiguration2->triggerShape.onlyOneTeeth = TRUE;
 	configureAspireEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 	engineConfiguration2->triggerShape.shaftPositionEventCount = 10;
 	confgiureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
