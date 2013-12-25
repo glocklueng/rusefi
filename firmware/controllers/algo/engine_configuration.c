@@ -12,8 +12,6 @@
 
 #define ADC_CHANNEL_FAST_ADC 256
 
-extern EngineConfiguration2 *engineConfiguration2;
-
 /**
  * @brief	Global default engine configuration
  * This method sets the default global engine configuration. These values are later overridden by engine-specific defaults
@@ -44,11 +42,9 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 		}
 	}
 
-	engineConfiguration2->clt.channel = ADC_LOGIC_COOLANT;
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 32, 9500, 75, 2100, 120, 1000);
 	engineConfiguration->cltThermistorConf.bias_resistor =  1500;
 
-	engineConfiguration2->iat.channel = ADC_LOGIC_AIR;
 	setThermistorConfiguration(&engineConfiguration->iatThermistorConf, 32, 9500, 75, 2100, 120, 1000);
 // todo: this value is way off! I am pretty sure temp coeffs are off also
 	engineConfiguration->iatThermistorConf.bias_resistor = 2700;
@@ -56,11 +52,23 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 	engineConfiguration->crankingSettings.crankingRpm = 400;
 
+
+	engineConfiguration->crankingChargeAngle = 38;
+	engineConfiguration->timingMode = TM_DYNAMIC;
+	engineConfiguration->fixedModeTiming = 50;
+
+	engineConfiguration->analogChartMode = AC_OFF;
+
+	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
+}
+
+void setDefaultNonPersistentConfiguration(EngineConfiguration2 *engineConfiguration2) {
+	engineConfiguration2->clt.channel = ADC_LOGIC_COOLANT;
+	engineConfiguration2->iat.channel = ADC_LOGIC_AIR;
 	/**
 	 * 0.5 means primary position sensor is on a camshaft
 	 */
 	engineConfiguration2->rpmMultiplier = 0.5;
-
 
 	engineConfiguration2->triggerShape.onlyOneTeeth = FALSE;
 
@@ -72,17 +80,8 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration2->can_nbc_type = CAN_BUS_NBC_BMW;
 	engineConfiguration2->can_nbc_broadcast_period = 50;
 
-	engineConfiguration->crankingChargeAngle = 38;
-	engineConfiguration->timingMode = TM_DYNAMIC;
-	engineConfiguration->fixedModeTiming = 50;
-
-	engineConfiguration->engineType = FORD_FIESTA;
-
-	engineConfiguration->analogChartMode = AC_OFF;
-
 	engineConfiguration2->cylindersCount = 4;
 
 	engineConfiguration2->hasMapSensor = TRUE;
 	engineConfiguration2->hasCltSensor = TRUE;
-	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
 }

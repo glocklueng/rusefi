@@ -20,6 +20,8 @@
 
 #include "datalogging.h"
 
+static engine_type_e defaultEngineType = FORD_ASPIRE_1996;
+
 static Logging logger;
 
 #if defined __GNUC__
@@ -43,7 +45,9 @@ void writeToFlash(void) {
 	scheduleSimpleMsg(&logger, "Reseting flash=", FLASH_USAGE);
 	flashErase(FLASH_ADDR, FLASH_USAGE);
 	scheduleSimpleMsg(&logger, "Flashing with CRC=", result);
+	time_t now = chTimeNow();
 	result = flashWrite(FLASH_ADDR, (const char *) &flashState, FLASH_USAGE);
+	scheduleSimpleMsg(&logger, "Flash programmed in (ms): ", chTimeNow() - now);
 	scheduleSimpleMsg(&logger, "Flashed: ", result);
 }
 
@@ -60,23 +64,42 @@ static int isValid(FlashState *state) {
 	return result == state->value;
 }
 
-static void resetConfiguration(void) {
-	/**
-	 * Let's apply global defaults first
-	 */
-	setDefaultConfiguration(engineConfiguration);
-	/**
-	 * And override them with engine-specific defaults
-	 */
+static void applyNonPersistentConfiguration(engine_type_e engineType) {
 	switch (engineConfiguration->engineType) {
 	case FORD_ASPIRE_1996:
-		setFordAspireEngineConfiguration(engineConfiguration);
 		setFordAspireEngineConfiguration2(engineConfiguration2);
+		break;
+	case FORD_FIESTA:
+		setFordFiestaEngineConfiguration2(engineConfiguration2);
 		break;
 	default:
 		fatal("Unexpected engine type")
 		;
 	}
+
+}
+
+void resetConfiguration(engine_type_e engineType) {
+	/**
+	 * Let's apply global defaults first
+	 */
+	setDefaultConfiguration(engineConfiguration);
+	engineConfiguration->engineType = engineType;
+	/**
+	 * And override them with engine-specific defaults
+	 */
+	switch (engineType) {
+	case FORD_ASPIRE_1996:
+		setFordAspireEngineConfiguration(engineConfiguration);
+		break;
+	case FORD_FIESTA:
+		setFordFiestaDefaultEngineConfiguration(engineConfiguration);
+		break;
+	default:
+		fatal("Unexpected engine type")
+		;
+	}
+	applyNonPersistentConfiguration(engineType);
 
 #if EFI_TUNER_STUDIO
 	syncTunerStudioCopy();
@@ -85,21 +108,24 @@ static void resetConfiguration(void) {
 
 static void readFromFlash(void) {
 
-	resetConfiguration(); // this call is here only to have a valid EngineConfiguration2
-
 	flashRead(FLASH_ADDR, (char *) &flashState, FLASH_USAGE);
+	setDefaultNonPersistentConfiguration(engineConfiguration2);
 
 	if (!isValid(&flashState)) {
 		scheduleSimpleMsg(&logger, "Not valid flash state, setting default", 0);
-		resetConfiguration();
-		return;
+		resetConfiguration(defaultEngineType);
 	} else {
 		scheduleSimpleMsg(&logger, "Got valid state from flash!", 0);
+		applyNonPersistentConfiguration(engineConfiguration->engineType);
 	}
 }
 
 static void doPrintConfiguration(void) {
 	printConfiguration(engineConfiguration, engineConfiguration2);
+}
+
+static void doResetConfiguration(void) {
+	resetConfiguration(engineConfiguration->engineType);
 }
 
 void initFlash(void) {
@@ -110,7 +136,7 @@ void initFlash(void) {
 
 	addConsoleAction("readconfig", readFromFlash);
 	addConsoleAction("writeconfig", writeToFlash);
-	addConsoleAction("resetconfig", resetConfiguration);
+	addConsoleAction("resetconfig", doResetConfiguration);
 
 	readFromFlash();
 }

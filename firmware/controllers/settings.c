@@ -111,6 +111,7 @@ static void setTimingMode(int value) {
 
 static void setEngineType(int value) {
 	engineConfiguration->engineType = value;
+	resetConfiguration(value);
 	writeToFlash();
 	doPrintConfiguration();
 }
