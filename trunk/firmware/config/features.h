@@ -65,6 +65,7 @@
   #pragma "Cannot be serial over USART and TUNER_STUDIO over USART at the same time"
 #endif
 #endif /* EFI_TUNER_STUDIO */
+#endif /* EFI_SERIAL_OVER_USB */
 
 /**
  * This macros is used to hide pieces of the code from unit tests, so it only makes sense in folders exposed to the tests project.
@@ -77,11 +78,6 @@
  */
 #define EFI_MALFUNCTIONAL_INDICATOR TRUE
 
-/**
- * Engineering feature: Do we want to chart position sensor events?
- */
-//#define EFI_CHART_POSITION_SENSOR TRUE
-
-#endif /* EFI_SERIAL_OVER_USB */
+#define EFI_SUPPORT_FORD_ASPIRE TRUE
 
 #endif /* FEATURES_H_ */

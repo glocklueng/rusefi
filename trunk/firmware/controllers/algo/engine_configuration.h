@@ -9,6 +9,7 @@
 #ifndef ENGINE_CONFIGURATION_H_
 #define ENGINE_CONFIGURATION_H_
 
+#include "features.h"
 #include "fuel_map.h"
 #include "sensor_types.h"
 #include "engine_math.h"
@@ -23,7 +24,9 @@ typedef enum {
 	 * 1996 1.3 Ford Aspire
 	 * http://rusefi.com/forum/viewtopic.php?t=375
 	 */
+#if EFI_SUPPORT_FORD_ASPIRE
 	FORD_ASPIRE_1996 = 3,
+#endif /* EFI_SUPPORT_FORD_ASPIRE */
 	FORD_FIESTA = 4,
 	NISSAN_PRIMERA = 5,
 } engine_type_e;
