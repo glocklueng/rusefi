@@ -15,6 +15,7 @@
 #include "wave_chart.h"
 #include "main.h"
 #include "rficonsole.h"
+#include "status_loop.h"
 
 #define CHART_DELIMETER	"!"
 
@@ -79,7 +80,7 @@ void addWaveChartEvent(WaveChart *chart, char *name, char * msg) {
 			Logging *l = &chart->logging;
 			scheduleSimpleMsg(&debugLogging, "IT'S TIME", strlen(l->buffer));
 #endif
-			if (isChartActive)
+			if (isChartActive && getFullLog())
 				scheduleLogging(&chart->logging);
 			chart->isPrinted = TRUE;
 		}

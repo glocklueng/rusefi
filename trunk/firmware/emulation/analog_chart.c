@@ -8,6 +8,7 @@
 #include "main.h"
 #include "rpm_calculator.h"
 #include "analog_chart.h"
+#include "status_loop.h"
 
 static char LOGGING_BUFFER[5000];
 static Logging logging;
@@ -24,7 +25,8 @@ void acAddData(float angle, float value) {
 			// message terminator
 			appendPrintf(&logging, DELIMETER);
 			// output pending data
-			scheduleLogging(&logging);
+			if (getFullLog())
+				scheduleLogging(&logging);
 			pendingData = FALSE;
 		}
 		return;
