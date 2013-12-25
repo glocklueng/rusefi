@@ -16,6 +16,8 @@ typedef float myfloat;
 #include <time.h>
 
 #include "boards.h"
+#include "engines.h"
+
 
 #define TRUE 1
 #define FALSE 0
@@ -34,6 +36,7 @@ void chDbgAssert(int c, char *msg, void *arg);
 
 void assertEqualsM(char *msg, float expected, float actual);
 void assertEquals(float expected, float actual);
+void assertTrue(float actual);
 
 float getIntakeAirTemperature(void);
 float getCoolantTemperature(void);
