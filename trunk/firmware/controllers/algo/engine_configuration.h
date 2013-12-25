@@ -99,6 +99,8 @@ typedef struct {
 	 */
 	float fixedModeTiming;
 
+	engine_type_e engineType;
+
 } EngineConfiguration;
 
 /**
@@ -107,6 +109,9 @@ typedef struct {
  */
 typedef struct {
 	int hasMapSensor;
+	int hasCltSensor;
+
+	int cylindersCount;
 
 	Thermistor iat;
 	Thermistor clt;
@@ -129,8 +134,9 @@ typedef struct {
 	trigger_shape_s triggerShape;
 } EngineConfiguration2;
 
+char* getConfigurationName(EngineConfiguration *engineConfiguration);
 void setDefaultConfiguration(EngineConfiguration *engineConfiguration);
-void printConfiguration(EngineConfiguration *engineConfiguration);
+void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfiguration2 *engineConfiguration2);
 void printFloatArray(char *prefix, float array[], int size);
 
 #endif /* ENGINE_CONFIGURATION_H_ */

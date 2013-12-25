@@ -24,6 +24,7 @@ typedef struct {
 void addWaveChartEvent(WaveChart *chart, char *name, char * msg);
 void initWaveChart(WaveChart *chart);
 void resetWaveChart(WaveChart *chart);
+void setChartSize(int newSize);
 int isWaveChartFull(WaveChart *chart);
 
 #endif /* WAVE_CHART_H_ */

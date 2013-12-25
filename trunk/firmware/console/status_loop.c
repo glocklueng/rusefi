@@ -80,10 +80,10 @@ static void printSensors(void) {
 	myfloat tps = getTPS();
 	logInt(&logger, LP_THROTTLE, tps);
 
-#if ENGINE_HAS_COOLANT_SENSOR
-	myfloat coolantTemp = getCoolantTemperature();
-	logFloat(&logger, LP_ECT, coolantTemp);
-#endif
+	if (engineConfiguration2->hasCltSensor) {
+		myfloat coolantTemp = getCoolantTemperature();
+		logFloat(&logger, LP_ECT, coolantTemp);
+	}
 
 	myfloat airTemp = getIntakeAirTemperature();
 	logFloat(&logger, LP_IAT, airTemp);

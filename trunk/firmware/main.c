@@ -12,6 +12,7 @@
 #include "rficonsole.h"
 #include "hardware.h"
 #include "engine_controller.h"
+#include "flash_main.h"
 #include "status_loop.h"
 #if EFI_ENGINE_EMULATOR
 #include "engine_emulator.h"
@@ -32,6 +33,11 @@ int main(void) {
 	 * First we should initialize serial port console, it's important to know what's going on
 	 */
 	initializeConsole();
+	/**
+	 * this call reads configuration from flash memory or sets default configuration
+	 * if flash state does not look right.
+	 */
+	initFlash();
 	/**
 	 * Initialize hardware drivers
 	 */

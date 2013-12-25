@@ -18,7 +18,7 @@ static Logging logger;
 static char LOGGING_BUFFER[1000];
 
 extern EngineConfiguration *engineConfiguration;
-
+extern EngineConfiguration2 *engineConfiguration2;
 
 static void printIntArray(int array[], int size) {
 	for (int j = 0; j < size; j++)
@@ -34,10 +34,25 @@ void printFloatArray(char *prefix, float array[], int size) {
 //	appendPrintf(&logger, DELIMETER);
 //	scheduleLogging(&logger);
 }
+
+char* getConfigurationName(EngineConfiguration *engineConfiguration) {
+	switch (engineConfiguration->engineType) {
+	case FORD_ASPIRE_1996:
+		return "Ford Aspire";
+	default:
+		return NULL;
+	}
+}
+
 /**
  * @brief	Prints current engine configuration to human-readable console.
  */
-void printConfiguration(EngineConfiguration *engineConfiguration) {
+void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfiguration2 *engineConfiguration2) {
+
+	resetLogging(&logger);
+	appendPrintf(&logger, "msg%s%s", DELIMETER, getConfigurationName(engineConfiguration));
+	printLine(&logger);
+
 	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
 //		print("line %d (%f): ", k, engineConfiguration->fuelKeyBins[k]);
 //		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
@@ -77,24 +92,28 @@ void printConfiguration(EngineConfiguration *engineConfiguration) {
 //	scheduleLogging(&logger);
 }
 
+static void doPrintConfiguration() {
+	printConfiguration(engineConfiguration, engineConfiguration2);
+}
+
 static void setFixedModeTiming(int value) {
 	engineConfiguration->fixedModeTiming = value;
-	printConfiguration(engineConfiguration);
+	doPrintConfiguration();
 }
 
 static void setTimingMode(int value) {
 	engineConfiguration->timingMode = value;
-	printConfiguration(engineConfiguration);
+	doPrintConfiguration();
 }
 
 static void setIgnitonOffset(int value) {
 	engineConfiguration->ignitonOffset = value;
-	printConfiguration(engineConfiguration);
+	doPrintConfiguration();
 }
 
 static void setAnalogChartMode(int value) {
 	engineConfiguration->analogChartMode = value;
-	printConfiguration(engineConfiguration);
+	doPrintConfiguration();
 }
 
 void initSettings(void) {

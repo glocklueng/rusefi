@@ -29,6 +29,7 @@ static FlashState flashState;
 #endif
 
 EngineConfiguration *engineConfiguration = &flashState.configuration;
+extern EngineConfiguration2 * engineConfiguration2;
 
 #define FLASH_ADDR 0x08060000
 
@@ -90,7 +91,7 @@ static void readFromFlash(void) {
 }
 
 static void doPrintConfiguration(void) {
-	printConfiguration(engineConfiguration);
+	printConfiguration(engineConfiguration, engineConfiguration2);
 }
 
 void initFlash(void) {
