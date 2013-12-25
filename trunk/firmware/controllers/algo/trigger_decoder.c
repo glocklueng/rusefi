@@ -11,23 +11,28 @@
 
 static cyclic_buffer errorDetection;
 
+/**
+ * @return TRUE is something is wrong with trigger decoding
+ */
 int isTriggerDecoderError(void) {
 	return cbSum(&errorDetection, 6) > 4;
 }
 
 void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape, ShaftEvents signal,
 		time_t now) {
-	if (triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_UP) {
+
+	int isLessImportant = (triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_UP)
+			|| (!triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_DOWN);
+
+	if (isLessImportant) {
+		/**
+		 * For less important events we simply increment the index.
+		 */
 		shaftPositionState->current_index++;
 		return;
 	}
 
-	if (!triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_DOWN) {
-		shaftPositionState->current_index++;
-		return;
-	}
-
-	int current_duration = now - shaftPositionState->toothed_previous_time;
+	int currentDuration = now - shaftPositionState->toothed_previous_time;
 
 // todo: skip a number of signal from the beginning
 
@@ -39,8 +44,11 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *t
 #endif
 
 	if (triggerShape->onlyOneTeeth
-			|| (current_duration > shaftPositionState->toothed_previous_duration * triggerShape->syncRatioFrom
-					&& current_duration < shaftPositionState->toothed_previous_duration * triggerShape->syncRatioTo)) {
+			|| (currentDuration > shaftPositionState->toothed_previous_duration * triggerShape->syncRatioFrom
+					&& currentDuration < shaftPositionState->toothed_previous_duration * triggerShape->syncRatioTo)) {
+		/**
+		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
+		 */
 		int isDecodingError = shaftPositionState->current_index != triggerShape->shaftPositionEventCount - 1;
 		cbAdd(&errorDetection, isDecodingError);
 
@@ -50,7 +58,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *t
 		shaftPositionState->current_index++;
 	}
 
-	shaftPositionState->toothed_previous_duration = current_duration;
+	shaftPositionState->toothed_previous_duration = currentDuration;
 	shaftPositionState->toothed_previous_time = now;
 
 }
