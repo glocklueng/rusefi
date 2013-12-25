@@ -24,7 +24,7 @@ static void configureShaftPositionEmulatorShape(trigger_shape_s *s) {
 	triggerAddEvent(s, 420, T_PRIMARY, 1);
 	triggerAddEvent(s, 630, T_PRIMARY, 0);
 	// voodoo magic - we always need 720 at the end
-	triggerAddEvent(s, 720, T_PRIMARY, 1);
+	triggerAddEvent(s, 720, T_PRIMARY, 0);
 
 }
 

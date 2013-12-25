@@ -1,5 +1,5 @@
-/*
- * thermistors.c
+/**
+ * @file thermistors.c
  *
  * @date Feb 17, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -9,9 +9,6 @@
  * http://en.wikipedia.org/wiki/Thermistor
  * http://en.wikipedia.org/wiki/Steinhart%E2%80%93Hart_equation
  */
-
-#ifndef THERMISTORS_C_
-#define THERMISTORS_C_
 
 #include "main.h"
 #include "thermistors.h"
@@ -150,4 +147,3 @@ void initThermistors(void) {
 	initThermistorCurve(&engineConfiguration2->iat, &engineConfiguration->iatThermistorConf,
 	ADC_LOGIC_AIR);
 }
-#endif /* THERMISTORS_C_ */

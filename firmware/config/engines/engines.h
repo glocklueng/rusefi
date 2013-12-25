@@ -1,5 +1,5 @@
-/*
- * engine.h
+/**
+ * @file engines.h
  *
  * @date Aug 30, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
