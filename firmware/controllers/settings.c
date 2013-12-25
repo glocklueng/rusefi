@@ -39,6 +39,8 @@ char* getConfigurationName(EngineConfiguration *engineConfiguration) {
 	switch (engineConfiguration->engineType) {
 	case FORD_ASPIRE_1996:
 		return "Ford Aspire";
+	case FORD_FIESTA:
+		return "Ford Fiesta";
 	default:
 		return NULL;
 	}

@@ -73,11 +73,7 @@ static float default_fuel_table[FUEL_RPM_COUNT][FUEL_MAF_COUNT] = {
 	/* RPM_5900 */ {0.81,	0.8,	0.81,	0.81,	0.0,	0.0,	0.0,	0.0,	0.0,	0.0,	0.0,	0.0,	0.0,	2.42,	2.78,	3.34,	4.03,	4.01,	3.97,	5.73,	6.86,	6.9,	6.92,	9.23,	9.31,	9.23,	12.56,	14.61,	15.22,	15.19,	15.13,	15.17,	15.15	}
 };
 
-
-void configureShaftPositionEmulatorShape(PwmConfig *state, EngineConfiguration2 *engineConfiguration2) {
-
-	trigger_shape_s * s = &engineConfiguration2->triggerShape;
-
+static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
 	triggerShapeInit(s);
 
 	triggerAddEvent(s, 53.747, T_SECONDARY, 1);
@@ -91,10 +87,6 @@ void configureShaftPositionEmulatorShape(PwmConfig *state, EngineConfiguration2 
 	triggerAddEvent(s, 588.045, T_SECONDARY, 1);
 	triggerAddEvent(s, 657.03, T_SECONDARY, 0);
 	triggerAddEvent(s, 720, T_PRIMARY, 0);
-
-	int *pinStates[2] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates };
-
-	weComplexInit("distributor", state, 0, s->size, s->wave.switchTimes, 2, pinStates);
 }
 
 static void configureAspireEngineEventHandler(EventHandlerConfiguration *config) {
@@ -160,6 +152,7 @@ engineConfiguration->tpsMin = 1;
 void setFordAspireEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
 	configureAspireEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 	engineConfiguration2->triggerShape.shaftPositionEventCount = 10;
+	confgiureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
 }
 
 #endif /* EFI_SUPPORT_FORD_ASPIRE */

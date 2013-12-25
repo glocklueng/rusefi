@@ -13,14 +13,10 @@
 
 #define TOTAL_TEETH_COUNT 36
 #define SKIPPED_TEETH_COUNT 1
-#define EFI_DEFAULT_CHART_SIZE 180
 
 // this should be included after 'SHAFT_POSITION_EVENT_COUNT'. todo - fix this
 #include "main_loop.h"
 
-#define EFI_ENGINE_ID "Ford Fiesta"
-
-#define NUMBER_OF_CYLINDERS 4
 
 #endif /* EFI_ENGINE_FORD_FIESTA */
 #endif /* FORD_FIESTA_H_ */

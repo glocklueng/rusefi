@@ -26,8 +26,4 @@ void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e wave
 void initShaftPositionEmulator(void);
 void setRevolutionPeriod(int value);
 
-#if EFI_EMULATE_POSITION_SENSORS
-void configureShaftPositionEmulatorShape(PwmConfig *state, EngineConfiguration2 * engineConfiguration2);
-#endif /* EFI_EMULATE_POSITION_SENSORS */
-
 #endif /* DIST_EMULATOR_H_ */
