@@ -150,6 +150,7 @@ typedef struct {
 
 char* getConfigurationName(EngineConfiguration *engineConfiguration);
 void setDefaultConfiguration(EngineConfiguration *engineConfiguration);
+void setDefaultNonPersistentConfiguration(EngineConfiguration2 *engineConfiguration2);
 void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfiguration2 *engineConfiguration2);
 void printFloatArray(char *prefix, float array[], int size);
 
