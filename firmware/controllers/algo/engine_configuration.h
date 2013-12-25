@@ -15,6 +15,18 @@
 #include "can_header.h"
 #include "trigger_structure.h"
 
+typedef enum {
+	AUDI_AAN = 1,
+	DODGE_NEON_1995 = 2,
+	/**
+	 * 1996 1.3 Ford Aspire
+	 * http://rusefi.com/forum/viewtopic.php?t=375
+	 */
+	FORD_ASPIRE_1996 = 3,
+	FORD_FIESTA = 4,
+	NISSAN_PRIMERA = 5,
+} engine_type_e;
+
 #define CLT_CURVE_SIZE 16
 #define IAT_CURVE_SIZE 16
 #define VBAT_INJECTOR_CURVE_SIZE 8
@@ -24,7 +36,7 @@
 
 typedef enum {
 	AC_OFF = 0,
-	AC_SHAFT = 1,
+	AC_TRIGGER = 1,
 	AC_MAP = 2,
 } analog_chart_e;
 

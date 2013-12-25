@@ -58,7 +58,7 @@ int getRevolutionCounter(void) {
  */
 static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	if (index != 0) {
-		if (engineConfiguration->analogChartMode == AC_SHAFT)
+		if (engineConfiguration->analogChartMode == AC_TRIGGER)
 			acAddData(getCrankshaftAngle(chTimeNow()), 1000 * ckpEventType + index);
 		return;
 	}
@@ -83,7 +83,7 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 		}
 	}
 	rpmState.lastRpmEventTime = now;
-	if (engineConfiguration->analogChartMode == AC_SHAFT)
+	if (engineConfiguration->analogChartMode == AC_TRIGGER)
 		acAddData(getCrankshaftAngle(now), index);
 }
 

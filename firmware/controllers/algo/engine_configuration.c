@@ -75,6 +75,8 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->timingMode = TM_DYNAMIC;
 	engineConfiguration->fixedModeTiming = 50;
 
+	engineConfiguration->engineType = FORD_ASPIRE_1996;
+
 	engineConfiguration->analogChartMode = AC_OFF;
 
 	engineConfiguration2->cylindersCount = 4;
