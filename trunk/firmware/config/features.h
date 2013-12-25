@@ -78,6 +78,10 @@
  */
 #define EFI_MALFUNCTIONAL_INDICATOR TRUE
 
+/**
+ * While we embed multiple PnP configurations into the same firmware binary, these marcoses give us control
+ * over which configurations go into the binary
+ */
 #define EFI_SUPPORT_DODGE_NEON TRUE
 #define EFI_SUPPORT_FORD_ASPIRE TRUE
 #define EFI_SUPPORT_FORD_FIESTA TRUE

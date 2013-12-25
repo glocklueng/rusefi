@@ -9,11 +9,13 @@
 #ifndef DODGE_NEON_H_
 #define DODGE_NEON_H_
 
-#if EFI_ENGINE_DODGE_NEON
+#if EFI_SUPPORT_DODGE_NEON
+
+#include "engine_configuration.h"
 
 void setDodgeNeonEngineConfiguration(EngineConfiguration *engineConfiguration);
 void setDodgeNeonEngineConfiguration2(EngineConfiguration2 *engineConfiguration2);
 
-#endif /* EFI_ENGINE_DODGE_NEON */
+#endif /* EFI_SUPPORT_DODGE_NEON */
 
 #endif /* DODGE_NEON_H_ */
