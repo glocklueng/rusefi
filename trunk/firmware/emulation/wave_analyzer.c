@@ -28,7 +28,7 @@ static volatile int previousCrankSignalStart = 0;
 
 static int waveReaderCount = 0;
 static WaveReader readers[MAX_ICU_COUNT];
-WaveChart waveChart;
+static WaveChart waveChart;
 
 static Logging logger;
 
@@ -37,13 +37,17 @@ static void ensureInitialized(WaveReader *reader) {
 		fatal("wave analyzer NOT INITIALIZED");
 }
 
+void addWaveChartEvent(char *name, char * msg) {
+	addWaveChartEvent3(&waveChart, name, msg);
+}
+
 #ifdef EFI_WAVE_ANALYZER
 
 static void waAnaWidthCallback(WaveReader *reader) {
 	systime_t now = chTimeNow();
 	reader->eventCounter++;
 	reader->lastActivityTime = now;
-	addWaveChartEvent(&waveChart, reader->name, "up");
+	addWaveChartEvent(reader->name, "up");
 
 	int width = overflowDiff(now, reader->periodEventTime);
 	reader->last_wave_low_width = width;
@@ -56,7 +60,7 @@ static void waIcuPeriodCallback(WaveReader *reader) {
 	systime_t now = chTimeNow();
 	reader->eventCounter++;
 	reader->lastActivityTime = now;
-	addWaveChartEvent(&waveChart, reader->name, "down");
+	addWaveChartEvent(reader->name, "down");
 
 	int width = overflowDiff(now, reader->widthEventTime);
 	reader->last_wave_high_width = width;
@@ -161,13 +165,13 @@ static msg_t waThread(void *arg) {
 
 static void onShaftSignalWA(ShaftEvents ckpSignalType, int index) {
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
-		addWaveChartEvent(&waveChart, "crank", "up");
+		addWaveChartEvent("crank", "up");
 	} else if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
-		addWaveChartEvent(&waveChart, "crank", "down");
+		addWaveChartEvent("crank", "down");
 	} else if (ckpSignalType == SHAFT_SECONDARY_UP) {
-		addWaveChartEvent(&waveChart, "crank2", "up");
+		addWaveChartEvent("crank2", "up");
 	} else if (ckpSignalType == SHAFT_SECONDARY_DOWN) {
-		addWaveChartEvent(&waveChart, "crank2", "down");
+		addWaveChartEvent("crank2", "down");
 	}
 }
 

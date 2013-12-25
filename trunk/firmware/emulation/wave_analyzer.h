@@ -45,6 +45,7 @@ int getWaveOffset(int index);
 int getWaveMode(int index);
 
 int getEventCounter(int index);
+void addWaveChartEvent(char *name, char * msg);
 
 int getSignalPeriod(int index);
 int getWidthEventTime(int index);

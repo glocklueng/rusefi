@@ -68,7 +68,7 @@ int isWaveChartFull(WaveChart *chart) {
 /**
  * @brief	Register a change in sniffed signal
  */
-void addWaveChartEvent(WaveChart *chart, char *name, char * msg) {
+void addWaveChartEvent3(WaveChart *chart, char *name, char * msg) {
 	chDbgAssert(chart->isInitialized, "chart not initizlied" , 0);
 #if DEBUG_WAVE
 	scheduleSimpleMsg(&debugLogging, "current", chart->counter);

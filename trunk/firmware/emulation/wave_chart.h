@@ -21,7 +21,7 @@ typedef struct {
 	volatile int isInitialized;
 } WaveChart;
 
-void addWaveChartEvent(WaveChart *chart, char *name, char * msg);
+void addWaveChartEvent3(WaveChart *chart, char *name, char * msg);
 void initWaveChart(WaveChart *chart);
 void resetWaveChart(WaveChart *chart);
 void setChartSize(int newSize);

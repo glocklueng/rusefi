@@ -19,11 +19,11 @@
 #include "engine_math.h"
 
 #if EFI_WAVE_ANALYZER
-#include "wave_chart.h"
 /**
  * Signal executors feed digital events right into WaveChart used by Sniffer tab of Dev Console
  */
-extern WaveChart waveChart;
+#include "wave_analyzer.h"
+
 #endif /* EFI_WAVE_ANALYZER */
 
 #if EFI_SIGNAL_EXECUTOR_SLEEP
@@ -92,7 +92,7 @@ static void turnHi(OutputSignal *signal) {
 	// sleep for the needed duration
 
 #if EFI_WAVE_ANALYZER
-	addWaveChartEvent(&waveChart, signal->name, "up");
+	addWaveChartEvent(signal->name, "up");
 #endif /* EFI_WAVE_ANALYZER */
 }
 
@@ -108,7 +108,7 @@ static void turnLow(OutputSignal *signal) {
 #endif /* EFI_DEFAILED_LOGGING */
 
 #if EFI_WAVE_ANALYZER
-	addWaveChartEvent(&waveChart, signal->name, "down");
+	addWaveChartEvent(signal->name, "down");
 #endif /* EFI_WAVE_ANALYZER */
 }
 
