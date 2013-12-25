@@ -71,6 +71,7 @@ void setDefaultNonPersistentConfiguration(EngineConfiguration2 *engineConfigurat
 	engineConfiguration2->rpmMultiplier = 0.5;
 
 	engineConfiguration2->triggerShape.onlyOneTeeth = FALSE;
+	engineConfiguration2->triggerShape.useRiseEdge = TRUE;
 
 	/**
 	 * 720 is the range for four stroke

@@ -15,8 +15,14 @@ int isTriggerDecoderError(void) {
 	return cbSum(&errorDetection, 6) > 4;
 }
 
-void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape, ShaftEvents signal, time_t now) {
-	if (signal != SHAFT_PRIMARY_UP) {
+void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape, ShaftEvents signal,
+		time_t now) {
+	if (triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_UP) {
+		shaftPositionState->current_index++;
+		return;
+	}
+
+	if (!triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_DOWN) {
 		shaftPositionState->current_index++;
 		return;
 	}
@@ -25,8 +31,16 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *t
 
 // todo: skip a number of signal from the beginning
 
-	if (triggerShape->onlyOneTeeth || (current_duration > shaftPositionState->toothed_previous_duration * 1.5
-			&& current_duration < shaftPositionState->toothed_previous_duration * 4)) {
+#if EFI_PROD_CODE
+#else
+	if (shaftPositionState->toothed_previous_duration != 0) {
+		printf("ratio %f\r\n", 1.0 * current_duration / shaftPositionState->toothed_previous_duration);
+	}
+#endif
+
+	if (triggerShape->onlyOneTeeth
+			|| (current_duration > shaftPositionState->toothed_previous_duration * triggerShape->syncRatioFrom
+					&& current_duration < shaftPositionState->toothed_previous_duration * triggerShape->syncRatioTo)) {
 		int isDecodingError = shaftPositionState->current_index != triggerShape->shaftPositionEventCount - 1;
 		cbAdd(&errorDetection, isDecodingError);
 

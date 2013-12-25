@@ -16,7 +16,7 @@
 
 extern EngineConfiguration2 *engineConfiguration2;
 
-static void configureShaftPositionEmulatorShape(trigger_shape_s *s) {
+static void configureTriggerShape(trigger_shape_s *s) {
 	triggerShapeInit(s);
 
 	triggerAddEvent(s, 60, T_PRIMARY, 1);
@@ -26,6 +26,8 @@ static void configureShaftPositionEmulatorShape(trigger_shape_s *s) {
 	// voodoo magic - we always need 720 at the end
 	triggerAddEvent(s, 720, T_PRIMARY, 0);
 
+	s->syncRatioFrom = 0.72 * 0.8;
+	s->syncRatioTo = 0.72 * 1.3;
 }
 
 void setDodgeNeonEngineConfiguration(EngineConfiguration *engineConfiguration) {
@@ -39,7 +41,7 @@ static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 }
 
 void setDodgeNeonEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
-	configureShaftPositionEmulatorShape(&engineConfiguration2->triggerShape);
+	configureTriggerShape(&engineConfiguration2->triggerShape);
 }
 
 #endif /* EFI_SUPPORT_DODGE_NEON */
