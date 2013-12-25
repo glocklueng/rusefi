@@ -57,7 +57,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->timingMode = TM_DYNAMIC;
 	engineConfiguration->fixedModeTiming = 50;
 
-	engineConfiguration->analogChartMode = AC_OFF;
+	engineConfiguration->analogChartMode = AC_TRIGGER;
 
 	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
 }

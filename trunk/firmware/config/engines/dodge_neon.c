@@ -42,6 +42,10 @@ static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 
 void setDodgeNeonEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
 	configureTriggerShape(&engineConfiguration2->triggerShape);
+
+	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
+
+	engineConfiguration2->triggerShape.useRiseEdge = FALSE;
 }
 
 #endif /* EFI_SUPPORT_DODGE_NEON */
