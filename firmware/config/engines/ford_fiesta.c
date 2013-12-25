@@ -8,7 +8,7 @@
 
 #include "main.h"
 
-#if EFI_ENGINE_FORD_FIESTA
+#if EFI_SUPPORT_FORD_FIESTA
 
 #include "ford_fiesta.h"
 #include "engine_configuration.h"
@@ -32,14 +32,18 @@ void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	registerActuatorEvent(&config->ignitionEvents, 36, 2, 0);
 }
 
-void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
+void setFordFiestaDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
-
 }
+
+#define TOTAL_TEETH_COUNT 36
+#define SKIPPED_TEETH_COUNT 1
 
 void setFordFiestaEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
 	// only crankshaft sensor so far
 	engineConfiguration2->rpmMultiplier = 1;
+
+
 
 	engineConfiguration2->triggerShape.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
 
@@ -47,4 +51,4 @@ void setFordFiestaEngineConfiguration2(EngineConfiguration2 *engineConfiguration
 	skippedToothTriggerShape(s, TOTAL_TEETH_COUNT, SKIPPED_TEETH_COUNT);
 }
 
-#endif /* EFI_ENGINE_FORD_FIESTA */
+#endif /* EFI_SUPPORT_FORD_FIESTA */
