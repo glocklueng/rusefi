@@ -1,0 +1,18 @@
+controllers/settings.c: In function 'printFloatArray':
+controllers/settings.c:29:28: warning: unused parameter 'prefix' [-Wunused-parameter]
+controllers/settings.c:29:42: warning: unused parameter 'array' [-Wunused-parameter]
+controllers/settings.c:29:55: warning: unused parameter 'size' [-Wunused-parameter]
+controllers/settings.c: In function 'printConfiguration':
+controllers/settings.c:50:89: warning: unused parameter 'engineConfiguration2' [-Wunused-parameter]
+controllers/settings.c: At top level:
+controllers/settings.c:95:13: error: function declaration isn't a prototype [-Werror=strict-prototypes]
+controllers/settings.c:23:13: warning: 'printIntArray' defined but not used [-Wunused-function]
+cc1.exe: all warnings being treated as errors
+make: *** [build/obj/settings.o] Error 1
+cp: cannot stat `build/rusefi.hex': No such file or directory
+Exception in thread "main" java.io.FileNotFoundException: rusefi.map (The system cannot find the file specified)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at rusefi.GccMapReader.main(Unknown Source)
