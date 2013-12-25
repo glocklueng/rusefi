@@ -4,8 +4,6 @@ HW_LAYERESRC = hw_layer/hardware.c \
 	hw_layer/shaft_position_input.c \
 	hw_layer/pin_repository.c \
 	hw_layer/io_pins.c \
-	hw_layer/algo/multi_shaft_sensor.c \
-	hw_layer/algo/toothed_shaft_sensor.c \
 	hw_layer/mcp3208.c \
 	hw_layer/can_hw.c \
 	hw_layer/HIP9011.c \

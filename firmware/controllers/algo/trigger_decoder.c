@@ -25,8 +25,8 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *t
 
 // todo: skip a number of signal from the beginning
 
-	if (current_duration > shaftPositionState->toothed_previous_duration * 1.5
-			&& current_duration < shaftPositionState->toothed_previous_duration * 4) {
+	if (triggerShape->onlyOneTeeth || (current_duration > shaftPositionState->toothed_previous_duration * 1.5
+			&& current_duration < shaftPositionState->toothed_previous_duration * 4)) {
 		int isDecodingError = shaftPositionState->current_index != triggerShape->shaftPositionEventCount - 1;
 		cbAdd(&errorDetection, isDecodingError);
 

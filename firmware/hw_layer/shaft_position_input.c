@@ -16,8 +16,10 @@
 #include "pinout.h"
 #include "pin_repository.h"
 
-#include "toothed_shaft_sensor.h"
-#include "multi_shaft_sensor.h"
+#include "trigger_decoder.h"
+#include "engine_configuration.h"
+
+extern EngineConfiguration2 *engineConfiguration2;
 
 // we need this initial to have not_running at first invocation
 static volatile time_t previousShaftEventTime = -10 * CH_FREQUENCY;
@@ -55,7 +57,7 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 	// this is not atomic, but it's fine here
 	shaftEventCounter++;
 
-	handleShaftSignal(signal, now, &shaftPositionState);
+	processTriggerEvent(&shaftPositionState, &engineConfiguration2->triggerShape, signal, now);
 
 	if (!shaftPositionState.shaft_is_synchronized)
 		return; // we should not propagate event if we do not know where we are
@@ -90,7 +92,7 @@ shaft_icu_width_callback, shaft_icu_period_callback };
 void initShaftPositionInputCapture() {
 	initLogging(&logger, "ShaftPosition");
 
-	initShaftSignalDecoder();
+	initTriggerDecoder();
 
 #if EFI_SHAFT_POSITION_INPUT
 

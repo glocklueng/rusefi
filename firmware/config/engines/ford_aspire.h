@@ -24,11 +24,7 @@
 
 #include "main_loop.h"
 
-#define EFI_USE_MULTI_SENSOR_SHAFT_SENSOR TRUE
-
 #define EFI_ENGINE_ID "Ford Aspire"
-
-#define ASPIRE_MAGIC_DUTY_CYCLE 0.3877
 
 #define NUMBER_OF_CYLINDERS 4
 
