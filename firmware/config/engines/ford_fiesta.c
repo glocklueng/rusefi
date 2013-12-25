@@ -36,14 +36,12 @@ void setFordFiestaDefaultEngineConfiguration(EngineConfiguration *engineConfigur
 	engineConfiguration->rpmHardLimit = 7000;
 }
 
-#define TOTAL_TEETH_COUNT 36
-#define SKIPPED_TEETH_COUNT 1
-
 void setFordFiestaEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
 	// only crankshaft sensor so far
 	engineConfiguration2->rpmMultiplier = 1;
 
-
+	int TOTAL_TEETH_COUNT = 36;
+	int SKIPPED_TEETH_COUNT = 1;
 
 	engineConfiguration2->triggerShape.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
 
