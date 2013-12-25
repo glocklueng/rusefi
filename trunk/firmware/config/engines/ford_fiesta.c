@@ -49,6 +49,9 @@ void setFordFiestaEngineConfiguration2(EngineConfiguration2 *engineConfiguration
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	skippedToothTriggerShape(s, TOTAL_TEETH_COUNT, SKIPPED_TEETH_COUNT);
+	s->syncRatioFrom = 1.5;
+	s->syncRatioTo = 3;
+
 }
 
 #endif /* EFI_SUPPORT_FORD_FIESTA */

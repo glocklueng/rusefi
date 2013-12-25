@@ -9,8 +9,8 @@
 #include <stdio.h>
 
 #include "engine_math.h"
-#include "engine_configuration.h"
 #include "main.h"
+#include "engine_configuration.h"
 #include "interpolation.h"
 
 /*

@@ -75,6 +75,12 @@ typedef struct {
 	int shaftPositionEventCount;
 
 	int onlyOneTeeth;
+
+	int useRiseEdge;
+
+	float syncRatioFrom;
+	float syncRatioTo;
+
 } trigger_shape_s;
 
 #endif /* TRIGGER_STRUCTURE_H_ */
