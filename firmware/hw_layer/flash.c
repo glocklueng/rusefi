@@ -1,13 +1,10 @@
-/*
+/**
  * @file    flash_main.c
  * @brief	Lower-level code related to internal flash memory
  */
 
-
 #include "flash.h"
 #include <string.h>
-
-#include "print.h"
 
 size_t flashSectorSize(flashsector_t sector) {
 	if (sector <= 3)
@@ -208,7 +205,7 @@ int flashWrite(flashaddr_t address, const char* buffer, size_t size) {
 
 	/* Check if the flash address is correctly aligned */
 	size_t alignOffset = address % sizeof(flashdata_t);
-	print("flash alignOffset=%d\r\n", alignOffset);
+//	print("flash alignOffset=%d\r\n", alignOffset);
 	if (alignOffset != 0) {
 		/* Not aligned, thus we have to read the data in flash already present
 		 * and update them with buffer's data */
@@ -239,7 +236,6 @@ int flashWrite(flashaddr_t address, const char* buffer, size_t size) {
 	/* Now, address is correctly aligned. One can copy data directly from
 	 * buffer's data to flash memory until the size of the data remaining to be
 	 * copied requires special treatment. */
-	time_t now = chTimeNow();
 	while (size >= sizeof(flashdata_t)) {
 //		print("flash write size=%d\r\n", size);
 		flashWriteData(address, *(const flashdata_t*) buffer);
@@ -247,7 +243,6 @@ int flashWrite(flashaddr_t address, const char* buffer, size_t size) {
 		buffer += sizeof(flashdata_t);
 		size -= sizeof(flashdata_t);
 	}
-	print("Flash programmed in %d ticks\r\n", chTimeNow() - now);
 
 	/* Now, address is correctly aligned, but the remaining data are to
 	 * small to fill a entier flashdata_t. Thus, one must read data already
