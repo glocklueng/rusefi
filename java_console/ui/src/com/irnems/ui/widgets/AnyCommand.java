@@ -32,10 +32,15 @@ public class AnyCommand extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String cmd = text.getText();
-                int timeout = cmd.toLowerCase().startsWith("set_engine_type") ? 5000 : 300;
+                int timeout = isSlowCommand(cmd) ? 5000 : 300;
                 CommandQueue.getInstance().write(cmd, timeout);
             }
         });
         return text;
+    }
+
+    private static boolean isSlowCommand(String cmd) {
+        String lc = cmd.toLowerCase();
+        return lc.startsWith("set_engine_type") || lc.startsWith("writeconfig");
     }
 }
