@@ -12,7 +12,14 @@
 #include "features.h"
 
 typedef enum {
-	AUDI_AAN = 1, DODGE_NEON_1995 = 2,
+	AUDI_AAN = 1,
+#if EFI_SUPPORT_DODGE_NEON
+	/**
+	 * 1995 Dodge Neon
+	 * http://rusefi.com/forum/viewtopic.php?t=360
+	 */
+	DODGE_NEON_1995 = 2,
+#endif /* EFI_SUPPORT_DODGE_NEON */
 #if EFI_SUPPORT_FORD_ASPIRE
 	/**
 	 * 1996 1.3 Ford Aspire
@@ -29,13 +36,6 @@ typedef enum {
 #endif /* EFI_SUPPORT_FORD_FIESTA */
 	NISSAN_PRIMERA = 5,
 } engine_type_e;
-
-/**
- * 1995 Dodge Neon
- * http://rusefi.com/forum/viewtopic.php?t=360
- */
-//#define EFI_ENGINE_DODGE_NEON TRUE
-#define EFI_ENGINE_FORD_FIESTA TRUE
 
 //#define EFI_ENGINE_SNOW_BLOWER TRUE
 

@@ -12,13 +12,10 @@
 #include "dodge_neon.h"
 #include "engine_configuration.h"
 #include "main_loop.h"
-#include "dist_emulator.h"
 
 extern EngineConfiguration2 *engineConfiguration2;
 
-void configureShaftPositionEmulatorShape(PwmConfig *state) {
-
-	trigger_shape_s * s = &engineConfiguration2->triggerShape;
+static void configureShaftPositionEmulatorShape(trigger_shape_s *s) {
 	triggerShapeInit(s);
 
 	triggerAddEvent(s, 60, T_PRIMARY, 1);
@@ -28,20 +25,20 @@ void configureShaftPositionEmulatorShape(PwmConfig *state) {
 	// voodoo magic - we always need 720 at the end
 	triggerAddEvent(s, 720, T_PRIMARY, 1);
 
-	int *pinStates[2] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates };
-
-	weComplexInit("distributor", state, 0, s->size, s->wave.switchTimes, 2, pinStates);
 }
 
-void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
+void setDodgeNeonEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 
 	engineConfiguration2->shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
 }
 
-void configureEngineEventHandler(EventHandlerConfiguration *config) {
+static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	resetEventList(&config->crankingInjectionEvents);
+}
 
+void setDodgeNeonEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
+	configureShaftPositionEmulatorShape(&engineConfiguration2->triggerShape);
 }
 
 #endif /* EFI_ENGINE_DODGE_NEON */

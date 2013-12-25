@@ -38,10 +38,18 @@ void printFloatArray(char *prefix, float array[], int size) {
 
 char* getConfigurationName(EngineConfiguration *engineConfiguration) {
 	switch (engineConfiguration->engineType) {
+#if EFI_SUPPORT_DODGE_NEON
+	case DODGE_NEON_1995:
+		return "Dodge Neon";
+#endif /* EFI_SUPPORT_DODGE_NEON */
+#if EFI_SUPPORT_FORD_ASPIRE
 	case FORD_ASPIRE_1996:
 		return "Ford Aspire";
+#endif /* EFI_SUPPORT_FORD_ASPIRE */
+#if EFI_SUPPORT_FORD_FIESTA
 	case FORD_FIESTA:
 		return "Ford Fiesta";
+#endif /* EFI_SUPPORT_FORD_FIESTA */
 	default:
 		return NULL;
 	}

@@ -66,6 +66,9 @@ static int isValid(FlashState *state) {
 
 static void applyNonPersistentConfiguration(engine_type_e engineType) {
 	switch (engineConfiguration->engineType) {
+	case DODGE_NEON_1995:
+		//setDFordAspireEngineConfiguration2(engineConfiguration2);
+		break;
 	case FORD_ASPIRE_1996:
 		setFordAspireEngineConfiguration2(engineConfiguration2);
 		break;
