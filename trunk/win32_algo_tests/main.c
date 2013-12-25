@@ -24,6 +24,7 @@
 #include "test_signal_executor.h"
 #include "test_util.h"
 #include "engine_configuration.h"
+#include "test_trigger_decoder.h"
 
 static EngineConfiguration ec;
 EngineConfiguration *engineConfiguration = &ec;
@@ -77,6 +78,9 @@ int main(void) {
 	testSignalExecutor();
 
 	testHistogram();
+
+	testTriggerDecoder();
+
 
 	printf("Success\r\n");
 	return EXIT_SUCCESS;
