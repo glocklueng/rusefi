@@ -16,6 +16,7 @@
 #include "status_loop.h"
 #include "shaft_position_input.h"
 #include "main_loop.h"
+#include "trigger_decoder.h"
 
 static OutputPin outputs[IO_PIN_COUNT];
 static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG, LED_CHECK_ENGINE };
@@ -83,7 +84,7 @@ static void errBlinkingThread(void *arg) {
 	chRegSetThreadName("err blinking");
 	while (TRUE) {
 		int delay = 33;
-		if (isSignalDecoderError() || isIgnitionTimingError())
+		if (isTriggerDecoderError() || isIgnitionTimingError())
 			setOutputPinValue(LED_ERROR, 1);
 		chThdSleepMilliseconds(delay);
 		if (!hasFatalError())

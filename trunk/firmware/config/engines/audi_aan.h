@@ -18,8 +18,6 @@
 // this should be included after 'SHAFT_POSITION_EVENT_COUNT'. todo - fix this
 #include "main_loop.h"
 
-#define EFI_USE_MULTI_SENSOR_SHAFT_SENSOR TRUE
-
 #endif /* EFI_ENGINE_AUDI_AAN */
 
 #endif /* AUDI_AAN_H_ */

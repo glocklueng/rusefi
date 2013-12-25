@@ -60,6 +60,9 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	 */
 	engineConfiguration2->rpmMultiplier = 0.5;
 
+
+	engineConfiguration2->triggerShape.onlyOneTeeth = TRUE;
+
 	/**
 	 * 720 is the range for four stroke
 	 */

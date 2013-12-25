@@ -18,8 +18,6 @@
 // this should be included after 'SHAFT_POSITION_EVENT_COUNT'. todo - fix this
 #include "main_loop.h"
 
-#define EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR TRUE
-
 #define EFI_ENGINE_ID "Ford Fiesta"
 
 #define NUMBER_OF_CYLINDERS 4

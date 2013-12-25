@@ -73,6 +73,8 @@ typedef struct {
 	 * TODO with eliminating RPM_MULT magic constant
 	 */
 	int shaftPositionEventCount;
+
+	int onlyOneTeeth;
 } trigger_shape_s;
 
 #endif /* TRIGGER_STRUCTURE_H_ */

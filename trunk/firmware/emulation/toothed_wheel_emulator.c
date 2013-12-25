@@ -8,8 +8,6 @@
 
 #include "main.h"
 
-#if EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR
-
 #include "toothed_wheel_emulator.h"
 #include "dist_emulator.h"
 
@@ -30,5 +28,3 @@ void skippedToothTriggerShape(trigger_shape_s *s, PwmConfig *state, int totalTee
 	triggerAddEvent(s, 720, T_PRIMARY, 0);
 
 }
-
-#endif /* EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR */

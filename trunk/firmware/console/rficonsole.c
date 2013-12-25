@@ -93,12 +93,6 @@ static void sayOsHello(void) {
 	printSimpleMsg(&logger, "EFI_INTERNAL_ADC=", EFI_INTERNAL_ADC);
 	printSimpleMsg(&logger, "NUMBER_OF_CYLINDERS=", NUMBER_OF_CYLINDERS);
 
-#ifdef EFI_USE_MULTI_SENSOR_SHAFT_SENSOR
-	printSimpleMsg(&logger, "EFI_USE_MULTI_SENSOR_SHAFT_SENSOR=", EFI_USE_MULTI_SENSOR_SHAFT_SENSOR);
-#endif
-#ifdef EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR
-	printSimpleMsg(&logger, "EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR=", EFI_USE_TOOTHED_SENSOR_SHAFT_SENSOR);
-#endif
 //	printSimpleMsg(&logger, "", );
 //	printSimpleMsg(&logger, "", );
 
