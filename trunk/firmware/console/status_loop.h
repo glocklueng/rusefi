@@ -1,5 +1,5 @@
 /**
- * @file	console_loop.h
+ * @file	status_loop.h
  *
  * @date Mar 15, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013

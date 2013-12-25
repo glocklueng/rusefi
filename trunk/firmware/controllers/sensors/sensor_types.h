@@ -1,5 +1,5 @@
 /**
- * @file	thermistor_types.h
+ * @file	sensor_types.h
  *
  * @date Dec 24, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013

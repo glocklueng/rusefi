@@ -1,5 +1,5 @@
 /**
- * @file	output_pins.c
+ * @file	io_pins.c
  * @brief	It could be that the main purpose of this file is the status LED blinking
  *
  * @date Jan 24, 2013
