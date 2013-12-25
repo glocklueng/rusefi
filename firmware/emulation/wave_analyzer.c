@@ -21,24 +21,14 @@
 
 #define CHART_RESET_DELAY 1
 
-volatile int ckpPeriod; // different between current crank signal and previous crank signal
-volatile int previousCrankSignalStart = 0;
+static volatile int ckpPeriod; // different between current crank signal and previous crank signal
+static volatile int previousCrankSignalStart = 0;
 
 #define MAX_ICU_COUNT 5
 
 static int waveReaderCount = 0;
 static WaveReader readers[MAX_ICU_COUNT];
 WaveChart waveChart;
-
-data_buffer_s waveWidthCounters;
-
-data_buffer_s waveWidthTime;
-data_buffer_s waveWidth;
-
-data_buffer_s wavePeriodTime;
-data_buffer_s wavePeriod;
-
-int waveWidthCounter = 0;
 
 static Logging logger;
 
@@ -220,19 +210,6 @@ int getPeriodEventTime(int index) {
 }
 
 int waveBufferReported = 0;
-
-#define WAVE_COLUMNS 4
-
-data_buffer_s *waveTable[WAVE_COLUMNS] = { &waveWidthCounters, &waveWidth, &waveWidthTime, &wavePeriodTime };
-
-char *waveCaptions[WAVE_COLUMNS] = { "count", "wid", "time", "ptime" };
-
-void pokeWaveInfo(void) {
-	if (!waveBufferReported && dbIsFull(&waveWidthTime)) {
-		waveBufferReported = 1;
-		dbPrintTable(waveTable, waveCaptions, WAVE_COLUMNS);
-	}
-}
 
 static void reportWave(Logging *logging, int index) {
 	int counter = getEventCounter(index);
