@@ -7,29 +7,34 @@
 
 #include "main.h"
 
-#if EFI_ENGINE_DENISVAK
+#if EFI_SUPPORT_NISSAN_PRIMERA
 
 #include "engine_controller.h"
-#include "denisvak.h"
 #include "adc_inputs.h"
 #include "fuel_map.h"
 #include "toothed_wheel_emulator.h"
+#include "engine_configuration.h"
 
-extern EngineConfiguration2 engineConfiguration2;
+#define TOTAL_TEETH_COUNT 60
+#define SKIPPED_TEETH_COUNT 2
 
-void configureShaftPositionEmulatorShape(PwmConfig *state) {
-	skippedToothPositionEmulatorShape(state);
+static void configureEngineEventHandler(EventHandlerConfiguration *injectionConfiguration) {
+//	injectionConfiguration->injectAtEventIndex[0] = 1;
+//	injectionConfiguration->injectAtEventIndex[2 * 15] = 2;
+//	injectionConfiguration->injectAtEventIndex[2 * 30] = 3;
+//	injectionConfiguration->injectAtEventIndex[2 * 45] = 4;
 }
 
-void configureEngineEventHandler(EventHandlerConfiguration *injectionConfiguration) {
-	injectionConfiguration->injectAtEventIndex[0] = 1;
-	injectionConfiguration->injectAtEventIndex[2 * 15] = 2;
-	injectionConfiguration->injectAtEventIndex[2 * 30] = 3;
-	injectionConfiguration->injectAtEventIndex[2 * 45] = 4;
+void setNissanPrimeraEngineConfiguration(EngineConfiguration *engineConfiguration) {
 }
 
-void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
-	engineConfiguration2.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
+void setNissanPrimeraEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
+	engineConfiguration2->triggerShape.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
+
+	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
+
+	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+	skippedToothTriggerShape(s, TOTAL_TEETH_COUNT, SKIPPED_TEETH_COUNT);
 }
 
-#endif /* EFI_ENGINE_DENISVAK */
+#endif /* EFI_SUPPORT_NISSAN_PRIMERA */

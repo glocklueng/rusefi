@@ -34,7 +34,9 @@ typedef enum {
 	 */
 	FORD_FIESTA = 4,
 #endif /* EFI_SUPPORT_FORD_FIESTA */
+#if EFI_SUPPORT_NISSAN_PRIMERA
 	NISSAN_PRIMERA = 5,
+#endif /* EFI_SUPPORT_NISSAN_PRIMERA */
 } engine_type_e;
 
 //#define EFI_ENGINE_SNOW_BLOWER TRUE
