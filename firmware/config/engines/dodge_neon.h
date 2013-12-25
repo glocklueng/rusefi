@@ -11,18 +11,8 @@
 
 #if EFI_ENGINE_DODGE_NEON
 
-#define EFI_DEFAULT_CHART_SIZE 90
-
-#define NUMBER_OF_CYLINDERS 4
-
-#define EFI_SHAFT_POSTION_NEEDS_SECONDARY TRUE
-
-// that's a temporary arrangement
-#define TOTAL_TEETH_COUNT 3
-#define SKIPPED_TEETH_COUNT 1
-
-
-#define EFI_ENGINE_ID "Dodge Neon"
+void setDodgeNeonEngineConfiguration(EngineConfiguration *engineConfiguration);
+void setDodgeNeonEngineConfiguration2(EngineConfiguration2 *engineConfiguration2);
 
 #endif /* EFI_ENGINE_DODGE_NEON */
 

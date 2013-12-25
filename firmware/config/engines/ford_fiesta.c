@@ -15,7 +15,7 @@
 #include "toothed_wheel_emulator.h"
 #include "dist_emulator.h"
 
-void configureEngineEventHandler(EventHandlerConfiguration *config) {
+static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	// injector 1 activated at the 1st tooth event while cranking
 	registerActuatorEvent(&config->crankingInjectionEvents, 1, 1, 0);
 	// injector 2 activated at the 36th st tooth event while cranking (do not forget - there are 70 events overall, 35 ups and 46 downs
@@ -39,6 +39,8 @@ void setFordFiestaDefaultEngineConfiguration(EngineConfiguration *engineConfigur
 void setFordFiestaEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
 	// only crankshaft sensor so far
 	engineConfiguration2->rpmMultiplier = 1;
+
+	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 
 	int TOTAL_TEETH_COUNT = 36;
 	int SKIPPED_TEETH_COUNT = 1;
