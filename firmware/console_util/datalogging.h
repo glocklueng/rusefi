@@ -10,7 +10,9 @@
 #define DATALOGGING_H_
 
 #include "global.h"
+#include <stdarg.h>
 
+#define INTERMEDIATE_LOGGING_BUFFER_SIZE 2000
 #define	TAB_MODE	FALSE
 
 #if TAB_MODE

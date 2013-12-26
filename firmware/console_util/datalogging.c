@@ -8,17 +8,15 @@
  */
 
 #include <string.h>
-#include <stdarg.h>
 #include <stdbool.h>
-#include "datalogging.h"
 #include "main.h"
+#include "datalogging.h"
 #include "rfiutil.h"
 #include "chprintf.h"
 #include "chmtx.h"
 #include "memstreams.h"
 
 #define OUTPUT_BUFFER 5000
-#define INTERMEDIATE_LOGGING_BUFFER_SIZE 2000
 // we use this magic constant to make sure it's not just a random non-zero int in memory
 #define MAGIC_LOGGING_FLAG 45234441
 
