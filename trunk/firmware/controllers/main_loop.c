@@ -158,22 +158,33 @@ static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	}
 }
 
+static histogram_s mainLoopHisto;
+
+void showMainHistogram(void) {
+	printHistogram(&logger, &mainLoopHisto);
+}
+
 /**
  * This is the main entry point into the primary shaft signal handler signal. Both injection and ignition are controlled from this method.
  */
 static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
+	int beforeCallback = hal_lld_get_counter_value();
 	if (eventIndex >= engineConfiguration2->triggerShape.shaftPositionEventCount) {
 		warning("unexpected eventIndex=", eventIndex);
-		return;
+	} else {
+		handleFuel(ckpSignalType, eventIndex);
+		handleSpark(ckpSignalType, eventIndex);
 	}
-	handleFuel(ckpSignalType, eventIndex);
-	handleSpark(ckpSignalType, eventIndex);
+	int diff = hal_lld_get_counter_value() - beforeCallback;
+	if (diff > 0)
+		hsAdd(&mainLoopHisto, diff);
 }
 
 void initMainEventListener() {
 	initLogging(&logger, "main event handler");
 	printSimpleMsg(&logger, "initMainLoop: ", chTimeNow());
 	cbInit(&ignitionErrorDetection);
+	resetHistogram(&mainLoopHisto, "main");
 
 	if (!isInjectionEnabled)
 		printSimpleMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled", 0);

@@ -17,6 +17,7 @@
 #define MAX_IGNITER_COUNT 4
 
 void initMainEventListener(void);
+void showMainHistogram(void);
 void onEveryMillisecondTimerSignal(void);
 int isIgnitionTimingError(void);
 

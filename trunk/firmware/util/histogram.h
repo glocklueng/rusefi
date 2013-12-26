@@ -21,6 +21,7 @@
 #define BOUND_LENGTH 895
 
 typedef struct {
+	char *name;
 	int64_t total_value;
 	int64_t total_count;
 	int values[BOUND_LENGTH];
@@ -28,7 +29,7 @@ typedef struct {
 
 void initHistograms(void);
 int histogramGetIndex(int64_t value);
-void resetHistogram(histogram_s *h);
+void resetHistogram(histogram_s *h, char *name);
 void hsAdd(histogram_s *h, int64_t value);
 int hsReport(histogram_s *h, int* report);
 

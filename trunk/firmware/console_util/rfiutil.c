@@ -110,7 +110,7 @@ void printHistogram(Logging *logging, histogram_s *histogram) {
 
 	resetLogging(logging);
 	appendMsgPrefix(logging);
-	appendPrintf(logging, "histogram [", len);
+	appendPrintf(logging, "histogram %s [", histogram->name);
 	for (int i = 0; i < len; i++)
 		appendPrintf(logging, "%d ", report[i]);
 	appendPrintf(logging, "]%s", DELIMETER);
