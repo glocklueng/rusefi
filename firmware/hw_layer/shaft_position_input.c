@@ -19,6 +19,7 @@
 #include "trigger_decoder.h"
 #include "engine_configuration.h"
 #include "histogram.h"
+#include "main_loop.h"
 
 #if defined __GNUC__
 static histogram_s triggerCallback __attribute__((section(".ccm")));
@@ -116,12 +117,13 @@ shaft_icu_width_callback, shaft_icu_period_callback };
 
 static void showTriggerHistogram(void) {
 	printHistogram(&logger, &triggerCallback);
+	showMainHistogram();
 }
 
 void initShaftPositionInputCapture() {
 	initLogging(&logger, "ShaftPosition");
 
-	resetHistogram(&triggerCallback);
+	resetHistogram(&triggerCallback, "trigger");
 	initTriggerDecoder();
 
 	addConsoleAction("trigger_hist", showTriggerHistogram);
