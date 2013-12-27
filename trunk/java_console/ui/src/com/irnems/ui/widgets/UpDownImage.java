@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TreeMap;
 
 /**
  * This is a renderer of {@link WaveReport} - this makes a simple Logical Analyzer
@@ -19,14 +20,11 @@ import java.util.Date;
 public class UpDownImage extends JPanel {
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
     private static final int LINE_SIZE = 20;
-    /**
-     * number of ChibiOS systicks per ms
-     */
-    public static final double TICKS_PER_MS = 100;
 
     private long lastUpdateTime;
     private ZoomProvider zoomProvider = ZoomProvider.DEFAULT;
     private WaveReport wr;
+    private StringBuilder revolutions;
     private final String name;
     private TimeAxisTranslator translator;
 
@@ -49,7 +47,7 @@ public class UpDownImage extends JPanel {
 
     public UpDownImage(WaveReport wr, String name) {
         this.name = name;
-        setWaveReport(wr);
+        setWaveReport(wr, null);
         setOpaque(true);
         translator = createTranslator();
     }
@@ -62,8 +60,13 @@ public class UpDownImage extends JPanel {
     public TimeAxisTranslator createTranslator() {
         return new TimeAxisTranslator() {
             @Override
-            public int translateTime(int time, int width, ZoomProvider zoomProvider) {
-                return UpDownImage.this.wr.translateTime(time, width, zoomProvider);
+            public int timeToScreen(int time, int width, ZoomProvider zoomProvider) {
+                return UpDownImage.this.wr.timeToScreen(time, width, zoomProvider);
+            }
+
+            @Override
+            public double screenToTime(int screen, int width, ZoomProvider zoomProvider) {
+                return UpDownImage.this.wr.screenToTime(screen, width, zoomProvider);
             }
 
             @Override
@@ -78,8 +81,9 @@ public class UpDownImage extends JPanel {
         };
     }
 
-    public void setWaveReport(WaveReport wr) {
+    public void setWaveReport(WaveReport wr, StringBuilder revolutions) {
         this.wr = wr;
+        this.revolutions = revolutions;
         lastUpdateTime = System.currentTimeMillis();
         onUpdate();
     }
@@ -96,7 +100,7 @@ public class UpDownImage extends JPanel {
         for (WaveReport.UpDown upDown : wr.getList())
             paintUpDown(d, upDown, g);
 
-        paintVerticalLines(g2, d);
+        paintScaleLines(g2, d);
 
         int duration = wr.getDuration();
         g2.setColor(Color.black);
@@ -104,28 +108,61 @@ public class UpDownImage extends JPanel {
         int line = 0;
         g.drawString(name, 5, ++line * LINE_SIZE);
         g.drawString("Tick length: " + duration + "; count=" + wr.getList().size(), 5, ++line * LINE_SIZE);
-        g.drawString("Total seconds: " + (duration / TICKS_PER_MS / 000.0), 5, ++line * LINE_SIZE);
+        g.drawString("Total seconds: " + (duration / WaveReport.SYS_TICKS_PER_MS / 000.0), 5, ++line * LINE_SIZE);
         g.drawString(FORMAT.format(new Date(lastUpdateTime)), 5, ++line * LINE_SIZE);
+
+        drawStartOfRevolution(g2, d);
     }
 
-    private void paintVerticalLines(Graphics2D g2, Dimension d) {
-        int mult = 100 * 100; // 100ms
-        int fromMs = translator.getMinTime() / mult;
+    private void drawStartOfRevolution(Graphics2D g2, Dimension d) {
+        if (revolutions == null)
+            return;
+
+        TreeMap<Integer, Integer> time2rpm = parseResolutions(revolutions);
+
         g2.setStroke(new BasicStroke());
+        for (int time : time2rpm.keySet()) {
+            int x = translator.timeToScreen(time, d.width, zoomProvider);
+            g2.setColor(Color.green);
+            g2.drawLine(x, 0, x, d.height);
+        }
+    }
+
+    private TreeMap<Integer, Integer> parseResolutions(StringBuilder revolutions) {
+        String[] r = revolutions.toString().split("!");
+
+        TreeMap<Integer, Integer> time2rpm = new TreeMap<Integer, Integer>();
+        for (int i = 0; i < r.length - 1; i += 2) {
+            int rpm = Integer.parseInt(r[i]);
+            int time = Integer.parseInt(r[i + 1]);
+            time2rpm.put(time, rpm);
+        }
+        return time2rpm;
+    }
+
+    private static final BasicStroke LONG_STROKE = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 10.0f,
+            new float[]{21.0f, 7.0f}, 0.0f);
+
+    /**
+     * This method draws a vertical line every millisecond
+     */
+    private void paintScaleLines(Graphics2D g2, Dimension d) {
+        int fromMs = translator.getMinTime() / WaveReport.mult;
+        g2.setStroke(LONG_STROKE);
         g2.setColor(Color.red);
 
-        int toMs = translator.getMaxTime() / mult;
+        int toMs = translator.getMaxTime() / WaveReport.mult;
         for (int ms = fromMs; ms <= toMs; ms++) {
-            int tick = ms * mult;
-            int x = translator.translateTime(tick, d.width, zoomProvider);
+            int tick = ms * WaveReport.mult;
+            int x = translator.timeToScreen(tick, d.width, zoomProvider);
             g2.drawLine(x, 0, x, d.height);
         }
     }
 
     private void paintUpDown(Dimension d, WaveReport.UpDown upDown, Graphics g) {
 
-        int x1 = translator.translateTime(upDown.upTime, d.width, zoomProvider);
-        int x2 = translator.translateTime(upDown.downTime, d.width, zoomProvider);
+        int x1 = translator.timeToScreen(upDown.upTime, d.width, zoomProvider);
+        int x2 = translator.timeToScreen(upDown.downTime, d.width, zoomProvider);
 
         int y = (int) (0.2 * d.height);
 
@@ -138,7 +175,7 @@ public class UpDownImage extends JPanel {
         g.drawLine(x2, y, x2, d.height);
 
         g.setColor(Color.red);
-        g.drawString(String.format(" %.2fms", upDown.getDuration() / TICKS_PER_MS), x1, (int) (0.5 * d.height));
+        g.drawString(String.format(" %.2fms", upDown.getDuration() / WaveReport.SYS_TICKS_PER_MS), x1, (int) (0.5 * d.height));
 
     }
 }

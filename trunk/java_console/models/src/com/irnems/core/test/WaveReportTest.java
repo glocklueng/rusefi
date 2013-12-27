@@ -21,6 +21,6 @@ public class WaveReportTest {
         assertEquals(14679, wr.getMinTime());
         assertEquals(43849, wr.getMaxTime());
 
-        assertEquals(59, wr.translateTime(18134, 500, ZoomProvider.DEFAULT));
+        assertEquals(59, wr.timeToScreen(18134, 500, ZoomProvider.DEFAULT));
     }
 }
