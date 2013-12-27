@@ -143,7 +143,12 @@ public class EngineState {
 
         registerStringValueAction("time", new ValueCallback<String>() {
             public void onUpdate(String value) {
-                double time = Double.parseDouble(value);
+                double time;
+                try {
+                    time = Double.parseDouble(value);
+                } catch (NumberFormatException e) {
+                    return;
+                }
                 listener.onTime(time);
                 for (EngineTimeListener l : timeListeners)
                     l.onTime(time);
@@ -216,7 +221,7 @@ public class EngineState {
 
     /**
      * @param response input string
-     * @param listener
+     * @param listener obviously
      * @return unused part of the response
      */
     private String handleResponse(String response, EngineStateListener listener) {
@@ -271,18 +276,18 @@ public class EngineState {
 
     }
 
-    private char hexChar(int value) {
-        value = value & 0xF;
-        if (value < 10)
-            return (char) ('0' + value);
-        return (char) ('A' - 10 + value);
-    }
-
-    private int parseChar(char c) {
-        if (c <= '9')
-            return c - '0';
-        return Character.toLowerCase(c) - 'a' + 10;
-    }
+//    private char hexChar(int value) {
+//        value = value & 0xF;
+//        if (value < 10)
+//            return (char) ('0' + value);
+//        return (char) ('A' - 10 + value);
+//    }
+//
+//    private int parseChar(char c) {
+//        if (c <= '9')
+//            return c - '0';
+//        return Character.toLowerCase(c) - 'a' + 10;
+//    }
 
     public void registerStringValueAction(String key, ValueCallback<String> callback) {
         if (keys.contains(key))
