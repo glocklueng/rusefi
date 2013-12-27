@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source "/home/rex/Avto/-kik-/new-1/For-out/Project_USB_MMC(alfa1.3.1)/mmc_usb_1.sch")
-    (date "Срд 25 Дек 2013 19:47:45")
+    (date "Птн 27 Дек 2013 15:57:53")
     (tool "eeschema (2013-mar-13)-testing"))
   (components
     (comp (ref C4)
@@ -113,7 +113,12 @@
       (value CONN_1)
       (libsource (lib conn) (part CONN_1))
       (sheetpath (names /) (tstamps /))
-      (tstamp 52BAF879)))
+      (tstamp 52BAF879))
+    (comp (ref G1)
+      (value LOGO)
+      (libsource (lib logo_flipped) (part LOGO))
+      (sheetpath (names /) (tstamps /))
+      (tstamp 52BD6BB8)))
   (libparts
     (libpart (lib device) (part C)
       (description "Condensateur non polarise")
@@ -257,6 +262,10 @@
         (pin (num 26) (name TEST) (type power_in))
         (pin (num 27) (name OSCI) (type input))
         (pin (num 28) (name OSCO) (type output))))
+    (libpart (lib logo_flipped) (part LOGO)
+      (fields
+        (field (name Reference) "#G")
+        (field (name Value) LOGO)))
     (libpart (lib art-electro-conn) (part MICRO-SDCARD-CONNECTOR-3300060P1)
       (fields
         (field (name Reference) P)
@@ -289,6 +298,8 @@
       (uri /usr/share/kicad/library/conn.lib))
     (library (logical interface)
       (uri /usr/share/kicad/library/interface.lib))
+    (library (logical logo_flipped)
+      (uri logo_flipped.lib))
     (library (logical art-electro-conn)
       (uri lib/art-electro-conn.lib)))
   (nets

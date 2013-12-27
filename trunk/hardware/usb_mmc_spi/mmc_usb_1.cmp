@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Срд 25 Дек 2013 19:15:00
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Птн 27 Дек 2013 15:58:15
 
 BeginCmp
 TimeStamp = /52A59B39;
@@ -61,6 +61,13 @@ TimeStamp = /52A5C8BF;
 Reference = D3;
 ValeurCmp = RED;
 IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52BD6BB8;
+Reference = G1;
+ValeurCmp = LOGO;
+IdModule  = LOGO_F;
 EndCmp
 
 BeginCmp
