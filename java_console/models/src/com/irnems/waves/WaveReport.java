@@ -10,9 +10,17 @@ import java.util.List;
  */
 public class WaveReport implements TimeAxisTranslator {
     public static final WaveReport MOCK = new WaveReport(Collections.<UpDown>singletonList(new UpDown(0, 1)));
+    /**
+     * number of ChibiOS systicks per ms
+     */
+    public static final double SYS_TICKS_PER_MS = 100;
+    public static final int mult = (int) (100 * SYS_TICKS_PER_MS); // 100ms
 
     List<UpDown> list;
     private int maxTime;
+    /**
+     * min timestamp on this chart, in systicks
+     */
     private int minTime;
 
     public WaveReport(String report) {
@@ -75,11 +83,24 @@ public class WaveReport implements TimeAxisTranslator {
     }
 
     @Override
-    public int translateTime(int time, int width, ZoomProvider zoomProvider) {
+    public int timeToScreen(int time, int width, ZoomProvider zoomProvider) {
         double translated = (time - minTime) * zoomProvider.getZoomValue() / getDuration();
         return (int) (width * translated);
     }
 
+    @Override
+    public double screenToTime(int screen, int width, ZoomProvider zoomProvider) {
+        //  / SYS_TICKS_PER_MS / 1000
+        double time = 1.0 * screen * getDuration() / width / zoomProvider.getZoomValue() + minTime;
+        int x2 = timeToScreen((int) time, width, zoomProvider);
+        System.out.println("" + (screen - x2));
+        return (int) time;
+    }
+
+    /**
+     *
+     * @return Length of this chart ini systicks
+     */
     public int getDuration() {
         return maxTime - minTime;
     }

@@ -28,19 +28,23 @@ public class WavePanel extends JPanel {
 
     private final Map<String, UpDownImage> images = new LinkedHashMap<String, UpDownImage>();
     private final JPanel imagePanel = new JPanel();
-    private boolean isPaused;
-    private final UpDownImage crank = register("crank");
     private final ZoomControl zoomControl = new ZoomControl();
+    private final ChartStatusPanel statusPanel = new ChartStatusPanel(zoomControl);
+    private final UpDownImage crank = register("crank");
+
+    private boolean isPaused;
 
     public WavePanel() {
         setLayout(new BorderLayout());
+
+        statusPanel.setWaveReport(crank.createTranslator());
 
         JButton resetButton = new JButton("reset");
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (UpDownImage image : images.values())
-                    image.setWaveReport(WaveReport.MOCK);
+                    image.setWaveReport(WaveReport.MOCK, null);
             }
         });
 
@@ -61,7 +65,7 @@ public class WavePanel extends JPanel {
             }
         });
 
-        JPanel buttonPanel = new JPanel(new FlowLayout());
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         buttonPanel.add(resetButton);
         buttonPanel.add(saveImageButton);
         buttonPanel.add(pauseButton);
@@ -74,8 +78,8 @@ public class WavePanel extends JPanel {
         buttonPanel.add(zoomControl);
 
         add(buttonPanel, BorderLayout.NORTH);
-
         add(imagePanel, BorderLayout.CENTER);
+        add(statusPanel.infoPanel, BorderLayout.SOUTH);
 
         zoomControl.listener = new ZoomControl.ZoomControlListener() {
             @Override
@@ -113,15 +117,19 @@ public class WavePanel extends JPanel {
     public void displayChart(String value) {
         Map<String, StringBuilder> map = unpackToMap(value);
 
+        StringBuilder revolutions = map.get("r");
+
         for (Map.Entry<String, StringBuilder> e : map.entrySet()) {
             UpDownImage image = images.get(e.getKey());
+            if (image == null)
+                continue;
             List<WaveReport.UpDown> list = WaveReport.parse(e.getValue().toString());
             if (list.isEmpty()) {
                 image.onUpdate(); // this would reset empty image
                 continue;
             }
             WaveReport wr = new WaveReport(list);
-            image.setWaveReport(wr);
+            image.setWaveReport(wr, revolutions);
         }
     }
 
@@ -132,27 +140,19 @@ public class WavePanel extends JPanel {
 
         Map<String, StringBuilder> map = new HashMap<String, StringBuilder>();
 
-        for (String name : images.keySet())
-            map.put(name, new StringBuilder());
-
         int index = 0;
         while (index + 2 < array.length) {
             String name = array[index];
 
-            if (!images.containsKey(name)) {
-                System.out.println("what name? " + name);
-                index += 3;
-                continue;
-//                createSecondaryImage(name);
-//                map.put(name, new StringBuilder());
+            StringBuilder sb = map.get(name);
+            if (sb == null) {
+                sb = new StringBuilder();
+                map.put(name, sb);
             }
 
             String signal = array[index + 1];
             String val = array[index + 2];
 
-            StringBuilder sb = map.get(name);
-            if (sb == null)
-                throw new NullPointerException("Not found " + name);
             sb.append(signal).append(DELI).append(val).append(DELI);
             index += 3;
         }
@@ -175,6 +175,7 @@ public class WavePanel extends JPanel {
 
     private UpDownImage register(String name) {
         UpDownImage image = new UpDownImage(name);
+        image.addMouseMotionListener(statusPanel.motionAdapter);
         images.put(name, image);
         return image;
     }
