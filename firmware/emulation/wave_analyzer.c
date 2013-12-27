@@ -18,6 +18,7 @@
 #include "data_buffer.h"
 #include "pin_repository.h"
 #include "datalogging.h"
+#include "engine_state.h"
 
 #define CHART_RESET_DELAY 1
 
@@ -67,9 +68,7 @@ static void waIcuPeriodCallback(WaveReader *reader) {
 
 	reader->periodEventTime = now;
 
-
 	//scheduleSimpleMsg(&irqLogging, "co", reader->chart.counter);
-
 
 //	dbAdd(&wavePeriodTime, now);
 
@@ -120,9 +119,9 @@ static void initWave(char *name, int index, ICUDriver *driver, ioportid_t port, 
 
 	reader->name = name;
 
-	registerCallback(&hw->widthListeners, (IntListener)waAnaWidthCallback, reader);
+	registerCallback(&hw->widthListeners, (IntListener) waAnaWidthCallback, reader);
 
-	registerCallback(&hw->periodListeners, (IntListener)waIcuPeriodCallback, reader);
+	registerCallback(&hw->periodListeners, (IntListener) waIcuPeriodCallback, reader);
 
 	initWaveAnalyzerDriver(hw, driver, port, pin);
 
@@ -165,7 +164,14 @@ static msg_t waThread(void *arg) {
 	return -1;
 }
 
+static char rpmBuffer[10];
+
 static void onShaftSignalWA(ShaftEvents ckpSignalType, int index) {
+	if (index == 0) {
+		itoa(rpmBuffer, getCurrentRpm());
+		addWaveChartEvent("r", rpmBuffer);
+	}
+
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
 		addWaveChartEvent("crank", "up");
 	} else if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
@@ -253,15 +259,13 @@ void initWaveAnalyzer(void) {
 
 	initLogging(&logger, "wave");
 
-
-	registerShaftPositionListener(&onWaveShaftSignal, "wave analyzer");
-
 	initWaveChart(&waveChart);
 
 	initWave("input1 A8", 0, &LOGIC_ANALYZER_1_DRIVER, LOGIC_ANALYZER_1_PORT, LOGIC_ANALYZER_1_PIN, 1);
 	initWave("input2 E5", 1, &LOGIC_ANALYZER_2_DRIVER, LOGIC_ANALYZER_2_PORT, LOGIC_ANALYZER_2_PIN, 1);
 	//	initWave("input0 C6", 2, &WAVE_TIMER, WAVE_INPUT_PORT, WAVE_INPUT_PIN, 0);
 
+	registerShaftPositionListener(&onWaveShaftSignal, "wave analyzer");
 	registerShaftPositionListener(&onShaftSignalWA, "crank chart");
 
 	addConsoleActionII("wm", setWaveModeSilent);

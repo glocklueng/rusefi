@@ -62,6 +62,9 @@ static char* itoa_signed(char *p, int num, unsigned radix) {
 	return end;
 }
 
+/**
+ * Integer to string
+ */
 char* itoa(char *p, int num) {
 	return itoa_signed(p, num, 10);
 }
