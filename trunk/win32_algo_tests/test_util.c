@@ -80,6 +80,10 @@ void testMalfunctionCentral(void) {
 	assertEquals(0, localCopy.count);
 
 	obd_code_e code = OBD_Engine_Coolant_Temperature_Circuit_Malfunction;
+
+	// this should not crash
+	removeError(code);
+
 	// let's add one error and validate
 	addError(code);
 	getErrorCodes(&localCopy);
