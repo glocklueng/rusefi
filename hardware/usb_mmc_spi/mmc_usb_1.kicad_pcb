@@ -1,4 +1,4 @@
-(kicad_pcb (version 3) (host pcbnew "(2013-mar-13)-testing")
+(kicad_pcb (version 3) (host pcbnew "(2013-07-07 BZR 4022)-stable")
 
   (general
     (links 72)
@@ -13,8 +13,7 @@
   )
 
   (page A4)
-  (title_block
-    (date "28 Dec 2013")
+  (title_block 
     (comment 2 Art_Electro)
     (comment 3 Art_Electro)
     (comment 4 Art_Electro)
@@ -64,7 +63,7 @@
     (pad_drill 0.6)
     (pad_to_mask_clearance 0)
     (aux_axis_origin 0 0)
-    (visible_elements 7FFEFFFF)
+    (visible_elements 7FFFFFFF)
     (pcbplotparams
       (layerselection 284983297)
       (usegerberextensions true)
@@ -219,14 +218,14 @@
     (add_net N-000009)
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52BDA1BD) (tstamp 52A5B484)
+  (module SM0805 (layer F.Cu) (tedit 52BF06C3) (tstamp 52A5B484)
     (at 207.391 168.656)
     (path /52A59B39)
     (attr smd)
-    (fp_text reference C1 (at 0 0) (layer F.SilkS)
+    (fp_text reference C1 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value 4700pF (at 0 0.381) (layer F.SilkS)
+    (fp_text value 4700pF (at 0.127 0.889) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
@@ -251,14 +250,14 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52BDA1DC) (tstamp 52A5B491)
+  (module SM0805 (layer F.Cu) (tedit 52BF06B2) (tstamp 52A5B491)
     (at 210.185 167.386 90)
     (path /52A5A67B)
     (attr smd)
     (fp_text reference C2 (at 0 0 180) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value 47pF (at 0 0.381 90) (layer F.SilkS)
+    (fp_text value 47pF (at -0.127 1.016 90) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
@@ -283,14 +282,14 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52BDA1CD) (tstamp 52A5B49E)
+  (module SM0805 (layer F.Cu) (tedit 52BF06A3) (tstamp 52A5B49E)
     (at 213.106 168.148)
     (path /52A5A68B)
     (attr smd)
-    (fp_text reference C3 (at 0 0) (layer F.SilkS)
+    (fp_text reference C3 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value 47pF (at 0 0.381) (layer F.SilkS)
+    (fp_text value 47pF (at 0.254 -1.016) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
@@ -315,14 +314,14 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52BDA1F9) (tstamp 52A5B4AB)
+  (module SM0805 (layer F.Cu) (tedit 52BF0706) (tstamp 52A5B4AB)
     (at 203.454 165.862 180)
     (path /52A59B20)
     (attr smd)
-    (fp_text reference C4 (at 0 0 180) (layer F.SilkS)
+    (fp_text reference C4 (at 0 0 270) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value 4.7uF (at 0 0.381 180) (layer F.SilkS)
+    (fp_text value 4.7uF (at -0.127 -1.016 180) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
@@ -347,14 +346,14 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52BE694F) (tstamp 52A5B4B8)
+  (module SM0805 (layer F.Cu) (tedit 52BF070A) (tstamp 52A5B4B8)
     (at 203.3905 163.7665)
     (path /52A59B31)
     (attr smd)
-    (fp_text reference C5 (at 0 0 180) (layer F.SilkS)
+    (fp_text reference C5 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value .1uF (at 0 0.381) (layer F.SilkS)
+    (fp_text value .1uF (at -0.0635 -1.0795) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
@@ -379,14 +378,14 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52BDA1F0) (tstamp 52BE68C9)
+  (module SM0805 (layer F.Cu) (tedit 52BF06C6) (tstamp 52BE68C9)
     (at 207.391 166.624)
     (path /52A59B38)
     (attr smd)
-    (fp_text reference C6 (at 0 0) (layer F.SilkS)
+    (fp_text reference C6 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value .1uF (at 0 0.381) (layer F.SilkS)
+    (fp_text value .1uF (at 0 0.889) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
@@ -411,7 +410,7 @@
     )
   )
 
-  (module LED-0805 (layer F.Cu) (tedit 52BDA17F) (tstamp 52A5B500)
+  (module LED-0805 (layer F.Cu) (tedit 52BF067F) (tstamp 52A5B500)
     (at 217.805 167.64 270)
     (descr "LED 0805 smd package")
     (tags "LED 0805 SMD")
@@ -420,7 +419,7 @@
     (fp_text reference D1 (at 0 0 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value GREEN (at 0 1.27 270) (layer F.SilkS)
+    (fp_text value GREEN (at -9.144 -9.398 270) (layer F.SilkS)
       (effects (font (size 0.762 0.762) (thickness 0.127)))
     )
     (fp_line (start 0.49784 0.29972) (end 0.49784 0.62484) (layer F.SilkS) (width 0.06604))
@@ -491,7 +490,7 @@
     )
   )
 
-  (module LED-0805 (layer F.Cu) (tedit 52BDA19B) (tstamp 52A5B53B)
+  (module LED-0805 (layer F.Cu) (tedit 52BF0719) (tstamp 52A5B53B)
     (at 200.533 164.973 90)
     (descr "LED 0805 smd package")
     (tags "LED 0805 SMD")
@@ -500,7 +499,7 @@
     (fp_text reference D2 (at 0 0 180) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value RED (at 0 1.27 90) (layer F.SilkS)
+    (fp_text value RED (at -0.889 -1.143 90) (layer F.SilkS) hide
       (effects (font (size 0.762 0.762) (thickness 0.127)))
     )
     (fp_line (start 0.49784 0.29972) (end 0.49784 0.62484) (layer F.SilkS) (width 0.06604))
@@ -571,14 +570,14 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52BDA1B5) (tstamp 52A5B5B5)
+  (module SM0805 (layer F.Cu) (tedit 52BF06CE) (tstamp 52A5B5B5)
     (at 205.359 170.688 180)
     (path /52A59B3A)
     (attr smd)
-    (fp_text reference R1 (at -0.127 0 360) (layer F.SilkS)
+    (fp_text reference R1 (at -0.127 0 270) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value 1M (at 0 0.381 180) (layer F.SilkS) hide
+    (fp_text value 1M (at 0 -1.143 180) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
@@ -603,14 +602,14 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52BDA155) (tstamp 52A5B5C2)
+  (module SM0805 (layer F.Cu) (tedit 52BF0690) (tstamp 52A5B5C2)
     (at 215.9 167.386 90)
     (path /52A59B2D)
     (attr smd)
     (fp_text reference R2 (at 0 0 180) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value 1k (at 0 0.381 90) (layer F.SilkS)
+    (fp_text value 1k (at 0 0.889 90) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
@@ -635,14 +634,14 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52BEFA96) (tstamp 52A5B5CF)
+  (module SM0805 (layer F.Cu) (tedit 52BF06F4) (tstamp 52A5B5CF)
     (at 201.549 167.894)
     (path /52A5A342)
     (attr smd)
-    (fp_text reference R3 (at 0 0) (layer F.SilkS)
+    (fp_text reference R3 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value 1k (at 0 0.381) (layer F.SilkS)
+    (fp_text value 1k (at 0 -1.016) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
@@ -799,13 +798,13 @@
     )
   )
 
-  (module LED-0805 (layer F.Cu) (tedit 52BDA1A3) (tstamp 52A5CBF0)
+  (module LED-0805 (layer F.Cu) (tedit 52BF063B) (tstamp 52A5CBF0)
     (at 195.58 162.052)
     (descr "LED 0805 smd package")
     (tags "LED 0805 SMD")
     (path /52A5C8BF)
     (attr smd)
-    (fp_text reference D3 (at 0 0) (layer F.SilkS)
+    (fp_text reference D3 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value RED (at 0 1.27) (layer F.SilkS)
@@ -879,14 +878,14 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52BDA1AA) (tstamp 52A5CBFD)
+  (module SM0805 (layer F.Cu) (tedit 52BF0614) (tstamp 52A5CBFD)
     (at 192.024 162.052)
     (path /52A5C8B9)
     (attr smd)
-    (fp_text reference R4 (at 0 0) (layer F.SilkS)
+    (fp_text reference R4 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value 1k (at 0 0.381) (layer F.SilkS)
+    (fp_text value 1k (at 0 1.016) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
@@ -911,7 +910,7 @@
     )
   )
 
-  (module PIN_ARRAY_3_A (layer F.Cu) (tedit 52BD45C7) (tstamp 52A5D6C4)
+  (module PIN_ARRAY_3_A (layer F.Cu) (tedit 52BF072C) (tstamp 52A5D6C4)
     (at 203.454 177.546 180)
     (descr "Connecter 3 pins")
     (tags "PIN 3")
@@ -919,7 +918,7 @@
     (fp_text reference K1 (at 4.572 -0.127 180) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value CONN_3 (at 0 2.54 180) (layer F.SilkS) hide
+    (fp_text value CONN_3 (at -0.254 -3.175 180) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.1524)))
     )
     (fp_line (start -3.81 1.27) (end -3.81 -1.27) (layer F.SilkS) (width 0.1524))
@@ -946,13 +945,13 @@
     )
   )
 
-  (module PIN_ARRAY_10X2 (layer F.Cu) (tedit 52BD4551) (tstamp 52B9B18D)
+  (module PIN_ARRAY_10X2 (layer F.Cu) (tedit 52BF05FA) (tstamp 52B9B18D)
     (at 179.07 166.37 270)
     (path /52B479E1)
     (fp_text reference P3 (at 2.667 -3.048 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value CONN_10X2 (at 0 3.81 270) (layer F.SilkS)
+    (fp_text value CONN_10X2 (at 0.254 4.318 270) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start 12.49934 2.49936) (end 12.49934 -2.49936) (layer F.SilkS) (width 0.09906))
@@ -1046,13 +1045,13 @@
     )
   )
 
-  (module PIN_ARRAY_10X2 (layer F.Cu) (tedit 52BDACEF) (tstamp 52B9B1A9)
+  (module PIN_ARRAY_10X2 (layer F.Cu) (tedit 52BF0677) (tstamp 52B9B1A9)
     (at 221.361 166.37 270)
     (path /52B479EE)
     (fp_text reference P4 (at -3.556 3.048 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value CONN_10X2 (at 0 3.81 270) (layer F.SilkS)
+    (fp_text value CONN_10X2 (at -0.381 -5.08 270) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start 12.49934 2.49936) (end 12.49934 -2.49936) (layer F.SilkS) (width 0.09906))
@@ -1240,7 +1239,7 @@
     )
   )
 
-  (module PIN_ARRAY_5x2 (layer F.Cu) (tedit 52BD456D) (tstamp 52BAC8F8)
+  (module PIN_ARRAY_5x2 (layer F.Cu) (tedit 52BF05F5) (tstamp 52BAC8F8)
     (at 195.707 155.702)
     (descr "Double rangee de contacts 2 x 5 pins")
     (tags CONN)
@@ -1248,7 +1247,7 @@
     (fp_text reference P1 (at 0.508 -3.175) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value CONN_5X2 (at 0 -3.81) (layer F.SilkS) hide
+    (fp_text value CONN_5X2 (at 0 -5.588) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -6.35 -2.54) (end 6.35 -2.54) (layer F.SilkS) (width 0.3048))
@@ -1302,7 +1301,7 @@
     )
   )
 
-  (module PIN_ARRAY_1 (layer F.Cu) (tedit 52BD4561) (tstamp 52BAF8CF)
+  (module PIN_ARRAY_1 (layer F.Cu) (tedit 52BF0659) (tstamp 52BF0711)
     (at 183.642 161.417)
     (descr "1 pin")
     (tags "CONN DEV")
@@ -1310,7 +1309,7 @@
     (fp_text reference P6 (at 0 -1.905) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value CONN_1 (at 0 -1.905) (layer F.SilkS) hide
+    (fp_text value CONN_1 (at 0.508 -3.048) (layer F.SilkS) hide
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
     (fp_line (start 1.27 1.27) (end -1.27 1.27) (layer F.SilkS) (width 0.1524))
@@ -1408,10 +1407,10 @@
     (at 201.549 165.608)
     (path /52BD6BB8)
     (fp_text reference G1 (at 0 -4.14782) (layer B.SilkS) hide
-      (effects (font (thickness 0.3048)) (justify mirror))
+      (effects (font (size 1.524 1.524) (thickness 0.3048)) (justify mirror))
     )
     (fp_text value LOGO (at 0 4.14782) (layer B.SilkS) hide
-      (effects (font (thickness 0.3048)) (justify mirror))
+      (effects (font (size 1.524 1.524) (thickness 0.3048)) (justify mirror))
     )
     (fp_poly (pts (xy 3.34518 -0.04318) (xy 3.3401 0.381) (xy 3.32486 0.68326) (xy 3.28676 0.90932)
       (xy 3.22326 1.1049) (xy 3.12166 1.3208) (xy 3.10896 1.3462) (xy 2.921 1.64084)
@@ -1477,14 +1476,14 @@
       (xy 3.3401 -0.50546) (xy 3.34264 -0.09398) (xy 3.34518 -0.04318) (xy 3.34518 -0.04318)) (layer B.SilkS) (width 0.00254))
   )
 
-  (module SM0805 (layer F.Cu) (tedit 5091495C) (tstamp 52BEFDFE)
+  (module SM0805 (layer F.Cu) (tedit 52BF06DF) (tstamp 52BEFDFE)
     (at 199.9615 170.1165 180)
     (path /52BEFB4C)
     (attr smd)
-    (fp_text reference C7 (at 0 -0.3175 180) (layer F.SilkS)
+    (fp_text reference C7 (at 0 -0.3175 270) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
-    (fp_text value .1uF (at 0 0.381 180) (layer F.SilkS)
+    (fp_text value .1uF (at -0.4445 -1.2065 180) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
@@ -1509,14 +1508,14 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52BEFEC2) (tstamp 52BEFE0B)
+  (module SM0805 (layer F.Cu) (tedit 52BF0636) (tstamp 52BF06B5)
     (at 198.4375 162.687 90)
     (path /52BEFB29)
     (attr smd)
     (fp_text reference C8 (at 0 -0.3175 180) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
-    (fp_text value 4.7uF (at 0 0.381 90) (layer F.SilkS)
+    (fp_text value 4.7uF (at 0 1.2065 90) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
