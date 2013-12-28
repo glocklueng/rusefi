@@ -18,6 +18,8 @@ typedef struct {
 	int error_codes[MAX_ERROR_CODES_COUNT];
 } error_codes_set_s;
 
+void initMalfunctionCentral(void);
+
 /**
  * @brief Adds an error code into the set of current errors.
  * The error code is placed into the fixed-size data structure if it fits into it.
