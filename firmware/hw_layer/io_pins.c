@@ -59,22 +59,10 @@ static void comBlinkingThread(void *arg) {
 		int delay = is_serial_ready() ? 100 : 33;
 
 		setOutputPinValue(LED_COMMUNICATION_1, 0);
-
-		setOutputPinValue(SPI_CS_1, 0);
-		setOutputPinValue(SPI_CS_2, 0);
-		setOutputPinValue(SPI_CS_3, 0);
-		setOutputPinValue(SPI_CS_4, 0);
-		setOutputPinValue(SPI_CS_5, 0);
-
 		setOutputPinValue(LED_ALIVE2, 1);
 		chThdSleepMilliseconds(delay);
 
-		setOutputPinValue(SPI_CS_1, 1);
-		setOutputPinValue(SPI_CS_2, 1);
-		setOutputPinValue(SPI_CS_3, 1);
-		setOutputPinValue(SPI_CS_4, 1);
-		setOutputPinValue(SPI_CS_5, 1);
-setOutputPinValue(LED_COMMUNICATION_1, 1);
+		setOutputPinValue(LED_COMMUNICATION_1, 1);
 		setOutputPinValue(LED_ALIVE2, 0);
 		chThdSleepMilliseconds(delay);
 	}
@@ -131,7 +119,7 @@ void initOutputPins(void) {
 	outputPinRegister("spi CS2", SPI_CS_2, SPI_CS2_PORT, SPI_CS2_PIN);
 	outputPinRegister("spi CS3", SPI_CS_3, SPI_CS3_PORT, SPI_CS3_PIN);
 	outputPinRegister("spi CS4", SPI_CS_4, SPI_CS4_PORT, SPI_CS4_PIN);
-	outputPinRegister("spi CS5", SPI_CS_5, SPI_CS5_PORT, SPI_CS5_PIN);
+	outputPinRegister("spi CS5", SPI_CS_SD_MODULE, SPI_SD_MODULE_PORT, SPI_SD_MODULE_PIN);
 
 
 	// todo: should we move this code closer to the injection logic?

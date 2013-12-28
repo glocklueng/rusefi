@@ -64,7 +64,7 @@ typedef enum {
 	SPI_CS_2,
 	SPI_CS_3,
 	SPI_CS_4,
-	SPI_CS_5,
+	SPI_CS_SD_MODULE,
 
 } io_pin_e;
 

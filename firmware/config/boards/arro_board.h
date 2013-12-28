@@ -207,31 +207,34 @@
 #define STATUS_LED_4_PORT GPIOD
 #define STATUS_LED_4_PIN GPIOD_LED6
 
-//#define SPI_CS1_PORT GPIOE
-//#define SPI_CS1_PIN 13
-//#define SPI_CS2_PORT GPIOE
-//#define SPI_CS2_PIN 14
-//#define SPI_CS3_PORT GPIOE
-//#define SPI_CS3_PIN 15
-//#define SPI_CS4_PORT GPIOD
-//#define SPI_CS4_PIN 10
-//#define SPI_CS5_PORT GPIOD
-//#define SPI_CS5_PIN 11
-
-#define SPI_CS1_PORT GPIOD
-#define SPI_CS1_PIN 7
-
-#define SPI_CS2_PORT GPIOB
-#define SPI_CS2_PIN 7
-
-#define SPI_CS3_PORT GPIOD
-#define SPI_CS3_PIN 5
-
+/**
+ * This section
+ */
+#define SPI_CS1_PORT GPIOE
+#define SPI_CS1_PIN 13
+#define SPI_CS2_PORT GPIOE
+#define SPI_CS2_PIN 14
+#define SPI_CS3_PORT GPIOE
+#define SPI_CS3_PIN 15
 #define SPI_CS4_PORT GPIOD
-#define SPI_CS4_PIN 3
+#define SPI_CS4_PIN 10
+#define SPI_SD_MODULE_PORT GPIOD
+#define SPI_SD_MODULE_PIN 11
 
-#define SPI_CS5_PORT GPIOD
-#define SPI_CS5_PIN 4
+//#define SPI_CS1_PORT GPIOD
+//#define SPI_CS1_PIN 7
+//
+//#define SPI_CS2_PORT GPIOB
+//#define SPI_CS2_PIN 7
+//
+//#define SPI_CS3_PORT GPIOD
+//#define SPI_CS3_PIN 5
+//
+//#define SPI_CS4_PORT GPIOD
+//#define SPI_CS4_PIN 3
+//
+//#define SPI_SD_MODULE_PORT GPIOD
+//#define SPI_SD_MODULE_PIN 4
 
 
 #define EFI_SIGNAL_EXECUTOR_SLEEP TRUE
