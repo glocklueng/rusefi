@@ -2687,6 +2687,12 @@
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx\adc_lld.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\can_lld.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\can_lld.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx\hal_lld.c</name>
       </file>
       <file>
