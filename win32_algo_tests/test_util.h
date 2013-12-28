@@ -10,5 +10,6 @@
 
 void testCyclicBuffer(void);
 void testHistogram(void);
+void testMalfunctionCentral(void);
 
 #endif /* TEST_CYCLIC_BUFFER_H_ */
