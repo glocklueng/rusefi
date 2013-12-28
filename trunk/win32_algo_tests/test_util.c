@@ -10,6 +10,8 @@
 #include "main.h"
 #include "histogram.h"
 
+#include "malfunction_central.h"
+
 static cyclic_buffer sb;
 
 void testCyclicBuffer(void) {
@@ -25,7 +27,7 @@ void testCyclicBuffer(void) {
 }
 
 void testHistogram(void) {
-	print("testHistogram\r\n");
+	print("******************************************* testHistogram\r\n");
 
 	initHistograms();
 
@@ -35,7 +37,7 @@ void testHistogram(void) {
 
 	histogram_s h;
 
-	resetHistogram(&h);
+	resetHistogram(&h, "test");
 
 	int result[5];
 	assertEquals(0, hsReport(&h, result));
@@ -66,3 +68,31 @@ void testHistogram(void) {
 	// values are not expected to be exactly the same, it's the shape what matters
 	assertEquals(1011, result[4]);
 }
+
+void testMalfunctionCentral(void) {
+	print("******************************************* testMalfunctionCentral\r\n");
+	initMalfunctionCentral();
+
+	error_codes_set_s localCopy;
+
+	// on start-up error storage should be empty
+	getErrorCodes(&localCopy);
+	assertEquals(0, localCopy.count);
+
+	// let's add one error and validate
+	addError(OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
+	getErrorCodes(&localCopy);
+// todo:	assertEquals(1, localCopy.count);
+// todo: assertEquals();
+
+	addError(OBD_Intake_Air_Temperature_Circuit_Malfunction);
+	getErrorCodes(&localCopy);
+	// todo:	assertEquals(2, localCopy.count);
+
+	for (int code = 0; code < 100; code++) {
+		addError((obd_code_e) code);
+
+	}
+
+}
+

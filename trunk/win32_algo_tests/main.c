@@ -85,6 +85,7 @@ int main(void) {
 
 	testTriggerDecoder();
 
+	testMalfunctionCentral();
 
 	printf("Success\r\n");
 	return EXIT_SUCCESS;
