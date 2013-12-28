@@ -128,7 +128,7 @@ public class UpDownImage extends JPanel {
         }
     }
 
-    private TreeMap<Integer, Integer> parseResolutions(StringBuilder revolutions) {
+    public static TreeMap<Integer, Integer> parseResolutions(StringBuilder revolutions) {
         String[] r = revolutions.toString().split("!");
 
         TreeMap<Integer, Integer> time2rpm = new TreeMap<Integer, Integer>();

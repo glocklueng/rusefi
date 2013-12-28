@@ -119,6 +119,9 @@ public class WavePanel extends JPanel {
 
         StringBuilder revolutions = map.get("r");
 
+
+        statusPanel.setRevolutions(revolutions);
+
         for (Map.Entry<String, StringBuilder> e : map.entrySet()) {
             UpDownImage image = images.get(e.getKey());
             if (image == null)
