@@ -19,10 +19,33 @@ MMCDriver MMCD1;
 //static SPIConfig ls_spicfg = {NULL, GPIOB, CSPIN,
 //                              SPI_CR1_BR_2 | SPI_CR1_BR_1};
 
+/**
+ * @brief Create a new file with the specified name
+ */
+void createFile(char *fileName) {
+	// todo: change the return type to returd some file descriptor or anything if needed
+}
+
+/**
+ * @brief Appends specified line to the current log file
+ */
+void appendToLog(char *line) {
+
+}
+
 
 void initMmcCard(void) {
 	// I believe at some poing I had SD card working in MMC SPI mode - so, check MMC demo - something like
 //	mmcObjectInit(&MMCD1, &SPID2, &ls_spicfg, &hs_spicfg, mmc_is_protected, mmc_is_inserted);
 //	mmcStart(&MMCD1, NULL);
+
+
+	createFile("rusefi.log");
+
+	appendToLog("hello line 1\r\n");
+	appendToLog("hello line 2\r\n");
+
+
+
 
 }
