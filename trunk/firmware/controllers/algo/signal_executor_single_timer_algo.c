@@ -9,9 +9,9 @@
 #include "main.h"
 #include "utlist.h"
 #include "io_pins.h"
-#include "wave_analyzer.h"
 
 #if EFI_WAVE_ANALYZER
+#include "wave_analyzer.h"
 #include "wave_chart.h"
 extern WaveChart waveChart;
 #endif

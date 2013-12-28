@@ -28,3 +28,9 @@ void setError(int flag, obd_code_e errorCode) {
 	else
 		removeError(errorCode);
 }
+
+void getErrorCodes(error_codes_set_s * copy) {
+	copy->count = error_codes_set.count;
+	for (int i = 0; i < copy->count; i++)
+		copy->error_codes[i] = error_codes_set.error_codes[i];
+}
