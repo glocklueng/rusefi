@@ -12,7 +12,7 @@
 #define RFICONSOLE_LOGIC_H_
 
 #define ERROR_CODE -11223344
-#define CONSOLE_MAX_ACTIONS 32
+#define CONSOLE_MAX_ACTIONS 42
 
 #ifndef FALSE
 #define FALSE       0
