@@ -5,7 +5,7 @@
     (no_connects 0)
     (area 120.549999 93.244999 226.695001 190.600001)
     (thickness 1.6)
-    (drawings 22)
+    (drawings 23)
     (tracks 461)
     (zones 0)
     (modules 25)
@@ -1541,6 +1541,9 @@
     )
   )
 
+  (gr_text "3.3v   5v   GND" (at 203.3905 175.7045) (layer F.SilkS)
+    (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
+  )
   (gr_line (start 120.65 93.345) (end 186.69 93.345) (angle 90) (layer Cmts.User) (width 0.2))
   (gr_line (start 186.69 190.5) (end 186.69 93.472) (angle 90) (layer Cmts.User) (width 0.2))
   (gr_line (start 120.65 190.5) (end 186.69 190.5) (angle 90) (layer Cmts.User) (width 0.2))
