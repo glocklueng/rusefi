@@ -87,20 +87,21 @@ void testMalfunctionCentral(void) {
 	assertEquals(code, localCopy.error_codes[0]);
 
 	// let's add same error one more time
+	print("adding same code again\r\n");
 	addError(code);
 	getErrorCodes(&localCopy);
 	// same code should be only present in the set once
 	assertEquals(1, localCopy.count);
 
-
-	addError(OBD_Intake_Air_Temperature_Circuit_Malfunction);
+	code = OBD_Intake_Air_Temperature_Circuit_Malfunction;
+	addError(code);
 	getErrorCodes(&localCopy);
 	// todo:	assertEquals(2, localCopy.count);
 
 	for (int code = 0; code < 100; code++) {
 		addError((obd_code_e) code);
-
 	}
-
+	getErrorCodes(&localCopy);
+	assertEquals(MAX_ERROR_CODES_COUNT, localCopy.count);
 }
 
