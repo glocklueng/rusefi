@@ -23,7 +23,7 @@ MMCDriver MMCD1;
  * @brief Create a new file with the specified name
  */
 void createFile(char *fileName) {
-	// todo: change the return type to returd some file descriptor or anything if needed
+	// todo: change the return type to return some file descriptor or anything if needed
 }
 
 /**
