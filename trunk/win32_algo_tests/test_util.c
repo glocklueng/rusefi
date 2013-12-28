@@ -79,11 +79,19 @@ void testMalfunctionCentral(void) {
 	getErrorCodes(&localCopy);
 	assertEquals(0, localCopy.count);
 
+	obd_code_e code = OBD_Engine_Coolant_Temperature_Circuit_Malfunction;
 	// let's add one error and validate
-	addError(OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
+	addError(code);
 	getErrorCodes(&localCopy);
-// todo:	assertEquals(1, localCopy.count);
-// todo: assertEquals();
+	assertEquals(1, localCopy.count);
+	assertEquals(code, localCopy.error_codes[0]);
+
+	// let's add same error one more time
+	addError(code);
+	getErrorCodes(&localCopy);
+	// same code should be only present in the set once
+	assertEquals(1, localCopy.count);
+
 
 	addError(OBD_Intake_Air_Temperature_Circuit_Malfunction);
 	getErrorCodes(&localCopy);
