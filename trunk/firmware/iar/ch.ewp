@@ -325,6 +325,7 @@
           <state>$PROJ_DIR$\..\tunerstudio</state>
           <state>$PROJ_DIR$\..\controllers</state>
           <state>$PROJ_DIR$\..\controllers\algo</state>
+          <state>$PROJ_DIR$\..\controllers\system</state>
           <state>$PROJ_DIR$\..\controllers\sensors</state>
           <state>$PROJ_DIR$\..\controllers\math</state>
           <state>$PROJ_DIR$\..\util</state>
@@ -1912,6 +1913,12 @@
         <name>$PROJ_DIR$\..\config\engines\audi_aan.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\config\engines\dodge_neon.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\dodge_neon.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\config\engines\engine.h</name>
       </file>
       <file>
@@ -2062,6 +2069,15 @@
         <name>$PROJ_DIR$\..\controllers\algo\interpolation.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\controllers\algo\io_pins.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\malfunction_central.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\malfunction_central.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\map_adjuster.c</name>
       </file>
       <file>
@@ -2075,6 +2091,15 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\signal_executor_single_timer_algo.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\trigger_decoder.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\trigger_decoder.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\trigger_structure.h</name>
       </file>
     </group>
     <group>
@@ -2101,6 +2126,12 @@
     <group>
       <name>sensors</name>
       <file>
+        <name>$PROJ_DIR$\..\controllers\sensors\allsensors.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\sensors\allsensors.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\sensors\ego.c</name>
       </file>
       <file>
@@ -2117,9 +2148,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\sensors\map.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\sensors\sensors.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\sensors\sensors.h</name>
@@ -2141,6 +2169,27 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\sensors\voltage.h</name>
+      </file>
+    </group>
+    <group>
+      <name>system</name>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\signal_executor_hw_timer.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\signal_executor_hw_timer.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\signal_executor_single_timer.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\signal_executor_single_timer.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\signal_executor_sleep.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\signal_executor_sleep.h</name>
       </file>
     </group>
     <file>
@@ -2192,6 +2241,18 @@
       <name>$PROJ_DIR$\..\controllers\main_loop.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\controllers\malfunction_indicator.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\malfunction_indicator.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\map_averaging.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\map_averaging.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\controllers\map_multiplier_thread.c</name>
     </file>
     <file>
@@ -2212,18 +2273,6 @@
     <file>
       <name>$PROJ_DIR$\..\controllers\signal_executor.h</name>
     </file>
-    <file>
-      <name>$PROJ_DIR$\..\controllers\signal_executor_hw_timer.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\controllers\signal_executor_hw_timer.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\controllers\signal_executor_sleep.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\controllers\signal_executor_sleep.h</name>
-    </file>
   </group>
   <group>
     <name>emulation</name>
@@ -2237,6 +2286,12 @@
       </file>
     </group>
     <file>
+      <name>$PROJ_DIR$\..\emulation\analog_chart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\analog_chart.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\emulation\dist_emulator.c</name>
     </file>
     <file>
@@ -2247,6 +2302,12 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\emulation\engine_emulator.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\toothed_wheel_emulator.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\toothed_wheel_emulator.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\emulation\wave_analyzer.c</name>
@@ -2263,21 +2324,6 @@
   </group>
   <group>
     <name>hw_layer</name>
-    <group>
-      <name>algo</name>
-      <file>
-        <name>$PROJ_DIR$\..\hw_layer\algo\multi_shaft_sensor.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\hw_layer\algo\multi_shaft_sensor.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\hw_layer\algo\toothed_shaft_sensor.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\hw_layer\algo\toothed_shaft_sensor.h</name>
-      </file>
-    </group>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\adc_external.h</name>
     </file>
@@ -2288,16 +2334,10 @@
       <name>$PROJ_DIR$\..\hw_layer\adc_inputs.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\hw_layer\adc_internal_common.h</name>
+      <name>$PROJ_DIR$\..\hw_layer\can_hw.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\hw_layer\adc_internal_dual_amp.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\hw_layer\adc_internal_nice_board.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\hw_layer\ckp_events.h</name>
+      <name>$PROJ_DIR$\..\hw_layer\can_hw.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\flash.c</name>
@@ -2324,16 +2364,13 @@
       <name>$PROJ_DIR$\..\hw_layer\HIP9011.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\hw_layer\io_pins.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\hw_layer\mcp3208.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\mcp3208.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\hw_layer\output_pins.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\hw_layer\output_pins.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\pin_repository.c</name>
@@ -2771,6 +2808,12 @@
       <name>$PROJ_DIR$\..\util\global.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\util\histogram.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\util\histogram.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\util\listener_array.c</name>
     </file>
     <file>
@@ -2788,6 +2831,12 @@
   </file>
   <file>
     <name>$PROJ_DIR$\..\main.h</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\rusefi.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\rusefi.h</name>
   </file>
 </project>
 
