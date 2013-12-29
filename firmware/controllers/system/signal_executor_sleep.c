@@ -28,17 +28,6 @@
 
 #if EFI_SIGNAL_EXECUTOR_SLEEP
 
-static void signalOutputCallbackI(OutputSignal *signal) {
-	chSysLockFromIsr()
-	;
-	/**
-	 * this would awaken the actual output thread
-	 */
-	chSemSignalI(&signal->hw.signalSemaphore);
-	chSysUnlockFromIsr()
-	;
-}
-
 static void commonSchedule(VirtualTimer *timer, int delay, vtfunc_t callback, void *param) {
 	if (delay == 0) {
 		/**
@@ -57,32 +46,7 @@ static void commonSchedule(VirtualTimer *timer, int delay, vtfunc_t callback, vo
 	unlockAnyContext();
 }
 
-void scheduleByAngle(VirtualTimer *timer, float angle, vtfunc_t callback, void *param) {
-	int delay = getOneDegreeTime(getCurrentRpm()) * angle;
-	commonSchedule(timer, delay, callback, param);
-}
-
-/**
- *
- * @param	delay	the number of ticks before the output signal
- * 					immediate output if delay is zero
- * @param	dwell	the number of ticks of output duration
- *
- */
-void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
-	chDbgCheck(dwell >= 0, "dwell cannot be negative");
-
-	scheduleOutputBase(signal, delay, dwell);
-
-	commonSchedule(&signal->hw.signalTimer, delay, (vtfunc_t) &signalOutputCallbackI, (void *) signal);
-
-	time_t now = chTimeNow();
-
-	signal->last_scheduling_time = now;
-
-}
-
-static void turnHi(OutputSignal *signal) {
+static void turnHigh(OutputSignal *signal) {
 #if EFI_DEFAILED_LOGGING
 	signal->hi_time = chTimeNow();
 #endif /* EFI_DEFAILED_LOGGING */
@@ -112,28 +76,28 @@ static void turnLow(OutputSignal *signal) {
 #endif /* EFI_WAVE_ANALYZER */
 }
 
-static msg_t soThread(OutputSignal *signal) {
-	chRegSetThreadName(signal->name);
-	/**
-	 * we have one thread per output signal
-	 * When an output signal is needed, this thread is awakened
-	 */
+void scheduleByAngle(VirtualTimer *timer, float angle, vtfunc_t callback, void *param) {
+	int delay = getOneDegreeTime(getCurrentRpm()) * angle;
+	commonSchedule(timer, delay, callback, param);
+}
 
-	while (1) {
-		// sleep till signal is needed
-		chSemWait(&signal->hw.signalSemaphore);
-		if (signal->duration == 0) {
-			// todo: when exactly does this happen?
-			chThdSleep(1);
-			continue;
-		}
+/**
+ *
+ * @param	delay	the number of ticks before the output signal
+ * 					immediate output if delay is zero
+ * @param	dwell	the number of ticks of output duration
+ *
+ */
+void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
+	chDbgCheck(dwell >= 0, "dwell cannot be negative");
 
-		turnHi(signal);
+	scheduleOutputBase(signal, delay, dwell);
 
-		commonSchedule(&signal->hw.signalTimerDown, signal->duration, (vtfunc_t) &turnLow, (void*)signal);
-	}
-	// unreachable
-	return 0;
+	commonSchedule(&signal->hw.signalTimer, delay, (vtfunc_t) &turnHigh, (void *) signal);
+	commonSchedule(&signal->hw.signalTimerDown, delay + dwell, (vtfunc_t) &turnLow, (void*)signal);
+
+	time_t now = chTimeNow();
+	signal->last_scheduling_time = now;
 }
 
 void initOutputSignal(char *name, OutputSignal *signal, int led, int xor) {
@@ -144,10 +108,6 @@ void initOutputSignal(char *name, OutputSignal *signal, int led, int xor) {
 	signal->name = name;
 	signal->duration = 0;
 	setOutputPinValue(led, xor); // initial state
-	chSemInit(&signal->hw.signalSemaphore, 1);
-
-	chThdCreateStatic(signal->hw.soThreadStack, sizeof(signal->hw.soThreadStack), NORMALPRIO, (tfunc_t) soThread,
-			signal);
 	initOutputSignalBase(signal);
 }
 
