@@ -19,12 +19,6 @@ typedef struct {
 	VirtualTimer signalTimer;
 
 	VirtualTimer signalTimerDown;
-	/**
-	 * this timer is used to notify the worker thread when it's time to output
-	 * the signal
-	 */
-	Semaphore signalSemaphore;
-	WORKING_AREA(soThreadStack, UTILITY_THREAD_STACK_SIZE);
 } SignalExecutorSleep;
 
 void scheduleByAngle(VirtualTimer *timer, float angle, vtfunc_t callback, void *param);
