@@ -129,9 +129,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	if (dwell == 0)
 		return; // hard RPM limit was hit
 
-
-
-	int sparkDelay = convertAngleToSysticks(rpm, event->angleOffset) + sparkAdvance - dwell;
+	int sparkDelay = getOneDegreeTime(rpm) * event->angleOffset + sparkAdvance - dwell;
 	int isIgnitionError = sparkDelay < 0;
 	cbAdd(&ignitionErrorDetection, isIgnitionError);
 	if (isIgnitionError) {
