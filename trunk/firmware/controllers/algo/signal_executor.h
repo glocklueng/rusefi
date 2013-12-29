@@ -10,6 +10,7 @@
 #define SPARKOUT_H_
 
 #include "main.h"
+#include "io_pins.h"
 
 #if EFI_SIGNAL_EXECUTOR_SLEEP
 #include "signal_executor_sleep.h"
@@ -32,11 +33,7 @@ struct OutputSignal_struct {
 	 * name of this signal
 	 */
 	char *name;
-	/**
-	 * output signals use status led hardware layer
-	 * index of the output led which is used as output pin
-	 */
-	int ledIndex;
+	io_pin_e io_pin;
 	/**
 	 * active on high or active on low
 	 */
@@ -66,7 +63,7 @@ struct OutputSignal_struct {
 	OutputSignal *next;
 };
 
-void initOutputSignal(char *name, OutputSignal *signal, int led, int xor);
+void initOutputSignal(char *name, OutputSignal *signal, io_pin_e io_pin, int xor);
 void scheduleOutput(OutputSignal *signal, int delay, int dwell);
 void initOutputSignalBase(OutputSignal *signal);
 void scheduleOutputBase(OutputSignal *signal, int offset, int duration);

@@ -52,7 +52,7 @@ static void turnHigh(OutputSignal *signal) {
 #endif /* EFI_DEFAILED_LOGGING */
 	// turn the output level ACTIVE
 	// todo: this XOR should go inside the setOutputPinValue method
-	setOutputPinValue(signal->ledIndex, TRUE ^ signal->xor);
+	setOutputPinValue(signal->io_pin, TRUE ^ signal->xor);
 	// sleep for the needed duration
 
 #if EFI_WAVE_ANALYZER
@@ -63,7 +63,7 @@ static void turnHigh(OutputSignal *signal) {
 static void turnLow(OutputSignal *signal) {
 	// turn off the output
 	// todo: this XOR should go inside the setOutputPinValue method
-	setOutputPinValue(signal->ledIndex, FALSE ^ signal->xor);
+	setOutputPinValue(signal->io_pin, FALSE ^ signal->xor);
 
 #if EFI_DEFAILED_LOGGING
 	systime_t after = chTimeNow();
@@ -100,14 +100,14 @@ void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 	signal->last_scheduling_time = now;
 }
 
-void initOutputSignal(char *name, OutputSignal *signal, int led, int xor) {
+void initOutputSignal(char *name, OutputSignal *signal, io_pin_e io_pin, int xor) {
 	initLogging(&signal->logging, name);
 
-	signal->ledIndex = led;
+	signal->io_pin = io_pin;
 	signal->xor = xor;
 	signal->name = name;
 	signal->duration = 0;
-	setOutputPinValue(led, xor); // initial state
+	setOutputPinValue(io_pin, xor); // initial state
 	initOutputSignalBase(signal);
 }
 
