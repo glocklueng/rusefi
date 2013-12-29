@@ -119,9 +119,9 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	int igniterId = event->actuatorId;
 	chDbgAssert(igniterId > 0, "act id", NULL);
 
-	float advance = getAdvance(rpm, getMaf());
+	float advance = 2 * getAdvance(rpm, getMaf());
 
-	int sparkAdvance = convertAngleToSysticks(rpm, advance);
+	int sparkAdvance = getOneDegreeTime(rpm) * advance;
 
 	int dwell = getSparkDwell(rpm);
 	chDbgCheck(dwell >= 0, "invalid dwell");
