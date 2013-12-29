@@ -59,7 +59,7 @@ struct OutputSignal_struct {
 	OutputSignal *next;
 };
 
-void initOutputSignal(char *name, OutputSignal *signal, io_pin_e io_pin);
+void initOutputSignal(OutputSignal *signal, io_pin_e io_pin);
 void scheduleOutput(OutputSignal *signal, int delay, int dwell);
 void initOutputSignalBase(OutputSignal *signal);
 void scheduleOutputBase(OutputSignal *signal, int offset, int duration);

@@ -71,6 +71,7 @@ typedef enum {
 #define IO_PIN_COUNT 100
 
 void initOutputPins(void);
+char *getPinName(io_pin_e io_pin);
 void turnOutputPinOn(io_pin_e pin);
 void turnOutputPinOff(io_pin_e pin);
 void setOutputPinValue(io_pin_e pin, int value);
