@@ -6,6 +6,7 @@ TEST_SRC = boards.c \
 	test_fuel_map.c \
 	test_idle_controller.c \
 	test_interpolation_3d.c \
+	test_trigger_decoder.c \
 	test_sensors.c \
 	test_signal_executor.c
 
