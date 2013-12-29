@@ -16,7 +16,7 @@ static error_codes_set_s error_codes_set;
 static int find_position(obd_code_e e_code)							// Search if code is present 
 {
 	// cycle for searching element equal seaching code
-	for (int t = 0; t < error_codes_set.count - 1; t++)
+	for (int t = 0; t < error_codes_set.count; t++)
 		if (error_codes_set.error_codes[t] == e_code)
 			return t;			// we found position where this code is present
 	return -1;														// -1 if code not found

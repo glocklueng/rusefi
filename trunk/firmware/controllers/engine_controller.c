@@ -142,7 +142,8 @@ void initEngineContoller(void) {
 #endif
 	initInjectorCentral();
 	initIgnitionCentral();
-
+	initMalfunctionCentral();
+	
 	initElectronicThrottle();
 	initMalfunctionIndicator();
 	initMapAveraging();
