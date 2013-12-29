@@ -64,6 +64,8 @@ public class GaugePanel extends JComponent {
         box2.add(createGauge(Sensor.AFR));
         box2.add(createGauge(Sensor.DEFAULT_FUEL));
 
+        box2.add(createGauge(Sensor.TIMING));
+
         box2.add(createRpmGauge());
 
         //add(rpmGauge);

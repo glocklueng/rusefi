@@ -65,7 +65,7 @@ public class EngineState {
         addDoubleSensor(RPM_KEY, Sensor.RPM);
         addDoubleSensor("mat", Sensor.INTAKE_AIR);
         addDoubleSensor("map", Sensor.MAP);
-        addDoubleSensor("map_r", Sensor.MAP);
+        addDoubleSensor("map_r", Sensor.MAP_RAW);
         addDoubleSensor("clt", Sensor.COOLANT);
         addDoubleSensor("tp", Sensor.THROTTLE);
         addDoubleSensor("dwell0", Sensor.DWELL0);
@@ -87,7 +87,7 @@ public class EngineState {
         addDoubleSensor("period1", Sensor.PERIOD0);
         addDoubleSensor("duty0", Sensor.DUTY0);
         addDoubleSensor("duty1", Sensor.DUTY1);
-        addDoubleSensor("timing", Sensor.DUTY1);
+        addDoubleSensor("timing", Sensor.TIMING);
 
         addDoubleSensor("idl", Sensor.IDLE_SWITCH);
 
