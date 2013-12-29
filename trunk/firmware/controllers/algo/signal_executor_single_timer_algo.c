@@ -16,6 +16,8 @@
 extern WaveChart waveChart;
 #endif
 
+extern int pinDefaultState[IO_PIN_COUNT];
+
 /**
  * @brief Output list
  *
@@ -44,7 +46,7 @@ inline time_t toggleSignalIfNeeded(OutputSignal *out, time_t now) {
 	//estimated = last + out->timing[out->status];
 	time_t estimated = last + GET_DURATION(out);
 	if (now >= estimated) {
-		setOutputPinValue(out->io_pin, out->status ^ out->xor); /* Toggle output */
+		setOutputPinValue(out->io_pin, out->status ^ pinDefaultState[out->io_pin]); /* Toggle output */
 #if EFI_WAVE_ANALYZER
 		addWaveChartEvent(out->name, out->status ? "up" : "down");
 #endif /* EFI_WAVE_ANALYZER */

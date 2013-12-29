@@ -34,10 +34,6 @@ struct OutputSignal_struct {
 	 */
 	char *name;
 	io_pin_e io_pin;
-	/**
-	 * active on high or active on low
-	 */
-	int xor;
 	// time in system ticks
 	volatile int offset;
 	// time in system ticks
@@ -63,7 +59,7 @@ struct OutputSignal_struct {
 	OutputSignal *next;
 };
 
-void initOutputSignal(char *name, OutputSignal *signal, io_pin_e io_pin, int xor);
+void initOutputSignal(char *name, OutputSignal *signal, io_pin_e io_pin);
 void scheduleOutput(OutputSignal *signal, int delay, int dwell);
 void initOutputSignalBase(OutputSignal *signal);
 void scheduleOutputBase(OutputSignal *signal, int offset, int duration);
