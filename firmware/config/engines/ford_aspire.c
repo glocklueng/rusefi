@@ -115,6 +115,9 @@ static void configureAspireEngineEventHandler(EventHandlerConfiguration *config)
 	registerActuatorEvent(&config->injectionEvents, 8, 3, 0);
 
 	resetEventList(&config->ignitionEvents);
+	float x = 53;
+	registerActuatorEvent(&config->ignitionEvents, 0, 2, x);
+
 	registerActuatorEvent(&config->ignitionEvents, 1, 1, 0);
 	registerActuatorEvent(&config->ignitionEvents, 3, 1, 0);
 	registerActuatorEvent(&config->ignitionEvents, 6, 1, 0);
