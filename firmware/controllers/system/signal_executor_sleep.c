@@ -18,7 +18,10 @@
 #include "injector_central.h"
 #include "engine_math.h"
 
+extern int pinDefaultState[IO_PIN_COUNT];
+
 #if EFI_WAVE_ANALYZER
+
 /**
  * Signal executors feed digital events right into WaveChart used by Sniffer tab of Dev Console
  */
@@ -52,7 +55,7 @@ static void turnHigh(OutputSignal *signal) {
 #endif /* EFI_DEFAILED_LOGGING */
 	// turn the output level ACTIVE
 	// todo: this XOR should go inside the setOutputPinValue method
-	setOutputPinValue(signal->io_pin, TRUE ^ signal->xor);
+	setOutputPinValue(signal->io_pin, TRUE ^ pinDefaultState[signal->io_pin]);
 	// sleep for the needed duration
 
 #if EFI_WAVE_ANALYZER
@@ -63,7 +66,7 @@ static void turnHigh(OutputSignal *signal) {
 static void turnLow(OutputSignal *signal) {
 	// turn off the output
 	// todo: this XOR should go inside the setOutputPinValue method
-	setOutputPinValue(signal->io_pin, FALSE ^ signal->xor);
+	setOutputPinValue(signal->io_pin, FALSE ^ pinDefaultState[signal->io_pin]);
 
 #if EFI_DEFAILED_LOGGING
 	systime_t after = chTimeNow();
@@ -100,14 +103,12 @@ void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 	signal->last_scheduling_time = now;
 }
 
-void initOutputSignal(char *name, OutputSignal *signal, io_pin_e io_pin, int xor) {
+void initOutputSignal(char *name, OutputSignal *signal, io_pin_e io_pin) {
 	initLogging(&signal->logging, name);
 
 	signal->io_pin = io_pin;
-	signal->xor = xor;
 	signal->name = name;
 	signal->duration = 0;
-	setOutputPinValue(io_pin, xor); // initial state
 	initOutputSignalBase(signal);
 }
 

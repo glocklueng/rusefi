@@ -18,6 +18,7 @@
 #include "main_loop.h"
 #include "trigger_decoder.h"
 
+int pinDefaultState[IO_PIN_COUNT];
 static OutputPin outputs[IO_PIN_COUNT];
 static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG, LED_CHECK_ENGINE };
 
@@ -51,6 +52,11 @@ void setOutputPinValue(io_pin_e pin, int value) {
 
 int getOutputPinValue(io_pin_e pin) {
 	return getPinValue(&outputs[pin]);
+}
+
+void setDefaultPinState(io_pin_e pin, int defaultState) {
+	pinDefaultState[pin] = defaultState;
+	setOutputPinValue(pin, defaultState); // initial state
 }
 
 static void comBlinkingThread(void *arg) {
