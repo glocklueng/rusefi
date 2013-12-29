@@ -107,5 +107,10 @@ void testMalfunctionCentral(void) {
 	}
 	getErrorCodes(&localCopy);
 	assertEquals(MAX_ERROR_CODES_COUNT, localCopy.count);
+
+	// now we have full array and code below present
+	removeError(code);
+	getErrorCodes(&localCopy);
+	assertEquals(MAX_ERROR_CODES_COUNT - 1, localCopy.count);
 }
 
