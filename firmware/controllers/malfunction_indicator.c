@@ -13,14 +13,13 @@
 
 #include "main.h"
 #include "io_pins.h"
+#include "malfunction_central.h"
 #include "malfunction_indicator.h"
 
 #define MFI_LONG_BLINK	1500
 #define MFI_SHORT_BLINK	400
 #define MFI_BLINK_SEPARATOR 400
 #define MFI_CHECKENGINE_LIGHT 10000
-
-int iMFIerror = 32;			// in future this error code will be check from main status engine structure
 
 static WORKING_AREA(mfiThreadStack, UTILITY_THREAD_STACK_SIZE);	// declare thread
 
@@ -61,25 +60,31 @@ static void DisplayErrorCode(int length, int code) {
 }
 
 //  our main thread for show check engine error
-static msg_t mfiThread(void) {
+#if defined __GNUC__
+__attribute__((noreturn))   static msg_t mfiThread(void)
+#else
+static msg_t mfiThread(void)
+#endif
+{
 	chRegSetThreadName("MFIndicator");
+	error_codes_set_s localErrorCopy;
 
 	while (TRUE) {
-		if (iMFIerror > 0) {
-			// switch on check engine light on 10sec (one long blink)
-			// todo: this needs to be a SLEEP, this has nothing to do with digits!
-			// todo: if the problem is with LED invertion, it should be solved properly
-			// todo: using 'blink_digits' to sleep is a hack :( we do not like hacks
-			blink_digits(1, MFI_CHECKENGINE_LIGHT);
-			// First at all calculate how many digits in this integer
-			// and display error code
-			DisplayErrorCode(DigitLength(iMFIerror), iMFIerror);
+		chThdSleepSeconds(10);
+
+		getErrorCodes(&localErrorCopy);
+		for (int p = 0; p < localErrorCopy.count; p++) {
+			// Calculate how many digits in this integer and display error code from start to end
+			int code = localErrorCopy.error_codes[p];
+			DisplayErrorCode(DigitLength(code), code);
 		}
 	}
-	return 0;
 }
 
 void initMalfunctionIndicator(void) {
 	// create static thread
 	chThdCreateStatic(mfiThreadStack, sizeof(mfiThreadStack), LOWPRIO, (tfunc_t) mfiThread, NULL);
+	// only for debug
+	addError(OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
+	addError(OBD_Intake_Air_Temperature_Circuit_Malfunction);
 }
