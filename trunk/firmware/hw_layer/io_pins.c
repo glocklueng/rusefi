@@ -107,6 +107,29 @@ static void initialLedsBlink(void) {
 		setOutputPinValue(leds[i], 0);
 }
 
+char *getPinName(io_pin_e io_pin) {
+	switch(io_pin) {
+	case SPARKOUT_1_OUTPUT:
+		return "Spark 1";
+	case SPARKOUT_2_OUTPUT:
+		return "Spark 2";
+
+	case INJECTOR_1_OUTPUT:
+		return "Injector 1";
+	case INJECTOR_2_OUTPUT:
+		return "Injector 2";
+	case INJECTOR_3_OUTPUT:
+		return "Injector 3";
+	case INJECTOR_4_OUTPUT:
+		return "Injector 4";
+	case INJECTOR_5_OUTPUT:
+		return "Injector 5";
+	default:
+		return "No name";
+	}
+}
+
+
 void initOutputPins(void) {
 	outputPinRegister("is cranking status", LED_CRANKING, STATUS_LED_1_PORT, STATUS_LED_1_PIN);
 	outputPinRegister("is running status", LED_RUNNING, STATUS_LED_2_PORT, STATUS_LED_2_PIN);

@@ -22,8 +22,8 @@ void initIgnitionCentral(void) {
 	setDefaultPinState(SPARKOUT_1_OUTPUT, SPARK_1_XOR);
 	setDefaultPinState(SPARKOUT_2_OUTPUT, SPARK_2_XOR);
 
-	initOutputSignal("Spark 1", &igniters[0], SPARKOUT_1_OUTPUT);
-	initOutputSignal("Spark 2", &igniters[1], SPARKOUT_2_OUTPUT);
+	initOutputSignal(&igniters[0], SPARKOUT_1_OUTPUT);
+	initOutputSignal(&igniters[1], SPARKOUT_2_OUTPUT);
 }
 
 void scheduleSparkOut(int igniterId, int offsetSysTicks, int lengthSysTicks) {

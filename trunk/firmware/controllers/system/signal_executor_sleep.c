@@ -103,11 +103,11 @@ void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
 	signal->last_scheduling_time = now;
 }
 
-void initOutputSignal(char *name, OutputSignal *signal, io_pin_e io_pin) {
-	initLogging(&signal->logging, name);
+void initOutputSignal(OutputSignal *signal, io_pin_e io_pin) {
+	initLogging(&signal->logging, getPinName(io_pin));
 
 	signal->io_pin = io_pin;
-	signal->name = name;
+	signal->name = getPinName(io_pin);
 	signal->duration = 0;
 	initOutputSignalBase(signal);
 }
