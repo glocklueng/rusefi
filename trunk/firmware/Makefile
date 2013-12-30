@@ -94,6 +94,7 @@ include controllers/controllers.mk
 include controllers/algo/algo.mk
 include controllers/math/math.mk
 include controllers/sensors/sensors.mk
+include ext/ext.mk
 
 # Define linker script file here
 LDSCRIPT= config/system/STM32F407xG_CCM.ld
@@ -117,6 +118,7 @@ CSRC = $(PORTSRC) \
 	$(CONTROLLERS_SENSORS_SRC) \
 	$(PLATFORMSRC) \
 	$(BOARDSRC) \
+	$(EXTSRC) \
 	rusefi.c \
 	main.c \
 
