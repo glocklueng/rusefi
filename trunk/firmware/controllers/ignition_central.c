@@ -14,16 +14,11 @@
 
 static Logging logger;
 
-static OutputSignal igniters[MAX_IGNITER_COUNT];
-
 void initIgnitionCentral(void) {
 	initLogging(&logger, "IgnitionCentral");
 
 	setDefaultPinState(SPARKOUT_1_OUTPUT, SPARK_1_XOR);
 	setDefaultPinState(SPARKOUT_2_OUTPUT, SPARK_2_XOR);
-
-	initOutputSignal(&igniters[0], SPARKOUT_1_OUTPUT);
-	initOutputSignal(&igniters[1], SPARKOUT_2_OUTPUT);
 }
 
 void scheduleSparkOut(OutputSignal *igniter, int offsetSysTicks, int lengthSysTicks) {
