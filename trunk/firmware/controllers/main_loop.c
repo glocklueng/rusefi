@@ -60,10 +60,12 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 		return;
 	}
 
+	int delay = getOneDegreeTime(rpm) * event->angleOffset;
+
 	if (isCranking())
 		scheduleSimpleMsg(&logger, "crankingFuel=", fuelTicks);
 
-	scheduleFuelInjection(0, fuelTicks, event->actuator);
+	scheduleFuelInjection(delay, fuelTicks, event->actuator);
 }
 
 static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
