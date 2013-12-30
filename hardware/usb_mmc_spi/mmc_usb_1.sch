@@ -31,13 +31,14 @@ LIBS:contrib
 LIBS:valves
 LIBS:art-electro-conn
 LIBS:logo_flipped
+LIBS:mmc_usb_1-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "29 dec 2013"
+Date "30 dec 2013"
 Rev ""
 Comp ""
 Comment1 ""
@@ -843,5 +844,20 @@ F 3 "" H 2100 2125 60  0000 C CNN
 	1    2100 2125
 	1    0    0    -1  
 $EndComp
-NoConn ~ 2700 5400
+$Comp
+L GND #PWR025
+U 1 1 52C0C35C
+P 2700 5200
+F 0 "#PWR025" H 2700 5200 30  0001 C CNN
+F 1 "GND" H 2700 5130 30  0001 C CNN
+F 2 "" H 2700 5200 60  0001 C CNN
+F 3 "" H 2700 5200 60  0001 C CNN
+	1    2700 5200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2700 4850 2700 5200
+Connection ~ 2700 4950
+Connection ~ 2700 5050
+Connection ~ 2700 5150
 $EndSCHEMATC
