@@ -1,169 +1,169 @@
-Record{size=1, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferInited'}
-Record{size=2, name=' build/obj/spi_lld.o@dummyrx'}
-Record{size=2, name=' build/obj/spi_lld.o@dummytx'}
-Record{size=4, name=' 00@ *(.bss._idle_thread_wa)'}
-Record{size=4, name=' 00@ *(.bss.default_heap)'}
-Record{size=4, name=' build/obj/adc_inputs.o@ .bss.adcCallbackCounter_slow'}
-Record{size=4, name=' build/obj/adc_inputs.o@ .bss.adcDebugReporting'}
-Record{size=4, name=' build/obj/adc_inputs.o@ .bss.fastAdcValue'}
-Record{size=4, name=' build/obj/adc_inputs.o@ .bss.samples_fast'}
-Record{size=4, name=' build/obj/analog_chart.o@ .bss.initialized'}
-Record{size=4, name=' build/obj/analog_chart.o@ .bss.pendingData'}
-Record{size=4, name=' build/obj/can_hw.o@ .bss.engine_clt'}
-Record{size=4, name=' build/obj/can_hw.o@ .bss.engine_rpm'}
-Record{size=4, name=' build/obj/chdebug.o@ .bss.dbg_isr_cnt'}
-Record{size=4, name=' build/obj/chdebug.o@ .bss.dbg_lock_cnt'}
-Record{size=4, name=' build/obj/chdebug.o@ .bss.dbg_panic_file'}
-Record{size=4, name=' build/obj/chdebug.o@ .bss.dbg_panic_line'}
-Record{size=4, name=' build/obj/chdebug.o@ .bss.dbg_panic_msg'}
-Record{size=4, name=' build/obj/chmemcore.o@ *(.bss.endmem)'}
-Record{size=4, name=' build/obj/chmemcore.o@ *(.bss.nextmem)'}
-Record{size=4, name=' build/obj/console_io.o@ .bss.console_line_callback'}
-Record{size=4, name=' build/obj/dist_emulator.o@deRpm'}
-Record{size=4, name=' build/obj/engine_emulator.o@flag'}
-Record{size=4, name=' build/obj/fuel_map.o@ .bss.initialized'}
-Record{size=4, name=' build/obj/histogram.o@ .bss.initialized'}
-Record{size=4, name=' build/obj/idle_controller.o@ .bss.wasCrankingTime'}
-Record{size=4, name=' build/obj/idle_thread.o@ .bss.idleSwitchState'}
-Record{size=4, name=' build/obj/map_averaging.o@ .bss.atmosphericPressure'}
-Record{size=4, name=' build/obj/map_averaging.o@ .bss.currentMaxPressure'}
-Record{size=4, name=' build/obj/map_averaging.o@ .bss.mapMeasurementsCounter'}
-Record{size=4, name=' build/obj/map_averaging.o@ .bss.perRevolution'}
-Record{size=4, name=' build/obj/map_averaging.o@ .bss.perRevolutionCounter'}
-Record{size=4, name=' build/obj/map_averaging.o@ .bss.v_averagedMapValue'}
-Record{size=4, name=' build/obj/map_averaging.o@ .bss.v_mapAccumulator'}
-Record{size=4, name=' build/obj/map_multiplier_thread.o@ .bss.timeAtNotRunning'}
-Record{size=4, name=' build/obj/mcp3208.o@ .bss.adcErrorCounter'}
-Record{size=4, name=' build/obj/mcp3208.o@ .bss.adcEventCounter'}
-Record{size=4, name=' build/obj/mcp3208.o@hack'}
-Record{size=4, name=' build/obj/pin_repository.o@ .bss.initialized'}
-Record{size=4, name=' build/obj/pin_repository.o@ .bss.pinRegistrationComplete'}
-Record{size=4, name=' build/obj/pin_repository.o@ .bss.totalPinsUsed'}
-Record{size=4, name=' build/obj/rficonsole_logic.o@ .bss.consoleActionCount'}
-Record{size=4, name=' build/obj/rusefi.o@ .bss.main_loop_started'}
-Record{size=4, name=' build/obj/shaft_position_input.o@ .bss.shaftEventCounter'}
-Record{size=4, name=' build/obj/signal_executor.o@ .bss.outputSignalCount'}
-Record{size=4, name=' build/obj/signal_executor_single_timer_algo.o@ .bss.st_output_list'}
-Record{size=4, name=' build/obj/status_loop.o@ .bss.needToReportStatus'}
-Record{size=4, name=' build/obj/status_loop.o@fullLog'}
-Record{size=4, name=' build/obj/stm32_dma.o@ .bss.dma_streams_mask'}
-Record{size=4, name=' build/obj/tunerstudio.o@ .bss.tsCounter'}
-Record{size=4, name=' build/obj/tunerstudio.o@ .bss.writeCounter'}
-Record{size=4, name=' build/obj/tunerstudio.o@ .bss.writeRequest'}
-Record{size=4, name=' build/obj/wave_analyzer.o@ .bss.ckpPeriod'}
-Record{size=4, name=' build/obj/wave_analyzer.o@ .bss.previousCrankSignalStart'}
-Record{size=4, name=' build/obj/wave_analyzer.o@ .bss.waveBufferReported'}
-Record{size=4, name=' build/obj/wave_analyzer.o@ .bss.waveReaderCount'}
-Record{size=4, name=' build/obj/wave_analyzer_hw.o@ .bss.registeredIcuCount'}
-Record{size=8, name=' build/obj/usb_lld.o@ .bss.ep0setup_buffer'}
-Record{size=12, name=' build/obj/rpm_calculator.o@rpmState'}
-Record{size=12, name=' build/obj/wave_analyzer.o@ .bss.rpmBuffer'}
-Record{size=16, name=' build/obj/adc_inputs.o@ .bss.samples_slow'}
-Record{size=16, name=' build/obj/can_hw.o@txmsg'}
-Record{size=16, name=' build/obj/chvt.o@ *(.bss.vtlist)'}
-Record{size=16, name=' build/obj/poten.o@config0'}
-Record{size=16, name=' build/obj/shaft_position_input.o@ .bss.triggerState'}
-Record{size=16, name=' build/obj/usb_lld.o@ .bss.ep0_state'}
-Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep1instate'}
-Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep1outstate'}
-Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep2instate'}
-Record{size=20, name=' build/obj/adc_inputs.o@newState'}
-Record{size=20, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBuffer'}
-Record{size=20, name=' build/obj/engine_controller.o@ .bss.everyMsTimer'}
-Record{size=20, name=' build/obj/engine_controller.o@ .bss.fuelPumpTimer'}
-Record{size=20, name=' build/obj/idle_thread.o@idle'}
-Record{size=20, name=' build/obj/map_averaging.o@ .bss.startTimer'}
-Record{size=20, name=' build/obj/map_averaging.o@endTimer'}
-Record{size=20, name=' build/obj/pwm_lld.o@PWMD4'}
-Record{size=20, name=' build/obj/pwm_lld.o@PWMD5'}
-Record{size=20, name=' build/obj/tunerstudio_algo.o@tsState'}
-Record{size=24, name=' build/obj/icu_lld.o@ICUD1'}
-Record{size=24, name=' build/obj/icu_lld.o@ICUD2'}
-Record{size=24, name=' build/obj/icu_lld.o@ICUD3'}
-Record{size=24, name=' build/obj/icu_lld.o@ICUD9'}
-Record{size=28, name=' build/obj/chschd.o@ *(.bss.rlist)'}
-Record{size=32, name=' build/obj/chheap.o@ .bss.default_heap'}
-Record{size=32, name=' build/obj/wave_analyzer_hw.o@ .bss.registeredIcus'}
-Record{size=44, name=' build/obj/malfunction_central.o@ .bss.error_codes_set'}
-Record{size=44, name=' build/obj/tunerstudio_algo.o@ .bss.tsOutputChannels'}
-Record{size=48, name=' build/obj/hardware.o@adcState'}
-Record{size=48, name=' build/obj/injector_central.o@ .bss.is_injector_enabled'}
-Record{size=48, name=' build/obj/spi_lld.o@SPID2'}
-Record{size=48, name=' build/obj/spi_lld.o@SPID3'}
-Record{size=52, name=' build/obj/adc_lld.o@ADCD1'}
-Record{size=52, name=' build/obj/adc_lld.o@ADCD2'}
-Record{size=56, name=' build/obj/can_lld.o@CAND1'}
-Record{size=56, name=' build/obj/can_lld.o@CAND2'}
-Record{size=72, name=' build/obj/main_loop.o@ .bss.ignitionErrorDetection'}
-Record{size=72, name=' build/obj/trigger_decoder.o@ .bss.errorDetection'}
-Record{size=80, name=' build/obj/adc_inputs.o@ .bss.internalAdcIndex'}
-Record{size=120, name=' build/obj/serial_lld.o@SD2'}
-Record{size=120, name=' build/obj/serial_lld.o@SD3'}
-Record{size=124, name=' build/obj/shaft_position_input.o@ .bss.triggerListeneres'}
-Record{size=128, name=' build/obj/stm32_dma.o@ .bss.dma_isr_redir'}
-Record{size=132, name=' build/obj/fuel_map.o@ .bss.fuel_ptrs'}
-Record{size=200, name=' build/obj/rficonsole.o@ .bss.fatalErrorMessage'}
-Record{size=200, name=' build/obj/rficonsole_logic.o@ .bss.confirmation'}
-Record{size=260, name=' build/obj/adc_inputs.o@logger'}
-Record{size=260, name=' build/obj/analog_chart.o@logging'}
-Record{size=260, name=' build/obj/can_hw.o@logger'}
-Record{size=260, name=' build/obj/dist_emulator.o@logger'}
-Record{size=260, name=' build/obj/engine_controller.o@logger'}
-Record{size=260, name=' build/obj/flash_main.o@logger'}
-Record{size=260, name=' build/obj/idle_thread.o@logger'}
-Record{size=260, name=' build/obj/ignition_central.o@logger'}
-Record{size=260, name=' build/obj/injector_central.o@logger'}
-Record{size=260, name=' build/obj/main_loop.o@logger'}
-Record{size=260, name=' build/obj/map_averaging.o@logger'}
-Record{size=260, name=' build/obj/map_multiplier_thread.o@logger'}
-Record{size=260, name=' build/obj/pin_repository.o@logger'}
-Record{size=260, name=' build/obj/poten.o@logger'}
-Record{size=260, name=' build/obj/rficonsole.o@logger'}
-Record{size=260, name=' build/obj/rficonsole_logic.o@logger'}
-Record{size=260, name=' build/obj/settings.o@logger'}
-Record{size=260, name=' build/obj/shaft_position_input.o@logger'}
-Record{size=260, name=' build/obj/status_loop.o@logger'}
-Record{size=260, name=' build/obj/status_loop.o@logger2'}
-Record{size=260, name=' build/obj/tunerstudio.o@logger'}
-Record{size=260, name=' build/obj/wave_analyzer.o@logger'}
-Record{size=260, name=' build/obj/wave_chart.o@logger'}
-Record{size=268, name=' build/obj/shaft_position_input.o@ .bss.primaryCrankInput'}
-Record{size=268, name=' build/obj/shaft_position_input.o@ .bss.secondaryCrankInput'}
-Record{size=268, name=' build/obj/wave_analyzer.o@ .bss.waveChart'}
-Record{size=328, name=' build/obj/chsys.o@ .bss._idle_thread_wa'}
-Record{size=384, name=' build/obj/rficonsole_logic.o@ .bss.consoleActions'}
-Record{size=400, name=' build/obj/io_pins.o@ .bss.pinDefaultState'}
-Record{size=448, name=' build/obj/pin_repository.o@PIN_USED'}
-Record{size=484, name=' build/obj/main_loop.o@events'}
-Record{size=500, name=' build/obj/adc_inputs.o@ .bss.LOGGING_BUFFER'}
-Record{size=500, name=' build/obj/status_loop.o@ .bss.LOGGING_BUFFER'}
-Record{size=600, name=' build/obj/usbcfg.o@SDU1'}
-Record{size=696, name=' build/obj/can_hw.o@ .bss.canTreadStack'}
-Record{size=696, name=' build/obj/console_io.o@ .bss.consoleThread'}
-Record{size=696, name=' build/obj/idle_thread.o@ .bss.ivThreadStack'}
-Record{size=696, name=' build/obj/io_pins.o@ .bss.comBlinkingStack'}
-Record{size=696, name=' build/obj/io_pins.o@ .bss.errBlinkingStack'}
-Record{size=696, name=' build/obj/malfunction_indicator.o@ .bss.mfiThreadStack'}
-Record{size=696, name=' build/obj/map_multiplier_thread.o@ .bss.maThreadStack'}
-Record{size=696, name=' build/obj/tunerstudio.o@ .bss.TS_WORKING_AREA'}
-Record{size=696, name=' build/obj/wave_analyzer.o@ .bss.waThreadStack'}
-Record{size=1000, name=' build/obj/settings.o@ .bss.LOGGING_BUFFER'}
-Record{size=1200, name=' build/obj/io_pins.o@outputs'}
-Record{size=1344, name=' build/obj/ignition_central.o@igniters'}
-Record{size=1440, name=' build/obj/usb_lld.o@USBD1'}
-Record{size=1520, name=' build/obj/wave_analyzer.o@readers'}
-Record{size=2000, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferData'}
-Record{size=2544, name=' build/obj/idle_thread.o@ .bss.idleValve'}
-Record{size=3328, name=' build/obj/engine_controller.o@ec2'}
-Record{size=3608, name=' build/obj/main_loop.o@ .bss.mainLoopHisto'}
-Record{size=4000, name=' build/obj/histogram.o@ .bss.small_bounds_index'}
-Record{size=4032, name=' build/obj/injector_central.o@ .bss.injectors'}
-Record{size=5000, name=' build/obj/analog_chart.o@ .bss.LOGGING_BUFFER'}
-Record{size=5000, name=' build/obj/datalogging.o@ .bss.outputBuffer'}
-Record{size=5000, name=' build/obj/datalogging.o@ .bss.pendingBuffer'}
-Record{size=5000, name=' build/obj/datalogging.o@ioBuffer'}
-Record{size=5000, name=' build/obj/wave_chart.o@ .bss.LOGGING_BUFFER'}
-Record{size=5076, name=' build/obj/tunerstudio_algo.o@ .bss.tsContstants'}
-Record{size=7160, name=' build/obj/histogram.o@bounds'}
 Record{size=13440, name=' build/obj/signal_executor.o@signals'}
+Record{size=7160, name=' build/obj/histogram.o@bounds'}
+Record{size=5076, name=' build/obj/tunerstudio_algo.o@ .bss.tsContstants'}
+Record{size=5000, name=' build/obj/wave_chart.o@ .bss.LOGGING_BUFFER'}
+Record{size=5000, name=' build/obj/datalogging.o@ioBuffer'}
+Record{size=5000, name=' build/obj/datalogging.o@ .bss.pendingBuffer'}
+Record{size=5000, name=' build/obj/datalogging.o@ .bss.outputBuffer'}
+Record{size=5000, name=' build/obj/analog_chart.o@ .bss.LOGGING_BUFFER'}
+Record{size=4032, name=' build/obj/injector_central.o@ .bss.injectors'}
+Record{size=4000, name=' build/obj/histogram.o@ .bss.small_bounds_index'}
+Record{size=3608, name=' build/obj/main_loop.o@ .bss.mainLoopHisto'}
+Record{size=3328, name=' build/obj/engine_controller.o@ec2'}
+Record{size=2544, name=' build/obj/idle_thread.o@ .bss.idleValve'}
+Record{size=2000, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferData'}
+Record{size=1520, name=' build/obj/wave_analyzer.o@readers'}
+Record{size=1440, name=' build/obj/usb_lld.o@USBD1'}
+Record{size=1344, name=' build/obj/ignition_central.o@igniters'}
+Record{size=1200, name=' build/obj/io_pins.o@outputs'}
+Record{size=1000, name=' build/obj/settings.o@ .bss.LOGGING_BUFFER'}
+Record{size=696, name=' build/obj/wave_analyzer.o@ .bss.waThreadStack'}
+Record{size=696, name=' build/obj/tunerstudio.o@ .bss.TS_WORKING_AREA'}
+Record{size=696, name=' build/obj/map_multiplier_thread.o@ .bss.maThreadStack'}
+Record{size=696, name=' build/obj/malfunction_indicator.o@ .bss.mfiThreadStack'}
+Record{size=696, name=' build/obj/io_pins.o@ .bss.errBlinkingStack'}
+Record{size=696, name=' build/obj/io_pins.o@ .bss.comBlinkingStack'}
+Record{size=696, name=' build/obj/idle_thread.o@ .bss.ivThreadStack'}
+Record{size=696, name=' build/obj/console_io.o@ .bss.consoleThread'}
+Record{size=696, name=' build/obj/can_hw.o@ .bss.canTreadStack'}
+Record{size=600, name=' build/obj/usbcfg.o@SDU1'}
+Record{size=500, name=' build/obj/status_loop.o@ .bss.LOGGING_BUFFER'}
+Record{size=500, name=' build/obj/adc_inputs.o@ .bss.LOGGING_BUFFER'}
+Record{size=484, name=' build/obj/main_loop.o@events'}
+Record{size=448, name=' build/obj/pin_repository.o@PIN_USED'}
+Record{size=400, name=' build/obj/io_pins.o@ .bss.pinDefaultState'}
+Record{size=384, name=' build/obj/rficonsole_logic.o@ .bss.consoleActions'}
+Record{size=328, name=' build/obj/chsys.o@ .bss._idle_thread_wa'}
+Record{size=268, name=' build/obj/wave_analyzer.o@ .bss.waveChart'}
+Record{size=268, name=' build/obj/shaft_position_input.o@ .bss.secondaryCrankInput'}
+Record{size=268, name=' build/obj/shaft_position_input.o@ .bss.primaryCrankInput'}
+Record{size=260, name=' build/obj/wave_chart.o@logger'}
+Record{size=260, name=' build/obj/wave_analyzer.o@logger'}
+Record{size=260, name=' build/obj/tunerstudio.o@logger'}
+Record{size=260, name=' build/obj/status_loop.o@logger2'}
+Record{size=260, name=' build/obj/status_loop.o@logger'}
+Record{size=260, name=' build/obj/shaft_position_input.o@logger'}
+Record{size=260, name=' build/obj/settings.o@logger'}
+Record{size=260, name=' build/obj/rficonsole_logic.o@logger'}
+Record{size=260, name=' build/obj/rficonsole.o@logger'}
+Record{size=260, name=' build/obj/poten.o@logger'}
+Record{size=260, name=' build/obj/pin_repository.o@logger'}
+Record{size=260, name=' build/obj/map_multiplier_thread.o@logger'}
+Record{size=260, name=' build/obj/map_averaging.o@logger'}
+Record{size=260, name=' build/obj/main_loop.o@logger'}
+Record{size=260, name=' build/obj/injector_central.o@logger'}
+Record{size=260, name=' build/obj/ignition_central.o@logger'}
+Record{size=260, name=' build/obj/idle_thread.o@logger'}
+Record{size=260, name=' build/obj/flash_main.o@logger'}
+Record{size=260, name=' build/obj/engine_controller.o@logger'}
+Record{size=260, name=' build/obj/dist_emulator.o@logger'}
+Record{size=260, name=' build/obj/can_hw.o@logger'}
+Record{size=260, name=' build/obj/analog_chart.o@logging'}
+Record{size=260, name=' build/obj/adc_inputs.o@logger'}
+Record{size=200, name=' build/obj/rficonsole_logic.o@ .bss.confirmation'}
+Record{size=200, name=' build/obj/rficonsole.o@ .bss.fatalErrorMessage'}
+Record{size=132, name=' build/obj/fuel_map.o@ .bss.fuel_ptrs'}
+Record{size=128, name=' build/obj/stm32_dma.o@ .bss.dma_isr_redir'}
+Record{size=124, name=' build/obj/shaft_position_input.o@ .bss.triggerListeneres'}
+Record{size=120, name=' build/obj/serial_lld.o@SD3'}
+Record{size=120, name=' build/obj/serial_lld.o@SD2'}
+Record{size=80, name=' build/obj/adc_inputs.o@ .bss.internalAdcIndex'}
+Record{size=72, name=' build/obj/trigger_decoder.o@ .bss.errorDetection'}
+Record{size=72, name=' build/obj/main_loop.o@ .bss.ignitionErrorDetection'}
+Record{size=56, name=' build/obj/can_lld.o@CAND2'}
+Record{size=56, name=' build/obj/can_lld.o@CAND1'}
+Record{size=52, name=' build/obj/adc_lld.o@ADCD2'}
+Record{size=52, name=' build/obj/adc_lld.o@ADCD1'}
+Record{size=48, name=' build/obj/spi_lld.o@SPID3'}
+Record{size=48, name=' build/obj/spi_lld.o@SPID2'}
+Record{size=48, name=' build/obj/injector_central.o@ .bss.is_injector_enabled'}
+Record{size=48, name=' build/obj/hardware.o@adcState'}
+Record{size=44, name=' build/obj/tunerstudio_algo.o@ .bss.tsOutputChannels'}
+Record{size=44, name=' build/obj/malfunction_central.o@ .bss.error_codes_set'}
+Record{size=32, name=' build/obj/wave_analyzer_hw.o@ .bss.registeredIcus'}
+Record{size=32, name=' build/obj/chheap.o@ .bss.default_heap'}
+Record{size=28, name=' build/obj/chschd.o@ *(.bss.rlist)'}
+Record{size=24, name=' build/obj/icu_lld.o@ICUD9'}
+Record{size=24, name=' build/obj/icu_lld.o@ICUD3'}
+Record{size=24, name=' build/obj/icu_lld.o@ICUD2'}
+Record{size=24, name=' build/obj/icu_lld.o@ICUD1'}
+Record{size=20, name=' build/obj/tunerstudio_algo.o@tsState'}
+Record{size=20, name=' build/obj/pwm_lld.o@PWMD5'}
+Record{size=20, name=' build/obj/pwm_lld.o@PWMD4'}
+Record{size=20, name=' build/obj/map_averaging.o@endTimer'}
+Record{size=20, name=' build/obj/map_averaging.o@ .bss.startTimer'}
+Record{size=20, name=' build/obj/idle_thread.o@idle'}
+Record{size=20, name=' build/obj/engine_controller.o@ .bss.fuelPumpTimer'}
+Record{size=20, name=' build/obj/engine_controller.o@ .bss.everyMsTimer'}
+Record{size=20, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBuffer'}
+Record{size=20, name=' build/obj/adc_inputs.o@newState'}
+Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep2instate'}
+Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep1outstate'}
+Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep1instate'}
+Record{size=16, name=' build/obj/usb_lld.o@ .bss.ep0_state'}
+Record{size=16, name=' build/obj/shaft_position_input.o@ .bss.triggerState'}
+Record{size=16, name=' build/obj/poten.o@config0'}
+Record{size=16, name=' build/obj/chvt.o@ *(.bss.vtlist)'}
+Record{size=16, name=' build/obj/can_hw.o@txmsg'}
+Record{size=16, name=' build/obj/adc_inputs.o@ .bss.samples_slow'}
+Record{size=12, name=' build/obj/wave_analyzer.o@ .bss.rpmBuffer'}
+Record{size=12, name=' build/obj/rpm_calculator.o@rpmState'}
+Record{size=8, name=' build/obj/usb_lld.o@ .bss.ep0setup_buffer'}
+Record{size=4, name=' build/obj/wave_analyzer_hw.o@ .bss.registeredIcuCount'}
+Record{size=4, name=' build/obj/wave_analyzer.o@ .bss.waveReaderCount'}
+Record{size=4, name=' build/obj/wave_analyzer.o@ .bss.waveBufferReported'}
+Record{size=4, name=' build/obj/wave_analyzer.o@ .bss.previousCrankSignalStart'}
+Record{size=4, name=' build/obj/wave_analyzer.o@ .bss.ckpPeriod'}
+Record{size=4, name=' build/obj/tunerstudio.o@ .bss.writeRequest'}
+Record{size=4, name=' build/obj/tunerstudio.o@ .bss.writeCounter'}
+Record{size=4, name=' build/obj/tunerstudio.o@ .bss.tsCounter'}
+Record{size=4, name=' build/obj/stm32_dma.o@ .bss.dma_streams_mask'}
+Record{size=4, name=' build/obj/status_loop.o@fullLog'}
+Record{size=4, name=' build/obj/status_loop.o@ .bss.needToReportStatus'}
+Record{size=4, name=' build/obj/signal_executor_single_timer_algo.o@ .bss.st_output_list'}
+Record{size=4, name=' build/obj/signal_executor.o@ .bss.outputSignalCount'}
+Record{size=4, name=' build/obj/shaft_position_input.o@ .bss.shaftEventCounter'}
+Record{size=4, name=' build/obj/rusefi.o@ .bss.main_loop_started'}
+Record{size=4, name=' build/obj/rficonsole_logic.o@ .bss.consoleActionCount'}
+Record{size=4, name=' build/obj/pin_repository.o@ .bss.totalPinsUsed'}
+Record{size=4, name=' build/obj/pin_repository.o@ .bss.pinRegistrationComplete'}
+Record{size=4, name=' build/obj/pin_repository.o@ .bss.initialized'}
+Record{size=4, name=' build/obj/mcp3208.o@hack'}
+Record{size=4, name=' build/obj/mcp3208.o@ .bss.adcEventCounter'}
+Record{size=4, name=' build/obj/mcp3208.o@ .bss.adcErrorCounter'}
+Record{size=4, name=' build/obj/map_multiplier_thread.o@ .bss.timeAtNotRunning'}
+Record{size=4, name=' build/obj/map_averaging.o@ .bss.v_mapAccumulator'}
+Record{size=4, name=' build/obj/map_averaging.o@ .bss.v_averagedMapValue'}
+Record{size=4, name=' build/obj/map_averaging.o@ .bss.perRevolutionCounter'}
+Record{size=4, name=' build/obj/map_averaging.o@ .bss.perRevolution'}
+Record{size=4, name=' build/obj/map_averaging.o@ .bss.mapMeasurementsCounter'}
+Record{size=4, name=' build/obj/map_averaging.o@ .bss.currentMaxPressure'}
+Record{size=4, name=' build/obj/map_averaging.o@ .bss.atmosphericPressure'}
+Record{size=4, name=' build/obj/idle_thread.o@ .bss.idleSwitchState'}
+Record{size=4, name=' build/obj/idle_controller.o@ .bss.wasCrankingTime'}
+Record{size=4, name=' build/obj/histogram.o@ .bss.initialized'}
+Record{size=4, name=' build/obj/fuel_map.o@ .bss.initialized'}
+Record{size=4, name=' build/obj/engine_emulator.o@flag'}
+Record{size=4, name=' build/obj/dist_emulator.o@deRpm'}
+Record{size=4, name=' build/obj/console_io.o@ .bss.console_line_callback'}
+Record{size=4, name=' build/obj/chmemcore.o@ *(.bss.nextmem)'}
+Record{size=4, name=' build/obj/chmemcore.o@ *(.bss.endmem)'}
+Record{size=4, name=' build/obj/chdebug.o@ .bss.dbg_panic_msg'}
+Record{size=4, name=' build/obj/chdebug.o@ .bss.dbg_panic_line'}
+Record{size=4, name=' build/obj/chdebug.o@ .bss.dbg_panic_file'}
+Record{size=4, name=' build/obj/chdebug.o@ .bss.dbg_lock_cnt'}
+Record{size=4, name=' build/obj/chdebug.o@ .bss.dbg_isr_cnt'}
+Record{size=4, name=' build/obj/can_hw.o@ .bss.engine_rpm'}
+Record{size=4, name=' build/obj/can_hw.o@ .bss.engine_clt'}
+Record{size=4, name=' build/obj/analog_chart.o@ .bss.pendingData'}
+Record{size=4, name=' build/obj/analog_chart.o@ .bss.initialized'}
+Record{size=4, name=' build/obj/adc_inputs.o@ .bss.samples_fast'}
+Record{size=4, name=' build/obj/adc_inputs.o@ .bss.fastAdcValue'}
+Record{size=4, name=' build/obj/adc_inputs.o@ .bss.adcDebugReporting'}
+Record{size=4, name=' build/obj/adc_inputs.o@ .bss.adcCallbackCounter_slow'}
+Record{size=4, name=' 00@ *(.bss.default_heap)'}
+Record{size=4, name=' 00@ *(.bss._idle_thread_wa)'}
+Record{size=2, name=' build/obj/spi_lld.o@dummytx'}
+Record{size=2, name=' build/obj/spi_lld.o@dummyrx'}
+Record{size=1, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferInited'}
 Total size: 95913
