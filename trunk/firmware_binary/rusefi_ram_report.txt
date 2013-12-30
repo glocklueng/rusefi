@@ -1,4 +1,3 @@
-Record{size=13440, name=' build/obj/signal_executor.o@signals'}
 Record{size=7160, name=' build/obj/histogram.o@bounds'}
 Record{size=5076, name=' build/obj/tunerstudio_algo.o@ .bss.tsContstants'}
 Record{size=5000, name=' build/obj/wave_chart.o@ .bss.LOGGING_BUFFER'}
@@ -9,6 +8,7 @@ Record{size=5000, name=' build/obj/analog_chart.o@ .bss.LOGGING_BUFFER'}
 Record{size=4000, name=' build/obj/histogram.o@ .bss.small_bounds_index'}
 Record{size=3608, name=' build/obj/main_loop.o@ .bss.mainLoopHisto'}
 Record{size=3328, name=' build/obj/engine_controller.o@ec2'}
+Record{size=3040, name=' build/obj/signal_executor.o@signals'}
 Record{size=2544, name=' build/obj/idle_thread.o@ .bss.idleValve'}
 Record{size=2000, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferData'}
 Record{size=1520, name=' build/obj/wave_analyzer.o@readers'}
@@ -25,12 +25,12 @@ Record{size=696, name=' build/obj/idle_thread.o@ .bss.ivThreadStack'}
 Record{size=696, name=' build/obj/console_io.o@ .bss.consoleThread'}
 Record{size=696, name=' build/obj/can_hw.o@ .bss.canTreadStack'}
 Record{size=600, name=' build/obj/usbcfg.o@SDU1'}
+Record{size=504, name=' build/obj/rficonsole_logic.o@ .bss.consoleActions'}
 Record{size=500, name=' build/obj/status_loop.o@ .bss.LOGGING_BUFFER'}
 Record{size=500, name=' build/obj/adc_inputs.o@ .bss.LOGGING_BUFFER'}
 Record{size=484, name=' build/obj/main_loop.o@events'}
 Record{size=448, name=' build/obj/pin_repository.o@PIN_USED'}
 Record{size=400, name=' build/obj/io_pins.o@ .bss.pinDefaultState'}
-Record{size=384, name=' build/obj/rficonsole_logic.o@ .bss.consoleActions'}
 Record{size=328, name=' build/obj/chsys.o@ .bss._idle_thread_wa'}
 Record{size=268, name=' build/obj/wave_analyzer.o@ .bss.waveChart'}
 Record{size=268, name=' build/obj/shaft_position_input.o@ .bss.secondaryCrankInput'}
@@ -65,6 +65,7 @@ Record{size=128, name=' build/obj/stm32_dma.o@ .bss.dma_isr_redir'}
 Record{size=124, name=' build/obj/shaft_position_input.o@ .bss.triggerListeneres'}
 Record{size=120, name=' build/obj/serial_lld.o@SD3'}
 Record{size=120, name=' build/obj/serial_lld.o@SD2'}
+Record{size=120, name=' build/obj/serial_lld.o@SD1'}
 Record{size=80, name=' build/obj/adc_inputs.o@ .bss.internalAdcIndex'}
 Record{size=72, name=' build/obj/trigger_decoder.o@ .bss.errorDetection'}
 Record{size=72, name=' build/obj/main_loop.o@ .bss.ignitionErrorDetection'}
@@ -164,4 +165,4 @@ Record{size=4, name=' 00@ *(.bss._idle_thread_wa)'}
 Record{size=2, name=' build/obj/spi_lld.o@dummytx'}
 Record{size=2, name=' build/obj/spi_lld.o@dummyrx'}
 Record{size=1, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferInited'}
-Total size: 90537
+Total size: 80377
