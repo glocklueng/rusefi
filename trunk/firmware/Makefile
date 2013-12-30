@@ -154,6 +154,7 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	config/boards \
 	config \
 	chibios/os/various \
+	ext \
 	util \
 	console_util \
 	console \
