@@ -1,2 +1,2 @@
-
-EXTSRC = ext/ff.c 
+EXTSRC = ext/ccsbcs.c \
+         ext/ff.c 
