@@ -2,6 +2,10 @@
  * @file	status_loop.c
  * @brief Human-readable protocol status messages
  *
+ * http://rusefi.com/forum/viewtopic.php?t=263 Dev console overview
+ * http://rusefi.com/forum/viewtopic.php?t=210 Commands overview
+ *
+ *
  * @date Mar 15, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
@@ -128,7 +132,10 @@ static void checkIfShouldHalt(void) {
 
 static int timeOfPreviousReport = -1;
 
-void printState(void) {
+/**
+ * @brief Sends all pending data to dev console
+ */
+void updateDevConsoleState(void) {
 	if (!is_serial_ready())
 		return;
 	checkIfShouldHalt();

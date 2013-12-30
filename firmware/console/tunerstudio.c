@@ -1,6 +1,6 @@
 /**
  * @file	tunerstudio.c
- * @brief
+ * @brief Integration with EFI Analytics Tuner Studio software
  *
  * @date Aug 26, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013

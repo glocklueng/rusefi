@@ -9,7 +9,7 @@
 #define CONSOLE_LOOP_H_
 
 void initStatusLoop(void);
-void printState(void);
+void updateDevConsoleState(void);
 int getFullLog(void);
 void setFullLog(int value);
 void sayOsHello(void);
