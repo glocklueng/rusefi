@@ -13,5 +13,5 @@ cd ../firmware
 
 
 cd build
-java -jar ../../java_tools/gcc_map_reader.jar > rusefi_ram_report.txt
+java -jar ../../java_tools/gcc_map_reader.jar > ../../firmware_binary/rusefi_ram_report.txt
 cd ..
