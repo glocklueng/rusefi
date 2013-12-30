@@ -10,6 +10,7 @@
 
 #include <ch.h>
 #include <hal.h>
+#include <time.h>
 
 /**
  * To be honest, I have already forgotten why I use my own type name for float values. Probably two reasons:

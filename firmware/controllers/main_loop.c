@@ -44,10 +44,10 @@ static Logging logger;
 static ActuatorEventList events;
 
 static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
-	int cylinderId = event->actuatorId;
-	if (cylinderId == 0)
-		return; // no cylinder should be fired at this event
-	assertCylinderId(cylinderId, "onShaftSignal");
+//	int cylinderId = event->actuatorId;
+//	if (cylinderId == 0)
+//		return; // no cylinder should be fired at this event
+//	assertCylinderId(cylinderId, "onShaftSignal");
 
 	if (rpm > engineConfiguration->rpmHardLimit) {
 		scheduleSimpleMsg(&logger, "RPM above hard limit ", rpm);
@@ -63,7 +63,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 	if (isCranking())
 		scheduleSimpleMsg(&logger, "crankingFuel=", fuelTicks);
 
-	scheduleFuelInjection(0, fuelTicks, cylinderId);
+	scheduleFuelInjection(0, fuelTicks, event->actuator);
 }
 
 static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
@@ -116,8 +116,8 @@ static int getSparkDwell(int rpm) {
 }
 
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
-	int igniterId = event->actuatorId;
-	chDbgAssert(igniterId > 0, "act id", NULL);
+	//int igniterId = event->actuatorId;
+	//chDbgAssert(igniterId > 0, "act id", NULL);
 
 	float advance = 2 * getAdvance(rpm, getMaf());
 
@@ -138,7 +138,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 		//return;
 	}
 
-	scheduleSparkOut(igniterId, sparkDelay, dwell);
+	scheduleSparkOut(event->actuator, sparkDelay, dwell);
 }
 
 static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {

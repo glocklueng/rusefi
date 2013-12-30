@@ -26,10 +26,10 @@ void initIgnitionCentral(void) {
 	initOutputSignal(&igniters[1], SPARKOUT_2_OUTPUT);
 }
 
-void scheduleSparkOut(int igniterId, int offsetSysTicks, int lengthSysTicks) {
-	chDbgAssert(igniterId >= 1 && igniterId <= MAX_IGNITER_COUNT, "igniter ID", null);
+void scheduleSparkOut(OutputSignal *igniter, int offsetSysTicks, int lengthSysTicks) {
+//	chDbgAssert(igniterId >= 1 && igniterId <= MAX_IGNITER_COUNT, "igniter ID", null);
 
-	OutputSignal *igniter = &igniters[igniterId - 1];
+//	OutputSignal *igniter = &igniters[igniterId - 1];
 
 	scheduleOutput(igniter, offsetSysTicks, lengthSysTicks);
 }

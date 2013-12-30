@@ -42,6 +42,7 @@ void setOutputPinValue(io_pin_e pin, int value);
  */
 inline time_t toggleSignalIfNeeded(OutputSignal *out, time_t now) {
 	chDbgCheck(out!=NULL, "out is NULL");
+	chDbgCheck(out->io_pin < IO_PIN_COUNT, "pin assertion");
 	time_t last = out->last_scheduling_time;
 	//estimated = last + out->timing[out->status];
 	time_t estimated = last + GET_DURATION(out);

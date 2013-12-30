@@ -8,6 +8,23 @@
 #include "main.h"
 #include "signal_executor.h"
 
+#define OUTPUT_SIGNAL_COUNT 40
+
+static OutputSignal signals[OUTPUT_SIGNAL_COUNT];
+
+int outputSignalCount;
+
+OutputSignal * addOutputSignal(io_pin_e ioPin) {
+	chDbgAssert(outputSignalCount < OUTPUT_SIGNAL_COUNT, "OUTPUT_SIGNAL_COUNT", NULL);
+	OutputSignal *signal = &signals[outputSignalCount++];
+
+	initOutputSignal(signal, ioPin);
+
+	return signal;
+}
+
+
+
 void initOutputSignalBase(OutputSignal *signal) {
 	signal->initialized = TRUE;
 	signal->last_scheduling_time = 0;

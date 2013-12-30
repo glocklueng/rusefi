@@ -9,8 +9,13 @@
 #ifndef SPARKOUT_H_
 #define SPARKOUT_H_
 
-#include "main.h"
+#include "global.h"
+#include "features.h"
 #include "io_pins.h"
+
+#if EFI_PROD_CODE
+#include "datalogging.h"
+#endif /* EFI_PROD_CODE */
 
 #if EFI_SIGNAL_EXECUTOR_SLEEP
 #include "signal_executor_sleep.h"
@@ -59,7 +64,8 @@ struct OutputSignal_struct {
 	OutputSignal *next;
 };
 
-void initOutputSignal(OutputSignal *signal, io_pin_e io_pin);
+OutputSignal * addOutputSignal(io_pin_e ioPin);
+void initOutputSignal(OutputSignal *signal, io_pin_e ioPin);
 void scheduleOutput(OutputSignal *signal, int delay, int dwell);
 void initOutputSignalBase(OutputSignal *signal);
 void scheduleOutputBase(OutputSignal *signal, int offset, int duration);

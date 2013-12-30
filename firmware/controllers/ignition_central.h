@@ -9,7 +9,9 @@
 #ifndef IGNITION_CENTRAL_H_
 #define IGNITION_CENTRAL_H_
 
+#include "signal_executor.h"
+
 void initIgnitionCentral(void);
-void scheduleSparkOut(int igniterId, int offsetSysTicks, int lengthSysTicks);
+void scheduleSparkOut(OutputSignal *igniter, int offsetSysTicks, int lengthSysTicks);
 
 #endif /* IGNITION_CENTRAL_H_ */
