@@ -27,6 +27,8 @@ void setOutputPinValue(io_pin_e pin, int value) {
 
 
 void testSignalExecutor() {
+	print("*************************************** testSignalExecutor\r\n");
+
 	OutputSignal s1;
 	OutputSignal s2;
 
@@ -38,6 +40,7 @@ void testSignalExecutor() {
 	LL_COUNT(st_output_list, out, count);
 	assertEquals(2, count);
 
+	s1.io_pin = 0;
 	initOutputSignalBase(&s1);
 	scheduleOutputBase(&s1, 10, 100);
 

@@ -13,8 +13,8 @@ typedef float myfloat;
 
 #include <stdio.h>
 #include <math.h>
-#include <time.h>
 
+#include "global.h"
 #include "boards.h"
 #include "engines.h"
 
