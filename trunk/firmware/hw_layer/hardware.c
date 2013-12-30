@@ -18,6 +18,7 @@
 #include "HIP9011.h"
 #include "can_hw.h"
 #include "histogram.h"
+#include "mmc_card.h"
 
 McpAdcState adcState;
 
@@ -61,6 +62,8 @@ void initHardware() {
 //	requestAdcValue(&adcState, 0);
 
 	initShaftPositionInputCapture();
+
+//	initMmcCard();
 
 //	initFixedLeds();
 
