@@ -15,11 +15,11 @@
 static cyclic_buffer sb;
 
 void testCyclicBuffer(void) {
+	print("*************************************** testCyclicBuffer\r\n");
 
 	cbInit(&sb);
 	cbAdd(&sb, 10);
 
-	print("testCyclicBuffer\r\n");
 	assertEquals(10, cbSum(&sb, 3));
 
 	cbAdd(&sb, 2);

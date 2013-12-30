@@ -11,9 +11,9 @@
 static ThermistorConf tc;
 
 void testSensors(void) {
+	print("************************************************** testSensors\r\n");
 	setThermistorConfiguration(&tc, 32, 9500, 75, 2100, 120, 1000);
 
-	print("testSensors\r\n");
 	prepareThermistorCurve(&tc);
 
 	assertEquals(-0.003, tc.s_h_a);
