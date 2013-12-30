@@ -43,9 +43,7 @@ struct OutputSignal_struct {
 	volatile int offset;
 	// time in system ticks
 	volatile int duration;
-#if EFI_PROD_CODE
-	Logging logging;
-#endif /* EFI_PROD_CODE */
+
 	int initialized;
 
 	time_t last_scheduling_time;
