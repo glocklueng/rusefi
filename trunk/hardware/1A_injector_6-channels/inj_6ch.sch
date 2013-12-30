@@ -32,7 +32,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "6 Channel Injector"
-Date "24 dec 2013"
+Date "30 dec 2013"
 Rev "A-6"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""
@@ -495,7 +495,8 @@ F 0 "P3" V 5750 3625 50  0000 C CNN
 F 1 "CONN_3" V 5850 3625 40  0000 C CNN
 F 2 "bornier3" H 5800 3625 60  0001 C CNN
 F 3 "" H 5800 3625 60  0000 C CNN
-F 4 "1760500000" V 5800 3625 60  0001 C CNN "mfg#"
+F 4 "OST,OSTTC032162" V 5800 3625 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,ED2610-ND" V 5800 3625 60  0001 C CNN "vend1,vend1#"
 	1    5800 3625
 	1    0    0    1   
 $EndComp
@@ -507,7 +508,8 @@ F 0 "P2" V 5750 3925 40  0000 C CNN
 F 1 "CONN_2" V 5850 3925 40  0000 C CNN
 F 2 "bornier2" H 5800 3925 60  0001 C CNN
 F 3 "" H 5800 3925 60  0000 C CNN
-F 4 "1760490000" V 5800 3925 60  0001 C CNN "mfg"
+F 4 "OST,OSTTC022162" V 5800 3925 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,ED2609-ND" V 5800 3925 60  0001 C CNN "vend1,vend1#"
 	1    5800 3925
 	1    0    0    1   
 $EndComp
@@ -539,7 +541,8 @@ F 0 "P4" V 5750 3325 40  0000 C CNN
 F 1 "CONN_2" V 5850 3325 40  0000 C CNN
 F 2 "bornier2" H 5800 3325 60  0001 C CNN
 F 3 "" H 5800 3325 60  0000 C CNN
-F 4 "1760490000" V 5800 3325 60  0001 C CNN "mfg"
+F 4 "OST,OSTTC022162" V 5800 3325 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,ED2609-ND" V 5800 3325 60  0001 C CNN "vend1,vend1#"
 	1    5800 3325
 	1    0    0    1   
 $EndComp
@@ -587,7 +590,8 @@ F 0 "P5" V 675 6475 50  0000 C CNN
 F 1 "CONN_3" V 775 6475 40  0000 C CNN
 F 2 "bornier3" H 725 6475 60  0001 C CNN
 F 3 "" H 725 6475 60  0000 C CNN
-F 4 "1760500000" V 725 6475 60  0001 C CNN "mfg#"
+F 4 "OST,OSTTC022162" V 725 6475 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,ED2609-ND" V 725 6475 60  0001 C CNN "vend1,vend1#"
 	1    725  6475
 	-1   0    0    -1  
 $EndComp
@@ -953,4 +957,6 @@ F 5 "digi,A106616-ND" H 3175 7575 60  0000 C CNN "vend1,vend1#"
 	1    2975 6825
 	1    0    0    -1  
 $EndComp
+Text Notes 550  6050 0    60   ~ 0
+2 position\nterminal is\nused here
 $EndSCHEMATC
