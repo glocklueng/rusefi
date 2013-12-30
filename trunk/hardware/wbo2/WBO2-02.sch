@@ -29,7 +29,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:WBO2-02-1.1-cache
+LIBS:WBO2-02-cache
 EELAYER 25  0
 EELAYER END
 $Descr User 11000 8500
