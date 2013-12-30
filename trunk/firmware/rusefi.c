@@ -96,8 +96,11 @@ void runRusEfi(void) {
 	print("Running main loop\r\n");
 	main_loop_started = TRUE;
 	while (TRUE) {
-		printState();
+		// sensor state + all pending messages for our own dev console
+		updateDevConsoleState();
+
 #if EFI_TUNER_STUDIO
+		// sensor state for EFI Analytics Tuner Studio
 		updateTunerStudioState();
 #endif
 		chThdSleepMilliseconds(5);
