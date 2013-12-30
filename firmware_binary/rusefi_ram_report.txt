@@ -6,7 +6,6 @@ Record{size=5000, name=' build/obj/datalogging.o@ioBuffer'}
 Record{size=5000, name=' build/obj/datalogging.o@ .bss.pendingBuffer'}
 Record{size=5000, name=' build/obj/datalogging.o@ .bss.outputBuffer'}
 Record{size=5000, name=' build/obj/analog_chart.o@ .bss.LOGGING_BUFFER'}
-Record{size=4032, name=' build/obj/injector_central.o@ .bss.injectors'}
 Record{size=4000, name=' build/obj/histogram.o@ .bss.small_bounds_index'}
 Record{size=3608, name=' build/obj/main_loop.o@ .bss.mainLoopHisto'}
 Record{size=3328, name=' build/obj/engine_controller.o@ec2'}
@@ -14,7 +13,6 @@ Record{size=2544, name=' build/obj/idle_thread.o@ .bss.idleValve'}
 Record{size=2000, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferData'}
 Record{size=1520, name=' build/obj/wave_analyzer.o@readers'}
 Record{size=1440, name=' build/obj/usb_lld.o@USBD1'}
-Record{size=1344, name=' build/obj/ignition_central.o@igniters'}
 Record{size=1200, name=' build/obj/io_pins.o@outputs'}
 Record{size=1000, name=' build/obj/settings.o@ .bss.LOGGING_BUFFER'}
 Record{size=696, name=' build/obj/wave_analyzer.o@ .bss.waThreadStack'}
@@ -166,4 +164,4 @@ Record{size=4, name=' 00@ *(.bss._idle_thread_wa)'}
 Record{size=2, name=' build/obj/spi_lld.o@dummytx'}
 Record{size=2, name=' build/obj/spi_lld.o@dummyrx'}
 Record{size=1, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferInited'}
-Total size: 95913
+Total size: 90537
