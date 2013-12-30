@@ -14,18 +14,18 @@ void resetEventList(ActuatorEventList *list) {
 
 static void copyActuatorEvent(ActuatorEvent *source, ActuatorEvent*target) {
 	target->eventIndex = source->eventIndex;
-	target->actuatorId = source->actuatorId;
+	target->actuator = source->actuator;
 	target->angleOffset = source->angleOffset;
 }
 
-void registerActuatorEvent(ActuatorEventList *list, int eventIndex, int actuatorId, float angleOffset) {
+void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset) {
 	if (list->size == MAX_EVENT_COUNT) {
 		fatal("registerActuatorEvent");
 		return;
 	}
 	ActuatorEvent *e = &list->events[list->size++];
 	e->eventIndex = eventIndex;
-	e->actuatorId = actuatorId;
+	e->actuator = actuator;
 	e->angleOffset = angleOffset;
 }
 

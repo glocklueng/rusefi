@@ -39,13 +39,11 @@ void assertCylinderId(int cylinderId, char *msg) {
 /**
  * This method schedules asynchronous fuel squirt
  */
-void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, int cylinderId) {
-	assertCylinderId(cylinderId, "scheduleFuelInjection");
-
-	if (!isInjectorEnabled(cylinderId))
-		return;
-
-	OutputSignal *injector = &injectors[cylinderId - 1];
+void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, OutputSignal *injector) {
+//	assertCylinderId(cylinderId, "scheduleFuelInjection");
+//
+//	if (!isInjectorEnabled(cylinderId))
+//		return;
 
 	scheduleOutput(injector, offsetSysTicks, lengthSysTicks);
 }

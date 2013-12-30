@@ -17,19 +17,19 @@
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	// injector 1 activated at the 1st tooth event while cranking
-	registerActuatorEvent(&config->crankingInjectionEvents, 1, 1, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 1, addOutputSignal(INJECTOR_1_OUTPUT), 0);
 	// injector 2 activated at the 36th st tooth event while cranking (do not forget - there are 70 events overall, 35 ups and 46 downs
-	registerActuatorEvent(&config->crankingInjectionEvents, 36, 2, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 36, addOutputSignal(INJECTOR_2_OUTPUT), 0);
 
 	// injector 1 activated at the 1st tooth event while normal running
-	registerActuatorEvent(&config->injectionEvents, 1, 1, 0);
-	// injector 2 activated at the 36th st tooth event while normal running
-	registerActuatorEvent(&config->injectionEvents, 36, 2, 0);
+	registerActuatorEvent(&config->injectionEvents, 1, addOutputSignal(INJECTOR_1_OUTPUT), 0);
+	// injector 2 activated at the 36th tooth event while normal running
+	registerActuatorEvent(&config->injectionEvents, 36, addOutputSignal(INJECTOR_2_OUTPUT), 0);
 
 	// spark 1 activated at the 1st tooth event while cranking & normal running
-	registerActuatorEvent(&config->ignitionEvents, 1, 1, 0);
-	// spark 2 activated at the 36th st tooth event while cranking & normal running
-	registerActuatorEvent(&config->ignitionEvents, 36, 2, 0);
+	registerActuatorEvent(&config->ignitionEvents, 1, addOutputSignal(SPARKOUT_2_OUTPUT), 0);
+	// spark 2 activated at the 36th tooth event while cranking & normal running
+	registerActuatorEvent(&config->ignitionEvents, 36, addOutputSignal(SPARKOUT_2_OUTPUT), 0);
 }
 
 void setFordFiestaDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {

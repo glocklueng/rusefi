@@ -8,7 +8,6 @@
 #ifndef WAVE_MATH_H_
 #define WAVE_MATH_H_
 
-#include <time.h>
 #include "global.h"
 
 // number of ticks in one period of given frequency (per second)

@@ -8,11 +8,14 @@
 #ifndef EVENT_REGISTRY_H_
 #define EVENT_REGISTRY_H_
 
+#include "global.h"
+#include "signal_executor.h"
+
 #define MAX_EVENT_COUNT 40
 
 typedef struct {
 	int eventIndex;
-	int actuatorId;
+	OutputSignal *actuator;
 	float angleOffset;
 } ActuatorEvent;
 
@@ -29,9 +32,9 @@ void resetEventList(ActuatorEventList *list);
  * In the future implementation we will drop the 'eventIndex' parameter and everything will be
  * angle-driven. But that's just a plan for next iteration.
  *
- * @param	actuatorId injector ID or coil ID
+ * @param	actuator injector or coil OutputSignal
  */
-void registerActuatorEvent(ActuatorEventList *list, int eventIndex, int actuatorId, float angleOffset);
+void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset);
 
 void findEvents(int eventIndex, ActuatorEventList *source, ActuatorEventList *target);
 

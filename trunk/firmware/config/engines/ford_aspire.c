@@ -91,37 +91,37 @@ static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
 
 static void configureAspireEngineEventHandler(EventHandlerConfiguration *config) {
 	resetEventList(&config->crankingInjectionEvents);
-	registerActuatorEvent(&config->crankingInjectionEvents, 1, 1, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 1, 2, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 1, 3, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 1, 4, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 3, 1, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 3, 2, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 3, 3, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 3, 4, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 6, 1, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 6, 2, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 6, 3, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 6, 4, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 8, 1, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 8, 2, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 8, 3, 0);
-	registerActuatorEvent(&config->crankingInjectionEvents, 8, 4, 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 1, addOutputSignal(INJECTOR_1_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 1, addOutputSignal(INJECTOR_2_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 1, addOutputSignal(INJECTOR_3_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 1, addOutputSignal(INJECTOR_4_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 3, addOutputSignal(INJECTOR_1_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 3, addOutputSignal(INJECTOR_2_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 3, addOutputSignal(INJECTOR_3_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 3, addOutputSignal(INJECTOR_4_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 6, addOutputSignal(INJECTOR_1_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 6, addOutputSignal(INJECTOR_2_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 6, addOutputSignal(INJECTOR_3_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 6, addOutputSignal(INJECTOR_4_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 8, addOutputSignal(INJECTOR_1_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 8, addOutputSignal(INJECTOR_2_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 8, addOutputSignal(INJECTOR_3_OUTPUT), 0);
+	registerActuatorEvent(&config->crankingInjectionEvents, 8, addOutputSignal(INJECTOR_4_OUTPUT), 0);
 
 	resetEventList(&config->injectionEvents);
-	registerActuatorEvent(&config->injectionEvents, 1, 4, 0);
-	registerActuatorEvent(&config->injectionEvents, 3, 2, 0);
-	registerActuatorEvent(&config->injectionEvents, 6, 1, 0);
-	registerActuatorEvent(&config->injectionEvents, 8, 3, 0);
+	registerActuatorEvent(&config->injectionEvents, 1, addOutputSignal(INJECTOR_4_OUTPUT), 0);
+	registerActuatorEvent(&config->injectionEvents, 3, addOutputSignal(INJECTOR_2_OUTPUT), 0);
+	registerActuatorEvent(&config->injectionEvents, 6, addOutputSignal(INJECTOR_1_OUTPUT), 0);
+	registerActuatorEvent(&config->injectionEvents, 8, addOutputSignal(INJECTOR_3_OUTPUT), 0);
 
 	resetEventList(&config->ignitionEvents);
 	float x = 53;
-	registerActuatorEvent(&config->ignitionEvents, 0, 2, x);
+	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_2_OUTPUT), x);
 
-	registerActuatorEvent(&config->ignitionEvents, 1, 1, 0);
-	registerActuatorEvent(&config->ignitionEvents, 3, 1, 0);
-	registerActuatorEvent(&config->ignitionEvents, 6, 1, 0);
-	registerActuatorEvent(&config->ignitionEvents, 8, 1, 0);
+	registerActuatorEvent(&config->ignitionEvents, 1, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
+	registerActuatorEvent(&config->ignitionEvents, 3, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
+	registerActuatorEvent(&config->ignitionEvents, 6, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
+	registerActuatorEvent(&config->ignitionEvents, 8, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
 }
 
 static void setDefaultFuelMap(EngineConfiguration *engineConfiguration) {
