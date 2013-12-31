@@ -114,3 +114,7 @@ void testMalfunctionCentral(void) {
 	assertEquals(MAX_ERROR_CODES_COUNT - 1, localCopy.count);
 }
 
+void testGpsParser() {
+	//parseNeo6m("$GPGLL,1234.34240,N,01234.44218,W,013141.00,A,A*7A");
+}
+
