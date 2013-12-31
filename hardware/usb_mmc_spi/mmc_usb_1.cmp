@@ -2,175 +2,175 @@ Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Сбт 28 Дек 2013 
 
 BeginCmp
 TimeStamp = /52A59B39;
-Reference = C1;
+Reference = C301;
 ValeurCmp = 4700pF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A5A67B;
-Reference = C2;
+Reference = C302;
 ValeurCmp = 47pF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A5A68B;
-Reference = C3;
+Reference = C303;
 ValeurCmp = 47pF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A59B20;
-Reference = C4;
+Reference = C304;
 ValeurCmp = 4.7uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A59B31;
-Reference = C5;
+Reference = C305;
 ValeurCmp = .1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A59B38;
-Reference = C6;
+Reference = C306;
 ValeurCmp = .1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52BEFB4C;
-Reference = C7;
+Reference = C307;
 ValeurCmp = .1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52BEFB29;
-Reference = C8;
+Reference = C308;
 ValeurCmp = 4.7uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A59B2C;
-Reference = D1;
+Reference = D301;
 ValeurCmp = GREEN;
 IdModule  = LED-0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A5A380;
-Reference = D2;
+Reference = D302;
 ValeurCmp = RED;
 IdModule  = LED-0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A5C8BF;
-Reference = D3;
+Reference = D303;
 ValeurCmp = RED;
 IdModule  = LED-0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52BD6BB8;
-Reference = G1;
+Reference = G301;
 ValeurCmp = LOGO;
 IdModule  = LOGO_F;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A7387D;
-Reference = J1;
+Reference = J301;
 ValeurCmp = MINI-USB-5P-3400030P1;
 IdModule  = MINI-USB-5P-3400020P1;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A5D5AA;
-Reference = K1;
+Reference = K301;
 ValeurCmp = CONN_3;
 IdModule  = PIN_ARRAY_3_A;
 EndCmp
 
 BeginCmp
 TimeStamp = /52B45CE3;
-Reference = P1;
+Reference = P301;
 ValeurCmp = CONN_5X2;
 IdModule  = PIN_ARRAY_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A75274;
-Reference = P2;
+Reference = P302;
 ValeurCmp = MICRO-SDCARD-CONNECTOR-3300060P1;
 IdModule  = MICRO-SDCARD-CONNECTOR-3300060P1;
 EndCmp
 
 BeginCmp
 TimeStamp = /52B479E1;
-Reference = P3;
+Reference = P303;
 ValeurCmp = CONN_10X2;
 IdModule  = PIN_ARRAY_10X2;
 EndCmp
 
 BeginCmp
 TimeStamp = /52B479EE;
-Reference = P4;
+Reference = P304;
 ValeurCmp = CONN_10X2;
 IdModule  = PIN_ARRAY_10X2;
 EndCmp
 
 BeginCmp
 TimeStamp = /52BAA4A8;
-Reference = P5;
+Reference = P305;
 ValeurCmp = CONN_1;
 IdModule  = PIN_ARRAY_1;
 EndCmp
 
 BeginCmp
 TimeStamp = /52BAF879;
-Reference = P6;
+Reference = P306;
 ValeurCmp = CONN_1;
 IdModule  = PIN_ARRAY_1;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A59B3A;
-Reference = R1;
+Reference = R301;
 ValeurCmp = 1M;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A59B2D;
-Reference = R2;
+Reference = R302;
 ValeurCmp = 1k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A5A342;
-Reference = R3;
+Reference = R303;
 ValeurCmp = 1k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A5C8B9;
-Reference = R4;
+Reference = R304;
 ValeurCmp = 1k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A59B51;
-Reference = U1;
+Reference = U301;
 ValeurCmp = FT232RL;
 IdModule  = ssop-28;
 EndCmp
