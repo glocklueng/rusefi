@@ -23,6 +23,7 @@ public class Main {
         registerTool("pcb_merge", PcbMergeTool.class);
 
         registerTool("cmp_merge", CmpMergeTool.class);
+        registerTool("rename", RenameComponents.class);
     }
 
     private static void registerTool(String name, Class<?> clazz) {
