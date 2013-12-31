@@ -2380,7 +2380,7 @@
     (fill (arc_segments 16) (thermal_gap 0.254) (thermal_bridge_width 0.508) (smoothing fillet) (radius 0.762))
     (polygon
       (pts
-        (xy 173.7995 152.5905) (xy 173.7995 113.2205) (xy 232.2195 113.2205) (xy 232.2195 152.5905)
+        (xy 175 152.5905) (xy 175 113.2205) (xy 232.2195 113.2205) (xy 232.2195 152.5905)
       )
     )
     (filled_polygon
@@ -2683,7 +2683,7 @@
     (fill (arc_segments 16) (thermal_gap 0.508) (thermal_bridge_width 0.508) (smoothing fillet) (radius 0.762))
     (polygon
       (pts
-        (xy 171.2595 111.9505) (xy 171.2595 153.8605) (xy 233.4895 153.8605) (xy 233.4895 111.9505)
+        (xy 177 111.9505) (xy 177 153.8605) (xy 233.4895 153.8605) (xy 233.4895 111.9505)
       )
     )
     (filled_polygon
