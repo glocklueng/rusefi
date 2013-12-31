@@ -1,6 +1,6 @@
 /**
  * @file	neo6m.c
- * @brerf	Ublox 6M UART driver
+ * @brerf	Ublox 6M hardware UART driver
  *
  *
  * http://www.u-blox.com/en/gps-modules/pvt-modules/previous-generations/neo-6-family.html
@@ -8,6 +8,8 @@
  * @date Dec 28, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
+
+#include "neo6m_logic.h"
 
 // todo: some data structure for coordinates location
 // todo:
