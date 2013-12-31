@@ -9,15 +9,12 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-typedef float myfloat;
-
 #include <stdio.h>
 #include <math.h>
 
 #include "global.h"
 #include "boards.h"
 #include "engines.h"
-
 
 #define TRUE 1
 #define FALSE 0
