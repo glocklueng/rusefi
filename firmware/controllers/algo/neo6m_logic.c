@@ -7,6 +7,6 @@
 
 #include "neo6m_logic.h"
 
-void parseNeo6m(gps_position_s *position, char *) {
+void parseNeo6m(gps_position_s *position, char *line) {
 
 }
