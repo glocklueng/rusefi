@@ -384,7 +384,7 @@ F 3 "" H 3300 2525 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 Text Label 3775 3100 0    60   ~ 0
-3,3V
+3.3V
 $Comp
 L PWR_FLAG #FLG017
 U 1 1 52A5B0CD
@@ -657,9 +657,9 @@ Wire Wire Line
 Wire Wire Line
 	3025 4075 2850 4075
 Text Label 3875 4900 0    60   ~ 0
-3,3V
+3.3V
 Text Label 2850 3875 2    60   ~ 0
-3,3V
+3.3V
 Text Label 2850 4075 2    60   ~ 0
 CS2
 Wire Wire Line
@@ -832,7 +832,7 @@ F 3 "" H 6950 5350 60  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Text Label 6650 5850 2    60   ~ 0
-3,3V
+3.3V
 $Comp
 L MINI-USB-5P-3400020P1 J301
 U 1 1 52C034E1
