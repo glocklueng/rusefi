@@ -1,7 +1,8 @@
 EESchema Schematic File Version 2
+LIBS:project_specific_libs
+LIBS:header_10x2
 LIBS:power
 LIBS:device
-LIBS:transistors
 LIBS:conn
 LIBS:linear
 LIBS:regul
@@ -12,11 +13,9 @@ LIBS:memory
 LIBS:xilinx
 LIBS:special
 LIBS:microcontrollers
-LIBS:dsp
 LIBS:microchip
 LIBS:analog_switches
 LIBS:motorola
-LIBS:texas
 LIBS:intel
 LIBS:audio
 LIBS:interface
@@ -25,23 +24,15 @@ LIBS:philips
 LIBS:display
 LIBS:cypress
 LIBS:siliconi
-LIBS:opto
-LIBS:atmel
 LIBS:contrib
-LIBS:valves
-LIBS:LMV324IDR
-LIBS:logo
-LIBS:logo_flipped
-LIBS:project_specific_libs
-LIBS:header_10x2
-LIBS:art-electro-conn
+LIBS:inj_6ch-cache
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
-Sheet 1 4
+Sheet 1 1
 Title "6 Channel Injector"
-Date "1 jan 2014"
+Date "30 dec 2013"
 Rev "A-6"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""

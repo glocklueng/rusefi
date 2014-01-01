@@ -1,6 +1,10 @@
 
 rem Let's wipe out all local libraries. Frankenstein does not have it's own libraries!
+mkdir lib
 rm lib/*.*
+mkdir lib/3d
+rm lib/3d/*.*
+
 
 rem Let's copy Analog Input libraries & schematic 
 cp ../adc_amp_divider/lib/* lib/
@@ -11,7 +15,7 @@ cp ../1A_injector_6-channels/lib/* lib/
 cp ../1A_injector_6-channels/inj_6ch.sch .
 
 rem MMC/TTL module
-cp ../usb_mmc_spi/lib/* lib/
+cp -r ../usb_mmc_spi/lib/* lib/
 cp ../usb_mmc_spi/mmc_usb_1.sch .
 
 rem Now let's merge all compoennt mappings automatically. Magic!
