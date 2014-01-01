@@ -32,14 +32,13 @@ LIBS:valves
 LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
-LIBS:adc_amp_divider-cache
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "Analgo Protection board for RUSEFI.com"
-Date "18 dec 2013"
+Date "1 jan 2014"
 Rev "A-.01"
 Comp "RUSEFI.com"
 Comment1 ""
@@ -858,12 +857,12 @@ $EndComp
 $Comp
 L VCC #PWR030
 U 1 1 524B8454
-P 8550 8100
-F 0 "#PWR030" H 8550 8200 30  0001 C CNN
-F 1 "VCC" H 8550 8200 30  0000 C CNN
-F 2 "" H 8550 8100 60  0000 C CNN
-F 3 "" H 8550 8100 60  0000 C CNN
-	1    8550 8100
+P 8550 7950
+F 0 "#PWR030" H 8550 8050 30  0001 C CNN
+F 1 "VCC" H 8550 8050 30  0000 C CNN
+F 2 "" H 8550 7950 60  0000 C CNN
+F 3 "" H 8550 7950 60  0000 C CNN
+	1    8550 7950
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1319,7 +1318,7 @@ Wire Wire Line
 Wire Wire Line
 	9000 8650 9000 9100
 Wire Wire Line
-	8550 8100 8550 8350
+	8550 7950 8550 8350
 Wire Wire Line
 	9000 9100 8100 9100
 Wire Wire Line
@@ -2078,4 +2077,40 @@ Text Label 15300 2800 0    60   ~ 0
 PA4
 Wire Wire Line
 	15300 2800 15950 2800
+Text Label 2000 4000 0    60   ~ 0
+5V
+Text Label 2950 4100 0    60   ~ 0
+5V
+Text Label 2000 5200 0    60   ~ 0
+5V
+Text Label 2950 5300 0    60   ~ 0
+5V
+Text Label 2650 6700 0    60   ~ 0
+5V
+Text Label 2050 6600 0    60   ~ 0
+5V
+Text Label 2650 8200 0    60   ~ 0
+5V
+Text Label 2050 8100 0    60   ~ 0
+5V
+Text Label 4300 8150 0    60   ~ 0
+5V
+Text Label 6300 8000 0    60   ~ 0
+5V
+Text Label 7250 8150 0    60   ~ 0
+5V
+Text Label 8550 7950 0    60   ~ 0
+5V
+Text Label 6300 6650 0    60   ~ 0
+5V
+Text Label 7250 6800 0    60   ~ 0
+5V
+Text Label 7300 5400 0    60   ~ 0
+5V
+Text Label 6300 5250 0    60   ~ 0
+5V
+Text Label 6300 3900 0    60   ~ 0
+5V
+Text Label 7350 4050 0    60   ~ 0
+5V
 $EndSCHEMATC
