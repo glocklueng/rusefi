@@ -10,6 +10,10 @@ rem Same thing for 6 channel board
 cp ../1A_injector_6-channels/lib/* lib/
 cp ../1A_injector_6-channels/inj_6ch.sch .
 
+rem MMC/TTL module
+cp ../usb_mmc_spi/lib/* lib/
+cp ../usb_mmc_spi/mmc_usb_1.sch .
+
 rem Now let's merge all compoennt mappings automatically. Magic!
 java -jar ../../java_tools/pcb_sync.jar cmp_merge frankenstein.cmp ../1A_injector_6-channels/inj_6ch.cmp ../adc_amp_divider.vertival/adc_amp_divider_vert.cmp
 
