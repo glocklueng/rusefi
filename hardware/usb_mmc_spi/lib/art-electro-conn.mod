@@ -57,7 +57,7 @@ $PAD
 Sh "4" R 1.524 0.762 0 0 0
 Dr 0 0 0
 At SMD N 00888000
-Ne 1 "/3,3V"
+Ne 1 "/3.3V"
 Po -7.493 1.186
 $EndPAD
 $PAD

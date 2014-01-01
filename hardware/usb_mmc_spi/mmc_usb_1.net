@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source C:/stuff/rusefi_sourceforge/hardware/usb_mmc_spi/mmc_usb_1.sch)
-    (date "12/31/2013 9:21:20 PM")
+    (date "12/31/2013 9:31:44 PM")
     (tool "eeschema (2013-07-07 BZR 4022)-stable"))
   (components
     (comp (ref C304)
@@ -441,7 +441,7 @@
       (node (ref P306) (pin 1)))
     (net (code 34) (name "")
       (node (ref J301) (pin 4)))
-    (net (code 35) (name /3,3V)
+    (net (code 35) (name /3.3V)
       (node (ref P301) (pin 1))
       (node (ref R304) (pin 1))
       (node (ref P302) (pin 4))
