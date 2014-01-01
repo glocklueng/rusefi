@@ -1,4 +1,4 @@
-update=12/31/2013 10:29:16 PM
+update=12/31/2013 10:30:41 PM
 version=1
 last_client=eeschema
 [pcbnew]
@@ -93,3 +93,4 @@ LibName32=logo
 LibName33=logo_flipped
 LibName34=project_specific_libs
 LibName35=header_10x2
+LibName36=art-electro-conn
