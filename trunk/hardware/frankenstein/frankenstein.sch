@@ -29,14 +29,19 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:frankenstein-cache
+LIBS:LMV324IDR
+LIBS:logo
+LIBS:logo_flipped
+LIBS:project_specific_libs
+LIBS:header_10x2
+LIBS:art-electro-conn
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 2
+Sheet 1 4
 Title ""
-Date "9 dec 2013"
+Date "1 jan 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -55,5 +60,11 @@ S 5350 2750 500  400
 U 52A5358C
 F0 "adc_amp_divider_vert" 50
 F1 "adc_amp_divider_vert.sch" 50
+$EndSheet
+$Sheet
+S 3550 3800 1000 400 
+U 52C39F6D
+F0 "mmc_usb_1" 50
+F1 "mmc_usb_1.sch" 50
 $EndSheet
 $EndSCHEMATC
