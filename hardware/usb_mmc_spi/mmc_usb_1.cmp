@@ -79,7 +79,7 @@ EndCmp
 
 BeginCmp
 TimeStamp = /52BD6BB8;
-Reference = G301;
+Reference = G305;
 ValeurCmp = LOGO;
 IdModule  = LOGO_F;
 EndCmp
