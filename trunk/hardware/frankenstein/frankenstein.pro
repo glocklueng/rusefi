@@ -1,6 +1,6 @@
-update=08/12/2013 22:39:59
+update=12/31/2013 10:29:16 PM
 version=1
-last_client=cvpcb
+last_client=eeschema
 [pcbnew]
 version=1
 LastNetListRead=
@@ -44,6 +44,11 @@ LibName20=project_specific_modules
 LibDir=lib
 [general]
 version=1
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [eeschema]
 version=1
 LibDir=lib
@@ -87,8 +92,4 @@ LibName31=LMV324IDR
 LibName32=logo
 LibName33=logo_flipped
 LibName34=project_specific_libs
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+LibName35=header_10x2
