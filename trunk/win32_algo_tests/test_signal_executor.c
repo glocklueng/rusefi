@@ -56,6 +56,6 @@ void testSignalExecutor() {
 
 	now = 300; // let's see what happens if the handler is late
 	testToggleCounter = 0;
-	//todo	assertEquals(100, toggleSignalIfNeeded(&s1, now));
-	//todo	assertEquals(1, testToggleCounter);
+	assertEquals(100, toggleSignalIfNeeded(&s1, now));
+	assertEquals(1, testToggleCounter);
 }
