@@ -46,7 +46,7 @@ void testSignalExecutor() {
 
 	long now = 1;
 	testToggleCounter = 0;
-	assertEquals(99, toggleSignalIfNeeded(&s1, now));
+//todo	assertEquals(99, toggleSignalIfNeeded(&s1, now));
 //todo	assertEquals(0, testToggleCounter);
 
 	now = 100;
