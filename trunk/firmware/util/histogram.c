@@ -101,6 +101,7 @@ void hsAdd(histogram_s *h, int64_t value) {
 
 /**
  * @brief Prepare histogram report
+ * @note This report should be displayed using 'printHistogram' method
  */
 int hsReport(histogram_s *h, int* report) {
 	int index = 0;
