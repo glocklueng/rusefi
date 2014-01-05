@@ -26,8 +26,9 @@ OutputSignal * addOutputSignal(io_pin_e ioPin) {
 
 
 void initOutputSignalBase(OutputSignal *signal) {
-	signal->initialized = TRUE;
+	signal->status = IDLE;
 	signal->last_scheduling_time = 0;
+	signal->initialized = TRUE;
 }
 
 void scheduleOutputBase(OutputSignal *signal, int offset, int duration) {
