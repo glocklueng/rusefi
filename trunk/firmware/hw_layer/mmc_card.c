@@ -62,6 +62,7 @@ FRESULT createLogFile(char *fileName) {
 	FRESULT err;
 
 	if (fs_ready) {
+		memset(&FDLogFile, 0, sizeof(FIL));								// clear the memory
 		err = f_open(&FDLogFile, fileName, FA_CREATE_NEW | FA_WRITE);	// Create new file 
 		if (err == FR_OK || err == FR_EXIST) {
 			f_sync(&FDLogFile);
@@ -110,7 +111,7 @@ void appendToLog(char *line) {
  */
 static void MMCRemoved(void) {
 	f_mount(0, NULL);							// FATFS: Unregister work area prior to discard it
-	mmcDisconnect(&MMCD1);						// MMC: disconnect
+	memset(&FDLogFile, 0, sizeof(FIL));			// clear FDLogFile
 	fs_ready = FALSE;							// status = false
 	print("MMC/SD card removed.\r\n");
 }
@@ -121,34 +122,23 @@ static void MMCRemoved(void) {
 static int MMCInserted(void) {
 	FRESULT err;
 
-	/*
-	 * On insertion MMC initialization and FS mount.
-	 */
-	if (mmcConnect(&MMCD1)) {						// try to connect to MMC
-		return -1;
-	}
+	memset(&MMC_FS, 0, sizeof(FATFS));				// reserve the memory
 	err = f_mount(0, &MMC_FS);						// if Ok - mount FS now
-	if (err != FR_OK) {
-		printError("can't mount FS", err);
-		return -1;
-	}
-	fs_ready = TRUE;
-	print("MMC/SD card inserted and mounted success.\r\n");
+	if (err == FR_OK) {
+		fs_ready = TRUE;
+		print("MMC/SD card inserted and mounted success.\r\n");
 	
-	/*
-	 *	ticket aims: only create file and append two strings
-	 */
-		err = createLogFile("rusefi.log");
-		if (err != FR_OK)
-			printError("create", err);
-		else {
+		return err;
+	}
+	printError("can't mount FS", err);
+	return FR_NO_FILESYSTEM;
+}
+
+void ticket(void){
+
 			appendToLog("hello line 1\r\n");
 			appendToLog("hello line 2\r\n");
-		}
 
-	/* end of TICKET aims */
-	
-	return 0;
 }
 
 //  this thread is a in/out MMC/SD monitor
@@ -159,17 +149,24 @@ static msg_t MMCmonThread(void)
 #endif
 {
 	chRegSetThreadName("MMC_Monitor");
+	FRESULT err;
 	
 	while (TRUE) {
-		// if inserted
-		if (blkIsInserted(&MMCD1) && fs_ready == FALSE)
-			MMCInserted();
-	
-		// TODO: if removed not working!!!
-		// TODO: require correct new coding
-		if (!blkIsInserted(&MMCD1) && fs_ready == TRUE)
-			MMCRemoved();
-		
+		if (mmcConnect(&MMCD1) == CH_SUCCESS){				// try to connect to MMC
+			if(!fs_ready){									// is first success connect
+				if(MMCInserted() == FR_OK){					// mount FS, fulfil data
+					err = createLogFile("rusefi.log");		// create Log file
+					if (err != FR_OK)
+						printError("create", err);
+				} else
+						print("MMC Insertion failed\r\n");
+			}
+		} else {
+			if(fs_ready){									// if removed detected first time
+				mmcDisconnect(&MMCD1);						// MMC: disconnect
+				MMCRemoved();								// umount FS, clear data
+			}
+		}
 		// this thread is activated 2 times per second
 		chThdSleepMilliseconds(PUSHPULLDELAY);
 	}
