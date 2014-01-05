@@ -118,7 +118,7 @@ INCDIR = . \
 	$(PROJECT_DIR)/controllers/sensors \
 	$(PROJECT_DIR)/controllers/algo \
 	$(PROJECT_DIR)/controllers/math \
-	$(PROJECT_DIR)/ext 
+	$(PROJECT_DIR)/ext_algo 
 	
 
 #
