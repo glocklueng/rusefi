@@ -22,7 +22,13 @@
 #endif
 
 typedef enum {
-	LP_RPM, LP_ECT, LP_IAT, LP_THROTTLE, LP_SECONDS, LP_MAP,LP_MAP_RAW,
+	LP_RPM,
+	LP_ECT,
+	LP_IAT,
+	LP_THROTTLE, LP_SECONDS,
+	LP_MAP,
+	LP_MAF,
+	LP_MAP_RAW,
 
 } LoggingPoints;
 
@@ -62,7 +68,7 @@ void printLine(Logging *logging);
 
 void appendMsgPrefix(Logging *logging);
 void printSimpleMsg(Logging *logging, char *msg, int value);
-
+char* getCaption(LoggingPoints loggingPoint);
 void appendPrintf(Logging *logging, const char *fmt, ...);
 /**
  * this method copies the line into the intermediate buffer for later output by
