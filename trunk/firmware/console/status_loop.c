@@ -20,6 +20,7 @@
 
 #include "engine_state.h"
 #include "io_pins.h"
+#include "mmc_card.h"
 
 #include "datalogging.h"
 #include "shaft_position_input.h"
@@ -45,6 +46,7 @@ static int prevCkpEventCounter = -1;
 
 static Logging logger;
 static Logging logger2;
+static Logging fileLogger;
 static char LOGGING_BUFFER[500];
 #define FULL_LOGGING_KEY "fl"
 
@@ -74,30 +76,45 @@ static void printStatus(void) {
 //	return getTCharge(getCurrentRpm(), tps, cltK, iatK);
 //}
 
-static void printSensors(void) {
-	debugFloat(&logger, "vref", getVRef(), 2);
+static void reportSensorF(char *caption, int value, int precision) {
+	debugFloat(&logger, caption, value, precision);
+	debugFloat(&fileLogger, caption, value, precision);
+}
 
-// white, MAF
-	myfloat maf = getMaf();
-	debugFloat(&logger, "maf", maf, 2);
+static void reportSensorI(char *caption, int value) {
+	debugInt(&logger, caption, value);
+	debugInt(&fileLogger, caption, value);
+}
+
+static void printSensors(void) {
+	resetLogging(&fileLogger);
+
+	// current time, in milliseconds
+	int nowMs = chTimeNow() / TICKS_IN_MS;
+	myfloat sec = ((myfloat) nowMs) / 1000;
+	reportSensorF("time", sec, 3);
+
+	reportSensorI("rpm", getCurrentRpm());
+	reportSensorF("maf", getMaf(), 2);
 
 	if (engineConfiguration2->hasMapSensor) {
-		myfloat map = getMap();
-		logFloat(&logger, LP_MAP, map);
+		reportSensorF(getCaption(LP_MAP), getMap(), 2);
 	}
 
-	myfloat tps = getTPS();
-	logInt(&logger, LP_THROTTLE, tps);
+	reportSensorF("afr", getAfr(), 2);
+	reportSensorF("vref", getVRef(), 2);
+
+	reportSensorI(getCaption(LP_THROTTLE), getTPS());
 
 	if (engineConfiguration2->hasCltSensor) {
-		myfloat coolantTemp = getCoolantTemperature();
-		logFloat(&logger, LP_ECT, coolantTemp);
+		reportSensorF(getCaption(LP_ECT), getCoolantTemperature(), 2);
 	}
 
-	myfloat airTemp = getIntakeAirTemperature();
-	logFloat(&logger, LP_IAT, airTemp);
+	reportSensorF(getCaption(LP_IAT), getIntakeAirTemperature(), 2);
 
 //	debugFloat(&logger, "tch", getTCharge1(tps), 2);
+
+	appendToLog(fileLogger.buffer);
 }
 
 #if EFI_CUSTOM_PANIC_METHOD
@@ -154,20 +171,15 @@ void updateDevConsoleState(void) {
 
 	timeOfPreviousReport = nowSeconds;
 
-	// current time, in milliseconds
-	int nowMs = chTimeNow() / TICKS_IN_MS;
 	int rpm = getCurrentRpm();
 
 	prevCkpEventCounter = currentCkpEventCounter;
 
-	myfloat sec = ((myfloat) nowMs) / 1000;
-	debugFloat(&logger, "time", sec, 3);
+	printSensors();
 
 	debugInt(&logger, "ckp_c", currentCkpEventCounter);
 
-	debugInt(&logger, "rpm", rpm);
-
-	debugInt(&logger, "idl", getIdleSwitch());
+//	debugInt(&logger, "idl", getIdleSwitch());
 
 //	debugFloat(&logger, "table_spark", getAdvance(rpm, getMaf()), 2);
 
@@ -183,10 +195,6 @@ void updateDevConsoleState(void) {
 //		myfloat map = getMap();
 //		myfloat fuel = getDefaultFuel(rpm, map);
 //		debugFloat(&logger, "d_fuel", fuel, 2);
-
-	debugFloat(&logger, "af", getAfr(), 2);
-
-	printSensors();
 
 #if EFI_WAVE_ANALYZER
 	printWave(&logger);
@@ -224,6 +232,7 @@ static void showFuelMap(int rpm, int key100) {
 void initStatusLoop(void) {
 	initLoggingExt(&logger, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 	initLogging(&logger2, "main event handler");
+	initLogging(&fileLogger, "file logger");
 
 	setFullLog(INITIAL_FULL_LOG);
 

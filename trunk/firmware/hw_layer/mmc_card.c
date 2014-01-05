@@ -94,7 +94,9 @@ void appendToLog(char *line) {
 	FRESULT err;
 	UINT bytesWrited;
 
-	if (fs_ready) {
+	if (!fs_ready)
+		return; // it is normal to have no flash card so no special message
+
 		err = f_open(&FDLogFile, LogFileName, FA_WRITE);
 		if (err == FR_OK || err == FR_EXIST) {
 			err = f_lseek(&FDLogFile, f_size(&FDLogFile));// Move to end of the file to append data
@@ -111,8 +113,6 @@ void appendToLog(char *line) {
 		} else {
 			print("Can't open Log file %s\r\n", LogFileName);
 		}
-	} else
-		print("Error: No File system is mounted.\r\n");		// FR_NO_FILESYSTEM
 }
 
 /*
