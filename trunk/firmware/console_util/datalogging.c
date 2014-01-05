@@ -106,7 +106,7 @@ void appendPrintf(Logging *logging, const char *fmt, ...) {
 	va_end(ap);
 }
 
-static char* getCaption(int loggingPoint) {
+char* getCaption(LoggingPoints loggingPoint) {
 	switch (loggingPoint) {
 	case LP_RPM:
 		return "RPM";
@@ -118,6 +118,8 @@ static char* getCaption(int loggingPoint) {
 		return "CLT";
 	case LP_SECONDS:
 		return "SecL";
+	case LP_MAF:
+		return "MAF";
 	case LP_MAP:
 		return "MAP";
 	case LP_MAP_RAW:
@@ -141,6 +143,8 @@ static char* get2ndCaption(int loggingPoint) {
 		return "s";
 	case LP_MAP:
 		return "MAP";
+	case LP_MAF:
+		return "MAF";
 	}
 	fatal("No such loggingPoint");
 	return NULL;
