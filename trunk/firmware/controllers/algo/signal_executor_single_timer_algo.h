@@ -10,6 +10,8 @@
 
 #include "signal_executor.h"
 
+#define GET_DURATION(o) ((o)->status ? (o)->duration : (o)->offset)
+
 inline void registerSignal(OutputSignal *signal);
 inline time_t toggleSignalIfNeeded(OutputSignal *out, time_t now);
 

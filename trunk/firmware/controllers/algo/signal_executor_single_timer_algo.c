@@ -6,6 +6,7 @@
  */
 
 #include "signal_executor.h"
+#include "signal_executor_single_timer_algo.h"
 #include "main.h"
 #include "utlist.h"
 #include "io_pins.h"
@@ -31,8 +32,6 @@ OutputSignal *st_output_list = NULL;
 inline void registerSignal(OutputSignal *signal) {
 	LL_APPEND(st_output_list, signal);
 }
-
-#define GET_DURATION(o) ((o)->status ? (o)->duration : (o)->offset)
 
 void setOutputPinValue(io_pin_e pin, int value);
 
