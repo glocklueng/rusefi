@@ -45,15 +45,19 @@ void testSignalExecutor() {
 	scheduleOutputBase(&s1, 10, 100);
 
 	long now = 1;
+	print("now = 1\r\n");
 	testToggleCounter = 0;
+	assertEquals(100, GET_DURATION(&s1));
 	assertEquals(9, toggleSignalIfNeeded(&s1, now));
 	assertEquals(0, testToggleCounter);
 
 	now = 100;
+	print("now = 100\r\n");
 	testToggleCounter = 0;
 	assertEquals(100, toggleSignalIfNeeded(&s1, now));
 	assertEquals(1, testToggleCounter);
 
+	print("now = 300\r\n");
 	now = 300; // let's see what happens if the handler is late
 	testToggleCounter = 0;
 	assertEquals(10, toggleSignalIfNeeded(&s1, now));
