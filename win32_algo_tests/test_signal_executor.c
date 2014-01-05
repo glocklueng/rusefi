@@ -42,12 +42,13 @@ void testSignalExecutor() {
 
 	s1.io_pin = 0;
 	initOutputSignalBase(&s1);
+	assertEqualsM("status", IDLE, s1.status);
 	scheduleOutputBase(&s1, 10, 100);
 
 	long now = 1;
 	print("now = 1\r\n");
 	testToggleCounter = 0;
-	assertEquals(100, GET_DURATION(&s1));
+	assertEqualsM("duration", 10, GET_DURATION(&s1));
 	assertEquals(9, toggleSignalIfNeeded(&s1, now));
 	assertEquals(0, testToggleCounter);
 
