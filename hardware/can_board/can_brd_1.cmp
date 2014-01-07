@@ -1,0 +1,66 @@
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Пнд 06 Янв 2014 20:50:29
+
+BeginCmp
+TimeStamp = /52CAD8F7;
+Reference = C1;
+ValeurCmp = .1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52CAD8F6;
+Reference = C2;
+ValeurCmp = 4.7uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52CAD8DC;
+Reference = D1;
+ValeurCmp = RED;
+IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52CADA22;
+Reference = G1;
+ValeurCmp = LOGO;
+IdModule  = LOGO_F;
+EndCmp
+
+BeginCmp
+TimeStamp = /52CADBD0;
+Reference = P1;
+ValeurCmp = CONN_4;
+IdModule  = PIN_ARRAY_4x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /52CADBC1;
+Reference = P2;
+ValeurCmp = CONN_2;
+IdModule  = PIN_ARRAY_2_A;
+EndCmp
+
+BeginCmp
+TimeStamp = /52CAD8DB;
+Reference = R1;
+ValeurCmp = 1k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52CADB46;
+Reference = R2;
+ValeurCmp = 10k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52CADB33;
+Reference = U1;
+ValeurCmp = MCP2551;
+IdModule  = SO8E;
+EndCmp
+
+EndListe
