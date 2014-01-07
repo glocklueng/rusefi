@@ -66,6 +66,7 @@ static char* itoa_signed(char *p, int num, unsigned radix) {
  * Integer to string
  */
 char* itoa(char *p, int num) {
+// todo: unit test
 	return itoa_signed(p, num, 10);
 }
 
@@ -107,6 +108,9 @@ void chVTSetAny(VirtualTimer *vtp, systime_t time, vtfunc_t vtfunc, void *par) {
 	}
 }
 
+/**
+ * @brief This function knows how to print a histogram_s summary
+ */
 void printHistogram(Logging *logging, histogram_s *histogram) {
 	int report[5];
 	int len = hsReport(histogram, report);
