@@ -33,6 +33,11 @@
 
 #define EFI_DEFAILED_LOGGING FALSE
 
+/**
+ * Dev console support.
+ */
+#define EFI_CLI_SUPPORT TRUE
+
 
 /**
  * Usually you need shaft position input, but maybe you do not need it?
@@ -77,6 +82,15 @@
  * Do we need Malfunction Indicator blinking logic?
  */
 #define EFI_MALFUNCTIONAL_INDICATOR TRUE
+/**
+ * Do we need file logging (like SD card) logic?
+ */
+#define EFI_FILE_LOGGING TRUE
+
+/**
+ * Do we need GPS logic?
+ */
+#define EFI_GPS TRUE
 
 /**
  * While we embed multiple PnP configurations into the same firmware binary, these marcoses give us control
