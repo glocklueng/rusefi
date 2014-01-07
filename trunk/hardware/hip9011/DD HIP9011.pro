@@ -1,6 +1,6 @@
-update=16.12.2013 20:32:35
+update=1/6/2014 11:11:34 PM
 version=1
-last_client=cvpcb
+last_client=eeschema
 [pcbnew]
 version=1
 LastNetListRead=
@@ -41,6 +41,11 @@ LibName17=lib/logo_flipped
 LibDir=
 [general]
 version=1
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [eeschema]
 version=1
 LibDir=lib/STAB
@@ -83,8 +88,3 @@ LibName30=valves
 LibName31=lib/quartz
 LibName32=lib/7805-sot89
 LibName33=lib/logo_flipped
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
