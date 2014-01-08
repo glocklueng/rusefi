@@ -313,6 +313,8 @@
           <state>$PROJ_DIR$\..\chibios\boards\ST_STM32F4_DISCOVERY</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\OTGv1</state>
           <state>$PROJ_DIR$\..\config</state>
+          <state>$PROJ_DIR$\..\ext</state>
+          <state>$PROJ_DIR$\..\ext_algo</state>
           <state>$PROJ_DIR$\..\emulation</state>
           <state>$PROJ_DIR$\..\emulation\hw_layer</state>
           <state>$PROJ_DIR$\..\hw_layer</state>
@@ -2400,6 +2402,12 @@
       <name>$PROJ_DIR$\..\hw_layer\mcp3208.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\hw_layer\mmc_card.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\mmc_card.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\hw_layer\pin_repository.c</name>
     </file>
     <file>
@@ -2808,6 +2816,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\various\chprintf.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\various\fatfs_diskio.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\various\fatfs_syscall.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\various\memstreams.c</name>
