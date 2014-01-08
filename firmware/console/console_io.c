@@ -82,7 +82,10 @@ static msg_t sdThreadEntryPoint(void *arg) {
 	return FALSE;
 }
 
+#ifdef EFI_SERIAL_OVER_USB
+#else
 static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
+#endif
 
 #ifndef EFI_SERIAL_OVER_USB
 int is_serial_ready(void) {
