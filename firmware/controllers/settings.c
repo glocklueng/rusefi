@@ -97,7 +97,7 @@ void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfigur
 	scheduleSimpleMsg(&logger, "tpsMax: ", engineConfiguration->tpsMax);
 
 	scheduleSimpleMsg(&logger, "timingMode: ", engineConfiguration->timingMode);
-	scheduleSimpleMsg(&logger, "fixedModeTiming: ", engineConfiguration->fixedModeTiming);
+	scheduleSimpleMsg(&logger, "fixedModeTiming: ", (int)engineConfiguration->fixedModeTiming);
 	scheduleSimpleMsg(&logger, "crankingChargeAngle: ", engineConfiguration->crankingChargeAngle);
 
 	scheduleSimpleMsg(&logger, "analogChartMode: ", engineConfiguration->analogChartMode);
@@ -117,13 +117,13 @@ static void setFixedModeTiming(int value) {
 }
 
 static void setTimingMode(int value) {
-	engineConfiguration->timingMode = value;
+	engineConfiguration->timingMode = (timing_mode_e)value;
 	doPrintConfiguration();
 }
 
 static void setEngineType(int value) {
-	engineConfiguration->engineType = value;
-	resetConfiguration(value);
+	engineConfiguration->engineType = (engine_type_e)value;
+	resetConfiguration((engine_type_e)value);
 	writeToFlash();
 	doPrintConfiguration();
 }

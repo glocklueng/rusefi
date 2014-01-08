@@ -278,7 +278,7 @@ static void printWithLength(char *line) {
 
 	if (!is_serial_ready())
 		return;
-	consoleOutputBuffer(ioBuffer, p - ioBuffer);
+	consoleOutputBuffer((const int8_t *)ioBuffer, p - ioBuffer);
 }
 
 void printLine(Logging *logging) {
