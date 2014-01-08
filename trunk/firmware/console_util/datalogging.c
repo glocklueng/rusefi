@@ -251,6 +251,8 @@ void resetLogging(Logging *logging) {
 
 static char ioBuffer[OUTPUT_BUFFER];
 
+void consoleOutputBuffer(const int8_t *buf, int size);
+
 /**
  * this method should invoked on the main thread only
  */

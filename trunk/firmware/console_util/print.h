@@ -14,7 +14,6 @@
 
 void print(const char *fmt, ...);
 
-void consoleOutputBuffer(char *buf, int size);
 int is_serial_ready(void);
 
 #endif /* PRINT_H_ */

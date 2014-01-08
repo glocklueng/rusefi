@@ -23,7 +23,7 @@ void consolePutChar(int x) {
 	chSequentialStreamPut(CONSOLE_CHANNEL, (uint8_t )(x));
 }
 
-void consoleOutputBuffer(char *buf, int size) {
+void consoleOutputBuffer(const int8_t *buf, int size) {
 	chSequentialStreamWrite(CONSOLE_CHANNEL, buf, size);
 }
 
