@@ -104,7 +104,7 @@ static void printSensors(void) {
 	reportSensorF("afr", getAfr(), 2);
 	reportSensorF("vref", getVRef(), 2);
 
-	reportSensorI(getCaption(LP_THROTTLE), getTPS());
+	reportSensorF(getCaption(LP_THROTTLE), getTPS(), 2);
 
 	if (engineConfiguration2->hasCltSensor) {
 		reportSensorF(getCaption(LP_ECT), getCoolantTemperature(), 2);

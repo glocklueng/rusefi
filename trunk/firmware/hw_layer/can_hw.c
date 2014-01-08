@@ -100,7 +100,7 @@ static void canDashboardBMW(void) {
 static void canDashboardFiat(void) {
 	//Fiat Dashboard
 	commonTxInit(CAN_FIAT_MOTOR_INFO);
-	setShortValue(&txmsg, engine_clt - 40, 3); //Coolant Temp
+	setShortValue(&txmsg, (int)(engine_clt - 40), 3); //Coolant Temp
 	setShortValue(&txmsg, engine_rpm / 32, 6); //RPM
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 }

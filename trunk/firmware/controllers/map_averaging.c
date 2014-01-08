@@ -81,7 +81,7 @@ void mapAveragingCallback(adcsample_t value) {
 		if (perRevolutionCounter % FAST_MAP_CHART_SKIP_FACTOR == 0)
 			acAddData(getCrankshaftAngle(chTimeNow()), currentPressure);
 
-	currentMaxPressure = max(currentMaxPressure, currentPressure);
+	currentMaxPressure = maxF(currentMaxPressure, currentPressure);
 
 	chSysLockFromIsr()
 	;

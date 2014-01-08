@@ -55,8 +55,8 @@ int avgGetValuesCount(AvgTable *table, int rpm, float key) {
 		return 0;
 	if (key >= MAX_KEY)
 		return 0;
-	int i = AVG_TAB_SIZE * rpm / MAX_RPM;
-	int j = AVG_TAB_SIZE * key / MAX_KEY;
+	int i = (int)(AVG_TAB_SIZE * rpm / MAX_RPM);
+	int j = (int)(AVG_TAB_SIZE * key / MAX_KEY);
 
 	return table->counts[i][j];
 }
