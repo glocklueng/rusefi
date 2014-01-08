@@ -3,7 +3,7 @@
   (general
     (links 234)
     (no_connects 224)
-    (area 25.7302 93.334999 186.700001 190.510001)
+    (area 25.40508 72.500228 186.700001 190.510001)
     (thickness 1.6)
     (drawings 17)
     (tracks 0)
@@ -4544,10 +4544,10 @@
   (gr_text "RUSEFI.COM\nREV .02" (at 37.465 138.938 270) (layer F.SilkS)
     (effects (font (size 1.5 1.5) (thickness 0.3)))
   )
-  (gr_line (start 130.81 151.13) (end 130.81 98.425) (angle 90) (layer Edge.Cuts) (width 0.1))
-  (gr_line (start 41.0845 89.7255) (end 93.7895 89.7255) (angle 90) (layer Edge.Cuts) (width 0.1))
-  (gr_line (start 93.7895 89.7255) (end 93.7895 165.9255) (angle 90) (layer Edge.Cuts) (width 0.1))
-  (gr_line (start 41.0845 165.9255) (end 41.0845 89.7255) (angle 90) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 93.726 165.862) (end 40.894 165.862) (angle 90) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 40.894 89.7255) (end 93.726 89.7255) (angle 90) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 93.726 89.7255) (end 93.726 165.862) (angle 90) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 40.894 165.9255) (end 40.894 89.7255) (angle 90) (layer Edge.Cuts) (width 0.1) (tstamp 52CD5E85))
 
   (zone (net 27) (net_name GND) (layer B.Cu) (tstamp 52352C4A) (hatch edge 0.508)
     (connect_pads (clearance 0.254))
@@ -4556,12 +4556,6 @@
     (polygon
       (pts
         (xy 134.493 162.052) (xy 51.943 162.052) (xy 51.949526 158.684099) (xy 50.292 156.972) (xy 33.655 166.116)
-        (xy 41.783 157.734) (xy 26.696332 149.099652) (xy 25.146 75.184) (xy 50.494638 75.034714) (xy 51.308 60.833)
-        (xy 54.483 60.833) (xy 59.817 69.723) (xy 55.825926 43.115846) (xy 132.969 74.549)
-      )
-    )
-    (polygon
-      (pts        (xy 130.81 105.41) (xy 130.81 98.425) (xy 123.825 98.425) (xy 123.825 101.6) (xy 127.635 105.41)
       )
     )
     (filled_polygon
