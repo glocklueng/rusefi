@@ -87,10 +87,10 @@ static void errBlinkingThread(void *arg) {
 	}
 }
 
-void outputPinRegister(char *msg, int ledIndex, GPIO_TypeDef *port, uint32_t pin) {
-	initOutputPin(msg, &outputs[ledIndex], port, pin);
+void outputPinRegister(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin) {
+	initOutputPin(msg, &outputs[ioPin], port, pin);
 
-	setOutputPinValue(ledIndex, FALSE);
+	setOutputPinValue(ioPin, FALSE);
 }
 
 /**

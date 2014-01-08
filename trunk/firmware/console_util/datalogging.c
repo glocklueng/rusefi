@@ -234,12 +234,12 @@ void debugFloat(Logging *logging, char *caption, myfloat value, int precision) {
 #endif
 }
 
-void logInt(Logging *logging, int loggingPoint, int value) {
+void logInt(Logging *logging, LoggingPoints loggingPoint, int value) {
 	char *caption = getCaption(loggingPoint);
 	debugInt(logging, caption, value);
 }
 
-void logFloat(Logging *logging, int loggingPoint, myfloat value) {
+void logFloat(Logging *logging, LoggingPoints loggingPoint, myfloat value) {
 	debugFloat(logging, getCaption(loggingPoint), value, 2);
 }
 

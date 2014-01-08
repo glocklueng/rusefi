@@ -57,10 +57,10 @@ void initLogging(Logging *logging, char *name);
 void initLoggingExt(Logging *logging, char *name, char *buffer, int bufferSize);
 
 void debugInt(Logging *logging, char *caption, int value);
-void logInt(Logging *logging, int loggingPoint, int value);
+void logInt(Logging *logging, LoggingPoints loggingPoint, int value);
 
 void debugFloat(Logging *logging, char *text, myfloat value, int precision);
-void logFloat(Logging *logging, int loggingPoint, myfloat value);
+void logFloat(Logging *logging, LoggingPoints loggingPoint, myfloat value);
 void appendFloat(Logging *logging, myfloat value, int precision);
 
 void resetLogging(Logging *logging);

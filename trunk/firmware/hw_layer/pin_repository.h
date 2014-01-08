@@ -15,11 +15,12 @@
 
 #include "ch.h"
 #include "hal.h"
+#include "io_pins.h"
 
 void initPinRepository(void);
 void mySetPadMode(char *msg, ioportid_t port, ioportmask_t pin, iomode_t mode);
 char *portname(GPIO_TypeDef* GPIOx);
 // does not exactly belong here, but that works better for tests
-void outputPinRegister(char *msg, int ledIndex, GPIO_TypeDef *port, uint32_t pin);
+void outputPinRegister(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin);
 
 #endif /* PIN_REPOSITORY_H_ */
