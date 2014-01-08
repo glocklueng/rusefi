@@ -39,5 +39,6 @@ void setTargetRpm(IdleValveState *idle, int targetRpm);
 // todo: move these somewhere else!
 int max(int i1, int i2);
 int min(int i1, int i2);
+float maxF(float i1, float i2);
 
 #endif /* IDLE_CONTROLLER_H_ */

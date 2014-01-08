@@ -11,7 +11,7 @@
 
 myfloat floatmod(myfloat value, myfloat divider) {
 	// number of full cycles
-	int loopsNumber = value / divider;
+	int loopsNumber = (int)(value / divider);
 	// total time of full cycles
 	myfloat loopsTime = loopsNumber * divider;
 

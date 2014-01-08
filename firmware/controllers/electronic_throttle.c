@@ -34,7 +34,7 @@ extern EngineConfiguration *engineConfiguration;
 
 static msg_t etbThread(void *arg) {
 	while (TRUE) {
-		int tps = getTPS();
+		int tps = (int)getTPS();
 
 		if (tps != prevTps) {
 			prevTps = tps;

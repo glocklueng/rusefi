@@ -27,8 +27,8 @@ void idleInit(IdleValveState *idle) {
 }
 
 void setTargetRpm(IdleValveState *idle, int targetRpm) {
-	idle->targetRpmRangeLeft = targetRpm * 0.93;
-	idle->targetRpmRangeRight = targetRpm * 1.07;
+	idle->targetRpmRangeLeft = (int)(targetRpm * 0.93);
+	idle->targetRpmRangeRight = (int)(targetRpm * 1.07);
 }
 
 int min(int i1, int i2) {
@@ -38,6 +38,11 @@ int min(int i1, int i2) {
 int max(int i1, int i2) {
 	return i1 > i2 ? i1 : i2;
 }
+
+float maxF(float i1, float i2) {
+	return i1 > i2 ? i1 : i2;
+}
+
 
 /**
  * @brief	sets new idle valve duty cycle: checks the bounds and reports new value

@@ -54,13 +54,13 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 		return;
 	}
 
-	int fuelTicks = getFuelMs(rpm) * globalFuelCorrection * TICKS_IN_MS;
+	int fuelTicks = (int)(getFuelMs(rpm) * globalFuelCorrection * TICKS_IN_MS);
 	if (fuelTicks < 0) {
 		scheduleSimpleMsg(&logger, "ERROR: negative injectionPeriod ", fuelTicks);
 		return;
 	}
 
-	int delay = getOneDegreeTime(rpm) * event->angleOffset;
+	int delay = (int)(getOneDegreeTime(rpm) * event->angleOffset);
 
 	if (isCranking())
 		scheduleSimpleMsg(&logger, "crankingFuel=", fuelTicks);
@@ -123,7 +123,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 
 	float advance = 2 * getAdvance(rpm, getMaf());
 
-	int sparkAdvance = getOneDegreeTime(rpm) * advance;
+	float sparkAdvance = getOneDegreeTime(rpm) * advance;
 
 	int dwell = getSparkDwell(rpm);
 	chDbgCheck(dwell >= 0, "invalid dwell");
@@ -131,7 +131,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	if (dwell == 0)
 		return; // hard RPM limit was hit
 
-	int sparkDelay = getOneDegreeTime(rpm) * event->angleOffset + sparkAdvance - dwell;
+	int sparkDelay = (int)(getOneDegreeTime(rpm) * event->angleOffset + sparkAdvance - dwell);
 	int isIgnitionError = sparkDelay < 0;
 	cbAdd(&ignitionErrorDetection, isIgnitionError);
 	if (isIgnitionError) {

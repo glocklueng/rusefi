@@ -55,7 +55,7 @@
 extern EngineConfiguration *engineConfiguration;
 extern EngineConfiguration2 *engineConfiguration2;
 
-float getStartingFuel(int coolantTemperature) {
+float getStartingFuel(float coolantTemperature) {
 	// these magic constants are in Celsius
 	if (coolantTemperature < engineConfiguration->crankingSettings.coolantTempMin)
 		return engineConfiguration->crankingSettings.minTempPW;

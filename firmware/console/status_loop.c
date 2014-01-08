@@ -76,7 +76,7 @@ static void printStatus(void) {
 //	return getTCharge(getCurrentRpm(), tps, cltK, iatK);
 //}
 
-static void reportSensorF(char *caption, int value, int precision) {
+static void reportSensorF(char *caption, float value, int precision) {
 	debugFloat(&logger, caption, value, precision);
 	debugFloat(&fileLogger, caption, value, precision);
 }
@@ -226,7 +226,7 @@ static void showFuelMap(int rpm, int key100) {
 
 	print("fuel map rpm=%d, key=%f: %d\r\n", rpm, key, (int) (100 * value));
 
-	scheduleSimpleMsg(&logger2, "fuel map value *100 = ", 100 * value);
+	scheduleSimpleMsg(&logger2, "fuel map value *100 = ", (int)(100 * value));
 }
 
 void initStatusLoop(void) {
@@ -248,5 +248,5 @@ void warning(char *msg, float value) {
 		return; // we just had another warning, let's not spam
 	timeOfPreviousWarning = now;
 
-	scheduleSimpleMsg(&logger, msg, 1000 * value);
+	scheduleSimpleMsg(&logger, msg, (int)(1000 * value));
 }
