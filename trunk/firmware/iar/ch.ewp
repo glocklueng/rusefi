@@ -2323,6 +2323,33 @@
     </file>
   </group>
   <group>
+    <name>ext</name>
+    <file>
+      <name>$PROJ_DIR$\..\ext\ccsbcs.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ext\diskio.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ext\ff.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ext\ff.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ext\ffconf.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ext\integer.h</name>
+    </file>
+  </group>
+  <group>
+    <name>ext_algo</name>
+    <file>
+      <name>$PROJ_DIR$\..\ext_algo\utlist.h</name>
+    </file>
+  </group>
+  <group>
     <name>hw_layer</name>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\adc_external.h</name>
