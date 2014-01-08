@@ -18,7 +18,6 @@ char *PIN_USED[PIN_REPO_SIZE];
 static int initialized = FALSE;
 
 static Logging logger;
-static int pinRegistrationComplete = FALSE;
 static int totalPinsUsed = 0;
 
 char *portname(GPIO_TypeDef* GPIOx) {
@@ -59,8 +58,6 @@ static int getPortIndex(GPIO_TypeDef* port) {
 }
 
 static void reportPins(void) {
-	pinRegistrationComplete = TRUE;
-
 	for (int i = 0; i < PIN_REPO_SIZE; i++) {
 		char *name = PIN_USED[i];
 		if (name != NULL)

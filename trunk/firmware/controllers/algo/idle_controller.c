@@ -39,8 +39,6 @@ int max(int i1, int i2) {
 	return i1 > i2 ? i1 : i2;
 }
 
-static int wasCrankingTime;
-
 /**
  * @brief	sets new idle valve duty cycle: checks the bounds and reports new value
  */
@@ -67,7 +65,6 @@ static int changeValue(IdleValveState *idle, int currentRpm, int now, char * msg
  */
 int getIdle(IdleValveState *idle, int currentRpm, int now) {
 	if (currentRpm == 0 || isCranking()) {
-		wasCrankingTime = now;
 		return setNewValue(idle, currentRpm, now, "cranking value: ", DEFAULT_IDLE_DUTY);
 	}
 
