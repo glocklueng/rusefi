@@ -13,7 +13,7 @@
 float getDefaultFuel(int rpm, float map);
 //float getTCharge(int rpm, int tps, float coolantTemp, float airTemp);
 
-float getStartingFuel(int coolantTemperature);
+float getStartingFuel(float coolantTemperature);
 
 int convertAngleToSysticks(int rpm, int angle);
 float getOneDegreeTime(int rpm);

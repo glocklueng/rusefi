@@ -80,7 +80,7 @@ static void turnLow(OutputSignal *signal) {
 }
 
 void scheduleByAngle(VirtualTimer *timer, float angle, vtfunc_t callback, void *param) {
-	int delay = getOneDegreeTime(getCurrentRpm()) * angle;
+	int delay = (int)getOneDegreeTime(getCurrentRpm()) * angle;
 	commonSchedule(timer, delay, callback, param);
 }
 

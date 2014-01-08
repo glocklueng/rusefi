@@ -39,7 +39,7 @@ static CANTxFrame txmsg;
 
 // todo: we would need a data structure here
 static int engine_rpm = 0;
-static int engine_clt = 0;
+static float engine_clt = 0;
 
 static void printPacket(CANRxFrame *rx) {
 	scheduleSimpleMsg(&logger, "GOT FMI ", rx->FMI);
@@ -49,7 +49,7 @@ static void printPacket(CANRxFrame *rx) {
 
 	if (rx->SID == CAN_BMW_E46_CLUSTER_STATUS) {
 		int odometerKm = 10 * (rx->data8[1] << 8) + rx->data8[0];
-		int odometerMi = odometerKm * 0.621371;
+		int odometerMi = (int)(odometerKm * 0.621371);
 		scheduleSimpleMsg(&logger, "GOT odometerKm ", odometerKm);
 		scheduleSimpleMsg(&logger, "GOT odometerMi ", odometerMi);
 		int timeValue = (rx->data8[4] << 8) + rx->data8[3];
@@ -89,11 +89,11 @@ static void canDashboardBMW(void) {
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 
 	commonTxInit(CAN_BMW_E46_RPM);
-	setShortValue(&txmsg, engine_rpm * 6.4, 2);
+	setShortValue(&txmsg, (int)(engine_rpm * 6.4), 2);
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 
 	commonTxInit(CAN_BMW_E46_DME2);
-	setShortValue(&txmsg, (engine_clt + 48.373) / 0.75, 1);
+	setShortValue(&txmsg, (int)((engine_clt + 48.373) / 0.75), 1);
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 }
 
@@ -112,7 +112,7 @@ static void canDashboardVAG(void) {
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 
 	commonTxInit(CAN_VAG_CLT);
-	setShortValue(&txmsg, (engine_clt + 48.373) / 0.75, 1); //Coolant Temp
+	setShortValue(&txmsg, (int)((engine_clt + 48.373) / 0.75), 1); //Coolant Temp
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 }
 

@@ -29,7 +29,7 @@ static PwmConfig configuration;
 #endif
 
 void setRevolutionPeriod(int value) {
-	deRpm = value * engineConfiguration2->rpmMultiplier;
+	deRpm = (int)(value * engineConfiguration2->rpmMultiplier);
 	myfloat gRpm = deRpm / 60.0; // per minute converted to per second
 	if (gRpm == 0) {
 		configuration.period = 0;
