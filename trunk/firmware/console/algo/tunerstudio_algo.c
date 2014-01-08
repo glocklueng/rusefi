@@ -77,7 +77,7 @@ int tunerStudioHandleCommand(short command) {
 void handleQueryCommand(void) {
 	tsState.queryCommandCounter++;
 	tunerStudioDebug("got H (queryCommand)");
-	tunerStudioWriteData(TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
+	tunerStudioWriteData((const uint8_t *) TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
 }
 
 /**
@@ -101,5 +101,5 @@ void handleTestCommand(void) {
 	 * extension of the protocol to simplify troubleshooting
 	 */
 	tunerStudioDebug("got T (Test)\r\n");
-	tunerStudioWriteData("alive\r\n", 7);
+	tunerStudioWriteData((const uint8_t *) "alive\r\n", 7);
 }
