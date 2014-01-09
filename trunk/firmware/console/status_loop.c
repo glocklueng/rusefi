@@ -140,6 +140,7 @@ static void checkIfShouldHalt(void) {
 		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg);
 #endif
 		chThdSleepSeconds(1);
+                // todo: figure out how we halt exactly
 		while (TRUE) {
 		}
 		chSysHalt();

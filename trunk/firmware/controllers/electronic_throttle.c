@@ -18,6 +18,8 @@
 #include "io_pins.h"
 #include "engine_configuration.h"
 
+#if EFI_ELECTRONIC_THROTTLE_BODY
+
 static Logging logger;
 /**
  * @brief Control Thread stack
@@ -44,7 +46,9 @@ static msg_t etbThread(void *arg) {
 		// this thread is activated 10 times per second
 		chThdSleepMilliseconds(100);
 	}
+#if defined __GNUC__
 	return -1;
+#endif
 }
 
 static void setThrottleConsole(int level) {
@@ -55,8 +59,6 @@ static void setThrottleConsole(int level) {
 }
 
 void initElectronicThrottle(void) {
-	if (1 == 1)
-		return;
 	initLogging(&logger, "Electronic Throttle");
 
 	engineConfiguration->tpsMin = 140;
@@ -72,3 +74,5 @@ void initElectronicThrottle(void) {
 	addConsoleActionI("e", setThrottleConsole);
 	chThdCreateStatic(etbTreadStack, sizeof(etbTreadStack), NORMALPRIO, (tfunc_t) etbThread, NULL);
 }
+#endif /* EFI_ELECTRONIC_THROTTLE_BODY */
+

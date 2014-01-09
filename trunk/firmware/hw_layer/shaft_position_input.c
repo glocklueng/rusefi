@@ -30,7 +30,7 @@ static histogram_s triggerCallback;
 extern EngineConfiguration2 *engineConfiguration2;
 
 // we need this initial to have not_running at first invocation
-static volatile time_t previousShaftEventTime = -10 * CH_FREQUENCY;
+static volatile time_t previousShaftEventTime = (time_t)-10 * CH_FREQUENCY;
 
 static IntListenerArray triggerListeneres;
 

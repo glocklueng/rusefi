@@ -79,7 +79,9 @@ static msg_t ivThread(int param) {
 			setIdle(newValue);
 		}
 	}
+#if defined __GNUC__
 	return -1;
+#endif
 }
 
 static void setTargetIdle(int value) {

@@ -144,7 +144,9 @@ void initEngineContoller(void) {
 	initIgnitionCentral();
 	initMalfunctionCentral();
 	
+#if EFI_ELECTRONIC_THROTTLE_BODY
 	initElectronicThrottle();
+#endif /* EFI_ELECTRONIC_THROTTLE_BODY */
 	initMalfunctionIndicator();
 	initMapAveraging();
 

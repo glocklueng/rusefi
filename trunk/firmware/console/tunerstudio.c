@@ -136,7 +136,9 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 		tsCounter++;
 	}
+#if defined __GNUC__
 	return 0;
+#endif
 }
 
 extern EngineConfiguration *engineConfiguration;

@@ -153,7 +153,7 @@ static WORKING_AREA(waThreadStack, UTILITY_THREAD_STACK_SIZE);
 static msg_t waThread(void *arg) {
 	chRegSetThreadName("Wave Analyzer");
 
-	while (1) {
+	while (TRUE) {
 		chThdSleepSeconds(CHART_RESET_DELAY);
 
 		if (isWaveChartFull(&waveChart)) {
@@ -161,7 +161,9 @@ static msg_t waThread(void *arg) {
 			resetWaveChart(&waveChart);
 		}
 	}
+#if defined __GNUC__
 	return -1;
+#endif
 }
 
 static char rpmBuffer[10];

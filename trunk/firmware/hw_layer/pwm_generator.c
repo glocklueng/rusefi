@@ -65,7 +65,9 @@ static msg_t deThread(PwmConfig *state) {
 
 		iteration++;
 	}
+#if defined __GNUC__
 	return -1;
+#endif
 }
 
 /**

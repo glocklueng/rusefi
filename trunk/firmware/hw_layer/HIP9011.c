@@ -63,7 +63,7 @@ static msg_t ivThread(int param) {
 
 	tx_buff[4] = 0xF8;// 0b11111000;
 
-	while (1) {
+	while (TRUE) {
 		chThdSleepMilliseconds(10);
 
 		scheduleSimpleMsg(&logger, "poking HIP=", counter++);
@@ -74,14 +74,12 @@ static msg_t ivThread(int param) {
 //		spiUnselect(driver);
 
 	}
+#if defined __GNUC__
 	return 0;
-
+#endif
 }
 
 void initHip9011(void) {
-	if (1 == 1)
-		return; // not needed yet
-
 	initLogging(&logger, "HIP driver");
 
 	print("Starting HIP9011/TPIC8101 driver\r\n");
