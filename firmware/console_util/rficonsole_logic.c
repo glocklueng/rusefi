@@ -6,6 +6,10 @@
 /**
  * @file    rficonsole_logic.c
  * @brief   Console interactive shell code
+ *
+ * Here we have a data structure which holds all the dynamically-registered
+ * command line interface action names & callback, this logic is invoked in
+ * user context by the console thread - see consoleThreadThreadEntryPoint
  */
 
 #include <stdarg.h>
