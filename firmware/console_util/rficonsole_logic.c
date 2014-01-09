@@ -8,7 +8,7 @@
  * @brief   Console interactive shell code
  *
  * Here we have a data structure which holds all the dynamically-registered
- * command line interface action names & callback, this logic is invoked in
+ * command line interface action names & callback. This logic is invoked in
  * user context by the console thread - see consoleThreadThreadEntryPoint
  */
 

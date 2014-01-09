@@ -20,7 +20,6 @@ extern EngineConfiguration *engineConfiguration;
 extern EngineConfiguration2 *engineConfiguration2;
 
 static Logging logger;
-static volatile int deRpm = 0; // distributor RPM is camshaft RPM
 
 #if defined __GNUC__
 static PwmConfig configuration __attribute__((section(".ccm")));
@@ -29,11 +28,10 @@ static PwmConfig configuration;
 #endif
 
 void setRevolutionPeriod(int value) {
-	deRpm = (int)(value * engineConfiguration2->rpmMultiplier);
-	myfloat gRpm = deRpm / 60.0; // per minute converted to per second
-	if (gRpm == 0) {
+	if (value == 0) {
 		configuration.period = 0;
 	} else {
+		myfloat gRpm = value * engineConfiguration2->rpmMultiplier / 60.0; // per minute converted to per second
 		configuration.period = frequency2period(gRpm);
 	}
 	scheduleSimpleMsg(&logger, "Emulating position sensor(s). RPM=", value);
