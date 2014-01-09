@@ -53,7 +53,9 @@ void initHardware() {
 	initOutputPins();
 	initAdcInputs();
 
+#if EFI_HIP_9011
 	initHip9011();
+#endif
 
 //	initCan();
 

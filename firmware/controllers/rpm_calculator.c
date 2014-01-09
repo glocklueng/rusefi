@@ -91,7 +91,7 @@ void initRpmCalculator(void) {
 	rpmState.rpm = 0;
 
 	// we need this initial to have not_running at first invocation
-	rpmState.lastRpmEventTime = -10 * CH_FREQUENCY;
+	rpmState.lastRpmEventTime = (time_t)-10 * CH_FREQUENCY;
 
 	registerShaftPositionListener(&shaftPositionCallback, "rpm reporter");
 }

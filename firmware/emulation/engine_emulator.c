@@ -63,7 +63,9 @@ static msg_t eeThread(void *arg) {
 		flag = FALSE;
 		emulate();
 	}
+#if defined __GNUC__
 	return (msg_t)NULL;
+#endif
 }
 
 void startEmulator(void) {

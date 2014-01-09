@@ -148,7 +148,9 @@ static msg_t canThread(void *arg) {
 		canInfoNBCBroadcast(engineConfiguration2->can_nbc_type);
 		chThdSleepMilliseconds(engineConfiguration2->can_nbc_broadcast_period);
 	}
+#if defined __GNUC__
 	return -1;
+#endif
 }
 
 void initCan(void) {
