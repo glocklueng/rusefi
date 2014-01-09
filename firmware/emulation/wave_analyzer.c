@@ -192,7 +192,7 @@ int getWaveLowWidth(int index) {
 int getWaveHighWidth(int index) {
 	WaveReader *reader = &readers[index];
 	ensureInitialized(reader);
-	if (reader->lastActivityTime < chTimeNow() - 4 * ckpPeriod)
+	if (overflowDiff(chTimeNow(), reader->lastActivityTime) > 4 * ckpPeriod)
 		return 0; // dwell time has expired
 	return reader->last_wave_high_width;
 }

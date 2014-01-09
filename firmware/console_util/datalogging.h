@@ -49,7 +49,7 @@ void lockOutputBuffer(void);
 void unlockOutputBuffer(void);
 
 void initIntermediateLoggingBuffer(void);
-int loggingSize(Logging *logging);
+uint32_t loggingSize(Logging *logging);
 
 int isInitialized(Logging *logging);
 

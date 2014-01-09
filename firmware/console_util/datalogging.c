@@ -30,8 +30,8 @@ void initIntermediateLoggingBuffer(void) {
 	intermediateLoggingBufferInited = TRUE;
 }
 
-int loggingSize(Logging *logging) {
-	return (int) logging->linePointer - (int) (logging->buffer);
+uint32_t loggingSize(Logging *logging) {
+	return (uint32_t) logging->linePointer - (uint32_t) (logging->buffer);
 }
 
 static int validateBuffer(Logging *logging, int extraLen, char *text) {

@@ -20,7 +20,7 @@ typedef struct {
 	char *name;
 	volatile int eventCounter;
 
-	volatile int lastActivityTime; // timestamp in systimer ticks
+	volatile systime_t lastActivityTime; // timestamp in systimer ticks
 	volatile int periodEventTime; // time of signal faoo (systimer ticks)
 	volatile int widthEventTime; // time of signal rise (systimer ticks)
 
