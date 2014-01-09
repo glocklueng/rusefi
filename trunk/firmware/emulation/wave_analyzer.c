@@ -22,7 +22,7 @@
 
 #define CHART_RESET_DELAY 1
 
-static volatile int ckpPeriod; // different between current crank signal and previous crank signal
+static volatile uint32_t ckpPeriod; // different between current crank signal and previous crank signal
 static volatile int previousCrankSignalStart = 0;
 
 #define MAX_ICU_COUNT 5
@@ -134,15 +134,15 @@ static void initWave(char *name, int index, ICUDriver *driver, ioportid_t port, 
 //	return previousCrankSignalStart;
 //}
 
-static int getCrankPeriod(void) {
-	return ckpPeriod;
-}
+//static int getCrankPeriod(void) {
+//	return ckpPeriod;
+//}
 
 static void onWaveShaftSignal(ShaftEvents ckpSignalType, int index) {
 	if (index != 0)
 		return;
 	systime_t now = chTimeNow();
-	ckpPeriod = now - previousCrankSignalStart;
+	ckpPeriod = overflowDiff(now, previousCrankSignalStart);
 	previousCrankSignalStart = now;
 }
 
@@ -226,7 +226,7 @@ int getPeriodEventTime(int index) {
 int waveBufferReported = 0;
 
 static void reportWave(Logging *logging, int index) {
-	int counter = getEventCounter(index);
+//	int counter = getEventCounter(index);
 //	debugInt2(logging, "ev", index, counter);
 
 	int dwell = getWaveHighWidth(index);
@@ -244,9 +244,9 @@ static void reportWave(Logging *logging, int index) {
 	appendFloat(logging, ((myfloat) period) / TICKS_IN_MS, 2);
 	appendPrintf(logging, "%s", DELIMETER);
 
-	int crank = getCrankPeriod();
+//	int crank = getCrankPeriod();
 
-	int offset = getWaveOffset(index);
+//	int offset = getWaveOffset(index);
 //	debugFloat2(logging, "advance", index, 90.0 * offset / crank, 3);
 //	debugInt2(logging, "offset", index, offset);
 }
