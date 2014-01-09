@@ -50,7 +50,7 @@ static Logging fileLogger;
 static char LOGGING_BUFFER[500];
 #define FULL_LOGGING_KEY "fl"
 
-static time_t timeOfPreviousWarning = -10 * CH_FREQUENCY;
+static time_t timeOfPreviousWarning = (systime_t)-10 * CH_FREQUENCY;
 
 static char* boolean2string(int value) {
 	return value ? "YES" : "NO";
@@ -147,7 +147,7 @@ static void checkIfShouldHalt(void) {
 #endif
 }
 
-static int timeOfPreviousReport = -1;
+static systime_t timeOfPreviousReport = (systime_t)-1;
 
 /**
  * @brief Sends all pending data to dev console
