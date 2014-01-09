@@ -67,8 +67,8 @@ static char consoleInput[] = "                                                  
 
 void (*console_line_callback)(char *);
 
-static WORKING_AREA(consoleThread, UTILITY_THREAD_STACK_SIZE);
-static msg_t sdThreadEntryPoint(void *arg) {
+static WORKING_AREA(consoleThreadStack, UTILITY_THREAD_STACK_SIZE);
+static msg_t consoleThreadThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("console thread");
 
@@ -109,7 +109,7 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	palSetPadMode(EFI_CONSOLE_PORT, EFI_CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
 	palSetPadMode(EFI_CONSOLE_PORT, EFI_CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
 #endif
-	chThdCreateStatic(consoleThread, sizeof(consoleThread), NORMALPRIO, sdThreadEntryPoint, NULL);
+	chThdCreateStatic(consoleThreadStack, sizeof(consoleThreadStack), NORMALPRIO, consoleThreadThreadEntryPoint, NULL);
 }
 
 extern cnt_t dbg_isr_cnt;
