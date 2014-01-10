@@ -9,6 +9,34 @@
 /**
  * @mainpage
  *
+ * @section sec_main Brief overview
+ *
+ * rusEfi runs on crankshaft or camshaft ('trigger') position sensor events.
+ * Once per crankshaft revolution we evaluate the amount of needed fuel and
+ * the spark timing. Once we have decided on the parameters for this revolution
+ * we schedule all the actions to be triggered by the closest trigger event.
+ *
+ * We also have some utility threads like idle control thread and communication threads.
+ *
+ *
+ *
+ * @section sec_trigger Trigger Decoding
+ *
+ * Our primary trigger decoder is based on the idea of synchronizing the primary shaft signal and simply counting events on
+ * the secondary signal. There is no software filtering so the signals are expected to be valid.
+ *
+ * The decoder is configured to act either on the primary signal rise or on the primary signal fall. It then compares the duration
+ * of time from the previous signal to the duration of time from the signal before previous, and if the ratio falls into the configurable
+ * range between 'syncRatioFrom' and 'syncRatioTo' this is assumed to be the synchronizing event.
+ *
+ * For instance, for a 36/1 skipped tooth wheel the ratio range for synchronization is from 1.5 to 3
+ *
+ * A single tooth primary signal is handled as a special case.
+ *
+ *
+ *
+ *
+ *
  * @section sec_scheduler Event Scheduler
  *
  * It is a general agreement to measure all angles in crankshaft angles. In a four stroke
@@ -34,18 +62,6 @@
  * '10 degrees after the 690 position sensor event'
  *
  *
- * @section sec_trigger Trigger Decoding
- *
- * Our primary trigger decoder is based on the idea of synchronizing the primary shaft signal and simply counting events on
- * the secondary signal. There is no software filtering so the signals are expected to be valid.
- *
- * The decoder is configured to act either on the primary signal rise or on the primary signal fall. It then compares the duration
- * of time from the previous signal to the duration of time from the signal before previous, and if the ratio falls into the configurable
- * range between 'syncRatioFrom' and 'syncRatioTo' this is assumed to be the synchronizing event.
- *
- * For instance, for a 36/1 skipped tooth wheel the ratio range for synchronization is from 1.5 to 3
- *
- * A single tooth primary signal is handled as a special case.
  *
  *
  */
@@ -96,13 +112,15 @@ void runRusEfi(void) {
 	print("Running main loop\r\n");
 	main_loop_started = TRUE;
 	while (TRUE) {
+#if EFI_CLI_SUPPORT
 		// sensor state + all pending messages for our own dev console
 		updateDevConsoleState();
+#endif /* EFI_CLI_SUPPORT */
 
 #if EFI_TUNER_STUDIO
 		// sensor state for EFI Analytics Tuner Studio
 		updateTunerStudioState();
-#endif
+#endif /* EFI_TUNER_STUDIO */
 		chThdSleepMilliseconds(5);
 	}
 }
