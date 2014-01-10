@@ -64,6 +64,8 @@ void addConsoleActionF(char *token, VoidFloat callback) {
 
 // string to integer
 static int atoi(char *string) {
+	// todo: is there a standard function for this?
+	// todo: create a unit test
 	int len = strlen(string);
 	if (len == 0)
 		return -ERROR_CODE;
@@ -84,6 +86,7 @@ static int atoi(char *string) {
 }
 
 static int indexOf(char *string, char ch) {
+	// todo: there should be a standard function for this
 	int len = strlen(string);
 	for (int i = 0; i < len; i++) {
 		if (string[i] == ch)
@@ -94,34 +97,40 @@ static int indexOf(char *string, char ch) {
 
 // string to float
 static float atof(char *string) {
+	// todo: is there a standard function?
+	// todo: create a unit test
 	int dotIndex = indexOf(string, '.');
 	if (dotIndex == -1) {
+		// just an integer
 		int result = atoi(string);
-//		print("result 1 d=%d\r\n", (int)(1000 * result));
 		return (float) result;
 	}
 	string[dotIndex] = 0;
-	int full = atoi(string);
+	int integerPart = atoi(string);
 	string += (dotIndex + 1);
 	int decimalLen = strlen(string);
 	int decimal = atoi(string);
 	float divider = 1.0;
+	// todo: reuse 'pow10' function whichh we have anyway
 	for (int i = 0; i < decimalLen; i++)
 		divider = divider * 10.0;
-	float result = full + decimal / divider;
-//	print("result 2 d=%d\r\n", (int)(1000 * result));
-	return result;
+	return integerPart + decimal / divider;
 }
 
+/**
+ * @brief This function prints out a list of all available commands
+ */
 static void help(void) {
 	print("%d actions available:\r\n", consoleActionCount);
-	int i;
-	for (i = 0; i < consoleActionCount; i++) {
+	for (int i = 0; i < consoleActionCount; i++) {
 		TokenCallback *current = &consoleActions[i];
 		print("  %s: %d parameters\r\n", current->token, current->parameterType);
 	}
 }
 
+/**
+ * @brief This is just a test function
+ */
 static void echo(int value) {
 	print("got value: %d\r\n", value);
 }
@@ -173,6 +182,9 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 
 }
 
+/**
+ * @return Number of space-separated tokens in the string
+ */
 static int tokenLength(char *msgp) {
 	int result = 0;
 	while (*msgp) {
@@ -185,6 +197,7 @@ static int tokenLength(char *msgp) {
 }
 
 static int strEqual(char *str1, char *str2) {
+	// todo: there must be a standard function?!
 	int len1 = strlen(str1);
 	int len2 = strlen(str2);
 	if (len1 != len2)
@@ -233,17 +246,26 @@ static char *validateSecureLine(char *line) {
 
 static char confirmation[200];
 
+/**
+ * @brief This function takes care of one command line once we have it
+ */
 void handleConsoleLine(char *line) {
 	line = validateSecureLine(line);
 	if (line == NULL)
 		return; // error detected
+
+	int lineLength = strlen(line);
+	if(lineLength > 100 ) {
+	// todo: better max size logic
+		// todo: better reaction to excessive line
+		return;
+	}
 
 	strcpy(confirmation, "confirmation_");
 	strcat(confirmation, line);
 	strcat(confirmation, ":");
 
 	int firstTokenLength = tokenLength(line);
-	int lineLength = strlen(line);
 
 //	print("processing [%s] with %d actions\r\n", line, consoleActionCount);
 
