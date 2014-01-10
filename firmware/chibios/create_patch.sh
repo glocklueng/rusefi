@@ -1,0 +1,1 @@
+find os -type f > file.lst
