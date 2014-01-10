@@ -65,7 +65,9 @@ void initHardware() {
 
 	initShaftPositionInputCapture();
 
-//	initMmcCard();
+#if EFI_FILE_LOGGING
+	initMmcCard();
+#endif /* EFI_FILE_LOGGING */
 
 //	initFixedLeds();
 
