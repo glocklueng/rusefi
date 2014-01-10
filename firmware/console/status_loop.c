@@ -46,7 +46,9 @@ static int prevCkpEventCounter = -1;
 
 static Logging logger;
 static Logging logger2;
+#if EFI_FILE_LOGGING
 static Logging fileLogger;
+#endif /* EFI_FILE_LOGGING */
 static char LOGGING_BUFFER[500];
 #define FULL_LOGGING_KEY "fl"
 
@@ -78,16 +80,22 @@ static void printStatus(void) {
 
 static void reportSensorF(char *caption, float value, int precision) {
 	debugFloat(&logger, caption, value, precision);
+#if EFI_FILE_LOGGING
 	debugFloat(&fileLogger, caption, value, precision);
+#endif /* EFI_FILE_LOGGING */
 }
 
 static void reportSensorI(char *caption, int value) {
 	debugInt(&logger, caption, value);
+#if EFI_FILE_LOGGING
 	debugInt(&fileLogger, caption, value);
+#endif /* EFI_FILE_LOGGING */
 }
 
 static void printSensors(void) {
+#if EFI_FILE_LOGGING
 	resetLogging(&fileLogger);
+#endif /* EFI_FILE_LOGGING */
 
 	// current time, in milliseconds
 	int nowMs = chTimeNow() / TICKS_IN_MS;
@@ -114,7 +122,9 @@ static void printSensors(void) {
 
 //	debugFloat(&logger, "tch", getTCharge1(tps), 2);
 
+#if EFI_FILE_LOGGING
 	appendToLog(fileLogger.buffer);
+#endif /* EFI_FILE_LOGGING */
 }
 
 #if EFI_CUSTOM_PANIC_METHOD
