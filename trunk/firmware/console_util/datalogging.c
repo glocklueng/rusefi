@@ -2,6 +2,9 @@
  * @file    datalogging.c
  * @brief   Buffered console output stream code
  *
+ * Here we have a memory buffer and method related to
+ * printing messages into this buffer. The purpose of the
+ * buffer is to allow fast, non-blocking, thread-safe logging.
  *
  * @date Feb 25, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -17,22 +20,32 @@
 #include "memstreams.h"
 
 #define OUTPUT_BUFFER 5000
+/**
+ * This is the size of the MemoryStream used by chvprintf
+ */
+#define INTERMEDIATE_LOGGING_BUFFER_SIZE 2000
+
 // we use this magic constant to make sure it's not just a random non-zero int in memory
 #define MAGIC_LOGGING_FLAG 45234441
 
+/**
+ * This is the buffer into which all the data providers write
+ */
+static char pendingBuffer[OUTPUT_BUFFER];
+/**
+ * We copy all the pending data into this buffer once we are ready to push it out
+ */
+static char outputBuffer[OUTPUT_BUFFER];
+/**
+ * ... and we need another buffer for to make the message with with control sum
+ * TODO: if needed we can eliminate this buffer by making some space in the start
+ * of the 'outputBuffer' into which we would put the control sum when time comes
+ */
+static char ioBuffer[OUTPUT_BUFFER];
 
 static MemoryStream intermediateLoggingBuffer;
 static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE]; //todo define max-printf-buffer
 static bool intermediateLoggingBufferInited = FALSE;
-
-void initIntermediateLoggingBuffer(void) {
-	msObjectInit(&intermediateLoggingBuffer, intermediateLoggingBufferData, INTERMEDIATE_LOGGING_BUFFER_SIZE, 0);
-	intermediateLoggingBufferInited = TRUE;
-}
-
-uint32_t loggingSize(Logging *logging) {
-	return (uint32_t) logging->linePointer - (uint32_t) (logging->buffer);
-}
 
 static int validateBuffer(Logging *logging, int extraLen, char *text) {
 	if (logging->buffer == NULL) {
@@ -73,7 +86,7 @@ static void vappendPrintfI(Logging *logging, const char *fmt, va_list arg) {
 	append(logging, (char *) intermediateLoggingBufferData);
 }
 
-void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
+static void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
 	if (!intermediateLoggingBufferInited) {
 		fatal("intermediateLoggingBufferInited not inited!");
 		return;
@@ -106,6 +119,7 @@ void appendPrintf(Logging *logging, const char *fmt, ...) {
 	va_end(ap);
 }
 
+// todo: this method does not really belong to this file
 char* getCaption(LoggingPoints loggingPoint) {
 	switch (loggingPoint) {
 	case LP_RPM:
@@ -129,6 +143,7 @@ char* getCaption(LoggingPoints loggingPoint) {
 	return NULL;
 }
 
+// todo: this method does not really belong to this file
 static char* get2ndCaption(int loggingPoint) {
 	switch (loggingPoint) {
 	case LP_RPM:
@@ -168,26 +183,13 @@ void initLogging(Logging *logging, char *name) {
 }
 
 void debugInt(Logging *logging, char *caption, int value) {
-#if TAB_MODE
-	if (lineNumber == 0) {
-		append(logging, caption);
-		append(logging, DELIMETER);
-	}
-#else
 	append(logging, caption);
 	append(logging, DELIMETER);
-#endif
-
-#if TAB_MODE
-	if(lineNumber > 0) {
-#endif
 	appendPrintf(logging, "%d%s", value, DELIMETER);
-#if TAB_MODE
-}
-#endif
 }
 
 void appendFloat(Logging *logging, myfloat value, int precision) {
+	// todo: this implementation is less than perfect
 	switch (precision) {
 	case 1:
 	  appendPrintf(logging, "%..10f",  value);
@@ -214,26 +216,13 @@ void appendFloat(Logging *logging, myfloat value, int precision) {
 }
 
 void debugFloat(Logging *logging, char *caption, myfloat value, int precision) {
-#if TAB_MODE
-	if (lineNumber == 0) {
-		append(text);
-		append(DELIMETER);
-	}
-#else
 	append(logging, caption);
 	append(logging, DELIMETER);
-#endif
 
-#if TAB_MODE
-	if(lineNumber > 0) {
-#endif
 	appendFloat(logging, value, precision);
 	append(logging, DELIMETER);
-#if TAB_MODE
 }
-#endif
-}
-
+/*
 void logInt(Logging *logging, LoggingPoints loggingPoint, int value) {
 	char *caption = getCaption(loggingPoint);
 	debugInt(logging, caption, value);
@@ -242,14 +231,13 @@ void logInt(Logging *logging, LoggingPoints loggingPoint, int value) {
 void logFloat(Logging *logging, LoggingPoints loggingPoint, myfloat value) {
 	debugFloat(logging, getCaption(loggingPoint), value, 2);
 }
+*/
 
-void resetLogging(Logging *logging) {
-	char *buffer = logging->buffer;
-	chDbgAssert(buffer!=NULL, "null buffer", 0);
-	logging->linePointer = buffer;
+static void commonSimpleMsg(Logging *logging, char *msg, int value) {
+	resetLogging(logging);
+	appendMsgPrefix(logging);
+	appendPrintf(logging, "%s%d%s", msg, value, DELIMETER);
 }
-
-static char ioBuffer[OUTPUT_BUFFER];
 
 void consoleOutputBuffer(const int8_t *buf, int size);
 
@@ -290,10 +278,10 @@ void appendMsgPrefix(Logging *logging) {
 	appendPrintf(logging, "msg%s", DELIMETER);
 }
 
-static void commonSimpleMsg(Logging *logging, char *msg, int value) {
-	resetLogging(logging);
-	appendMsgPrefix(logging);
-	appendPrintf(logging, "%s%d%s", msg, value, DELIMETER);
+void resetLogging(Logging *logging) {
+	char *buffer = logging->buffer;
+	chDbgAssert(buffer!=NULL, "null buffer", 0);
+	logging->linePointer = buffer;
 }
 
 /**
@@ -325,8 +313,6 @@ void scheduleIntValue(Logging *logging, char *msg, int value) {
 	scheduleLogging(logging);
 }
 
-static char pendingBuffer[OUTPUT_BUFFER];
-
 void scheduleLogging(Logging *logging) {
 	// this could be done without locking
 	int newLength = strlen(logging->buffer);
@@ -353,8 +339,13 @@ void scheduleLogging(Logging *logging) {
 	resetLogging(logging);
 }
 
-static char outputBuffer[OUTPUT_BUFFER];
+uint32_t loggingSize(Logging *logging) {
+	return (int) logging->linePointer - (int) (logging->buffer);
+}
 
+/**
+ * This method actually sends all the pending data to the communication layer
+ */
 void printPending() {
 	lockOutputBuffer();
 	// we cannot output under syslock, so another buffer
@@ -364,4 +355,10 @@ void printPending() {
 
 	if (strlen(outputBuffer) > 0)
 		printWithLength(outputBuffer);
+}
+
+
+void initIntermediateLoggingBuffer(void) {
+	msObjectInit(&intermediateLoggingBuffer, intermediateLoggingBufferData, INTERMEDIATE_LOGGING_BUFFER_SIZE, 0);
+	intermediateLoggingBufferInited = TRUE;
 }
