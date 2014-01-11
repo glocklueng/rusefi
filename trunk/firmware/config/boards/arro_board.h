@@ -164,6 +164,16 @@
 #define SPARK_2_PIN 4
 #define SPARK_2_XOR 1
 
+#define SPARK_3_PORT GPIOE
+#define SPARK_3_PIN 0
+#define SPARK_3_XOR 1
+
+#define SPARK_4_PORT GPIOB
+#define SPARK_4_PIN 8
+#define SPARK_4_XOR 1
+
+#define SPARK_5_XOR 1
+
 /* Additional PINs on top of the standard discovery pins */
 #define EXTRA_LED_1_PORT GPIOC
 #define EXTRA_LED_1_PIN 14
@@ -177,11 +187,11 @@
 #define IDLE_SWITCH_PORT GPIOC
 #define IDLE_SWITCH_PIN 8
 
-#define ETB_CONTROL_LINE_1_PORT GPIOE
-#define ETB_CONTROL_LINE_1_PIN 0
-
-#define ETB_CONTROL_LINE_2_PORT GPIOB
-#define ETB_CONTROL_LINE_2_PIN 8
+//#define ETB_CONTROL_LINE_1_PORT GPIOE
+//#define ETB_CONTROL_LINE_1_PIN 0
+//
+//#define ETB_CONTROL_LINE_2_PORT GPIOB
+//#define ETB_CONTROL_LINE_2_PIN 8
 
 #define ETB_CONTROL_LINE_3_PORT GPIOC
 #define ETB_CONTROL_LINE_3_PIN 9
@@ -210,28 +220,28 @@
 /**
  * This section
  */
-#define SPI_CS1_PORT GPIOE
-#define SPI_CS1_PIN 13
-#define SPI_CS2_PORT GPIOE
-#define SPI_CS2_PIN 14
-#define SPI_CS3_PORT GPIOE
-#define SPI_CS3_PIN 15
-#define SPI_CS4_PORT GPIOD
-#define SPI_CS4_PIN 10
+//#define SPI_CS1_PORT GPIOE
+//#define SPI_CS1_PIN 13
+//#define SPI_CS2_PORT GPIOE
+//#define SPI_CS2_PIN 14
+//#define SPI_CS3_PORT GPIOE
+//#define SPI_CS3_PIN 15
+//#define SPI_CS4_PORT GPIOD
+//#define SPI_CS4_PIN 10
 #define SPI_SD_MODULE_PORT GPIOD
 #define SPI_SD_MODULE_PIN 11
 
-//#define SPI_CS1_PORT GPIOD
-//#define SPI_CS1_PIN 7
-//
-//#define SPI_CS2_PORT GPIOB
-//#define SPI_CS2_PIN 7
-//
-//#define SPI_CS3_PORT GPIOD
-//#define SPI_CS3_PIN 5
-//
-//#define SPI_CS4_PORT GPIOD
-//#define SPI_CS4_PIN 3
+#define SPI_CS1_PORT GPIOD
+#define SPI_CS1_PIN 7
+
+#define SPI_CS2_PORT GPIOB
+#define SPI_CS2_PIN 7
+
+#define SPI_CS3_PORT GPIOD
+#define SPI_CS3_PIN 5
+
+#define SPI_CS4_PORT GPIOD
+#define SPI_CS4_PIN 3
 //
 //#define SPI_SD_MODULE_PORT GPIOD
 //#define SPI_SD_MODULE_PIN 4
