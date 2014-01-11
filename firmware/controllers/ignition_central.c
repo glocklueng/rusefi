@@ -26,5 +26,5 @@ void scheduleSparkOut(OutputSignal *igniter, int offsetSysTicks, int lengthSysTi
 
 //	OutputSignal *igniter = &igniters[igniterId - 1];
 
-	scheduleOutput(igniter, offsetSysTicks, lengthSysTicks);
+	scheduleOutput(igniter, offsetSysTicks, lengthSysTicks, chTimeNow());
 }

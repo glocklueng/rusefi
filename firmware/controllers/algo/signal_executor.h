@@ -25,6 +25,16 @@
 #include "signal_executor_single_timer.h"
 #endif /* EFI_SIGNAL_EXECUTOR_SINGLE_TIMER */
 
+typedef void (*schfunc_t)(void *);
+
+typedef struct scheduling_struct scheduling_s;
+struct scheduling_struct {
+	int initialized;
+#if EFI_SIGNAL_EXECUTOR_SLEEP
+	VirtualTimer timer;
+#endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
+};
+
 typedef enum {
 	IDLE = 0, ACTIVE
 } executor_status_t;
@@ -49,9 +59,11 @@ struct OutputSignal_struct {
 	time_t last_scheduling_time;
 	time_t hi_time;
 
-#if EFI_SIGNAL_EXECUTOR_SLEEP
-	SignalExecutorSleep hw;
-#endif
+	/**
+	 * this timer is used to wait for the time to activate the thread
+	 */
+	scheduling_s signalTimerUp;
+	scheduling_s signalTimerDown;
 
 	executor_status_t status;
 
@@ -64,8 +76,11 @@ struct OutputSignal_struct {
 
 OutputSignal * addOutputSignal(io_pin_e ioPin);
 void initOutputSignal(OutputSignal *signal, io_pin_e ioPin);
-void scheduleOutput(OutputSignal *signal, int delay, int dwell);
+void scheduleOutput(OutputSignal *signal, int delay, int dwell, time_t now);
 void initOutputSignalBase(OutputSignal *signal);
 void scheduleOutputBase(OutputSignal *signal, int offset, int duration);
+
+void scheduleTask(scheduling_s *scheduling, int delay, schfunc_t callback, void *param);
+void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param);
 
 #endif /* SPARKOUT_H_ */

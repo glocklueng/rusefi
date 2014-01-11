@@ -11,20 +11,4 @@
 #include "global.h"
 #include "features.h"
 
-#if EFI_SIGNAL_EXECUTOR_SLEEP
-
-typedef struct {
-	/**
-	 * this timer is used to wait for the time to activate the thread
-	 */
-	VirtualTimer signalTimer;
-
-	VirtualTimer signalTimerDown;
-} SignalExecutorSleep;
-
-void scheduleByAngle(VirtualTimer *timer, float angle, vtfunc_t callback, void *param);
-
-#endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
-
-
 #endif /* SIGNAL_EXECUTOR_SLEEP_H_ */
