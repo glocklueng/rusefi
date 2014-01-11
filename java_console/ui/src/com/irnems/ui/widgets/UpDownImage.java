@@ -27,6 +27,7 @@ public class UpDownImage extends JPanel {
     private StringBuilder revolutions;
     private final String name;
     private TimeAxisTranslator translator;
+    private RevolutionLog time2rpm = RevolutionLog.parseRevolutions(null);
 
     public UpDownImage(final String name) {
         this(WaveReport.MOCK, name);
@@ -163,7 +164,20 @@ public class UpDownImage extends JPanel {
         g.drawLine(x2, y, x2, d.height);
 
         g.setColor(Color.red);
-        g.drawString(String.format(" %.2fms", upDown.getDuration() / WaveReport.SYS_TICKS_PER_MS), x1, (int) (0.5 * d.height));
+        String durationString = String.format(" %.2fms", upDown.getDuration() / WaveReport.SYS_TICKS_PER_MS);
 
+        g.drawString(durationString, x1, (int) (0.5 * d.height));
+
+        int offset = 3;
+        g.setColor(Color.black);
+        String fromAngle = time2rpm.getText(upDown.upTime);
+        g.drawString(fromAngle, x1 + offset, (int) (0.75 * d.height));
+
+        String toAngle = time2rpm.getText(upDown.downTime);
+        g.drawString(toAngle, x1 + offset, (int) (1.0 * d.height));
+    }
+
+    public void setRevolutions(StringBuilder revolutions) {
+        time2rpm = RevolutionLog.parseRevolutions(revolutions);
     }
 }
