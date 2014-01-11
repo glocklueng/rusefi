@@ -1,17 +1,14 @@
 package com.irnems.ui;
 
-import com.irnems.ui.widgets.UpDownImage;
 import com.irnems.waves.TimeAxisTranslator;
 import com.irnems.waves.WaveReport;
 import com.irnems.waves.ZoomProvider;
+import com.rusefi.RevolutionLog;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Date: 12/26/13
@@ -24,7 +21,7 @@ public class ChartStatusPanel {
     private final JLabel angleLabel = new JLabel();
     private TimeAxisTranslator translator = WaveReport.MOCK;
 
-    private TreeMap<Integer, Integer> time2rpm = new TreeMap<Integer, Integer>();
+    private RevolutionLog time2rpm;
 
     final MouseMotionAdapter motionAdapter = new MouseMotionAdapter() {
         @Override
@@ -35,21 +32,11 @@ public class ChartStatusPanel {
             double time = translator.screenToTime(x, infoPanel.getWidth(), zoomProvider);
             timeLabel.setText("" + String.format("%.5f sec", time));
 
-            Map.Entry<Integer, Integer> entry = time2rpm.floorEntry((int) time);
-            if (entry == null) {
-                angleLabel.setText("n/a");
-            } else {
-                double diff = time - entry.getKey();
-
-                Integer rpm = entry.getValue();
-                double timeForRevolution = 60000 * WaveReport.SYS_TICKS_PER_MS / rpm;
-
-                double angle = 360.0 * diff / timeForRevolution;
-
-                angleLabel.setText(String.format("%.2f", angle));
-            }
+            String text = time2rpm == null ? "n/a" : time2rpm.getText(time);
+            angleLabel.setText(text);
         }
     };
+
     private ZoomProvider zoomProvider;
 
     public ChartStatusPanel(ZoomProvider zoomProvider) {
@@ -69,9 +56,9 @@ public class ChartStatusPanel {
 
     public void setRevolutions(StringBuilder revolutions) {
         if (revolutions == null) {
-            time2rpm.clear();
+            time2rpm = null;
             return;
         }
-        time2rpm = UpDownImage.parseResolutions(revolutions);
+        time2rpm = RevolutionLog.parseRevolutions(revolutions);
     }
 }

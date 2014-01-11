@@ -102,8 +102,6 @@ public class WavePanel extends JPanel {
         createSecondaryImage("Injector 3");
         createSecondaryImage("Injector 4");
 
-//        imagePanel.add(register("input0 C6").setTranslator(crank.getTranslator()));
-
         SerialManager.engineState.registerStringValueAction("wave_chart", new EngineState.ValueCallback<String>() {
             @Override
             public void onUpdate(String value) {
@@ -112,6 +110,8 @@ public class WavePanel extends JPanel {
                 displayChart(value);
             }
         });
+
+        displayChart("wave_chart,crank!up!195516017!crank2!up!195520613!crank2!down!195520982!crank2!up!195522416!crank2!down!195522773!crank2!up!195524194!crank2!down!195524549!crank2!up!195525950!crank2!down!195526298!crank2!up!195531597!crank!down!195534219!crank2!down!195536880!crank2!up!195538456!crank2!down!195538828!crank2!up!195540239!crank2!down!195540593!crank2!up!195542000!crank2!down!195542353!crank!up!195547625!crank2!up!195552694!crank2!down!195553059!crank2!up!195554486!crank2!down!195554847!crank2!up!195556270!crank2!down!195556630!crank2!up!195558020!crank2!down!195558366!r!187!195561100!crank!down!195561100!crank2!up!195563637!crank2!down!195568921!crank2!up!195570499!crank2!down!195570866!crank2!up!195572279!crank2!down!195572636!crank2!up!195574030!crank2!down!195574383!crank!up!195580109!crank2!up!195584695!crank2!down!195585052!crank2!up!195586479!crank2!down!195586838!crank2!up!195588254!crank2!down!195588602!crank2!up!195590004!crank2!down!195590354!crank2!up!195595644!crank!down!195598280!crank2!down!195600917!crank2!up!195602491!crank2!down!195602858!crank2!up!195604283!crank2!down!195604636!crank2!up!195606027!crank2!down!195606370!crank!up!195611646!crank2!up!195616703!crank2!down!195617066!crank2!up!195618496!crank2!down!195618856!crank2!up!195620272!crank2!down!195620623!crank2!up!195622035!crank2!down!195622385!r!187!195625106!crank!down!195625106!crank2!up!195627647!crank2!down!195632923!crank2!up!195634492!crank2!down!195634860!crank2!up!195636280!crank2!down!195636628!crank2!up!195638009!crank2!down!195638351!crank!up!195644090!crank2!up!195648680!crank2!down!195649038!crank2!up!195650470!crank2!down!195650826!crank2!up!195652244!crank2!down!195652554!crank2!up!195652554!crank2!down!195652554!crank2!up!195652554!crank!down!195652554!crank!up!195652554!crank2!down!195652593!crank2!down!195653575!crank2!up!195653575!crank2!down!195653575!crank2!up!195653575!crank2!up!195653975!crank2!down!195654325!crank2!up!195659895!crank!down!195662965!crank2!down!195666267!crank2!up!195668322!crank2!down!195668794!crank2!up!195670657!crank2!down!195671125!,");
     }
 
     public void displayChart(String value) {
