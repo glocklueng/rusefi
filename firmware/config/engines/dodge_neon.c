@@ -14,8 +14,6 @@
 #include "main_loop.h"
 #include "dist_emulator.h"
 
-extern EngineConfiguration2 *engineConfiguration2;
-
 static void configureTriggerShape(trigger_shape_s *s) {
 	triggerShapeInit(s);
 
@@ -32,12 +30,24 @@ static void configureTriggerShape(trigger_shape_s *s) {
 
 void setDodgeNeonEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
-
-	engineConfiguration2->triggerShape.shaftPositionEventCount = ((2 - 1) * 2);
 }
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {
+	float x = 51;
+
 	resetEventList(&config->crankingInjectionEvents);
+
+	resetEventList(&config->injectionEvents);
+	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_4_OUTPUT), x);
+	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_2_OUTPUT), x + 180);
+	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_1_OUTPUT), x + 360);
+	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_3_OUTPUT), x + 540);
+
+	resetEventList(&config->ignitionEvents);
+	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_1_OUTPUT), x);
+	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_1_OUTPUT), x + 180);
+	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_1_OUTPUT), x + 360);
+	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_1_OUTPUT), x + 540);
 }
 
 void setDodgeNeonEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
@@ -45,6 +55,7 @@ void setDodgeNeonEngineConfiguration2(EngineConfiguration2 *engineConfiguration2
 
 	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 
+	engineConfiguration2->triggerShape.shaftPositionEventCount = ((2 - 1) * 2);
 	engineConfiguration2->triggerShape.useRiseEdge = FALSE;
 }
 
