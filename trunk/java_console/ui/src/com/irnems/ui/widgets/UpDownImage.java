@@ -3,12 +3,12 @@ package com.irnems.ui.widgets;
 import com.irnems.waves.TimeAxisTranslator;
 import com.irnems.waves.WaveReport;
 import com.irnems.waves.ZoomProvider;
+import com.rusefi.RevolutionLog;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TreeMap;
 
 /**
  * This is a renderer of {@link WaveReport} - this makes a simple Logical Analyzer
@@ -118,7 +118,7 @@ public class UpDownImage extends JPanel {
         if (revolutions == null)
             return;
 
-        TreeMap<Integer, Integer> time2rpm = parseResolutions(revolutions);
+        RevolutionLog time2rpm = RevolutionLog.parseRevolutions(revolutions);
 
         g2.setStroke(new BasicStroke());
         for (int time : time2rpm.keySet()) {
@@ -126,18 +126,6 @@ public class UpDownImage extends JPanel {
             g2.setColor(Color.green);
             g2.drawLine(x, 0, x, d.height);
         }
-    }
-
-    public static TreeMap<Integer, Integer> parseResolutions(StringBuilder revolutions) {
-        String[] r = revolutions.toString().split("!");
-
-        TreeMap<Integer, Integer> time2rpm = new TreeMap<Integer, Integer>();
-        for (int i = 0; i < r.length - 1; i += 2) {
-            int rpm = Integer.parseInt(r[i]);
-            int time = Integer.parseInt(r[i + 1]);
-            time2rpm.put(time, rpm);
-        }
-        return time2rpm;
     }
 
     private static final BasicStroke LONG_STROKE = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 10.0f,
