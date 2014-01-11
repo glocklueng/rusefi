@@ -31,9 +31,9 @@ MMCDriver MMCD1;
 #define SPI_BaudRatePrescaler_128       ((uint16_t)0x0030) //  656.25 KHz  328.125 KHz
 #define SPI_BaudRatePrescaler_256       ((uint16_t)0x0038) //  328.125 KHz 164.06 KHz
 static SPIConfig hs_spicfg = { NULL, SPI_SD_MODULE_PORT, SPI_SD_MODULE_PIN,
-		SPI_BaudRatePrescaler_128 };
+SPI_BaudRatePrescaler_128 };
 static SPIConfig ls_spicfg = { NULL, SPI_SD_MODULE_PORT, SPI_SD_MODULE_PIN,
-		SPI_BaudRatePrescaler_256 };
+SPI_BaudRatePrescaler_256 };
 
 /* MMC/SD over SPI driver configuration.*/
 // don't forget check if STM32_SPI_USE_SPI2 defined and spi has init with correct GPIO in hardware.c
@@ -63,7 +63,7 @@ static FRESULT createFile(char *fileName, FIL *f) {
 	}
 
 	memset(f, 0, sizeof(FIL));						// clear the memory
-	FRESULT err = f_open(f, fileName, FA_CREATE_NEW | FA_WRITE);// Create new file
+	FRESULT err = f_open(f, fileName, FA_CREATE_NEW | FA_WRITE);						// Create new file
 	if (err == FR_OK || err == FR_EXIST) {
 		f_sync(f);
 		f_close(f);					// if Ok or exist - close file
@@ -87,6 +87,46 @@ FRESULT createLogFile(char *fileName) {
 	return createFile(fileName, &FDLogFile);
 }
 
+static void ff_cmd_dir(char *path) {
+	if (!fs_ready) {
+		print("Error: No File system is mounted.\r\n");
+		return;
+	}
+
+	DIR dir;
+	FRESULT res = f_opendir(&dir, path);
+
+	FILINFO fno;
+	int i;
+	char *fn;
+	if (res == FR_OK) {
+		i = strlen(path);
+		for (;;) {
+			res = f_readdir(&dir, &fno);
+			if (res != FR_OK || fno.fname[0] == 0)
+				break;
+			if (fno.fname[0] == '.')
+				continue;
+			fn = fno.fname;
+			if (fno.fattrib & AM_DIR) {
+				path[i++] = '/';
+				strcpy(&path[i], fn);
+				// res = ff_cmd_ls(path);
+				if (res != FR_OK)
+					break;
+				path[i] = 0;
+			} else {
+				print("%s/%s\t%d-%d-%d/tbyte(s)\r\n", path, fn, fno.fdate & 0xf0, (fno.fdate & 0xc) + 180,
+						fno.fdate & 0x3, fno.fsize);
+			}
+		}
+	}
+}
+
+static void ff_cmd_dir_root(void) {
+	ff_cmd_dir(".");
+}
+
 /**
  * @brief Appends specified line to the current log file
  */
@@ -97,29 +137,29 @@ void appendToLog(char *line) {
 	if (!fs_ready)
 		return; // it is normal to have no flash card so no special message
 
-		err = f_open(&FDLogFile, LogFileName, FA_WRITE);
-		if (err == FR_OK || err == FR_EXIST) {
-			err = f_lseek(&FDLogFile, f_size(&FDLogFile));// Move to end of the file to append data
-			if (err) {
-				printError("Seek error", err);
-				return;
-			}
-			err = f_write(&FDLogFile, line, strlen(line), &bytesWrited);
-			if (bytesWrited < strlen(line)) {
-				printError("write error or disk full", err);// error or disk full
-			}
-			f_sync(&FDLogFile);
-			f_close(&FDLogFile);
-		} else {
-			print("Can't open Log file %s\r\n", LogFileName);
+	err = f_open(&FDLogFile, LogFileName, FA_WRITE);
+	if (err == FR_OK || err == FR_EXIST) {
+		err = f_lseek(&FDLogFile, f_size(&FDLogFile)); // Move to end of the file to append data
+		if (err) {
+			printError("Seek error", err);
+			return;
 		}
+		err = f_write(&FDLogFile, line, strlen(line), &bytesWrited);
+		if (bytesWrited < strlen(line)) {
+			printError("write error or disk full", err); // error or disk full
+		}
+		f_sync(&FDLogFile);
+		f_close(&FDLogFile);
+	} else {
+		print("Can't open Log file %s\r\n", LogFileName);
+	}
 }
 
 /*
  * MMC card removal event.
  */
 static void MMCRemoved(void) {
-	f_mount(0, NULL );		// FATFS: Unregister work area prior to discard it
+	f_mount(0, NULL);		// FATFS: Unregister work area prior to discard it
 	memset(&FDLogFile, 0, sizeof(FIL));			// clear FDLogFile
 	fs_ready = FALSE;							// status = false
 	print("MMC/SD card removed.\r\n");
@@ -145,7 +185,7 @@ static int MMCInserted(void) {
 
 //  this thread is a in/out MMC/SD monitor
 #if defined __GNUC__
-__attribute__((noreturn))        static msg_t MMCmonThread(void)
+__attribute__((noreturn))           static msg_t MMCmonThread(void)
 #else
 static msg_t MMCmonThread(void)
 #endif
@@ -173,6 +213,7 @@ static msg_t MMCmonThread(void)
 }
 
 void testFs(void) {
+	print("Testing FS: ready=%d\r\n", fs_ready);
 	if (!fs_ready)
 		return;
 	FRESULT err;
@@ -194,8 +235,11 @@ void initMmcCard(void) {
 	mmcObjectInit(&MMCD1);
 	mmcStart(&MMCD1, &mmccfg);
 
-	chThdCreateStatic(tp_MMC_Monitor, sizeof(tp_MMC_Monitor), LOWPRIO,
-			(tfunc_t) MMCmonThread, NULL );
+	chThdCreateStatic(tp_MMC_Monitor, sizeof(tp_MMC_Monitor), LOWPRIO, (tfunc_t) MMCmonThread, NULL);
 
 	addConsoleAction("testfs", testFs);
+
+	addConsoleAction("dirroot", ff_cmd_dir_root);
+	addConsoleActionS("dir", ff_cmd_dir);
+
 }
