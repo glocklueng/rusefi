@@ -18,9 +18,11 @@ public class RevolutionLog {
     }
 
     public static RevolutionLog parseRevolutions(StringBuilder revolutions) {
-        String[] r = revolutions.toString().split("!");
-
         TreeMap<Integer, Integer> time2rpm = new TreeMap<Integer, Integer>();
+        if (revolutions == null)
+            return new RevolutionLog(time2rpm);
+
+        String[] r = revolutions.toString().split("!");
         for (int i = 0; i < r.length - 1; i += 2) {
             int rpm = Integer.parseInt(r[i]);
             int time = Integer.parseInt(r[i + 1]);

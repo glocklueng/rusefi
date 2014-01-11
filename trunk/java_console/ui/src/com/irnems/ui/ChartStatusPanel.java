@@ -21,7 +21,7 @@ public class ChartStatusPanel {
     private final JLabel angleLabel = new JLabel();
     private TimeAxisTranslator translator = WaveReport.MOCK;
 
-    private RevolutionLog time2rpm;
+    private RevolutionLog time2rpm = RevolutionLog.parseRevolutions(null);
 
     final MouseMotionAdapter motionAdapter = new MouseMotionAdapter() {
         @Override
@@ -55,10 +55,6 @@ public class ChartStatusPanel {
     }
 
     public void setRevolutions(StringBuilder revolutions) {
-        if (revolutions == null) {
-            time2rpm = null;
-            return;
-        }
         time2rpm = RevolutionLog.parseRevolutions(revolutions);
     }
 }

@@ -126,6 +126,7 @@ public class WavePanel extends JPanel {
             UpDownImage image = images.get(e.getKey());
             if (image == null)
                 continue;
+            image.setRevolutions(revolutions);
             List<WaveReport.UpDown> list = WaveReport.parse(e.getValue().toString());
             if (list.isEmpty()) {
                 image.onUpdate(); // this would reset empty image
