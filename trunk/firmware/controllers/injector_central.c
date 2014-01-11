@@ -44,7 +44,7 @@ void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, OutputSignal 
 //	if (!isInjectorEnabled(cylinderId))
 //		return;
 
-	scheduleOutput(injector, offsetSysTicks, lengthSysTicks);
+	scheduleOutput(injector, offsetSysTicks, lengthSysTicks, chTimeNow());
 }
 
 /**

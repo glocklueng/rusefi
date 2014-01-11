@@ -50,8 +50,8 @@ static float v_averagedMapValue;
 
 extern EngineConfiguration *engineConfiguration;
 
-static VirtualTimer startTimer;
-static VirtualTimer endTimer;
+static scheduling_s startTimer;
+static scheduling_s endTimer;
 
 float getAtmosphericPressure(void) {
 	return atmosphericPressure;
