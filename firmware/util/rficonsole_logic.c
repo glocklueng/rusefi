@@ -126,7 +126,7 @@ static float atof(char *string) {
 /**
  * @brief This function prints out a list of all available commands
  */
-static void help(void) {
+void helpCommand(void) {
 	print("%d actions available:\r\n", consoleActionCount);
 	for (int i = 0; i < consoleActionCount; i++) {
 		TokenCallback *current = &consoleActions[i];
@@ -142,7 +142,7 @@ static void echo(int value) {
 }
 
 void addDefaultConsoleActions() {
-	addConsoleAction("help", &help);
+	addConsoleAction("help", &helpCommand);
 	addConsoleActionI("echo", &echo);
 }
 
@@ -325,5 +325,5 @@ void handleConsoleLine(char *line) {
 	}
 	sendOutConfirmation("unknown command", 0);
 	sendOutConfirmation(confirmation, -1);
-	help();
+	helpCommand();
 }
