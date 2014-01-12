@@ -111,6 +111,10 @@ void runRusEfi(void) {
 
 	print("Running main loop\r\n");
 	main_loop_started = TRUE;
+	/**
+	 * This loop is the closes we have to 'main loop' - but here we only publish the status. The main logic of engine
+	 * control is around main_trigger_callback
+	 */
 	while (TRUE) {
 #if EFI_CLI_SUPPORT
 		// sensor state + all pending messages for our own dev console
