@@ -14,5 +14,6 @@
 #include "rficonsole_logic.h"
 
 void initializeConsole(void);
+void sendOutConfirmation(char *value, int i);
 
 #endif /* RFICONSOLE_H_ */

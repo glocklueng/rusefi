@@ -17,7 +17,6 @@
 #include <stdbool.h>
 #include "main.h"
 #include "rficonsole_logic.h"
-#include "datalogging.h"
 
 static int consoleActionCount = 0;
 static TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
@@ -209,11 +208,7 @@ static int strEqual(char *str1, char *str2) {
 	return TRUE;
 }
 
-static Logging logger;
-
 void initConsoleLogic() {
-	initIntermediateLoggingBuffer();
-	initLogging(&logger, "console logic");
 }
 
 static char *validateSecureLine(char *line) {
@@ -245,6 +240,8 @@ static char *validateSecureLine(char *line) {
 }
 
 static char confirmation[200];
+
+void sendOutConfirmation(char *value, int i);
 
 /**
  * @brief This function takes care of one command line once we have it
@@ -278,7 +275,7 @@ void handleConsoleLine(char *line) {
 				// invoke callback function by reference
 				(*current->callback)();
 				// confirmation happens after the command to avoid conflict with command own output
-				scheduleSimpleMsg(&logger, confirmation, lineLength);
+				sendOutConfirmation(confirmation, lineLength);
 				return;
 			}
 		}
@@ -294,12 +291,12 @@ void handleConsoleLine(char *line) {
 			if (strEqual(line, current->token)) {
 				handleActionWithParameter(current, ptr);
 				// confirmation happens after the command to avoid conflict with command own output
-				scheduleSimpleMsg(&logger, confirmation, lineLength);
+				sendOutConfirmation(confirmation, lineLength);
 				return;
 			}
 		}
 	}
-	scheduleSimpleMsg(&logger, "unknown command", 0);
-	scheduleSimpleMsg(&logger, confirmation, -1);
+	sendOutConfirmation("unknown command", 0);
+	sendOutConfirmation(confirmation, -1);
 	help();
 }

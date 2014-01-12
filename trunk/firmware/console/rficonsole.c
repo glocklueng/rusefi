@@ -115,8 +115,14 @@ static void cmd_threads(void) {
 	} while (tp != NULL );
 }
 
+void sendOutConfirmation(char *value, int i) {
+	scheduleSimpleMsg(&logger, value, i);
+}
+
 void initializeConsole() {
+	initIntermediateLoggingBuffer();
 	initConsoleLogic();
+
 	startChibiosConsole(&handleConsoleLine);
 
 	initLogging(&logger, "console");
