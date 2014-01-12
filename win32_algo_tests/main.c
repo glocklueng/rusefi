@@ -83,12 +83,12 @@ int main(void) {
 
 	testHistogram();
 
-	testTriggerDecoder();
-
-	testMalfunctionCentral();
-
-
-	testConsoleLogic();
+//	testTriggerDecoder();
+//
+//	testMalfunctionCentral();
+//
+//
+//	testConsoleLogic();
 
 	printf("Success 20130111\r\n");
 	return EXIT_SUCCESS;
