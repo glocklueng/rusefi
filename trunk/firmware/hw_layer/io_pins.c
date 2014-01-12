@@ -113,6 +113,10 @@ char *getPinName(io_pin_e io_pin) {
 		return "Spark 1";
 	case SPARKOUT_2_OUTPUT:
 		return "Spark 2";
+	case SPARKOUT_3_OUTPUT:
+		return "Spark 3";
+	case SPARKOUT_4_OUTPUT:
+		return "Spark 4";
 
 	case INJECTOR_1_OUTPUT:
 		return "Injector 1";
