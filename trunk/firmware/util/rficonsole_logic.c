@@ -21,6 +21,10 @@
 static int consoleActionCount = 0;
 static TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
 
+void resetConsoleActions(void) {
+	consoleActionCount = 0;
+}
+
 static void doAddAction(char *token, int type, Void callback) {
 	if (consoleActionCount == CONSOLE_MAX_ACTIONS) {
 		fatal("Too many console actions\r\n");
@@ -64,7 +68,6 @@ void addConsoleActionF(char *token, VoidFloat callback) {
 // string to integer
 static int atoi(char *string) {
 	// todo: is there a standard function for this?
-	// todo: create a unit test
 	int len = strlen(string);
 	if (len == 0)
 		return -ERROR_CODE;
@@ -208,11 +211,7 @@ static int strEqual(char *str1, char *str2) {
 	return TRUE;
 }
 
-static Logging logger;
-
 void initConsoleLogic() {
-	initIntermediateLoggingBuffer();
-	initLogging(&logger, "console logic");
 }
 
 static char *validateSecureLine(char *line) {
