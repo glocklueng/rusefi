@@ -23,13 +23,16 @@ extern int outputSignalCount;
 void testEventRegistry(void) {
 	printf("*************************************** testEventRegistry\r\n");
 
+	printf("resetting\r\n");
 	resetEventList(&eventList);
 	outputSignalCount = 0;
+	printf("registering 0\r\n");
 
 	registerActuatorEvent(&eventList, 0, addOutputSignal(10), 0);
 	registerActuatorEvent(&eventList, 0, addOutputSignal(20), 10);
 	assertEquals(2, eventList.size);
 
+	printf("registering 1\r\n");
 	registerActuatorEvent(&eventList, 1, addOutputSignal(30), 0);
 	registerActuatorEvent(&eventList, 1, addOutputSignal(40), 10);
 	assertEquals(4, eventList.size);
