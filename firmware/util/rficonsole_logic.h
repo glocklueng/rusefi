@@ -43,6 +43,7 @@ typedef void (*VoidFloat)(float);
 typedef void (*VoidIntInt)(int, int);
 typedef void (*VoidCharPtr)(char *);
 
+void resetConsoleActions(void);
 void initConsoleLogic(void);
 void handleConsoleLine(char *line);
 void addConsoleAction(char *token, Void callback);
