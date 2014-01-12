@@ -208,7 +208,11 @@ static int strEqual(char *str1, char *str2) {
 	return TRUE;
 }
 
+static Logging logger;
+
 void initConsoleLogic() {
+	initIntermediateLoggingBuffer();
+	initLogging(&logger, "console logic");
 }
 
 static char *validateSecureLine(char *line) {
