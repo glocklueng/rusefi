@@ -5,7 +5,6 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
-#include <stdlib.h>
 #include <string.h>
 
 #include "test_util.h"
