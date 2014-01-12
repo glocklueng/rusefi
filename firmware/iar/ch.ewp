@@ -2024,10 +2024,10 @@
       <name>$PROJ_DIR$\..\console_util\print.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\console_util\rficonsole_logic.c</name>
+      <name>$PROJ_DIR$\..\util\rficonsole_logic.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\console_util\rficonsole_logic.h</name>
+      <name>$PROJ_DIR$\..\util\rficonsole_logic.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\console_util\rfiutil.c</name>
@@ -2237,10 +2237,10 @@
       <name>$PROJ_DIR$\..\controllers\injector_central.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\controllers\main_loop.c</name>
+      <name>$PROJ_DIR$\..\controllers\main_trigger_callback.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\controllers\main_loop.h</name>
+      <name>$PROJ_DIR$\..\controllers\main_trigger_callback.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\malfunction_indicator.c</name>
