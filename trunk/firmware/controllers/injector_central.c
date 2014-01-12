@@ -90,9 +90,9 @@ static void fuelBench(char * onStr, char *offStr, char *countStr) {
 
 	for (int i = 0; i < count; i++) {
 		setOutputPinValue(INJECTOR_1_OUTPUT, TRUE);
-		chThdSleep(onTime * CH_FREQUENCY / 1000);
+		chThdSleep((int)(onTime * CH_FREQUENCY / 1000));
 		setOutputPinValue(INJECTOR_1_OUTPUT, FALSE);
-		chThdSleep(offTime * CH_FREQUENCY / 1000);
+		chThdSleep((int)(offTime * CH_FREQUENCY / 1000));
 	}
 	print("Done running fuel bench\r\n");
 }
