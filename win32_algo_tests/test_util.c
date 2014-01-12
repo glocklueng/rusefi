@@ -119,7 +119,7 @@ void testMalfunctionCentral(void) {
 }
 
 void sendOutConfirmation(char *value, int i) {
-	// test implemention
+	// test implementation
 }
 
 static int lastInteger = -1;
@@ -144,6 +144,65 @@ static void testEchoSSS(char *first, char *second, char *third) {
 
 #define UNKNOWN_COMMAND "dfadasdasd"
 
+static char confirmation[200];
+
+extern int consoleActionCount;
+extern TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
+
+void handleConsoleLine2(char *line) {
+	line = validateSecureLine(line);
+	if (line == NULL)
+		return; // error detected
+
+	int lineLength = strlen(line);
+	if (lineLength > 100) {
+		// todo: better max size logic
+		// todo: better reaction to excessive line
+		return;
+	}
+
+	strcpy(confirmation, "confirmation_");
+	strcat(confirmation, line);
+	strcat(confirmation, ":");
+
+	int firstTokenLength = tokenLength(line);
+
+//	print("processing [%s] with %d actions\r\n", line, consoleActionCount);
+
+	if (firstTokenLength == lineLength) {
+		// no-param actions are processed here
+		for (int i = 0; i < consoleActionCount; i++) {
+			TokenCallback *current = &consoleActions[i];
+			if (strEqual(line, current->token)) {
+				// invoke callback function by reference
+				(*current->callback)();
+				// confirmation happens after the command to avoid conflict with command own output
+				sendOutConfirmation(confirmation, lineLength);
+				return;
+			}
+		}
+	} else {
+		char *ptr = line + firstTokenLength;
+		ptr[0] = 0; // change space into line end
+		ptr++; // start from next symbol
+
+		for (int i = 0; i < consoleActionCount; i++) {
+			TokenCallback *current = &consoleActions[i];
+			if (strEqual(line, current->token)) {
+				handleActionWithParameter(current, ptr);
+				// confirmation happens after the command to avoid conflict with command own output
+				sendOutConfirmation(confirmation, lineLength);
+				return;
+			}
+		}
+	}
+	sendOutConfirmation("unknown command", 0);
+	sendOutConfirmation(confirmation, -1);
+	helpCommand();
+}
+
+
+
 void testConsoleLogic(void) {
 	print("******************************************* testConsoleLogic\r\n");
 	resetConsoleActions();
@@ -155,7 +214,7 @@ void testConsoleLogic(void) {
 	assertEquals(10, tokenLength(UNKNOWN_COMMAND));
 
 	// handling invalid token should work
-//	handleConsoleLine("sdasdafasd asd");
+	handleConsoleLine2("sdasdafasd asd");
 
 	print("addConsoleActionI\r\n");
 	addConsoleActionI("echoi", testEchoI);
