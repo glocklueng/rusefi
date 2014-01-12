@@ -39,7 +39,7 @@ void testInterpolate3d(void) {
 
 	printf("*** no interpolation here 2\r\n");
 	dwell = getValue(200, 4);
-	assertEquals(600, dwell);
+	assertEquals(5, dwell);
 
 	printf("*** rpm interpolated value expected1\r\n");
 	dwell = getValue(150, 2);
