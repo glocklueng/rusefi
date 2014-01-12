@@ -90,7 +90,7 @@ int main(void) {
 
 	testConsoleLogic();
 
-	printf("Success 20130111\r\n");
+	printf("Success 20130112\r\n");
 	return EXIT_SUCCESS;
 }
 
