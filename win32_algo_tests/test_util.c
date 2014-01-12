@@ -120,17 +120,30 @@ void sendOutConfirmation(char *value, int i) {
 }
 
 static int lastInteger = -1;
+static int lastInteger2 = -1;
 
 static void testEchoI(int param) {
 	lastInteger = param;
+}
+
+static void testEchoII(int param, int param2) {
+	lastInteger = param;
+	lastInteger2 = param2;
+
 }
 
 void testConsoleLogic(void) {
 	print("******************************************* testConsoleLogic\r\n");
 	resetConsoleActions();
 	addConsoleActionI("echoi", testEchoI);
+	addConsoleActionII("echoii", testEchoII);
+
 	handleConsoleLine("echoi 239");
 	assertEquals(239, lastInteger);
+
+	handleConsoleLine("echoii 22 239");
+	assertEquals(22, lastInteger);
+	assertEquals(239, lastInteger2);
 
 }
 
