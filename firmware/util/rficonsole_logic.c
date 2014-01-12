@@ -71,7 +71,7 @@ void addConsoleActionF(char *token, VoidFloat callback) {
 
 // string to integer
 static int atoi(char *string) {
-	// todo: is there a standard function for this?
+	// todo: use stdlib '#include <stdlib.h> '
 	int len = strlen(string);
 	if (len == 0)
 		return -ERROR_CODE;
@@ -153,6 +153,30 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 		return;
 	}
 
+	if (current->parameterType == STRING3_PARAMETER) {
+		int spaceIndex = indexOf(parameter, ' ');
+		if (spaceIndex == -1)
+			return;
+		parameter[spaceIndex] = 0;
+		char * firstParam = parameter;
+
+		parameter += spaceIndex + 1;
+		spaceIndex = indexOf(parameter, ' ');
+		if (spaceIndex == -1)
+			return;
+		parameter[spaceIndex] = 0;
+		char * secondParam = parameter;
+		parameter += spaceIndex + 1;
+		char * thirdParam = parameter;
+
+
+		VoidCharPtrCharPtrCharPtr callbackS = (VoidCharPtrCharPtrCharPtr)current->callback;
+		(*callbackS)(firstParam, secondParam, thirdParam);
+		return;
+
+	}
+
+
 	if (current->parameterType == TWO_INTS_PARAMETER) {
 		int spaceIndex = indexOf(parameter, ' ');
 		if (spaceIndex == -1)
@@ -208,8 +232,7 @@ static int strEqual(char *str1, char *str2) {
 	int len2 = strlen(str2);
 	if (len1 != len2)
 		return FALSE;
-	int i;
-	for (i = 0; i < len1; i++)
+	for (int i = 0; i < len1; i++)
 		if (str1[i] != str2[i])
 			return FALSE;
 	return TRUE;
@@ -275,8 +298,7 @@ void handleConsoleLine(char *line) {
 
 	if (firstTokenLength == lineLength) {
 		// no-param actions are processed here
-		int i;
-		for (i = 0; i < consoleActionCount; i++) {
+		for (int i = 0; i < consoleActionCount; i++) {
 			TokenCallback *current = &consoleActions[i];
 			if (strEqual(line, current->token)) {
 				// invoke callback function by reference
@@ -292,8 +314,7 @@ void handleConsoleLine(char *line) {
 		ptr++; // start from next symbol
 
 ///		print("with parameter [%s][%s]\r\n", line, ptr);
-		int i;
-		for (i = 0; i < consoleActionCount; i++) {
+		for (int i = 0; i < consoleActionCount; i++) {
 			TokenCallback *current = &consoleActions[i];
 			if (strEqual(line, current->token)) {
 				handleActionWithParameter(current, ptr);
