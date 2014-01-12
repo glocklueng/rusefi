@@ -15,6 +15,7 @@
 #include "rficonsole_logic.h"
 #include "main_loop.h"
 #include "engine_configuration.h"
+#include "pin_repository.h"
 
 static Logging logger;
 
@@ -67,7 +68,7 @@ static void printStatus(void) {
 }
 
 static void setInjectorEnabled(int id, int value) {
-	chDbgCheck(id >=0 && id < engineConfiguration2->cylindersCount, "injector id");
+	chDbgCheck(id >= 0 && id < engineConfiguration2->cylindersCount, "injector id");
 	is_injector_enabled[id] = value;
 	printStatus();
 }
@@ -77,6 +78,23 @@ static void setGlobalFuelCorrection(int value) {
 		return;
 	scheduleSimpleMsg(&logger, "setting fuel mult=", value);
 	globalFuelCorrection = value / 100.0;
+}
+
+static void fuelBench(char * onStr, char *offStr, char *countStr) {
+	float onTime = atof(onStr);
+	float offTime = atof(offStr);
+	int count = atoi(countStr);
+
+	print("Running fuel bench: ON_TIME=%f, OFF_TIME=%f. Counter=%d\r\n", onTime, offTime, count);
+	print("INJECTOR_1_OUTPUT on %s%d\r\n", portname(INJECTOR_1_PORT), INJECTOR_1_PIN);
+
+	for (int i = 0; i < count; i++) {
+		setOutputPinValue(INJECTOR_1_OUTPUT, TRUE);
+		chThdSleep(onTime * CH_FREQUENCY / 1000);
+		setOutputPinValue(INJECTOR_1_OUTPUT, FALSE);
+		chThdSleep(offTime * CH_FREQUENCY / 1000);
+	}
+	print("Done running fuel bench\r\n");
 }
 
 void initInjectorCentral(void) {
@@ -94,4 +112,6 @@ void initInjectorCentral(void) {
 
 	addConsoleActionII("injector", setInjectorEnabled);
 	addConsoleActionI("gfc", setGlobalFuelCorrection);
+
+	addConsoleActionSSS("fuelbench", &fuelBench);
 }
