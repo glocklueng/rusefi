@@ -2553,6 +2553,9 @@
           <name>$PROJ_DIR$\..\chibios\os\hal\src\mmc_spi.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\chibios\os\hal\src\mmcsd.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\src\pal.c</name>
         </file>
         <file>
