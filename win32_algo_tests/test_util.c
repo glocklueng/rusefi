@@ -151,9 +151,10 @@ void testConsoleLogic(void) {
 
 	char *ptr = validateSecureLine(UNKNOWN_COMMAND);
 	assertEquals(0, strcmp(UNKNOWN_COMMAND, ptr));
+	assertEquals(10, tokenLength(UNKNOWN_COMMAND));
 
 	// handling invalid token should work
-	//handleConsoleLine("sdasdafasd asd");
+	handleConsoleLine("sdasdafasd asd");
 
 	print("addConsoleActionI\r\n");
 	addConsoleActionI("echoi", testEchoI);
