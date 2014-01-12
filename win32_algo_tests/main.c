@@ -88,7 +88,7 @@ int main(void) {
 	testMalfunctionCentral();
 
 
-//	testConsoleLogic();
+	testConsoleLogic();
 
 	printf("Success 20130111\r\n");
 	return EXIT_SUCCESS;
