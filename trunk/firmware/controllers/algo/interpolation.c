@@ -137,14 +137,30 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 		return map[xIndex][0];
 	}
 
-	if (xIndex == xBinSize - 1) {
-		// todo: implement better handling
+	if (xIndex == xBinSize - 1 && yIndex == yBinSize - 1) {
+#if	DEBUG_INTERPOLATION
+		if (needInterpolationLogging)
+			printf("X and Y are larger than largest cell in table: %d %d\r\n", xIndex, yIndex);
+#endif
 		return map[xBinSize - 1][yBinSize - 1];
 	}
 
+	if (xIndex == xBinSize - 1) {
+#if	DEBUG_INTERPOLATION
+		if (needInterpolationLogging)
+			printf("TODO BETTER LOGGING x overflow %d\r\n", yIndex);
+#endif
+		// todo: implement better handling - y interpolation
+		return map[xBinSize - 1][yIndex];
+	}
+
 	if (yIndex == yBinSize - 1) {
-		// todo: implement better handling
-		return map[xBinSize - 1][yBinSize - 1];
+#if	DEBUG_INTERPOLATION
+		if (needInterpolationLogging)
+			printf("Y is larger than largest cell in table: %d\r\n", yIndex);
+#endif
+		// todo: implement better handling - x interpolation
+		return map[xIndex][yBinSize - 1];
 	}
 
 	/*
