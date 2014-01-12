@@ -11,6 +11,7 @@
 #include "cyclic_buffer.h"
 #include "main.h"
 #include "histogram.h"
+#include "unistd.h"
 
 #include "malfunction_central.h"
 #include "rficonsole_logic.h"
@@ -144,6 +145,8 @@ static void testEchoSSS(char *first, char *second, char *third) {
 void testConsoleLogic(void) {
 	print("******************************************* testConsoleLogic\r\n");
 	resetConsoleActions();
+
+	sleep(5);
 
 	// handling invalid token should work
 	handleConsoleLine("sdasdafasd asd");
