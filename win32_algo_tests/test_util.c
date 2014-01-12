@@ -165,11 +165,17 @@ void handleConsoleLine2(char *line) {
 	strcat(confirmation, line);
 	strcat(confirmation, ":");
 
-//	int firstTokenLength = tokenLength(line);
-//
-////	print("processing [%s] with %d actions\r\n", line, consoleActionCount);
-//
-//	if (firstTokenLength == lineLength) {
+	print("hello3\r\n");
+
+	int firstTokenLength = tokenLength(line);
+
+	print("processing [%s] with %d actions\r\n", line, consoleActionCount);
+
+	print("hello5\r\n");
+
+
+
+	if (firstTokenLength == lineLength) {
 //		// no-param actions are processed here
 //		for (int i = 0; i < consoleActionCount; i++) {
 //			TokenCallback *current = &consoleActions[i];
@@ -181,7 +187,7 @@ void handleConsoleLine2(char *line) {
 //				return;
 //			}
 //		}
-//	} else {
+	} else {
 //		char *ptr = line + firstTokenLength;
 //		ptr[0] = 0; // change space into line end
 //		ptr++; // start from next symbol
@@ -195,10 +201,10 @@ void handleConsoleLine2(char *line) {
 //				return;
 //			}
 //		}
-//	}
-//	sendOutConfirmation("unknown command", 0);
-//	sendOutConfirmation(confirmation, -1);
-//	helpCommand();
+	}
+	sendOutConfirmation("unknown command", 0);
+	sendOutConfirmation(confirmation, -1);
+	helpCommand();
 }
 
 
