@@ -150,10 +150,10 @@ void testConsoleLogic(void) {
 	handleConsoleLine("echoi 239");
 	assertEquals(239, lastInteger);
 
-	print("addConsoleActionII\r\n");
-	handleConsoleLine("echoii 22 239");
-	assertEquals(22, lastInteger);
-	assertEquals(239, lastInteger2);
+//	print("addConsoleActionII\r\n");
+//	handleConsoleLine("echoii 22 239");
+//	assertEquals(22, lastInteger);
+//	assertEquals(239, lastInteger2);
 
 	addConsoleActionII("echoii", testEchoII);
 //	addConsoleActionSSS("echosss", testEchoSSS);
