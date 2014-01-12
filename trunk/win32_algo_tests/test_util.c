@@ -146,18 +146,18 @@ void testConsoleLogic(void) {
 	resetConsoleActions();
 	addConsoleActionI("echoi", testEchoI);
 	addConsoleActionII("echoii", testEchoII);
-	addConsoleActionSSS("echosss", testEchoSSS);
-
-	handleConsoleLine("echoi 239");
-	assertEquals(239, lastInteger);
-
-	handleConsoleLine("echoii 22 239");
-	assertEquals(22, lastInteger);
-	assertEquals(239, lastInteger2);
-
-	handleConsoleLine("echosss 111 222 333");
-	assertEquals(111, atoi(lastFirst));
-	assertEquals(333, atoi(lastThird));
+//	addConsoleActionSSS("echosss", testEchoSSS);
+//
+//	handleConsoleLine("echoi 239");
+//	assertEquals(239, lastInteger);
+//
+//	handleConsoleLine("echoii 22 239");
+//	assertEquals(22, lastInteger);
+//	assertEquals(239, lastInteger2);
+//
+//	handleConsoleLine("echosss 111 222 333");
+//	assertEquals(111, atoi(lastFirst));
+//	assertEquals(333, atoi(lastThird));
 }
 
 void testGpsParser() {
