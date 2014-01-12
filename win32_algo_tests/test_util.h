@@ -11,5 +11,6 @@
 void testCyclicBuffer(void);
 void testHistogram(void);
 void testMalfunctionCentral(void);
+void testConsoleLogic(void);
 
 #endif /* TEST_CYCLIC_BUFFER_H_ */
