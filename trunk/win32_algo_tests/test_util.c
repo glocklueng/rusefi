@@ -167,20 +167,19 @@ void testConsoleLogic(void) {
 	handleConsoleLine(buffer);
 	assertEquals(239, lastInteger);
 
-	addConsoleActionII("echoii", testEchoII);
 	print("\r\naddConsoleActionII\r\n");
+	addConsoleActionII("echoii", testEchoII);
 	strcpy(buffer, "echoii 22 239");
 	handleConsoleLine(buffer);
 	assertEquals(22, lastInteger);
 	assertEquals(239, lastInteger2);
 
-//	addConsoleActionSSS("echosss", testEchoSSS);
-//
-//
-//
-//	handleConsoleLine("echosss 111 222 333");
-//	assertEquals(111, atoi(lastFirst));
-//	assertEquals(333, atoi(lastThird));
+	print("\r\addConsoleActionSSS\r\n");
+	addConsoleActionSSS("echosss", testEchoSSS);
+	strcpy(buffer, "echosss 111 222 333");
+	handleConsoleLine(buffer);
+	assertEquals(111, atoi(lastFirst));
+	assertEquals(333, atoi(lastThird));
 }
 
 void testGpsParser() {
