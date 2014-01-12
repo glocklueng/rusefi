@@ -6,12 +6,12 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
 
 #include "test_util.h"
 #include "cyclic_buffer.h"
 #include "main.h"
 #include "histogram.h"
-#include "unistd.h"
 
 #include "malfunction_central.h"
 #include "rficonsole_logic.h"
@@ -142,14 +142,18 @@ static void testEchoSSS(char *first, char *second, char *third) {
 	lastThird = third;
 }
 
+#define UNKNOWN_COMMAND "dfadasdasd"
+
 void testConsoleLogic(void) {
 	print("******************************************* testConsoleLogic\r\n");
 	resetConsoleActions();
 
-	sleep(5);
+
+	char *ptr = validateSecureLine(UNKNOWN_COMMAND);
+	assertEquals(0, strcmp(UNKNOWN_COMMAND, ptr));
 
 	// handling invalid token should work
-	handleConsoleLine("sdasdafasd asd");
+	//handleConsoleLine("sdasdafasd asd");
 
 	print("addConsoleActionI\r\n");
 	addConsoleActionI("echoi", testEchoI);
