@@ -144,69 +144,6 @@ static void testEchoSSS(char *first, char *second, char *third) {
 
 #define UNKNOWN_COMMAND "dfadasdasd"
 
-static char confirmation[200];
-
-extern int consoleActionCount;
-extern TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
-
-void handleConsoleLine2(char *line) {
-	line = validateSecureLine(line);
-	if (line == NULL)
-		return; // error detected
-
-	int lineLength = strlen(line);
-	if (lineLength > 100) {
-		// todo: better max size logic
-		// todo: better reaction to excessive line
-		return;
-	}
-
-	strcpy(confirmation, "confirmation_");
-	strcat(confirmation, line);
-	strcat(confirmation, ":");
-
-	print("hello3\r\n");
-
-	int firstTokenLength = tokenLength(line);
-
-	print("processing [%s] with %d actions\r\n", line, consoleActionCount);
-
-	print("hello5\r\n");
-
-
-
-	if (firstTokenLength == lineLength) {
-		// no-param actions are processed here
-		for (int i = 0; i < consoleActionCount; i++) {
-//			TokenCallback *current = &consoleActions[i];
-//			if (strEqual(line, current->token)) {
-//				// invoke callback function by reference
-//				(*current->callback)();
-//				// confirmation happens after the command to avoid conflict with command own output
-//				sendOutConfirmation(confirmation, lineLength);
-//				return;
-//			}
-		}
-	} else {
-//		char *ptr = line + firstTokenLength;
-//		ptr[0] = 0; // change space into line end
-//		ptr++; // start from next symbol
-//
-		for (int i = 0; i < consoleActionCount; i++) {
-			TokenCallback *current = &consoleActions[i];
-//			if (strEqual(line, current->token)) {
-//				handleActionWithParameter(current, ptr);
-//				// confirmation happens after the command to avoid conflict with command own output
-//				sendOutConfirmation(confirmation, lineLength);
-//				return;
-//			}
-		}
-	}
-	sendOutConfirmation("unknown command", 0);
-	sendOutConfirmation(confirmation, -1);
-	helpCommand();
-}
-
 // this buffer is needed because on Unix you would not be able to change static char constants
 static char buffer[300];
 
@@ -226,13 +163,15 @@ void testConsoleLogic(void) {
 
 	print("addConsoleActionI\r\n");
 	addConsoleActionI("echoi", testEchoI);
-//	handleConsoleLine("echoi 239");
-//	assertEquals(239, lastInteger);
+	strcpy(buffer, "echoi 239");
+	handleConsoleLine(buffer);
+	assertEquals(239, lastInteger);
 
-//	print("addConsoleActionII\r\n");
-//	handleConsoleLine("echoii 22 239");
-//	assertEquals(22, lastInteger);
-//	assertEquals(239, lastInteger2);
+	print("addConsoleActionII\r\n");
+	strcpy(buffer, "echoii 22 239");
+	handleConsoleLine(buffer);
+	assertEquals(22, lastInteger);
+	assertEquals(239, lastInteger2);
 
 //	addConsoleActionII("echoii", testEchoII);
 //	addConsoleActionSSS("echosss", testEchoSSS);
