@@ -188,9 +188,9 @@ void handleConsoleLine2(char *line) {
 //			}
 		}
 	} else {
-		char *ptr = line + firstTokenLength;
-		ptr[0] = 0; // change space into line end
-		ptr++; // start from next symbol
+//		char *ptr = line + firstTokenLength;
+//		ptr[0] = 0; // change space into line end
+//		ptr++; // start from next symbol
 //
 		for (int i = 0; i < consoleActionCount; i++) {
 			TokenCallback *current = &consoleActions[i];
