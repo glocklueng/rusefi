@@ -21,7 +21,7 @@ void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 extern int outputSignalCount;
 
 void testEventRegistry(void) {
-	printf("*************************************** testEventRegistry\r\n");
+//	printf("*************************************** testEventRegistry\r\n");
 
 //	printf("resetting\r\n");
 //	resetEventList(&eventList);
