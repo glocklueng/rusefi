@@ -87,7 +87,7 @@ int main(void) {
 
 	testMalfunctionCentral();
 
-	printf("Success\r\n");
+	printf("Success 20130111\r\n");
 	return EXIT_SUCCESS;
 }
 
