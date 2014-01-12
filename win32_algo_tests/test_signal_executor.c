@@ -25,6 +25,9 @@ void setOutputPinValue(io_pin_e pin, int value) {
 	testToggleCounter++;
 }
 
+void scheduleTask(scheduling_s *scheduling, int delay, schfunc_t callback, void *param) {
+
+}
 
 void testSignalExecutor() {
 	print("*************************************** testSignalExecutor\r\n");
