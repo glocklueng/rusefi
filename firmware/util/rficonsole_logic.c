@@ -241,7 +241,9 @@ static int strEqual(char *str1, char *str2) {
 void initConsoleLogic() {
 }
 
-static char *validateSecureLine(char *line) {
+char *validateSecureLine(char *line) {
+	if (line == NULL)
+		return NULL;
 	if (strncmp("sec!", line, 4) == 0) {
 		// COM protocol looses bytes, this is a super-naive error detection
 
@@ -313,7 +315,6 @@ void handleConsoleLine(char *line) {
 		ptr[0] = 0; // change space into line end
 		ptr++; // start from next symbol
 
-///		print("with parameter [%s][%s]\r\n", line, ptr);
 		for (int i = 0; i < consoleActionCount; i++) {
 			TokenCallback *current = &consoleActions[i];
 			if (strEqual(line, current->token)) {

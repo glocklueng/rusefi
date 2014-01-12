@@ -45,6 +45,8 @@ typedef void (*VoidIntInt)(int, int);
 typedef void (*VoidCharPtr)(char *);
 typedef void (*VoidCharPtrCharPtrCharPtr)(char *, char *, char *);
 
+
+char *validateSecureLine(char *line);
 void resetConsoleActions(void);
 void initConsoleLogic(void);
 void handleConsoleLine(char *line);
