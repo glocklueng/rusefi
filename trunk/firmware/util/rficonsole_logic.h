@@ -49,6 +49,7 @@ typedef void (*VoidCharPtrCharPtrCharPtr)(char *, char *, char *);
 
 char *validateSecureLine(char *line);
 void resetConsoleActions(void);
+void helpCommand(void);
 void initConsoleLogic(void);
 void handleConsoleLine(char *line);
 void addConsoleAction(char *token, Void callback);
