@@ -207,7 +207,8 @@ void handleConsoleLine2(char *line) {
 	helpCommand();
 }
 
-
+// this buffer is needed because on Unix you would not be able to change static char constants
+static char buffer[300];
 
 void testConsoleLogic(void) {
 	print("******************************************* testConsoleLogic\r\n");
@@ -220,7 +221,8 @@ void testConsoleLogic(void) {
 	assertEquals(10, tokenLength(UNKNOWN_COMMAND));
 
 	// handling invalid token should work
-	handleConsoleLine2("sdasdafasd asd");
+	strcpy(buffer, "sdasdafasd asd");
+	handleConsoleLine(buffer);
 
 	print("addConsoleActionI\r\n");
 	addConsoleActionI("echoi", testEchoI);
