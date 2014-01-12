@@ -13,6 +13,7 @@
 #include <stdarg.h>
 
 #include "main.h"
+#include "map_resize.h"
 
 #include "test_idle_controller.h"
 #include "test_interpolation_3d.h"
@@ -91,6 +92,9 @@ int main(void) {
 	testConsoleLogic();
 
 	printf("Success 20130112\r\n");
+
+//	resizeMap();
+
 	return EXIT_SUCCESS;
 }
 
