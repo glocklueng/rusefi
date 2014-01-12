@@ -111,7 +111,7 @@ static float atof(char *string) {
 	int decimalLen = strlen(string);
 	int decimal = atoi(string);
 	float divider = 1.0;
-	// todo: reuse 'pow10' function whichh we have anyway
+	// todo: reuse 'pow10' function which we have anyway
 	for (int i = 0; i < decimalLen; i++)
 		divider = divider * 10.0;
 	return integerPart + decimal / divider;
