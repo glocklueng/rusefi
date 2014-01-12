@@ -81,17 +81,12 @@ typedef struct {
 	ThermistorConf cltThermistorConf; // size 40 (10*4), offset 336
 	ThermistorConf iatThermistorConf; // size 40, offset 376
 
-	float ignitionDwellBins[DWELL_COUNT];
+	float ignitionDwellBins[DWELL_COUNT]; // offset 580
 	float ignitionDwell[DWELL_COUNT];
 
 	float ignitionTable[IGN_LOAD_COUNT][IGN_RPM_COUNT];
 	float ignitionKeyBins[IGN_LOAD_COUNT]; // offset 3450
 	float ignitionRpmBins[IGN_RPM_COUNT]; // offset 3542
-
-	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 414
-	float fuelKeyBins[FUEL_MAF_COUNT]; // offset 3450
-	// RPM is float and not integer in order to use unified methods for interpolation
-	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
 
 	/**
 	 * this value could be used to offset the whole ignition timing table by a constant
@@ -112,6 +107,13 @@ typedef struct {
 	float fixedModeTiming;
 
 	engine_type_e engineType;
+
+
+	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 414
+	float fuelKeyBins[FUEL_MAF_COUNT]; // offset 3450
+	// RPM is float and not integer in order to use unified methods for interpolation
+	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
+
 
 } EngineConfiguration;
 
