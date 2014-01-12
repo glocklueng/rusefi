@@ -10,7 +10,6 @@
 #define ENGINE_CONFIGURATION_H_
 
 #include "features.h"
-#include "engines.h"
 #include "fuel_map.h"
 #include "sensor_types.h"
 #include "engine_math.h"
