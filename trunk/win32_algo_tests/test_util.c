@@ -176,8 +176,8 @@ void handleConsoleLine2(char *line) {
 
 
 	if (firstTokenLength == lineLength) {
-//		// no-param actions are processed here
-//		for (int i = 0; i < consoleActionCount; i++) {
+		// no-param actions are processed here
+		for (int i = 0; i < consoleActionCount; i++) {
 //			TokenCallback *current = &consoleActions[i];
 //			if (strEqual(line, current->token)) {
 //				// invoke callback function by reference
@@ -186,21 +186,21 @@ void handleConsoleLine2(char *line) {
 //				sendOutConfirmation(confirmation, lineLength);
 //				return;
 //			}
-//		}
+		}
 	} else {
-//		char *ptr = line + firstTokenLength;
-//		ptr[0] = 0; // change space into line end
-//		ptr++; // start from next symbol
+		char *ptr = line + firstTokenLength;
+		ptr[0] = 0; // change space into line end
+		ptr++; // start from next symbol
 //
-//		for (int i = 0; i < consoleActionCount; i++) {
-//			TokenCallback *current = &consoleActions[i];
+		for (int i = 0; i < consoleActionCount; i++) {
+			TokenCallback *current = &consoleActions[i];
 //			if (strEqual(line, current->token)) {
 //				handleActionWithParameter(current, ptr);
 //				// confirmation happens after the command to avoid conflict with command own output
 //				sendOutConfirmation(confirmation, lineLength);
 //				return;
 //			}
-//		}
+		}
 	}
 	sendOutConfirmation("unknown command", 0);
 	sendOutConfirmation(confirmation, -1);
