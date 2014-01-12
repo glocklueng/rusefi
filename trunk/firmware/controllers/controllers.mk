@@ -1,5 +1,5 @@
 
-CONTROLLERSSRC = controllers/main_loop.c \
+CONTROLLERSSRC = controllers/main_trigger_callback.c \
 	controllers/advance_map.c \
 	controllers/engine_controller.c \
 	controllers/electronic_throttle.c \

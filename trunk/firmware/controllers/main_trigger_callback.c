@@ -1,14 +1,15 @@
 /**
- * @file    main_loop.c
- * @brief   Main logic code
+ * @file    main_trigger_callback.c
+ * @brief   Main logic is here!
  *
+ * See http://rusefi.com/docs/html/
  *
  * @date Feb 7, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"
-#include "main_loop.h"
+#include "main_trigger_callback.h"
 #include "engine_controller.h"
 #include "settings.h"
 #include "shaft_position_input.h"

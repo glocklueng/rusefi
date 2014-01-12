@@ -11,7 +11,7 @@
 
 #include "dodge_neon.h"
 #include "engine_configuration.h"
-#include "main_loop.h"
+#include "main_trigger_callback.h"
 #include "dist_emulator.h"
 
 static void configureTriggerShape(trigger_shape_s *s) {

@@ -11,7 +11,7 @@
 
 #include "dist_emulator.h"
 #include "rficonsole.h"
-#include "main_loop.h"
+#include "main_trigger_callback.h"
 #include "datalogging.h"
 #include "pinout.h"
 #include "engine_configuration.h"

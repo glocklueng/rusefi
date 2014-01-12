@@ -1,5 +1,5 @@
 /**
- * @file    main_loop.h
+ * @file    main_trigger_callback.h
  * @brief   Main logic header
  *
  *
