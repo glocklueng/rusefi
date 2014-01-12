@@ -13,7 +13,7 @@
 #include "datalogging.h"
 #include "map_adjuster.h"
 #include "rpm_calculator.h"
-#include "main_loop.h"
+#include "main_trigger_callback.h"
 #include "wave_math.h"
 #include "allsensors.h"
 

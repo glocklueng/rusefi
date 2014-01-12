@@ -19,7 +19,7 @@
 #include "trigger_decoder.h"
 #include "engine_configuration.h"
 #include "histogram.h"
-#include "main_loop.h"
+#include "main_trigger_callback.h"
 
 #if defined __GNUC__
 static histogram_s triggerCallback __attribute__((section(".ccm")));

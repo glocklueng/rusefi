@@ -15,7 +15,7 @@
 #include "idle_thread.h"
 #include "settings.h"
 #include "signal_executor.h"
-#include "main_loop.h"
+#include "main_trigger_callback.h"
 #include "map_multiplier_thread.h"
 #include "io_pins.h"
 #include "tunerstudio.h"

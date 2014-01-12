@@ -20,7 +20,7 @@
 #include "engine_controller.h"
 #include "engine_configuration.h"
 #include "dist_emulator.h"
-#include "main_loop.h"
+#include "main_trigger_callback.h"
 
 #ifdef EFI_SUPPORT_FORD_ASPIRE
 

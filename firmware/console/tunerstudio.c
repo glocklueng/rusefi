@@ -13,7 +13,7 @@
 #include "tunerstudio.h"
 #include "pin_repository.h"
 
-#include "main_loop.h"
+#include "main_trigger_callback.h"
 #include "flash_main.h"
 #include "rficonsole_logic.h"
 #include "usbconsole.h"

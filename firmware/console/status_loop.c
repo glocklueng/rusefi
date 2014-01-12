@@ -30,7 +30,7 @@
 #include "wave_math.h"
 
 #include "fuel_map.h"
-#include "main_loop.h"
+#include "main_trigger_callback.h"
 #include "engine_math.h"
 #include "idle_thread.h"
 #include "engine_configuration.h"

@@ -10,7 +10,7 @@
 #include "ignition_central.h"
 #include "io_pins.h"
 #include "signal_executor.h"
-#include "main_loop.h"
+#include "main_trigger_callback.h"
 
 static Logging logger;
 
