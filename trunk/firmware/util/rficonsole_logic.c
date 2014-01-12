@@ -47,22 +47,22 @@ void addConsoleAction(char *token, Void callback) {
  * @brief	Register a console command with one Integer parameter
  */
 void addConsoleActionI(char *token, VoidInt callback) {
-	doAddAction(token, ONE_PARAMETER, (Void)callback);
+	doAddAction(token, ONE_PARAMETER, (Void) callback);
 }
 
 /**
  * @brief	Register a console command with two Integer parameters
  */
 void addConsoleActionII(char *token, VoidIntInt callback) {
-	doAddAction(token, TWO_INTS_PARAMETER, (Void)callback);
+	doAddAction(token, TWO_INTS_PARAMETER, (Void) callback);
 }
 
 void addConsoleActionS(char *token, VoidCharPtr callback) {
-	doAddAction(token, STRING_PARAMETER, (Void)callback);
+	doAddAction(token, STRING_PARAMETER, (Void) callback);
 }
 
 void addConsoleActionSSS(char *token, VoidCharPtrCharPtrCharPtr callback) {
-	doAddAction(token, STRING3_PARAMETER, (Void)callback);
+	doAddAction(token, STRING3_PARAMETER, (Void) callback);
 }
 
 void addConsoleActionF(char *token, VoidFloat callback) {
@@ -148,7 +148,7 @@ void addDefaultConsoleActions() {
 
 void handleActionWithParameter(TokenCallback *current, char *parameter) {
 	if (current->parameterType == STRING_PARAMETER) {
-		VoidCharPtr callbackS = (VoidCharPtr)current->callback;
+		VoidCharPtr callbackS = (VoidCharPtr) current->callback;
 		(*callbackS)(parameter);
 		return;
 	}
@@ -169,13 +169,11 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 		parameter += spaceIndex + 1;
 		char * thirdParam = parameter;
 
-
-		VoidCharPtrCharPtrCharPtr callbackS = (VoidCharPtrCharPtrCharPtr)current->callback;
+		VoidCharPtrCharPtrCharPtr callbackS = (VoidCharPtrCharPtrCharPtr) current->callback;
 		(*callbackS)(firstParam, secondParam, thirdParam);
 		return;
 
 	}
-
 
 	if (current->parameterType == TWO_INTS_PARAMETER) {
 		int spaceIndex = indexOf(parameter, ' ');
@@ -284,8 +282,8 @@ void handleConsoleLine(char *line) {
 		return; // error detected
 
 	int lineLength = strlen(line);
-	if(lineLength > 100 ) {
-	// todo: better max size logic
+	if (lineLength > 100) {
+		// todo: better max size logic
 		// todo: better reaction to excessive line
 		return;
 	}
