@@ -61,6 +61,10 @@ void addConsoleActionS(char *token, VoidCharPtr callback) {
 	doAddAction(token, STRING_PARAMETER, (Void)callback);
 }
 
+void addConsoleActionSSS(char *token, VoidCharPtrCharPtrCharPtr callback) {
+	doAddAction(token, STRING3_PARAMETER, (Void)callback);
+}
+
 void addConsoleActionF(char *token, VoidFloat callback) {
 	doAddAction(token, FLOAT_PARAMETER, (Void) callback);
 }
