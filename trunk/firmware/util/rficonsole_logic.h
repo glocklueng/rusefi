@@ -42,6 +42,7 @@ typedef void (*VoidInt)(int);
 typedef void (*VoidFloat)(float);
 typedef void (*VoidIntInt)(int, int);
 typedef void (*VoidCharPtr)(char *);
+typedef void (*VoidCharPtrCharPtrCharPtr)(char *, char *, char *);
 
 void resetConsoleActions(void);
 void initConsoleLogic(void);
@@ -51,5 +52,6 @@ void addConsoleActionI(char *token, VoidInt callback);
 void addConsoleActionII(char *token, VoidIntInt callback);
 void addConsoleActionF(char *token, VoidFloat callback);
 void addConsoleActionS(char *token, VoidCharPtr callback);
+void addConsoleActionSSS(char *token, VoidCharPtrCharPtrCharPtr callback);
 
 #endif /* RFICONSOLE_H_ */
