@@ -5,6 +5,8 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
+#include <stdlib.h>
+
 #include "test_util.h"
 #include "cyclic_buffer.h"
 #include "main.h"
@@ -129,7 +131,14 @@ static void testEchoI(int param) {
 static void testEchoII(int param, int param2) {
 	lastInteger = param;
 	lastInteger2 = param2;
+}
 
+static char *lastFirst = NULL;
+static char *lastThird = NULL;
+
+static void testEchoSSS(char *first, char *second, char *third) {
+	lastFirst = first;
+	lastThird = third;
 }
 
 void testConsoleLogic(void) {
@@ -137,6 +146,7 @@ void testConsoleLogic(void) {
 	resetConsoleActions();
 	addConsoleActionI("echoi", testEchoI);
 	addConsoleActionII("echoii", testEchoII);
+	addConsoleActionSSS("echosss", testEchoSSS);
 
 	handleConsoleLine("echoi 239");
 	assertEquals(239, lastInteger);
@@ -145,8 +155,10 @@ void testConsoleLogic(void) {
 	assertEquals(22, lastInteger);
 	assertEquals(239, lastInteger2);
 
+	handleConsoleLine("echosss 111 222 333");
+	assertEquals(111, atoi(lastFirst));
+	assertEquals(333, atoi(lastThird));
 }
-
 
 void testGpsParser() {
 	//parseNeo6m("$GPGLL,1234.34240,N,01234.44218,W,013141.00,A,A*7A");
