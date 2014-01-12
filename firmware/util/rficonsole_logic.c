@@ -18,8 +18,8 @@
 #include "main.h"
 #include "rficonsole_logic.h"
 
-static int consoleActionCount = 0;
-static TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
+int consoleActionCount = 0;
+TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
 
 void resetConsoleActions(void) {
 	consoleActionCount = 0;
@@ -224,7 +224,7 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 	return result;
 }
 
-static int strEqual(char *str1, char *str2) {
+int strEqual(char *str1, char *str2) {
 	// todo: there must be a standard function?!
 	int len1 = strlen(str1);
 	int len2 = strlen(str2);

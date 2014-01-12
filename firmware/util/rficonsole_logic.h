@@ -37,6 +37,7 @@ typedef struct {
 } TokenCallback;
 
 void addDefaultConsoleActions(void);
+void handleActionWithParameter(TokenCallback *current, char *parameter);
 int tokenLength(char *msgp);
 
 typedef void (*Void)(void);
@@ -48,6 +49,7 @@ typedef void (*VoidCharPtrCharPtrCharPtr)(char *, char *, char *);
 
 
 char *validateSecureLine(char *line);
+int strEqual(char *str1, char *str2);
 void resetConsoleActions(void);
 void helpCommand(void);
 void initConsoleLogic(void);
