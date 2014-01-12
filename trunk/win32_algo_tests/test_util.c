@@ -11,6 +11,7 @@
 #include "histogram.h"
 
 #include "malfunction_central.h"
+#include "rficonsole_logic.h"
 
 static cyclic_buffer sb;
 
@@ -114,8 +115,23 @@ void testMalfunctionCentral(void) {
 	assertEquals(MAX_ERROR_CODES_COUNT - 1, localCopy.count);
 }
 
+void sendOutConfirmation(char *value, int i) {
+	// test implemention
+}
+
+static int lastInteger = -1;
+
+static void testEchoI(int param) {
+	lastInteger = param;
+}
+
 void testConsoleLogic(void) {
 	print("******************************************* testConsoleLogic\r\n");
+	resetConsoleActions();
+	addConsoleActionI("echoi", testEchoI);
+	handleConsoleLine("echoi 239");
+	assertEquals(239, lastInteger);
+
 }
 
 
