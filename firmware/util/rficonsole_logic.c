@@ -70,7 +70,7 @@ void addConsoleActionF(char *token, VoidFloat callback) {
 }
 
 // string to integer
-static int atoi(char *string) {
+int atoi(char *string) {
 	// todo: use stdlib '#include <stdlib.h> '
 	int len = strlen(string);
 	if (len == 0)
@@ -102,7 +102,7 @@ static int indexOf(char *string, char ch) {
 }
 
 // string to float
-static float atof(char *string) {
+float atof(char *string) {
 	// todo: is there a standard function?
 	// todo: create a unit test
 	int dotIndex = indexOf(string, '.');
