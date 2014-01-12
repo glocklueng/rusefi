@@ -14,6 +14,8 @@
 
 #define INTERPOLATION_A(x1, y1, x2, y2) ((y1 - y2) / (x1 - x2))
 
+int needInterpolationLogging = TRUE;
+
 /** @brief	Linear interpolation by two points
  *
  * @param	x1 key of the first point
@@ -105,20 +107,22 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 
 	int xIndex = findIndex(xBin, xBinSize, x);
 #if	DEBUG_INTERPOLATION
-	printf("X index=%d\r\n", xIndex);
+	if (needInterpolationLogging)
+		printf("X index=%d\r\n", xIndex);
 #endif
 	int yIndex = findIndex(yBin, yBinSize, y);
 	if (xIndex < 0 && yIndex < 0) {
 #if	DEBUG_INTERPOLATION
-		printf("X and Y are smaller than smallest cell in table: %d\r\n",
-				xIndex);
+		if (needInterpolationLogging)
+			printf("X and Y are smaller than smallest cell in table: %d\r\n", xIndex);
 #endif
 		return map[0][0];
 	}
 
 	if (xIndex < 0) {
 #if	DEBUG_INTERPOLATION
-		printf("X is smaller than smallest cell in table: %dr\n", xIndex);
+		if (needInterpolationLogging)
+			printf("X is smaller than smallest cell in table: %dr\n", xIndex);
 #endif
 		// no interpolation should be fine here.
 		return map[0][yIndex];
@@ -126,8 +130,8 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 
 	if (yIndex < 0) {
 #if	DEBUG_INTERPOLATION
-		printf("Y is smaller than smallest cell in table: %d\r\n",
-				yIndex);
+		if (needInterpolationLogging)
+			printf("Y is smaller than smallest cell in table: %d\r\n", yIndex);
 #endif
 		// no interpolation should be fine here.
 		return map[xIndex][0];
@@ -156,9 +160,10 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 	float keyMinValue = interpolate(xMin, rpmMinKeyMinValue, xMax, rpmMaxKeyMinValue, x);
 
 #if	DEBUG_INTERPOLATION
-	printf("X=%f:\r\nrange %f - %f\r\n", x, xMin, xMax);
-	printf("X interpolation range %f   %f result %f\r\n", rpmMinKeyMinValue,
-			rpmMaxKeyMinValue, keyMinValue);
+	if (needInterpolationLogging) {
+		printf("X=%f:\r\nrange %f - %f\r\n", x, xMin, xMax);
+		printf("X interpolation range %f   %f result %f\r\n", rpmMinKeyMinValue, rpmMaxKeyMinValue, keyMinValue);
+	}
 #endif
 
 	int keyMaxIndex = yIndex + 1;
@@ -170,9 +175,10 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 	float keyMaxValue = interpolate(xMin, rpmMinKeyMaxValue, xMax, rpmMaxKeyMaxValue, x);
 
 #if	DEBUG_INTERPOLATION
+	if (needInterpolationLogging) {
 	printf("key=%f:\r\nrange %f - %f\r\n", y, keyMin, keyMax);
-	printf("key interpolation range %f   %f result %f\r\n", rpmMinKeyMaxValue,
-			rpmMaxKeyMaxValue, keyMaxValue);
+	printf("key interpolation range %f   %f result %f\r\n", rpmMinKeyMaxValue, rpmMaxKeyMaxValue, keyMaxValue);
+	}
 #endif
 
 	float result = interpolate(keyMin, keyMinValue, keyMax, keyMaxValue, y);
