@@ -144,16 +144,21 @@ static void testEchoSSS(char *first, char *second, char *third) {
 void testConsoleLogic(void) {
 	print("******************************************* testConsoleLogic\r\n");
 	resetConsoleActions();
+
+	print("addConsoleActionI\r\n");
 	addConsoleActionI("echoi", testEchoI);
+	handleConsoleLine("echoi 239");
+	assertEquals(239, lastInteger);
+
+	print("addConsoleActionII\r\n");
+	handleConsoleLine("echoii 22 239");
+	assertEquals(22, lastInteger);
+	assertEquals(239, lastInteger2);
+
 	addConsoleActionII("echoii", testEchoII);
 //	addConsoleActionSSS("echosss", testEchoSSS);
 //
-//	handleConsoleLine("echoi 239");
-//	assertEquals(239, lastInteger);
 //
-//	handleConsoleLine("echoii 22 239");
-//	assertEquals(22, lastInteger);
-//	assertEquals(239, lastInteger2);
 //
 //	handleConsoleLine("echosss 111 222 333");
 //	assertEquals(111, atoi(lastFirst));
