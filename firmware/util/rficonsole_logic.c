@@ -18,8 +18,8 @@
 #include "main.h"
 #include "rficonsole_logic.h"
 
-int consoleActionCount = 0;
-TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
+static int consoleActionCount = 0;
+static TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
 
 void resetConsoleActions(void) {
 	consoleActionCount = 0;
