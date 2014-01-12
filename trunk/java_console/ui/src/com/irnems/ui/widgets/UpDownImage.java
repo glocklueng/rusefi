@@ -155,10 +155,10 @@ public class UpDownImage extends JPanel {
 
         int y = (int) (0.2 * d.height);
 
-        g.setColor(Color.cyan);
-        g.fillRect(x1, y, x2 - x1, d.height);
+//        g.setColor(Color.cyan);
+//        g.fillRect(x1, y, x2 - x1, d.height);
 
-        g.setColor(Color.black);
+        g.setColor(Color.blue);
         g.drawLine(x1, y, x2, y);
         g.drawLine(x1, y, x1, d.height);
         g.drawLine(x2, y, x2, d.height);
@@ -173,6 +173,7 @@ public class UpDownImage extends JPanel {
         String fromAngle = time2rpm.getText(upDown.upTime);
         g.drawString(fromAngle, x1 + offset, (int) (0.75 * d.height));
 
+        g.setColor(Color.green);
         String toAngle = time2rpm.getText(upDown.downTime);
         g.drawString(toAngle, x1 + offset, (int) (1.0 * d.height));
     }
