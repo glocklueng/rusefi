@@ -161,19 +161,19 @@ void testConsoleLogic(void) {
 	strcpy(buffer, "sdasdafasd asd");
 	handleConsoleLine(buffer);
 
-	print("addConsoleActionI\r\n");
+	print("\r\naddConsoleActionI\r\n");
 	addConsoleActionI("echoi", testEchoI);
 	strcpy(buffer, "echoi 239");
 	handleConsoleLine(buffer);
 	assertEquals(239, lastInteger);
 
-	print("addConsoleActionII\r\n");
+	addConsoleActionII("echoii", testEchoII);
+	print("\r\naddConsoleActionII\r\n");
 	strcpy(buffer, "echoii 22 239");
 	handleConsoleLine(buffer);
 	assertEquals(22, lastInteger);
 	assertEquals(239, lastInteger2);
 
-//	addConsoleActionII("echoii", testEchoII);
 //	addConsoleActionSSS("echosss", testEchoSSS);
 //
 //
