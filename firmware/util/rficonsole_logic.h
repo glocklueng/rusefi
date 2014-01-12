@@ -37,6 +37,7 @@ typedef struct {
 } TokenCallback;
 
 void addDefaultConsoleActions(void);
+int tokenLength(char *msgp);
 
 typedef void (*Void)(void);
 typedef void (*VoidInt)(int);

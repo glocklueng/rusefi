@@ -213,7 +213,7 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 /**
  * @return Number of space-separated tokens in the string
  */
-static int tokenLength(char *msgp) {
+ int tokenLength(char *msgp) {
 	int result = 0;
 	while (*msgp) {
 		char ch = *msgp++;
