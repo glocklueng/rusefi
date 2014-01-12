@@ -145,6 +145,9 @@ void testConsoleLogic(void) {
 	print("******************************************* testConsoleLogic\r\n");
 	resetConsoleActions();
 
+	// handling invalid token should work
+	handleConsoleLine("sdasdafasd asd");
+
 	print("addConsoleActionI\r\n");
 	addConsoleActionI("echoi", testEchoI);
 //	handleConsoleLine("echoi 239");
