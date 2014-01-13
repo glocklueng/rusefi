@@ -30,6 +30,7 @@
 #include "malfunction_indicator.h"
 #include "map_averaging.h"
 #include "malfunction_central.h"
+#include "advance_map.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
