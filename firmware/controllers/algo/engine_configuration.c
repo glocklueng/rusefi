@@ -73,6 +73,11 @@ void setDefaultNonPersistentConfiguration(EngineConfiguration2 *engineConfigurat
 	engineConfiguration2->triggerShape.onlyOneTeeth = FALSE;
 	engineConfiguration2->triggerShape.useRiseEdge = TRUE;
 
+	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+
+	s->syncRatioFrom = 1.5;
+	s->syncRatioTo = 3;
+
 	/**
 	 * 720 is the range for four stroke
 	 */
