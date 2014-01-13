@@ -9,5 +9,6 @@
 #define ADVANCE_H_
 
 float getAdvance(int rpm, float maf);
+void prepareTimingMap(void);
 
 #endif /* ADVANCE_H_ */
