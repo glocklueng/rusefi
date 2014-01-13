@@ -65,7 +65,7 @@ float getBaseAdvance(int rpm, float key) {
 static float newRpmBin[newRpmSize];
 static float newKeyBin[newKeySize];
 
-static float *fuel_ptrs[FUEL_MAF_COUNT];
+//static float *fuel_ptrs[FUEL_LOAD_COUNT];
 
 EngineConfiguration *engineConfiguration;
 
@@ -78,8 +78,8 @@ void resizeMap(void) {
 	float rpmMin = 800;
 	float rpmMax = 7000;
 
-	for (int k = 0; k < FUEL_MAF_COUNT; k++)
-		fuel_ptrs[k] = engineConfiguration->fuelTable[k];
+//	for (int k = 0; k < FUEL_LOAD_COUNT; k++)
+//		fuel_ptrs[k] = engineConfiguration->fuelTable[k];
 
 //	for (int i = 0; i < FUEL_MAF_COUNT; i++)
 //		engineConfiguration->fuelKeyBins[i] = default_fuel_maf_bins[i];

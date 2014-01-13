@@ -17,7 +17,7 @@ void testFuelMap(void) {
 
 	printf("*************************************************** testFuelMap\r\n");
 
-	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
+	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
 		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
 			engineConfiguration->fuelTable[k][r] = k * 200 + r;
 		}
@@ -29,8 +29,8 @@ void testFuelMap(void) {
 	printf("*** getInjectorLag\r\n");
 	assertEquals(0, getInjectorLag(12));
 
-	for (int i = 0; i < FUEL_MAF_COUNT; i++)
-		engineConfiguration->fuelKeyBins[i] = i;
+	for (int i = 0; i < FUEL_LOAD_COUNT; i++)
+		engineConfiguration->fuelLoadBins[i] = i;
 	for (int i = 0; i < FUEL_RPM_COUNT; i++)
 		engineConfiguration->fuelRpmBins[i] = i;
 
