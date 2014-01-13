@@ -1936,6 +1936,12 @@
         <name>$PROJ_DIR$\..\config\engines\ford_fiesta.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\config\engines\honda_accord.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\honda_accord.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\config\engines\nissan_primera.c</name>
       </file>
       <file>
