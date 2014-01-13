@@ -85,7 +85,7 @@ typedef struct {
 	float ignitionDwell[DWELL_COUNT];
 
 	float ignitionTable[IGN_LOAD_COUNT][IGN_RPM_COUNT];
-	float ignitionKeyBins[IGN_LOAD_COUNT]; // offset 3450
+	float ignitionLoadBins[IGN_LOAD_COUNT]; // offset 3450
 	float ignitionRpmBins[IGN_RPM_COUNT]; // offset 3542
 
 	/**
@@ -109,8 +109,8 @@ typedef struct {
 	engine_type_e engineType;
 
 
-	float fuelTable[FUEL_MAF_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 414
-	float fuelKeyBins[FUEL_MAF_COUNT]; // offset 3450
+	float fuelTable[FUEL_LOAD_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 414
+	float fuelLoadBins[FUEL_LOAD_COUNT]; // offset 3450
 	// RPM is float and not integer in order to use unified methods for interpolation
 	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
 

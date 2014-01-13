@@ -35,7 +35,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 		engineConfiguration->battInjectorLagCorr[i] = 0; // zero extra time by default
 	}
 
-	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
+	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
 		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
 			// 3ms would be the global default
 			engineConfiguration->fuelTable[k][r] = 3;
@@ -53,7 +53,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->crankingSettings.crankingRpm = 400;
 
 
-	engineConfiguration->crankingChargeAngle = 38;
+	engineConfiguration->crankingChargeAngle = 76;
 	engineConfiguration->timingMode = TM_DYNAMIC;
 	engineConfiguration->fixedModeTiming = 50;
 

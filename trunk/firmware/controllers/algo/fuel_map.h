@@ -17,6 +17,6 @@ float getCltCorrection(float clt);
 float getRunningFuel(int rpm, float key);
 
 #define FUEL_RPM_COUNT 16
-#define FUEL_MAF_COUNT 16
+#define FUEL_LOAD_COUNT 16
 
 #endif /* FUEL_MAP_H_ */

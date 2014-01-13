@@ -68,7 +68,7 @@ void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfigur
 	appendPrintf(&logger, "msg%s%s", DELIMETER, getConfigurationName(engineConfiguration));
 	printLine(&logger);
 
-	for (int k = 0; k < FUEL_MAF_COUNT; k++) {
+	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
 //		print("line %d (%f): ", k, engineConfiguration->fuelKeyBins[k]);
 //		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
 //			print("%f ", engineConfiguration->fuelTable[k][r]);
@@ -78,7 +78,7 @@ void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfigur
 
 	printFloatArray("RPM bin: ", engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT);
 
-	printFloatArray("Y bin: ", engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT);
+	printFloatArray("Y bin: ", engineConfiguration->fuelLoadBins, FUEL_LOAD_COUNT);
 
 	printFloatArray("CLT: ", engineConfiguration->cltFuelCorr, CLT_CURVE_SIZE);
 	printFloatArray("CLT bins: ", engineConfiguration->cltFuelCorrBins, CLT_CURVE_SIZE);
