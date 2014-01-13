@@ -117,7 +117,7 @@ static char *ftoa(char *p, double num, unsigned long precision) {
  */
 void chvprintf(BaseSequentialStream *chp, const char *fmt, va_list ap) {
   char *p, *s, c, filler;
-  int i, precision, width;
+  int precision, width;
   bool_t is_long, left_align;
   long l;
 #if CHPRINTF_USE_FLOAT
@@ -135,6 +135,7 @@ void chvprintf(BaseSequentialStream *chp, const char *fmt, va_list ap) {
       chSequentialStreamPut(chp, (uint8_t)c);
       continue;
     }
+    // we are here if c == '%' meaning we have a control sequence
     p = tmpbuf;
     s = tmpbuf;
     left_align = FALSE;
@@ -244,7 +245,7 @@ unsigned_common:
       *p++ = c;
       break;
     }
-    i = (int)(p - s);
+    int i = (int)(p - s);
     if ((width -= i) < 0)
       width = 0;
     if (left_align == FALSE)
