@@ -47,9 +47,6 @@ void setFordFiestaEngineConfiguration2(EngineConfiguration2 *engineConfiguration
 	int SKIPPED_TEETH_COUNT = 1;
 	engineConfiguration2->triggerShape.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
 	skippedToothTriggerShape(s, TOTAL_TEETH_COUNT, SKIPPED_TEETH_COUNT);
-
-	s->syncRatioFrom = 1.5;
-	s->syncRatioTo = 3;
 }
 
 #endif /* EFI_SUPPORT_FORD_FIESTA */
