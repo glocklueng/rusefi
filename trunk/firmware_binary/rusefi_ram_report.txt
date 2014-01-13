@@ -1,5 +1,4 @@
 Record{size=7160, name=' build/obj/histogram.o@bounds'}
-Record{size=5076, name=' build/obj/tunerstudio_algo.o@ .bss.tsContstants'}
 Record{size=5000, name=' build/obj/wave_chart.o@ .bss.LOGGING_BUFFER'}
 Record{size=5000, name=' build/obj/datalogging.o@ioBuffer'}
 Record{size=5000, name=' build/obj/datalogging.o@ .bss.pendingBuffer'}
@@ -9,6 +8,7 @@ Record{size=4000, name=' build/obj/histogram.o@ .bss.small_bounds_index'}
 Record{size=3608, name=' build/obj/main_trigger_callback.o@ .bss.mainLoopHisto'}
 Record{size=3360, name=' build/obj/signal_executor.o@signals'}
 Record{size=3328, name=' build/obj/engine_controller.o@ec2'}
+Record{size=2968, name=' build/obj/tunerstudio_algo.o@ .bss.tsContstants'}
 Record{size=2544, name=' build/obj/idle_thread.o@ .bss.idleValve'}
 Record{size=2000, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferData'}
 Record{size=1520, name=' build/obj/wave_analyzer.o@readers'}
@@ -66,7 +66,6 @@ Record{size=260, name=' build/obj/HIP9011.o@logger'}
 Record{size=256, name=' build/obj/mmc_card.o@ .bss.LogFileName'}
 Record{size=200, name=' build/obj/rficonsole_logic.o@ .bss.confirmation'}
 Record{size=200, name=' build/obj/rficonsole.o@ .bss.fatalErrorMessage'}
-Record{size=132, name=' build/obj/fuel_map.o@ .bss.fuel_ptrs'}
 Record{size=128, name=' build/obj/stm32_dma.o@ .bss.dma_isr_redir'}
 Record{size=124, name=' build/obj/shaft_position_input.o@ .bss.triggerListeneres'}
 Record{size=120, name=' build/obj/serial_lld.o@SD3'}
@@ -75,6 +74,8 @@ Record{size=120, name=' build/obj/serial_lld.o@SD1'}
 Record{size=80, name=' build/obj/adc_inputs.o@ .bss.internalAdcIndex'}
 Record{size=72, name=' build/obj/trigger_decoder.o@ .bss.errorDetection'}
 Record{size=72, name=' build/obj/main_trigger_callback.o@ .bss.ignitionErrorDetection'}
+Record{size=64, name=' build/obj/fuel_map.o@ .bss.fuel_ptrs'}
+Record{size=64, name=' build/obj/advance_map.o@ .bss.timing_ptrs'}
 Record{size=56, name=' build/obj/can_lld.o@CAND2'}
 Record{size=56, name=' build/obj/can_lld.o@CAND1'}
 Record{size=52, name=' build/obj/mmc_card.o@MMCD1'}
@@ -164,6 +165,7 @@ Record{size=4, name=' build/obj/can_hw.o@ .bss.engine_rpm'}
 Record{size=4, name=' build/obj/can_hw.o@ .bss.engine_clt'}
 Record{size=4, name=' build/obj/analog_chart.o@ .bss.pendingData'}
 Record{size=4, name=' build/obj/analog_chart.o@ .bss.initialized'}
+Record{size=4, name=' build/obj/advance_map.o@ .bss.initialized'}
 Record{size=4, name=' build/obj/adc_inputs.o@ .bss.samples_fast'}
 Record{size=4, name=' build/obj/adc_inputs.o@ .bss.fastAdcValue'}
 Record{size=4, name=' build/obj/adc_inputs.o@ .bss.adcDebugReporting'}
@@ -176,4 +178,4 @@ Record{size=2, name=' build/obj/spi_lld.o@dummyrx'}
 Record{size=2, name=' build/obj/ff.o@Fsid'}
 Record{size=1, name=' build/obj/mmc_card.o@fs_ready'}
 Record{size=1, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferInited'}
-Total size: 83808
+Total size: 81700
