@@ -15,21 +15,11 @@
 #include "toothed_wheel_emulator.h"
 #include "engine_configuration.h"
 
-#define TOTAL_TEETH_COUNT 60
-#define SKIPPED_TEETH_COUNT 2
-
-//void setNissanPrimeraEngineConfiguration(EngineConfiguration *engineConfiguration) {
-//}
-
 void setNissanPrimeraEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
-	engineConfiguration2->triggerShape.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
-
-	//	injectionConfiguration->injectAtEventIndex[0] = 1;
-	//	injectionConfiguration->injectAtEventIndex[2 * 15] = 2;
-	//	injectionConfiguration->injectAtEventIndex[2 * 30] = 3;
-	//	injectionConfiguration->injectAtEventIndex[2 * 45] = 4;
-
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+	int TOTAL_TEETH_COUNT = 60;
+	int SKIPPED_TEETH_COUNT = 2;
+	engineConfiguration2->triggerShape.shaftPositionEventCount = ((TOTAL_TEETH_COUNT - SKIPPED_TEETH_COUNT) * 2);
 	skippedToothTriggerShape(s, TOTAL_TEETH_COUNT, SKIPPED_TEETH_COUNT);
 }
 

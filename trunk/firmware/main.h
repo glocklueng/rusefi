@@ -15,13 +15,6 @@
 #include "features.h"
 #include "engines.h"
 
-#include "audi_aan.h"
-#include "dodge_neon.h"
-#include "ford_aspire.h"
-#include "ford_fiesta.h"
-#include "snow_blower.h"
-#include "nissan_primera.h"
-
 #include "datalogging.h"
 
 // todo: why the heck is this declaration here?

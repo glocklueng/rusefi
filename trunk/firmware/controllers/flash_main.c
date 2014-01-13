@@ -20,6 +20,14 @@
 
 #include "datalogging.h"
 
+#include "audi_aan.h"
+#include "dodge_neon.h"
+#include "ford_aspire.h"
+#include "ford_fiesta.h"
+#include "snow_blower.h"
+#include "nissan_primera.h"
+#include "honda_accord.h"
+
 static engine_type_e defaultEngineType = FORD_ASPIRE_1996;
 
 static Logging logger;
@@ -75,6 +83,9 @@ static void applyNonPersistentConfiguration(engine_type_e engineType) {
 	case FORD_FIESTA:
 		setFordFiestaEngineConfiguration2(engineConfiguration2);
 		break;
+	case HONDA_ACCORD:
+		setHondaAccordConfiguration2(engineConfiguration2);
+		break;
 	default:
 		fatal("Unexpected engine type")
 		;
@@ -100,6 +111,9 @@ void resetConfiguration(engine_type_e engineType) {
 		break;
 	case FORD_FIESTA:
 		setFordFiestaDefaultEngineConfiguration(engineConfiguration);
+		break;
+	case HONDA_ACCORD:
+		setHondaAccordConfiguration(engineConfiguration);
 		break;
 	default:
 		fatal("Unexpected engine type")

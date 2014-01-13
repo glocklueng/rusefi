@@ -54,6 +54,8 @@ char* getConfigurationName(EngineConfiguration *engineConfiguration) {
 	case NISSAN_PRIMERA:
 		return "Nissan Primera";
 #endif /* EFI_SUPPORT_NISSAN_PRIMERA */
+	case HONDA_ACCORD:
+		return "Honda Accord";
 	default:
 		return NULL;
 	}

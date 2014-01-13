@@ -6,10 +6,9 @@
  */
 
 #include "features.h"
-#include "pwm_generator.h"
 
-#ifndef DENISVAK_H_
-#define DENISVAK_H_
+#ifndef NISSAN_PRIMERA_H_
+#define NISSAN_PRIMERA_H_
 
 #if EFI_SUPPORT_NISSAN_PRIMERA
 
@@ -18,4 +17,4 @@ void setNissanPrimeraEngineConfiguration2(EngineConfiguration2 *engineConfigurat
 
 #endif /* EFI_SUPPORT_NISSAN_PRIMERA */
 
-#endif /* DENISVAK_H_ */
+#endif /* NISSAN_PRIMERA_H_ */
