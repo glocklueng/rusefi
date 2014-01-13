@@ -13,7 +13,7 @@
 #include "allsensors.h"
 #include "engine_math.h"
 
-static float *fuel_ptrs[FUEL_MAF_COUNT];
+static float *fuel_ptrs[FUEL_LOAD_COUNT];
 static int initialized = FALSE;
 extern EngineConfiguration *engineConfiguration;
 
@@ -23,7 +23,7 @@ extern EngineConfiguration *engineConfiguration;
  * is to prepare the fuel map data structure for 3d interpolation
  */
 void prepareFuelMap(void) {
-	for (int k = 0; k < FUEL_MAF_COUNT; k++)
+	for (int k = 0; k < FUEL_LOAD_COUNT; k++)
 		fuel_ptrs[k] = engineConfiguration->fuelTable[k];
 	initialized = TRUE;
 }
@@ -57,7 +57,7 @@ float getInjectorLag(float vBatt) {
 
 float getBaseFuel(int rpm, float key) {
 	chDbgAssert(initialized, "fuel map initialized", NULL);
-	return interpolate3d(key, engineConfiguration->fuelKeyBins, FUEL_MAF_COUNT, rpm, engineConfiguration->fuelRpmBins,
+	return interpolate3d(key, engineConfiguration->fuelLoadBins, FUEL_LOAD_COUNT, rpm, engineConfiguration->fuelRpmBins,
 	FUEL_RPM_COUNT, fuel_ptrs);
 }
 
