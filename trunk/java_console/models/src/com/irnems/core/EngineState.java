@@ -71,7 +71,7 @@ public class EngineState {
         addDoubleSensor("dwell0", Sensor.DWELL0);
         addDoubleSensor("dwell1", Sensor.DWELL1);
         addDoubleSensor("tch", Sensor.T_CHARGE);
-        addDoubleSensor("af", Sensor.AFR);
+        addDoubleSensor("afr", Sensor.AFR);
         addDoubleSensor("d_fuel", Sensor.DEFAULT_FUEL);
         addDoubleSensor("fuel", Sensor.FUEL);
         addDoubleSensor("fuel_base", Sensor.FUEL_BASE);
