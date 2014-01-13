@@ -15,6 +15,7 @@
 #include "datalogging.h"
 #include "pinout.h"
 #include "engine_configuration.h"
+#include "pwm_generator.h"
 
 extern EngineConfiguration *engineConfiguration;
 extern EngineConfiguration2 *engineConfiguration2;

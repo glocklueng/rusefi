@@ -37,6 +37,8 @@ typedef enum {
 #if EFI_SUPPORT_NISSAN_PRIMERA
 	NISSAN_PRIMERA = 5,
 #endif /* EFI_SUPPORT_NISSAN_PRIMERA */
+
+	HONDA_ACCORD = 6,
 } engine_type_e;
 
 //#define EFI_ENGINE_SNOW_BLOWER TRUE
