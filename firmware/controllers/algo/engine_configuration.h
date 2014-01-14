@@ -48,6 +48,12 @@ typedef enum {
 	TM_FIXED = 1,
 } timing_mode_e;
 
+typedef enum {
+	OM_DEFAULT = 0,
+	OM_INVERTED = 1,
+	OM_OPENDRAIN = 2,
+	OM_OPENDRAIN_INVERTED = 3,
+} pin_output_mode_e;
 
 #define DWELL_COUNT 8
 /**
@@ -113,6 +119,8 @@ typedef struct {
 	float fuelLoadBins[FUEL_LOAD_COUNT]; // offset 3450
 	// RPM is float and not integer in order to use unified methods for interpolation
 	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
+
+	pin_output_mode_e pinOutputMode;
 
 
 } EngineConfiguration;

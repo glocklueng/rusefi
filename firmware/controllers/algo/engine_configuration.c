@@ -60,6 +60,8 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->analogChartMode = AC_TRIGGER;
 
 	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
+
+	engineConfiguration->pinOutputMode = OM_DEFAULT;
 }
 
 void setDefaultNonPersistentConfiguration(EngineConfiguration2 *engineConfiguration2) {
