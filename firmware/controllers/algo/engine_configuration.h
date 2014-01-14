@@ -49,7 +49,13 @@ typedef enum {
 } timing_mode_e;
 
 typedef enum {
+	/**
+	 * GND for logical OFF, VCC for logical ON
+	 */
 	OM_DEFAULT = 0,
+	/**
+	 * GND for logical ON, VCC for logical OFF
+	 */
 	OM_INVERTED = 1,
 	OM_OPENDRAIN = 2,
 	OM_OPENDRAIN_INVERTED = 3,
@@ -120,7 +126,13 @@ typedef struct {
 	// RPM is float and not integer in order to use unified methods for interpolation
 	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
 
-	pin_output_mode_e pinOutputMode;
+	pin_output_mode_e injectionPinMode;
+	pin_output_mode_e ignitionPinMode;
+	pin_output_mode_e idlePinMode;
+	pin_output_mode_e fuelPumpPinMode;
+	pin_output_mode_e malfunctionIndicatorPinMode;
+
+	float globalTriggerOffsetAngle;
 
 
 } EngineConfiguration;
