@@ -61,7 +61,11 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 
 	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
 
-	engineConfiguration->pinOutputMode = OM_DEFAULT;
+	engineConfiguration->injectionPinMode = OM_DEFAULT;
+	engineConfiguration->ignitionPinMode = OM_DEFAULT;
+	engineConfiguration->idlePinMode = OM_DEFAULT;
+	engineConfiguration->fuelPumpPinMode = OM_DEFAULT;
+	engineConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
 }
 
 void setDefaultNonPersistentConfiguration(EngineConfiguration2 *engineConfiguration2) {
