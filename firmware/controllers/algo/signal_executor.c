@@ -43,13 +43,32 @@ void initOutputSignalBase(OutputSignal *signal) {
 	signal->initialized = TRUE;
 }
 
+/**
+ * @return 0 for OM_DEFAULT and OM_OPENDRAIN
+ */
+
+int getElectricalValue0(pin_output_mode_e mode) {
+	return mode == OM_INVERTED || mode == OM_OPENDRAIN_INVERTED;
+}
+
+/**
+ * @return 1 for OM_DEFAULT and OM_OPENDRAIN
+ */
+int getElectricalValue1(pin_output_mode_e mode) {
+	return mode == OM_DEFAULT || mode == OM_OPENDRAIN;
+}
+
+int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
+	return logicalValue ? getElectricalValue1(mode) : getElectricalValue0(mode);
+}
+
 static void turnHigh(OutputSignal *signal) {
 #if EFI_DEFAILED_LOGGING
 	signal->hi_time = chTimeNow();
 #endif /* EFI_DEFAILED_LOGGING */
 	// turn the output level ACTIVE
 	// todo: this XOR should go inside the setOutputPinValue method
-	setOutputPinValue(signal->io_pin, TRUE ^ pinDefaultState[signal->io_pin]);
+	setOutputPinValue(signal->io_pin, getElectricalValue1(pinDefaultState[signal->io_pin]));
 	// sleep for the needed duration
 
 #if EFI_WAVE_ANALYZER
@@ -60,7 +79,7 @@ static void turnHigh(OutputSignal *signal) {
 static void turnLow(OutputSignal *signal) {
 	// turn off the output
 	// todo: this XOR should go inside the setOutputPinValue method
-	setOutputPinValue(signal->io_pin, FALSE ^ pinDefaultState[signal->io_pin]);
+	setOutputPinValue(signal->io_pin, getElectricalValue0(pinDefaultState[signal->io_pin]));
 
 #if EFI_DEFAILED_LOGGING
 	systime_t after = chTimeNow();

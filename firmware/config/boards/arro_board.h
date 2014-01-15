@@ -116,23 +116,18 @@
 /* Injector ports */
 #define INJECTOR_1_PORT GPIOB
 #define INJECTOR_1_PIN 9
-#define INJECTOR_1_XOR 0
 
 #define INJECTOR_2_PORT GPIOE
 #define INJECTOR_2_PIN 1
-#define INJECTOR_2_XOR 0
 
 #define INJECTOR_3_PORT GPIOE
 #define INJECTOR_3_PIN 3
-#define INJECTOR_3_XOR 0
 
 #define INJECTOR_4_PORT GPIOE
 #define INJECTOR_4_PIN 5
-#define INJECTOR_4_XOR 0
 
 #define INJECTOR_5_PORT GPIOE
 #define INJECTOR_5_PIN 6
-#define INJECTOR_5_XOR 0
 
 #define IDLE_VALVE_PORT GPIOE
 #define IDLE_VALVE_PIN 2
@@ -157,22 +152,15 @@
 /* Spark ports */
 #define SPARK_1_PORT GPIOC
 #define SPARK_1_PIN 15
-// non-zero XOR means that default level is HI
-#define SPARK_1_XOR 1
 
 #define SPARK_2_PORT GPIOE
 #define SPARK_2_PIN 4
-#define SPARK_2_XOR 1
 
 #define SPARK_3_PORT GPIOE
 #define SPARK_3_PIN 0
-#define SPARK_3_XOR 1
 
 #define SPARK_4_PORT GPIOB
 #define SPARK_4_PIN 8
-#define SPARK_4_XOR 1
-
-#define SPARK_5_XOR 1
 
 /* Additional PINs on top of the standard discovery pins */
 #define EXTRA_LED_1_PORT GPIOC

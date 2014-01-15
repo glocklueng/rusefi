@@ -23,6 +23,6 @@ typedef struct {
 
 void initOutputPin(char *msg, OutputPin *outputPin, GPIO_TypeDef *port, uint32_t pinNumber);
 int getPinValue(OutputPin * outputPin);
-void setPinValue(OutputPin * outputPin, int value);
+void setPinValue(OutputPin * outputPin, int electricalValue);
 
 #endif /* GPIO_HELPER_H_ */

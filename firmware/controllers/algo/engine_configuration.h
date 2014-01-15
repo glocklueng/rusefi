@@ -16,6 +16,7 @@
 #include "can_header.h"
 #include "trigger_structure.h"
 #include "event_registry.h"
+#include "rusefi_enums.h"
 
 /**
  * @brief Here we store information about which injector or spark should be fired when.
@@ -47,19 +48,6 @@ typedef enum {
 	 */
 	TM_FIXED = 1,
 } timing_mode_e;
-
-typedef enum {
-	/**
-	 * GND for logical OFF, VCC for logical ON
-	 */
-	OM_DEFAULT = 0,
-	/**
-	 * GND for logical ON, VCC for logical OFF
-	 */
-	OM_INVERTED = 1,
-	OM_OPENDRAIN = 2,
-	OM_OPENDRAIN_INVERTED = 3,
-} pin_output_mode_e;
 
 #define DWELL_COUNT 8
 /**

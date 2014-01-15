@@ -35,6 +35,8 @@ struct scheduling_struct {
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
 };
 
+int getElectricalValue(int logicalValue, pin_output_mode_e mode);
+
 typedef enum {
 	IDLE = 0, ACTIVE
 } executor_status_t;

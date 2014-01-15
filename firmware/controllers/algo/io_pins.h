@@ -8,6 +8,8 @@
 #ifndef STATUS_LEDS_H_
 #define STATUS_LEDS_H_
 
+#include "global.h"
+
 typedef enum {
 	LED_CRANKING, // Orange on-board LED
 	LED_RUNNING, // Green on-board LED
@@ -79,8 +81,8 @@ void initOutputPins(void);
 char *getPinName(io_pin_e io_pin);
 void turnOutputPinOn(io_pin_e pin);
 void turnOutputPinOff(io_pin_e pin);
-void setOutputPinValue(io_pin_e pin, int value);
+void setOutputPinValue(io_pin_e pin, int electricalValue);
 int getOutputPinValue(io_pin_e pin);
-void setDefaultPinState(io_pin_e pin, int defaultState);
+void setDefaultPinState(io_pin_e pin, pin_output_mode_e defaultState);
 
 #endif /* STATUS_LEDS_H_ */
