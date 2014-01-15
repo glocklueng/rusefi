@@ -18,7 +18,7 @@
 #include "main_trigger_callback.h"
 #include "trigger_decoder.h"
 
-pin_output_mode_e pinDefaultState[IO_PIN_COUNT];
+static pin_output_mode_e *pinDefaultState[IO_PIN_COUNT];
 static OutputPin outputs[IO_PIN_COUNT];
 static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG, LED_CHECK_ENGINE };
 
@@ -41,22 +41,39 @@ void turnOutputPinOff(io_pin_e pin) {
 }
 
 /**
- * @brief todo
- *
- * TODO: should add 'xor' logic right at the output pin level in order to distinguish
- * TODO: logical levels from physical levels?
+ * @return 0 for OM_DEFAULT and OM_OPENDRAIN
  */
-void setOutputPinValue(io_pin_e pin, int electricalValue) {
-	setPinValue(&outputs[pin], electricalValue);
+
+static int getElectricalValue0(pin_output_mode_e mode) {
+	return mode == OM_INVERTED || mode == OM_OPENDRAIN_INVERTED;
+}
+
+/**
+ * @return 1 for OM_DEFAULT and OM_OPENDRAIN
+ */
+static int getElectricalValue1(pin_output_mode_e mode) {
+	return mode == OM_DEFAULT || mode == OM_OPENDRAIN;
+}
+
+static int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
+	return logicalValue ? getElectricalValue1(mode) : getElectricalValue0(mode);
+}
+
+
+/**
+ * @brief Sets the value according to current electrical settings
+ */
+void setOutputPinValue(io_pin_e pin, int logicValue) {
+	setPinValue(&outputs[pin], getElectricalValue(logicValue, *pinDefaultState[pin]));
 }
 
 int getOutputPinValue(io_pin_e pin) {
 	return getPinValue(&outputs[pin]);
 }
 
-void setDefaultPinState(io_pin_e pin, pin_output_mode_e outputMode) {
+void setDefaultPinState(io_pin_e pin, pin_output_mode_e *outputMode) {
 	pinDefaultState[pin] = outputMode;
-	setOutputPinValue(pin, getElectricalValue(0, outputMode)); // initial state
+	setOutputPinValue(pin, 0); // initial state
 }
 
 static void comBlinkingThread(void *arg) {
