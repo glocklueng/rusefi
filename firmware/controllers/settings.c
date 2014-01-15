@@ -99,13 +99,21 @@ void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfigur
 	scheduleSimpleMsg(&logger, "tpsMax: ", engineConfiguration->tpsMax);
 
 	scheduleSimpleMsg(&logger, "timingMode: ", engineConfiguration->timingMode);
-	scheduleSimpleMsg(&logger, "fixedModeTiming: ", (int)engineConfiguration->fixedModeTiming);
+	scheduleSimpleMsg(&logger, "fixedModeTiming: ", (int) engineConfiguration->fixedModeTiming);
 	scheduleSimpleMsg(&logger, "crankingChargeAngle: ", engineConfiguration->crankingChargeAngle);
 
 	scheduleSimpleMsg(&logger, "analogChartMode: ", engineConfiguration->analogChartMode);
 
 	scheduleSimpleMsg(&logger, "crankingRpm: ", engineConfiguration->crankingSettings.crankingRpm);
-//	appendPrintf(&logger, DELIMETER);
+
+	scheduleSimpleMsg(&logger, "injectionPinMode: ", engineConfiguration->injectionPinMode);
+	scheduleSimpleMsg(&logger, "ignitionPinMode: ", engineConfiguration->ignitionPinMode);
+	scheduleSimpleMsg(&logger, "idlePinMode: ", engineConfiguration->idlePinMode);
+	scheduleSimpleMsg(&logger, "fuelPumpPinMode: ", engineConfiguration->fuelPumpPinMode);
+	scheduleSimpleMsg(&logger, "malfunctionIndicatorPinMode: ", engineConfiguration->malfunctionIndicatorPinMode);
+
+
+	//	appendPrintf(&logger, DELIMETER);
 //	scheduleLogging(&logger);
 }
 
@@ -119,14 +127,24 @@ static void setFixedModeTiming(int value) {
 }
 
 static void setTimingMode(int value) {
-	engineConfiguration->timingMode = (timing_mode_e)value;
+	engineConfiguration->timingMode = (timing_mode_e) value;
 	doPrintConfiguration();
 }
 
 static void setEngineType(int value) {
-	engineConfiguration->engineType = (engine_type_e)value;
-	resetConfiguration((engine_type_e)value);
+	engineConfiguration->engineType = (engine_type_e) value;
+	resetConfiguration((engine_type_e) value);
 	writeToFlash();
+	doPrintConfiguration();
+}
+
+static void setInjectionPinMode(int value) {
+	engineConfiguration->injectionPinMode = (pin_output_mode_e) value;
+	doPrintConfiguration();
+}
+
+static void setIgnitionPinMode(int value) {
+	engineConfiguration->ignitionPinMode = (pin_output_mode_e) value;
 	doPrintConfiguration();
 }
 
@@ -148,5 +166,8 @@ void initSettings(void) {
 	addConsoleActionI("set_fixed_mode_timing", &setFixedModeTiming);
 	addConsoleActionI("set_timing_mode", &setTimingMode);
 	addConsoleActionI("set_engine_type", &setEngineType);
+
+	addConsoleActionI("set_injection_pin_mode", &setInjectionPinMode);
+	addConsoleActionI("set_ignition_pin_mode", &setIgnitionPinMode);
 }
 
