@@ -148,8 +148,23 @@ static void setIgnitionPinMode(int value) {
 	doPrintConfiguration();
 }
 
+static void setIdlePinMode(int value) {
+	engineConfiguration->idlePinMode = (pin_output_mode_e) value;
+	doPrintConfiguration();
+}
+
 static void setIgnitonOffset(int value) {
 	engineConfiguration->ignitonOffset = value;
+	doPrintConfiguration();
+}
+
+static void setFuelPumpPinMode(int value) {
+	engineConfiguration->fuelPumpPinMode = (pin_output_mode_e) value;
+	doPrintConfiguration();
+}
+
+static void setMalfunctionIndicatorPinMode(int value) {
+	engineConfiguration->malfunctionIndicatorPinMode = (pin_output_mode_e) value;
 	doPrintConfiguration();
 }
 
@@ -169,5 +184,8 @@ void initSettings(void) {
 
 	addConsoleActionI("set_injection_pin_mode", &setInjectionPinMode);
 	addConsoleActionI("set_ignition_pin_mode", &setIgnitionPinMode);
+	addConsoleActionI("set_idle_pin_mode", &setIdlePinMode);
+	addConsoleActionI("set_fuel_pump_pin_mode", &setFuelPumpPinMode);
+	addConsoleActionI("set_malfunction_indicator_pin_mode", &setMalfunctionIndicatorPinMode);
 }
 

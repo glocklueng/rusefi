@@ -12,6 +12,8 @@
 #include <hal.h>
 #include <time.h>
 
+#include "rusefi_enums.h"
+
 /**
  * To be honest, I have already forgotten why I use my own type name for float values. Probably two reasons:
  *  1) I can search all float usages in my code

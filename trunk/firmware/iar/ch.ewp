@@ -2092,6 +2092,9 @@
         <name>$PROJ_DIR$\..\controllers\algo\map_adjuster.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\controllers\algo\rusefi_enums.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\signal_executor.c</name>
       </file>
       <file>

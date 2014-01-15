@@ -18,7 +18,7 @@
 #include "main_trigger_callback.h"
 #include "trigger_decoder.h"
 
-int pinDefaultState[IO_PIN_COUNT];
+pin_output_mode_e pinDefaultState[IO_PIN_COUNT];
 static OutputPin outputs[IO_PIN_COUNT];
 static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG, LED_CHECK_ENGINE };
 
@@ -46,17 +46,17 @@ void turnOutputPinOff(io_pin_e pin) {
  * TODO: should add 'xor' logic right at the output pin level in order to distinguish
  * TODO: logical levels from physical levels?
  */
-void setOutputPinValue(io_pin_e pin, int value) {
-	setPinValue(&outputs[pin], value);
+void setOutputPinValue(io_pin_e pin, int electricalValue) {
+	setPinValue(&outputs[pin], electricalValue);
 }
 
 int getOutputPinValue(io_pin_e pin) {
 	return getPinValue(&outputs[pin]);
 }
 
-void setDefaultPinState(io_pin_e pin, int defaultState) {
-	pinDefaultState[pin] = defaultState;
-	setOutputPinValue(pin, defaultState); // initial state
+void setDefaultPinState(io_pin_e pin, pin_output_mode_e outputMode) {
+	pinDefaultState[pin] = outputMode;
+	setOutputPinValue(pin, getElectricalValue(0, outputMode)); // initial state
 }
 
 static void comBlinkingThread(void *arg) {

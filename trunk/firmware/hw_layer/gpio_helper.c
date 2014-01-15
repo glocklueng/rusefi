@@ -30,12 +30,15 @@ int getPinValue(OutputPin * outputPin) {
 	return outputPin->currentValue;
 }
 
-void setPinValue(OutputPin * outputPin, int value) {
-	if (getPinValue(outputPin) == value)
+/**
+ * Set's the value of the pin. On this layer the value is assigned as is, without any conversion.
+ */
+void setPinValue(OutputPin * outputPin, int electricalValue) {
+	if (getPinValue(outputPin) == electricalValue)
 		return;
 
-	palWritePad(outputPin->port, outputPin->pin, value);
-	outputPin->currentValue = value;
+	palWritePad(outputPin->port, outputPin->pin, electricalValue);
+	outputPin->currentValue = electricalValue;
 }
 
 #endif /* GPIO_HELPER_C_ */

@@ -104,11 +104,11 @@ void initInjectorCentral(void) {
 		is_injector_enabled[i] = true;
 	printStatus();
 
-	setDefaultPinState(INJECTOR_1_OUTPUT, INJECTOR_1_XOR);
-	setDefaultPinState(INJECTOR_2_OUTPUT, INJECTOR_2_XOR);
-	setDefaultPinState(INJECTOR_3_OUTPUT, INJECTOR_3_XOR);
-	setDefaultPinState(INJECTOR_4_OUTPUT, INJECTOR_4_XOR);
-	setDefaultPinState(INJECTOR_5_OUTPUT, INJECTOR_5_XOR);
+	setDefaultPinState(INJECTOR_1_OUTPUT, OM_DEFAULT);
+	setDefaultPinState(INJECTOR_2_OUTPUT, OM_DEFAULT);
+	setDefaultPinState(INJECTOR_3_OUTPUT, OM_DEFAULT);
+	setDefaultPinState(INJECTOR_4_OUTPUT, OM_DEFAULT);
+	setDefaultPinState(INJECTOR_5_OUTPUT, OM_DEFAULT);
 
 	addConsoleActionII("injector", setInjectorEnabled);
 	addConsoleActionI("gfc", setGlobalFuelCorrection);
