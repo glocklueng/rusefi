@@ -22,6 +22,7 @@ static Logging logger;
 int isInjectionEnabled = TRUE;
 myfloat globalFuelCorrection = 1;
 
+extern EngineConfiguration *engineConfiguration;
 extern EngineConfiguration2 *engineConfiguration2;
 
 static int is_injector_enabled[MAX_INJECTOR_COUNT];
@@ -104,11 +105,11 @@ void initInjectorCentral(void) {
 		is_injector_enabled[i] = true;
 	printStatus();
 
-	setDefaultPinState(INJECTOR_1_OUTPUT, OM_DEFAULT);
-	setDefaultPinState(INJECTOR_2_OUTPUT, OM_DEFAULT);
-	setDefaultPinState(INJECTOR_3_OUTPUT, OM_DEFAULT);
-	setDefaultPinState(INJECTOR_4_OUTPUT, OM_DEFAULT);
-	setDefaultPinState(INJECTOR_5_OUTPUT, OM_DEFAULT);
+	setDefaultPinState(INJECTOR_1_OUTPUT, &engineConfiguration->injectionPinMode);
+	setDefaultPinState(INJECTOR_2_OUTPUT, &engineConfiguration->injectionPinMode);
+	setDefaultPinState(INJECTOR_3_OUTPUT, &engineConfiguration->injectionPinMode);
+	setDefaultPinState(INJECTOR_4_OUTPUT, &engineConfiguration->injectionPinMode);
+	setDefaultPinState(INJECTOR_5_OUTPUT, &engineConfiguration->injectionPinMode);
 
 	addConsoleActionII("injector", setInjectorEnabled);
 	addConsoleActionI("gfc", setGlobalFuelCorrection);
