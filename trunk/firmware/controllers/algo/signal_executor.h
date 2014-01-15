@@ -9,6 +9,7 @@
 #ifndef SPARKOUT_H_
 #define SPARKOUT_H_
 
+#include "rusefi_enums.h"
 #include "global.h"
 #include "features.h"
 #include "io_pins.h"

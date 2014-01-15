@@ -8,7 +8,7 @@
 #ifndef STATUS_LEDS_H_
 #define STATUS_LEDS_H_
 
-#include "global.h"
+#include "rusefi_enums.h"
 
 typedef enum {
 	LED_CRANKING, // Orange on-board LED
