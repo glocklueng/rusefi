@@ -106,17 +106,11 @@ void initInjectorCentral(void) {
 	printStatus();
 
 	// todo: should we move this code closer to the injection logic?
-	outputPinRegister("injector1", INJECTOR_1_OUTPUT, INJECTOR_1_PORT, INJECTOR_1_PIN);
-	outputPinRegister("injector2", INJECTOR_2_OUTPUT, INJECTOR_2_PORT, INJECTOR_2_PIN);
-	outputPinRegister("injector3", INJECTOR_3_OUTPUT, INJECTOR_3_PORT, INJECTOR_3_PIN);
-	outputPinRegister("injector4", INJECTOR_4_OUTPUT, INJECTOR_4_PORT, INJECTOR_4_PIN);
-	outputPinRegister("injector5", INJECTOR_5_OUTPUT, INJECTOR_5_PORT, INJECTOR_5_PIN);
-
-	setDefaultPinState(INJECTOR_1_OUTPUT, &engineConfiguration->injectionPinMode);
-	setDefaultPinState(INJECTOR_2_OUTPUT, &engineConfiguration->injectionPinMode);
-	setDefaultPinState(INJECTOR_3_OUTPUT, &engineConfiguration->injectionPinMode);
-	setDefaultPinState(INJECTOR_4_OUTPUT, &engineConfiguration->injectionPinMode);
-	setDefaultPinState(INJECTOR_5_OUTPUT, &engineConfiguration->injectionPinMode);
+	outputPinRegisterExt("injector1", INJECTOR_1_OUTPUT, INJECTOR_1_PORT, INJECTOR_1_PIN, &engineConfiguration->injectionPinMode);
+	outputPinRegisterExt("injector2", INJECTOR_2_OUTPUT, INJECTOR_2_PORT, INJECTOR_2_PIN, &engineConfiguration->injectionPinMode);
+	outputPinRegisterExt("injector3", INJECTOR_3_OUTPUT, INJECTOR_3_PORT, INJECTOR_3_PIN, &engineConfiguration->injectionPinMode);
+	outputPinRegisterExt("injector4", INJECTOR_4_OUTPUT, INJECTOR_4_PORT, INJECTOR_4_PIN, &engineConfiguration->injectionPinMode);
+	outputPinRegisterExt("injector5", INJECTOR_5_OUTPUT, INJECTOR_5_PORT, INJECTOR_5_PIN, &engineConfiguration->injectionPinMode);
 
 	addConsoleActionII("injector", setInjectorEnabled);
 	addConsoleActionI("gfc", setGlobalFuelCorrection);

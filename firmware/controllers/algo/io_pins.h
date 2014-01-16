@@ -8,7 +8,7 @@
 #ifndef STATUS_LEDS_H_
 #define STATUS_LEDS_H_
 
-#include "rusefi_enums.h"
+#include "main.h"
 
 typedef enum {
 	LED_CRANKING, // Orange on-board LED
@@ -83,7 +83,7 @@ void turnOutputPinOn(io_pin_e pin);
 void turnOutputPinOff(io_pin_e pin);
 void setOutputPinValue(io_pin_e pin, int electricalValue);
 int getOutputPinValue(io_pin_e pin);
-void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin);
+void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode);
 void setDefaultPinState(io_pin_e pin, pin_output_mode_e *defaultState);
 
 #endif /* STATUS_LEDS_H_ */
