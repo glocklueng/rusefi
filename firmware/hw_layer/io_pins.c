@@ -110,6 +110,10 @@ void outputPinRegister(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t p
 	setOutputPinValue(ioPin, FALSE);
 }
 
+void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin) {
+	outputPinRegister(msg, ioPin, port, pin);
+}
+
 /**
  * This method would blink all the LEDs just to test them
  */
@@ -162,24 +166,11 @@ void initOutputPins(void) {
 	
 	outputPinRegister("MalfunctionIndicator",LED_CHECK_ENGINE, LED_CHECK_ENGINE_PORT, LED_CHECK_ENGINE_PIN);
 
-	outputPinRegister("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN);
-	outputPinRegister("sparkout2", SPARKOUT_2_OUTPUT, SPARK_2_PORT, SPARK_2_PIN);
-	outputPinRegister("sparkout3", SPARKOUT_3_OUTPUT, SPARK_3_PORT, SPARK_3_PIN);
-	outputPinRegister("sparkout4", SPARKOUT_4_OUTPUT, SPARK_4_PORT, SPARK_4_PIN);
-
 	outputPinRegister("spi CS1", SPI_CS_1, SPI_CS1_PORT, SPI_CS1_PIN);
 	outputPinRegister("spi CS2", SPI_CS_2, SPI_CS2_PORT, SPI_CS2_PIN);
 	outputPinRegister("spi CS3", SPI_CS_3, SPI_CS3_PORT, SPI_CS3_PIN);
 	outputPinRegister("spi CS4", SPI_CS_4, SPI_CS4_PORT, SPI_CS4_PIN);
 	outputPinRegister("spi CS5", SPI_CS_SD_MODULE, SPI_SD_MODULE_PORT, SPI_SD_MODULE_PIN);
-
-
-	// todo: should we move this code closer to the injection logic?
-	outputPinRegister("injector1", INJECTOR_1_OUTPUT, INJECTOR_1_PORT, INJECTOR_1_PIN);
-	outputPinRegister("injector2", INJECTOR_2_OUTPUT, INJECTOR_2_PORT, INJECTOR_2_PIN);
-	outputPinRegister("injector3", INJECTOR_3_OUTPUT, INJECTOR_3_PORT, INJECTOR_3_PIN);
-	outputPinRegister("injector4", INJECTOR_4_OUTPUT, INJECTOR_4_PORT, INJECTOR_4_PIN);
-	outputPinRegister("injector5", INJECTOR_5_OUTPUT, INJECTOR_5_PORT, INJECTOR_5_PIN);
 
 	// todo: should we move this code closer to the fuel pump logic?
 	outputPinRegister("fuel pump", FUEL_PUMP, FUEL_PUMP_PORT, FUEL_PUMP_PIN);
