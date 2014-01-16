@@ -18,12 +18,19 @@
 #include "pin_repository.h"
 #include "gpio_helper.h"
 
-void initOutputPin(char *msg, OutputPin *outputPin, GPIO_TypeDef *port, uint32_t pinNumber) {
+/**
+ * @brief Initialize the hardware output pin while also assigning it a logical name
+ */
+void initOutputPinExt(char *msg, OutputPin *outputPin, GPIO_TypeDef *port, uint32_t pinNumber, iomode_t mode) {
 	outputPin->currentValue = -1;
 	outputPin->port = port;
 	outputPin->pin = pinNumber;
 
-	mySetPadMode(msg, port, pinNumber, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode(msg, port, pinNumber, mode);
+}
+
+void initOutputPin(char *msg, OutputPin *outputPin, GPIO_TypeDef *port, uint32_t pinNumber) {
+	initOutputPinExt(msg, outputPin, port, pinNumber, PAL_MODE_OUTPUT_PUSHPULL);
 }
 
 int getPinValue(OutputPin * outputPin) {
