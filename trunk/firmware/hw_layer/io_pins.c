@@ -110,8 +110,11 @@ void outputPinRegister(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t p
 	setOutputPinValue(ioPin, FALSE);
 }
 
-void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin) {
+void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode) {
 	outputPinRegister(msg, ioPin, port, pin);
+
+	setDefaultPinState(pin, outputMode);
+
 }
 
 /**

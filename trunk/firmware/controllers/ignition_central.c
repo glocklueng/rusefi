@@ -20,16 +20,10 @@ extern EngineConfiguration *engineConfiguration;
 void initIgnitionCentral(void) {
 	initLogging(&logger, "IgnitionCentral");
 
-	outputPinRegisterExt("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN);
-	outputPinRegisterExt("sparkout2", SPARKOUT_2_OUTPUT, SPARK_2_PORT, SPARK_2_PIN);
-	outputPinRegisterExt("sparkout3", SPARKOUT_3_OUTPUT, SPARK_3_PORT, SPARK_3_PIN);
-	outputPinRegisterExt("sparkout4", SPARKOUT_4_OUTPUT, SPARK_4_PORT, SPARK_4_PIN);
-
-	setDefaultPinState(SPARKOUT_1_OUTPUT, &engineConfiguration->ignitionPinMode);
-	setDefaultPinState(SPARKOUT_2_OUTPUT, &engineConfiguration->ignitionPinMode);
-	setDefaultPinState(SPARKOUT_3_OUTPUT, &engineConfiguration->ignitionPinMode);
-	setDefaultPinState(SPARKOUT_4_OUTPUT, &engineConfiguration->ignitionPinMode);
-	setDefaultPinState(SPARKOUT_5_OUTPUT, &engineConfiguration->ignitionPinMode);
+	outputPinRegisterExt("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN, &engineConfiguration->ignitionPinMode);
+	outputPinRegisterExt("sparkout2", SPARKOUT_2_OUTPUT, SPARK_2_PORT, SPARK_2_PIN, &engineConfiguration->ignitionPinMode);
+	outputPinRegisterExt("sparkout3", SPARKOUT_3_OUTPUT, SPARK_3_PORT, SPARK_3_PIN, &engineConfiguration->ignitionPinMode);
+	outputPinRegisterExt("sparkout4", SPARKOUT_4_OUTPUT, SPARK_4_PORT, SPARK_4_PIN, &engineConfiguration->ignitionPinMode);
 }
 
 void scheduleSparkOut(OutputSignal *igniter, int offsetSysTicks, int lengthSysTicks) {
