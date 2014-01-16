@@ -83,7 +83,6 @@ void turnOutputPinOn(io_pin_e pin);
 void turnOutputPinOff(io_pin_e pin);
 void setOutputPinValue(io_pin_e pin, int electricalValue);
 int getOutputPinValue(io_pin_e pin);
-void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode);
 void setDefaultPinState(io_pin_e pin, pin_output_mode_e *defaultState);
 
 #endif /* STATUS_LEDS_H_ */

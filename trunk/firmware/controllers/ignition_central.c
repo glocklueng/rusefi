@@ -17,6 +17,8 @@ static Logging logger;
 
 extern EngineConfiguration *engineConfiguration;
 
+void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode);
+
 void initIgnitionCentral(void) {
 	initLogging(&logger, "IgnitionCentral");
 
