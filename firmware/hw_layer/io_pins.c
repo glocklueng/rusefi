@@ -20,7 +20,10 @@
 
 static pin_output_mode_e *pinDefaultState[IO_PIN_COUNT];
 static OutputPin outputs[IO_PIN_COUNT];
-static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG, LED_CHECK_ENGINE };
+static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG,
+		LED_CHECK_ENGINE };
+
+static pin_output_mode_e DEFAULT_OUTPUT = OM_DEFAULT;
 
 /**
  * blinking thread to show that we are alive
@@ -58,7 +61,6 @@ static int getElectricalValue1(pin_output_mode_e mode) {
 static int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
 	return logicalValue ? getElectricalValue1(mode) : getElectricalValue0(mode);
 }
-
 
 /**
  * @brief Sets the value according to current electrical settings
@@ -104,17 +106,19 @@ static void errBlinkingThread(void *arg) {
 	}
 }
 
-void outputPinRegister(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin) {
-	initOutputPin(msg, &outputs[ioPin], port, pin);
+void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode) {
+	iomode_t mode =
+			(*outputMode == OM_DEFAULT || *outputMode == OM_INVERTED) ? PAL_MODE_OUTPUT_PUSHPULL : PAL_MODE_OUTPUT_OPENDRAIN;
+
+	initOutputPinExt(msg, &outputs[ioPin], port, pin, mode);
 
 	setOutputPinValue(ioPin, FALSE);
-}
-
-void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode) {
-	outputPinRegister(msg, ioPin, port, pin);
 
 	setDefaultPinState(pin, outputMode);
+}
 
+void outputPinRegister(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin) {
+	outputPinRegisterExt(msg, ioPin, port, pin, &DEFAULT_OUTPUT);
 }
 
 /**
@@ -132,7 +136,7 @@ static void initialLedsBlink(void) {
 }
 
 char *getPinName(io_pin_e io_pin) {
-	switch(io_pin) {
+	switch (io_pin) {
 	case SPARKOUT_1_OUTPUT:
 		return "Spark 1";
 	case SPARKOUT_2_OUTPUT:
@@ -157,7 +161,6 @@ char *getPinName(io_pin_e io_pin) {
 	}
 }
 
-
 void initOutputPins(void) {
 	outputPinRegister("is cranking status", LED_CRANKING, STATUS_LED_1_PORT, STATUS_LED_1_PIN);
 	outputPinRegister("is running status", LED_RUNNING, STATUS_LED_2_PORT, STATUS_LED_2_PIN);
@@ -166,8 +169,8 @@ void initOutputPins(void) {
 
 	outputPinRegister("communication status 2", LED_ALIVE2, EXTRA_LED_1_PORT, EXTRA_LED_1_PIN);
 	outputPinRegister("alive1", LED_DEBUG, GPIOD, 6);
-	
-	outputPinRegister("MalfunctionIndicator",LED_CHECK_ENGINE, LED_CHECK_ENGINE_PORT, LED_CHECK_ENGINE_PIN);
+
+	outputPinRegister("MalfunctionIndicator", LED_CHECK_ENGINE, LED_CHECK_ENGINE_PORT, LED_CHECK_ENGINE_PIN);
 
 	outputPinRegister("spi CS1", SPI_CS_1, SPI_CS1_PORT, SPI_CS1_PIN);
 	outputPinRegister("spi CS2", SPI_CS_2, SPI_CS2_PORT, SPI_CS2_PIN);
