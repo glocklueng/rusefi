@@ -60,6 +60,15 @@ int tunerStudioHandleCommand(short command) {
 		handlePageReadCommand();
 	} else if (command == 't' || command == 'T') {
 		handleTestCommand();
+	} else if (command == 'F') {
+		tunerStudioDebug("ignoring F");
+		/**
+		 * http://www.msextra.com/forums/viewtopic.php?f=122&t=48327
+		 * Response from TS support: This is an optional command		 *
+		 * "The F command is used to find what ini. file needs to be loaded in TunerStudio to match the controller.
+		 * If you are able to just make your firmware ignore the command that would work.
+		 * Currently on some firmware versions the F command is not used and is just ignored by the firmware as a unknown command."
+		 */
 	} else {
 #if EFI_TUNER_STUDIO_OVER_USB
 		/**
