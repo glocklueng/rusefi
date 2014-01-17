@@ -30,6 +30,8 @@ static void configureTriggerShape(trigger_shape_s *s) {
 
 void setDodgeNeonEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
+
+	engineConfiguration->ignitionPinMode = OM_OPENDRAIN;
 }
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {
