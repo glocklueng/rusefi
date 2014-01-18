@@ -106,14 +106,16 @@ typedef struct {
 	 */
 	float fixedModeTiming;
 
+	// WARNING: by default, our small enums are ONE BYTE. but if the are surrounded by non-enums - alignments do the trick
 	engine_type_e engineType;
 
 
-	float fuelTable[FUEL_LOAD_COUNT][FUEL_RPM_COUNT]; // size 3036, offset 414
-	float fuelLoadBins[FUEL_LOAD_COUNT]; // offset 3450
+	float fuelTable[FUEL_LOAD_COUNT][FUEL_RPM_COUNT]; // size 1024, offset 1816
+	float fuelLoadBins[FUEL_LOAD_COUNT]; // offset 2840
 	// RPM is float and not integer in order to use unified methods for interpolation
 	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
 
+	// WARNING: by default, our small enums are ONE BYTE. this one is made 4-byte with the 'ENUM_SIZE_HACK' hack
 	pin_output_mode_e injectionPinMode;
 	pin_output_mode_e ignitionPinMode;
 	pin_output_mode_e idlePinMode;
