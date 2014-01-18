@@ -27,7 +27,7 @@ typedef struct _nmeaPROPERTY
 {
     nmeaTraceFunc   trace_func;
     nmeaErrorFunc   error_func;
-    int             parse_buff_size;
+//    int             parse_buff_size;
 
 } nmeaPROPERTY;
 

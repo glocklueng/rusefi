@@ -26,6 +26,7 @@ double nmea_random(double min, double max)
     double rand_val = rand();
     double bounds = max - min;
     return min + (rand_val * bounds) / rand_max;
+	return 1;
 }
 
 /*
@@ -34,7 +35,8 @@ double nmea_random(double min, double max)
 
 int nmea_gen_init(nmeaGENERATOR *gen, nmeaINFO *info)
 {
-    int RetVal = 1; int smask = info->smask;
+    int RetVal = 1;
+    int smask = info->smask;
     nmeaGENERATOR *igen = gen;
 
     nmea_zero_INFO(info);
@@ -87,7 +89,6 @@ void nmea_gen_destroy(nmeaGENERATOR *gen)
     if(gen->destroy_call)
         (*gen->destroy_call)(gen);
 
-    free(gen);
 }
 
 void nmea_gen_add(nmeaGENERATOR *to, nmeaGENERATOR *gen)
@@ -105,7 +106,7 @@ int nmea_generate_from(
     int generate_mask
     )
 {
-    int retval;
+    int retval = 0;
 
     if(0 != (retval = nmea_gen_loop(gen, info)))
         retval = nmea_generate(buff, buff_sz, info, generate_mask);
@@ -124,38 +125,38 @@ int nmea_igen_noise_init(nmeaGENERATOR *gen, nmeaINFO *info)
 
 int nmea_igen_noise_loop(nmeaGENERATOR *gen, nmeaINFO *info)
 {
-    int it;
-    int in_use;
-
-    info->sig = (int)nmea_random(1, 3);
-    info->PDOP = nmea_random(0, 9);
-    info->HDOP = nmea_random(0, 9);
-    info->VDOP = nmea_random(0, 9);
-    info->fix = (int)nmea_random(2, 3);
-    info->lat = nmea_random(0, 100);
-    info->lon = nmea_random(0, 100);
-    info->speed = nmea_random(0, 100);
-    info->direction = nmea_random(0, 360);
-    info->declination = nmea_random(0, 360);
-    info->elv = (int)nmea_random(-100, 100);
-
-    info->satinfo.inuse = 0;
-    info->satinfo.inview = 0;
-
-    for(it = 0; it < 12; ++it)
-    {
-        info->satinfo.sat[it].id = it;
-        info->satinfo.sat[it].in_use = in_use = (int)nmea_random(0, 3);
-        info->satinfo.sat[it].elv = (int)nmea_random(0, 90);
-        info->satinfo.sat[it].azimuth = (int)nmea_random(0, 359);
-        info->satinfo.sat[it].sig = (int)(in_use?nmea_random(40, 99):nmea_random(0, 40));
-
-        if(in_use)
-            info->satinfo.inuse++;
-        if(info->satinfo.sat[it].sig > 0)
-            info->satinfo.inview++;
-    }
-
+//    int it;
+//    int in_use;
+//
+//    info->sig = (int)nmea_random(1, 3);
+//    info->PDOP = nmea_random(0, 9);
+//    info->HDOP = nmea_random(0, 9);
+//    info->VDOP = nmea_random(0, 9);
+//    info->fix = (int)nmea_random(2, 3);
+//    info->lat = nmea_random(0, 100);
+//    info->lon = nmea_random(0, 100);
+//    info->speed = nmea_random(0, 100);
+//    info->direction = nmea_random(0, 360);
+//    info->declination = nmea_random(0, 360);
+//    info->elv = (int)nmea_random(-100, 100);
+//
+//    info->satinfo.inuse = 0;
+//    info->satinfo.inview = 0;
+//
+//    for(it = 0; it < 12; ++it)
+//    {
+//        info->satinfo.sat[it].id = it;
+//        info->satinfo.sat[it].in_use = in_use = (int)nmea_random(0, 3);
+//        info->satinfo.sat[it].elv = (int)nmea_random(0, 90);
+//        info->satinfo.sat[it].azimuth = (int)nmea_random(0, 359);
+//        info->satinfo.sat[it].sig = (int)(in_use?nmea_random(40, 99):nmea_random(0, 40));
+//
+//        if(in_use)
+//            info->satinfo.inuse++;
+//        if(info->satinfo.sat[it].sig > 0)
+//            info->satinfo.inview++;
+//    }
+//
     return 1;
 }
 
@@ -176,32 +177,32 @@ int nmea_igen_static_loop(nmeaGENERATOR *gen, nmeaINFO *info)
 
 int nmea_igen_static_reset(nmeaGENERATOR *gen, nmeaINFO *info)
 {
-    info->satinfo.inuse = 4;
-    info->satinfo.inview = 4;
-
-    info->satinfo.sat[0].id = 1;
-    info->satinfo.sat[0].in_use = 1;
-    info->satinfo.sat[0].elv = 50;
-    info->satinfo.sat[0].azimuth = 0;
-    info->satinfo.sat[0].sig = 99;
-
-    info->satinfo.sat[1].id = 2;
-    info->satinfo.sat[1].in_use = 1;
-    info->satinfo.sat[1].elv = 50;
-    info->satinfo.sat[1].azimuth = 90;
-    info->satinfo.sat[1].sig = 99;
-
-    info->satinfo.sat[2].id = 3;
-    info->satinfo.sat[2].in_use = 1;
-    info->satinfo.sat[2].elv = 50;
-    info->satinfo.sat[2].azimuth = 180;
-    info->satinfo.sat[2].sig = 99;
-
-    info->satinfo.sat[3].id = 4;
-    info->satinfo.sat[3].in_use = 1;
-    info->satinfo.sat[3].elv = 50;
-    info->satinfo.sat[3].azimuth = 270;
-    info->satinfo.sat[3].sig = 99;
+//    info->satinfo.inuse = 4;
+//    info->satinfo.inview = 4;
+//
+//    info->satinfo.sat[0].id = 1;
+//    info->satinfo.sat[0].in_use = 1;
+//    info->satinfo.sat[0].elv = 50;
+//    info->satinfo.sat[0].azimuth = 0;
+//    info->satinfo.sat[0].sig = 99;
+//
+//    info->satinfo.sat[1].id = 2;
+//    info->satinfo.sat[1].in_use = 1;
+//    info->satinfo.sat[1].elv = 50;
+//    info->satinfo.sat[1].azimuth = 90;
+//    info->satinfo.sat[1].sig = 99;
+//
+//    info->satinfo.sat[2].id = 3;
+//    info->satinfo.sat[2].in_use = 1;
+//    info->satinfo.sat[2].elv = 50;
+//    info->satinfo.sat[2].azimuth = 180;
+//    info->satinfo.sat[2].sig = 99;
+//
+//    info->satinfo.sat[3].id = 4;
+//    info->satinfo.sat[3].in_use = 1;
+//    info->satinfo.sat[3].elv = 50;
+//    info->satinfo.sat[3].azimuth = 270;
+//    info->satinfo.sat[3].sig = 99;
 
     return 1;
 }
@@ -241,22 +242,22 @@ int nmea_igen_rotate_loop(nmeaGENERATOR *gen, nmeaINFO *info)
 
 int nmea_igen_rotate_reset(nmeaGENERATOR *gen, nmeaINFO *info)
 {
-    int it;
-    double deg = 360 / 8;
-    double srt = 0;
-
-    info->satinfo.inuse = 8;
-    info->satinfo.inview = 8;
-
-    for(it = 0; it < info->satinfo.inview; ++it)
-    {
-        info->satinfo.sat[it].id = it + 1;
-        info->satinfo.sat[it].in_use = 1;
-        info->satinfo.sat[it].elv = 5;
-        info->satinfo.sat[it].azimuth = (int)srt;
-        info->satinfo.sat[it].sig = 80;
-        srt += deg;
-    }
+//    int it;
+//    double deg = 360 / 8;
+//    double srt = 0;
+//
+//    info->satinfo.inuse = 8;
+//    info->satinfo.inview = 8;
+//
+//    for(it = 0; it < info->satinfo.inview; ++it)
+//    {
+//        info->satinfo.sat[it].id = it + 1;
+//        info->satinfo.sat[it].in_use = 1;
+//        info->satinfo.sat[it].elv = 5;
+//        info->satinfo.sat[it].azimuth = (int)srt;
+//        info->satinfo.sat[it].sig = 80;
+//        srt += deg;
+//    }
 
     return 1;
 }
@@ -322,60 +323,60 @@ int nmea_igen_pos_rmove_destroy(nmeaGENERATOR *gen)
 nmeaGENERATOR * __nmea_create_generator(int type, nmeaINFO *info)
 {
     nmeaGENERATOR *gen = 0;
-
-    switch(type)
-    {
-    case NMEA_GEN_NOISE:
-        if(0 == (gen = malloc(sizeof(nmeaGENERATOR))))
-            nmea_error("Insufficient memory!");
-        else
-        {
-            memset(gen, 0, sizeof(nmeaGENERATOR));
-            gen->init_call = &nmea_igen_noise_init;
-            gen->loop_call = &nmea_igen_noise_loop;
-            gen->reset_call = &nmea_igen_noise_reset;
-        }
-        break;
-    case NMEA_GEN_STATIC:
-    case NMEA_GEN_SAT_STATIC:
-        if(0 == (gen = malloc(sizeof(nmeaGENERATOR))))
-            nmea_error("Insufficient memory!");
-        else
-        {
-            memset(gen, 0, sizeof(nmeaGENERATOR));
-            gen->init_call = &nmea_igen_static_init;
-            gen->loop_call = &nmea_igen_static_loop;
-            gen->reset_call = &nmea_igen_static_reset;
-        }
-        break;
-    case NMEA_GEN_SAT_ROTATE:
-        if(0 == (gen = malloc(sizeof(nmeaGENERATOR))))
-            nmea_error("Insufficient memory!");
-        else
-        {
-            memset(gen, 0, sizeof(nmeaGENERATOR));
-            gen->init_call = &nmea_igen_rotate_init;
-            gen->loop_call = &nmea_igen_rotate_loop;
-            gen->reset_call = &nmea_igen_rotate_reset;
-        }
-        break;
-    case NMEA_GEN_POS_RANDMOVE:
-        if(0 == (gen = malloc(sizeof(nmeaGENERATOR))))
-            nmea_error("Insufficient memory!");
-        else
-        {
-            memset(gen, 0, sizeof(nmeaGENERATOR));
-            gen->init_call = &nmea_igen_pos_rmove_init;
-            gen->loop_call = &nmea_igen_pos_rmove_loop;
-            gen->destroy_call = &nmea_igen_pos_rmove_destroy;
-        }
-        break;
-    case NMEA_GEN_ROTATE:
-        gen = __nmea_create_generator(NMEA_GEN_SAT_ROTATE, info);
-        nmea_gen_add(gen, __nmea_create_generator(NMEA_GEN_POS_RANDMOVE, info));
-        break;
-    };
-
+//
+//    switch(type)
+//    {
+//    case NMEA_GEN_NOISE:
+//        if(0 == (gen = malloc(sizeof(nmeaGENERATOR))))
+//            nmea_error("Insufficient memory!");
+//        else
+//        {
+//            memset(gen, 0, sizeof(nmeaGENERATOR));
+//            gen->init_call = &nmea_igen_noise_init;
+//            gen->loop_call = &nmea_igen_noise_loop;
+//            gen->reset_call = &nmea_igen_noise_reset;
+//        }
+//        break;
+//    case NMEA_GEN_STATIC:
+//    case NMEA_GEN_SAT_STATIC:
+//        if(0 == (gen = malloc(sizeof(nmeaGENERATOR))))
+//            nmea_error("Insufficient memory!");
+//        else
+//        {
+//            memset(gen, 0, sizeof(nmeaGENERATOR));
+//            gen->init_call = &nmea_igen_static_init;
+//            gen->loop_call = &nmea_igen_static_loop;
+//            gen->reset_call = &nmea_igen_static_reset;
+//        }
+//        break;
+//    case NMEA_GEN_SAT_ROTATE:
+//        if(0 == (gen = malloc(sizeof(nmeaGENERATOR))))
+//            nmea_error("Insufficient memory!");
+//        else
+//        {
+//            memset(gen, 0, sizeof(nmeaGENERATOR));
+//            gen->init_call = &nmea_igen_rotate_init;
+//            gen->loop_call = &nmea_igen_rotate_loop;
+//            gen->reset_call = &nmea_igen_rotate_reset;
+//        }
+//        break;
+//    case NMEA_GEN_POS_RANDMOVE:
+//        if(0 == (gen = malloc(sizeof(nmeaGENERATOR))))
+//            nmea_error("Insufficient memory!");
+//        else
+//        {
+//            memset(gen, 0, sizeof(nmeaGENERATOR));
+//            gen->init_call = &nmea_igen_pos_rmove_init;
+//            gen->loop_call = &nmea_igen_pos_rmove_loop;
+//            gen->destroy_call = &nmea_igen_pos_rmove_destroy;
+//        }
+//        break;
+//    case NMEA_GEN_ROTATE:
+//        gen = __nmea_create_generator(NMEA_GEN_SAT_ROTATE, info);
+//        nmea_gen_add(gen, __nmea_create_generator(NMEA_GEN_POS_RANDMOVE, info));
+//        break;
+//    };
+//
     return gen;
 }
 

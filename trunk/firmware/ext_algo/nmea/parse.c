@@ -61,7 +61,10 @@
 #include "nmea/units.h"
 
 #include <string.h>
+#if 0
 #include <stdio.h>
+#endif
+
 
 int _nmea_parse_time(const char *buff, int buff_sz, nmeaTIME *res)
 {

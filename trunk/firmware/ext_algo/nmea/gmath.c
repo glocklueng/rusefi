@@ -170,7 +170,7 @@ double nmea_distance_ellipsoid(
         tmp2 = cos_U1 * sin_U2 - sin_U1 * cos_U2 * cos_lambda;  
         sin_sigma = sqrt(tmp1 * tmp1 + tmp2 * tmp2);                
         cos_sigma = sin_U1 * sin_U2 + cos_U1 * cos_U2 * cos_lambda;   
-        tan_sigma = sin_sigma / cos_sigma;                  
+        //tan_sigma = sin_sigma / cos_sigma;
         sin_alpha = cos_U1 * cos_U2 * sin_lambda / sin_sigma;  
         cos_alpha = cos(asin(sin_alpha));                 
         sqr_cos_alpha = cos_alpha * cos_alpha;                     
@@ -293,11 +293,11 @@ int nmea_move_horz_ellipsoid(
     alpha1 = azimuth;
     sin_alpha1 = sin(alpha1);
     cos_alpha1 = cos(alpha1);
-    tan_sigma1 = tan_U1 / cos_alpha1;
+    //tan_sigma1 = tan_U1 / cos_alpha1;
     sigma1 = atan2(tan_U1, cos_alpha1);
     sin_alpha = cos_U1 * sin_alpha1;
     sqr_cos_alpha = 1 - sin_alpha * sin_alpha;
-    cos_alpha = sqrt(sqr_cos_alpha);
+    //cos_alpha = sqrt(sqr_cos_alpha);
     sqr_u = sqr_cos_alpha * (sqr_a - sqr_b) / sqr_b; 
     A = 1 + sqr_u / 16384 * (4096 + sqr_u * (-768 + sqr_u * (320 - 175 * sqr_u)));
     B = sqr_u / 1024 * (256 + sqr_u * (-128 + sqr_u * (74 - 47 * sqr_u)));

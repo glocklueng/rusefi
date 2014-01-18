@@ -14,10 +14,10 @@
 
 #include <stdarg.h>
 #include <stdlib.h>
-#include <stdio.h>
+//#include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-#include <limits.h>
+//#include <limits.h>
 
 #define NMEA_TOKS_COMPARE   (1)
 #define NMEA_TOKS_PERCENT   (2)
@@ -82,6 +82,7 @@ double nmea_atof(const char *str, int str_sz)
 int nmea_printf(char *buff, int buff_sz, const char *format, ...)
 {
     int retval, add = 0;
+#if 0
     va_list arg_ptr;
 
     if(buff_sz <= 0)
@@ -107,7 +108,9 @@ int nmea_printf(char *buff, int buff_sz, const char *format, ...)
     }
 
     va_end(arg_ptr);
-
+#else
+    retval = 0;
+#endif
     return retval;
 }
 
@@ -145,7 +148,7 @@ int nmea_scanf(const char *buff, int buff_sz, const char *format, ...)
             beg_fmt = format;
             tok_type = NMEA_TOKS_WIDTH;
         case NMEA_TOKS_WIDTH:
-            if(isdigit(*format))
+            if(isdigit((unsigned char)*format))
                 break;
             {
                 tok_type = NMEA_TOKS_TYPE;
