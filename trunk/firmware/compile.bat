@@ -15,3 +15,5 @@ cd ../firmware
 cd build
 java -jar ../../java_tools/gcc_map_reader.jar > ../../firmware_binary/rusefi_ram_report.txt
 cd ..
+
+flash.bat
