@@ -12,20 +12,23 @@
 
 #include <string.h>
 #include <stdarg.h>
+#if NMEA_TRACE
 #include <stdio.h>
-
+#endif /* NMEA_TRACE */
 nmeaPROPERTY * nmea_property()
 {
     static nmeaPROPERTY prop = {
-        0, 0, NMEA_DEF_PARSEBUFF
+        0, 0
         };
 
     return &prop;
 }
 
+
 void nmea_trace(const char *str, ...)
 {
-    int size;
+#if NMEA_TRACE
+	int size;
     va_list arg_list;
     char buff[NMEA_DEF_PARSEBUFF];
     nmeaTraceFunc func = nmea_property()->trace_func;
@@ -39,6 +42,7 @@ void nmea_trace(const char *str, ...)
         if(size > 0)
             (*func)(&buff[0], size);
     }
+#endif /* NMEA_TRACE */
 }
 
 void nmea_trace_buff(const char *buff, int buff_size)
@@ -48,6 +52,7 @@ void nmea_trace_buff(const char *buff, int buff_size)
         (*func)(buff, buff_size);
 }
 
+#if NMEA_TRACE
 void nmea_error(const char *str, ...)
 {
     int size;
@@ -65,3 +70,5 @@ void nmea_error(const char *str, ...)
             (*func)(&buff[0], size);
     }
 }
+#endif /* NMEA_TRACE */
+
