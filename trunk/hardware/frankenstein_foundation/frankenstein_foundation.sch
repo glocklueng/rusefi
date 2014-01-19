@@ -191,7 +191,24 @@ PD8
 Text Label 3350 4250 0    60   ~ 0
 PB14
 Wire Wire Line
-	3800 4150 3350 4150
-Text GLabel 3800 4150 2    60   Input ~ 0
+	4000 4150 3350 4150
+Text GLabel 4400 3200 2    60   Input ~ 0
+CAN_RX
+$Comp
+L TEST W3
+U 1 1 52DBF6EE
+P 4200 4150
+F 0 "W3" H 4200 4210 40  0000 C CNN
+F 1 "TEST" H 4200 4080 40  0000 C CNN
+F 2 "" H 4200 4150 60  0000 C CNN
+F 3 "" H 4200 4150 60  0000 C CNN
+	1    4200 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4400 3200 4400 4150
+Text Label 4400 3750 0    60   ~ 0
+CAN_RX
+Text Label 3600 4150 0    60   ~ 0
 CAN_RX
 $EndSCHEMATC
