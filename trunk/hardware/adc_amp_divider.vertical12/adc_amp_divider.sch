@@ -32,14 +32,13 @@ LIBS:valves
 LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
-LIBS:adc_amp_divider-cache
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "Analgo Protection board for RUSEFI.com"
-Date "2 dec 2013"
+Date "19 jan 2014"
 Rev "A-.01"
 Comp "RUSEFI.com"
 Comment1 ""
@@ -2855,23 +2854,6 @@ F 3 "" H 15500 1400 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	15500 1400 15500 1200
-$Comp
-L CONN_3 P206
-U 1 1 5297E845
-P 15250 900
-F 0 "P206" V 15200 900 50  0000 C CNN
-F 1 "CONN_3" V 15300 900 40  0000 C CNN
-F 2 "" H 15250 900 60  0000 C CNN
-F 3 "" H 15250 900 60  0000 C CNN
-	1    15250 900 
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	15600 650  15600 1000
-Connection ~ 15600 900 
-Wire Wire Line
-	16200 650  15600 650 
-Connection ~ 15600 800 
 $Comp
 L CONN_2 P207
 U 1 1 5297EAA7
