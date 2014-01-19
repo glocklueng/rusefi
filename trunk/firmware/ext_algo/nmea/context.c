@@ -52,9 +52,9 @@ void nmea_trace_buff(const char *buff, int buff_size)
         (*func)(buff, buff_size);
 }
 
-#if NMEA_TRACE
 void nmea_error(const char *str, ...)
 {
+#if NMEA_TRACE
     int size;
     va_list arg_list;
     char buff[NMEA_DEF_PARSEBUFF];
@@ -69,6 +69,6 @@ void nmea_error(const char *str, ...)
         if(size > 0)
             (*func)(&buff[0], size);
     }
-}
 #endif /* NMEA_TRACE */
+}
 
