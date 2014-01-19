@@ -1,4 +1,4 @@
-update=19/01/2014 15:55:47
+update=19/01/2014 16:21:54
 last_client=cvpcb
 [common]
 NetDir=
@@ -30,9 +30,8 @@ LibName3=pin_array
 LibName4=divers
 LibName5=libcms
 LibName6=display
-LibName7=PCB-modules/project_specific_modules
-LibName8=lib/art-electro-conn
-LibName9=lib/logo_flipped
+LibName7=lib/art-electro-conn
+LibName8=lib/logo_flipped
 LibDir=
 [eeschema]
 version=1
@@ -71,7 +70,6 @@ LibName25=lib/art-electro-conn
 LibName26=lib/cps_vrs_io_1
 LibName27=lib/logo
 LibName28=lib/logo_flipped
-LibName29=sch-libs/project_specific_libs
 [cvpcb]
 version=1
 NetIExt=net
