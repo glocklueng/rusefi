@@ -29,16 +29,19 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:art-electro-conn
+LIBS:LMV324IDR
+LIBS:logo
 LIBS:logo_flipped
-LIBS:mmc_usb_1-cache
+LIBS:project_specific_libs
+LIBS:header_10x2
+LIBS:art-electro-conn
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 1
+Sheet 1 4
 Title ""
-Date "30 dec 2013"
+Date "19 jan 2014"
 Rev ""
 Comp ""
 Comment1 ""

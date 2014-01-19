@@ -41,7 +41,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 4
 Title ""
-Date "1 jan 2014"
+Date "19 jan 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -50,19 +50,19 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 2500 2700 850  450 
+S 9800 1000 850  450 
 U 52A53383
 F0 "inj_6ch" 50
 F1 "inj_6ch.sch" 50
 $EndSheet
 $Sheet
-S 5350 2750 500  400 
+S 9800 1900 500  400 
 U 52A5358C
-F0 "adc_amp_divider_vert" 50
-F1 "adc_amp_divider_vert.sch" 50
+F0 "adc_amp_divider" 50
+F1 "adc_amp_divider.sch" 50
 $EndSheet
 $Sheet
-S 3550 3800 1000 400 
+S 9800 2900 1000 400 
 U 52C39F6D
 F0 "mmc_usb_1" 50
 F1 "mmc_usb_1.sch" 50
