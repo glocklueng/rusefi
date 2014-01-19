@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source C:/stuff/rusefi_sourceforge/hardware/can_board/can_brd_1.sch)
-    (date "19/01/2014 00:35:23")
+    (date "19/01/2014 00:50:34")
     (tool "eeschema (2013-07-07 BZR 4022)-stable"))
   (components
     (comp (ref R471)
@@ -195,10 +195,10 @@
       (node (ref U471) (pin 6))
       (node (ref JP471) (pin 2))
       (node (ref P472) (pin 1)))
-    (net (code 5) (name /TX)
+    (net (code 5) (name /CAN_TX)
       (node (ref P471) (pin 4))
       (node (ref U471) (pin 1)))
-    (net (code 6) (name /RX)
+    (net (code 6) (name /CAN_RX)
       (node (ref P471) (pin 3))
       (node (ref U471) (pin 4)))
     (net (code 7) (name "")
