@@ -238,9 +238,9 @@ Wire Wire Line
 Wire Wire Line
 	2200 1550 2300 1550
 Wire Wire Line
-	4250 2150 4100 2150
+	4250 2150 3550 2150
 Wire Wire Line
-	4250 1550 4100 1550
+	4250 1550 3550 1550
 Text Label 5500 1750 0    60   ~ 0
 CANH
 Text Label 5500 1950 0    60   ~ 0
@@ -328,4 +328,8 @@ Wire Wire Line
 	6950 2625 7050 2625
 Wire Wire Line
 	5725 2625 5600 2625
+Text GLabel 3550 1550 0    60   Input ~ 0
+CAN_RX
+Text GLabel 3550 2150 0    60   Input ~ 0
+CAN_TX
 $EndSCHEMATC
