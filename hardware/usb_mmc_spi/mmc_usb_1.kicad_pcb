@@ -156,7 +156,7 @@
     (tags "MICRO SD MEMORY CARD MMC")
     (path /52A75274)
     (attr smd)
-    (fp_text reference P302 (at -1.778 0.254 360) (layer F.SilkS)
+    (fp_text reference P352 (at -1.778 0.254 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value MICRO-SDCARD-CONNECTOR-3300060P1 (at 0 0 360) (layer F.SilkS) hide
@@ -203,7 +203,7 @@
     (pad 9 smd rect (at -7.493 6.686 270) (size 1.524 0.762)
       (layers F.Cu F.Paste F.Mask)
     )
-    (pad G301 smd rect (at -6.893 8.032 270) (size 1.524 1.016)
+    (pad G351 smd rect (at -6.893 8.032 270) (size 1.524 1.016)
       (layers F.Cu F.Paste F.Mask)
       (net 13 GND)
     )
@@ -236,7 +236,7 @@
     (at 207.391 168.656)
     (path /52A59B39)
     (attr smd)
-    (fp_text reference C301 (at 0 0 90) (layer F.SilkS)
+    (fp_text reference C351 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value 4700pF (at 0.127 0.889) (layer F.SilkS) hide
@@ -268,7 +268,7 @@
     (at 210.185 167.386 90)
     (path /52A5A67B)
     (attr smd)
-    (fp_text reference C302 (at 0 0 180) (layer F.SilkS)
+    (fp_text reference C352 (at 0 0 180) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value 47pF (at -0.127 1.016 90) (layer F.SilkS) hide
@@ -300,7 +300,7 @@
     (at 213.106 168.148)
     (path /52A5A68B)
     (attr smd)
-    (fp_text reference C303 (at 0 0 90) (layer F.SilkS)
+    (fp_text reference C353 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value 47pF (at 0.254 -1.016) (layer F.SilkS) hide
@@ -332,7 +332,7 @@
     (at 203.454 165.862 180)
     (path /52A59B20)
     (attr smd)
-    (fp_text reference C304 (at 0 0 270) (layer F.SilkS)
+    (fp_text reference C354 (at 0 0 270) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value 4.7uF (at -0.127 -1.016 180) (layer F.SilkS) hide
@@ -364,7 +364,7 @@
     (at 203.3905 163.7665)
     (path /52A59B31)
     (attr smd)
-    (fp_text reference C305 (at 0 0 90) (layer F.SilkS)
+    (fp_text reference C355 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value .1uF (at -0.0635 -1.0795) (layer F.SilkS) hide
@@ -396,7 +396,7 @@
     (at 207.391 166.624)
     (path /52A59B38)
     (attr smd)
-    (fp_text reference C306 (at 0 0 90) (layer F.SilkS)
+    (fp_text reference C356 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value .1uF (at 0 0.889) (layer F.SilkS) hide
@@ -430,7 +430,7 @@
     (tags "LED 0805 SMD")
     (path /52A59B2C)
     (attr smd)
-    (fp_text reference D301 (at 0 0 360) (layer F.SilkS)
+    (fp_text reference D351 (at 0 0 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value GREEN (at -9.144 -9.398 270) (layer F.SilkS) hide
@@ -510,7 +510,7 @@
     (tags "LED 0805 SMD")
     (path /52A5A380)
     (attr smd)
-    (fp_text reference D302 (at 0 0 180) (layer F.SilkS)
+    (fp_text reference D352 (at 0 0 180) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value RED (at -0.889 -1.143 90) (layer F.SilkS) hide
@@ -588,7 +588,7 @@
     (at 205.359 170.688 180)
     (path /52A59B3A)
     (attr smd)
-    (fp_text reference R301 (at -0.127 0 270) (layer F.SilkS)
+    (fp_text reference R351 (at -0.127 0 270) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value 1M (at 0 -1.143 180) (layer F.SilkS) hide
@@ -620,7 +620,7 @@
     (at 215.9 167.386 90)
     (path /52A59B2D)
     (attr smd)
-    (fp_text reference R302 (at 0 0 180) (layer F.SilkS)
+    (fp_text reference R352 (at 0 0 180) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value 1k (at 0 0.889 90) (layer F.SilkS) hide
@@ -652,7 +652,7 @@
     (at 201.549 167.894)
     (path /52A5A342)
     (attr smd)
-    (fp_text reference R303 (at 0 0 90) (layer F.SilkS)
+    (fp_text reference R353 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value 1k (at 0 -1.016) (layer F.SilkS) hide
@@ -684,7 +684,7 @@
     (at 210.439 160.274 270)
     (descr SSOP-16)
     (path /52A59B51)
-    (fp_text reference U301 (at 0 0.508 360) (layer F.SilkS)
+    (fp_text reference U351 (at 0 0.508 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value FT232RL (at 0 -1.143 270) (layer F.SilkS)
@@ -804,7 +804,7 @@
     (tags "LED 0805 SMD")
     (path /52A5C8BF)
     (attr smd)
-    (fp_text reference D303 (at 0 0 90) (layer F.SilkS)
+    (fp_text reference D353 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value RED (at 0 1.27) (layer F.SilkS)
@@ -882,7 +882,7 @@
     (at 192.024 162.052)
     (path /52A5C8B9)
     (attr smd)
-    (fp_text reference R304 (at 0 0 90) (layer F.SilkS)
+    (fp_text reference R354 (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value 1k (at 0 1.016) (layer F.SilkS) hide
@@ -915,7 +915,7 @@
     (descr "Connecter 3 pins")
     (tags "PIN 3")
     (path /52A5D5AA)
-    (fp_text reference K301 (at 4.572 -0.127 180) (layer F.SilkS)
+    (fp_text reference K351 (at 4.572 -0.127 180) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value CONN_3 (at -0.254 -3.175 180) (layer F.SilkS) hide
@@ -948,7 +948,7 @@
   (module PIN_ARRAY_10X2 (layer F.Cu) (tedit 52BF05FA) (tstamp 52B9B18D)
     (at 179.07 166.37 270)
     (path /52B479E1)
-    (fp_text reference P303 (at 2.667 -3.048 360) (layer F.SilkS)
+    (fp_text reference P353 (at 2.667 -3.048 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value CONN_10X2 (at 0.254 4.318 270) (layer F.SilkS) hide
@@ -1039,7 +1039,7 @@
   (module PIN_ARRAY_10X2 (layer F.Cu) (tedit 52C01CC4) (tstamp 52B9B1A9)
     (at 221.361 166.37 270)
     (path /52B479EE)
-    (fp_text reference P304 (at -3.556 3.048 360) (layer F.SilkS)
+    (fp_text reference P354 (at -3.556 3.048 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value CONN_10X2 (at -0.381 -5.08 270) (layer F.SilkS) hide
@@ -1135,7 +1135,7 @@
     (tags "USB MINI 5 SMD-1")
     (path /52C034E1)
     (attr smd)
-    (fp_text reference J301 (at 0 -1.905) (layer F.SilkS)
+    (fp_text reference J351 (at 0 -1.905) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value MINI-USB-5P-3400020P1 (at 0.762 -0.254) (layer F.SilkS) hide
@@ -1201,7 +1201,7 @@
     (descr "1 pin")
     (tags "CONN DEV")
     (path /52BAA4A8)
-    (fp_text reference P305 (at -1.778 0) (layer F.SilkS)
+    (fp_text reference P355 (at -1.778 0) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value CONN_1 (at 12.954 -3.937) (layer F.SilkS) hide
@@ -1227,7 +1227,7 @@
     (descr "Double rangee de contacts 2 x 5 pins")
     (tags CONN)
     (path /52B45CE3)
-    (fp_text reference P301 (at -6.731 -3.048) (layer F.SilkS)
+    (fp_text reference P351 (at -6.731 -3.048) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value CONN_5X2 (at 0 -5.588) (layer F.SilkS) hide
@@ -1289,7 +1289,7 @@
     (descr "1 pin")
     (tags "CONN DEV")
     (path /52BAF879)
-    (fp_text reference P306 (at 0 -1.905) (layer F.SilkS)
+    (fp_text reference P356 (at 0 -1.905) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value CONN_1 (at -11.176 -5.715) (layer F.SilkS) hide
@@ -1387,7 +1387,7 @@
     (at 199.9615 170.1165 180)
     (path /52BEFB4C)
     (attr smd)
-    (fp_text reference C307 (at 0 -0.3175 270) (layer F.SilkS)
+    (fp_text reference C357 (at 0 -0.3175 270) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_text value .1uF (at -0.4445 -1.2065 180) (layer F.SilkS)
@@ -1419,7 +1419,7 @@
     (at 198.4375 162.687 90)
     (path /52BEFB29)
     (attr smd)
-    (fp_text reference C308 (at 0 -0.3175 180) (layer F.SilkS)
+    (fp_text reference C358 (at 0 -0.3175 180) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_text value 4.7uF (at 0 1.2065 90) (layer F.SilkS) hide
