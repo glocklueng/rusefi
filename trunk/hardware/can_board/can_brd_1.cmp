@@ -2,77 +2,77 @@ Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Срд 08 Янв 2014 
 
 BeginCmp
 TimeStamp = /52CAD8F7;
-Reference = C1;
+Reference = C451;
 ValeurCmp = .1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52CAD8F6;
-Reference = C2;
+Reference = C452;
 ValeurCmp = 4.7uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52CAD8DC;
-Reference = D1;
+Reference = D451;
 ValeurCmp = RED;
 IdModule  = LED-0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52CADA22;
-Reference = G1;
+Reference = G451;
 ValeurCmp = LOGO;
 IdModule  = LOGO_F;
 EndCmp
 
 BeginCmp
 TimeStamp = /52CD2DEF;
-Reference = JP1;
+Reference = JP451;
 ValeurCmp = JUMPER;
 IdModule  = SIL-2;
 EndCmp
 
 BeginCmp
 TimeStamp = /52CADBD0;
-Reference = P1;
+Reference = P451;
 ValeurCmp = CONN_4;
 IdModule  = PIN_ARRAY_4x1;
 EndCmp
 
 BeginCmp
 TimeStamp = /52CADBC1;
-Reference = P2;
+Reference = P452;
 ValeurCmp = CONN_2;
 IdModule  = PIN_ARRAY_2_A;
 EndCmp
 
 BeginCmp
 TimeStamp = /52CAD8DB;
-Reference = R1;
+Reference = R451;
 ValeurCmp = 1k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52CADB46;
-Reference = R2;
+Reference = R452;
 ValeurCmp = 10k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52CD2DE2;
-Reference = R3;
+Reference = R453;
 ValeurCmp = 120;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52CD2CA4;
-Reference = U1;
+Reference = U451;
 ValeurCmp = SN65HVD230;
 IdModule  = SO8E;
 EndCmp
