@@ -1,8 +1,12 @@
 package com.rusefi.pcb;
 
+import com.rusefi.misc.ChangesModel;
+import com.rusefi.util.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,6 +20,13 @@ public class PcbMergeTool {
         if (args.length < 3) {
             System.out.println("At least three parameters expected: TEMPLATE DESTINATION SOURCE1 SOURCE2");
             return;
+        }
+
+        String changesFileName = "pcb_merge_changes.txt";
+        if (new File(changesFileName).isFile()) {
+            List<String> a = FileUtils.readFileToList(changesFileName);
+
+            ChangesModel.getInstance().read(a);
         }
 
         String template = args[0];
@@ -44,6 +55,9 @@ public class PcbMergeTool {
 
         log("Processing modules");
         for (PcbNode module : source.iterate("module")) {
+            if (shouldRemove(module))
+                continue;
+
             for (PcbNode pad : module.iterate("pad")) {
                 if (!pad.hasChild("net"))
                     continue;
@@ -79,6 +93,17 @@ public class PcbMergeTool {
 //            fixNetId(netIdMapping, zone);
 //            destNode.addChild(zone);
         }
+    }
+
+    private static boolean shouldRemove(PcbNode module) {
+        for (PcbNode fp_text : module.iterate("fp_text")) {
+            if ("reference".equals(fp_text.getChild(0))) {
+                String name = fp_text.getChild(1);
+                if (ChangesModel.getInstance().DEL.contains(name))
+                    return true;
+            }
+        }
+        return false;
     }
 
     private static void fixNetId(Map<String, Integer> netIdMapping, PcbNode via) {
@@ -117,7 +142,7 @@ public class PcbMergeTool {
         }
     }
 
-    private static void log(String s) {
+    public static void log(String s) {
         System.out.println(s);
     }
 }
