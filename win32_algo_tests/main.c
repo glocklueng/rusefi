@@ -91,6 +91,8 @@ int main(void) {
 
 	testConsoleLogic();
 
+	testGpsParser();
+
 	printf("Success 20130112\r\n");
 
 //	resizeMap();

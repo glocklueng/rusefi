@@ -181,7 +181,8 @@ void testConsoleLogic(void) {
 	assertEquals(333, atoi(lastThird));
 }
 
-void testGpsParser() {
+void testGpsParser(void) {
+	print("******************************************* testGpsParser\r\n");
 	//parseNeo6m("$GPGLL,1234.34240,N,01234.44218,W,013141.00,A,A*7A");
 }
 
