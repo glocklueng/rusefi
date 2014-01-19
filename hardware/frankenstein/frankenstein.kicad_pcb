@@ -390,7 +390,7 @@
 
   (attr smd)
 
-  (fp_text reference Q4
+  (fp_text reference Q404
    (at -0.1905 1.0795 180)
 
    (layer F.SilkS)
@@ -610,7 +610,7 @@
 
   (attr smd)
 
-  (fp_text reference Q1
+  (fp_text reference Q401
    (at 0 -0.889 180)
 
    (layer F.SilkS)
@@ -830,7 +830,7 @@
 
   (attr smd)
 
-  (fp_text reference Q2
+  (fp_text reference Q402
    (at -0.1905 1.0795 180)
 
    (layer F.SilkS)
@@ -1050,7 +1050,7 @@
 
   (attr smd)
 
-  (fp_text reference Q3
+  (fp_text reference Q403
    (at 0 -0.889 180)
 
    (layer F.SilkS)
@@ -1270,7 +1270,7 @@
 
   (attr smd)
 
-  (fp_text reference Q6
+  (fp_text reference Q406
    (at -0.8255 1.0795 180)
 
    (layer F.SilkS)
@@ -1490,7 +1490,7 @@
 
   (attr smd)
 
-  (fp_text reference Q5
+  (fp_text reference Q405
    (at 0 -0.889 180)
 
    (layer F.SilkS)
@@ -1706,7 +1706,7 @@
 
   (attr smd)
 
-  (fp_text reference R13
+  (fp_text reference R412
    (at 0 0 180)
 
    (layer F.SilkS)
@@ -1852,7 +1852,7 @@
 
   (attr smd)
 
-  (fp_text reference R14
+  (fp_text reference R406
    (at 0 0 180)
 
    (layer F.SilkS)
@@ -1998,7 +1998,7 @@
 
   (attr smd)
 
-  (fp_text reference R16
+  (fp_text reference R404
    (at 0 0 180)
 
    (layer F.SilkS)
@@ -2144,7 +2144,7 @@
 
   (attr smd)
 
-  (fp_text reference R15
+  (fp_text reference R410
    (at 0 0 180)
 
    (layer F.SilkS)
@@ -2290,7 +2290,7 @@
 
   (attr smd)
 
-  (fp_text reference R18
+  (fp_text reference R402
    (at 0 0 180)
 
    (layer F.SilkS)
@@ -2436,7 +2436,7 @@
 
   (attr smd)
 
-  (fp_text reference R17
+  (fp_text reference R408
    (at 0 0 180)
 
    (layer F.SilkS)
@@ -2580,7 +2580,7 @@
 
   (path /52B99314)
 
-  (fp_text reference P1
+  (fp_text reference P401
    (at -14.097 -1.397 270)
 
    (layer F.SilkS)
@@ -2918,7 +2918,7 @@
 
   (path /527D6DAD)
 
-  (fp_text reference P3
+  (fp_text reference P403
    (at 6.35 -2.54 180)
 
    (layer F.SilkS)
@@ -3062,7 +3062,7 @@
 
   (path /527D7F53)
 
-  (fp_text reference P2
+  (fp_text reference P402
    (at -0.635 -2.667 180)
 
    (layer F.SilkS)
@@ -3194,7 +3194,7 @@
 
   (path /527D96A0)
 
-  (fp_text reference P4
+  (fp_text reference P404
    (at -0.127 -2.54 180)
 
    (layer F.SilkS)
@@ -3322,7 +3322,7 @@
 
   (path /527E2500)
 
-  (fp_text reference P7
+  (fp_text reference P406
    (at -14.097 2.032 270)
 
    (layer F.SilkS)
@@ -3660,7 +3660,7 @@
 
   (path /527E234B)
 
-  (fp_text reference P5
+  (fp_text reference P405
    (at 8.89 -2.794 180)
 
    (layer F.SilkS)
@@ -3800,7 +3800,7 @@
 
   (path /527FB789)
 
-  (fp_text reference D2
+  (fp_text reference D402
    (at -0.0508 -0.4064 90)
 
    (layer F.SilkS)
@@ -3986,7 +3986,7 @@
 
   (attr smd)
 
-  (fp_text reference R1
+  (fp_text reference R451
    (at 0 1.397 90)
 
    (layer F.SilkS)
@@ -4136,7 +4136,7 @@
 
   (attr smd)
 
-  (fp_text reference D1
+  (fp_text reference D401
    (at 1.778 -1.143 90)
 
    (layer F.SilkS)
@@ -4734,7 +4734,7 @@
 
   (path /527FF3F6)
 
-  (fp_text reference D3
+  (fp_text reference D403
    (at 0 1.905 90)
 
    (layer B.SilkS)
@@ -4846,7 +4846,7 @@
 
   (path /527FF563)
 
-  (fp_text reference D6
+  (fp_text reference D406
    (at 0 1.905 90)
 
    (layer B.SilkS)
@@ -4958,7 +4958,7 @@
 
   (path /527FF56A)
 
-  (fp_text reference D4
+  (fp_text reference D404
    (at 0.254 2.159 90)
 
    (layer B.SilkS)
@@ -5070,7 +5070,7 @@
 
   (path /527FF571)
 
-  (fp_text reference D7
+  (fp_text reference D407
    (at 0.635 -2.159 270)
 
    (layer B.SilkS)
@@ -5182,7 +5182,7 @@
 
   (path /527FF578)
 
-  (fp_text reference D5
+  (fp_text reference D405
    (at 0 -1.905 270)
 
    (layer B.SilkS)
@@ -5294,7 +5294,7 @@
 
   (path /527FF57F)
 
-  (fp_text reference D8
+  (fp_text reference D408
    (at 0 -1.905 270)
 
    (layer B.SilkS)
@@ -5406,7 +5406,7 @@
 
   (path /527FFC06)
 
-  (fp_text reference R2
+  (fp_text reference R452
    (at -3.81 0.635 180)
 
    (layer B.SilkS)
@@ -5518,7 +5518,7 @@
 
   (path /527FFC31)
 
-  (fp_text reference R3
+  (fp_text reference R453
    (at 0 2.921 270)
 
    (layer B.SilkS)
@@ -5628,7 +5628,7 @@
 
   (attr smd)
 
-  (fp_text reference R4
+  (fp_text reference R401
    (at 0 -0.3175 360)
 
    (layer F.SilkS)
@@ -5774,7 +5774,7 @@
 
   (attr smd)
 
-  (fp_text reference R7
+  (fp_text reference R407
    (at 0 -0.3175 360)
 
    (layer F.SilkS)
@@ -5920,7 +5920,7 @@
 
   (attr smd)
 
-  (fp_text reference R5
+  (fp_text reference R403
    (at 0 -0.3175 360)
 
    (layer F.SilkS)
@@ -6066,7 +6066,7 @@
 
   (attr smd)
 
-  (fp_text reference R8
+  (fp_text reference R409
    (at 0 -0.3175 360)
 
    (layer F.SilkS)
@@ -6212,7 +6212,7 @@
 
   (attr smd)
 
-  (fp_text reference R6
+  (fp_text reference R405
    (at 0 -0.3175 360)
 
    (layer F.SilkS)
@@ -6358,7 +6358,7 @@
 
   (attr smd)
 
-  (fp_text reference R9
+  (fp_text reference R411
    (at 0 -0.3175 360)
 
    (layer F.SilkS)
@@ -69554,7 +69554,7 @@
 
   (attr smd)
 
-  (fp_text reference P302
+  (fp_text reference P352
    (at -1.778 0.254 360)
 
    (layer F.SilkS)
@@ -69746,7 +69746,7 @@
    (layers F.Cu F.Paste F.Mask)
 )
 
-  (pad G301 smd rect
+  (pad G351 smd rect
    (at -6.893 8.032 270)
 
    (size 1.524 1.016)
@@ -69834,7 +69834,7 @@
 
   (attr smd)
 
-  (fp_text reference C301
+  (fp_text reference C351
    (at 0 0 90)
 
    (layer F.SilkS)
@@ -69980,7 +69980,7 @@
 
   (attr smd)
 
-  (fp_text reference C302
+  (fp_text reference C352
    (at 0 0 180)
 
    (layer F.SilkS)
@@ -70126,7 +70126,7 @@
 
   (attr smd)
 
-  (fp_text reference C303
+  (fp_text reference C353
    (at 0 0 90)
 
    (layer F.SilkS)
@@ -70272,7 +70272,7 @@
 
   (attr smd)
 
-  (fp_text reference C304
+  (fp_text reference C354
    (at 0 0 270)
 
    (layer F.SilkS)
@@ -70418,7 +70418,7 @@
 
   (attr smd)
 
-  (fp_text reference C305
+  (fp_text reference C355
    (at 0 0 90)
 
    (layer F.SilkS)
@@ -70564,7 +70564,7 @@
 
   (attr smd)
 
-  (fp_text reference C306
+  (fp_text reference C356
    (at 0 0 90)
 
    (layer F.SilkS)
@@ -70714,7 +70714,7 @@
 
   (attr smd)
 
-  (fp_text reference D301
+  (fp_text reference D351
    (at 0 0 360)
 
    (layer F.SilkS)
@@ -71328,7 +71328,7 @@
 
   (attr smd)
 
-  (fp_text reference D302
+  (fp_text reference D352
    (at 0 0 180)
 
    (layer F.SilkS)
@@ -71938,7 +71938,7 @@
 
   (attr smd)
 
-  (fp_text reference R301
+  (fp_text reference R351
    (at -0.127 0 270)
 
    (layer F.SilkS)
@@ -72084,7 +72084,7 @@
 
   (attr smd)
 
-  (fp_text reference R302
+  (fp_text reference R352
    (at 0 0 180)
 
    (layer F.SilkS)
@@ -72230,7 +72230,7 @@
 
   (attr smd)
 
-  (fp_text reference R303
+  (fp_text reference R353
    (at 0 0 90)
 
    (layer F.SilkS)
@@ -72376,7 +72376,7 @@
 
   (path /52A59B51)
 
-  (fp_text reference U301
+  (fp_text reference U351
    (at 0 0.508 360)
 
    (layer F.SilkS)
@@ -72734,7 +72734,7 @@
 
   (attr smd)
 
-  (fp_text reference D303
+  (fp_text reference D353
    (at 0 0 90)
 
    (layer F.SilkS)
@@ -73344,7 +73344,7 @@
 
   (attr smd)
 
-  (fp_text reference R304
+  (fp_text reference R354
    (at 0 0 90)
 
    (layer F.SilkS)
@@ -73492,7 +73492,7 @@
 
   (path /52A5D5AA)
 
-  (fp_text reference K301
+  (fp_text reference K351
    (at 4.572 -0.127 180)
 
    (layer F.SilkS)
@@ -73632,7 +73632,7 @@
 
   (path /52B479E1)
 
-  (fp_text reference P303
+  (fp_text reference P353
    (at 2.667 -3.048 360)
 
    (layer F.SilkS)
@@ -73948,7 +73948,7 @@
 
   (path /52B479EE)
 
-  (fp_text reference P304
+  (fp_text reference P354
    (at -3.556 3.048 360)
 
    (layer F.SilkS)
@@ -74274,7 +74274,7 @@
 
   (attr smd)
 
-  (fp_text reference J301
+  (fp_text reference J351
    (at 0 -1.905)
 
    (layer F.SilkS)
@@ -74510,7 +74510,7 @@
 
   (path /52BAA4A8)
 
-  (fp_text reference P305
+  (fp_text reference P355
    (at -1.778 0)
 
    (layer F.SilkS)
@@ -74620,7 +74620,7 @@
 
   (path /52B45CE3)
 
-  (fp_text reference P301
+  (fp_text reference P351
    (at -6.731 -3.048)
 
    (layer F.SilkS)
@@ -74838,7 +74838,7 @@
 
   (path /52BAF879)
 
-  (fp_text reference P306
+  (fp_text reference P356
    (at 0 -1.905)
 
    (layer F.SilkS)
@@ -75494,7 +75494,7 @@
 
   (attr smd)
 
-  (fp_text reference C307
+  (fp_text reference C357
    (at 0 -0.3175 270)
 
    (layer F.SilkS)
@@ -75640,7 +75640,7 @@
 
   (attr smd)
 
-  (fp_text reference C308
+  (fp_text reference C358
    (at 0 -0.3175 180)
 
    (layer F.SilkS)
