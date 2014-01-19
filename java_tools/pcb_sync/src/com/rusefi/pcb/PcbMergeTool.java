@@ -42,6 +42,7 @@ public class PcbMergeTool {
             netIdMapping.put(netId, networks.getId(newName));
         }
 
+        log("Processing modules");
         for (PcbNode module : source.iterate("module")) {
             for (PcbNode pad : module.iterate("pad")) {
                 if (!pad.hasChild("net"))
@@ -58,6 +59,7 @@ public class PcbMergeTool {
             destNode.addChild(module);
         }
 
+        log("Processing segments");
         for (PcbNode segment : source.iterate("segment")) {
 //            if (!segment.hasChild("net"))
 //                continue;
@@ -66,6 +68,7 @@ public class PcbMergeTool {
             destNode.addChild(segment);
         }
 
+        log("Processing vias");
         for (PcbNode via : source.iterate("via")) {
             fixNetId(netIdMapping, via);
 
@@ -73,9 +76,8 @@ public class PcbMergeTool {
         }
 
         for (PcbNode zone : source.iterate("zone")) {
-            fixNetId(netIdMapping, zone);
-
-            destNode.addChild(zone);
+//            fixNetId(netIdMapping, zone);
+//            destNode.addChild(zone);
         }
     }
 
