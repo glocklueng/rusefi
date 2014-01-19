@@ -1334,14 +1334,21 @@ BeginCmp
 TimeStamp = /52DB714B;
 Reference = W1;
 ValeurCmp = TEST;
-IdModule  = ;
+IdModule  = SIL-2;
 EndCmp
 
 BeginCmp
 TimeStamp = /52DB716E;
 Reference = W2;
 ValeurCmp = TEST;
-IdModule  = ;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52DBF6EE;
+Reference = W3;
+ValeurCmp = TEST;
+IdModule  = SIL-2;
 EndCmp
 
 EndListe
