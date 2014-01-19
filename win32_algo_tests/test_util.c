@@ -15,6 +15,10 @@
 #include "malfunction_central.h"
 #include "rficonsole_logic.h"
 
+//#include "nmea/parse.h"
+//#include "nmea/parser.h"
+//#include "nmea/sentence.h"
+
 static cyclic_buffer sb;
 
 void testCyclicBuffer(void) {
@@ -181,8 +185,28 @@ void testConsoleLogic(void) {
 	assertEquals(333, atoi(lastThird));
 }
 
+//static nmeaPARSER gpsParser;
+//static nmeaINFO gpsInfo;
+//static nmeaGPVTG nmeaGPVTG_;
+
 void testGpsParser(void) {
 	print("******************************************* testGpsParser\r\n");
+
+//	char *line = "$GPVTG,,T,,M,0.139,N,0.258,K,A*27";
+//
+//	assertEquals(GPVTG, nmea_pack_type(line + 1, strlen(line) - 1));
+//
+//	nmea_parser_init(&gpsParser);
+//
+//	int x = 6;
+//	nmea_parse_GPVTG(line + x, strlen(line) - x, &nmeaGPVTG_);
+//
+//
+//	assertEquals(0, nmea_parse(&gpsParser, line, strlen(line), &gpsInfo));
+
+
+
+
 	//parseNeo6m("$GPGLL,1234.34240,N,01234.44218,W,013141.00,A,A*7A");
 }
 

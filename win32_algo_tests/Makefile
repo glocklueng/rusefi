@@ -71,6 +71,7 @@ include $(PROJECT_DIR)/util/util.mk
 include $(PROJECT_DIR)/controllers/algo/algo.mk
 include $(PROJECT_DIR)/controllers/math/math.mk
 include $(PROJECT_DIR)/controllers/sensors/sensors.mk
+include $(PROJECT_DIR)/ext_algo/nmea/nmea.mk
 include test.mk
 
 # Define linker script file here
@@ -118,6 +119,7 @@ INCDIR = . \
 	$(PROJECT_DIR)/controllers/sensors \
 	$(PROJECT_DIR)/controllers/algo \
 	$(PROJECT_DIR)/controllers/math \
+	$(PROJECT_DIR)/ext_algo/nmea \
 	$(PROJECT_DIR)/ext_algo 
 	
 
