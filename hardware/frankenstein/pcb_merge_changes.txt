@@ -1,3 +1,32 @@
+# DD from the VR board
+# knock in
+P101
+# amp chip
+U102
+# data out
+P103
+
+R115
+R116
+R117
+R118
+
+
+C105
+C106
+C107
+C108
+
+
+# VR board power LED
+R101
+D102
+D101
+R105
+
+
+
+
 # CAN module connector
 P471
 # CAN module power LED

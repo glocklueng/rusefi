@@ -36,12 +36,11 @@ LIBS:project_specific_libs
 LIBS:header_10x2
 LIBS:art-electro-conn
 LIBS:art-electro-ic
-LIBS:frankenstein-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 5
+Sheet 1 6
 Title ""
 Date "19 jan 2014"
 Rev ""
@@ -80,5 +79,11 @@ S 9650 3250 500  450
 U 52DBFCF9
 F0 "frankenstein_foundation" 50
 F1 "frankenstein_foundation.sch" 50
+$EndSheet
+$Sheet
+S 5700 3350 1400 450 
+U 52DC5D44
+F0 "cps_vrs_io_1" 50
+F1 "cps_vrs_io_1.sch" 50
 $EndSheet
 $EndSCHEMATC
