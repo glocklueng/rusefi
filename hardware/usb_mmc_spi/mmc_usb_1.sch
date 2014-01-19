@@ -31,14 +31,13 @@ LIBS:contrib
 LIBS:valves
 LIBS:art-electro-conn
 LIBS:logo_flipped
-LIBS:mmc_usb_1-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "30 dec 2013"
+Date "19 jan 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -494,19 +493,19 @@ Text Notes 3300 3700 0    60   ~ 0
 Ext SPI
 Text Notes 8300 3475 0    60   ~ 0
 For left conn
-Text Notes 5325 3475 0    60   ~ 0
+Text Notes 5425 3550 0    60   ~ 0
 For right conn
 $Comp
 L CONN_10X2 P353
 U 1 1 52B479E1
-P 5625 4125
-F 0 "P353" H 5625 4675 60  0000 C CNN
-F 1 "CONN_10X2" V 5625 4025 50  0000 C CNN
-F 2 "" H 5625 4125 60  0000 C CNN
-F 3 "" H 5625 4125 60  0000 C CNN
-F 4 "TE,1-215307-0" H 5625 4125 60  0001 C CNN "mfg,mfg#"
-F 5 "digi,A106616-ND" H 5625 4125 60  0001 C CNN "vend1,vend1#"
-	1    5625 4125
+P 5700 4200
+F 0 "P353" H 5700 4750 60  0000 C CNN
+F 1 "CONN_10X2" V 5700 4100 50  0000 C CNN
+F 2 "" H 5700 4200 60  0000 C CNN
+F 3 "" H 5700 4200 60  0000 C CNN
+F 4 "TE,1-215307-0" H 5700 4200 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,A106616-ND" H 5700 4200 60  0001 C CNN "vend1,vend1#"
+	1    5700 4200
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -696,22 +695,22 @@ F 3 "" H 8150 4575 60  0001 C CNN
 	1    8150 4575
 	0    1    1    0   
 $EndComp
-Text Label 5050 3875 2    60   ~ 0
+Text Label 5125 3950 2    60   ~ 0
 CS1
-Text Label 5050 3975 2    60   ~ 0
+Text Label 5125 4050 2    60   ~ 0
 CS3
-Text Label 6175 3675 0    60   ~ 0
+Text Label 6250 3750 0    60   ~ 0
 CS2
-Text Label 6200 4075 0    60   ~ 0
+Text Label 6275 4150 0    60   ~ 0
 CS_SD_MODULE
 Wire Wire Line
-	6025 4075 6200 4075
+	6100 4150 6275 4150
 Wire Wire Line
-	5225 3875 5050 3875
+	5300 3950 5125 3950
 Wire Wire Line
-	5225 3975 5050 3975
+	5300 4050 5125 4050
 Wire Wire Line
-	5225 4075 5050 4075
+	5300 4150 5125 4150
 $Comp
 L CONN_1 P355
 U 1 1 52BAA4A8
@@ -727,50 +726,50 @@ Text Label 3875 4700 0    60   ~ 0
 CS_SD_MODULE
 Text Label 9100 4175 0    60   ~ 0
 CS4
-Text Label 5050 4075 2    60   ~ 0
+Text Label 5125 4150 2    60   ~ 0
 CS4
-Text Label 5050 4375 2    60   ~ 0
+Text Label 5125 4450 2    60   ~ 0
 USART_TX
 Wire Wire Line
-	5225 4375 5050 4375
-Text Label 6200 4375 0    60   ~ 0
+	5300 4450 5125 4450
+Text Label 6275 4450 0    60   ~ 0
 USART_RX
 Wire Wire Line
-	6025 4375 6200 4375
+	6100 4450 6275 4450
 Wire Wire Line
-	6025 3675 6175 3675
-Text Label 6200 3775 0    60   ~ 0
+	6100 3750 6250 3750
+Text Label 6275 3850 0    60   ~ 0
 SPI_MOSI
 Wire Wire Line
-	6025 3775 6200 3775
-Text Label 6200 3875 0    60   ~ 0
+	6100 3850 6275 3850
+Text Label 6275 3950 0    60   ~ 0
 SPI_SCK
 Wire Wire Line
-	6025 3875 6200 3875
+	6100 3950 6275 3950
 $Comp
 L CONN_1 P356
 U 1 1 52BAF879
-P 5075 3675
-F 0 "P356" H 5155 3675 40  0000 L CNN
-F 1 "CONN_1" H 5075 3730 30  0001 C CNN
-F 2 "" H 5075 3675 60  0000 C CNN
-F 3 "" H 5075 3675 60  0000 C CNN
-	1    5075 3675
+P 4500 3750
+F 0 "P356" H 4580 3750 40  0000 L CNN
+F 1 "CONN_1" H 4500 3805 30  0001 C CNN
+F 2 "" H 4500 3750 60  0000 C CNN
+F 3 "" H 4500 3750 60  0000 C CNN
+	1    4500 3750
 	-1   0    0    1   
 $EndComp
-Text Label 5050 3775 2    60   ~ 0
+Text Label 5125 3850 2    60   ~ 0
 SPI_MISO
 Wire Wire Line
-	5225 3775 5050 3775
-NoConn ~ 6025 3975
-NoConn ~ 6025 4175
-NoConn ~ 6025 4275
-NoConn ~ 6025 4475
-NoConn ~ 6025 4575
-NoConn ~ 5225 4175
-NoConn ~ 5225 4275
-NoConn ~ 5225 4475
-NoConn ~ 5225 4575
+	5300 3850 5125 3850
+NoConn ~ 6100 4050
+NoConn ~ 6100 4250
+NoConn ~ 6100 4350
+NoConn ~ 6100 4550
+NoConn ~ 6100 4650
+NoConn ~ 5300 4250
+NoConn ~ 5300 4350
+NoConn ~ 5300 4550
+NoConn ~ 5300 4650
 $Comp
 L LOGO G305
 U 1 1 52BD6BB8
@@ -862,4 +861,8 @@ Wire Wire Line
 Connection ~ 2700 4950
 Connection ~ 2700 5050
 Connection ~ 2700 5150
+Wire Wire Line
+	4650 3750 5300 3750
+Text Label 4775 3750 0    60   ~ 0
+CAN_TX
 $EndSCHEMATC
