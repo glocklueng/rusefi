@@ -31,14 +31,13 @@ LIBS:contrib
 LIBS:valves
 LIBS:art-electro-ic
 LIBS:logo_flipped
-LIBS:can_brd_1-cache
-EELAYER 24 0
+EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "08 Янв 2014"
+Date "19 jan 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -195,35 +194,35 @@ $EndComp
 $Comp
 L CONN_4 P451
 U 1 1 52CADBD0
-P 2950 1750
-F 0 "P451" V 2900 1750 50  0000 C CNN
-F 1 "CONN_4" V 3000 1750 50  0000 C CNN
-F 2 "" H 2950 1750 60  0000 C CNN
-F 3 "" H 2950 1750 60  0000 C CNN
-	1    2950 1750
+P 2200 1750
+F 0 "P451" V 2150 1750 50  0000 C CNN
+F 1 "CONN_4" V 2250 1750 50  0000 C CNN
+F 2 "" H 2200 1750 60  0000 C CNN
+F 3 "" H 2200 1750 60  0000 C CNN
+	1    2200 1750
 	-1   0    0    -1  
 $EndComp
-Text Label 3400 1600 0    60   ~ 0
+Text Label 2650 1600 0    60   ~ 0
 3.3V
 $Comp
 L GND #PWR07
 U 1 1 52CADB3B
-P 3300 1700
-F 0 "#PWR07" H 3300 1700 30  0001 C CNN
-F 1 "GND" H 3300 1630 30  0001 C CNN
-F 2 "" H 3300 1700 60  0001 C CNN
-F 3 "" H 3300 1700 60  0001 C CNN
-	1    3300 1700
+P 2550 1700
+F 0 "#PWR07" H 2550 1700 30  0001 C CNN
+F 1 "GND" H 2550 1630 30  0001 C CNN
+F 2 "" H 2550 1700 60  0001 C CNN
+F 3 "" H 2550 1700 60  0001 C CNN
+	1    2550 1700
 	0    -1   -1   0   
 $EndComp
-Text Label 3400 1800 0    60   ~ 0
-RX
-Text Label 3400 1900 0    60   ~ 0
-TX
+Text Label 2650 1800 0    60   ~ 0
+CAN_RX
+Text Label 2650 1900 0    60   ~ 0
+CAN_TX
 Text Label 4100 1550 2    60   ~ 0
-TX
+CAN_TX
 Text Label 4100 2150 2    60   ~ 0
-RX
+CAN_RX
 Connection ~ -4675 3450
 Wire Wire Line
 	3550 2900 3550 3050
@@ -232,11 +231,11 @@ Wire Wire Line
 	3250 3000 3650 3000
 Connection ~ 3375 3000
 Wire Wire Line
-	3300 1800 3400 1800
+	2550 1800 2650 1800
 Wire Wire Line
-	3300 1900 3400 1900
+	2550 1900 2650 1900
 Wire Wire Line
-	3300 1600 3400 1600
+	2550 1600 2650 1600
 Wire Wire Line
 	4250 2150 4100 2150
 Wire Wire Line
