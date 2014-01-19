@@ -1,3 +1,16 @@
+# CAN module connector
 P471
+# CAN module power LED
 R471
 D471
+
+# SD/TTL module 3.3v LED
+R354
+D353
+
+# SD/TTL module 5v LED
+R353
+D352
+
+# SD/TTL right 10x2
+P354
