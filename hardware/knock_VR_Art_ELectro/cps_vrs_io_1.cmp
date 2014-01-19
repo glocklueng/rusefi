@@ -2,238 +2,238 @@ Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Втр 10 Дек 2013 
 
 BeginCmp
 TimeStamp = /4AD9C851;
-Reference = C5;
+Reference = C101;
 ValeurCmp = 1000pF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4AD9CD25;
-Reference = C6;
+Reference = C102;
 ValeurCmp = 1000pF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4AD9CB8E;
-Reference = C10;
+Reference = C103;
 ValeurCmp = 10uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /50D6291F;
-Reference = C13;
+Reference = C104;
 ValeurCmp = 0.1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E4ED;
-Reference = C31;
+Reference = C105;
 ValeurCmp = 1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E4EE;
-Reference = C32;
+Reference = C106;
 ValeurCmp = 0.1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E4EC;
-Reference = C33;
+Reference = C107;
 ValeurCmp = 0.1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E4FC;
-Reference = C34;
+Reference = C108;
 ValeurCmp = 1000pF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /529380F6;
-Reference = D1;
+Reference = D101;
 ValeurCmp = LED;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /529C6F58;
-Reference = D2;
+Reference = D102;
 ValeurCmp = LED;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /529CF98B;
-Reference = G1;
+Reference = G101;
 ValeurCmp = LOGO;
 IdModule  = LOGO_F;
 EndCmp
 
 BeginCmp
 TimeStamp = /52A72119;
-Reference = P1;
+Reference = P101;
 ValeurCmp = CONN_2;
 IdModule  = PIN_ARRAY_2_A;
 EndCmp
 
 BeginCmp
 TimeStamp = /5288F8BF;
-Reference = P3;
+Reference = P103;
 ValeurCmp = CONN_5X2;
 IdModule  = PIN_ARRAY_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /5288FF50;
-Reference = P4;
+Reference = P104;
 ValeurCmp = CONN_4;
 IdModule  = PIN_ARRAY_4x1;
 EndCmp
 
 BeginCmp
 TimeStamp = /529C6F52;
-Reference = R1;
+Reference = R101;
 ValeurCmp = 1K;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E3A9;
-Reference = R38;
+Reference = R102;
 ValeurCmp = 5k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E3A5;
-Reference = R39;
+Reference = R103;
 ValeurCmp = 5k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E39B;
-Reference = R40;
+Reference = R104;
 ValeurCmp = 5k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E399;
-Reference = R41;
+Reference = R105;
 ValeurCmp = 1K;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E39D;
-Reference = R42;
+Reference = R106;
 ValeurCmp = 5k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E3AD;
-Reference = R43;
+Reference = R107;
 ValeurCmp = 5k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E3A0;
-Reference = R44;
+Reference = R108;
 ValeurCmp = 5k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E396;
-Reference = R45;
+Reference = R109;
 ValeurCmp = 5k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E393;
-Reference = R46;
+Reference = R110;
 ValeurCmp = 5k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E390;
-Reference = R48;
+Reference = R111;
 ValeurCmp = 5k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E38D;
-Reference = R49;
+Reference = R112;
 ValeurCmp = 5k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4AD9C75B;
-Reference = R52;
+Reference = R113;
 ValeurCmp = 10k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /5101D08D;
-Reference = R53;
+Reference = R114;
 ValeurCmp = 10k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E4F7;
-Reference = R62;
+Reference = R115;
 ValeurCmp = 10K;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E500;
-Reference = R64;
+Reference = R116;
 ValeurCmp = 10K;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E4F6;
-Reference = R65;
+Reference = R117;
 ValeurCmp = 20K;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E4FF;
-Reference = R66;
+Reference = R118;
 ValeurCmp = 20K;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4BF90B79;
-Reference = U20;
+Reference = U101;
 ValeurCmp = MAX9926/9927;
 IdModule  = maxim-10-QSOP16;
 EndCmp
 
 BeginCmp
 TimeStamp = /4E39E4FD;
-Reference = U24;
+Reference = U102;
 ValeurCmp = MAX9939;
 IdModule  = uMAX-uSOP_10;
 EndCmp
