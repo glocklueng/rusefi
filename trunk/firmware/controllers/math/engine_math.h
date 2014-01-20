@@ -15,7 +15,6 @@ float getDefaultFuel(int rpm, float map);
 
 float getStartingFuel(float coolantTemperature);
 
-int convertAngleToSysticks(int rpm, int angle);
 float getOneDegreeTime(int rpm);
 float getCrankshaftRevolutionTime(int rpm);
 
