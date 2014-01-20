@@ -1,7 +1,7 @@
 (export (version D)
   (design
-    (source C:\Users\owner\Desktop\daecu\Hardware\trunk\rusefi.com\1A_injector_10-channels\inj_10ch.sch)
-    (date "1/19/2014 6:22:40 PM")
+    (source C:/stuff/rusefi_sourceforge/hardware/1A_injector_10-channels/inj_10ch.sch)
+    (date "19/01/2014 18:29:20")
     (tool "eeschema (2013-07-07 BZR 4022)-stable"))
   (components
     (comp (ref Q7)
@@ -794,7 +794,7 @@
       (node (ref P2) (pin 8)))
     (net (code 44) (name /PH0)
       (node (ref P2) (pin 7)))
-    (net (code 45) (name /3V)
+    (net (code 45) (name /3.3V)
       (node (ref P2) (pin 6))
       (node (ref P2) (pin 5))
       (node (ref P1) (pin 3)))))
