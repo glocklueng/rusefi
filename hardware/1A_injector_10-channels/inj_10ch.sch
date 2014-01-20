@@ -32,7 +32,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "6 Channel Injector"
-Date "19 jan 2014"
+Date "20 jan 2014"
 Rev "A-6"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""
@@ -517,11 +517,11 @@ iGND1
 Text Label 5875 9475 2    60   ~ 0
 5V
 Text Label 5875 9575 2    60   ~ 0
-3V
+3.3V
 Text Label 6675 9475 0    60   ~ 0
 5V
 Text Label 6675 9575 0    60   ~ 0
-3V
+3.3V
 Text Label 5875 9775 2    60   ~ 0
 PC14
 Text Label 5875 9875 2    60   ~ 0
