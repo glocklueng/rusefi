@@ -55,9 +55,11 @@ void initHardware() {
 
 #if EFI_HIP_9011
 	initHip9011();
-#endif
+#endif /* EFI_HIP_9011 */
 
-//	initCan();
+#if EFI_CAN_SUPPORT
+	initCan();
+#endif /* EFI_CAN_SUPPORT */
 
 
 //	init_adc_mcp3208(&adcState, &SPID2);
