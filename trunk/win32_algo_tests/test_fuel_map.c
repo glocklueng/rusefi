@@ -68,4 +68,14 @@ void testFuelMap(void) {
 	// 1005 * 2 for IAT correction
 	printf("*************************************************** getRunningFuel\r\n");
 	assertEquals(1005, getRunningFuel(5, 5));
+
+	engineConfiguration->crankingSettings.coolantTempMin = 15;
+	engineConfiguration->crankingSettings.coolantTempMax = 65;
+	engineConfiguration->crankingSettings.minTempPW = 16;
+	engineConfiguration->crankingSettings.maxTempPW = 8;
+
+	printf("*************************************************** getStartingFuel\r\n");
+	// NAN in case we have issues with the CLT sensor
+	assertEquals(16, getStartingFuel(NAN));
+	assertEquals(8, getStartingFuel(70));
 }

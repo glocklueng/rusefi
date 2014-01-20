@@ -93,7 +93,7 @@ int main(void) {
 
 	testGpsParser();
 
-	printf("Success 20130112\r\n");
+	printf("Success 20130120\r\n");
 
 //	resizeMap();
 
