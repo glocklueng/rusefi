@@ -231,6 +231,8 @@ engineConfiguration->tpsMin = 1;
 	engineConfiguration->crankingSettings.minTempPW = 16;
 	engineConfiguration->crankingSettings.maxTempPW = 8;
 
+	engineConfiguration->ignitionPinMode = OM_INVERTED;
+
 	setDefaultMaps(engineConfiguration);
 }
 
