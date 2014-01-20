@@ -224,6 +224,8 @@ engineConfiguration->tpsMin = 1;
 	engineConfiguration->ignitonOffset = 35;
 	engineConfiguration->rpmHardLimit = 7000;
 
+	engineConfiguration->cltThermistorConf.bias_resistor = 3300; // that's my custom resistor value!
+
 	engineConfiguration->crankingSettings.coolantTempMin = 15;
 	engineConfiguration->crankingSettings.coolantTempMax = 65;
 	engineConfiguration->crankingSettings.minTempPW = 16;
