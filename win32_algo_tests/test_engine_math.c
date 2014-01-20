@@ -17,6 +17,6 @@ void testEngineMath(void) {
 
 	engineConfiguration2->rpmMultiplier = 0.5;
 
-	assertEqualsM("600 RPM", 5000, convertAngleToSysticks(600, 90));
-	assertEqualsM("6000 RPM", 499, convertAngleToSysticks(6000, 90));
+	assertEqualsM("600 RPM", 5000, getOneDegreeTime(600) * 180);
+	assertEqualsM("6000 RPM", 500, getOneDegreeTime(6000) * 180);
 }
