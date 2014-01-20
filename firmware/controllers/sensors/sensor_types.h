@@ -33,9 +33,10 @@ typedef struct {
  * @brief thermistor curve parameters
  */
 typedef struct {
-	float temp_1;
-	float temp_2;
-	float temp_3;
+	// these values is in Celcuus
+	float tempC_1;
+	float tempC_2;
+	float tempC_3;
 	float resistance_1;
 	float resistance_2;
 	float resistance_3;

@@ -13,6 +13,7 @@
 #include "engine_configuration.h"
 #include "main_trigger_callback.h"
 #include "dist_emulator.h"
+#include "thermistors.h"
 
 static void configureTriggerShape(trigger_shape_s *s) {
 	triggerShapeInit(s);
@@ -32,6 +33,9 @@ void setDodgeNeonEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 
 	engineConfiguration->ignitionPinMode = OM_OPENDRAIN;
+
+	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 0, 32500, 30, 7550, 100, 700);
+	engineConfiguration->cltThermistorConf.bias_resistor = 2200;
 }
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {

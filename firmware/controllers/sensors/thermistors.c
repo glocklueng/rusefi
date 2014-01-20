@@ -95,22 +95,22 @@ float getCoolantTemperature(void) {
 	return temperature;
 }
 
-void setThermistorConfiguration(ThermistorConf * tc, float temp1, float r1, float temp2, float r2, float temp3,
+void setThermistorConfiguration(ThermistorConf * tc, float tempC1, float r1, float tempC2, float r2, float tempC3,
 		float r3) {
-	tc->temp_1 = temp1;
+	tc->tempC_1 = tempC1;
 	tc->resistance_1 = r1;
 
-	tc->temp_2 = temp2;
+	tc->tempC_2 = tempC2;
 	tc->resistance_2 = r2;
 
-	tc->temp_3 = temp3;
+	tc->tempC_3 = tempC3;
 	tc->resistance_3 = r3;
 }
 
 void prepareThermistorCurve(ThermistorConf * config) {
-	float T1 = config->temp_1 + KELV;
-	float T2 = config->temp_2 + KELV;
-	float T3 = config->temp_3 + KELV;
+	float T1 = config->tempC_1 + KELV;
+	float T2 = config->tempC_2 + KELV;
+	float T3 = config->tempC_3 + KELV;
 
 	float L1 = log(config->resistance_1);
 	float L2 = log(config->resistance_2);
