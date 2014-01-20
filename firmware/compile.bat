@@ -3,6 +3,7 @@ make
 svn info > ../firmware_binary/version.txt
 cp config/features.h ../firmware_binary
 cp build/rusefi.hex ../firmware_binary
+cp build/rusefi.elf ../firmware_binary
 
 cp tunerstudio/rusefi.ini ../firmware_binary
 
