@@ -33,11 +33,11 @@ public class FrameHelper {
     }
 
     protected void onWindowOpened() {
-        System.out.println("onWindowOpened");
+        FileLog.rlog("onWindowOpened");
     }
 
     protected void onWindowClosed() {
-        System.out.println("onWindowClosed");
+        FileLog.rlog("onWindowClosed");
         FileLog.INSTANCE.close();
     }
 }

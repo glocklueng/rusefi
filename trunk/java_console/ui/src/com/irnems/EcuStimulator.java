@@ -145,7 +145,7 @@ public class EcuStimulator {
 
             double dwellDiff = Math.abs(dwells.get(0) - dwells.get(MEASURES - 1));
             if (dwellDiff > 1)
-                System.out.println(dwells);
+                System.out.println("dwells " + dwells);
 
 
             double dwell = dwells.get(MEASURES / 2);

@@ -119,7 +119,7 @@ public final class Histograms {
         confidence_bounds = new double[]{0.5 - H_CONFIDENCE * 0.5, 0.5, 0.5 + H_CONFIDENCE * 0.5};
         confidence_separators = new String[]{"(", " [", "-", "-", "] ", ")"};
 
-        System.out.println("BOUND_LENGTH=" + BOUND_LENGTH);
+        FileLog.rlog("BOUND_LENGTH=" + BOUND_LENGTH);
 
         bounds = new long[BOUND_LENGTH];
         bounds[0] = 0;

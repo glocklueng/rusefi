@@ -140,7 +140,7 @@ public class WavePanel extends JPanel {
     }
 
     private Map<String, StringBuilder> unpackToMap(String value) {
-        System.out.println(": " + value);
+        FileLog.rlog(": " + value);
 
         String[] array = value.split(DELI);
 

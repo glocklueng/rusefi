@@ -1,5 +1,7 @@
 package com.irnems.core;
 
+import com.irnems.FileLog;
+
 import javax.swing.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -24,7 +26,7 @@ public class MessagesCentral {
     }
 
     public void postMessage(final Class clazz, final String message) {
-        System.out.println("postMessage " + clazz.getSimpleName() + ": " + message);
+        FileLog.rlog("postMessage " + clazz.getSimpleName() + ": " + message);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
