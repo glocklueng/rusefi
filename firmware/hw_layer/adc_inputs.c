@@ -184,8 +184,8 @@ static int getAdcValueByIndex(int internalIndex) {
 }
 
 int getInternalAdcValue(int hwIndex) {
-	if (hwIndex==ADC_NUMBER_CHANNELS_FAST)
-		return fastAdcValue;
+//	if (hwIndex==ADC_NUMBER_CHANNELS_FAST)
+//		return fastAdcValue;
 
 	int internalIndex = internalAdcIndex[hwIndex];
 	return getAdcValueByIndex(internalIndex);
