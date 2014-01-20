@@ -94,7 +94,7 @@ typedef struct {
 	float ignitonOffset;
 
 	/**
-	 * While cranking which causes battery voltage we can calculate dwell time in shaft
+	 * While cranking (which causes battery voltage to drop) we can calculate dwell time in shaft
 	 * degrees, not in absolute time as in running mode.
 	 */
 	int crankingChargeAngle;
@@ -156,6 +156,8 @@ typedef struct {
 	int can_nbc_broadcast_period;
 
 	trigger_shape_s triggerShape;
+
+	cranking_ignition_mode_e crankingIgnitionMode;
 
 	EventHandlerConfiguration engineEventConfiguration;
 } EngineConfiguration2;

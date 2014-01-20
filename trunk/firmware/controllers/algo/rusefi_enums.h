@@ -24,7 +24,15 @@ typedef enum {
 	OM_OPENDRAIN = 2,
 	OM_OPENDRAIN_INVERTED = 3,
 
-	Internal_ForceMyEnumIntSize = ENUM_SIZE_HACK,
+	Internal_ForceMyEnumIntSize_1 = ENUM_SIZE_HACK,
 } pin_output_mode_e;
+
+
+typedef enum {
+	CIM_DEFAULT = 0,
+	CIM_FIXED_ANGLE = 1,
+
+	Internal_ForceMyEnumIntSize_2 = ENUM_SIZE_HACK,
+} cranking_ignition_mode_e;
 
 #endif /* RUSEFI_ENUMS_H_ */
