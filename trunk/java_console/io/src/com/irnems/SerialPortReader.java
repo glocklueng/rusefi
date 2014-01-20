@@ -26,7 +26,7 @@ public class SerialPortReader implements SerialPortEventListener {
                 e.printStackTrace(System.err);
             }
         } else {
-            System.out.println("SerialPortReader serialEvent " + spe);
+            FileLog.rlog("SerialPortReader serialEvent " + spe);
         }
     }
 

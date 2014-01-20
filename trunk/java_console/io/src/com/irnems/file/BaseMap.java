@@ -1,5 +1,6 @@
 package com.irnems.file;
 
+import com.irnems.FileLog;
 import com.irnems.core.EngineState;
 import com.irnems.models.Point3D;
 import com.irnems.models.XYData;
@@ -17,8 +18,8 @@ public class BaseMap {
     }
 
     public static XYData loadData(String filename, final String key, final String value) {
-        System.out.println("Loading from " + filename);
-        System.out.println("Loading " + key + ">" + value);
+        FileLog.rlog("Loading from " + filename);
+        FileLog.rlog("Loading " + key + ">" + value);
         final XYData data = new XYData();
 
         EngineState.EngineStateListener listener = new EngineState.EngineStateListenerImpl() {

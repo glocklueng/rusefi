@@ -46,17 +46,17 @@ public class PortHolder {
     public boolean open(String port, SerialPortReader.StringListener listener) {
         SerialPort serialPort = new SerialPort(port);
         try {
-            System.out.println("Opening " + port + " @ " + BAUD_RATE);
+            FileLog.rlog("Opening " + port + " @ " + BAUD_RATE);
             boolean opened = serialPort.openPort();//Open serial port
             if (!opened)
-                System.out.println("opened: " + opened);
+                FileLog.rlog("opened: " + opened);
             serialPort.setParams(BAUD_RATE, 8, 1, 0);//Set params.
             int mask = SerialPort.MASK_RXCHAR;
             //Set the prepared mask
             serialPort.setEventsMask(mask);
             serialPort.addEventListener(new SerialPortReader(serialPort, listener));
         } catch (SerialPortException e) {
-            System.out.println(e.getMessage());
+            FileLog.rlog("ERROR " + e.getMessage());
             return false;
         }
 
@@ -80,7 +80,7 @@ public class PortHolder {
                     serialPort.closePort();
                     serialPort = null;
                 } catch (SerialPortException e) {
-                    System.out.println("Error while closing: " + e);
+                    FileLog.rlog("Error while closing: " + e);
                 } finally {
                     portLock.notifyAll();
                 }
@@ -93,7 +93,7 @@ public class PortHolder {
      */
     public void packAndSend(String command) throws InterruptedException {
         command = "sec!" + command.length() + "!" + command;
-        System.out.println("Sending [" + command + "]");
+        FileLog.rlog("Sending [" + command + "]");
         MessagesCentral.getInstance().postMessage(CommandQueue.class, "Sending [" + command + "]");
 
         long now = System.currentTimeMillis();

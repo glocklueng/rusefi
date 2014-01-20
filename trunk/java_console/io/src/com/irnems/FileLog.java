@@ -33,7 +33,7 @@ public enum FileLog {
             if (!dir.exists())
                 dir.mkdirs();
             String fileName = DIR + "rfi_report_" + date + ".csv";
-            System.out.println("Writing to " + fileName);
+            rlog("Writing to " + fileName);
             return new FileOutputStream(fileName, true);
         } catch (IOException e) {
             throw new IllegalStateException(e);
@@ -60,11 +60,15 @@ public enum FileLog {
         if (fileLog == null)
             return; // already closed
         try {
-            System.out.println("Closing file...");
+            rlog("Closing file...");
             fileLog.close();
             fileLog = null;
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    public static void rlog(String msg) {
+        System.out.println("r " + msg);
     }
 }
