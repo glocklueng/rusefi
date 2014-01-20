@@ -28,7 +28,7 @@ public class SerialManager {
     public static EngineState engineState = new EngineState(new EngineState.EngineStateListenerImpl() {
         @Override
         public void beforeLine(String fullLine) {
-            System.out.println("SerialManager.beforeLine: " + fullLine);
+            FileLog.rlog("SerialManager.beforeLine: " + fullLine);
             FileLog.INSTANCE.logLine(fullLine);
         }
     });
@@ -37,11 +37,11 @@ public class SerialManager {
     private static boolean closed;
 
     public static void scheduleOpening() {
-        System.out.println("scheduleOpening");
+        FileLog.rlog("scheduleOpening");
         SERIAL_EXECUTOR.execute(new Runnable() {
             @Override
             public void run() {
-                System.out.println("scheduleOpening>openPort");
+                FileLog.rlog("scheduleOpening>openPort");
                 PortHolder.getInstance().openPort(port, engineState);
             }
         });
