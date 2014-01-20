@@ -53,7 +53,7 @@ public class LogViewer extends FrameHelper {
         engineState.registerStringValueAction("wave_chart", new EngineState.ValueCallback<String>() {
             @Override
             public void onUpdate(String value) {
-                System.out.println("chart " + value);
+                FileLog.rlog("chart " + value);
 
                 ChartRepository.getInstance().addChart(value);
 

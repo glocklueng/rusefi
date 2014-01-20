@@ -1,5 +1,7 @@
 package com.irnems.models;
 
+import com.irnems.FileLog;
+
 import java.io.*;
 
 /**
@@ -28,8 +30,8 @@ public class XYDataReader {
             Point3D xyz = Point3D.parseLine(line);
             data.addPoint(xyz);
         }
-        System.out.println("x range: " + data.getMinXValue() + " to " + data.getMaxXValue());
-        System.out.println("y range: " + data.getMinYValue() + " to " + data.getMaxYValue());
+        FileLog.rlog("x range: " + data.getMinXValue() + " to " + data.getMaxXValue());
+        FileLog.rlog("y range: " + data.getMinYValue() + " to " + data.getMaxYValue());
         return data;
     }
 }

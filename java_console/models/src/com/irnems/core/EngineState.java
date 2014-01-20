@@ -1,5 +1,6 @@
 package com.irnems.core;
 
+import com.irnems.FileLog;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -193,13 +194,13 @@ public class EngineState {
     public static String unpackString(String message) {
         String prefix = "line" + PACKING_DELIMITER;
         if (!message.startsWith(prefix)) {
-            System.out.println("EngineState: unexpected header: " + message);
+            FileLog.rlog("EngineState: unexpected header: " + message);
             return null;
         }
         message = message.substring(prefix.length());
         int delimiterIndex = message.indexOf(PACKING_DELIMITER);
         if (delimiterIndex == -1) {
-            System.out.println("Delimiter not found in: " + message);
+            FileLog.rlog("Delimiter not found in: " + message);
             return null;
         }
         String lengthToken = message.substring(0, delimiterIndex);
@@ -207,13 +208,13 @@ public class EngineState {
         try {
             expectedLen = Integer.parseInt(lengthToken);
         } catch (NumberFormatException e) {
-            System.out.println("invalid len: " + lengthToken);
+            FileLog.rlog("invalid len: " + lengthToken);
             return null;
         }
 
         String response = message.substring(delimiterIndex + 1);
         if (response.length() != expectedLen) {
-            System.out.println("message len does not match header: " + message);
+            FileLog.rlog("message len does not match header: " + message);
             response = null;
         }
         return response;
@@ -229,7 +230,7 @@ public class EngineState {
         for (StringActionPair pair : actions)
             response = handleStringActionPair(response, pair, listener);
         if (originalResponse.length() == response.length()) {
-            System.out.println("EngineState.unknown: " + response);
+            FileLog.rlog("EngineState.unknown: " + response);
             // discarding invalid line
             return "";
         }

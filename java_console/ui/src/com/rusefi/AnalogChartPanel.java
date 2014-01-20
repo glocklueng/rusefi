@@ -79,7 +79,7 @@ public class AnalogChartPanel extends JPanel {
         List<Double> keys = new ArrayList<Double>(values.keySet());
         minX = keys.get(0);
         maxX = keys.get(keys.size() - 1);
-        System.out.println("Analog chart from " + minX + " to " + maxX);
+        FileLog.rlog("Analog chart from " + minX + " to " + maxX);
 
         TreeSet<Double> sortedValues = new TreeSet<Double>();
         sortedValues.addAll(values.values());

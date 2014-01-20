@@ -1,5 +1,7 @@
 package com.irnems.models;
 
+import com.irnems.FileLog;
+
 import java.util.Set;
 
 /**
@@ -12,7 +14,7 @@ public class AverageData {
         double minX = data.getMinXValue();
         double xWidth = data.getMaxXValue() - minX;
 
-        System.out.println("From x" + minX + " w=" + xWidth);
+        FileLog.rlog("From x" + minX + " w=" + xWidth);
 
         XYData result = new XYData();
 
@@ -20,7 +22,7 @@ public class AverageData {
             double fromX_ = minX + (xWidth * i) / divider;
             double toX_ = minX + (xWidth * (i + 1)) / divider;
 
-            System.out.println("from " + fromX_ + " to " + toX_);
+            FileLog.rlog("from " + fromX_ + " to " + toX_);
 
 //            double fromX = data.findXfromSet(fromX_);
 //            double toX = data.findXfromSet(toX_);

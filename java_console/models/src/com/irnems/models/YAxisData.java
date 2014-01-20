@@ -1,5 +1,7 @@
 package com.irnems.models;
 
+import com.irnems.FileLog;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
@@ -49,7 +51,7 @@ public class YAxisData {
 
         float newAvg = holder.get();
         if (newAvg != value && !Float.isNaN(newAvg)) {
-            System.out.println("new " + value + " avg " + newAvg + " for x=" + x + "/y=" + y);
+            FileLog.rlog("new " + value + " avg " + newAvg + " for x=" + x + "/y=" + y);
         }
     }
 

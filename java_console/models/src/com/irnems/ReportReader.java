@@ -26,11 +26,11 @@ public class ReportReader {
 
     public static TreeMap<Integer, TreeMap<Integer, ReportLine>> readMap(String filename) {
         if (!new File(filename).exists()) {
-            System.out.println("Error: not found " + filename);
+            FileLog.rlog("Error: not found " + filename);
             return new TreeMap<Integer, TreeMap<Integer, ReportLine>>();
         }
         List<ReportLine> lines = read(filename);
-        System.out.println("Got " + lines.size() + " lines");
+        FileLog.rlog("Got " + lines.size() + " lines");
 
         lines = filter(Collections.unmodifiableList(lines));
 
@@ -73,8 +73,8 @@ public class ReportReader {
             minRpm = Math.min(minRpm, cur.getRpm().getValue());
             maxRpm = Math.max(maxRpm, cur.getRpm().getValue());
         }
-        System.out.println("MAF range from " + minMaf + " to " + maxMaf);
-        System.out.println("RPM range from " + minRpm + " to " + maxRpm);
+        FileLog.rlog("MAF range from " + minMaf + " to " + maxMaf);
+        FileLog.rlog("RPM range from " + minRpm + " to " + maxRpm);
     }
 
     private static List<ReportLine> filter(List<ReportLine> lines) {
@@ -93,7 +93,7 @@ public class ReportReader {
             int timeDiff = cur.getTime() - prev.getTime();
 
             if (Math.abs(rpmDiff) > INVALID_RPM_DIFF) {
-                System.out.println("Invalid diff: " + cur);
+                FileLog.rlog("Invalid diff: " + cur);
                 removedCount++;
                 continue;
             }
@@ -104,8 +104,8 @@ public class ReportReader {
 //            System.out.println("value," + cur.getRpm().getValue() + "," + cur.getMaf().getValue() + "," + cur.getWave());
         }
         double percent = 100.0 * removedCount / originalCount;
-        System.out.println(removedCount + " out of " + originalCount + " record(s) removed. " + percent + "%");
-        System.out.println("Max valid diff: " + maxValidDiff);
+        FileLog.rlog(removedCount + " out of " + originalCount + " record(s) removed. " + percent + "%");
+        FileLog.rlog("Max valid diff: " + maxValidDiff);
         return result;
     }
 
