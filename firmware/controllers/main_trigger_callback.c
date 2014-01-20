@@ -99,7 +99,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 static int getSparkDwell(int rpm) {
 	if (isCrankingR(rpm)) {
 		int angle = engineConfiguration->crankingChargeAngle;
-		return convertAngleToSysticks(rpm, angle);;
+		return getOneDegreeTime(rpm) * angle;
 	}
 
 	if (rpm > engineConfiguration->rpmHardLimit) {
@@ -122,7 +122,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	//int igniterId = event->actuatorId;
 	//chDbgAssert(igniterId > 0, "act id", NULL);
 
-	float advance = 2 * getAdvance(rpm, getMaf());
+	float advance = getAdvance(rpm, getMaf());
 
 	float sparkAdvance = getOneDegreeTime(rpm) * advance;
 

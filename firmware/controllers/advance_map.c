@@ -13,6 +13,7 @@
 #include "engine_controller.h"
 
 extern EngineConfiguration *engineConfiguration;
+extern EngineConfiguration2 *engineConfiguration2;
 
 static float *timing_ptrs[AD_LOAD_COUNT];
 static int initialized = FALSE;
