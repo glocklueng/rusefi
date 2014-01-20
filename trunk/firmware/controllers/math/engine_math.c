@@ -82,12 +82,3 @@ float getOneDegreeTime(int rpm) {
 float getCrankshaftRevolutionTime(int rpm) {
 	return 360 * getOneDegreeTime(rpm);
 }
-
-
-
-// todo: the problem with this method is that it takes CAMSHAFT angle
-// todo: replace with 'getOneDegreeTime'
-int convertAngleToSysticks(int rpm, int angle) {
-
-	return (int) (angle * getCrankshaftRevolutionTime(rpm) / engineConfiguration2->rpmMultiplier / 360);
-}
