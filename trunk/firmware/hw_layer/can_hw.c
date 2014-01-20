@@ -18,6 +18,8 @@
 #include "can_header.h"
 #include "engine_configuration.h"
 
+#if EFI_CAN_SUPPORT
+
 static Logging logger;
 static WORKING_AREA(canTreadStack, UTILITY_THREAD_STACK_SIZE);
 
@@ -172,3 +174,5 @@ void initCan(void) {
 
 	addConsoleAction("canread", canRead);
 }
+
+#endif /* EFI_CAN_SUPPORT */
