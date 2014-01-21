@@ -237,7 +237,7 @@ static void showFuelMap(int rpm, int key100) {
 
 	print("fuel map rpm=%d, key=%f: %d\r\n", rpm, key, (int) (100 * value));
 
-	scheduleSimpleMsg(&logger2, "fuel map value *100 = ", (int)(100 * value));
+	scheduleMsg(&logger2, "fuel map value = %f", value);
 }
 
 void initStatusLoop(void) {
