@@ -67,7 +67,11 @@ public class PcbNode {
         }
         if ("segment".equals(nodeName)) {
             return new SegmentNode(nodeName, index + 1, children);
-        } else if ("start".equals(nodeName) || "end".equals(nodeName)) {
+        } else if ("net".equals(nodeName)) {
+            return new NetNode(nodeName, index + 1, children);
+        } else if ("via".equals(nodeName)) {
+            return new ViaNode(nodeName, index + 1, children);
+        } else if ("start".equals(nodeName) || "end".equals(nodeName) || "at".equals(nodeName)) {
             return new PointNode(nodeName, index + 1, children);
         }
 

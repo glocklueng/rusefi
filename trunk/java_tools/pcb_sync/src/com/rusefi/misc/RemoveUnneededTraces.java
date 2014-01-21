@@ -1,6 +1,8 @@
 package com.rusefi.misc;
 
 import com.rusefi.pcb.PcbNode;
+import com.rusefi.pcb.PointNode;
+import com.rusefi.pcb.SegmentNode;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,11 +16,16 @@ public class RemoveUnneededTraces {
 
         PcbNode destNode = PcbNode.readFromFile("test.kicad_pcb");
 
-        List<PcbNode> segments = destNode.iterate("segment");
+        Object o = destNode.iterate("segment");
+        List<SegmentNode> segments = (List<SegmentNode>) o;
 
         System.out.println(segments.size() + " segment(s)");
 
-        for (PcbNode segment : segments) {
+        for (SegmentNode segment : segments) {
+
+            if (!isConnected(segment.start, segments, segment))
+                System.out.println("Not connected: " + segment);
+
 
         }
 
@@ -26,5 +33,18 @@ public class RemoveUnneededTraces {
         // for(PcbNode segment : )
 
 
+    }
+
+    private static boolean isConnected(PointNode point, List<SegmentNode> segments, SegmentNode parent) {
+        for (SegmentNode segmentNode : segments) {
+            if (segments == parent)
+                continue;
+
+            if (segmentNode.start.isSameLocation(point) || segmentNode.end.isSameLocation(point))
+                return true;
+        }
+
+
+        return false;
     }
 }
