@@ -18,7 +18,7 @@
 #include "main_trigger_callback.h"
 #include "trigger_decoder.h"
 
-static pin_output_mode_e pinDefaultState[IO_PIN_COUNT];
+static pin_output_mode_e *pinDefaultState[IO_PIN_COUNT];
 static OutputPin outputs[IO_PIN_COUNT];
 static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG,
 		LED_CHECK_ENGINE };
@@ -68,7 +68,8 @@ static int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
  * @brief Sets the value according to current electrical settings
  */
 void setOutputPinValue(io_pin_e pin, int logicValue) {
-	pin_output_mode_e mode = pinDefaultState[pin];
+	chDbgAssert(pinDefaultState[pin]!=NULL, "pin mode not initialized", NULL);
+	pin_output_mode_e mode = *pinDefaultState[pin];
 	setPinValue(&outputs[pin], getElectricalValue(logicValue, mode), logicValue);
 }
 
@@ -79,7 +80,7 @@ int getOutputPinValue(io_pin_e pin) {
 void setDefaultPinState(io_pin_e pin, pin_output_mode_e *outputMode) {
 	pin_output_mode_e mode = *outputMode;
 	chDbgAssert(mode >= 0 && mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
-	pinDefaultState[pin] = mode;
+	pinDefaultState[pin] = outputMode;
 	setOutputPinValue(pin, FALSE); // initial state
 }
 
@@ -118,7 +119,7 @@ void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_
 
 	initOutputPinExt(msg, &outputs[ioPin], port, pin, mode);
 
-	setDefaultPinState(pin, outputMode);
+	setDefaultPinState(ioPin, outputMode);
 }
 
 void outputPinRegister(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin) {
