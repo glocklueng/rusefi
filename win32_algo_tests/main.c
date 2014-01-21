@@ -95,6 +95,8 @@ int main(void) {
 
 	testAngleResolver();
 
+	testPinHelper();
+
 	printf("Success 20130120\r\n");
 
 //	resizeMap();

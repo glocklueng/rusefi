@@ -10,5 +10,6 @@
 
 void testFuelMap(void);
 void testAngleResolver(void);
+void testPinHelper(void);
 
 #endif /* TEST_FUEL_MAP_H_ */
