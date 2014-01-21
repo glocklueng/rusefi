@@ -31,6 +31,7 @@
 #include "map_averaging.h"
 #include "malfunction_central.h"
 #include "advance_map.h"
+#include "pin_repository.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -88,7 +89,7 @@ static void initPeriodicEvents(void) {
 
 static void fuelPumpOff(void *arg) {
 	if (getOutputPinValue(FUEL_PUMP))
-		scheduleMsg(&logger, "fuelPump OFF at %s%d", "PO", 3);
+		scheduleMsg(&logger, "fuelPump OFF at %s%d", portname(FUEL_PUMP_PORT), FUEL_PUMP_PIN);
 	turnOutputPinOff(FUEL_PUMP);
 }
 
@@ -96,7 +97,7 @@ static void fuelPumpOn(ShaftEvents signal, int index) {
 	if (index != 0)
 		return; // let's not abuse the timer - one time per revolution would be enough
 	if (!getOutputPinValue(FUEL_PUMP))
-		scheduleMsg(&logger, "fuelPump ON at %s%d", "po", 4);
+		scheduleMsg(&logger, "fuelPump ON at %s%d", portname(FUEL_PUMP_PORT), FUEL_PUMP_PIN);
 	turnOutputPinOn(FUEL_PUMP);
 	/**
 	 * the idea of this implementation is that we turn the pump when the ECU turns on or
