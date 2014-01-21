@@ -100,14 +100,28 @@ static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
 static trigger_shape_s ts;
 static ActuatorEventList ae;
 
+extern int outputSignalCount;
+
 void testAngleResolver(void) {
 	printf("*************************************************** testAngleResolver\r\n");
 
 	confgiureFordAspireTriggerShape(&ts);
+	assertEquals(10, ts.size);
+
+	outputSignalCount = 0;
 
 	resetEventList(&ae);
+	printf("*************************************************** testAngleResolver 0\r\n");
+	registerActuatorEventExt(&ae, addOutputSignal(INJECTOR_1_OUTPUT), 53, &ts);
+	assertEquals(1, ae.size);
+	assertEquals(1, outputSignalCount);
+	assertEquals(0, ae.events[0].eventIndex);
+	assertEquals(53, ae.events[0].angleOffset);
 
+	printf("*************************************************** testAngleResolver 2\r\n");
+	resetEventList(&ae);
 	registerActuatorEventExt(&ae, addOutputSignal(INJECTOR_1_OUTPUT), 51 + 180, &ts);
-
+	assertEquals(2, ae.events[0].eventIndex);
+	assertEquals(51.9870, ae.events[0].angleOffset);
 }
 
