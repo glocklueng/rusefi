@@ -312,13 +312,13 @@ void scheduleMsg(Logging *logging, const char *fmt, ...) {
  * TODO: detect current threadId and merge this method with printSimpleMsg?
  */
 void scheduleSimpleMsg(Logging *logging, char *msg, int value) {
-	resetLogging(logging);
-	appendMsgPrefix(logging);
-	appendPrintf(logging, "%s%d", msg, value);
-	append(logging, DELIMETER);
-	scheduleLogging(logging);
+//	resetLogging(logging);
+//	appendMsgPrefix(logging);
+//	appendPrintf(logging, "%s%d", msg, value);
+//	append(logging, DELIMETER);
+//	scheduleLogging(logging);
 
-//	scheduleMsg(logging, "%s%d", msg, value);
+	scheduleMsg(logging, "%s%d", msg, value);
 }
 
 void scheduleIntValue(Logging *logging, char *msg, int value) {
