@@ -93,6 +93,8 @@ int main(void) {
 
 	testGpsParser();
 
+	testAngleResolver();
+
 	printf("Success 20130120\r\n");
 
 //	resizeMap();

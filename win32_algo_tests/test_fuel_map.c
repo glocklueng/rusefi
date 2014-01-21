@@ -8,6 +8,7 @@
 #include "main.h"
 #include "engine_configuration.h"
 #include "fuel_map.h"
+#include "trigger_structure.h"
 #include "allsensors.h"
 
 extern EngineConfiguration *engineConfiguration;
@@ -79,3 +80,34 @@ void testFuelMap(void) {
 	assertEquals(16, getStartingFuel(NAN));
 	assertEquals(8, getStartingFuel(70));
 }
+
+static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
+	triggerShapeInit(s);
+
+	triggerAddEvent(s, 53.747, T_SECONDARY, 1);
+	triggerAddEvent(s, 121.90, T_SECONDARY, 0);
+	triggerAddEvent(s, 232.76, T_SECONDARY, 1);
+	triggerAddEvent(s, 300.54, T_SECONDARY, 0);
+	triggerAddEvent(s, 360, T_PRIMARY, 1);
+
+	triggerAddEvent(s, 409.8412, T_SECONDARY, 1);
+	triggerAddEvent(s, 478.6505, T_SECONDARY, 0);
+	triggerAddEvent(s, 588.045, T_SECONDARY, 1);
+	triggerAddEvent(s, 657.03, T_SECONDARY, 0);
+	triggerAddEvent(s, 720, T_PRIMARY, 0);
+}
+
+static trigger_shape_s ts;
+static ActuatorEventList ae;
+
+void testAngleResolver(void) {
+	printf("*************************************************** testAngleResolver\r\n");
+
+	confgiureFordAspireTriggerShape(&ts);
+
+	resetEventList(&ae);
+
+	registerActuatorEventExt(&ae, addOutputSignal(INJECTOR_1_OUTPUT), 51 + 180, &ts);
+
+}
+
