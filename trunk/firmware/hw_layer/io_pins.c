@@ -66,11 +66,11 @@ static int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
  * @brief Sets the value according to current electrical settings
  */
 void setOutputPinValue(io_pin_e pin, int logicValue) {
-	setPinValue(&outputs[pin], getElectricalValue(logicValue, *pinDefaultState[pin]));
+	setPinValue(&outputs[pin], getElectricalValue(logicValue, *pinDefaultState[pin]), logicValue);
 }
 
 int getOutputPinValue(io_pin_e pin) {
-	return getPinValue(&outputs[pin]);
+	return getLogicPinValue(&outputs[pin]);
 }
 
 void setDefaultPinState(io_pin_e pin, pin_output_mode_e *outputMode) {

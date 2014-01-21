@@ -22,7 +22,7 @@
  * @brief Initialize the hardware output pin while also assigning it a logical name
  */
 void initOutputPinExt(char *msg, OutputPin *outputPin, GPIO_TypeDef *port, uint32_t pinNumber, iomode_t mode) {
-	outputPin->currentValue = -1;
+	outputPin->currentLogicValue = -1;
 	outputPin->port = port;
 	outputPin->pin = pinNumber;
 
@@ -33,19 +33,19 @@ void initOutputPin(char *msg, OutputPin *outputPin, GPIO_TypeDef *port, uint32_t
 	initOutputPinExt(msg, outputPin, port, pinNumber, PAL_MODE_OUTPUT_PUSHPULL);
 }
 
-int getPinValue(OutputPin * outputPin) {
-	return outputPin->currentValue;
+int getLogicPinValue(OutputPin * outputPin) {
+	return outputPin->currentLogicValue;
 }
 
 /**
  * Set's the value of the pin. On this layer the value is assigned as is, without any conversion.
  */
-void setPinValue(OutputPin * outputPin, int electricalValue) {
-	if (getPinValue(outputPin) == electricalValue)
+void setPinValue(OutputPin * outputPin, int electricalValue, int logicValue) {
+	if (getLogicPinValue(outputPin) == logicValue)
 		return;
 
 	palWritePad(outputPin->port, outputPin->pin, electricalValue);
-	outputPin->currentValue = electricalValue;
+	outputPin->currentLogicValue = logicValue;
 }
 
 #endif /* GPIO_HELPER_C_ */
