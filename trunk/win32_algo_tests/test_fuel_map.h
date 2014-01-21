@@ -9,5 +9,6 @@
 #define TEST_FUEL_MAP_H_
 
 void testFuelMap(void);
+void testAngleResolver(void);
 
 #endif /* TEST_FUEL_MAP_H_ */
