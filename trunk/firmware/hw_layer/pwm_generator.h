@@ -15,12 +15,13 @@
 #define FREQ_MATH_FREQUENCY CH_FREQUENCY
 
 #include "gpio_helper.h"
+#include "io_pins.h"
 
 /**
  * @brief   Multi-channel software PWM output configuration
  */
 typedef struct {
-	OutputPin outputPins[PWM_PHASE_MAX_WAVE_PER_PWM];
+	io_pin_e outputPins[PWM_PHASE_MAX_WAVE_PER_PWM];
 	multi_wave_s multiWave;
 	int idleState;
 	char *name;
@@ -36,7 +37,7 @@ void initModulation(PwmConfig *state, int count, myfloat *switchTimes,
 		int *pinStates);
 
 void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
-		int idleState, myfloat dutyCycle, myfloat freq);
+		int idleState, myfloat dutyCycle, myfloat freq, io_pin_e ioPin);
 void weComplexInit(char *msg, PwmConfig *state,
 		int idleState, int phaseCount, myfloat *swithcTimes, int waveCount, int **pinStates);
 

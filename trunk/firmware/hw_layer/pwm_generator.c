@@ -57,9 +57,9 @@ static msg_t deThread(PwmConfig *state) {
 			chThdSleepUntil(start + timeToSwitch);
 
 			for (int waveIndex = 0; waveIndex < state->multiWave.waveCount; waveIndex++) {
-				OutputPin *outputPin = &state->outputPins[waveIndex];
+				io_pin_e ioPin = state->outputPins[waveIndex];
 				int value = state->multiWave.waves[waveIndex].pinStates[phaseIndex];
-				setPinValue(outputPin, value ^ state->idleState);
+				setOutputPinValue(ioPin, value);
 			}
 		}
 
@@ -86,13 +86,15 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes, i
 	}
 }
 
-void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, int idleState, myfloat dutyCycle, myfloat freq) {
+void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, int idleState, myfloat dutyCycle, myfloat freq, io_pin_e ioPin) {
 	myfloat switchTimes[] = { dutyCycle, 1 };
 	int pinStates0[] = { 0, 1 };
 
 	int *pinStates[1] = { pinStates0 };
 
-	initOutputPin(msg, &state->outputPins[0], port, pin);
+	state->outputPins[0] = ioPin;
+
+	outputPinRegister(msg, state->outputPins[0], port, pin);
 
 	weComplexInit(msg, state, idleState, 2, switchTimes, 1, pinStates);
 
