@@ -125,3 +125,13 @@ void testAngleResolver(void) {
 	assertEquals(51.9870, ae.events[0].angleOffset);
 }
 
+void testPinHelper(void) {
+	printf("*************************************************** testPinHelper\r\n");
+	assertEquals(0, getElectricalValue(0, OM_DEFAULT));
+	assertEquals(1, getElectricalValue(1, OM_DEFAULT));
+
+	assertEquals(0, getElectricalValue(1, OM_INVERTED));
+	assertEquals(1, getElectricalValue(0, OM_INVERTED));
+
+}
+
