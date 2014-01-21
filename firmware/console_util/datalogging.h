@@ -60,6 +60,7 @@ void resetLogging(Logging *logging);
 void printLine(Logging *logging);
 
 void appendMsgPrefix(Logging *logging);
+void scheduleMsg(Logging *logging, const char *fmt, ...);
 void printSimpleMsg(Logging *logging, char *msg, int value);
 char* getCaption(LoggingPoints loggingPoint);
 void appendPrintf(Logging *logging, const char *fmt, ...);
