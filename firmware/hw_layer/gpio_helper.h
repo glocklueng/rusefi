@@ -1,5 +1,6 @@
 /*
- * gpio_helper.h
+ * @file gpio_helper.h
+ * @brief   General I/O helper
  *
  * @date Aug 25, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -9,7 +10,7 @@
 #define GPIO_HELPER_H_
 
 /**
- * @brief   Single output pin
+ * @brief   Single output pin reference and state
  */
 typedef struct {
 	GPIO_TypeDef *port;
