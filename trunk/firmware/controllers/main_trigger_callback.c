@@ -119,9 +119,6 @@ static int getSparkDwell(int rpm) {
 }
 
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
-	//int igniterId = event->actuatorId;
-	//chDbgAssert(igniterId > 0, "act id", NULL);
-
 	float advance = getAdvance(rpm, getMaf());
 
 	float sparkAdvance = getOneDegreeTime(rpm) * advance;
