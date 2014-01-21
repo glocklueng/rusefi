@@ -88,3 +88,25 @@ float getRunningFuel(int rpm, float key) {
 
 	return baseFuel * cltCorrection * iatCorrection + injectorLag;
 }
+
+/**
+ * @return 0 for OM_DEFAULT and OM_OPENDRAIN
+ */
+
+inline static int getElectricalValue0(pin_output_mode_e mode) {
+	return mode == OM_INVERTED || mode == OM_OPENDRAIN_INVERTED;
+}
+
+/**
+ * @return 1 for OM_DEFAULT and OM_OPENDRAIN
+ */
+inline static int getElectricalValue1(pin_output_mode_e mode) {
+	return mode == OM_DEFAULT || mode == OM_OPENDRAIN;
+}
+
+int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
+	chDbgAssert(mode >= 0 && mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
+
+	return logicalValue ? getElectricalValue1(mode) : getElectricalValue0(mode);
+}
+

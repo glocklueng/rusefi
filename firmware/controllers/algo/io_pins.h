@@ -85,7 +85,8 @@ void initOutputPins(void);
 char *getPinName(io_pin_e io_pin);
 void turnOutputPinOn(io_pin_e pin);
 void turnOutputPinOff(io_pin_e pin);
-void setOutputPinValue(io_pin_e pin, int electricalValue);
+void setOutputPinValue(io_pin_e pin, int logicValue);
+int getElectricalValue(int logicalValue, pin_output_mode_e mode);
 int getOutputPinValue(io_pin_e pin);
 void setDefaultPinState(io_pin_e pin, pin_output_mode_e *defaultState);
 

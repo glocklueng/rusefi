@@ -44,27 +44,6 @@ void turnOutputPinOff(io_pin_e pin) {
 }
 
 /**
- * @return 0 for OM_DEFAULT and OM_OPENDRAIN
- */
-
-static int getElectricalValue0(pin_output_mode_e mode) {
-	return mode == OM_INVERTED || mode == OM_OPENDRAIN_INVERTED;
-}
-
-/**
- * @return 1 for OM_DEFAULT and OM_OPENDRAIN
- */
-static int getElectricalValue1(pin_output_mode_e mode) {
-	return mode == OM_DEFAULT || mode == OM_OPENDRAIN;
-}
-
-static int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
-	chDbgAssert(mode >= 0 && mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
-
-	return logicalValue ? getElectricalValue1(mode) : getElectricalValue0(mode);
-}
-
-/**
  * @brief Sets the value according to current electrical settings
  */
 void setOutputPinValue(io_pin_e pin, int logicValue) {
