@@ -7,12 +7,14 @@ import java.util.List;
  *         1/21/14
  */
 public class SegmentNode extends PcbNode {
-    public final String net;
-    //private final PointNode start;
+    public final NetNode net;
+    public final PointNode start;
+    public final PointNode end;
 
     public SegmentNode(String nodeName, int closingIndex, List<Object> children) {
         super(nodeName, closingIndex, children);
-        net = find("net").getChild(0);
-     //   start = getPoint("start");)
+        net = (NetNode) find("net");
+        start = (PointNode) find("start");
+        end = (PointNode) find("end");
     }
 }
