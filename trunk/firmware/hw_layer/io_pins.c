@@ -43,6 +43,11 @@ void turnOutputPinOff(io_pin_e pin) {
 	setOutputPinValue(pin, FALSE);
 }
 
+inline static void assertOMode(pin_output_mode_e mode) {
+	chDbgAssert(mode >= 0 && mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
+}
+
+
 /**
  * @brief Sets the value according to current electrical settings
  */
@@ -58,7 +63,7 @@ int getOutputPinValue(io_pin_e pin) {
 
 void setDefaultPinState(io_pin_e pin, pin_output_mode_e *outputMode) {
 	pin_output_mode_e mode = *outputMode;
-	chDbgAssert(mode >= 0 && mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
+	assertOMode(mode);
 	pinDefaultState[pin] = outputMode;
 	setOutputPinValue(pin, FALSE); // initial state
 }
@@ -92,6 +97,7 @@ static void errBlinkingThread(void *arg) {
 }
 
 void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode) {
+	assertOMode(*outputMode);
 	iomode_t mode =
 			(*outputMode == OM_DEFAULT || *outputMode == OM_INVERTED) ?
 					PAL_MODE_OUTPUT_PUSHPULL : PAL_MODE_OUTPUT_OPENDRAIN;

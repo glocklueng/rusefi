@@ -1,13 +1,9 @@
 /*
- * gpio_helper.c
+ * @file    gpio_helper.c
+ * @brief   General I/O helper
  *
  * @date Aug 25, 2013
  * @author pc
- */
-
-/**
- * @file    gpio_helper.c
- * @brief   General I/O helper
  */
 
 #ifndef GPIO_HELPER_C_
