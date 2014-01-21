@@ -18,7 +18,7 @@
 #include "main_trigger_callback.h"
 #include "trigger_decoder.h"
 
-static pin_output_mode_e *pinDefaultState[IO_PIN_COUNT];
+static pin_output_mode_e pinDefaultState[IO_PIN_COUNT];
 static OutputPin outputs[IO_PIN_COUNT];
 static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_ALIVE2, LED_DEBUG,
 		LED_CHECK_ENGINE };
@@ -59,6 +59,8 @@ static int getElectricalValue1(pin_output_mode_e mode) {
 }
 
 static int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
+	chDbgAssert(mode >= 0 && mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
+
 	return logicalValue ? getElectricalValue1(mode) : getElectricalValue0(mode);
 }
 
@@ -66,7 +68,8 @@ static int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
  * @brief Sets the value according to current electrical settings
  */
 void setOutputPinValue(io_pin_e pin, int logicValue) {
-	setPinValue(&outputs[pin], getElectricalValue(logicValue, *pinDefaultState[pin]), logicValue);
+	pin_output_mode_e mode = pinDefaultState[pin];
+	setPinValue(&outputs[pin], getElectricalValue(logicValue, mode), logicValue);
 }
 
 int getOutputPinValue(io_pin_e pin) {
@@ -74,8 +77,10 @@ int getOutputPinValue(io_pin_e pin) {
 }
 
 void setDefaultPinState(io_pin_e pin, pin_output_mode_e *outputMode) {
-	pinDefaultState[pin] = outputMode;
-	setOutputPinValue(pin, 0); // initial state
+	pin_output_mode_e mode = *outputMode;
+	chDbgAssert(mode >= 0 && mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
+	pinDefaultState[pin] = mode;
+	setOutputPinValue(pin, FALSE); // initial state
 }
 
 static void comBlinkingThread(void *arg) {
@@ -108,11 +113,10 @@ static void errBlinkingThread(void *arg) {
 
 void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode) {
 	iomode_t mode =
-			(*outputMode == OM_DEFAULT || *outputMode == OM_INVERTED) ? PAL_MODE_OUTPUT_PUSHPULL : PAL_MODE_OUTPUT_OPENDRAIN;
+			(*outputMode == OM_DEFAULT || *outputMode == OM_INVERTED) ?
+					PAL_MODE_OUTPUT_PUSHPULL : PAL_MODE_OUTPUT_OPENDRAIN;
 
 	initOutputPinExt(msg, &outputs[ioPin], port, pin, mode);
-
-	setOutputPinValue(ioPin, FALSE);
 
 	setDefaultPinState(pin, outputMode);
 }
