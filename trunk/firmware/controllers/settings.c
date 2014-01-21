@@ -100,7 +100,7 @@ void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfigur
 
 	scheduleSimpleMsg(&logger, "timingMode: ", engineConfiguration->timingMode);
 	scheduleSimpleMsg(&logger, "fixedModeTiming: ", (int) engineConfiguration->fixedModeTiming);
-	scheduleSimpleMsg(&logger, "crankingChargeAngle: ", engineConfiguration->crankingChargeAngle);
+	scheduleMsg(&logger, "crankingChargeAngle=%f", engineConfiguration->crankingChargeAngle);
 
 	scheduleSimpleMsg(&logger, "analogChartMode: ", engineConfiguration->analogChartMode);
 

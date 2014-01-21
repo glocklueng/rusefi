@@ -98,7 +98,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 
 static int getSparkDwell(int rpm) {
 	if (isCrankingR(rpm)) {
-		int angle = engineConfiguration->crankingChargeAngle;
+		float angle = engineConfiguration->crankingChargeAngle;
 		return getOneDegreeTime(rpm) * angle;
 	}
 
