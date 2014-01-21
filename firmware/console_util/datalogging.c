@@ -236,7 +236,7 @@ void logFloat(Logging *logging, LoggingPoints loggingPoint, myfloat value) {
 static void commonSimpleMsg(Logging *logging, char *msg, int value) {
 	resetLogging(logging);
 	appendMsgPrefix(logging);
-	appendPrintf(logging, "%s%d%s", msg, value, DELIMETER);
+	appendPrintf(logging, "%s%d", msg, value);
 }
 
 void consoleOutputBuffer(const int8_t *buf, int size);
@@ -290,6 +290,7 @@ void resetLogging(Logging *logging) {
  */
 void printSimpleMsg(Logging *logging, char *msg, int value) {
 	commonSimpleMsg(logging, msg, value);
+	append(logging, DELIMETER);
 	printLine(logging);
 }
 
