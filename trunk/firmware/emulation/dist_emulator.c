@@ -38,32 +38,6 @@ void setRevolutionPeriod(int value) {
 	scheduleSimpleMsg(&logger, "Emulating position sensor(s). RPM=", value);
 }
 
-void triggerShapeInit(trigger_shape_s *trigger) {
-	trigger->size = 0;
-}
-
-void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, int state) {
-	angle /= 720;
-	if (trigger->size == 0) {
-		trigger->size = 1;
-		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
-			trigger->wave.waves[i].pinStates[0] = 0;
-
-		trigger->wave.switchTimes[0] = angle;
-		trigger->wave.waves[waveIndex].pinStates[0] = state;
-		return;
-	}
-
-//	if(angle!=trigger->wave.switchTimes[trigger->currentIndex])
-
-	int index = trigger->size++;
-
-	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
-		trigger->wave.waves[i].pinStates[index] = trigger->wave.waves[i].pinStates[index - 1];
-	trigger->wave.switchTimes[index] = angle;
-	trigger->wave.waves[waveIndex].pinStates[index] = state;
-}
-
 void initShaftPositionEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
 	print("Emulating %s\r\n", getConfigurationName(engineConfiguration));

@@ -83,4 +83,7 @@ typedef struct {
 
 } trigger_shape_s;
 
+void triggerShapeInit(trigger_shape_s *trigger);
+void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, int state);
+
 #endif /* TRIGGER_STRUCTURE_H_ */
