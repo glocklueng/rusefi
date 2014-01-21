@@ -86,7 +86,7 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes, i
 	}
 }
 
-void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, int idleState, myfloat dutyCycle, myfloat freq, io_pin_e ioPin) {
+void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, myfloat dutyCycle, myfloat freq, io_pin_e ioPin) {
 	myfloat switchTimes[] = { dutyCycle, 1 };
 	int pinStates0[] = { 0, 1 };
 
@@ -96,12 +96,12 @@ void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, int 
 
 	outputPinRegister(msg, state->outputPins[0], port, pin);
 
-	weComplexInit(msg, state, idleState, 2, switchTimes, 1, pinStates);
+	weComplexInit(msg, state, 2, switchTimes, 1, pinStates);
 
 	state->period = frequency2period(freq);
 }
 
-void weComplexInit(char *msg, PwmConfig *state, int idleState, int phaseCount, myfloat *switchTimes, int waveCount,
+void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchTimes, int waveCount,
 		int **pinStates) {
 	chDbgCheck(phaseCount > 1, "count is too small");
 	chDbgCheck(phaseCount <= PWM_PHASE_MAX_COUNT, "count is too large");
@@ -116,7 +116,6 @@ void weComplexInit(char *msg, PwmConfig *state, int idleState, int phaseCount, m
 	copyPwmParameters(state, phaseCount, switchTimes, waveCount, pinStates);
 
 	state->name = msg;
-	state->idleState = idleState;
 	state->multiWave.phaseCount = phaseCount;
 	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack), NORMALPRIO, (tfunc_t) deThread, state);
 }
