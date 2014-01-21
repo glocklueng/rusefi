@@ -97,7 +97,7 @@ typedef struct {
 	 * While cranking (which causes battery voltage to drop) we can calculate dwell time in shaft
 	 * degrees, not in absolute time as in running mode.
 	 */
-	int crankingChargeAngle;
+	float crankingChargeAngle;
 
 	timing_mode_e timingMode;
 	/**
