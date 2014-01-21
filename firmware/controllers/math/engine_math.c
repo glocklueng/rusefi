@@ -57,14 +57,14 @@ extern EngineConfiguration2 *engineConfiguration2;
 
 float getStartingFuel(float coolantTemperature) {
 	// these magic constants are in Celsius
-	if (isnan(coolantTemperature) || coolantTemperature < engineConfiguration->crankingSettings.coolantTempMin)
+	if (isnan(coolantTemperature) || coolantTemperature < engineConfiguration->crankingSettings.coolantTempMinMs)
 		return engineConfiguration->crankingSettings.minTempPW;
-	if (coolantTemperature > engineConfiguration->crankingSettings.coolantTempMax)
+	if (coolantTemperature > engineConfiguration->crankingSettings.coolantTempMaxMs)
 		return engineConfiguration->crankingSettings.maxTempPW;
 	return interpolate(
-			engineConfiguration->crankingSettings.coolantTempMin,
+			engineConfiguration->crankingSettings.coolantTempMinMs,
 			engineConfiguration->crankingSettings.minTempPW,
-			engineConfiguration->crankingSettings.coolantTempMax,
+			engineConfiguration->crankingSettings.coolantTempMaxMs,
 			engineConfiguration->crankingSettings.maxTempPW,
 			coolantTemperature);
 }

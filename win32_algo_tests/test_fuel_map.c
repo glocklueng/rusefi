@@ -70,8 +70,8 @@ void testFuelMap(void) {
 	printf("*************************************************** getRunningFuel\r\n");
 	assertEquals(1005, getRunningFuel(5, 5));
 
-	engineConfiguration->crankingSettings.coolantTempMin = 15;
-	engineConfiguration->crankingSettings.coolantTempMax = 65;
+	engineConfiguration->crankingSettings.coolantTempMinMs = 15;
+	engineConfiguration->crankingSettings.coolantTempMaxMs = 65;
 	engineConfiguration->crankingSettings.minTempPW = 16;
 	engineConfiguration->crankingSettings.maxTempPW = 8;
 
