@@ -293,13 +293,31 @@ void printSimpleMsg(Logging *logging, char *msg, int value) {
 	printLine(logging);
 }
 
+void scheduleMsg(Logging *logging, const char *fmt, ...) {
+	resetLogging(logging);
+	appendMsgPrefix(logging);
+
+	va_list ap;
+	va_start(ap, fmt);
+	vappendPrintf(logging, fmt, ap);
+	va_end(ap);
+
+	append(logging, DELIMETER);
+	scheduleLogging(logging);
+}
+
 /**
  * This method places a simple console message into the buffer for later output by the main thread
  * TODO: detect current threadId and merge this method with printSimpleMsg?
  */
 void scheduleSimpleMsg(Logging *logging, char *msg, int value) {
-	commonSimpleMsg(logging, msg, value);
+	resetLogging(logging);
+	appendMsgPrefix(logging);
+	appendPrintf(logging, "%s%d", msg, value);
+	append(logging, DELIMETER);
 	scheduleLogging(logging);
+
+//	scheduleMsg(logging, "%s%d", msg, value);
 }
 
 void scheduleIntValue(Logging *logging, char *msg, int value) {
