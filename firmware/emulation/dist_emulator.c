@@ -16,6 +16,8 @@
 #include "pinout.h"
 #include "engine_configuration.h"
 #include "pwm_generator.h"
+#include "io_pins.h"
+#include "pin_repository.h"
 
 extern EngineConfiguration *engineConfiguration;
 extern EngineConfiguration2 *engineConfiguration2;
@@ -44,10 +46,14 @@ void initShaftPositionEmulator(void) {
 
 	initLogging(&logger, "position sensor(s) emulator");
 
-	initOutputPin("distributor ch1", &configuration.outputPins[0],
+
+	configuration.outputPins[0] = TRIGGER_EMILATOR_PRIMARY;
+	configuration.outputPins[1] = TRIGGER_EMILATOR_SECONDARY;
+
+	outputPinRegister("distributor ch1", configuration.outputPins[0],
 	PRIMARY_SHAFT_POSITION_EMULATION_PORT, PRIMARY_SHAFT_POSITION_EMULATION_PIN);
 
-	initOutputPin("distributor ch2", &configuration.outputPins[1],
+	outputPinRegister("distributor ch2", configuration.outputPins[1],
 	SECONDARY_SHAFT_POSITION_EMULATION_PORT, SECONDARY_SHAFT_POSITION_EMULATION_PIN);
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;

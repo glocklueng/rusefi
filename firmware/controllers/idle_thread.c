@@ -92,7 +92,9 @@ static void setTargetIdle(int value) {
 void startIdleThread() {
 	initLogging(&logger, "Idle Valve Control");
 
-	wePlainInit("Idle Valve", &idleValve, IDLE_VALVE_PORT, IDLE_VALVE_PIN, 0, 0.5, IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY);
+	wePlainInit("Idle Valve", &idleValve, IDLE_VALVE_PORT, IDLE_VALVE_PIN, 0, 0.5, IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY,
+			IDLE_VALVE
+			);
 
 	idleInit(&idle);
 	scheduleSimpleMsg(&logger, "initial idle", idle.value);
