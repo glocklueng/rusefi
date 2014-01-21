@@ -18,6 +18,11 @@ static void copyActuatorEvent(ActuatorEvent *source, ActuatorEvent*target) {
 	target->angleOffset = source->angleOffset;
 }
 
+void registerActuatorEventExt(ActuatorEventList *list, OutputSignal *actuator, float angleOffset, trigger_shape_s * s) {
+
+}
+
+
 void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset) {
 	if (list->size == MAX_EVENT_COUNT) {
 		fatal("registerActuatorEvent");
