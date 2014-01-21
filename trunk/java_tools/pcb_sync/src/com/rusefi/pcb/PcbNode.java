@@ -24,7 +24,7 @@ public class PcbNode {
         this.children = children;
     }
 
-    static PcbNode readFromFile(String fileName) throws IOException {
+    public static PcbNode readFromFile(String fileName) throws IOException {
         String content = FileUtils.readFile(fileName);
         return parse(content);
     }
@@ -65,6 +65,12 @@ public class PcbNode {
             children.add(child);
             index += child.length();
         }
+        if ("segment".equals(nodeName)) {
+            return new SegmentNode(nodeName, index + 1, children);
+        } else if ("start".equals(nodeName) || "end".equals(nodeName)) {
+            return new PointNode(nodeName, index + 1, children);
+        }
+
         return new PcbNode(nodeName, index + 1, children);
     }
 
@@ -150,7 +156,7 @@ public class PcbNode {
         return !iterate(key).isEmpty();
     }
 
-//    @Nullable
+    //    @Nullable
     public PcbNode findIfExists(String key) {
         List<PcbNode> r = iterate(key);
         if (r.isEmpty())
@@ -158,7 +164,7 @@ public class PcbNode {
         return find(key);
     }
 
-//    @NotNull
+    //    @NotNull
     public PcbNode find(String key) {
         List<PcbNode> r = iterate(key);
         if (r.size() != 1)
