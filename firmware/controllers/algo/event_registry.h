@@ -10,6 +10,7 @@
 
 #include "global.h"
 #include "signal_executor.h"
+#include "trigger_structure.h"
 
 #define MAX_EVENT_COUNT 40
 
@@ -35,6 +36,8 @@ void resetEventList(ActuatorEventList *list);
  * @param	actuator injector or coil OutputSignal
  */
 void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset);
+
+void registerActuatorEventExt(ActuatorEventList *list, OutputSignal *actuator, float angleOffset, trigger_shape_s * s);
 
 void findEvents(int eventIndex, ActuatorEventList *source, ActuatorEventList *target);
 
