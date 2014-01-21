@@ -88,7 +88,7 @@ static void initPeriodicEvents(void) {
 
 static void fuelPumpOff(void *arg) {
 	if (getOutputPinValue(FUEL_PUMP))
-		scheduleSimpleMsg(&logger, "fuelPump=", FALSE);
+		scheduleMsg(&logger, "fuelPump OFF at %s%d", "PO", 3);
 	turnOutputPinOff(FUEL_PUMP);
 }
 
@@ -96,7 +96,7 @@ static void fuelPumpOn(ShaftEvents signal, int index) {
 	if (index != 0)
 		return; // let's not abuse the timer - one time per revolution would be enough
 	if (!getOutputPinValue(FUEL_PUMP))
-		scheduleSimpleMsg(&logger, "fuelPump=", TRUE);
+		scheduleMsg(&logger, "fuelPump ON at %s%d", "po", 4);
 	turnOutputPinOn(FUEL_PUMP);
 	/**
 	 * the idea of this implementation is that we turn the pump when the ECU turns on or
