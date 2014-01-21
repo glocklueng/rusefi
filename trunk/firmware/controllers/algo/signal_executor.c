@@ -26,8 +26,6 @@
 static OutputSignal signals[OUTPUT_SIGNAL_COUNT];
 int outputSignalCount;
 
-extern int pinDefaultState[IO_PIN_COUNT];
-
 OutputSignal * addOutputSignal(io_pin_e ioPin) {
 	chDbgAssert(outputSignalCount < OUTPUT_SIGNAL_COUNT, "OUTPUT_SIGNAL_COUNT", NULL);
 	OutputSignal *signal = &signals[outputSignalCount++];
