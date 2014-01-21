@@ -104,13 +104,13 @@ void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfigur
 
 	scheduleSimpleMsg(&logger, "analogChartMode: ", engineConfiguration->analogChartMode);
 
-	scheduleSimpleMsg(&logger, "crankingRpm: ", engineConfiguration->crankingSettings.crankingRpm);
+	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->crankingSettings.crankingRpm);
 
-	scheduleSimpleMsg(&logger, "injectionPinMode: ", engineConfiguration->injectionPinMode);
-	scheduleSimpleMsg(&logger, "ignitionPinMode: ", engineConfiguration->ignitionPinMode);
-	scheduleSimpleMsg(&logger, "idlePinMode: ", engineConfiguration->idlePinMode);
-	scheduleSimpleMsg(&logger, "fuelPumpPinMode: ", engineConfiguration->fuelPumpPinMode);
-	scheduleSimpleMsg(&logger, "malfunctionIndicatorPinMode: ", engineConfiguration->malfunctionIndicatorPinMode);
+	scheduleMsg(&logger, "injectionPinMode: %d", engineConfiguration->injectionPinMode);
+	scheduleMsg(&logger, "ignitionPinMode: %d", engineConfiguration->ignitionPinMode);
+	scheduleMsg(&logger, "idlePinMode: %d", engineConfiguration->idlePinMode);
+	scheduleMsg(&logger, "fuelPumpPinMode: %d", engineConfiguration->fuelPumpPinMode);
+	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %d", engineConfiguration->malfunctionIndicatorPinMode);
 
 
 	//	appendPrintf(&logger, DELIMETER);
