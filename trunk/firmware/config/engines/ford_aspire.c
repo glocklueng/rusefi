@@ -252,10 +252,11 @@ engineConfiguration->tpsMin = 1;
 
 	engineConfiguration->cltThermistorConf.bias_resistor = 3300; // that's my custom resistor value!
 
-	engineConfiguration->crankingSettings.coolantTempMinMs = 15;
-	engineConfiguration->crankingSettings.coolantTempMaxMs = 65;
-	engineConfiguration->crankingSettings.minTempPW = 16;
-	engineConfiguration->crankingSettings.maxTempPW = 8;
+	engineConfiguration->crankingSettings.coolantTempMaxC = 65; // 8ms at 65C
+	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 8;
+
+	engineConfiguration->crankingSettings.coolantTempMinC = 0; // 20ms at 0C
+	engineConfiguration->crankingSettings.fuelAtMinTempMs = 20;
 
 	engineConfiguration->ignitionPinMode = OM_INVERTED;
 
