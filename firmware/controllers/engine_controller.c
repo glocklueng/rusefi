@@ -113,12 +113,15 @@ static void initFuelPump(void) {
 	fuelPumpOn(SHAFT_PRIMARY_UP, 0);
 }
 
-static void printCltInfo(void) {
+void printTemperatureInfo(void) {
 	float rClt = getResistance(&engineConfiguration2->clt);
 	float rIat = getResistance(&engineConfiguration2->iat);
 
 	scheduleMsg(&logger, "CLT R=%f on channel %d", rClt, engineConfiguration2->clt.channel);
 	scheduleMsg(&logger, "IAT R=%f on channel %d", rIat, engineConfiguration2->iat.channel);
+
+	scheduleMsg(&logger, "cranking fuel %fms @ %C", engineConfiguration->crankingSettings.fuelAtMinTempMs, engineConfiguration->crankingSettings.coolantTempMinC);
+	scheduleMsg(&logger, "cranking fuel %fms @ %C", engineConfiguration->crankingSettings.fuelAtMaxTempMs, engineConfiguration->crankingSettings.coolantTempMaxC);
 }
 
 void initEngineContoller(void) {
@@ -171,6 +174,6 @@ void initEngineContoller(void) {
 
 	initFuelPump();
 
-	addConsoleAction("tempinfo", printCltInfo);
+	addConsoleAction("tempinfo", printTemperatureInfo);
 
 }
