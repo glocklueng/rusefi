@@ -37,7 +37,7 @@ void setDodgeNeonEngineConfiguration(EngineConfiguration *engineConfiguration) {
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 0, 32500, 30, 7550, 100, 700);
 	engineConfiguration->cltThermistorConf.bias_resistor = 2200;
 
-	engineConfiguration->crankingSettings.coolantTempMaxC = 100; // 5ms at 100C
+	engineConfiguration->crankingSettings.coolantTempMaxC = 37.7; // 5ms at 37.7C
 	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 5;
 
 	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 26ms at -40C
