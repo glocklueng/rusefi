@@ -17,4 +17,17 @@ public class SegmentNode extends PcbNode {
         start = (PointNode) find("start");
         end = (PointNode) find("end");
     }
+
+    public boolean isConnected(PointNode point) {
+        return start.isSameLocation(point) || end.isSameLocation(point);
+    }
+
+    @Override
+    public String toString() {
+        return "SegmentNode{" +
+                "net=" + net +
+                ", start=" + start +
+                ", end=" + end +
+                '}';
+    }
 }
