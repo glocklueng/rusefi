@@ -63,18 +63,23 @@ myfloat convertKelvinToFahrenheit(myfloat kelvin) {
 	return convertCelciustoF(tempC);
 }
 
-myfloat getKelvinTemperature(myfloat voltage, ThermistorConf *thermistor) {
+myfloat getKelvinTemperature(myfloat resistance, ThermistorConf *thermistor) {
 	chDbgCheck(thermistor!=NULL, "thermistor pointer is NULL");
 
-	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS, thermistor->bias_resistor);
 	myfloat kelvinTemperature = convertResistanceToKelvinTemperature(resistance, thermistor);
 	return kelvinTemperature;
 }
 
-myfloat getTemperatureC(Thermistor *thermistor) {
-
+myfloat getResistance(Thermistor *thermistor) {
 	myfloat voltage = getVoltage(thermistor->channel);
-	myfloat kelvinTemperature = getKelvinTemperature(voltage, thermistor->config);
+	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS, thermistor->config->bias_resistor);
+	return resistance;
+}
+
+myfloat getTemperatureC(Thermistor *thermistor) {
+	myfloat resistance = getResistance(thermistor);
+
+	myfloat kelvinTemperature = getKelvinTemperature(resistance, thermistor->config);
 	return convertKelvinToC(kelvinTemperature);
 }
 
