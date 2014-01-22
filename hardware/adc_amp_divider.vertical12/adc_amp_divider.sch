@@ -32,8 +32,7 @@ LIBS:valves
 LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
-LIBS:adc_amp_divider-cache
-EELAYER 27 0
+EELAYER 24 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
