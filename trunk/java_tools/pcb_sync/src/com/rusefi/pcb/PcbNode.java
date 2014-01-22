@@ -24,6 +24,9 @@ public class PcbNode {
         this.children = children;
     }
 
+    /**
+     * @see #write
+     */
     public static PcbNode readFromFile(String fileName) throws IOException {
         String content = FileUtils.readFile(fileName);
         return parse(content);
@@ -67,8 +70,14 @@ public class PcbNode {
         }
         if ("segment".equals(nodeName)) {
             return new SegmentNode(nodeName, index + 1, children);
+        } else if ("pad".equals(nodeName)) {
+            return PadNode.parse(nodeName, index + 1, children);
         } else if ("net".equals(nodeName)) {
             return new NetNode(nodeName, index + 1, children);
+        } else if ("module".equals(nodeName)) {
+            return new ModuleNode(nodeName, index + 1, children);
+        } else if ("size".equals(nodeName)) {
+            return new SizeNode(nodeName, index + 1, children);
         } else if ("via".equals(nodeName)) {
             return new ViaNode(nodeName, index + 1, children);
         } else if ("start".equals(nodeName) || "end".equals(nodeName) || "at".equals(nodeName)) {
@@ -213,5 +222,13 @@ public class PcbNode {
 
     public void setInt(int index, int value) {
         children.set(index, "" + value);
+    }
+
+    public boolean removeChild(Object child) {
+        return children.remove(child);
+    }
+
+    public boolean isConnected(PointNode point) {
+        return false;
     }
 }

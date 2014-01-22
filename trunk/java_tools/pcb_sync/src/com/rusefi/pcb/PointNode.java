@@ -1,5 +1,6 @@
 package com.rusefi.pcb;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,6 +26,12 @@ public class PointNode extends PcbNode {
         y = Double.parseDouble((String) children.get(1));
     }
 
+    public PointNode(double x, double y) {
+        super("", 0, Collections.emptyList());
+        this.x = x;
+        this.y = y;
+    }
+
     @Override
     public String toString() {
         return "PointNode{" +
@@ -35,5 +42,9 @@ public class PointNode extends PcbNode {
 
     public boolean isSameLocation(PointNode point) {
         return x == point.x && y == point.y;
+    }
+
+    public PointNode substract(PointNode at) {
+        return new PointNode(x - at.x, y - at.y);
     }
 }
