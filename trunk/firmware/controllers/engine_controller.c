@@ -32,6 +32,7 @@
 #include "malfunction_central.h"
 #include "advance_map.h"
 #include "pin_repository.h"
+#include "rficonsole_logic.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -112,6 +113,14 @@ static void initFuelPump(void) {
 	fuelPumpOn(SHAFT_PRIMARY_UP, 0);
 }
 
+static void printCltInfo(void) {
+	float rClt = getResistance(&engineConfiguration2->clt);
+	float rIat = getResistance(&engineConfiguration2->iat);
+
+	scheduleMsg(&logger, "CLT R=%f on channel %d", rClt, engineConfiguration2->clt.channel);
+	scheduleMsg(&logger, "IAT R=%f on channel %d", rIat, engineConfiguration2->iat.channel);
+}
+
 void initEngineContoller(void) {
 	initLogging(&logger, "Engine Controller");
 
@@ -161,4 +170,7 @@ void initEngineContoller(void) {
 	startIdleThread();
 
 	initFuelPump();
+
+	addConsoleAction("tempinfo", printCltInfo);
+
 }
