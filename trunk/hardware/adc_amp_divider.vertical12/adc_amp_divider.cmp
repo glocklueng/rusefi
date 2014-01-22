@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 1/7/2014 8:33:30 PM
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Пнд 20 Янв 2014 20:56:23
 
 BeginCmp
 TimeStamp = /524A0957;
@@ -242,7 +242,7 @@ BeginCmp
 TimeStamp = /5234F161;
 Reference = P201;
 ValeurCmp = CONN_10X2;
-IdModule  = PIN_ARRAY_10X2;
+IdModule  = PIN_ARRAY_10X2_M;
 EndCmp
 
 BeginCmp
@@ -271,13 +271,6 @@ TimeStamp = /5295D3A8;
 Reference = P205;
 ValeurCmp = CONN_1;
 IdModule  = PIN_ARRAY_1;
-EndCmp
-
-BeginCmp
-TimeStamp = /5297E845;
-Reference = P206;
-ValeurCmp = CONN_3;
-IdModule  = PIN_ARRAY_3X1;
 EndCmp
 
 BeginCmp
