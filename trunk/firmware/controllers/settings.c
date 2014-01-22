@@ -13,6 +13,7 @@
 #include "datalogging.h"
 #include "engine_configuration.h"
 #include "flash_main.h"
+#include "engine_controller.h"
 
 static Logging logger;
 
@@ -173,6 +174,18 @@ static void setAnalogChartMode(int value) {
 	doPrintConfiguration();
 }
 
+static void setCrankingFuleMin(int timeMs, int tempC) {
+	engineConfiguration->crankingSettings.coolantTempMinC = tempC;
+	engineConfiguration->crankingSettings.fuelAtMinTempMs = timeMs;
+	printTemperatureInfo();
+}
+
+static void setCrankingFuleMax(int timeMs, int tempC) {
+	engineConfiguration->crankingSettings.coolantTempMaxC = tempC;
+	engineConfiguration->crankingSettings.fuelAtMaxTempMs = timeMs;
+	printTemperatureInfo();
+}
+
 void initSettings(void) {
 	initLoggingExt(&logger, "settings control", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 
@@ -187,5 +200,10 @@ void initSettings(void) {
 	addConsoleActionI("set_idle_pin_mode", &setIdlePinMode);
 	addConsoleActionI("set_fuel_pump_pin_mode", &setFuelPumpPinMode);
 	addConsoleActionI("set_malfunction_indicator_pin_mode", &setMalfunctionIndicatorPinMode);
+	// todo: start saving values into flash right away?
+
+
+	addConsoleActionII("set_cranking_fuel_min", setCrankingFuleMin);
+	addConsoleActionII("set_cranking_fuel_max", setCrankingFuleMax);
 }
 

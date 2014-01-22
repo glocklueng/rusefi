@@ -15,6 +15,7 @@
 
 int isCrankingR(int rpm);
 int isCranking(void);
+void printTemperatureInfo(void);
 void initEngineContoller(void);
 void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration);
 
