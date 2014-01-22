@@ -19,10 +19,10 @@ float getOneDegreeTime(int rpm);
 float getCrankshaftRevolutionTime(int rpm);
 
 typedef struct {
-	float coolantTempMinMs;
-	float coolantTempMaxMs;
-	float minTempPW;
-	float maxTempPW;
+	float coolantTempMinC;
+	float coolantTempMaxC;
+	float fuelAtMinTempMs;
+	float fuelAtMaxTempMs;
 
 	short int crankingRpm;
 } CrankingMode;
