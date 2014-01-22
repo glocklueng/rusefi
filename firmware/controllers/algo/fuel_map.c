@@ -105,7 +105,7 @@ inline static int getElectricalValue1(pin_output_mode_e mode) {
 }
 
 int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
-	chDbgAssert(mode >= 0 && mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
+	chDbgAssert(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
 
 	return logicalValue ? getElectricalValue1(mode) : getElectricalValue0(mode);
 }

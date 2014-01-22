@@ -44,7 +44,8 @@ void turnOutputPinOff(io_pin_e pin) {
 }
 
 inline static void assertOMode(pin_output_mode_e mode) {
-	chDbgAssert(mode >= 0 && mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
+	// mode >= 0  is always true since that's an unsigned
+	chDbgAssert(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
 }
 
 
