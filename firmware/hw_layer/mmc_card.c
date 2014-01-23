@@ -99,6 +99,8 @@ static void ff_cmd_dir(char *path) {
 	}
 }
 
+static int errorReported = FALSE; // this is used to report the error only once
+
 /**
  * @brief Appends specified line to the current log file
  */
@@ -106,7 +108,9 @@ void appendToLog(char *line) {
 	UINT bytesWrited;
 
 	if (!fs_ready) {
-		print("appendToLog Error: No File system is mounted.\r\n");
+		if (!errorReported)
+			print("appendToLog Error: No File system is mounted.\r\n");
+		errorReported = TRUE;
 		return;
 	}
 	FRESULT err = f_write(&FDLogFile, line, strlen(line), &bytesWrited);
@@ -146,7 +150,6 @@ static void MMCmount(void) {
 	// start to initialize MMC/SD
 	mmcObjectInit(&MMCD1);						// Initializes an instance.
 	mmcStart(&MMCD1, &mmccfg);					// Configures and activates the MMC peripheral.
-
 
 	if (mmcConnect(&MMCD1) == CH_SUCCESS) {				// Performs the initialization procedure on the inserted card.
 		memset(&MMC_FS, 0, sizeof(FATFS));			// reserve the memory
