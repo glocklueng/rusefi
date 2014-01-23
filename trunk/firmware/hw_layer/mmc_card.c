@@ -31,7 +31,7 @@ MMCDriver MMCD1;
 #define SPI_BaudRatePrescaler_128       ((uint16_t)0x0030) //  656.25 KHz  328.125 KHz
 #define SPI_BaudRatePrescaler_256       ((uint16_t)0x0038) //  328.125 KHz 164.06 KHz
 static SPIConfig hs_spicfg = { NULL, SPI_SD_MODULE_PORT, SPI_SD_MODULE_PIN,
-SPI_BaudRatePrescaler_128 };
+SPI_BaudRatePrescaler_8 };
 static SPIConfig ls_spicfg = { NULL, SPI_SD_MODULE_PORT, SPI_SD_MODULE_PIN,
 SPI_BaudRatePrescaler_256 };
 
@@ -43,8 +43,6 @@ static bool_t fs_ready = FALSE;
 
 #define PUSHPULLDELAY 500
 
-static WORKING_AREA(tp_MMC_Monitor,UTILITY_THREAD_STACK_SIZE); // MMC monitor thread
-
 /**
  * fatfs MMC/SPI
  */
@@ -52,26 +50,8 @@ static FATFS MMC_FS;
 char LogFileName[_MAX_LFN];
 
 // print FAT error function
-static void printError(char *str, FRESULT err) {
-	print("FATfs Error \"%s\" %d\r\n", str, err);
-}
-
-static FRESULT createFile(char *fileName, FIL *f) {
-	if (!fs_ready) {
-		print("Error: No File system is mounted.\r\n");
-		return FR_NO_FILESYSTEM;
-	}
-
-	memset(f, 0, sizeof(FIL));						// clear the memory
-	FRESULT err = f_open(f, fileName, FA_CREATE_NEW | FA_WRITE);						// Create new file
-	if (err == FR_OK || err == FR_EXIST) {
-		f_sync(f);
-		f_close(f);					// if Ok or exist - close file
-		return FR_OK;
-	} else
-		printError("Can't create Log file", err);			// else - show error
-	return err;
-
+static void printError(char *str, FRESULT f_error) {
+	print("FATfs Error \"%s\" %d\r\n", str, f_error);
 }
 
 static FIL FDLogFile;
@@ -82,32 +62,29 @@ static FIL FDLogFile;
  * This function saves the name of the file in a global variable
  * so that we can later append to that file
  */
-FRESULT createLogFile(char *fileName) {
-	strcpy(LogFileName, fileName);
-	return createFile(fileName, &FDLogFile);
-}
 
 static void ff_cmd_dir(char *path) {
+	DIR dir;
+	FILINFO fno;
+	int i;
+	char *fn;
+
 	if (!fs_ready) {
 		print("Error: No File system is mounted.\r\n");
 		return;
 	}
 
-	DIR dir;
 	FRESULT res = f_opendir(&dir, path);
 
-	FILINFO fno;
-	int i;
-	char *fn;
 	if (res == FR_OK) {
 		i = strlen(path);
 		for (;;) {
 			res = f_readdir(&dir, &fno);
 			if (res != FR_OK || fno.fname[0] == 0)
 				break;
-			if (fno.fname[0] == '.')
+			if (fno.lfname[0] == '.')
 				continue;
-			fn = fno.fname;
+			fn = fno.lfname;
 			if (fno.fattrib & AM_DIR) {
 				path[i++] = '/';
 				strcpy(&path[i], fn);
@@ -116,130 +93,92 @@ static void ff_cmd_dir(char *path) {
 					break;
 				path[i] = 0;
 			} else {
-				print("%s/%s\t%d-%d-%d/tbyte(s)\r\n", path, fn, fno.fdate & 0xf0, (fno.fdate & 0xc) + 180,
-						fno.fdate & 0x3, fno.fsize);
+				print("%s/%s\t%i byte(s)\r\n", path, fn, fno.lfsize);
 			}
 		}
 	}
-}
-
-static void ff_cmd_dir_root(void) {
-	ff_cmd_dir(".");
 }
 
 /**
  * @brief Appends specified line to the current log file
  */
 void appendToLog(char *line) {
-	FRESULT err;
 	UINT bytesWrited;
 
-	if (!fs_ready)
-		return; // it is normal to have no flash card so no special message
-
-	err = f_open(&FDLogFile, LogFileName, FA_WRITE);
-	if (err == FR_OK || err == FR_EXIST) {
-		err = f_lseek(&FDLogFile, f_size(&FDLogFile)); // Move to end of the file to append data
-		if (err) {
-			printError("Seek error", err);
-			return;
-		}
-		err = f_write(&FDLogFile, line, strlen(line), &bytesWrited);
-		if (bytesWrited < strlen(line)) {
-			printError("write error or disk full", err); // error or disk full
-		}
-		f_sync(&FDLogFile);
-		f_close(&FDLogFile);
-	} else {
-		print("Can't open Log file %s\r\n", LogFileName);
+	if (!fs_ready) {
+		print("appendToLog Error: No File system is mounted.\r\n");
+		return;
 	}
+	FRESULT err = f_write(&FDLogFile, line, strlen(line), &bytesWrited);
+	if (bytesWrited < strlen(line)) {
+		printError("write error or disk full", err); // error or disk full
+	}
+	f_sync(&FDLogFile);
 }
 
 /*
- * MMC card removal event.
+ * MMC card umount.
  */
-static void MMCRemoved(void) {
-	f_mount(0, NULL);		// FATFS: Unregister work area prior to discard it
+static void MMCumount(void) {
+	if (!fs_ready) {
+		print("Error: No File system is mounted. \"mountsd\" first.\r\n");
+		return;
+	}
+	f_close(&FDLogFile);						// close file
+	f_sync(&FDLogFile);							// sync ALL
+	mmcDisconnect(&MMCD1);						// Brings the driver in a state safe for card removal.
+	mmcStop(&MMCD1);							// Disables the MMC peripheral.
+	f_mount(0, NULL);							// FATFS: Unregister work area prior to discard it
 	memset(&FDLogFile, 0, sizeof(FIL));			// clear FDLogFile
 	fs_ready = FALSE;							// status = false
 	print("MMC/SD card removed.\r\n");
 }
 
 /*
- * MMC card insertion event.
+ * MMC card mount.
  */
-static int MMCInserted(void) {
-	FRESULT err;
+static void MMCmount(void) {
 
-	memset(&MMC_FS, 0, sizeof(FATFS));				// reserve the memory
-	err = f_mount(0, &MMC_FS);						// if Ok - mount FS now
-	if (err == FR_OK) {
-		fs_ready = TRUE;
-		print("MMC/SD card inserted and mounted success.\r\n");
-
-		return err;
-	}
-	printError("can't mount FS", err);
-	return FR_NO_FILESYSTEM;
-}
-
-//  this thread is a in/out MMC/SD monitor
-#if defined __GNUC__
-__attribute__((noreturn))           static msg_t MMCmonThread(void)
-#else
-static msg_t MMCmonThread(void)
-#endif
-{
-	chRegSetThreadName("MMC_Monitor");
-
-	while (TRUE) {
-		// try to connect to MMC
-		if (mmcConnect(&MMCD1) == CH_SUCCESS) {
-			if (!fs_ready) {
-				// is first success connect
-				// mount FS
-				if (MMCInserted() != FR_OK)
-					print("MMC Insertion failed\r\n");
-			}
-		} else {
-			if (fs_ready) {					// if removed detected first time
-				mmcDisconnect(&MMCD1);						// MMC: disconnect
-				MMCRemoved();							// umount FS, clear data
-			}
-		}
-		// this thread is activated 2 times per second
-		chThdSleepMilliseconds(PUSHPULLDELAY);
-	}
-}
-
-void testFs(void) {
-	print("Testing FS: ready=%d\r\n", fs_ready);
-	if (!fs_ready)
+	if (fs_ready) {
+		print("Error: Already mounted. \"umountsd\" first\r\n");
 		return;
-	FRESULT err;
-	err = createLogFile("rusefi.log");		// create Log file
-	if (err != FR_OK)
-		printError("create", err);
+	}
+	// start to initialize MMC/SD
+	mmcObjectInit(&MMCD1);						// Initializes an instance.
+	mmcStart(&MMCD1, &mmccfg);					// Configures and activates the MMC peripheral.
 
-	// todo: we need to figure out the times for f_open, f_sync and f_close
-	// out target should be at least 16 lines per second - so, we
-	// need to deside if we will be f_open/f_close each time or only f_open once
-	// anf then f_sync for each line or every tenth line
 
-	appendToLog("hello line 1\r\n");
-	appendToLog("hello line 2\r\n");
+	if (mmcConnect(&MMCD1) == CH_SUCCESS) {				// Performs the initialization procedure on the inserted card.
+		memset(&MMC_FS, 0, sizeof(FATFS));			// reserve the memory
+		FRESULT err = f_mount(0, &MMC_FS);					// if Ok - mount FS now
+		if (err == FR_OK) {
+			memset(&FDLogFile, 0, sizeof(FIL));						// clear the memory
+			FRESULT err = f_open(&FDLogFile, "rusefi.log", FA_OPEN_ALWAYS | FA_WRITE);				// Create new file
+			if (err == FR_OK || err == FR_EXIST) {
+				err = f_lseek(&FDLogFile, f_size(&FDLogFile)); // Move to end of the file to append data
+				if (err) {
+					printError("Seek error", err);
+					return;
+				}
+				f_sync(&FDLogFile);
+				fs_ready = TRUE;						// everything Ok
+			} else {
+				printError("Card mounted...\r\nCan't create Log file, check your SD.\r\nFS mount failed", err);	// else - show error
+				return;
+			}
+			print(
+					"MMC/SD card inserted and mounted success.\r\nDon't forget umountsd before remove to prevent lost your data.\r\n");
+			return;
+		}
+	}
+	print("Can't connect or mount MMC/SD\r\n");
 }
 
 void initMmcCard(void) {
-	// start to initialize MMC/SD
-	mmcObjectInit(&MMCD1);
-	mmcStart(&MMCD1, &mmccfg);
+//	MMCmount();
 
-	chThdCreateStatic(tp_MMC_Monitor, sizeof(tp_MMC_Monitor), LOWPRIO, (tfunc_t) MMCmonThread, NULL);
-
-	addConsoleAction("testfs", testFs);
-
-	addConsoleAction("dirroot", ff_cmd_dir_root);
-	addConsoleActionS("dir", ff_cmd_dir);
-
+	addConsoleAction("mountsd", MMCmount);
+	addConsoleActionS("appendToLog", appendToLog);
+	addConsoleAction("umountsd", MMCumount);
+	addConsoleActionS("ls", ff_cmd_dir);
 }
