@@ -1,12 +1,9 @@
 package com.rusefi.pcb;
 
 import com.rusefi.misc.ChangesModel;
-import com.rusefi.util.FileUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,12 +19,7 @@ public class PcbMergeTool {
             return;
         }
 
-        String changesFileName = "pcb_merge_changes.txt";
-        if (new File(changesFileName).isFile()) {
-            List<String> a = FileUtils.readFileToList(changesFileName);
-
-            ChangesModel.getInstance().read(a);
-        }
+        ChangesModel.readConfiguration();
 
         String template = args[0];
         String destination = args[1];
@@ -35,6 +27,9 @@ public class PcbMergeTool {
 
         for (int i = 2; i < args.length; i++)
             mergePcb(args[i], destNode);
+
+
+
 
         destNode.write(destination);
     }
@@ -99,7 +94,7 @@ public class PcbMergeTool {
         for (PcbNode fp_text : module.iterate("fp_text")) {
             if ("reference".equals(fp_text.getChild(0))) {
                 String name = fp_text.getChild(1);
-                if (ChangesModel.getInstance().DEL.contains(name))
+                if (ChangesModel.getInstance().DEL_REQUESTS.contains(name))
                     return true;
             }
         }
