@@ -43,7 +43,7 @@ public class PcbNode {
     private static PcbNode parse(String s, int index, int depth) {
         log("Reading node from " + index, depth);
         if (s.charAt(index) != '(')
-            throw new IllegalStateException();
+            throw new IllegalStateException("opening bracket expected");
         index++;
         String nodeName = readToken(s, index, depth);
         index += nodeName.length();
@@ -76,7 +76,7 @@ public class PcbNode {
             return new NetNode(nodeName, index + 1, children);
         } else if ("module".equals(nodeName)) {
             return new ModuleNode(nodeName, index + 1, children);
-        } else if ("size".equals(nodeName)) {
+        } else if ("size".equals(nodeName) || "width".equals(nodeName)) {
             return new SizeNode(nodeName, index + 1, children);
         } else if ("via".equals(nodeName)) {
             return new ViaNode(nodeName, index + 1, children);

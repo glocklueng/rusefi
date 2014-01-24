@@ -11,13 +11,6 @@ public class CirclePadNode extends PadNode {
         super(nodeName, i, children);
     }
 
-
-    @Override
-    public boolean isConnected(PointNode point) {
-        boolean isConnectedX = (point.x >= at.x - size.w / 2) && (point.x <= at.x + size.w / 2);
-        return isConnectedX;
-    }
-
     @Override
     public String toString() {
         return "CirclePadNode{" +
