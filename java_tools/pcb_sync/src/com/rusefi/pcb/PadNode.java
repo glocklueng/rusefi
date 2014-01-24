@@ -18,6 +18,11 @@ public abstract class PadNode extends PcbNode {
         size = (SizeNode) find("size");
     }
 
+    @Override
+    public boolean isConnected(PointNode point) {
+        return point.isConnected(at, size);
+    }
+
     public static PcbNode parse(String nodeName, int i, List<Object> children) {
         Object shape = children.get(2);
         if ("rect".equals(shape))
