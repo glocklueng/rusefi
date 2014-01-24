@@ -31,9 +31,9 @@ EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
-Title "6 Channel Injector"
+Title "12 Channel Injector"
 Date "20 jan 2014"
-Rev "A-6"
+Rev "A-1"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""
 Comment2 ""
@@ -284,7 +284,7 @@ F 3 "" H 7725 6875 60  0001 C CNN
 $EndComp
 Text Notes 8225 7575 0    60   ~ 0
 UP TO 6\nCHANNELS\nINJECTION
-Text Notes 650  9475 0    60   ~ 0
+Text Notes 700  9400 0    60   ~ 0
 MISC NOTES\n\nTHE GENERAL SYSTEM LAYOUT IS SHOWN IN BLUE. THIS IS NOT\nTHE SUGGESTED SYSTEM WIRING, IT DOES SHOW THE GENERAL \nOVERALL CIRCUIT LAYOUT TOPOLOGY. \n\nTHE PCB WIRING IS SHOWN IN RED, GREEN WITH A BLUE BUS.\n\nScrew terminals 1760500000\n\nScrew connector PCB http://octopart.com/39522-1007-molex-655409 \nScrew connector harness http://octopart.com/partsearch#search/requestData&q=39520-0007
 Text Notes 14375 8775 0    60   ~ 0
 BAT
@@ -486,137 +486,135 @@ Wire Notes Line
 $Comp
 L CONN_10X2 P2
 U 1 1 527CB514
-P 6275 9825
-F 0 "P2" H 6275 10375 60  0000 C CNN
-F 1 "CONN_10X2" V 6275 9725 50  0000 C CNN
-F 2 "pin_array_10x2" H 6275 9825 60  0001 C CNN
-F 3 "" H 6275 9825 60  0000 C CNN
-	1    6275 9825
+P 3925 4825
+F 0 "P2" H 3925 5375 60  0000 C CNN
+F 1 "CONN_10X2" V 3925 4725 50  0000 C CNN
+F 2 "pin_array_10x2" H 3925 4825 60  0001 C CNN
+F 3 "" H 3925 4825 60  0000 C CNN
+	1    3925 4825
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	8125 6425 8075 6425
 Wire Wire Line
 	8075 7225 8125 7225
-Text Label 6675 9375 0    60   ~ 0
+Text Label 4325 4375 0    60   ~ 0
 iGND1
-Text Label 7500 10275 2    60   ~ 0
+Text Label 2700 4775 0    60   ~ 0
 INJ-01_5V
-Text Label 7500 10175 2    60   ~ 0
+Text Label 5150 4775 2    60   ~ 0
 INJ-02_5V
-Text Label 7500 10075 2    60   ~ 0
+Text Label 2700 4875 0    60   ~ 0
 INJ-03_5V
-Text Label 7500 9975 2    60   ~ 0
+Text Label 5150 4875 2    60   ~ 0
 INJ-04_5V
-Text Label 7500 9875 2    60   ~ 0
+Text Label 2700 4975 0    60   ~ 0
 INJ-05_5V
-Text Label 7500 9775 2    60   ~ 0
+Text Label 5150 4975 2    60   ~ 0
 INJ-06_5V
-Text Label 5875 9375 2    60   ~ 0
+Text Label 3525 4375 2    60   ~ 0
 iGND1
-Text Label 5875 9475 2    60   ~ 0
+Text Label 3525 4475 2    60   ~ 0
 5V
-Text Label 5875 9575 2    60   ~ 0
-3.3V
-Text Label 6675 9475 0    60   ~ 0
+Text Label 3525 4575 2    60   ~ 0
+3V
+Text Label 4325 4475 0    60   ~ 0
 5V
-Text Label 6675 9575 0    60   ~ 0
-3.3V
-Text Label 5875 9775 2    60   ~ 0
+Text Label 4325 4575 0    60   ~ 0
+3V
+Text Label 3525 4775 2    60   ~ 0
 PC14
-Text Label 5875 9875 2    60   ~ 0
+Text Label 3525 4875 2    60   ~ 0
 PE6
-Text Label 5875 9975 2    60   ~ 0
+Text Label 3525 4975 2    60   ~ 0
 PE4
-Text Label 5875 10075 2    60   ~ 0
+Text Label 3525 5075 2    60   ~ 0
 PE2
-Text Label 5875 10175 2    60   ~ 0
+Text Label 3525 5175 2    60   ~ 0
 PE0
-Text Label 5875 10275 2    60   ~ 0
+Text Label 3525 5275 2    60   ~ 0
 PB8
-Text Label 6675 9775 0    60   ~ 0
+Text Label 4325 4775 0    60   ~ 0
 PC15
-Text Label 6675 9875 0    60   ~ 0
+Text Label 4325 4875 0    60   ~ 0
 PC13
-Text Label 6675 9975 0    60   ~ 0
+Text Label 4325 4975 0    60   ~ 0
 PE5
-Text Label 6675 10075 0    60   ~ 0
+Text Label 4325 5075 0    60   ~ 0
 PE3
-Text Label 6675 10175 0    60   ~ 0
+Text Label 4325 5175 0    60   ~ 0
 PE1
-Text Label 6675 10275 0    60   ~ 0
+Text Label 4325 5275 0    60   ~ 0
 PB9
-Text Label 5875 9675 2    60   ~ 0
+Text Label 3525 4675 2    60   ~ 0
 PH0
-Text Label 6675 9675 0    60   ~ 0
+Text Label 4325 4675 0    60   ~ 0
 PH1
 $Comp
 L CONN_3 P1
 U 1 1 527E234B
-P 5325 9475
-F 0 "P1" V 5275 9475 50  0000 C CNN
-F 1 "CONN_3" V 5375 9475 40  0000 C CNN
-F 2 "bornier3" H 5325 9475 60  0001 C CNN
-F 3 "" H 5325 9475 60  0000 C CNN
-F 4 "1760500000" V 5325 9475 60  0001 C CNN "mfg#"
-	1    5325 9475
+P 2975 4475
+F 0 "P1" V 2925 4475 50  0000 C CNN
+F 1 "CONN_3" V 3025 4475 40  0000 C CNN
+F 2 "bornier3" H 2975 4475 60  0001 C CNN
+F 3 "" H 2975 4475 60  0000 C CNN
+F 4 "1760500000" V 2975 4475 60  0001 C CNN "mfg#"
+	1    2975 4475
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	5675 9575 5875 9575
+	3325 4575 3525 4575
 Wire Wire Line
-	5875 9475 5675 9475
+	3525 4475 3325 4475
 Wire Wire Line
-	5675 9375 5875 9375
+	3325 4375 3525 4375
 $Comp
 L LED D14
 U 1 1 527FB778
-P 8075 9275
-F 0 "D14" H 8075 9375 50  0000 C CNN
-F 1 "LED" H 8075 9175 50  0000 C CNN
-F 2 "LED-0805" H 8075 9275 60  0001 C CNN
-F 3 "~" H 8075 9275 60  0000 C CNN
-	1    8075 9275
-	0    -1   -1   0   
+P 7375 725
+F 0 "D14" H 7375 825 50  0000 C CNN
+F 1 "LED" H 7375 625 50  0000 C CNN
+F 2 "LED-0805" H 7375 725 60  0001 C CNN
+F 3 "~" H 7375 725 60  0000 C CNN
+	1    7375 725 
+	-1   0    0    1   
 $EndComp
 $Comp
 L DIODE D13
 U 1 1 527FB789
-P 8075 8875
-F 0 "D13" H 8075 8975 40  0000 C CNN
-F 1 "DIODE" H 8075 8775 40  0001 C CNN
-F 2 "SOD-123" H 8075 8875 60  0001 C CNN
-F 3 "~" H 8075 8875 60  0000 C CNN
-F 4 "BAT54" H 8075 8875 60  0001 C CNN "MFG"
-	1    8075 8875
-	0    -1   -1   0   
+P 7175 925
+F 0 "D13" H 7175 1025 40  0000 C CNN
+F 1 "DIODE" H 7175 825 40  0001 C CNN
+F 2 "SOD-123" H 7175 925 60  0001 C CNN
+F 3 "~" H 7175 925 60  0000 C CNN
+F 4 "BAT54" H 7175 925 60  0001 C CNN "MFG"
+	1    7175 925 
+	0    1    1    0   
 $EndComp
 $Comp
 L R R27
 U 1 1 527FB7A2
-P 7825 9475
-F 0 "R27" V 7905 9475 50  0000 C CNN
-F 1 "1K" V 7825 9475 50  0000 C CNN
-F 2 "SM0805" V 4755 7100 60  0001 C CNN
-F 3 "" H 7825 9475 60  0001 C CNN
-F 4 "VISHAY,CRCW0805100KFKEA" V 4755 7100 60  0001 C CNN "mfg,mfg#"
-F 5 "digi,CRCW0805100KFKEA" V 4755 7100 60  0001 C CNN "vend1,vend1#"
-	1    7825 9475
-	0    -1   1    0   
+P 7825 725
+F 0 "R27" V 7905 725 50  0000 C CNN
+F 1 "1K" V 7825 725 50  0000 C CNN
+F 2 "SM0805" V 4755 -1650 60  0001 C CNN
+F 3 "" H 7825 725 60  0001 C CNN
+F 4 "VISHAY,CRCW0805100KFKEA" V 4755 -1650 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,CRCW0805100KFKEA" V 4755 -1650 60  0001 C CNN "vend1,vend1#"
+	1    7825 725 
+	0    1    -1   0   
 $EndComp
 Connection ~ 8075 8675
 Wire Wire Line
-	6675 9775 7500 9775
+	4325 4775 5150 4775
 Wire Wire Line
-	6675 9875 7500 9875
+	4325 4875 5150 4875
 Wire Wire Line
-	6675 9975 7500 9975
+	4325 4975 5150 4975
 Wire Wire Line
-	6675 10175 7500 10175
+	4325 5175 5150 5175
 Wire Wire Line
-	6675 10275 7500 10275
-Wire Wire Line
-	6675 9475 7575 9475
+	4325 5275 5150 5275
 $Comp
 L DIODE D7
 U 1 1 527FF3F6
@@ -700,7 +698,7 @@ Wire Wire Line
 	15375 1750 15700 1750
 Connection ~ 15700 1750
 Wire Wire Line
-	7500 10075 6675 10075
+	5150 5075 4325 5075
 Connection ~ 15700 1450
 Connection ~ 15700 1650
 Text Notes 15075 2050 0    60   ~ 0
@@ -1075,7 +1073,7 @@ $EndComp
 Text Label 6075 4075 2    60   ~ 0
 INJ-05_5V
 Text Label 6125 4575 2    60   ~ 0
-INJ-07_5V
+INJ-06_5V
 Text Label 7550 4225 0    60   ~ 0
 iGND2
 $Comp
@@ -1200,30 +1198,30 @@ F 5 "digi,ERJ-6ENF20R0V" V 3305 2200 60  0001 C CNN "vend1,vend1#"
 	1    6375 4575
 	0    1    1    0   
 $EndComp
-Text Label 5050 10275 0    60   ~ 0
+Text Label 2700 5075 0    60   ~ 0
 INJ-07_5V
-Text Label 5050 10175 0    60   ~ 0
+Text Label 5150 5075 2    60   ~ 0
 INJ-08_5V
-Text Label 5050 10075 0    60   ~ 0
+Text Label 2700 5175 0    60   ~ 0
 INJ-09_5V
-Text Label 5050 9975 0    60   ~ 0
+Text Label 5150 5175 2    60   ~ 0
 INJ-10_5V
-Text Label 5050 9875 0    60   ~ 0
+Text Label 2700 5275 0    60   ~ 0
 INJ-11_5V
-Text Label 5050 9775 0    60   ~ 0
+Text Label 5150 5275 2    60   ~ 0
 INJ-12_5V
 Wire Wire Line
-	5875 9775 5050 9775
+	3525 4775 2700 4775
 Wire Wire Line
-	5875 9875 5050 9875
+	3525 4875 2700 4875
 Wire Wire Line
-	5875 9975 5050 9975
+	3525 4975 2700 4975
 Wire Wire Line
-	5875 10175 5050 10175
+	3525 5175 2700 5175
 Wire Wire Line
-	5875 10275 5050 10275
+	3525 5275 2700 5275
 Wire Wire Line
-	5050 10075 5875 10075
+	2700 5075 3525 5075
 $Comp
 L DIODE D1
 U 1 1 52B57A92
@@ -1401,4 +1399,35 @@ Wire Notes Line
 	14150 8950 14775 8950
 Wire Notes Line
 	14775 8950 14775 8525
+Connection ~ 8075 725 
+Wire Wire Line
+	7525 1225 7525 1125
+Wire Wire Line
+	7525 1125 7175 1125
+$Comp
+L CONN_1 P4
+U 1 1 52DD03E5
+P 3275 4675
+F 0 "P4" H 3355 4675 40  0000 L CNN
+F 1 "CONN_1" H 3275 4730 30  0001 C CNN
+F 2 "PINTST" H 3275 4675 60  0001 C CNN
+F 3 "" H 3275 4675 60  0000 C CNN
+	1    3275 4675
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_1 P5
+U 1 1 52DD0408
+P 4575 4675
+F 0 "P5" H 4655 4675 40  0000 L CNN
+F 1 "CONN_1" H 4575 4730 30  0001 C CNN
+F 2 "PINTST" H 4575 4675 60  0001 C CNN
+F 3 "" H 4575 4675 60  0000 C CNN
+	1    4575 4675
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3425 4675 3525 4675
+Wire Wire Line
+	4325 4675 4425 4675
 $EndSCHEMATC
