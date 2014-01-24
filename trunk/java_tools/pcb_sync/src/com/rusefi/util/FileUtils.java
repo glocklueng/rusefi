@@ -32,6 +32,7 @@ public class FileUtils {
 
         while (((line = br.readLine()) != null))
             sb.append(line).append("\r\n");
+        br.close();
         return sb.toString();
     }
 
