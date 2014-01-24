@@ -197,6 +197,20 @@ IdModule  = SIL-14;
 EndCmp
 
 BeginCmp
+TimeStamp = /52DD03E5;
+Reference = P4;
+ValeurCmp = CONN_1;
+IdModule  = PINTST;
+EndCmp
+
+BeginCmp
+TimeStamp = /52DD0408;
+Reference = P5;
+ValeurCmp = CONN_1;
+IdModule  = PINTST;
+EndCmp
+
+BeginCmp
 TimeStamp = /52AC74D4;
 Reference = Q1;
 ValeurCmp = OVP_DRIVER;
@@ -711,7 +725,7 @@ BeginCmp
 TimeStamp = /5234F161;
 Reference = P201;
 ValeurCmp = CONN_10X2;
-IdModule  = PIN_ARRAY_10X2;
+IdModule  = PIN_ARRAY_10X2_M;
 EndCmp
 
 BeginCmp
@@ -740,13 +754,6 @@ TimeStamp = /5295D3A8;
 Reference = P205;
 ValeurCmp = CONN_1;
 IdModule  = PIN_ARRAY_1;
-EndCmp
-
-BeginCmp
-TimeStamp = /5297E845;
-Reference = P206;
-ValeurCmp = CONN_3;
-IdModule  = PIN_ARRAY_3X1;
 EndCmp
 
 BeginCmp
