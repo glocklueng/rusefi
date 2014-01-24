@@ -7,24 +7,24 @@ import java.util.List;
  *         1/21/14
  */
 public class ViaNode extends PcbNode {
-    private final PointNode point;
+    private final PointNode location;
     final SizeNode size;
 
     public ViaNode(String nodeName, int i, List<Object> children) {
         super(nodeName, i, children);
-        point = (PointNode) find("at");
+        location = (PointNode) find("at");
         size = (SizeNode) find("size");
     }
 
     @Override
     public String toString() {
         return "ViaNode{" +
-                "point=" + point +
+                "location=" + location +
                 '}';
     }
 
     @Override
     public boolean isConnected(PointNode point) {
-        return point.isConnected(point, size);
+        return point.isConnected(location, size);
     }
 }
