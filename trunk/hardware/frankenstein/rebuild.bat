@@ -33,3 +33,5 @@ java -jar ../../java_tools/pcb_sync.jar cmp_merge frankenstein.cmp ../can_board/
 
 rem Let's merge these PCBs into the Frankenstein!
 java -jar ../../java_tools/pcb_sync.jar pcb_merge ../frankenstein_foundation/frankenstein_foundation.kicad_pcb frankenstein.kicad_pcb ../can_board/can_brd_1.kicad_pcb ../1A_injector_10-channels/inj_10ch.kicad_pcb ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb ../usb_mmc_spi/mmc_usb_1.kicad_pcb ../knock_VR_Art_ELectro/cps_vrs_io_1.kicad_pcb
+
+java -jar ../../java_tools/pcb_sync.jar optimize frankenstein.kicad_pcb frankenstein.kicad_pcb
