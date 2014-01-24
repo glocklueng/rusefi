@@ -18,7 +18,15 @@ public class RemoveUnneededTraces {
     private final static Set<String> alreadyRemoved = new HashSet<String>();
 
     public static void main(String[] args) throws IOException {
-        PcbNode destNode = PcbNode.readFromFile("test.kicad_pcb");
+        if (args.length != 2) {
+            System.out.println("two parameters expected: INPUT_FILE OUTPUT_FILE");
+            return;
+        }
+        String input = args[0];
+        String output = args[1];
+
+
+        PcbNode destNode = PcbNode.readFromFile(input);
 
         List<PcbNode> modules = destNode.iterate("module");
         List<PcbNode> stuff = new ArrayList<PcbNode>(modules);
@@ -28,7 +36,7 @@ public class RemoveUnneededTraces {
             System.out.println("Still removing...");
         }
 
-        destNode.write("output.kicad_pcb");
+        destNode.write(output);
     }
 
     private static boolean removeUnusedSegments(PcbNode destNode, List<PcbNode> modules) {

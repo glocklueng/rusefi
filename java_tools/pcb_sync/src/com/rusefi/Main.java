@@ -1,6 +1,7 @@
 package com.rusefi;
 
 import com.rusefi.misc.CmpMergeTool;
+import com.rusefi.misc.RemoveUnneededTraces;
 import com.rusefi.pcb.PcbMergeTool;
 import com.rusefi.pcb.PcbMoveTool;
 
@@ -24,6 +25,8 @@ public class Main {
 
         registerTool("cmp_merge", CmpMergeTool.class);
         registerTool("rename", RenameComponents.class);
+
+        registerTool("optimize", RemoveUnneededTraces.class);
     }
 
     private static void registerTool(String name, Class<?> clazz) {
