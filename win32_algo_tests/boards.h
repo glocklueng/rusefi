@@ -14,7 +14,7 @@
 #define ADC_LOGIC_MAP 0
 #define ADC_CHANNEL_VREF 0
 #define ADC_LOGIC_INTAKE_AIR 0
-#define ADC_LOGIC_AIR 0
+#define ADC_LOGIC_COOLANT 0
 
 float getVoltage(int);
 int getAdcValue(int channel);
