@@ -1499,52 +1499,52 @@ IdModule  = ssop-28;
 EndCmp
 
 BeginCmp
+TimeStamp = /52E33BA4;
+Reference = JP1;
+ValeurCmp = JUMPER;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52E34097;
+Reference = JP2;
+ValeurCmp = JUMPER;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52E340C3;
+Reference = JP3;
+ValeurCmp = JUMPER;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
 TimeStamp = /52DB4402;
-Reference = P1;
+Reference = P51;
 ValeurCmp = CONN_4X2;
 IdModule  = pin_array_4x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /52DB4411;
-Reference = P2;
+Reference = P52;
 ValeurCmp = CONN_10X2;
-IdModule  = PIN_ARRAY_10X2;
+IdModule  = PIN_ARRAY_10X2_M;
 EndCmp
 
 BeginCmp
 TimeStamp = /52DB49B9;
-Reference = P3;
+Reference = P53;
 ValeurCmp = CONN_2;
 IdModule  = PIN_ARRAY_2X1;
 EndCmp
 
 BeginCmp
 TimeStamp = /52DB49D4;
-Reference = P4;
+Reference = P54;
 ValeurCmp = CONN_5X2;
 IdModule  = PIN_ARRAY_5x2;
-EndCmp
-
-BeginCmp
-TimeStamp = /52DB714B;
-Reference = W1;
-ValeurCmp = TEST;
-IdModule  = SIL-2;
-EndCmp
-
-BeginCmp
-TimeStamp = /52DB716E;
-Reference = W2;
-ValeurCmp = TEST;
-IdModule  = SIL-2;
-EndCmp
-
-BeginCmp
-TimeStamp = /52DBF6EE;
-Reference = W3;
-ValeurCmp = TEST;
-IdModule  = SIL-2;
 EndCmp
 
 BeginCmp

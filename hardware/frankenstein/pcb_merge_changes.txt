@@ -1,45 +1,64 @@
+
+copy ../can_board/can_brd_1.kicad_pcb can_brd_1.kicad_pcb
+optimize can_brd_1.kicad_pcb can_brd_1.kicad_pcb
+
+copy ../knock_VR_Art_ELectro/cps_vrs_io_1.kicad_pcb cps_vrs_io_1.kicad_pcb
+optimize cps_vrs_io_1.kicad_pcb cps_vrs_io_1.kicad_pcb
+
+add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb 
+add ../usb_mmc_spi/mmc_usb_1.kicad_pcb 
+add cps_vrs_io_1.kicad_pcb -83 110
+add can_brd_1.kicad_pcb -7 3
+
+# analog input board LED
+remove LD200
+remove R200
+
+
 # DD from the VR board
 # knock in
-P101
+remove P101
 # amp chip
-U102
+remove U102
 # data out
-P103
+remove P103
 
-R115
-R116
-R117
-R118
+remove R115
+remove R116
+remove R117
+remove R118
 
 
-C105
-C106
-C107
-C108
+remove C105
+remove C106
+remove C107
+remove C108
 
 
 # VR board power LED
-R101
-D102
-D101
-R105
+remove R101
+remove D102
+remove D101
+remove R105
 
 
 
 
 # CAN module connector
-P471
+remove P471
 # CAN module power LED
-R471
-D471
+remove R471
+remove D471
 
 # SD/TTL module 3.3v LED
-R354
-D353
+remove R354
+remove D353
 
 # SD/TTL module 5v LED
-R353
-D352
+remove R353
+remove D352
+
+remove P355
 
 # SD/TTL right 10x2
-P354
+remove P354
