@@ -8,7 +8,7 @@ optimize cps_vrs_io_1.kicad_pcb cps_vrs_io_1.kicad_pcb
 add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb 
 add ../usb_mmc_spi/mmc_usb_1.kicad_pcb 
 add cps_vrs_io_1.kicad_pcb -83 110
-add can_brd_1.kicad_pcb -7 3
+add can_brd_1.kicad_pcb -7 -2
 
 # analog input board LED
 remove LD200
