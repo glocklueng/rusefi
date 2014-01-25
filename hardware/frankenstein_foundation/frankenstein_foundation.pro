@@ -1,4 +1,4 @@
-update=19/01/2014 09:37:48
+update=24/01/2014 21:53:02
 version=1
 last_client=cvpcb
 [eeschema]
@@ -76,7 +76,7 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
-LibName17=PIN_ARRAY_10X2
+LibName17=art-electro-conn
 LibDir=lib
 [general]
 version=1
