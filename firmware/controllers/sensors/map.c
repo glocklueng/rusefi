@@ -29,6 +29,6 @@ float getMapByVoltage(float voltage) {
 }
 
 float getRawMap(void) {
-	float voltage = getVoltage(engineConfiguration->map.channel);
+	float voltage = getVoltageDivided(engineConfiguration->map.channel);
 	return getMapByVoltage(voltage);
 }

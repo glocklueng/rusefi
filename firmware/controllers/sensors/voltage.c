@@ -14,7 +14,7 @@
 
 myfloat getVRef(void) {
 //	return getAdcValue(ADC_CHANNEL_VREF);
-	return getVoltage(ADC_CHANNEL_VREF);
+	return getVoltageDivided(ADC_CHANNEL_VREF);
 }
 
 myfloat getVBatt(void) {

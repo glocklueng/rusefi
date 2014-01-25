@@ -74,7 +74,7 @@ void mapAveragingCallback(adcsample_t value) {
 	/* Calculates the average values from the ADC samples.*/
 	perRevolutionCounter++;
 
-	float voltage = adcToVolts(value);
+	float voltage = adcToVoltsDivided(value);
 	float currentPressure = getMapByVoltage(voltage);
 
 	if (engineConfiguration->analogChartMode == AC_MAP)

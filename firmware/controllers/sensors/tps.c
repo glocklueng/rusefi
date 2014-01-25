@@ -22,7 +22,7 @@ myfloat getTpsValue(int adc) {
  * Return voltage on TPS AND channel
  * */
 myfloat getTPSVoltage(void) {
-	return getVoltage(ADC_LOGIC_TPS);
+	return getVoltageDivided(ADC_LOGIC_TPS);
 }
 
 /*

@@ -297,7 +297,7 @@ void initSlowChannel(int logicChannel, int hwChannel) {
 
 static void printAdcValue(int channel) {
 	int value = getAdcValue(channel);
-	myfloat volts = adcToVolts(value);
+	myfloat volts = adcToVoltsDivided(value);
 	scheduleMsg(&logger, "adc voltage : %f", volts);
 }
 
@@ -306,7 +306,7 @@ static void printFullAdcReport(void) {
 		int value = getAdcValueByIndex(i);
 		appendPrintf(&logger, " ch%d%s", i, DELIMETER);
 		appendPrintf(&logger, " val= %d%s", value, DELIMETER);
-		myfloat volts = adcToVolts(value);
+		myfloat volts = adcToVoltsDivided(value);
 		debugFloat(&logger, "v ", volts, 1);
 	}
 	scheduleLogging(&logger);

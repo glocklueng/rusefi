@@ -7,7 +7,7 @@
 
 #include "boards.h"
 
-float getVoltage(int channel) {
+float getVoltageDivided(int channel) {
 	return 0;
 }
 

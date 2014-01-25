@@ -4,5 +4,5 @@
 #include "adc_inputs.h"
 
 myfloat getMaf(void) {
-	return getVoltage(ADC_LOGIC_MAF);
+	return getVoltageDivided(ADC_LOGIC_MAF);
 }
