@@ -23,6 +23,8 @@ public class Main {
         registerTool("pcb_move", PcbMoveTool.class);
         registerTool("pcb_merge", PcbMergeTool.class);
 
+        registerTool("copy", PcbCopyTool.class);
+
         registerTool("cmp_merge", CmpMergeTool.class);
         registerTool("rename", RenameComponents.class);
 

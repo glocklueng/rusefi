@@ -25,7 +25,10 @@ public class RemoveUnneededTraces {
         String input = args[0];
         String output = args[1];
 
+        optimize(input, output);
+    }
 
+    public static void optimize(String input, String output) throws IOException {
         PcbNode destNode = PcbNode.readFromFile(input);
 
         List<PcbNode> modules = destNode.iterate("module");
