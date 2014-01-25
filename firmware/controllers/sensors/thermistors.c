@@ -150,5 +150,5 @@ void initThermistors(void) {
 	initThermistorCurve(&engineConfiguration2->clt, &engineConfiguration->cltThermistorConf,
 	ADC_LOGIC_COOLANT);
 	initThermistorCurve(&engineConfiguration2->iat, &engineConfiguration->iatThermistorConf,
-	ADC_LOGIC_AIR);
+			ADC_LOGIC_INTAKE_AIR);
 }
