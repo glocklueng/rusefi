@@ -15,7 +15,9 @@ typedef enum {
 	LED_RUNNING, // Green on-board LED
 	LED_ERROR, // Red on-board LED
 	LED_COMMUNICATION_1, // Blue on-board LED
-	LED_ALIVE2, // external board LED
+	LED_EXT_1, // external board LED
+	LED_EXT_2, // external board LED
+	LED_EXT_3, // external board LED
 	LED_DEBUG,
 	LED_EMULATOR,
 
