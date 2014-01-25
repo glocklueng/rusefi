@@ -24,7 +24,7 @@ LIBS:display
 LIBS:cypress
 LIBS:siliconi
 LIBS:contrib
-LIBS:inj_10ch-cache
+LIBS:0176122-06
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
@@ -132,21 +132,9 @@ Wire Wire Line
 Wire Wire Line
 	7525 7575 7975 7575
 Wire Wire Line
-	7975 7575 7975 7025
-Wire Wire Line
-	7975 7025 8125 7025
-Wire Wire Line
 	7525 1225 8075 1225
 Wire Wire Line
-	7875 6725 8125 6725
-Wire Wire Line
-	7875 6725 7875 6325
-Wire Wire Line
 	7875 6325 7525 6325
-Wire Wire Line
-	7875 6925 8125 6925
-Wire Wire Line
-	7875 6925 7875 7425
 Wire Wire Line
 	7875 7425 7525 7425
 Wire Notes Line
@@ -196,10 +184,6 @@ Connection ~ 7125 5575
 Wire Wire Line
 	6625 5825 6625 5925
 Connection ~ 6625 5925
-Wire Wire Line
-	7975 6625 8125 6625
-Wire Wire Line
-	7975 6625 7975 6175
 Wire Wire Line
 	7975 6175 7525 6175
 Wire Wire Line
@@ -495,10 +479,6 @@ F 5 "digi,A106616-ND" H 3925 4825 60  0001 C CNN "vend1,vend1#"
 	1    3925 4825
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8125 6425 8075 6425
-Wire Wire Line
-	8075 7225 8125 7225
 Text Label 4325 4375 0    60   ~ 0
 iGND1
 Text Label 2700 4775 0    60   ~ 0
@@ -1115,8 +1095,6 @@ F 5 "digi,497-11123-1-ND" V 3805 3950 60  0001 C CNN "vend1,vend1#"
 	1    0    0    -1  
 $EndComp
 Connection ~ 7725 2975
-Wire Wire Line
-	8075 5075 8075 6425
 $Comp
 L R R3
 U 1 1 52AC757A
@@ -1321,8 +1299,6 @@ Connection ~ 15700 1350
 Connection ~ 15700 1250
 Wire Notes Line
 	15025 600  16375 600 
-Wire Wire Line
-	8075 8675 8075 7225
 Text Label 9175 5400 2    60   ~ 0
 INJ-11
 Text Label 9175 5500 2    60   ~ 0
@@ -1352,29 +1328,7 @@ iGND1
 Text Label 9175 5100 2    60   ~ 0
 iGND1
 Wire Wire Line
-	8075 4825 8075 3375
-Wire Wire Line
-	8075 3375 8125 3375
-Wire Wire Line
-	8075 2575 8125 2575
-Wire Wire Line
 	7125 2975 8125 2975
-Wire Wire Line
-	7975 2775 7975 2325
-Wire Wire Line
-	7975 2775 8125 2775
-Wire Wire Line
-	7875 3075 7875 3575
-Wire Wire Line
-	7875 3075 8125 3075
-Wire Wire Line
-	7875 2875 7875 2475
-Wire Wire Line
-	7875 2875 8125 2875
-Wire Wire Line
-	7975 3175 8125 3175
-Wire Wire Line
-	7975 3725 7975 3175
 Wire Wire Line
 	8075 2575 8075 1725
 Wire Notes Line

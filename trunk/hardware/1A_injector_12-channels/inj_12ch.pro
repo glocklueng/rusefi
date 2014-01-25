@@ -46,6 +46,7 @@ LibName22=display
 LibName23=cypress
 LibName24=siliconi
 LibName25=contrib
+LibName26=lib/0176122-06
 [pcbnew]
 version=1
 LastNetListRead=inj_10ch.net
@@ -74,3 +75,4 @@ LibName4=divers
 LibName5=libcms
 LibName6=display
 LibName7=lib/project_specific_modules
+LibName8=lib/0176122-06
