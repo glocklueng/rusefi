@@ -69,7 +69,6 @@ $EndComp
 NoConn ~ 6000 4550
 NoConn ~ 6800 4450
 NoConn ~ 6800 4550
-NoConn ~ 6800 4650
 Text Label 6800 4750 0    60   ~ 0
 GND
 $Comp
@@ -89,19 +88,10 @@ Wire Wire Line
 	6950 4750 6950 4900
 Text Label 6000 4750 2    60   ~ 0
 GND
-NoConn ~ 2550 3950
-NoConn ~ 2550 4050
-NoConn ~ 2550 4150
-NoConn ~ 2550 4250
-NoConn ~ 2550 4350
-NoConn ~ 2550 4450
 NoConn ~ 2550 4650
 NoConn ~ 3350 4750
 NoConn ~ 3350 4650
 NoConn ~ 3350 4550
-NoConn ~ 3350 4350
-NoConn ~ 3350 4250
-NoConn ~ 3350 4050
 NoConn ~ 3350 3950
 Text Label 3350 4850 0    60   ~ 0
 GND
@@ -155,11 +145,7 @@ Text Label 3350 4550 0    60   ~ 0
 PD12
 Text Label 3350 4450 0    60   ~ 0
 PD10
-Wire Wire Line
-	3800 4450 3350 4450
-NoConn ~ 3800 4450
 NoConn ~ 2550 4750
-NoConn ~ 2550 4550
 Text Label 3350 4350 0    60   ~ 0
 PD8
 Text Label 3350 4250 0    60   ~ 0
@@ -232,4 +218,68 @@ Text Label 8250 4250 0    60   ~ 0
 PC9
 Text Label 8250 4450 0    60   ~ 0
 PC7
+Text Label 2550 4550 2    60   ~ 0
+PD11
+Text Label 2550 4450 2    60   ~ 0
+PD9
+Text Label 2550 4350 2    60   ~ 0
+PB15
+Text Label 2550 4250 2    60   ~ 0
+PB13
+Text Label 2550 4150 2    60   ~ 0
+PB11
+Text Label 2550 4050 2    60   ~ 0
+PE15
+Text Label 2550 3950 2    60   ~ 0
+PE13
+Text Label 3350 3950 0    60   ~ 0
+PE14
+Text Label 3350 4050 0    60   ~ 0
+PB10
+$Comp
+L CONN_6 P56
+U 1 1 52E349DA
+P 1200 4600
+F 0 "P56" V 1150 4600 60  0000 C CNN
+F 1 "CONN_6" V 1250 4600 60  0000 C CNN
+F 2 "" H 1200 4600 60  0000 C CNN
+F 3 "" H 1200 4600 60  0000 C CNN
+	1    1200 4600
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_6 P57
+U 1 1 52E349FD
+P 1200 4000
+F 0 "P57" V 1150 4000 60  0000 C CNN
+F 1 "CONN_6" V 1250 4000 60  0000 C CNN
+F 2 "" H 1200 4000 60  0000 C CNN
+F 3 "" H 1200 4000 60  0000 C CNN
+	1    1200 4000
+	-1   0    0    1   
+$EndComp
+Text Label 1550 4850 0    60   ~ 0
+GND
+Text Label 1550 4750 0    60   ~ 0
+PD10
+Wire Wire Line
+	2550 4550 1550 4550
+Wire Wire Line
+	2550 4450 1550 4450
+Wire Wire Line
+	2550 4350 1550 4350
+Wire Wire Line
+	2550 4250 1550 4250
+Wire Wire Line
+	2550 4150 1550 4150
+Wire Wire Line
+	2550 4050 1550 4050
+Wire Wire Line
+	2550 3950 1550 3950
+Text Label 1550 4650 0    60   ~ 0
+PD8
+Text Label 1550 3850 0    60   ~ 0
+PB14
+Text Label 1550 3750 0    60   ~ 0
+PB10
 $EndSCHEMATC
