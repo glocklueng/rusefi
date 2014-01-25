@@ -80,7 +80,7 @@
  * 10 channel board is (from left to right):
  * ADC 15	PC5		TPS
  * ADC 14	PC4		MAP
- * ADC 7 	PA7
+ * ADC 7 	PA7		IAT
  * ADC 6	PA6		CLT
  * ADC 5	PA5		TIM2_CH1
  * ADC 4	PA4
@@ -98,7 +98,7 @@
 #define ADC_LOGIC_AFR ADC_CHANNEL_IN14
 
 #define ADC_CHANNEL_VREF ADC_CHANNEL_IN14
-#define ADC_LOGIC_INTAKE_AIR ADC_CHANNEL_IN14
+#define ADC_LOGIC_INTAKE_AIR ADC_CHANNEL_IN7
 
 /* Primary shaft position input */
 
