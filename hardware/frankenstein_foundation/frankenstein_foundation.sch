@@ -113,28 +113,26 @@ NoConn ~ 6050 3550
 $Comp
 L CONN_5X2 P54
 U 1 1 52DB49D4
-P 2950 2800
-F 0 "P54" H 2950 3100 60  0000 C CNN
-F 1 "CONN_5X2" V 2950 2800 50  0000 C CNN
-F 2 "" H 2950 2800 60  0000 C CNN
-F 3 "" H 2950 2800 60  0000 C CNN
-	1    2950 2800
+P 2950 3650
+F 0 "P54" H 2950 3950 60  0000 C CNN
+F 1 "CONN_5X2" V 2950 3650 50  0000 C CNN
+F 2 "" H 2950 3650 60  0000 C CNN
+F 3 "" H 2950 3650 60  0000 C CNN
+	1    2950 3650
 	1    0    0    -1  
 $EndComp
-NoConn ~ 2550 3000
-NoConn ~ 2550 2900
-NoConn ~ 2550 2800
-NoConn ~ 2550 2700
-NoConn ~ 2550 2600
-NoConn ~ 3350 2600
-NoConn ~ 3350 2700
-NoConn ~ 3350 2800
-NoConn ~ 3350 2900
-NoConn ~ 3350 3000
+NoConn ~ 2550 3650
+NoConn ~ 2550 3550
+NoConn ~ 2550 3450
+NoConn ~ 3350 3450
+NoConn ~ 3350 3550
+NoConn ~ 3350 3650
+NoConn ~ 3350 3750
+NoConn ~ 3350 3850
 Wire Wire Line
 	5250 4650 6000 4650
 Text Label 6000 4650 2    60   ~ 0
-CAM
+PC6
 Wire Wire Line
 	6000 4450 5650 4450
 Text Label 3350 4750 0    60   ~ 0
@@ -152,14 +150,8 @@ Text Label 3350 4250 0    60   ~ 0
 PB14
 Wire Wire Line
 	4000 4150 3350 4150
-Text GLabel 4600 3200 2    60   Input ~ 0
-CAN_RX
-Wire Wire Line
-	4600 3200 4600 4150
-Text Label 4600 3650 0    60   ~ 0
-CAN_RX
 Text Label 3600 4150 0    60   ~ 0
-CAN_RX
+PB12
 $Comp
 L JUMPER JP1
 U 1 1 52E33BA4
@@ -187,7 +179,7 @@ $EndComp
 Wire Wire Line
 	4200 4650 4650 4650
 Text Label 6000 4450 2    60   ~ 0
-CRANK
+PA8
 $Comp
 L JUMPER JP3
 U 1 1 52E340C3
@@ -197,7 +189,7 @@ F 1 "JUMPER" H 4300 4070 40  0000 C CNN
 F 2 "~" H 4300 4150 60  0000 C CNN
 F 3 "~" H 4300 4150 60  0000 C CNN
 	1    4300 4150
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 Text Label 6800 4650 0    60   ~ 0
 PC7
@@ -278,8 +270,37 @@ Wire Wire Line
 	2550 3950 1550 3950
 Text Label 1550 4650 0    60   ~ 0
 PD8
-Text Label 1550 3850 0    60   ~ 0
+Text Label 1550 5200 0    60   ~ 0
 PB14
-Text Label 1550 3750 0    60   ~ 0
+Text Label 1550 5300 0    60   ~ 0
 PB10
+Text Label 2550 3850 2    60   ~ 0
+PE11
+Text Label 2550 3750 2    60   ~ 0
+PE9
+Text Label 2550 3650 2    60   ~ 0
+PE7
+$Comp
+L CONN_6 P58
+U 1 1 52E3E69E
+P 1200 5450
+F 0 "P58" V 1150 5450 60  0000 C CNN
+F 1 "CONN_6" V 1250 5450 60  0000 C CNN
+F 2 "" H 1200 5450 60  0000 C CNN
+F 3 "" H 1200 5450 60  0000 C CNN
+	1    1200 5450
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2550 3850 1550 3850
+Wire Wire Line
+	1550 3750 2550 3750
+Wire Wire Line
+	4900 4150 4600 4150
+Text Label 5050 4450 2    60   ~ 0
+CRANK
+Text Label 4500 4650 2    60   ~ 0
+CAM
+Text Label 4750 4150 0    60   ~ 0
+CAN_RX
 $EndSCHEMATC
