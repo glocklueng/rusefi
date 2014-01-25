@@ -70,7 +70,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 
 void setDefaultNonPersistentConfiguration(EngineConfiguration2 *engineConfiguration2) {
 	engineConfiguration2->clt.channel = ADC_LOGIC_COOLANT;
-	engineConfiguration2->iat.channel = ADC_LOGIC_AIR;
+	engineConfiguration2->iat.channel = ADC_LOGIC_INTAKE_AIR;
 	/**
 	 * 0.5 means primary position sensor is on a camshaft
 	 */
