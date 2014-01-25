@@ -32,13 +32,14 @@ LIBS:valves
 LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
-EELAYER 24 0
+LIBS:adc_amp_divider-cache
+EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "Analgo Protection board for RUSEFI.com"
-Date "19 jan 2014"
+Date "25 jan 2014"
 Rev "A-.01"
 Comp "RUSEFI.com"
 Comment1 ""
@@ -2546,30 +2547,6 @@ F 3 "" H 15500 1400 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	15500 1400 15500 1200
-$Comp
-L CONN_2 P207
-U 1 1 5297EAA7
-P 15250 1300
-F 0 "P207" V 15200 1300 40  0000 C CNN
-F 1 "CONN_2" V 15300 1300 40  0000 C CNN
-F 2 "SIL-2" H 15250 1300 60  0001 C CNN
-F 3 "" H 15250 1300 60  0000 C CNN
-	1    15250 1300
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR062
-U 1 1 5297EAAD
-P 14900 1400
-F 0 "#PWR062" H 14900 1400 30  0001 C CNN
-F 1 "GND" H 14900 1330 30  0001 C CNN
-F 2 "" H 14900 1400 60  0000 C CNN
-F 3 "" H 14900 1400 60  0000 C CNN
-	1    14900 1400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	14900 1400 14900 1200
 $Comp
 L TEST W212
 U 1 1 5298705E
