@@ -1661,7 +1661,7 @@
   (gr_line (start 129.54 187.96) (end 129.54 127) (angle 90) (layer Cmts.User) (width 0.2))
   (gr_line (start 127 187.96) (end 129.54 187.96) (angle 90) (layer Cmts.User) (width 0.2))
   (gr_line (start 127 127) (end 127 187.96) (angle 90) (layer Cmts.User) (width 0.2))
-  (gr_text "rusEfi.com USB+SD ver 0.1" (at 198.628 160.401) (layer B.SilkS)
+  (gr_text "rusEfi.com USB+SD ver 0.2" (at 198.628 160.401) (layer B.SilkS)
     (effects (font (size 1 1) (thickness 0.25)) (justify mirror))
   )
   (gr_text "MINI-USB-5P\n-3400020P1" (at 212.979 175.133) (layer F.SilkS)
