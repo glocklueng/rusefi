@@ -63,7 +63,7 @@
     (pad_drill 0.6)
     (pad_to_mask_clearance 0)
     (aux_axis_origin 0 0)
-    (visible_elements 7FFEFB3F)
+    (visible_elements 7FFFFB3F)
     (pcbplotparams
       (layerselection 284983297)
       (usegerberextensions true)
@@ -186,13 +186,13 @@
     )
   )
 
-  (module LED-0805 (layer F.Cu) (tedit 52CAE50A) (tstamp 52A5B500)
+  (module LED-0805 (layer F.Cu) (tedit 52E31BFA) (tstamp 52A5B500)
     (at 148.463 179.197 180)
     (descr "LED 0805 smd package")
     (tags "LED 0805 SMD")
     (path /52CAD8DC)
     (attr smd)
-    (fp_text reference D471 (at 0 0 360) (layer F.SilkS)
+    (fp_text reference D471 (at 0 0 270) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value RED (at -9.144 -9.398 180) (layer F.SilkS) hide
@@ -266,11 +266,11 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52CAE506) (tstamp 52CAE20D)
+  (module SM0805 (layer F.Cu) (tedit 52E31BF2) (tstamp 52CAE20D)
     (at 148.336 181.102 180)
     (path /52CAD8DB)
     (attr smd)
-    (fp_text reference R471 (at -0.127 0 360) (layer F.SilkS)
+    (fp_text reference R471 (at -0.127 0 270) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
     (fp_text value 1k (at 0 -1.143 180) (layer F.SilkS) hide
@@ -471,7 +471,7 @@
     )
   )
 
-  (module SO8E (layer F.Cu) (tedit 52CAE53E) (tstamp 52CAE154)
+  (module SO8E (layer F.Cu) (tedit 52E31C8B) (tstamp 52CAE154)
     (at 146.2405 185.166 270)
     (descr "module CMS SOJ 8 pins etroit")
     (tags "CMS SOJ")
@@ -480,7 +480,7 @@
     (fp_text reference U471 (at 0 -0.889 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.1016)))
     )
-    (fp_text value SN65HVD230 (at 0 1.016 270) (layer F.SilkS)
+    (fp_text value SN65HVD230 (at 0 1.016 270) (layer F.SilkS) hide
       (effects (font (size 0.889 0.889) (thickness 0.1524)))
     )
     (fp_line (start -2.667 1.778) (end -2.667 1.905) (layer F.SilkS) (width 0.127))
@@ -559,14 +559,14 @@
     )
   )
 
-  (module SM0805 (layer F.Cu) (tedit 52CD3183) (tstamp 52CD2EAC)
+  (module SM0805 (layer F.Cu) (tedit 52E31BC9) (tstamp 52CD2EAC)
     (at 154.305 183.642 270)
     (path /52CD2DE2)
     (attr smd)
     (fp_text reference R473 (at 0 -0.3175 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
-    (fp_text value 120 (at 0 0.381 270) (layer F.SilkS)
+    (fp_text value 120 (at 0 0.381 270) (layer F.SilkS) hide
       (effects (font (size 0.50038 0.50038) (thickness 0.10922)))
     )
     (fp_circle (center -1.651 0.762) (end -1.651 0.635) (layer F.SilkS) (width 0.09906))
