@@ -5,7 +5,7 @@
 #include "adc_inputs.h"
 
 myfloat getAfr(void) {
-	myfloat volts = getVoltage(ADC_LOGIC_AFR);
+	myfloat volts = getVoltageDivided(ADC_LOGIC_AFR);
 
 	/**
 	 * This decodes BPSX D1 Wideband Controller analog signal
