@@ -16,11 +16,16 @@ import java.util.TreeSet;
  */
 public class ChangesModel {
     private static final ChangesModel instance = new ChangesModel();
-    public static final String REMOVE = "remove";
+    private static final String REMOVE = "remove";
     private static final String ADD = "add";
+    private static final String OPTIMIZE = "optimize";
+    private static final String COPY = "copy";
 
     public final Set<String> DEL_REQUESTS = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
     public final List<AddRequest> ADD_REQUESTS = new ArrayList<AddRequest>();
+
+    public final List<TwoFileRequest> OPTIMIZE_REQUESTS = new ArrayList<TwoFileRequest>();
+    public final List<TwoFileRequest> COPY_REQUESTS = new ArrayList<TwoFileRequest>();
 
     public static ChangesModel getInstance() {
         return instance;
@@ -44,14 +49,17 @@ public class ChangesModel {
                 continue; // this line is a comment
 
             if (line.toLowerCase().startsWith(REMOVE)) {
-                addDelRequest(line.substring(REMOVE.length()).trim());
+                DEL_REQUESTS.add(line.substring(REMOVE.length()).trim());
                 continue;
             } else if (line.toLowerCase().startsWith(ADD)) {
-
                 addAddRequest(line.substring(ADD.length()).trim());
                 continue;
-
-
+            } else if (line.toLowerCase().startsWith(OPTIMIZE)) {
+                OPTIMIZE_REQUESTS.add(parseTwoFile(line.substring(OPTIMIZE.length()).trim()));
+                continue;
+            } else if (line.toLowerCase().startsWith(COPY)) {
+                COPY_REQUESTS.add(parseTwoFile(line.substring(COPY.length()).trim()));
+                continue;
             }
 
             System.err.println("Ignoring invalid line: " + line);
@@ -59,6 +67,15 @@ public class ChangesModel {
         }
         PcbMergeTool.log("Got " + DEL_REQUESTS.size() + " remove request(s)");
         PcbMergeTool.log("Got " + ADD_REQUESTS.size() + " add request(s)");
+        PcbMergeTool.log("Got " + OPTIMIZE_REQUESTS.size() + " optimize request(s)");
+    }
+
+    private TwoFileRequest parseTwoFile(String request) {
+        String[] tokens = request.split(" ");
+        if (tokens.length != 2)
+            throw new IllegalArgumentException("req " + request);
+
+        return new TwoFileRequest(tokens[0], tokens[1]);
     }
 
     private void addAddRequest(String request) {
@@ -67,18 +84,16 @@ public class ChangesModel {
             ADD_REQUESTS.add(new AddRequest(tokens[0], 0, 0));
         } else if (tokens.length == 3) {
             double x = Double.parseDouble(tokens[1]);
-            double y = Double.parseDouble(tokens[1]);
+            double y = Double.parseDouble(tokens[2]);
             ADD_REQUESTS.add(new AddRequest(tokens[0], x, y));
         } else {
             throw new IllegalArgumentException("Invalid: " + request);
         }
     }
 
-    private void addDelRequest(String request) {
-        DEL_REQUESTS.add(request);
-    }
-
     public void clear() {
         DEL_REQUESTS.clear();
+        ADD_REQUESTS.clear();
+        OPTIMIZE_REQUESTS.clear();
     }
 }

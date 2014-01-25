@@ -18,18 +18,22 @@ public class PcbMoveTool {
         double x = Double.parseDouble(args[1]);
         double y = Double.parseDouble(args[2]);
 
-
         new File("output").mkdir();
 
-        PcbNode node = PcbNode.readFromFile(fileName);
-
-        System.out.println(node);
-
-        move(node, x, y);
+        PcbNode node = readAndMove(fileName, x, y);
         node.write("output" + File.separator + fileName);
     }
 
+    public static PcbNode readAndMove(String fileName, double x, double y) throws IOException {
+        PcbNode node = PcbNode.readFromFile(fileName);
+
+        move(node, x, y);
+        return node;
+    }
+
     public static void move(PcbNode pcbNode, double dx, double dy) {
+        System.out.println("Moving " + pcbNode + ": dx="  +dx + " dy=" + dy);
+
         List<PcbNode> dimensions = pcbNode.iterate("dimension");
         System.out.println("Moving " + dimensions.size() + " dimension");
         for (PcbNode dimension : dimensions) {
