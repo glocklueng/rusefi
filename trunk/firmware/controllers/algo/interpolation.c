@@ -192,11 +192,19 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 
 #if	DEBUG_INTERPOLATION
 	if (needInterpolationLogging) {
-	printf("key=%f:\r\nrange %f - %f\r\n", y, keyMin, keyMax);
-	printf("key interpolation range %f   %f result %f\r\n", rpmMinKeyMaxValue, rpmMaxKeyMaxValue, keyMaxValue);
+		printf("key=%f:\r\nrange %f - %f\r\n", y, keyMin, keyMax);
+		printf("key interpolation range %f   %f result %f\r\n", rpmMinKeyMaxValue, rpmMaxKeyMaxValue, keyMaxValue);
 	}
 #endif
 
 	float result = interpolate(keyMin, keyMinValue, keyMax, keyMaxValue, y);
 	return result;
 }
+
+void setTableValue(float bins[], float values[], int size, float key, float value) {
+	int index = findIndex(bins, size, key);
+	if (index == -1)
+		index = 0;
+	values[index] = value;
+}
+

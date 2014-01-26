@@ -96,6 +96,7 @@ int main(void) {
 	testAngleResolver();
 
 	testPinHelper();
+	testSetTableValue();
 
 	printf("Success 20130120\r\n");
 
