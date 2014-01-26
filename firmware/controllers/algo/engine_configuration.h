@@ -74,7 +74,7 @@ typedef struct {
 	short int tpsMax; // size 2, offset 332
 	short int analogChartMode;
 
-	CrankingMode crankingSettings;
+	cranking_parameters_s crankingSettings;
 
 	map_s map;
 

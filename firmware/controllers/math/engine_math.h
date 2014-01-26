@@ -24,7 +24,11 @@ typedef struct {
 	float fuelAtMinTempMs;
 	float fuelAtMaxTempMs;
 
+	/**
+	 * This value controls what RPM values we consider 'cranking' (any RPM below 'crankingRpm')
+	 * Anything above 'crankingRpm' would be 'running'
+	 */
 	short int crankingRpm;
-} CrankingMode;
+} cranking_parameters_s;
 
 #endif /* ENGINE_MATH_H_ */
