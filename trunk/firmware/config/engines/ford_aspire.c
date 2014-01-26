@@ -244,7 +244,7 @@ static void setDefaultMaps(EngineConfiguration *engineConfiguration) {
 }
 
 void setFordAspireEngineConfiguration(EngineConfiguration *engineConfiguration) {
-engineConfiguration->tpsMin = 1;
+	engineConfiguration->tpsMin = 1;
 	engineConfiguration->tpsMax = 1000;
 
 	engineConfiguration->ignitonOffset = 35;
@@ -259,6 +259,8 @@ engineConfiguration->tpsMin = 1;
 	engineConfiguration->crankingSettings.fuelAtMinTempMs = 20;
 
 	engineConfiguration->ignitionPinMode = OM_INVERTED;
+
+	engineConfiguration->globalTriggerOffsetAngle = 175;
 
 	setDefaultMaps(engineConfiguration);
 }
