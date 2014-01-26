@@ -19,8 +19,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Digital Sniffer control consists of a set of {@link UpDownImage}
+ *
+ *
  * Date: 6/23/13
  * Andrey Belomutskiy (c) 2012-2013
+ *
+ * @see ChartStatusPanel status bar
  */
 public class WavePanel extends JPanel {
     public static final String DELI = "!";
