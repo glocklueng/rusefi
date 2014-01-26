@@ -9,6 +9,7 @@
 #include "main.h"
 #include "interpolation.h"
 #include <stdio.h>
+#include "engine_configuration.h"
 
 void testFindIndex(void) {
 	printf("*************************************************** testFindIndex\r\n");
@@ -96,4 +97,24 @@ void testInterpolate2d(void) {
 	printf("Middle1\r\n");
 	result = interpolate2d(3.5, bins4, values4, size);
 	assertEquals(215, result);
+}
+
+static EngineConfiguration engineConfiguration;
+
+void testSetTableValue(void) {
+	printf("*************************************************** testSetTableValue\r\n");
+
+	for (int i = 0; i < CLT_CURVE_SIZE; i++) {
+		engineConfiguration.cltFuelCorrBins[i] = -40 + i * 10;
+		engineConfiguration.cltFuelCorr[i] = 1;
+	}
+
+	assertEquals(1, engineConfiguration.cltFuelCorr[0]);
+
+	setTableValue(engineConfiguration.cltFuelCorrBins, engineConfiguration.cltFuelCorr, CLT_CURVE_SIZE, -40, 1.5);
+	assertEquals(1.5, engineConfiguration.cltFuelCorr[0]);
+
+	setTableValue(engineConfiguration.cltFuelCorrBins, engineConfiguration.cltFuelCorr, CLT_CURVE_SIZE, -50, 1.4);
+	assertEquals(1.4, engineConfiguration.cltFuelCorr[0]);
+
 }
