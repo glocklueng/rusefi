@@ -36,7 +36,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "25 jan 2014"
+Date "26 jan 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -167,21 +167,6 @@ Text Label 6800 4650 0    60   ~ 0
 PC7
 Text Label 6800 4550 0    60   ~ 0
 PC9
-$Comp
-L CONN_2 P55
-U 1 1 52E34759
-P 7900 4350
-F 0 "P55" V 7850 4350 40  0000 C CNN
-F 1 "CONN_2" V 7950 4350 40  0000 C CNN
-F 2 "" H 7900 4350 60  0000 C CNN
-F 3 "" H 7900 4350 60  0000 C CNN
-	1    7900 4350
-	-1   0    0    1   
-$EndComp
-Text Label 8250 4250 0    60   ~ 0
-PC9
-Text Label 8250 4450 0    60   ~ 0
-PC7
 Text Label 2550 4550 2    60   ~ 0
 PD11
 Text Label 2550 4450 2    60   ~ 0
@@ -323,4 +308,25 @@ Text Notes 3400 5550 0    60   ~ 0
 The purpose of this VOID connector is to trick KiCad\ninto assigning proper net name to the jumper pad\nwhich would not happen if the pad is unconnected
 Text Label 4750 6100 0    60   ~ 0
 CRANK
+$Comp
+L CONN_6 P55
+U 1 1 52E474FE
+P 7500 5500
+F 0 "P55" V 7450 5500 60  0000 C CNN
+F 1 "CONN_6" V 7550 5500 60  0000 C CNN
+F 2 "" H 7500 5500 60  0000 C CNN
+F 3 "" H 7500 5500 60  0000 C CNN
+	1    7500 5500
+	-1   0    0    1   
+$EndComp
+Text Label 7850 5450 0    60   ~ 0
+GND
+Text Label 7850 5550 0    60   ~ 0
+PC7
+Text Label 7850 5650 0    60   ~ 0
+PC9
+NoConn ~ 7850 5250
+Text Label 7850 5350 0    60   ~ 0
+GND
+NoConn ~ 7850 5750
 $EndSCHEMATC
