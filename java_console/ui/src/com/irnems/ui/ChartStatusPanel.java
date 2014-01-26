@@ -9,8 +9,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Map;
 
 /**
+ * Status bar at the bottom of Digital Sniffer - {@link WavePanel}
+ * <p/>
+ * <p/>
  * Date: 12/26/13
  * Andrey Belomutskiy (c) 2012-2013
  */
@@ -19,6 +23,7 @@ public class ChartStatusPanel {
     private final JLabel xLabel = new JLabel();
     private final JLabel timeLabel = new JLabel();
     private final JLabel angleLabel = new JLabel();
+    private final JLabel rpmLabel = new JLabel();
     private TimeAxisTranslator translator = WaveReport.MOCK;
 
     private RevolutionLog time2rpm = RevolutionLog.parseRevolutions(null);
@@ -34,6 +39,12 @@ public class ChartStatusPanel {
 
             String text = time2rpm == null ? "n/a" : time2rpm.getText(time);
             angleLabel.setText(text);
+
+            Map.Entry<Integer, Integer> e = time2rpm.getTimeAndRpm(time);
+            if (e == null)
+                rpmLabel.setText("n/a");
+            else
+                rpmLabel.setText("" + e.getValue());
         }
     };
 
@@ -48,6 +59,9 @@ public class ChartStatusPanel {
 
         infoPanel.add(new JLabel(" angle: "));
         infoPanel.add(angleLabel);
+
+        infoPanel.add(new JLabel(" RPM: "));
+        infoPanel.add(rpmLabel);
     }
 
     public void setWaveReport(TimeAxisTranslator translator) {

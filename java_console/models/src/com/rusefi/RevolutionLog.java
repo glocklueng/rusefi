@@ -32,7 +32,7 @@ public class RevolutionLog {
     }
 
     public String getText(double time) {
-        Map.Entry<Integer, Integer> entry = time2rpm.floorEntry((int) time);
+        Map.Entry<Integer, Integer> entry = getTimeAndRpm(time);
         String text;
         if (entry == null) {
             text = "n/a";
@@ -47,6 +47,10 @@ public class RevolutionLog {
             text = String.format("%.2f", angle);
         }
         return text;
+    }
+
+    public Map.Entry<Integer, Integer> getTimeAndRpm(double time) {
+        return time2rpm.floorEntry((int) time);
     }
 
     public Set<Integer> keySet() {
