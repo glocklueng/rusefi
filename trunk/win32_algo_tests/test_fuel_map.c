@@ -12,6 +12,7 @@
 #include "allsensors.h"
 
 extern EngineConfiguration *engineConfiguration;
+extern EngineConfiguration2 *engineConfiguration2;
 
 void testFuelMap(void) {
 	chDbgCheck(engineConfiguration!=NULL, "engineConfiguration");
@@ -100,7 +101,7 @@ static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
 	triggerAddEvent(s, 720, T_PRIMARY, 0);
 }
 
-static trigger_shape_s ts;
+
 static ActuatorEventList ae;
 
 extern int outputSignalCount;
@@ -108,14 +109,17 @@ extern int outputSignalCount;
 void testAngleResolver(void) {
 	printf("*************************************************** testAngleResolver\r\n");
 
-	confgiureFordAspireTriggerShape(&ts);
-	assertEquals(10, ts.size);
+	engineConfiguration->globalTriggerOffsetAngle = 175;
+	trigger_shape_s * ts = &engineConfiguration2->triggerShape;
+
+	confgiureFordAspireTriggerShape(ts);
+	assertEqualsM("shape size", 10, ts->size);
 
 	outputSignalCount = 0;
 
 	resetEventList(&ae);
 	printf("*************************************************** testAngleResolver 0\r\n");
-	registerActuatorEventExt(&ae, addOutputSignal(INJECTOR_1_OUTPUT), 53, &ts);
+	registerActuatorEventExt(&ae, addOutputSignal(INJECTOR_1_OUTPUT), 53 - 175);
 	assertEquals(1, ae.size);
 	assertEquals(1, outputSignalCount);
 	assertEquals(0, ae.events[0].eventIndex);
@@ -123,7 +127,7 @@ void testAngleResolver(void) {
 
 	printf("*************************************************** testAngleResolver 2\r\n");
 	resetEventList(&ae);
-	registerActuatorEventExt(&ae, addOutputSignal(INJECTOR_1_OUTPUT), 51 + 180, &ts);
+	registerActuatorEventExt(&ae, addOutputSignal(INJECTOR_1_OUTPUT), 51 + 180 - 175);
 	assertEquals(2, ae.events[0].eventIndex);
 	assertEquals(51.9870, ae.events[0].angleOffset);
 }
@@ -135,6 +139,4 @@ void testPinHelper(void) {
 
 	assertEquals(0, getElectricalValue(1, OM_INVERTED));
 	assertEquals(1, getElectricalValue(0, OM_INVERTED));
-
 }
-

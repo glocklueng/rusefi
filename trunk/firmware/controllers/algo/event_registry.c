@@ -7,6 +7,10 @@
 
 #include "event_registry.h"
 #include "main.h"
+#include "engine_configuration.h"
+
+extern EngineConfiguration *engineConfiguration;
+extern EngineConfiguration2 *engineConfiguration2;
 
 void resetEventList(ActuatorEventList *list) {
 	list->size = 0;
@@ -18,7 +22,12 @@ static void copyActuatorEvent(ActuatorEvent *source, ActuatorEvent*target) {
 	target->angleOffset = source->angleOffset;
 }
 
-void registerActuatorEventExt(ActuatorEventList *list, OutputSignal *actuator, float angleOffset, trigger_shape_s * s) {
+void registerActuatorEventExt(ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
+	trigger_shape_s * s = &engineConfiguration2->triggerShape;
+
+	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerOffsetAngle);
+
+	// todo: migrate to crankAngleRange?
 	float firstAngle = s->wave.switchTimes[0] * 720;
 
 	// let's find the last trigger angle which is less or equal to the desired angle
