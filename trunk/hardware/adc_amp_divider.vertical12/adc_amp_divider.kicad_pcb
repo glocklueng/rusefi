@@ -300,12 +300,12 @@
     )
   )
 
-  (module PIN_ARRAY_3X1 (layer F.Cu) (tedit 52E3CB53) (tstamp 524F6D6C)
+  (module PIN_ARRAY_3X1 (layer F.Cu) (tedit 52E48BDC) (tstamp 524F6D6C)
     (at 152.654 96.266)
     (descr "Connecteur 3 pins")
     (tags "CONN DEV")
     (path /524F6D3B)
-    (fp_text reference P202 (at 0.254 -4.5085) (layer F.SilkS)
+    (fp_text reference P202 (at 0.254 -4.5085) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.1524)))
     )
     (fp_text value CONN_3 (at 0 -2.159) (layer F.SilkS) hide
@@ -615,12 +615,12 @@
     )
   )
 
-  (module PIN_ARRAY-6X1 (layer F.Cu) (tedit 52E3CB5A) (tstamp 52501F45)
+  (module PIN_ARRAY-6X1 (layer F.Cu) (tedit 52E48BD9) (tstamp 52501F45)
     (at 139.319 96.393 180)
     (descr "Connecteur 6 pins")
     (tags "CONN DEV")
     (path /524F7A58)
-    (fp_text reference P209 (at 0.1905 4.5085 180) (layer F.SilkS)
+    (fp_text reference P209 (at 0.1905 4.5085 180) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_text value CONN_6 (at 0 2.159 180) (layer F.SilkS) hide
@@ -1163,12 +1163,12 @@
     )
   )
 
-  (module PIN_ARRAY_1 (layer F.Cu) (tedit 52E3C6FA) (tstamp 5295C514)
+  (module PIN_ARRAY_1 (layer F.Cu) (tedit 52E48BD3) (tstamp 5295C514)
     (at 122.4915 144.78)
     (descr "1 pin")
     (tags "CONN DEV")
     (path /52941801)
-    (fp_text reference P204 (at -7.62 -0.381) (layer F.SilkS)
+    (fp_text reference P204 (at -7.62 -0.381) (layer F.SilkS) hide
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
     (fp_text value CONN_1 (at 0 -1.905) (layer F.SilkS) hide
@@ -1189,12 +1189,12 @@
     )
   )
 
-  (module PIN_ARRAY_1 (layer F.Cu) (tedit 52E3C70C) (tstamp 5295D0CB)
+  (module PIN_ARRAY_1 (layer F.Cu) (tedit 52E48BD1) (tstamp 5295D0CB)
     (at 123.063 133.35)
     (descr "1 pin")
     (tags "CONN DEV")
     (path /5295D3A8)
-    (fp_text reference P205 (at -6.35 0.0635) (layer F.SilkS)
+    (fp_text reference P205 (at -6.35 0.0635) (layer F.SilkS) hide
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
     (fp_text value CONN_1 (at 0 -1.905) (layer F.SilkS) hide
