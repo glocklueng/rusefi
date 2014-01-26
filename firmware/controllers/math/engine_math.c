@@ -82,3 +82,20 @@ float getOneDegreeTime(int rpm) {
 float getCrankshaftRevolutionTime(int rpm) {
 	return 360 * getOneDegreeTime(rpm);
 }
+
+/**
+ * @brief Shifts angle into the [0..720) range
+ * TODO: should be 'crankAngleRange' range?
+ */
+float fixAngle(float angle) {
+	// I guess this implementation would be faster than 'angle % 720'
+	while (angle < 0)
+		angle += 720;
+	while (angle > 720)
+		angle -= 720;
+	return angle;
+}
+
+//float getTriggerEventAngle(int triggerEventIndex) {
+//	return 0;
+//}

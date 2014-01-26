@@ -31,4 +31,7 @@ typedef struct {
 	short int crankingRpm;
 } cranking_parameters_s;
 
+float fixAngle(float angle);
+float getTriggerEventAngle(int triggerEventIndex);
+
 #endif /* ENGINE_MATH_H_ */
