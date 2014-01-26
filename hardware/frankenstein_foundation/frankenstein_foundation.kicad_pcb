@@ -57,7 +57,7 @@
     (pad_drill 1.016)
     (pad_to_mask_clearance 0)
     (aux_axis_origin 0 0)
-    (visible_elements 7FFFFFFF)
+    (visible_elements 7FFFFFBF)
     (pcbplotparams
       (layerselection 3178497)
       (usegerberextensions true)
@@ -194,7 +194,7 @@
     )
   )
 
-  (module PIN_ARRAY_5x2 (layer F.Cu) (tedit 52E34AE9) (tstamp 52DB425D)
+  (module PIN_ARRAY_5x2 (layer F.Cu) (tedit 52E48A36) (tstamp 52DB425D)
     (at 128.27 157.48 270)
     (descr "Double rangee de contacts 2 x 5 pins")
     (tags CONN)
@@ -202,7 +202,7 @@
     (fp_text reference P54 (at 0.635 -3.81 270) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value CONN_5X2 (at -0.4445 -10.922 270) (layer F.SilkS) hide
+    (fp_text value CONN_5X2 (at -0.127 -4.3815 270) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -6.35 -2.54) (end 6.35 -2.54) (layer F.SilkS) (width 0.3048))
@@ -276,13 +276,13 @@
     )
   )
 
-  (module PIN_ARRAY_10X2_M (layer F.Cu) (tedit 52E34ADC) (tstamp 52DB4077)
+  (module PIN_ARRAY_10X2_M (layer F.Cu) (tedit 52E48A37) (tstamp 52DB4077)
     (at 128.27 176.53 270)
     (path /52DB4411)
     (fp_text reference P52 (at 0 -3.81 270) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.254)))
     )
-    (fp_text value CONN_10X2 (at 0.127 11.303 270) (layer F.SilkS) hide
+    (fp_text value CONN_10X2 (at -1.905 9.2075 270) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start 12.49934 2.49936) (end 12.49934 -2.49936) (layer F.SilkS) (width 0.09906))
@@ -370,7 +370,7 @@
     )
   )
 
-  (module PIN_ARRAY-6X1 (layer F.Cu) (tedit 52E34C85) (tstamp 52E34C6C)
+  (module PIN_ARRAY-6X1 (layer F.Cu) (tedit 52E48A39) (tstamp 52E34C6C)
     (at 121.92 181.483 90)
     (descr "Connecteur 6 pins")
     (tags "CONN DEV")
@@ -378,7 +378,7 @@
     (fp_text reference P56 (at -0.127 -2.794 90) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value CONN_6 (at -0.127 -4.6355 90) (layer F.SilkS) hide
+    (fp_text value CONN_6 (at -1.4605 -3.048 90) (layer F.SilkS) hide
       (effects (font (size 1.016 0.889) (thickness 0.2032)))
     )
     (fp_line (start -7.62 1.27) (end -7.62 -1.27) (layer F.SilkS) (width 0.3048))
@@ -417,7 +417,7 @@
     )
   )
 
-  (module PIN_ARRAY-6X1 (layer F.Cu) (tedit 52E34D5C) (tstamp 52E34A79)
+  (module PIN_ARRAY-6X1 (layer F.Cu) (tedit 52E48A3A) (tstamp 52E34A79)
     (at 121.92 166.37 90)
     (descr "Connecteur 6 pins")
     (tags "CONN DEV")
@@ -425,7 +425,7 @@
     (fp_text reference P57 (at -1.016 -2.9845 90) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value CONN_6 (at -0.0635 -4.318 90) (layer F.SilkS) hide
+    (fp_text value CONN_6 (at -0.254 -3.302 90) (layer F.SilkS) hide
       (effects (font (size 1.016 0.889) (thickness 0.2032)))
     )
     (fp_line (start -7.62 1.27) (end -7.62 -1.27) (layer F.SilkS) (width 0.3048))
