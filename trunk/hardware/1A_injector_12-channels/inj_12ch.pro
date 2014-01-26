@@ -1,15 +1,7 @@
-update=1/25/2014 10:57:53 PM
+update=1/26/2014 6:08:09 AM
 last_client=eeschema
 [common]
 NetDir=
-[cvpcb]
-version=1
-NetITyp=0
-NetIExt=.net
-PkgIExt=.pkg
-NetType=0
-[cvpcb/libraries]
-EquName1=devcms
 [general]
 version=1
 [pcbnew]
@@ -32,7 +24,6 @@ DrawSegmentWidth=0.254000000000
 BoardOutlineThickness=0.254000000000
 ModuleOutlineThickness=0.099060000000
 [pcbnew/libraries]
-LibDir=
 LibName1=connect
 LibName2=discret
 LibName3=pin_array
@@ -40,7 +31,12 @@ LibName4=divers
 LibName5=libcms
 LibName6=display
 LibName7=lib/project_specific_modules
-LibName8=lib/0176122-06
+LibDir=
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [eeschema]
 version=1
 LibDir=

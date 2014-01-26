@@ -1,4 +1,4 @@
-PCBNEW-LibModule-V1  1/25/2014 1:47:20 PM
+PCBNEW-LibModule-V1  1/26/2014 6:02:48 AM
 # encoding utf-8
 Units mm
 $INDEX
@@ -9747,6 +9747,18 @@ At STD N 00E0FFFF
 Ne 12 "/INJ-12"
 Po 19.25 0
 $EndPAD
+$SHAPE3D
+Na "device/bornier_6.wrl"
+Sc 1 1 1
+Of -0.5 0 0
+Ro 0 0 0
+$EndSHAPE3D
+$SHAPE3D
+Na "device/bornier_6.wrl"
+Sc 1 1 1
+Of 0.5 0 0
+Ro 0 0 0
+$EndSHAPE3D
 $EndMODULE SIL-16_3.5MM
 $MODULE SM0805-C1
 Po 0 0 0 15 4BD78A16 00000000 ~~
