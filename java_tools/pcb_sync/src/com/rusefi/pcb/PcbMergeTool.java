@@ -8,6 +8,7 @@ import com.rusefi.misc.TwoFileRequest;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,6 +59,8 @@ public class PcbMergeTool {
             at.setLocation(at.x + moveRequest.x, at.y + moveRequest.y);
         }
 
+        removeNodes(destNode);
+
         destNode.write(destination);
     }
 
@@ -82,27 +85,29 @@ public class PcbMergeTool {
             netIdMapping.put(netId, networks.getId(newName));
         }
 
-        removeNodes(source);
+        List<PcbNode> labels = source.iterate("gr_text");
+        log("Processing  " + labels.size() + " label(s)");
+        for (PcbNode label : labels) {
+            destNode.addChild(label);
+        }
 
-        log("Processing modules");
-        for (PcbNode module : source.iterate("module")) {
+        List<PcbNode> modules = source.iterate("module");
+        log("Processing  " + modules.size() + " module(s)");
+        for (PcbNode module : modules) {
             for (PcbNode pad : module.iterate("pad")) {
                 if (!pad.hasChild("net"))
                     continue;
-
                 PcbNode net = pad.find("net");
-
                 String localName = netNameMapping.get(net.getChild(1));
-
                 net.setString(1, localName);
-
                 net.setInt(0, networks.getId(localName));
             }
             destNode.addChild(module);
         }
 
-        log("Processing segments");
-        for (PcbNode segment : source.iterate("segment")) {
+        List<PcbNode> segments = source.iterate("segment");
+        log("Processing " + segments.size() + " segments");
+        for (PcbNode segment : segments) {
 //            if (!segment.hasChild("net"))
 //                continue;
             fixNetId(netIdMapping, segment);
@@ -110,8 +115,9 @@ public class PcbMergeTool {
             destNode.addChild(segment);
         }
 
-        log("Processing vias");
-        for (PcbNode via : source.iterate("via")) {
+        List<PcbNode> vias = source.iterate("via");
+        log("Processing " + vias.size() + " vias");
+        for (PcbNode via : vias) {
             fixNetId(netIdMapping, via);
 
             destNode.addChild(via);
