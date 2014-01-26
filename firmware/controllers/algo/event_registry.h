@@ -37,7 +37,7 @@ void resetEventList(ActuatorEventList *list);
  */
 void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset);
 
-void registerActuatorEventExt(ActuatorEventList *list, OutputSignal *actuator, float angleOffset, trigger_shape_s * s);
+void registerActuatorEventExt(ActuatorEventList *list, OutputSignal *actuator, float angleOffset);
 
 void findEvents(int eventIndex, ActuatorEventList *source, ActuatorEventList *target);
 
