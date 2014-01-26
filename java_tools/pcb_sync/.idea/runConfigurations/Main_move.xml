@@ -2,7 +2,7 @@
   <configuration default="false" name="Main move" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.rusefi.Main" />
     <option name="VM_PARAMETERS" value="" />
-    <option name="PROGRAM_PARAMETERS" value="pcb_move adc_amp_divider.kicad_pcb -35.56 -20.955" />
+    <option name="PROGRAM_PARAMETERS" value="pcb_move can_brd_1.kicad_pcb -43.18 58.928" />
     <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
     <option name="ALTERNATIVE_JRE_PATH" value="" />

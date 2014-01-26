@@ -12,4 +12,12 @@ public class TwoFileRequest {
         this.input = input;
         this.output = output;
     }
+
+    static TwoFileRequest parseTwoFile(String request) {
+        String[] tokens = request.split(" ");
+        if (tokens.length != 2)
+            throw new IllegalArgumentException("req " + request);
+
+        return new TwoFileRequest(tokens[0], tokens[1]);
+    }
 }

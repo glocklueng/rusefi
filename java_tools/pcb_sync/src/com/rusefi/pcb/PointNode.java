@@ -68,4 +68,9 @@ public class PointNode extends PcbNode {
             return new PointNode(-nx, -ny);
         throw new IllegalStateException("Angle not supported: " + angle);
     }
+
+    public void setLocation(double x, double y) {
+        children.set(0, Double.toString(x));
+        children.set(1, Double.toString(y));
+    }
 }

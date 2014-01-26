@@ -151,6 +151,7 @@ public class PcbNode {
     }
 
     public void write(String fileName) throws IOException {
+        System.out.println("Writing to " + fileName);
         String content = pack();
         BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
         bw.write(content);
