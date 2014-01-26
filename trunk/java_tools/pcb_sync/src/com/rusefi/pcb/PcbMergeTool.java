@@ -1,7 +1,7 @@
 package com.rusefi.pcb;
 
 import com.rusefi.PcbCopyTool;
-import com.rusefi.misc.AddRequest;
+import com.rusefi.misc.NameAndOffset;
 import com.rusefi.misc.ChangesModel;
 import com.rusefi.misc.RemoveUnneededTraces;
 import com.rusefi.misc.TwoFileRequest;
@@ -18,38 +18,59 @@ public class PcbMergeTool {
     private static Networks networks = new Networks();
 
     public static void main(String[] args) throws IOException {
-        if (args.length < 3) {
-            System.out.println("At least three parameters expected: TEMPLATE DESTINATION SOURCE1 SOURCE2");
+        if (args.length != 3) {
+            System.out.println("Three parameters expected: SOURCE_PCB_FILENAME DESTINATION_PCB_FILENAME CHANGES_LIST_FILENAME");
             return;
         }
+        String sourcePcb = args[0];
+        String destination = args[1];
+        String changes = args[2];
 
-        ChangesModel.readConfiguration();
+        ChangesModel.readConfiguration(changes);
 
+        log("Running COPY commands");
         for (TwoFileRequest or : ChangesModel.getInstance().COPY_REQUESTS)
             PcbCopyTool.copy(or.input, or.output);
 
+        log("Running OPTIMIZE commands");
         for (TwoFileRequest or : ChangesModel.getInstance().OPTIMIZE_REQUESTS)
             RemoveUnneededTraces.optimize(or.input, or.output);
 
-        String template = args[0];
-        String destination = args[1];
-        PcbNode destNode = PcbNode.readFromFile(template);
+        PcbNode destNode = PcbNode.readFromFile(sourcePcb);
 
-        for (int i = 2; i < args.length; i++)
-            mergePcb(destNode, PcbNode.readFromFile(args[i]));
-
-        for (AddRequest addRequest : ChangesModel.getInstance().ADD_REQUESTS) {
-            PcbNode node = PcbMoveTool.readAndMove(addRequest.fileName, addRequest.x, addRequest.y);
+        log("Running ADD commands");
+        for (NameAndOffset addRequest : ChangesModel.getInstance().ADD_REQUESTS) {
+            PcbNode node = PcbMoveTool.readAndMove(addRequest.getName(), addRequest.x, addRequest.y);
 
             mergePcb(destNode, node);
         }
 
+        log("Running MOVE commands");
+        for (NameAndOffset moveRequest : ChangesModel.getInstance().MOVE_REQUESTS) {
+            String moduleName = moveRequest.getName();
+            ModuleNode module = findModuleByName(destNode, moduleName);
+            if (module == null) {
+                log("Module not found: " + moduleName);
+                continue;
+            }
+
+            PointNode at = module.at;
+            at.setLocation(at.x + moveRequest.x, at.y + moveRequest.y);
+        }
 
         destNode.write(destination);
     }
 
-    private static void mergePcb(PcbNode destNode, PcbNode source) throws IOException {
+    private static ModuleNode findModuleByName(PcbNode destNode, String moduleName) {
+        for (PcbNode node : destNode.iterate("module")) {
+            ModuleNode mn = (ModuleNode) node;
+            if (moduleName.toLowerCase().equals(mn.name.toLowerCase()))
+                return mn;
+        }
+        return null;
+    }
 
+    private static void mergePcb(PcbNode destNode, PcbNode source) throws IOException {
         Map<String, String> netNameMapping = new HashMap<String, String>();
         Map<String, Integer> netIdMapping = new HashMap<String, Integer>();
 
@@ -96,10 +117,10 @@ public class PcbMergeTool {
             destNode.addChild(via);
         }
 
-        for (PcbNode zone : source.iterate("zone")) {
+//        for (PcbNode zone : source.iterate("zone")) {
 //            fixNetId(netIdMapping, zone);
 //            destNode.addChild(zone);
-        }
+//        }
     }
 
     public static void removeNodes(PcbNode source) {
@@ -150,7 +171,7 @@ public class PcbMergeTool {
 
         public int getId(String localName) {
             Integer value = networks.get(localName);
-            if (localName == null)
+            if (value == null)
                 throw new NullPointerException("No id for " + localName);
             return value;
         }

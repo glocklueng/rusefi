@@ -17,7 +17,7 @@ public class PcbCopyTool {
             return;
         }
 
-        ChangesModel.readConfiguration();
+        ChangesModel.readConfiguration("pcb_merge_changes.txt");
 
         String input = args[0];
         String output = args[1];

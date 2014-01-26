@@ -1,7 +1,7 @@
 package com.rusefi.pcb.test;
 
 
-import com.rusefi.misc.AddRequest;
+import com.rusefi.misc.NameAndOffset;
 import com.rusefi.misc.ChangesModel;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class ChangesModelTest {
 
         assertEquals(2, model.ADD_REQUESTS.size());
 
-        AddRequest ar = model.ADD_REQUESTS.get(1);
+        NameAndOffset ar = model.ADD_REQUESTS.get(1);
         Assert.assertEquals(4.0, ar.x, 0);
         Assert.assertEquals(6.0, ar.y, 0);
 

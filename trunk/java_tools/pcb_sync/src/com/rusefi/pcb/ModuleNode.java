@@ -7,7 +7,6 @@ import java.util.List;
  *         1/21/14
  */
 public class ModuleNode extends PcbNode {
-
     final List<PadNode> pads;
     public final PointNode at;
     public final String name;
