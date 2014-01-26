@@ -13,7 +13,6 @@
 #include "ford_fiesta.h"
 #include "engine_configuration.h"
 #include "toothed_wheel_emulator.h"
-#include "dist_emulator.h"
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	// injector 1 activated at the 1st tooth event while cranking
