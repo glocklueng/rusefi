@@ -120,8 +120,8 @@ void printTemperatureInfo(void) {
 	scheduleMsg(&logger, "CLT R=%f on channel %d", rClt, engineConfiguration2->clt.channel);
 	scheduleMsg(&logger, "IAT R=%f on channel %d", rIat, engineConfiguration2->iat.channel);
 
-	scheduleMsg(&logger, "cranking fuel %fms @ %C", engineConfiguration->crankingSettings.fuelAtMinTempMs, engineConfiguration->crankingSettings.coolantTempMinC);
-	scheduleMsg(&logger, "cranking fuel %fms @ %C", engineConfiguration->crankingSettings.fuelAtMaxTempMs, engineConfiguration->crankingSettings.coolantTempMaxC);
+	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMinTempMs, engineConfiguration->crankingSettings.coolantTempMinC);
+	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMaxTempMs, engineConfiguration->crankingSettings.coolantTempMaxC);
 }
 
 void initEngineContoller(void) {
