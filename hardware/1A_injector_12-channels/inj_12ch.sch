@@ -31,7 +31,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "12 Channel Injector"
-Date "25 jan 2014"
+Date "26 jan 2014"
 Rev "A-1"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""
@@ -39,220 +39,11 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Wire Notes Line
-	13075 8475 12975 8475
-Wire Notes Line
-	10050 8150 8700 8150
-Wire Notes Line
-	10125 8350 10125 8475
-Wire Notes Line
-	11125 7950 11100 7850
-Wire Notes Line
-	11275 7900 11175 8050
-Wire Notes Line
-	11150 7900 11125 7825
-Wire Notes Line
-	11175 7900 11175 7875
-Wire Notes Line
-	11150 8050 11100 8100
-Wire Notes Line
-	11150 8050 11200 8050
-Wire Notes Line
-	11200 8050 11250 8100
-Wire Notes Line
-	11250 8100 11250 8350
-Wire Notes Line
-	11250 8350 11100 8350
-Wire Notes Line
-	11100 8350 11100 8100
-Wire Notes Line
-	11175 8050 11075 7900
-Wire Notes Line
-	11175 8050 11125 7875
-Wire Notes Line
-	11175 8050 11175 7925
-Wire Notes Line
-	11175 7850 11175 7825
-Wire Notes Line
-	11200 7900 11225 7825
-Wire Notes Line
-	11175 8050 11225 7875
-Wire Notes Line
-	11225 7950 11250 7850
-Wire Notes Line
-	10175 7950 10200 7850
-Wire Notes Line
-	10175 7875 10125 8050
-Wire Notes Line
-	10150 7900 10175 7825
-Wire Notes Line
-	10125 7850 10125 7825
-Wire Notes Line
-	10125 8050 10125 7925
-Wire Notes Line
-	10125 8050 10075 7875
-Wire Notes Line
-	10125 8050 10025 7900
-Wire Notes Line
-	13925 8475 13400 8475
-Wire Notes Line
-	12975 8475 12800 8400
-Wire Wire Line
-	7725 6825 7725 6875
-Wire Notes Line
-	14700 8400 14750 8400
-Wire Notes Line
-	14175 8400 14225 8400
-Wire Notes Line
-	14700 8525 14700 8450
-Wire Notes Line
-	14750 8525 14750 8450
-Wire Notes Line
-	14750 8450 14700 8450
-Wire Notes Line
-	14225 8525 14225 8450
-Wire Notes Line
-	14225 8450 14175 8450
-Wire Notes Line
-	10700 6625 10700 6825
-Wire Notes Line
-	10700 6825 8625 6825
-Connection ~ 6575 7925
-Wire Wire Line
-	6575 7825 6575 7975
-Wire Wire Line
-	6575 7825 7125 7825
-Wire Wire Line
-	6575 6725 6625 6725
-Connection ~ 6575 5425
-Wire Wire Line
-	6575 5325 6575 5475
-Wire Wire Line
-	7525 8675 8075 8675
-Wire Wire Line
-	7525 7575 7975 7575
-Wire Wire Line
-	7525 1225 8075 1225
-Wire Wire Line
-	7875 6325 7525 6325
-Wire Wire Line
-	7875 7425 7525 7425
-Wire Notes Line
-	13825 8475 14175 8475
-Connection ~ -4675 3450
-Wire Notes Line
-	13400 8550 13075 8550
-Wire Notes Line
-	13400 8550 13400 8400
-Wire Notes Line
-	13325 8550 13325 8400
-Wire Notes Line
-	10125 8475 12800 8475
-Wire Notes Line
-	13075 8550 13075 8400
-Wire Notes Line
-	13150 8550 13150 8400
-Wire Notes Line
-	13075 8400 13400 8400
-Connection ~ 6625 8425
-Wire Wire Line
-	6625 8325 6625 8425
-Connection ~ 7125 8075
-Wire Wire Line
-	7525 8175 7525 8075
-Wire Wire Line
-	7125 7975 7125 8325
-Wire Wire Line
-	6575 8425 7125 8425
-Wire Wire Line
-	6575 7175 7125 7175
-Wire Wire Line
-	7125 6725 7125 7075
-Wire Wire Line
-	7525 6925 7525 6825
-Connection ~ 7125 6825
-Wire Wire Line
-	6625 7075 6625 7175
-Connection ~ 6625 7175
-Wire Wire Line
-	6575 5925 7125 5925
-Wire Wire Line
-	7125 5475 7125 5825
-Wire Wire Line
-	7525 5675 7525 5575
-Connection ~ 7125 5575
-Wire Wire Line
-	6625 5825 6625 5925
-Connection ~ 6625 5925
-Wire Wire Line
-	7975 6175 7525 6175
-Wire Wire Line
-	7125 8075 7550 8075
-Wire Wire Line
-	7125 5575 7550 5575
-Connection ~ 7525 5575
-Connection ~ 7525 6825
-Connection ~ 7525 8075
-Wire Notes Line
-	8625 7225 8700 7225
-Wire Notes Line
-	8700 7225 8700 8150
-Wire Notes Line
-	11100 8150 10725 8150
-Wire Wire Line
-	6575 5475 6625 5475
-Wire Wire Line
-	6575 6575 7125 6575
-Wire Wire Line
-	6575 6575 6575 6725
-Connection ~ 6575 6675
-Wire Wire Line
-	6575 7975 6625 7975
-Wire Wire Line
-	7125 6825 8125 6825
-Wire Notes Line
-	14900 7975 12025 7975
-Wire Notes Line
-	12025 7975 12025 6625
-Wire Notes Line
-	14150 8525 14150 8950
-Wire Notes Line
-	14150 8525 14775 8525
-Wire Notes Line
-	14750 8475 14900 8475
-Wire Notes Line
-	14175 8450 14175 8525
-Wire Notes Line
-	14200 8425 14200 8375
-Wire Notes Line
-	10050 8350 10050 8100
-Wire Notes Line
-	10050 8350 10200 8350
-Wire Notes Line
-	10200 8350 10200 8100
-Wire Notes Line
-	10200 8100 10150 8050
-Wire Notes Line
-	10150 8050 10100 8050
-Wire Notes Line
-	10100 8050 10050 8100
-Wire Notes Line
-	10125 7900 10125 7875
-Wire Notes Line
-	10100 7900 10075 7825
-Wire Notes Line
-	10125 8050 10225 7900
-Wire Notes Line
-	10075 7950 10050 7850
-Wire Notes Line
-	8625 7025 10725 7025
-Wire Notes Line
-	10725 7025 10725 8150
-Text Notes 11200 8300 1    30   ~ 0
+Text Notes 10850 4725 1    30   ~ 0
 INJECTOR
-Text Notes 10150 8300 1    30   ~ 0
+Text Notes 9800 4950 1    30   ~ 0
 INJECTOR
-Text Notes 12650 8325 0    60   ~ 0
+Text Notes 11075 4975 0    60   ~ 0
 RELAY
 $Comp
 L GND #PWR01
@@ -265,11 +56,9 @@ F 3 "" H 7725 6875 60  0001 C CNN
 	1    7725 6875
 	1    0    0    -1  
 $EndComp
-Text Notes 8225 7575 0    60   ~ 0
-UP TO 6\nCHANNELS\nINJECTION
 Text Notes 700  9400 0    60   ~ 0
 MISC NOTES\n\nTHE GENERAL SYSTEM LAYOUT IS SHOWN IN BLUE. THIS IS NOT\nTHE SUGGESTED SYSTEM WIRING, IT DOES SHOW THE GENERAL \nOVERALL CIRCUIT LAYOUT TOPOLOGY. \n\nTHE PCB WIRING IS SHOWN IN RED, GREEN WITH A BLUE BUS.\n\nScrew terminals 1760500000\n\nScrew connector PCB http://octopart.com/39522-1007-molex-655409 \nScrew connector harness http://octopart.com/partsearch#search/requestData&q=39520-0007
-Text Notes 14375 8775 0    60   ~ 0
+Text Notes 12575 5425 0    60   ~ 0
 BAT
 $Comp
 L FDS2734 Q7
@@ -431,7 +220,7 @@ F 5 "digi,CRCW0805100KFKEA" V 3805 8800 60  0001 C CNN "vend1,vend1#"
 	1    6875 8325
 	0    1    -1   0   
 $EndComp
-Text Notes 13125 8325 0    60   ~ 0
+Text Notes 11550 4975 0    60   ~ 0
 FUSE
 $Comp
 L FDS2734 Q12
@@ -459,13 +248,6 @@ F 5 "digi,497-11123-1-ND" V 3805 7800 60  0001 C CNN "vend1,vend1#"
 	1    7325 7825
 	1    0    0    -1  
 $EndComp
-Wire Notes Line
-	14900 8475 14900 7975
-Wire Notes Line
-	11175 8350 11175 8475
-Connection ~ 7725 6825
-Wire Notes Line
-	12025 6625 10700 6625
 $Comp
 L CONN_10X2 P2
 U 1 1 527CB514
@@ -544,12 +326,6 @@ F 5 "digi,281-2882-ND" V 2975 4475 60  0001 C CNN "vend1,vend1#"
 	1    2975 4475
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	3325 4575 3525 4575
-Wire Wire Line
-	3525 4475 3325 4475
-Wire Wire Line
-	3325 4375 3525 4375
 $Comp
 L LED D14
 U 1 1 527FB778
@@ -589,17 +365,6 @@ F 5 "digi,CRCW0805100KFKEA" V 4755 -1650 60  0001 C CNN "vend1,vend1#"
 	1    7825 725 
 	0    1    -1   0   
 $EndComp
-Connection ~ 8075 8675
-Wire Wire Line
-	4325 4775 5150 4775
-Wire Wire Line
-	4325 4875 5150 4875
-Wire Wire Line
-	4325 4975 5150 4975
-Wire Wire Line
-	4325 5175 5150 5175
-Wire Wire Line
-	4325 5275 5150 5275
 $Comp
 L DIODE D7
 U 1 1 527FF3F6
@@ -666,28 +431,8 @@ F 3 "~" H 15500 1850 60  0000 C CNN
 	1    15500 1850
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	15700 750  15700 1850
-Wire Wire Line
-	15700 1350 15375 1350
-Wire Wire Line
-	15375 1550 15700 1550
-Connection ~ 15700 1550
-Wire Wire Line
-	15375 1750 15700 1750
-Connection ~ 15700 1750
-Wire Wire Line
-	5150 5075 4325 5075
-Connection ~ 15700 1450
-Connection ~ 15700 1650
 Text Notes 15075 2050 0    60   ~ 0
 OPTIONAL SNUBBER DIODES
-Wire Notes Line
-	16375 2125 15025 2125
-Wire Notes Line
-	15025 2125 15025 600 
-Wire Notes Line
-	16375 600  16375 2125
 $Comp
 L R R1
 U 1 1 527FFC06
@@ -710,23 +455,10 @@ F 3 "" H 8075 1475 60  0001 C CNN
 	1    8075 1475
 	1    0    0    1   
 $EndComp
-Connection ~ 8075 1225
 Text Label 8075 725  0    60   ~ 0
 5V
 Text Notes 8625 875  0    60   ~ 0
 OPTION FOR IGNITION DRIVER\n75 OHM   1/2 WATT\n\n\n\n\n100 OHM    1 WATT
-Wire Notes Line
-	8200 950  8575 850 
-Wire Notes Line
-	8200 1475 8575 1375
-Wire Notes Line
-	8575 775  8575 1450
-Wire Notes Line
-	8575 1450 10075 1450
-Wire Notes Line
-	10075 1450 10075 775 
-Wire Notes Line
-	10075 775  8575 775 
 Text Label 14975 1750 2    60   ~ 0
 INJ-11
 Text Label 14975 1850 2    60   ~ 0
@@ -739,12 +471,6 @@ Text Label 14975 1350 2    60   ~ 0
 INJ-07
 Text Label 14975 1450 2    60   ~ 0
 INJ-08
-Wire Wire Line
-	15300 1450 14975 1450
-Wire Wire Line
-	15300 1650 14975 1650
-Wire Wire Line
-	15300 1850 14975 1850
 Text Label 8075 1725 3    60   ~ 0
 INJ-01_2
 $Comp
@@ -760,8 +486,6 @@ F 5 "digi,ERJ-6ENF20R0V" V 3255 3050 60  0001 C CNN "vend1,vend1#"
 	1    6325 5425
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	6575 5325 7125 5325
 $Comp
 L R R18
 U 1 1 529A8879
@@ -827,76 +551,6 @@ F 5 "digi,ERJ-6ENF20R0V" V 3305 6050 60  0001 C CNN "vend1,vend1#"
 	1    6375 8425
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	7725 2975 7725 3025
-Connection ~ 6575 4075
-Wire Wire Line
-	6575 3975 6575 4125
-Wire Wire Line
-	6575 3975 7125 3975
-Wire Wire Line
-	6575 2875 6625 2875
-Connection ~ 6575 1575
-Wire Wire Line
-	6575 1475 6575 1625
-Wire Wire Line
-	7525 4825 8075 4825
-Wire Wire Line
-	7525 3725 7975 3725
-Wire Wire Line
-	7525 5075 8075 5075
-Wire Wire Line
-	7875 2475 7525 2475
-Wire Wire Line
-	7875 3575 7525 3575
-Connection ~ 6625 4575
-Wire Wire Line
-	6625 4475 6625 4575
-Connection ~ 7125 4225
-Wire Wire Line
-	7525 4325 7525 4225
-Wire Wire Line
-	7125 4125 7125 4475
-Wire Wire Line
-	6575 4575 7125 4575
-Wire Wire Line
-	6575 3325 7125 3325
-Wire Wire Line
-	7125 2875 7125 3225
-Wire Wire Line
-	7525 3075 7525 2975
-Connection ~ 7125 2975
-Wire Wire Line
-	6625 3225 6625 3325
-Connection ~ 6625 3325
-Wire Wire Line
-	6575 2075 7125 2075
-Wire Wire Line
-	7125 1625 7125 1975
-Wire Wire Line
-	7525 1825 7525 1725
-Connection ~ 7125 1725
-Wire Wire Line
-	6625 1975 6625 2075
-Connection ~ 6625 2075
-Wire Wire Line
-	7975 2325 7525 2325
-Wire Wire Line
-	7125 4225 7550 4225
-Wire Wire Line
-	7125 1725 7550 1725
-Connection ~ 7525 1725
-Connection ~ 7525 2975
-Connection ~ 7525 4225
-Wire Wire Line
-	6575 1625 6625 1625
-Wire Wire Line
-	6575 2725 7125 2725
-Wire Wire Line
-	6575 2725 6575 2875
-Connection ~ 6575 2825
-Wire Wire Line
-	6575 4125 6625 4125
 $Comp
 L GND #PWR02
 U 1 1 52AC74CB
@@ -1094,7 +748,6 @@ F 5 "digi,497-11123-1-ND" V 3805 3950 60  0001 C CNN "vend1,vend1#"
 	1    7325 3975
 	1    0    0    -1  
 $EndComp
-Connection ~ 7725 2975
 $Comp
 L R R3
 U 1 1 52AC757A
@@ -1108,8 +761,6 @@ F 5 "digi,ERJ-6ENF20R0V" V 3255 -800 60  0001 C CNN "vend1,vend1#"
 	1    6325 1575
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	6575 1475 7125 1475
 $Comp
 L R R6
 U 1 1 52AC7583
@@ -1187,18 +838,6 @@ Text Label 2700 5275 0    60   ~ 0
 INJ-11_5V
 Text Label 5150 5275 2    60   ~ 0
 INJ-12_5V
-Wire Wire Line
-	3525 4775 2700 4775
-Wire Wire Line
-	3525 4875 2700 4875
-Wire Wire Line
-	3525 4975 2700 4975
-Wire Wire Line
-	3525 5175 2700 5175
-Wire Wire Line
-	3525 5275 2700 5275
-Wire Wire Line
-	2700 5075 3525 5075
 $Comp
 L DIODE D1
 U 1 1 52B57A92
@@ -1267,16 +906,6 @@ F 3 "~" H 15500 1250 60  0000 C CNN
 $EndComp
 Text Label 15375 750  0    60   ~ 0
 iGND1
-Wire Wire Line
-	15700 750  15375 750 
-Wire Wire Line
-	15375 950  15700 950 
-Connection ~ 15700 950 
-Wire Wire Line
-	15375 1150 15700 1150
-Connection ~ 15700 1150
-Connection ~ 15700 850 
-Connection ~ 15700 1050
 Text Label 14975 1150 2    60   ~ 0
 INJ-05
 Text Label 14975 1250 2    60   ~ 0
@@ -1289,57 +918,34 @@ Text Label 14975 750  2    60   ~ 0
 INJ-01_2
 Text Label 14975 850  2    60   ~ 0
 INJ-02
-Wire Wire Line
-	15300 850  14975 850 
-Wire Wire Line
-	15300 1050 14975 1050
-Wire Wire Line
-	15300 1250 14975 1250
-Connection ~ 15700 1350
-Connection ~ 15700 1250
-Wire Notes Line
-	15025 600  16375 600 
-Text Label 9175 5400 2    60   ~ 0
+Text Label 8925 5025 2    60   ~ 0
 INJ-11
-Text Label 9175 5500 2    60   ~ 0
+Text Label 8925 5125 2    60   ~ 0
 INJ-12
-Text Label 9175 5200 2    60   ~ 0
+Text Label 8925 4825 2    60   ~ 0
 INJ-09
-Text Label 9175 5300 2    60   ~ 0
+Text Label 8925 4925 2    60   ~ 0
 INJ-10
-Text Label 9175 4900 2    60   ~ 0
+Text Label 8925 4525 2    60   ~ 0
 INJ-07
-Text Label 9175 5000 2    60   ~ 0
+Text Label 8925 4625 2    60   ~ 0
 INJ-08
-Text Label 9175 4700 2    60   ~ 0
+Text Label 8925 4325 2    60   ~ 0
 INJ-05
-Text Label 9175 4800 2    60   ~ 0
+Text Label 8925 4425 2    60   ~ 0
 INJ-06
-Text Label 9175 4400 2    60   ~ 0
+Text Label 8925 4025 2    60   ~ 0
 INJ-03
-Text Label 9175 4500 2    60   ~ 0
+Text Label 8925 4125 2    60   ~ 0
 INJ-04
-Text Label 9175 4200 2    60   ~ 0
+Text Label 8925 3825 2    60   ~ 0
 INJ-01_2
-Text Label 9175 4300 2    60   ~ 0
+Text Label 8925 3925 2    60   ~ 0
 INJ-02
-Text Label 9175 4600 2    60   ~ 0
+Text Label 8925 4225 2    60   ~ 0
 iGND1
-Text Label 9175 5100 2    60   ~ 0
+Text Label 8925 4725 2    60   ~ 0
 iGND1
-Wire Wire Line
-	7125 2975 8125 2975
-Wire Wire Line
-	8075 2575 8075 1725
-Wire Notes Line
-	14150 8950 14775 8950
-Wire Notes Line
-	14775 8950 14775 8525
-Connection ~ 8075 725 
-Wire Wire Line
-	7525 1225 7525 1125
-Wire Wire Line
-	7525 1125 7175 1125
 $Comp
 L CONN_1 P4
 U 1 1 52DD03E5
@@ -1362,25 +968,542 @@ F 3 "" H 4575 4675 60  0000 C CNN
 	1    4575 4675
 	1    0    0    -1  
 $EndComp
+$Comp
+L CONN_16 P3
+U 1 1 52E42B17
+P 9275 4475
+F 0 "P3" H 9275 5425 70  0000 C CNN
+F 1 "CONN_16" V 9275 4475 50  0000 C CNN
+F 2 "SIL-16_3.5MM" H 9275 4475 60  0001 C CNN
+F 3 "~" H 9275 4475 60  0000 C CNN
+F 4 "on shore,OSTTE160104" H 9275 4475 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,ED2739-ND" H 9275 4475 60  0001 C CNN "vend1,vend1#"
+	1    9275 4475
+	1    0    0    -1  
+$EndComp
+Text Label 8925 5225 2    60   ~ 0
+iGND1
+Text Label 8925 3725 2    60   ~ 0
+iGND1
+Wire Notes Line
+	11500 5125 11400 5125
+Wire Notes Line
+	9725 5125 9400 5125
+Wire Notes Line
+	9825 5000 9825 5125
+Wire Notes Line
+	10775 4375 10750 4275
+Wire Notes Line
+	10925 4325 10825 4475
+Wire Notes Line
+	10800 4325 10775 4250
+Wire Notes Line
+	10825 4325 10825 4300
+Wire Notes Line
+	10800 4475 10750 4525
+Wire Notes Line
+	10800 4475 10850 4475
+Wire Notes Line
+	10850 4475 10900 4525
+Wire Notes Line
+	10900 4525 10900 4775
+Wire Notes Line
+	10900 4775 10750 4775
+Wire Notes Line
+	10750 4775 10750 4525
+Wire Notes Line
+	10825 4475 10725 4325
+Wire Notes Line
+	10825 4475 10775 4300
+Wire Notes Line
+	10825 4475 10825 4350
+Wire Notes Line
+	10825 4275 10825 4250
+Wire Notes Line
+	10850 4325 10875 4250
+Wire Notes Line
+	10825 4475 10875 4300
+Wire Notes Line
+	10875 4375 10900 4275
+Wire Notes Line
+	9825 4600 9850 4500
+Wire Notes Line
+	9825 4525 9775 4700
+Wire Notes Line
+	9800 4550 9825 4475
+Wire Notes Line
+	9775 4500 9775 4475
+Wire Notes Line
+	9775 4700 9775 4575
+Wire Notes Line
+	9775 4700 9725 4525
+Wire Notes Line
+	9775 4700 9675 4550
+Wire Notes Line
+	12350 5125 11825 5125
+Wire Notes Line
+	11400 5125 11225 5050
+Wire Wire Line
+	7725 6825 7725 6875
+Wire Notes Line
+	12900 5050 12950 5050
+Wire Notes Line
+	12375 5050 12425 5050
+Wire Notes Line
+	12900 5175 12900 5100
+Wire Notes Line
+	12950 5175 12950 5100
+Wire Notes Line
+	12950 5100 12900 5100
+Wire Notes Line
+	12425 5175 12425 5100
+Wire Notes Line
+	12425 5100 12375 5100
+Connection ~ 6575 7925
+Wire Wire Line
+	6575 7825 6575 7925
+Wire Wire Line
+	6575 7925 6575 7975
+Wire Wire Line
+	6575 7825 7125 7825
+Wire Wire Line
+	6575 6725 6625 6725
+Connection ~ 6575 5425
+Wire Wire Line
+	6575 5325 6575 5425
+Wire Wire Line
+	6575 5425 6575 5475
+Wire Wire Line
+	7525 8675 8650 8675
+Wire Wire Line
+	7525 7575 8575 7575
+Wire Wire Line
+	7525 1225 8075 1225
+Wire Wire Line
+	7525 6325 8375 6325
+Wire Wire Line
+	7525 7425 8475 7425
+Wire Notes Line
+	12250 5125 12375 5125
+Connection ~ -4675 3450
+Wire Notes Line
+	11825 5200 11500 5200
+Wire Notes Line
+	11825 5200 11825 5050
+Wire Notes Line
+	11750 5200 11750 5050
+Wire Notes Line
+	9825 5125 11225 5125
+Wire Notes Line
+	11500 5200 11500 5050
+Wire Notes Line
+	11575 5200 11575 5050
+Wire Notes Line
+	11500 5050 11825 5050
+Connection ~ 6625 8425
+Wire Wire Line
+	6625 8325 6625 8425
+Connection ~ 7125 8075
+Wire Wire Line
+	7525 8175 7525 8075
+Wire Wire Line
+	7125 7975 7125 8075
+Wire Wire Line
+	7125 8075 7125 8325
+Wire Wire Line
+	6575 8425 6625 8425
+Wire Wire Line
+	6625 8425 7125 8425
+Wire Wire Line
+	6575 7175 6625 7175
+Wire Wire Line
+	6625 7175 7125 7175
+Wire Wire Line
+	7125 6725 7125 6825
+Wire Wire Line
+	7125 6825 7125 7075
+Wire Wire Line
+	7525 6925 7525 6825
+Connection ~ 7125 6825
+Wire Wire Line
+	6625 7075 6625 7175
+Connection ~ 6625 7175
+Wire Wire Line
+	6575 5925 6625 5925
+Wire Wire Line
+	6625 5925 7125 5925
+Wire Wire Line
+	7125 5475 7125 5575
+Wire Wire Line
+	7125 5575 7125 5825
+Wire Wire Line
+	7525 5675 7525 5575
+Connection ~ 7125 5575
+Wire Wire Line
+	6625 5825 6625 5925
+Connection ~ 6625 5925
+Wire Wire Line
+	7525 6175 8275 6175
+Wire Wire Line
+	7125 8075 7525 8075
+Wire Wire Line
+	7525 8075 7550 8075
+Wire Wire Line
+	7125 5575 7525 5575
+Wire Wire Line
+	7525 5575 7550 5575
+Connection ~ 7525 5575
+Connection ~ 7525 6825
+Connection ~ 7525 8075
+Wire Wire Line
+	6575 5475 6625 5475
+Wire Wire Line
+	6575 6575 7125 6575
+Wire Wire Line
+	6575 6575 6575 6675
+Wire Wire Line
+	6575 6675 6575 6725
+Connection ~ 6575 6675
+Wire Wire Line
+	6575 7975 6625 7975
+Wire Notes Line
+	13100 4200 9375 4200
+Wire Notes Line
+	12350 5175 12350 5600
+Wire Notes Line
+	12350 5175 12975 5175
+Wire Notes Line
+	12950 5125 13100 5125
+Wire Notes Line
+	12375 5100 12375 5175
+Wire Notes Line
+	12400 5075 12400 5025
+Wire Notes Line
+	9700 5000 9700 4750
+Wire Notes Line
+	9700 5000 9850 5000
+Wire Notes Line
+	9850 5000 9850 4750
+Wire Notes Line
+	9850 4750 9800 4700
+Wire Notes Line
+	9800 4700 9750 4700
+Wire Notes Line
+	9750 4700 9700 4750
+Wire Notes Line
+	9775 4550 9775 4525
+Wire Notes Line
+	9750 4550 9725 4475
+Wire Notes Line
+	9775 4700 9875 4550
+Wire Notes Line
+	9725 4600 9700 4500
+Wire Notes Line
+	13100 5125 13100 4200
+Wire Notes Line
+	10875 4775 10875 5125
+Connection ~ 7725 6825
+Wire Wire Line
+	3325 4575 3525 4575
+Wire Wire Line
+	3525 4475 3325 4475
+Wire Wire Line
+	3325 4375 3525 4375
+Wire Wire Line
+	4325 4775 5150 4775
+Wire Wire Line
+	4325 4875 5150 4875
+Wire Wire Line
+	4325 4975 5150 4975
+Wire Wire Line
+	4325 5175 5150 5175
+Wire Wire Line
+	4325 5275 5150 5275
+Wire Wire Line
+	15700 750  15700 850 
+Wire Wire Line
+	15700 850  15700 950 
+Wire Wire Line
+	15700 950  15700 1050
+Wire Wire Line
+	15700 1050 15700 1150
+Wire Wire Line
+	15700 1150 15700 1250
+Wire Wire Line
+	15700 1250 15700 1350
+Wire Wire Line
+	15700 1350 15700 1450
+Wire Wire Line
+	15700 1450 15700 1550
+Wire Wire Line
+	15700 1550 15700 1650
+Wire Wire Line
+	15700 1650 15700 1750
+Wire Wire Line
+	15700 1750 15700 1850
+Wire Wire Line
+	15700 1350 15375 1350
+Wire Wire Line
+	15375 1550 15700 1550
+Connection ~ 15700 1550
+Wire Wire Line
+	15375 1750 15700 1750
+Connection ~ 15700 1750
+Wire Wire Line
+	5150 5075 4325 5075
+Connection ~ 15700 1450
+Connection ~ 15700 1650
+Wire Notes Line
+	16375 2125 15025 2125
+Wire Notes Line
+	15025 2125 15025 600 
+Wire Notes Line
+	16375 600  16375 2125
+Connection ~ 8075 1225
+Wire Notes Line
+	8200 950  8575 850 
+Wire Notes Line
+	8200 1475 8575 1375
+Wire Notes Line
+	8575 775  8575 1450
+Wire Notes Line
+	8575 1450 10075 1450
+Wire Notes Line
+	10075 1450 10075 775 
+Wire Notes Line
+	10075 775  8575 775 
+Wire Wire Line
+	15300 1450 14975 1450
+Wire Wire Line
+	15300 1650 14975 1650
+Wire Wire Line
+	15300 1850 14975 1850
+Wire Wire Line
+	6575 5325 7125 5325
+Wire Wire Line
+	7725 2975 7725 3025
+Connection ~ 6575 4075
+Wire Wire Line
+	6575 3975 6575 4075
+Wire Wire Line
+	6575 4075 6575 4125
+Wire Wire Line
+	6575 3975 7125 3975
+Wire Wire Line
+	6575 2875 6625 2875
+Connection ~ 6575 1575
+Wire Wire Line
+	6575 1475 6575 1575
+Wire Wire Line
+	6575 1575 6575 1625
+Wire Wire Line
+	7525 4825 8075 4825
+Wire Wire Line
+	7525 3725 8075 3725
+Wire Wire Line
+	7525 5075 8175 5075
+Wire Wire Line
+	7525 2475 8275 2475
+Wire Wire Line
+	7525 3575 8175 3575
+Connection ~ 6625 4575
+Wire Wire Line
+	6625 4475 6625 4575
+Connection ~ 7125 4225
+Wire Wire Line
+	7525 4325 7525 4225
+Wire Wire Line
+	7125 4125 7125 4225
+Wire Wire Line
+	7125 4225 7125 4475
+Wire Wire Line
+	6575 4575 6625 4575
+Wire Wire Line
+	6625 4575 7125 4575
+Wire Wire Line
+	6575 3325 6625 3325
+Wire Wire Line
+	6625 3325 7125 3325
+Wire Wire Line
+	7125 2875 7125 2975
+Wire Wire Line
+	7125 2975 7125 3225
+Wire Wire Line
+	7525 3075 7525 2975
+Connection ~ 7125 2975
+Wire Wire Line
+	6625 3225 6625 3325
+Connection ~ 6625 3325
+Wire Wire Line
+	6575 2075 6625 2075
+Wire Wire Line
+	6625 2075 7125 2075
+Wire Wire Line
+	7125 1625 7125 1725
+Wire Wire Line
+	7125 1725 7125 1975
+Wire Wire Line
+	7525 1825 7525 1725
+Connection ~ 7125 1725
+Wire Wire Line
+	6625 1975 6625 2075
+Connection ~ 6625 2075
+Wire Wire Line
+	7525 2325 8375 2325
+Wire Wire Line
+	7125 4225 7525 4225
+Wire Wire Line
+	7525 4225 7950 4225
+Wire Wire Line
+	7950 4225 8925 4225
+Wire Wire Line
+	7125 1725 7525 1725
+Wire Wire Line
+	7525 1725 7550 1725
+Connection ~ 7525 1725
+Connection ~ 7525 2975
+Connection ~ 7525 4225
+Wire Wire Line
+	6575 1625 6625 1625
+Wire Wire Line
+	6575 2725 7125 2725
+Wire Wire Line
+	6575 2725 6575 2825
+Wire Wire Line
+	6575 2825 6575 2875
+Connection ~ 6575 2825
+Wire Wire Line
+	6575 4125 6625 4125
+Connection ~ 7725 2975
+Wire Wire Line
+	6575 1475 7125 1475
+Wire Wire Line
+	3525 4775 2700 4775
+Wire Wire Line
+	3525 4875 2700 4875
+Wire Wire Line
+	3525 4975 2700 4975
+Wire Wire Line
+	3525 5175 2700 5175
+Wire Wire Line
+	3525 5275 2700 5275
+Wire Wire Line
+	2700 5075 3525 5075
+Wire Wire Line
+	15700 750  15375 750 
+Wire Wire Line
+	15375 950  15700 950 
+Connection ~ 15700 950 
+Wire Wire Line
+	15375 1150 15700 1150
+Connection ~ 15700 1150
+Connection ~ 15700 850 
+Connection ~ 15700 1050
+Wire Wire Line
+	15300 850  14975 850 
+Wire Wire Line
+	15300 1050 14975 1050
+Wire Wire Line
+	15300 1250 14975 1250
+Connection ~ 15700 1350
+Connection ~ 15700 1250
+Wire Notes Line
+	15025 600  16375 600 
+Wire Wire Line
+	8075 2175 8075 1725
+Wire Notes Line
+	12350 5600 12975 5600
+Wire Notes Line
+	12975 5600 12975 5175
+Connection ~ 8075 725 
+Wire Wire Line
+	7525 1225 7525 1125
+Wire Wire Line
+	7525 1125 7175 1125
 Wire Wire Line
 	3425 4675 3525 4675
 Wire Wire Line
 	4325 4675 4425 4675
+Wire Wire Line
+	8925 4425 8075 4425
+Wire Wire Line
+	8075 4425 8075 4825
+Wire Wire Line
+	8175 5075 8175 4525
+Wire Wire Line
+	8175 4525 8925 4525
+Wire Wire Line
+	8925 4625 8275 4625
+Wire Wire Line
+	8275 4625 8275 6175
+Wire Wire Line
+	8925 4825 8375 4825
+Wire Wire Line
+	8375 4825 8375 6325
+Wire Wire Line
+	8925 4925 8475 4925
+Wire Wire Line
+	8475 4925 8475 7425
+Wire Wire Line
+	7125 6825 7525 6825
+Wire Wire Line
+	7525 6825 7725 6825
+Wire Wire Line
+	8925 5025 8575 5025
+Wire Wire Line
+	8575 5025 8575 7575
+Wire Wire Line
+	8925 5125 8650 5125
+Wire Wire Line
+	8650 5125 8650 8675
+Wire Wire Line
+	8925 3825 8475 3825
+Wire Wire Line
+	8475 3825 8475 2175
+Wire Wire Line
+	8475 2175 8075 2175
+Wire Wire Line
+	8925 3925 8375 3925
+Wire Wire Line
+	8375 3925 8375 2325
+Wire Wire Line
+	8925 4025 8275 4025
+Wire Wire Line
+	8275 4025 8275 2475
+Wire Wire Line
+	8925 4125 8175 4125
+Wire Wire Line
+	8175 4125 8175 3575
+Wire Wire Line
+	7125 2975 7525 2975
+Wire Wire Line
+	7525 2975 7725 2975
 $Comp
-L CONN_16 P3
-U 1 1 52E42B17
-P 9525 4850
-F 0 "P3" H 9525 5800 70  0000 C CNN
-F 1 "CONN_16" V 9525 4850 50  0000 C CNN
-F 2 "SIL-16_3.5MM" H 9525 4850 60  0001 C CNN
-F 3 "~" H 9525 4850 60  0000 C CNN
-F 4 "on shore,OSTTE160104" H 9525 4850 60  0001 C CNN "mfg,mfg#"
-F 5 "digi,ED2739-ND" H 9525 4850 60  0001 C CNN "vend1,vend1#"
-	1    9525 4850
+L GND #PWR?
+U 1 1 52E4981F
+P 7950 4275
+F 0 "#PWR?" H 7950 4275 30  0001 C CNN
+F 1 "GND" H 7950 4205 30  0001 C CNN
+F 2 "" H 7950 4275 60  0001 C CNN
+F 3 "" H 7950 4275 60  0001 C CNN
+	1    7950 4275
 	1    0    0    -1  
 $EndComp
-Text Label 9175 5600 2    60   ~ 0
-iGND1
-Text Label 9175 4100 2    60   ~ 0
-iGND1
+Wire Wire Line
+	7950 4275 7950 4225
+Connection ~ 7950 4225
+Wire Wire Line
+	8925 4325 8075 4325
+Wire Wire Line
+	8075 4325 8075 3725
+Wire Notes Line
+	9725 5000 9725 5125
+Wire Notes Line
+	9400 4325 10325 4325
+Wire Notes Line
+	10325 4325 10325 4875
+Wire Notes Line
+	10325 4875 10775 4875
+Wire Notes Line
+	10775 4875 10775 4775
 $EndSCHEMATC
