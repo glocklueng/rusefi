@@ -30,7 +30,7 @@ typedef void (*schfunc_t)(void *);
 
 typedef struct scheduling_struct scheduling_s;
 struct scheduling_struct {
-	int initialized;
+	//int initialized;
 #if EFI_SIGNAL_EXECUTOR_SLEEP
 	VirtualTimer timer;
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */

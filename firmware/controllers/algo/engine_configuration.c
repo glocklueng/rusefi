@@ -80,6 +80,8 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->idlePinMode = OM_DEFAULT;
 	engineConfiguration->fuelPumpPinMode = OM_DEFAULT;
 	engineConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
+
+	engineConfiguration->globalTriggerOffsetAngle = 0;
 }
 
 void setDefaultNonPersistentConfiguration(EngineConfiguration2 *engineConfiguration2) {

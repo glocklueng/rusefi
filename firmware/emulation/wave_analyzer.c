@@ -19,13 +19,21 @@
 #include "pin_repository.h"
 #include "datalogging.h"
 #include "engine_state.h"
+#include "signal_executor.h"
+#include "engine_configuration.h"
 
 #define CHART_RESET_DELAY 1
+#define TOP_DEAD_CENTER_MESSAGE "r"
+
+
+extern EngineConfiguration *engineConfiguration;
 
 static volatile uint32_t ckpPeriod; // different between current crank signal and previous crank signal
 static volatile int previousCrankSignalStart = 0;
 
 #define MAX_ICU_COUNT 5
+
+static scheduling_s tdcScheduler;
 
 static int waveReaderCount = 0;
 static WaveReader readers[MAX_ICU_COUNT];
@@ -168,10 +176,14 @@ static msg_t waThread(void *arg) {
 
 static char rpmBuffer[10];
 
+static void onTdcCallback(void) {
+	itoa(rpmBuffer, getCurrentRpm());
+	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, rpmBuffer);
+}
+
 static void onShaftSignalWA(ShaftEvents ckpSignalType, int index) {
 	if (index == 0) {
-		itoa(rpmBuffer, getCurrentRpm());
-		addWaveChartEvent("r", rpmBuffer);
+		scheduleByAngle(&tdcScheduler, engineConfiguration->globalTriggerOffsetAngle, (schfunc_t) onTdcCallback, NULL);
 	}
 
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
