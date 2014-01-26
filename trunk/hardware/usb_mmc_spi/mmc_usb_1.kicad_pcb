@@ -3,7 +3,7 @@
   (general
     (links 76)
     (no_connects 0)
-    (area 176.327999 151.689999 224.103001 179.145001)
+    (area 120.549999 93.244999 233.0704 190.600001)
     (thickness 1.6)
     (drawings 60)
     (tracks 525)
@@ -1465,11 +1465,6 @@
     (pad 1 thru_hole circle (at 0 0) (size 3 3) (drill 3)
       (layers *.Cu *.Mask F.SilkS)
     )
-    (model pin_array\pin_1.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
-    )
   )
 
   (module PIN_ARRAY_1 (layer F.Cu) (tedit 52E4AA88) (tstamp 52E4AA60)
@@ -1489,11 +1484,6 @@
     (fp_line (start 1.27 -1.27) (end 1.27 1.27) (layer F.SilkS) (width 0.1524))
     (pad 1 thru_hole circle (at 0 0) (size 3 3) (drill 3)
       (layers *.Cu *.Mask F.SilkS)
-    )
-    (model pin_array\pin_1.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
     )
   )
 
