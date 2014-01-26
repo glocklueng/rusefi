@@ -53,8 +53,8 @@ $EndDescr
 $Sheet
 S 8200 1000 900  400 
 U 52A53383
-F0 "inj_6ch" 50
-F1 "inj_6ch.sch" 50
+F0 "inj_12ch" 50
+F1 "inj_12ch.sch" 50
 $EndSheet
 $Sheet
 S 9800 1800 900  400 
