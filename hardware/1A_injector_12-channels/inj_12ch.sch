@@ -24,7 +24,7 @@ LIBS:display
 LIBS:cypress
 LIBS:siliconi
 LIBS:contrib
-LIBS:0176122-06
+LIBS:inj_12ch-cache
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
