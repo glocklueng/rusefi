@@ -51,7 +51,7 @@ static void turnHigh(OutputSignal *signal) {
 	// sleep for the needed duration
 
 #if EFI_WAVE_ANALYZER
-	addWaveChartEvent(signal->name, "up");
+	addWaveChartEvent(signal->name, "up", "");
 #endif /* EFI_WAVE_ANALYZER */
 }
 
@@ -67,7 +67,7 @@ static void turnLow(OutputSignal *signal) {
 #endif /* EFI_DEFAILED_LOGGING */
 
 #if EFI_WAVE_ANALYZER
-	addWaveChartEvent(signal->name, "down");
+	addWaveChartEvent(signal->name, "down", "");
 #endif /* EFI_WAVE_ANALYZER */
 }
 

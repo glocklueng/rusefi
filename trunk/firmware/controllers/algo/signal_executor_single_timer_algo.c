@@ -46,7 +46,7 @@ inline time_t toggleSignalIfNeeded(OutputSignal *out, time_t now) {
 	if (now >= estimated) {
 		setOutputPinValue(out->io_pin, out->status); /* Toggle output */
 #if EFI_WAVE_ANALYZER
-		addWaveChartEvent(out->name, out->status ? "up" : "down");
+		addWaveChartEvent(out->name, out->status ? "up" : "down", "");
 #endif /* EFI_WAVE_ANALYZER */
 
 		out->status = (executor_status_t)!out->status; /* update status */
