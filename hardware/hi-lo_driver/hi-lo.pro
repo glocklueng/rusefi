@@ -1,4 +1,4 @@
-update=Пнд 20 Янв 2014 20:55:54
+update=1/27/2014 11:03:04 AM
 version=1
 last_client=eeschema
 [general]
@@ -87,6 +87,5 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=LMV324IDR
-LibName32=logo
-LibName33=logo_flipped
+LibName31=logo
+LibName32=logo_flipped
