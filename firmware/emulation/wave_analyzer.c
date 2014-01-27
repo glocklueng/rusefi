@@ -11,6 +11,7 @@
  */
 
 #include "main.h"
+#include <string.h>
 #include "wave_analyzer.h"
 #include "shaft_position_input.h"
 #include "rficonsole.h"
@@ -46,8 +47,8 @@ static void ensureInitialized(WaveReader *reader) {
 		fatal("wave analyzer NOT INITIALIZED");
 }
 
-void addWaveChartEvent(char *name, char * msg) {
-	addWaveChartEvent3(&waveChart, name, msg);
+void addWaveChartEvent(char *name, char * msg, char *msg2) {
+	addWaveChartEvent3(&waveChart, name, msg, msg2);
 }
 
 #ifdef EFI_WAVE_ANALYZER
@@ -56,7 +57,7 @@ static void waAnaWidthCallback(WaveReader *reader) {
 	systime_t now = chTimeNow();
 	reader->eventCounter++;
 	reader->lastActivityTime = now;
-	addWaveChartEvent(reader->name, "up");
+	addWaveChartEvent(reader->name, "up", "");
 
 	int width = overflowDiff(now, reader->periodEventTime);
 	reader->last_wave_low_width = width;
@@ -69,7 +70,7 @@ static void waIcuPeriodCallback(WaveReader *reader) {
 	systime_t now = chTimeNow();
 	reader->eventCounter++;
 	reader->lastActivityTime = now;
-	addWaveChartEvent(reader->name, "down");
+	addWaveChartEvent(reader->name, "down", "");
 
 	int width = overflowDiff(now, reader->widthEventTime);
 	reader->last_wave_high_width = width;
@@ -178,22 +179,25 @@ static char rpmBuffer[10];
 
 static void onTdcCallback(void) {
 	itoa(rpmBuffer, getCurrentRpm());
-	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, rpmBuffer);
+	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, rpmBuffer, "");
 }
+
+static char shaft_signal_msg_index[15];
 
 static void onShaftSignalWA(ShaftEvents ckpSignalType, int index) {
 	if (index == 0) {
 		scheduleByAngle(&tdcScheduler, engineConfiguration->globalTriggerOffsetAngle, (schfunc_t) onTdcCallback, NULL);
 	}
 
+	itoa(&shaft_signal_msg_index[1], index);
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
-		addWaveChartEvent("crank", "up");
+		addWaveChartEvent("crank", "up", shaft_signal_msg_index);
 	} else if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
-		addWaveChartEvent("crank", "down");
+		addWaveChartEvent("crank", "down", shaft_signal_msg_index);
 	} else if (ckpSignalType == SHAFT_SECONDARY_UP) {
-		addWaveChartEvent("crank2", "up");
+		addWaveChartEvent("crank2", "up", shaft_signal_msg_index);
 	} else if (ckpSignalType == SHAFT_SECONDARY_DOWN) {
-		addWaveChartEvent("crank2", "down");
+		addWaveChartEvent("crank2", "down", shaft_signal_msg_index);
 	}
 }
 
@@ -270,6 +274,8 @@ void printWave(Logging *logging) {
 
 void initWaveAnalyzer(void) {
 #ifdef EFI_WAVE_ANALYZER
+
+	strcpy(shaft_signal_msg_index, "_");
 
 	initLogging(&logger, "wave");
 

@@ -77,7 +77,7 @@ void publishChart(WaveChart *chart) {
 /**
  * @brief	Register a change in sniffed signal
  */
-void addWaveChartEvent3(WaveChart *chart, char *name, char * msg) {
+void addWaveChartEvent3(WaveChart *chart, char *name, char * msg, char * msg2) {
 	chDbgAssert(chart->isInitialized, "chart not initizlied" , 0);
 #if DEBUG_WAVE
 	scheduleSimpleMsg(&debugLogging, "current", chart->counter);
@@ -86,7 +86,7 @@ void addWaveChartEvent3(WaveChart *chart, char *name, char * msg) {
 		return;
 	lockOutputBuffer(); // we have multiple threads writing to the same output buffer
 	appendPrintf(&chart->logging, "%s%s%s%s", name, CHART_DELIMETER, msg, CHART_DELIMETER);
-	appendPrintf(&chart->logging, "%d%s", chTimeNow(), CHART_DELIMETER);
+	appendPrintf(&chart->logging, "%d%s%s", chTimeNow(), msg2, CHART_DELIMETER);
 	chart->counter++;
 	unlockOutputBuffer();
 }

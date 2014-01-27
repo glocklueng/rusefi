@@ -20,7 +20,7 @@ typedef struct {
 	volatile int isInitialized;
 } WaveChart;
 
-void addWaveChartEvent3(WaveChart *chart, char *name, char * msg);
+void addWaveChartEvent3(WaveChart *chart, char *name, char *msg, char *msg2);
 void publishChart(WaveChart *chart);
 void initWaveChart(WaveChart *chart);
 void resetWaveChart(WaveChart *chart);
