@@ -66,6 +66,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 	engineConfiguration->crankingSettings.crankingRpm = 400;
 
+	engineConfiguration->analogInputDividerCoefficient = 2;
 
 	engineConfiguration->crankingChargeAngle = 76;
 	engineConfiguration->timingMode = TM_DYNAMIC;
