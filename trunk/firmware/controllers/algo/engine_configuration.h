@@ -42,9 +42,13 @@ typedef enum {
 } analog_chart_e;
 
 typedef enum {
+	/**
+	 * This is the default mode in which ECU controls timing dynamically
+	 */
 	TM_DYNAMIC = 0,
 	/**
-	 * Fixed timing is useful while you are playing with a timing gun
+	 * Fixed timing is useful while you are playing with a timing gun - you need to have fixed
+	 * timing if you want to install your distributor at some specific angle
 	 */
 	TM_FIXED = 1,
 } timing_mode_e;
@@ -122,7 +126,15 @@ typedef struct {
 	pin_output_mode_e fuelPumpPinMode;
 	pin_output_mode_e malfunctionIndicatorPinMode;
 
+	/**
+	 * This is the angle between Top Dead Center (TDC) and the first trigger event.
+	 * Knows this angle allows us to control timing and other angles in reference to TDC.
+	 */
 	float globalTriggerOffsetAngle;
+	/**
+	 * We have 3.3V ADC and most of the analog input signals are 5V, this forces us to use
+	 * voltage dividers on the input circuits. This parameter holds the coefficient of these dividers.
+	 */
 	float analogInputDividerCoefficient;
 
 } EngineConfiguration;
