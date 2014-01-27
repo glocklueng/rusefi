@@ -168,6 +168,12 @@ public class UpDownImage extends JPanel {
 
         g.drawString(durationString, x1, (int) (0.5 * d.height));
 
+        g.setColor(Color.darkGray);
+        if (upDown.upIndex != -1)
+            g.drawString("" + upDown.upIndex, x1, (int) (0.25 * d.height));
+        if (upDown.downIndex != -1)
+            g.drawString("" + upDown.downIndex, x2, (int) (0.25 * d.height));
+
         int offset = 3;
         g.setColor(Color.black);
         String fromAngle = time2rpm.getText(upDown.upTime);
