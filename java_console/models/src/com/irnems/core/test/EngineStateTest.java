@@ -33,8 +33,9 @@ public class EngineStateTest {
     public void testRpm() {
         final AtomicInteger rpmResult = new AtomicInteger();
         EngineState es = new EngineState(new EngineState.EngineStateListenerImpl() {
-            public void rpmValue(int rpm) {
-                rpmResult.set(rpm);
+            public void onKeyValue(String key, String value) {
+                if ("rpm".equals(key))
+                    rpmResult.set(Integer.parseInt(value));
             }
         });
         es.append("line:7:");
