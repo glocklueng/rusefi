@@ -10,6 +10,7 @@
 
 #include "boards.h"
 #include "features.h"
+#include "rusefi_enums.h"
 
 typedef enum {
 	AUDI_AAN = 1,
@@ -39,6 +40,8 @@ typedef enum {
 #endif /* EFI_SUPPORT_NISSAN_PRIMERA */
 
 	HONDA_ACCORD = 6,
+
+	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;
 
 //#define EFI_ENGINE_SNOW_BLOWER TRUE

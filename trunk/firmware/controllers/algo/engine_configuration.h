@@ -51,6 +51,8 @@ typedef enum {
 	 * timing if you want to install your distributor at some specific angle
 	 */
 	TM_FIXED = 1,
+
+	Internal_ForceMyEnumIntSize_timing_mode = ENUM_SIZE_HACK,
 } timing_mode_e;
 
 #define DWELL_COUNT 8
