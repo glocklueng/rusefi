@@ -112,6 +112,7 @@ void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfigur
 	scheduleMsg(&logger, "idlePinMode: %d", engineConfiguration->idlePinMode);
 	scheduleMsg(&logger, "fuelPumpPinMode: %d", engineConfiguration->fuelPumpPinMode);
 	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %d", engineConfiguration->malfunctionIndicatorPinMode);
+	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
 
 	//	appendPrintf(&logger, DELIMETER);
@@ -185,6 +186,7 @@ static void setCrankingFuleMax(int timeMs, int tempC) {
 	engineConfiguration->crankingSettings.fuelAtMaxTempMs = timeMs;
 	printTemperatureInfo();
 }
+
 
 void initSettings(void) {
 	initLoggingExt(&logger, "settings control", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
