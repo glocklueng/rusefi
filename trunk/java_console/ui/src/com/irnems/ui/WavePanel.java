@@ -30,6 +30,7 @@ import java.util.Map;
 public class WavePanel extends JPanel {
     public static final String DELI = "!";
     private static final int EFI_DEFAULT_CHART_SIZE = 180;
+    private static final String TOP_DEAD_CENTER_MESSAGE = "r";
 
     private final Map<String, UpDownImage> images = new LinkedHashMap<String, UpDownImage>();
     private final JPanel imagePanel = new JPanel();
@@ -124,17 +125,19 @@ public class WavePanel extends JPanel {
     public void displayChart(String value) {
         Map<String, StringBuilder> map = unpackToMap(value);
 
-        StringBuilder revolutions = map.get("r");
-
+        StringBuilder revolutions = map.get(TOP_DEAD_CENTER_MESSAGE);
 
         statusPanel.setRevolutions(revolutions);
 
         for (Map.Entry<String, StringBuilder> e : map.entrySet()) {
-            UpDownImage image = images.get(e.getKey());
+            String imageName = e.getKey();
+            String report = e.getValue().toString();
+
+            UpDownImage image = images.get(imageName);
             if (image == null)
                 continue;
             image.setRevolutions(revolutions);
-            List<WaveReport.UpDown> list = WaveReport.parse(e.getValue().toString());
+            List<WaveReport.UpDown> list = WaveReport.parse(report);
             if (list.isEmpty()) {
                 image.onUpdate(); // this would reset empty image
                 continue;
@@ -144,7 +147,10 @@ public class WavePanel extends JPanel {
         }
     }
 
-    private Map<String, StringBuilder> unpackToMap(String value) {
+    /**
+     * This method unpacks a mixed-key message into a Map of messages by key
+     */
+    private static Map<String, StringBuilder> unpackToMap(String value) {
         FileLog.rlog(": " + value);
 
         String[] array = value.split(DELI);
