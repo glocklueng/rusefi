@@ -29,7 +29,6 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
 LIBS:hi-lo-cache
@@ -361,11 +360,11 @@ Wire Wire Line
 Wire Wire Line
 	6100 6650 5750 6650
 Wire Wire Line
-	5750 6750 5950 6750
+	5750 6750 5800 6750
 Wire Wire Line
-	5950 6750 5950 7450
+	5800 6750 5800 7450
 Wire Wire Line
-	5950 7450 6300 7450
+	5800 7450 6300 7450
 Wire Wire Line
 	6300 7650 4950 7650
 Wire Wire Line
@@ -652,4 +651,28 @@ Wire Wire Line
 	7650 6650 8450 6650
 Text Label 7100 5400 1    60   ~ 0
 VP
+Text Label 6100 5850 2    60   ~ 0
+H_IN1
+Text Label 6100 6550 2    60   ~ 0
+H_IN2
+Text Label 6100 5650 2    60   ~ 0
+H_IN3
+Text Label 6100 6650 2    60   ~ 0
+H_IN4
+Text Label 6100 7650 2    60   ~ 0
+H_IN5
+Text Label 6100 7450 2    60   ~ 0
+H_IN6
+$Comp
+L CONN_1 M601
+U 1 1 52E6C25B
+P 8850 4450
+F 0 "M601" H 8930 4450 40  0000 L CNN
+F 1 "CONN_1" H 8850 4505 30  0001 C CNN
+F 2 "" H 8850 4450 60  0000 C CNN
+F 3 "" H 8850 4450 60  0000 C CNN
+	1    8850 4450
+	1    0    0    -1  
+$EndComp
+NoConn ~ 8700 4450
 $EndSCHEMATC
