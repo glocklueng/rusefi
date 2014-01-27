@@ -14,6 +14,7 @@
 #include "engine_math.h"
 #include "shaft_position_input.h"
 #include "map_averaging.h"
+#include "engine_configuration.h"
 
 /* Depth of the conversion buffer, channels are sampled X times each.*/
 #define ADC_GRP1_BUF_DEPTH_SLOW      1
@@ -42,6 +43,7 @@ static int adcDebugReporting = FALSE;
 static int internalAdcIndex[20];
 
 static int fastAdcValue;
+extern EngineConfiguration *engineConfiguration;
 
 /*
  * ADC samples buffer.
