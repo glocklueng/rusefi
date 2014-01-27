@@ -11,6 +11,22 @@
 		<src path="models/src"/>
 		<src path="ui/src"/>
 	</javac>
+
+
+		<junit fork="no"
+			   maxmemory="512m"
+			   printsummary="yes"
+			   haltonfailure="yes">
+
+			<jvmarg value="-ea"/>
+            <jvmarg value="-XX:+HeapDumpOnOutOfMemoryError"/>
+			<formatter type="brief"/>
+			<classpath path="build/classes:lib/junit.jar:lib/SteelSeries-3.9.30.jar"/>
+			<batchtest todir="build">
+				<fileset dir="models/src" includes="**/test/**/*Test.java"/>
+			</batchtest>
+		</junit>
+
     </target>
 
     <target name="jar" depends="compile">

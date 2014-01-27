@@ -8,12 +8,12 @@ import com.irnems.core.SensorCentral;
 import com.irnems.ui.widgets.AnyCommand;
 import com.irnems.ui.widgets.UpDownImage;
 import com.irnems.waves.WaveReport;
+import com.rusefi.WaveChartParser;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +28,6 @@ import java.util.Map;
  * @see ChartStatusPanel status bar
  */
 public class WavePanel extends JPanel {
-    public static final String DELI = "!";
     private static final int EFI_DEFAULT_CHART_SIZE = 180;
     private static final String TOP_DEAD_CENTER_MESSAGE = "r";
 
@@ -123,7 +122,7 @@ public class WavePanel extends JPanel {
     }
 
     public void displayChart(String value) {
-        Map<String, StringBuilder> map = unpackToMap(value);
+        Map<String, StringBuilder> map = WaveChartParser.unpackToMap(value);
 
         StringBuilder revolutions = map.get(TOP_DEAD_CENTER_MESSAGE);
 
@@ -145,35 +144,6 @@ public class WavePanel extends JPanel {
             WaveReport wr = new WaveReport(list);
             image.setWaveReport(wr, revolutions);
         }
-    }
-
-    /**
-     * This method unpacks a mixed-key message into a Map of messages by key
-     */
-    private static Map<String, StringBuilder> unpackToMap(String value) {
-        FileLog.rlog(": " + value);
-
-        String[] array = value.split(DELI);
-
-        Map<String, StringBuilder> map = new HashMap<String, StringBuilder>();
-
-        int index = 0;
-        while (index + 2 < array.length) {
-            String name = array[index];
-
-            StringBuilder sb = map.get(name);
-            if (sb == null) {
-                sb = new StringBuilder();
-                map.put(name, sb);
-            }
-
-            String signal = array[index + 1];
-            String val = array[index + 2];
-
-            sb.append(signal).append(DELI).append(val).append(DELI);
-            index += 3;
-        }
-        return map;
     }
 
     private void createSecondaryImage(String name) {

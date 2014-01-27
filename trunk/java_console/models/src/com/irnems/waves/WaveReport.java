@@ -11,7 +11,7 @@ import java.util.List;
  * (c) Andrey Belomutskiy
  */
 public class WaveReport implements TimeAxisTranslator {
-    public static final WaveReport MOCK = new WaveReport(Collections.<UpDown>singletonList(new UpDown(0, 1)));
+    public static final WaveReport MOCK = new WaveReport(Collections.<UpDown>singletonList(new UpDown(0, -1, 1, -1)));
     /**
      * number of ChibiOS systicks per ms
      */
@@ -68,13 +68,17 @@ public class WaveReport implements TimeAxisTranslator {
                 continue;
             }
 
-            String upString = array[index + 1];
-            String downString = array[index + 3];
+            String upString[] = array[index + 1].split("_");
+            String downString[] = array[index + 3].split("_");
             try {
-                int upTime = Integer.parseInt(upString);
-                int downTime = Integer.parseInt(downString);
+                int upTime = Integer.parseInt(upString[0]);
+                int downTime = Integer.parseInt(downString[0]);
 
-                times.add(new UpDown(upTime, downTime));
+                int upIndex = upString.length > 1 ? Integer.parseInt(upString[1]) : -1;
+                int downIndex = downString.length > 1 ? Integer.parseInt(downString[1]) : -1;
+
+
+                times.add(new UpDown(upTime, upIndex, downTime, downIndex));
             } catch (NumberFormatException e) {
                 System.err.println("Invalid? [" + upString + "][" + downString + "]");
             }
@@ -100,7 +104,6 @@ public class WaveReport implements TimeAxisTranslator {
     }
 
     /**
-     *
      * @return Length of this chart ini systicks
      */
     public int getDuration() {
@@ -119,11 +122,15 @@ public class WaveReport implements TimeAxisTranslator {
     public static class UpDown {
         // times in sys ticks
         public final int upTime;
+        public final int upIndex;
         public final int downTime;
+        public final int downIndex;
 
-        UpDown(int upTime, int downTime) {
+        UpDown(int upTime, int upIndex, int downTime, int downIndex) {
             this.upTime = upTime;
+            this.upIndex = upIndex;
             this.downTime = downTime;
+            this.downIndex = downIndex;
         }
 
         public int getDuration() {
