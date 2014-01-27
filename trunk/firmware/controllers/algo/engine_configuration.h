@@ -123,7 +123,7 @@ typedef struct {
 	pin_output_mode_e malfunctionIndicatorPinMode;
 
 	float globalTriggerOffsetAngle;
-
+	float analogInputDividerCoefficient;
 
 } EngineConfiguration;
 
