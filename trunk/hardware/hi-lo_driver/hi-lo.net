@@ -1,7 +1,7 @@
 (export (version D)
   (design
-    (source C:/stuff/rusefi_sourceforge/hardware/hi-lo_driver/hi-lo.sch)
-    (date "27/01/2014 14:25:24")
+    (source C:/Users/jharvey.LYTRON-NT/Desktop/temp/Hardware/rusefi.com/hi-lo_driver/hi-lo.sch)
+    (date "1/27/2014 4:11:41 PM")
     (tool "eeschema (2013-07-07 BZR 4022)-stable"))
   (components
     (comp (ref C3)
@@ -16,7 +16,7 @@
       (tstamp 524F7FBD))
     (comp (ref P3)
       (value CONN_6)
-      (footprint SIL-6)
+      (footprint OSTVN06A150)
       (fields
         (field (name MFG,MFG#) "ON SHORE,OSTVN06A150")
         (field (name SEEED,#) SEEED,NA)
