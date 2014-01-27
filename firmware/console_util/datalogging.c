@@ -19,7 +19,7 @@
 #include "chmtx.h"
 #include "memstreams.h"
 
-#define OUTPUT_BUFFER 5000
+#define OUTPUT_BUFFER 7000
 /**
  * This is the size of the MemoryStream used by chvprintf
  */
