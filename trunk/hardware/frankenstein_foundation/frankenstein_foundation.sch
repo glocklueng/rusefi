@@ -36,7 +36,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "26 jan 2014"
+Date "28 jan 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -279,7 +279,6 @@ NoConn ~ 1550 5500
 NoConn ~ 1550 5400
 NoConn ~ 4750 6400
 NoConn ~ 4750 6300
-NoConn ~ 4750 6200
 $Comp
 L JUMPER JP53
 U 1 1 52E445CA
@@ -329,4 +328,19 @@ NoConn ~ 7850 5250
 Text Label 7850 5350 0    60   ~ 0
 GND
 NoConn ~ 7850 5750
+$Comp
+L CONN_1 P610
+U 1 1 52E831CD
+P 5650 6200
+F 0 "P610" H 5730 6200 40  0000 L CNN
+F 1 "CONN_1" H 5650 6255 30  0001 C CNN
+F 2 "" H 5650 6200 60  0000 C CNN
+F 3 "" H 5650 6200 60  0000 C CNN
+	1    5650 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5500 6200 4750 6200
+Text Label 5200 6200 0    60   ~ 0
+VP
 $EndSCHEMATC
