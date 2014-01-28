@@ -249,6 +249,7 @@ void setFordAspireEngineConfiguration(EngineConfiguration *engineConfiguration) 
 	engineConfiguration->ignitonOffset = 35;
 	engineConfiguration->rpmHardLimit = 7000;
 
+	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, -20, 18000, 23.8889, 2100, 48.8889, 1000);
 	engineConfiguration->cltThermistorConf.bias_resistor = 3300; // that's my custom resistor value!
 
 	engineConfiguration->crankingSettings.coolantTempMaxC = 65; // 8ms at 65C
