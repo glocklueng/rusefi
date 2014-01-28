@@ -1,4 +1,4 @@
-PCBNEW-LibModule-V1  1/27/2014 4:12:21 PM
+PCBNEW-LibModule-V1  1/27/2014 6:22:05 PM
 # encoding utf-8
 Units mm
 $INDEX
@@ -509,6 +509,12 @@ At STD N 00E0FFFF
 Ne 0 ""
 Po 6.35 0
 $EndPAD
+$SHAPE3D
+Na "device/bornier_3.wrl"
+Sc 1 1 1
+Of 0 0 0
+Ro 0 0 0
+$EndSHAPE3D
 $EndMODULE OSTVN06A150
 $MODULE PIN_ARRAY_10X2
 Po 0 0 0 15 52B7206D 00000000 ~~
