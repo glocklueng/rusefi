@@ -39,6 +39,8 @@ typedef enum {
 	AC_OFF = 0,
 	AC_TRIGGER = 1,
 	AC_MAP = 2,
+
+	Internal_ForceMyEnumIntSize_analog_chart_mode = ENUM_SIZE_HACK,
 } analog_chart_e;
 
 typedef enum {
@@ -54,6 +56,14 @@ typedef enum {
 
 	Internal_ForceMyEnumIntSize_timing_mode = ENUM_SIZE_HACK,
 } timing_mode_e;
+
+typedef enum {
+
+	LM_MAF = 0,
+	LM_TPS = 1,
+	LM_MAP = 2,
+	Internal_ForceMyEnumIntSize_engine_load_mode = ENUM_SIZE_HACK,
+} engine_load_mode_e;
 
 #define DWELL_COUNT 8
 /**
@@ -138,6 +148,8 @@ typedef struct {
 	 * voltage dividers on the input circuits. This parameter holds the coefficient of these dividers.
 	 */
 	float analogInputDividerCoefficient;
+	engine_load_mode_e engine_load_mode_e;
+
 
 } EngineConfiguration;
 
