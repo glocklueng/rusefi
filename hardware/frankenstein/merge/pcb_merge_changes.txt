@@ -7,6 +7,10 @@ optimize temp/cps_vrs_io_1.kicad_pcb temp/cps_vrs_io_1.kicad_pcb
 
 add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb 
 
+copy ../hi-lo_driver/hi-lo.kicad_pcb temp/hi-lo.kicad_pcb
+optimize temp/hi-lo.kicad_pcb temp/hi-lo.kicad_pcb
+
+
 add temp/mmc_usb_1.kicad_pcb 0 13
 move_module P353 50 0
 
@@ -15,6 +19,8 @@ add temp/cps_vrs_io_1.kicad_pcb -83 110
 add temp/can_brd_1.kicad_pcb -7 -2
 
 add ../1A_injector_12-channels/inj_12ch.kicad_pcb
+
+add temp/hi-lo.kicad_pcb
 
 remove P_VOID1
 
@@ -71,3 +77,8 @@ remove P355
 
 # SD/TTL right 10x2
 remove P354
+
+
+# hi-low driver
+remove M601
+remove P601
