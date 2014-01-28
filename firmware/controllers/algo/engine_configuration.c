@@ -83,6 +83,11 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
 
 	engineConfiguration->globalTriggerOffsetAngle = 0;
+
+
+	engineConfiguration->engine_load_mode_e = LM_MAF;
+
+
 }
 
 void setDefaultNonPersistentConfiguration(EngineConfiguration2 *engineConfiguration2) {
