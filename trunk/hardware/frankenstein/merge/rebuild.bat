@@ -24,6 +24,10 @@ rem VR input
 cp -r ../knock_VR_Art_ELectro/lib/* lib/
 cp -r ../knock_VR_Art_ELectro/cps_vrs_io_1.sch .
 
+rem Hi-Low driver
+
+cp -r ../hi-lo_driver/hi-lo.sch .
+
 cp ../frankenstein_foundation/frankenstein_foundation.sch .
 
 cp ../can_board/lib/* lib/
