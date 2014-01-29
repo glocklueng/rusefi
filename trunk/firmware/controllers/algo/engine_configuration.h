@@ -57,14 +57,6 @@ typedef enum {
 	Internal_ForceMyEnumIntSize_timing_mode = ENUM_SIZE_HACK,
 } timing_mode_e;
 
-typedef enum {
-
-	LM_MAF = 0,
-	LM_TPS = 1,
-	LM_MAP = 2,
-	Internal_ForceMyEnumIntSize_engine_load_mode = ENUM_SIZE_HACK,
-} engine_load_mode_e;
-
 #define DWELL_COUNT 8
 /**
  * @brief	Engine configuration.
@@ -148,6 +140,9 @@ typedef struct {
 	 * voltage dividers on the input circuits. This parameter holds the coefficient of these dividers.
 	 */
 	float analogInputDividerCoefficient;
+	/**
+	 * This setting controls which algorithm is used for ENGINE LOAD
+	 */
 	engine_load_mode_e engine_load_mode;
 
 
