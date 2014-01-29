@@ -148,7 +148,7 @@ typedef struct {
 	 * voltage dividers on the input circuits. This parameter holds the coefficient of these dividers.
 	 */
 	float analogInputDividerCoefficient;
-	engine_load_mode_e engine_load_mode_e;
+	engine_load_mode_e engine_load_mode;
 
 
 } EngineConfiguration;
