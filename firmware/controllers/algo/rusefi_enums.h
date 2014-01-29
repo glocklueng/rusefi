@@ -1,5 +1,8 @@
 /**
  * @file	rusefi_enums.h
+ * @brief	Fundamental rusEfi enumerable types live here
+ *
+ * @note this file should probably not include any other files
  *
  * @date Jan 14, 2014
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -23,11 +26,14 @@ typedef enum {
 	 */
 	LM_TPS = 1,
 	/**
-	 * Manifold Absolute Pressure sensor value is used as engine load http://en.wikipedia.org/wiki/MAP_sensor
-	 * For now this is just
-	 * TODO: speed density - maybe separate algorith? Maybe
+	 * raw Manifold Absolute Pressure sensor value is used as engine load http://en.wikipedia.org/wiki/MAP_sensor
 	 */
 	LM_MAP = 2,
+	/**
+	 * Speed Density algorithm - Engile Load is a function of MAP and ... TODO
+	 * http://articles.sae.org/8539/
+	 */
+	LM_SPEED_DENSITY = 3,
 
 	Internal_ForceMyEnumIntSize_engine_load_mode = ENUM_SIZE_HACK,
 } engine_load_mode_e;
