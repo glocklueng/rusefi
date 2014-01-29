@@ -85,7 +85,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 	engineConfiguration->globalTriggerOffsetAngle = 0;
 
 
-	engineConfiguration->engine_load_mode_e = LM_MAF;
+	engineConfiguration->engine_load_mode = LM_MAF;
 
 
 }
