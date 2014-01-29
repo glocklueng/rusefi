@@ -14,6 +14,26 @@
 
 typedef enum {
 	/**
+	 * raw Mass Air Flow sensor value algorithm. http://en.wikipedia.org/wiki/Mass_flow_sensor
+	 */
+	LM_MAF = 0,
+	/**
+	 * Throttle Position Sensor value is used as engine load. http://en.wikipedia.org/wiki/Throttle_position_sensor
+	 * That's know as Alpha N
+	 */
+	LM_TPS = 1,
+	/**
+	 * Manifold Absolute Pressure sensor value is used as engine load http://en.wikipedia.org/wiki/MAP_sensor
+	 * For now this is just
+	 * TODO: speed density - maybe separate algorith? Maybe
+	 */
+	LM_MAP = 2,
+
+	Internal_ForceMyEnumIntSize_engine_load_mode = ENUM_SIZE_HACK,
+} engine_load_mode_e;
+
+typedef enum {
+	/**
 	 * GND for logical OFF, VCC for logical ON
 	 */
 	OM_DEFAULT = 0,
