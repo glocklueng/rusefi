@@ -19,8 +19,8 @@ static Logging logger;
 
 static char LOGGING_BUFFER[1000];
 
-extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 *engineConfiguration2;
+extern engine_configuration_s *engineConfiguration;
+extern engine_configuration2_s *engineConfiguration2;
 
 static void printIntArray(int array[], int size) {
 	for (int j = 0; j < size; j++)
@@ -37,7 +37,7 @@ void printFloatArray(char *prefix, float array[], int size) {
 //	scheduleLogging(&logger);
 }
 
-char* getConfigurationName(EngineConfiguration *engineConfiguration) {
+char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 	switch (engineConfiguration->engineType) {
 #if EFI_SUPPORT_DODGE_NEON
 	case DODGE_NEON_1995:
@@ -65,7 +65,7 @@ char* getConfigurationName(EngineConfiguration *engineConfiguration) {
 /**
  * @brief	Prints current engine configuration to human-readable console.
  */
-void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfiguration2 *engineConfiguration2) {
+void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 
 	resetLogging(&logger);
 	appendPrintf(&logger, "msg%s%s", DELIMETER, getConfigurationName(engineConfiguration));

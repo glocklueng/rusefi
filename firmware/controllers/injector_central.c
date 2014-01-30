@@ -22,8 +22,8 @@ static Logging logger;
 int isInjectionEnabled = TRUE;
 myfloat globalFuelCorrection = 1;
 
-extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 *engineConfiguration2;
+extern engine_configuration_s *engineConfiguration;
+extern engine_configuration2_s *engineConfiguration2;
 
 static int is_injector_enabled[MAX_INJECTOR_COUNT];
 

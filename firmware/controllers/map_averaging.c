@@ -48,7 +48,7 @@ static float currentMaxPressure;
  */
 static float v_averagedMapValue;
 
-extern EngineConfiguration *engineConfiguration;
+extern engine_configuration_s *engineConfiguration;
 
 static scheduling_s startTimer;
 static scheduling_s endTimer;

@@ -146,7 +146,7 @@ typedef struct {
 	engine_load_mode_e engine_load_mode;
 
 
-} EngineConfiguration;
+} engine_configuration_s;
 
 /**
  * this part of the structure is separate just because so far
@@ -181,12 +181,12 @@ typedef struct {
 	cranking_ignition_mode_e crankingIgnitionMode;
 
 	EventHandlerConfiguration engineEventConfiguration;
-} EngineConfiguration2;
+} engine_configuration2_s;
 
-char* getConfigurationName(EngineConfiguration *engineConfiguration);
-void setDefaultConfiguration(EngineConfiguration *engineConfiguration);
-void setDefaultNonPersistentConfiguration(EngineConfiguration2 *engineConfiguration2);
-void printConfiguration(EngineConfiguration *engineConfiguration, EngineConfiguration2 *engineConfiguration2);
+char* getConfigurationName(engine_configuration_s *engineConfiguration);
+void setDefaultConfiguration(engine_configuration_s *engineConfiguration);
+void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2);
+void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 void printFloatArray(char *prefix, float array[], int size);
 
 #endif /* ENGINE_CONFIGURATION_H_ */

@@ -17,6 +17,6 @@ int isCrankingR(int rpm);
 int isCranking(void);
 void printTemperatureInfo(void);
 void initEngineContoller(void);
-void setDefaultEngineConfiguration(EngineConfiguration *engineConfiguration);
+void setDefaultEngineConfiguration(engine_configuration_s *engineConfiguration);
 
 #endif /* ENGINE_STATUS_H_ */

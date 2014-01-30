@@ -16,7 +16,7 @@
 
 typedef struct {
 	int version;
-	EngineConfiguration configuration;
+	engine_configuration_s configuration;
 	crc value;
 } FlashState;
 

@@ -15,7 +15,7 @@
 
 static float *fuel_ptrs[FUEL_LOAD_COUNT];
 static int initialized = FALSE;
-extern EngineConfiguration *engineConfiguration;
+extern engine_configuration_s *engineConfiguration;
 
 /**
  * @brief	Initialize fuel map data structure

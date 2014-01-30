@@ -36,7 +36,7 @@
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
-extern EngineConfiguration *engineConfiguration;
+extern engine_configuration_s *engineConfiguration;
 
 /**
  * CH_FREQUENCY is the number of system ticks in a second
@@ -48,8 +48,8 @@ static VirtualTimer fuelPumpTimer;
 
 static Logging logger;
 
-static EngineConfiguration2 ec2;
-EngineConfiguration2 * engineConfiguration2 = &ec2;
+static engine_configuration2_s ec2;
+engine_configuration2_s * engineConfiguration2 = &ec2;
 
 int isCrankingR(int rpm) {
 	return rpm > 0 && rpm < engineConfiguration->crankingSettings.crankingRpm;

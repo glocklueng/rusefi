@@ -12,8 +12,8 @@
 
 #include "engine_controller.h"
 
-extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 *engineConfiguration2;
+extern engine_configuration_s *engineConfiguration;
+extern engine_configuration2_s *engineConfiguration2;
 
 static float *timing_ptrs[AD_LOAD_COUNT];
 static int initialized = FALSE;

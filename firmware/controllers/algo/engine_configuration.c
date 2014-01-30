@@ -18,7 +18,7 @@
  * This method sets the default global engine configuration. These values are later overridden by engine-specific defaults
  * and the settings saves in flash memory.
  */
-void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
+void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->injectorLag = 0.0;
 
 	for (int i = 0; i < IAT_CURVE_SIZE; i++) {
@@ -90,7 +90,7 @@ void setDefaultConfiguration(EngineConfiguration *engineConfiguration) {
 
 }
 
-void setDefaultNonPersistentConfiguration(EngineConfiguration2 *engineConfiguration2) {
+void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
 	engineConfiguration2->clt.channel = ADC_LOGIC_COOLANT;
 	engineConfiguration2->iat.channel = ADC_LOGIC_INTAKE_AIR;
 	/**

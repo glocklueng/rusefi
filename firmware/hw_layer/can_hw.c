@@ -23,7 +23,7 @@
 static Logging logger;
 static WORKING_AREA(canTreadStack, UTILITY_THREAD_STACK_SIZE);
 
-extern EngineConfiguration2 *engineConfiguration2;
+extern engine_configuration2_s *engineConfiguration2;
 
 /*
  * 500KBaud

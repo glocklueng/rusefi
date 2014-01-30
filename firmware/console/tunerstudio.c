@@ -26,7 +26,7 @@
 
 static Logging logger;
 
-extern EngineConfiguration *engineConfiguration;
+extern engine_configuration_s *engineConfiguration;
 
 extern SerialUSBDriver SDU1;
 #define CONSOLE_DEVICE &SDU1
@@ -47,7 +47,7 @@ static TunerStudioWriteRequest writeRequest;
 
 extern TunerStudioOutputChannels tsOutputChannels;
 
-extern EngineConfiguration tsContstants;
+extern engine_configuration_s tsContstants;
 
 char *constantsAsPtr = (char *) &tsContstants;
 
@@ -108,7 +108,7 @@ void handleBurnCommand(void) {
 	tunerStudioDebug("got B (Burn)");
 
 	// todo: how about some multi-threading?
-	memcpy(engineConfiguration, &tsContstants, sizeof(EngineConfiguration));
+	memcpy(engineConfiguration, &tsContstants, sizeof(engine_configuration_s));
 	writeToFlash();
 }
 
@@ -141,10 +141,10 @@ static msg_t tsThreadEntryPoint(void *arg) {
 #endif
 }
 
-extern EngineConfiguration *engineConfiguration;
+extern engine_configuration_s *engineConfiguration;
 
 void syncTunerStudioCopy(void) {
-	memcpy(&tsContstants, engineConfiguration, sizeof(EngineConfiguration));
+	memcpy(&tsContstants, engineConfiguration, sizeof(engine_configuration_s));
 }
 
 void startTunerStudioConnectivity(void) {

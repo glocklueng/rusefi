@@ -45,7 +45,7 @@ TunerStudioOutputChannels tsOutputChannels;
  * this is a local copy of the configuration. Any changes to this copy
  * have no effect until this copy is explicitly propagated to the main working copy
  */
-EngineConfiguration tsContstants;
+engine_configuration_s tsContstants;
 
 int tunerStudioHandleCommand(short command) {
 	if (command == 'H') {
@@ -101,7 +101,7 @@ void handleOutputChannelsCommand(void) {
 void handlePageReadCommand(void) {
 	tsState.readPageCommandsCounter++;
 	tunerStudioDebug("got C (Constants)");
-	tunerStudioWriteData((const uint8_t *) &tsContstants, sizeof(EngineConfiguration));
+	tunerStudioWriteData((const uint8_t *) &tsContstants, sizeof(engine_configuration_s));
 }
 
 void handleTestCommand(void) {

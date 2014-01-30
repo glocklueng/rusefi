@@ -19,8 +19,8 @@
 #include "io_pins.h"
 #include "pin_repository.h"
 
-extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 *engineConfiguration2;
+extern engine_configuration_s *engineConfiguration;
+extern engine_configuration2_s *engineConfiguration2;
 
 static Logging logger;
 

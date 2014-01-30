@@ -27,7 +27,7 @@
 #define TOP_DEAD_CENTER_MESSAGE "r"
 
 
-extern EngineConfiguration *engineConfiguration;
+extern engine_configuration_s *engineConfiguration;
 
 static volatile uint32_t ckpPeriod; // different between current crank signal and previous crank signal
 static volatile int previousCrankSignalStart = 0;
