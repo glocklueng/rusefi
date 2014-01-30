@@ -27,8 +27,8 @@
 #include "engine_configuration.h"
 #include "test_trigger_decoder.h"
 
-static EngineConfiguration ec;
-EngineConfiguration *engineConfiguration = &ec;
+static engine_configuration_s ec;
+engine_configuration_s *engineConfiguration = &ec;
 
 static float absF(float value) {
 	return value > 0 ? value : -value;
@@ -66,8 +66,8 @@ void chDbgAssert(int c, char *msg, void *arg) {
 	}
 }
 
-static EngineConfiguration2 ec2;
-EngineConfiguration2 *engineConfiguration2 = &ec2;
+static engine_configuration2_s ec2;
+engine_configuration2_s *engineConfiguration2 = &ec2;
 
 int main(void) {
 
