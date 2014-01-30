@@ -97,7 +97,7 @@ public class RpmPanel {
         JPanel controls = new JPanel(new MigLayout());
         controls.setBorder(BorderFactory.createLineBorder(Color.red));
         JButton button = createButton();
-        controls.add(button, "grow, wrap");
+//        controls.add(button, "grow, wrap");
 
         controls.add(new RpmCommand(), "grow, wrap");
 //        controls.add(new PotCommand(0).panel, "grow, wrap");
