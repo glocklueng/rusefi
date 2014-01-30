@@ -29,15 +29,22 @@ public enum FileLog {
             return null;
         String date = getDate();
         try {
-            File dir = new File(DIR);
-            if (!dir.exists())
-                dir.mkdirs();
+            createFolderIfNeeded();
             String fileName = DIR + "rfi_report_" + date + ".csv";
             rlog("Writing to " + fileName);
             return new FileOutputStream(fileName, true);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    private static void createFolderIfNeeded() {
+        File dir = new File(DIR);
+        if (dir.exists())
+            return;
+        boolean created = dir.mkdirs();
+        if (!created)
+            throw new IllegalStateException("Failed to create " + DIR + " folder");
     }
 
     public static String getDate() {
