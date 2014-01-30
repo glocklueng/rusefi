@@ -10,7 +10,7 @@
 #include "engine_math.h"
 #include "engine_configuration.h"
 
-extern EngineConfiguration2 *engineConfiguration2;
+extern engine_configuration2_s *engineConfiguration2;
 
 void testEngineMath(void) {
 	printf("*************************************************** testEngineMath\r\n");

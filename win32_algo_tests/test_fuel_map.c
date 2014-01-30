@@ -11,8 +11,8 @@
 #include "trigger_structure.h"
 #include "allsensors.h"
 
-extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 *engineConfiguration2;
+extern engine_configuration_s *engineConfiguration;
+extern engine_configuration2_s *engineConfiguration2;
 
 void testFuelMap(void) {
 	chDbgCheck(engineConfiguration!=NULL, "engineConfiguration");
