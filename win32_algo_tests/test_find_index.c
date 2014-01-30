@@ -99,7 +99,7 @@ void testInterpolate2d(void) {
 	assertEquals(215, result);
 }
 
-static EngineConfiguration engineConfiguration;
+static engine_configuration_s engineConfiguration;
 
 void testSetTableValue(void) {
 	printf("*************************************************** testSetTableValue\r\n");
