@@ -13,8 +13,8 @@
 
 #include "engine_configuration.h"
 
-void setDodgeNeonEngineConfiguration(EngineConfiguration *engineConfiguration);
-void setDodgeNeonEngineConfiguration2(EngineConfiguration2 *engineConfiguration2);
+void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration);
+void setDodgeNeonengine_configuration2_s(engine_configuration2_s *engineConfiguration2);
 
 #endif /* EFI_SUPPORT_DODGE_NEON */
 

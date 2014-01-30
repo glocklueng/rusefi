@@ -15,7 +15,7 @@
 #include "toothed_wheel_emulator.h"
 #include "engine_configuration.h"
 
-void setNissanPrimeraEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
+void setNissanPrimeraengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	int TOTAL_TEETH_COUNT = 60;
 	int SKIPPED_TEETH_COUNT = 2;

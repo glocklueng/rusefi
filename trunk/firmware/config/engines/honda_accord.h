@@ -10,7 +10,7 @@
 
 #include "engine_configuration.h"
 
-void setHondaAccordConfiguration(EngineConfiguration *engineConfiguration);
-void setHondaAccordConfiguration2(EngineConfiguration2 *engineConfiguration2);
+void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration);
+void setHondaAccordConfiguration2(engine_configuration2_s *engineConfiguration2);
 
 #endif /* HONDA_ACCORD_H_ */

@@ -27,7 +27,7 @@ static histogram_s triggerCallback __attribute__((section(".ccm")));
 static histogram_s triggerCallback;
 #endif
 
-extern EngineConfiguration2 *engineConfiguration2;
+extern engine_configuration2_s *engineConfiguration2;
 
 // we need this initial to have not_running at first invocation
 static volatile time_t previousShaftEventTime = (time_t)-10 * CH_FREQUENCY;

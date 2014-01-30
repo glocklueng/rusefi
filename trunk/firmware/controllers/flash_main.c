@@ -38,8 +38,8 @@ static FlashState flashState __attribute__((section(".ccm")));
 static FlashState flashState;
 #endif
 
-EngineConfiguration *engineConfiguration = &flashState.configuration;
-extern EngineConfiguration2 * engineConfiguration2;
+engine_configuration_s *engineConfiguration = &flashState.configuration;
+extern engine_configuration2_s * engineConfiguration2;
 
 #define FLASH_ADDR 0x08060000
 
@@ -48,7 +48,7 @@ extern EngineConfiguration2 * engineConfiguration2;
 void writeToFlash(void) {
 	flashState.version = FLASH_DATA_VERSION;
 	scheduleSimpleMsg(&logger, "FLASH_DATA_VERSION=", flashState.version);
-	crc result = calc_crc((const crc*) &flashState.configuration, sizeof(EngineConfiguration));
+	crc result = calc_crc((const crc*) &flashState.configuration, sizeof(engine_configuration_s));
 	flashState.value = result;
 	scheduleSimpleMsg(&logger, "Reseting flash=", FLASH_USAGE);
 	flashErase(FLASH_ADDR, FLASH_USAGE);
@@ -64,7 +64,7 @@ static int isValid(FlashState *state) {
 		scheduleSimpleMsg(&logger, "Not valid flash version: ", state->version);
 		return FALSE;
 	}
-	crc result = calc_crc((const crc*) &state->configuration, sizeof(EngineConfiguration));
+	crc result = calc_crc((const crc*) &state->configuration, sizeof(engine_configuration_s));
 	if (result != state->value) {
 		scheduleSimpleMsg(&logger, "CRC got: ", result);
 		scheduleSimpleMsg(&logger, "CRC expected: ", state->value);
@@ -75,13 +75,13 @@ static int isValid(FlashState *state) {
 static void applyNonPersistentConfiguration(engine_type_e engineType) {
 	switch (engineConfiguration->engineType) {
 	case DODGE_NEON_1995:
-		setDodgeNeonEngineConfiguration2(engineConfiguration2);
+		setDodgeNeonengine_configuration2_s(engineConfiguration2);
 		break;
 	case FORD_ASPIRE_1996:
-		setFordAspireEngineConfiguration2(engineConfiguration2);
+		setFordAspireengine_configuration2_s(engineConfiguration2);
 		break;
 	case FORD_FIESTA:
-		setFordFiestaEngineConfiguration2(engineConfiguration2);
+		setFordFiestaengine_configuration2_s(engineConfiguration2);
 		break;
 	case HONDA_ACCORD:
 		setHondaAccordConfiguration2(engineConfiguration2);

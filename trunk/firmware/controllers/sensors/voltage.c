@@ -12,7 +12,7 @@
 #include "engine_configuration.h"
 #include "adc_inputs.h"
 
-extern EngineConfiguration *engineConfiguration;
+extern engine_configuration_s *engineConfiguration;
 
 myfloat getVRef(void) {
 //	return getAdcValue(ADC_CHANNEL_VREF);

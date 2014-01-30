@@ -15,8 +15,8 @@
 #include "adc_inputs.h"
 #include "engine_configuration.h"
 
-extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 *engineConfiguration2;
+extern engine_configuration_s *engineConfiguration;
+extern engine_configuration2_s *engineConfiguration2;
 
 /**
  * http://en.wikipedia.org/wiki/Voltage_divider

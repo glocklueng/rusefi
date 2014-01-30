@@ -219,7 +219,7 @@ static void configureAspireEngineEventHandler(EventHandlerConfiguration *config)
 	registerActuatorEventExt(&config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x + 540);
 }
 
-static void setDefaultMaps(EngineConfiguration *engineConfiguration) {
+static void setDefaultMaps(engine_configuration_s *engineConfiguration) {
 	for (int i = 0; i < FUEL_LOAD_COUNT; i++)
 		engineConfiguration->fuelLoadBins[i] = default_fuel_maf_bins[i];
 	for (int i = 0; i < FUEL_RPM_COUNT; i++)
@@ -242,7 +242,7 @@ static void setDefaultMaps(EngineConfiguration *engineConfiguration) {
 	}
 }
 
-void setFordAspireEngineConfiguration(EngineConfiguration *engineConfiguration) {
+void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->tpsMin = 1;
 	engineConfiguration->tpsMax = 1000;
 
@@ -265,7 +265,7 @@ void setFordAspireEngineConfiguration(EngineConfiguration *engineConfiguration) 
 	setDefaultMaps(engineConfiguration);
 }
 
-void setFordAspireEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
+void setFordAspireengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
 	engineConfiguration2->triggerShape.onlyOneTeeth = TRUE;
 	configureAspireEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 	engineConfiguration2->triggerShape.shaftPositionEventCount = 10;

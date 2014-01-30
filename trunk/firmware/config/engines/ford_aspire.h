@@ -14,7 +14,7 @@
 
 #include "engine_configuration.h"
 
-void setFordAspireEngineConfiguration(EngineConfiguration *engineConfiguration);
-void setFordAspireEngineConfiguration2(EngineConfiguration2 *engineConfiguration2);
+void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguration);
+void setFordAspireengine_configuration2_s(engine_configuration2_s *engineConfiguration2);
 
 #endif /* FORD_ASPIRE_H_ */

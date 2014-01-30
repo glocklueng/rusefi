@@ -9,11 +9,11 @@
 #include "engine_controller.h"
 #include "toothed_wheel_emulator.h"
 
-void setHondaAccordConfiguration(EngineConfiguration *engineConfiguration) {
+void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration) {
 
 }
 
-void setHondaAccordConfiguration2(EngineConfiguration2 *engineConfiguration2) {
+void setHondaAccordConfiguration2(engine_configuration2_s *engineConfiguration2) {
 
 
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;

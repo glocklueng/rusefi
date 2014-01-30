@@ -4,7 +4,7 @@
 #include "interpolation.h"
 #include "adc_inputs.h"
 
-extern EngineConfiguration *engineConfiguration;
+extern engine_configuration_s *engineConfiguration;
 
 /*
  * Return current TPS position based on configured ADC levels, and adc

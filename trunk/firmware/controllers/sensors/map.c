@@ -8,7 +8,7 @@
 #define Honda_Denso183_Max 182.78
 #define Honda_Denso183_Range (Honda_Denso183_Max - Honda_Denso183_Min)
 
-extern EngineConfiguration * engineConfiguration;
+extern engine_configuration_s * engineConfiguration;
 
 /**
  * @brief	MAP value decoded for a 1.83 Honda sensor

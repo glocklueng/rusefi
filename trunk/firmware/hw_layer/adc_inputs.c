@@ -43,7 +43,7 @@ static int adcDebugReporting = FALSE;
 static int internalAdcIndex[20];
 
 static int fastAdcValue;
-extern EngineConfiguration *engineConfiguration;
+extern engine_configuration_s *engineConfiguration;
 
 /*
  * ADC samples buffer.

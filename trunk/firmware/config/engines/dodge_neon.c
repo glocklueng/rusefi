@@ -28,7 +28,7 @@ static void configureTriggerShape(trigger_shape_s *s) {
 	s->syncRatioTo = 0.72 * 1.3;
 }
 
-void setDodgeNeonEngineConfiguration(EngineConfiguration *engineConfiguration) {
+void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 
 	engineConfiguration->ignitionPinMode = OM_OPENDRAIN;
@@ -61,7 +61,7 @@ static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_4_OUTPUT), x + 540);
 }
 
-void setDodgeNeonEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
+void setDodgeNeonengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
 	configureTriggerShape(&engineConfiguration2->triggerShape);
 
 	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);

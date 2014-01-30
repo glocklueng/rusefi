@@ -4,7 +4,7 @@
 #include "boards.h"
 #include "adc_inputs.h"
 
-extern EngineConfiguration *engineConfiguration;
+extern engine_configuration_s *engineConfiguration;
 
 myfloat getAfr(void) {
 	myfloat volts = getVoltageDivided(ADC_LOGIC_AFR);

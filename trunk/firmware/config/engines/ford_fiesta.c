@@ -31,11 +31,11 @@ static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_2_OUTPUT), 360);
 }
 
-void setFordFiestaDefaultEngineConfiguration(EngineConfiguration *engineConfiguration) {
+void setFordFiestaDefaultEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 }
 
-void setFordFiestaEngineConfiguration2(EngineConfiguration2 *engineConfiguration2) {
+void setFordFiestaengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
 	// only crankshaft sensor so far
 	engineConfiguration2->rpmMultiplier = 1;
 

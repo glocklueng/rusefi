@@ -52,8 +52,8 @@
 
 #define MAX_STARTING_FUEL 15
 #define MIN_STARTING_FUEL 8
-extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 *engineConfiguration2;
+extern engine_configuration_s *engineConfiguration;
+extern engine_configuration2_s *engineConfiguration2;
 
 float getStartingFuel(float coolantTemperature) {
 	// these magic constants are in Celsius

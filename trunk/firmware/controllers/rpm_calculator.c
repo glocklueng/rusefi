@@ -19,8 +19,8 @@
 
 static rpm_s rpmState;
 
-extern EngineConfiguration *engineConfiguration;
-extern EngineConfiguration2 *engineConfiguration2;
+extern engine_configuration_s *engineConfiguration;
+extern engine_configuration2_s *engineConfiguration2;
 
 /**
  * @return true if there was a full shaft revolution within the last second
