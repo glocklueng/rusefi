@@ -26,7 +26,7 @@ typedef struct {
 
 #define adcToVolts(adc) ((((float) 3.0) * (adc) / 4095))
 
-#define adcToVoltsDivided(adc) ((((float) 3.0) * adc / 4095) * engineConfiguration->analogInputDividerCoefficient)
+#define adcToVoltsDivided(adc) (adcToVolts(adc) * engineConfiguration->analogInputDividerCoefficient)
 
 #define getVoltage(channel) (adcToVolts(getAdcValue(channel)))
 
