@@ -83,6 +83,7 @@ public class EngineState {
         addDoubleSensor("advance0", Sensor.ADVANCE0);
         addDoubleSensor("advance1", Sensor.ADVANCE1);
         addDoubleSensor("vref", Sensor.VREF);
+        addDoubleSensor("vbatt", Sensor.VBATT);
         addDoubleSensor("maf", Sensor.MAF);
         addDoubleSensor("period0", Sensor.PERIOD0);
         addDoubleSensor("period1", Sensor.PERIOD0);

@@ -20,6 +20,7 @@ public enum Sensor {
 
     TABLE_SPARK("table spark", "ms", -40, 40),
     VREF("VRef", "Volts", 6),
+    VBATT("VBatt", "Volts", 18),
     VREF_WIDTH("VRef w", "", 1),
     MAF("MAF", "Volts", 4),
     DWELL0("Dwell0", "ms", 0, 30, BackgroundColor.BEIGE),
