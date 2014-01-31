@@ -111,6 +111,7 @@ static void printSensors(void) {
 
 	reportSensorF("afr", getAfr(), 2);
 	reportSensorF("vref", getVRef(), 2);
+	reportSensorF("vbatt", getVRef(), 2);
 
 	reportSensorF(getCaption(LP_THROTTLE), getTPS(), 2);
 
