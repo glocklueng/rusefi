@@ -3,6 +3,7 @@
 *****************************************************************************
 *** Releases                                                              ***
 *****************************************************************************
+01/30/2014	r1309	true trigger angles, VBatt signal
 01/12/2014	r1007	refactoring, refactoring & refactoring
 12/19/2013	r605	ignition control & a little bit of CAN bus
 11/08/2013	r100	Tuner Studio fuel map tuning, fuel pump control
