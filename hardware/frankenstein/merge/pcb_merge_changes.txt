@@ -23,6 +23,7 @@ add ../1A_injector_12-channels/inj_12ch.kicad_pcb
 add temp/hi-lo.kicad_pcb
 
 remove P_VOID1
+remove P_VOID2
 
 # analog input board LED
 remove LD200
