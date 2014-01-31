@@ -46,7 +46,9 @@ public class ChangesModel {
     }
 
     public void read(List<String> lines) {
+        int lineIndex = 0;
         for (String line : lines) {
+            lineIndex++;
             line = line.trim();
             if (line.isEmpty())
                 continue;
@@ -63,10 +65,10 @@ public class ChangesModel {
                 addMoveRequest(line.substring(MOVE.length()).trim());
                 continue;
             } else if (line.toLowerCase().startsWith(OPTIMIZE)) {
-                OPTIMIZE_REQUESTS.add(TwoFileRequest.parseTwoFile(line.substring(OPTIMIZE.length()).trim()));
+                OPTIMIZE_REQUESTS.add(TwoFileRequest.parseTwoFile(line.substring(OPTIMIZE.length()).trim(), lineIndex));
                 continue;
             } else if (line.toLowerCase().startsWith(COPY)) {
-                COPY_REQUESTS.add(TwoFileRequest.parseTwoFile(line.substring(COPY.length()).trim()));
+                COPY_REQUESTS.add(TwoFileRequest.parseTwoFile(line.substring(COPY.length()).trim(), lineIndex));
                 continue;
             }
 
