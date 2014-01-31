@@ -175,6 +175,11 @@ static void setAnalogChartMode(int value) {
 	doPrintConfiguration();
 }
 
+/**
+ * For example
+ * set_cranking_fuel_min 15 0
+ * would be 15ms @ 0C
+ */
 static void setCrankingFuleMin(int timeMs, int tempC) {
 	engineConfiguration->crankingSettings.coolantTempMinC = tempC;
 	engineConfiguration->crankingSettings.fuelAtMinTempMs = timeMs;
