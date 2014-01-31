@@ -1,14 +1,14 @@
+Record{size=9000, name=' build/obj/datalogging.o@ioBuffer'}
+Record{size=9000, name=' build/obj/datalogging.o@ .bss.pendingBuffer'}
+Record{size=9000, name=' build/obj/datalogging.o@ .bss.outputBuffer'}
 Record{size=7160, name=' build/obj/histogram.o@bounds'}
 Record{size=5000, name=' build/obj/wave_chart.o@ .bss.LOGGING_BUFFER'}
-Record{size=5000, name=' build/obj/datalogging.o@ioBuffer'}
-Record{size=5000, name=' build/obj/datalogging.o@ .bss.pendingBuffer'}
-Record{size=5000, name=' build/obj/datalogging.o@ .bss.outputBuffer'}
 Record{size=5000, name=' build/obj/analog_chart.o@ .bss.LOGGING_BUFFER'}
 Record{size=4000, name=' build/obj/histogram.o@ .bss.small_bounds_index'}
 Record{size=3608, name=' build/obj/main_trigger_callback.o@ .bss.mainLoopHisto'}
-Record{size=3360, name=' build/obj/signal_executor.o@signals'}
 Record{size=3332, name=' build/obj/engine_controller.o@ec2'}
-Record{size=2992, name=' build/obj/tunerstudio_algo.o@ .bss.tsContstants'}
+Record{size=3040, name=' build/obj/signal_executor.o@signals'}
+Record{size=3000, name=' build/obj/tunerstudio_algo.o@ .bss.tsContstants'}
 Record{size=2520, name=' build/obj/idle_thread.o@ .bss.idleValve'}
 Record{size=2000, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferData'}
 Record{size=1520, name=' build/obj/wave_analyzer.o@readers'}
@@ -19,7 +19,6 @@ Record{size=1000, name=' build/obj/settings.o@ .bss.LOGGING_BUFFER'}
 Record{size=768, name=' build/obj/rficonsole_logic.o@ .bss.consoleActions'}
 Record{size=696, name=' build/obj/wave_analyzer.o@ .bss.waThreadStack'}
 Record{size=696, name=' build/obj/tunerstudio.o@ .bss.TS_WORKING_AREA'}
-Record{size=696, name=' build/obj/mmc_card.o@ .bss.tp_MMC_Monitor'}
 Record{size=696, name=' build/obj/map_multiplier_thread.o@ .bss.maThreadStack'}
 Record{size=696, name=' build/obj/malfunction_indicator.o@ .bss.mfiThreadStack'}
 Record{size=696, name=' build/obj/io_pins.o@ .bss.errBlinkingStack'}
@@ -88,20 +87,22 @@ Record{size=44, name=' build/obj/malfunction_central.o@ .bss.error_codes_set'}
 Record{size=32, name=' build/obj/wave_analyzer_hw.o@ .bss.registeredIcus'}
 Record{size=32, name=' build/obj/chheap.o@ .bss.default_heap'}
 Record{size=28, name=' build/obj/chschd.o@ *(.bss.rlist)'}
-Record{size=24, name=' build/obj/map_averaging.o@endTimer'}
-Record{size=24, name=' build/obj/map_averaging.o@ .bss.startTimer'}
 Record{size=24, name=' build/obj/icu_lld.o@ICUD9'}
 Record{size=24, name=' build/obj/icu_lld.o@ICUD3'}
 Record{size=24, name=' build/obj/icu_lld.o@ICUD2'}
 Record{size=24, name=' build/obj/icu_lld.o@ICUD1'}
+Record{size=20, name=' build/obj/wave_analyzer.o@ .bss.tdcScheduler'}
 Record{size=20, name=' build/obj/tunerstudio_algo.o@tsState'}
 Record{size=20, name=' build/obj/pwm_lld.o@PWMD5'}
 Record{size=20, name=' build/obj/pwm_lld.o@PWMD4'}
+Record{size=20, name=' build/obj/map_averaging.o@endTimer'}
+Record{size=20, name=' build/obj/map_averaging.o@ .bss.startTimer'}
 Record{size=20, name=' build/obj/idle_thread.o@idle'}
 Record{size=20, name=' build/obj/engine_controller.o@ .bss.fuelPumpTimer'}
 Record{size=20, name=' build/obj/engine_controller.o@ .bss.everyMsTimer'}
 Record{size=20, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBuffer'}
 Record{size=20, name=' build/obj/adc_inputs.o@newState'}
+Record{size=16, name=' build/obj/wave_analyzer.o@ .bss.shaft_signal_msg_index'}
 Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep2instate'}
 Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep1outstate'}
 Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep1instate'}
@@ -133,6 +134,7 @@ Record{size=4, name=' build/obj/rusefi.o@ .bss.main_loop_started'}
 Record{size=4, name=' build/obj/rficonsole_logic.o@ .bss.consoleActionCount'}
 Record{size=4, name=' build/obj/pin_repository.o@ .bss.totalPinsUsed'}
 Record{size=4, name=' build/obj/pin_repository.o@ .bss.initialized'}
+Record{size=4, name=' build/obj/mmc_card.o@ .bss.errorReported'}
 Record{size=4, name=' build/obj/mcp3208.o@hack'}
 Record{size=4, name=' build/obj/mcp3208.o@ .bss.adcEventCounter'}
 Record{size=4, name=' build/obj/mcp3208.o@ .bss.adcErrorCounter'}
@@ -173,4 +175,4 @@ Record{size=2, name=' build/obj/spi_lld.o@dummyrx'}
 Record{size=2, name=' build/obj/ff.o@Fsid'}
 Record{size=1, name=' build/obj/mmc_card.o@fs_ready'}
 Record{size=1, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferInited'}
-Total size: 81356
+Total size: 92380
