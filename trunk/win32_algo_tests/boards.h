@@ -18,6 +18,7 @@
 #define ADC_LOGIC_COOLANT 0
 
 float getVoltageDivided(int);
+float getVoltage(int channel);
 int getAdcValue(int channel);
 
 #endif /* BOARDS_H_ */
