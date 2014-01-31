@@ -20,5 +20,5 @@ myfloat getVRef(void) {
 }
 
 myfloat getVBatt(void) {
-	return 12; // todo: take it from ADC
+	return getVoltage(ADC_CHANNEL_VBATT) * 15 / (15 + 65);
 }
