@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "19 jan 2014"
+Date "26 jan 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -865,4 +865,28 @@ Wire Wire Line
 	4650 3750 5300 3750
 Text Label 4775 3750 0    60   ~ 0
 CAN_TX
+$Comp
+L CONN_1 M351
+U 1 1 52E4AB8E
+P 8750 1500
+F 0 "M351" H 8830 1500 40  0000 L CNN
+F 1 "CONN_1" H 8750 1555 30  0001 C CNN
+F 2 "" H 8750 1500 60  0000 C CNN
+F 3 "" H 8750 1500 60  0000 C CNN
+	1    8750 1500
+	1    0    0    -1  
+$EndComp
+NoConn ~ 8600 1500
+$Comp
+L CONN_1 M352
+U 1 1 52E4ABA0
+P 8750 1650
+F 0 "M352" H 8830 1650 40  0000 L CNN
+F 1 "CONN_1" H 8750 1705 30  0001 C CNN
+F 2 "" H 8750 1650 60  0000 C CNN
+F 3 "" H 8750 1650 60  0000 C CNN
+	1    8750 1650
+	1    0    0    -1  
+$EndComp
+NoConn ~ 8600 1650
 $EndSCHEMATC

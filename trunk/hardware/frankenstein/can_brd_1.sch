@@ -38,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "19 jan 2014"
+Date "26 jan 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -238,9 +238,9 @@ Wire Wire Line
 Wire Wire Line
 	2200 1550 2300 1550
 Wire Wire Line
-	4250 2150 3550 2150
+	4250 2150 4000 2150
 Wire Wire Line
-	4250 1550 3550 1550
+	4250 1550 4000 1550
 Text Label 5500 1750 0    60   ~ 0
 CANH
 Text Label 5500 1950 0    60   ~ 0
@@ -328,8 +328,28 @@ Wire Wire Line
 	6950 2625 7050 2625
 Wire Wire Line
 	5725 2625 5600 2625
-Text GLabel 3550 1550 0    60   Input ~ 0
-CAN_RX
-Text GLabel 3550 2150 0    60   Input ~ 0
-CAN_TX
+$Comp
+L CONN_1 M470
+U 1 1 52E4A990
+P 6600 1050
+F 0 "M470" H 6680 1050 40  0000 L CNN
+F 1 "CONN_1" H 6600 1105 30  0001 C CNN
+F 2 "" H 6600 1050 60  0000 C CNN
+F 3 "" H 6600 1050 60  0000 C CNN
+	1    6600 1050
+	1    0    0    -1  
+$EndComp
+NoConn ~ 6450 1050
+$Comp
+L CONN_1 M471
+U 1 1 52E4A9A2
+P 6600 1200
+F 0 "M471" H 6680 1200 40  0000 L CNN
+F 1 "CONN_1" H 6600 1255 30  0001 C CNN
+F 2 "" H 6600 1200 60  0000 C CNN
+F 3 "" H 6600 1200 60  0000 C CNN
+	1    6600 1200
+	1    0    0    -1  
+$EndComp
+NoConn ~ 6450 1200
 $EndSCHEMATC

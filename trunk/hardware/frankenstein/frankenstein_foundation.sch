@@ -36,7 +36,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "30 jan 2014"
+Date "1 feb 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -91,7 +91,6 @@ NoConn ~ 2550 4650
 NoConn ~ 3350 4750
 NoConn ~ 3350 4650
 NoConn ~ 3350 4550
-NoConn ~ 3350 3950
 Text Label 3350 4850 0    60   ~ 0
 GND
 Text Label 2550 4850 2    60   ~ 0
@@ -125,9 +124,6 @@ NoConn ~ 2550 3550
 NoConn ~ 2550 3450
 NoConn ~ 3350 3450
 NoConn ~ 3350 3550
-NoConn ~ 3350 3650
-NoConn ~ 3350 3750
-NoConn ~ 3350 3850
 Wire Wire Line
 	5150 4750 5900 4750
 Wire Wire Line
@@ -163,9 +159,9 @@ $EndComp
 Text Label 5900 4550 2    60   ~ 0
 PA8
 Text Label 7500 4750 0    60   ~ 0
-H_IN1
+H_IN5
 Text Label 7500 4650 0    60   ~ 0
-H_IN2
+H_IN6
 Text Label 2550 4550 2    60   ~ 0
 PD11
 Text Label 2550 4450 2    60   ~ 0
@@ -180,8 +176,6 @@ Text Label 2550 4050 2    60   ~ 0
 PE15
 Text Label 2550 3950 2    60   ~ 0
 PE13
-Text Label 3350 3950 0    60   ~ 0
-PE14
 Text Label 3350 4050 0    60   ~ 0
 PB10
 $Comp
@@ -272,10 +266,6 @@ Text Label 4550 4750 2    60   ~ 0
 CAM
 Text Label 4750 5900 0    60   ~ 0
 CAM
-NoConn ~ 1550 5700
-NoConn ~ 1550 5600
-NoConn ~ 1550 5500
-NoConn ~ 1550 5400
 NoConn ~ 4750 6400
 NoConn ~ 4750 6300
 $Comp
@@ -319,14 +309,12 @@ F 3 "" H 7750 5550 60  0000 C CNN
 $EndComp
 Text Label 8100 5500 0    60   ~ 0
 GND
-Text Label 8100 5600 0    60   ~ 0
+Text Label 3800 3750 0    60   ~ 0
 H_IN1
-Text Label 8100 5700 0    60   ~ 0
+Text Label 3800 3850 0    60   ~ 0
 H_IN2
-NoConn ~ 8100 5300
 Text Label 8100 5400 0    60   ~ 0
 GND
-NoConn ~ 8100 5800
 $Comp
 L CONN_1 P610
 U 1 1 52E831CD
@@ -350,4 +338,71 @@ Wire Wire Line
 	7500 4650 6700 4650
 Wire Wire Line
 	7500 4750 6700 4750
+Text Notes 1800 4450 0    60   ~ 0
+PD9
+Text Notes 1800 4350 0    60   ~ 0
+PB15
+Text Notes 1800 4250 0    60   ~ 0
+PB13
+Text Notes 1800 4150 0    60   ~ 0
+PB11
+Wire Wire Line
+	3900 3950 3350 3950
+Text Label 3800 3950 0    60   ~ 0
+H_IN4
+Text Label 3350 3550 0    60   ~ 0
+PB2
+Wire Wire Line
+	3900 3850 3350 3850
+Wire Wire Line
+	3900 3750 3350 3750
+Wire Wire Line
+	3900 3650 3350 3650
+Text Label 3800 3650 0    60   ~ 0
+H_IN3
+Text Label 8100 5700 0    60   ~ 0
+H_IN5
+Text Label 8100 5600 0    60   ~ 0
+H_IN6
+Text Notes 3350 3650 0    60   ~ 0
+PE8
+Text Notes 3350 3750 0    60   ~ 0
+PE10
+Text Notes 3350 3850 0    60   ~ 0
+PE12
+Text Notes 3350 3950 0    60   ~ 0
+PE14
+$Comp
+L CONN_6 P_VOID2
+U 1 1 52EB01FA
+P 4400 6900
+F 0 "P_VOID2" V 4350 6900 60  0000 C CNN
+F 1 "CONN_6" V 4450 6900 60  0000 C CNN
+F 2 "" H 4400 6900 60  0000 C CNN
+F 3 "" H 4400 6900 60  0000 C CNN
+	1    4400 6900
+	-1   0    0    1   
+$EndComp
+NoConn ~ 4750 7150
+NoConn ~ 4750 7050
+Text Label 4750 6650 0    60   ~ 0
+H_IN1
+Text Label 4750 6750 0    60   ~ 0
+H_IN2
+Text Label 4750 6850 0    60   ~ 0
+H_IN4
+Text Label 4750 6950 0    60   ~ 0
+H_IN3
+Text Label 8100 5800 0    60   ~ 0
+GND
+Text Label 8100 5300 0    60   ~ 0
+GND
+Text Label 1550 5400 0    60   ~ 0
+GND
+Text Label 1550 5500 0    60   ~ 0
+GND
+Text Label 1550 5600 0    60   ~ 0
+GND
+Text Label 1550 5700 0    60   ~ 0
+GND
 $EndSCHEMATC
