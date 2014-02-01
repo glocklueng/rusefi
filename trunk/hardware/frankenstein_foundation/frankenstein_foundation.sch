@@ -29,14 +29,13 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:frankenstein_foundation-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "31 jan 2014"
+Date "1 feb 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -348,7 +347,7 @@ Text Notes 1800 4150 0    60   ~ 0
 PB11
 Wire Wire Line
 	3900 3950 3350 3950
-Text Label 3750 3850 0    60   ~ 0
+Text Label 3800 3750 0    60   ~ 0
 H_IN4
 Text Label 3350 3550 0    60   ~ 0
 PB2
@@ -358,11 +357,11 @@ Wire Wire Line
 	3900 3750 3350 3750
 Wire Wire Line
 	3900 3650 3350 3650
-Text Label 3750 3950 0    60   ~ 0
+Text Label 3800 3650 0    60   ~ 0
 H_IN3
-Text Label 3750 3750 0    60   ~ 0
+Text Label 3800 3850 0    60   ~ 0
 H_IN5
-Text Label 3750 3650 0    60   ~ 0
+Text Label 3800 3950 0    60   ~ 0
 H_IN6
 Text Notes 3350 3650 0    60   ~ 0
 PE8
