@@ -29,6 +29,8 @@ remove P_VOID2
 remove LD200
 remove R200
 
+move_module M200 15 5
+
 
 # DD from the VR board
 # knock in
