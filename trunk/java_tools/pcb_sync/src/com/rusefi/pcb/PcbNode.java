@@ -29,7 +29,9 @@ public class PcbNode {
      */
     public static PcbNode readFromFile(String fileName) throws IOException {
         String content = FileUtils.readFile(fileName);
-        return parse(content);
+        PcbNode node = parse(content);
+        System.out.println("GND network: " + NetNode.GND_NET_ID);
+        return node;
     }
 
     @Override

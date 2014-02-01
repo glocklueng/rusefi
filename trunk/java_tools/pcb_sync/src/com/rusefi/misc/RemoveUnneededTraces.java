@@ -1,8 +1,6 @@
 package com.rusefi.misc;
 
-import com.rusefi.pcb.PcbNode;
-import com.rusefi.pcb.PointNode;
-import com.rusefi.pcb.SegmentNode;
+import com.rusefi.pcb.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,23 +29,60 @@ public class RemoveUnneededTraces {
     public static void optimize(String input, String output) throws IOException {
         PcbNode destNode = PcbNode.readFromFile(input);
 
-        List<PcbNode> modules = destNode.iterate("module");
-        List<PcbNode> stuff = new ArrayList<PcbNode>(modules);
-        stuff.addAll(destNode.iterate("via"));
 
-        while (removeUnusedSegments(destNode, stuff)) {
+        while (removeUnusedSegments(destNode) || removeUnusedVias(destNode)) {
             System.out.println("Still removing...");
         }
 
         destNode.write(output);
     }
 
-    private static boolean removeUnusedSegments(PcbNode destNode, List<PcbNode> modules) {
+    private static boolean removeUnusedVias(PcbNode destNode) {
+        List<ViaNode> unused = findUnusedVias(destNode);
+        for (ViaNode via : unused) {
+            System.out.println("Removing via: " + via);
+            boolean removed = destNode.removeChild(via);
+            if (!removed)
+                throw new IllegalStateException("not removed: " + removed);
+
+        }
+        return !unused.isEmpty();
+    }
+
+    private static List<ViaNode> findUnusedVias(PcbNode destNode) {
+        List<ViaNode> result = new ArrayList<ViaNode>();
+
+        List<PcbNode> segments = destNode.iterate("segment");
+
+        for (PcbNode n : destNode.iterate("via")) {
+            ViaNode via = (ViaNode) n;
+            if (via.netId == NetNode.GND_NET_ID)
+                continue;
+
+            int count = 0;
+
+            for (PcbNode segment : segments)
+                if (segment.isConnected(via.location))
+                    count++;
+
+            if (count < 2)
+                result.add(via);
+
+
+        }
+        return result;
+    }
+
+    private static boolean removeUnusedSegments(PcbNode destNode) {
+        List<PcbNode> stuff = new ArrayList<PcbNode>(destNode.iterate("module"));
+        stuff.addAll(destNode.iterate("via"));
+
+
         Object o = destNode.iterate("segment");
         List<SegmentNode> segments = (List<SegmentNode>) o;
         System.out.println(segments.size() + " segment(s)");
 
-        List<SegmentNode> unused = findUnusedSegments(segments, modules);
+        List<SegmentNode> unused = findUnusedSegments(segments, stuff);
         for (SegmentNode segment : unused) {
             boolean removed = destNode.removeChild(segment);
             if (!removed)
