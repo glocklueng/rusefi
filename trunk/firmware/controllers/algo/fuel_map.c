@@ -74,13 +74,13 @@ float getFuelMs(int rpm) {
 	if (isCranking()) {
 		return getCrankingFuel();
 	} else {
-		myfloat fuel = getRunningFuel(rpm, getMaf());
+		myfloat fuel = getRunningFuel(rpm, getEngineLoad());
 		return fuel;
 	}
 }
 
-float getRunningFuel(int rpm, float key) {
-	float baseFuel = getBaseFuel(rpm, key);
+float getRunningFuel(int rpm, float engineLoad) {
+	float baseFuel = getBaseFuel(rpm, engineLoad);
 
 	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
 	float cltCorrection = getCltCorrection(getCoolantTemperature());

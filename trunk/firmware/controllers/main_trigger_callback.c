@@ -119,7 +119,7 @@ static int getSparkDwell(int rpm) {
 }
 
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
-	float advance = getAdvance(rpm, getMaf());
+	float advance = getAdvance(rpm, getEngineLoad());
 
 	float sparkAdvance = getOneDegreeTime(rpm) * advance;
 

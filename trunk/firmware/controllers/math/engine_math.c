@@ -12,6 +12,7 @@
 #include "main.h"
 #include "engine_configuration.h"
 #include "interpolation.h"
+#include "allsensors.h"
 
 /*
  * default Volumetric Efficiency
@@ -21,7 +22,6 @@
 //		return interpolate(5000, 1.1, 8000, 1, rpm);
 //	return interpolate(500, 0.5, 5000, 1.1, rpm);
 //}
-
 //#define K_AT_MIN_RPM_MIN_TPS 0.25
 //#define K_AT_MIN_RPM_MAX_TPS 0.25
 //#define K_AT_MAX_RPM_MIN_TPS 0.25
@@ -32,7 +32,6 @@
 //
 //#define tpMin 0
 //#define tpMax 100
-
 //
 //  http://rusefi.com/math/t_charge.html
 // /
@@ -49,7 +48,6 @@
 //
 //	return Tcharge;
 //}
-
 #define MAX_STARTING_FUEL 15
 #define MIN_STARTING_FUEL 8
 extern engine_configuration_s *engineConfiguration;
@@ -57,12 +55,14 @@ extern engine_configuration2_s *engineConfiguration2;
 
 float getStartingFuel(float coolantTemperature) {
 	// these magic constants are in Celsius
-	if (isnan(coolantTemperature) || coolantTemperature < engineConfiguration->crankingSettings.coolantTempMinC)
+	if (isnan(coolantTemperature)
+			|| coolantTemperature
+					< engineConfiguration->crankingSettings.coolantTempMinC)
 		return engineConfiguration->crankingSettings.fuelAtMinTempMs;
-	if (coolantTemperature > engineConfiguration->crankingSettings.coolantTempMaxC)
+	if (coolantTemperature
+			> engineConfiguration->crankingSettings.coolantTempMaxC)
 		return engineConfiguration->crankingSettings.fuelAtMaxTempMs;
-	return interpolate(
-			engineConfiguration->crankingSettings.coolantTempMinC,
+	return interpolate(engineConfiguration->crankingSettings.coolantTempMinC,
 			engineConfiguration->crankingSettings.fuelAtMinTempMs,
 			engineConfiguration->crankingSettings.coolantTempMaxC,
 			engineConfiguration->crankingSettings.fuelAtMaxTempMs,
@@ -73,7 +73,7 @@ float getStartingFuel(float coolantTemperature) {
  * @return time needed to rotate crankshaft by one degree
  */
 float getOneDegreeTime(int rpm) {
-	return 1000.0 * 60 * TICKS_IN_MS  / 360 / rpm;
+	return 1000.0 * 60 * TICKS_IN_MS / 360 / rpm;
 }
 
 /**
@@ -94,6 +94,24 @@ float fixAngle(float angle) {
 	while (angle > 720)
 		angle -= 720;
 	return angle;
+}
+
+float getEngineLoad(void) {
+	switch (engineConfiguration->engine_load_mode) {
+	case LM_MAF:
+		return getMaf();
+	case LM_MAP:
+		return getMap();
+	case LM_TPS:
+		return getTPS();
+	case LM_SPEED_DENSITY:
+		// TODO: real implementation
+		return getMap();
+	default:
+		fatal("Unexpected engine load parameter");
+		return -1;
+	}
+
 }
 
 //float getTriggerEventAngle(int triggerEventIndex) {
