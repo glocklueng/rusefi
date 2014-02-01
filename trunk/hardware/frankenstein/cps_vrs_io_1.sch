@@ -1,7 +1,7 @@
 EESchema Schematic File Version 2
-LIBS:project_specific_libs
 LIBS:power
 LIBS:device
+LIBS:transistors
 LIBS:conn
 LIBS:linear
 LIBS:regul
@@ -12,9 +12,11 @@ LIBS:memory
 LIBS:xilinx
 LIBS:special
 LIBS:microcontrollers
+LIBS:dsp
 LIBS:microchip
 LIBS:analog_switches
 LIBS:motorola
+LIBS:texas
 LIBS:intel
 LIBS:audio
 LIBS:interface
@@ -23,18 +25,24 @@ LIBS:philips
 LIBS:display
 LIBS:cypress
 LIBS:siliconi
+LIBS:opto
+LIBS:atmel
 LIBS:contrib
-LIBS:logo_flipped
+LIBS:valves
+LIBS:LMV324IDR
 LIBS:logo
+LIBS:logo_flipped
+LIBS:project_specific_libs
+LIBS:header_10x2
 LIBS:art-electro-conn
-LIBS:cps_vrs_io_1-cache
-EELAYER 24 0
+LIBS:art-electro-ic
+EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
-Sheet 1 1
+Sheet 7 8
 Title "cps_vrs_io_1"
-Date "10 Dec 2013"
+Date "1 feb 2014"
 Rev ""
 Comp "based on http://code.google.com/p/daecu/"
 Comment1 "cps_vrs_io_1"

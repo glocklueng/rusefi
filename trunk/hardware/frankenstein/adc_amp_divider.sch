@@ -32,14 +32,17 @@ LIBS:valves
 LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
-LIBS:adc_amp_divider-cache
+LIBS:project_specific_libs
+LIBS:header_10x2
+LIBS:art-electro-conn
+LIBS:art-electro-ic
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
-Sheet 1 1
+Sheet 3 8
 Title "Analgo Protection board for RUSEFI.com"
-Date "25 jan 2014"
+Date "1 feb 2014"
 Rev "A-.01"
 Comp "RUSEFI.com"
 Comment1 ""
