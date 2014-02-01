@@ -29,6 +29,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:frankenstein_foundation-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
@@ -158,9 +159,9 @@ $EndComp
 Text Label 5900 4550 2    60   ~ 0
 PA8
 Text Label 7500 4750 0    60   ~ 0
-H_IN1
+H_IN5
 Text Label 7500 4650 0    60   ~ 0
-H_IN2
+H_IN6
 Text Label 2550 4550 2    60   ~ 0
 PD11
 Text Label 2550 4450 2    60   ~ 0
@@ -308,9 +309,9 @@ F 3 "" H 7750 5550 60  0000 C CNN
 $EndComp
 Text Label 8100 5500 0    60   ~ 0
 GND
-Text Label 8100 5600 0    60   ~ 0
+Text Label 3800 3750 0    60   ~ 0
 H_IN1
-Text Label 8100 5700 0    60   ~ 0
+Text Label 3800 3850 0    60   ~ 0
 H_IN2
 Text Label 8100 5400 0    60   ~ 0
 GND
@@ -347,7 +348,7 @@ Text Notes 1800 4150 0    60   ~ 0
 PB11
 Wire Wire Line
 	3900 3950 3350 3950
-Text Label 3800 3750 0    60   ~ 0
+Text Label 3800 3950 0    60   ~ 0
 H_IN4
 Text Label 3350 3550 0    60   ~ 0
 PB2
@@ -359,9 +360,9 @@ Wire Wire Line
 	3900 3650 3350 3650
 Text Label 3800 3650 0    60   ~ 0
 H_IN3
-Text Label 3800 3850 0    60   ~ 0
+Text Label 8100 5700 0    60   ~ 0
 H_IN5
-Text Label 3800 3950 0    60   ~ 0
+Text Label 8100 5600 0    60   ~ 0
 H_IN6
 Text Notes 3350 3650 0    60   ~ 0
 PE8
@@ -385,9 +386,9 @@ $EndComp
 NoConn ~ 4750 7150
 NoConn ~ 4750 7050
 Text Label 4750 6650 0    60   ~ 0
-H_IN6
+H_IN1
 Text Label 4750 6750 0    60   ~ 0
-H_IN5
+H_IN2
 Text Label 4750 6850 0    60   ~ 0
 H_IN4
 Text Label 4750 6950 0    60   ~ 0
