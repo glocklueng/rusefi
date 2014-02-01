@@ -83,3 +83,4 @@ remove P354
 # hi-low driver
 remove M601
 remove P601
+remove P602
