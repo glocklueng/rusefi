@@ -7,13 +7,15 @@ import java.util.List;
  *         1/21/14
  */
 public class ViaNode extends PcbNode {
-    private final PointNode location;
+    public final PointNode location;
     final SizeNode size;
+    public final int netId;
 
     public ViaNode(String nodeName, int i, List<Object> children) {
         super(nodeName, i, children);
         location = (PointNode) find("at");
         size = (SizeNode) find("size");
+        netId = Integer.parseInt(find("net").getChild(0));
     }
 
     @Override
