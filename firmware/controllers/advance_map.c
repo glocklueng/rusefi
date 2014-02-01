@@ -18,18 +18,18 @@ extern engine_configuration2_s *engineConfiguration2;
 static float *timing_ptrs[AD_LOAD_COUNT];
 static int initialized = FALSE;
 
-float getBaseAdvance(int rpm, float key) {
+float getBaseAdvance(int rpm, float engineLoad) {
 	chDbgAssert(initialized, "fuel map initialized", NULL);
-	return interpolate3d(key, engineConfiguration->ignitionLoadBins, AD_LOAD_COUNT, rpm,
+	return interpolate3d(engineLoad, engineConfiguration->ignitionLoadBins, AD_LOAD_COUNT, rpm,
 			engineConfiguration->ignitionRpmBins,
 			AD_RPM_COUNT, timing_ptrs);
 }
 
-float getAdvance(int rpm, float key) {
+float getAdvance(int rpm, float engineLoad) {
 	if (isCrankingR(rpm))
 		return engineConfiguration->crankingChargeAngle;
 
-	return getBaseAdvance(rpm, key) + engineConfiguration->ignitonOffset;
+	return getBaseAdvance(rpm, engineLoad) + engineConfiguration->ignitonOffset;
 }
 
 void prepareTimingMap(void) {

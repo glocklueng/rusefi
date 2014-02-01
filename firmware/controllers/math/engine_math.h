@@ -33,5 +33,6 @@ typedef struct {
 
 float fixAngle(float angle);
 float getTriggerEventAngle(int triggerEventIndex);
+float getEngineLoad(void);
 
 #endif /* ENGINE_MATH_H_ */
