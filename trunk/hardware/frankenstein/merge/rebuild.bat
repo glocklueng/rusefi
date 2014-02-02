@@ -50,3 +50,5 @@ rem Let's merge these PCBs into the Frankenstein!
 java -jar ../../java_tools/pcb_sync.jar pcb_merge ../frankenstein_foundation/frankenstein_foundation.kicad_pcb frankenstein.kicad_pcb merge/pcb_merge_changes.txt
 
 java -jar ../../java_tools/pcb_sync.jar optimize frankenstein.kicad_pcb frankenstein.kicad_pcb
+
+java -jar ../../java_tools/pcb_sync.jar bom_builder frankenstein.cmp digikey_parts.csv
