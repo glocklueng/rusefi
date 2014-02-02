@@ -2,11 +2,10 @@ package com.rusefi.bom;
 
 import com.rusefi.util.FileUtils;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * (c) Andrey Belomutskiy
@@ -15,6 +14,7 @@ import java.util.TreeMap;
 public class BomBuilder {
 
     private static final Map<String, List<BomComponent>> componentsByKey = new TreeMap<String, List<BomComponent>>();
+    private static final String DELIMITER = ",";
 
 
     public static void main(String[] args) throws IOException {
@@ -24,10 +24,15 @@ public class BomBuilder {
 
             return;
         }
-        String cmpFileNae = args[0];
+        String cmpFileName = args[0];
+        String bomDictionaryName = args[1];
 
-        readList(FileUtils.readFileToList(cmpFileNae));
+        readList(FileUtils.readFileToList(cmpFileName));
 
+        Map<String, BomRecord> bomDictionary = readBomDictionary(FileUtils.readFileToList(bomDictionaryName));
+
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter("output.csv"));
 
         for (Map.Entry<String, List<BomComponent>> e : componentsByKey.entrySet()) {
             String key = e.getKey();
@@ -36,10 +41,52 @@ public class BomBuilder {
 
             log(list.size() + " items of " + key);
 
+            BomRecord bomRecord = bomDictionary.get(key);
+            if (bomRecord == null) {
+                log("No BOM record for " + key);
+                continue;
+            }
+            bw.write(list.size() + DELIMITER +
+                    bomRecord.getStorePart() + DELIMITER +
+                    bomRecord.getCustomerRef() + "\r\n");
+
 
         }
 
 
+        bw.close();
+
+    }
+
+    private static Map<String, BomRecord> readBomDictionary(List<String> strings) {
+        Map<String, BomRecord> result = new HashMap<String, BomRecord>();
+        for (String line : strings) {
+            line = line.trim();
+            if (line.isEmpty())
+                continue;
+
+            String[] tokens = line.split(";");
+
+            if (tokens.length != 4) {
+                log("Unexpected line: " + line);
+                System.exit(-1);
+            }
+
+            String ref = tokens[0];
+            String mfgPart = tokens[1];
+            String storePart = tokens[2];
+            String customerRef = tokens[3];
+            result.put(ref, new BomRecord(mfgPart, storePart, customerRef));
+
+
+            log("BOM key: " + ref);
+            log("mfgPartNo: " + mfgPart);
+            log("storePartNo: " + storePart);
+        }
+
+        log("Got " + result + " entries in BOM dictionary");
+
+        return result;
     }
 
     private static void readList(List<String> list) throws IOException {
