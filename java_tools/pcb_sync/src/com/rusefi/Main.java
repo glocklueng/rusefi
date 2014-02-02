@@ -1,5 +1,6 @@
 package com.rusefi;
 
+import com.rusefi.bom.BomBuilder;
 import com.rusefi.misc.CmpMergeTool;
 import com.rusefi.misc.RemoveUnneededTraces;
 import com.rusefi.pcb.PcbMergeTool;
@@ -29,6 +30,8 @@ public class Main {
         registerTool("rename", RenameComponents.class);
 
         registerTool("optimize", RemoveUnneededTraces.class);
+
+        registerTool("bom_builder", BomBuilder.class);
     }
 
     private static void registerTool(String name, Class<?> clazz) {
