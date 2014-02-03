@@ -17,6 +17,15 @@
 #include "pin_repository.h"
 #include "wave_math.h"
 
+static void applyPinState(PwmConfig *state, int phaseIndex) {
+	for (int waveIndex = 0; waveIndex < state->multiWave.waveCount;
+			waveIndex++) {
+		io_pin_e ioPin = state->outputPins[waveIndex];
+		int value = state->multiWave.waves[waveIndex].pinStates[phaseIndex];
+		setOutputPinValue(ioPin, value);
+	}
+}
+
 static msg_t deThread(PwmConfig *state) {
 	chRegSetThreadName("Wave");
 
@@ -52,15 +61,14 @@ static msg_t deThread(PwmConfig *state) {
 		 */
 		myfloat period = state->period;
 
-		for (int phaseIndex = 0; phaseIndex < state->multiWave.phaseCount; phaseIndex++) {
-			systime_t timeToSwitch = (systime_t) ((iteration + state->multiWave.switchTimes[phaseIndex]) * period);
+		for (int phaseIndex = 0; phaseIndex < state->multiWave.phaseCount;
+				phaseIndex++) {
+			systime_t timeToSwitch = (systime_t) ((iteration
+					+ state->multiWave.switchTimes[phaseIndex]) * period);
 			chThdSleepUntil(start + timeToSwitch);
 
-			for (int waveIndex = 0; waveIndex < state->multiWave.waveCount; waveIndex++) {
-				io_pin_e ioPin = state->outputPins[waveIndex];
-				int value = state->multiWave.waves[waveIndex].pinStates[phaseIndex];
-				setOutputPinValue(ioPin, value);
-			}
+			applyPinState(state, phaseIndex);
+
 		}
 
 		iteration++;
@@ -74,19 +82,22 @@ static msg_t deThread(PwmConfig *state) {
  * Incoming parameters are potentially just values on current stack, so we have to copy
  * into our own permanent storage, right?
  */
-void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes, int waveCount, int **pinStates) {
+void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes,
+		int waveCount, int **pinStates) {
 	for (int phaseIndex = 0; phaseIndex < phaseCount; phaseIndex++) {
 		state->multiWave.switchTimes[phaseIndex] = switchTimes[phaseIndex];
 
 		for (int waveIndex = 0; waveIndex < waveCount; waveIndex++) {
 //			print("output switch time index (%d/%d) at %f to %d\r\n", phaseIndex,waveIndex,
 //					switchTimes[phaseIndex], pinStates[waveIndex][phaseIndex]);
-			state->multiWave.waves[waveIndex].pinStates[phaseIndex] = pinStates[waveIndex][phaseIndex];
+			state->multiWave.waves[waveIndex].pinStates[phaseIndex] =
+					pinStates[waveIndex][phaseIndex];
 		}
 	}
 }
 
-void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, myfloat dutyCycle, myfloat freq, io_pin_e ioPin) {
+void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
+		myfloat dutyCycle, myfloat freq, io_pin_e ioPin) {
 	myfloat switchTimes[] = { dutyCycle, 1 };
 	int pinStates0[] = { 0, 1 };
 
@@ -101,8 +112,8 @@ void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, myfl
 	state->period = frequency2period(freq);
 }
 
-void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchTimes, int waveCount,
-		int **pinStates) {
+void weComplexInit(char *msg, PwmConfig *state, int phaseCount,
+		myfloat *switchTimes, int waveCount, int **pinStates) {
 	chDbgCheck(phaseCount > 1, "count is too small");
 	chDbgCheck(phaseCount <= PWM_PHASE_MAX_COUNT, "count is too large");
 	chDbgCheck(switchTimes[phaseCount - 1] == 1, "last switch time has to be 1");
@@ -117,6 +128,7 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchT
 
 	state->name = msg;
 	state->multiWave.phaseCount = phaseCount;
-	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack), NORMALPRIO, (tfunc_t) deThread, state);
+	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack),
+			NORMALPRIO, (tfunc_t) deThread, state);
 }
 
