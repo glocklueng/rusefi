@@ -1,35 +1,30 @@
+# frankenshtein changes ============================================
+remove P_VOID1
+remove P_VOID2
 
+
+
+# CAN module - 470 range ===========================================
 copy ../can_board/can_brd_1.kicad_pcb temp/can_brd_1.kicad_pcb
 optimize temp/can_brd_1.kicad_pcb temp/can_brd_1.kicad_pcb
+
+add temp/can_brd_1.kicad_pcb -9 -1
+
+# CAN module connector
+remove P471
+# CAN module power LED
+remove R471
+remove D471
+
+move_module M470 6 -10
+
+
+# VR module 100 range ==============================================
 
 copy ../knock_VR_Art_ELectro/cps_vrs_io_1.kicad_pcb temp/cps_vrs_io_1.kicad_pcb
 optimize temp/cps_vrs_io_1.kicad_pcb temp/cps_vrs_io_1.kicad_pcb
 
-add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb 
-
-copy ../hi-lo_driver/hi-lo.kicad_pcb temp/hi-lo.kicad_pcb
-optimize temp/hi-lo.kicad_pcb temp/hi-lo.kicad_pcb
-
-
-add temp/mmc_usb_1.kicad_pcb 0 13
-move_module P353 50 0
-
-
 add temp/cps_vrs_io_1.kicad_pcb -83 110
-add temp/can_brd_1.kicad_pcb -7 -2
-
-add ../1A_injector_12-channels/inj_12ch.kicad_pcb
-
-add temp/hi-lo.kicad_pcb
-
-remove P_VOID1
-remove P_VOID2
-
-# analog input board LED
-remove LD200
-remove R200
-
-move_module M200 15 5
 
 
 # DD from the VR board
@@ -58,14 +53,19 @@ remove D102
 remove D101
 remove R105
 
+# analog input 200-350 range =======================================
+add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb 
+
+# analog input board LED
+remove LD200
+remove R200
+
+move_module M200 15 5
 
 
-
-# CAN module connector
-remove P471
-# CAN module power LED
-remove R471
-remove D471
+# SD & TTL module 350 range ========================================
+add temp/mmc_usb_1.kicad_pcb 0 13
+move_module P353 50 0
 
 # SD/TTL module 3.3v LED
 remove R354
@@ -82,7 +82,18 @@ remove P355
 remove P354
 
 
-# hi-low driver
+
+
+# injector driver 400 range ========================================
+add ../1A_injector_12-channels/inj_12ch.kicad_pcb
+
+
+# hi-low driver 600 range ==========================================
+copy ../hi-lo_driver/hi-lo.kicad_pcb temp/hi-lo.kicad_pcb
+optimize temp/hi-lo.kicad_pcb temp/hi-lo.kicad_pcb
+
+add temp/hi-lo.kicad_pcb
+
 remove M601
 remove P601
 remove P602
