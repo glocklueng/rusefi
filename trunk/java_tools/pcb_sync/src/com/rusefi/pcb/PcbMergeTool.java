@@ -62,6 +62,8 @@ public class PcbMergeTool {
         removeNodes(destNode);
 
         destNode.write(destination);
+
+        RemoveUnneededTraces.optimize(destination, destination);
     }
 
     private static ModuleNode findModuleByName(PcbNode destNode, String moduleName) {

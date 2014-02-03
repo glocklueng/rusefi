@@ -52,23 +52,26 @@ public class RemoveUnneededTraces {
     private static List<ViaNode> findUnusedVias(PcbNode destNode) {
         List<ViaNode> result = new ArrayList<ViaNode>();
 
-        List<PcbNode> segments = destNode.iterate("segment");
+        List<PcbNode> stuff = destNode.iterate("segment");
+        stuff.addAll(destNode.iterate("segment"));
+
 
         for (PcbNode n : destNode.iterate("via")) {
             ViaNode via = (ViaNode) n;
-            if (via.netId == NetNode.GND_NET_ID)
-                continue;
 
             int count = 0;
 
-            for (PcbNode segment : segments)
+            for (PcbNode segment : stuff)
                 if (segment.isConnected(via.location))
                     count++;
 
-            if (count < 2)
-                result.add(via);
-
-
+            if (via.netId == NetNode.GND_NET_ID) {
+                if (count == 0)
+                    result.add(via);
+            } else {
+                if (count < 2)
+                    result.add(via);
+            }
         }
         return result;
     }
