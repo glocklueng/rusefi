@@ -53,8 +53,7 @@ public class RemoveUnneededTraces {
         List<ViaNode> result = new ArrayList<ViaNode>();
 
         List<PcbNode> stuff = destNode.iterate("segment");
-        stuff.addAll(destNode.iterate("segment"));
-
+//        stuff.addAll(destNode.iterate("segment"));
 
         for (PcbNode n : destNode.iterate("via")) {
             ViaNode via = (ViaNode) n;
