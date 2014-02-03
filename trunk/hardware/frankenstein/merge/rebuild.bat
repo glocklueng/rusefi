@@ -41,7 +41,9 @@ java -jar ../../java_tools/pcb_sync.jar cmp_merge frankenstein.cmp ../can_board/
 
 
 java -jar ../../java_tools/pcb_sync.jar pcb_merge ../usb_mmc_spi/mmc_usb_1.kicad_pcb temp/mmc_usb_1.kicad_pcb merge/mmc_ttl_prepare_changes.txt
-java -jar ../../java_tools/pcb_sync.jar optimize temp/mmc_usb_1.kicad_pcb temp/mmc_usb_1.kicad_pcb
+
+java -jar ../../java_tools/pcb_sync.jar pcb_merge ../knock_VR_Art_ELectro/cps_vrs_io_1.kicad_pcb temp/cps_vrs_io_1.kicad_pcb merge/vr_changes.txt
+
 
 mkdir temp
 
@@ -49,6 +51,5 @@ mkdir temp
 rem Let's merge these PCBs into the Frankenstein!
 java -jar ../../java_tools/pcb_sync.jar pcb_merge ../frankenstein_foundation/frankenstein_foundation.kicad_pcb frankenstein.kicad_pcb merge/pcb_merge_changes.txt
 
-java -jar ../../java_tools/pcb_sync.jar optimize frankenstein.kicad_pcb frankenstein.kicad_pcb
 
 java -jar ../../java_tools/pcb_sync.jar bom_builder frankenstein.cmp digikey_parts.csv
