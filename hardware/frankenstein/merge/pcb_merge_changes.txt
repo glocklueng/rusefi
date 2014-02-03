@@ -3,55 +3,13 @@ remove P_VOID1
 remove P_VOID2
 
 
-
-# CAN module - 470 range ===========================================
-copy ../can_board/can_brd_1.kicad_pcb temp/can_brd_1.kicad_pcb
-optimize temp/can_brd_1.kicad_pcb temp/can_brd_1.kicad_pcb
-
-add temp/can_brd_1.kicad_pcb -9 -1
-
-# CAN module connector
-remove P471
-# CAN module power LED
-remove R471
-remove D471
-
-move_module M470 6 -10
-
-
 # VR module 100 range ==============================================
 
-copy ../knock_VR_Art_ELectro/cps_vrs_io_1.kicad_pcb temp/cps_vrs_io_1.kicad_pcb
-optimize temp/cps_vrs_io_1.kicad_pcb temp/cps_vrs_io_1.kicad_pcb
-
-add temp/cps_vrs_io_1.kicad_pcb -83 110
+add temp/cps_vrs_io_1.kicad_pcb -84 120.5
 
 
-# DD from the VR board
-# knock in
-remove P101
-# amp chip
-remove U102
-# data out
-remove P103
+# move_module R113 1 11
 
-remove R115
-remove R116
-remove R117
-remove R118
-
-
-remove C105
-remove C106
-remove C107
-remove C108
-
-
-# VR board power LED
-remove R101
-remove D102
-remove D101
-remove R105
 
 # analog input 200-350 range =======================================
 add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb 
@@ -86,6 +44,22 @@ remove P354
 
 # injector driver 400 range ========================================
 add ../1A_injector_12-channels/inj_12ch.kicad_pcb
+
+
+
+# CAN module - 470 range ===========================================
+copy ../can_board/can_brd_1.kicad_pcb temp/can_brd_1.kicad_pcb
+optimize temp/can_brd_1.kicad_pcb temp/can_brd_1.kicad_pcb
+
+add temp/can_brd_1.kicad_pcb -10 -1
+
+# CAN module connector
+remove P471
+# CAN module power LED
+remove R471
+remove D471
+
+move_module M470 6 -10
 
 
 # hi-low driver 600 range ==========================================
