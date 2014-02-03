@@ -55,9 +55,9 @@ float getInjectorLag(float vBatt) {
 	return engineConfiguration->injectorLag + vBattCorrection;
 }
 
-float getBaseFuel(int rpm, float key) {
+float getBaseFuel(int rpm, float engineLoad) {
 	chDbgAssert(initialized, "fuel map initialized", NULL);
-	return interpolate3d(key, engineConfiguration->fuelLoadBins, FUEL_LOAD_COUNT, rpm, engineConfiguration->fuelRpmBins,
+	return interpolate3d(engineLoad, engineConfiguration->fuelLoadBins, FUEL_LOAD_COUNT, rpm, engineConfiguration->fuelRpmBins,
 	FUEL_RPM_COUNT, fuel_ptrs);
 }
 

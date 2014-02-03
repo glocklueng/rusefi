@@ -10,11 +10,11 @@
 
 void prepareFuelMap(void);
 
-float getBaseFuel(int rpm, float key);
+float getBaseFuel(int rpm, float engineLoad);
 float getIatCorrection(float iat);
 float getInjectorLag(float vBatt);
 float getCltCorrection(float clt);
-float getRunningFuel(int rpm, float key);
+float getRunningFuel(int rpm, float engineLoad);
 
 #define FUEL_RPM_COUNT 16
 #define FUEL_LOAD_COUNT 16
