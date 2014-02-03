@@ -16,6 +16,7 @@
 
 #include "gpio_helper.h"
 #include "io_pins.h"
+#include "signal_executor.h"
 
 /**
  * @brief   Multi-channel software PWM output configuration
@@ -29,7 +30,14 @@ typedef struct {
 	 * PWM generation is not happening while this value is zero
 	 */
 	myfloat period;
+	/**
+	 * a copy so that all phases are executed on the same period, even if another thread
+	 * would be adjusting PWM parameters
+	 */
+	myfloat thisIterationPeriod;
+
 	WORKING_AREA(deThreadStack, UTILITY_THREAD_STACK_SIZE);
+	scheduling_s scheduling;
 } PwmConfig;
 
 void initModulation(PwmConfig *state, int count, myfloat *switchTimes,

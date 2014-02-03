@@ -54,24 +54,20 @@ static msg_t deThread(PwmConfig *state) {
 			iteration = 0;
 			rpmHere = state->period;
 		}
+		iteration++;
 
-		/**
-		 * local copy so that both phases are executed on the same period, even if another thread
-		 * would be adjusting PWM parameters
-		 */
-		myfloat period = state->period;
+		state->thisIterationPeriod = state->period;
 
 		for (int phaseIndex = 0; phaseIndex < state->multiWave.phaseCount;
 				phaseIndex++) {
 			systime_t timeToSwitch = (systime_t) ((iteration
-					+ state->multiWave.switchTimes[phaseIndex]) * period);
+					+ state->multiWave.switchTimes[phaseIndex]) * state->thisIterationPeriod);
 			chThdSleepUntil(start + timeToSwitch);
 
 			applyPinState(state, phaseIndex);
 
 		}
 
-		iteration++;
 	}
 #if defined __GNUC__
 	return -1;
