@@ -17,7 +17,7 @@
 #include "fuel_map.h"
 #include "pin_repository.h"
 #include "poten.h"
-//#include "rfi_perftest.h"
+#include "rfi_perftest.h"
 
 static WORKING_AREA(eeThreadStack, UTILITY_THREAD_STACK_SIZE);
 
@@ -91,7 +91,9 @@ static void initECUstimulator(void) {
 }
 
 void initEngineEmulator(void) {
-//	initTimePerfActions();
+#if EFI_PERF_METRICS
+	initTimePerfActions();
+#endif
 
 //	initPotentiometers();
 
