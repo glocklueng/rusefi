@@ -18,12 +18,18 @@
 #include "wave_math.h"
 
 static void applyPinState(PwmConfig *state, int phaseIndex) {
-	for (int waveIndex = 0; waveIndex < state->multiWave.waveCount;
-			waveIndex++) {
+	for (int waveIndex = 0; waveIndex < state->multiWave.waveCount; waveIndex++) {
 		io_pin_e ioPin = state->outputPins[waveIndex];
 		int value = state->multiWave.waves[waveIndex].pinStates[phaseIndex];
 		setOutputPinValue(ioPin, value);
 	}
+}
+
+static time_t getNextSwitchTime(PwmConfig *state, int phaseIndex) {
+	systime_t timeToSwitch = (systime_t) ((state->iteration + state->multiWave.switchTimes[phaseIndex])
+			* state->thisIterationPeriod);
+
+	return state->start + timeToSwitch;
 }
 
 static msg_t deThread(PwmConfig *state) {
@@ -34,8 +40,6 @@ static msg_t deThread(PwmConfig *state) {
 	// todo: figure out overflow
 	myfloat rpmHere = -1;
 	// initial values will be assigned during first state reset
-	systime_t start = -1;
-	int iteration = -1;
 
 	while (TRUE) {
 		if (state->period == 0) {
@@ -50,19 +54,17 @@ static msg_t deThread(PwmConfig *state) {
 			/**
 			 * period length has changed - we need to reset internal state
 			 */
-			start = chTimeNow();
-			iteration = 0;
+			state->start = chTimeNow();
+			state->iteration = 0;
 			rpmHere = state->period;
 		}
-		iteration++;
+		state->iteration++;
 
 		state->thisIterationPeriod = state->period;
 
-		for (int phaseIndex = 0; phaseIndex < state->multiWave.phaseCount;
-				phaseIndex++) {
-			systime_t timeToSwitch = (systime_t) ((iteration
-					+ state->multiWave.switchTimes[phaseIndex]) * state->thisIterationPeriod);
-			chThdSleepUntil(start + timeToSwitch);
+		for (int phaseIndex = 0; phaseIndex < state->multiWave.phaseCount; phaseIndex++) {
+			time_t timeToSwitch = getNextSwitchTime(state, phaseIndex);
+			chThdSleepUntil(timeToSwitch);
 
 			applyPinState(state, phaseIndex);
 
@@ -78,22 +80,20 @@ static msg_t deThread(PwmConfig *state) {
  * Incoming parameters are potentially just values on current stack, so we have to copy
  * into our own permanent storage, right?
  */
-void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes,
-		int waveCount, int **pinStates) {
+void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes, int waveCount, int **pinStates) {
 	for (int phaseIndex = 0; phaseIndex < phaseCount; phaseIndex++) {
 		state->multiWave.switchTimes[phaseIndex] = switchTimes[phaseIndex];
 
 		for (int waveIndex = 0; waveIndex < waveCount; waveIndex++) {
 //			print("output switch time index (%d/%d) at %f to %d\r\n", phaseIndex,waveIndex,
 //					switchTimes[phaseIndex], pinStates[waveIndex][phaseIndex]);
-			state->multiWave.waves[waveIndex].pinStates[phaseIndex] =
-					pinStates[waveIndex][phaseIndex];
+			state->multiWave.waves[waveIndex].pinStates[phaseIndex] = pinStates[waveIndex][phaseIndex];
 		}
 	}
 }
 
-void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
-		myfloat dutyCycle, myfloat freq, io_pin_e ioPin) {
+void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, myfloat dutyCycle, myfloat freq,
+		io_pin_e ioPin) {
 	myfloat switchTimes[] = { dutyCycle, 1 };
 	int pinStates0[] = { 0, 1 };
 
@@ -108,8 +108,7 @@ void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
 	state->period = frequency2period(freq);
 }
 
-void weComplexInit(char *msg, PwmConfig *state, int phaseCount,
-		myfloat *switchTimes, int waveCount, int **pinStates) {
+void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchTimes, int waveCount, int **pinStates) {
 	chDbgCheck(phaseCount > 1, "count is too small");
 	chDbgCheck(phaseCount <= PWM_PHASE_MAX_COUNT, "count is too large");
 	chDbgCheck(switchTimes[phaseCount - 1] == 1, "last switch time has to be 1");
@@ -125,6 +124,6 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount,
 	state->name = msg;
 	state->multiWave.phaseCount = phaseCount;
 	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack),
-			NORMALPRIO, (tfunc_t) deThread, state);
+	NORMALPRIO, (tfunc_t) deThread, state);
 }
 
