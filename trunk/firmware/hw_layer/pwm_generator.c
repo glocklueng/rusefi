@@ -17,16 +17,16 @@
 #include "pin_repository.h"
 #include "wave_math.h"
 
-static void applyPinState(PwmConfig *state, int phaseIndex) {
+static void applyPinState(PwmConfig *state) {
 	for (int waveIndex = 0; waveIndex < state->multiWave.waveCount; waveIndex++) {
 		io_pin_e ioPin = state->outputPins[waveIndex];
-		int value = state->multiWave.waves[waveIndex].pinStates[phaseIndex];
+		int value = state->multiWave.waves[waveIndex].pinStates[state->phaseIndex];
 		setOutputPinValue(ioPin, value);
 	}
 }
 
-static time_t getNextSwitchTime(PwmConfig *state, int phaseIndex) {
-	systime_t timeToSwitch = (systime_t) ((state->iteration + state->multiWave.switchTimes[phaseIndex])
+static time_t getNextSwitchTime(PwmConfig *state) {
+	systime_t timeToSwitch = (systime_t) ((state->iteration + state->multiWave.switchTimes[state->phaseIndex])
 			* state->thisIterationPeriod);
 
 	return state->start + timeToSwitch;
@@ -62,11 +62,11 @@ static msg_t deThread(PwmConfig *state) {
 
 		state->thisIterationPeriod = state->period;
 
-		for (int phaseIndex = 0; phaseIndex < state->multiWave.phaseCount; phaseIndex++) {
-			time_t timeToSwitch = getNextSwitchTime(state, phaseIndex);
+		for (state->phaseIndex = 0; state->phaseIndex < state->multiWave.phaseCount; state->phaseIndex++) {
+			time_t timeToSwitch = getNextSwitchTime(state);
 			chThdSleepUntil(timeToSwitch);
 
-			applyPinState(state, phaseIndex);
+			applyPinState(state);
 
 		}
 
@@ -121,6 +121,7 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchT
 
 	copyPwmParameters(state, phaseCount, switchTimes, waveCount, pinStates);
 
+	state->phaseIndex = 0;
 	state->name = msg;
 	state->multiWave.phaseCount = phaseCount;
 	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack),
