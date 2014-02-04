@@ -83,7 +83,7 @@ include $(CHIBIOS)/os/hal/platforms/STM32F4xx/platform.mk
 include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/ports/GCC/ARMCMx/STM32F4xx/port.mk
 include $(CHIBIOS)/os/kernel/kernel.mk
-include $(CHIBIOS)/os/various/various.mk
+include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
 include util/util.mk
 include console_util/console_util.mk
 include config/engines/engines.mk
@@ -118,7 +118,8 @@ CSRC = $(PORTSRC) \
 	$(CONTROLLERS_SENSORS_SRC) \
 	$(PLATFORMSRC) \
 	$(BOARDSRC) \
-	$(EXTSRC) \
+	$(FATFSSRC) \
+	chibios/os/various/chprintf.c \
 	rusefi.c \
 	main.c \
 
