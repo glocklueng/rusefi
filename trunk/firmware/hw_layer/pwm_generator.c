@@ -42,33 +42,35 @@ static msg_t deThread(PwmConfig *state) {
 	// initial values will be assigned during first state reset
 
 	while (TRUE) {
-		if (state->period == 0) {
-			/**
-			 * zero period means PWM is paused
-			 */
-			chThdSleepMilliseconds(1);
-			continue;
+		if (state->phaseIndex == 0) {
+			if (state->period == 0) {
+				/**
+				 * zero period means PWM is paused
+				 */
+				chThdSleepMilliseconds(1);
+				continue;
+			}
+			if (rpmHere != state->period) {
+				/**
+				 * period length has changed - we need to reset internal state
+				 */
+				state->start = chTimeNow();
+				state->iteration = 0;
+				rpmHere = state->period;
+			}
+			state->iteration++;
+
+			state->thisIterationPeriod = state->period;
 		}
 
-		if (rpmHere != state->period) {
-			/**
-			 * period length has changed - we need to reset internal state
-			 */
-			state->start = chTimeNow();
-			state->iteration = 0;
-			rpmHere = state->period;
-		}
-		state->iteration++;
+		time_t timeToSwitch = getNextSwitchTime(state);
+		chThdSleepUntil(timeToSwitch);
 
-		state->thisIterationPeriod = state->period;
+		applyPinState(state);
 
-		for (state->phaseIndex = 0; state->phaseIndex < state->multiWave.phaseCount; state->phaseIndex++) {
-			time_t timeToSwitch = getNextSwitchTime(state);
-			chThdSleepUntil(timeToSwitch);
-
-			applyPinState(state);
-
-		}
+		state->phaseIndex++;
+		if (state->phaseIndex == state->multiWave.phaseCount)
+			state->phaseIndex = 0; // restart
 
 	}
 #if defined __GNUC__
