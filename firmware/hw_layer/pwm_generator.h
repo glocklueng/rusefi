@@ -38,6 +38,14 @@ typedef struct {
 
 	WORKING_AREA(deThreadStack, UTILITY_THREAD_STACK_SIZE);
 	scheduling_s scheduling;
+	/**
+	 * Iteration counter
+	 */
+	int iteration;
+	/**
+	 * Start time of current iteration
+	 */
+	systime_t start;
 } PwmConfig;
 
 void initModulation(PwmConfig *state, int count, myfloat *switchTimes,
