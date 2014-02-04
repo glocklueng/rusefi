@@ -120,6 +120,7 @@ CSRC = $(PORTSRC) \
 	$(BOARDSRC) \
 	$(FATFSSRC) \
 	chibios/os/various/chprintf.c \
+	chibios/os/various/memstreams.c \
 	rusefi.c \
 	main.c \
 
