@@ -35,7 +35,7 @@ extern SerialUSBDriver SDU1;
 #define ts_serail_ready() is_usb_serial_ready()
 #else
 #define ts_serail_ready() TRUE
-static SerialConfig tsSerialConfig = {TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0};
+static SerialConfig tsSerialConfig = { TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 #endif /* EFI_TUNER_STUDIO_OVER_USB */
 
 static WORKING_AREA(TS_WORKING_AREA, UTILITY_THREAD_STACK_SIZE);
@@ -131,8 +131,8 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 		short command = (short) chSequentialStreamGet(TS_SERIAL_DEVICE);
 		int success = tunerStudioHandleCommand(command);
-		if (!success)
-			print("got unexpected command %c:%d\r\n", command, command);
+		if (!success && command != 0)
+			print("got unexpected TunerStudio command %c:%d\r\n", command, command);
 
 		tsCounter++;
 	}
@@ -164,7 +164,7 @@ void startTunerStudioConnectivity(void) {
 
 	addConsoleAction("tss", printStats);
 
-	chThdCreateStatic(TS_WORKING_AREA, sizeof(TS_WORKING_AREA), NORMALPRIO, tsThreadEntryPoint, NULL );
+	chThdCreateStatic(TS_WORKING_AREA, sizeof(TS_WORKING_AREA), NORMALPRIO, tsThreadEntryPoint, NULL);
 }
 
 void updateTunerStudioState() {
@@ -175,7 +175,7 @@ void updateTunerStudioState() {
 	tsOutputChannels.mass_air_flow = getMaf();
 	tsOutputChannels.air_fuel_ratio = getAfr();
 	tsOutputChannels.v_batt = getVBatt();
-	tsOutputChannels.tpsADC= getTPSAdc();
+	tsOutputChannels.tpsADC = getTPSAdc();
 	tsOutputChannels.atmospherePressure = getAtmosphericPressure();
 	tsOutputChannels.manifold_air_pressure = getMap();
 }

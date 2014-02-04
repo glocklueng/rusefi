@@ -32,7 +32,7 @@ static void testSystemCalls(int count) {
 
 	time = currentTimeMillis() - start;
 	// Finished 100000 iterations of 'setPinValue()' in 120ms
-	print("Finished %d iterations of 'setPinValue()' in %dms\r\n", count, time);
+//	print("Finished %d iterations of 'setPinValue()' in %dms\r\n", count, time);
 
 	start = currentTimeMillis();
 	for (int i = 0; i < count; i++)
@@ -79,7 +79,7 @@ static void testRusefiMethods(int count) {
 		tempi += getBaseFuel(4020, 2.21111);
 	time = currentTimeMillis() - start;
 	if (tempi != 0)
-		print("Finished %d iterations of getFuel in %dms\r\n", count, time);
+		print("Finished %d iterations of getBaseFuel in %dms\r\n", count, time);
 
 	start = currentTimeMillis();
 
