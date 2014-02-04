@@ -73,6 +73,7 @@ static char *ltoa(char *p, long num, unsigned radix) {
 
 #if CHPRINTF_USE_FLOAT
 static char *ftoa(char *p, double num, unsigned long precision) {
+  long l;
   if (isnan(num)) {
     *p++ = 'N';
     *p++ = 'a';
@@ -83,7 +84,7 @@ static char *ftoa(char *p, double num, unsigned long precision) {
   if (precision == 0)
     precision = FLOAT_PRECISION;
 
-  long l = (long)num;
+  l = (long)num;
   p = long_to_string_with_divisor(p, l, 10, 0);
   *p++ = '.';
   l = (long)((num - l) * precision);
@@ -117,7 +118,7 @@ static char *ftoa(char *p, double num, unsigned long precision) {
  */
 void chvprintf(BaseSequentialStream *chp, const char *fmt, va_list ap) {
   char *p, *s, c, filler;
-  int precision, width;
+  int i, precision, width;
   bool_t is_long, left_align;
   long l;
 #if CHPRINTF_USE_FLOAT
@@ -245,7 +246,7 @@ unsigned_common:
       *p++ = c;
       break;
     }
-    int i = (int)(p - s);
+    i = (int)(p - s);
     if ((width -= i) < 0)
       width = 0;
     if (left_align == FALSE)
