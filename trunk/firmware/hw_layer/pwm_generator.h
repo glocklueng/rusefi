@@ -36,7 +36,6 @@ typedef struct {
 	 */
 	myfloat thisIterationPeriod;
 
-	WORKING_AREA(deThreadStack, UTILITY_THREAD_STACK_SIZE);
 	scheduling_s scheduling;
 	/**
 	 * Iteration counter
