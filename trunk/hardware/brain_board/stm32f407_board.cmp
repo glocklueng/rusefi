@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Срд 05 Фев 2014 11:51:19
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Срд 05 Фев 2014 21:15:41
 
 BeginCmp
 TimeStamp = /52CFBA3E;
@@ -17,14 +17,14 @@ EndCmp
 BeginCmp
 TimeStamp = /52D13C3B;
 Reference = C2;
-ValeurCmp = 20nF;
+ValeurCmp = 18pF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52D13C4D;
 Reference = C3;
-ValeurCmp = 20nF;
+ValeurCmp = 18pF;
 IdModule  = SM0805;
 EndCmp
 
@@ -144,6 +144,20 @@ BeginCmp
 TimeStamp = /52EE55A7;
 Reference = C20;
 ValeurCmp = .1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F266B6;
+Reference = C21;
+ValeurCmp = 18pF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F266D6;
+Reference = C22;
+ValeurCmp = 18pF;
 IdModule  = SM0805;
 EndCmp
 
@@ -439,6 +453,13 @@ TimeStamp = /52D13AFB;
 Reference = X1;
 ValeurCmp = CRYSTAL;
 IdModule  = HC-49V;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F266A3;
+Reference = X2;
+ValeurCmp = CRYSTAL(MC306);
+IdModule  = MC-306;
 EndCmp
 
 EndListe
