@@ -17,10 +17,10 @@
 #include "pin_repository.h"
 #include "wave_math.h"
 
-static void applyPinState(PwmConfig *state) {
+static void applyPinState(PwmConfig *state, int stateIndex) {
 	for (int waveIndex = 0; waveIndex < state->multiWave.waveCount; waveIndex++) {
 		io_pin_e ioPin = state->outputPins[waveIndex];
-		int value = state->multiWave.waves[waveIndex].pinStates[state->phaseIndex];
+		int value = state->multiWave.waves[waveIndex].pinStates[stateIndex];
 		setOutputPinValue(ioPin, value);
 	}
 }
@@ -63,10 +63,12 @@ static msg_t deThread(PwmConfig *state) {
 			state->thisIterationPeriod = state->period;
 		}
 
+		applyPinState(state, state->phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->phaseIndex - 1);
+
+
 		time_t timeToSwitch = getNextSwitchTime(state);
 		chThdSleepUntil(timeToSwitch);
 
-		applyPinState(state);
 
 		state->phaseIndex++;
 		if (state->phaseIndex == state->multiWave.phaseCount)
