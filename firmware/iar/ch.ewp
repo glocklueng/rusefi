@@ -1894,6 +1894,24 @@
         </file>
       </group>
     </group>
+    <group>
+      <name>ext</name>
+      <group>
+        <name>fatfs</name>
+        <group>
+          <name>src</name>
+          <group>
+            <name>option</name>
+            <file>
+              <name>$PROJ_DIR$\..\chibios\ext\fatfs\src\option\ccsbcs.c</name>
+            </file>
+          </group>
+          <file>
+            <name>$PROJ_DIR$\..\chibios\ext\fatfs\src\ff.c</name>
+          </file>
+        </group>
+      </group>
+    </group>
   </group>
   <group>
     <name>config</name>
@@ -2339,13 +2357,7 @@
   <group>
     <name>ext</name>
     <file>
-      <name>$PROJ_DIR$\..\ext\ccsbcs.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\ext\diskio.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\ext\ff.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\ext\ff.h</name>
@@ -2826,17 +2838,20 @@
     </group>
     <group>
       <name>various</name>
+      <group>
+        <name>fatfs_bindings</name>
+        <file>
+          <name>$PROJ_DIR$\..\chibios\os\various\fatfs_bindings\fatfs_diskio.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\chibios\os\various\fatfs_bindings\fatfs_syscall.c</name>
+        </file>
+      </group>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\various\chprintf.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\various\chprintf.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\chibios\os\various\fatfs_diskio.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\chibios\os\various\fatfs_syscall.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\various\memstreams.c</name>
