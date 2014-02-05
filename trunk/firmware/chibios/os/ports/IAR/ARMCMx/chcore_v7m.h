@@ -485,7 +485,7 @@ struct context {
 #else
 #define port_switch(ntp, otp) {                                             \
   if ((stkalign_t *)(__get_SP() - sizeof(struct intctx)) < otp->p_stklimit) \
-    chDbgPanic("stack overflow", __FILE__, __LINE__);                                           \
+    chDbgPanic("stack overflow");                                           \
   _port_switch(ntp, otp);                                                   \
 }
 #endif
