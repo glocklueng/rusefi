@@ -56,12 +56,20 @@ static void printError(char *str, FRESULT f_error) {
 
 static FIL FDLogFile;
 
+static Logging logger;
+static int totalLoggedBytes = 0;
+
+static void sdStatistics(void) {
+	scheduleMsg(&logger, "fs_ready=%d totalLoggedBytes=%d", fs_ready, totalLoggedBytes);
+}
+
 /**
  * @brief Create a new file with the specified name
  *
  * This function saves the name of the file in a global variable
  * so that we can later append to that file
  */
+// todo: extract method
 
 static void ff_cmd_dir(char *path) {
 	DIR dir;
@@ -113,8 +121,10 @@ void appendToLog(char *line) {
 		errorReported = TRUE;
 		return;
 	}
-	FRESULT err = f_write(&FDLogFile, line, strlen(line), &bytesWrited);
-	if (bytesWrited < strlen(line)) {
+	int lineLength = strlen(line);
+	totalLoggedBytes += lineLength;
+	FRESULT err = f_write(&FDLogFile, line, lineLength, &bytesWrited);
+	if (bytesWrited < lineLength) {
 		printError("write error or disk full", err); // error or disk full
 	}
 	f_sync(&FDLogFile);
@@ -177,9 +187,20 @@ static void MMCmount(void) {
 	print("Can't connect or mount MMC/SD\r\n");
 }
 
-void initMmcCard(void) {
-//	MMCmount();
+static WORKING_AREA(mmThreadStack, UTILITY_THREAD_STACK_SIZE);
 
+static msg_t mmThread(int param) {
+	MMCmount();
+	return -1;
+}
+
+void initMmcCard(void) {
+	initLogging(&logger, "mmcCard");
+
+	//	MMCmount();
+//	chThdCreateStatic(mmThreadStack, sizeof(mmThreadStack), NORMALPRIO, (tfunc_t) mmThread, NULL);
+
+	addConsoleAction("sdstat", sdStatistics);
 	addConsoleAction("mountsd", MMCmount);
 	addConsoleActionS("appendToLog", appendToLog);
 	addConsoleAction("umountsd", MMCumount);
