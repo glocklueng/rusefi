@@ -9,6 +9,7 @@
 #include "hardware.h"
 #include "pin_repository.h"
 #include "io_pins.h"
+#include "rtc_helper.h"
 
 #include "adc_inputs.h"
 
@@ -46,6 +47,8 @@ void initHardware() {
 	//flashProtect();
 
 	initHistograms();
+
+	initRtc();
 
 	initPinRepository();
 	initSpiModules();

@@ -8,6 +8,7 @@ HW_LAYERESRC = hw_layer/hardware.c \
 	hw_layer/can_hw.c \
 	hw_layer/HIP9011.c \
 	hw_layer/flash.c \
+	hw_layer/rtc_helper.c \
 	hw_layer/mmc_card.c \
 	hw_layer/neo6m.c \
 	hw_layer/gpio_helper.c \
