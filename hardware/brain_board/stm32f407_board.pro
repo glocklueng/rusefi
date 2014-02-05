@@ -1,4 +1,4 @@
-update=Пнд 03 Фев 2014 18:07:44
+update=Срд 05 Фев 2014 10:40:14
 version=1
 last_client=pcbnew
 [general]
@@ -30,7 +30,7 @@ EquName1=devcms
 [pcbnew]
 version=1
 LastNetListRead=stm32f407_board.net
-UseCmpFile=0
+UseCmpFile=1
 PadDrill="    0,600000"
 PadDrillOvalY="    0,600000"
 PadSizeH="    1,000000"
