@@ -67,13 +67,13 @@ static msg_t deThread(PwmConfig *state) {
 
 
 		time_t timeToSwitch = getNextSwitchTime(state);
-		chThdSleepUntil(timeToSwitch);
 
 
 		state->phaseIndex++;
 		if (state->phaseIndex == state->multiWave.phaseCount)
 			state->phaseIndex = 0; // restart
 
+		chThdSleepUntil(timeToSwitch);
 	}
 #if defined __GNUC__
 	return -1;
