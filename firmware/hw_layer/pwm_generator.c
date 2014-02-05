@@ -32,48 +32,47 @@ static time_t getNextSwitchTime(PwmConfig *state) {
 	return state->start + timeToSwitch;
 }
 
+static time_t togglePwmState(PwmConfig *state) {
+	if (state->phaseIndex == 0) {
+		if (state->period == 0) {
+			/**
+			 * zero period means PWM is paused
+			 */
+			return TICKS_IN_MS;
+		}
+		if (state->rpmHere != state->period) {
+			/**
+			 * period length has changed - we need to reset internal state
+			 */
+			state->start = chTimeNow();
+			state->iteration = 0;
+			state->rpmHere = state->period;
+		}
+		state->iteration++;
+
+		state->thisIterationPeriod = state->period;
+	}
+
+	applyPinState(state, state->phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->phaseIndex - 1);
+
+	time_t timeToSwitch = getNextSwitchTime(state) - chTimeNow();
+
+	state->phaseIndex++;
+	if (state->phaseIndex == state->multiWave.phaseCount)
+		state->phaseIndex = 0; // restart
+	return timeToSwitch;
+}
+
 static msg_t deThread(PwmConfig *state) {
 	chRegSetThreadName("Wave");
 
 //	setPadValue(state, state->idleState); todo: currently pin is always zero at first iteration.
 // we can live with that for now
 	// todo: figure out overflow
-	myfloat rpmHere = -1;
-	// initial values will be assigned during first state reset
 
 	while (TRUE) {
-		if (state->phaseIndex == 0) {
-			if (state->period == 0) {
-				/**
-				 * zero period means PWM is paused
-				 */
-				chThdSleepMilliseconds(1);
-				continue;
-			}
-			if (rpmHere != state->period) {
-				/**
-				 * period length has changed - we need to reset internal state
-				 */
-				state->start = chTimeNow();
-				state->iteration = 0;
-				rpmHere = state->period;
-			}
-			state->iteration++;
-
-			state->thisIterationPeriod = state->period;
-		}
-
-		applyPinState(state, state->phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->phaseIndex - 1);
-
-
-		time_t timeToSwitch = getNextSwitchTime(state);
-
-
-		state->phaseIndex++;
-		if (state->phaseIndex == state->multiWave.phaseCount)
-			state->phaseIndex = 0; // restart
-
-		chThdSleepUntil(timeToSwitch);
+		time_t timeToSwitch = togglePwmState(state);
+		chThdSleep(timeToSwitch);
 	}
 #if defined __GNUC__
 	return -1;

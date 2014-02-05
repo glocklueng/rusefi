@@ -48,6 +48,7 @@ typedef struct {
 	systime_t start;
 
 	int phaseIndex;
+	myfloat rpmHere;
 } PwmConfig;
 
 void initModulation(PwmConfig *state, int count, myfloat *switchTimes,
