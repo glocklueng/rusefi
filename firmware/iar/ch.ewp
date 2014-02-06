@@ -305,6 +305,7 @@
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\GPIOv2</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\SPIv1</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1</state>
+          <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\RTCv2</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\USARTv1</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx</state>
           <state>$PROJ_DIR$\..\chibios\os\various</state>
@@ -2450,6 +2451,12 @@
       <name>$PROJ_DIR$\..\hw_layer\pwm_generator.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\hw_layer\rtc_helper.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\rtc_helper.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\hw_layer\shaft_position_input.c</name>
     </file>
     <file>
@@ -2748,6 +2755,15 @@
     </group>
     <group>
       <name>platform</name>
+      <group>
+        <name>STM32</name>
+        <file>
+          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\RTCv2\rtc_lld.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\RTCv2\rtc_lld.h</name>
+        </file>
+      </group>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx\adc_lld.c</name>
       </file>
