@@ -124,6 +124,7 @@ static void printSensors(void) {
 //	debugFloat(&logger, "tch", getTCharge1(tps), 2);
 
 #if EFI_FILE_LOGGING
+	appendPrintf(&fileLogger, "\r\n");
 	appendToLog(fileLogger.buffer);
 #endif /* EFI_FILE_LOGGING */
 }

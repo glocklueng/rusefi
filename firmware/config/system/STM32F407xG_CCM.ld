@@ -125,7 +125,7 @@ SECTIONS
         . = ALIGN(8);
         __process_stack_end__ = .;
         __main_thread_stack_end__ = .;
-    } > ccmram
+    } > ram
 
     .ccm :
     {
