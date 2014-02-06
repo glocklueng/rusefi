@@ -47,7 +47,6 @@ static bool_t fs_ready = FALSE;
  * fatfs MMC/SPI
  */
 static FATFS MMC_FS;
-char LogFileName[_MAX_LFN];
 
 // print FAT error function
 static void printError(char *str, FRESULT f_error) {
@@ -187,18 +186,10 @@ static void MMCmount(void) {
 	print("Can't connect or mount MMC/SD\r\n");
 }
 
-static WORKING_AREA(mmThreadStack, UTILITY_THREAD_STACK_SIZE);
-
-static msg_t mmThread(int param) {
-	MMCmount();
-	return -1;
-}
-
 void initMmcCard(void) {
 	initLogging(&logger, "mmcCard");
 
-	//	MMCmount();
-//	chThdCreateStatic(mmThreadStack, sizeof(mmThreadStack), NORMALPRIO, (tfunc_t) mmThread, NULL);
+	MMCmount();
 
 	addConsoleAction("sdstat", sdStatistics);
 	addConsoleAction("mountsd", MMCmount);
