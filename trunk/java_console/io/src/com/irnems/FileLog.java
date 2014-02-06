@@ -2,10 +2,7 @@ package com.irnems;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -21,21 +18,20 @@ public enum FileLog {
     private OutputStream fileLog; // null if not opened yet or already closed
 
     private FileLog() {
+    }
+
+    public void start() throws FileNotFoundException {
         fileLog = openLog();
     }
 
-    private static FileOutputStream openLog() {
+    private static FileOutputStream openLog() throws FileNotFoundException {
         if (SerialManager.onlyUI)
             return null;
         String date = getDate();
-        try {
-            createFolderIfNeeded();
-            String fileName = DIR + "rfi_report_" + date + ".csv";
-            rlog("Writing to " + fileName);
-            return new FileOutputStream(fileName, true);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
+        createFolderIfNeeded();
+        String fileName = DIR + "rfi_report_" + date + ".csv";
+        rlog("Writing to " + fileName);
+        return new FileOutputStream(fileName, true);
     }
 
     private static void createFolderIfNeeded() {

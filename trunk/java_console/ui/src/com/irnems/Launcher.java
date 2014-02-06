@@ -60,6 +60,12 @@ public class Launcher extends FrameHelper {
     public static void main(String[] args) throws Exception {
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler());
 
+        try {
+            FileLog.INSTANCE.start();
+        } catch (Throwable e) {
+            DefaultExceptionHandler.handleException(e);
+        }
+
         final String port = args.length > 0 ? args[0] : lookupPort();
 
         SwingUtilities.invokeAndWait(new Runnable() {
