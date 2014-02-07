@@ -245,7 +245,9 @@ static void showFuelMap(int rpm, int key100) {
 void initStatusLoop(void) {
 	initLoggingExt(&logger, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 	initLogging(&logger2, "main event handler");
+#if EFI_FILE_LOGGING
 	initLogging(&fileLogger, "file logger");
+#endif /* EFI_FILE_LOGGING */
 
 	setFullLog(INITIAL_FULL_LOG);
 

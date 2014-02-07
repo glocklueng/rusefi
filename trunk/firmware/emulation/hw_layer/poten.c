@@ -58,7 +58,10 @@
 /* Low speed SPI configuration (281.250kHz, CPHA=0, CPOL=0, MSb first).*/
 #define SPI_POT_CONFIG SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_DFF
 
-#ifdef EFI_POTENTIOMETER
+static Logging logger;
+
+
+#if EFI_POTENTIOMETER
 Mcp42010Driver config0;
 
 void initPotentiometer(Mcp42010Driver *driver, SPIDriver *spi, ioportid_t port, ioportmask_t pin) {
@@ -69,23 +72,19 @@ void initPotentiometer(Mcp42010Driver *driver, SPIDriver *spi, ioportid_t port, 
 	driver->spi = spi;
 	mySetPadMode("pot chip select", port, pin, PAL_STM32_MODE_OUTPUT);
 }
-#endif
-
-static Logging logger;
 
 static int getPotStep(int resistanceWA) {
 	return 256 - (int) ((resistanceWA - 52) * 256 / 10000);
 }
 
+
 static void sendToPot(Mcp42010Driver *driver, int channel, int value) {
-#ifdef EFI_POTENTIOMETER
 	spiStart(driver->spi, &driver->spiConfig);
 	spiSelect(driver->spi);
 	int word = (17 + channel) * 256 + value;
 	spiSend(driver->spi, 1, &word);
 	spiUnselect(driver->spi);
 	spiStop(driver->spi);
-#endif
 }
 
 void setPotResistance(Mcp42010Driver *driver, int channel, int resistance) {
@@ -106,6 +105,7 @@ void setPotResistance(Mcp42010Driver *driver, int channel, int resistance) {
 	sendToPot(driver, channel, value);
 }
 
+
 static void setPotResistance0(int value) {
 	setPotResistance(&config0, 0, value);
 }
@@ -118,8 +118,10 @@ static void setPotValue1(int value) {
 	sendToPot(&config0, 1, value);
 }
 
+#endif /* EFI_POTENTIOMETER */
+
 void initPotentiometers() {
-#ifdef EFI_POTENTIOMETER
+#if EFI_POTENTIOMETER
 	initLogging(&logger, "potentiometer");
 
 	initPotentiometer(&config0, _POT_SPI, POTEN_CS_PORT, POTEN_CS_PIN);
