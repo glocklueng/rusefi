@@ -21,6 +21,7 @@
 
 #include "tunerstudio_algo.h"
 #include "tunerstudio_configuration.h"
+#include "malfunction_central.h"
 
 #if EFI_TUNER_STUDIO
 
@@ -178,6 +179,7 @@ void updateTunerStudioState() {
 	tsOutputChannels.tpsADC = getTPSAdc();
 	tsOutputChannels.atmospherePressure = getAtmosphericPressure();
 	tsOutputChannels.manifold_air_pressure = getMap();
+	tsOutputChannels.checkEngine = hasErrorCodes();
 }
 
 #endif /* EFI_TUNER_STUDIO */
