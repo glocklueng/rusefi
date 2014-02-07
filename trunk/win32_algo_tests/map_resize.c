@@ -13,6 +13,8 @@
 #include "main.h"
 #include "idle_controller.h"
 
+#if 0
+
 #define AD_LOAD_COUNT 35
 #define AD_RPM_COUNT 23
 
@@ -144,3 +146,4 @@ void resizeMap(void) {
 
 }
 
+#endif
