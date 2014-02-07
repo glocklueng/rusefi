@@ -141,15 +141,15 @@ void lcd_2x16_init(void)
 	// LCD needs some time to wake up
 	chThdSleepMilliseconds(50);
 
-	lcd_2x16_write(0x30);
+	lcd_2x16_write(LCD_2X16_RESET);
 	chThdSleepMilliseconds(1);
 
 	lcd_2x16_write(0x30);
 
-	lcd_2x16_write(0x20);	// 4 bit, 2 line
+	lcd_2x16_write(LCD_2X16_4_BIT_BUS);	// 4 bit, 2 line
 	chThdSleepMicroseconds(40);
 
-	lcd_2x16_write(0x20);	// 4 bit, 2 line
+	lcd_2x16_write(LCD_2X16_4_BIT_BUS);	// 4 bit, 2 line
 	lcd_2x16_write(0x80);
 	chThdSleepMicroseconds(40);
 
@@ -168,6 +168,7 @@ void lcd_2x16_init(void)
 void lcdTest(void) {
 	lcd_2x16_init();
 	lcd_2x16_set_position(0, 0);
-	lcd_2x16_print_string("rusefi");
+	lcd_2x16_print_string("rusefi\n");
+	lcd_2x16_print_string("hello\n");
 
 }
