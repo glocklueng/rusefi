@@ -1,7 +1,9 @@
 /**
  * @file lcd_2x16.c
+ * @brief HD44780 character display driver
  *
  *
+ * http://web.alfredstate.edu/weimandn/lcd/lcd_addressing/lcd_addressing_index.html
  * http://forum.chibios.org/phpbb/viewtopic.php?f=16&t=1584
  * @date 13.12.2013
  * @author shilow
