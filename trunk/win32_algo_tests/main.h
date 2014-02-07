@@ -16,6 +16,8 @@
 #include "boards.h"
 #include "engines.h"
 
+typedef int bool_t;
+
 #define TRUE 1
 #define FALSE 0
 
