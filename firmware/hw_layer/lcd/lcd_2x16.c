@@ -3,17 +3,14 @@
  *
  *
  * http://forum.chibios.org/phpbb/viewtopic.php?f=16&t=1584
- *	Date:	13.12.2013
+ * @date 13.12.2013
+ * @author shilow
  */
 
-#include "ch.h"
-#include "hal.h"
+#include "main.h"
 
 #include "lcd_2x16.h"
 #include "pin_repository.h"
-
-const uint8_t lcd_2x16_decode[] =
-{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
 enum
 {
@@ -53,9 +50,9 @@ void lcd_2x16_write(uint8_t data)
 
 	palSetPad(LCD_PORT, LCD_PIN_E);
 
-#ifdef LCD_PIN_OFFSET
-	pal_lld_setport(LCD_PORT, ((LCD_PINS_DATA | (data & 0xF0))<<LCD_PIN_OFFSET) );
-#else
+//#ifdef LCD_PIN_OFFSET
+//	pal_lld_setport(LCD_PORT, ((LCD_PINS_DATA | (data & 0xF0))<<LCD_PIN_OFFSET) );
+//#else
 	if (data & 0x80)
 		palSetPad(LCD_PORT, LCD_PIN_DB7);
 
@@ -67,7 +64,7 @@ void lcd_2x16_write(uint8_t data)
 
 	if (data & 0x10)
 		palSetPad(LCD_PORT, LCD_PIN_DB4);
-#endif
+//#endif
 
 	chThdSleepMicroseconds(1);
 	palClearPad(LCD_PORT, LCD_PIN_E);
@@ -132,9 +129,13 @@ void lcd_2x16_print_string(uint8_t * string)
 void lcd_2x16_init(void)
 {
 	mySetPadMode("lcd", LCD_PORT, LCD_PIN_RS, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd", LCD_PORT, LCD_PIN_E, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd", LCD_PORT, LCD_PIN_DB4, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd", LCD_PORT, LCD_PIN_DB5, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd", LCD_PORT, LCD_PIN_DB6, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd", LCD_PORT, LCD_PIN_DB7, PAL_MODE_OUTPUT_PUSHPULL);
 
 
-	palSetGroupMode(LCD_PORT, LCD_PINS, 0, LCD_PORT_MODE);
 	pal_lld_clearport(LCD_PORT, LCD_PINS);
 
 	// LCD needs some time to wake up
@@ -162,4 +163,11 @@ void lcd_2x16_init(void)
 
 	lcd_2x16_write(0x00);	// entry mode set
 	lcd_2x16_write(0x60);
+}
+
+void lcdTest(void) {
+	lcd_2x16_init();
+	lcd_2x16_set_position(0, 0);
+	lcd_2x16_print_string("rusefi");
+
 }
