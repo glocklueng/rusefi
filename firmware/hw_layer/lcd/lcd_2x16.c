@@ -43,6 +43,8 @@ enum
 	LCD_2X16_DATA = 0x00,
 } lcd_2x16_command;
 
+static int lineStart[] = {0, 0x40};
+
 //-----------------------------------------------------------------------------
 void lcd_2x16_write(uint8_t data) {
 	palWritePad(LCD_PORT, LCD_PIN_DB7, data & 0x80 ? 1 : 0);
