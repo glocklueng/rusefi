@@ -42,28 +42,11 @@ enum
 } lcd_2x16_command;
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_write(uint8_t data)
-{
-
-
-	pal_lld_clearport(LCD_PORT, LCD_PINS_DATA);
-
-
-//#ifdef LCD_PIN_OFFSET
-//	pal_lld_setport(LCD_PORT, ((LCD_PINS_DATA | (data & 0xF0))<<LCD_PIN_OFFSET) );
-//#else
-	if (data & 0x80)
-		palSetPad(LCD_PORT, LCD_PIN_DB7);
-
-	if (data & 0x40)
-		palSetPad(LCD_PORT, LCD_PIN_DB6);
-
-	if (data & 0x20)
-		palSetPad(LCD_PORT, LCD_PIN_DB5);
-
-	if (data & 0x10)
-		palSetPad(LCD_PORT, LCD_PIN_DB4);
-//#endif
+void lcd_2x16_write(uint8_t data) {
+	palWritePad(LCD_PORT, LCD_PIN_DB7, data & 0x80 ? 1 : 0);
+	palWritePad(LCD_PORT, LCD_PIN_DB6, data & 0x40 ? 1 : 0);
+	palWritePad(LCD_PORT, LCD_PIN_DB5, data & 0x20 ? 1 : 0);
+	palWritePad(LCD_PORT, LCD_PIN_DB4, data & 0x10 ? 1 : 0);
 
 	palSetPad(LCD_PORT, LCD_PIN_E);
 	chThdSleepMicroseconds(10);
@@ -169,6 +152,6 @@ void lcd_2x16_init(void)
 void lcdTest(void) {
 	lcd_2x16_init();
 	lcd_2x16_set_position(0, 0);
-	lcd_2x16_print_string("hi everyone\n");
-	lcd_2x16_print_string("rusefi here :)\n");
+	lcd_2x16_print_string("3hi everyone?\n");
+	lcd_2x16_print_string("4rusefi here !\n");
 }
