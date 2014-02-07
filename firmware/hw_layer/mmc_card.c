@@ -15,6 +15,8 @@
 #include "mmc_card.h"
 #include "rficonsole_logic.h"
 
+#if EFI_FILE_LOGGING
+
 /**
  * MMC driver instance.
  */
@@ -200,3 +202,5 @@ void initMmcCard(void) {
 	addConsoleAction("umountsd", MMCumount);
 	addConsoleActionS("ls", ff_cmd_dir);
 }
+
+#endif /* EFI_FILE_LOGGING */

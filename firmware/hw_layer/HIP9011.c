@@ -19,6 +19,8 @@
 
 #include "main.h"
 
+#if EFI_HIP_9011
+
 #define HIP9011_CS_PORT GPIOE
 #define HIP9011_CS_PIN 11
 
@@ -87,3 +89,5 @@ void initHip9011(void) {
 
 	chThdCreateStatic(htThreadStack, sizeof(htThreadStack), NORMALPRIO, (tfunc_t) ivThread, NULL);
 }
+
+#endif
