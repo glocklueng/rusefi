@@ -48,7 +48,6 @@ void lcd_2x16_write(uint8_t data)
 
 	pal_lld_clearport(LCD_PORT, LCD_PINS_DATA);
 
-	palSetPad(LCD_PORT, LCD_PIN_E);
 
 //#ifdef LCD_PIN_OFFSET
 //	pal_lld_setport(LCD_PORT, ((LCD_PINS_DATA | (data & 0xF0))<<LCD_PIN_OFFSET) );
@@ -66,8 +65,10 @@ void lcd_2x16_write(uint8_t data)
 		palSetPad(LCD_PORT, LCD_PIN_DB4);
 //#endif
 
-	chThdSleepMicroseconds(1);
+	palSetPad(LCD_PORT, LCD_PIN_E);
+	chThdSleepMicroseconds(10);
 	palClearPad(LCD_PORT, LCD_PIN_E);
+	chThdSleepMicroseconds(40);
 }
 
 //-----------------------------------------------------------------------------
@@ -168,7 +169,6 @@ void lcd_2x16_init(void)
 void lcdTest(void) {
 	lcd_2x16_init();
 	lcd_2x16_set_position(0, 0);
-	lcd_2x16_print_string("rusefi\n");
-	lcd_2x16_print_string("hello\n");
-
+	lcd_2x16_print_string("hi everyone\n");
+	lcd_2x16_print_string("rusefi here :)\n");
 }
