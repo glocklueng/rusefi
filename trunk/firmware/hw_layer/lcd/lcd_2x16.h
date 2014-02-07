@@ -15,8 +15,6 @@
 #define LCD_PIN_DB7	15
 #define LCD_PINS	((1<<LCD_PIN_RS) | (1<<LCD_PIN_E) | (1<<LCD_PIN_DB4) | (1<<LCD_PIN_DB5) | (1<<LCD_PIN_DB6) | (1<<LCD_PIN_DB7))
 #define LCD_PINS_CTRL	((1<<LCD_PIN_RS) | (1<<LCD_PIN_E))
-#define LCD_PINS_DATA	((1<<LCD_PIN_DB4) | (1<<LCD_PIN_DB5) | (1<<LCD_PIN_DB6) | (1<<LCD_PIN_DB7))
-#define LCD_PIN_OFFSET	8
 
 extern void lcd_2x16_init(void);
 extern void lcd_2x16_set_position(uint8_t row, uint8_t colum);

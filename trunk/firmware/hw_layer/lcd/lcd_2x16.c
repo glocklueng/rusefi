@@ -48,10 +48,10 @@ void lcd_2x16_write(uint8_t data) {
 	palWritePad(LCD_PORT, LCD_PIN_DB5, data & 0x20 ? 1 : 0);
 	palWritePad(LCD_PORT, LCD_PIN_DB4, data & 0x10 ? 1 : 0);
 
-	palSetPad(LCD_PORT, LCD_PIN_E);
-	chThdSleepMicroseconds(10);
-	palClearPad(LCD_PORT, LCD_PIN_E);
-	chThdSleepMicroseconds(40);
+	palSetPad(LCD_PORT, LCD_PIN_E); // En high
+	chThdSleepMicroseconds(10); // enable pulse must be >450ns
+	palClearPad(LCD_PORT, LCD_PIN_E); // En low
+	chThdSleepMicroseconds(40); // commands need > 37us to settle
 }
 
 //-----------------------------------------------------------------------------
