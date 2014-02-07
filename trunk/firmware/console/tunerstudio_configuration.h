@@ -30,6 +30,7 @@ typedef struct {
 	short int alignment; // size 2, offset 34
 	float atmospherePressure; // size 4, offset 36
 	float manifold_air_pressure; // size 4, offset 40
+	int checkEngine; // size 4, offset 44
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */

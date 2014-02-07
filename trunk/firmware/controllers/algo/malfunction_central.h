@@ -9,6 +9,7 @@
 #ifndef MALFUNCTION_CENTRAL_H_
 #define MALFUNCTION_CENTRAL_H_
 
+#include "main.h"
 #include "obd_error_codes.h"
 
 #define MAX_ERROR_CODES_COUNT 10
@@ -40,5 +41,6 @@ void setError(int flag, obd_code_e errorCode);
  */
 void getErrorCodes(error_codes_set_s * buffer);
 
+bool_t hasErrorCodes(void);
 
 #endif /* MALFUNCTION_CENTRAL_H_ */
