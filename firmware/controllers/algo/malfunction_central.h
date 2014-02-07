@@ -15,7 +15,7 @@
 
 typedef struct {
 	int count;
-	int error_codes[MAX_ERROR_CODES_COUNT];
+	obd_code_e error_codes[MAX_ERROR_CODES_COUNT];
 } error_codes_set_s;
 
 void initMalfunctionCentral(void);
