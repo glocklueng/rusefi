@@ -76,6 +76,10 @@ public class PcbNode {
             return PadNode.parse(nodeName, index + 1, children);
         } else if ("net".equals(nodeName)) {
             return new NetNode(nodeName, index + 1, children);
+        } else if ("gr_line".equals(nodeName)) {
+            return new GrLineNode(nodeName, index + 1, children);
+        } else if ("layer".equals(nodeName)) {
+            return new LayerNode(nodeName, index + 1, children);
         } else if ("module".equals(nodeName)) {
             return new ModuleNode(nodeName, index + 1, children);
         } else if ("size".equals(nodeName) || "width".equals(nodeName)) {
