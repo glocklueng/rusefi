@@ -116,3 +116,6 @@ void print(const char *format, ...) {
 	va_end(ap);
 }
 
+float getMap(void) {
+	return 0;
+}
