@@ -199,10 +199,20 @@ int nmea_valid_checksum(const char *message) {
 	return _EMPTY;
 }
 
+void resetLocation(loc_t *coord) {
+	coord->latitude = 0;
+	coord->longitude = 0;
+	coord->speed = 0;
+	coord->altitude = 0;
+	coord->course = 0;
+}
+
 // Compute the GPS location using decimal scale
 void gps_location(loc_t *coord, char *buffer) {
 	gpgga_t gpgga;
 	gprmc_t gprmc;
+
+	resetLocation(coord);
 
 	switch (nmea_get_message_type(buffer)) {
 	case NMEA_GPGGA:
@@ -223,3 +233,7 @@ void gps_location(loc_t *coord, char *buffer) {
 		break;
 	}
 }
+
+// 		print("GPS latitude = %f, speed = %f\r\n", GPSdata.latitude, GPSdata.speed);
+
+

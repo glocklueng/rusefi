@@ -247,5 +247,13 @@
 //#define EFI_SIGNAL_EXECUTOR_HW_TIMER TRUE
 
 
+// USART1 -> check defined STM32_SERIAL_USE_USART1
+// For GPS we have USART1. We can start with PB7 USART1_RX and PB6 USART1_TX
+#define GPS_SERIAL_DEVICE &SD1
+#define GPS_SERIAL_SPEED 9600
+#define GPS_PORT GPIOB
+#define GPS_SERIAL_TX_PIN 6
+#define GPS_SERIAL_RX_PIN 7
+
 
 #endif /*ARRO_BOARD_H_*/
