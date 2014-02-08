@@ -27,7 +27,9 @@ static Logging logger;
 static SerialConfig GPSserialConfig = { GPS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 static WORKING_AREA(GPS_WORKING_AREA, UTILITY_THREAD_STACK_SIZE);
 
-// GPs structure
+// this field is used while parsing incoming messages
+static loc_t currentMessage;
+// this field holds our current state
 static loc_t GPSdata;
 
 static int gpsMesagesCount = 0;
@@ -48,67 +50,37 @@ static void printGpsInfo(void) {
 }
 
 static void onGpsMessage(char *buffer) {
-	gps_location(&GPSdata, buffer);
+	gps_location(&currentMessage, buffer);
+	if (currentMessage.type == NMEA_GPGGA) {
+		GPSdata.latitude = currentMessage.latitude;
+		GPSdata.longitude = currentMessage.longitude;
+	}
 	gpsMesagesCount++;
 }
 
 // we do not want this on stack, right?
 static char gps_str[GPS_MAX_STRING];
-static EventListener elGPSdata;
-
-static void handleFlags(flagsmask_t flags) {
-	if (flags & SD_PARITY_ERROR) {                                          // Parity error happened.
-		uartErrors++;
-		//print("[GPS] parity error\r\n");
-	}
-	if (flags & SD_FRAMING_ERROR) {                                       // Framing error happened.
-		uartErrors++;
-		//print("[GPS] framing error\r\n");
-	}
-	if (flags & SD_OVERRUN_ERROR) {                                       // Overflow happened.
-		uartErrors++;
-		//print("[GPS] Overflow\r\n");
-	}
-	if (flags & SD_NOISE_ERROR) {                                          // Noise on the line.
-		uartErrors++;
-		//print("[GPS] Noisy line\r\n");
-	}
-	if (flags & SD_BREAK_DETECTED) {                                       // Break detected.
-		uartErrors++;
-		//print("[GPS] Break!\r\n");
-	}
-}
 
 static msg_t GpsThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("GPS thread");
 
 	int count = 0;
-	flagsmask_t flags;
-	chEvtRegisterMask((EventSource *) chnGetEventSource(GPS_SERIAL_DEVICE), &elGPSdata, EVENT_MASK(1));
 
 	while (TRUE) {
-		chEvtWaitOneTimeout(EVENT_MASK(1), MS2ST(10));
-		flags = chEvtGetAndClearFlags(&elGPSdata);
-		handleFlags(flags);
+		msg_t charbuf = chSequentialStreamGet(GPS_SERIAL_DEVICE);
+		if (charbuf == 10 || count == GPS_MAX_STRING) {					// if 0xD,0xA or limit
+			if (count >= 1)
+				gps_str[--count] = '\0';					// delete 0xD
 
-		if (flags & CHN_INPUT_AVAILABLE) {
-			msg_t charbuf = chnGetTimeout(GPS_SERIAL_DEVICE, TIME_IMMEDIATE);
-			if (charbuf == 10 || count == GPS_MAX_STRING) {					// if 0xD,0xA or limit
-				if (count >= 1)
-					gps_str[--count] = '\0';					// delete 0xD
+//			scheduleMsg(&logger, "got GPS [%s]", gps_str);
 
-				scheduleMsg(&logger, "got GPS [%s]", gps_str);
-
-				// 'gps_str' string completed
-				onGpsMessage(gps_str);
-				memset(&gps_str, '\0', GPS_MAX_STRING);			// clear buffer
-				count = 0;
-			} else {
-				if (charbuf != Q_TIMEOUT) {								// else add if not timeout
-					gps_str[count++] = charbuf;
-				}
-			}
+			// 'gps_str' string completed
+			onGpsMessage(gps_str);
+			memset(&gps_str, '\0', GPS_MAX_STRING);			// clear buffer
+			count = 0;
+		} else {
+			gps_str[count++] = charbuf;
 		}
 	}
 #if defined __GNUC__
