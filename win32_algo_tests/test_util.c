@@ -152,6 +152,9 @@ static char nmeaMessage[1000];
 void testGpsParser(void) {
 	print("******************************************* testGpsParser\r\n");
 
+	strcpy(nmeaMessage, "");
+	gps_location(&GPSdata, nmeaMessage);
+
 	// we need to pass a mutable string, not a constant because the parser would be modifying the string
 	strcpy(nmeaMessage, "$GPRMC,173843,A,3349.896,N,11808.521,W,000.0,360.0,230108,013.4,E*69");
 	gps_location(&GPSdata, nmeaMessage);
