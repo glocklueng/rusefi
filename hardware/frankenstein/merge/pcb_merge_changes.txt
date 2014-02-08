@@ -18,7 +18,7 @@ add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb
 remove LD200
 remove R200
 
-move_module M200 15 5
+# move_module M200 15 5
 
 
 # SD & TTL module 350 range ========================================
