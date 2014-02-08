@@ -70,12 +70,26 @@ static void sdStatistics(void) {
  * This function saves the name of the file in a global variable
  * so that we can later append to that file
  */
-// todo: extract method
+static void createLogFile(void) {
+	memset(&FDLogFile, 0, sizeof(FIL));						// clear the memory
+	FRESULT err = f_open(&FDLogFile, "rusefi.log", FA_OPEN_ALWAYS | FA_WRITE);				// Create new file
+	if (err != FR_OK && err != FR_EXIST) {
+		printError("Card mounted...\r\nCan't create Log file, check your SD.\r\nFS mount failed", err);	// else - show error
+		return;
+	}
+
+	err = f_lseek(&FDLogFile, f_size(&FDLogFile)); // Move to end of the file to append data
+	if (err) {
+		printError("Seek error", err);
+		return;
+	}
+	f_sync(&FDLogFile);
+	fs_ready = TRUE;						// everything Ok
+}
 
 static void ff_cmd_dir(char *path) {
 	DIR dir;
 	FILINFO fno;
-	int i;
 	char *fn;
 
 	if (!fs_ready) {
@@ -85,25 +99,33 @@ static void ff_cmd_dir(char *path) {
 
 	FRESULT res = f_opendir(&dir, path);
 
-	if (res == FR_OK) {
-		i = strlen(path);
-		for (;;) {
-			res = f_readdir(&dir, &fno);
-			if (res != FR_OK || fno.fname[0] == 0)
+	if (res != FR_OK) {
+		print("Error opening directory %s\r\n", path);
+		return;
+	}
+
+	int i = strlen(path);
+	for (;;) {
+		res = f_readdir(&dir, &fno);
+		if (res != FR_OK || fno.fname[0] == 0)
+			break;
+		if (fno.lfname[0] == '.')
+			continue;
+		fn = fno.lfname;
+		if (fno.fattrib & AM_DIR) {
+			// TODO: WHAT? WE ARE APPENDING FILE NAME TO PARAMETER??? WEIRD!!!
+			path[i++] = '/';
+			strcpy(&path[i], fn);
+			// res = ff_cmd_ls(path);
+			if (res != FR_OK)
 				break;
-			if (fno.lfname[0] == '.')
-				continue;
-			fn = fno.lfname;
-			if (fno.fattrib & AM_DIR) {
-				path[i++] = '/';
-				strcpy(&path[i], fn);
-				// res = ff_cmd_ls(path);
-				if (res != FR_OK)
-					break;
-				path[i] = 0;
-			} else {
-				print("%s/%s\t%i byte(s)\r\n", path, fn, fno.lfsize);
-			}
+			path[i] = 0;
+		} else {
+			print("%c%c%c%c%c %u/%02u/%02u %02u:%02u %9lu  %-12s\r\n", (fno.fattrib & AM_DIR) ? 'D' : '-',
+					(fno.fattrib & AM_RDO) ? 'R' : '-', (fno.fattrib & AM_HID) ? 'H' : '-',
+					(fno.fattrib & AM_SYS) ? 'S' : '-', (fno.fattrib & AM_ARC) ? 'A' : '-', (fno.fdate >> 9) + 1980,
+					(fno.fdate >> 5) & 15, fno.fdate & 31, (fno.ftime >> 11), (fno.ftime >> 5) & 63, fno.fsize,
+					fno.fname);
 		}
 	}
 }
@@ -162,30 +184,18 @@ static void MMCmount(void) {
 	mmcObjectInit(&MMCD1);						// Initializes an instance.
 	mmcStart(&MMCD1, &mmccfg);					// Configures and activates the MMC peripheral.
 
-	if (mmcConnect(&MMCD1) == CH_SUCCESS) {				// Performs the initialization procedure on the inserted card.
-		memset(&MMC_FS, 0, sizeof(FATFS));			// reserve the memory
-		FRESULT err = f_mount(0, &MMC_FS);					// if Ok - mount FS now
-		if (err == FR_OK) {
-			memset(&FDLogFile, 0, sizeof(FIL));						// clear the memory
-			FRESULT err = f_open(&FDLogFile, "rusefi.log", FA_OPEN_ALWAYS | FA_WRITE);				// Create new file
-			if (err == FR_OK || err == FR_EXIST) {
-				err = f_lseek(&FDLogFile, f_size(&FDLogFile)); // Move to end of the file to append data
-				if (err) {
-					printError("Seek error", err);
-					return;
-				}
-				f_sync(&FDLogFile);
-				fs_ready = TRUE;						// everything Ok
-			} else {
-				printError("Card mounted...\r\nCan't create Log file, check your SD.\r\nFS mount failed", err);	// else - show error
-				return;
-			}
-			print(
-					"MMC/SD card inserted and mounted success.\r\nDon't forget umountsd before remove to prevent lost your data.\r\n");
-			return;
-		}
+	// Performs the initialization procedure on the inserted card.
+	if (mmcConnect(&MMCD1) != CH_SUCCESS) {
+		print("Can't connect or mount MMC/SD\r\n");
+		return;
+
 	}
-	print("Can't connect or mount MMC/SD\r\n");
+	// if Ok - mount FS now
+	memset(&MMC_FS, 0, sizeof(FATFS));			// reserve the memory
+	if (f_mount(0, &MMC_FS) == FR_OK) {
+		createLogFile();
+		print("MMC/SD mounted!\r\nDon't forget umountsd before remove to prevent lost your data.\r\n");
+	}
 }
 
 void initMmcCard(void) {
@@ -195,7 +205,6 @@ void initMmcCard(void) {
 	 * FYI: SPI does not work with CCM memory, be sure to have main() stack in RAM, not in CCMRAM
 	 */
 //	MMCmount();
-
 	addConsoleAction("sdstat", sdStatistics);
 	addConsoleAction("mountsd", MMCmount);
 	addConsoleActionS("appendToLog", appendToLog);
