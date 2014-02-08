@@ -194,7 +194,7 @@ void initMmcCard(void) {
 	/**
 	 * FYI: SPI does not work with CCM memory, be sure to have main() stack in RAM, not in CCMRAM
 	 */
-	MMCmount();
+//	MMCmount();
 
 	addConsoleAction("sdstat", sdStatistics);
 	addConsoleAction("mountsd", MMCmount);
