@@ -31,14 +31,13 @@ LIBS:contrib
 LIBS:valves
 LIBS:logo
 LIBS:logo_flipped
-LIBS:hi-lo-cache
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "High or Low side driver board for RUSEFI.com"
-Date "27 jan 2014"
+Date "8 feb 2014"
 Rev "A-.01"
 Comp "RUSEFI.com"
 Comment1 ""
@@ -675,4 +674,6 @@ F 3 "" H 16150 950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 NoConn ~ 16000 950 
+Text Notes 6250 3300 0    160  ~ 0
+6 channel high-side driver
 $EndSCHEMATC

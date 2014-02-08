@@ -31,7 +31,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "12 Channel Injector"
-Date "4 feb 2014"
+Date "8 feb 2014"
 Rev "A-1"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""
@@ -1454,4 +1454,6 @@ $EndComp
 Text Notes 15550 2500 0    60   ~ 0
 SCREW VIA
 NoConn ~ 15700 2300
+Text Notes 9400 6650 0    160  ~ 0
+12 channel injector driver\nalso suitable for fuel pump relay, IAC solenoid etc
 $EndSCHEMATC
