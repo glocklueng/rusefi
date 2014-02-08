@@ -20,6 +20,7 @@
 #include "can_hw.h"
 #include "histogram.h"
 #include "mmc_card.h"
+#include "neo6m.h"
 
 McpAdcState adcState;
 
@@ -78,6 +79,10 @@ void initHardware() {
 
 	//	initBooleanInputs();
 
+#if EFI_NEO_GPS
+	initGps();
+#endif
+	
 #if ADC_SNIFFER
 	initAdcDriver();
 #endif
