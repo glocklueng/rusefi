@@ -13,6 +13,7 @@
 
 #include "lcd_2x16.h"
 #include "pin_repository.h"
+#include "string.h"
 
 enum {
 	LCD_2X16_RESET = 0x30,
@@ -161,7 +162,10 @@ void lcd_2x16_init(void) {
 void lcdShowFatalMessage(char *message) {
 	BUSY_WAIT_DELAY = TRUE;
 	lcd_2x16_set_position(0, 0);
+	int len = strlen(message);
 	lcd_2x16_print_string("fatal");
+	lcd_2x16_write_command(LCD_2X16_DDRAM_ADDR | LCD_2X16_NEXT_LINE);
+	lcd_2x16_print_string(message);
 }
 
 void lcdTest(void) {
