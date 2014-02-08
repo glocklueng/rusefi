@@ -22,6 +22,7 @@ extern void lcd_2x16_print_char(uint8_t data);
 extern void lcd_2x16_print_string(uint8_t * string);
 extern const uint8_t lcd_2x16_decode[];
 
+void lcdShowFatalMessage(char *message);
 void lcdTest(void);
 
 #endif /* LCD_2X16_H_ */

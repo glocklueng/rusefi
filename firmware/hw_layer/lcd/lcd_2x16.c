@@ -158,6 +158,12 @@ void lcd_2x16_init(void) {
 	lcd_2x16_write(0x60);
 }
 
+void lcdShowFatalMessage(char *message) {
+	BUSY_WAIT_DELAY = TRUE;
+	lcd_2x16_set_position(0, 0);
+	lcd_2x16_print_string("fatal");
+}
+
 void lcdTest(void) {
 	lcd_2x16_init();
 	lcd_2x16_set_position(0, 0);
