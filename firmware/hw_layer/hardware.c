@@ -21,6 +21,7 @@
 #include "histogram.h"
 #include "mmc_card.h"
 #include "neo6m.h"
+#include "lcd_2x16.h"
 
 McpAdcState adcState;
 
@@ -52,7 +53,6 @@ void initHardware() {
 	initRtc();
 
 	initPinRepository();
-	initSpiModules();
 
 	initOutputPins();
 	initAdcInputs();
@@ -72,6 +72,7 @@ void initHardware() {
 	initShaftPositionInputCapture();
 
 #if EFI_FILE_LOGGING
+	initSpiModules();
 	initMmcCard();
 #endif /* EFI_FILE_LOGGING */
 
@@ -86,4 +87,10 @@ void initHardware() {
 #if ADC_SNIFFER
 	initAdcDriver();
 #endif
+
+
+#if EFI_HD44780_LCD
+	lcdTest();
+#endif
+
 }
