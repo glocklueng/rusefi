@@ -1,7 +1,8 @@
-PCBNEW-LibModule-V1  Птн 10 Янв 2014 12:49:41
+PCBNEW-LibModule-V1  2/4/2014 4:38:39 AM
 # encoding utf-8
 Units mm
 $INDEX
+6_screw_term_.1in
 BATT_CR2032_MPD
 LED-0805_A
 MICRO-SDCARD-CONNECTOR-3300060P1
@@ -18,6 +19,73 @@ PLD-8
 SD-MMC
 USB_multi
 $EndINDEX
+$MODULE 6_screw_term_.1in
+Po 0 0 0 15 52F0B50C 00000000 ~~
+Li 6_screw_term_.1in
+Sc 0
+AR /52967E40
+Op 0 0 0
+T0 -6 4.5 1.016 1.016 0 0.2032 N V 21 N "P?"
+T1 0 2 1.524 1.016 0 0.254 N I 21 N "6_screw_term_.1in"
+DS 6.35 -2.54 6.35 -3.81 0.15 21
+DS 3.81 -2.54 3.81 -3.81 0.15 21
+DS 1.27 -2.54 1.27 -3.81 0.15 21
+DS -1.27 -2.54 -1.27 -3.81 0.15 21
+DS -3.81 -2.54 -3.81 -3.81 0.15 21
+DS -6.35 -2.54 -6.35 -3.81 0.15 21
+DS -7.85 3.2 -7.85 -3.2 0.3048 21
+DS -7.85 -3.3 7.85 -3.3 0.3048 21
+DS 7.85 -3.2 7.85 3.2 0.3048 21
+DS 7.85 3.2 -7.85 3.2 0.3048 21
+$PAD
+Sh "1" R 1.8 1.8 0 0 0
+Dr 1.3 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -6.35 0
+$EndPAD
+$PAD
+Sh "2" C 1.8 1.8 0 0 0
+Dr 1.3 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -3.81 0
+$EndPAD
+$PAD
+Sh "3" C 1.8 1.8 0 0 0
+Dr 1.3 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -1.27 0
+$EndPAD
+$PAD
+Sh "4" C 1.8 1.8 0 0 0
+Dr 1.3 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 1.27 0
+$EndPAD
+$PAD
+Sh "5" C 1.8 1.8 0 0 0
+Dr 1.3 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 3.81 0
+$EndPAD
+$PAD
+Sh "6" C 1.8 1.8 0 0 0
+Dr 1.3 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 6.35 0
+$EndPAD
+$SHAPE3D
+Na "device/bornier_3.wrl"
+Sc 1 1 1
+Of 0 0 0
+Ro 0 0 0
+$EndSHAPE3D
+$EndMODULE 6_screw_term_.1in
 $MODULE BATT_CR2032_MPD
 Po 0 0 0 15 51C8CC80 00000000 ~~
 Li BATT_CR2032_MPD
