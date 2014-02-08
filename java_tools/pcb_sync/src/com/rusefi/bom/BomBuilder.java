@@ -18,7 +18,7 @@ public class BomBuilder {
 
 
     public static void main(String[] args) throws IOException {
-        if (args.length < 2) {
+        if (args.length < 3) {
 
             System.out.println("bom_builder [FILE_NAME_CMP] COMPONENTS.CSV");
 
@@ -26,13 +26,19 @@ public class BomBuilder {
         }
         String cmpFileName = args[0];
         String bomDictionaryName = args[1];
+        String outputFileName = args[1];
 
         readList(FileUtils.readFileToList(cmpFileName));
 
         Map<String, BomRecord> bomDictionary = readBomDictionary(FileUtils.readFileToList(bomDictionaryName));
 
 
-        BufferedWriter bw = new BufferedWriter(new FileWriter("output.csv"));
+        writePartList(outputFileName, bomDictionary);
+
+    }
+
+    private static void writePartList(String outputFileName, Map<String, BomRecord> bomDictionary) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(outputFileName));
 
         for (Map.Entry<String, List<BomComponent>> e : componentsByKey.entrySet()) {
             String key = e.getKey();
@@ -55,7 +61,6 @@ public class BomBuilder {
 
 
         bw.close();
-
     }
 
     private static Map<String, BomRecord> readBomDictionary(List<String> strings) {
