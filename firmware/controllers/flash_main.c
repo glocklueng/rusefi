@@ -61,7 +61,7 @@ void writeToFlash(void) {
 
 static int isValid(FlashState *state) {
 	if (state->version != FLASH_DATA_VERSION) {
-		scheduleSimpleMsg(&logger, "Not valid flash version: ", state->version);
+		scheduleSimpleMsg(&logger, "Unexpected flash version: ", state->version);
 		return FALSE;
 	}
 	crc result = calc_crc((const crc*) &state->configuration, sizeof(engine_configuration_s));
