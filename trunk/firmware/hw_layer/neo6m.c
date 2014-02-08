@@ -4,6 +4,8 @@
  *
  * http://www.u-blox.com/en/gps-modules/pvt-modules/previous-generations/neo-6-family.html
  *
+ * Technically any UART GPS should work with this driver since NMEA protocol is pretty common anyway
+ *
  * @date Dec 28, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
  * Kot_dnz 2014
@@ -31,9 +33,19 @@ float getCurrentSpeed(void) {
 	return GPSdata.speed;
 }
 
+static int gpsMesagesCount = 0;
+
 static void printGpsInfo(void) {
 	// todo: scheduleMsg()
-	print("GPS speed = %f\r\n", getCurrentSpeed());
+	print("%d: GPS speed = %f\r\n", gpsMesagesCount, getCurrentSpeed());
+
+	print("GPS latitude = %f\r\n", GPSdata.latitude);
+	print("GPS longitude = %f\r\n", GPSdata.longitude);
+}
+
+static void onGpsMessage(char *buffer) {
+	gps_location(&GPSdata, buffer);
+	gpsMesagesCount++;
 }
 
 static msg_t GpsThreadEntryPoint(void *arg) {
@@ -72,7 +84,7 @@ static msg_t GpsThreadEntryPoint(void *arg) {
 				if (iter >= 1)
 					gps_str[--iter] = '\0';						// delete 0xD
 				// 'gps_str' string completed, 'iter' = length
-				gps_location(&GPSdata, gps_str);
+				onGpsMessage(gps_str);
 				memset(&gps_str, '\0', GPS_MAX_STRING);						// clear buffer
 				iter = 0;
 			} else {
