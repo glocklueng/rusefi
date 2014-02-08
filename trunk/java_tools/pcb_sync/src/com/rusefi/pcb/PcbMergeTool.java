@@ -87,6 +87,15 @@ public class PcbMergeTool {
             netIdMapping.put(netId, networks.getId(newName));
         }
 
+        List<PcbNode> lines = source.iterate("gr_line");
+        log("Processing  " + lines.size() + " line(s)");
+        for (PcbNode l : lines) {
+            GrLineNode line = (GrLineNode) l;
+            if (line.layerNode.name.equals("B.SilkS") || line.layerNode.name.equals("F.SilkS"))
+                destNode.addChild(line);
+        }
+
+
         List<PcbNode> labels = source.iterate("gr_text");
         log("Processing  " + labels.size() + " label(s)");
         for (PcbNode label : labels) {
