@@ -56,6 +56,8 @@
 
 #define EFI_CAN_SUPPORT FALSE
 
+#define EFI_HD44780_LCD TRUE
+
 #define EFI_IDLE_CONTROL FALSE
 
 #define EFI_ENGINE_EMULATOR TRUE
@@ -87,7 +89,7 @@
 /**
  * Do we need file logging (like SD card) logic?
  */
-#define EFI_FILE_LOGGING TRUE
+//#define EFI_FILE_LOGGING TRUE
 
 /**
  * Do we need GPS logic?

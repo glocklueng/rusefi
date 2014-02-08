@@ -57,6 +57,7 @@
 
 #include "ch.h"
 #include "print.h"
+#include "lcd_2x16.h"
 
 /*===========================================================================*/
 /* System state checker related code and variables.                          */
@@ -286,6 +287,7 @@ void chDbgPanic(const char *msg, char * file, int line) {
 	dbg_panic_file = file;
 	dbg_panic_line = line;
 	dbg_panic_msg = msg;
+	lcdShowFatalMessage((char *)msg);
 	if (!main_loop_started) {
 		print("fatal %s %s:%d\r\n", dbg_panic_msg, dbg_panic_file, dbg_panic_line);
 		chThdSleepSeconds(1);
