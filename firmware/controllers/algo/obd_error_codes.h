@@ -11,6 +11,8 @@
 #ifndef OBD_ERROR_CODES_H_
 #define OBD_ERROR_CODES_H_
 
+#include "rusefi_enums.h"
+
 typedef enum {
 //P0001 Fuel Volume Regulator Control Circuit/Open
 //P0002 Fuel Volume Regulator Control Circuit Range/Performance
@@ -1656,6 +1658,9 @@ typedef enum {
 	//P3491 Cyl12 Deactivation/Intake Valve Ctrl Circ Low
 	//P3492 Cyl12 Deactivation/Intake Valve Ctrl Circ High
 	//P3493 Cyl12 Exhaust Valve Ctrl Circ/Open
+
+	// this is needed for proper enum size, this matters for malfunction_central
+	Internal_ForceMyEnumIntSize_cranking_obd_code = ENUM_SIZE_HACK,
 } obd_code_e;
 
 #endif /* OBD_ERROR_CODES_H_ */
