@@ -14,8 +14,7 @@
 #include "lcd_2x16.h"
 #include "pin_repository.h"
 
-enum
-{
+enum {
 	LCD_2X16_RESET = 0x30,
 	LCD_2X16_4_BIT_BUS = 0x20,
 	LCD_2X16_8_BIT_BUS = 0x30,
@@ -30,9 +29,9 @@ enum
 	LCD_2X16_DISPLAY_LEFT = 0x18,
 	LCD_2X16_DISPLAY_SHIFT = 0x05,
 	LCD_2X16_CURSOR_ON = 0x0A,
-	LCD_2X16_CURSOR_BLINK = 0x09, 
+	LCD_2X16_CURSOR_BLINK = 0x09,
 	LCD_2X16_CURSOR_RIGHT = 0x14,
-	LCD_2X16_CURSOR_LEFT = 0x10, 
+	LCD_2X16_CURSOR_LEFT = 0x10,
 	LCD_2X16_SHIFT_RIGHT = 0x06,
 	LCD_2X16_SHIFT_LEFT = 0x04,
 	LCD_2X16_CGRAM_ADDR = 0x40,
@@ -43,12 +42,24 @@ enum
 	LCD_2X16_DATA = 0x00,
 } lcd_2x16_command;
 
-static int lineStart[] = {0, 0x40};
+static int lineStart[] = { 0, 0x40 };
 
 static int BUSY_WAIT_DELAY = TRUE;
 
 static void lcdSleep(int period) {
-	chThdSleepMicroseconds(period);
+	if (BUSY_WAIT_DELAY) {
+		// this mode is useful for displaying messages to report OS fatal issues
+
+		int ticks = 168000000 / 1000000 * period;
+		int a = 0;
+		for (int i = 0; i < ticks; i++)
+			a += i;
+		// the purpose of this code is to fool the compiler so that the loop is not optimized away
+		chDbgAssert(a != 0, "true", NULL);
+
+	} else {
+		chThdSleepMicroseconds(period);
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -65,8 +76,7 @@ void lcd_2x16_write(uint8_t data) {
 }
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_write_command(uint8_t data)
-{
+void lcd_2x16_write_command(uint8_t data) {
 	palClearPad(LCD_PORT, LCD_PIN_RS);
 
 	lcd_2x16_write(data);
@@ -74,8 +84,7 @@ void lcd_2x16_write_command(uint8_t data)
 }
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_write_data(uint8_t data)
-{
+void lcd_2x16_write_data(uint8_t data) {
 	palSetPad(LCD_PORT, LCD_PIN_RS);
 
 	lcd_2x16_write(data);
@@ -85,12 +94,10 @@ void lcd_2x16_write_data(uint8_t data)
 }
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_set_position(uint8_t row, uint8_t colum)
-{
+void lcd_2x16_set_position(uint8_t row, uint8_t colum) {
 	uint8_t position = LCD_2X16_DDRAM_ADDR;
 
-	if (row > 0)
-	{
+	if (row > 0) {
 		position |= LCD_2X16_NEXT_LINE;
 	}
 
@@ -98,37 +105,29 @@ void lcd_2x16_set_position(uint8_t row, uint8_t colum)
 }
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_print_char(uint8_t data)
-{
-	if (data == '\n')
-	{
+void lcd_2x16_print_char(uint8_t data) {
+	if (data == '\n') {
 		lcd_2x16_write_command(LCD_2X16_DDRAM_ADDR | LCD_2X16_NEXT_LINE);
-	}
-	else
-	{
+	} else {
 		lcd_2x16_write_data(data);
 	}
 }
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_print_string(uint8_t * string)
-{
-	while (*string != 0x00)
-	{
+void lcd_2x16_print_string(uint8_t * string) {
+	while (*string != 0x00) {
 		lcd_2x16_print_char(*string++);
 	}
 }
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_init(void)
-{
+void lcd_2x16_init(void) {
 	mySetPadMode("lcd", LCD_PORT, LCD_PIN_RS, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", LCD_PORT, LCD_PIN_E, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", LCD_PORT, LCD_PIN_DB4, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", LCD_PORT, LCD_PIN_DB5, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", LCD_PORT, LCD_PIN_DB6, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", LCD_PORT, LCD_PIN_DB7, PAL_MODE_OUTPUT_PUSHPULL);
-
 
 	pal_lld_clearport(LCD_PORT, LCD_PINS);
 
@@ -162,6 +161,6 @@ void lcd_2x16_init(void)
 void lcdTest(void) {
 	lcd_2x16_init();
 	lcd_2x16_set_position(0, 0);
-	lcd_2x16_print_string("1hi everyone?\n");
-	lcd_2x16_print_string("2rusefi here !\n");
+	lcd_2x16_print_string("5hi everyone?\n");
+	lcd_2x16_print_string("6rusefi here !\n");
 }
