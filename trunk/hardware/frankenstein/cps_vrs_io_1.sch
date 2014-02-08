@@ -33,7 +33,6 @@ LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
 LIBS:project_specific_libs
-LIBS:header_10x2
 LIBS:art-electro-conn
 LIBS:art-electro-ic
 EELAYER 27 0
@@ -42,7 +41,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 7 8
 Title "cps_vrs_io_1"
-Date "1 feb 2014"
+Date "8 feb 2014"
 Rev ""
 Comp "based on http://code.google.com/p/daecu/"
 Comment1 "cps_vrs_io_1"

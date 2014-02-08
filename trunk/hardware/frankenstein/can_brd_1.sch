@@ -33,7 +33,6 @@ LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
 LIBS:project_specific_libs
-LIBS:header_10x2
 LIBS:art-electro-conn
 LIBS:art-electro-ic
 EELAYER 27 0
@@ -42,7 +41,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 5 8
 Title ""
-Date "1 feb 2014"
+Date "8 feb 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -356,4 +355,6 @@ F 3 "" H 6600 1200 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 NoConn ~ 6450 1200
+Text Notes 5950 4200 0    160  ~ 0
+CAN level shifter
 $EndSCHEMATC
