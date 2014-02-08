@@ -153,7 +153,7 @@ void nmea_parse_gprmc(char *nmea, gprmc_t *loc) {
  * @param message The NMEA message
  * @return The type of message if it is valid
  */
-int nmea_get_message_type(const char *message) {
+nmea_message_type nmea_get_message_type(const char *message) {
 	int checksum = nmea_valid_checksum(message);
 	if (checksum != _EMPTY) {
 		return checksum;
@@ -208,6 +208,7 @@ void resetLocation(loc_t *coord) {
 	coord->speed = 0;
 	coord->altitude = 0;
 	coord->course = 0;
+	coord->type = NMEA_UNKNOWN;
 }
 
 // Compute the GPS location using decimal scale
@@ -217,7 +218,11 @@ void gps_location(loc_t *coord, char *buffer) {
 
 	resetLocation(coord);
 
-	switch (nmea_get_message_type(buffer)) {
+
+
+	coord->type = nmea_get_message_type(buffer);
+
+	switch (coord->type) {
 	case NMEA_GPGGA:
 		nmea_parse_gpgga(buffer, &gpgga);
 
@@ -234,7 +239,11 @@ void gps_location(loc_t *coord, char *buffer) {
 		coord->course = gprmc.course;
 
 		break;
+	case NMEA_UNKNOWN:
+		// unknown message type
+		break;
 	}
+
 }
 
 // 		print("GPS latitude = %f, speed = %f\r\n", GPSdata.latitude, GPSdata.speed);
