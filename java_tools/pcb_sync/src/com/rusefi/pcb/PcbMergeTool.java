@@ -87,6 +87,12 @@ public class PcbMergeTool {
             netIdMapping.put(netId, networks.getId(newName));
         }
 
+        List<PcbNode> arcs = source.iterate("gr_arc");
+        log("Processing  " + arcs.size() + " arc(s)");
+        for (PcbNode arc : arcs)
+            destNode.addChild(arc);
+
+
         List<PcbNode> lines = source.iterate("gr_line");
         log("Processing  " + lines.size() + " line(s)");
         for (PcbNode l : lines) {
