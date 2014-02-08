@@ -45,6 +45,12 @@ enum
 
 static int lineStart[] = {0, 0x40};
 
+static int BUSY_WAIT_DELAY = TRUE;
+
+static void lcdSleep(int period) {
+	chThdSleepMicroseconds(period);
+}
+
 //-----------------------------------------------------------------------------
 void lcd_2x16_write(uint8_t data) {
 	palWritePad(LCD_PORT, LCD_PIN_DB7, data & 0x80 ? 1 : 0);
@@ -53,9 +59,9 @@ void lcd_2x16_write(uint8_t data) {
 	palWritePad(LCD_PORT, LCD_PIN_DB4, data & 0x10 ? 1 : 0);
 
 	palSetPad(LCD_PORT, LCD_PIN_E); // En high
-	chThdSleepMicroseconds(10); // enable pulse must be >450ns
+	lcdSleep(10); // enable pulse must be >450ns
 	palClearPad(LCD_PORT, LCD_PIN_E); // En low
-	chThdSleepMicroseconds(40); // commands need > 37us to settle
+	lcdSleep(40); // commands need > 37us to settle
 }
 
 //-----------------------------------------------------------------------------
@@ -156,6 +162,6 @@ void lcd_2x16_init(void)
 void lcdTest(void) {
 	lcd_2x16_init();
 	lcd_2x16_set_position(0, 0);
-	lcd_2x16_print_string("3hi everyone?\n");
-	lcd_2x16_print_string("4rusefi here !\n");
+	lcd_2x16_print_string("1hi everyone?\n");
+	lcd_2x16_print_string("2rusefi here !\n");
 }
