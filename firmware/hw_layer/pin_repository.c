@@ -77,7 +77,10 @@ void initPinRepository(void) {
 	addConsoleAction("pins", reportPins);
 }
 
-void printpin(char *msg, ioportid_t port, int pin) {
+/**
+ * This method would crash the program if pin is already in use
+ */
+static void registerPin(char *msg, ioportid_t port, int pin) {
 	if (!initialized)
 		fatal("repo not initialized");
 	int portIndex = getPortIndex(port);
@@ -98,6 +101,6 @@ void printpin(char *msg, ioportid_t port, int pin) {
 }
 
 void mySetPadMode(char *msg, ioportid_t port, ioportmask_t pin, iomode_t mode) {
-	printpin(msg, port, pin);
+	registerPin(msg, port, pin);
 	palSetPadMode(port, pin, mode);
 }
