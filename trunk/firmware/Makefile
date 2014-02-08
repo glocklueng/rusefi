@@ -105,6 +105,9 @@ LDSCRIPT= config/system/STM32F407xG_CCM.ld
 CSRC = $(PORTSRC) \
 	$(KERNSRC) \
 	$(VARIOUSSRC) \
+	chibios/os/various/chprintf.c \
+	chibios/os/various/memstreams.c \
+	chibios/os/various/chrtclib.c  \
 	$(UTILSRC) \
 	$(ENGINES_SRC) \
 	$(CONSOLESRC) \
@@ -119,8 +122,6 @@ CSRC = $(PORTSRC) \
 	$(PLATFORMSRC) \
 	$(BOARDSRC) \
 	$(FATFSSRC) \
-	chibios/os/various/chprintf.c \
-	chibios/os/various/memstreams.c \
 	rusefi.c \
 	main.c \
 
