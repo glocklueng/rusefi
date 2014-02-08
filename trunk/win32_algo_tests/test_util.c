@@ -15,9 +15,7 @@
 #include "malfunction_central.h"
 #include "rficonsole_logic.h"
 
-//#include "nmea/parse.h"
-//#include "nmea/parser.h"
-//#include "nmea/sentence.h"
+#include "nmea.h"
 
 static cyclic_buffer sb;
 
@@ -147,6 +145,43 @@ static void testEchoSSS(char *first, char *second, char *third) {
 
 #define UNKNOWN_COMMAND "dfadasdasd"
 
+static loc_t GPSdata;
+
+static char nmeaMessage[1000];
+
+void testGpsParser(void) {
+	print("******************************************* testGpsParser\r\n");
+
+	// we need to pass a mutable string, not a constant because the parser would be modifying the string
+	strcpy(nmeaMessage, "$GPRMC,173843,A,3349.896,N,11808.521,W,000.0,360.0,230108,013.4,E*69");
+	gps_location(&GPSdata, nmeaMessage);
+	assertEqualsM("latitude", 0, GPSdata.latitude);
+	assertEqualsM("speed", 0, GPSdata.speed);
+
+
+	strcpy(nmeaMessage, "$GPGGA,111609.14,5001.27,N,3613.06,E,3,08,0.0,10.2,M,0.0,M,0.0,0000*70");
+	gps_location(&GPSdata, nmeaMessage);
+	assertEqualsM("latitude", 50.0212, GPSdata.latitude);
+	assertEqualsM("speed", 0, GPSdata.speed);
+
+
+	strcpy(nmeaMessage, "$GPRMC,111609.14,A,5001.27,N,3613.06,E,11.2,0.0,261206,0.0,E*50");
+	gps_location(&GPSdata, nmeaMessage);
+	assertEqualsM("latitude", 0, GPSdata.latitude);
+	assertEqualsM("speed", 11.2, GPSdata.speed);
+
+
+	char *buff[] = {
+			"$GPGSV,2,1,08,01,05,005,80,02,05,050,80,03,05,095,80,04,05,140,80*7f",
+			"$GPGSV,2,2,08,05,05,185,80,06,05,230,80,07,05,275,80,08,05,320,80*71",
+			"$GPGSA,A,3,01,02,03,04,05,06,07,08,00,00,00,00,0.0,0.0,0.0*3a",
+			"$GPVTG,217.5,T,208.8,M,000.00,N,000.01,K*4C" };
+	for (int it = 0; it < 4; ++it) {
+		gps_location(&GPSdata, buff[it]);
+		print("GPS latitude = %f, speed = %f\r\n", GPSdata.latitude, GPSdata.speed);
+	}
+}
+
 // this buffer is needed because on Unix you would not be able to change static char constants
 static char buffer[300];
 
@@ -183,30 +218,7 @@ void testConsoleLogic(void) {
 	handleConsoleLine(buffer);
 	assertEquals(111, atoi(lastFirst));
 	assertEquals(333, atoi(lastThird));
-}
 
-//static nmeaPARSER gpsParser;
-//static nmeaINFO gpsInfo;
-//static nmeaGPVTG nmeaGPVTG_;
-
-void testGpsParser(void) {
-	print("******************************************* testGpsParser\r\n");
-
-//	char *line = "$GPVTG,,T,,M,0.139,N,0.258,K,A*27";
-//
-//	assertEquals(GPVTG, nmea_pack_type(line + 1, strlen(line) - 1));
-//
-//	nmea_parser_init(&gpsParser);
-//
-//	int x = 6;
-//	nmea_parse_GPVTG(line + x, strlen(line) - x, &nmeaGPVTG_);
-//
-//
-//	assertEquals(0, nmea_parse(&gpsParser, line, strlen(line), &gpsInfo));
-
-
-
-
-	//parseNeo6m("$GPGLL,1234.34240,N,01234.44218,W,013141.00,A,A*7A");
+	addConsoleActionSSS("GPS", testGpsParser);
 }
 

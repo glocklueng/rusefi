@@ -74,6 +74,7 @@ int main(void) {
 	testInterpolate3d();
 	testFindIndex();
 	testInterpolate2d();
+	testGpsParser();
 	testFuelMap();
 	testEngineMath();
 	testEventRegistry();
@@ -91,7 +92,6 @@ int main(void) {
 
 	testConsoleLogic();
 
-	testGpsParser();
 
 	testAngleResolver();
 
