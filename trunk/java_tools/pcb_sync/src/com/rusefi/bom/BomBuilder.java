@@ -26,7 +26,7 @@ public class BomBuilder {
         }
         String cmpFileName = args[0];
         String bomDictionaryName = args[1];
-        String outputFileName = args[1];
+        String outputFileName = args[2];
 
         readList(FileUtils.readFileToList(cmpFileName));
 
@@ -39,6 +39,8 @@ public class BomBuilder {
 
     private static void writePartList(String outputFileName, Map<String, BomRecord> bomDictionary) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(outputFileName));
+
+        log("Writing parts list to " + outputFileName);
 
         for (Map.Entry<String, List<BomComponent>> e : componentsByKey.entrySet()) {
             String key = e.getKey();
