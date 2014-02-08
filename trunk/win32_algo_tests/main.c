@@ -48,7 +48,7 @@ void assertEqualsM(char *msg, float expected, float actual) {
 				expected);
 		exit(-1);
 	}
-	printf("Validated%s: %f\r\n", msg, expected);
+	printf("Validated %s: %f\r\n", msg, expected);
 }
 
 void assertEquals(float expected, float actual) {
