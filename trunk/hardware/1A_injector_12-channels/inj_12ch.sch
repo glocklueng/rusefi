@@ -31,7 +31,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "12 Channel Injector"
-Date "26 jan 2014"
+Date "4 feb 2014"
 Rev "A-1"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""
@@ -316,14 +316,14 @@ PH1
 $Comp
 L CONN_3 P401
 U 1 1 527E234B
-P 2975 4475
-F 0 "P401" V 2925 4475 50  0000 C CNN
-F 1 "CONN_3" V 3025 4475 40  0000 C CNN
-F 2 "bornier3" H 2975 4475 60  0001 C CNN
-F 3 "" H 2975 4475 60  0000 C CNN
-F 4 "Weidmuller,1760500000" V 2975 4475 60  0001 C CNN "mfg,mfg#"
-F 5 "digi,281-2882-ND" V 2975 4475 60  0001 C CNN "vend1,vend1#"
-	1    2975 4475
+P 2850 4475
+F 0 "P401" V 2800 4475 50  0000 C CNN
+F 1 "CONN_3" V 2900 4475 40  0000 C CNN
+F 2 "bornier3" H 2850 4475 60  0001 C CNN
+F 3 "" H 2850 4475 60  0000 C CNN
+F 4 "Weidmuller,1760500000" V 2850 4475 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,281-2882-ND" V 2850 4475 60  0001 C CNN "vend1,vend1#"
+	1    2850 4475
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -1186,7 +1186,7 @@ Wire Wire Line
 Wire Wire Line
 	3525 4475 3325 4475
 Wire Wire Line
-	3325 4375 3525 4375
+	3200 4375 3525 4375
 Wire Wire Line
 	4325 4775 5150 4775
 Wire Wire Line
@@ -1436,4 +1436,22 @@ Wire Notes Line
 	10325 4875 10775 4875
 Wire Notes Line
 	10775 4875 10775 4775
+Wire Wire Line
+	3200 4475 3325 4575
+Wire Wire Line
+	3325 4475 3200 4575
+$Comp
+L CONN_1 M401
+U 1 1 52F0ACEB
+P 15850 2300
+F 0 "M401" H 15930 2300 40  0000 L CNN
+F 1 "CONN_1" H 15850 2355 30  0001 C CNN
+F 2 "1pin" H 15850 2300 60  0001 C CNN
+F 3 "" H 15850 2300 60  0000 C CNN
+	1    15850 2300
+	1    0    0    -1  
+$EndComp
+Text Notes 15550 2500 0    60   ~ 0
+SCREW VIA
+NoConn ~ 15700 2300
 $EndSCHEMATC
