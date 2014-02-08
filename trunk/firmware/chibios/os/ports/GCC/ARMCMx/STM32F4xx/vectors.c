@@ -214,6 +214,8 @@ __attribute__ ((naked))
 #endif
 void _unhandled_exception(void) {
 
+	chDbgPanic("_unhandled_exception", __FILE__, __LINE__);
+
   while (TRUE)
     ;
 }
