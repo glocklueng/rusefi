@@ -154,8 +154,8 @@ void nmea_parse_gprmc(char *nmea, gprmc_t *loc) {
  * @return The type of message if it is valid
  */
 int nmea_get_message_type(const char *message) {
-	int checksum = 0;
-	if ((checksum = nmea_valid_checksum(message)) != _EMPTY) {
+	int checksum = nmea_valid_checksum(message);
+	if (checksum != _EMPTY) {
 		return checksum;
 	}
 
@@ -185,7 +185,10 @@ long hex2int(char *a, int len) {
 int nmea_valid_checksum(const char *message) {
 	char p;
 	int sum = 0;
-	char *int_message = strrchr(message, '*') + 1;
+	char *starPtr = strrchr(message, '*');
+	if (starPtr == NULL)
+		return NMEA_CHECKSUM_ERR;
+	char *int_message = starPtr + 1;
 	long checksum = hex2int(int_message, 2);
 
 	++message;
@@ -235,5 +238,4 @@ void gps_location(loc_t *coord, char *buffer) {
 }
 
 // 		print("GPS latitude = %f, speed = %f\r\n", GPSdata.latitude, GPSdata.speed);
-
 
