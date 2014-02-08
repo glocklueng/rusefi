@@ -1,4 +1,4 @@
-update=2/1/2014 4:11:55 PM
+update=07/02/2014 23:18:16
 version=1
 last_client=eeschema
 [pcbnew]
@@ -56,7 +56,7 @@ NetFmtName=
 RptD_X=0
 RptD_Y=100
 RptLab=1
-LabSize=60
+LabSize=160
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -92,6 +92,5 @@ LibName31=LMV324IDR
 LibName32=logo
 LibName33=logo_flipped
 LibName34=project_specific_libs
-LibName35=header_10x2
-LibName36=art-electro-conn
-LibName37=art-electro-ic
+LibName35=art-electro-conn
+LibName36=art-electro-ic
