@@ -41,6 +41,12 @@ void testFuelMap(void) {
 	assertEquals(1005, getBaseFuel(5, 5));
 
 	engineConfiguration->injectorLag = 0.5;
+
+	for (int i = 0; i < VBAT_INJECTOR_CURVE_SIZE; i++) {
+		engineConfiguration->battInjectorLagCorrBins[i] = i;
+		engineConfiguration->battInjectorLagCorr[i] = 2 * i;
+	}
+
 	// because all the correction tables are zero
 	printf("*************************************************** getRunningFuel\r\n");
 	assertEquals(1005.5, getRunningFuel(5, 5));
@@ -66,6 +72,7 @@ void testFuelMap(void) {
 	assertEqualsM("CLT", 1, cltCorrection);
 	float injectorLag = getInjectorLag(getVBatt());
 	assertEquals(0, injectorLag);
+
 
 	// 1005 * 2 for IAT correction
 	printf("*************************************************** getRunningFuel\r\n");
