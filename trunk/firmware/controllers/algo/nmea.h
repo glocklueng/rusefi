@@ -1,3 +1,8 @@
+/**
+ *
+ * https://github.com/wdalmut/libgps/tree/develop/src
+ *
+ */
 #ifndef _NMEA_H_
 #define _NMEA_H_
 
