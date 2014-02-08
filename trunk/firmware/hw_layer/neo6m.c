@@ -17,6 +17,8 @@
 #include "nmea.h"
 #include "neo6m.h"
 
+#if EFI_UART_GPS
+
 static SerialConfig GPSserialConfig = { GPS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 static WORKING_AREA(GPS_WORKING_AREA, UTILITY_THREAD_STACK_SIZE);
 
@@ -96,3 +98,5 @@ void initGps(void) {
 
 	addConsoleAction("gpsinfo", &printGpsInfo);
 }
+
+#endif /* EFI_UART_GPS */

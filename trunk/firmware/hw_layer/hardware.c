@@ -79,7 +79,7 @@ void initHardware() {
 
 	//	initBooleanInputs();
 
-#if EFI_NEO_GPS
+#if EFI_UART_GPS
 	initGps();
 #endif
 	

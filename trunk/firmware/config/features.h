@@ -105,4 +105,6 @@
 
 #define EFI_PERF_METRICS TRUE
 
+//#define EFI_UART_GPS TRUE
+
 #endif /* FEATURES_H_ */
