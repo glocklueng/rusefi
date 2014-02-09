@@ -18,14 +18,17 @@
 #include "wave_math.h"
 
 static void applyPinState(PwmConfig *state, int stateIndex) {
+	chDbgAssert(state->multiWave.waveCount <= PWM_PHASE_MAX_WAVE_PER_PWM, "invalid waveCount", NULL);
 	for (int waveIndex = 0; waveIndex < state->multiWave.waveCount; waveIndex++) {
 		io_pin_e ioPin = state->outputPins[waveIndex];
+		chDbgAssert(stateIndex < PWM_PHASE_MAX_COUNT, "invalid stateIndex", NULL);
 		int value = state->multiWave.waves[waveIndex].pinStates[stateIndex];
 		setOutputPinValue(ioPin, value);
 	}
 }
 
 static time_t getNextSwitchTime(PwmConfig *state) {
+	chDbgAssert(state->phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", NULL);
 	systime_t timeToSwitch = (systime_t) ((state->iteration + state->multiWave.switchTimes[state->phaseIndex])
 			* state->thisIterationPeriod);
 
@@ -63,9 +66,20 @@ static time_t togglePwmState(PwmConfig *state) {
 	return timeToSwitch;
 }
 
-static void timerCallback(PwmConfig *state) {
-	time_t timeToSleep = togglePwmState(state);
-	scheduleTask(&state->scheduling, timeToSleep, (schfunc_t)timerCallback, state);
+static msg_t deThread(PwmConfig *state) {
+	chRegSetThreadName("Wave");
+
+//	setPadValue(state, state->idleState); todo: currently pin is always zero at first iteration.
+// we can live with that for now
+	// todo: figure out overflow
+
+	while (TRUE) {
+		time_t timeToSwitch = togglePwmState(state);
+		chThdSleep(timeToSwitch);
+	}
+#if defined __GNUC__
+	return -1;
+#endif
 }
 
 /**
@@ -116,7 +130,7 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchT
 	state->phaseIndex = 0;
 	state->name = msg;
 	state->multiWave.phaseCount = phaseCount;
-
-	timerCallback(state);
+	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack),
+	NORMALPRIO, (tfunc_t) deThread, state);
 }
 
