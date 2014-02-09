@@ -6,11 +6,11 @@
 #ifndef LCD_2X16_H_
 #define LCD_2X16_H_
 
-#define LCD_PORT_RS	GPIOB
-#define LCD_PIN_RS	10
+#define LCD_PORT_RS	GPIOE
+#define LCD_PIN_RS	8
 
-#define LCD_PORT_E	GPIOB
-#define LCD_PIN_E	11
+#define LCD_PORT_E	GPIOE
+#define LCD_PIN_E	10
 
 #define LCD_PORT_DB4	GPIOB
 #define LCD_PIN_DB4	12
