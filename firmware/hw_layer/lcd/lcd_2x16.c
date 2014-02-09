@@ -65,9 +65,9 @@ static void lcdSleep(int period) {
 
 //-----------------------------------------------------------------------------
 void lcd_2x16_write(uint8_t data) {
-	palWritePad(LCD_PORT_DB7, LCD_PIN_DB7, data & 0x80 ? 1 : 0);
-	palWritePad(LCD_PORT_DB6, LCD_PIN_DB6, data & 0x40 ? 1 : 0);
-	palWritePad(LCD_PORT_DB5, LCD_PIN_DB5, data & 0x20 ? 1 : 0);
+	palWritePad(HD44780_PORT_DB7, HD44780_PIN_DB7, data & 0x80 ? 1 : 0);
+	palWritePad(HD44780_PORT_DB6, HD44780_PIN_DB6, data & 0x40 ? 1 : 0);
+	palWritePad(HD44780_PORT_DB5, HD44780_PIN_DB5, data & 0x20 ? 1 : 0);
 	palWritePad(HD44780_PORT_DB4, HD44780_PIN_DB4, data & 0x10 ? 1 : 0);
 
 	palSetPad(HD44780_PORT_E, HD44780_PIN_E); // En high
@@ -126,17 +126,17 @@ void lcd_2x16_init(void) {
 	mySetPadMode("lcd", HD44780_PORT_RS, HD44780_PIN_RS, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", HD44780_PORT_E, HD44780_PIN_E, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", HD44780_PORT_DB4, HD44780_PIN_DB4, PAL_MODE_OUTPUT_PUSHPULL);
-	mySetPadMode("lcd", LCD_PORT_DB5, LCD_PIN_DB5, PAL_MODE_OUTPUT_PUSHPULL);
-	mySetPadMode("lcd", LCD_PORT_DB6, LCD_PIN_DB6, PAL_MODE_OUTPUT_PUSHPULL);
-	mySetPadMode("lcd", LCD_PORT_DB7, LCD_PIN_DB7, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd", HD44780_PORT_DB5, HD44780_PIN_DB5, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd", HD44780_PORT_DB6, HD44780_PIN_DB6, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd", HD44780_PORT_DB7, HD44780_PIN_DB7, PAL_MODE_OUTPUT_PUSHPULL);
 
 
 	palWritePad(HD44780_PORT_RS, HD44780_PIN_RS, 0);
 	palWritePad(HD44780_PORT_E, HD44780_PIN_E, 0);
 	palWritePad(HD44780_PORT_DB4, HD44780_PIN_DB4, 0);
-	palWritePad(LCD_PORT_DB5, LCD_PIN_DB5, 0);
-	palWritePad(LCD_PORT_DB6, LCD_PIN_DB6, 0);
-	palWritePad(LCD_PORT_DB7, LCD_PIN_DB7, 0);
+	palWritePad(HD44780_PORT_DB5, HD44780_PIN_DB5, 0);
+	palWritePad(HD44780_PORT_DB6, HD44780_PIN_DB6, 0);
+	palWritePad(HD44780_PORT_DB7, HD44780_PIN_DB7, 0);
 
 	// LCD needs some time to wake up
 	chThdSleepMilliseconds(50);
