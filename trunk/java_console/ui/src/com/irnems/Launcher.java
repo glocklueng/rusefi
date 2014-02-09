@@ -26,7 +26,7 @@ public class Launcher extends FrameHelper {
         RpmPanel rpmPanel = new RpmPanel();
         tabbedPane.addTab("Main", rpmPanel.createRpmPanel());
         tabbedPane.addTab("Gauges", new GaugePanel());
-        tabbedPane.addTab("Digital Sniffer", new WavePanel());
+        tabbedPane.addTab("Digital Sniffer", WavePanel.getInstance());
         tabbedPane.addTab("Analog Sniffer", new AnalogChartPanel());
 
 //        tabbedPane.addTab("ADC", new AdcPanel(new BooleanInputsModel()).createAdcPanel());
@@ -34,7 +34,10 @@ public class Launcher extends FrameHelper {
 //        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
         tabbedPane.add("MessagesCentral", new MsgPanel());
 
+        tabbedPane.add("Log Viewer", new LogViewer());
+
         tabbedPane.setSelectedIndex(2);
+        tabbedPane.setSelectedIndex(5);
 
         for (String p : SerialPortList.getPortNames())
             MessagesCentral.getInstance().postMessage(Launcher.class, "Available port: " + p);
