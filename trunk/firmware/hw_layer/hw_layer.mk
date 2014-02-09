@@ -5,6 +5,7 @@ HW_LAYERESRC = hw_layer/hardware.c \
 	hw_layer/pin_repository.c \
 	hw_layer/io_pins.c \
 	hw_layer/mcp3208.c \
+	hw_layer/lcd/lcd_2x16.c \
 	hw_layer/can_hw.c \
 	hw_layer/HIP9011.c \
 	hw_layer/flash.c \
