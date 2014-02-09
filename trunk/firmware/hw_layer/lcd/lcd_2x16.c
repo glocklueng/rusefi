@@ -68,17 +68,17 @@ void lcd_2x16_write(uint8_t data) {
 	palWritePad(LCD_PORT_DB7, LCD_PIN_DB7, data & 0x80 ? 1 : 0);
 	palWritePad(LCD_PORT_DB6, LCD_PIN_DB6, data & 0x40 ? 1 : 0);
 	palWritePad(LCD_PORT_DB5, LCD_PIN_DB5, data & 0x20 ? 1 : 0);
-	palWritePad(LCD_PORT_DB4, LCD_PIN_DB4, data & 0x10 ? 1 : 0);
+	palWritePad(HD44780_PORT_DB4, HD44780_PIN_DB4, data & 0x10 ? 1 : 0);
 
-	palSetPad(LCD_PORT_E, LCD_PIN_E); // En high
+	palSetPad(HD44780_PORT_E, HD44780_PIN_E); // En high
 	lcdSleep(10); // enable pulse must be >450ns
-	palClearPad(LCD_PORT_E, LCD_PIN_E); // En low
+	palClearPad(HD44780_PORT_E, HD44780_PIN_E); // En low
 	lcdSleep(40); // commands need > 37us to settle
 }
 
 //-----------------------------------------------------------------------------
 void lcd_2x16_write_command(uint8_t data) {
-	palClearPad(LCD_PORT_RS, LCD_PIN_RS);
+	palClearPad(HD44780_PORT_RS, HD44780_PIN_RS);
 
 	lcd_2x16_write(data);
 	lcd_2x16_write(data << 4);
@@ -86,12 +86,12 @@ void lcd_2x16_write_command(uint8_t data) {
 
 //-----------------------------------------------------------------------------
 void lcd_2x16_write_data(uint8_t data) {
-	palSetPad(LCD_PORT_RS, LCD_PIN_RS);
+	palSetPad(HD44780_PORT_RS, HD44780_PIN_RS);
 
 	lcd_2x16_write(data);
 	lcd_2x16_write(data << 4);
 
-	palClearPad(LCD_PORT_RS, LCD_PIN_RS);
+	palClearPad(HD44780_PORT_RS, HD44780_PIN_RS);
 }
 
 //-----------------------------------------------------------------------------
@@ -123,17 +123,17 @@ void lcd_2x16_print_string(uint8_t * string) {
 
 //-----------------------------------------------------------------------------
 void lcd_2x16_init(void) {
-	mySetPadMode("lcd", LCD_PORT_RS, LCD_PIN_RS, PAL_MODE_OUTPUT_PUSHPULL);
-	mySetPadMode("lcd", LCD_PORT_E, LCD_PIN_E, PAL_MODE_OUTPUT_PUSHPULL);
-	mySetPadMode("lcd", LCD_PORT_DB4, LCD_PIN_DB4, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd", HD44780_PORT_RS, HD44780_PIN_RS, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd", HD44780_PORT_E, HD44780_PIN_E, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd", HD44780_PORT_DB4, HD44780_PIN_DB4, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", LCD_PORT_DB5, LCD_PIN_DB5, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", LCD_PORT_DB6, LCD_PIN_DB6, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", LCD_PORT_DB7, LCD_PIN_DB7, PAL_MODE_OUTPUT_PUSHPULL);
 
 
-	palWritePad(LCD_PORT_RS, LCD_PIN_RS, 0);
-	palWritePad(LCD_PORT_E, LCD_PIN_E, 0);
-	palWritePad(LCD_PORT_DB4, LCD_PIN_DB4, 0);
+	palWritePad(HD44780_PORT_RS, HD44780_PIN_RS, 0);
+	palWritePad(HD44780_PORT_E, HD44780_PIN_E, 0);
+	palWritePad(HD44780_PORT_DB4, HD44780_PIN_DB4, 0);
 	palWritePad(LCD_PORT_DB5, LCD_PIN_DB5, 0);
 	palWritePad(LCD_PORT_DB6, LCD_PIN_DB6, 0);
 	palWritePad(LCD_PORT_DB7, LCD_PIN_DB7, 0);
