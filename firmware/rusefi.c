@@ -106,7 +106,7 @@ void runRusEfi(void) {
 	initEngineContoller();
 
 #if EFI_ENGINE_EMULATOR
-	initEngineEmulator();
+	//initEngineEmulator();
 #endif
 
 	print("Running main loop\r\n");
