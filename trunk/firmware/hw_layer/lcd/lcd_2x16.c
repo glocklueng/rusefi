@@ -130,7 +130,13 @@ void lcd_2x16_init(void) {
 	mySetPadMode("lcd", LCD_PORT_DB6, LCD_PIN_DB6, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", LCD_PORT_DB7, LCD_PIN_DB7, PAL_MODE_OUTPUT_PUSHPULL);
 
-	pal_lld_clearport(LCD_PORT_E, LCD_PINS);
+
+	palWritePad(LCD_PORT_RS, LCD_PIN_RS, 0);
+	palWritePad(LCD_PORT_E, LCD_PIN_E, 0);
+	palWritePad(LCD_PORT_DB4, LCD_PIN_DB4, 0);
+	palWritePad(LCD_PORT_DB5, LCD_PIN_DB5, 0);
+	palWritePad(LCD_PORT_DB6, LCD_PIN_DB6, 0);
+	palWritePad(LCD_PORT_DB7, LCD_PIN_DB7, 0);
 
 	// LCD needs some time to wake up
 	chThdSleepMilliseconds(50);
