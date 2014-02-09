@@ -16,36 +16,36 @@
 #include "string.h"
 
 enum {
-	LCD_2X16_RESET = 0x30,
-	LCD_2X16_4_BIT_BUS = 0x20,
-	LCD_2X16_8_BIT_BUS = 0x30,
-	LCD_2X16_LINE_ONE = 0x20,
-	LCD_2X16_LINES_TWO = 0x28,
-	LCD_2X16_FONT_5X8 = 0x20,
-	LCD_2X16_FONT_5X10 = 0x24,
-	LCD_2X16_DISPLAY_CLEAR = 0x01,
-	LCD_2X16_DISPLAY_HOME = 0x02,
-	LCD_2X16_DISPLAY_ON = 0x0C,
-	LCD_2X16_DISPLAY_RIGHT = 0x1C,
-	LCD_2X16_DISPLAY_LEFT = 0x18,
-	LCD_2X16_DISPLAY_SHIFT = 0x05,
-	LCD_2X16_CURSOR_ON = 0x0A,
-	LCD_2X16_CURSOR_BLINK = 0x09,
-	LCD_2X16_CURSOR_RIGHT = 0x14,
-	LCD_2X16_CURSOR_LEFT = 0x10,
-	LCD_2X16_SHIFT_RIGHT = 0x06,
-	LCD_2X16_SHIFT_LEFT = 0x04,
-	LCD_2X16_CGRAM_ADDR = 0x40,
+	LCD_2X16_RESET = 0x30, LCD_2X16_4_BIT_BUS = 0x20,
+//	LCD_2X16_8_BIT_BUS = 0x30,
+//	LCD_2X16_LINE_ONE = 0x20,
+//	LCD_2X16_LINES_TWO = 0x28,
+//	LCD_2X16_FONT_5X8 = 0x20,
+//	LCD_2X16_FONT_5X10 = 0x24,
+//	LCD_2X16_DISPLAY_CLEAR = 0x01,
+//	LCD_2X16_DISPLAY_HOME = 0x02,
+//	LCD_2X16_DISPLAY_ON = 0x0C,
+//	LCD_2X16_DISPLAY_RIGHT = 0x1C,
+//	LCD_2X16_DISPLAY_LEFT = 0x18,
+//	LCD_2X16_DISPLAY_SHIFT = 0x05,
+//	LCD_2X16_CURSOR_ON = 0x0A,
+//	LCD_2X16_CURSOR_BLINK = 0x09,
+//	LCD_2X16_CURSOR_RIGHT = 0x14,
+//	LCD_2X16_CURSOR_LEFT = 0x10,
+//	LCD_2X16_SHIFT_RIGHT = 0x06,
+//	LCD_2X16_SHIFT_LEFT = 0x04,
+//	LCD_2X16_CGRAM_ADDR = 0x40,
 	LCD_2X16_DDRAM_ADDR = 0x80,
-	LCD_2X16_BUSY_FLAG = 0x80,
+//	LCD_2X16_BUSY_FLAG = 0x80,
 	LCD_2X16_NEXT_LINE = 0x40,
-	LCD_2X16_COMMAND = 0x01,
-	LCD_2X16_DATA = 0x00,
+//	LCD_2X16_COMMAND = 0x01,
+//	LCD_2X16_DATA = 0x00,
 } lcd_2x16_command;
 
-static int lineStart[] = { 0, 0x40 };
+static const int lineStart[] = { 0, 0x40, 0x14, 0x54 };
 
 static int BUSY_WAIT_DELAY = TRUE;
+static int currentRow = 0;
 
 static void lcdSleep(int period) {
 	if (BUSY_WAIT_DELAY) {
@@ -64,7 +64,7 @@ static void lcdSleep(int period) {
 }
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_write(uint8_t data) {
+static void lcd_HD44780_write(uint8_t data) {
 	palWritePad(HD44780_PORT_DB7, HD44780_PIN_DB7, data & 0x80 ? 1 : 0);
 	palWritePad(HD44780_PORT_DB6, HD44780_PIN_DB6, data & 0x40 ? 1 : 0);
 	palWritePad(HD44780_PORT_DB5, HD44780_PIN_DB5, data & 0x20 ? 1 : 0);
@@ -80,35 +80,31 @@ void lcd_2x16_write(uint8_t data) {
 void lcd_2x16_write_command(uint8_t data) {
 	palClearPad(HD44780_PORT_RS, HD44780_PIN_RS);
 
-	lcd_2x16_write(data);
-	lcd_2x16_write(data << 4);
+	lcd_HD44780_write(data);
+	lcd_HD44780_write(data << 4);
 }
 
 //-----------------------------------------------------------------------------
 void lcd_2x16_write_data(uint8_t data) {
 	palSetPad(HD44780_PORT_RS, HD44780_PIN_RS);
 
-	lcd_2x16_write(data);
-	lcd_2x16_write(data << 4);
+	lcd_HD44780_write(data);
+	lcd_HD44780_write(data << 4);
 
 	palClearPad(HD44780_PORT_RS, HD44780_PIN_RS);
 }
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_set_position(uint8_t row, uint8_t colum) {
-	uint8_t position = LCD_2X16_DDRAM_ADDR;
-
-	if (row > 0) {
-		position |= LCD_2X16_NEXT_LINE;
-	}
-
-	lcd_2x16_write_command(position | colum);
+void lcd_2x16_set_position(uint8_t row, uint8_t column) {
+	chDbgAssert(row <= 4, "invalid row", NULL);
+	currentRow = row;
+	lcd_2x16_write_command(LCD_2X16_DDRAM_ADDR + lineStart[row] + column);
 }
 
 //-----------------------------------------------------------------------------
 void lcd_2x16_print_char(uint8_t data) {
 	if (data == '\n') {
-		lcd_2x16_write_command(LCD_2X16_DDRAM_ADDR | LCD_2X16_NEXT_LINE);
+		lcd_2x16_set_position(++currentRow, 0);
 	} else {
 		lcd_2x16_write_data(data);
 	}
@@ -116,9 +112,8 @@ void lcd_2x16_print_char(uint8_t data) {
 
 //-----------------------------------------------------------------------------
 void lcd_2x16_print_string(uint8_t * string) {
-	while (*string != 0x00) {
+	while (*string != 0x00)
 		lcd_2x16_print_char(*string++);
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -130,7 +125,6 @@ void lcd_2x16_init(void) {
 	mySetPadMode("lcd", HD44780_PORT_DB6, HD44780_PIN_DB6, PAL_MODE_OUTPUT_PUSHPULL);
 	mySetPadMode("lcd", HD44780_PORT_DB7, HD44780_PIN_DB7, PAL_MODE_OUTPUT_PUSHPULL);
 
-
 	palWritePad(HD44780_PORT_RS, HD44780_PIN_RS, 0);
 	palWritePad(HD44780_PORT_E, HD44780_PIN_E, 0);
 	palWritePad(HD44780_PORT_DB4, HD44780_PIN_DB4, 0);
@@ -141,36 +135,34 @@ void lcd_2x16_init(void) {
 	// LCD needs some time to wake up
 	chThdSleepMilliseconds(50);
 
-	lcd_2x16_write(LCD_2X16_RESET);
+	lcd_HD44780_write(LCD_2X16_RESET);
 	chThdSleepMilliseconds(1);
 
-	lcd_2x16_write(0x30);
+	lcd_HD44780_write(0x30);
 
-	lcd_2x16_write(LCD_2X16_4_BIT_BUS);	// 4 bit, 2 line
+	lcd_HD44780_write(LCD_2X16_4_BIT_BUS);	// 4 bit, 2 line
 	chThdSleepMicroseconds(40);
 
-	lcd_2x16_write(LCD_2X16_4_BIT_BUS);	// 4 bit, 2 line
-	lcd_2x16_write(0x80);
+	lcd_HD44780_write(LCD_2X16_4_BIT_BUS);	// 4 bit, 2 line
+	lcd_HD44780_write(0x80);
 	chThdSleepMicroseconds(40);
 
-	lcd_2x16_write(0x00);	// display and cursor control
-	lcd_2x16_write(0xC0);
+	lcd_HD44780_write(0x00);	// display and cursor control
+	lcd_HD44780_write(0xC0);
 	chThdSleepMicroseconds(40);
 
-	lcd_2x16_write(0x00);	// display clear
-	lcd_2x16_write(0x01);
+	lcd_HD44780_write(0x00);	// display clear
+	lcd_HD44780_write(0x01);
 	chThdSleepMilliseconds(2);
 
-	lcd_2x16_write(0x00);	// entry mode set
-	lcd_2x16_write(0x60);
+	lcd_HD44780_write(0x00);	// entry mode set
+	lcd_HD44780_write(0x60);
 }
 
 void lcdShowFatalMessage(char *message) {
 	BUSY_WAIT_DELAY = TRUE;
 	lcd_2x16_set_position(0, 0);
-	int len = strlen(message);
-	lcd_2x16_print_string("fatal");
-	lcd_2x16_write_command(LCD_2X16_DDRAM_ADDR | LCD_2X16_NEXT_LINE);
+	lcd_2x16_print_string("fatal\n");
 	lcd_2x16_print_string(message);
 }
 
