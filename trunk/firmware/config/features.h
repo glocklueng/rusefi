@@ -89,12 +89,7 @@
 /**
  * Do we need file logging (like SD card) logic?
  */
-//#define EFI_FILE_LOGGING TRUE
-
-/**
- * Do we need GPS logic?
- */
-#define EFI_GPS TRUE
+#define EFI_FILE_LOGGING TRUE
 
 /**
  * While we embed multiple PnP configurations into the same firmware binary, these marcoses give us control
@@ -107,6 +102,9 @@
 
 #define EFI_PERF_METRICS TRUE
 
+/**
+ * Do we need GPS logic?
+ */
 //#define EFI_UART_GPS TRUE
 
 #endif /* FEATURES_H_ */
