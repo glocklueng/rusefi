@@ -169,6 +169,8 @@ void lcdShowFatalMessage(char *message) {
 void lcdTest(void) {
 	lcd_2x16_init();
 	lcd_2x16_set_position(0, 0);
-	lcd_2x16_print_string("5hi everyone?\n");
-	lcd_2x16_print_string("6rusefi here !\n");
+	lcd_2x16_print_string("1hi everyone?\n");
+	lcd_2x16_print_string("2rusefi here !\n");
+	lcd_2x16_print_string("3 20x2 works\n");
+	lcd_2x16_print_string("4 also\n");
 }
