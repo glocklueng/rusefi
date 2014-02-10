@@ -28,15 +28,15 @@ static void applyPinState(PwmConfig *state, int stateIndex) {
 }
 
 static time_t getNextSwitchTime(PwmConfig *state) {
-	chDbgAssert(state->phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", NULL);
-	systime_t timeToSwitch = (systime_t) ((state->iteration + state->multiWave.switchTimes[state->phaseIndex])
-			* state->thisIterationPeriod);
+	chDbgAssert(state->safe.phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", NULL);
+	systime_t timeToSwitch = (systime_t) ((state->safe.iteration + state->multiWave.switchTimes[state->safe.phaseIndex])
+			* state->safe.period);
 
-	return state->start + timeToSwitch;
+	return state->safe.start + timeToSwitch;
 }
 
 static time_t togglePwmState(PwmConfig *state) {
-	if (state->phaseIndex == 0) {
+	if (state->safe.phaseIndex == 0) {
 		if (isnan(state->period)) {
 			/**
 			 * zero period means PWM is paused
@@ -44,26 +44,25 @@ static time_t togglePwmState(PwmConfig *state) {
 			return TICKS_IN_MS;
 		}
 		chDbgAssert(state->period != 0, "period not initialized", NULL);
-		if (state->rpmHere != state->period) {
+		if (state->safe.period != state->period) {
 			/**
 			 * period length has changed - we need to reset internal state
 			 */
-			state->start = chTimeNow();
-			state->iteration = 0;
-			state->rpmHere = state->period;
+			state->safe.start = chTimeNow();
+			state->safe.iteration = 0;
+			state->safe.period = state->period;
 		}
-		state->iteration++;
-
-		state->thisIterationPeriod = state->period;
 	}
 
-	applyPinState(state, state->phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->phaseIndex - 1);
+	applyPinState(state, state->safe.phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->safe.phaseIndex - 1);
 
 	time_t timeToSwitch = getNextSwitchTime(state) - chTimeNow();
 
-	state->phaseIndex++;
-	if (state->phaseIndex == state->multiWave.phaseCount)
-		state->phaseIndex = 0; // restart
+	state->safe.phaseIndex++;
+	if (state->safe.phaseIndex == state->multiWave.phaseCount) {
+		state->safe.phaseIndex = 0; // restart
+		state->safe.iteration++;
+	}
 	return timeToSwitch;
 }
 
@@ -127,7 +126,7 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchT
 
 	copyPwmParameters(state, phaseCount, switchTimes, waveCount, pinStates);
 
-	state->phaseIndex = 0;
+	state->safe.phaseIndex = 0;
 	state->name = msg;
 	state->multiWave.phaseCount = phaseCount;
 	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack),
