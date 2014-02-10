@@ -43,7 +43,7 @@ static time_t togglePwmState(PwmConfig *state) {
 			 */
 			return TICKS_IN_MS;
 		}
-		chDbgAssert(state->period!=0, "period not initialized", NULL);
+		chDbgAssert(state->period != 0, "period not initialized", NULL);
 		if (state->rpmHere != state->period) {
 			/**
 			 * period length has changed - we need to reset internal state
@@ -110,12 +110,12 @@ void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, myfl
 
 	outputPinRegister(msg, state->outputPins[0], port, pin);
 
-	weComplexInit(msg, state, 2, switchTimes, 1, pinStates);
-
 	state->period = frequency2period(freq);
+	weComplexInit(msg, state, 2, switchTimes, 1, pinStates);
 }
 
 void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchTimes, int waveCount, int **pinStates) {
+	chDbgCheck(state->period != 0, "period is not initialized");
 	chDbgCheck(phaseCount > 1, "count is too small");
 	chDbgCheck(phaseCount <= PWM_PHASE_MAX_COUNT, "count is too large");
 	chDbgCheck(switchTimes[phaseCount - 1] == 1, "last switch time has to be 1");
@@ -124,7 +124,6 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchT
 		chDbgCheck(switchTimes[i] < switchTimes[i + 1], "invalid switchTimes");
 
 	state->multiWave.waveCount = waveCount;
-	state->period = frequency2period(10);
 
 	copyPwmParameters(state, phaseCount, switchTimes, waveCount, pinStates);
 

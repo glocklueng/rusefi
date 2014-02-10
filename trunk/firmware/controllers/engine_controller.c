@@ -170,7 +170,10 @@ void initEngineContoller(void) {
 	 */
 	initMainEventListener();
 
+
+#if EFI_IDLE_CONTROL
 	startIdleThread();
+#endif
 
 	initFuelPump();
 

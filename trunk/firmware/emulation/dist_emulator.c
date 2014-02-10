@@ -58,11 +58,12 @@ void initShaftPositionEmulator(void) {
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 
+	setRevolutionPeriod(DEFAULT_EMULATION_RPM);
+
 	int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
 	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates);
 
 
-	setRevolutionPeriod(DEFAULT_EMULATION_RPM);
 
 	addConsoleActionI("rpm", &setRevolutionPeriod);
 
