@@ -71,7 +71,8 @@ typedef enum {
 	// malfunction LED indicator - CheckEngine
 	LED_CHECK_ENGINE,
 	
-	FUEL_PUMP,
+	FUEL_PUMP_RELAY,
+	FAN_RELAY,
 
 	SPI_CS_1,
 	SPI_CS_2,

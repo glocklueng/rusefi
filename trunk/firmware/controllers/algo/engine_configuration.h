@@ -149,6 +149,10 @@ typedef struct {
 
 
 	float vbattDividerCoeff;
+	/**
+	 * Cooling fan temperature threshold, in Celsuis
+	 */
+	float fanOnTemperature;
 
 } engine_configuration_s;
 
