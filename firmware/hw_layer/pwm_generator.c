@@ -37,12 +37,13 @@ static time_t getNextSwitchTime(PwmConfig *state) {
 
 static time_t togglePwmState(PwmConfig *state) {
 	if (state->phaseIndex == 0) {
-		if (state->period == 0) {
+		if (isnan(state->period)) {
 			/**
 			 * zero period means PWM is paused
 			 */
 			return TICKS_IN_MS;
 		}
+		chDbgAssert(state->period!=0, "period not initialized", NULL);
 		if (state->rpmHere != state->period) {
 			/**
 			 * period length has changed - we need to reset internal state
