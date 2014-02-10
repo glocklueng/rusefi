@@ -265,3 +265,7 @@ void warning(char *msg, float value) {
 
 	scheduleSimpleMsg(&logger, msg, (int)(1000 * value));
 }
+
+void updateHD44780lcd(void) {
+
+}

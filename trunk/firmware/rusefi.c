@@ -125,6 +125,13 @@ void runRusEfi(void) {
 		// sensor state for EFI Analytics Tuner Studio
 		updateTunerStudioState();
 #endif /* EFI_TUNER_STUDIO */
+
+
+#if EFI_HD44780_LCD
+		updateHD44780lcd();
+#endif
+
+
 		chThdSleepMilliseconds(5);
 	}
 }

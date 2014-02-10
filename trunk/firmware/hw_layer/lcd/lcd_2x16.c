@@ -95,35 +95,32 @@ void lcd_2x16_write_data(uint8_t data) {
 }
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_set_position(uint8_t row, uint8_t column) {
+void lcd_HD44780_set_position(uint8_t row, uint8_t column) {
 	chDbgAssert(row <= 4, "invalid row", NULL);
 	currentRow = row;
 	lcd_2x16_write_command(LCD_2X16_DDRAM_ADDR + lineStart[row] + column);
 }
 
-//-----------------------------------------------------------------------------
-void lcd_2x16_print_char(uint8_t data) {
+void lcd_HD44780_print_char(uint8_t data) {
 	if (data == '\n') {
-		lcd_2x16_set_position(++currentRow, 0);
+		lcd_HD44780_set_position(++currentRow, 0);
 	} else {
 		lcd_2x16_write_data(data);
 	}
 }
 
-//-----------------------------------------------------------------------------
-void lcd_2x16_print_string(uint8_t * string) {
+void lcd_HD44780_print_string(uint8_t * string) {
 	while (*string != 0x00)
-		lcd_2x16_print_char(*string++);
+		lcd_HD44780_print_char(*string++);
 }
 
-//-----------------------------------------------------------------------------
-void lcd_2x16_init(void) {
-	mySetPadMode("lcd", HD44780_PORT_RS, HD44780_PIN_RS, PAL_MODE_OUTPUT_PUSHPULL);
-	mySetPadMode("lcd", HD44780_PORT_E, HD44780_PIN_E, PAL_MODE_OUTPUT_PUSHPULL);
-	mySetPadMode("lcd", HD44780_PORT_DB4, HD44780_PIN_DB4, PAL_MODE_OUTPUT_PUSHPULL);
-	mySetPadMode("lcd", HD44780_PORT_DB5, HD44780_PIN_DB5, PAL_MODE_OUTPUT_PUSHPULL);
-	mySetPadMode("lcd", HD44780_PORT_DB6, HD44780_PIN_DB6, PAL_MODE_OUTPUT_PUSHPULL);
-	mySetPadMode("lcd", HD44780_PORT_DB7, HD44780_PIN_DB7, PAL_MODE_OUTPUT_PUSHPULL);
+void lcd_HD44780_init(void) {
+	mySetPadMode("lcd RS", HD44780_PORT_RS, HD44780_PIN_RS, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd E", HD44780_PORT_E, HD44780_PIN_E, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd DB4", HD44780_PORT_DB4, HD44780_PIN_DB4, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd DB6", HD44780_PORT_DB5, HD44780_PIN_DB5, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd DB7", HD44780_PORT_DB6, HD44780_PIN_DB6, PAL_MODE_OUTPUT_PUSHPULL);
+	mySetPadMode("lcd DB8", HD44780_PORT_DB7, HD44780_PIN_DB7, PAL_MODE_OUTPUT_PUSHPULL);
 
 	palWritePad(HD44780_PORT_RS, HD44780_PIN_RS, 0);
 	palWritePad(HD44780_PORT_E, HD44780_PIN_E, 0);
@@ -157,20 +154,15 @@ void lcd_2x16_init(void) {
 
 	lcd_HD44780_write(0x00);	// entry mode set
 	lcd_HD44780_write(0x60);
+
+	lcd_HD44780_set_position(0, 0);
+	lcd_HD44780_print_string("rusefi here\n");
+	lcd_HD44780_print_string(__DATE__);
 }
 
 void lcdShowFatalMessage(char *message) {
 	BUSY_WAIT_DELAY = TRUE;
-	lcd_2x16_set_position(0, 0);
-	lcd_2x16_print_string("fatal\n");
-	lcd_2x16_print_string(message);
-}
-
-void lcdTest(void) {
-	lcd_2x16_init();
-	lcd_2x16_set_position(0, 0);
-	lcd_2x16_print_string("1hi everyone?\n");
-	lcd_2x16_print_string("2rusefi here !\n");
-	lcd_2x16_print_string("3 20x2 works\n");
-	lcd_2x16_print_string("4 also\n");
+	lcd_HD44780_set_position(0, 0);
+	lcd_HD44780_print_string("fatal\n");
+	lcd_HD44780_print_string(message);
 }
