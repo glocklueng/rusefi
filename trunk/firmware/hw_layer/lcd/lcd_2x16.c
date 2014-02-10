@@ -100,7 +100,7 @@ void lcd_HD44780_set_position(uint8_t row, uint8_t column) {
 	lcd_2x16_write_command(LCD_2X16_DDRAM_ADDR + lineStart[row] + column);
 }
 
-void lcd_HD44780_print_char(uint8_t data) {
+void lcd_HD44780_print_char(char data) {
 	if (data == '\n') {
 		lcd_HD44780_set_position(++currentRow, 0);
 	} else {
@@ -108,7 +108,7 @@ void lcd_HD44780_print_char(uint8_t data) {
 	}
 }
 
-void lcd_HD44780_print_string(uint8_t * string) {
+void lcd_HD44780_print_string(char* string) {
 	while (*string != 0x00)
 		lcd_HD44780_print_char(*string++);
 }
