@@ -214,68 +214,21 @@ __attribute__ ((naked))
 #endif
 void _unhandled_exception(void) {
 
-	chDbgPanic("_unhandled_exception", __FILE__, __LINE__);
-
   while (TRUE)
     ;
 }
-
 
 void NMIVector(void) __attribute__((weak, alias("_unhandled_exception")));
-#if !defined(__DOXYGEN__)
-__attribute__ ((naked))
-#endif
-void HardFaultVector(void) {
-
-	chDbgPanic("HardFaultVector", __FILE__, __LINE__);
-
-  while (TRUE)
-    ;
-}
-
-#if !defined(__DOXYGEN__)
-__attribute__ ((naked))
-#endif
-void MemManageVector(void) {
-
-	chDbgPanic("MemManageVector", __FILE__, __LINE__);
-
-  while (TRUE)
-    ;
-}
-#if !defined(__DOXYGEN__)
-__attribute__ ((naked))
-#endif
-void BusFaultVector(void) {
-
-	chDbgPanic("BusFaultVector", __FILE__, __LINE__);
-
-  while (TRUE)
-    ;
-}
-#if !defined(__DOXYGEN__)
-__attribute__ ((naked))
-#endif
-void UsageFaultVector(void) {
-
-	chDbgPanic("UsageFaultVector", __FILE__, __LINE__);
-
-  while (TRUE)
-    ;
-}
+void HardFaultVector(void) __attribute__((weak, alias("_unhandled_exception")));
+void MemManageVector(void) __attribute__((weak, alias("_unhandled_exception")));
+void BusFaultVector(void) __attribute__((weak, alias("_unhandled_exception")));
+void UsageFaultVector(void) __attribute__((weak, alias("_unhandled_exception")));
 void Vector1C(void) __attribute__((weak, alias("_unhandled_exception")));
 void Vector20(void) __attribute__((weak, alias("_unhandled_exception")));
 void Vector24(void) __attribute__((weak, alias("_unhandled_exception")));
 void Vector28(void) __attribute__((weak, alias("_unhandled_exception")));
 void SVCallVector(void) __attribute__((weak, alias("_unhandled_exception")));
-
-void DebugMonitorVector(void) {
-
-	chDbgPanic("DebugMonitorVector", __FILE__, __LINE__);
-
-  while (TRUE)
-    ;
-}
+void DebugMonitorVector(void) __attribute__((weak, alias("_unhandled_exception")));
 void Vector34(void) __attribute__((weak, alias("_unhandled_exception")));
 void PendSVVector(void) __attribute__((weak, alias("_unhandled_exception")));
 void SysTickVector(void) __attribute__((weak, alias("_unhandled_exception")));

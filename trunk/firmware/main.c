@@ -25,3 +25,37 @@ int main(void) {
 	runRusEfi();
 	return 0;
 }
+
+void DebugMonitorVector(void) {
+
+	chDbgPanic("DebugMonitorVector", __FILE__, __LINE__);
+
+	while (TRUE)
+		;
+}
+
+void UsageFaultVector(void) {
+
+	chDbgPanic("UsageFaultVector", __FILE__, __LINE__);
+
+  while (TRUE)
+    ;
+}
+
+void BusFaultVector(void) {
+
+	chDbgPanic("BusFaultVector", __FILE__, __LINE__);
+
+  while (TRUE)
+    ;
+}
+
+void HardFaultVector(void) {
+
+	chDbgPanic("HardFaultVector", __FILE__, __LINE__);
+
+  while (TRUE)
+    ;
+}
+
+
