@@ -3,7 +3,6 @@
  * @brief HD44780 character display driver
  *
  *
- * http://web.alfredstate.edu/weimandn/lcd/lcd_addressing/lcd_addressing_index.html
  * http://forum.chibios.org/phpbb/viewtopic.php?f=16&t=1584
  * @date 13.12.2013
  * @author shilow
@@ -37,14 +36,14 @@ enum {
 //	LCD_2X16_CGRAM_ADDR = 0x40,
 	LCD_2X16_DDRAM_ADDR = 0x80,
 //	LCD_2X16_BUSY_FLAG = 0x80,
-	LCD_2X16_NEXT_LINE = 0x40,
 //	LCD_2X16_COMMAND = 0x01,
 //	LCD_2X16_DATA = 0x00,
 } lcd_2x16_command;
 
+// http://web.alfredstate.edu/weimandn/lcd/lcd_addressing/lcd_addressing_index.html
 static const int lineStart[] = { 0, 0x40, 0x14, 0x54 };
 
-static int BUSY_WAIT_DELAY = TRUE;
+static int BUSY_WAIT_DELAY = FALSE;
 static int currentRow = 0;
 
 static void lcdSleep(int period) {

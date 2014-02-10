@@ -329,6 +329,7 @@ void scheduleSimpleMsg(Logging *logging, char *msg, int value) {
 	scheduleMsg(logging, "%s%d", msg, value);
 }
 
+// todo: remove this method, replace with 'scheduleMsg'
 void scheduleIntValue(Logging *logging, char *msg, int value) {
 	resetLogging(logging);
 
