@@ -14,7 +14,7 @@
 
 #define FREQ_MATH_FREQUENCY CH_FREQUENCY
 
-#define DEBUG_PWM TRUE
+#define DEBUG_PWM FALSE
 
 #include "gpio_helper.h"
 #include "io_pins.h"
