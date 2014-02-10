@@ -30,14 +30,14 @@ static PwmConfig configuration __attribute__((section(".ccm")));
 static PwmConfig configuration;
 #endif
 
-void setRevolutionPeriod(int value) {
-	if (value == 0) {
-		configuration.period = 0;
+void setRevolutionPeriod(int rpm) {
+	if (rpm == 0) {
+		configuration.period = NAN;
 	} else {
-		myfloat gRpm = value * engineConfiguration2->rpmMultiplier / 60.0; // per minute converted to per second
+		myfloat gRpm = rpm * engineConfiguration2->rpmMultiplier / 60.0; // per minute converted to per second
 		configuration.period = frequency2period(gRpm);
 	}
-	scheduleSimpleMsg(&logger, "Emulating position sensor(s). RPM=", value);
+	scheduleMsg(&logger, "Emulating position sensor(s). RPM=%d", rpm);
 }
 
 void initShaftPositionEmulator(void) {
