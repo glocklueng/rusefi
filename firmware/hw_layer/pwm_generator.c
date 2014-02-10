@@ -32,13 +32,27 @@ static void applyPinState(PwmConfig *state, int stateIndex) {
 
 static time_t getNextSwitchTime(PwmConfig *state) {
 	chDbgAssert(state->safe.phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", NULL);
-	systime_t timeToSwitch = (systime_t) ((state->safe.iteration + state->multiWave.switchTimes[state->safe.phaseIndex])
-			* state->safe.period);
+	int iteration = state->safe.iteration;
+	myfloat switchTime = state->multiWave.switchTimes[state->safe.phaseIndex];
+	myfloat period = state->safe.period;
+#if DEBUG_PWM
+	scheduleMsg(&logger, "iteration=%d switchTime=%f period=%f", iteration, switchTime, period);
+#endif
 
+	systime_t timeToSwitch = (systime_t) ((iteration + switchTime) * period);
+
+#if DEBUG_PWM
+	scheduleMsg(&logger, "start=%d timeToSwitch=%d", state->safe.start, timeToSwitch);
+#endif
 	return state->safe.start + timeToSwitch;
 }
 
 static time_t togglePwmState(PwmConfig *state) {
+#if DEBUG_PWM
+	scheduleMsg(&logger, "togglePwmState phaseIndex=%d iteration=%d", state->safe.phaseIndex, state->safe.iteration);
+	scheduleMsg(&logger, "state->period=%f state->safe.period=%f", state->period, state->safe.period);
+#endif
+
 	if (state->safe.phaseIndex == 0) {
 		if (isnan(state->period)) {
 			/**
@@ -54,12 +68,19 @@ static time_t togglePwmState(PwmConfig *state) {
 			state->safe.start = chTimeNow();
 			state->safe.iteration = 0;
 			state->safe.period = state->period;
+#if DEBUG_PWM
+	scheduleMsg(&logger, "state reset start=%d iteration=%d", state->safe.start, state->safe.iteration);
+#endif
 		}
 	}
 
 	applyPinState(state, state->safe.phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->safe.phaseIndex - 1);
 
-	time_t timeToSwitch = getNextSwitchTime(state) - chTimeNow();
+	time_t nextSwitchTime = getNextSwitchTime(state);
+#if DEBUG_PWM
+	scheduleMsg(&logger, "%s: nextSwitchTime %d", state->name, nextSwitchTime);
+#endif
+	time_t timeToSwitch = nextSwitchTime - chTimeNow();
 
 	state->safe.phaseIndex++;
 	if (state->safe.phaseIndex == state->multiWave.phaseCount) {
@@ -83,6 +104,9 @@ static msg_t deThread(PwmConfig *state) {
 
 	while (TRUE) {
 		time_t timeToSwitch = togglePwmState(state);
+#if DEBUG_PWM
+	scheduleMsg(&logger, "%s: sleep %d", state->name, timeToSwitch);
+#endif
 		chThdSleep(timeToSwitch);
 	}
 #if defined __GNUC__
@@ -137,6 +161,8 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchT
 	copyPwmParameters(state, phaseCount, switchTimes, waveCount, pinStates);
 
 	state->safe.phaseIndex = 0;
+	state->safe.period = -1;
+	state->safe.iteration = -1;
 	state->name = msg;
 	state->multiWave.phaseCount = phaseCount;
 	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack),
