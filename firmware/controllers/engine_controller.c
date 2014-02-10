@@ -33,6 +33,7 @@
 #include "advance_map.h"
 #include "pin_repository.h"
 #include "rficonsole_logic.h"
+#include "pwm_generator.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -129,6 +130,8 @@ void initEngineContoller(void) {
 
 	initSettings();
 	initSensors();
+
+	initPwmGenerator();
 
 	initAnalogChart();
 

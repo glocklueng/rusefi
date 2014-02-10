@@ -14,6 +14,8 @@
 
 #define FREQ_MATH_FREQUENCY CH_FREQUENCY
 
+#define DEBUG_PWM TRUE
+
 #include "gpio_helper.h"
 #include "io_pins.h"
 #include "signal_executor.h"
@@ -54,9 +56,7 @@ typedef struct {
 	pwm_config_safe_state_s safe;
 } PwmConfig;
 
-void initModulation(PwmConfig *state, int count, myfloat *switchTimes,
-		int *pinStates);
-
+void initPwmGenerator(void);
 void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
 		myfloat dutyCycle, myfloat freq, io_pin_e ioPin);
 void weComplexInit(char *msg, PwmConfig *state,

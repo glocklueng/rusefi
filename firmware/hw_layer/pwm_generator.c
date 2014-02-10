@@ -16,6 +16,9 @@
 
 #include "pin_repository.h"
 #include "wave_math.h"
+#include "datalogging.h"
+
+static Logging logger;
 
 static void applyPinState(PwmConfig *state, int stateIndex) {
 	chDbgAssert(state->multiWave.waveCount <= PWM_PHASE_MAX_WAVE_PER_PWM, "invalid waveCount", NULL);
@@ -69,6 +72,11 @@ static time_t togglePwmState(PwmConfig *state) {
 static msg_t deThread(PwmConfig *state) {
 	chRegSetThreadName("Wave");
 
+#if DEBUG_PWM
+	scheduleMsg(&logger, "Thread started for %s", state->name);
+#endif
+
+
 //	setPadValue(state, state->idleState); todo: currently pin is always zero at first iteration.
 // we can live with that for now
 	// todo: figure out overflow
@@ -114,6 +122,8 @@ void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, myfl
 }
 
 void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchTimes, int waveCount, int **pinStates) {
+
+
 	chDbgCheck(state->period != 0, "period is not initialized");
 	chDbgCheck(phaseCount > 1, "count is too small");
 	chDbgCheck(phaseCount <= PWM_PHASE_MAX_COUNT, "count is too large");
@@ -131,5 +141,9 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchT
 	state->multiWave.phaseCount = phaseCount;
 	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack),
 	NORMALPRIO, (tfunc_t) deThread, state);
+}
+
+void initPwmGenerator(void) {
+	initLogging(&logger, "PWM gen");
 }
 
