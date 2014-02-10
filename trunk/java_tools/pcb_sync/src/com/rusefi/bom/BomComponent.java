@@ -10,4 +10,8 @@ public class BomComponent {
     public BomComponent(String reference) {
         this.reference = reference;
     }
+
+    public String getReference() {
+        return reference;
+    }
 }

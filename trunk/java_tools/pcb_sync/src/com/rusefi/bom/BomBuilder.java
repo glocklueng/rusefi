@@ -20,7 +20,7 @@ public class BomBuilder {
     public static void main(String[] args) throws IOException {
         if (args.length < 3) {
 
-            System.out.println("bom_builder [FILE_NAME_CMP] COMPONENTS.CSV");
+            System.out.println("bom_builder [FILE_NAME.CMP] COMPONENTS_DICTIONARY.CSV OUTPUT_FILE.CSV");
 
             return;
         }
@@ -33,36 +33,60 @@ public class BomBuilder {
         Map<String, BomRecord> bomDictionary = readBomDictionary(FileUtils.readFileToList(bomDictionaryName));
 
 
-        writePartList(outputFileName, bomDictionary);
+        writeCompactPartList(outputFileName + "_compact.csv", bomDictionary);
+        writeFullPartList(outputFileName + "_full.csv", bomDictionary);
 
     }
 
-    private static void writePartList(String outputFileName, Map<String, BomRecord> bomDictionary) throws IOException {
+    private static void writeFullPartList(String outputFileName, Map<String, BomRecord> bomDictionary) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(outputFileName));
+        log("Writing full parts list to " + outputFileName);
+
+        for (Map.Entry<String, List<BomComponent>> e : componentsByKey.entrySet()) {
+            String key = e.getKey();
+            List<BomComponent> list = e.getValue();
+
+            BomRecord bomRecord = bomDictionary.get(key);
+            if (bomRecord == null) {
+                log("  No BOM record for " + key);
+                continue;
+            }
+
+            for (BomComponent c : list)
+                writeLine(bw, bomRecord, 1, c.getReference() + ": ");
+
+
+        }
+        bw.close();
+    }
+
+    private static void writeCompactPartList(String outputFileName, Map<String, BomRecord> bomDictionary) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(outputFileName));
 
-        log("Writing parts list to " + outputFileName);
+        log("Writing compact parts list to " + outputFileName);
 
         for (Map.Entry<String, List<BomComponent>> e : componentsByKey.entrySet()) {
             String key = e.getKey();
 
             List<BomComponent> list = e.getValue();
-
             log(list.size() + " items of " + key);
 
             BomRecord bomRecord = bomDictionary.get(key);
             if (bomRecord == null) {
-                log("No BOM record for " + key);
+                log("  No BOM record for " + key);
                 continue;
             }
-            bw.write(list.size() + DELIMITER +
-                    bomRecord.getStorePart() + DELIMITER +
-                    bomRecord.getCustomerRef() + "\r\n");
-
-
+            writeLine(bw, bomRecord, list.size(), "");
         }
 
 
         bw.close();
+    }
+
+    private static void writeLine(BufferedWriter bw, BomRecord bomRecord, int quantity, String prefix) throws IOException {
+        bw.write(quantity + DELIMITER +
+                bomRecord.getStorePart() + DELIMITER +
+                prefix + bomRecord.getCustomerRef() + "\r\n");
     }
 
     private static Map<String, BomRecord> readBomDictionary(List<String> strings) {
