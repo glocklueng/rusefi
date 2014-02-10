@@ -18,6 +18,23 @@
 #include "io_pins.h"
 #include "signal_executor.h"
 
+typedef struct {
+	/**
+	 * a copy so that all phases are executed on the same period, even if another thread
+	 * would be adjusting PWM parameters
+	 */
+	myfloat period;
+	/**
+	 * Iteration counter
+	 */
+	int iteration;
+	/**
+	 * Start time of current iteration
+	 */
+	systime_t start;
+	int phaseIndex;
+} pwm_config_safe_state_s;
+
 /**
  * @brief   Multi-channel software PWM output configuration
  */
@@ -30,25 +47,11 @@ typedef struct {
 	 * PWM generation is not happening while this value is zero
 	 */
 	myfloat period;
-	/**
-	 * a copy so that all phases are executed on the same period, even if another thread
-	 * would be adjusting PWM parameters
-	 */
-	myfloat thisIterationPeriod;
 
 	WORKING_AREA(deThreadStack, UTILITY_THREAD_STACK_SIZE);
 	scheduling_s scheduling;
-	/**
-	 * Iteration counter
-	 */
-	int iteration;
-	/**
-	 * Start time of current iteration
-	 */
-	systime_t start;
 
-	int phaseIndex;
-	myfloat rpmHere;
+	pwm_config_safe_state_s safe;
 } PwmConfig;
 
 void initModulation(PwmConfig *state, int count, myfloat *switchTimes,
