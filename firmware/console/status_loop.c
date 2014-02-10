@@ -34,6 +34,8 @@
 #include "engine_math.h"
 #include "idle_thread.h"
 #include "engine_configuration.h"
+#include "lcd_2x16.h"
+#include "rfiutil.h"
 
 extern engine_configuration2_s * engineConfiguration2;
 
@@ -52,7 +54,7 @@ static Logging fileLogger;
 static char LOGGING_BUFFER[500];
 #define FULL_LOGGING_KEY "fl"
 
-static time_t timeOfPreviousWarning = (systime_t)-10 * CH_FREQUENCY;
+static time_t timeOfPreviousWarning = (systime_t) -10 * CH_FREQUENCY;
 
 static char* boolean2string(int value) {
 	return value ? "YES" : "NO";
@@ -152,7 +154,7 @@ static void checkIfShouldHalt(void) {
 		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg);
 #endif
 		chThdSleepSeconds(1);
-                // todo: figure out how we halt exactly
+		// todo: figure out how we halt exactly
 		while (TRUE) {
 		}
 		chSysHalt();
@@ -160,7 +162,7 @@ static void checkIfShouldHalt(void) {
 #endif
 }
 
-static systime_t timeOfPreviousReport = (systime_t)-1;
+static systime_t timeOfPreviousReport = (systime_t) -1;
 
 /**
  * @brief Sends all pending data to dev console
@@ -263,9 +265,21 @@ void warning(char *msg, float value) {
 		return; // we just had another warning, let's not spam
 	timeOfPreviousWarning = now;
 
-	scheduleSimpleMsg(&logger, msg, (int)(1000 * value));
+	scheduleSimpleMsg(&logger, msg, (int) (1000 * value));
 }
 
+static char buffer[10];
 void updateHD44780lcd(void) {
+	lcd_HD44780_set_position(0, 11);
+	lcd_HD44780_print_char('0' + (chTimeNowSeconds() % 10));
+
+	lcd_HD44780_set_position(0, 12);
+	char * ptr = itoa(buffer, getCurrentRpm());
+	ptr[0] = 0;
+	int len = ptr - buffer;
+	for (int i = 0; i < 6 - len; i++)
+		lcd_HD44780_print_char('_');
+
+	lcd_HD44780_print_string(buffer);
 
 }
