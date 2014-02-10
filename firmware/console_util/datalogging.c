@@ -289,13 +289,27 @@ void resetLogging(Logging *logging) {
  * This method should only be invoked on main thread because only the main thread can write to the console
  */
 void printSimpleMsg(Logging *logging, char *msg, int value) {
-	commonSimpleMsg(logging, msg, value);
+	printMsg(logging, "%s%d", msg, value);
+//	commonSimpleMsg(logging, msg, value);
+//	append(logging, DELIMETER);
+//	printLine(logging);
+}
+
+void printMsg(Logging *logging, const char *fmt, ...) {
+//	resetLogging(logging); // I guess 'reset' is not needed here?
+	appendMsgPrefix(logging);
+
+	va_list ap;
+	va_start(ap, fmt);
+	vappendPrintf(logging, fmt, ap);
+	va_end(ap);
+
 	append(logging, DELIMETER);
 	printLine(logging);
 }
 
 void scheduleMsg(Logging *logging, const char *fmt, ...) {
-	resetLogging(logging);
+	resetLogging(logging); // todo: is 'reset' really needed here?
 	appendMsgPrefix(logging);
 
 	va_list ap;
@@ -312,12 +326,6 @@ void scheduleMsg(Logging *logging, const char *fmt, ...) {
  * TODO: detect current threadId and merge this method with printSimpleMsg?
  */
 void scheduleSimpleMsg(Logging *logging, char *msg, int value) {
-//	resetLogging(logging);
-//	appendMsgPrefix(logging);
-//	appendPrintf(logging, "%s%d", msg, value);
-//	append(logging, DELIMETER);
-//	scheduleLogging(logging);
-
 	scheduleMsg(logging, "%s%d", msg, value);
 }
 

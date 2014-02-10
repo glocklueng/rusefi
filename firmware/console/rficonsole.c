@@ -7,8 +7,6 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
-#define VERSION_STRING 220140209
-
 #include <stdarg.h>
 #include <string.h>
 #include <stdbool.h>
@@ -16,6 +14,8 @@
 #include "rficonsole.h"
 #include "console_io.h"
 #include "datalogging.h"
+
+#define VERSION_STRING "20140209"
 
 static Logging logger;
 
@@ -44,7 +44,7 @@ static void myfatal(void) {
 
 static void sayOsHello(void) {
 	print("*** rusEFI (c) Andrey Belomutskiy, 2012-2013. All rights reserved.\r\n");
-	printSimpleMsg(&logger, "rusEFI VERSION=", VERSION_STRING);
+	printMsg(&logger, "rusEFI VERSION=%s", VERSION_STRING);
 	print("*** Chibios Kernel:       %s\r\n", CH_KERNEL_VERSION);
 	print("*** Compiled:     " __DATE__ " - " __TIME__ " \r\n");
 	print("COMPILER=%s\r\n", __VERSION__);

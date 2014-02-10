@@ -88,9 +88,7 @@ void initHardware() {
 	initAdcDriver();
 #endif
 
-
 #if EFI_HD44780_LCD
-	lcdTest();
+	lcd_HD44780_init();
 #endif
-
 }

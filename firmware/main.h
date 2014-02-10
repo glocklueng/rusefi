@@ -42,6 +42,7 @@ float getFuelMs(int rpm);
 #define Delay(ms) chThdSleepMilliseconds(ms)
 
 void warning(char *msg, float value);
+void updateHD44780lcd(void);
 int hasFatalError(void);
 void fatal3(char *msg, char *file, int line);
 #define fatal(x) (fatal3(x, __FILE__, __LINE__));
