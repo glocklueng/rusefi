@@ -89,6 +89,8 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 
 	engineConfiguration->vbattDividerCoeff = ((float)(15 + 65)) / 15;
 
+	engineConfiguration->fanOnTemperature = 75;
+
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {

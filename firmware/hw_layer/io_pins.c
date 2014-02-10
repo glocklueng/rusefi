@@ -175,7 +175,9 @@ void initOutputPins(void) {
 	outputPinRegister("spi CS5", SPI_CS_SD_MODULE, SPI_SD_MODULE_PORT, SPI_SD_MODULE_PIN);
 
 	// todo: should we move this code closer to the fuel pump logic?
-	outputPinRegister("fuel pump", FUEL_PUMP, FUEL_PUMP_PORT, FUEL_PUMP_PIN);
+	outputPinRegister("fuel pump relay", FUEL_PUMP_RELAY, FUEL_PUMP_PORT, FUEL_PUMP_PIN);
+
+	outputPinRegister("fan relay", FAN_RELAY, FAN_RELAY_PORT, FAN_RELAY_PIN);
 
 	initialLedsBlink();
 

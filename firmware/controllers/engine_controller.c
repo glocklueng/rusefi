@@ -75,10 +75,22 @@ static void updateErrorCodes(void) {
 	setError(isValidCoolantTemperature(getCoolantTemperature()), OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
 }
 
+static void fanRelayControl(void) {
+
+	int currentValue = getOutputPinValue(FAN_RELAY);
+	int newValue = getCoolantTemperature() > engineConfiguration->fanOnTemperature;
+	if(currentValue!=newValue) {
+		scheduleMsg(&logger, "FAN relay: %s", newValue ? "ON" : "OFF");
+		setOutputPinValue(FAN_RELAY, newValue);
+	}
+}
+
 static void onEveny10Milliseconds(void *arg) {
 	updateStatusLeds();
 
 	updateErrorCodes();
+
+	fanRelayControl();
 
 	// schedule next invocation
 	chVTSetAny(&everyMsTimer, _10_MILLISECONDS, &onEveny10Milliseconds, 0);
@@ -90,17 +102,17 @@ static void initPeriodicEvents(void) {
 }
 
 static void fuelPumpOff(void *arg) {
-	if (getOutputPinValue(FUEL_PUMP))
+	if (getOutputPinValue(FUEL_PUMP_RELAY))
 		scheduleMsg(&logger, "fuelPump OFF at %s%d", portname(FUEL_PUMP_PORT), FUEL_PUMP_PIN);
-	turnOutputPinOff(FUEL_PUMP);
+	turnOutputPinOff(FUEL_PUMP_RELAY);
 }
 
 static void fuelPumpOn(ShaftEvents signal, int index) {
 	if (index != 0)
 		return; // let's not abuse the timer - one time per revolution would be enough
-	if (!getOutputPinValue(FUEL_PUMP))
+	if (!getOutputPinValue(FUEL_PUMP_RELAY))
 		scheduleMsg(&logger, "fuelPump ON at %s%d", portname(FUEL_PUMP_PORT), FUEL_PUMP_PIN);
-	turnOutputPinOn(FUEL_PUMP);
+	turnOutputPinOn(FUEL_PUMP_RELAY);
 	/**
 	 * the idea of this implementation is that we turn the pump when the ECU turns on or
 	 * if the shafts are spinning and then we are constantly postponing the time when we

@@ -268,4 +268,7 @@
 #define HD44780_PORT_DB7	GPIOE
 #define HD44780_PIN_DB7	14
 
+#define FAN_RELAY_PORT GPIOC
+#define FAN_RELAY_PIN 7
+
 #endif /*ARRO_BOARD_H_*/
