@@ -52,6 +52,19 @@
 //#define EFI_CAN_TX_PIN 9
 //#define EFI_CAN_TX_AF 9
 
+/**
+ * This section is for bottom-left corner SPI
+ */
+//#define SPI_CS1_PORT GPIOE
+//#define SPI_CS1_PIN 13
+//#define SPI_CS2_PORT GPIOE
+//#define SPI_CS2_PIN 14
+//#define SPI_CS3_PORT GPIOE
+//#define SPI_CS3_PIN 15
+//#define SPI_CS4_PORT GPIOD
+//#define SPI_CS4_PIN 10
+//#define SPI_SD_MODULE_PORT GPIOD
+//#define SPI_SD_MODULE_PIN 11
 #define EFI_SPI2_SCK_PORT GPIOB
 #define EFI_SPI2_SCK_PIN 13
 #define EFI_SPI2_MISO_PORT GPIOB
@@ -59,6 +72,31 @@
 #define EFI_SPI2_MOSI_PORT GPIOB
 #define EFI_SPI2_MOSI_PIN 15
 #define EFI_SPI2_AF 5
+
+/**
+ * This section is for right-side center SPI
+ */
+#define SPI_CS1_PORT GPIOD
+#define SPI_CS1_PIN 7
+#define SPI_CS2_PORT GPIOB
+#define SPI_CS2_PIN 7
+#define SPI_CS3_PORT GPIOD
+#define SPI_CS3_PIN 5
+#define SPI_CS4_PORT GPIOD
+#define SPI_CS4_PIN 3
+#define SPI_SD_MODULE_PORT GPIOD
+#define SPI_SD_MODULE_PIN 4
+//#define EFI_SPI2_SCK_PORT GPIOB
+//#define EFI_SPI2_SCK_PIN 3
+//#define EFI_SPI2_MISO_PORT GPIOB
+//#define EFI_SPI2_MISO_PIN 4
+//#define EFI_SPI2_MOSI_PORT GPIOB
+//#define EFI_SPI2_MOSI_PIN 5
+//#define EFI_SPI2_AF 5
+
+
+
+
 
 #define EFI_ADC_SLOW_CHANNELS_COUNT 	8
 
@@ -212,34 +250,6 @@
 #define LED_COMMUNICATION_PORT GPIOD
 #define LED_COMMUNICATION_PIN GPIOD_LED6
 
-/**
- * This section
- */
-//#define SPI_CS1_PORT GPIOE
-//#define SPI_CS1_PIN 13
-//#define SPI_CS2_PORT GPIOE
-//#define SPI_CS2_PIN 14
-//#define SPI_CS3_PORT GPIOE
-//#define SPI_CS3_PIN 15
-//#define SPI_CS4_PORT GPIOD
-//#define SPI_CS4_PIN 10
-#define SPI_SD_MODULE_PORT GPIOD
-#define SPI_SD_MODULE_PIN 11
-
-#define SPI_CS1_PORT GPIOD
-#define SPI_CS1_PIN 7
-
-#define SPI_CS2_PORT GPIOB
-#define SPI_CS2_PIN 7
-
-#define SPI_CS3_PORT GPIOD
-#define SPI_CS3_PIN 5
-
-#define SPI_CS4_PORT GPIOD
-#define SPI_CS4_PIN 3
-//
-//#define SPI_SD_MODULE_PORT GPIOD
-//#define SPI_SD_MODULE_PIN 4
 
 
 #define EFI_SIGNAL_EXECUTOR_SLEEP TRUE
