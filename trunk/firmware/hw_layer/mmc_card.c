@@ -40,7 +40,7 @@ SPI_BaudRatePrescaler_256 };
 
 /* MMC/SD over SPI driver configuration.*/
 // don't forget check if STM32_SPI_USE_SPI2 defined and spi has init with correct GPIO in hardware.c
-static MMCConfig mmccfg = { &SPID2, &ls_spicfg, &hs_spicfg };
+static MMCConfig mmccfg = { &MMC_CARD_SPI, &ls_spicfg, &hs_spicfg };
 
 static bool_t fs_ready = FALSE;
 
