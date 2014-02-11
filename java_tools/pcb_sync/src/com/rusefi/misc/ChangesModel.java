@@ -72,7 +72,7 @@ public class ChangesModel {
                 continue;
             }
 
-            System.err.println("Ignoring invalid line: " + line);
+            System.err.println("ChangesModel: Ignoring invalid line: " + line);
 
         }
         log("Got " + DEL_REQUESTS.size() + " remove request(s)");
