@@ -14,6 +14,7 @@
 #include "main.h"
 #include "mmc_card.h"
 #include "rficonsole_logic.h"
+#include "pin_repository.h"
 
 #if EFI_FILE_LOGGING
 
@@ -60,7 +61,15 @@ static FIL FDLogFile;
 static Logging logger;
 static int totalLoggedBytes = 0;
 
+static void printMmcPinout(void) {
+	scheduleMsg(&logger, "MMC CS %s:%d", portname(SPI_SD_MODULE_PORT), SPI_SD_MODULE_PIN);
+	scheduleMsg(&logger, "MMC SCK %s:%d", portname(EFI_SPI2_SCK_PORT), EFI_SPI2_SCK_PIN);
+	scheduleMsg(&logger, "MMC MISO %s:%d", portname(EFI_SPI2_MISO_PORT), EFI_SPI2_MISO_PIN);
+	scheduleMsg(&logger, "MMC MOSI %s:%d", portname(EFI_SPI2_MOSI_PORT), EFI_SPI2_MOSI_PIN);
+}
+
 static void sdStatistics(void) {
+	printMmcPinout();
 	scheduleMsg(&logger, "fs_ready=%d totalLoggedBytes=%d", fs_ready, totalLoggedBytes);
 }
 
@@ -175,6 +184,7 @@ static void MMCumount(void) {
  * MMC card mount.
  */
 static void MMCmount(void) {
+	printMmcPinout();
 
 	if (fs_ready) {
 		print("Error: Already mounted. \"umountsd\" first\r\n");
