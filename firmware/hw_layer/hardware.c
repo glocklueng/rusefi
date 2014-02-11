@@ -30,15 +30,24 @@ static void initSpiModule(SPIDriver *driver, ioportid_t sckPort, ioportmask_t sc
 
 	mySetPadMode("SPI master out", mosiPort, mosiPin, PAL_MODE_ALTERNATE(af));
 	mySetPadMode("SPI master in ", misoPort, misoPin, PAL_MODE_ALTERNATE(af));
-
 }
 
 void initSpiModules(void) {
 #if STM32_SPI_USE_SPI2
-	initSpiModule(&SPID2, EFI_SPI2_SCK_PORT, EFI_SPI2_SCK_PIN,
+//	scheduleMsg(&logging, "Turning on SPI2 pins");
+	initSpiModule(&SPID2,
+			EFI_SPI2_SCK_PORT, EFI_SPI2_SCK_PIN,
 			EFI_SPI2_MISO_PORT, EFI_SPI2_MISO_PIN,
 			EFI_SPI2_MOSI_PORT, EFI_SPI2_MOSI_PIN,
 			EFI_SPI2_AF);
+#endif
+#if STM32_SPI_USE_SPI3
+//	scheduleMsg(&logging, "Turning on SPI3 pins");
+	initSpiModule(&SPID3,
+			EFI_SPI3_SCK_PORT, EFI_SPI3_SCK_PIN,
+			EFI_SPI3_MISO_PORT, EFI_SPI3_MISO_PIN,
+			EFI_SPI3_MOSI_PORT, EFI_SPI3_MOSI_PIN,
+			EFI_SPI3_AF);
 #endif
 }
 
