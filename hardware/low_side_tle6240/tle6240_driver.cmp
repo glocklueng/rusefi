@@ -1,0 +1,94 @@
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 11.02.2014 10:28:45
+
+BeginCmp
+TimeStamp = /52F8B996;
+Reference = C1;
+ValeurCmp = C;
+IdModule  = c_0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F8D9F4;
+Reference = D1;
+ValeurCmp = LED;
+IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F8B8AA;
+Reference = D2;
+ValeurCmp = TLE6240;
+IdModule  = PG-DSO-36;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F9D123;
+Reference = D3;
+ValeurCmp = LED;
+IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F9CFE5;
+Reference = K1;
+ValeurCmp = CONN_3;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F8BA09;
+Reference = P1;
+ValeurCmp = CONN_10X2;
+IdModule  = PIN_ARRAY_10X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F8B91D;
+Reference = P2;
+ValeurCmp = CONN_2;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F8BA27;
+Reference = P3;
+ValeurCmp = CONN_4;
+IdModule  = bornier4;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F8BA36;
+Reference = P4;
+ValeurCmp = CONN_4;
+IdModule  = bornier4;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F8BA45;
+Reference = P5;
+ValeurCmp = CONN_4;
+IdModule  = bornier4;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F8BA54;
+Reference = P6;
+ValeurCmp = CONN_4;
+IdModule  = bornier4;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F8DA08;
+Reference = R1;
+ValeurCmp = R;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /52F9D13C;
+Reference = R2;
+ValeurCmp = R;
+IdModule  = SM0805;
+EndCmp
+
+EndListe
