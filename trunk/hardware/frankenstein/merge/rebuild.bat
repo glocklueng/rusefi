@@ -36,7 +36,7 @@ cp ../can_board/can_brd_1.sch .
 
 
 rem Now let's merge all compoennt mappings automatically. Magic!
-java -jar ../../java_tools/pcb_sync.jar cmp_merge frankenstein.cmp ../can_board/can_brd_1.cmp ../1A_injector_12-channels/inj_12ch.cmp ../adc_amp_divider.vertical12/adc_amp_divider.cmp ../usb_mmc_spi/mmc_usb_1.cmp ../frankenstein_foundation/frankenstein_foundation.cmp ../knock_VR_Art_ELectro/cps_vrs_io_1.cmp
+java -jar ../../java_tools/pcb_sync.jar cmp_merge frankenstein.cmp ../hi-lo_driver/hi-lo.cmp ../can_board/can_brd_1.cmp ../1A_injector_12-channels/inj_12ch.cmp ../adc_amp_divider.vertical12/adc_amp_divider.cmp ../usb_mmc_spi/mmc_usb_1.cmp ../frankenstein_foundation/frankenstein_foundation.cmp ../knock_VR_Art_ELectro/cps_vrs_io_1.cmp
 
 
 
