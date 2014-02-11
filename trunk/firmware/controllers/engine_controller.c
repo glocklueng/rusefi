@@ -77,9 +77,16 @@ static void updateErrorCodes(void) {
 
 static void fanRelayControl(void) {
 
-	int currentValue = getOutputPinValue(FAN_RELAY);
-	int newValue = getCoolantTemperature() > engineConfiguration->fanOnTemperature;
-	if(currentValue!=newValue) {
+	int isCurrentlyOn = getOutputPinValue(FAN_RELAY);
+	int newValue;
+	if (isCurrentlyOn) {
+		// if the fan is already on, we keep it on till the 'fanOff' temperature
+		newValue = getCoolantTemperature() > engineConfiguration->fanOffTemperature;
+	} else {
+		newValue = getCoolantTemperature() > engineConfiguration->fanOnTemperature;
+	}
+
+	if (isCurrentlyOn != newValue) {
 		scheduleMsg(&logger, "FAN relay: %s", newValue ? "ON" : "OFF");
 		setOutputPinValue(FAN_RELAY, newValue);
 	}
@@ -103,7 +110,7 @@ static void initPeriodicEvents(void) {
 
 static void fuelPumpOff(void *arg) {
 	if (getOutputPinValue(FUEL_PUMP_RELAY))
-		scheduleMsg(&logger, "fuelPump OFF at %s%d", portname(FUEL_PUMP_PORT), FUEL_PUMP_PIN);
+		scheduleMsg(&logger, "fuelPump OFF at %s%d", portname(FUEL_PUMP_PORT ), FUEL_PUMP_PIN);
 	turnOutputPinOff(FUEL_PUMP_RELAY);
 }
 
@@ -111,7 +118,7 @@ static void fuelPumpOn(ShaftEvents signal, int index) {
 	if (index != 0)
 		return; // let's not abuse the timer - one time per revolution would be enough
 	if (!getOutputPinValue(FUEL_PUMP_RELAY))
-		scheduleMsg(&logger, "fuelPump ON at %s%d", portname(FUEL_PUMP_PORT), FUEL_PUMP_PIN);
+		scheduleMsg(&logger, "fuelPump ON at %s%d", portname(FUEL_PUMP_PORT ), FUEL_PUMP_PIN);
 	turnOutputPinOn(FUEL_PUMP_RELAY);
 	/**
 	 * the idea of this implementation is that we turn the pump when the ECU turns on or
@@ -133,8 +140,10 @@ void printTemperatureInfo(void) {
 	scheduleMsg(&logger, "CLT R=%f on channel %d", rClt, engineConfiguration2->clt.channel);
 	scheduleMsg(&logger, "IAT R=%f on channel %d", rIat, engineConfiguration2->iat.channel);
 
-	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMinTempMs, engineConfiguration->crankingSettings.coolantTempMinC);
-	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMaxTempMs, engineConfiguration->crankingSettings.coolantTempMaxC);
+	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMinTempMs,
+			engineConfiguration->crankingSettings.coolantTempMinC);
+	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMaxTempMs,
+			engineConfiguration->crankingSettings.coolantTempMaxC);
 }
 
 void initEngineContoller(void) {
@@ -173,7 +182,7 @@ void initEngineContoller(void) {
 	initInjectorCentral();
 	initIgnitionCentral();
 	initMalfunctionCentral();
-	
+
 #if EFI_ELECTRONIC_THROTTLE_BODY
 	initElectronicThrottle();
 #endif /* EFI_ELECTRONIC_THROTTLE_BODY */
@@ -184,7 +193,6 @@ void initEngineContoller(void) {
 	 * This method initialized the main listener which actually runs injectors & ignition
 	 */
 	initMainEventListener();
-
 
 #if EFI_IDLE_CONTROL
 	startIdleThread();
