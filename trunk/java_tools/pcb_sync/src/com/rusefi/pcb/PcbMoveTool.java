@@ -1,6 +1,5 @@
 package com.rusefi.pcb;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -10,18 +9,17 @@ import java.util.List;
  */
 public class PcbMoveTool {
     public static void main(String[] args) throws IOException {
-        if (args.length != 3) {
-            System.out.println("Three parameters expected: FILENAME X Y");
+        if (args.length != 4) {
+            System.out.println("Four parameters expected: SRC_FILENAME DST_FILENAME X Y");
             return;
         }
-        String fileName = args[0];
-        double x = Double.parseDouble(args[1]);
-        double y = Double.parseDouble(args[2]);
+        String srcFileName = args[0];
+        String dstFileName = args[1];
+        double x = Double.parseDouble(args[2]);
+        double y = Double.parseDouble(args[3]);
 
-        new File("output").mkdir();
-
-        PcbNode node = readAndMove(fileName, x, y);
-        node.write("output" + File.separator + fileName);
+        PcbNode node = readAndMove(srcFileName, x, y);
+        node.write(dstFileName);
     }
 
     public static PcbNode readAndMove(String fileName, double x, double y) throws IOException {
