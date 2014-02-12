@@ -13,4 +13,8 @@ public class LayerNode extends PcbNode {
         super(nodeName, closingIndex, children);
         name = (String) children.get(0);
     }
+
+    boolean isSikscreenLayer() {
+        return name.equals("B.SilkS") || name.equals("F.SilkS");
+    }
 }

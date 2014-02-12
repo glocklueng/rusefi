@@ -87,6 +87,14 @@ public class PcbMergeTool {
             netIdMapping.put(netId, networks.getId(newName));
         }
 
+        List<PcbNode> zones = source.iterate("zone");
+        log("Processing  " + zones.size() + " zone(s)");
+        for (PcbNode z : zones) {
+            ZoneNode zone = (ZoneNode) z;
+            if (zone.getLayerNode().isSikscreenLayer())
+                destNode.addChild(zone);
+        }
+
         List<PcbNode> arcs = source.iterate("gr_arc");
         log("Processing  " + arcs.size() + " arc(s)");
         for (PcbNode arc : arcs)
@@ -97,7 +105,7 @@ public class PcbMergeTool {
         log("Processing  " + lines.size() + " line(s)");
         for (PcbNode l : lines) {
             GrLineNode line = (GrLineNode) l;
-            if (line.layerNode.name.equals("B.SilkS") || line.layerNode.name.equals("F.SilkS"))
+            if (line.layerNode.isSikscreenLayer())
                 destNode.addChild(line);
         }
 
