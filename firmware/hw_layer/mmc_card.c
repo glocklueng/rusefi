@@ -18,6 +18,10 @@
 
 #if EFI_FILE_LOGGING
 
+#define PUSHPULLDELAY 500
+
+static WORKING_AREA(tp_MMC_Monitor,UTILITY_THREAD_STACK_SIZE);		// MMC monitor thread
+
 /**
  * MMC driver instance.
  */
@@ -209,13 +213,39 @@ static void MMCmount(void) {
 	}
 }
 
+#if defined __GNUC__
+__attribute__((noreturn))      static msg_t MMCmonThread(void)
+#else
+static msg_t MMCmonThread(void)
+#endif
+{
+	chRegSetThreadName("MMC_Monitor");
+
+	while (TRUE) {
+		if (blkIsInserted(&MMCD1)) {
+			if (fs_ready == FALSE) {
+				MMCmount();
+			}
+		}
+
+		// this thread is activated 10 times per second
+		chThdSleepMilliseconds(PUSHPULLDELAY);
+	}
+}
+
 void initMmcCard(void) {
 	initLogging(&logger, "mmcCard");
 
 	/**
 	 * FYI: SPI does not work with CCM memory, be sure to have main() stack in RAM, not in CCMRAM
 	 */
-//	MMCmount();
+
+	// start to initialize MMC/SD
+	mmcObjectInit(&MMCD1);
+	mmcStart(&MMCD1, &mmccfg);
+
+	chThdCreateStatic(tp_MMC_Monitor, sizeof(tp_MMC_Monitor), LOWPRIO, (tfunc_t) MMCmonThread, NULL);
+
 	addConsoleAction("sdstat", sdStatistics);
 	addConsoleAction("mountsd", MMCmount);
 	addConsoleActionS("appendToLog", appendToLog);
