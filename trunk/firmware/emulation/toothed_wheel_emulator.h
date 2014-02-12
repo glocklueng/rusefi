@@ -11,6 +11,6 @@
 
 #include "dist_emulator.h"
 
-void skippedToothTriggerShape(trigger_shape_s *s, int totalTeethCount, int skippedCount);
+void skippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount, int skippedCount);
 
 #endif /* TOOTHED_WHEEL_EMULATOR_H_ */

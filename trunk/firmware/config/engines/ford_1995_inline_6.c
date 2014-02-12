@@ -9,10 +9,12 @@
 
 #include "main.h"
 #include "ford_1995_inline_6.h"
+#include "toothed_wheel_emulator.h"
 
 void setFordInline6(engine_configuration_s *engineConfiguration) {
 
 }
-void setFordInline6_2(engine_configuration2_s *engineConfiguration2) {
 
+void setFordInline6_2(engine_configuration2_s *engineConfiguration2) {
+	skippedToothTriggerShapeExt(engineConfiguration2, 3, 0);
 }
