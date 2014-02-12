@@ -41,6 +41,8 @@ typedef enum {
 
 	HONDA_ACCORD = 6,
 
+	FORD_INLINE_6_1995 = 7,
+
 	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;
 
