@@ -1944,6 +1944,12 @@
         <name>$PROJ_DIR$\..\config\engines\engine.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\config\engines\ford_1995_inline_6.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\ford_1995_inline_6.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\config\engines\ford_aspire.c</name>
       </file>
       <file>
