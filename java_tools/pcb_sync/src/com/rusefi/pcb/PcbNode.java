@@ -84,6 +84,8 @@ public class PcbNode {
             return new ModuleNode(nodeName, index + 1, children);
         } else if ("size".equals(nodeName) || "width".equals(nodeName)) {
             return new SizeNode(nodeName, index + 1, children);
+        } else if ("zone".equals(nodeName)) {
+            return new ZoneNode(nodeName, index + 1, children);
         } else if ("via".equals(nodeName)) {
             return new ViaNode(nodeName, index + 1, children);
         } else if ("start".equals(nodeName) || "end".equals(nodeName) || "at".equals(nodeName)) {
