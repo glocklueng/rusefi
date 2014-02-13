@@ -59,6 +59,8 @@ char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 		return "Honda Accord";
 	case FORD_INLINE_6_1995:
 		return "Ford 1995 inline 6";
+	case GY6_139QMB:
+		return "Gy6 139qmb";
 	default:
 		return NULL;
 	}

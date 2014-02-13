@@ -28,6 +28,7 @@
 #include "snow_blower.h"
 #include "nissan_primera.h"
 #include "honda_accord.h"
+#include "GY6_139QMB.h"
 
 static engine_type_e defaultEngineType = FORD_ASPIRE_1996;
 
@@ -90,6 +91,9 @@ static void applyNonPersistentConfiguration(engine_type_e engineType) {
 	case FORD_INLINE_6_1995:
 		setFordInline6_2(engineConfiguration2);
 		break;
+	case GY6_139QMB:
+		setGy6139qmbengine_configuration2_s(engineConfiguration2);
+		break;
 	default:
 		fatal("Unexpected engine type")
 		;
@@ -121,6 +125,9 @@ void resetConfiguration(engine_type_e engineType) {
 		break;
 	case FORD_INLINE_6_1995:
 		setFordInline6(engineConfiguration);
+		break;
+	case GY6_139QMB:
+		setGy6139qmbDefaultEngineConfiguration(engineConfiguration);
 		break;
 	default:
 		fatal("Unexpected engine type")
