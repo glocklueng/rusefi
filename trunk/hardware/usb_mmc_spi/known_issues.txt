@@ -1,0 +1,2 @@
+1) minor issue: silkscreen font is too small
+2) major issue: at least the left side connector RX and TX pins are messed up
