@@ -57,8 +57,8 @@ extern TunerStudioState tsState;
 static void printStats(void) {
 #if EFI_TUNER_STUDIO_OVER_USB
 #else
-	print("TS RX on %s%d\r\n", portname(TS_SERIAL_PORT), TS_SERIAL_RX_PIN);
-	print("TS TX on %s%d\r\n", portname(TS_SERIAL_PORT), TS_SERIAL_TX_PIN);
+	print("TS RX on %s%d\r\n", portname(TS_SERIAL_RX_PORT), TS_SERIAL_RX_PIN);
+	print("TS TX on %s%d\r\n", portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN);
 #endif /* EFI_TUNER_STUDIO_OVER_USB */
 	print("TunerStudio total/error counter=%d/%d\r\n", tsCounter, tsState.errorCounter);
 	print("TunerStudio H counter=%d\r\n", tsState.queryCommandCounter);
@@ -155,8 +155,8 @@ void startTunerStudioConnectivity(void) {
 	usb_serial_start();
 #else
 	print("TunerStudio over USART");
-	mySetPadMode("tunerstudio rx", TS_SERIAL_PORT, TS_SERIAL_RX_PIN, PAL_MODE_ALTERNATE(7));
-	mySetPadMode("tunerstudio tx", TS_SERIAL_PORT, TS_SERIAL_TX_PIN, PAL_MODE_ALTERNATE(7));
+	mySetPadMode("tunerstudio rx", TS_SERIAL_RX_PORT, TS_SERIAL_RX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
+	mySetPadMode("tunerstudio tx", TS_SERIAL_TX_PORT, TS_SERIAL_TX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
 
 	sdStart(TS_SERIAL_DEVICE, &tsSerialConfig);
 #endif
