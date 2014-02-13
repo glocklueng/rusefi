@@ -139,8 +139,8 @@
   (net 32 /SI)
   (net 33 /SO)
   (net 34 GND)
-  (net 35 N-0000015)
-  (net 36 N-0000017)
+  (net 35 N-0000014)
+  (net 36 N-0000023)
 
   (net_class Default "This is the default net class."
     (clearance 0)
@@ -150,6 +150,8 @@
     (uvia_dia 0.508)
     (uvia_drill 0.127)
     (add_net "")
+    (add_net N-0000014)
+    (add_net N-0000023)
   )
 
   (net_class Power ""
@@ -202,8 +204,6 @@
     (add_net /SCLK)
     (add_net /SI)
     (add_net /SO)
-    (add_net N-0000015)
-    (add_net N-0000017)
   )
 
   (module SM0805 (layer F.Cu) (tedit 5091495C) (tstamp 52FB0DAD)
@@ -229,7 +229,7 @@
     )
     (pad 2 smd rect (at 0.9525 0 180) (size 0.889 1.397)
       (layers F.Cu F.Paste F.Mask)
-      (net 36 N-0000017)
+      (net 36 N-0000023)
     )
     (model smd/chip_cms.wrl
       (at (xyz 0 0 0))
@@ -257,7 +257,7 @@
     (fp_line (start 1.524 0.762) (end 0.508 0.762) (layer F.SilkS) (width 0.09906))
     (pad 1 smd rect (at -0.9525 0 270) (size 0.889 1.397)
       (layers F.Cu F.Paste F.Mask)
-      (net 35 N-0000015)
+      (net 35 N-0000014)
     )
     (pad 2 smd rect (at 0.9525 0 270) (size 0.889 1.397)
       (layers F.Cu F.Paste F.Mask)
@@ -274,11 +274,11 @@
     (at 208.915 143.51 90)
     (descr "Connecteur 3 pins")
     (tags "CONN DEV")
-    (path /52F9CFE5)
+    (path /52FC8371)
     (fp_text reference K1 (at 0.254 -2.159 90) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.1524)))
     )
-    (fp_text value CONN_3 (at 0 -2.159 90) (layer F.SilkS) hide
+    (fp_text value JUMPER3 (at 0 -2.159 90) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.1524)))
     )
     (fp_line (start -3.81 1.27) (end -3.81 -1.27) (layer F.SilkS) (width 0.1524))
@@ -638,7 +638,7 @@
     )
     (pad 2 smd rect (at 1.04902 0) (size 1.19888 1.19888)
       (layers F.Cu F.Paste F.Mask)
-      (net 36 N-0000017)
+      (net 36 N-0000023)
     )
   )
 
@@ -713,7 +713,7 @@
     )
     (pad 2 smd rect (at 1.04902 0) (size 1.19888 1.19888)
       (layers F.Cu F.Paste F.Mask)
-      (net 35 N-0000015)
+      (net 35 N-0000014)
     )
   )
 
