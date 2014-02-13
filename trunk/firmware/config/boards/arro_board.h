@@ -231,10 +231,21 @@
 //#define CONSOLE_TX_PIN 10
 //#define CONSOLE_RX_PIN 11
 
-#define EFI_CONSOLE_PORT GPIOD
+/**
+ * Here we define the pinout for the human-readable protocol via UART, TunerStudio pinout is defined separately
+ */
+#define EFI_CONSOLE_TX_PORT GPIOD
 #define EFI_CONSOLE_TX_PIN 8
+#define EFI_CONSOLE_RX_PORT GPIOD
 #define EFI_CONSOLE_RX_PIN 9
 #define EFI_CONSOLE_AF 7
+
+//#define EFI_CONSOLE_TX_PORT GPIOC
+//#define EFI_CONSOLE_TX_PIN 10
+//#define EFI_CONSOLE_RX_PORT GPIOC
+//#define EFI_CONSOLE_RX_PIN 11
+//#define EFI_CONSOLE_AF 7
+
 
 #define LED_CRANKING_STATUS_PORT GPIOD
 #define LED_CRANKING_STATUS_PIN GPIOD_LED3
