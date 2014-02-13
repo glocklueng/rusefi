@@ -42,6 +42,12 @@ typedef enum {
 	HONDA_ACCORD = 6,
 
 	FORD_INLINE_6_1995 = 7,
+/**
+ * one cylinder engine
+ * 139qmb 50-90cc
+ * http://rusefi.com/forum/viewtopic.php?f=3&t=332
+ */
+	GY6_139QMB = 8,
 
 	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;
