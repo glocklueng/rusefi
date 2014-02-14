@@ -91,7 +91,7 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 		triggerAddEvent(s, angleUp, T_PRIMARY, 0);
 	}
 
-	float angleDown = 720.0 / totalTeethCount * (totalTeethCount - skippedCount + toothWidth);
+	float angleDown = 720.0 / totalTeethCount * (totalTeethCount - skippedCount - 1 + toothWidth);
 	triggerAddEvent(s, angleDown, T_PRIMARY, 1);
 	triggerAddEvent(s, 720, T_PRIMARY, 0);
 }
