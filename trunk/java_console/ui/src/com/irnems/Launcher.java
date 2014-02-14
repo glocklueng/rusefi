@@ -3,11 +3,10 @@ package com.irnems;
 import com.irnems.core.MessagesCentral;
 import com.irnems.ui.*;
 import com.rusefi.AnalogChartPanel;
-import jssc.SerialPortException;
+import com.rusefi.SerialLookupFrame;
 import jssc.SerialPortList;
 
 import javax.swing.*;
-import java.util.Arrays;
 
 /**
  * this is the main entry point of rusEfi ECU console
@@ -18,7 +17,9 @@ import java.util.Arrays;
  */
 public class Launcher extends FrameHelper {
 
-    public Launcher(String port) throws SerialPortException {
+    public Launcher(String port) {
+        FileLog.INSTANCE.start();
+
         SerialManager.port = port;
 
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -37,7 +38,7 @@ public class Launcher extends FrameHelper {
         tabbedPane.add("Log Viewer", new LogViewer());
 
         tabbedPane.setSelectedIndex(2);
-        tabbedPane.setSelectedIndex(5);
+//        tabbedPane.setSelectedIndex(5);
 
         for (String p : SerialPortList.getPortNames())
             MessagesCentral.getInstance().postMessage(Launcher.class, "Available port: " + p);
@@ -60,35 +61,37 @@ public class Launcher extends FrameHelper {
         System.exit(0);
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler());
-
-        try {
-            FileLog.INSTANCE.start();
-        } catch (Throwable e) {
-            DefaultExceptionHandler.handleException(e);
-        }
-
-        final String port = args.length > 0 ? args[0] : lookupPort();
-
         SwingUtilities.invokeAndWait(new Runnable() {
             public void run() {
-                try {
-                    new Launcher(port);
-                } catch (SerialPortException e) {
-                    throw new IllegalStateException(e);
-                }
+                awtCode(args);
             }
         });
     }
 
-    private static String lookupPort() {
-        String[] ports = new String[]{};
-        if (!SerialManager.onlyUI) {
-            ports = SerialPortList.getPortNames();
-            if (ports.length < 2)
-                throw new IllegalStateException("expected two ports but got only " + Arrays.toString(ports));
+    private static void awtCode(String[] args) {
+        try {
+
+            boolean isPortDefined = args.length > 0;
+            if (isPortDefined) {
+                new Launcher(args[0]);
+            } else {
+                SerialLookupFrame.chooseSerialPort();
+            }
+
+        } catch (Throwable e) {
+            throw new IllegalStateException(e);
         }
-        return ports.length > 1 ? ports[1] : null;
     }
+//
+//    private static String lookupPort() {
+//        String[] ports = new String[]{};
+//        if (!SerialManager.onlyUI) {
+//            ports = SerialPortList.getPortNames();
+//            if (ports.length < 2)
+//                throw new IllegalStateException("expected two ports but got only " + Arrays.toString(ports));
+//        }
+//        return ports.length > 1 ? ports[1] : null;
+//    }
 }
