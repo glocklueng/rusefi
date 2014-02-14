@@ -18,6 +18,20 @@ int isTriggerDecoderError(void) {
 	return cbSum(&errorDetection, 6) > 4;
 }
 
+static inline int isSynchronizationGap(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
+		int currentDuration) {
+	return currentDuration > shaftPositionState->toothed_previous_duration * triggerShape->syncRatioFrom
+			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerShape->syncRatioTo;
+}
+
+static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape) {
+	if (!triggerShape->onlyOneTeeth)
+		return FALSE;
+	if (!shaftPositionState->shaft_is_synchronized)
+		return FALSE;
+	return shaftPositionState->current_index == triggerShape->shaftPositionEventCount - 1;
+}
+
 /**
  * @brief This method changes the state of trigger_state_s data structure according to the trigger event
  */
@@ -46,9 +60,8 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *t
 	}
 #endif
 
-	if (triggerShape->onlyOneTeeth
-			|| (currentDuration > shaftPositionState->toothed_previous_duration * triggerShape->syncRatioFrom
-					&& currentDuration < shaftPositionState->toothed_previous_duration * triggerShape->syncRatioTo)) {
+	if (noSynchronizationResetNeeded(shaftPositionState, triggerShape)
+			|| isSynchronizationGap(shaftPositionState, triggerShape, currentDuration)) {
 		/**
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
 		 */
