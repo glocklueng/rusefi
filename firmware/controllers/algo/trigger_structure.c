@@ -5,7 +5,12 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
+#include "main.h"
 #include "trigger_structure.h"
+
+void clearTriggerState(trigger_state_s *state) {
+	state->shaft_is_synchronized = FALSE;
+}
 
 void triggerShapeInit(trigger_shape_s *trigger) {
 	trigger->size = 0;

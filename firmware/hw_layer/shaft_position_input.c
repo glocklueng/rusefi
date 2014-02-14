@@ -125,6 +125,7 @@ void initShaftPositionInputCapture() {
 
 	resetHistogram(&triggerCallback, "trigger");
 	initTriggerDecoder();
+	clearTriggerState(&triggerState);
 
 	addConsoleAction("trigger_hist", showTriggerHistogram);
 
