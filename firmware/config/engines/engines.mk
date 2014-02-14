@@ -1,10 +1,10 @@
 
-ENGINES_SRC = config/engines/audi_aan.c \
-	config/engines/dodge_neon.c \
-	config/engines/ford_aspire.c \
-	config/engines/ford_fiesta.c \
-	config/engines/ford_1995_inline_6.c \
-	config/engines/nissan_primera.c \
-	config/engines/honda_accord.c \
-	config/engines/snow_blower.c \
-	config/engines/GY6_139QMB.c
+ENGINES_SRC = $(PROJECT_DIR)/config/engines/audi_aan.c \
+	$(PROJECT_DIR)/config/engines/dodge_neon.c \
+	$(PROJECT_DIR)/config/engines/ford_aspire.c \
+	$(PROJECT_DIR)/config/engines/ford_fiesta.c \
+	$(PROJECT_DIR)/config/engines/ford_1995_inline_6.c \
+	$(PROJECT_DIR)/config/engines/nissan_primera.c \
+	$(PROJECT_DIR)/config/engines/honda_accord.c \
+	$(PROJECT_DIR)/config/engines/snow_blower.c \
+	$(PROJECT_DIR)/config/engines/GY6_139QMB.c
