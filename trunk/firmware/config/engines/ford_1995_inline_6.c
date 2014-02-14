@@ -11,10 +11,19 @@
 #include "ford_1995_inline_6.h"
 #include "toothed_wheel_emulator.h"
 
+#if EFI_SUPPORT_1995_FORD_INLINE_6
+
 void setFordInline6(engine_configuration_s *engineConfiguration) {
 
 }
 
 void setFordInline6_2(engine_configuration2_s *engineConfiguration2) {
-	skippedToothTriggerShapeExt(engineConfiguration2, 3, 0);
+
+	/**
+	 * we have a sensor on the camshaft, so rpmMultiplier == 2
+	 */
+	engineConfiguration2->rpmMultiplier = 2;
+	skippedToothTriggerShapeExt(engineConfiguration2, 6, 0);
 }
+
+#endif /* EFI_SUPPORT_1995_FORD_INLINE_6 */
