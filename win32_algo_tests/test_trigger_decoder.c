@@ -73,9 +73,28 @@ static void test1995FordInline6TriggerDecoder(void) {
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r + 11);
 	assertTrue(state.shaft_is_synchronized); // first signal rise synchronize
+	assertEquals(0, state.current_index);
+	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r++);
+	assertEquals(1, state.current_index);
+
+	for (int i = 2; i < 10;) {
+		processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r++);
+		assertEquals(i++, state.current_index);
+		processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r++);
+		assertEquals(i++, state.current_index);
+	}
+
+	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r++);
+	assertEquals(10, state.current_index);
+
+	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r++);
+	assertEquals(11, state.current_index);
+
+	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r++);
+	assertEquals(0, state.current_index); // new revolution
+
 
 }
-
 
 void testTriggerDecoder(void) {
 	printf("*************************************************** testTriggerDecoder\r\n");
