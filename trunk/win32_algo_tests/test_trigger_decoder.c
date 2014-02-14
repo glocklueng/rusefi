@@ -20,8 +20,9 @@ static void testDodgeNeonDecoder(void) {
 	setDodgeNeonengine_configuration2_s(&ec2);
 	trigger_shape_s * shape = &ec2.triggerShape;
 	trigger_state_s state;
+	clearTriggerState(&state);
 
-	assertFalse(state.shaft_is_synchronized);
+	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
 
 	int r = 0;
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r + 60);
@@ -98,6 +99,16 @@ static void test1995FordInline6TriggerDecoder(void) {
 
 void testTriggerDecoder(void) {
 	printf("*************************************************** testTriggerDecoder\r\n");
+
+	engine_configuration2_s ec2;
+
+	skippedToothTriggerShapeExt(&ec2, 2, 0);
+	assertEquals(ec2.triggerShape.size, 4);
+	assertEquals(ec2.triggerShape.wave.switchTimes[0], 0.25);
+	assertEquals(ec2.triggerShape.wave.switchTimes[1], 0.5);
+	assertEquals(ec2.triggerShape.wave.switchTimes[2], 0.75);
+	assertEquals(ec2.triggerShape.wave.switchTimes[3], 1);
+
 	testDodgeNeonDecoder();
 	test1995FordInline6TriggerDecoder();
 }
