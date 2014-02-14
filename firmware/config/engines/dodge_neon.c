@@ -11,7 +11,6 @@
 
 #include "dodge_neon.h"
 #include "engine_configuration.h"
-#include "main_trigger_callback.h"
 #include "thermistors.h"
 
 static void configureTriggerShape(trigger_shape_s *s) {
