@@ -13,7 +13,6 @@
 #include "signal_executor.h"
 #include "engine_configuration.h"
 
-int isCrankingR(int rpm);
 int isCranking(void);
 void printTemperatureInfo(void);
 void initEngineContoller(void);

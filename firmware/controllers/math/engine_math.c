@@ -114,6 +114,11 @@ float getEngineLoad(void) {
 
 }
 
+int isCrankingR(int rpm) {
+	return rpm > 0 && rpm < engineConfiguration->crankingSettings.crankingRpm;
+}
+
+
 //float getTriggerEventAngle(int triggerEventIndex) {
 //	return 0;
 //}
