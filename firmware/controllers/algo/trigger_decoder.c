@@ -100,6 +100,7 @@ void skippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	engineConfiguration2->triggerShape.shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
 	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount);
+	checkSwitchTimes(s->size, s->wave.switchTimes);
 }
 
 void initTriggerDecoder(void) {
