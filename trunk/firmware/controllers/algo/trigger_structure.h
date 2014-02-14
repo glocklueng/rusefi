@@ -87,4 +87,6 @@ void clearTriggerState(trigger_state_s *state);
 void triggerShapeInit(trigger_shape_s *trigger);
 void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, int state);
 
+void checkSwitchTimes(int size, myfloat *switchTimes);
+
 #endif /* TRIGGER_STRUCTURE_H_ */
