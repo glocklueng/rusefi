@@ -9,7 +9,7 @@
 
 #include "main.h"
 #include "ford_1995_inline_6.h"
-#include "toothed_wheel_emulator.h"
+#include "trigger_decoder.h"
 
 #if EFI_SUPPORT_1995_FORD_INLINE_6
 

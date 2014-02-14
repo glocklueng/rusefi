@@ -12,7 +12,7 @@
 #include "engine_controller.h"
 #include "adc_inputs.h"
 #include "fuel_map.h"
-#include "toothed_wheel_emulator.h"
+#include "trigger_decoder.h"
 #include "engine_configuration.h"
 
 void setNissanPrimeraengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
