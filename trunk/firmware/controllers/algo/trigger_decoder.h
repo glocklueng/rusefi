@@ -10,9 +10,11 @@
 
 #include <time.h>
 #include "trigger_structure.h"
+#include "engine_configuration.h"
 
 int isTriggerDecoderError(void);
 void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape, ShaftEvents signal, time_t now);
+void skippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount, int skippedCount);
 void initTriggerDecoder(void);
 
 #endif /* TRIGGER_DECODER_H_ */

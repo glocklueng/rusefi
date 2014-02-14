@@ -7,7 +7,7 @@
 
 #include "main.h"
 #include "engine_controller.h"
-#include "toothed_wheel_emulator.h"
+#include "trigger_decoder.h"
 
 void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration) {
 
