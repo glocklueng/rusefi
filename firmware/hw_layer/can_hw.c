@@ -23,6 +23,7 @@
 static Logging logger;
 static WORKING_AREA(canTreadStack, UTILITY_THREAD_STACK_SIZE);
 
+extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
 /*
@@ -44,31 +45,28 @@ static int engine_rpm = 0;
 static float engine_clt = 0;
 
 static void printPacket(CANRxFrame *rx) {
-	scheduleSimpleMsg(&logger, "GOT FMI ", rx->FMI);
-	scheduleSimpleMsg(&logger, "GOT TIME ", rx->TIME);
-	scheduleSimpleMsg(&logger, "GOT DLC ", rx->DLC);
-	scheduleSimpleMsg(&logger, "GOT SID ", rx->SID);
+	scheduleMsg(&logger, "CAN FMI %d", rx->FMI);
+	scheduleMsg(&logger, "TIME %d", rx->TIME);
+	scheduleMsg(&logger, "DLC %d", rx->DLC);
+	scheduleMsg(&logger, "SID %d", rx->SID);
 
 	if (rx->SID == CAN_BMW_E46_CLUSTER_STATUS) {
 		int odometerKm = 10 * (rx->data8[1] << 8) + rx->data8[0];
 		int odometerMi = (int)(odometerKm * 0.621371);
-		scheduleSimpleMsg(&logger, "GOT odometerKm ", odometerKm);
-		scheduleSimpleMsg(&logger, "GOT odometerMi ", odometerMi);
+		scheduleMsg(&logger, "GOT odometerKm %d", odometerKm);
+		scheduleMsg(&logger, "GOT odometerMi %d", odometerMi);
 		int timeValue = (rx->data8[4] << 8) + rx->data8[3];
-		scheduleSimpleMsg(&logger, "GOT time ", timeValue);
+		scheduleMsg(&logger, "GOT time %d", timeValue);
 	}
 
-	chThdSleepMilliseconds(5);
-	print("d0 %d\r\n", rx->data8[0]);
-	print("d1 %d\r\n", rx->data8[1]);
-	print("d2 %d\r\n", rx->data8[2]);
-	print("d3 %d\r\n", rx->data8[3]);
-	print("d4 %d\r\n", rx->data8[4]);
-	print("d5 %d\r\n", rx->data8[5]);
-	print("d6 %d\r\n", rx->data8[6]);
-	print("d7 %d\r\n", rx->data8[7]);
-
-	chThdSleepMilliseconds(5);
+	scheduleMsg(&logger, "d0 %d", rx->data8[0]);
+	scheduleMsg(&logger, "d1 %d", rx->data8[1]);
+	scheduleMsg(&logger, "d2 %d", rx->data8[2]);
+	scheduleMsg(&logger, "d3 %d", rx->data8[3]);
+	scheduleMsg(&logger, "d4 %d", rx->data8[4]);
+	scheduleMsg(&logger, "d5 %d", rx->data8[5]);
+	scheduleMsg(&logger, "d6 %d", rx->data8[6]);
+	scheduleMsg(&logger, "d7 %d", rx->data8[7]);
 }
 
 static void setShortValue(CANTxFrame *txmsg, int value, int offset) {
@@ -118,7 +116,6 @@ static void canDashboardVAG(void) {
 	canTransmit(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &txmsg, TIME_INFINITE );
 }
 
-// todo: 'typeOfBCN' should become a enum
 static void canInfoNBCBroadcast(can_nbc_e typeOfNBC) {
 	switch (typeOfNBC) {
 	case CAN_BUS_NBC_BMW:
@@ -135,20 +132,36 @@ static void canInfoNBCBroadcast(can_nbc_e typeOfNBC) {
 	}
 }
 
+static void enableCanRead(int value) {
+	engineConfiguration->canReadEnabled = value;
+}
+
 static void canRead(void) {
-	scheduleSimpleMsg(&logger, "waiting for CAN ", 0);
+	scheduleMsg(&logger, "waiting for CAN");
 	canReceive(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &rxBuffer, TIME_INFINITE );
 
 	printPacket(&rxBuffer);
 }
 
+
+static void writeStateToCan(void) {
+	engine_rpm = getCurrentRpm();
+	engine_clt = getCoolantTemperature();
+
+	canInfoNBCBroadcast(engineConfiguration->can_nbc_type);
+
+}
+
 static msg_t canThread(void *arg) {
 	while (TRUE) {
-		engine_rpm = getCurrentRpm();
-		engine_clt = getCoolantTemperature();
+		if(engineConfiguration->canWriteEnabled)
+			writeStateToCan();
 
-		canInfoNBCBroadcast(engineConfiguration2->can_nbc_type);
-		chThdSleepMilliseconds(engineConfiguration2->can_nbc_broadcast_period);
+		if(engineConfiguration->canReadEnabled)
+			canRead(); // todo: since this is a blocking operation, do we need a separate thread for 'write'?
+
+
+		chThdSleepMilliseconds(engineConfiguration->can_sleep_period);
 	}
 #if defined __GNUC__
 	return -1;
@@ -172,7 +185,7 @@ void initCan(void) {
 	mySetPadMode("CAN TX", EFI_CAN_TX_PORT, EFI_CAN_TX_PIN, PAL_MODE_ALTERNATE(EFI_CAN_TX_AF));
 	mySetPadMode("CAN RX", EFI_CAN_RX_PORT, EFI_CAN_RX_PIN, PAL_MODE_ALTERNATE(EFI_CAN_RX_AF));
 
-	addConsoleAction("canread", canRead);
+	addConsoleActionI("enable_can_read", enableCanRead);
 }
 
 #endif /* EFI_CAN_SUPPORT */

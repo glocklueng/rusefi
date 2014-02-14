@@ -92,6 +92,10 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->fanOnTemperature = 75;
 	engineConfiguration->fanOffTemperature = 70;
 
+	engineConfiguration->can_nbc_type = CAN_BUS_NBC_BMW;
+	engineConfiguration->can_sleep_period = 50;
+	engineConfiguration->canReadEnabled = TRUE;
+	engineConfiguration->canWriteEnabled = FALSE;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
@@ -115,8 +119,6 @@ void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfigu
 	 */
 	engineConfiguration2->crankAngleRange = 720;
 
-	engineConfiguration2->can_nbc_type = CAN_BUS_NBC_BMW;
-	engineConfiguration2->can_nbc_broadcast_period = 50;
 
 	engineConfiguration2->cylindersCount = 4;
 
