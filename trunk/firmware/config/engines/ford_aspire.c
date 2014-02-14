@@ -15,12 +15,9 @@
 #include "engines.h"
 #include "engine_math.h"
 #include "settings.h"
-#include "rpm_calculator.h"
 #include "fuel_map.h"
 #include "advance_map.h"
-#include "engine_controller.h"
 #include "engine_configuration.h"
-#include "main_trigger_callback.h"
 
 #ifdef EFI_SUPPORT_FORD_ASPIRE
 

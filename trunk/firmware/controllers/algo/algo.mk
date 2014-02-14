@@ -1,6 +1,7 @@
 
 CONTROLLERS_ALGO_SRC = $(PROJECT_DIR)/controllers/algo/map_adjuster.c \
-	$(PROJECT_DIR)/controllers/alog/fuel_map.c \
+	$(PROJECT_DIR)/controllers/algo/fuel_map.c \
+	$(PROJECT_DIR)/controllers/algo/advance_map.c \
 	$(PROJECT_DIR)/controllers/algo/engine_configuration.c \
 	$(PROJECT_DIR)/controllers/algo/signal_executor.c \
 	$(PROJECT_DIR)/controllers/algo/interpolation.c \

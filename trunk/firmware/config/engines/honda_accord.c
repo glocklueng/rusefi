@@ -6,7 +6,7 @@
  */
 
 #include "main.h"
-#include "engine_controller.h"
+#include "engine_configuration.h"
 #include "trigger_decoder.h"
 
 void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration) {
