@@ -78,7 +78,7 @@ void publishChart(WaveChart *chart) {
  * @brief	Register a change in sniffed signal
  */
 void addWaveChartEvent3(WaveChart *chart, char *name, char * msg, char * msg2) {
-	chDbgAssert(chart->isInitialized, "chart not initizlied" , 0);
+	chDbgCheck(chart->isInitialized, "chart not initizlied");
 #if DEBUG_WAVE
 	scheduleSimpleMsg(&debugLogging, "current", chart->counter);
 #endif

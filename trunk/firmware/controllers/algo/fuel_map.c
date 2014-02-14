@@ -56,7 +56,7 @@ float getInjectorLag(float vBatt) {
 }
 
 float getBaseFuel(int rpm, float engineLoad) {
-	chDbgAssert(initialized, "fuel map initialized", NULL);
+	chDbgCheck(initialized, "fuel map initialized");
 	return interpolate3d(engineLoad, engineConfiguration->fuelLoadBins, FUEL_LOAD_COUNT, rpm, engineConfiguration->fuelRpmBins,
 	FUEL_RPM_COUNT, fuel_ptrs);
 }
@@ -105,7 +105,7 @@ inline static int getElectricalValue1(pin_output_mode_e mode) {
 }
 
 int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
-	chDbgAssert(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
+	chDbgCheck(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e");
 
 	return logicalValue ? getElectricalValue1(mode) : getElectricalValue0(mode);
 }
