@@ -52,10 +52,6 @@ static Logging logger;
 static engine_configuration2_s ec2;
 engine_configuration2_s * engineConfiguration2 = &ec2;
 
-int isCrankingR(int rpm) {
-	return rpm > 0 && rpm < engineConfiguration->crankingSettings.crankingRpm;
-}
-
 int isCranking(void) {
 	int rpm = getCurrentRpm();
 	return isCrankingR(rpm);

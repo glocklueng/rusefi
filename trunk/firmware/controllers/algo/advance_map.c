@@ -10,7 +10,7 @@
 // that's for 'max' function
 #include "idle_controller.h"
 
-#include "engine_controller.h"
+#include "engine_configuration.h"
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;

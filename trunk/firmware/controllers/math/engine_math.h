@@ -18,6 +18,8 @@ float getStartingFuel(float coolantTemperature);
 float getOneDegreeTime(int rpm);
 float getCrankshaftRevolutionTime(int rpm);
 
+int isCrankingR(int rpm);
+
 typedef struct {
 	float coolantTempMinC;
 	float coolantTempMaxC;
