@@ -28,7 +28,7 @@ static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionSta
 	if (!triggerShape->onlyOneTeeth)
 		return FALSE;
 	if (!shaftPositionState->shaft_is_synchronized)
-		return FALSE;
+		return TRUE;
 	return shaftPositionState->current_index == triggerShape->shaftPositionEventCount - 1;
 }
 

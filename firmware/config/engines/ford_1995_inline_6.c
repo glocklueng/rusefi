@@ -24,6 +24,8 @@ void setFordInline6_2(engine_configuration2_s *engineConfiguration2) {
 	 */
 	engineConfiguration2->rpmMultiplier = 2;
 	skippedToothTriggerShapeExt(engineConfiguration2, 6, 0);
+	engineConfiguration2->triggerShape.useRiseEdge = TRUE;
+	engineConfiguration2->triggerShape.onlyOneTeeth = TRUE;
 }
 
 #endif /* EFI_SUPPORT_1995_FORD_INLINE_6 */

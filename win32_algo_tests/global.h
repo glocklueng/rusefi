@@ -15,5 +15,7 @@ typedef float myfloat;
 #define EFI_SUPPORT_DODGE_NEON TRUE
 #define EFI_SUPPORT_1995_FORD_INLINE_6 TRUE
 
+#define TRUE 1
+#define FALSE 0
 
 #endif /* GLOBAL_H_ */
