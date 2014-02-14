@@ -18,9 +18,6 @@
 
 typedef int bool_t;
 
-#define TRUE 1
-#define FALSE 0
-
 #define fatal(x) printf(x)
 
 void print(const char *fmt, ...);
@@ -36,6 +33,8 @@ void chDbgAssert(int c, char *msg, void *arg);
 void assertEqualsM(char *msg, float expected, float actual);
 void assertEquals(float expected, float actual);
 void assertTrue(float actual);
+void assertFalse(float actual);
+void assertFalseM(char *msg, float actual);
 
 float getIntakeAirTemperature(void);
 float getCoolantTemperature(void);

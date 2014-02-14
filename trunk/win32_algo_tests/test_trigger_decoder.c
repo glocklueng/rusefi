@@ -11,28 +11,32 @@
 
 #include "ford_aspire.h"
 #include "dodge_neon.h"
+#include "ford_1995_inline_6.h"
 
 static void testDodgeNeonDecoder(void) {
 	printf("*************************************************** testDodgeNeonDecoder\r\n");
 	initTriggerDecoder();
-
-
 	engine_configuration2_s ec2;
-	setFordAspireengine_configuration2_s(&ec2);
-
+	setDodgeNeonengine_configuration2_s(&ec2);
 	trigger_shape_s * shape = &ec2.triggerShape;
 	trigger_state_s state;
 
-	shape->syncRatioFrom = 0.72 * 0.8;
-	shape->syncRatioTo = 0.72 * 1.3;
+	assertFalse(state.shaft_is_synchronized);
 
 	int r = 0;
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r + 60);
-	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r + 210);
-	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r + 420);
-	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r + 630);
+	assertFalse(state.shaft_is_synchronized); // still no synchronization
 
-	printf("2nd\r\n");
+	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r + 210);
+	assertFalse(state.shaft_is_synchronized); // still no synchronization
+
+	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r + 420);
+	assertFalse(state.shaft_is_synchronized); // still no synchronization
+
+	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r + 630);
+	assertFalse(state.shaft_is_synchronized); // still no synchronization
+
+	printf("2nd camshaft revolution\r\n");
 	r = 720;
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r + 60);
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r + 210);
@@ -43,19 +47,32 @@ static void testDodgeNeonDecoder(void) {
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r + 630);
 	assertEquals(2, state.current_index);
 
-	printf("3rd\r\n");
+	printf("3rd camshaft revolution\r\n");
 	r = 2 * 720;
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r + 60);
-	assertEquals(3, state.current_index);
+	assertEqualsM("current index", 3, state.current_index);
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r + 210);
 	assertTrue(state.shaft_is_synchronized);
-	assertEquals(0, state.current_index);
+	assertEqualsM("current index", 0, state.current_index);
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r + 420);
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r + 630);
 }
 
 static void test1995FordInline6TriggerDecoder(void) {
 	printf("*************************************************** test1995FordInline6TriggerDecoder\r\n");
+	initTriggerDecoder();
+	engine_configuration2_s ec2;
+	setFordInline6_2(&ec2);
+	trigger_shape_s * shape = &ec2.triggerShape;
+	trigger_state_s state;
+	clearTriggerState(&state);
+
+	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
+	int r = 0;
+	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r + 10);
+	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
+	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r + 11);
+	assertTrue(state.shaft_is_synchronized); // first signal rise synchronize
 
 }
 
