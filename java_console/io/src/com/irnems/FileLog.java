@@ -20,8 +20,12 @@ public enum FileLog {
     private FileLog() {
     }
 
-    public void start() throws FileNotFoundException {
-        fileLog = openLog();
+    public void start() {
+        try {
+            fileLog = openLog();
+        } catch (FileNotFoundException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     private static FileOutputStream openLog() throws FileNotFoundException {
