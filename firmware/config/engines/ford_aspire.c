@@ -19,7 +19,7 @@
 #include "advance_map.h"
 #include "engine_configuration.h"
 
-#ifdef EFI_SUPPORT_FORD_ASPIRE
+#if EFI_SUPPORT_FORD_ASPIRE
 
 /**
  * Just the default RPM bin - with TunerStudio you can adjust even the bins
