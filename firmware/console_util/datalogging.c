@@ -70,7 +70,7 @@ static int validateBuffer(Logging *logging, int extraLen, char *text) {
 }
 
 static void append(Logging *logging, char *text) {
-	chDbgAssert(text!=NULL, "append NULL", 0);
+	chDbgCheck(text!=NULL, "append NULL");
 	int extraLen = strlen(text);
 	int errcode = validateBuffer(logging, extraLen, text);
 	if (errcode)
@@ -280,7 +280,7 @@ void appendMsgPrefix(Logging *logging) {
 
 void resetLogging(Logging *logging) {
 	char *buffer = logging->buffer;
-	chDbgAssert(buffer!=NULL, "null buffer", 0);
+	chDbgCheck(buffer!=NULL, "null buffer");
 	logging->linePointer = buffer;
 }
 

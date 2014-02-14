@@ -45,14 +45,14 @@ void turnOutputPinOff(io_pin_e pin) {
 
 inline static void assertOMode(pin_output_mode_e mode) {
 	// mode >= 0  is always true since that's an unsigned
-	chDbgAssert(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", NULL);
+	chDbgCheck(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e");
 }
 
 /**
  * @brief Sets the value according to current electrical settings
  */
 void setOutputPinValue(io_pin_e pin, int logicValue) {
-	chDbgAssert(pinDefaultState[pin]!=NULL, "pin mode not initialized", NULL);
+	chDbgCheck(pinDefaultState[pin]!=NULL, "pin mode not initialized");
 	pin_output_mode_e mode = *pinDefaultState[pin];
 	setPinValue(&outputs[pin], getElectricalValue(logicValue, mode), logicValue);
 }

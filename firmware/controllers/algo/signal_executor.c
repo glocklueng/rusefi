@@ -27,7 +27,7 @@ static OutputSignal signals[OUTPUT_SIGNAL_COUNT];
 int outputSignalCount;
 
 OutputSignal * addOutputSignal(io_pin_e ioPin) {
-	chDbgAssert(outputSignalCount < OUTPUT_SIGNAL_COUNT, "OUTPUT_SIGNAL_COUNT", NULL);
+	chDbgCheck(outputSignalCount < OUTPUT_SIGNAL_COUNT, "OUTPUT_SIGNAL_COUNT");
 	OutputSignal *signal = &signals[outputSignalCount++];
 
 	initOutputSignal(signal, ioPin);
