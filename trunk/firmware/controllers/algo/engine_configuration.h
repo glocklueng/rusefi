@@ -158,6 +158,11 @@ typedef struct {
 	 */
 	float fanOffTemperature;
 
+	int canReadEnabled;
+	int canWriteEnabled;
+	can_nbc_e can_nbc_type;
+	int can_sleep_period;
+
 } engine_configuration_s;
 
 /**
@@ -185,8 +190,6 @@ typedef struct {
 
 	int crankAngleRange;
 
-	can_nbc_e can_nbc_type;
-	int can_nbc_broadcast_period;
 
 	trigger_shape_s triggerShape;
 
