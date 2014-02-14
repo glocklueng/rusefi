@@ -68,6 +68,7 @@ PROJECT = rusefi_test
 
 # Imported source files and paths
 include $(PROJECT_DIR)/util/util.mk
+include $(PROJECT_DIR)/config/engines/engines.mk
 include $(PROJECT_DIR)/controllers/algo/algo.mk
 include $(PROJECT_DIR)/controllers/math/math.mk
 include $(PROJECT_DIR)/controllers/sensors/sensors.mk
@@ -116,6 +117,7 @@ ASMSRC = $(PORTASM)
 
 INCDIR = . \
 	$(PROJECT_DIR)/util \
+	$(PROJECT_DIR)/config/engines \
 	$(PROJECT_DIR)/controllers/sensors \
 	$(PROJECT_DIR)/controllers/algo \
 	$(PROJECT_DIR)/controllers/math \

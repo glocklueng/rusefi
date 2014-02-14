@@ -9,9 +9,8 @@
 #include "test_trigger_decoder.h"
 #include "trigger_decoder.h"
 
-void testTriggerDecoder(void) {
-	printf("*************************************************** testTriggerDecoder\r\n");
-
+static void testFordAspireDecoder(void) {
+	printf("*************************************************** testFordAspireDecoder\r\n");
 	initTriggerDecoder();
 
 	trigger_state_s state;
@@ -47,5 +46,15 @@ void testTriggerDecoder(void) {
 	assertEquals(0, state.current_index);
 	processTriggerEvent(&state, &shape, SHAFT_PRIMARY_UP, r + 420);
 	processTriggerEvent(&state, &shape, SHAFT_PRIMARY_DOWN, r + 630);
+}
 
+static int test1995FordInline6TriggerDecoder(void) {
+	printf("*************************************************** test1995FordInline6TriggerDecoder\r\n");
+
+}
+
+
+void testTriggerDecoder(void) {
+	printf("*************************************************** testTriggerDecoder\r\n");
+	testFordAspireDecoder();
 }
