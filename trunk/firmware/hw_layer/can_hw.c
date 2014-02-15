@@ -20,6 +20,7 @@
 
 #if EFI_CAN_SUPPORT
 
+static int canReadCounter = 0;
 static Logging logger;
 static WORKING_AREA(canTreadStack, UTILITY_THREAD_STACK_SIZE);
 
@@ -45,10 +46,10 @@ static int engine_rpm = 0;
 static float engine_clt = 0;
 
 static void printPacket(CANRxFrame *rx) {
-	scheduleMsg(&logger, "CAN FMI %d", rx->FMI);
-	scheduleMsg(&logger, "TIME %d", rx->TIME);
-	scheduleMsg(&logger, "DLC %d", rx->DLC);
-	scheduleMsg(&logger, "SID %d", rx->SID);
+	scheduleMsg(&logger, "CAN FMI %x", rx->FMI);
+	scheduleMsg(&logger, "TIME %x", rx->TIME);
+	scheduleMsg(&logger, "DLC %x", rx->DLC);
+	scheduleMsg(&logger, "SID %x", rx->SID);
 
 	if (rx->SID == CAN_BMW_E46_CLUSTER_STATUS) {
 		int odometerKm = 10 * (rx->data8[1] << 8) + rx->data8[0];
@@ -59,14 +60,14 @@ static void printPacket(CANRxFrame *rx) {
 		scheduleMsg(&logger, "GOT time %d", timeValue);
 	}
 
-	scheduleMsg(&logger, "d0 %d", rx->data8[0]);
-	scheduleMsg(&logger, "d1 %d", rx->data8[1]);
-	scheduleMsg(&logger, "d2 %d", rx->data8[2]);
-	scheduleMsg(&logger, "d3 %d", rx->data8[3]);
-	scheduleMsg(&logger, "d4 %d", rx->data8[4]);
-	scheduleMsg(&logger, "d5 %d", rx->data8[5]);
-	scheduleMsg(&logger, "d6 %d", rx->data8[6]);
-	scheduleMsg(&logger, "d7 %d", rx->data8[7]);
+	scheduleMsg(&logger, "d0 %x", rx->data8[0]);
+	scheduleMsg(&logger, "d1 %x", rx->data8[1]);
+	scheduleMsg(&logger, "d2 %x", rx->data8[2]);
+	scheduleMsg(&logger, "d3 %x", rx->data8[3]);
+	scheduleMsg(&logger, "d4 %x", rx->data8[4]);
+	scheduleMsg(&logger, "d5 %x", rx->data8[5]);
+	scheduleMsg(&logger, "d6 %x", rx->data8[6]);
+	scheduleMsg(&logger, "d7 %x", rx->data8[7]);
 }
 
 static void setShortValue(CANTxFrame *txmsg, int value, int offset) {
@@ -140,6 +141,7 @@ static void canRead(void) {
 	scheduleMsg(&logger, "waiting for CAN");
 	canReceive(&EFI_CAN_DEVICE, CAN_ANY_MAILBOX, &rxBuffer, TIME_INFINITE );
 
+	canReadCounter++;
 	printPacket(&rxBuffer);
 }
 
@@ -168,6 +170,14 @@ static msg_t canThread(void *arg) {
 #endif
 }
 
+static void canInfo(void) {
+	scheduleMsg(&logger, "CAN TX %s:%d", portname(EFI_CAN_TX_PORT), EFI_CAN_TX_PIN);
+	scheduleMsg(&logger, "CAN RX %s:%d", portname(EFI_CAN_RX_PORT), EFI_CAN_RX_PIN);
+	scheduleMsg(&logger, "canReadEnabled=%d canWriteEnabled=%d", engineConfiguration->canReadEnabled, engineConfiguration->canWriteEnabled);
+
+	scheduleMsg(&logger, "CAN rx count %d", canReadCounter);
+}
+
 void initCan(void) {
 	initLogging(&logger, "CAN driver");
 
@@ -186,6 +196,8 @@ void initCan(void) {
 	mySetPadMode("CAN RX", EFI_CAN_RX_PORT, EFI_CAN_RX_PIN, PAL_MODE_ALTERNATE(EFI_CAN_RX_AF));
 
 	addConsoleActionI("enable_can_read", enableCanRead);
+
+	addConsoleAction("caninfo", canInfo);
 }
 
 #endif /* EFI_CAN_SUPPORT */
