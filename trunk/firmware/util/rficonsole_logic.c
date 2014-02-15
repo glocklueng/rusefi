@@ -142,8 +142,8 @@ static void echo(int value) {
 }
 
 void addDefaultConsoleActions() {
-	addConsoleAction("help", &helpCommand);
-	addConsoleActionI("echo", &echo);
+	addConsoleAction("help", helpCommand);
+	addConsoleActionI("echo", echo);
 }
 
 void handleActionWithParameter(TokenCallback *current, char *parameter) {

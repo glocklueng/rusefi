@@ -177,5 +177,5 @@ static void runTests(int count) {
 
 void initTimePerfActions() {
 //	initOutputPin("test pad", &testOutput, TEST_PORT, TEST_PIN);
-	addConsoleActionI("testmath", &runTests);
+	addConsoleActionI("testmath", runTests);
 }

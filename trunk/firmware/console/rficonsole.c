@@ -15,7 +15,7 @@
 #include "console_io.h"
 #include "datalogging.h"
 
-#define VERSION_STRING "20140210"
+#define VERSION_STRING "20140214"
 
 static Logging logger;
 

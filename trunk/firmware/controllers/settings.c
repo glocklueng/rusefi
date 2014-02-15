@@ -200,17 +200,17 @@ static void setCrankingFuleMax(int timeMs, int tempC) {
 void initSettings(void) {
 	initLoggingExt(&logger, "settings control", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 
-	addConsoleActionI("set_ignition_offset", &setIgnitonOffset);
-	addConsoleActionI("set_analog_chart_mode", &setAnalogChartMode);
-	addConsoleActionI("set_fixed_mode_timing", &setFixedModeTiming);
-	addConsoleActionI("set_timing_mode", &setTimingMode);
-	addConsoleActionI("set_engine_type", &setEngineType);
+	addConsoleActionI("set_ignition_offset", setIgnitonOffset);
+	addConsoleActionI("set_analog_chart_mode", setAnalogChartMode);
+	addConsoleActionI("set_fixed_mode_timing", setFixedModeTiming);
+	addConsoleActionI("set_timing_mode", setTimingMode);
+	addConsoleActionI("set_engine_type", setEngineType);
 
-	addConsoleActionI("set_injection_pin_mode", &setInjectionPinMode);
-	addConsoleActionI("set_ignition_pin_mode", &setIgnitionPinMode);
-	addConsoleActionI("set_idle_pin_mode", &setIdlePinMode);
-	addConsoleActionI("set_fuel_pump_pin_mode", &setFuelPumpPinMode);
-	addConsoleActionI("set_malfunction_indicator_pin_mode", &setMalfunctionIndicatorPinMode);
+	addConsoleActionI("set_injection_pin_mode", setInjectionPinMode);
+	addConsoleActionI("set_ignition_pin_mode", setIgnitionPinMode);
+	addConsoleActionI("set_idle_pin_mode", setIdlePinMode);
+	addConsoleActionI("set_fuel_pump_pin_mode", setFuelPumpPinMode);
+	addConsoleActionI("set_malfunction_indicator_pin_mode", setMalfunctionIndicatorPinMode);
 	// todo: start saving values into flash right away?
 
 
