@@ -1,4 +1,4 @@
-EESchema-DOCLIB  Version 2.0  Date: Срд 22 Янв 2014 15:54:41
+EESchema-DOCLIB  Version 2.0  Date: Чтв 13 Фев 2014 20:22:09
 #
 $CMP LM2937
 D Voltage Regulators 3.3v SOT 223/263
@@ -13,6 +13,11 @@ $ENDCMP
 $CMP MCP2551
 D Can transceiver
 K MCP 2551
+$ENDCMP
+#
+$CMP NUF2101MT1G
+D EMI Filter and line termination for USB upstream
+K USB
 $ENDCMP
 #
 $CMP SN65HVD230
