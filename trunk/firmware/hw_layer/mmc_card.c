@@ -3,7 +3,7 @@
  *
  * @date Dec 28, 2013
  * @author Kot_dnz
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  *
  * pinouts for our SPI2 connected to MMC: PB13 - SCK, PB14 - MISO, PB15 - MOSI, PD11 - CS, 3.3v
  *
