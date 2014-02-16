@@ -34,6 +34,7 @@
 #include "pin_repository.h"
 #include "rficonsole_logic.h"
 #include "pwm_generator.h"
+#include "fuel_math.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 

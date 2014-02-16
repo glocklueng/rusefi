@@ -8,9 +8,6 @@
 #ifndef TUNERSTUDIO_H_
 #define TUNERSTUDIO_H_
 
-#include "fuel_map.h"
-
-
 #if EFI_TUNER_STUDIO_OVER_USB
 #define TS_SERIAL_DEVICE (&SDU1)
 #else
@@ -18,8 +15,6 @@
 #define TS_SERIAL_SPEED 115200
 
 #endif /* EFI_TUNER_STUDIO_OVER_USB */
-
-
 
 #if defined __GNUC__
 typedef struct

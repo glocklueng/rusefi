@@ -11,8 +11,6 @@
 #ifndef TUNERSTUDIO_CONFIGURATION_H_
 #define TUNERSTUDIO_CONFIGURATION_H_
 
-#include "fuel_map.h"
-
 /**
  * please be aware that current "stable" version of TunerStudio does not
  * support 'float' (F32) type. You would need a beta version to handle floats

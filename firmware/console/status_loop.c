@@ -29,7 +29,7 @@
 
 #include "wave_math.h"
 
-#include "fuel_map.h"
+#include "fuel_math.h"
 #include "main_trigger_callback.h"
 #include "engine_math.h"
 #include "idle_thread.h"

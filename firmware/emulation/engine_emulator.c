@@ -14,7 +14,7 @@
 #include "trigger_emulator.h"
 #include "advance_map.h"
 #include "wave_analyzer.h"
-#include "fuel_map.h"
+#include "fuel_math.h"
 #include "pin_repository.h"
 #include "poten.h"
 #include "rfi_perftest.h"

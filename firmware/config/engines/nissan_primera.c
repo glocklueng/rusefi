@@ -11,7 +11,6 @@
 
 #include "engine_controller.h"
 #include "adc_inputs.h"
-#include "fuel_map.h"
 #include "trigger_decoder.h"
 #include "engine_configuration.h"
 

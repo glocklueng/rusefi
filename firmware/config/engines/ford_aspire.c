@@ -15,7 +15,6 @@
 #include "engines.h"
 #include "engine_math.h"
 #include "settings.h"
-#include "fuel_map.h"
 #include "advance_map.h"
 #include "engine_configuration.h"
 
