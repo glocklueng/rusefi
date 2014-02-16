@@ -1,5 +1,5 @@
 /**
- * @file    dist_emulator.c
+ * @file    trigger_emulator.c
  * @brief   Position sensor(s) emulation code
  *
  * This file is mostly about initialization, the configuration is
