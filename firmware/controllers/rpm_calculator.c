@@ -30,6 +30,9 @@ int isRunning() {
 	return overflowDiff(now, rpmState.lastRpmEventTime) < CH_FREQUENCY;
 }
 
+/**
+ * @return -1 in case of isNoisySignal(), current RPM otherwise
+ */
 int getRpm() {
 	if (!isRunning())
 		return 0;
@@ -52,6 +55,17 @@ int getRevolutionCounter(void) {
 }
 
 /**
+ * Checks for noise on the trigger input line. Noise is detected by an unexpectedly small time gap between
+ * current and previous trigger input events.
+ *
+ * @return TRUE if noise is detected
+ */
+static int isNoisySignal(rpm_s * rpmState, int now) {
+	int diff = now - rpmState->lastRpmEventTime;
+	return diff == 0;
+}
+
+/**
  * @brief Shaft position callback used by RPM calculation logic.
  *
  * This callback is invoked on interrupt thread.
@@ -69,11 +83,11 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	int hadRpmRecently = isRunning();
 
 	if (hadRpmRecently) {
-		int diff = now - rpmState.lastRpmEventTime;
-		if (diff == 0) {
+		if (isNoisySignal(&rpmState, now)) {
 			// unexpected state. Noise?
 			rpmState.rpm = -1;
 		} else {
+			int diff = now - rpmState.lastRpmEventTime;
 			// 60000 because per minute
 			// * 2 because each revolution of crankshaft consists of two camshaft revolutions
 			// / 4 because each cylinder sends a signal
