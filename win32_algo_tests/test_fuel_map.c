@@ -7,7 +7,7 @@
 
 #include "main.h"
 #include "engine_configuration.h"
-#include "fuel_map.h"
+#include "fuel_math.h"
 #include "trigger_structure.h"
 #include "allsensors.h"
 
