@@ -1,9 +1,12 @@
-/*
- * GY6_139QMB.c
+/**
+ * @file	GY6_139QMB.c
+ * @brief	139qmb default engine configuration
  *
- *  Created on: 13 feb 2014 y.
- *      Author: rus084
+ * @date Feb 13, 2014
+ * @author rus084
+ * @author Andrey Belomutskiy, (c) 2012-2014 *
  */
+
 #include "GY6_139QMB.h"
 #include "engine_configuration.h"
 
