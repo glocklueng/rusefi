@@ -120,7 +120,7 @@ static void showTriggerHistogram(void) {
 	showMainHistogram();
 }
 
-void initShaftPositionInputCapture() {
+void initShaftPositionInputCapture(void) {
 	initLogging(&logger, "ShaftPosition");
 
 	resetHistogram(&triggerCallback, "trigger");
