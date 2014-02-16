@@ -7,7 +7,7 @@
 
 #include "main.h"
 #include "rfi_perftest.h"
-#include "fuel_map.h"
+#include "fuel_math.h"
 
 //#include "rfirtc.h"
 #include "rficonsole.h"

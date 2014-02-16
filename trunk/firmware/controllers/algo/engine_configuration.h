@@ -10,7 +10,6 @@
 #define ENGINE_CONFIGURATION_H_
 
 #include "features.h"
-#include "fuel_map.h"
 #include "sensor_types.h"
 #include "engine_math.h"
 #include "can_header.h"
@@ -27,6 +26,8 @@ typedef struct {
 	ActuatorEventList ignitionEvents;
 } EventHandlerConfiguration;
 
+#define FUEL_RPM_COUNT 16
+#define FUEL_LOAD_COUNT 16
 
 #define CLT_CURVE_SIZE 16
 #define IAT_CURVE_SIZE 16

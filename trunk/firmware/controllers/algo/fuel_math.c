@@ -1,13 +1,13 @@
 /**
- * @file	fuel_map.c
- * @brief	Fuel calculation methods
+ * @file	fuel_math.c
+ * @brief	Fuel amount calculation logic
  *
  * @date May 27, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
 #include "main.h"
-#include "fuel_map.h"
+#include "fuel_math.h"
 #include "interpolation.h"
 #include "engine_configuration.h"
 #include "allsensors.h"
