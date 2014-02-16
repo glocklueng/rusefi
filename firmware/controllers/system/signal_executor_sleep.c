@@ -39,7 +39,7 @@ void scheduleTask(scheduling_s *scheduling, int delay, schfunc_t callback, void 
 }
 
 void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param) {
-	int delay = (int)(getOneDegreeTime(getCurrentRpm()) * angle);
+	int delay = (int)(getOneDegreeTime(getRpm()) * angle);
 	scheduleTask(timer, delay, callback, param);
 }
 

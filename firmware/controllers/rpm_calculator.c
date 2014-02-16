@@ -30,7 +30,7 @@ int isRunning() {
 	return overflowDiff(now, rpmState.lastRpmEventTime) < CH_FREQUENCY;
 }
 
-int getCurrentRpm() {
+int getRpm() {
 	if (!isRunning())
 		return 0;
 	return rpmState.rpm;

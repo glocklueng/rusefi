@@ -11,11 +11,20 @@
 #define MAP_ANGLE_SIZE 8
 #define MAP_WINDOW_SIZE 8
 
+/**
+ * @brief MAP averaging configuration
+ */
 typedef struct {
 	float samplingAngleBins[MAP_ANGLE_SIZE];
+	/**
+	 * @brief MAP averaging sampling start angle, by RPM
+	 */
 	float samplingAngle[MAP_ANGLE_SIZE];
 
 	float samplingWindowBins[MAP_WINDOW_SIZE];
+	/**
+	 * @brief MAP averaging angle duration, by RPM
+	 */
 	float samplingWindow[MAP_WINDOW_SIZE];
 
 	float Min;
@@ -30,7 +39,7 @@ typedef struct {
 
 
 /**
- * @brief thermistor curve parameters
+ * @brief Thermistor curve parameters
  */
 typedef struct {
 	// these values is in Celcuus

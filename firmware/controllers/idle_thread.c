@@ -68,7 +68,7 @@ static msg_t ivThread(int param) {
 
 		int nowSec = chTimeNowSeconds();
 
-		int newValue = getIdle(&idle, getCurrentRpm(), nowSec);
+		int newValue = getIdle(&idle, getRpm(), nowSec);
 
 		// todo: invert wave & eliminate this inversion?
 		newValue = 1000 - newValue; // convert algorithm value into actual PMW value
