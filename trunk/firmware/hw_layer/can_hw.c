@@ -46,10 +46,11 @@ static int engine_rpm = 0;
 static float engine_clt = 0;
 
 static void printPacket(CANRxFrame *rx) {
-	scheduleMsg(&logger, "CAN FMI %x", rx->FMI);
-	scheduleMsg(&logger, "TIME %x", rx->TIME);
-	scheduleMsg(&logger, "DLC %x", rx->DLC);
-	scheduleMsg(&logger, "SID %x", rx->SID);
+//	scheduleMsg(&logger, "CAN FMI %x", rx->FMI);
+//	scheduleMsg(&logger, "TIME %x", rx->TIME);
+	scheduleMsg(&logger, "SID %x/%x %x %x %x %x %x %x %x %x", rx->SID, rx->DLC,
+			rx->data8[0], rx->data8[1], rx->data8[2], rx->data8[3],
+			rx->data8[4], rx->data8[5], rx->data8[6], rx->data8[7]);
 
 	if (rx->SID == CAN_BMW_E46_CLUSTER_STATUS) {
 		int odometerKm = 10 * (rx->data8[1] << 8) + rx->data8[0];
@@ -59,15 +60,6 @@ static void printPacket(CANRxFrame *rx) {
 		int timeValue = (rx->data8[4] << 8) + rx->data8[3];
 		scheduleMsg(&logger, "GOT time %d", timeValue);
 	}
-
-	scheduleMsg(&logger, "d0 %x", rx->data8[0]);
-	scheduleMsg(&logger, "d1 %x", rx->data8[1]);
-	scheduleMsg(&logger, "d2 %x", rx->data8[2]);
-	scheduleMsg(&logger, "d3 %x", rx->data8[3]);
-	scheduleMsg(&logger, "d4 %x", rx->data8[4]);
-	scheduleMsg(&logger, "d5 %x", rx->data8[5]);
-	scheduleMsg(&logger, "d6 %x", rx->data8[6]);
-	scheduleMsg(&logger, "d7 %x", rx->data8[7]);
 }
 
 static void setShortValue(CANTxFrame *txmsg, int value, int offset) {
