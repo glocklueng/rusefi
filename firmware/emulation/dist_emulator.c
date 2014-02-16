@@ -9,7 +9,7 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
-#include "dist_emulator.h"
+#include "trigger_emulator.h"
 #include "rficonsole.h"
 #include "main_trigger_callback.h"
 #include "datalogging.h"
@@ -30,7 +30,7 @@ static PwmConfig configuration __attribute__((section(".ccm")));
 static PwmConfig configuration;
 #endif
 
-void setRevolutionPeriod(int rpm) {
+void setTriggerEmulatorRPM(int rpm) {
 	if (rpm == 0) {
 		configuration.period = NAN;
 	} else {
@@ -40,7 +40,7 @@ void setRevolutionPeriod(int rpm) {
 	scheduleMsg(&logger, "Emulating position sensor(s). RPM=%d", rpm);
 }
 
-void initShaftPositionEmulator(void) {
+void initTriggerEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
 	print("Emulating %s\r\n", getConfigurationName(engineConfiguration));
 
@@ -58,14 +58,14 @@ void initShaftPositionEmulator(void) {
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 
-	setRevolutionPeriod(DEFAULT_EMULATION_RPM);
+	setTriggerEmulatorRPM(DEFAULT_EMULATION_RPM);
 
 	int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
 	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates);
 
 
 
-	addConsoleActionI("rpm", &setRevolutionPeriod);
+	addConsoleActionI("rpm", &setTriggerEmulatorRPM);
 
 #else
 	print("No position sensor(s) emulation\r\n");

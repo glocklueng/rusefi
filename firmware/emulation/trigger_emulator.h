@@ -1,5 +1,5 @@
 /**
- * @file    dist_emulator.h
+ * @file    trigger_emulator.h
  * @brief   Position sensor(s) emulation header
  *
  * @date Dec 9, 2012
@@ -20,7 +20,7 @@
  */
 #define DEFAULT_EMULATION_RPM 1200
 
-void initShaftPositionEmulator(void);
-void setRevolutionPeriod(int value);
+void initTriggerEmulator(void);
+void setTriggerEmulatorRPM(int value);
 
 #endif /* DIST_EMULATOR_H_ */

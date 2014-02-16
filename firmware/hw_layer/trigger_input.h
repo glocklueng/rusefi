@@ -1,5 +1,5 @@
 /**
- * @file	shaft_position_input.h
+ * @file	trigger_input.h
  * @brief	Position sensor hardware layer
  *
  * @date Dec 30, 2012

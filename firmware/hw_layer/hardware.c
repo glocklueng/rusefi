@@ -13,7 +13,7 @@
 
 #include "adc_inputs.h"
 
-#include "shaft_position_input.h"
+#include "trigger_input.h"
 
 #include "mcp3208.h"
 #include "HIP9011.h"

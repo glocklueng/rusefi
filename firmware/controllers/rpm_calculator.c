@@ -10,7 +10,7 @@
 
 #include "main.h"
 #include "rpm_calculator.h"
-#include "shaft_position_input.h"
+#include "trigger_input.h"
 #include "datalogging.h"
 #include "rficonsole.h"
 #include "wave_math.h"

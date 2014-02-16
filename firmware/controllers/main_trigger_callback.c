@@ -12,7 +12,7 @@
 #include "main_trigger_callback.h"
 #include "engine_controller.h"
 #include "settings.h"
-#include "shaft_position_input.h"
+#include "trigger_input.h"
 #include "rpm_calculator.h"
 #include "signal_executor.h"
 #include "rficonsole.h"
