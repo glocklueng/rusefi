@@ -4,7 +4,7 @@
  *
  * @date Dec 30, 2013
  * @author Kot_dnz
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #ifndef MMC_CARD_H_
