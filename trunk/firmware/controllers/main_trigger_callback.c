@@ -88,7 +88,7 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 
 //	scheduleSimpleMsg(&logger, "eventId size=", events.size);
 
-	int rpm = getCurrentRpm();
+	int rpm = getRpm();
 
 	for (int i = 0; i < events.size; i++) {
 		ActuatorEvent *event = &events.events[i];
@@ -142,7 +142,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 }
 
 static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
-	int rpm = getCurrentRpm();
+	int rpm = getRpm();
 
 	findEvents(eventIndex, &engineConfiguration2->engineEventConfiguration.ignitionEvents, &events);
 	if (events.size == 0)

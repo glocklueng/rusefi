@@ -96,6 +96,10 @@ float fixAngle(float angle) {
 	return angle;
 }
 
+/**
+ * @brief Returns engine load according to selected engine_load_mode
+ *
+ */
 float getEngineLoad(void) {
 	switch (engineConfiguration->engine_load_mode) {
 	case LM_MAF:

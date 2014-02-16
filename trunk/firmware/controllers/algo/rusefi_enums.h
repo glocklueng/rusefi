@@ -15,6 +15,9 @@
 // this is about offsets and sizes in TunerStudio
 #define ENUM_SIZE_HACK 2000000000
 
+/**
+ * This enum is used to select your desired Engine Load calculation algorithm
+ */
 typedef enum {
 	/**
 	 * raw Mass Air Flow sensor value algorithm. http://en.wikipedia.org/wiki/Mass_flow_sensor

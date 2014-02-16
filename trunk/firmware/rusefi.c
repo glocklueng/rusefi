@@ -62,7 +62,9 @@
  * '10 degrees after the 690 position sensor event'
  *
  *
+ * @section sec_fuel_injection Fuel Injection
  *
+ * See fuel_math.c for details on fuel amount logic
  *
  */
 

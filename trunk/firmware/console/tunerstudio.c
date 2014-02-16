@@ -169,7 +169,7 @@ void startTunerStudioConnectivity(void) {
 }
 
 void updateTunerStudioState() {
-	tsOutputChannels.rpm = getCurrentRpm();
+	tsOutputChannels.rpm = getRpm();
 	tsOutputChannels.coolant_temperature = getCoolantTemperature();
 	tsOutputChannels.intake_air_temperature = getIntakeAirTemperature();
 	tsOutputChannels.throttle_positon = getTPS();

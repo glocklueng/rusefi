@@ -104,7 +104,7 @@ static void printSensors(void) {
 	myfloat sec = ((myfloat) nowMs) / 1000;
 	reportSensorF("time", sec, 3);
 
-	reportSensorI("rpm", getCurrentRpm());
+	reportSensorI("rpm", getRpm());
 	reportSensorF("maf", getMaf(), 2);
 
 	if (engineConfiguration2->hasMapSensor) {
@@ -186,7 +186,7 @@ void updateDevConsoleState(void) {
 
 	timeOfPreviousReport = nowSeconds;
 
-	int rpm = getCurrentRpm();
+	int rpm = getRpm();
 
 	prevCkpEventCounter = currentCkpEventCounter;
 
@@ -198,14 +198,14 @@ void updateDevConsoleState(void) {
 
 //	debugFloat(&logger, "table_spark", getAdvance(rpm, getMaf()), 2);
 
-	myfloat key = getMaf();
-	debugFloat(&logger, "fuel_base", getBaseFuel(rpm, key), 2);
+	myfloat engineLoad = getMaf();
+	debugFloat(&logger, "fuel_base", getBaseFuel(rpm, engineLoad), 2);
 	debugFloat(&logger, "fuel_iat", getIatCorrection(getIntakeAirTemperature()), 2);
 	debugFloat(&logger, "fuel_clt", getCltCorrection(getCoolantTemperature()), 2);
 	debugFloat(&logger, "fuel_lag", getInjectorLag(getVBatt()), 2);
-	debugFloat(&logger, "fuel", getRunningFuel(rpm, key), 2);
+	debugFloat(&logger, "fuel", getRunningFuel(rpm, engineLoad), 2);
 
-	debugFloat(&logger, "timing", getAdvance(rpm, key), 2);
+	debugFloat(&logger, "timing", getAdvance(rpm, engineLoad), 2);
 
 //		myfloat map = getMap();
 //		myfloat fuel = getDefaultFuel(rpm, map);
@@ -225,9 +225,9 @@ void updateDevConsoleState(void) {
  */
 
 static void showFuelMap(int rpm, int key100) {
-	myfloat key = key100 / 100.0;
+	myfloat engineLoad = key100 / 100.0;
 
-	float baseFuel = getBaseFuel(rpm, key);
+	float baseFuel = getBaseFuel(rpm, engineLoad);
 
 	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
 	float cltCorrection = getCltCorrection(getCoolantTemperature());
@@ -237,9 +237,9 @@ static void showFuelMap(int rpm, int key100) {
 	print("iatCorrection=%f cltCorrection=%f injectorLag=%d\r\n", iatCorrection, cltCorrection,
 			(int) (100 * injectorLag));
 
-	myfloat value = getRunningFuel(rpm, key);
+	myfloat value = getRunningFuel(rpm, engineLoad);
 
-	print("fuel map rpm=%d, key=%f: %d\r\n", rpm, key, (int) (100 * value));
+	print("fuel map rpm=%d, key=%f: %d\r\n", rpm, engineLoad, (int) (100 * value));
 
 	scheduleMsg(&logger2, "fuel map value = %f", value);
 }
@@ -274,7 +274,7 @@ void updateHD44780lcd(void) {
 	lcd_HD44780_print_char('0' + (chTimeNowSeconds() % 10));
 
 	lcd_HD44780_set_position(0, 12);
-	char * ptr = itoa(buffer, getCurrentRpm());
+	char * ptr = itoa(buffer, getRpm());
 	ptr[0] = 0;
 	int len = ptr - buffer;
 	for (int i = 0; i < 6 - len; i++)

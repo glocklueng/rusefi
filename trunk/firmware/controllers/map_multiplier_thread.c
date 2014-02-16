@@ -60,7 +60,7 @@ static void maThread(int param) {
 		isNewState = FALSE;
 
 		// ideally this should be atomic, but hopefully it's good enough
-		int rpm = getCurrentRpm();
+		int rpm = getRpm();
 		float key = getMaf();
 		float afr = getAfr();
 

@@ -2,6 +2,15 @@
  * @file	fuel_math.c
  * @brief	Fuel amount calculation logic
  *
+ * While engine running, fuel amount is an interpolated value from the fuel map by getRpm() and getEngineLoad()
+ * On top of the value from the fuel map we also apply
+ * <BR>1) getInjectorLag() correction to account for fuel injector lag
+ * <BR>2) getCltCorrection() for warm-up
+ * <BR>3) getIatCorrection() to account for cold weather
+ *
+ * getCrankingFuel() depents only on getCoolantTemperature()
+ *
+ *
  * @date May 27, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
@@ -28,6 +37,9 @@ void prepareFuelMap(void) {
 	initialized = TRUE;
 }
 
+/**
+ * @brief Engine warm-up fuel correction.
+ */
 float getCltCorrection(float clt) {
 	if (isnan(clt))
 		return 1; // this error should be already reported somewhere else, let's just handle it

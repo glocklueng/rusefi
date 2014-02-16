@@ -178,7 +178,7 @@ static msg_t waThread(void *arg) {
 static char rpmBuffer[10];
 
 static void onTdcCallback(void) {
-	itoa(rpmBuffer, getCurrentRpm());
+	itoa(rpmBuffer, getRpm());
 	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, rpmBuffer, "");
 }
 

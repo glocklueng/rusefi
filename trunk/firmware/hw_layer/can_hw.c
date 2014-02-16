@@ -147,7 +147,7 @@ static void canRead(void) {
 
 
 static void writeStateToCan(void) {
-	engine_rpm = getCurrentRpm();
+	engine_rpm = getRpm();
 	engine_clt = getCoolantTemperature();
 
 	canInfoNBCBroadcast(engineConfiguration->can_nbc_type);
