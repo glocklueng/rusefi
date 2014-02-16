@@ -12,7 +12,6 @@
 #include "rficonsole.h"
 #include "pin_repository.h"
 #include "engine_math.h"
-#include "shaft_position_input.h"
 #include "map_averaging.h"
 #include "engine_configuration.h"
 

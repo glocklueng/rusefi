@@ -18,12 +18,12 @@
 #include "wave_analyzer.h"
 #endif
 
+#include "trigger_input.h"
 #include "engine_state.h"
 #include "io_pins.h"
 #include "mmc_card.h"
 
 #include "datalogging.h"
-#include "shaft_position_input.h"
 #include "rficonsole_logic.h"
 #include "advance_map.h"
 

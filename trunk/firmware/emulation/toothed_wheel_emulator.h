@@ -9,7 +9,5 @@
 #ifndef TOOTHED_WHEEL_EMULATOR_H_
 #define TOOTHED_WHEEL_EMULATOR_H_
 
-#include "dist_emulator.h"
-
 
 #endif /* TOOTHED_WHEEL_EMULATOR_H_ */

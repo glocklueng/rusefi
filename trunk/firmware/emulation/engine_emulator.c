@@ -11,7 +11,7 @@
 
 #include "rficonsole_logic.h"
 #include "status_loop.h"
-#include "dist_emulator.h"
+#include "trigger_emulator.h"
 #include "advance_map.h"
 #include "wave_analyzer.h"
 #include "fuel_map.h"
@@ -40,11 +40,11 @@ void emulate(void) {
 	for (int i = 400; i <= 1300; i++) {
 		if (i % 50 != 0)
 			continue;
-		setRevolutionPeriod(i);
+		setTriggerEmulatorRPM(i);
 		chThdSleepMilliseconds(PERIOD);
 	}
 
-	setRevolutionPeriod(0);
+	setTriggerEmulatorRPM(0);
 
 	setFullLog(0);
 	setDiag(0);
@@ -98,5 +98,5 @@ void initEngineEmulator(void) {
 //	initPotentiometers();
 
 	//initECUstimulator();
-	initShaftPositionEmulator();
+	initTriggerEmulator();
 }

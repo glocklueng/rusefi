@@ -13,7 +13,6 @@
 #include "main.h"
 #include <string.h>
 #include "wave_analyzer.h"
-#include "shaft_position_input.h"
 #include "rficonsole.h"
 #include "wave_math.h"
 #include "data_buffer.h"
@@ -22,6 +21,7 @@
 #include "engine_state.h"
 #include "signal_executor.h"
 #include "engine_configuration.h"
+#include "trigger_input.h"
 
 #define CHART_RESET_DELAY 1
 #define TOP_DEAD_CENTER_MESSAGE "r"

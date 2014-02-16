@@ -1,5 +1,5 @@
 
-EMULATIONSRC = emulation/dist_emulator.c \
+EMULATIONSRC = emulation/trigger_emulator.c \
 	emulation/hw_layer/poten.c \
 	emulation/wave_chart.c \
 	emulation/rfi_perftest.c \

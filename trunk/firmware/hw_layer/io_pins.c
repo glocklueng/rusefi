@@ -14,7 +14,6 @@
 #include "gpio_helper.h"
 #include "pinout.h"
 #include "status_loop.h"
-#include "shaft_position_input.h"
 #include "main_trigger_callback.h"
 #include "trigger_decoder.h"
 
