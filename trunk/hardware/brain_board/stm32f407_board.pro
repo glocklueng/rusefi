@@ -1,6 +1,6 @@
-update=Птн 14 Фев 2014 19:14:08
+update=16/02/2014 07:19:01
 version=1
-last_client=cvpcb
+last_client=eeschema
 [general]
 version=1
 [pcbnew]
@@ -42,6 +42,11 @@ LibName16=lib/art-electro-conn
 LibName17=lib/art-electro-conn_2
 LibName18=lib/logo_flipped
 LibDir=
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [eeschema]
 version=1
 LibDir=
@@ -62,8 +67,3 @@ LibName8=lib/art-electro-conn
 LibName9=lib/art-electro-ic
 LibName10=lib/art-electro-conn_2
 LibName11=lib/logo_flipped
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
