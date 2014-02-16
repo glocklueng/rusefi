@@ -6,7 +6,7 @@
  */
 
 #include <stdio.h>
-#include "fuel_map.h"
+#include "fuel_math.h"
 #include "interpolation.h"
 #include "engines.h"
 #include "engine_configuration.h"
