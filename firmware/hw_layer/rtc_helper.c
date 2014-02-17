@@ -56,6 +56,14 @@ static void date_set(char *strDate) {
 	print("date_set Date parameter %s is wrong\r\n", strDate);
 }
 
+static void date_set_tm(struct tm *timp) {
+	rtcSetTimeTm(&RTCD1, timp);
+}
+
+static void date_get_tm(struct tm *timp) {
+	rtcGetTimeTm(&RTCD1, timp);
+}
+
 void initRtc(void) {
 	// yes, it's my begin time  and we always start from this one 1391894433 - 2014-02-08 21:20:03
 	rtcSetTimeUnixSec(&RTCD1, 1391894433);
