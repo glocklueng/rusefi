@@ -42,6 +42,15 @@ typedef enum {
 } engine_load_mode_e;
 
 typedef enum {
+	DM_NONE = 0,
+	DM_HD44780 = 1,
+	DM_HD44780_OVER_PCF8574 = 2,
+
+	Internal_ForceMyEnumIntSize_display_mode = ENUM_SIZE_HACK,
+
+} display_mode_e;
+
+typedef enum {
 	/**
 	 * GND for logical OFF, VCC for logical ON
 	 */

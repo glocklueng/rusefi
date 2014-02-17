@@ -75,6 +75,9 @@ typedef enum {
 /**
  * @brief	Engine configuration.
  * 		Values in this data structure are adjustable and persisted in on-board flash RAM.
+ *
+ *  todo: currently the fields here are simply in the order in which they were implemented
+ *  todo: re-arrange this structure one we have a stable code version
  */
 typedef struct {
 	float injectorLag;	// size 4, offset 0
@@ -155,12 +158,10 @@ typedef struct {
 	 */
 	float analogInputDividerCoefficient;
 
-
 	/**
 	 * This setting controls which algorithm is used for ENGINE LOAD
 	 */
 	engine_load_mode_e engine_load_mode;
-
 
 	float vbattDividerCoeff;
 	/**
@@ -191,6 +192,8 @@ typedef struct {
 	 */
 
 	float rpmMultiplier;
+
+	display_mode_e displayMode;
 } engine_configuration_s;
 
 /**
