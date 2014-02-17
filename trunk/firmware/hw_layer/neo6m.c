@@ -19,6 +19,7 @@
 #include "nmea.h"
 #include "neo6m.h"
 #include "datalogging.h"
+#include "rtc_helper.h"
 
 #if EFI_UART_GPS
 
@@ -27,8 +28,6 @@ static Logging logger;
 static SerialConfig GPSserialConfig = { GPS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 static WORKING_AREA(GPS_WORKING_AREA, UTILITY_THREAD_STACK_SIZE);
 
-// this field is used while parsing incoming messages
-static loc_t currentMessage;
 // this field holds our current state
 static loc_t GPSdata;
 
@@ -50,10 +49,15 @@ static void printGpsInfo(void) {
 }
 
 static void onGpsMessage(char *buffer) {
-	gps_location(&currentMessage, buffer);
-	if (currentMessage.type == NMEA_GPGGA) {
-		GPSdata.latitude = currentMessage.latitude;
-		GPSdata.longitude = currentMessage.longitude;
+	struct tm *curTm;
+	
+	gps_location(&GPSdata, buffer);
+	date_get_tm(&curTm);
+
+	if(GPSdata.quality == 4 && GPSdata.GPStm.tm_year > 0 && GPSdata..GPStm.tm_sec != curTm.tm_sec) {		
+		// quality =4 (valis GxRMC), year > 0, and difference more then second
+			date_set_tm(&GPSdata.GPStm);					// set GPS time
+		}
 	}
 	gpsMesagesCount++;
 }
@@ -97,7 +101,7 @@ void initGps(void) {
 	mySetPadMode("GPS rx", GPS_PORT, GPS_SERIAL_RX_PIN, PAL_MODE_ALTERNATE(7));
 
 // todo: add a thread which would save location. If the GPS 5Hz - we should save the location each 200 ms
-	chThdCreateStatic(GPS_WORKING_AREA, sizeof(GPS_WORKING_AREA), NORMALPRIO, GpsThreadEntryPoint, NULL);
+	chThdCreateStatic(GPS_WORKING_AREA, sizeof(GPS_WORKING_AREA), LOWPRIO, GpsThreadEntryPoint, NULL);
 
 	addConsoleAction("gpsinfo", &printGpsInfo);
 }
