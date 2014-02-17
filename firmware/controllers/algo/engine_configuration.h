@@ -164,20 +164,10 @@ typedef struct {
 	can_nbc_e can_nbc_type;
 	int can_sleep_period;
 
-} engine_configuration_s;
-
-/**
- * this part of the structure is separate just because so far
- * these fields are not integrated with Tuner Studio. Step by step :)
- */
-typedef struct {
-	int hasMapSensor;
-	int hasCltSensor;
-
 	int cylindersCount;
 
-	Thermistor iat;
-	Thermistor clt;
+	ignition_mode_e ignition_mode;
+	firing_order_e firingOrder;
 
 	/**
 	 * This magic constant is about four-stroke engines with camshaft position sensors.
@@ -188,6 +178,19 @@ typedef struct {
 	 */
 
 	float rpmMultiplier;
+} engine_configuration_s;
+
+/**
+ * this part of the structure is separate just because so far
+ * these fields are not integrated with Tuner Studio. Step by step :)
+ */
+typedef struct {
+	int hasMapSensor;
+	int hasCltSensor;
+
+	Thermistor iat;
+	Thermistor clt;
+
 
 	int crankAngleRange;
 

@@ -56,7 +56,28 @@ typedef enum {
 	Internal_ForceMyEnumIntSize_pin_output_mode = ENUM_SIZE_HACK,
 } pin_output_mode_e;
 
+typedef enum {
+	FO_ONE_CYLINDER = 1,
+	FO_1_THEN_3_THEN_4_THEN2 = 2,
+	FO_1_THEN_2_THEN_4_THEN3 = 3,
+	FO_1_THEN_3_THEN_2_THEN4 = 4,
+	FO_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4 = 5,
+	Internal_ForceMyEnumIntSize_firing_order = ENUM_SIZE_HACK,
+} firing_order_e;
 
+/**
+ * @brief Ignition Mode
+ */
+typedef enum {
+	IM_ONE_COIL = 0,
+	IM_INDIVIDUAL_COILS = 1,
+
+	Internal_ForceMyEnumIntSize_ignition_mode = ENUM_SIZE_HACK,
+} ignition_mode_e;
+
+/**
+ * @brief Ignition Mode while cranking
+ */
 typedef enum {
 	CIM_DEFAULT = 0,
 	CIM_FIXED_ANGLE = 1,
