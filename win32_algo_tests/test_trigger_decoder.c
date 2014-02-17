@@ -62,8 +62,10 @@ static void testDodgeNeonDecoder(void) {
 static void test1995FordInline6TriggerDecoder(void) {
 	printf("*************************************************** test1995FordInline6TriggerDecoder\r\n");
 	initTriggerDecoder();
+//	engine_configuration_s ec;
+//	setFordInline6(&ec);
 	engine_configuration2_s ec2;
-	setFordInline6_2(&ec2);
+	setFordInline6_2(NULL, &ec2);
 	trigger_shape_s * shape = &ec2.triggerShape;
 	trigger_state_s state;
 	clearTriggerState(&state);
