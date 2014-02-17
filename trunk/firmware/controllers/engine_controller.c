@@ -23,6 +23,7 @@
 #include "ignition_central.h"
 #include "rfiutil.h"
 #include "engine_configuration.h"
+#include "engine_math.h"
 #include "wave_analyzer.h"
 #include "allsensors.h"
 #include "analog_chart.h"

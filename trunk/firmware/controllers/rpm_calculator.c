@@ -15,6 +15,7 @@
 #include "rficonsole.h"
 #include "wave_math.h"
 #include "engine_configuration.h"
+#include "engine_math.h"
 #include "analog_chart.h"
 
 static rpm_s rpmState;
