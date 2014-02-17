@@ -158,27 +158,46 @@ void testGpsParser(void) {
 	// we need to pass a mutable string, not a constant because the parser would be modifying the string
 	strcpy(nmeaMessage, "$GPRMC,173843,A,3349.896,N,11808.521,W,000.0,360.0,230108,013.4,E*69");
 	gps_location(&GPSdata, nmeaMessage);
-	assertEqualsM("1 latitude", 0, GPSdata.latitude);
-	assertEqualsM("1 longitude", 0, GPSdata.longitude);
-	assertEqualsM("1 speed", 0, GPSdata.speed);
-	assertEqualsM("1 altitude", 0, GPSdata.altitude);
+	assertEqualsM("1 valid", 4, GPSdata.quality);
+	assertEqualsM("1 latitude", 3349.896, GPSdata.latitude);
+	assertEqualsM("1 longitude", 11808.521, GPSdata.longitude);
+	assertEqualsM("1 speed", 0, getCurrentSpeed());
+// 	assertEqualsM("1 altitude", 0, GPSdata.altitude);	// GPRMC not overwrite altitude
 	assertEqualsM("1 course", 360, GPSdata.course);
 
 	strcpy(nmeaMessage, "$GPGGA,111609.14,5001.27,N,3613.06,E,3,08,0.0,10.2,M,0.0,M,0.0,0000*70");
 	gps_location(&GPSdata, nmeaMessage);
+	assertEqualsM("2 valid", 3, GPSdata.quality);		// see field details
 	assertEqualsM("2 latitude", 50.0212, GPSdata.latitude);
 	assertEqualsM("2 longitude", 36.2177, GPSdata.longitude);
-	assertEqualsM("2 speed", 0, GPSdata.speed);
+	assertEqualsM("2 speed", 0, getCurrentSpeed());
 	assertEqualsM("2 altitude", 10.2, GPSdata.altitude);
-	assertEqualsM("2 course", 0, GPSdata.course);
+//	assertEqualsM("2 course", 0, GPSdata.course);  // GPGGA not overwrite course
 
 	strcpy(nmeaMessage, "$GPRMC,111609.14,A,5001.27,N,3613.06,E,11.2,0.0,261206,0.0,E*50");
 	gps_location(&GPSdata, nmeaMessage);
-	assertEqualsM("latitude", 0, GPSdata.latitude);
-	assertEqualsM("longitude", 0, GPSdata.longitude);
-	assertEqualsM("speed", 11.2, GPSdata.speed);
-	assertEqualsM("altitude", 0, GPSdata.altitude);
-	assertEqualsM("course", 0, GPSdata.course);
+	assertEqualsM("3 valid", 4, GPSdata.quality);
+	assertEqualsM("3 latitude", 5001.27, GPSdata.latitude);
+	assertEqualsM("3 longitude", 3613.06, GPSdata.longitude);
+	assertEqualsM("3 speed", 11.2, getCurrentSpeed());
+//	assertEqualsM("3 altitude", 0, GPSdata.altitude);  // GPRMC not overwrite altitude
+	assertEqualsM("3 course", 0, GPSdata.course);
+	assertEqualsM("3 GPS yy",2006, GPSdata.GPStm.tm_year+1900);
+	assertEqualsM("3 GPS mm",12, GPSdata.GPStm.tm_mon);
+	assertEqualsM("3 GPS yy",26, GPSdata.GPStm.tm_mday);	
+	assertEqualsM("3 GPS hh",11, GPSdata.GPStm.tm_hour);
+	assertEqualsM("3 GPS mm",16, GPSdata.GPStm.tm_min);
+	assertEqualsM("3 GPS ss",9, GPSdata.GPStm.tm_sec);	
+
+	// check again first one
+	// we need to pass a mutable string, not a constant because the parser would be modifying the string
+	strcpy(nmeaMessage, "$GPRMC,173843,A,3349.896,N,11808.521,W,000.0,360.0,230108,013.4,E*69");
+	gps_location(&GPSdata, nmeaMessage);
+	assertEqualsM("4 valid", 4, GPSdata.quality);
+	assertEqualsM("4 latitude", 3349.896, GPSdata.latitude);
+	assertEqualsM("4 longitude", 11808.521, GPSdata.longitude);
+	assertEqualsM("4 speed", 0, getCurrentSpeed());
+	assertEqualsM("4 course", 360, GPSdata.course);	
 }
 
 // this buffer is needed because on Unix you would not be able to change static char constants
