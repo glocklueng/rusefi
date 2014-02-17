@@ -11,11 +11,24 @@
 
 #include "features.h"
 #include "sensor_types.h"
-#include "engine_math.h"
 #include "can_header.h"
 #include "trigger_structure.h"
 #include "event_registry.h"
 #include "rusefi_enums.h"
+
+typedef struct {
+	float coolantTempMinC;
+	float coolantTempMaxC;
+	float fuelAtMinTempMs;
+	float fuelAtMaxTempMs;
+
+	/**
+	 * This value controls what RPM values we consider 'cranking' (any RPM below 'crankingRpm')
+	 * Anything above 'crankingRpm' would be 'running'
+	 */
+	short int crankingRpm;
+} cranking_parameters_s;
+
 
 /**
  * @brief Here we store information about which injector or spark should be fired when.
@@ -166,7 +179,7 @@ typedef struct {
 
 	int cylindersCount;
 
-	ignition_mode_e ignition_mode;
+	ignition_mode_e ignitionMode;
 	firing_order_e firingOrder;
 
 	/**

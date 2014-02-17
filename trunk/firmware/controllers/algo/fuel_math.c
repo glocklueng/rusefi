@@ -101,6 +101,22 @@ float getRunningFuel(int rpm, float engineLoad) {
 	return baseFuel * cltCorrection * iatCorrection + injectorLag;
 }
 
+float getStartingFuel(float coolantTemperature) {
+	// these magic constants are in Celsius
+	if (isnan(coolantTemperature)
+			|| coolantTemperature
+					< engineConfiguration->crankingSettings.coolantTempMinC)
+		return engineConfiguration->crankingSettings.fuelAtMinTempMs;
+	if (coolantTemperature
+			> engineConfiguration->crankingSettings.coolantTempMaxC)
+		return engineConfiguration->crankingSettings.fuelAtMaxTempMs;
+	return interpolate(engineConfiguration->crankingSettings.coolantTempMinC,
+			engineConfiguration->crankingSettings.fuelAtMinTempMs,
+			engineConfiguration->crankingSettings.coolantTempMaxC,
+			engineConfiguration->crankingSettings.fuelAtMaxTempMs,
+			coolantTemperature);
+}
+
 /**
  * @return 0 for OM_DEFAULT and OM_OPENDRAIN
  */
