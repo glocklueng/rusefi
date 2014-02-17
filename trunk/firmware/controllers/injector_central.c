@@ -28,7 +28,7 @@ extern engine_configuration2_s *engineConfiguration2;
 static int is_injector_enabled[MAX_INJECTOR_COUNT];
 
 void assertCylinderId(int cylinderId, char *msg) {
-	int isValid = cylinderId >= 1 && cylinderId <= engineConfiguration2->cylindersCount;
+	int isValid = cylinderId >= 1 && cylinderId <= engineConfiguration->cylindersCount;
 	if (!isValid) {
 		// we are here only in case of a fatal issue - at this point it is fine to make some blocking i-o
 		//scheduleSimpleMsg(&logger, "cid=", cylinderId);
@@ -58,7 +58,7 @@ int isInjectorEnabled(int cylinderId) {
 }
 
 static void printStatus(void) {
-	for (int id = 1; id <= engineConfiguration2->cylindersCount; id++) {
+	for (int id = 1; id <= engineConfiguration->cylindersCount; id++) {
 		resetLogging(&logger);
 
 		appendPrintf(&logger, "injector%d%s", id, DELIMETER);
@@ -69,7 +69,7 @@ static void printStatus(void) {
 }
 
 static void setInjectorEnabled(int id, int value) {
-	chDbgCheck(id >= 0 && id < engineConfiguration2->cylindersCount, "injector id");
+	chDbgCheck(id >= 0 && id < engineConfiguration->cylindersCount, "injector id");
 	is_injector_enabled[id] = value;
 	printStatus();
 }
@@ -103,7 +103,7 @@ void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_
 void initInjectorCentral(void) {
 	initLogging(&logger, "InjectorCentral");
 
-	for (int i = 0; i < engineConfiguration2->cylindersCount; i++)
+	for (int i = 0; i < engineConfiguration->cylindersCount; i++)
 		is_injector_enabled[i] = true;
 	printStatus();
 

@@ -15,11 +15,9 @@ void setGy6139qmbDefaultEngineConfiguration(engine_configuration_s *engineConfig
 	engineConfiguration->crankingSettings.crankingRpm = 800;
 	engineConfiguration->analogInputDividerCoefficient = 1.52;
 	engineConfiguration->engine_load_mode = LM_MAP;
+	engineConfiguration->cylindersCount = 1;
+	engineConfiguration->rpmMultiplier = 1;
 }
 void setGy6139qmbengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
-	engineConfiguration2->rpmMultiplier = 1;
-	engineConfiguration2->cylindersCount = 1;
-
-
 }
 

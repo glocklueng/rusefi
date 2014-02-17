@@ -93,7 +93,7 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 			// / 4 because each cylinder sends a signal
 			// need to measure time from the previous non-skipped event
 
-			rpmState.rpm = (int)(60000 * TICKS_IN_MS / engineConfiguration2->rpmMultiplier / diff);
+			rpmState.rpm = (int)(60000 * TICKS_IN_MS / engineConfiguration->rpmMultiplier / diff);
 		}
 	}
 	rpmState.lastRpmEventTime = now;

@@ -14,15 +14,17 @@
 #if EFI_SUPPORT_1995_FORD_INLINE_6
 
 void setFordInline6(engine_configuration_s *engineConfiguration) {
-
-}
-
-void setFordInline6_2(engine_configuration2_s *engineConfiguration2) {
+	engineConfiguration->cylindersCount = 6;
 
 	/**
 	 * we have a sensor on the camshaft, so rpmMultiplier == 2
 	 */
-	engineConfiguration2->rpmMultiplier = 2;
+	engineConfiguration->rpmMultiplier = 2;
+}
+
+void setFordInline6_2(engine_configuration2_s *engineConfiguration2) {
+//	set
+
 	skippedToothTriggerShapeExt(engineConfiguration2, 6, 0);
 	engineConfiguration2->triggerShape.useRiseEdge = TRUE;
 	engineConfiguration2->triggerShape.onlyOneTeeth = TRUE;

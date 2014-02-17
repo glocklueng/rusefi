@@ -96,15 +96,17 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->can_sleep_period = 50;
 	engineConfiguration->canReadEnabled = TRUE;
 	engineConfiguration->canWriteEnabled = FALSE;
+
+	/**
+	 * 0.5 means primary position sensor is on a camshaft
+	 */
+	engineConfiguration->rpmMultiplier = 0.5;
+	engineConfiguration->cylindersCount = 4;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
 	engineConfiguration2->clt.channel = ADC_LOGIC_COOLANT;
 	engineConfiguration2->iat.channel = ADC_LOGIC_INTAKE_AIR;
-	/**
-	 * 0.5 means primary position sensor is on a camshaft
-	 */
-	engineConfiguration2->rpmMultiplier = 0.5;
 
 	engineConfiguration2->triggerShape.onlyOneTeeth = FALSE;
 	engineConfiguration2->triggerShape.useRiseEdge = TRUE;
@@ -118,9 +120,6 @@ void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfigu
 	 * 720 is the range for four stroke
 	 */
 	engineConfiguration2->crankAngleRange = 720;
-
-
-	engineConfiguration2->cylindersCount = 4;
 
 	engineConfiguration2->hasMapSensor = TRUE;
 	engineConfiguration2->hasCltSensor = TRUE;
