@@ -66,6 +66,9 @@ static void lcdSleep(int period) {
 	}
 }
 
+static char txbuf[1];
+#define LCD_PORT_EXP_ADDR 0x20
+
 //-----------------------------------------------------------------------------
 static void lcd_HD44780_write(uint8_t data) {
 	if (engineConfiguration->displayMode == DM_HD44780) {
@@ -78,6 +81,27 @@ static void lcd_HD44780_write(uint8_t data) {
 		lcdSleep(10); // enable pulse must be >450ns
 		palClearPad(HD44780_PORT_E, HD44780_PIN_E); // En low
 		lcdSleep(40); // commands need > 37us to settle
+	} else {
+
+		//	LCD D4_pin -> P4
+		//	LCD D5_pin -> P5
+		//	LCD D6_pin -> P6
+		//	LCD D7_pin -> P7
+		//	LCD Pin RS -> P0
+		//	LCD Pin RW -> P1
+		//	LCD Pin E  -> P2
+
+				i2cAcquireBus(&I2CD1);
+
+				txbuf[0] = 4;
+				i2cMasterTransmit(&I2CD1, LCD_PORT_EXP_ADDR, txbuf, 1, NULL, 0);
+				lcdSleep(10); // enable pulse must be >450ns
+
+				txbuf[0] = 0;
+				i2cMasterTransmit(&I2CD1, LCD_PORT_EXP_ADDR, txbuf, 1, NULL, 0);
+
+				i2cReleaseBus(&I2CD1);
+
 	}
 }
 
