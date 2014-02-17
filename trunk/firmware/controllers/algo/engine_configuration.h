@@ -194,6 +194,8 @@ typedef struct {
 	float rpmMultiplier;
 
 	display_mode_e displayMode;
+
+	log_format_e logFormat;
 } engine_configuration_s;
 
 /**

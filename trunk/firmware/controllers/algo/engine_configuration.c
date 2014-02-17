@@ -105,6 +105,8 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 
 
 	engineConfiguration->displayMode = DM_HD44780;
+
+	engineConfiguration->logFormat = LF_NATIVE;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
