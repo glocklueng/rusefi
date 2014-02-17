@@ -161,7 +161,7 @@ void testGpsParser(void) {
 	assertEqualsM("1 valid", 4, GPSdata.quality);
 	assertEqualsM("1 latitude", 3349.896, GPSdata.latitude);
 	assertEqualsM("1 longitude", 11808.521, GPSdata.longitude);
-//	assertEqualsM("1 speed", 0, getCurrentSpeed());
+	assertEqualsM("1 speed", 0, GPSdata.speed);
 // 	assertEqualsM("1 altitude", 0, GPSdata.altitude);	// GPRMC not overwrite altitude
 	assertEqualsM("1 course", 360, GPSdata.course);
 
@@ -170,7 +170,7 @@ void testGpsParser(void) {
 	assertEqualsM("2 valid", 3, GPSdata.quality);		// see field details
 	assertEqualsM("2 latitude", 50.0212, GPSdata.latitude);
 	assertEqualsM("2 longitude", 36.2177, GPSdata.longitude);
-//	assertEqualsM("2 speed", 0, getCurrentSpeed());
+	assertEqualsM("2 speed", 0, GPSdata.speed);
 	assertEqualsM("2 altitude", 10.2, GPSdata.altitude);
 //	assertEqualsM("2 course", 0, GPSdata.course);  // GPGGA not overwrite course
 
@@ -179,7 +179,7 @@ void testGpsParser(void) {
 	assertEqualsM("3 valid", 4, GPSdata.quality);
 	assertEqualsM("3 latitude", 5001.27, GPSdata.latitude);
 	assertEqualsM("3 longitude", 3613.06, GPSdata.longitude);
-//	assertEqualsM("3 speed", 11.2, getCurrentSpeed());
+	assertEqualsM("3 speed", 11.2, GPSdata.speed);
 //	assertEqualsM("3 altitude", 0, GPSdata.altitude);  // GPRMC not overwrite altitude
 	assertEqualsM("3 course", 0, GPSdata.course);
 	assertEqualsM("3 GPS yy",2006, GPSdata.GPStm.tm_year+1900);
@@ -196,7 +196,7 @@ void testGpsParser(void) {
 	assertEqualsM("4 valid", 4, GPSdata.quality);
 	assertEqualsM("4 latitude", 3349.896, GPSdata.latitude);
 	assertEqualsM("4 longitude", 11808.521, GPSdata.longitude);
-//	assertEqualsM("4 speed", 0, getCurrentSpeed());
+	assertEqualsM("4 speed", 0, GPSdata.speed);
 	assertEqualsM("4 course", 360, GPSdata.course);	
 }
 
