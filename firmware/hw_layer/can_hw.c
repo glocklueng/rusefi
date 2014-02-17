@@ -32,6 +32,11 @@ extern engine_configuration2_s *engineConfiguration2;
  * automatic wakeup
  * automatic recover from abort mode
  * See section 22.7.7 on the STM32 reference manual.
+ *
+ * speed = 42000000 / (BRP + 1) / (1 + TS1 + 1 + TS2 + 1)
+ * 42000000 / 7 / 12 = 500000
+ *
+ *
  */
 static const CANConfig canConfig = {
 CAN_MCR_ABOM | CAN_MCR_AWUM | CAN_MCR_TXFP,
