@@ -62,10 +62,10 @@ static void testDodgeNeonDecoder(void) {
 static void test1995FordInline6TriggerDecoder(void) {
 	printf("*************************************************** test1995FordInline6TriggerDecoder\r\n");
 	initTriggerDecoder();
-//	engine_configuration_s ec;
-//	setFordInline6(&ec);
+	engine_configuration_s ec;
+	setFordInline6(&ec);
 	engine_configuration2_s ec2;
-	setFordInline6_2(NULL, &ec2);
+	setFordInline6_2(&ec, &ec2);
 	trigger_shape_s * shape = &ec2.triggerShape;
 	trigger_state_s state;
 	clearTriggerState(&state);
@@ -82,9 +82,9 @@ static void test1995FordInline6TriggerDecoder(void) {
 
 	for (int i = 2; i < 10;) {
 		processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r++);
-		assertEquals(i++, state.current_index);
+		assertEqualsM("even", i++, state.current_index);
 		processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r++);
-		assertEquals(i++, state.current_index);
+		assertEqualsM("odd", i++, state.current_index);
 	}
 
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r++);
