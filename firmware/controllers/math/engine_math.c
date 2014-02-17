@@ -53,22 +53,6 @@
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
-float getStartingFuel(float coolantTemperature) {
-	// these magic constants are in Celsius
-	if (isnan(coolantTemperature)
-			|| coolantTemperature
-					< engineConfiguration->crankingSettings.coolantTempMinC)
-		return engineConfiguration->crankingSettings.fuelAtMinTempMs;
-	if (coolantTemperature
-			> engineConfiguration->crankingSettings.coolantTempMaxC)
-		return engineConfiguration->crankingSettings.fuelAtMaxTempMs;
-	return interpolate(engineConfiguration->crankingSettings.coolantTempMinC,
-			engineConfiguration->crankingSettings.fuelAtMinTempMs,
-			engineConfiguration->crankingSettings.coolantTempMaxC,
-			engineConfiguration->crankingSettings.fuelAtMaxTempMs,
-			coolantTemperature);
-}
-
 /**
  * @return time needed to rotate crankshaft by one degree
  */
@@ -115,11 +99,14 @@ float getEngineLoad(void) {
 		fatal("Unexpected engine load parameter");
 		return -1;
 	}
-
 }
 
 int isCrankingR(int rpm) {
 	return rpm > 0 && rpm < engineConfiguration->crankingSettings.crankingRpm;
+}
+
+void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+
 }
 
 
