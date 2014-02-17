@@ -13,6 +13,7 @@
 #include "engine_configuration.h"
 #include "interpolation.h"
 #include "allsensors.h"
+#include "io_pins.h"
 
 /*
  * default Volumetric Efficiency
@@ -106,9 +107,22 @@ int isCrankingR(int rpm) {
 }
 
 void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
+	resetEventList(&config->ignitionEvents);
+	chDbgCheck(engineConfiguration->cylindersCount > 0, "cylindersCount");
+
+	int x = 13; //todo
+
+	if (engineConfiguration->ignitionMode == IM_ONE_COIL) {
+
+		for (int i = 0; i < engineConfiguration->cylindersCount; i++)
+			registerActuatorEventExt(&config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT),
+					x + 720.0 * i / engineConfiguration->cylindersCount);
+
+	} else
+		fatal("unfinished initializeIgnitionActions");
 
 }
-
 
 //float getTriggerEventAngle(int triggerEventIndex) {
 //	return 0;
