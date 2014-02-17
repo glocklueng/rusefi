@@ -104,7 +104,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->cylindersCount = 4;
 
 
-	engineConfiguration->displayMode = DM_HD44780_OVER_PCF8574;
+	engineConfiguration->displayMode = DM_HD44780;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
