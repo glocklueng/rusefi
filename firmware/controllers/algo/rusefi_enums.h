@@ -51,6 +51,17 @@ typedef enum {
 } display_mode_e;
 
 typedef enum {
+	LF_NATIVE = 0,
+	/**
+	 * http://www.efianalytics.com/MegaLogViewer/
+	 * log example: http://svn.code.sf.net/p/rusefi/code/trunk/misc/ms_logs/
+	 */
+	LM_MLV = 1,
+
+	Internal_ForceMyEnumIntSize_log_format = ENUM_SIZE_HACK,
+} log_format_e;
+
+typedef enum {
 	/**
 	 * GND for logical OFF, VCC for logical ON
 	 */
