@@ -33,6 +33,9 @@
 #define STM32_CAN_USE_CAN1                  TRUE
 #define STM32_CAN_USE_CAN2                  TRUE
 
+#define STM32_I2C_I2C1_RX_DMA_STREAM        STM32_DMA_STREAM_ID(1, 5)
+#define STM32_I2C_I2C1_TX_DMA_STREAM        STM32_DMA_STREAM_ID(1, 6)
+
 #define EFI_INTERNAL_SLOW_ADC_PWM	&PWMD5
 #define EFI_INTERNAL_FAST_ADC_PWM	&PWMD4
 
@@ -57,8 +60,8 @@
  */
 //#define SPI_CS1_PORT GPIOE
 //#define SPI_CS1_PIN 13
-//#define SPI_CS2_PORT GPIOE
-//#define SPI_CS2_PIN 14
+#define SPI_CS2_PORT GPIOE
+#define SPI_CS2_PIN 14
 //#define SPI_CS3_PORT GPIOE
 //#define SPI_CS3_PIN 15
 //#define SPI_CS4_PORT GPIOD
@@ -78,8 +81,8 @@
  */
 #define SPI_CS1_PORT GPIOD
 #define SPI_CS1_PIN 7
-#define SPI_CS2_PORT GPIOB
-#define SPI_CS2_PIN 7
+//#define SPI_CS2_PORT GPIOB
+//#define SPI_CS2_PIN 7
 #define SPI_CS3_PORT GPIOD
 #define SPI_CS3_PIN 5
 #define SPI_CS4_PORT GPIOD
@@ -95,6 +98,11 @@
 #define EFI_SPI3_AF 6
 #define MMC_CARD_SPI SPID3
 
+#define EFI_I2C_SCL_PORT GPIOB
+#define EFI_I2C_SCL_PIN 6
+#define EFI_I2C_SDA_PORT GPIOB
+#define EFI_I2C_SDA_PIN 7
+#define EFI_I2C_AF 4
 
 #define EFI_ADC_SLOW_CHANNELS_COUNT 	8
 
