@@ -20,6 +20,8 @@ int isTriggerDecoderError(void) {
 
 static inline int isSynchronizationGap(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
 		int currentDuration) {
+	if (triggerShape->onlyOneTeeth)
+			return FALSE;
 	return currentDuration > shaftPositionState->toothed_previous_duration * triggerShape->syncRatioFrom
 			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerShape->syncRatioTo;
 }

@@ -12,6 +12,7 @@ void clearTriggerState(trigger_state_s *state) {
 	state->shaft_is_synchronized = FALSE;
 	state->toothed_previous_time = 0;
 	state->toothed_previous_duration = 0;
+	state->current_index = 0;
 }
 
 void triggerShapeInit(trigger_shape_s *trigger) {
