@@ -154,10 +154,13 @@ char *getPinName(io_pin_e io_pin) {
 	}
 }
 
+void initPrimaryPins(void) {
+	outputPinRegister("error", LED_ERROR, LED_ERROR_PORT, LED_ERROR_PIN);
+}
+
 void initOutputPins(void) {
 	outputPinRegister("is cranking status", LED_CRANKING, LED_CRANKING_STATUS_PORT, LED_CRANKING_STATUS_PIN);
 	outputPinRegister("is running status", LED_RUNNING, LED_RUNNING_STATUS_PORT, LED_RUNNING_STATUS_PIN);
-	outputPinRegister("error", LED_ERROR, LED_ERROR_PORT, LED_ERROR_PIN);
 	outputPinRegister("communication status 1", LED_COMMUNICATION_1, LED_COMMUNICATION_PORT, LED_COMMUNICATION_PIN);
 
 	outputPinRegister("ext led 1", LED_EXT_1, EXTRA_LED_1_PORT, EXTRA_LED_1_PIN);

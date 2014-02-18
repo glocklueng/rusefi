@@ -26,8 +26,12 @@
 static OutputSignal signals[OUTPUT_SIGNAL_COUNT];
 int outputSignalCount;
 
+void resetOutputSignals(void) {
+	outputSignalCount = 0;
+}
+
 OutputSignal * addOutputSignal(io_pin_e ioPin) {
-	chDbgCheck(outputSignalCount < OUTPUT_SIGNAL_COUNT, "OUTPUT_SIGNAL_COUNT");
+	chDbgCheck(outputSignalCount < OUTPUT_SIGNAL_COUNT, "too many output signals");
 	OutputSignal *signal = &signals[outputSignalCount++];
 
 	initOutputSignal(signal, ioPin);
