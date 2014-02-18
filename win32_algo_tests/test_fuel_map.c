@@ -123,7 +123,7 @@ void testAngleResolver(void) {
 	confgiureFordAspireTriggerShape(ts);
 	assertEqualsM("shape size", 10, ts->size);
 
-	outputSignalCount = 0;
+	resetOutputSignals();
 
 	resetEventList(&ae);
 	printf("*************************************************** testAngleResolver 0\r\n");

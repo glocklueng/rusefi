@@ -69,6 +69,7 @@ static void testDodgeNeonDecoder(void) {
 static void test1995FordInline6TriggerDecoder(void) {
 	printf("*************************************************** test1995FordInline6TriggerDecoder\r\n");
 	initTriggerDecoder();
+	resetOutputSignals();
 	engine_configuration_s ec;
 	setDefaultConfiguration(&ec); // this is needed for RPM hard limit etc
 	setFordInline6(&ec);
@@ -127,6 +128,8 @@ void testFordAspire(void) {
 
 	assertEqualsM("higher rpm dwell", 3.25, getSparkDwellMsT(&ec, 6000));
 
+	engine_configuration2_s ec2;
+	setFordAspireengine_configuration2_s(&ec, &ec2);
 }
 
 void testTriggerDecoder(void) {
