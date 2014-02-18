@@ -50,7 +50,7 @@ void setFordInline6_2(engine_configuration_s *engineConfiguration, engine_config
 	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
 
 	engineConfiguration2->triggerShape.useRiseEdge = TRUE;
-	engineConfiguration2->triggerShape.onlyOneTeeth = TRUE;
+	engineConfiguration2->triggerShape.isSynchronizationNeeded = FALSE;
 }
 
 #endif /* EFI_SUPPORT_1995_FORD_INLINE_6 */

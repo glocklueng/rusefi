@@ -130,7 +130,7 @@ void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfigu
 	engineConfiguration2->clt.channel = ADC_LOGIC_COOLANT;
 	engineConfiguration2->iat.channel = ADC_LOGIC_INTAKE_AIR;
 
-	engineConfiguration2->triggerShape.onlyOneTeeth = FALSE;
+	engineConfiguration2->triggerShape.isSynchronizationNeeded = TRUE;
 	engineConfiguration2->triggerShape.useRiseEdge = TRUE;
 
 	/**

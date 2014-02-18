@@ -89,7 +89,7 @@ typedef struct {
 	 */
 	int shaftPositionEventCount;
 
-	int onlyOneTeeth;
+	int isSynchronizationNeeded;
 
 	int useRiseEdge;
 

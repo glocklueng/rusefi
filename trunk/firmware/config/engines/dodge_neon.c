@@ -77,7 +77,7 @@ void setDodgeNeonengine_configuration2_s(engine_configuration2_s *engineConfigur
 
 	engineConfiguration2->triggerShape.shaftPositionEventCount = ((2 - 1) * 2);
 	engineConfiguration2->triggerShape.useRiseEdge = FALSE;
-	engineConfiguration2->triggerShape.onlyOneTeeth = FALSE;
+	engineConfiguration2->triggerShape.isSynchronizationNeeded = TRUE;
 }
 
 #endif /* EFI_SUPPORT_DODGE_NEON */
