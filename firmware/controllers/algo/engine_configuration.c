@@ -119,6 +119,11 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->displayMode = DM_HD44780;
 
 	engineConfiguration->logFormat = LF_NATIVE;
+
+	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL;
+	engineConfiguration->triggerConfig.syncRatioFrom = 1.5;
+	engineConfiguration->triggerConfig.syncRatioTo = 3;
+
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
@@ -127,11 +132,6 @@ void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfigu
 
 	engineConfiguration2->triggerShape.onlyOneTeeth = FALSE;
 	engineConfiguration2->triggerShape.useRiseEdge = TRUE;
-
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
-
-	s->syncRatioFrom = 1.5;
-	s->syncRatioTo = 3;
 
 	/**
 	 * 720 is the range for four stroke

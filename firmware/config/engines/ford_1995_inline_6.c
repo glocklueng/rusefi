@@ -29,6 +29,9 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
 	engineConfiguration->firingOrder = FO_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4;
 
+	/**
+	 * 0.5ms dweel time just to be sure it would fit within camshaft revolution, dwell is not controlled by us anyway
+	 */
 	setConstantDwell(engineConfiguration, 0.5);
 }
 
@@ -36,6 +39,9 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
  * @brief These settings are not persistent yet
  */
 void setFordInline6_2(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+	/**
+	 * We treat the trigger as 6/0 toothed wheel
+	 */
 	initializeSkippedToothTriggerShapeExt(engineConfiguration2, 6, 0);
 	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
 

@@ -202,6 +202,8 @@ typedef struct {
 	float sparkDwellBins[DWELL_CURVE_SIZE]; // size 32
 	float sparkDwell[DWELL_CURVE_SIZE]; // size 32
 
+	trigger_config_s triggerConfig;
+
 } engine_configuration_s;
 
 /**
