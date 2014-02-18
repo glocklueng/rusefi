@@ -64,6 +64,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 	printf("*************************************************** test1995FordInline6TriggerDecoder\r\n");
 	initTriggerDecoder();
 	engine_configuration_s ec;
+	setDefaultConfiguration(&ec); // this is needed for RPM hard limit etc
 	setFordInline6(&ec);
 	engine_configuration2_s ec2;
 	setFordInline6_2(&ec, &ec2);
@@ -106,7 +107,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_UP, r++);
 	assertEquals(0, state.current_index); // new revolution
 
-
+	assertEqualsM("running dwell", 0.5, getSparkDwellMsT(&ec, 2000));
 }
 
 void testFordAspire(void) {

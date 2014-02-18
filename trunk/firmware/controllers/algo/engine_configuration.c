@@ -14,6 +14,16 @@
 #define ADC_CHANNEL_FAST_ADC 256
 
 /**
+ * @brief Sets the same dwell time across the whole getRpm() range
+ */
+void setConstantDwell(engine_configuration_s *engineConfiguration, float dwellMs) {
+	for (int i = 0; i < DWELL_CURVE_SIZE; i++) {
+		engineConfiguration->sparkDwellBins[i] = 1000 * i;
+		engineConfiguration->sparkDwell[i] = dwellMs;
+	}
+}
+
+/**
  * @brief	Global default engine configuration
  * This method sets the default global engine configuration. These values are later overridden by engine-specific defaults
  * and the settings saves in flash memory.
@@ -49,10 +59,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 		engineConfiguration->battInjectorLagCorr[i] = 0; // zero extra time by default
 	}
 
-	for (int i = 0; i < DWELL_CURVE_SIZE; i++) {
-		engineConfiguration->sparkDwellBins[i] = 1000 * i;
-		engineConfiguration->sparkDwell[i] = 4; // 4ms is global defaul dwell
-	}
+	setConstantDwell(engineConfiguration, 4); // 4ms is global default dwell
 
 	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
 		for (int r = 0; r < FUEL_RPM_COUNT; r++) {

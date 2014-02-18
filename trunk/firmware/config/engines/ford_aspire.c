@@ -262,6 +262,19 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->crankingSettings.crankingRpm = 550;
 	engineConfiguration->crankingChargeAngle = 65;
 
+	for (int i = 0; i < DWELL_CURVE_SIZE; i++) {
+		engineConfiguration->sparkDwellBins[i] = 0;
+		engineConfiguration->sparkDwell[i] = -1;
+	}
+
+	engineConfiguration->sparkDwellBins[5] = 1;
+	engineConfiguration->sparkDwell[5] = 4;
+
+	engineConfiguration->sparkDwellBins[6] = 4500;
+	engineConfiguration->sparkDwell[6] = 4;
+
+	engineConfiguration->sparkDwellBins[7] = 12500;
+	engineConfiguration->sparkDwell[7] = 0;
 }
 
 void setFordAspireengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {

@@ -26,6 +26,8 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
 	engineConfiguration->firingOrder = FO_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4;
+
+	setConstantDwell(engineConfiguration, 0.5);
 }
 
 void setFordInline6_2(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {

@@ -228,6 +228,7 @@ typedef struct {
 
 char* getConfigurationName(engine_configuration_s *engineConfiguration);
 void setDefaultConfiguration(engine_configuration_s *engineConfiguration);
+void setConstantDwell(engine_configuration_s *engineConfiguration, float dwellMs);
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2);
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 void printFloatArray(char *prefix, float array[], int size);
