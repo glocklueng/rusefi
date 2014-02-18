@@ -70,11 +70,15 @@ typedef enum {
 typedef struct {
 	trigger_type_e triggerType;
 
+	int isSynchronizationNeeded;
+
 	int totalToothCount;
 	int skippedToothCount;
 
 	float syncRatioFrom;
 	float syncRatioTo;
+
+	int useRiseEdge;
 
 } trigger_config_s;
 
@@ -88,12 +92,6 @@ typedef struct {
 	 * TODO with eliminating RPM_MULT magic constant
 	 */
 	int shaftPositionEventCount;
-
-	int isSynchronizationNeeded;
-
-	int useRiseEdge;
-
-
 } trigger_shape_s;
 
 void clearTriggerState(trigger_state_s *state);

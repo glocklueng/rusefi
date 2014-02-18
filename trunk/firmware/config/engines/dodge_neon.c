@@ -43,7 +43,8 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->triggerConfig.syncRatioFrom = 0.72 * 0.8;
 	engineConfiguration->triggerConfig.syncRatioTo = 0.72 * 1.3;
 
-
+	engineConfiguration->triggerConfig.isSynchronizationNeeded = TRUE;
+	engineConfiguration->triggerConfig.useRiseEdge = FALSE;
 }
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {
@@ -63,9 +64,6 @@ static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_3_OUTPUT), x + 360);
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_4_OUTPUT), x + 540);
 
-
-
-
 }
 
 void setDodgeNeonengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
@@ -76,8 +74,6 @@ void setDodgeNeonengine_configuration2_s(engine_configuration2_s *engineConfigur
 	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 
 	engineConfiguration2->triggerShape.shaftPositionEventCount = ((2 - 1) * 2);
-	engineConfiguration2->triggerShape.useRiseEdge = FALSE;
-	engineConfiguration2->triggerShape.isSynchronizationNeeded = TRUE;
 }
 
 #endif /* EFI_SUPPORT_DODGE_NEON */

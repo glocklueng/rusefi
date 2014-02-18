@@ -275,10 +275,12 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 
 	engineConfiguration->sparkDwellBins[7] = 12500;
 	engineConfiguration->sparkDwell[7] = 0;
+
+	engineConfiguration->triggerConfig.triggerType = TT_FORD_ASPIRE;
+	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
 }
 
 void setFordAspireengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	engineConfiguration2->triggerShape.isSynchronizationNeeded = FALSE;
 
 	confgiureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
 

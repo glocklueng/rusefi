@@ -123,15 +123,13 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL;
 	engineConfiguration->triggerConfig.syncRatioFrom = 1.5;
 	engineConfiguration->triggerConfig.syncRatioTo = 3;
-
+	engineConfiguration->triggerConfig.isSynchronizationNeeded = TRUE;
+	engineConfiguration->triggerConfig.useRiseEdge = TRUE;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
 	engineConfiguration2->clt.channel = ADC_LOGIC_COOLANT;
 	engineConfiguration2->iat.channel = ADC_LOGIC_INTAKE_AIR;
-
-	engineConfiguration2->triggerShape.isSynchronizationNeeded = TRUE;
-	engineConfiguration2->triggerShape.useRiseEdge = TRUE;
 
 	/**
 	 * 720 is the range for four stroke
