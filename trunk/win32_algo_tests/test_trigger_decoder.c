@@ -23,6 +23,7 @@ static void testDodgeNeonDecoder(void) {
 	setDodgeNeonEngineConfiguration(&ec);
 
 	engine_configuration2_s ec2;
+	initializeTriggerShape(&ec, &ec2);
 	setDodgeNeonengine_configuration2_s(&ec, &ec2);
 	trigger_shape_s * shape = &ec2.triggerShape;
 	trigger_state_s state;
@@ -74,6 +75,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 	setDefaultConfiguration(&ec); // this is needed for RPM hard limit etc
 	setFordInline6(&ec);
 	engine_configuration2_s ec2;
+	initializeTriggerShape(&ec, &ec2);
 	setFordInline6_2(&ec, &ec2);
 
 	ActuatorEventList *ecl = &ec2.engineEventConfiguration.ignitionEvents;
@@ -129,6 +131,7 @@ void testFordAspire(void) {
 	assertEqualsM("higher rpm dwell", 3.25, getSparkDwellMsT(&ec, 6000));
 
 	engine_configuration2_s ec2;
+	initializeTriggerShape(&ec, &ec2);
 	setFordAspireengine_configuration2_s(&ec, &ec2);
 }
 
