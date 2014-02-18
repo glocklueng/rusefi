@@ -11,7 +11,6 @@
 
 #include "engine_controller.h"
 #include "adc_inputs.h"
-#include "trigger_decoder.h"
 #include "engine_configuration.h"
 
 void setNissanPrimeraEngineConfiguration(engine_configuration_s *engineConfiguration) {
@@ -20,7 +19,6 @@ void setNissanPrimeraEngineConfiguration(engine_configuration_s *engineConfigura
 }
 
 void setNissanPrimeraengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	initializeTriggerShape(engineConfiguration, engineConfiguration2);
 }
 
 #endif /* EFI_SUPPORT_NISSAN_PRIMERA */

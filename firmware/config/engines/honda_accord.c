@@ -15,7 +15,6 @@ void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration) {
 }
 
 void setHondaAccordConfiguration2(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	initializeTriggerShape(engineConfiguration, engineConfiguration2);
 
 
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
