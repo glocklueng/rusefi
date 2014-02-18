@@ -51,11 +51,9 @@
 //}
 #define MAX_STARTING_FUEL 15
 #define MIN_STARTING_FUEL 8
-extern engine_configuration_s *engineConfiguration;
-extern engine_configuration2_s *engineConfiguration2;
 
 /**
- * @return time needed to rotate crankshaft by one degree
+ * @return time needed to rotate crankshaft by one degree, in systicks
  */
 float getOneDegreeTime(int rpm) {
 	return 1000.0 * 60 * TICKS_IN_MS / 360 / rpm;
@@ -85,7 +83,7 @@ float fixAngle(float angle) {
  * @brief Returns engine load according to selected engine_load_mode
  *
  */
-float getEngineLoad(void) {
+float getEngineLoadT(engine_configuration_s *engineConfiguration) {
 	switch (engineConfiguration->engine_load_mode) {
 	case LM_MAF:
 		return getMaf();
@@ -102,7 +100,7 @@ float getEngineLoad(void) {
 	}
 }
 
-int isCrankingR(int rpm) {
+int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm) {
 	return rpm > 0 && rpm < engineConfiguration->crankingSettings.crankingRpm;
 }
 
@@ -124,6 +122,34 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engi
 
 }
 
+/**
+ * @return Spark dwell time, in
+ */
+float getSparkDwellT(engine_configuration_s *engineConfiguration, int rpm) {
+	if (isCrankingR(rpm)) {
+		float angle = engineConfiguration->crankingChargeAngle;
+		return getOneDegreeTime(rpm) * angle;
+	}
+
+	if (rpm > engineConfiguration->rpmHardLimit) {
+		warning("skipping spark due to rpm=", rpm);
+		return 0;
+	}
+	int defaultDwell = TICKS_IN_MS * 4;
+	if (rpm <= 4500)
+		return defaultDwell;
+	rpm -= 4500;
+	/**
+	 * at higher RPM we simply do not have enough time to charge the coil completely
+	 */
+	// for each 2000 rpm above 4500 rom we reduce dwell by 1 ms
+	int dec = rpm * TICKS_IN_MS / 2000;
+	return defaultDwell - dec;
+}
+
+
 //float getTriggerEventAngle(int triggerEventIndex) {
 //	return 0;
 //}
+
+

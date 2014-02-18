@@ -49,6 +49,8 @@ typedef struct {
 #define IGN_LOAD_COUNT 16
 #define IGN_RPM_COUNT 16
 
+#define DWELL_CURVE_SIZE 8
+
 typedef enum {
 	AC_OFF = 0,
 	AC_TRIGGER = 1,
@@ -196,6 +198,10 @@ typedef struct {
 	display_mode_e displayMode;
 
 	log_format_e logFormat;
+
+	float sparkDwellBins[DWELL_CURVE_SIZE]; // size 32
+	float sparkDwell[DWELL_CURVE_SIZE]; // size 32
+
 } engine_configuration_s;
 
 /**
