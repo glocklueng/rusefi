@@ -134,24 +134,18 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engi
  */
 float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 	if (isCrankingR(rpm)) {
+		// technically this could be implemented via interpolate2d
 		float angle = engineConfiguration->crankingChargeAngle;
 		return getOneDegreeTimeMs(rpm) * angle;
 	}
 
 	if (rpm > engineConfiguration->rpmHardLimit) {
+		// technically this could be implemented via interpolate2d by setting everything above rpmHardLimit to zero
 		warning("skipping spark due to rpm=", rpm);
 		return 0;
 	}
-	int defaultDwell = 4;
-	if (rpm <= 4500)
-		return defaultDwell;
-	rpm -= 4500;
-	/**
-	 * at higher RPM we simply do not have enough time to charge the coil completely
-	 */
-	// for each 2000 rpm above 4500 rom we reduce dwell by 1 ms
-	float dec = rpm / 2000.0;
-	return defaultDwell - dec;
+
+	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
 }
 
 
