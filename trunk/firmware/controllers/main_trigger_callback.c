@@ -97,6 +97,8 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 }
 
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
+	if(rpm ==0)
+		return;
 	float advance = getAdvance(rpm, getEngineLoad());
 
 	float sparkAdvanceMs = getOneDegreeTimeMs(rpm) * advance;
