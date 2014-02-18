@@ -8,7 +8,7 @@
 
 #include "main.h"
 
-#if EFI_SUPPORT_FORD_FIESTA
+#if EFI_SUPPORT_FORD_FIESTA || defined(__DOXYGEN__)
 
 #include "ford_fiesta.h"
 #include "engine_configuration.h"
@@ -41,7 +41,7 @@ void setFordFiestaengine_configuration2_s(engine_configuration2_s *engineConfigu
 
 	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 
-	skippedToothTriggerShapeExt(engineConfiguration2, 36, 1);
+	initializeSkippedToothTriggerShapeExt(engineConfiguration2, 36, 1);
 }
 
 #endif /* EFI_SUPPORT_FORD_FIESTA */

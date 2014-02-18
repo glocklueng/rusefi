@@ -155,26 +155,26 @@ static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
 	triggerAddEvent(s, 720, T_PRIMARY, 0);
 }
 
-static void configureAspireEngineEventHandler(EventHandlerConfiguration *config) {
+static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigger_shape_s * s, EventHandlerConfiguration *config) {
 	float x = 51 - 175;
 
 	resetEventList(&config->crankingInjectionEvents);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_1_OUTPUT), x);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_2_OUTPUT), x);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_3_OUTPUT), x);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_1_OUTPUT), x + 180);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_2_OUTPUT), x + 180);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_3_OUTPUT), x + 180);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x + 180);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_1_OUTPUT), x + 360);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_2_OUTPUT), x + 360);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_3_OUTPUT), x + 360);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x + 360);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_1_OUTPUT), x + 540);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_2_OUTPUT), x + 540);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_3_OUTPUT), x + 540);
-	registerActuatorEventExt(&config->crankingInjectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x + 540);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_1_OUTPUT), x);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_2_OUTPUT), x);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_3_OUTPUT), x);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_1_OUTPUT), x + 180);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_2_OUTPUT), x + 180);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_3_OUTPUT), x + 180);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x + 180);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_1_OUTPUT), x + 360);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_2_OUTPUT), x + 360);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_3_OUTPUT), x + 360);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x + 360);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_1_OUTPUT), x + 540);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_2_OUTPUT), x + 540);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_3_OUTPUT), x + 540);
+	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x + 540);
 
 //	registerActuatorEvent(&config->crankingInjectionEvents, 1, addOutputSignal(INJECTOR_1_OUTPUT), 0);
 //	registerActuatorEvent(&config->crankingInjectionEvents, 1, addOutputSignal(INJECTOR_2_OUTPUT), 0);
@@ -277,9 +277,13 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->sparkDwell[7] = 0;
 }
 
-void setFordAspireengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
+void setFordAspireengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	engineConfiguration2->triggerShape.onlyOneTeeth = TRUE;
-	configureAspireEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
+	configureAspireEngineEventHandler(engineConfiguration,
+
+			&engineConfiguration2->triggerShape,
+
+			&engineConfiguration2->engineEventConfiguration);
 	engineConfiguration2->triggerShape.shaftPositionEventCount = 10;
 	confgiureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
 }

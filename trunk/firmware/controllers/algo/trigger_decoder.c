@@ -98,7 +98,7 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 	triggerAddEvent(s, 720, T_PRIMARY, 0);
 }
 
-void skippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount, int skippedCount) {
+void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount, int skippedCount) {
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	engineConfiguration2->triggerShape.shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
 	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount);

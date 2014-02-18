@@ -80,7 +80,7 @@ static void applyNonPersistentConfiguration(engine_type_e engineType) {
 		setDodgeNeonengine_configuration2_s(engineConfiguration2);
 		break;
 	case FORD_ASPIRE_1996:
-		setFordAspireengine_configuration2_s(engineConfiguration2);
+		setFordAspireengine_configuration2_s(engineConfiguration, engineConfiguration2);
 		break;
 	case FORD_FIESTA:
 		setFordFiestaengine_configuration2_s(engineConfiguration2);

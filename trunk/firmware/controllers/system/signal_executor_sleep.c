@@ -18,7 +18,7 @@
 #include "injector_central.h"
 #include "engine_math.h"
 
-#if EFI_SIGNAL_EXECUTOR_SLEEP
+#if EFI_SIGNAL_EXECUTOR_SLEEP || defined(__DOXYGEN__)
 
 void scheduleTask(scheduling_s *scheduling, int delay, schfunc_t callback, void *param) {
 	if (delay == 0) {

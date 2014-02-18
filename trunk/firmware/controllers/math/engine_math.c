@@ -120,9 +120,13 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engi
 
 	if (engineConfiguration->ignitionMode == IM_ONE_COIL) {
 
-		for (int i = 0; i < engineConfiguration->cylindersCount; i++)
-			registerActuatorEventExt(&config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT),
-					x + 720.0 * i / engineConfiguration->cylindersCount);
+		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
+			float angle = x + 720.0 * i / engineConfiguration->cylindersCount;
+
+			registerActuatorEventExt(engineConfiguration,
+					&engineConfiguration2->triggerShape,
+					&config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), angle);
+		}
 
 	} else
 		fatal("unfinished initializeIgnitionActions");
@@ -146,6 +150,26 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 	}
 
 	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
+}
+
+void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
+	chDbgCheck(s->size > 0, "uninitialized trigger_shape_s");
+
+	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerOffsetAngle);
+
+	// todo: migrate to crankAngleRange?
+	float firstAngle = s->wave.switchTimes[0] * 720;
+
+	// let's find the last trigger angle which is less or equal to the desired angle
+	int i;
+	for (i = 0; i < s->size - 1; i++) {
+		float angle = s->wave.switchTimes[i + 1] * 720 - firstAngle;
+		if (angle > angleOffset)
+			break;
+	}
+	float angle = s->wave.switchTimes[i] * 720 - firstAngle;
+
+	registerActuatorEvent(list, i, actuator, angleOffset - angle);
 }
 
 

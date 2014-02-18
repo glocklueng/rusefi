@@ -7,7 +7,7 @@
 
 #include "main.h"
 
-#if EFI_SUPPORT_DODGE_NEON
+#if EFI_SUPPORT_DODGE_NEON || defined(__DOXYGEN__)
 
 #include "dodge_neon.h"
 #include "engine_configuration.h"

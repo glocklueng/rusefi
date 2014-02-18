@@ -33,4 +33,7 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engi
 float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm);
 #define getSparkDwellMs(rpm) getSparkDwellMsT(engineConfiguration, rpm)
 
+void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list, OutputSignal *actuator, float angleOffset);
+
+
 #endif /* ENGINE_MATH_H_ */

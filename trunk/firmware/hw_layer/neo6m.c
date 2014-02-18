@@ -1,6 +1,6 @@
 /**
  * @file	neo6m.c
- * @brerf	Ublox 6M hardware UART driver
+ * @brief	Ublox 6M hardware UART driver
  *
  * http://www.u-blox.com/en/gps-modules/pvt-modules/previous-generations/neo-6-family.html
  *
