@@ -12,7 +12,7 @@
 #include "engine_configuration.h"
 
 void setFordFiestaDefaultEngineConfiguration(engine_configuration_s *engineConfiguration);
-void setFordFiestaengine_configuration2_s(engine_configuration2_s *engineConfiguration2);
+void setFordFiestaengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 
 #endif /* EFI_SUPPORT_FORD_FIESTA */
 #endif /* FORD_FIESTA_H_ */

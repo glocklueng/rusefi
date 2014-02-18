@@ -13,7 +13,7 @@
 #if EFI_SUPPORT_NISSAN_PRIMERA
 
 void setNissanPrimeraEngineConfiguration(engine_configuration_s *engineConfiguration);
-void setNissanPrimeraengine_configuration2_s(engine_configuration2_s *engineConfiguration2);
+void setNissanPrimeraengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 
 #endif /* EFI_SUPPORT_NISSAN_PRIMERA */
 
