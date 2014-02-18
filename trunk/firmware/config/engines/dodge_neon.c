@@ -13,18 +13,6 @@
 #include "engine_configuration.h"
 #include "thermistors.h"
 
-static void configureTriggerShape(trigger_shape_s *s) {
-	triggerShapeInit(s);
-
-	triggerAddEvent(s, 60, T_PRIMARY, 1);
-	triggerAddEvent(s, 210, T_PRIMARY, 0);
-	triggerAddEvent(s, 420, T_PRIMARY, 1);
-	triggerAddEvent(s, 630, T_PRIMARY, 0);
-	// voodoo magic - we always need 720 at the end
-	triggerAddEvent(s, 720, T_PRIMARY, 0);
-
-}
-
 void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 
@@ -45,6 +33,8 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = TRUE;
 	engineConfiguration->triggerConfig.useRiseEdge = FALSE;
+
+	engineConfiguration->triggerConfig.triggerType = TT_DODGE_NEON;
 }
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {
@@ -67,13 +57,9 @@ static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 }
 
 void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	configureTriggerShape(&engineConfiguration2->triggerShape);
-
-
 
 	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 
-	engineConfiguration2->triggerShape.shaftPositionEventCount = ((2 - 1) * 2);
 }
 
 #endif /* EFI_SUPPORT_DODGE_NEON */

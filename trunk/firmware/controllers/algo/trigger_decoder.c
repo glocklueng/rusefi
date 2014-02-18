@@ -107,6 +107,39 @@ void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfig
 	checkSwitchTimes(s->size, s->wave.switchTimes);
 }
 
+static void configureNeonTriggerShape(trigger_shape_s *s) {
+	triggerShapeInit(s);
+
+	triggerAddEvent(s, 60, T_PRIMARY, 1);
+	triggerAddEvent(s, 210, T_PRIMARY, 0);
+	triggerAddEvent(s, 420, T_PRIMARY, 1);
+	triggerAddEvent(s, 630, T_PRIMARY, 0);
+	// voodoo magic - we always need 720 at the end
+	triggerAddEvent(s, 720, T_PRIMARY, 0);
+
+	s->shaftPositionEventCount = ((2 - 1) * 2);
+}
+
+static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
+	triggerShapeInit(s);
+
+	s->shaftPositionEventCount = 10;
+
+
+	triggerAddEvent(s, 53.747, T_SECONDARY, 1);
+	triggerAddEvent(s, 121.90, T_SECONDARY, 0);
+	triggerAddEvent(s, 232.76, T_SECONDARY, 1);
+	triggerAddEvent(s, 300.54, T_SECONDARY, 0);
+	triggerAddEvent(s, 360, T_PRIMARY, 1);
+
+	triggerAddEvent(s, 409.8412, T_SECONDARY, 1);
+	triggerAddEvent(s, 478.6505, T_SECONDARY, 0);
+	triggerAddEvent(s, 588.045, T_SECONDARY, 1);
+	triggerAddEvent(s, 657.03, T_SECONDARY, 0);
+	triggerAddEvent(s, 720, T_PRIMARY, 0);
+}
+
+
 void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	trigger_config_s *tt = &engineConfiguration->triggerConfig;
 	switch (tt->triggerType) {
@@ -114,6 +147,15 @@ void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_
 	case TT_TOOTHED_WHEEL:
 		initializeSkippedToothTriggerShapeExt(engineConfiguration2, tt->totalToothCount, tt->skippedToothCount);
 		return;
+
+	case TT_DODGE_NEON:
+		configureNeonTriggerShape(&engineConfiguration2->triggerShape);
+		return;
+
+	case TT_FORD_ASPIRE:
+		confgiureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
+		return;
+
 	default:
 		fatal("not implemented")
 		;
