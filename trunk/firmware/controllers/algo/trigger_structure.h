@@ -64,10 +64,14 @@ typedef enum {
 	T_SECONDARY = 1
 } trigger_wheel_e;
 
-
+/**
+ * @brief Trigger wheel(s) configuration
+ */
 typedef struct {
 	trigger_type_e triggerType;
 
+	int totalToothCount;
+	int skippedToothCount;
 
 	float syncRatioFrom;
 	float syncRatioTo;
