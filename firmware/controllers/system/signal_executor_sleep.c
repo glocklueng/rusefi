@@ -46,7 +46,7 @@ void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void 
 void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 	signal->io_pin = ioPin;
 	signal->name = getPinName(ioPin);
-	signal->duration = 0;
+//	signal->duration = 0;
 	initOutputSignalBase(signal);
 }
 

@@ -99,6 +99,6 @@ void scheduleOutputBase(OutputSignal *signal, int offset, int duration) {
 	 * we would accept any memory garbage
 	 */
 	chDbgCheck(signal->initialized == TRUE, "Signal not initialized");
-	signal->offset = offset;
-	signal->duration = duration;
+//	signal->offset = offset;
+//	signal->duration = duration;
 }
