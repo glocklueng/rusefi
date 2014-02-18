@@ -11,7 +11,7 @@
 #include "signal_executor.h"
 #include "signal_executor_hw_timer.h"
 
-#if EFI_SIGNAL_EXECUTOR_HW_TIMER
+#if EFI_SIGNAL_EXECUTOR_HW_TIMER || defined(__DOXYGEN__)
 
 void initOutputSignal(char *name, OutputSignal *signal, int led, int xor) {
 	// todo
