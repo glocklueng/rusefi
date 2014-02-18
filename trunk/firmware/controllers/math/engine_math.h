@@ -15,6 +15,7 @@
 float getDefaultFuel(int rpm, float map);
 //float getTCharge(int rpm, int tps, float coolantTemp, float airTemp);
 
+float getOneDegreeTimeMs(int rpm);
 float getOneDegreeTime(int rpm);
 float getCrankshaftRevolutionTime(int rpm);
 
@@ -29,7 +30,7 @@ float getEngineLoadT(engine_configuration_s *engineConfiguration);
 
 void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 
-float getSparkDwellT(engine_configuration_s *engineConfiguration, int rpm);
-#define getSparkDwell(rpm) getSparkDwellT(engineConfiguration, rpm)
+float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm);
+#define getSparkDwellMs(rpm) getSparkDwellMsT(engineConfiguration, rpm)
 
 #endif /* ENGINE_MATH_H_ */

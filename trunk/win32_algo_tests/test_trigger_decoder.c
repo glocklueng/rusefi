@@ -8,6 +8,7 @@
 #include "main.h"
 #include "test_trigger_decoder.h"
 #include "trigger_decoder.h"
+#include "engine_math.h"
 
 #include "ford_aspire.h"
 #include "dodge_neon.h"
@@ -108,6 +109,17 @@ static void test1995FordInline6TriggerDecoder(void) {
 
 }
 
+void testFordAspire(void) {
+	printf("*************************************************** testTriggerDecoder\r\n");
+
+	engine_configuration_s ec;
+	setFordAspireEngineConfiguration(&ec);
+
+	assertEqualsM("cranking dwell", 54.166670, getSparkDwellMsT(&ec, 200));
+	assertEqualsM("running dwwll", 4, getSparkDwellMsT(&ec, 2000));
+
+}
+
 void testTriggerDecoder(void) {
 	printf("*************************************************** testTriggerDecoder\r\n");
 
@@ -121,6 +133,7 @@ void testTriggerDecoder(void) {
 	assertEquals(ec2.triggerShape.wave.switchTimes[3], 1);
 
 	testDodgeNeonDecoder();
+	testFordAspire();
 	test1995FordInline6TriggerDecoder();
 }
 
