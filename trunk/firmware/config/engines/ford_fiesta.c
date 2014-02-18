@@ -35,13 +35,16 @@ void setFordFiestaDefaultEngineConfiguration(engine_configuration_s *engineConfi
 	engineConfiguration->rpmHardLimit = 7000;
 	// only crankshaft sensor so far
 	engineConfiguration->rpmMultiplier = 1;
+
+	engineConfiguration->triggerConfig.totalToothCount = 36;
+	engineConfiguration->triggerConfig.skippedToothCount = 1;
 }
 
-void setFordFiestaengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
+void setFordFiestaengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+	initializeTriggerShape(engineConfiguration, engineConfiguration2);
 
 	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 
-	initializeSkippedToothTriggerShapeExt(engineConfiguration2, 36, 1);
 }
 
 #endif /* EFI_SUPPORT_FORD_FIESTA */
