@@ -150,7 +150,7 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 	 * at higher RPM we simply do not have enough time to charge the coil completely
 	 */
 	// for each 2000 rpm above 4500 rom we reduce dwell by 1 ms
-	int dec = rpm / 2000;
+	float dec = rpm / 2000.0;
 	return defaultDwell - dec;
 }
 
