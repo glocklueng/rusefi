@@ -116,7 +116,9 @@ void testFordAspire(void) {
 	setFordAspireEngineConfiguration(&ec);
 
 	assertEqualsM("cranking dwell", 54.166670, getSparkDwellMsT(&ec, 200));
-	assertEqualsM("running dwwll", 4, getSparkDwellMsT(&ec, 2000));
+	assertEqualsM("running dwell", 4, getSparkDwellMsT(&ec, 2000));
+
+	assertEqualsM("higher rpm dwell", 3.25, getSparkDwellMsT(&ec, 6000));
 
 }
 
