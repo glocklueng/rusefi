@@ -279,13 +279,15 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 
 void setFordAspireengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	engineConfiguration2->triggerShape.onlyOneTeeth = TRUE;
+
+	confgiureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
+
 	configureAspireEngineEventHandler(engineConfiguration,
 
 			&engineConfiguration2->triggerShape,
 
 			&engineConfiguration2->engineEventConfiguration);
 	engineConfiguration2->triggerShape.shaftPositionEventCount = 10;
-	confgiureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
 }
 
 #endif /* EFI_SUPPORT_FORD_ASPIRE */

@@ -23,6 +23,7 @@
 #include "neo6m.h"
 #include "lcd_2x16.h"
 #include "rficonsole_logic.h"
+#include "flash_main.h"
 
 McpAdcState adcState;
 
@@ -80,11 +81,25 @@ void initHardware() {
 	// 10 extra seconds to re-flash the chip
 	//flashProtect();
 
+	/**
+	 * histograms is a data structure for CPU monitor, it does not depend on configuration
+	 */
 	initHistograms();
 
-	initRtc();
-
 	initPinRepository();
+
+	/**
+	 * We need the LED_ERROR pin even before we read configuration
+	 */
+	initPrimaryPins();
+
+	/**
+	 * this call reads configuration from flash memory or sets default configuration
+	 * if flash state does not look right.
+	 */
+	initFlash();
+
+	initRtc();
 
 	initOutputPins();
 	initAdcInputs();
