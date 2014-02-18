@@ -20,7 +20,7 @@ void setNissanPrimeraEngineConfiguration(engine_configuration_s *engineConfigura
 }
 
 void setNissanPrimeraengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	initializeSkippedToothTriggerShapeExt(engineConfiguration2, 60, 2);
+	initializeTriggerShape(engineConfiguration, engineConfiguration2);
 }
 
 #endif /* EFI_SUPPORT_NISSAN_PRIMERA */

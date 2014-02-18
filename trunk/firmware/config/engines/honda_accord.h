@@ -11,6 +11,6 @@
 #include "engine_configuration.h"
 
 void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration);
-void setHondaAccordConfiguration2(engine_configuration2_s *engineConfiguration2);
+void setHondaAccordConfiguration2(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 
 #endif /* HONDA_ACCORD_H_ */
