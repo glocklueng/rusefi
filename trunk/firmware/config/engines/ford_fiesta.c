@@ -12,7 +12,6 @@
 
 #include "ford_fiesta.h"
 #include "engine_configuration.h"
-#include "trigger_decoder.h"
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	// injector 1 activated at the 1st tooth event while cranking
@@ -41,8 +40,6 @@ void setFordFiestaDefaultEngineConfiguration(engine_configuration_s *engineConfi
 }
 
 void setFordFiestaengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	initializeTriggerShape(engineConfiguration, engineConfiguration2);
-
 	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 
 }
