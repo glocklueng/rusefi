@@ -17,6 +17,7 @@
 extern WaveChart waveChart;
 #endif
 
+#if EFI_SIGNAL_EXECUTOR_SINGLE_TIMER
 /**
  * @brief Output list
  *
@@ -38,20 +39,22 @@ void setOutputPinValue(io_pin_e pin, int value);
  * @todo Find better name.
  */
 inline time_t toggleSignalIfNeeded(OutputSignal *out, time_t now) {
-	chDbgCheck(out!=NULL, "out is NULL");
-	chDbgCheck(out->io_pin < IO_PIN_COUNT, "pin assertion");
+//	chDbgCheck(out!=NULL, "out is NULL");
+//	chDbgCheck(out->io_pin < IO_PIN_COUNT, "pin assertion");
 	time_t last = out->last_scheduling_time;
 	//estimated = last + out->timing[out->status];
 	time_t estimated = last + GET_DURATION(out);
 	if (now >= estimated) {
-		setOutputPinValue(out->io_pin, out->status); /* Toggle output */
+		out->status ^= 1; /* toggle status */
+		//setOutputPinValue(out->io_pin, out->status); /* Toggle output */
+		palWritePad(GPIOE, 5, out->status);
 #if EFI_WAVE_ANALYZER
-		addWaveChartEvent(out->name, out->status ? "up" : "down", "");
+//		addWaveChartEvent(out->name, out->status ? "up" : "down", "");
 #endif /* EFI_WAVE_ANALYZER */
 
-		out->status = (executor_status_t)!out->status; /* update status */
 		out->last_scheduling_time = now; /* store last update */
 		estimated = now + GET_DURATION(out); /* update estimation */
 	}
 	return estimated - now;
 }
+#endif /* EFI_SIGNAL_EXECUTOR_SINGLE_TIMER */
