@@ -1,7 +1,5 @@
 package com.irnems.waves;
 
-import com.irnems.FileLog;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -99,7 +97,7 @@ public class WaveReport implements TimeAxisTranslator {
         //  / SYS_TICKS_PER_MS / 1000
         double time = 1.0 * screen * getDuration() / width / zoomProvider.getZoomValue() + minTime;
         int x2 = timeToScreen((int) time, width, zoomProvider);
-        FileLog.rlog("screenToTime " + (screen - x2));
+//        FileLog.rlog("screenToTime " + (screen - x2));
         return (int) time;
     }
 
