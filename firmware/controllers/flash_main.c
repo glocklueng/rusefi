@@ -29,6 +29,7 @@
 #include "nissan_primera.h"
 #include "honda_accord.h"
 #include "GY6_139QMB.h"
+#include "trigger_decoder.h"
 
 static engine_type_e defaultEngineType = FORD_ASPIRE_1996;
 
