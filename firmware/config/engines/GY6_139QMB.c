@@ -17,7 +17,15 @@ void setGy6139qmbDefaultEngineConfiguration(engine_configuration_s *engineConfig
 	engineConfiguration->engine_load_mode = LM_MAP;
 	engineConfiguration->cylindersCount = 1;
 	engineConfiguration->rpmMultiplier = 1;
+
+	/**
+	 * We treat the trigger as 1/0 toothed wheel
+	 */
+	engineConfiguration->triggerConfig.totalToothCount = 1;
+	engineConfiguration->triggerConfig.skippedToothCount = 0;
+	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
 }
+
 void setGy6139qmbengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
 }
 
