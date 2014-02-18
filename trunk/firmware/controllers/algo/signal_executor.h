@@ -34,6 +34,9 @@ struct scheduling_struct {
 #if EFI_SIGNAL_EXECUTOR_SLEEP
 	VirtualTimer timer;
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
+#if EFI_SIGNAL_EXECUTOR_SINGLE_TIMER
+	volatile time_t moment;
+#endif /* EFI_SIGNAL_EXECUTOR_SINGLE_TIMER */
 };
 
 typedef enum {
@@ -50,11 +53,12 @@ struct OutputSignal_struct {
 	 */
 	char *name;
 	io_pin_e io_pin;
+#if 0	// depricated
 	// time in system ticks
 	volatile int offset;
 	// time in system ticks
 	volatile int duration;
-
+#endif
 	int initialized;
 
 	time_t last_scheduling_time;
