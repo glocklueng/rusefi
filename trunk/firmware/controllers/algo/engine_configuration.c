@@ -49,6 +49,11 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 		engineConfiguration->battInjectorLagCorr[i] = 0; // zero extra time by default
 	}
 
+	for (int i = 0; i < DWELL_CURVE_SIZE; i++) {
+		engineConfiguration->sparkDwellBins[i] = 1000 * i;
+		engineConfiguration->sparkDwell[i] = 4; // 4ms is global defaul dwell
+	}
+
 	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
 		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
 			// 3ms would be the global default

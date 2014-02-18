@@ -18,12 +18,18 @@ float getDefaultFuel(int rpm, float map);
 float getOneDegreeTime(int rpm);
 float getCrankshaftRevolutionTime(int rpm);
 
-int isCrankingR(int rpm);
+int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm);
+#define isCrankingR(rpm) isCrankingRT(engineConfiguration, rpm)
 
 float fixAngle(float angle);
 float getTriggerEventAngle(int triggerEventIndex);
-float getEngineLoad(void);
+
+float getEngineLoadT(engine_configuration_s *engineConfiguration);
+#define getEngineLoad() getEngineLoadT(engineConfiguration)
 
 void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
+
+float getSparkDwellT(engine_configuration_s *engineConfiguration, int rpm);
+#define getSparkDwell(rpm) getSparkDwellT(engineConfiguration, rpm)
 
 #endif /* ENGINE_MATH_H_ */

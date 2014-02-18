@@ -96,28 +96,6 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 	}
 }
 
-static int getSparkDwell(int rpm) {
-	if (isCrankingR(rpm)) {
-		float angle = engineConfiguration->crankingChargeAngle;
-		return getOneDegreeTime(rpm) * angle;
-	}
-
-	if (rpm > engineConfiguration->rpmHardLimit) {
-		warning("skipping spark due to rpm=", rpm);
-		return 0;
-	}
-	int defaultDwell = TICKS_IN_MS * 4;
-	if (rpm <= 4500)
-		return defaultDwell;
-	rpm -= 4500;
-	/**
-	 * at higher RPM we simply do not have enough time to charge the coil completely
-	 */
-	// for each 2000 rpm above 4500 rom we reduce dwell by 1 ms
-	int dec = rpm * TICKS_IN_MS / 2000;
-	return defaultDwell - dec;
-}
-
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	float advance = getAdvance(rpm, getEngineLoad());
 
