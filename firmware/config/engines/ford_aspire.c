@@ -139,22 +139,6 @@ static float default_timing_table[AD_LOAD_COUNT][AD_RPM_COUNT] = {
 /* Load 4.400000 */{	0.350000,	5.590000,	0.502000,	0.910000,	0.864000,	0.954000,	1.324000,	-7.436000,	1.170000,	1.054000,	2.058000,	2.098000,	2.636000,	-12.352000,	-12.352000,	-12.352000}
 };
 
-static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
-	triggerShapeInit(s);
-
-	triggerAddEvent(s, 53.747, T_SECONDARY, 1);
-	triggerAddEvent(s, 121.90, T_SECONDARY, 0);
-	triggerAddEvent(s, 232.76, T_SECONDARY, 1);
-	triggerAddEvent(s, 300.54, T_SECONDARY, 0);
-	triggerAddEvent(s, 360, T_PRIMARY, 1);
-
-	triggerAddEvent(s, 409.8412, T_SECONDARY, 1);
-	triggerAddEvent(s, 478.6505, T_SECONDARY, 0);
-	triggerAddEvent(s, 588.045, T_SECONDARY, 1);
-	triggerAddEvent(s, 657.03, T_SECONDARY, 0);
-	triggerAddEvent(s, 720, T_PRIMARY, 0);
-}
-
 static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigger_shape_s * s, EventHandlerConfiguration *config) {
 	float x = 51 - 175;
 
@@ -282,14 +266,12 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 
 void setFordAspireengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 
-	confgiureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
 
 	configureAspireEngineEventHandler(engineConfiguration,
 
 			&engineConfiguration2->triggerShape,
 
 			&engineConfiguration2->engineEventConfiguration);
-	engineConfiguration2->triggerShape.shaftPositionEventCount = 10;
 }
 
 #endif /* EFI_SUPPORT_FORD_ASPIRE */

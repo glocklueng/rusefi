@@ -75,6 +75,8 @@ static int isValid(FlashState *state) {
 }
 
 static void applyNonPersistentConfiguration(engine_type_e engineType) {
+	initializeTriggerShape(engineConfiguration, engineConfiguration2);
+
 	switch (engineConfiguration->engineType) {
 	case DODGE_NEON_1995:
 		setDodgeNeonengine_configuration2_s(engineConfiguration, engineConfiguration2);
