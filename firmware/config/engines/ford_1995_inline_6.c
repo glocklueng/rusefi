@@ -33,16 +33,20 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 	 * 0.5ms dweel time just to be sure it would fit within camshaft revolution, dwell is not controlled by us anyway
 	 */
 	setConstantDwell(engineConfiguration, 0.5);
+
+	/**
+	 * We treat the trigger as 6/0 toothed wheel
+	 */
+	engineConfiguration->triggerConfig.totalToothCount = 6;
+	engineConfiguration->triggerConfig.skippedToothCount = 0;
 }
 
 /**
  * @brief These settings are not persistent yet
  */
 void setFordInline6_2(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	/**
-	 * We treat the trigger as 6/0 toothed wheel
-	 */
-	initializeSkippedToothTriggerShapeExt(engineConfiguration2, 6, 0);
+	initializeTriggerShape(engineConfiguration, engineConfiguration2);
+
 	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
 
 	engineConfiguration2->triggerShape.useRiseEdge = TRUE;

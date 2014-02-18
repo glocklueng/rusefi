@@ -19,10 +19,9 @@ int isTriggerDecoderError(void) {
 }
 
 static inline int isSynchronizationGap(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
-		trigger_config_s *triggerConfig,
-		int currentDuration) {
+		trigger_config_s *triggerConfig, int currentDuration) {
 	if (triggerShape->onlyOneTeeth)
-			return FALSE;
+		return FALSE;
 	return currentDuration > shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioFrom
 			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioTo;
 }
@@ -39,9 +38,7 @@ static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionSta
  * @brief This method changes the state of trigger_state_s data structure according to the trigger event
  */
 void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
-		 trigger_config_s *triggerConfig,
-		ShaftEvents signal,
-		time_t now) {
+		trigger_config_s *triggerConfig, ShaftEvents signal, time_t now) {
 
 	int isLessImportant = (triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_UP)
 			|| (!triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_DOWN);
@@ -101,7 +98,20 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 	triggerAddEvent(s, 720, T_PRIMARY, 0);
 }
 
-void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount, int skippedCount) {
+void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+	trigger_config_s *tt = &engineConfiguration->triggerConfig;
+	switch (tt->triggerType) {
+
+	case TT_TOOTHED_WHEEL:
+		initializeSkippedToothTriggerShapeExt(engineConfiguration2, tt->totalToothCount, tt->skippedToothCount);
+		return;
+	default:
+		fatal("not implemented")
+		;
+	}
+}
+void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount,
+		int skippedCount) {
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	engineConfiguration2->triggerShape.shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
 	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount);
