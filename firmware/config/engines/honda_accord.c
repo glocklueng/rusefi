@@ -26,6 +26,6 @@ void setHondaAccordConfiguration2(engine_configuration2_s *engineConfiguration2)
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_1_OUTPUT), x + 360);
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_4_OUTPUT), x + 540);
 
-	skippedToothTriggerShapeExt(engineConfiguration2, 24, 2);
+	initializeSkippedToothTriggerShapeExt(engineConfiguration2, 24, 2);
 }
 

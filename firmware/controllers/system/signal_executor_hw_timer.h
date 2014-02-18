@@ -11,7 +11,7 @@
 
 #include "main.h"
 
-#if EFI_SIGNAL_EXECUTOR_HW_TIMER
+#if EFI_SIGNAL_EXECUTOR_HW_TIMER || defined(__DOXYGEN__)
 
 #endif /* EFI_SIGNAL_EXECUTOR_HW_TIMER */
 #endif /* SIGNAL_EXECUTOR_HW_TIMER_H_ */

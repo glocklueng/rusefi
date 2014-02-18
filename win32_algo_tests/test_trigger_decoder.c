@@ -68,19 +68,20 @@ static void test1995FordInline6TriggerDecoder(void) {
 	setFordInline6(&ec);
 	engine_configuration2_s ec2;
 	setFordInline6_2(&ec, &ec2);
-	trigger_shape_s * shape = &ec2.triggerShape;
-	trigger_state_s state;
-	clearTriggerState(&state);
 
 	ActuatorEventList *ecl = &ec2.engineEventConfiguration.ignitionEvents;
 	assertEquals(6, ecl->size);
 	assertEqualsM("event index", 0, ecl->events[0].eventIndex);
 	assertEquals(13, ecl->events[0].angleOffset);
 
-	assertEqualsM("event index", 0, ecl->events[5].eventIndex);
-	assertEquals(613, ecl->events[5].angleOffset);
+	assertEqualsM("event index", 10, ecl->events[5].eventIndex);
+	assertEquals(13, ecl->events[5].angleOffset);
 
 
+	trigger_state_s state;
+	clearTriggerState(&state);
+
+	trigger_shape_s * shape = &ec2.triggerShape;
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
 	int r = 0;
 	processTriggerEvent(&state, shape, SHAFT_PRIMARY_DOWN, r + 10);
@@ -128,7 +129,7 @@ void testTriggerDecoder(void) {
 
 	engine_configuration2_s ec2;
 
-	skippedToothTriggerShapeExt(&ec2, 2, 0);
+	initializeSkippedToothTriggerShapeExt(&ec2, 2, 0);
 	assertEquals(ec2.triggerShape.size, 4);
 	assertEquals(ec2.triggerShape.wave.switchTimes[0], 0.25);
 	assertEquals(ec2.triggerShape.wave.switchTimes[1], 0.5);

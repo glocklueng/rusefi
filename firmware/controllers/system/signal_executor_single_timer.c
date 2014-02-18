@@ -30,7 +30,7 @@
 extern WaveChart waveChart;
 #endif /* EFI_WAVE_ANALYZER */
 
-#if EFI_SIGNAL_EXECUTOR_SINGLE_TIMER
+#if EFI_SIGNAL_EXECUTOR_SINGLE_TIMER || defined(__DOXYGEN__)
 
 /**
  * @brief Output list

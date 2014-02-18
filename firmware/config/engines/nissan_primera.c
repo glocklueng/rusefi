@@ -7,7 +7,7 @@
 
 #include "main.h"
 
-#if EFI_SUPPORT_NISSAN_PRIMERA
+#if EFI_SUPPORT_NISSAN_PRIMERA || defined(__DOXYGEN__)
 
 #include "engine_controller.h"
 #include "adc_inputs.h"
@@ -15,7 +15,7 @@
 #include "engine_configuration.h"
 
 void setNissanPrimeraengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
-	skippedToothTriggerShapeExt(engineConfiguration2, 60, 2);
+	initializeSkippedToothTriggerShapeExt(engineConfiguration2, 60, 2);
 }
 
 #endif /* EFI_SUPPORT_NISSAN_PRIMERA */

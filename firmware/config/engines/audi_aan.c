@@ -8,7 +8,7 @@
 
 #include "main.h"
 
-#if EFI_ENGINE_AUDI_AAN
+#if EFI_ENGINE_AUDI_AAN || defined(__DOXYGEN__)
 
 #include "engine_controller.h"
 

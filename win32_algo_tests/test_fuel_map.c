@@ -10,6 +10,7 @@
 #include "fuel_math.h"
 #include "trigger_structure.h"
 #include "allsensors.h"
+#include "engine_math.h"
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
@@ -126,7 +127,7 @@ void testAngleResolver(void) {
 
 	resetEventList(&ae);
 	printf("*************************************************** testAngleResolver 0\r\n");
-	registerActuatorEventExt(&ae, addOutputSignal(INJECTOR_1_OUTPUT), 53 - 175);
+	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &ae, addOutputSignal(INJECTOR_1_OUTPUT), 53 - 175);
 	assertEquals(1, ae.size);
 	assertEquals(1, outputSignalCount);
 	assertEquals(0, ae.events[0].eventIndex);
@@ -134,7 +135,7 @@ void testAngleResolver(void) {
 
 	printf("*************************************************** testAngleResolver 2\r\n");
 	resetEventList(&ae);
-	registerActuatorEventExt(&ae, addOutputSignal(INJECTOR_1_OUTPUT), 51 + 180 - 175);
+	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &ae, addOutputSignal(INJECTOR_1_OUTPUT), 51 + 180 - 175);
 	assertEquals(2, ae.events[0].eventIndex);
 	assertEquals(51.9870, ae.events[0].angleOffset);
 }
