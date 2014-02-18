@@ -39,6 +39,8 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 	 */
 	engineConfiguration->triggerConfig.totalToothCount = 6;
 	engineConfiguration->triggerConfig.skippedToothCount = 0;
+	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
+	engineConfiguration->triggerConfig.useRiseEdge = TRUE;
 }
 
 /**
@@ -49,8 +51,6 @@ void setFordInline6_2(engine_configuration_s *engineConfiguration, engine_config
 
 	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
 
-	engineConfiguration2->triggerShape.useRiseEdge = TRUE;
-	engineConfiguration2->triggerShape.isSynchronizationNeeded = FALSE;
 }
 
 #endif /* EFI_SUPPORT_1995_FORD_INLINE_6 */

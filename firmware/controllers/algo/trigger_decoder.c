@@ -20,14 +20,15 @@ int isTriggerDecoderError(void) {
 
 static inline int isSynchronizationGap(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
 		trigger_config_s *triggerConfig, int currentDuration) {
-	if (!triggerShape->isSynchronizationNeeded)
+	if (!triggerConfig->isSynchronizationNeeded)
 		return FALSE;
 	return currentDuration > shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioFrom
 			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioTo;
 }
 
-static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape) {
-	if (triggerShape->isSynchronizationNeeded)
+static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
+		trigger_config_s *triggerConfig) {
+	if (triggerConfig->isSynchronizationNeeded)
 		return FALSE;
 	if (!shaftPositionState->shaft_is_synchronized)
 		return TRUE;
@@ -40,8 +41,8 @@ static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionSta
 void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
 		trigger_config_s *triggerConfig, ShaftEvents signal, time_t now) {
 
-	int isLessImportant = (triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_UP)
-			|| (!triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_DOWN);
+	int isLessImportant = (triggerConfig->useRiseEdge && signal != SHAFT_PRIMARY_UP)
+			|| (!triggerConfig->useRiseEdge && signal != SHAFT_PRIMARY_DOWN);
 
 	if (isLessImportant) {
 		/**
@@ -62,7 +63,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *t
 	}
 #endif
 
-	if (noSynchronizationResetNeeded(shaftPositionState, triggerShape)
+	if (noSynchronizationResetNeeded(shaftPositionState, triggerShape, triggerConfig)
 			|| isSynchronizationGap(shaftPositionState, triggerShape, triggerConfig, currentDuration)) {
 		/**
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
