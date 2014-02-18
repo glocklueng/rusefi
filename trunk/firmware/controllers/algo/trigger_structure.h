@@ -9,6 +9,7 @@
 #define TRIGGER_STRUCTURE_H_
 
 #include "global.h"
+#include "rusefi_enums.h"
 
 #define PWM_PHASE_MAX_COUNT 150
 #define PWM_PHASE_MAX_WAVE_PER_PWM 2
@@ -63,6 +64,16 @@ typedef enum {
 	T_SECONDARY = 1
 } trigger_wheel_e;
 
+
+typedef struct {
+	trigger_type_e triggerType;
+
+
+	float syncRatioFrom;
+	float syncRatioTo;
+
+} trigger_config_s;
+
 typedef struct {
 	multi_wave_s wave;
 	int size;
@@ -78,8 +89,6 @@ typedef struct {
 
 	int useRiseEdge;
 
-	float syncRatioFrom;
-	float syncRatioTo;
 
 } trigger_shape_s;
 

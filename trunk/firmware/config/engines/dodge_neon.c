@@ -23,8 +23,6 @@ static void configureTriggerShape(trigger_shape_s *s) {
 	// voodoo magic - we always need 720 at the end
 	triggerAddEvent(s, 720, T_PRIMARY, 0);
 
-	s->syncRatioFrom = 0.72 * 0.8;
-	s->syncRatioTo = 0.72 * 1.3;
 }
 
 void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration) {
@@ -40,6 +38,12 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 
 	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 26ms at -40C
 	engineConfiguration->crankingSettings.fuelAtMinTempMs = 26;
+
+
+	engineConfiguration->triggerConfig.syncRatioFrom = 0.72 * 0.8;
+	engineConfiguration->triggerConfig.syncRatioTo = 0.72 * 1.3;
+
+
 }
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {
@@ -58,10 +62,16 @@ static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_2_OUTPUT), x + 180);
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_3_OUTPUT), x + 360);
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_4_OUTPUT), x + 540);
+
+
+
+
 }
 
 void setDodgeNeonengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
 	configureTriggerShape(&engineConfiguration2->triggerShape);
+
+
 
 	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 

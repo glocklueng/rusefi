@@ -27,6 +27,7 @@ static histogram_s triggerCallback __attribute__((section(".ccm")));
 static histogram_s triggerCallback;
 #endif
 
+extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
 // we need this initial to have not_running at first invocation
@@ -73,7 +74,9 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 	/**
 	 * This invocation changes the state of
 	 */
-	processTriggerEvent(&triggerState, &engineConfiguration2->triggerShape, signal, now);
+	processTriggerEvent(&triggerState, &engineConfiguration2->triggerShape,
+			&engineConfiguration->triggerConfig,
+			signal, now);
 
 	if (!triggerState.shaft_is_synchronized)
 		return; // we should not propagate event if we do not know where we are

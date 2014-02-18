@@ -15,6 +15,15 @@
 // this is about offsets and sizes in TunerStudio
 #define ENUM_SIZE_HACK 2000000000
 
+typedef enum {
+	TT_TOOTHED_WHEEL = 0,
+	TT_FORD_ASPIRE = 1,
+	TT_DODGE_NEON = 2,
+
+	Internal_ForceMyEnumIntSize_trigger_type = ENUM_SIZE_HACK,
+} trigger_type_e;
+
+
 /**
  * This enum is used to select your desired Engine Load calculation algorithm
  */

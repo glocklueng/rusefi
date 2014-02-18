@@ -19,11 +19,12 @@ int isTriggerDecoderError(void) {
 }
 
 static inline int isSynchronizationGap(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
+		trigger_config_s *triggerConfig,
 		int currentDuration) {
 	if (triggerShape->onlyOneTeeth)
 			return FALSE;
-	return currentDuration > shaftPositionState->toothed_previous_duration * triggerShape->syncRatioFrom
-			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerShape->syncRatioTo;
+	return currentDuration > shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioFrom
+			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioTo;
 }
 
 static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape) {
@@ -37,7 +38,9 @@ static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionSta
 /**
  * @brief This method changes the state of trigger_state_s data structure according to the trigger event
  */
-void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape, ShaftEvents signal,
+void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
+		 trigger_config_s *triggerConfig,
+		ShaftEvents signal,
 		time_t now) {
 
 	int isLessImportant = (triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_UP)
@@ -63,7 +66,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *t
 #endif
 
 	if (noSynchronizationResetNeeded(shaftPositionState, triggerShape)
-			|| isSynchronizationGap(shaftPositionState, triggerShape, currentDuration)) {
+			|| isSynchronizationGap(shaftPositionState, triggerShape, triggerConfig, currentDuration)) {
 		/**
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
 		 */
