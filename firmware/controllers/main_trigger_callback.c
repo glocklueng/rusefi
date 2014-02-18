@@ -99,24 +99,24 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	float advance = getAdvance(rpm, getEngineLoad());
 
-	float sparkAdvance = getOneDegreeTime(rpm) * advance;
+	float sparkAdvanceMs = getOneDegreeTimeMs(rpm) * advance;
 
-	int dwell = getSparkDwell(rpm);
-	chDbgCheck(dwell >= 0, "invalid dwell");
+	float dwellMs = getSparkDwellMs(rpm);
+	chDbgCheck(dwellMs >= 0, "invalid dwell");
 
-	if (dwell == 0)
+	if (dwellMs == 0)
 		return; // hard RPM limit was hit
 
-	int sparkDelay = (int)(getOneDegreeTime(rpm) * event->angleOffset + sparkAdvance - dwell);
+	float sparkDelay = (int)(getOneDegreeTimeMs(rpm) * event->angleOffset + sparkAdvanceMs - dwellMs);
 	int isIgnitionError = sparkDelay < 0;
 	cbAdd(&ignitionErrorDetection, isIgnitionError);
 	if (isIgnitionError) {
-		scheduleSimpleMsg(&logger, "Negative spark delay", sparkDelay);
+		scheduleMsg(&logger, "Negative spark delay=%f", sparkDelay);
 		sparkDelay = 0;
 		//return;
 	}
 
-	scheduleSparkOut(event->actuator, sparkDelay, dwell);
+	scheduleSparkOut(event->actuator, sparkDelay * TICKS_IN_MS, dwellMs * TICKS_IN_MS);
 }
 
 static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {

@@ -53,10 +53,17 @@
 #define MIN_STARTING_FUEL 8
 
 /**
+ * @return time needed to rotate crankshaft by one degree, in milliseconds.
+ */
+float getOneDegreeTimeMs(int rpm) {
+	return 1000.0 * 60 / 360 / rpm;
+}
+
+/**
  * @return time needed to rotate crankshaft by one degree, in systicks
  */
 float getOneDegreeTime(int rpm) {
-	return 1000.0 * 60 * TICKS_IN_MS / 360 / rpm;
+	return getOneDegreeTimeMs(rpm) * TICKS_IN_MS;
 }
 
 /**
@@ -123,19 +130,19 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engi
 }
 
 /**
- * @return Spark dwell time, in
+ * @return Spark dwell time, in milliseconds.
  */
-float getSparkDwellT(engine_configuration_s *engineConfiguration, int rpm) {
+float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 	if (isCrankingR(rpm)) {
 		float angle = engineConfiguration->crankingChargeAngle;
-		return getOneDegreeTime(rpm) * angle;
+		return getOneDegreeTimeMs(rpm) * angle;
 	}
 
 	if (rpm > engineConfiguration->rpmHardLimit) {
 		warning("skipping spark due to rpm=", rpm);
 		return 0;
 	}
-	int defaultDwell = TICKS_IN_MS * 4;
+	int defaultDwell = 4;
 	if (rpm <= 4500)
 		return defaultDwell;
 	rpm -= 4500;
@@ -143,7 +150,7 @@ float getSparkDwellT(engine_configuration_s *engineConfiguration, int rpm) {
 	 * at higher RPM we simply do not have enough time to charge the coil completely
 	 */
 	// for each 2000 rpm above 4500 rom we reduce dwell by 1 ms
-	int dec = rpm * TICKS_IN_MS / 2000;
+	int dec = rpm / 2000;
 	return defaultDwell - dec;
 }
 
