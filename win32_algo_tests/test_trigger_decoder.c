@@ -23,7 +23,7 @@ static void testDodgeNeonDecoder(void) {
 	setDodgeNeonEngineConfiguration(&ec);
 
 	engine_configuration2_s ec2;
-	setDodgeNeonengine_configuration2_s(&ec2);
+	setDodgeNeonengine_configuration2_s(&ec, &ec2);
 	trigger_shape_s * shape = &ec2.triggerShape;
 	trigger_state_s state;
 	clearTriggerState(&state);
