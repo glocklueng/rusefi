@@ -15,6 +15,7 @@
 int isTriggerDecoderError(void);
 void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape, trigger_config_s *triggerConfig, ShaftEvents signal, time_t now);
 void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount, int skippedCount);
+void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 void initTriggerDecoder(void);
 
 #endif /* TRIGGER_DECODER_H_ */
