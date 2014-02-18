@@ -25,7 +25,7 @@ void testEventRegistry(void) {
 
 	printf("resetting\r\n");
 	resetEventList(&eventList);
-	outputSignalCount = 0;
+	resetOutputSignals();
 	printf("registering 0\r\n");
 
 	registerActuatorEvent(&eventList, 0, addOutputSignal(10), 0);
