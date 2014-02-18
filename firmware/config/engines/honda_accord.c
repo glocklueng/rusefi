@@ -10,10 +10,12 @@
 #include "trigger_decoder.h"
 
 void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration) {
-
+	engineConfiguration->triggerConfig.totalToothCount = 24;
+	engineConfiguration->triggerConfig.skippedToothCount = 2;
 }
 
-void setHondaAccordConfiguration2(engine_configuration2_s *engineConfiguration2) {
+void setHondaAccordConfiguration2(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+	initializeTriggerShape(engineConfiguration, engineConfiguration2);
 
 
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
@@ -25,7 +27,5 @@ void setHondaAccordConfiguration2(engine_configuration2_s *engineConfiguration2)
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_1_OUTPUT), x + 180);
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_1_OUTPUT), x + 360);
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_4_OUTPUT), x + 540);
-
-	initializeSkippedToothTriggerShapeExt(engineConfiguration2, 24, 2);
 }
 

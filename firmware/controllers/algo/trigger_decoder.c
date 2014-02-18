@@ -99,6 +99,14 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 	triggerAddEvent(s, 720, T_PRIMARY, 0);
 }
 
+void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount,
+		int skippedCount) {
+	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+	engineConfiguration2->triggerShape.shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
+	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount);
+	checkSwitchTimes(s->size, s->wave.switchTimes);
+}
+
 void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	trigger_config_s *tt = &engineConfiguration->triggerConfig;
 	switch (tt->triggerType) {
@@ -110,13 +118,6 @@ void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_
 		fatal("not implemented")
 		;
 	}
-}
-void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount,
-		int skippedCount) {
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
-	engineConfiguration2->triggerShape.shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
-	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount);
-	checkSwitchTimes(s->size, s->wave.switchTimes);
 }
 
 void initTriggerDecoder(void) {

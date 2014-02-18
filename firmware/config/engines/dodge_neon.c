@@ -66,7 +66,7 @@ static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 
 }
 
-void setDodgeNeonengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
+void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	configureTriggerShape(&engineConfiguration2->triggerShape);
 
 

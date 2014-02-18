@@ -9,6 +9,7 @@
 
 #include "GY6_139QMB.h"
 #include "engine_configuration.h"
+#include "trigger_decoder.h"
 
 void setGy6139qmbDefaultEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 9000;
@@ -28,6 +29,7 @@ void setGy6139qmbDefaultEngineConfiguration(engine_configuration_s *engineConfig
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
 }
 
-void setGy6139qmbengine_configuration2_s(engine_configuration2_s *engineConfiguration2) {
+void setGy6139qmbengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+	initializeTriggerShape(engineConfiguration, engineConfiguration2);
 }
 
