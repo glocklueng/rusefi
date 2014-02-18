@@ -18,6 +18,8 @@ void setGy6139qmbDefaultEngineConfiguration(engine_configuration_s *engineConfig
 	engineConfiguration->cylindersCount = 1;
 	engineConfiguration->rpmMultiplier = 1;
 
+	engineConfiguration->firingOrder = FO_ONE_CYLINDER;
+
 	/**
 	 * We treat the trigger as 1/0 toothed wheel
 	 */
