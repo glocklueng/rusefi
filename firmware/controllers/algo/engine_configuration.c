@@ -22,7 +22,7 @@
 #include "nissan_primera.h"
 #include "honda_accord.h"
 #include "GY6_139QMB.h"
-
+#include "mazda_miata_nb.h"
 
 #define ADC_CHANNEL_FAST_ADC 256
 
@@ -181,6 +181,9 @@ void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *eng
 	case GY6_139QMB:
 		setGy6139qmbDefaultEngineConfiguration(engineConfiguration);
 		break;
+	case MAZDA_MIATA_NB:
+		setMazdaMiataNbEngineConfiguration(engineConfiguration);
+		return;
 	default:
 		fatal("Unexpected engine type")
 		;
@@ -212,6 +215,9 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 		break;
 	case GY6_139QMB:
 		setGy6139qmbengine_configuration2_s(engineConfiguration, engineConfiguration2);
+		break;
+	case MAZDA_MIATA_NB:
+		setMazdaMiataNb_configuration2_s(engineConfiguration, engineConfiguration2);
 		break;
 	default:
 		fatal("Unexpected engine type")

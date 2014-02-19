@@ -4,11 +4,10 @@
  *
  * @date Feb 13, 2014
  * @author rus084
- * @author Andrey Belomutskiy, (c) 2012-2014 *
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "GY6_139QMB.h"
-#include "engine_configuration.h"
 
 void setGy6139qmbDefaultEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->rpmHardLimit = 9000;
