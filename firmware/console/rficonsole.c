@@ -43,13 +43,15 @@ static void myfatal(void) {
 }
 
 static void sayOsHello(void) {
-	print("*** rusEFI (c) Andrey Belomutskiy, 2012-2013. All rights reserved.\r\n");
+	print("*** rusEFI (c) Andrey Belomutskiy, 2012-2014. All rights reserved.\r\n");
 	printMsg(&logger, "rusEFI VERSION=%s", VERSION_STRING);
 	print("*** Chibios Kernel:       %s\r\n", CH_KERNEL_VERSION);
 	print("*** Compiled:     " __DATE__ " - " __TIME__ " \r\n");
 	print("COMPILER=%s\r\n", __VERSION__);
 	printSimpleMsg(&logger, "CH_FREQUENCY=", CH_FREQUENCY);
 	printSimpleMsg(&logger, "SERIAL_SPEED=", SERIAL_SPEED);
+	printMsg(&logger, "1111%s2222", "");
+	printMsg(&logger, "3333%s4444", NULL);
 	printSimpleMsg(&logger, "STM32_ADCCLK=", STM32_ADCCLK);
 	printSimpleMsg(&logger, "STM32_TIMCLK1=", STM32_TIMCLK1);
 	printSimpleMsg(&logger, "STM32_TIMCLK2=", STM32_TIMCLK2);

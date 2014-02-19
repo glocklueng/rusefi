@@ -29,7 +29,6 @@
 #include "nissan_primera.h"
 #include "honda_accord.h"
 #include "GY6_139QMB.h"
-#include "trigger_decoder.h"
 
 static engine_type_e defaultEngineType = FORD_ASPIRE_1996;
 
@@ -75,37 +74,6 @@ static int isValid(FlashState *state) {
 	return result == state->value;
 }
 
-static void applyNonPersistentConfiguration(engine_type_e engineType) {
-	initializeTriggerShape(engineConfiguration, engineConfiguration2);
-
-	switch (engineConfiguration->engineType) {
-	case DODGE_NEON_1995:
-		setDodgeNeonengine_configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-	case FORD_ASPIRE_1996:
-		setFordAspireengine_configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-	case FORD_FIESTA:
-		setFordFiestaengine_configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-	case HONDA_ACCORD:
-		setHondaAccordConfiguration2(engineConfiguration, engineConfiguration2);
-		break;
-	case FORD_INLINE_6_1995:
-		setFordInline6_2(engineConfiguration, engineConfiguration2);
-		break;
-	case NISSAN_PRIMERA:
-		setNissanPrimeraengine_configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-	case GY6_139QMB:
-		setGy6139qmbengine_configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-	default:
-		fatal("Unexpected engine type")
-		;
-	}
-
-}
 
 void resetConfiguration(engine_type_e engineType) {
 	/**
@@ -139,7 +107,7 @@ void resetConfiguration(engine_type_e engineType) {
 		fatal("Unexpected engine type")
 		;
 	}
-	applyNonPersistentConfiguration(engineType);
+	applyNonPersistentConfiguration(engineConfiguration, engineConfiguration2, engineType);
 
 #if EFI_TUNER_STUDIO
 	syncTunerStudioCopy();
@@ -156,7 +124,7 @@ static void readFromFlash(void) {
 		resetConfiguration(defaultEngineType);
 	} else {
 		scheduleSimpleMsg(&logger, "Got valid state from flash!", 0);
-		applyNonPersistentConfiguration(engineConfiguration->engineType);
+		applyNonPersistentConfiguration(engineConfiguration, engineConfiguration2, engineConfiguration->engineType);
 	}
 }
 
