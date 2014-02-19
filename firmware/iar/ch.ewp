@@ -303,6 +303,7 @@
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\DMAv1</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\GPIOv2</state>
+          <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\I2Cv1</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\SPIv1</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\RTCv2</state>
@@ -2073,6 +2074,12 @@
     <group>
       <name>algo</name>
       <file>
+        <name>$PROJ_DIR$\..\controllers\algo\advance_map.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\advance_map.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\engine_configuration.c</name>
       </file>
       <file>
@@ -2085,10 +2092,10 @@
         <name>$PROJ_DIR$\..\controllers\algo\event_registry.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\fuel_map.c</name>
+        <name>$PROJ_DIR$\..\controllers\algo\fuel_math.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\fuel_map.h</name>
+        <name>$PROJ_DIR$\..\controllers\algo\fuel_math.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\idle_controller.c</name>
@@ -2233,12 +2240,6 @@
       </file>
     </group>
     <file>
-      <name>$PROJ_DIR$\..\controllers\advance_map.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\controllers\advance_map.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\controllers\electronic_throttle.c</name>
     </file>
     <file>
@@ -2332,12 +2333,6 @@
       <name>$PROJ_DIR$\..\emulation\analog_chart.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\emulation\dist_emulator.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\dist_emulator.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\emulation\engine_emulator.c</name>
     </file>
     <file>
@@ -2354,6 +2349,12 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\emulation\toothed_wheel_emulator.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\trigger_emulator.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\trigger_emulator.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\emulation\wave_analyzer.c</name>
@@ -2473,13 +2474,13 @@
       <name>$PROJ_DIR$\..\hw_layer\rtc_helper.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\hw_layer\shaft_position_input.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\hw_layer\shaft_position_input.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\hw_layer\stm32f4xx_specific.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\trigger_input.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\trigger_input.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\wave_analyzer_hw.c</name>
@@ -2797,6 +2798,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx\hal_lld.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\I2Cv1\i2c_lld.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\I2Cv1\i2c_lld.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\GPIOv2\pal_lld.c</name>
