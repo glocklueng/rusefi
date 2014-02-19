@@ -153,6 +153,40 @@ void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfigu
 	engineConfiguration2->hasCltSensor = TRUE;
 }
 
+void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+	/**
+	 * Let's apply global defaults first
+	 */
+	setDefaultConfiguration(engineConfiguration);
+	engineConfiguration->engineType = engineType;
+	/**
+	 * And override them with engine-specific defaults
+	 */
+	switch (engineType) {
+	case DODGE_NEON_1995:
+		setDodgeNeonEngineConfiguration(engineConfiguration);
+		break;
+	case FORD_ASPIRE_1996:
+		setFordAspireEngineConfiguration(engineConfiguration);
+		break;
+	case FORD_FIESTA:
+		setFordFiestaDefaultEngineConfiguration(engineConfiguration);
+		break;
+	case HONDA_ACCORD:
+		setHondaAccordConfiguration(engineConfiguration);
+		break;
+	case FORD_INLINE_6_1995:
+		setFordInline6(engineConfiguration);
+		break;
+	case GY6_139QMB:
+		setGy6139qmbDefaultEngineConfiguration(engineConfiguration);
+		break;
+	default:
+		fatal("Unexpected engine type")
+		;
+	}
+	applyNonPersistentConfiguration(engineConfiguration, engineConfiguration2, engineType);
+}
 
 void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, engine_type_e engineType) {
 	initializeTriggerShape(engineConfiguration, engineConfiguration2);
