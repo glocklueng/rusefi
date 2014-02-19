@@ -35,7 +35,8 @@
  *
  * For instance, for a 36/1 skipped tooth wheel the ratio range for synchronization is from 1.5 to 3
  *
- * A single tooth primary signal is handled as a special case.
+ * Some triggers do not require synchronization, this case we just could signals.
+ * A single tooth primary signal would be a typical example when synchronization is not needed.
  *
  *
  *
