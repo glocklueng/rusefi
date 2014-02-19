@@ -1,8 +1,9 @@
 /*
- * GY6_139QMB.h
+ * @file GY6_139QMB.h
  *
- *  Created on: 13 feb 2014 y.
- *      Author: rus084
+ * @date 13 feb 2014 y.
+ * @author rus084
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #ifndef GY6_139QMB_H_
