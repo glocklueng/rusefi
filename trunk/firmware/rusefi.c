@@ -66,6 +66,10 @@
  *
  * See fuel_math.c for details on fuel amount logic
  *
+ * @sectuion sec_misc
+ *
+ * See rpm_calculator.c for details on how getRpm() is calculated
+ *
  */
 
 

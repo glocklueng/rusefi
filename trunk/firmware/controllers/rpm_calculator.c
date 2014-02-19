@@ -3,6 +3,8 @@
  * @brief   RPM calculator
  *
  * Here we listen to position sensor events in order to figure our if engine is currently running or not.
+ * Actual getRpm() is calculated once per crankshaft revolution, based on the amount of time passed
+ * since the start of previous shaft revolution.
  *
  * @date Jan 1, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
