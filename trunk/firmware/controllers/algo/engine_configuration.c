@@ -10,6 +10,19 @@
 #include "engine_configuration.h"
 #include "allsensors.h"
 #include "interpolation.h"
+#include "trigger_decoder.h"
+
+
+#include "audi_aan.h"
+#include "dodge_neon.h"
+#include "ford_aspire.h"
+#include "ford_fiesta.h"
+#include "ford_1995_inline_6.h"
+#include "snow_blower.h"
+#include "nissan_primera.h"
+#include "honda_accord.h"
+#include "GY6_139QMB.h"
+
 
 #define ADC_CHANNEL_FAST_ADC 256
 
@@ -138,4 +151,37 @@ void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfigu
 
 	engineConfiguration2->hasMapSensor = TRUE;
 	engineConfiguration2->hasCltSensor = TRUE;
+}
+
+
+void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, engine_type_e engineType) {
+	initializeTriggerShape(engineConfiguration, engineConfiguration2);
+
+	switch (engineConfiguration->engineType) {
+	case DODGE_NEON_1995:
+		setDodgeNeonengine_configuration2_s(engineConfiguration, engineConfiguration2);
+		break;
+	case FORD_ASPIRE_1996:
+		setFordAspireengine_configuration2_s(engineConfiguration, engineConfiguration2);
+		break;
+	case FORD_FIESTA:
+		setFordFiestaengine_configuration2_s(engineConfiguration, engineConfiguration2);
+		break;
+	case HONDA_ACCORD:
+		setHondaAccordConfiguration2(engineConfiguration, engineConfiguration2);
+		break;
+	case FORD_INLINE_6_1995:
+		setFordInline6_2(engineConfiguration, engineConfiguration2);
+		break;
+	case NISSAN_PRIMERA:
+		setNissanPrimeraengine_configuration2_s(engineConfiguration, engineConfiguration2);
+		break;
+	case GY6_139QMB:
+		setGy6139qmbengine_configuration2_s(engineConfiguration, engineConfiguration2);
+		break;
+	default:
+		fatal("Unexpected engine type")
+		;
+	}
+
 }

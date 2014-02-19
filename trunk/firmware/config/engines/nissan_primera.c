@@ -8,10 +8,7 @@
 #include "main.h"
 
 #if EFI_SUPPORT_NISSAN_PRIMERA || defined(__DOXYGEN__)
-
-#include "engine_controller.h"
-#include "adc_inputs.h"
-#include "engine_configuration.h"
+#include "nissan_primera.h"
 
 void setNissanPrimeraEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->triggerConfig.totalToothCount = 60;

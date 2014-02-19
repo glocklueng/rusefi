@@ -18,7 +18,7 @@
 #include "advance_map.h"
 #include "engine_configuration.h"
 
-#if EFI_SUPPORT_FORD_ASPIRE
+#if EFI_SUPPORT_FORD_ASPIRE || defined(__DOXYGEN__)
 
 /**
  * Just the default RPM bin - with TunerStudio you can adjust even the bins
