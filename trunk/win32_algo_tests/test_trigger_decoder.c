@@ -19,15 +19,16 @@ static void testDodgeNeonDecoder(void) {
 	initTriggerDecoder();
 
 	engine_configuration_s ec;
-	setDefaultConfiguration(&ec);
-	setDodgeNeonEngineConfiguration(&ec);
-
 	engine_configuration2_s ec2;
-	initializeTriggerShape(&ec, &ec2);
-	setDodgeNeonengine_configuration2_s(&ec, &ec2);
+
+	resetConfigurationExt(DODGE_NEON_1995, &ec, &ec2);
+
 	trigger_shape_s * shape = &ec2.triggerShape;
 	trigger_state_s state;
 	clearTriggerState(&state);
+
+
+
 
 	assertFalseM("1 shaft_is_synchronized", state.shaft_is_synchronized);
 
@@ -71,12 +72,11 @@ static void test1995FordInline6TriggerDecoder(void) {
 	printf("*************************************************** test1995FordInline6TriggerDecoder\r\n");
 	initTriggerDecoder();
 	resetOutputSignals();
+
 	engine_configuration_s ec;
-	setDefaultConfiguration(&ec); // this is needed for RPM hard limit etc
-	setFordInline6(&ec);
 	engine_configuration2_s ec2;
-	initializeTriggerShape(&ec, &ec2);
-	setFordInline6_2(&ec, &ec2);
+
+	resetConfigurationExt(FORD_INLINE_6_1995, &ec, &ec2);
 
 	ActuatorEventList *ecl = &ec2.engineEventConfiguration.ignitionEvents;
 	assertEqualsM("size", 6, ecl->size);
@@ -123,16 +123,13 @@ void testFordAspire(void) {
 	printf("*************************************************** testTriggerDecoder\r\n");
 
 	engine_configuration_s ec;
-	setFordAspireEngineConfiguration(&ec);
+	engine_configuration2_s ec2;
+	resetConfigurationExt(FORD_ASPIRE_1996, &ec, &ec2);
 
 	assertEqualsM("cranking dwell", 54.166670, getSparkDwellMsT(&ec, 200));
 	assertEqualsM("running dwell", 4, getSparkDwellMsT(&ec, 2000));
 
 	assertEqualsM("higher rpm dwell", 3.25, getSparkDwellMsT(&ec, 6000));
-
-	engine_configuration2_s ec2;
-	initializeTriggerShape(&ec, &ec2);
-	setFordAspireengine_configuration2_s(&ec, &ec2);
 }
 
 void testTriggerDecoder(void) {
