@@ -19,6 +19,8 @@ typedef enum {
 	TT_TOOTHED_WHEEL = 0,
 	TT_FORD_ASPIRE = 1,
 	TT_DODGE_NEON = 2,
+	TT_MAZDA_MIATA_NA = 3,
+	TT_MAZDA_MIATA_NB = 4,
 
 	Internal_ForceMyEnumIntSize_trigger_type = ENUM_SIZE_HACK,
 } trigger_type_e;
