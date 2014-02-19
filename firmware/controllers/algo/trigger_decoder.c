@@ -8,6 +8,7 @@
 #include "main.h"
 #include "trigger_decoder.h"
 #include "cyclic_buffer.h"
+#include "trigger_mazda.h"
 
 static cyclic_buffer errorDetection;
 
@@ -146,6 +147,10 @@ void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_
 
 	case TT_TOOTHED_WHEEL:
 		initializeSkippedToothTriggerShapeExt(engineConfiguration2, tt->totalToothCount, tt->skippedToothCount);
+		return;
+
+	case TT_MAZDA_MIATA_NB:
+		initializeMazdaMiataNbShape(&engineConfiguration2->triggerShape);
 		return;
 
 	case TT_DODGE_NEON:
