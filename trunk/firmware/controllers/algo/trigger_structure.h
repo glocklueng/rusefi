@@ -58,6 +58,10 @@ typedef struct {
 	myfloat switchTimes[PWM_PHASE_MAX_COUNT];
 } multi_wave_s;
 
+typedef enum {
+	TV_LOW = 0,
+	TV_HIGH = 1
+} trigger_value_e;
 
 typedef enum {
 	T_PRIMARY = 0,
@@ -96,7 +100,7 @@ typedef struct {
 
 void clearTriggerState(trigger_state_s *state);
 void triggerShapeInit(trigger_shape_s *trigger);
-void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, int state);
+void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, trigger_value_e state);
 
 void checkSwitchTimes(int size, myfloat *switchTimes);
 

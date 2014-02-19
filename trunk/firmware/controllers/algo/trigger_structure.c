@@ -19,7 +19,7 @@ void triggerShapeInit(trigger_shape_s *trigger) {
 	trigger->size = 0;
 }
 
-void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, int state) {
+void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
 	angle /= 720;
 	if (trigger->size == 0) {
 		trigger->size = 1;
