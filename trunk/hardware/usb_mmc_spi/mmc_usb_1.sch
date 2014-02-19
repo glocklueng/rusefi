@@ -31,14 +31,13 @@ LIBS:contrib
 LIBS:valves
 LIBS:art-electro-conn
 LIBS:logo_flipped
-LIBS:mmc_usb_1-cache
 EELAYER 24 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "12 Фев 2014"
+Date "19 Фев 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -351,9 +350,9 @@ F 3 "" H 3825 3875 60  0001 C CNN
 	1    3825 3875
 	0    -1   -1   0   
 $EndComp
-Text Label 7025 1425 0    60   ~ 0
-USART_RX
 Text Label 7025 1325 0    60   ~ 0
+USART_RX
+Text Label 7025 1425 0    60   ~ 0
 USART_TX
 Text Label 3875 5200 0    60   ~ 0
 SPI_MISO
@@ -559,6 +558,12 @@ Connection ~ 4525 1375
 Wire Wire Line
 	2625 2875 2625 2825
 Wire Wire Line
+	2300 1975 4775 1975
+Wire Wire Line
+	4775 1975 4775 1725
+Wire Wire Line
+	4775 1725 5025 1725
+Wire Wire Line
 	3925 1375 5025 1375
 Connection ~ 4200 1375
 Wire Wire Line
@@ -574,6 +579,10 @@ Wire Wire Line
 	2300 1875 2625 1875
 Wire Wire Line
 	2625 1875 2625 2325
+Connection ~ 2950 2075
+Wire Wire Line
+	3300 2125 3300 1975
+Connection ~ 3300 1975
 Wire Wire Line
 	2950 2475 2950 2525
 Wire Wire Line
@@ -581,6 +590,12 @@ Wire Wire Line
 Wire Wire Line
 	3100 2600 3100 2525
 Connection ~ 3100 2525
+Wire Wire Line
+	5025 1625 4700 1625
+Wire Wire Line
+	4700 1625 4700 2075
+Wire Wire Line
+	4700 2075 2300 2075
 Wire Wire Line
 	7025 1425 6875 1425
 Wire Wire Line
@@ -876,28 +891,4 @@ $EndComp
 NoConn ~ 8600 1650
 Text Notes 2200 6250 0    160  ~ 0
 SD card slot\nUSB TTL module
-Text Label 4850 1725 2    60   ~ 0
-D+
-Text Label 4850 1625 2    60   ~ 0
-D-
-Wire Wire Line
-	5025 1625 4850 1625
-Wire Wire Line
-	5025 1725 4850 1725
-Text Label 2950 2000 2    60   ~ 0
-D-
-Wire Wire Line
-	2950 2075 2950 2000
-Text Label 3300 2000 2    60   ~ 0
-D+
-Wire Wire Line
-	3300 2125 3300 2000
-Text Label 2400 1975 0    60   ~ 0
-D-
-Wire Wire Line
-	2300 1975 2400 1975
-Text Label 2400 2075 0    60   ~ 0
-D+
-Wire Wire Line
-	2300 2075 2400 2075
 $EndSCHEMATC
