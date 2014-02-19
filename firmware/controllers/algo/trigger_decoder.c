@@ -91,12 +91,12 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 	for (int i = 0; i < totalTeethCount - skippedCount - 1; i++) {
 		float angleDown = 720.0 / totalTeethCount * (i + toothWidth);
 		float angleUp = 720.0 / totalTeethCount * (i + 1);
-		triggerAddEvent(s, angleDown, T_PRIMARY, 1);
+		triggerAddEvent(s, angleDown, T_PRIMARY, TV_HIGH);
 		triggerAddEvent(s, angleUp, T_PRIMARY, TV_LOW);
 	}
 
 	float angleDown = 720.0 / totalTeethCount * (totalTeethCount - skippedCount - 1 + toothWidth);
-	triggerAddEvent(s, angleDown, T_PRIMARY, 1);
+	triggerAddEvent(s, angleDown, T_PRIMARY, TV_HIGH);
 	triggerAddEvent(s, 720, T_PRIMARY, TV_LOW);
 }
 
@@ -111,9 +111,9 @@ void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfig
 static void configureNeonTriggerShape(trigger_shape_s *s) {
 	triggerShapeInit(s);
 
-	triggerAddEvent(s, 60, T_PRIMARY, 1);
+	triggerAddEvent(s, 60, T_PRIMARY, TV_HIGH);
 	triggerAddEvent(s, 210, T_PRIMARY, TV_LOW);
-	triggerAddEvent(s, 420, T_PRIMARY, 1);
+	triggerAddEvent(s, 420, T_PRIMARY, TV_HIGH);
 	triggerAddEvent(s, 630, T_PRIMARY, TV_LOW);
 	// voodoo magic - we always need 720 at the end
 	triggerAddEvent(s, 720, T_PRIMARY, TV_LOW);
@@ -127,15 +127,15 @@ static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
 	s->shaftPositionEventCount = 10;
 
 
-	triggerAddEvent(s, 53.747, T_SECONDARY, 1);
+	triggerAddEvent(s, 53.747, T_SECONDARY, TV_HIGH);
 	triggerAddEvent(s, 121.90, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, 232.76, T_SECONDARY, 1);
+	triggerAddEvent(s, 232.76, T_SECONDARY, TV_HIGH);
 	triggerAddEvent(s, 300.54, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, 360, T_PRIMARY, 1);
+	triggerAddEvent(s, 360, T_PRIMARY, TV_HIGH);
 
-	triggerAddEvent(s, 409.8412, T_SECONDARY, 1);
+	triggerAddEvent(s, 409.8412, T_SECONDARY, TV_HIGH);
 	triggerAddEvent(s, 478.6505, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, 588.045, T_SECONDARY, 1);
+	triggerAddEvent(s, 588.045, T_SECONDARY, TV_HIGH);
 	triggerAddEvent(s, 657.03, T_SECONDARY, TV_LOW);
 	triggerAddEvent(s, 720, T_PRIMARY, TV_LOW);
 }
