@@ -74,40 +74,8 @@ static int isValid(FlashState *state) {
 	return result == state->value;
 }
 
-
 void resetConfiguration(engine_type_e engineType) {
-	/**
-	 * Let's apply global defaults first
-	 */
-	setDefaultConfiguration(engineConfiguration);
-	engineConfiguration->engineType = engineType;
-	/**
-	 * And override them with engine-specific defaults
-	 */
-	switch (engineType) {
-	case DODGE_NEON_1995:
-		setDodgeNeonEngineConfiguration(engineConfiguration);
-		break;
-	case FORD_ASPIRE_1996:
-		setFordAspireEngineConfiguration(engineConfiguration);
-		break;
-	case FORD_FIESTA:
-		setFordFiestaDefaultEngineConfiguration(engineConfiguration);
-		break;
-	case HONDA_ACCORD:
-		setHondaAccordConfiguration(engineConfiguration);
-		break;
-	case FORD_INLINE_6_1995:
-		setFordInline6(engineConfiguration);
-		break;
-	case GY6_139QMB:
-		setGy6139qmbDefaultEngineConfiguration(engineConfiguration);
-		break;
-	default:
-		fatal("Unexpected engine type")
-		;
-	}
-	applyNonPersistentConfiguration(engineConfiguration, engineConfiguration2, engineType);
+	resetConfigurationExt(engineType, engineConfiguration, engineConfiguration2);
 
 #if EFI_TUNER_STUDIO
 	syncTunerStudioCopy();
