@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Вск 16 Фев 2014 22:09:10
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Чтв 20 Фев 2014 17:40:39
 
 BeginCmp
 TimeStamp = /52CAD8F7;
@@ -15,10 +15,10 @@ IdModule  = SM0805;
 EndCmp
 
 BeginCmp
-TimeStamp = /52CAD8DC;
+TimeStamp = /53060316;
 Reference = D471;
 ValeurCmp = RED;
-IdModule  = LED-0805;
+IdModule  = LED-0805_A;
 EndCmp
 
 BeginCmp
@@ -32,7 +32,7 @@ BeginCmp
 TimeStamp = /52CD2DEF;
 Reference = JP471;
 ValeurCmp = JUMPER;
-IdModule  = SIL-2;
+IdModule  = JUMPER-2;
 EndCmp
 
 BeginCmp

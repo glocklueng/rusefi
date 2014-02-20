@@ -1,43 +1,18 @@
 EESchema Schematic File Version 2
 LIBS:power
 LIBS:device
-LIBS:transistors
 LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:special
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:art-electro-ic
 LIBS:logo_flipped
+LIBS:art-electro-ic
+LIBS:art-electro-conn
+LIBS:can_brd_1-cache
 EELAYER 24 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "16 Фев 2014"
+Date "20 Фев 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -55,17 +30,6 @@ F 2 "" H 3900 3000 60  0001 C CNN
 F 3 "" H 3900 3000 60  0001 C CNN
 	1    3900 3000
 	0    1    -1   0   
-$EndComp
-$Comp
-L LED D471
-U 1 1 52CAD8DC
-P 4350 3000
-F 0 "D471" H 4350 3100 50  0000 C CNN
-F 1 "RED" H 4350 2900 50  0000 C CNN
-F 2 "" H 4350 3000 60  0001 C CNN
-F 3 "" H 4350 3000 60  0001 C CNN
-	1    4350 3000
-	1    0    0    1   
 $EndComp
 $Comp
 L GND #PWR01
@@ -374,4 +338,15 @@ Wire Wire Line
 	7200 1950 7100 1950
 Text Notes 6250 1600 0    60   ~ 0
 pins
+$Comp
+L LED_0805 D471
+U 1 1 53060316
+P 4350 3000
+F 0 "D471" H 4350 3100 50  0000 C CNN
+F 1 "RED" H 4350 2900 50  0000 C CNN
+F 2 "" H 4350 3000 60  0000 C CNN
+F 3 "" H 4350 3000 60  0000 C CNN
+	1    4350 3000
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
