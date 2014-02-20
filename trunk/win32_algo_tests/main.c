@@ -36,16 +36,14 @@ static float absF(float value) {
 
 void assertEqualsM(char *msg, float expected, float actual) {
 	if (isnan(actual) && !isnan(expected)) {
-		printf("Unexpected: %s %.4f while expected %.4f\r\n", msg, actual,
-				expected);
+		printf("Unexpected: %s %.4f while expected %.4f\r\n", msg, actual, expected);
 		exit(-1);
 	}
 
 	float delta = absF(actual - expected);
 	if (delta > 0.0001) {
 		printf("delta: %.7f\r\n", delta);
-		printf("Unexpected: %s %.4f while expected %.4f\r\n", msg, actual,
-				expected);
+		printf("Unexpected: %s %.4f while expected %.4f\r\n", msg, actual, expected);
 		exit(-1);
 	}
 	printf("Validated %s: %f\r\n", msg, expected);
@@ -55,8 +53,12 @@ void assertEquals(float expected, float actual) {
 	assertEqualsM("", expected, actual);
 }
 
+void assertTrueM(char *msg, float actual) {
+	assertEqualsM(msg, TRUE, actual);
+}
+
 void assertTrue(float actual) {
-	assertEqualsM("", TRUE, actual);
+	assertTrueM("", actual);
 }
 
 void assertFalseM(char *msg, float actual) {
@@ -97,9 +99,7 @@ int main(void) {
 
 	testMalfunctionCentral();
 
-
 	testConsoleLogic();
-
 
 	testAngleResolver();
 
@@ -126,4 +126,9 @@ void print(const char *format, ...) {
 
 float getMap(void) {
 	return 0;
+}
+
+void fatal(char *x) {
+  printf(x);
+  exit(-1);
 }

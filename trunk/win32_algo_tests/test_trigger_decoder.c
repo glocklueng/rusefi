@@ -141,6 +141,32 @@ void testMazdaMianaNbDecoder(void) {
 
 }
 
+void testGY6_139QMB(void) {
+	printf("*************************************************** testGY6_139QMB\r\n");
+
+	engine_configuration_s ec;
+	engine_configuration2_s ec2;
+	resetConfigurationExt(GY6_139QMB, &ec, &ec2);
+
+	trigger_state_s state;
+	clearTriggerState(&state);
+	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
+
+	trigger_shape_s * shape = &ec2.triggerShape;
+
+	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
+	assertEquals(0, state.current_index);
+
+	int now = 0;
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_UP, now++);
+	assertTrueM("shaft_is_synchronized", state.shaft_is_synchronized);
+	assertEquals(0, state.current_index);
+
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_DOWN, now++);
+	assertTrueM("shaft_is_synchronized", state.shaft_is_synchronized);
+	assertEquals(1, state.current_index);
+}
+
 void testTriggerDecoder(void) {
 	printf("*************************************************** testTriggerDecoder\r\n");
 
@@ -157,5 +183,6 @@ void testTriggerDecoder(void) {
 	testFordAspire();
 	test1995FordInline6TriggerDecoder();
 	testMazdaMianaNbDecoder();
+	testGY6_139QMB();
 }
 
