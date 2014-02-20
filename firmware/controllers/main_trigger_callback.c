@@ -160,12 +160,12 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 
 void initMainEventListener() {
 	initLogging(&logger, "main event handler");
-	printSimpleMsg(&logger, "initMainLoop: ", chTimeNow());
+	printMsg(&logger, "initMainLoop: %d", chTimeNow());
 	cbInit(&ignitionErrorDetection);
 	resetHistogram(&mainLoopHisto, "main");
 
 	if (!isInjectionEnabled)
-		printSimpleMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled", 0);
+		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
 
 	registerShaftPositionListener(&onShaftSignal, "main loop");
 }

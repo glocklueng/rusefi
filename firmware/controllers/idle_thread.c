@@ -41,7 +41,7 @@ int getIdleSwitch() {
 }
 
 void idleDebug(char *msg, int value) {
-	printSimpleMsg(&logger, msg, value);
+	printMsg(&logger, "%s%d", msg, value);
 	scheduleLogging(&logger);
 }
 
@@ -99,8 +99,8 @@ void startIdleThread() {
 	idleInit(&idle);
 	scheduleSimpleMsg(&logger, "initial idle", idle.value);
 	if (!isIdleActive)
-		printSimpleMsg(&logger,
-				"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! idle control disabled", 0);
+		printMsg(&logger,
+				"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! idle control disabled");
 
 	addConsoleActionI("target", setTargetIdle);
 
