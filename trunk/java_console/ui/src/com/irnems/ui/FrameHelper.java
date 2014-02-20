@@ -11,16 +11,16 @@ import java.awt.event.WindowEvent;
  * (c) Andrey Belomutskiy
  */
 public class FrameHelper {
+    protected final JFrame frame = new JFrame();
 
     protected void showFrame(JComponent container) {
-        final JFrame f = new JFrame();
-        f.setSize(800, 500);
-        f.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        f.addWindowListener(new WindowAdapter() {
+        frame.setSize(800, 500);
+        frame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
                 onWindowOpened();
-                f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
             }
 
             @Override
@@ -28,8 +28,8 @@ public class FrameHelper {
                 onWindowClosed();
             }
         });
-        f.add(container);
-        f.setVisible(true);
+        frame.add(container);
+        frame.setVisible(true);
     }
 
     protected void onWindowOpened() {

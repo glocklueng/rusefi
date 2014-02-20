@@ -1,5 +1,6 @@
 package com.irnems;
 
+import com.irnems.core.EngineState;
 import com.irnems.core.MessagesCentral;
 import com.irnems.ui.*;
 import com.rusefi.AnalogChartPanel;
@@ -16,6 +17,7 @@ import javax.swing.*;
  * (c) Andrey Belomutskiy
  */
 public class Launcher extends FrameHelper {
+    private static final Object CONSOLE_VERSION = "20140219";
 
     public Launcher(String port) {
         FileLog.INSTANCE.start();
@@ -49,7 +51,20 @@ public class Launcher extends FrameHelper {
     @Override
     protected void onWindowOpened() {
         super.onWindowOpened();
+        setTitle("N/A");
         SerialManager.scheduleOpening();
+
+        SerialManager.engineState.registerStringValueAction("rusEfiVersion", new EngineState.ValueCallback<String>() {
+            @Override
+            public void onUpdate(String value) {
+                setTitle(value);
+            }
+        });
+
+    }
+
+    private void setTitle(String value) {
+        frame.setTitle("Console " + CONSOLE_VERSION + "; firmwave=" + value);
     }
 
     @Override
