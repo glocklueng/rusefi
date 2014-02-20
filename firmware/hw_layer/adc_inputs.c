@@ -209,79 +209,93 @@ static void initAdcPin(ioportid_t port, int pin, char *msg) {
 	mySetPadMode("adc input", port, pin, PAL_MODE_INPUT_ANALOG);
 }
 
-static void initAdcHwChannel(int channel) {
-	GPIO_TypeDef* port;
-	int pin;
-
+GPIO_TypeDef* getAdcChannelPort(int channel) {
+	// todo: replace this with an array :)
 	switch (channel) {
 	case ADC_CHANNEL_IN0:
-		port = GPIOA;
-		pin = 0;
-		break;
+		return GPIOA;
 	case ADC_CHANNEL_IN1:
-		port = GPIOA;
-		pin = 1;
-		break;
+		return GPIOA;
 	case ADC_CHANNEL_IN2:
-		port = GPIOA;
-		pin = 2;
-		break;
+		return GPIOA;
 	case ADC_CHANNEL_IN3:
-		port = GPIOA;
-		pin = 3;
-		break;
+		return GPIOA;
 	case ADC_CHANNEL_IN4:
-		port = GPIOA;
-		pin = 4;
-		break;
+		return GPIOA;
 	case ADC_CHANNEL_IN5:
-		port = GPIOA;
-		pin = 5;
-		break;
+		return GPIOA;
 	case ADC_CHANNEL_IN6:
-		port = GPIOA;
-		pin = 6;
-		break;
+		return GPIOA;
 	case ADC_CHANNEL_IN7:
-		port = GPIOA;
-		pin = 7;
-		break;
+		return GPIOA;
 	case ADC_CHANNEL_IN8:
-		port = GPIOB;
-		pin = 0;
-		break;
+		return GPIOB;
 	case ADC_CHANNEL_IN9:
-		port = GPIOB;
-		pin = 1;
-		break;
+		return GPIOB;
 	case ADC_CHANNEL_IN10:
-		port = GPIOC;
-		pin = 0;
-		break;
+		return GPIOC;
 	case ADC_CHANNEL_IN11:
-		port = GPIOC;
-		pin = 1;
-		break;
+		return GPIOC;
 	case ADC_CHANNEL_IN12:
-		port = GPIOC;
-		pin = 2;
-		break;
+		return GPIOC;
 	case ADC_CHANNEL_IN13:
-		port = GPIOC;
-		pin = 3;
-		break;
+		return GPIOC;
 	case ADC_CHANNEL_IN14:
-		port = GPIOC;
-		pin = 4;
-		break;
+		return GPIOC;
 	case ADC_CHANNEL_IN15:
-		port = GPIOC;
-		pin = 5;
-		break;
+		return GPIOC;
 	default:
 		fatal("Unknown hw channel");
-		return;
+		return NULL;
 	}
+}
+
+int getAdcChannelPin(int channel) {
+	// todo: replace this with an array :)
+	switch (channel) {
+	case ADC_CHANNEL_IN0:
+		return 0;
+	case ADC_CHANNEL_IN1:
+		return 1;
+	case ADC_CHANNEL_IN2:
+		return 2;
+	case ADC_CHANNEL_IN3:
+		return 3;
+	case ADC_CHANNEL_IN4:
+		return 4;
+	case ADC_CHANNEL_IN5:
+		return 5;
+		break;
+	case ADC_CHANNEL_IN6:
+		return 6;
+	case ADC_CHANNEL_IN7:
+		return 7;
+	case ADC_CHANNEL_IN8:
+		return 0;
+	case ADC_CHANNEL_IN9:
+		return 1;
+	case ADC_CHANNEL_IN10:
+		return 0;
+	case ADC_CHANNEL_IN11:
+		return 1;
+	case ADC_CHANNEL_IN12:
+		return 2;
+	case ADC_CHANNEL_IN13:
+		return 3;
+	case ADC_CHANNEL_IN14:
+		return 4;
+	case ADC_CHANNEL_IN15:
+		return 5;
+	default:
+		fatal("Unknown hw channel");
+		return -1;
+	}
+}
+
+static void initAdcHwChannel(int channel) {
+	GPIO_TypeDef* port = getAdcChannelPort(channel);
+	int pin = getAdcChannelPin(channel);
+
 	initAdcPin(port, pin, "hw");
 }
 
