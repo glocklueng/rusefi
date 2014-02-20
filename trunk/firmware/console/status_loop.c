@@ -38,6 +38,7 @@
 #include "lcd_2x16.h"
 #include "rfiutil.h"
 
+extern engine_configuration_s * engineConfiguration;
 extern engine_configuration2_s * engineConfiguration2;
 
 #define INITIAL_FULL_LOG TRUE
@@ -173,7 +174,7 @@ static void printVersion(systime_t nowSeconds) {
 	if(overflowDiff(nowSeconds, timeOfPreviousPrintVersion) < 4)
 		return;
 	timeOfPreviousPrintVersion = nowSeconds;
-	appendPrintf(&logger, "rusEfiVersion%s%d%s", DELIMETER, getVersion(), DELIMETER);
+	appendPrintf(&logger, "rusEfiVersion%s%d %s%s", DELIMETER, getVersion(), getConfigurationName(engineConfiguration), DELIMETER);
 }
 
 static systime_t timeOfPreviousReport = (systime_t) -1;

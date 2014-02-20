@@ -147,5 +147,5 @@ int systicks2ms(int systicks) {
 }
 
 int getVersion(void) {
-	return 20140219;
+	return 20140220;
 }
