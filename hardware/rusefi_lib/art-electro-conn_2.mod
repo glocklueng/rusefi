@@ -77,7 +77,7 @@ Ne 0 ""
 Po 1.27 0
 $EndPAD
 $SHAPE3D
-Na "lib/3d/jumper-2.wrl"
+Na "../rusefi_lib/3d/jumper-2.wrl"
 Sc 1 1 1
 Of 0 0 0
 Ro 0 0 0
