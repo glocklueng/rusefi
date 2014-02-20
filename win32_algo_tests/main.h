@@ -18,7 +18,7 @@
 
 typedef int bool_t;
 
-#define fatal(x) printf(x)
+void fatal(x);
 
 void print(const char *fmt, ...);
 
@@ -33,6 +33,7 @@ void chDbgAssert(int c, char *msg, void *arg);
 void assertEqualsM(char *msg, float expected, float actual);
 void assertEquals(float expected, float actual);
 void assertTrue(float actual);
+void assertTrueM(char *msg, float actual);
 void assertFalse(float actual);
 void assertFalseM(char *msg, float actual);
 
