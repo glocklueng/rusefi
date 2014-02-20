@@ -14,8 +14,7 @@
 #include "rficonsole.h"
 #include "console_io.h"
 #include "datalogging.h"
-
-#define VERSION_STRING "20140218"
+#include "rusefi.h"
 
 static Logging logger;
 
@@ -44,51 +43,47 @@ static void myfatal(void) {
 
 static void sayOsHello(void) {
 	print("*** rusEFI (c) Andrey Belomutskiy, 2012-2014. All rights reserved.\r\n");
-	printMsg(&logger, "rusEFI VERSION=%s", VERSION_STRING);
+	printMsg(&logger, "rusEFI VERSION=%d", getVersion());
 	print("*** Chibios Kernel:       %s\r\n", CH_KERNEL_VERSION);
 	print("*** Compiled:     " __DATE__ " - " __TIME__ " \r\n");
 	print("COMPILER=%s\r\n", __VERSION__);
-	printSimpleMsg(&logger, "CH_FREQUENCY=", CH_FREQUENCY);
-	printSimpleMsg(&logger, "SERIAL_SPEED=", SERIAL_SPEED);
-	printMsg(&logger, "1111%s2222", "");
-	printMsg(&logger, "3333%s4444", NULL);
-	printSimpleMsg(&logger, "STM32_ADCCLK=", STM32_ADCCLK);
-	printSimpleMsg(&logger, "STM32_TIMCLK1=", STM32_TIMCLK1);
-	printSimpleMsg(&logger, "STM32_TIMCLK2=", STM32_TIMCLK2);
-	printSimpleMsg(&logger, "STM32_PCLK1=", STM32_PCLK1);
-	printSimpleMsg(&logger, "STM32_PCLK2=", STM32_PCLK2);
+	printMsg(&logger, "CH_FREQUENCY=%d", CH_FREQUENCY);
+	printMsg(&logger, "SERIAL_SPEED=%d", SERIAL_SPEED);
+	printMsg(&logger, "STM32_ADCCLK=%d", STM32_ADCCLK);
+	printMsg(&logger, "STM32_TIMCLK1=%d", STM32_TIMCLK1);
+	printMsg(&logger, "STM32_TIMCLK2=%d", STM32_TIMCLK2);
+	printMsg(&logger, "STM32_PCLK1=%d", STM32_PCLK1);
+	printMsg(&logger, "STM32_PCLK2=%d", STM32_PCLK2);
 
-	printSimpleMsg(&logger, "CH_DBG_ENABLE_ASSERTS=", CH_DBG_ENABLE_ASSERTS);
-	printSimpleMsg(&logger, "CH_DBG_ENABLED=", CH_DBG_ENABLED);
-	printSimpleMsg(&logger, "CH_DBG_SYSTEM_STATE_CHECK=",
-			CH_DBG_SYSTEM_STATE_CHECK);
-	printSimpleMsg(&logger, "CH_DBG_ENABLE_STACK_CHECK=",
-			CH_DBG_ENABLE_STACK_CHECK);
+	printMsg(&logger, "CH_DBG_ENABLE_ASSERTS=%d", CH_DBG_ENABLE_ASSERTS);
+	printMsg(&logger, "CH_DBG_ENABLED=%d", CH_DBG_ENABLED);
+	printMsg(&logger, "CH_DBG_SYSTEM_STATE_CHECK=%d", CH_DBG_SYSTEM_STATE_CHECK);
+	printMsg(&logger, "CH_DBG_ENABLE_STACK_CHECK=%d", CH_DBG_ENABLE_STACK_CHECK);
 
-	printSimpleMsg(&logger, "EFI_WAVE_ANALYZER=", EFI_WAVE_ANALYZER);
+	printMsg(&logger, "EFI_WAVE_ANALYZER=%d", EFI_WAVE_ANALYZER);
 #ifdef EFI_TUNER_STUDIO
-	printSimpleMsg(&logger, "EFI_TUNER_STUDIO=", EFI_TUNER_STUDIO);
+	printMsg(&logger, "EFI_TUNER_STUDIO=%d", EFI_TUNER_STUDIO);
 #else
-	printSimpleMsg(&logger, "EFI_TUNER_STUDIO=", 0);
+	printMsg(&logger, "EFI_TUNER_STUDIO=%d", 0);
 #endif
 
 #ifdef EFI_SIGNAL_EXECUTOR_SLEEP
-	printSimpleMsg(&logger, "EFI_SIGNAL_EXECUTOR_SLEEP=", EFI_SIGNAL_EXECUTOR_SLEEP);
+	printMsg(&logger, "EFI_SIGNAL_EXECUTOR_SLEEP=%d", EFI_SIGNAL_EXECUTOR_SLEEP);
 #endif
 
 #ifdef EFI_SIGNAL_EXECUTOR_HW_TIMER
-	printSimpleMsg(&logger, "EFI_SIGNAL_EXECUTOR_HW_TIMER=", EFI_SIGNAL_EXECUTOR_HW_TIMER);
+	printMsg(&logger, "EFI_SIGNAL_EXECUTOR_HW_TIMER=%d", EFI_SIGNAL_EXECUTOR_HW_TIMER);
 #endif
 
 
 
 #ifdef EFI_TUNER_STUDIO_OVER_USB
-	printSimpleMsg(&logger, "EFI_TUNER_STUDIO_OVER_USB=", EFI_TUNER_STUDIO_OVER_USB);
+	printMsg(&logger, "EFI_TUNER_STUDIO_OVER_USB=%d", EFI_TUNER_STUDIO_OVER_USB);
 #else
-	printSimpleMsg(&logger, "EFI_TUNER_STUDIO_OVER_USB=", 0);
+	printMsg(&logger, "EFI_TUNER_STUDIO_OVER_USB=%d", 0);
 #endif
-	printSimpleMsg(&logger, "EFI_SHAFT_POSITION_INPUT=", EFI_SHAFT_POSITION_INPUT);
-	printSimpleMsg(&logger, "EFI_INTERNAL_ADC=", EFI_INTERNAL_ADC);
+	printMsg(&logger, "EFI_SHAFT_POSITION_INPUT=%d", EFI_SHAFT_POSITION_INPUT);
+	printMsg(&logger, "EFI_INTERNAL_ADC=%d", EFI_INTERNAL_ADC);
 
 //	printSimpleMsg(&logger, "", );
 //	printSimpleMsg(&logger, "", );
