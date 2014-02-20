@@ -56,6 +56,8 @@
 
 #define EFI_CAN_SUPPORT FALSE
 
+#define EFI_HD44780_LCD TRUE
+
 #define EFI_IDLE_CONTROL FALSE
 
 #define EFI_ENGINE_EMULATOR TRUE
@@ -90,11 +92,6 @@
 #define EFI_FILE_LOGGING TRUE
 
 /**
- * Do we need GPS logic?
- */
-#define EFI_GPS TRUE
-
-/**
  * While we embed multiple PnP configurations into the same firmware binary, these marcoses give us control
  * over which configurations go into the binary
  */
@@ -102,7 +99,16 @@
 #define EFI_SUPPORT_FORD_ASPIRE TRUE
 #define EFI_SUPPORT_FORD_FIESTA TRUE
 #define EFI_SUPPORT_NISSAN_PRIMERA TRUE
+#define EFI_SUPPORT_1995_FORD_INLINE_6 TRUE
 
 #define EFI_PERF_METRICS TRUE
+
+/**
+ * Do we need GPS logic?
+ */
+//#define EFI_UART_GPS TRUE
+
+//#define EFI_IDLE_CONTROL TRUE
+#define EFI_IDLE_CONTROL FALSE
 
 #endif /* FEATURES_H_ */
