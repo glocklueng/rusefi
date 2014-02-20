@@ -1,12 +1,12 @@
 Path: .
-Working Copy Root Path: C:\stuff\rusefi_sourceforge.3
-URL: https://svn.code.sf.net/p/rusefi/code/trunk/firmware
-Repository Root: https://svn.code.sf.net/p/rusefi/code
+Working Copy Root Path: C:\stuff\rusefi_sourceforge
+URL: https://rusefi@svn.code.sf.net/p/rusefi/code/trunk/firmware
+Repository Root: https://rusefi@svn.code.sf.net/p/rusefi/code
 Repository UUID: f70035ab-f2bc-4b8d-aa29-9bd2fd43cf08
-Revision: 1379
+Revision: 1671
 Node Kind: directory
 Schedule: normal
 Last Changed Author: rusefi
-Last Changed Rev: 1379
-Last Changed Date: 2014-02-05 10:20:06 -0600 (Wed, 05 Feb 2014)
+Last Changed Rev: 1670
+Last Changed Date: 2014-02-19 18:50:56 -0600 (Wed, 19 Feb 2014)
 
