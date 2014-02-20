@@ -95,8 +95,7 @@ void initWaveChart(WaveChart *chart) {
 	initLogging(&logger, "wave info");
 
 	if (!isChartActive)
-		printSimpleMsg(&logger, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! chart disabled",
-				0);
+		printMsg(&logger, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! chart disabled");
 
 	printStatus();
 
