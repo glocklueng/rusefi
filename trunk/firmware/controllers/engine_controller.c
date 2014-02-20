@@ -36,6 +36,7 @@
 #include "rficonsole_logic.h"
 #include "pwm_generator.h"
 #include "fuel_math.h"
+#include "adc_inputs.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -135,8 +136,10 @@ void printTemperatureInfo(void) {
 	float rClt = getResistance(&engineConfiguration2->clt);
 	float rIat = getResistance(&engineConfiguration2->iat);
 
-	scheduleMsg(&logger, "CLT R=%f on channel %d", rClt, engineConfiguration2->clt.channel);
-	scheduleMsg(&logger, "IAT R=%f on channel %d", rIat, engineConfiguration2->iat.channel);
+	int cltChannel = engineConfiguration2->clt.channel;
+	scheduleMsg(&logger, "CLT R=%f on channel %d@%s%d", rClt, cltChannel, portname(getAdcChannelPort(cltChannel)), getAdcChannelPin(cltChannel));
+	int iatChannel = engineConfiguration2->iat.channel;
+	scheduleMsg(&logger, "IAT R=%f on channel %d@%s%d", rIat, iatChannel, portname(getAdcChannelPort(iatChannel)), getAdcChannelPin(iatChannel));
 
 	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMinTempMs,
 			engineConfiguration->crankingSettings.coolantTempMinC);

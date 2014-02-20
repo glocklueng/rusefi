@@ -11,6 +11,8 @@
 
 #include "main.h"
 
+GPIO_TypeDef* getAdcChannelPort(int channel);
+int getAdcChannelPin(int channel);
 void initAdcInputs(void);
 void pokeAdcInputs(void);
 int getInternalAdcValue(int index);
