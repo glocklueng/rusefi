@@ -288,13 +288,6 @@ void resetLogging(Logging *logging) {
  * This method would output a simple console message immediately.
  * This method should only be invoked on main thread because only the main thread can write to the console
  */
-void printSimpleMsg(Logging *logging, char *msg, int value) {
-	printMsg(logging, "%s%d", msg, value);
-//	commonSimpleMsg(logging, msg, value);
-//	append(logging, DELIMETER);
-//	printLine(logging);
-}
-
 void printMsg(Logging *logging, const char *fmt, ...) {
 //	resetLogging(logging); // I guess 'reset' is not needed here?
 	appendMsgPrefix(logging);
