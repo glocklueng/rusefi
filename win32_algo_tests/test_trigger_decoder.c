@@ -132,6 +132,15 @@ void testFordAspire(void) {
 	assertEqualsM("higher rpm dwell", 3.25, getSparkDwellMsT(&ec, 6000));
 }
 
+void testMazdaMianaNbDecoder(void) {
+	printf("*************************************************** testMazdaMianaNbDecoder\r\n");
+
+	engine_configuration_s ec;
+	engine_configuration2_s ec2;
+	resetConfigurationExt(MAZDA_MIATA_NB, &ec, &ec2);
+
+}
+
 void testTriggerDecoder(void) {
 	printf("*************************************************** testTriggerDecoder\r\n");
 
@@ -147,5 +156,6 @@ void testTriggerDecoder(void) {
 	testDodgeNeonDecoder();
 	testFordAspire();
 	test1995FordInline6TriggerDecoder();
+	testMazdaMianaNbDecoder();
 }
 
