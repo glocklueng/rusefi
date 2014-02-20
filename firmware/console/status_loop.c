@@ -22,6 +22,7 @@
 #include "engine_state.h"
 #include "io_pins.h"
 #include "mmc_card.h"
+#include "rusefi.h"
 
 #include "datalogging.h"
 #include "rficonsole_logic.h"
@@ -62,7 +63,7 @@ static char* boolean2string(int value) {
 
 void setFullLog(int value) {
 	print("Setting full logging: %s\r\n", boolean2string(value));
-	printSimpleMsg(&logger, FULL_LOGGING_KEY, value);
+	printMsg(&logger, "%s%d", FULL_LOGGING_KEY, value);
 	fullLog = value;
 }
 
@@ -162,6 +163,19 @@ static void checkIfShouldHalt(void) {
 #endif
 }
 
+/**
+ * Time when the firmware version was reported last time, in seconds
+ * TODO: implement a request/response instead of just constantly sending this out
+ */
+static systime_t timeOfPreviousPrintVersion = (systime_t) -1;
+
+static void printVersion(systime_t nowSeconds) {
+	if(overflowDiff(nowSeconds, timeOfPreviousPrintVersion) < 4)
+		return;
+	timeOfPreviousPrintVersion = nowSeconds;
+	appendPrintf(&logger, "rusEfiVersion%s%d%s", DELIMETER, getVersion(), DELIMETER);
+}
+
 static systime_t timeOfPreviousReport = (systime_t) -1;
 
 /**
@@ -178,7 +192,10 @@ void updateDevConsoleState(void) {
 	if (!fullLog)
 		return;
 
+
 	systime_t nowSeconds = chTimeNowSeconds();
+	printVersion(nowSeconds);
+
 
 	int currentCkpEventCounter = getCrankEventCounter();
 	if (prevCkpEventCounter == currentCkpEventCounter && timeOfPreviousReport == nowSeconds)
