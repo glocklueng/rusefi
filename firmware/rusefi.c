@@ -145,3 +145,7 @@ void runRusEfi(void) {
 int systicks2ms(int systicks) {
 	return systicks / TICKS_IN_MS;
 }
+
+int getVersion(void) {
+	return 20140219;
+}

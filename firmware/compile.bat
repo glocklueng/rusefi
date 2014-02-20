@@ -1,5 +1,13 @@
 rm -rf .dep/
+
+rm -rf build\rusefi.hex
 make
+
+cd build
+if not exist rusefi.hex echo "compilation failed"
+if not exist rusefi.hex exit -1
+cd ..
+
 svn info > ../firmware_binary/version.txt
 cp config/features.h ../firmware_binary
 cp build/rusefi.hex ../firmware_binary
