@@ -183,7 +183,7 @@ void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *eng
 		break;
 	case MAZDA_MIATA_NB:
 		setMazdaMiataNbEngineConfiguration(engineConfiguration);
-		return;
+		break;
 	default:
 		fatal("Unexpected engine type")
 		;
