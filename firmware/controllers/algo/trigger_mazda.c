@@ -30,14 +30,14 @@ void initializeMazdaMiataNbShape(trigger_shape_s *s) {
 	triggerAddEvent(s, 380, T_PRIMARY, TV_HIGH);
 	triggerAddEvent(s, 400, T_PRIMARY, TV_LOW);
 
-	triggerAddEvent(s, 426, T_PRIMARY, TV_HIGH);
-	triggerAddEvent(s, 430, T_PRIMARY, TV_LOW);
-	triggerAddEvent(s, 496, T_PRIMARY, TV_HIGH);
-	triggerAddEvent(s, 500, T_PRIMARY, TV_LOW);
-	triggerAddEvent(s, 606, T_PRIMARY, TV_HIGH);
-	triggerAddEvent(s, 610, T_PRIMARY, TV_LOW);
-	triggerAddEvent(s, 676, T_PRIMARY, TV_HIGH);
-	triggerAddEvent(s, 680, T_PRIMARY, TV_LOW);
+	triggerAddEvent(s, 426, T_SECONDARY, TV_HIGH);
+	triggerAddEvent(s, 430, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, 496, T_SECONDARY, TV_HIGH);
+	triggerAddEvent(s, 500, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, 606, T_SECONDARY, TV_HIGH);
+	triggerAddEvent(s, 610, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, 676, T_SECONDARY, TV_HIGH);
+	triggerAddEvent(s, 680, T_SECONDARY, TV_LOW);
 
 	triggerAddEvent(s, 720, T_PRIMARY, TV_HIGH);
 
