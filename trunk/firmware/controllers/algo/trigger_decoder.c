@@ -60,7 +60,8 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *t
 #if EFI_PROD_CODE
 #else
 	if (shaftPositionState->toothed_previous_duration != 0) {
-		printf("ratio %f\r\n", 1.0 * currentDuration / shaftPositionState->toothed_previous_duration);
+		printf("ratio %f: cur=%d pref=%d\r\n", 1.0 * currentDuration / shaftPositionState->toothed_previous_duration,
+				currentDuration, shaftPositionState->toothed_previous_duration);
 	}
 #endif
 

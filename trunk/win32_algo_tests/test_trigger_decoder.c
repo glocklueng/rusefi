@@ -139,6 +139,47 @@ void testMazdaMianaNbDecoder(void) {
 	engine_configuration2_s ec2;
 	resetConfigurationExt(MAZDA_MIATA_NB, &ec, &ec2);
 
+	trigger_state_s state;
+	clearTriggerState(&state);
+	trigger_shape_s * shape = &ec2.triggerShape;
+
+	int a = 0;
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_DOWN, a + 20);
+	assertFalseM("0a shaft_is_synchronized", state.shaft_is_synchronized);
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_UP, a + 340);
+	assertFalseM("0b shaft_is_synchronized", state.shaft_is_synchronized);
+
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_DOWN, a + 360);
+	assertFalseM("0c shaft_is_synchronized", state.shaft_is_synchronized);
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_UP, a + 380);
+	assertFalseM("0d shaft_is_synchronized", state.shaft_is_synchronized);
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_DOWN, a + 400);
+	assertTrueM("0e shaft_is_synchronized", state.shaft_is_synchronized);
+
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_UP, a + 720);
+	assertTrueM("0f shaft_is_synchronized", state.shaft_is_synchronized);
+
+	a = 720;
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_DOWN, a + 20);
+	assertTrueM("1a shaft_is_synchronized", state.shaft_is_synchronized);
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_UP, a + 340);
+	assertTrueM("1b shaft_is_synchronized", state.shaft_is_synchronized);
+
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_DOWN, a + 360);
+	assertTrueM("1c shaft_is_synchronized", state.shaft_is_synchronized);
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_UP, a + 380);
+	assertTrueM("1d shaft_is_synchronized", state.shaft_is_synchronized);
+	assertEquals(5, state.current_index);
+
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_DOWN, a + 400);
+	assertTrueM("1e shaft_is_synchronized", state.shaft_is_synchronized);
+	assertEquals(0, state.current_index);
+
+
+	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_UP, a + 720);
+	assertTrueM("1f shaft_is_synchronized", state.shaft_is_synchronized);
+
+
 }
 
 void testGY6_139QMB(void) {
