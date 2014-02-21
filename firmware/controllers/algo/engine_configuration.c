@@ -138,6 +138,10 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->triggerConfig.syncRatioTo = 3;
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = TRUE;
 	engineConfiguration->triggerConfig.useRiseEdge = TRUE;
+
+
+	engineConfiguration->HD44780width = 16;
+	engineConfiguration->HD44780height = 2;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {

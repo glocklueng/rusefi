@@ -200,7 +200,9 @@ typedef struct {
 	log_format_e logFormat;
 
 	int firmwareVersion;
-	float unusedArray[8 + 7]; // size 32
+	int HD44780width;
+	int HD44780height;
+	float unusedArray[8 + 5]; // size 32
 
 	trigger_config_s triggerConfig;
 

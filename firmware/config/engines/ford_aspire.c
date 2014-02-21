@@ -262,6 +262,9 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 
 	engineConfiguration->triggerConfig.triggerType = TT_FORD_ASPIRE;
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
+
+	engineConfiguration->HD44780width = 20;
+	engineConfiguration->HD44780height = 4;
 }
 
 void setFordAspireengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {

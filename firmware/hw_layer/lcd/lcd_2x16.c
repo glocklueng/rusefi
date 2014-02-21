@@ -125,7 +125,7 @@ void lcd_2x16_write_data(uint8_t data) {
 
 //-----------------------------------------------------------------------------
 void lcd_HD44780_set_position(uint8_t row, uint8_t column) {
-	chDbgCheck(row <= 4, "invalid row");
+	chDbgCheck(row <= engineConfiguration->HD44780height, "invalid row");
 	currentRow = row;
 	lcd_2x16_write_command(LCD_2X16_DDRAM_ADDR + lineStart[row] + column);
 }
