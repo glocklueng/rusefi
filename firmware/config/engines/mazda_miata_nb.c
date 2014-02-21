@@ -14,10 +14,9 @@ void setMazdaMiataNbEngineConfiguration(engine_configuration_s *engineConfigurat
 	engineConfiguration->triggerConfig.syncRatioFrom = 0.11 * 0.7;
 	engineConfiguration->triggerConfig.syncRatioTo = 0.11 * 1.3;
 	engineConfiguration->triggerConfig.useRiseEdge = FALSE;
-
+	engineConfiguration->globalTriggerOffsetAngle = 320;
 }
 
 void setMazdaMiataNb_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-
 }
 
