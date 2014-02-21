@@ -108,8 +108,8 @@ typedef struct {
 	ThermistorConf cltThermistorConf; // size 40 (10*4), offset 336
 	ThermistorConf iatThermistorConf; // size 40, offset 376
 
-	float ignitionDwellBins[DWELL_COUNT]; // offset 580
-	float ignitionDwell[DWELL_COUNT];
+	float sparkDwellBins[DWELL_COUNT]; // offset 580
+	float sparkDwell[DWELL_COUNT];
 
 	float ignitionTable[IGN_LOAD_COUNT][IGN_RPM_COUNT];
 	float ignitionLoadBins[IGN_LOAD_COUNT]; // offset 3450
@@ -199,8 +199,8 @@ typedef struct {
 
 	log_format_e logFormat;
 
-	float sparkDwellBins[DWELL_CURVE_SIZE]; // size 32
-	float sparkDwell[DWELL_CURVE_SIZE]; // size 32
+	float unusedsparkDwellBins[DWELL_CURVE_SIZE]; // size 32
+	float unusedsparkDwell[DWELL_CURVE_SIZE]; // size 32
 
 	trigger_config_s triggerConfig;
 
