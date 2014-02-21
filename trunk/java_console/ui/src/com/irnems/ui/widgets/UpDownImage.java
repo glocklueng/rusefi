@@ -158,6 +158,10 @@ public class UpDownImage extends JPanel {
 //        g.setColor(Color.cyan);
 //        g.fillRect(x1, y, x2 - x1, d.height);
 
+        g.setColor(Color.lightGray);
+        g.fillRect(x1, y, x2 - x1, d.height - y);
+
+
         g.setColor(Color.blue);
         g.drawLine(x1, y, x2, y);
         g.drawLine(x1, y, x1, d.height);
