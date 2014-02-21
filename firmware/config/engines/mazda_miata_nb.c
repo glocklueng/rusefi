@@ -8,6 +8,8 @@
 #include "mazda_miata_nb.h"
 
 void setMazdaMiataNbEngineConfiguration(engine_configuration_s *engineConfiguration) {
+	engineConfiguration->triggerConfig.triggerType = TT_MAZDA_MIATA_NB;
+	engineConfiguration->triggerConfig.isSynchronizationNeeded = TRUE;
 
 }
 

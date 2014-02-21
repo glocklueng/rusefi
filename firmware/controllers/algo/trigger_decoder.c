@@ -103,8 +103,9 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount,
 		int skippedCount) {
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
-	engineConfiguration2->triggerShape.shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
 	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount);
+
+	engineConfiguration2->triggerShape.shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
 	checkSwitchTimes(s->size, s->wave.switchTimes);
 }
 
@@ -118,7 +119,7 @@ static void configureNeonTriggerShape(trigger_shape_s *s) {
 	// voodoo magic - we always need 720 at the end
 	triggerAddEvent(s, 720, T_PRIMARY, TV_LOW);
 
-	s->shaftPositionEventCount = ((2 - 1) * 2);
+	s->shaftPositionEventCount = 4;
 }
 
 static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
