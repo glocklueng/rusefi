@@ -11,13 +11,6 @@
 
 #if EFI_ENGINE_AUDI_AAN
 
-#define EFI_ENGINE_ID "Audi AAN"
-
-#define NUMBER_OF_CYLINDERS 4
-
-// this should be included after 'SHAFT_POSITION_EVENT_COUNT'. todo - fix this
-#include "main_loop.h"
-
 #endif /* EFI_ENGINE_AUDI_AAN */
 
 #endif /* AUDI_AAN_H_ */
