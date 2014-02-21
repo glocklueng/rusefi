@@ -1,43 +1,17 @@
 EESchema Schematic File Version 2
 LIBS:power
 LIBS:device
-LIBS:transistors
 LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:special
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:art-electro-conn
 LIBS:logo_flipped
+LIBS:art-electro-conn
+LIBS:mmc_usb_1-cache
 EELAYER 24 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "19 Фев 2014"
+Date "21 Фев 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -79,17 +53,6 @@ F 2 "" H 2625 3275 60  0001 C CNN
 F 3 "" H 2625 3275 60  0001 C CNN
 	1    2625 3275
 	1    0    0    -1  
-$EndComp
-$Comp
-L LED D351
-U 1 1 52A59B2C
-P 2625 3075
-F 0 "D351" H 2625 3175 50  0000 C CNN
-F 1 "GREEN" H 2625 2975 50  0000 C CNN
-F 2 "" H 2625 3075 60  0001 C CNN
-F 3 "" H 2625 3075 60  0001 C CNN
-	1    2625 3075
-	0    -1   1    0   
 $EndComp
 $Comp
 L R R352
@@ -261,17 +224,6 @@ F 3 "" H 3675 1375 60  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L LED D352
-U 1 1 52A5A380
-P 3225 1375
-F 0 "D352" H 3225 1475 50  0000 C CNN
-F 1 "RED" H 3225 1275 50  0000 C CNN
-F 2 "" H 3225 1375 60  0001 C CNN
-F 3 "" H 3225 1375 60  0001 C CNN
-	1    3225 1375
-	-1   0    0    -1  
-$EndComp
-$Comp
 L GND #PWR010
 U 1 1 52A5A386
 P 3025 1375
@@ -418,17 +370,6 @@ F 3 "" H 4325 3275 60  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L LED D353
-U 1 1 52A5C8BF
-P 4775 3275
-F 0 "D353" H 4775 3375 50  0000 C CNN
-F 1 "RED" H 4775 3175 50  0000 C CNN
-F 2 "" H 4775 3275 60  0001 C CNN
-F 3 "" H 4775 3275 60  0001 C CNN
-	1    4775 3275
-	1    0    0    1   
-$EndComp
-$Comp
 L GND #PWR019
 U 1 1 52A5C8C5
 P 4975 3275
@@ -558,12 +499,6 @@ Connection ~ 4525 1375
 Wire Wire Line
 	2625 2875 2625 2825
 Wire Wire Line
-	2300 1975 4775 1975
-Wire Wire Line
-	4775 1975 4775 1725
-Wire Wire Line
-	4775 1725 5025 1725
-Wire Wire Line
 	3925 1375 5025 1375
 Connection ~ 4200 1375
 Wire Wire Line
@@ -579,10 +514,6 @@ Wire Wire Line
 	2300 1875 2625 1875
 Wire Wire Line
 	2625 1875 2625 2325
-Connection ~ 2950 2075
-Wire Wire Line
-	3300 2125 3300 1975
-Connection ~ 3300 1975
 Wire Wire Line
 	2950 2475 2950 2525
 Wire Wire Line
@@ -590,12 +521,6 @@ Wire Wire Line
 Wire Wire Line
 	3100 2600 3100 2525
 Connection ~ 3100 2525
-Wire Wire Line
-	5025 1625 4700 1625
-Wire Wire Line
-	4700 1625 4700 2075
-Wire Wire Line
-	4700 2075 2300 2075
 Wire Wire Line
 	7025 1425 6875 1425
 Wire Wire Line
@@ -784,53 +709,53 @@ $EndComp
 $Comp
 L CP1 C358
 U 1 1 52BEFB29
-P 6950 6100
-F 0 "C358" H 7000 6200 50  0000 L CNN
-F 1 "4.7uF" H 7000 6000 50  0000 L CNN
-F 2 "" H 6950 6100 60  0001 C CNN
-F 3 "" H 6950 6100 60  0001 C CNN
-	1    6950 6100
+P 6900 5725
+F 0 "C358" H 6950 5825 50  0000 L CNN
+F 1 "4.7uF" H 6950 5625 50  0000 L CNN
+F 2 "" H 6900 5725 60  0001 C CNN
+F 3 "" H 6900 5725 60  0001 C CNN
+	1    6900 5725
 	-1   0    0    -1  
 $EndComp
 $Comp
 L C C357
 U 1 1 52BEFB4C
-P 6950 5550
-F 0 "C357" H 7000 5650 50  0000 L CNN
-F 1 ".1uF" H 7000 5450 50  0000 L CNN
-F 2 "" H 6950 5550 60  0001 C CNN
-F 3 "" H 6950 5550 60  0001 C CNN
-	1    6950 5550
+P 6900 5175
+F 0 "C357" H 6950 5275 50  0000 L CNN
+F 1 ".1uF" H 6950 5075 50  0000 L CNN
+F 2 "" H 6900 5175 60  0001 C CNN
+F 3 "" H 6900 5175 60  0001 C CNN
+	1    6900 5175
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6950 5750 6950 5900
+	6900 5375 6900 5525
 Wire Wire Line
-	6650 5850 6950 5850
-Connection ~ 6950 5850
+	6600 5475 6900 5475
+Connection ~ 6900 5475
 $Comp
 L GND #PWR023
 U 1 1 52BEFC07
-P 6950 6300
-F 0 "#PWR023" H 6950 6300 30  0001 C CNN
-F 1 "GND" H 6950 6230 30  0001 C CNN
-F 2 "" H 6950 6300 60  0001 C CNN
-F 3 "" H 6950 6300 60  0001 C CNN
-	1    6950 6300
+P 6900 5925
+F 0 "#PWR023" H 6900 5925 30  0001 C CNN
+F 1 "GND" H 6900 5855 30  0001 C CNN
+F 2 "" H 6900 5925 60  0001 C CNN
+F 3 "" H 6900 5925 60  0001 C CNN
+	1    6900 5925
 	1    0    0    -1  
 $EndComp
 $Comp
 L GND #PWR024
 U 1 1 52BEFC0D
-P 6950 5350
-F 0 "#PWR024" H 6950 5350 30  0001 C CNN
-F 1 "GND" H 6950 5280 30  0001 C CNN
-F 2 "" H 6950 5350 60  0001 C CNN
-F 3 "" H 6950 5350 60  0001 C CNN
-	1    6950 5350
+P 6900 4975
+F 0 "#PWR024" H 6900 4975 30  0001 C CNN
+F 1 "GND" H 6900 4905 30  0001 C CNN
+F 2 "" H 6900 4975 60  0001 C CNN
+F 3 "" H 6900 4975 60  0001 C CNN
+	1    6900 4975
 	-1   0    0    1   
 $EndComp
-Text Label 6650 5850 2    60   ~ 0
+Text Label 6600 5475 2    60   ~ 0
 3.3V
 $Comp
 L MINI-USB-5P-3400020P1 J351
@@ -891,4 +816,61 @@ $EndComp
 NoConn ~ 8600 1650
 Text Notes 2200 6250 0    160  ~ 0
 SD card slot\nUSB TTL module
+Text Label 4850 1725 2    60   ~ 0
+D+
+Text Label 4850 1625 2    60   ~ 0
+D-
+Wire Wire Line
+	5025 1625 4850 1625
+Wire Wire Line
+	5025 1725 4850 1725
+Text Label 2950 2000 2    60   ~ 0
+D-
+Wire Wire Line
+	2950 2075 2950 2000
+Text Label 3300 2000 2    60   ~ 0
+D+
+Wire Wire Line
+	3300 2125 3300 2000
+Text Label 2400 1975 0    60   ~ 0
+D-
+Wire Wire Line
+	2300 1975 2400 1975
+Text Label 2400 2075 0    60   ~ 0
+D+
+Wire Wire Line
+	2300 2075 2400 2075
+$Comp
+L LED_0805 D352
+U 1 1 53070938
+P 3225 1375
+F 0 "D352" H 3225 1475 50  0000 C CNN
+F 1 "RED" H 3225 1275 50  0000 C CNN
+F 2 "" H 3225 1375 60  0000 C CNN
+F 3 "" H 3225 1375 60  0000 C CNN
+	1    3225 1375
+	-1   0    0    1   
+$EndComp
+$Comp
+L LED_0805 D353
+U 1 1 53070B4F
+P 4775 3275
+F 0 "D353" H 4775 3375 50  0000 C CNN
+F 1 "RED" H 4775 3175 50  0000 C CNN
+F 2 "" H 4775 3275 60  0000 C CNN
+F 3 "" H 4775 3275 60  0000 C CNN
+	1    4775 3275
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED_0805 D351
+U 1 1 53070C5F
+P 2625 3075
+F 0 "D351" H 2625 3175 50  0000 C CNN
+F 1 "GREEN" H 2625 2975 50  0000 C CNN
+F 2 "" H 2625 3075 60  0000 C CNN
+F 3 "" H 2625 3075 60  0000 C CNN
+	1    2625 3075
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
