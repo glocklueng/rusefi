@@ -17,6 +17,10 @@
 #include <stdbool.h>
 #include "main.h"
 #include "rficonsole_logic.h"
+#if EFI_PROD_CODE
+#include "datalogging.h"
+static Logging logging;
+#endif /* EFI_PROD_CODE */
 
 static int consoleActionCount = 0;
 static TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
@@ -127,11 +131,13 @@ float atof(char *string) {
  * @brief This function prints out a list of all available commands
  */
 void helpCommand(void) {
-	print("%d actions available:\r\n", consoleActionCount);
+#if EFI_PROD_CODE
+	scheduleMsg(&logging, "%d actions available", consoleActionCount);
 	for (int i = 0; i < consoleActionCount; i++) {
 		TokenCallback *current = &consoleActions[i];
-		print("  %s: %d parameters\r\n", current->token, current->parameterType);
+		scheduleMsg(&logging, "  %s: %d parameters", current->token, current->parameterType);
 	}
+#endif
 }
 
 /**
@@ -237,6 +243,9 @@ int strEqual(char *str1, char *str2) {
 }
 
 void initConsoleLogic() {
+#if EFI_PROD_CODE
+	initLogging(&logging, "rfi console");
+#endif /* EFI_PROD_CODE */
 }
 
 char *validateSecureLine(char *line) {
