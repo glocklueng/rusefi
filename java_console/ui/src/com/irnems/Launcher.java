@@ -15,9 +15,11 @@ import javax.swing.*;
  * <p/>
  * Date: 12/25/12
  * (c) Andrey Belomutskiy
+ *
+ * @see WavePanel
  */
 public class Launcher extends FrameHelper {
-    private static final Object CONSOLE_VERSION = "20140219";
+    private static final Object CONSOLE_VERSION = "20140220";
 
     public Launcher(String port) {
         FileLog.INSTANCE.start();
