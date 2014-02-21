@@ -9,6 +9,10 @@
 #include "trigger_decoder.h"
 #include "cyclic_buffer.h"
 #include "trigger_mazda.h"
+#if EFI_PROD_CODE
+#include "datalogging.h"
+static Logging logger;
+#endif
 
 static cyclic_buffer errorDetection;
 
@@ -23,6 +27,7 @@ static inline int isSynchronizationGap(trigger_state_s *shaftPositionState, trig
 		trigger_config_s *triggerConfig, int currentDuration) {
 	if (!triggerConfig->isSynchronizationNeeded)
 		return FALSE;
+
 	return currentDuration > shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioFrom
 			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioTo;
 }
@@ -58,6 +63,8 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *t
 // todo: skip a number of signal from the beginning
 
 #if EFI_PROD_CODE
+//	scheduleMsg(&logger, "from %f to %f %d %d", triggerConfig->syncRatioFrom, triggerConfig->syncRatioTo, currentDuration, shaftPositionState->toothed_previous_duration);
+//	scheduleMsg(&logger, "ratio %f", 1.0 * currentDuration/ shaftPositionState->toothed_previous_duration);
 #else
 	if (shaftPositionState->toothed_previous_duration != 0) {
 		printf("ratio %f: cur=%d pref=%d\r\n", 1.0 * currentDuration / shaftPositionState->toothed_previous_duration,
@@ -170,6 +177,10 @@ void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_
 }
 
 void initTriggerDecoder(void) {
-	cbInit(&errorDetection);
+#if EFI_PROD_CODE
+	initLogging(&logger, "trigger decoder");
+#endif
+
+cbInit(&errorDetection);
 }
 
