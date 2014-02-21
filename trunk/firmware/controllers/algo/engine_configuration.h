@@ -199,8 +199,8 @@ typedef struct {
 
 	log_format_e logFormat;
 
-	float unusedsparkDwellBins[DWELL_CURVE_SIZE]; // size 32
-	float unusedsparkDwell[DWELL_CURVE_SIZE]; // size 32
+	int firmwareVersion;
+	float unusedArray[8 + 7]; // size 32
 
 	trigger_config_s triggerConfig;
 

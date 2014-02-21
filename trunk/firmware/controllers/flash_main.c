@@ -14,6 +14,7 @@
 #include "rficonsole.h"
 #include "flash.h"
 #include "print.h"
+#include "rusefi.h"
 
 #include "tunerstudio.h"
 #include "engine_controller.h"
@@ -85,6 +86,8 @@ void resetConfiguration(engine_type_e engineType) {
 static void readFromFlash(void) {
 
 	flashRead(FLASH_ADDR, (char *) &flashState, FLASH_USAGE);
+	engineConfiguration->firmwareVersion = getVersion();
+
 	setDefaultNonPersistentConfiguration(engineConfiguration2);
 
 	if (!isValid(&flashState)) {
