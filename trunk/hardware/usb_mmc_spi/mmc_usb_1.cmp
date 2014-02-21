@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 26/01/2014 00:25:08
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Птн 21 Фев 2014 12:16:13
 
 BeginCmp
 TimeStamp = /52A59B39;
@@ -57,24 +57,24 @@ IdModule  = SM0805;
 EndCmp
 
 BeginCmp
-TimeStamp = /52A59B2C;
+TimeStamp = /53070C5F;
 Reference = D351;
 ValeurCmp = GREEN;
-IdModule  = LED-0805;
+IdModule  = LED-0805_A;
 EndCmp
 
 BeginCmp
-TimeStamp = /52A5A380;
+TimeStamp = /53070938;
 Reference = D352;
 ValeurCmp = RED;
-IdModule  = LED-0805;
+IdModule  = LED-0805_A;
 EndCmp
 
 BeginCmp
-TimeStamp = /52A5C8BF;
+TimeStamp = /53070B4F;
 Reference = D353;
 ValeurCmp = RED;
-IdModule  = LED-0805;
+IdModule  = LED-0805_A;
 EndCmp
 
 BeginCmp
@@ -116,7 +116,7 @@ BeginCmp
 TimeStamp = /52B45CE3;
 Reference = P351;
 ValeurCmp = CONN_5X2;
-IdModule  = PIN_ARRAY_5x2;
+IdModule  = PIN_ARRAY_5x2_M;
 EndCmp
 
 BeginCmp
@@ -130,14 +130,14 @@ BeginCmp
 TimeStamp = /52B479E1;
 Reference = P353;
 ValeurCmp = CONN_10X2;
-IdModule  = PIN_ARRAY_10X2;
+IdModule  = PIN_ARRAY_10X2_M;
 EndCmp
 
 BeginCmp
 TimeStamp = /52B479EE;
 Reference = P354;
 ValeurCmp = CONN_10X2;
-IdModule  = PIN_ARRAY_10X2;
+IdModule  = PIN_ARRAY_10X2_M;
 EndCmp
 
 BeginCmp
