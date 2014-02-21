@@ -92,6 +92,8 @@
 #include "rficonsole_logic.h"
 #include "tunerstudio.h"
 
+static Logging logging;
+
 int main_loop_started = FALSE;
 
 void runRusEfi(void) {
@@ -99,6 +101,8 @@ void runRusEfi(void) {
 	 * First we should initialize serial port console, it's important to know what's going on
 	 */
 	initializeConsole();
+	initLogging(&logging, "main");
+
 
 	/**
 	 * Initialize hardware drivers
@@ -146,6 +150,22 @@ int systicks2ms(int systicks) {
 	return systicks / TICKS_IN_MS;
 }
 
+static VirtualTimer resetTimer;
+
+static void rebootNow(void) {
+	NVIC_SystemReset();
+}
+/**
+ * Some configuration changes require full firmware reset.
+ * Once day we will write graceful shutdown, but that would be one day.
+ */
+void scheduleReset(void) {
+	lockAnyContext();
+	scheduleMsg(&logging, "Rebooting in 5 seconds...");
+	chVTSetI(&resetTimer, 5 * CH_FREQUENCY, (vtfunc_t)rebootNow, NULL);
+	unlockAnyContext();
+}
+
 int getVersion(void) {
-	return 20140220;
+	return 20140221;
 }

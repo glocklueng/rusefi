@@ -16,5 +16,6 @@ float getInjectorLag(float vBatt);
 float getCltCorrection(float clt);
 float getRunningFuel(int rpm, float engineLoad);
 float getStartingFuel(float coolantTemperature);
+float getFuelMs(int rpm);
 
 #endif /* FUEL_MAP_H_ */

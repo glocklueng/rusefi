@@ -17,11 +17,9 @@
 
 #include "datalogging.h"
 
-// todo: why the heck is this declaration here?
-float getFuelMs(int rpm);
-
 #include "stm32f4xx_specific.h"
 
+// todo: access some existing configuration field
 #define CORE_CLOCK 168000000
 
 /**
