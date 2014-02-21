@@ -193,6 +193,8 @@ void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *eng
 
 void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, engine_type_e engineType) {
 	initializeTriggerShape(engineConfiguration, engineConfiguration2);
+	chDbgCheck(engineConfiguration2->triggerShape.size != 0, "size is zero");
+	chDbgCheck(engineConfiguration2->triggerShape.shaftPositionEventCount, "shaftPositionEventCount is zero");
 
 	switch (engineConfiguration->engineType) {
 	case DODGE_NEON_1995:
