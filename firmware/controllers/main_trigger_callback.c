@@ -24,6 +24,7 @@
 #include "advance_map.h"
 #include "allsensors.h"
 #include "cyclic_buffer.h"
+#include "fuel_math.h"
 
 // todo: move this to engine_configuration2_s for now
 

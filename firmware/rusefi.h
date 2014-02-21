@@ -10,5 +10,6 @@
 
 void runRusEfi(void);
 int getVersion(void);
+void scheduleReset(void);
 
 #endif /* RUSEFI_H_ */

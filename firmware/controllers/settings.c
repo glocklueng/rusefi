@@ -14,6 +14,7 @@
 #include "engine_configuration.h"
 #include "flash_main.h"
 #include "engine_controller.h"
+#include "rusefi.h"
 
 static Logging logger;
 
@@ -145,6 +146,7 @@ static void setEngineType(int value) {
 	resetConfiguration((engine_type_e) value);
 	writeToFlash();
 	doPrintConfiguration();
+	scheduleReset();
 }
 
 static void setInjectionPinMode(int value) {
