@@ -14,7 +14,7 @@
 #include <string.h>
 #include "wave_chart.h"
 #include "main.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "status_loop.h"
 
 #define CHART_DELIMETER	"!"

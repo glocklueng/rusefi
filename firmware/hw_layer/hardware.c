@@ -14,7 +14,7 @@
 #include "adc_inputs.h"
 
 #include "trigger_input.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 
 #include "mcp3208.h"
 #include "HIP9011.h"
@@ -23,7 +23,7 @@
 #include "mmc_card.h"
 #include "neo6m.h"
 #include "lcd_2x16.h"
-#include "rficonsole_logic.h"
+#include "eficonsole_logic.h"
 #include "flash_main.h"
 
 McpAdcState adcState;

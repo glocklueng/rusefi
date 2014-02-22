@@ -8,7 +8,7 @@
 
 #include "trigger_input.h"
 
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "rfiutil.h"
 
 #include "wave_math.h"

@@ -9,7 +9,7 @@
 #include "main.h"
 #include "settings.h"
 
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "engine_configuration.h"
 #include "flash_main.h"
 #include "engine_controller.h"

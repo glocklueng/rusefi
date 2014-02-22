@@ -12,7 +12,7 @@
 #include "main.h"
 #include "io_pins.h"
 #include "signal_executor.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "datalogging.h"
 #include "rpm_calculator.h"
 #include "injector_central.h"

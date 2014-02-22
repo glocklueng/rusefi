@@ -11,7 +11,7 @@
 #include <hal.h>
 #include <string.h>
 #include "flash_main.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "flash.h"
 #include "rusefi.h"
 

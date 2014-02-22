@@ -82,7 +82,7 @@
 
 #include "main.h"
 #include "rusefi.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "hardware.h"
 #include "engine_controller.h"
 #include "status_loop.h"

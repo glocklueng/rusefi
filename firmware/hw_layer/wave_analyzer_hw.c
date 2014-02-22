@@ -7,7 +7,7 @@
  */
 
 #include "wave_analyzer_hw.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "pin_repository.h"
 
 static void icuWidthCallback(ICUDriver *driver);
