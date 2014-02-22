@@ -160,8 +160,8 @@ static void rebootNow(void) {
  * Once day we will write graceful shutdown, but that would be one day.
  */
 void scheduleReset(void) {
-	lockAnyContext();
 	scheduleMsg(&logging, "Rebooting in 5 seconds...");
+	lockAnyContext();
 	chVTSetI(&resetTimer, 5 * CH_FREQUENCY, (vtfunc_t)rebootNow, NULL);
 	unlockAnyContext();
 }
