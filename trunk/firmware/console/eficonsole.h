@@ -1,5 +1,5 @@
 /**
- * @file    rficonsole.h
+ * @file    eficonsole.h
  * @brief   Console package entry point header
  *
  * @date Nov 15, 2012

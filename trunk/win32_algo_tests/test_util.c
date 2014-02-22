@@ -13,7 +13,7 @@
 #include "histogram.h"
 
 #include "malfunction_central.h"
-#include "rficonsole_logic.h"
+#include "eficonsole_logic.h"
 
 #include "nmea.h"
 

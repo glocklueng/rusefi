@@ -13,7 +13,7 @@
 #include "main.h"
 #include "rpm_calculator.h"
 #include "trigger_input.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "wave_math.h"
 #include "engine_configuration.h"
 #include "engine_math.h"

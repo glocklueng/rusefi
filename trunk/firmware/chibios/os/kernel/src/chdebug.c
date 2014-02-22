@@ -56,7 +56,7 @@
  */
 
 #include "ch.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "lcd_2x16.h"
 
 /*===========================================================================*/

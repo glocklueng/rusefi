@@ -14,7 +14,7 @@
 #include <string.h>
 #include "main.h"
 #include "console_io.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "pin_repository.h"
 #include "nmea.h"
 #include "neo6m.h"

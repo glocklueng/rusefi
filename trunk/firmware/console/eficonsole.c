@@ -1,5 +1,5 @@
 /**
- * @file    rficonsole.c
+ * @file    eficonsole.c
  * @brief   Console package entry point code
  *
  *
@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include "main.h"
 #include <chprintf.h>
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "console_io.h"
 #include "rusefi.h"
 

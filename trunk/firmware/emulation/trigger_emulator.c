@@ -10,7 +10,7 @@
  */
 
 #include "trigger_emulator.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "main_trigger_callback.h"
 #include "datalogging.h"
 #include "pinout.h"

@@ -9,8 +9,8 @@
 #define MAIN_H_
 
 #include <math.h>
-#include "rficonsole.h"
-#include "rficonsole_logic.h"
+#include "eficonsole.h"
+#include "eficonsole_logic.h"
 #include "efilib.h"
 
 #include "global.h"

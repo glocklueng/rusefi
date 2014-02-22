@@ -1,5 +1,5 @@
 
-CONSOLESRC = console/rficonsole.c \
+CONSOLESRC = console/eficonsole.c \
 	console/console_io.c \
 	console/algo/tunerstudio_algo.c \
 	console/usbcfg.c \

@@ -10,7 +10,7 @@
 #include "fuel_math.h"
 
 //#include "rfirtc.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "time.h"
 #include "engine_math.h"
 #include "gpio_helper.h"

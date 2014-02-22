@@ -15,7 +15,7 @@
 #include "trigger_input.h"
 #include "rpm_calculator.h"
 #include "signal_executor.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "engine_math.h"
 #include "injector_central.h"
 #include "ignition_central.h"

@@ -13,7 +13,7 @@
 #include "main.h"
 #include <string.h>
 #include "wave_analyzer.h"
-#include "rficonsole.h"
+#include "eficonsole.h"
 #include "wave_math.h"
 #include "data_buffer.h"
 #include "pin_repository.h"
