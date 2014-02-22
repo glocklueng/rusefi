@@ -5,7 +5,7 @@
  * http://en.wikipedia.org/wiki/Circular_buffer
  *
  * @date Dec 8, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "cyclic_buffer.h"

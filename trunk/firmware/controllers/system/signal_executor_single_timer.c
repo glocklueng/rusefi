@@ -11,7 +11,7 @@
  *
  * @date Nov 27, 2013
  * @author Dobrin Georgiev
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include <stdint.h>

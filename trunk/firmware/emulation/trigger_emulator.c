@@ -6,7 +6,7 @@
  * provided by the configureShaftPositionEmulatorShape method
  *
  * @date Dec 9, 2012
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "trigger_emulator.h"

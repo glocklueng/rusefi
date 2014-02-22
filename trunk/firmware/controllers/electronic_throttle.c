@@ -5,7 +5,7 @@
  * todo: make this more universal if/when we get other hardware options
  *
  * @date Dec 7, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "main.h"

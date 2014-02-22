@@ -3,7 +3,7 @@
  * @brief   Hardware package entry point
  *
  * @date May 27, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "hardware.h"

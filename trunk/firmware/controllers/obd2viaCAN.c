@@ -6,7 +6,7 @@
  * standards.sae.org/j2284/
  *
  * @date Feb 14, 2014
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "main.h"

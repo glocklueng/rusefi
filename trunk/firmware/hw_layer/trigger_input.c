@@ -3,7 +3,7 @@
  * @brief	Position sensor hardware layer
  *
  * @date Dec 30, 2012
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "trigger_input.h"

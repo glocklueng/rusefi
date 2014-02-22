@@ -2,7 +2,7 @@
  * @file	map_averaging.c
  *
  * @date Dec 11, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "main.h"

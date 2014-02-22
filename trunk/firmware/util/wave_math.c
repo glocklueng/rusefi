@@ -2,7 +2,7 @@
  * wave_math.c
  *
  * @date Dec 25, 2012
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "wave_math.h"

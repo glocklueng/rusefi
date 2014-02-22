@@ -5,7 +5,7 @@
  * This file is so simple in anticipation of C++ migration under https://sourceforge.net/p/rusefi/tickets/33/
  *
  * @date Nov 29, 2012
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  *      http://rusefi.com/
  */
 

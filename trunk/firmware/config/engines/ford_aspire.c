@@ -3,7 +3,7 @@
  * @brief	1996 Ford Aspire default engine configuration
  *
  * @date Sep 9, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "main.h"

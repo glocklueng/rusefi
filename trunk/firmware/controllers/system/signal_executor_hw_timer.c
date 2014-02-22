@@ -4,7 +4,7 @@
  * this is a future home of hardware TIM signal executor https://sourceforge.net/p/rusefi/tickets/6/
  *
  * @date Oct 28, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "main.h"
