@@ -13,18 +13,9 @@
 #include "main.h"
 #include "rficonsole.h"
 #include "console_io.h"
-#include "datalogging.h"
 #include "rusefi.h"
 
 static Logging logger;
-
-void consolePutChar(int x) {
-	chSequentialStreamPut(CONSOLE_CHANNEL, (uint8_t )(x));
-}
-
-void consoleOutputBuffer(const int8_t *buf, int size) {
-	chSequentialStreamWrite(CONSOLE_CHANNEL, buf, size);
-}
 
 static char fatalErrorMessage[200];
 

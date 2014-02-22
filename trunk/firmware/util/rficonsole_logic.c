@@ -18,7 +18,6 @@
 #include "main.h"
 #include "rficonsole_logic.h"
 #if EFI_PROD_CODE
-#include "datalogging.h"
 static Logging logging;
 #endif /* EFI_PROD_CODE */
 

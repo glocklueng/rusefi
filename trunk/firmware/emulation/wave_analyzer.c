@@ -17,7 +17,6 @@
 #include "wave_math.h"
 #include "data_buffer.h"
 #include "pin_repository.h"
-#include "datalogging.h"
 #include "engine_state.h"
 #include "signal_executor.h"
 #include "engine_configuration.h"

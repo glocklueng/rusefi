@@ -24,7 +24,6 @@
 #include "mmc_card.h"
 #include "rusefi.h"
 
-#include "datalogging.h"
 #include "rficonsole_logic.h"
 #include "advance_map.h"
 
