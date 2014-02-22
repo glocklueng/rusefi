@@ -41,7 +41,7 @@ static void myfatal(void) {
 	chDbgCheck(0, "my fatal");
 }
 
-static void sayOsHello(void) {
+static void sayHello(void) {
 	print("*** rusEFI (c) Andrey Belomutskiy, 2012-2014. All rights reserved.\r\n");
 	printMsg(&logger, "rusEFI VERSION=%d", getVersion());
 	print("*** Chibios Kernel:       %s\r\n", CH_KERNEL_VERSION);
@@ -124,10 +124,11 @@ void initializeConsole() {
 
 	initLogging(&logger, "console");
 
-	sayOsHello();
-	addConsoleAction("hello", &sayOsHello);
+	sayHello();
+	addConsoleAction("hello", sayHello);
+	addConsoleAction("reset", scheduleReset);
 
-	addConsoleAction("fatal", &myfatal);
-	addConsoleAction("ths", &cmd_threads);
+	addConsoleAction("fatal", myfatal);
+	addConsoleAction("ths", cmd_threads);
 	addDefaultConsoleActions();
 }
