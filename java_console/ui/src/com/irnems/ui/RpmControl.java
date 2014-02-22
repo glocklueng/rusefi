@@ -9,12 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * Digital RPM gauge which stays green while rusEfi is connected
+ *
  * 9/17/13
  * (c) Andrey Belomutskiy
  */
 public class RpmControl {
     private static final String NO_CONNECTION = "N/C";
-    private JPanel content = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+    private final JPanel content = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
 
     private final JLabel rpmValue = new JLabel(NO_CONNECTION);
     private final JLabel rpmCaption = new JLabel("RPM:");

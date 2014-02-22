@@ -26,7 +26,7 @@ public class MsgPanel extends JPanel {
     private final JTextPane msg = new JTextPane();
     private boolean isPaused;
 
-    public MsgPanel() {
+    public MsgPanel(boolean needsRpmControl) {
         super(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.green));
         JScrollPane pane = new JScrollPane(msg, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -58,10 +58,12 @@ public class MsgPanel extends JPanel {
             }
         });
 
-        JPanel buttonPanel = new JPanel(new FlowLayout());
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
         buttonPanel.add(resetButton);
         buttonPanel.add(pauseButton);
         buttonPanel.add(new AnyCommand());
+        if (needsRpmControl)
+            buttonPanel.add(new RpmControl().getContent());
         add(buttonPanel, BorderLayout.NORTH);
 
         JPanel statsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
