@@ -37,7 +37,7 @@ public class Launcher extends FrameHelper {
 //        tabbedPane.addTab("ADC", new AdcPanel(new BooleanInputsModel()).createAdcPanel());
 //        tabbedPane.add("Emulation Map", EcuStimulator.panel);
 //        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
-        tabbedPane.add("MessagesCentral", new MsgPanel());
+        tabbedPane.add("MessagesCentral", new MsgPanel(true));
 
 //        tabbedPane.add("Log Viewer", new LogViewer());
 
