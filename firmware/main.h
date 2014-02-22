@@ -11,6 +11,7 @@
 #include <math.h>
 #include "rficonsole.h"
 #include "rficonsole_logic.h"
+#include "efilib.h"
 
 #include "global.h"
 #include "features.h"

@@ -11,7 +11,6 @@
 #ifndef RFICONSOLE_LOGIC_H_
 #define RFICONSOLE_LOGIC_H_
 
-#define ERROR_CODE -11223344
 #define CONSOLE_MAX_ACTIONS 64
 
 #ifndef FALSE
@@ -46,9 +45,6 @@ typedef void (*VoidFloat)(float);
 typedef void (*VoidIntInt)(int, int);
 typedef void (*VoidCharPtr)(char *);
 typedef void (*VoidCharPtrCharPtrCharPtr)(char *, char *, char *);
-
-int atoi(char *string);
-float atof(char *string);
 
 char *validateSecureLine(char *line);
 int strEqual(char *str1, char *str2);

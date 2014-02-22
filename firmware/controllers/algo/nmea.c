@@ -96,7 +96,7 @@ void nmea_parse_gpgga(char *nmea, loc_t *loc) {
 	str_till_comma(p, dStr);				// str to float till comma saved modified string
 	if(strlen(p) == 0) return;				// if no data in field - empty data - we return
 	
-	loc->latitude = atof(dStr);				// fulfil data
+	loc->latitude = atoff(dStr);				// fulfil data
 
 	p = strchr(p, ',') + 1;					// see above
 	switch (p[0]) {
@@ -113,7 +113,7 @@ void nmea_parse_gpgga(char *nmea, loc_t *loc) {
 
 	p = strchr(p, ',') + 1;
 	str_till_comma(p, dStr);				// str to float till comma saved modified string
-	loc->longitude = atof(dStr);
+	loc->longitude = atoff(dStr);
 
 	p = strchr(p, ',') + 1;
 	switch (p[0]) {
@@ -140,7 +140,7 @@ void nmea_parse_gpgga(char *nmea, loc_t *loc) {
 
 	p = strchr(p, ',') + 1;
 	str_till_comma(p, dStr);				// str to float till comma saved modified string
-	loc->altitude = atof(dStr);
+	loc->altitude = atoff(dStr);
 }
 
 /*
@@ -186,7 +186,7 @@ void nmea_parse_gprmc(char *nmea, loc_t *loc) {
 	
 	p = strchr(p, ',') + 1;					// latitude
 	str_till_comma(p, dStr);				// str to float till comma saved modified string
-	loc->latitude = atof(dStr);
+	loc->latitude = atoff(dStr);
 
 	p = strchr(p, ',') + 1;
 	switch (p[0]) {
@@ -203,7 +203,7 @@ void nmea_parse_gprmc(char *nmea, loc_t *loc) {
 
 	p = strchr(p, ',') + 1; 				// longitude
 	str_till_comma(p, dStr);				// str to float till comma saved modified string
-	loc->longitude = atof(dStr);
+	loc->longitude = atoff(dStr);
 
 	p = strchr(p, ',') + 1;
 	switch (p[0]) {
@@ -220,11 +220,11 @@ void nmea_parse_gprmc(char *nmea, loc_t *loc) {
 
 	p = strchr(p, ',') + 1;
 	str_till_comma(p, dStr);				// str to float till comma saved modified string
-	loc->speed = atof(dStr);
+	loc->speed = atoff(dStr);
 	
 	p = strchr(p, ',') + 1;
 	str_till_comma(p, dStr);				// str to float till comma saved modified string
-	loc->course = atof(dStr);
+	loc->course = atoff(dStr);
 
 	p = strchr(p, ',') + 1; 				//read date
 	str_till_comma(p, dStr);

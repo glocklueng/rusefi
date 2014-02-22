@@ -81,8 +81,8 @@ static void setGlobalFuelCorrection(int value) {
 }
 
 static void fuelBench(char * onStr, char *offStr, char *countStr) {
-	float onTime = atof(onStr);
-	float offTime = atof(offStr);
+	float onTime = atoff(onStr);
+	float offTime = atoff(offStr);
 	int count = atoi(countStr);
 
 	print("Running fuel bench: ON_TIME=%f, OFF_TIME=%f. Counter=%d\r\n", onTime, offTime, count);

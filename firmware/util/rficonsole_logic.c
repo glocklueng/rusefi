@@ -16,6 +16,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "main.h"
+#include "rficonsole_logic.h"
 #if EFI_PROD_CODE
 #include "rficonsole.h"
 static Logging logging;
@@ -70,60 +71,6 @@ void addConsoleActionSSS(char *token, VoidCharPtrCharPtrCharPtr callback) {
 
 void addConsoleActionF(char *token, VoidFloat callback) {
 	doAddAction(token, FLOAT_PARAMETER, (Void) callback);
-}
-
-// string to integer
-int atoi(char *string) {
-	// todo: use stdlib '#include <stdlib.h> '
-	int len = strlen(string);
-	if (len == 0)
-		return -ERROR_CODE;
-	if (string[0] == '-')
-		return -atoi(string + 1);
-	int result = 0;
-
-	for (int i = 0; i < len; i++) {
-		char ch = string[i];
-		if (ch < '0' || ch > '9') {
-			return ERROR_CODE;
-		}
-		int c = ch - '0';
-		result = result * 10 + c;
-	}
-
-	return result;
-}
-
-static int indexOf(char *string, char ch) {
-	// todo: there should be a standard function for this
-	int len = strlen(string);
-	for (int i = 0; i < len; i++) {
-		if (string[i] == ch)
-			return i;
-	}
-	return -1;
-}
-
-// string to float
-float atof(char *string) {
-	// todo: is there a standard function?
-	// todo: create a unit test
-	int dotIndex = indexOf(string, '.');
-	if (dotIndex == -1) {
-		// just an integer
-		int result = atoi(string);
-		return (float) result;
-	}
-	string[dotIndex] = 0;
-	int integerPart = atoi(string);
-	string += (dotIndex + 1);
-	int decimalLen = strlen(string);
-	int decimal = atoi(string);
-	float divider = 1.0;
-	// todo: reuse 'pow10' function which we have anyway
-	for (int i = 0; i < decimalLen; i++)
-		divider = divider * 10.0;
-	return integerPart + decimal / divider;
 }
 
 /**
@@ -194,7 +141,7 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 	}
 
 	if (current->parameterType == FLOAT_PARAMETER) {
-		float value = atof(parameter);
+		float value = atoff(parameter);
 		VoidFloat callbackF = (VoidFloat) current->callback;
 
 		// invoke callback function by reference
