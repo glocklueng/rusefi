@@ -8,7 +8,6 @@
 #include <time.h>
 #include "main.h"
 #include "nmea.h"
-#include "rficonsole_logic.h"
 
 long hex2int(char *a, int len) {
 	int i;

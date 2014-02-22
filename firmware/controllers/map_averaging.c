@@ -12,7 +12,6 @@
 #include "adc_inputs.h"
 #include "map.h"
 #include "analog_chart.h"
-#include "rficonsole_logic.h"
 #include "engine_state.h"
 #include "engine_configuration.h"
 #include "interpolation.h"

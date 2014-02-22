@@ -12,8 +12,6 @@
 #include "main.h"
 #include "idle_controller.h"
 #include "rpm_calculator.h"
-#include "rficonsole_logic.h"
-#include "datalogging.h"
 #include "pwm_generator.h"
 #include "wave_math.h"
 #include "idle_thread.h"

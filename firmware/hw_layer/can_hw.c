@@ -12,7 +12,6 @@
 #include "main.h"
 #include "can_hw.h"
 #include "pin_repository.h"
-#include "rficonsole_logic.h"
 #include "string.h"
 #include "engine_state.h"
 #include "can_header.h"

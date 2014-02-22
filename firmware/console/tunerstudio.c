@@ -17,7 +17,6 @@
 
 #include "main_trigger_callback.h"
 #include "flash_main.h"
-#include "rficonsole_logic.h"
 #include "usbconsole.h"
 #include "map_averaging.h"
 

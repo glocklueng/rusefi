@@ -12,8 +12,4 @@
 #ifndef PRINT_H_
 #define PRINT_H_
 
-void print(const char *fmt, ...);
-
-int is_serial_ready(void);
-
 #endif /* PRINT_H_ */

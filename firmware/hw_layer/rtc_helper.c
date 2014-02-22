@@ -10,7 +10,6 @@
 #include <time.h>
 #include "main.h"
 #include "chrtclib.h"
-#include "rficonsole_logic.h"
 #include "rtc_helper.h"
 
 static void date_help(void) {

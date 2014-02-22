@@ -88,8 +88,8 @@
 #include "status_loop.h"
 #if EFI_ENGINE_EMULATOR
 #include "engine_emulator.h"
-#endif
-#include "rficonsole_logic.h"
+#endif /* EFI_ENGINE_EMULATOR */
+
 #include "tunerstudio.h"
 
 static Logging logging;

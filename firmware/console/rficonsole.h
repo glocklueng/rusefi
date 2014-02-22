@@ -10,10 +10,8 @@
 #ifndef RFICONSOLE_H_
 #define RFICONSOLE_H_
 
-#include "rfiutil.h"
-#include "rficonsole_logic.h"
-
 void initializeConsole(void);
 void sendOutConfirmation(char *value, int i);
+void print(const char *fmt, ...);
 
 #endif /* RFICONSOLE_H_ */

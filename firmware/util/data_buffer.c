@@ -7,6 +7,7 @@
 
 #include "data_buffer.h"
 #include "main.h"
+#include "rficonsole.h"
 
 int dbIsFull(data_buffer_s *db) {
 	return db->size == DB_MAX_SIZE;

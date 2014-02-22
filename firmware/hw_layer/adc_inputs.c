@@ -9,7 +9,6 @@
 #include "main.h"
 #include "adc_inputs.h"
 
-#include "rficonsole.h"
 #include "pin_repository.h"
 #include "engine_math.h"
 #include "map_averaging.h"

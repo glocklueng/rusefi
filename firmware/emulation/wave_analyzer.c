@@ -21,6 +21,7 @@
 #include "signal_executor.h"
 #include "engine_configuration.h"
 #include "trigger_input.h"
+#include "rfiutil.h"
 
 #define CHART_RESET_DELAY 1
 #define TOP_DEAD_CENTER_MESSAGE "r"
