@@ -93,6 +93,14 @@ int is_serial_ready(void) {
 }
 #endif
 
+void consolePutChar(int x) {
+	chSequentialStreamPut(CONSOLE_CHANNEL, (uint8_t )(x));
+}
+
+void consoleOutputBuffer(const int8_t *buf, int size) {
+	chSequentialStreamWrite(CONSOLE_CHANNEL, buf, size);
+}
+
 void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
 #ifdef EFI_SERIAL_OVER_USB

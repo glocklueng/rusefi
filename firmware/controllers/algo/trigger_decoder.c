@@ -10,7 +10,6 @@
 #include "cyclic_buffer.h"
 #include "trigger_mazda.h"
 #if EFI_PROD_CODE
-#include "datalogging.h"
 static Logging logger;
 #endif
 

@@ -18,7 +18,6 @@
 #include "pin_repository.h"
 #include "nmea.h"
 #include "neo6m.h"
-#include "datalogging.h"
 #include "rtc_helper.h"
 
 #if EFI_UART_GPS

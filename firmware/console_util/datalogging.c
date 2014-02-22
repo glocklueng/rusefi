@@ -13,11 +13,11 @@
 #include <string.h>
 #include <stdbool.h>
 #include "main.h"
-#include "datalogging.h"
 #include "rfiutil.h"
 #include "chprintf.h"
 #include "chmtx.h"
 #include "memstreams.h"
+#include "console_io.h"
 
 #define OUTPUT_BUFFER 9000
 /**
@@ -238,8 +238,6 @@ static void commonSimpleMsg(Logging *logging, char *msg, int value) {
 	appendMsgPrefix(logging);
 	appendPrintf(logging, "%s%d", msg, value);
 }
-
-void consoleOutputBuffer(const int8_t *buf, int size);
 
 /**
  * this method should invoked on the main thread only

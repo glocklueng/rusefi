@@ -29,6 +29,7 @@
 #endif
 
 void consolePutChar(int x);
+void consoleOutputBuffer(const int8_t *buf, int size);
 void startChibiosConsole(void (*console_line_callback_p)(char *));
 
 #endif /* CONSOLE_IO_H_ */

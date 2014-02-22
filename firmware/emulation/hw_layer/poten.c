@@ -10,7 +10,6 @@
 #include "poten.h"
 #include "rficonsole.h"
 #include "pin_repository.h"
-#include "datalogging.h"
 
 /**
  * MCP42010 digital potentiometer driver

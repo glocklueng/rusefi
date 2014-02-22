@@ -21,6 +21,8 @@
  * These two commands are enough to get working gauges. In order to start configuring the ECU using
  * tuner studio, three more commands should be implemented:
  *
+ * todo: merge this file with tunerstudio.c?
+ *
  *
  * @date Oct 22, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013

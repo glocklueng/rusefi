@@ -10,7 +10,6 @@
 #include "settings.h"
 
 #include "rficonsole.h"
-#include "datalogging.h"
 #include "engine_configuration.h"
 #include "flash_main.h"
 #include "engine_controller.h"

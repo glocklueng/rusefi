@@ -10,7 +10,6 @@
 
 #include "main.h"
 #include "map_multiplier_thread.h"
-#include "datalogging.h"
 #include "map_adjuster.h"
 #include "rpm_calculator.h"
 #include "main_trigger_callback.h"
