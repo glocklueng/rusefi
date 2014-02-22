@@ -1,1 +1,5 @@
-SM0805_500K;resistor;resistto_part;hi, resistor
+#comment
+
+SM0805_500K,resistor,resistto_part,hi resistor
+
+LOGO_LOGO,ignore,ignore,ignore
