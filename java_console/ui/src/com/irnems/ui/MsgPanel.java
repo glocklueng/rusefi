@@ -19,6 +19,8 @@ import java.util.Date;
  * <p/>
  * Date: 4/27/13
  * (c) Andrey Belomutskiy
+ *
+ * @see AnyCommand
  */
 public class MsgPanel extends JPanel {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH_mm");
