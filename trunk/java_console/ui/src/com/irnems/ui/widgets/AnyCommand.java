@@ -36,6 +36,7 @@ public class AnyCommand extends JPanel {
                 CommandQueue.getInstance().write(cmd, timeout);
             }
         });
+        // todo: limit the length of text in the text field
         return text;
     }
 
