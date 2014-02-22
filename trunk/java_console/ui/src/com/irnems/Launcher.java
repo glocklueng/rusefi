@@ -39,7 +39,7 @@ public class Launcher extends FrameHelper {
 //        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
         tabbedPane.add("MessagesCentral", new MsgPanel());
 
-        tabbedPane.add("Log Viewer", new LogViewer());
+//        tabbedPane.add("Log Viewer", new LogViewer());
 
         tabbedPane.setSelectedIndex(2);
 //        tabbedPane.setSelectedIndex(5);
