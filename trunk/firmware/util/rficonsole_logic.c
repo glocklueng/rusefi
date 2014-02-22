@@ -16,8 +16,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include "main.h"
-#include "rficonsole_logic.h"
 #if EFI_PROD_CODE
+#include "rficonsole.h"
 static Logging logging;
 #endif /* EFI_PROD_CODE */
 

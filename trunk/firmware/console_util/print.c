@@ -14,14 +14,3 @@
 #include "chprintf.h"
 #include "console_io.h"
 
-/**
- * This methods prints the message to whatever is configured as our primary console
- */
-void print(const char *format, ...) {
-	if (!is_serial_ready())
-		return;
-	va_list ap;
-	va_start(ap, format);
-	chvprintf((BaseSequentialStream *)CONSOLE_CHANNEL, format, ap);
-	va_end(ap);
-}

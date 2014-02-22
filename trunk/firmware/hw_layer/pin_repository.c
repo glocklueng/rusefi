@@ -12,6 +12,7 @@
 #include "main.h"
 #include "pin_repository.h"
 #include "rficonsole.h"
+#include "rficonsole_logic.h"
 
 #define PIN_REPO_SIZE 7 * 16
 char *PIN_USED[PIN_REPO_SIZE];

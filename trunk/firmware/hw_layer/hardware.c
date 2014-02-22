@@ -14,6 +14,7 @@
 #include "adc_inputs.h"
 
 #include "trigger_input.h"
+#include "rficonsole.h"
 
 #include "mcp3208.h"
 #include "HIP9011.h"

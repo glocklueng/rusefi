@@ -11,6 +11,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "main.h"
+#include <chprintf.h>
 #include "rficonsole.h"
 #include "console_io.h"
 #include "rusefi.h"
@@ -105,6 +106,18 @@ static void cmd_threads(void) {
 
 void sendOutConfirmation(char *value, int i) {
 	scheduleSimpleMsg(&logger, value, i);
+}
+
+/**
+ * This methods prints the message to whatever is configured as our primary console
+ */
+void print(const char *format, ...) {
+	if (!is_serial_ready())
+		return;
+	va_list ap;
+	va_start(ap, format);
+	chvprintf((BaseSequentialStream *)CONSOLE_CHANNEL, format, ap);
+	va_end(ap);
 }
 
 void initializeConsole() {

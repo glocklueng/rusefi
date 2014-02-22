@@ -9,7 +9,8 @@
 #define MAIN_H_
 
 #include <math.h>
-#include "print.h"
+#include "rficonsole.h"
+#include "rficonsole_logic.h"
 
 #include "global.h"
 #include "features.h"

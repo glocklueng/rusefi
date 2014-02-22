@@ -23,8 +23,8 @@
 #include "io_pins.h"
 #include "mmc_card.h"
 #include "rusefi.h"
+#include "console_io.h"
 
-#include "rficonsole_logic.h"
 #include "advance_map.h"
 
 #include "wave_math.h"

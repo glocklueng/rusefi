@@ -9,7 +9,6 @@
 #include "main.h"
 #include "engine_emulator.h"
 
-#include "rficonsole_logic.h"
 #include "status_loop.h"
 #include "trigger_emulator.h"
 #include "advance_map.h"

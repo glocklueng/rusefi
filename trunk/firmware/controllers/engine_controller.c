@@ -33,7 +33,6 @@
 #include "malfunction_central.h"
 #include "advance_map.h"
 #include "pin_repository.h"
-#include "rficonsole_logic.h"
 #include "pwm_generator.h"
 #include "fuel_math.h"
 #include "adc_inputs.h"

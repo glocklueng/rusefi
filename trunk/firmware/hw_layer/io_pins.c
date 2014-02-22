@@ -16,6 +16,7 @@
 #include "status_loop.h"
 #include "main_trigger_callback.h"
 #include "trigger_decoder.h"
+#include "console_io.h"
 
 static pin_output_mode_e *pinDefaultState[IO_PIN_COUNT];
 static OutputPin outputs[IO_PIN_COUNT];

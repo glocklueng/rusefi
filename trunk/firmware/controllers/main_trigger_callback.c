@@ -24,7 +24,10 @@
 #include "advance_map.h"
 #include "allsensors.h"
 #include "cyclic_buffer.h"
+#include "histogram.h"
 #include "fuel_math.h"
+#include "histogram.h"
+#include "rfiutil.h"
 
 // todo: move this to engine_configuration2_s for now
 

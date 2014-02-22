@@ -56,7 +56,7 @@
  */
 
 #include "ch.h"
-#include "print.h"
+#include "rficonsole.h"
 #include "lcd_2x16.h"
 
 /*===========================================================================*/
