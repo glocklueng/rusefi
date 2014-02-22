@@ -35,8 +35,8 @@ public class LogViewer extends JPanel {
 
         setBackground(Color.green);
 
+        // todo: this is not perfect
         openFolder("out");
-
 
         JPanel folderPanel = new JPanel(new FlowLayout());
 
