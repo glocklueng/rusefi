@@ -160,7 +160,7 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 /**
  * @return Number of space-separated tokens in the string
  */
- int tokenLength(char *msgp) {
+int tokenLength(char *msgp) {
 	int result = 0;
 	while (*msgp) {
 		char ch = *msgp++;
@@ -226,6 +226,37 @@ static char confirmation[200];
 
 void sendOutConfirmation(char *value, int i);
 
+static bool_t handleConsoleLineInternal(char *line, int lineLength) {
+	int firstTokenLength = tokenLength(line);
+
+//	print("processing [%s] with %d actions\r\n", line, consoleActionCount);
+
+	if (firstTokenLength == lineLength) {
+		// no-param actions are processed here
+		for (int i = 0; i < consoleActionCount; i++) {
+			TokenCallback *current = &consoleActions[i];
+			if (strEqual(line, current->token)) {
+				// invoke callback function by reference
+				(*current->callback)();
+				return TRUE;
+			}
+		}
+	} else {
+		char *ptr = line + firstTokenLength;
+		ptr[0] = 0; // change space into line end
+		ptr++; // start from next symbol
+
+		for (int i = 0; i < consoleActionCount; i++) {
+			TokenCallback *current = &consoleActions[i];
+			if (strEqual(line, current->token)) {
+				handleActionWithParameter(current, ptr);
+				return TRUE;
+			}
+		}
+	}
+	return FALSE;
+}
+
 /**
  * @brief This function takes care of one command line once we have it
  */
@@ -245,38 +276,11 @@ void handleConsoleLine(char *line) {
 	strcat(confirmation, line);
 	strcat(confirmation, ":");
 
-	int firstTokenLength = tokenLength(line);
+	bool_t isKnownComman = handleConsoleLineInternal(line, lineLength);
 
-//	print("processing [%s] with %d actions\r\n", line, consoleActionCount);
+	// confirmation happens after the command to avoid conflict with command own output
+	sendOutConfirmation(confirmation, lineLength);
 
-	if (firstTokenLength == lineLength) {
-		// no-param actions are processed here
-		for (int i = 0; i < consoleActionCount; i++) {
-			TokenCallback *current = &consoleActions[i];
-			if (strEqual(line, current->token)) {
-				// invoke callback function by reference
-				(*current->callback)();
-				// confirmation happens after the command to avoid conflict with command own output
-				sendOutConfirmation(confirmation, lineLength);
-				return;
-			}
-		}
-	} else {
-		char *ptr = line + firstTokenLength;
-		ptr[0] = 0; // change space into line end
-		ptr++; // start from next symbol
-
-		for (int i = 0; i < consoleActionCount; i++) {
-			TokenCallback *current = &consoleActions[i];
-			if (strEqual(line, current->token)) {
-				handleActionWithParameter(current, ptr);
-				// confirmation happens after the command to avoid conflict with command own output
-				sendOutConfirmation(confirmation, lineLength);
-				return;
-			}
-		}
-	}
-	sendOutConfirmation("unknown command", 0);
-	sendOutConfirmation(confirmation, -1);
-	helpCommand();
+	if (!isKnownComman)
+		helpCommand();
 }
