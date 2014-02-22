@@ -134,5 +134,4 @@ void initializeConsole() {
 
 	addConsoleAction("fatal", myfatal);
 	addConsoleAction("ths", cmd_threads);
-	addDefaultConsoleActions();
 }

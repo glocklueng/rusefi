@@ -93,11 +93,6 @@ static void echo(int value) {
 	print("got value: %d\r\n", value);
 }
 
-void addDefaultConsoleActions() {
-	addConsoleAction("help", helpCommand);
-	addConsoleActionI("echo", echo);
-}
-
 void handleActionWithParameter(TokenCallback *current, char *parameter) {
 	if (current->parameterType == STRING_PARAMETER) {
 		VoidCharPtr callbackS = (VoidCharPtr) current->callback;
@@ -192,6 +187,9 @@ void initConsoleLogic() {
 #if EFI_PROD_CODE
 	initLogging(&logging, "rfi console");
 #endif /* EFI_PROD_CODE */
+	resetConsoleActions();
+	addConsoleAction("help", helpCommand);
+	addConsoleActionI("echo", echo);
 }
 
 char *validateSecureLine(char *line) {
