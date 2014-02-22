@@ -2051,12 +2051,6 @@
       <name>$PROJ_DIR$\..\console_util\datalogging.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\console_util\print.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\console_util\print.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\util\rficonsole_logic.c</name>
     </file>
     <file>
@@ -2925,6 +2919,12 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\util\data_buffer.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\util\efilib.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\util\efilib.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\util\global.h</name>
