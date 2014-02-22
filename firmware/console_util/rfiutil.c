@@ -3,7 +3,7 @@
  * @brief   Number to string conversion code
  *
  * @date Nov 15, 2012
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include <string.h>

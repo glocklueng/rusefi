@@ -3,7 +3,7 @@
  * @brief
  *
  * @date Jul 13, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include <stdio.h>

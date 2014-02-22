@@ -2,7 +2,7 @@
  * @file	signal_executor_single_timer_algo.c
  *
  * @date Nov 28, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "signal_executor.h"

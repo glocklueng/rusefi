@@ -2,7 +2,7 @@
  * @file	trigger_structure.c
  *
  * @date Jan 20, 2014
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "main.h"

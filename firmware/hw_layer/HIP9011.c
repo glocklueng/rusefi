@@ -14,7 +14,7 @@
  *	SPI frequency: 5MHz
  *
  * @date Nov 27, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "main.h"

@@ -7,7 +7,7 @@
  * buffer is to allow fast, non-blocking, thread-safe logging.
  *
  * @date Feb 25, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include <string.h>
