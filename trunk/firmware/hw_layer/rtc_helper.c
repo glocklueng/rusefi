@@ -46,7 +46,7 @@ static void date_get(void) {
 static void date_set(char *strDate) {
 	static time_t unix_time;
 	if (strlen(strDate) > 0) {
-		unix_time = (double) atof(strDate);
+		unix_time = (double) atoff(strDate);
 		if (unix_time > 0) {
 			rtcSetTimeUnixSec(&RTCD1, unix_time);
 			return;
