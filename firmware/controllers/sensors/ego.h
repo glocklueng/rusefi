@@ -12,6 +12,6 @@
 
 #include "main.h"
 
-myfloat getAfr(void);
+float getAfr(void);
 
 #endif

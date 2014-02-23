@@ -25,7 +25,7 @@ typedef struct {
 	 * a copy so that all phases are executed on the same period, even if another thread
 	 * would be adjusting PWM parameters
 	 */
-	myfloat period;
+	float period;
 	/**
 	 * Iteration counter
 	 */
@@ -48,7 +48,7 @@ typedef struct {
 	 * float value of PWM period
 	 * PWM generation is not happening while this value is zero
 	 */
-	myfloat period;
+	float period;
 
 	WORKING_AREA(deThreadStack, UTILITY_THREAD_STACK_SIZE);
 	scheduling_s scheduling;
@@ -58,8 +58,8 @@ typedef struct {
 
 void initPwmGenerator(void);
 void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
-		myfloat dutyCycle, myfloat freq, io_pin_e ioPin);
+		float dutyCycle, float freq, io_pin_e ioPin);
 void weComplexInit(char *msg, PwmConfig *state,
-		int phaseCount, myfloat *swithcTimes, int waveCount, int **pinStates);
+		int phaseCount, float *swithcTimes, int waveCount, int **pinStates);
 
 #endif /* PWM_GENERATOR_H_ */

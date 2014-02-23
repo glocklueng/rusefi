@@ -12,6 +12,6 @@
 
 #include "main.h"
 
-myfloat getMaf(void);
+float getMaf(void);
 
 #endif
