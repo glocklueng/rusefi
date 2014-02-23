@@ -53,6 +53,9 @@ typedef struct {
 
 typedef enum {
 	AC_OFF = 0,
+	/**
+	 * You would use this value if you want to see a detailed graph of your trigger events
+	 */
 	AC_TRIGGER = 1,
 	AC_MAP = 2,
 
