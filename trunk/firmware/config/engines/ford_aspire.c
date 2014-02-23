@@ -14,7 +14,6 @@
 #include "allsensors.h"
 #include "engines.h"
 #include "engine_math.h"
-#include "settings.h"
 #include "advance_map.h"
 #include "engine_configuration.h"
 
