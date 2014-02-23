@@ -35,6 +35,8 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->triggerConfig.useRiseEdge = FALSE;
 
 	engineConfiguration->triggerConfig.triggerType = TT_DODGE_NEON;
+	engineConfiguration->ignitionMode = IM_INDIVIDUAL_COILS;
+	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 }
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {

@@ -12,6 +12,7 @@
 
 #include "ford_fiesta.h"
 #include "engine_configuration.h"
+#include "engine_math.h"
 
 static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	// injector 1 activated at the 1st tooth event while cranking
@@ -37,10 +38,15 @@ void setFordFiestaDefaultEngineConfiguration(engine_configuration_s *engineConfi
 
 	engineConfiguration->triggerConfig.totalToothCount = 36;
 	engineConfiguration->triggerConfig.skippedToothCount = 1;
+
+	engineConfiguration->ignitionMode = IM_WASTED_SPARK;
+	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 }
 
 void setFordFiestaengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
+
+	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
 
 }
 
