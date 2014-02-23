@@ -183,6 +183,11 @@ static void setAnalogChartMode(int value) {
 	doPrintConfiguration();
 }
 
+static void setrpmMultiplier(int value) {
+	engineConfiguration->rpmMultiplier = value;
+	doPrintConfiguration();
+}
+
 /**
  * For example
  * set_cranking_fuel_min 15 0
@@ -220,6 +225,7 @@ void initSettings(void) {
 	addConsoleActionI("set_idle_pin_mode", setIdlePinMode);
 	addConsoleActionI("set_fuel_pump_pin_mode", setFuelPumpPinMode);
 	addConsoleActionI("set_malfunction_indicator_pin_mode", setMalfunctionIndicatorPinMode);
+	addConsoleActionI("set_rpm_multiplier", setrpmMultiplier);
 	// todo: start saving values into flash right away?
 
 
