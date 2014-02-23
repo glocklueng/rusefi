@@ -12,7 +12,7 @@
 
 #include "main.h"
 
-myfloat getVRef(void);
-myfloat getVBatt(void);
+float getVRef(void);
+float getVBatt(void);
 
 #endif

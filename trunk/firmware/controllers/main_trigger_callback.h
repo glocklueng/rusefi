@@ -21,6 +21,6 @@ void showMainHistogram(void);
 void onEveryMillisecondTimerSignal(void);
 int isIgnitionTimingError(void);
 
-myfloat getFuel(int rpm, float key);
+float getFuel(int rpm, float key);
 
 #endif /* MAIN_LOOP_H_ */

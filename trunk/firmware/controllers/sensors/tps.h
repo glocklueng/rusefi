@@ -12,8 +12,8 @@
 
 #include "global.h"
 
-myfloat getTPS(void);
+float getTPS(void);
 int getTPSAdc(void);
-myfloat getTPSVoltage(void);
+float getTPSVoltage(void);
 
 #endif

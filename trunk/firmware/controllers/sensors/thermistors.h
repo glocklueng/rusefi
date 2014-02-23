@@ -19,27 +19,27 @@
 /**
  * Vout=r2/(r1+r2)*Vin
  */
-myfloat getR1InVoltageDividor(myfloat Vout, myfloat Vin, myfloat r2);
-myfloat getR2InVoltageDividor(myfloat Vout, myfloat Vin, myfloat r1);
-myfloat getTempK(myfloat resistance);
+float getR1InVoltageDividor(float Vout, float Vin, float r2);
+float getR2InVoltageDividor(float Vout, float Vin, float r1);
+float getTempK(float resistance);
 /**
  * converts Kelvin temperature into Celcius temperature
  */
-myfloat convertKelvinToCelcius(myfloat tempK);
-myfloat convertCelciustoKelvin(myfloat tempC);
+float convertKelvinToCelcius(float tempK);
+float convertCelciustoKelvin(float tempC);
 
-myfloat convertCelciustoF(myfloat tempC);
-myfloat convertFtoCelcius(myfloat tempF);
+float convertCelciustoF(float tempC);
+float convertFtoCelcius(float tempF);
 
-myfloat getKelvinTemperature(myfloat resistance, ThermistorConf *thermistor);
-myfloat getResistance(Thermistor *thermistor);
-myfloat getTemperatureC(Thermistor *thermistor);
+float getKelvinTemperature(float resistance, ThermistorConf *thermistor);
+float getResistance(Thermistor *thermistor);
+float getTemperatureC(Thermistor *thermistor);
 float getCoolantTemperature(void);
 int isValidCoolantTemperature(float temperature);
-myfloat getIntakeAirTemperature(void);
+float getIntakeAirTemperature(void);
 int isValidIntakeAirTemperature(float temperature);
 
-myfloat convertResistanceToKelvinTemperature(myfloat resistance,
+float convertResistanceToKelvinTemperature(float resistance,
 		ThermistorConf *thermistor);
 void setThermistorConfiguration(ThermistorConf * tc, float temp1, float r1, float temp2, float r2, float temp3,
 		float r3);
