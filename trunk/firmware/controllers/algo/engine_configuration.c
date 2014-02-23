@@ -167,17 +167,17 @@ void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *eng
 	 * And override them with engine-specific defaults
 	 */
 	switch (engineType) {
-#if EFI_SUPPORT_DODGE_NEON
+#if EFI_SUPPORT_DODGE_NEON || defined(__DOXYGEN__)
 	case DODGE_NEON_1995:
 		setDodgeNeonEngineConfiguration(engineConfiguration);
 		break;
 #endif /* EFI_SUPPORT_DODGE_NEON */
-#if EFI_SUPPORT_FORD_ASPIRE
+#if EFI_SUPPORT_FORD_ASPIRE || defined(__DOXYGEN__)
 	case FORD_ASPIRE_1996:
 		setFordAspireEngineConfiguration(engineConfiguration);
 		break;
 #endif /* EFI_SUPPORT_FORD_ASPIRE */
-#if EFI_SUPPORT_FORD_FIESTA
+#if EFI_SUPPORT_FORD_FIESTA || defined(__DOXYGEN__)
 	case FORD_FIESTA:
 		setFordFiestaDefaultEngineConfiguration(engineConfiguration);
 		break;
@@ -185,9 +185,11 @@ void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *eng
 	case HONDA_ACCORD:
 		setHondaAccordConfiguration(engineConfiguration);
 		break;
+#if EFI_SUPPORT_1995_FORD_INLINE_6 || defined(__DOXYGEN__)
 	case FORD_INLINE_6_1995:
 		setFordInline6(engineConfiguration);
 		break;
+#endif /* EFI_SUPPORT_1995_FORD_INLINE_6 */
 	case GY6_139QMB:
 		setGy6139qmbDefaultEngineConfiguration(engineConfiguration);
 		break;
@@ -230,9 +232,11 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 	case HONDA_ACCORD:
 		setHondaAccordConfiguration2(engineConfiguration, engineConfiguration2);
 		break;
+#if EFI_SUPPORT_1995_FORD_INLINE_6 || defined(__DOXYGEN__)
 	case FORD_INLINE_6_1995:
 		setFordInline6_2(engineConfiguration, engineConfiguration2);
 		break;
+#endif /* EFI_SUPPORT_1995_FORD_INLINE_6 */
 	case GY6_139QMB:
 		setGy6139qmbengine_configuration2_s(engineConfiguration, engineConfiguration2);
 		break;

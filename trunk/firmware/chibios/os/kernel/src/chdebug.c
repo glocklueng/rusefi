@@ -283,7 +283,6 @@ void chDbgPanic(const char *msg, char * file, int line) {
 #if CH_DBG_ENABLED
 	if (hasFatalError())
 		return;
-	onDbgPanic();
 	dbg_panic_file = file;
 	dbg_panic_line = line;
 	dbg_panic_msg = msg;

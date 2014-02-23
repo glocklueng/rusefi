@@ -92,6 +92,7 @@
 #endif /* EFI_ENGINE_EMULATOR */
 
 #include "tunerstudio.h"
+#include "status_loop.h"
 
 static Logging logging;
 
@@ -168,6 +169,7 @@ void scheduleReset(void) {
 }
 
 void onFatalError(const char *msg, char * file, int line) {
+	onDbgPanic();
 	lcdShowFatalMessage((char *)msg);
 	if (!main_loop_started) {
 		print("fatal %s %s:%d\r\n", msg, file, line);
