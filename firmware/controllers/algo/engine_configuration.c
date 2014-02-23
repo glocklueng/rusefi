@@ -222,14 +222,16 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 		setFordFiestaengine_configuration2_s(engineConfiguration, engineConfiguration2);
 		break;
 #endif /* EFI_SUPPORT_FORD_FIESTA */
+#if EFI_SUPPORT_NISSAN_PRIMERA
+		case NISSAN_PRIMERA:
+		setNissanPrimeraengine_configuration2_s(engineConfiguration, engineConfiguration2);
+		break;
+#endif /* EFI_SUPPORT_NISSAN_PRIMERA */
 	case HONDA_ACCORD:
 		setHondaAccordConfiguration2(engineConfiguration, engineConfiguration2);
 		break;
 	case FORD_INLINE_6_1995:
 		setFordInline6_2(engineConfiguration, engineConfiguration2);
-		break;
-	case NISSAN_PRIMERA:
-		setNissanPrimeraengine_configuration2_s(engineConfiguration, engineConfiguration2);
 		break;
 	case GY6_139QMB:
 		setGy6139qmbengine_configuration2_s(engineConfiguration, engineConfiguration2);
