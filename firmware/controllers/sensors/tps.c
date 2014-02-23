@@ -10,7 +10,7 @@ extern engine_configuration_s *engineConfiguration;
  * Return current TPS position based on configured ADC levels, and adc
  *
  * */
-myfloat getTpsValue(int adc) {
+float getTpsValue(int adc) {
 	if (adc < engineConfiguration->tpsMin)
 		return 0;
 	if (adc > engineConfiguration->tpsMax)
@@ -21,7 +21,7 @@ myfloat getTpsValue(int adc) {
 /*
  * Return voltage on TPS AND channel
  * */
-myfloat getTPSVoltage(void) {
+float getTPSVoltage(void) {
 	return getVoltageDivided(ADC_LOGIC_TPS);
 }
 
@@ -38,14 +38,14 @@ int getTPSAdc(void) {
 /**
  * @brief Position on physical primary TPS
  */
-static myfloat getPrimatyRawTPS(void) {
+static float getPrimatyRawTPS(void) {
 	// blue, 1st board
 	/* PA7 - blue TP */
-	myfloat tpsValue = getTpsValue(getTPSAdc());
+	float tpsValue = getTpsValue(getTPSAdc());
 	return tpsValue;
 }
 
-// todo: static myfloat getSecondaryRawTPS
+// todo: static float getSecondaryRawTPS
 
 /*
  * In case of dual TPS this function would return logical TPS position

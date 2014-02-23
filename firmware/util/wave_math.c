@@ -9,11 +9,11 @@
 
 //#define LOOPS_TIME(value, divider) (((int)((value) / (divider))) * (divider))
 
-myfloat floatmod(myfloat value, myfloat divider) {
+float floatmod(float value, float divider) {
 	// number of full cycles
 	int loopsNumber = (int)(value / divider);
 	// total time of full cycles
-	myfloat loopsTime = loopsNumber * divider;
+	float loopsTime = loopsNumber * divider;
 
 	return value - loopsTime;
 }
@@ -21,12 +21,12 @@ myfloat floatmod(myfloat value, myfloat divider) {
 /**
  * @param waveLen length of each wave, in ticks
  */
-int waveState(time_t start, time_t now, myfloat waveLen, myfloat leftSide,
-		myfloat rightSide) {
+int waveState(time_t start, time_t now, float waveLen, float leftSide,
+		float rightSide) {
 	/**
 	 * number of ticks since start of thread
 	 */
-	myfloat time = now - start;
-	myfloat mod = floatmod(time, waveLen);
+	float time = now - start;
+	float mod = floatmod(time, waveLen);
 	return mod >= waveLen * leftSide && mod < waveLen * rightSide;
 }

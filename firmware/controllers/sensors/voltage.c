@@ -14,11 +14,11 @@
 
 extern engine_configuration_s *engineConfiguration;
 
-myfloat getVRef(void) {
+float getVRef(void) {
 //	return getAdcValue(ADC_CHANNEL_VREF);
 	return getVoltageDivided(ADC_CHANNEL_VREF);
 }
 
-myfloat getVBatt(void) {
+float getVBatt(void) {
 	return getVoltage(ADC_CHANNEL_VBATT) * engineConfiguration->vbattDividerCoeff;
 }

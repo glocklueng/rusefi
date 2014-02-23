@@ -21,65 +21,65 @@ extern engine_configuration2_s *engineConfiguration2;
 /**
  * http://en.wikipedia.org/wiki/Voltage_divider
  */
-myfloat getR1InVoltageDividor(myfloat Vout, myfloat Vin, myfloat r2) {
+float getR1InVoltageDividor(float Vout, float Vin, float r2) {
 	return r2 * Vin / Vout - r2;
 }
 
-myfloat getR2InVoltageDividor(myfloat Vout, myfloat Vin, myfloat r1) {
+float getR2InVoltageDividor(float Vout, float Vin, float r1) {
 	return r1 / (Vin / Vout - 1);
 }
 
-myfloat getVoutInVoltageDividor(myfloat Vin, myfloat r1, myfloat r2) {
+float getVoutInVoltageDividor(float Vin, float r1, float r2) {
 	return r2 * Vin / (r1 + r2);
 }
 
-myfloat convertResistanceToKelvinTemperature(myfloat resistance, ThermistorConf *thermistor) {
+float convertResistanceToKelvinTemperature(float resistance, ThermistorConf *thermistor) {
 	if (resistance <= 0) {
 		//warning("Invalid resistance in convertResistanceToKelvinTemperature=", resistance);
 		return 0;
 	}
-	myfloat logR = log(resistance);
+	float logR = log(resistance);
 	return 1 / (thermistor->s_h_a + thermistor->s_h_b * logR + thermistor->s_h_c * logR * logR * logR);
 }
 
-myfloat convertKelvinToC(myfloat tempK) {
+float convertKelvinToC(float tempK) {
 	return tempK - KELV;
 }
 
-myfloat convertCelciustoKelvin(myfloat tempC) {
+float convertCelciustoKelvin(float tempC) {
 	return tempC + KELV;
 }
 
-myfloat convertCelciustoF(myfloat tempC) {
+float convertCelciustoF(float tempC) {
 	return tempC * 9 / 5 + 32;
 }
 
-myfloat convertFtoCelcius(myfloat tempF) {
+float convertFtoCelcius(float tempF) {
 	return (tempF - 32) / 9 * 5;
 }
 
-myfloat convertKelvinToFahrenheit(myfloat kelvin) {
-	myfloat tempC = convertKelvinToC(kelvin);
+float convertKelvinToFahrenheit(float kelvin) {
+	float tempC = convertKelvinToC(kelvin);
 	return convertCelciustoF(tempC);
 }
 
-myfloat getKelvinTemperature(myfloat resistance, ThermistorConf *thermistor) {
+float getKelvinTemperature(float resistance, ThermistorConf *thermistor) {
 	chDbgCheck(thermistor!=NULL, "thermistor pointer is NULL");
 
-	myfloat kelvinTemperature = convertResistanceToKelvinTemperature(resistance, thermistor);
+	float kelvinTemperature = convertResistanceToKelvinTemperature(resistance, thermistor);
 	return kelvinTemperature;
 }
 
-myfloat getResistance(Thermistor *thermistor) {
-	myfloat voltage = getVoltageDivided(thermistor->channel);
-	myfloat resistance = getR2InVoltageDividor(voltage, _5_VOLTS, thermistor->config->bias_resistor);
+float getResistance(Thermistor *thermistor) {
+	float voltage = getVoltageDivided(thermistor->channel);
+	float resistance = getR2InVoltageDividor(voltage, _5_VOLTS, thermistor->config->bias_resistor);
 	return resistance;
 }
 
-myfloat getTemperatureC(Thermistor *thermistor) {
-	myfloat resistance = getResistance(thermistor);
+float getTemperatureC(Thermistor *thermistor) {
+	float resistance = getResistance(thermistor);
 
-	myfloat kelvinTemperature = getKelvinTemperature(resistance, thermistor->config);
+	float kelvinTemperature = getKelvinTemperature(resistance, thermistor->config);
 	return convertKelvinToC(kelvinTemperature);
 }
 
@@ -94,7 +94,7 @@ int isValidIntakeAirTemperature(float temperature) {
 }
 
 float getCoolantTemperature(void) {
-	myfloat temperature = getTemperatureC(&engineConfiguration2->clt);
+	float temperature = getTemperatureC(&engineConfiguration2->clt);
 	if (!isValidCoolantTemperature(temperature))
 		return NAN;
 	return temperature;
@@ -133,8 +133,8 @@ void prepareThermistorCurve(ThermistorConf * config) {
 	config->s_h_a = Y1 - (config->s_h_b + L1 * L1 * config->s_h_c) * L1;
 }
 
-myfloat getIntakeAirTemperature(void) {
-	myfloat temperature = getTemperatureC(&engineConfiguration2->iat);
+float getIntakeAirTemperature(void) {
+	float temperature = getTemperatureC(&engineConfiguration2->iat);
 	if (!isValidIntakeAirTemperature(temperature))
 		return NAN;
 	return temperature;

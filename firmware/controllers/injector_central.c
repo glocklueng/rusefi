@@ -19,7 +19,7 @@
 static Logging logger;
 
 int isInjectionEnabled = TRUE;
-myfloat globalFuelCorrection = 1;
+float globalFuelCorrection = 1;
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;

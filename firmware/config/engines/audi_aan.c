@@ -19,7 +19,7 @@ void configureShaftPositionEmulatorShape(PwmConfig *state) {
 	 * One signal per cam shaft revolution
 	 */
 	int pinStates0[] = { 1, 0 };
-	myfloat switchTimes[] = { 0.8, 1 };
+	float switchTimes[] = { 0.8, 1 };
 
 	int *pinStates[2] = { pinStates0 };
 
