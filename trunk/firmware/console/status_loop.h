@@ -14,5 +14,6 @@ int getFullLog(void);
 void setFullLog(int value);
 void sayOsHello(void);
 int hasFatalError(void);
+void onDbgPanic(void);
 
 #endif /* CONSOLE_LOOP_H_ */
