@@ -107,6 +107,7 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	usb_serial_start();
 
 #else
+#if EFI_SERIAL_OVER_UART
 	/*
 	 * Activates the serial using the driver default configuration (that's 38400)
 	 * it is important to set 'NONE' as flow control! in terminal application on the PC
@@ -116,7 +117,8 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	// cannot use pin repository here because pin repository prints to console
 	palSetPadMode(EFI_CONSOLE_PORT, EFI_CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
 	palSetPadMode(EFI_CONSOLE_PORT, EFI_CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
-#endif
+#endif /* EFI_SERIAL_OVER_UART */
+#endif /* EFI_SERIAL_OVER_USB */
 	chThdCreateStatic(consoleThreadStack, sizeof(consoleThreadStack), NORMALPRIO, consoleThreadThreadEntryPoint, NULL);
 }
 
