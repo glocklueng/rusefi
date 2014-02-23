@@ -17,6 +17,7 @@
 #include <stdbool.h>
 #include "main.h"
 #include "eficonsole_logic.h"
+#include "efilib.h"
 #if EFI_PROD_CODE
 #include "eficonsole.h"
 static Logging logging;
