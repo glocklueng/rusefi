@@ -16,7 +16,6 @@
 #include "wave_math.h"
 #include "idle_thread.h"
 #include "pin_repository.h"
-#include "pinout.h"
 
 #define IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY 200
 

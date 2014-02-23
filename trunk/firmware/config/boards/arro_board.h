@@ -147,14 +147,38 @@
 #define ADC_CHANNEL_VREF ADC_CHANNEL_IN14
 #define ADC_LOGIC_INTAKE_AIR ADC_CHANNEL_IN7
 
-/* Primary shaft position input */
+
+/**
+ * currently ChibiOS uses only first and second channels of each timer for input capture
+ *
+ * So, our options are:
+ *
+ * TIM2_CH1
+ *  PA5
+ *
+ * TIM4_CH1
+ *  PB6
+ * 	PD12
+ *
+ * TIM9_CH1
+ *  PE5
+ */
+
+
+/**
+ * Primary shaft position input
+ * TODO: ? rename to PRIMARY_TRIGGER?
+ */
 
 #define PRIMARY_SHAFT_POSITION_INPUT_DRIVER ICUD3
 #define PRIMARY_SHAFT_POSITION_INPUT_PORT GPIOC
 #define PRIMARY_SHAFT_POSITION_INPUT_PIN 6
 #define PRIMARY_SHAFT_POSITION_INPUT_CHANNEL ICU_CHANNEL_1
 
-/* Secondary shaft position input */
+/**
+ * Secondary shaft position input
+ * TODO: ? rename to SECONDARY_TRIGGER? *
+ */
 #define SECONDARY_SHAFT_POSITION_INPUT_DRIVER ICUD2
 #define SECONDARY_SHAFT_POSITION_INPUT_PORT GPIOA
 #define SECONDARY_SHAFT_POSITION_INPUT_PIN 5
@@ -249,6 +273,9 @@
 #define EFI_CONSOLE_RX_PORT GPIOD
 #define EFI_CONSOLE_RX_PIN 9
 #define EFI_CONSOLE_AF 7
+
+#define EFI_CONSOLE_UART_DEVICE (&SD3)
+
 
 //#define EFI_CONSOLE_TX_PORT GPIOC
 //#define EFI_CONSOLE_TX_PIN 10

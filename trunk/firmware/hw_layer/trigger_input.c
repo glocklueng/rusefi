@@ -14,7 +14,6 @@
 #include "wave_math.h"
 #include "data_buffer.h"
 #include "wave_analyzer_hw.h"
-#include "pinout.h"
 #include "pin_repository.h"
 
 #include "trigger_decoder.h"
