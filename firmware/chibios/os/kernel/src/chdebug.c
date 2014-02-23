@@ -273,8 +273,6 @@ int dbg_panic_line;
 
 extern int main_loop_started;
 
-void onDbgPanic(void);
-
 int hasFatalError(void);
 
 void onFatalError(const char *msg, char * file, int line);
