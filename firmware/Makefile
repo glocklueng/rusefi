@@ -166,7 +166,7 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	util \
 	console_util \
 	console \
-	console/algo \
+	console/tunerstudio \
 	hw_layer \
 	hw_layer/algo \
 	hw_layer/lcd \
