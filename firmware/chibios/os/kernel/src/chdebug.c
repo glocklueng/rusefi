@@ -56,8 +56,6 @@
  */
 
 #include "ch.h"
-#include "eficonsole.h"
-#include "lcd_2x16.h"
 
 /*===========================================================================*/
 /* System state checker related code and variables.                          */
@@ -279,20 +277,17 @@ void onDbgPanic(void);
 
 int hasFatalError(void);
 
+void onFatalError(const char *msg, char * file, int line);
+
 void chDbgPanic(const char *msg, char * file, int line) {
 #if CH_DBG_ENABLED
-	if(hasFatalError())
+	if (hasFatalError())
 		return;
 	onDbgPanic();
 	dbg_panic_file = file;
 	dbg_panic_line = line;
 	dbg_panic_msg = msg;
-	lcdShowFatalMessage((char *)msg);
-	if (!main_loop_started) {
-		print("fatal %s %s:%d\r\n", dbg_panic_msg, dbg_panic_file, dbg_panic_line);
-		chThdSleepSeconds(1);
-		chSysHalt();
-	}
+	onFatalError(dbg_panic_msg, dbg_panic_file, dbg_panic_line);
 #else
   chSysHalt();
 #endif

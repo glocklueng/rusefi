@@ -85,6 +85,7 @@
 #include "eficonsole.h"
 #include "hardware.h"
 #include "engine_controller.h"
+#include "lcd_2x16.h"
 #include "status_loop.h"
 #if EFI_ENGINE_EMULATOR
 #include "engine_emulator.h"
@@ -164,6 +165,15 @@ void scheduleReset(void) {
 	lockAnyContext();
 	chVTSetI(&resetTimer, 5 * CH_FREQUENCY, (vtfunc_t)rebootNow, NULL);
 	unlockAnyContext();
+}
+
+void onFatalError(const char *msg, char * file, int line) {
+	lcdShowFatalMessage((char *)msg);
+	if (!main_loop_started) {
+		print("fatal %s %s:%d\r\n", msg, file, line);
+		chThdSleepSeconds(1);
+		chSysHalt();
+	}
 }
 
 int getVersion(void) {
