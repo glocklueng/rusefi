@@ -130,7 +130,9 @@ void initializeConsole() {
 
 	sayHello();
 	addConsoleAction("hello", sayHello);
+#if EFI_HAS_RESET
 	addConsoleAction("reset", scheduleReset);
+#endif
 
 	addConsoleAction("fatal", myfatal);
 	addConsoleAction("ths", cmd_threads);
