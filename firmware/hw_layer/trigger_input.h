@@ -9,7 +9,6 @@
 #ifndef CRANK_INPUT_H_
 #define CRANK_INPUT_H_
 
-#include "main.h"
 #include "trigger_structure.h"
 
 typedef void (*ShaftPositionListener)(ShaftEvents signal, int index);

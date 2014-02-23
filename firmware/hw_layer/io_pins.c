@@ -12,7 +12,6 @@
 
 #include "pin_repository.h"
 #include "gpio_helper.h"
-#include "pinout.h"
 #include "status_loop.h"
 #include "main_trigger_callback.h"
 #include "trigger_decoder.h"

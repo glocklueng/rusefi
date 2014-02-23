@@ -13,7 +13,6 @@
 #include "eficonsole.h"
 #include "main_trigger_callback.h"
 #include "datalogging.h"
-#include "pinout.h"
 #include "engine_configuration.h"
 #include "pwm_generator.h"
 #include "io_pins.h"

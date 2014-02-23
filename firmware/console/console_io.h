@@ -25,7 +25,7 @@
  extern SerialUSBDriver SDU1;
  #define CONSOLE_CHANNEL (&SDU1)
 #else
- #define CONSOLE_CHANNEL (&SD3)
+ #define CONSOLE_CHANNEL EFI_CONSOLE_UART_DEVICE
 #endif
 
 void consolePutChar(int x);
