@@ -104,7 +104,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="chibios/boards/OLIMEX_STM32_E407" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="chibios/boards/simulator|chibios/os/ports/GCC/SIMIA32|chibios/os/hal/platforms/Win32|chibios/boards/OLIMEX_STM32_E407" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -210,7 +210,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="chibios/boards/OLIMEX_STM32_E407" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="chibios/boards/simulator|chibios/os/ports/GCC/SIMIA32|chibios/os/hal/platforms/Win32|chibios/boards/OLIMEX_STM32_E407" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
