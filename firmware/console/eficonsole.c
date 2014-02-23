@@ -41,18 +41,22 @@ static void sayHello(void) {
 	print("COMPILER=%s\r\n", __VERSION__);
 	printMsg(&logger, "CH_FREQUENCY=%d", CH_FREQUENCY);
 	printMsg(&logger, "SERIAL_SPEED=%d", SERIAL_SPEED);
+#ifdef STM32_ADCCLK
 	printMsg(&logger, "STM32_ADCCLK=%d", STM32_ADCCLK);
 	printMsg(&logger, "STM32_TIMCLK1=%d", STM32_TIMCLK1);
 	printMsg(&logger, "STM32_TIMCLK2=%d", STM32_TIMCLK2);
 	printMsg(&logger, "STM32_PCLK1=%d", STM32_PCLK1);
 	printMsg(&logger, "STM32_PCLK2=%d", STM32_PCLK2);
+#endif
 
 	printMsg(&logger, "CH_DBG_ENABLE_ASSERTS=%d", CH_DBG_ENABLE_ASSERTS);
 	printMsg(&logger, "CH_DBG_ENABLED=%d", CH_DBG_ENABLED);
 	printMsg(&logger, "CH_DBG_SYSTEM_STATE_CHECK=%d", CH_DBG_SYSTEM_STATE_CHECK);
 	printMsg(&logger, "CH_DBG_ENABLE_STACK_CHECK=%d", CH_DBG_ENABLE_STACK_CHECK);
 
+#ifdef EFI_WAVE_ANALYZER
 	printMsg(&logger, "EFI_WAVE_ANALYZER=%d", EFI_WAVE_ANALYZER);
+#endif
 #ifdef EFI_TUNER_STUDIO
 	printMsg(&logger, "EFI_TUNER_STUDIO=%d", EFI_TUNER_STUDIO);
 #else
@@ -74,8 +78,12 @@ static void sayHello(void) {
 #else
 	printMsg(&logger, "EFI_TUNER_STUDIO_OVER_USB=%d", 0);
 #endif
+#ifdef EFI_SHAFT_POSITION_INPUT
 	printMsg(&logger, "EFI_SHAFT_POSITION_INPUT=%d", EFI_SHAFT_POSITION_INPUT);
+#endif
+#ifdef EFI_INTERNAL_ADC
 	printMsg(&logger, "EFI_INTERNAL_ADC=%d", EFI_INTERNAL_ADC);
+#endif
 
 //	printSimpleMsg(&logger, "", );
 //	printSimpleMsg(&logger, "", );
