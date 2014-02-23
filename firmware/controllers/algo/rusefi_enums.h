@@ -16,6 +16,50 @@
 #define ENUM_SIZE_HACK 2000000000
 
 typedef enum {
+	AUDI_AAN = 1,
+#if EFI_SUPPORT_DODGE_NEON
+	/**
+	 * 1995 Dodge Neon
+	 * http://rusefi.com/forum/viewtopic.php?t=360
+	 */
+	DODGE_NEON_1995 = 2,
+#endif /* EFI_SUPPORT_DODGE_NEON */
+#if EFI_SUPPORT_FORD_ASPIRE
+	/**
+	 * 1996 1.3 Ford Aspire
+	 * http://rusefi.com/forum/viewtopic.php?t=375
+	 */
+	FORD_ASPIRE_1996 = 3,
+#endif /* EFI_SUPPORT_FORD_ASPIRE */
+#if EFI_SUPPORT_FORD_FIESTA
+	/**
+	 * 36-1 toothed wheel engine
+	 * http://rusefi.com/forum/viewtopic.php?t=282
+	 */
+	FORD_FIESTA = 4,
+#endif /* EFI_SUPPORT_FORD_FIESTA */
+#if EFI_SUPPORT_NISSAN_PRIMERA
+	NISSAN_PRIMERA = 5,
+#endif /* EFI_SUPPORT_NISSAN_PRIMERA */
+
+	HONDA_ACCORD = 6,
+
+	FORD_INLINE_6_1995 = 7,
+/**
+ * one cylinder engine
+ * 139qmb 50-90cc
+ * http://rusefi.com/forum/viewtopic.php?f=3&t=332
+ */
+	GY6_139QMB = 8,
+
+	MAZDA_MIATA_NB = 9,
+
+	ROVER_V8 = 10,
+
+	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
+} engine_type_e;
+
+typedef enum {
 	TT_TOOTHED_WHEEL = 0,
 	TT_FORD_ASPIRE = 1,
 	TT_DODGE_NEON = 2,
