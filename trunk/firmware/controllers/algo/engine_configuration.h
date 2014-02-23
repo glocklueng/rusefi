@@ -157,14 +157,18 @@ typedef struct {
 	/**
 	 * We have 3.3V ADC and most of the analog input signals are 5V, this forces us to use
 	 * voltage dividers on the input circuits. This parameter holds the coefficient of these dividers.
+	 * see also vbattDividerCoeff
 	 */
 	float analogInputDividerCoefficient;
 
 	/**
 	 * This setting controls which algorithm is used for ENGINE LOAD
 	 */
-	engine_load_mode_e engine_load_mode;
+	engine_load_mode_e engineLoadMode;
 
+	/**
+	 * see
+	 */
 	float vbattDividerCoeff;
 	/**
 	 * Cooling fan turn-on temperature threshold, in Celsuis
