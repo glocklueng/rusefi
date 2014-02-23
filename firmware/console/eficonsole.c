@@ -40,7 +40,10 @@ static void sayHello(void) {
 	print("*** Compiled:     " __DATE__ " - " __TIME__ " \r\n");
 	print("COMPILER=%s\r\n", __VERSION__);
 	printMsg(&logger, "CH_FREQUENCY=%d", CH_FREQUENCY);
+#ifdef SERIAL_SPEED
 	printMsg(&logger, "SERIAL_SPEED=%d", SERIAL_SPEED);
+#endif
+
 #ifdef STM32_ADCCLK
 	printMsg(&logger, "STM32_ADCCLK=%d", STM32_ADCCLK);
 	printMsg(&logger, "STM32_TIMCLK1=%d", STM32_TIMCLK1);
