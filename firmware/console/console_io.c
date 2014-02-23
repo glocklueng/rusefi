@@ -84,8 +84,10 @@ static msg_t consoleThreadThreadEntryPoint(void *arg) {
 
 #ifdef EFI_SERIAL_OVER_USB
 #else
+#if EFI_SERIAL_OVER_UART
 static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
-#endif
+#endif /* EFI_SERIAL_OVER_UART */
+#endif /* EFI_SERIAL_OVER_USB */
 
 #ifndef EFI_SERIAL_OVER_USB
 int is_serial_ready(void) {
