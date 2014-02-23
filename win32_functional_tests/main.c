@@ -14,8 +14,7 @@
     limitations under the License.
 */
 
-#include "ch.h"
-#include "hal.h"
+#include "main.h"
 #include "shell.h"
 #include "chprintf.h"
 
@@ -234,5 +233,32 @@ int main(void) {
   return 0;
 }
 
+void print(const char *format, ...) {
+	va_list ap;
+	va_start(ap, format);
+	vprintf(format, ap);
+	va_end(ap);
+}
+
+int systicks2ms(int systicks) {
+	return systicks / TICKS_IN_MS;
+}
+
 void onFatalError(const char *msg, char * file, int line) {
+}
+
+void warning(char *msg, float value) {
+	printf("Warning: %s %f\r\n", msg, value);
+}
+
+void fatal(char *x) {
+  printf(x);
+  exit(-1);
+}
+
+void sendOutConfirmation(char *value, int i) {
+}
+
+int hasFatalError(void) {
+  return false;
 }

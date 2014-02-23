@@ -2,9 +2,10 @@
 #include "global.h"
 #include "boards.h"
 
-typedef int bool_t;
+// typedef int bool_t;
+
 void fatal(x);
-void chDbgAssert(int c, char *msg, void *arg);
+//void chDbgAssert(int c, char *msg, void *arg);
 
 /**
  * number of SysClock ticks in one ms
