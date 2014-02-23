@@ -16,6 +16,9 @@
 # Start of default section
 #
 
+PROJECT_DIR = ../firmware
+
+
 #TRGT = mingw32-
 CC   = $(TRGT)gcc
 AS   = $(TRGT)gcc -x assembler-with-cpp
@@ -62,7 +65,11 @@ include ${CHIBIOS}/os/hal/hal.mk
 include ${CHIBIOS}/os/hal/platforms/Win32/platform.mk
 include ${CHIBIOS}/os/ports/GCC/SIMIA32/port.mk
 include ${CHIBIOS}/os/kernel/kernel.mk
-#include ${CHIBIOS}/test/test.mk
+include $(PROJECT_DIR)/util/util.mk
+include $(PROJECT_DIR)/config/engines/engines.mk
+include $(PROJECT_DIR)/controllers/algo/algo.mk
+include $(PROJECT_DIR)/controllers/math/math.mk
+include $(PROJECT_DIR)/controllers/sensors/sensors.mk
 
 # List C source files here
 SRC  = ${PORTSRC} \
@@ -73,7 +80,13 @@ SRC  = ${PORTSRC} \
        $(BOARDSRC) \
        ${CHIBIOS}/os/various/shell.c \
        ${CHIBIOS}/os/various/chprintf.c \
+	$(UTILSRC) \
        main.c
+
+#	$(ENGINES_SRC) \
+#	$(CONTROLLERS_ALGO_SRC) \
+#	$(CONTROLLERS_MATH_SRC) \
+
 
 # List ASM source files here
 ASRC =
@@ -81,7 +94,14 @@ ASRC =
 # List all user directories here
 UINCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
           $(HALINC) $(PLATFORMINC) $(BOARDINC) \
-          ${CHIBIOS}/os/various
+	$(PROJECT_DIR)/util \
+	$(PROJECT_DIR)/config/engines \
+	$(PROJECT_DIR)/ext_algo \
+	$(PROJECT_DIR)/controllers/sensors \
+	$(PROJECT_DIR)/controllers/system \
+	$(PROJECT_DIR)/controllers/algo \
+	$(PROJECT_DIR)/controllers/math  \
+        ${CHIBIOS}/os/various
 
 # List the user directory to look for the libraries here
 ULIBDIR =
@@ -90,7 +110,7 @@ ULIBDIR =
 ULIBS =
 
 # Define optimisation level here
-OPT = -ggdb -O2 -fomit-frame-pointer
+OPT = -ggdb -O2 -fomit-frame-pointer -fgnu89-inline -std=gnu99
 
 #
 # End of user defines
