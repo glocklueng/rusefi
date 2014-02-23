@@ -14,8 +14,9 @@
     limitations under the License.
 */
 
-#include "ch.h"
-#include "hal.h"
+#include "main.h"
+
+#if HAL_USE_SERIAL_USB || defined(__DOXYGEN__)
 
 /*
  * Endpoints to be used for USBD1.
@@ -315,3 +316,4 @@ const SerialUSBConfig serusbcfg = {
 
 /* Virtual serial port over USB.*/
 SerialUSBDriver SDU1;
+#endif
