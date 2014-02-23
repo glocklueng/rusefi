@@ -88,6 +88,7 @@ include util/util.mk
 include console_util/console_util.mk
 include config/engines/engines.mk
 include console/console.mk
+include console/tunerstudio/tunerstudio.mk
 include ext/ext.mk
 include hw_layer/hw_layer.mk
 include emulation/emulation.mk
@@ -111,6 +112,7 @@ CSRC = $(PORTSRC) \
 	$(UTILSRC) \
 	$(ENGINES_SRC) \
 	$(CONSOLESRC) \
+	$(TUNERSTUDIOSRC) \
 	$(CONSOLEUTILSRC) \
 	$(HALSRC) \
 	$(EMULATIONSRC) \
