@@ -102,6 +102,7 @@ typedef enum {
 typedef enum {
 	IM_ONE_COIL = 0,
 	IM_INDIVIDUAL_COILS = 1,
+	IM_WASTED_SPARK = 2,
 
 	Internal_ForceMyEnumIntSize_ignition_mode = ENUM_SIZE_HACK,
 } ignition_mode_e;
@@ -115,5 +116,12 @@ typedef enum {
 
 	Internal_ForceMyEnumIntSize_cranking_ignition_mode = ENUM_SIZE_HACK,
 } cranking_ignition_mode_e;
+
+typedef enum {
+	IE_NO_ERROR = 0,
+	IE_UNEXPECTED_FIRING_ORDER = 1,
+
+} internal_error_e;
+
 
 #endif /* RUSEFI_ENUMS_H_ */
