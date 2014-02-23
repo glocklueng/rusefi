@@ -91,7 +91,7 @@ float fixAngle(float angle) {
  *
  */
 float getEngineLoadT(engine_configuration_s *engineConfiguration) {
-	switch (engineConfiguration->engine_load_mode) {
+	switch (engineConfiguration->engineLoadMode) {
 	case LM_MAF:
 		return getMaf();
 	case LM_MAP:

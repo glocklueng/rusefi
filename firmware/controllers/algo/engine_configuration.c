@@ -110,7 +110,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->globalTriggerOffsetAngle = 0;
 
 
-	engineConfiguration->engine_load_mode = LM_MAF;
+	engineConfiguration->engineLoadMode = LM_MAF;
 
 	engineConfiguration->vbattDividerCoeff = ((float)(15 + 65)) / 15;
 
