@@ -19,6 +19,7 @@
 #endif
 
 #include "features.h"
+#include "boards.h"
 
 #ifdef EFI_SERIAL_OVER_USB
  #include "usbcfg.h"
