@@ -167,15 +167,21 @@ void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *eng
 	 * And override them with engine-specific defaults
 	 */
 	switch (engineType) {
+#if EFI_SUPPORT_DODGE_NEON
 	case DODGE_NEON_1995:
 		setDodgeNeonEngineConfiguration(engineConfiguration);
 		break;
+#endif /* EFI_SUPPORT_DODGE_NEON */
+#if EFI_SUPPORT_FORD_ASPIRE
 	case FORD_ASPIRE_1996:
 		setFordAspireEngineConfiguration(engineConfiguration);
 		break;
+#endif /* EFI_SUPPORT_FORD_ASPIRE */
+#if EFI_SUPPORT_FORD_FIESTA
 	case FORD_FIESTA:
 		setFordFiestaDefaultEngineConfiguration(engineConfiguration);
 		break;
+#endif /* EFI_SUPPORT_FORD_FIESTA */
 	case HONDA_ACCORD:
 		setHondaAccordConfiguration(engineConfiguration);
 		break;
@@ -201,15 +207,21 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 	chDbgCheck(engineConfiguration2->triggerShape.shaftPositionEventCount, "shaftPositionEventCount is zero");
 
 	switch (engineConfiguration->engineType) {
+#if EFI_SUPPORT_DODGE_NEON
 	case DODGE_NEON_1995:
 		setDodgeNeonengine_configuration2_s(engineConfiguration, engineConfiguration2);
 		break;
+#endif /* EFI_SUPPORT_DODGE_NEON */
+#if EFI_SUPPORT_FORD_ASPIRE
 	case FORD_ASPIRE_1996:
 		setFordAspireengine_configuration2_s(engineConfiguration, engineConfiguration2);
 		break;
+#endif /* EFI_SUPPORT_FORD_ASPIRE */
+#if EFI_SUPPORT_FORD_FIESTA
 	case FORD_FIESTA:
 		setFordFiestaengine_configuration2_s(engineConfiguration, engineConfiguration2);
 		break;
+#endif /* EFI_SUPPORT_FORD_FIESTA */
 	case HONDA_ACCORD:
 		setHondaAccordConfiguration2(engineConfiguration, engineConfiguration2);
 		break;
