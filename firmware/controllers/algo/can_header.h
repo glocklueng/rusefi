@@ -10,7 +10,6 @@
 
 #include "rusefi_enums.h"
 
-
 /**
  * Net Body Computer types
  */
@@ -21,6 +20,5 @@ typedef enum {
 
 	Internal_ForceMyEnumIntSize_can_nbc = ENUM_SIZE_HACK,
 } can_nbc_e;
-
 
 #endif /* CAN_HEADER_H_ */
