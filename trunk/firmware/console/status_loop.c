@@ -75,9 +75,9 @@ static void printStatus(void) {
 	needToReportStatus = TRUE;
 }
 
-//float getTCharge1(myfloat tps) {
-//	myfloat cltK = tempCtoKelvin(getCoolantTemperature());
-//	myfloat iatK = tempCtoKelvin(getIntakeAirTemperature());
+//float getTCharge1(float tps) {
+//	float cltK = tempCtoKelvin(getCoolantTemperature());
+//	float iatK = tempCtoKelvin(getIntakeAirTemperature());
 //	return getTCharge(getCurrentRpm(), tps, cltK, iatK);
 //}
 
@@ -102,7 +102,7 @@ static void printSensors(void) {
 
 	// current time, in milliseconds
 	int nowMs = chTimeNow() / TICKS_IN_MS;
-	myfloat sec = ((myfloat) nowMs) / 1000;
+	float sec = ((float) nowMs) / 1000;
 	reportSensorF("time", sec, 3);
 
 	reportSensorI("rpm", getRpm());
@@ -215,7 +215,7 @@ void updateDevConsoleState(void) {
 
 //	debugFloat(&logger, "table_spark", getAdvance(rpm, getMaf()), 2);
 
-	myfloat engineLoad = getMaf();
+	float engineLoad = getMaf();
 	debugFloat(&logger, "fuel_base", getBaseFuel(rpm, engineLoad), 2);
 	debugFloat(&logger, "fuel_iat", getIatCorrection(getIntakeAirTemperature()), 2);
 	debugFloat(&logger, "fuel_clt", getCltCorrection(getCoolantTemperature()), 2);
@@ -224,8 +224,8 @@ void updateDevConsoleState(void) {
 
 	debugFloat(&logger, "timing", getAdvance(rpm, engineLoad), 2);
 
-//		myfloat map = getMap();
-//		myfloat fuel = getDefaultFuel(rpm, map);
+//		float map = getMap();
+//		float fuel = getDefaultFuel(rpm, map);
 //		debugFloat(&logger, "d_fuel", fuel, 2);
 
 #if EFI_WAVE_ANALYZER
@@ -242,7 +242,7 @@ void updateDevConsoleState(void) {
  */
 
 static void showFuelMap(int rpm, int key100) {
-	myfloat engineLoad = key100 / 100.0;
+	float engineLoad = key100 / 100.0;
 
 	float baseFuel = getBaseFuel(rpm, engineLoad);
 
@@ -254,7 +254,7 @@ static void showFuelMap(int rpm, int key100) {
 	print("iatCorrection=%f cltCorrection=%f injectorLag=%d\r\n", iatCorrection, cltCorrection,
 			(int) (100 * injectorLag));
 
-	myfloat value = getRunningFuel(rpm, engineLoad);
+	float value = getRunningFuel(rpm, engineLoad);
 
 	print("fuel map rpm=%d, key=%f: %d\r\n", rpm, engineLoad, (int) (100 * value));
 

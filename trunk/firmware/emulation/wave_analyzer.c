@@ -253,11 +253,11 @@ static void reportWave(Logging *logging, int index) {
 	appendPrintf(logging, "%s", DELIMETER);
 
 	appendPrintf(logging, "dwell%d%s", index, DELIMETER);
-	appendFloat(logging, ((myfloat) dwell) / TICKS_IN_MS, 2);
+	appendFloat(logging, ((float) dwell) / TICKS_IN_MS, 2);
 	appendPrintf(logging, "%s", DELIMETER);
 
 	appendPrintf(logging, "period%d%s", index, DELIMETER);
-	appendFloat(logging, ((myfloat) period) / TICKS_IN_MS, 2);
+	appendFloat(logging, ((float) period) / TICKS_IN_MS, 2);
 	appendPrintf(logging, "%s", DELIMETER);
 
 //	int crank = getCrankPeriod();

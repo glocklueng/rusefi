@@ -188,7 +188,7 @@ void debugInt(Logging *logging, char *caption, int value) {
 	appendPrintf(logging, "%d%s", value, DELIMETER);
 }
 
-void appendFloat(Logging *logging, myfloat value, int precision) {
+void appendFloat(Logging *logging, float value, int precision) {
 	// todo: this implementation is less than perfect
 	switch (precision) {
 	case 1:
@@ -215,7 +215,7 @@ void appendFloat(Logging *logging, myfloat value, int precision) {
 	}
 }
 
-void debugFloat(Logging *logging, char *caption, myfloat value, int precision) {
+void debugFloat(Logging *logging, char *caption, float value, int precision) {
 	append(logging, caption);
 	append(logging, DELIMETER);
 
@@ -228,7 +228,7 @@ void logInt(Logging *logging, LoggingPoints loggingPoint, int value) {
 	debugInt(logging, caption, value);
 }
 
-void logFloat(Logging *logging, LoggingPoints loggingPoint, myfloat value) {
+void logFloat(Logging *logging, LoggingPoints loggingPoint, float value) {
 	debugFloat(logging, getCaption(loggingPoint), value, 2);
 }
 */

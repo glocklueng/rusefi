@@ -33,8 +33,8 @@ static void applyPinState(PwmConfig *state, int stateIndex) {
 static time_t getNextSwitchTime(PwmConfig *state) {
 	chDbgAssert(state->safe.phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", NULL);
 	int iteration = state->safe.iteration;
-	myfloat switchTime = state->multiWave.switchTimes[state->safe.phaseIndex];
-	myfloat period = state->safe.period;
+	float switchTime = state->multiWave.switchTimes[state->safe.phaseIndex];
+	float period = state->safe.period;
 #if DEBUG_PWM
 	scheduleMsg(&logger, "iteration=%d switchTime=%f period=%f", iteration, switchTime, period);
 #endif
@@ -118,7 +118,7 @@ static msg_t deThread(PwmConfig *state) {
  * Incoming parameters are potentially just values on current stack, so we have to copy
  * into our own permanent storage, right?
  */
-void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes, int waveCount, int **pinStates) {
+void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes, int waveCount, int **pinStates) {
 	for (int phaseIndex = 0; phaseIndex < phaseCount; phaseIndex++) {
 		state->multiWave.switchTimes[phaseIndex] = switchTimes[phaseIndex];
 
@@ -130,9 +130,9 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, myfloat *switchTimes, i
 	}
 }
 
-void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, myfloat dutyCycle, myfloat freq,
+void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, float dutyCycle, float freq,
 		io_pin_e ioPin) {
-	myfloat switchTimes[] = { dutyCycle, 1 };
+	float switchTimes[] = { dutyCycle, 1 };
 	int pinStates0[] = { 0, 1 };
 
 	int *pinStates[1] = { pinStates0 };
@@ -145,7 +145,7 @@ void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin, myfl
 	weComplexInit(msg, state, 2, switchTimes, 1, pinStates);
 }
 
-void weComplexInit(char *msg, PwmConfig *state, int phaseCount, myfloat *switchTimes, int waveCount, int **pinStates) {
+void weComplexInit(char *msg, PwmConfig *state, int phaseCount, float *switchTimes, int waveCount, int **pinStates) {
 
 
 	chDbgCheck(state->period != 0, "period is not initialized");

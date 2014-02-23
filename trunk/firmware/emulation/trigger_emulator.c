@@ -33,7 +33,7 @@ void setTriggerEmulatorRPM(int rpm) {
 	if (rpm == 0) {
 		configuration.period = NAN;
 	} else {
-		myfloat gRpm = rpm * engineConfiguration->rpmMultiplier / 60.0; // per minute converted to per second
+		float gRpm = rpm * engineConfiguration->rpmMultiplier / 60.0; // per minute converted to per second
 		configuration.period = frequency2period(gRpm);
 	}
 	scheduleMsg(&logger, "Emulating position sensor(s). RPM=%d", rpm);

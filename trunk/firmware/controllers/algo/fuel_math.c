@@ -62,7 +62,7 @@ float getInjectorLag(float vBatt) {
 		warning("vBatt=", vBatt);
 		return 0;
 	}
-	myfloat vBattCorrection = interpolate2d(vBatt, engineConfiguration->battInjectorLagCorrBins,
+	float vBattCorrection = interpolate2d(vBatt, engineConfiguration->battInjectorLagCorrBins,
 			engineConfiguration->battInjectorLagCorr, VBAT_INJECTOR_CURVE_SIZE);
 	return engineConfiguration->injectorLag + vBattCorrection;
 }
@@ -86,7 +86,7 @@ float getFuelMs(int rpm) {
 	if (isCranking()) {
 		return getCrankingFuel();
 	} else {
-		myfloat fuel = getRunningFuel(rpm, getEngineLoad());
+		float fuel = getRunningFuel(rpm, getEngineLoad());
 		return fuel;
 	}
 }

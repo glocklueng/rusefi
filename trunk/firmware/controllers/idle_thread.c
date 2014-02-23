@@ -47,7 +47,7 @@ static void setIdle(int value) {
 	if (value < 1 || value > 999)
 		return;
 	scheduleSimpleMsg(&logger, "setting idle valve PWM ", value);
-	myfloat v = 0.001 * value;
+	float v = 0.001 * value;
 	idleValve.multiWave.switchTimes[0] = 1 - v;
 }
 

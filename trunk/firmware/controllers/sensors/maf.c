@@ -5,6 +5,6 @@
 
 extern engine_configuration_s *engineConfiguration;
 
-myfloat getMaf(void) {
+float getMaf(void) {
 	return getVoltageDivided(ADC_LOGIC_MAF);
 }

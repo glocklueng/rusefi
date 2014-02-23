@@ -38,7 +38,7 @@ static cyclic_buffer ignitionErrorDetection;
 
 extern int isInjectionEnabled;
 
-extern myfloat globalFuelCorrection;
+extern float globalFuelCorrection;
 
 static Logging logger;
 

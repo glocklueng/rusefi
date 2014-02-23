@@ -6,8 +6,8 @@
 
 extern engine_configuration_s *engineConfiguration;
 
-myfloat getAfr(void) {
-	myfloat volts = getVoltageDivided(ADC_LOGIC_AFR);
+float getAfr(void) {
+	float volts = getVoltageDivided(ADC_LOGIC_AFR);
 
 	/**
 	 * This decodes BPSX D1 Wideband Controller analog signal
