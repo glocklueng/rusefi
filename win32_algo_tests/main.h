@@ -20,14 +20,13 @@
 typedef int bool_t;
 
 void fatal(x);
+void chDbgAssert(int c, char *msg, void *arg);
 
 void print(const char *fmt, ...);
 
 #define TICKS_IN_MS 100
 
 #define DEBUG_INTERPOLATION 1
-
-void chDbgAssert(int c, char *msg, void *arg);
 
 #define chDbgCheck(x, y) chDbgAssert(x, y, NULL)
 
