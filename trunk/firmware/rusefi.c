@@ -167,5 +167,5 @@ void scheduleReset(void) {
 }
 
 int getVersion(void) {
-	return 20140221;
+	return 20140223;
 }
