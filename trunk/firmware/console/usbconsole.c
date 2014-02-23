@@ -6,8 +6,9 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
-#include "ch.h"
-#include "hal.h"
+#include "main.h"
+
+#if EFI_SERIAL_OVER_USB || EFI_TUNER_STUDIO_OVER_USB
 
 #include "usbconsole.h"
 #include "usbcfg.h"
@@ -46,6 +47,8 @@ void usb_serial_start(void) {
 int is_usb_serial_ready(void) {
 	return SDU1.config->usbp->state == USB_ACTIVE;
 }
+
+#endif
 
 #ifdef EFI_SERIAL_OVER_USB
 int is_serial_ready(void) {
