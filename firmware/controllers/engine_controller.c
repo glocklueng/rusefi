@@ -9,7 +9,7 @@
  */
 
 #include "main.h"
-#include "trigger_input.h"
+#include "trigger_central.h"
 #include "engine_controller.h"
 #include "rpm_calculator.h"
 #include "idle_thread.h"
