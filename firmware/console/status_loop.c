@@ -37,6 +37,8 @@
 #include "lcd_2x16.h"
 #include "rfiutil.h"
 
+#if EFI_PROD_CODE
+
 extern engine_configuration_s * engineConfiguration;
 extern engine_configuration2_s * engineConfiguration2;
 
@@ -300,3 +302,4 @@ void updateHD44780lcd(void) {
 	lcd_HD44780_print_string(buffer);
 
 }
+#endif
