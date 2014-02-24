@@ -168,6 +168,7 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	console \
 	console/tunerstudio \
 	hw_layer \
+	hw_layer/serial_over_usb \
 	hw_layer/algo \
 	hw_layer/lcd \
 	emulation/hw_layer \
