@@ -70,6 +70,8 @@ include $(PROJECT_DIR)/config/engines/engines.mk
 include $(PROJECT_DIR)/controllers/algo/algo.mk
 include $(PROJECT_DIR)/controllers/math/math.mk
 include $(PROJECT_DIR)/controllers/sensors/sensors.mk
+include $(PROJECT_DIR)/console/console.mk
+include $(PROJECT_DIR)/console_util/console_util.mk
 
 # List C source files here
 SRC  = ${PORTSRC} \
@@ -77,9 +79,12 @@ SRC  = ${PORTSRC} \
        ${TESTSRC} \
        ${HALSRC} \
        ${PLATFORMSRC} \
+	$(CONSOLESRC) \
+	$(CONSOLEUTILSRC) \
        $(BOARDSRC) \
        ${CHIBIOS}/os/various/shell.c \
        ${CHIBIOS}/os/various/chprintf.c \
+       ${CHIBIOS}/os/various/memstreams.c \
 	$(UTILSRC) \
        main.c
 
@@ -95,6 +100,8 @@ ASRC =
 UINCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
           $(HALINC) $(PLATFORMINC) $(BOARDINC) \
 	$(PROJECT_DIR)/util \
+	$(PROJECT_DIR)/console \
+	$(PROJECT_DIR)/console_util \
 	$(PROJECT_DIR)/config/engines \
 	$(PROJECT_DIR)/ext_algo \
 	$(PROJECT_DIR)/controllers/sensors \
