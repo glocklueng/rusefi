@@ -213,6 +213,8 @@ typedef struct {
 
 	trigger_config_s triggerConfig;
 
+	int needSecondTriggerInput;
+
 } engine_configuration_s;
 
 /**
