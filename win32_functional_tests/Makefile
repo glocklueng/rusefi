@@ -82,7 +82,6 @@ SRC  = ${PORTSRC} \
 	$(CONSOLESRC) \
 	$(CONSOLEUTILSRC) \
        $(BOARDSRC) \
-       ${CHIBIOS}/os/various/shell.c \
        ${CHIBIOS}/os/various/chprintf.c \
        ${CHIBIOS}/os/various/memstreams.c \
 	$(UTILSRC) \
