@@ -5,6 +5,8 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
+#include <string.h>
+
 #include "trigger_central.h"
 #include "trigger_decoder.h"
 #include "main_trigger_callback.h"
@@ -44,8 +46,15 @@ void registerShaftPositionListener(ShaftPositionListener handler, char *msg) {
 	registerCallback(&triggerListeneres, (IntListener) handler, NULL);
 }
 
+#define HW_EVENT_TYPES 4
+
+static int hwEventCounters[HW_EVENT_TYPES];
+
 void hwHandleShaftSignal(ShaftEvents signal) {
 	int beforeCallback = hal_lld_get_counter_value();
+	int i = (int) signal;
+	chDbgCheck(i >= 0 && i < HW_EVENT_TYPES, "signal type");
+	hwEventCounters[i]++;
 
 	time_t now = chTimeNow();
 
@@ -69,10 +78,15 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 	if (!triggerState.shaft_is_synchronized)
 		return; // we should not propagate event if we do not know where we are
 
-	/**
-	 * Here we invoke all the listeners - the main engine control logic is inside these listeners
-	 */
-	invokeIntIntCallbacks(&triggerListeneres, signal, triggerState.current_index);
+	if (triggerState.current_index >= engineConfiguration2->triggerShape.shaftPositionEventCount) {
+		warning("unexpected eventIndex=", triggerState.current_index);
+	} else {
+
+		/**
+		 * Here we invoke all the listeners - the main engine control logic is inside these listeners
+		 */
+		invokeIntIntCallbacks(&triggerListeneres, signal, triggerState.current_index);
+	}
 	int afterCallback = hal_lld_get_counter_value();
 	int diff = afterCallback - beforeCallback;
 	// this counter is only 32 bits so it overflows every minute, let's ignore the value in case of the overflow for simplicity
@@ -87,6 +101,8 @@ static void showTriggerHistogram(void) {
 
 void initTriggerCentral(void) {
 	initLogging(&logging, "ShaftPosition");
+
+	memset(hwEventCounters, 0, sizeof(hwEventCounters));
 
 	resetHistogram(&triggerCallback, "trigger");
 	initTriggerDecoder();

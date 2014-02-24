@@ -76,11 +76,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 	if (!isInjectionEnabled)
 		return;
-
-	if (eventIndex < 0 || eventIndex >= engineConfiguration2->triggerShape.shaftPositionEventCount) {
-		scheduleSimpleMsg(&logger, "ERROR: eventIndex ", eventIndex);
-		return;
-	}
+	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 
 	ActuatorEventList *source =
 			isCranking() ?
@@ -150,13 +146,10 @@ void showMainHistogram(void) {
  * This is the main entry point into the primary shaft signal handler signal. Both injection and ignition are controlled from this method.
  */
 static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
+	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 	int beforeCallback = hal_lld_get_counter_value();
-	if (eventIndex >= engineConfiguration2->triggerShape.shaftPositionEventCount) {
-		warning("unexpected eventIndex=", eventIndex);
-	} else {
-		handleFuel(ckpSignalType, eventIndex);
-		handleSpark(ckpSignalType, eventIndex);
-	}
+	handleFuel(ckpSignalType, eventIndex);
+	handleSpark(ckpSignalType, eventIndex);
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
 		hsAdd(&mainLoopHisto, diff);
