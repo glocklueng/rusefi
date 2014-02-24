@@ -17,6 +17,8 @@
 #include "main.h"
 #include "shell.h"
 #include "chprintf.h"
+#include "eficonsole.h"
+
 
 #define SHELL_WA_SIZE       THD_WA_SIZE(4096)
 #define CONSOLE_WA_SIZE     THD_WA_SIZE(4096)
@@ -219,6 +221,8 @@ int main(void) {
   cputs("  - Listening for connections on SD2");
   chEvtRegister(chnGetEventSource(&SD2), &sd2fel, 2);
 
+ initializeConsole();
+
   /*
    * Events servicing loop.
    */
@@ -233,12 +237,12 @@ int main(void) {
   return 0;
 }
 
-void print(const char *format, ...) {
-	va_list ap;
-	va_start(ap, format);
-	vprintf(format, ap);
-	va_end(ap);
-}
+//void print(const char *format, ...) {
+//	va_list ap;
+//	va_start(ap, format);
+//	vprintf(format, ap);
+//	va_end(ap);
+//}
 
 int systicks2ms(int systicks) {
 	return systicks / TICKS_IN_MS;
@@ -256,9 +260,12 @@ void fatal(char *x) {
   exit(-1);
 }
 
-void sendOutConfirmation(char *value, int i) {
-}
+//void sendOutConfirmation(char *value, int i) {
+//}
 
 int hasFatalError(void) {
   return false;
+}
+int getVersion(void) {
+return 239;
 }

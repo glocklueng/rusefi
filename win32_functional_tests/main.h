@@ -2,6 +2,8 @@
 #include "global.h"
 #include "boards.h"
 
+#include "datalogging.h"
+
 // typedef int bool_t;
 
 void fatal(x);
