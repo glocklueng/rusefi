@@ -18,7 +18,7 @@
 #include "wave_analyzer.h"
 #endif
 
-#include "trigger_input.h"
+#include "trigger_central.h"
 #include "engine_state.h"
 #include "io_pins.h"
 #include "mmc_card.h"

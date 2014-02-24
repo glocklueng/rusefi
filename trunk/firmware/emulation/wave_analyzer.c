@@ -20,7 +20,7 @@
 #include "engine_state.h"
 #include "signal_executor.h"
 #include "engine_configuration.h"
-#include "trigger_input.h"
+#include "trigger_central.h"
 #include "rfiutil.h"
 
 #define CHART_RESET_DELAY 1

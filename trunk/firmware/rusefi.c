@@ -114,6 +114,7 @@ void runRusEfi(void) {
 	initStatusLoop();
 	/**
 	 * Now let's initialize actual engine control logic
+	 * todo: should we initialize some? most? controllers before hardware?
 	 */
 	initEngineContoller();
 

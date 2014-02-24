@@ -25,6 +25,7 @@
 #include "lcd_2x16.h"
 #include "eficonsole_logic.h"
 #include "flash_main.h"
+#include "trigger_central.h"
 
 McpAdcState adcState;
 
@@ -116,6 +117,9 @@ void initHardware() {
 //	init_adc_mcp3208(&adcState, &SPID2);
 //	requestAdcValue(&adcState, 0);
 
+
+	// todo: figure out better startup logic
+	initTriggerCentral();
 	initShaftPositionInputCapture();
 
 #if EFI_FILE_LOGGING
