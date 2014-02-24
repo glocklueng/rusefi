@@ -179,7 +179,8 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	controllers/sensors \
 	controllers/system \
 	controllers/algo \
-	controllers/math 
+	controllers/math \
+	controllers/trigger
 	
 
 #
