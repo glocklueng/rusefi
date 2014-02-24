@@ -65,6 +65,7 @@ include ${CHIBIOS}/os/hal/hal.mk
 include ${CHIBIOS}/os/hal/platforms/Win32/platform.mk
 include ${CHIBIOS}/os/ports/GCC/SIMIA32/port.mk
 include ${CHIBIOS}/os/kernel/kernel.mk
+
 include $(PROJECT_DIR)/util/util.mk
 include $(PROJECT_DIR)/config/engines/engines.mk
 include $(PROJECT_DIR)/controllers/algo/algo.mk
