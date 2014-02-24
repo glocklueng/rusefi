@@ -15,20 +15,20 @@
 */
 
 #include "main.h"
-#include "shell.h"
+//#include "shell.h"
 #include "chprintf.h"
 #include "eficonsole.h"
 
 
 #define SHELL_WA_SIZE       THD_WA_SIZE(4096)
 #define CONSOLE_WA_SIZE     THD_WA_SIZE(4096)
-#define TEST_WA_SIZE        THD_WA_SIZE(4096)
+//#define TEST_WA_SIZE        THD_WA_SIZE(4096)
 
 #define cputs(msg) chMsgSend(cdtp, (msg_t)msg)
 
 static Thread *cdtp;
-static Thread *shelltp1;
-static Thread *shelltp2;
+//static Thread *shelltp1;
+//static Thread *shelltp2;
 
 static void cmd_mem(BaseSequentialStream *chp, int argc, char *argv[]) {
   size_t n, size;
@@ -65,21 +65,6 @@ static void cmd_threads(BaseSequentialStream *chp, int argc, char *argv[]) {
 }
 
 
-static const ShellCommand commands[] = {
-  {"mem", cmd_mem},
-  {"threads", cmd_threads},
-  {NULL, NULL}
-};
-
-static const ShellConfig shell_cfg1 = {
-  (BaseSequentialStream *)&SD1,
-  commands
-};
-
-static const ShellConfig shell_cfg2 = {
-  (BaseSequentialStream *)&SD2,
-  commands
-};
 
 /*
  * Console print server done using synchronous messages. This makes the access
@@ -105,25 +90,22 @@ static msg_t console_thread(void *arg) {
  */
 static void termination_handler(eventid_t id) {
 
-  (void)id;
-  if (shelltp1 && chThdTerminated(shelltp1)) {
-    chThdWait(shelltp1);
-    shelltp1 = NULL;
     chThdSleepMilliseconds(10);
+
     cputs("Init: shell on SD1 terminated");
     chSysLock();
     chOQResetI(&SD1.oqueue);
     chSysUnlock();
-  }
-  if (shelltp2 && chThdTerminated(shelltp2)) {
-    chThdWait(shelltp2);
-    shelltp2 = NULL;
-    chThdSleepMilliseconds(10);
-    cputs("Init: shell on SD2 terminated");
-    chSysLock();
-    chOQResetI(&SD2.oqueue);
-    chSysUnlock();
-  }
+
+//  if (shelltp2 && chThdTerminated(shelltp2)) {
+//    chThdWait(shelltp2);
+//    shelltp2 = NULL;
+//    chThdSleepMilliseconds(10);
+//    cputs("Init: shell on SD2 terminated");
+//    chSysLock();
+//    chOQResetI(&SD2.oqueue);
+//    chSysUnlock();
+//  }
 }
 
 static EventListener sd1fel, sd2fel;
@@ -138,9 +120,8 @@ static void sd1_handler(eventid_t id) {
 
   (void)id;
   flags = chEvtGetAndClearFlags(&sd1fel);
-  if ((flags & CHN_CONNECTED) && (shelltp1 == NULL)) {
+  if ((flags & CHN_CONNECTED)) {
     cputs("Init: connection on SD1");
-    shelltp1 = shellCreate(&shell_cfg1, SHELL_WA_SIZE, NORMALPRIO + 1);
   }
   if (flags & CHN_DISCONNECTED) {
     cputs("Init: disconnection on SD1");
@@ -160,9 +141,8 @@ static void sd2_handler(eventid_t id) {
 
   (void)id;
   flags = chEvtGetAndClearFlags(&sd2fel);
-  if ((flags & CHN_CONNECTED) && (shelltp2 == NULL)) {
+  if ((flags & CHN_CONNECTED)) {
     cputs("Init: connection on SD2");
-    shelltp2 = shellCreate(&shell_cfg2, SHELL_WA_SIZE, NORMALPRIO + 10);
   }
   if (flags & CHN_DISCONNECTED) {
     cputs("Init: disconnection on SD2");
@@ -199,12 +179,6 @@ int main(void) {
    */
   sdStart(&SD1, NULL);
   sdStart(&SD2, NULL);
-
-  /*
-   * Shell manager initialization.
-   */
-  shellInit();
-  chEvtRegister(&shell_terminated, &tel, 0);
 
   /*
    * Console thread started.
