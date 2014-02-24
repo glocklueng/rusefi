@@ -84,18 +84,20 @@ include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/ports/GCC/ARMCMx/STM32F4xx/port.mk
 include $(CHIBIOS)/os/kernel/kernel.mk
 include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
-include util/util.mk
-include console_util/console_util.mk
-include config/engines/engines.mk
-include console/console.mk
 include console/tunerstudio/tunerstudio.mk
 include ext/ext.mk
 include hw_layer/hw_layer.mk
 include emulation/emulation.mk
 include controllers/controllers.mk
-include controllers/algo/algo.mk
-include controllers/math/math.mk
-include controllers/sensors/sensors.mk
+
+include $(PROJECT_DIR)/util/util.mk
+include $(PROJECT_DIR)/config/engines/engines.mk
+include $(PROJECT_DIR)/controllers/algo/algo.mk
+include $(PROJECT_DIR)/controllers/math/math.mk
+include $(PROJECT_DIR)/controllers/sensors/sensors.mk
+include $(PROJECT_DIR)/console/console.mk
+include $(PROJECT_DIR)/console_util/console_util.mk
+
 
 # Define linker script file here
 LDSCRIPT= config/system/STM32F407xG_CCM.ld
