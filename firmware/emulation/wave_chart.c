@@ -19,6 +19,10 @@
 
 #define CHART_DELIMETER	"!"
 
+/**
+ * This is the number of events in the digital chart which would be displayed
+ * on the 'digital sniffer' pane
+ */
 static volatile int chartSize = 100;
 
 static int isChartActive = TRUE;
