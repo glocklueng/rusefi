@@ -127,7 +127,7 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 }
 
 static void showMapStats(void) {
-	scheduleSimpleMsg(&logger, "per revolution", perRevolution);
+	scheduleMsg(&logger, "per revolution %d", perRevolution);
 }
 
 float getMap(void) {

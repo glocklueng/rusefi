@@ -100,17 +100,17 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 
 //	appendMsgPrefix(&logger);
 
-	scheduleSimpleMsg(&logger, "rpmHardLimit: ", engineConfiguration->rpmHardLimit);
+	scheduleMsg(&logger, "rpmHardLimit: %d", engineConfiguration->rpmHardLimit);
 
-	scheduleSimpleMsg(&logger, "tpsMin: ", engineConfiguration->tpsMin);
-	scheduleSimpleMsg(&logger, "tpsMax: ", engineConfiguration->tpsMax);
+	scheduleMsg(&logger, "tpsMin: %d", engineConfiguration->tpsMin);
+	scheduleMsg(&logger, "tpsMax: %d", engineConfiguration->tpsMax);
 
-	scheduleSimpleMsg(&logger, "timingMode: ", engineConfiguration->timingMode);
-	scheduleSimpleMsg(&logger, "fixedModeTiming: ", (int) engineConfiguration->fixedModeTiming);
+	scheduleMsg(&logger, "timingMode: %d", engineConfiguration->timingMode);
+	scheduleMsg(&logger, "fixedModeTiming: %d", (int) engineConfiguration->fixedModeTiming);
 	scheduleMsg(&logger, "crankingChargeAngle=%f", engineConfiguration->crankingChargeAngle);
 	scheduleMsg(&logger, "globalTriggerOffsetAngle=%f", engineConfiguration->globalTriggerOffsetAngle);
 
-	scheduleSimpleMsg(&logger, "analogChartMode: ", engineConfiguration->analogChartMode);
+	scheduleMsg(&logger, "analogChartMode: %d", engineConfiguration->analogChartMode);
 
 	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->crankingSettings.crankingRpm);
 

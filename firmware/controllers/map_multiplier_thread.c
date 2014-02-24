@@ -55,7 +55,7 @@ static void maThread(int param) {
 		if (!wasNotRunningRecently)
 			continue;
 		if (isNewState)
-			scheduleSimpleMsg(&logger, "starting fuel map adjustment at ", now);
+			scheduleMsg(&logger, "starting fuel map adjustment at %d", now);
 		isNewState = FALSE;
 
 		// ideally this should be atomic, but hopefully it's good enough
