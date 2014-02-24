@@ -142,6 +142,9 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 
 	engineConfiguration->HD44780width = 16;
 	engineConfiguration->HD44780height = 2;
+
+
+	engineConfiguration->needSecondTriggerInput = TRUE;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
