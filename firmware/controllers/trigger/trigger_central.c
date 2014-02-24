@@ -52,9 +52,9 @@ static int hwEventCounters[HW_EVENT_TYPES];
 
 void hwHandleShaftSignal(ShaftEvents signal) {
 	int beforeCallback = hal_lld_get_counter_value();
-	int i = (int) signal;
-	chDbgCheck(i >= 0 && i < HW_EVENT_TYPES, "signal type");
-	hwEventCounters[i]++;
+	int eventIndex = (int) signal;
+	chDbgCheck(eventIndex >= 0 && eventIndex < HW_EVENT_TYPES, "signal type");
+	hwEventCounters[eventIndex]++;
 
 	time_t now = chTimeNow();
 
@@ -80,6 +80,8 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 
 	if (triggerState.current_index >= engineConfiguration2->triggerShape.shaftPositionEventCount) {
 		warning("unexpected eventIndex=", triggerState.current_index);
+		for (int i = 0; i < HW_EVENT_TYPES; i++)
+			scheduleMsg(&logging, "event type: %d count=%d", i, hwEventCounters[i]);
 	} else {
 
 		/**
