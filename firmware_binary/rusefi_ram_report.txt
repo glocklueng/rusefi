@@ -16,7 +16,7 @@ Record{size=1440, name=' build/obj/usb_lld.o@USBD1'}
 Record{size=1200, name=' build/obj/io_pins.o@outputs'}
 Record{size=1080, name=' build/obj/console_io.o@ .bss.consoleThreadStack'}
 Record{size=1000, name=' build/obj/settings.o@ .bss.LOGGING_BUFFER'}
-Record{size=768, name=' build/obj/rficonsole_logic.o@ .bss.consoleActions'}
+Record{size=768, name=' build/obj/eficonsole_logic.o@ .bss.consoleActions'}
 Record{size=696, name=' build/obj/wave_analyzer.o@ .bss.waThreadStack'}
 Record{size=696, name=' build/obj/tunerstudio.o@ .bss.TS_WORKING_AREA'}
 Record{size=696, name=' build/obj/mmc_card.o@ .bss.tp_MMC_Monitor'}
@@ -40,13 +40,14 @@ Record{size=268, name=' build/obj/trigger_input.o@ .bss.primaryCrankInput'}
 Record{size=260, name=' build/obj/wave_chart.o@logger'}
 Record{size=260, name=' build/obj/wave_analyzer.o@logger'}
 Record{size=260, name=' build/obj/tunerstudio.o@logger'}
-Record{size=260, name=' build/obj/trigger_input.o@logger'}
 Record{size=260, name=' build/obj/trigger_emulator.o@logger'}
+Record{size=260, name=' build/obj/trigger_decoder.o@logger'}
+Record{size=260, name=' build/obj/trigger_central.o@logging'}
 Record{size=260, name=' build/obj/status_loop.o@logger2'}
 Record{size=260, name=' build/obj/status_loop.o@logger'}
 Record{size=260, name=' build/obj/status_loop.o@ .bss.fileLogger'}
 Record{size=260, name=' build/obj/settings.o@logger'}
-Record{size=260, name=' build/obj/rficonsole.o@logger'}
+Record{size=260, name=' build/obj/rusefi.o@logging'}
 Record{size=260, name=' build/obj/pwm_generator.o@logger'}
 Record{size=260, name=' build/obj/poten.o@logger'}
 Record{size=260, name=' build/obj/pin_repository.o@logger'}
@@ -59,15 +60,18 @@ Record{size=260, name=' build/obj/ignition_central.o@logger'}
 Record{size=260, name=' build/obj/idle_thread.o@logger'}
 Record{size=260, name=' build/obj/flash_main.o@logger'}
 Record{size=260, name=' build/obj/engine_controller.o@logger'}
+Record{size=260, name=' build/obj/eficonsole_logic.o@logging'}
+Record{size=260, name=' build/obj/eficonsole.o@logger'}
 Record{size=260, name=' build/obj/analog_chart.o@logging'}
 Record{size=260, name=' build/obj/adc_inputs.o@logger'}
-Record{size=200, name=' build/obj/rficonsole_logic.o@ .bss.confirmation'}
-Record{size=200, name=' build/obj/rficonsole.o@ .bss.fatalErrorMessage'}
+Record{size=200, name=' build/obj/eficonsole_logic.o@ .bss.confirmation'}
+Record{size=200, name=' build/obj/eficonsole.o@ .bss.fatalErrorMessage'}
 Record{size=128, name=' build/obj/stm32_dma.o@ .bss.dma_isr_redir'}
-Record{size=124, name=' build/obj/trigger_input.o@ .bss.triggerListeneres'}
+Record{size=124, name=' build/obj/trigger_central.o@ .bss.triggerListeneres'}
 Record{size=120, name=' build/obj/serial_lld.o@SD3'}
 Record{size=120, name=' build/obj/serial_lld.o@SD2'}
 Record{size=120, name=' build/obj/serial_lld.o@SD1'}
+Record{size=100, name=' build/obj/efilib.o@ .bss.todofixthismesswithcopy'}
 Record{size=80, name=' build/obj/adc_inputs.o@ .bss.internalAdcIndex'}
 Record{size=72, name=' build/obj/trigger_decoder.o@ .bss.errorDetection'}
 Record{size=72, name=' build/obj/main_trigger_callback.o@ .bss.ignitionErrorDetection'}
@@ -94,6 +98,7 @@ Record{size=24, name=' build/obj/icu_lld.o@ICUD2'}
 Record{size=24, name=' build/obj/icu_lld.o@ICUD1'}
 Record{size=20, name=' build/obj/wave_analyzer.o@ .bss.tdcScheduler'}
 Record{size=20, name=' build/obj/tunerstudio_algo.o@tsState'}
+Record{size=20, name=' build/obj/rusefi.o@ .bss.resetTimer'}
 Record{size=20, name=' build/obj/pwm_lld.o@PWMD5'}
 Record{size=20, name=' build/obj/pwm_lld.o@PWMD4'}
 Record{size=20, name=' build/obj/map_averaging.o@endTimer'}
@@ -108,7 +113,7 @@ Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep2instate'}
 Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep1outstate'}
 Record{size=16, name=' build/obj/usbcfg.o@ .bss.ep1instate'}
 Record{size=16, name=' build/obj/usb_lld.o@ .bss.ep0_state'}
-Record{size=16, name=' build/obj/trigger_input.o@ .bss.triggerState'}
+Record{size=16, name=' build/obj/trigger_central.o@ .bss.triggerState'}
 Record{size=16, name=' build/obj/poten.o@config0'}
 Record{size=16, name=' build/obj/chvt.o@ *(.bss.vtlist)'}
 Record{size=16, name=' build/obj/adc_inputs.o@ .bss.samples_slow'}
@@ -126,16 +131,15 @@ Record{size=4, name=' build/obj/wave_analyzer.o@ .bss.ckpPeriod'}
 Record{size=4, name=' build/obj/tunerstudio.o@ .bss.writeRequest'}
 Record{size=4, name=' build/obj/tunerstudio.o@ .bss.writeCounter'}
 Record{size=4, name=' build/obj/tunerstudio.o@ .bss.tsCounter'}
-Record{size=4, name=' build/obj/trigger_input.o@ .bss.shaftEventCounter'}
+Record{size=4, name=' build/obj/trigger_central.o@ .bss.shaftEventCounter'}
 Record{size=4, name=' build/obj/stm32_dma.o@ .bss.dma_streams_mask'}
 Record{size=4, name=' build/obj/status_loop.o@fullLog'}
 Record{size=4, name=' build/obj/status_loop.o@ .bss.needToReportStatus'}
 Record{size=4, name=' build/obj/signal_executor.o@ .bss.outputSignalCount'}
 Record{size=4, name=' build/obj/rusefi.o@ .bss.main_loop_started'}
 Record{size=4, name=' build/obj/rtc_lld.o@RTCD1'}
-Record{size=4, name=' build/obj/rtc_helper.o@ .bss.unix_time.8807'}
-Record{size=4, name=' build/obj/rtc_helper.o@ .bss.unix_time.8802'}
-Record{size=4, name=' build/obj/rficonsole_logic.o@ .bss.consoleActionCount'}
+Record{size=4, name=' build/obj/rtc_helper.o@ .bss.unix_time.8808'}
+Record{size=4, name=' build/obj/rtc_helper.o@ .bss.unix_time.8803'}
 Record{size=4, name=' build/obj/pin_repository.o@ .bss.totalPinsUsed'}
 Record{size=4, name=' build/obj/pin_repository.o@ .bss.initialized'}
 Record{size=4, name=' build/obj/mmc_card.o@ .bss.totalLoggedBytes'}
@@ -161,6 +165,7 @@ Record{size=4, name=' build/obj/hardware.o@txbuf'}
 Record{size=4, name=' build/obj/fuel_math.o@ .bss.initialized'}
 Record{size=4, name=' build/obj/ff.o@FatFs'}
 Record{size=4, name=' build/obj/engine_emulator.o@flag'}
+Record{size=4, name=' build/obj/eficonsole_logic.o@ .bss.consoleActionCount'}
 Record{size=4, name=' build/obj/console_io.o@ .bss.console_line_callback'}
 Record{size=4, name=' build/obj/chmemcore.o@ *(.bss.nextmem)'}
 Record{size=4, name=' build/obj/chmemcore.o@ *(.bss.endmem)'}
@@ -184,4 +189,4 @@ Record{size=2, name=' build/obj/ff.o@Fsid'}
 Record{size=1, name=' build/obj/mmc_card.o@fs_ready'}
 Record{size=1, name=' build/obj/lcd_2x16.o@ .bss.lcd_2x16_command'}
 Record{size=1, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferInited'}
-Total size: 92305
+Total size: 93205
