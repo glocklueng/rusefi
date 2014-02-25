@@ -6,10 +6,10 @@ LIBS:linear
 LIBS:special
 LIBS:analog_switches
 LIBS:stm32
-LIBS:art-electro-conn
-LIBS:art-electro-ic
-LIBS:art-electro-conn_2
 LIBS:logo_flipped
+LIBS:art-electro-conn
+LIBS:art-electro-conn_2
+LIBS:art-electro-ic
 LIBS:stm32f407_board-cache
 EELAYER 24 0
 EELAYER END
@@ -17,7 +17,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "16 Фев 2014"
+Date "25 Фев 2014"
 Rev ""
 Comp ""
 Comment1 ""

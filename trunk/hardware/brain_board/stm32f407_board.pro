@@ -1,6 +1,6 @@
-update=16/02/2014 07:19:01
+update=Втр 25 Фев 2014 18:37:07
 version=1
-last_client=eeschema
+last_client=cvpcb
 [general]
 version=1
 [pcbnew]
@@ -33,23 +33,13 @@ LibName7=smd_resistors
 LibName8=smd_crystal&oscillator
 LibName9=smd_transistors
 LibName10=libcms
-LibName11=display
-LibName12=led
-LibName13=dip_sockets
-LibName14=pga_sockets
-LibName15=valves
-LibName16=lib/art-electro-conn
-LibName17=lib/art-electro-conn_2
-LibName18=lib/logo_flipped
-LibDir=
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+LibName11=logo_flipped
+LibName12=art-electro-conn
+LibName13=art-electro-conn_2
+LibDir=../rusefi_lib
 [eeschema]
 version=1
-LibDir=
+LibDir=../rusefi_lib
 NetFmtName=
 RptD_X=0
 RptD_Y=100
@@ -63,7 +53,12 @@ LibName4=linear
 LibName5=special
 LibName6=analog_switches
 LibName7=stm32
-LibName8=lib/art-electro-conn
-LibName9=lib/art-electro-ic
-LibName10=lib/art-electro-conn_2
-LibName11=lib/logo_flipped
+LibName8=logo_flipped
+LibName9=art-electro-conn
+LibName10=art-electro-conn_2
+LibName11=art-electro-ic
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
