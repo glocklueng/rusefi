@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Чтв 20 Фев 2014 17:40:39
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Втр 25 Фев 2014 19:08:09
 
 BeginCmp
 TimeStamp = /52CAD8F7;
@@ -36,24 +36,10 @@ IdModule  = JUMPER-2;
 EndCmp
 
 BeginCmp
-TimeStamp = /52E4A990;
-Reference = M470;
-ValeurCmp = CONN_1;
-IdModule  = PIN_ARRAY_1;
-EndCmp
-
-BeginCmp
 TimeStamp = /52E4A9A2;
 Reference = M471;
 ValeurCmp = CONN_1;
 IdModule  = PIN_ARRAY_1;
-EndCmp
-
-BeginCmp
-TimeStamp = /5300FF05;
-Reference = P1;
-ValeurCmp = CONN_2;
-IdModule  = bornier2;
 EndCmp
 
 BeginCmp
@@ -68,6 +54,13 @@ TimeStamp = /52CADBC1;
 Reference = P472;
 ValeurCmp = CONN_2;
 IdModule  = PIN_ARRAY_2_A;
+EndCmp
+
+BeginCmp
+TimeStamp = /5300FF05;
+Reference = P473;
+ValeurCmp = CONN_2;
+IdModule  = bornier2;
 EndCmp
 
 BeginCmp

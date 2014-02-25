@@ -12,7 +12,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "20 Фев 2014"
+Date "25 Фев 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -292,18 +292,6 @@ Wire Wire Line
 Wire Wire Line
 	5725 2625 5600 2625
 $Comp
-L CONN_1 M470
-U 1 1 52E4A990
-P 6600 1050
-F 0 "M470" H 6680 1050 40  0000 L CNN
-F 1 "CONN_1" H 6600 1105 30  0001 C CNN
-F 2 "" H 6600 1050 60  0000 C CNN
-F 3 "" H 6600 1050 60  0000 C CNN
-	1    6600 1050
-	1    0    0    -1  
-$EndComp
-NoConn ~ 6450 1050
-$Comp
 L CONN_1 M471
 U 1 1 52E4A9A2
 P 6600 1200
@@ -318,10 +306,10 @@ NoConn ~ 6450 1200
 Text Notes 5950 4200 0    160  ~ 0
 CAN level shifter
 $Comp
-L CONN_2 P1
+L CONN_2 P473
 U 1 1 5300FF05
 P 7550 1850
-F 0 "P1" V 7500 1850 40  0000 C CNN
+F 0 "P473" V 7500 1850 40  0000 C CNN
 F 1 "CONN_2" V 7600 1850 40  0000 C CNN
 F 2 "" H 7550 1850 60  0000 C CNN
 F 3 "" H 7550 1850 60  0000 C CNN
@@ -349,4 +337,6 @@ F 3 "" H 4350 3000 60  0000 C CNN
 	1    4350 3000
 	1    0    0    -1  
 $EndComp
+Text Notes 7200 1600 0    60   ~ 0
+big pins
 $EndSCHEMATC
