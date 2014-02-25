@@ -2336,4 +2336,6 @@ F 3 "" H 12000 9450 60  0000 C CNN
 	1    12000 9450
 	1    0    0    -1  
 $EndComp
+Text Notes 13150 6150 0    60   ~ 0
+diodes schottky 20V 1A SD0805S020S1R0
 $EndSCHEMATC
