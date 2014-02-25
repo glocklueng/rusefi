@@ -1,6 +1,6 @@
-update=Птн 21 Фев 2014 12:07:58
+update=Втр 25 Фев 2014 09:31:09
 version=1
-last_client=cvpcb
+last_client=eeschema
 [general]
 version=1
 [pcbnew]
@@ -37,6 +37,11 @@ LibName11=pga_sockets
 LibName12=logo_flipped
 LibName13=art-electro-conn
 LibDir=../rusefi_lib
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [eeschema]
 version=1
 LibDir=../rusefi_lib
@@ -51,8 +56,4 @@ LibName2=device
 LibName3=conn
 LibName4=logo_flipped
 LibName5=art-electro-conn
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+LibName6=interface

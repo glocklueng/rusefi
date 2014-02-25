@@ -4,6 +4,7 @@ LIBS:device
 LIBS:conn
 LIBS:logo_flipped
 LIBS:art-electro-conn
+LIBS:interface
 LIBS:mmc_usb_1-cache
 EELAYER 24 0
 EELAYER END
@@ -11,7 +12,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "21 Фев 2014"
+Date "25 Фев 2014"
 Rev ""
 Comp ""
 Comment1 ""
