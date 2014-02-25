@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Втр 25 Фев 2014 18:37:08
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Втр 25 Фев 2014 19:59:42
 
 BeginCmp
 TimeStamp = /52CFBA3E;
@@ -193,14 +193,14 @@ BeginCmp
 TimeStamp = /52D3B74A;
 Reference = D5;
 ValeurCmp = DIODESCH;
-IdModule  = SOD-323;
+IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52D3B48A;
 Reference = D6;
 ValeurCmp = DIODESCH;
-IdModule  = SOD-323;
+IdModule  = SM0805;
 EndCmp
 
 BeginCmp
@@ -221,14 +221,14 @@ BeginCmp
 TimeStamp = /52DFC5B8;
 Reference = D9;
 ValeurCmp = DIODESCH;
-IdModule  = SOD-323;
+IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /52DFD2DE;
 Reference = D10;
 ValeurCmp = DIODESCH;
-IdModule  = SOD-323;
+IdModule  = SM0805;
 EndCmp
 
 BeginCmp
