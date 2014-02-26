@@ -180,5 +180,5 @@ void onFatalError(const char *msg, char * file, int line) {
 }
 
 int getVersion(void) {
-	return 20140224;
+	return 20140226;
 }

@@ -10,7 +10,7 @@
 #define RTC_HELPER_H_
 
 void initRtc(void);
-static void date_set_tm(struct tm *);
-static void date_get_tm(struct tm *);
+void date_set_tm(struct tm *);
+void date_get_tm(struct tm *);
 
 #endif /* RTC_HELPER_H_ */

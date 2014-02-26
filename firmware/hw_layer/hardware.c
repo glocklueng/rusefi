@@ -140,7 +140,7 @@ void initHardware() {
 #endif
 
 #if EFI_HD44780_LCD
-	initI2Cmodule();
+//	initI2Cmodule();
 	lcd_HD44780_init();
 #endif
 
