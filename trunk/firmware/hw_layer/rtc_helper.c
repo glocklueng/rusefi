@@ -55,11 +55,11 @@ static void date_set(char *strDate) {
 	print("date_set Date parameter %s is wrong\r\n", strDate);
 }
 
-static void date_set_tm(struct tm *timp) {
+void date_set_tm(struct tm *timp) {
 	rtcSetTimeTm(&RTCD1, timp);
 }
 
-static void date_get_tm(struct tm *timp) {
+void date_get_tm(struct tm *timp) {
 	rtcGetTimeTm(&RTCD1, timp);
 }
 

@@ -47,16 +47,17 @@ static void printGpsInfo(void) {
 	print("GPS longitude = %f\r\n", GPSdata.longitude);
 }
 
+static struct tm curTm;
+
 static void onGpsMessage(char *buffer) {
-	struct tm *curTm;
 	
 	gps_location(&GPSdata, buffer);
 	date_get_tm(&curTm);
 
-	if(GPSdata.quality == 4 && GPSdata.GPStm.tm_year > 0 && GPSdata..GPStm.tm_sec != curTm.tm_sec) {		
+	if(GPSdata.quality == 4 && GPSdata.GPStm.tm_year > 0 && GPSdata.GPStm.tm_sec != curTm.tm_sec) {
 		// quality =4 (valis GxRMC), year > 0, and difference more then second
 			date_set_tm(&GPSdata.GPStm);					// set GPS time
-		}
+		//}
 	}
 	gpsMesagesCount++;
 }
