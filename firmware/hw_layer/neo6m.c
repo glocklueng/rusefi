@@ -22,7 +22,7 @@
 
 #if EFI_UART_GPS
 
-static Logging logger;
+static Logging logging;
 
 static SerialConfig GPSserialConfig = { GPS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 static WORKING_AREA(GPS_WORKING_AREA, UTILITY_THREAD_STACK_SIZE);
@@ -41,7 +41,11 @@ float getCurrentSpeed(void) {
 
 static void printGpsInfo(void) {
 	// todo: scheduleMsg()
-	print("m=%d,e=%d: GPS speed = %f\r\n", gpsMesagesCount, uartErrors, getCurrentSpeed());
+
+	scheduleMsg(&logging, "GPS RX %s%d", portname(GPS_PORT), GPS_SERIAL_RX_PIN);
+	scheduleMsg(&logging, "GPS TX %s%d", portname(GPS_PORT), GPS_SERIAL_TX_PIN);
+
+	scheduleMsg(&logging, "m=%d,e=%d: vehicle speed = %f\r\n", gpsMesagesCount, uartErrors, getCurrentSpeed());
 
 	print("GPS latitude = %f\r\n", GPSdata.latitude);
 	print("GPS longitude = %f\r\n", GPSdata.longitude);
@@ -93,7 +97,7 @@ static msg_t GpsThreadEntryPoint(void *arg) {
 }
 
 void initGps(void) {
-	initLogging(&logger, "uart gps");
+	initLogging(&logging, "uart gps");
 
 	sdStart(GPS_SERIAL_DEVICE, &GPSserialConfig);
 //  GPS we have USART1: PB7 -> USART1_RX and PB6 -> USART1_TX
