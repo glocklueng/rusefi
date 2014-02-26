@@ -1,12 +1,18 @@
+@echo off
 rm -rf .dep/
 
 rm -rf build\rusefi.hex
+echo Starting compilation
 make
 
-cd build
-if not exist rusefi.hex echo "compilation failed"
-if not exist rusefi.hex exit -1
-cd ..
+rem cd build
+rem if not exist rusefi.hex echo "compilation failed"
+rem if not exist rusefi.hex exit -1
+rem cd ..
+if errorlevel 1 goto error
+ 
+echo Build complete success.
+
 
 svn info > ../firmware_binary/version.txt
 cp config/features.h ../firmware_binary
@@ -26,3 +32,7 @@ java -jar ../../java_tools/gcc_map_reader.jar > ../../firmware_binary/rusefi_ram
 cd ..
 
 flash.bat
+exit
+
+:error
+echo Compilation failed
