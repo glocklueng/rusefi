@@ -38,7 +38,8 @@ static int adcCallbackCounter_slow = 0;
 
 static int adcDebugReporting = FALSE;
 
-static int internalAdcIndex[20];
+static int internalAdcIndexByHardwareIndex[20];
+static int hardwareIndexByIndernalAdcIndex[20];
 
 static int fastAdcValue;
 extern engine_configuration_s *engineConfiguration;
@@ -187,7 +188,7 @@ int getInternalAdcValue(int hwIndex) {
 //	if (hwIndex==ADC_NUMBER_CHANNELS_FAST)
 //		return fastAdcValue;
 
-	int internalIndex = internalAdcIndex[hwIndex];
+	int internalIndex = internalAdcIndexByHardwareIndex[hwIndex];
 	return getAdcValueByIndex(internalIndex);
 }
 
@@ -208,9 +209,9 @@ static void initAdcPin(ioportid_t port, int pin, char *msg) {
 	mySetPadMode("adc input", port, pin, PAL_MODE_INPUT_ANALOG);
 }
 
-GPIO_TypeDef* getAdcChannelPort(int channel) {
+GPIO_TypeDef* getAdcChannelPort(int hwChannel) {
 	// todo: replace this with an array :)
-	switch (channel) {
+	switch (hwChannel) {
 	case ADC_CHANNEL_IN0:
 		return GPIOA;
 	case ADC_CHANNEL_IN1:
@@ -249,9 +250,9 @@ GPIO_TypeDef* getAdcChannelPort(int channel) {
 	}
 }
 
-int getAdcChannelPin(int channel) {
+int getAdcChannelPin(int hwChannel) {
 	// todo: replace this with an array :)
-	switch (channel) {
+	switch (hwChannel) {
 	case ADC_CHANNEL_IN0:
 		return 0;
 	case ADC_CHANNEL_IN1:
@@ -291,15 +292,16 @@ int getAdcChannelPin(int channel) {
 	}
 }
 
-static void initAdcHwChannel(int channel) {
-	GPIO_TypeDef* port = getAdcChannelPort(channel);
-	int pin = getAdcChannelPin(channel);
+static void initAdcHwChannel(int hwChannel) {
+	GPIO_TypeDef* port = getAdcChannelPort(hwChannel);
+	int pin = getAdcChannelPin(hwChannel);
 
 	initAdcPin(port, pin, "hw");
 }
 
 void initSlowChannel(int logicChannel, int hwChannel) {
-	internalAdcIndex[hwChannel] = logicChannel;
+	internalAdcIndexByHardwareIndex[hwChannel] = logicChannel;
+	hardwareIndexByIndernalAdcIndex[logicChannel] = hwChannel;
 	if (logicChannel < 6) {
 		adcgrpcfg_slow.sqr3 += (hwChannel) << (5 * logicChannel);
 	} else {
@@ -316,10 +318,14 @@ static void printAdcValue(int channel) {
 }
 
 static void printFullAdcReport(void) {
-	for (int i = 0; i < EFI_ADC_SLOW_CHANNELS_COUNT; i++) {
-		int value = getAdcValueByIndex(i);
-		appendPrintf(&logger, " ch%d%s", i, DELIMETER);
-		appendPrintf(&logger, " val= %d%s", value, DELIMETER);
+	for (int index = 0; index < EFI_ADC_SLOW_CHANNELS_COUNT; index++) {
+		int hwIndex = hardwareIndexByIndernalAdcIndex[index];
+		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
+		int pin = getAdcChannelPin(hwIndex);
+
+		int value = getAdcValueByIndex(index);
+		appendPrintf(&logger, " ch%d %s%d%s", index, portname(port), pin, DELIMETER);
+		appendPrintf(&logger, " ADC%d val= %d%s", hwIndex, value, DELIMETER);
 		float volts = adcToVoltsDivided(value);
 		debugFloat(&logger, "v ", volts, 1);
 	}
