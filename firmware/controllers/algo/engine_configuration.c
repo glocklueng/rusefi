@@ -144,6 +144,8 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->HD44780height = 2;
 
 
+	engineConfiguration->tpsAdcChannel = 3;
+
 	engineConfiguration->needSecondTriggerInput = TRUE;
 }
 
