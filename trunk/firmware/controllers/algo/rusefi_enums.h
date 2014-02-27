@@ -166,7 +166,62 @@ typedef enum {
 	IE_NO_ERROR = 0,
 	IE_UNEXPECTED_FIRING_ORDER = 1,
 
+	Internal_ForceMyEnumIntSize_cranking_internal_error = ENUM_SIZE_HACK,
 } internal_error_e;
+
+typedef enum {
+	GPIOA_0 = 0,
+	GPIOA_1 = 1,
+	GPIOA_2 = 2,
+	GPIOA_3 = 3,
+	GPIOA_4 = 4,
+	GPIOA_5 = 5,
+	GPIOA_6 = 6,
+	GPIOA_7 = 7,
+	GPIOA_8 = 8,
+	GPIOA_9 = 9,
+	GPIOA_10 = 10,
+	GPIOA_11 = 11,
+	GPIOA_12 = 12,
+	GPIOA_13 = 13,
+	GPIOA_14 = 14,
+	GPIOA_15 = 15,
+
+	GPIOB_0 = 16,
+	GPIOB_1 = 17,
+	GPIOB_2 = 18,
+	GPIOB_3 = 19,
+	GPIOB_4 = 20,
+	GPIOB_5 = 21,
+	GPIOB_6 = 22,
+	GPIOB_7 = 23,
+	GPIOB_8 = 24,
+	GPIOB_9 = 25,
+	GPIOB_10 = 26,
+	GPIOB_11 = 27,
+	GPIOB_12 = 28,
+	GPIOB_13 = 29,
+	GPIOB_14 = 30,
+	GPIOB_15 = 31,
+
+	GPIOC_0 = 32,
+	GPIOC_1 = 33,
+	GPIOC_2 = 34,
+	GPIOC_3 = 35,
+	GPIOC_4 = 36,
+	GPIOC_5 = 37,
+	GPIOC_6 = 38,
+	GPIOC_7 = 39,
+	GPIOC_8 = 40,
+	GPIOC_9 = 41,
+	GPIOC_10 = 42,
+	GPIOC_11 = 43,
+	GPIOC_12 = 44,
+	GPIOC_13 = 45,
+	GPIOC_14 = 46,
+	GPIOC_15 = 47,
+
+} brain_pin_e;
 
 
 #endif /* RUSEFI_ENUMS_H_ */

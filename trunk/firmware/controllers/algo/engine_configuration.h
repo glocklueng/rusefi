@@ -209,7 +209,9 @@ typedef struct {
 	int firmwareVersion;
 	int HD44780width;
 	int HD44780height;
-	float unusedArray[8 + 5]; // size 32
+
+	int tpsAdcChannel;
+	float unusedArray[8 + 4];
 
 	trigger_config_s triggerConfig;
 
