@@ -22,7 +22,7 @@ float getTpsValue(int adc) {
  * Return voltage on TPS AND channel
  * */
 float getTPSVoltage(void) {
-	return getVoltageDivided(ADC_LOGIC_TPS);
+	return getVoltageDivided(engineConfiguration->tpsAdcChannel);
 }
 
 /*
@@ -31,7 +31,7 @@ float getTPSVoltage(void) {
  * wants a TPS value.
  */
 int getTPSAdc(void) {
-	int adc = getAdcValue(ADC_LOGIC_TPS);
+	int adc = getAdcValue(engineConfiguration->tpsAdcChannel);
 	return (int) adc / 4; // Only for TunerStudio compatibility. Max TS adc value in 1023
 }
 

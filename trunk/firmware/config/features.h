@@ -108,7 +108,7 @@
 /**
  * Do we need GPS logic?
  */
-//#define EFI_UART_GPS TRUE
+#define EFI_UART_GPS TRUE
 
 //#define EFI_IDLE_CONTROL TRUE
 #define EFI_IDLE_CONTROL FALSE
