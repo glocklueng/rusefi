@@ -179,6 +179,38 @@ void onFatalError(const char *msg, char * file, int line) {
 	}
 }
 
+void DebugMonitorVector(void) {
+
+	chDbgPanic("DebugMonitorVector", __FILE__, __LINE__);
+
+	while (TRUE)
+		;
+}
+
+void UsageFaultVector(void) {
+
+	chDbgPanic("UsageFaultVector", __FILE__, __LINE__);
+
+  while (TRUE)
+    ;
+}
+
+void BusFaultVector(void) {
+
+	chDbgPanic("BusFaultVector", __FILE__, __LINE__);
+
+  while (TRUE)
+    ;
+}
+
+void HardFaultVector(void) {
+
+	chDbgPanic("HardFaultVector", __FILE__, __LINE__);
+
+  while (TRUE)
+    ;
+}
+
 int getVersion(void) {
-	return 20140226;
+	return 20140228;
 }
