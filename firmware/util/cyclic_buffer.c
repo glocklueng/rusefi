@@ -28,7 +28,7 @@ void cbAdd(cyclic_buffer *cb, int value) {
 int cbSum(cyclic_buffer *cb, int length) {
 	int l = length > cb->count ? cb->count : length;
 	int result = 0;
-	int ci = cb->currentIndex; // local copy to increase thread-safery
+	int ci = cb->currentIndex; // local copy to increase thread-safety
 	for (int i = 0; i < l; i++) {
 		int index = ci - i;
 		while (index < 0)
