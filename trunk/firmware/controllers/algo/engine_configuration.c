@@ -93,7 +93,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 
 	engineConfiguration->analogInputDividerCoefficient = 2;
 
-	engineConfiguration->crankingChargeAngle = 76;
+	engineConfiguration->crankingChargeAngle = 70;
 	engineConfiguration->timingMode = TM_DYNAMIC;
 	engineConfiguration->fixedModeTiming = 50;
 
@@ -147,6 +147,11 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->tpsAdcChannel = 3;
 
 	engineConfiguration->needSecondTriggerInput = TRUE;
+
+	engineConfiguration->injectionPins[0] = GPIOB_9;
+	engineConfiguration->injectionPins[1] = GPIOB_8;
+	engineConfiguration->injectionPins[2] = GPIOE_3;
+	engineConfiguration->injectionPins[3] = GPIOE_5;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {

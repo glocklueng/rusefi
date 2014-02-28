@@ -211,12 +211,14 @@ typedef struct {
 	int HD44780height;
 
 	int tpsAdcChannel;
-	float unusedArray[8 + 4];
+	brain_pin_e injectorPins[12];
 
 	trigger_config_s triggerConfig;
 
 	int needSecondTriggerInput;
-
+	brain_pin_e injectionPins[12];
+	brain_pin_e fuelPumpPin;
+	brain_pin_e idleValvePin;
 } engine_configuration_s;
 
 /**
