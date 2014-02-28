@@ -47,6 +47,9 @@ static void printGpsInfo(void) {
 
 	scheduleMsg(&logging, "m=%d,e=%d: vehicle speed = %f\r\n", gpsMesagesCount, uartErrors, getCurrentSpeed());
 
+	float sec = ((float) chTimeNow() / TICKS_IN_MS) / 1000;
+	scheduleMsg(&logging, "communication speed: %f", gpsMesagesCount / sec);
+
 	print("GPS latitude = %f\r\n", GPSdata.latitude);
 	print("GPS longitude = %f\r\n", GPSdata.longitude);
 }
