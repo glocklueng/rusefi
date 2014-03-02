@@ -155,6 +155,9 @@ static evhandler_t fhandlers[] = { termination_handler, sd1_handler, sd2_handler
  * Simulator main.                                                        *
  *------------------------------------------------------------------------*/
 int main(void) {
+
+	initTestStream(&testStream);
+
 	EventListener tel;
 
 	/*
