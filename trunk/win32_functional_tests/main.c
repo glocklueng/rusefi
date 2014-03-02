@@ -23,11 +23,15 @@
 #define CONSOLE_WA_SIZE     THD_WA_SIZE(4096)
 //#define TEST_WA_SIZE        THD_WA_SIZE(4096)
 
-#define cputs(msg) chMsgSend(cdtp, (msg_t)msg)
-
 static Thread *cdtp;
 //static Thread *shelltp1;
 //static Thread *shelltp2;
+
+#define cputs(msg) chMsgSend(cdtp, (msg_t)msg)
+
+void mainPrint(int *p) {
+	cputs(p);
+}
 
 TestStream testStream;
 
