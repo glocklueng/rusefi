@@ -90,6 +90,11 @@ static time_t togglePwmState(PwmConfig *state) {
 	return timeToSwitch;
 }
 
+static void timerCallback(PwmConfig *state) {
+	time_t timeToSleep = togglePwmState(state);
+	scheduleTask(&state->scheduling, timeToSleep, (schfunc_t)timerCallback, state);
+}
+
 static msg_t deThread(PwmConfig *state) {
 	chRegSetThreadName("Wave");
 
@@ -166,6 +171,10 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, float *switchTim
 	state->multiWave.phaseCount = phaseCount;
 	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack),
 	NORMALPRIO, (tfunc_t) deThread, state);
+
+
+//	timerCallback(state);
+
 }
 
 void initPwmGenerator(void) {
