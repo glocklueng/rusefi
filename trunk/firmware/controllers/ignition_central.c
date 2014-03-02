@@ -22,10 +22,10 @@ void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_
 void initIgnitionCentral(void) {
 	initLogging(&logger, "IgnitionCentral");
 
-	outputPinRegisterExt("sparkout1", SPARKOUT_1_OUTPUT, SPARK_1_PORT, SPARK_1_PIN, &engineConfiguration->ignitionPinMode);
-	outputPinRegisterExt("sparkout2", SPARKOUT_2_OUTPUT, SPARK_2_PORT, SPARK_2_PIN, &engineConfiguration->ignitionPinMode);
-	outputPinRegisterExt("sparkout3", SPARKOUT_3_OUTPUT, SPARK_3_PORT, SPARK_3_PIN, &engineConfiguration->ignitionPinMode);
-	outputPinRegisterExt("sparkout4", SPARKOUT_4_OUTPUT, SPARK_4_PORT, SPARK_4_PIN, &engineConfiguration->ignitionPinMode);
+	outputPinRegisterExt2("sparkout1", SPARKOUT_1_OUTPUT, engineConfiguration->ignitionPins[0], &engineConfiguration->ignitionPinMode);
+	outputPinRegisterExt2("sparkout2", SPARKOUT_2_OUTPUT, engineConfiguration->ignitionPins[1], &engineConfiguration->ignitionPinMode);
+	outputPinRegisterExt2("sparkout3", SPARKOUT_3_OUTPUT, engineConfiguration->ignitionPins[2], &engineConfiguration->ignitionPinMode);
+	outputPinRegisterExt2("sparkout4", SPARKOUT_4_OUTPUT, engineConfiguration->ignitionPins[3], &engineConfiguration->ignitionPinMode);
 }
 
 void scheduleSparkOut(OutputSignal *igniter, int offsetSysTicks, int lengthSysTicks) {

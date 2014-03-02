@@ -86,7 +86,7 @@ static void fuelBench(char * onStr, char *offStr, char *countStr) {
 	int count = atoi(countStr);
 
 	print("Running fuel bench: ON_TIME=%f, OFF_TIME=%f. Counter=%d\r\n", onTime, offTime, count);
-	print("INJECTOR_1_OUTPUT on %s%d\r\n", portname(INJECTOR_1_PORT), INJECTOR_1_PIN);
+	scheduleMsg(&logger, "INJECTOR_1_OUTPUT on %s\r\n", hwPortname(engineConfiguration->injectionPins[0]));
 
 	for (int i = 0; i < count; i++) {
 		setOutputPinValue(INJECTOR_1_OUTPUT, TRUE);
@@ -107,11 +107,11 @@ void initInjectorCentral(void) {
 	printStatus();
 
 	// todo: should we move this code closer to the injection logic?
-	outputPinRegisterExt("injector1", INJECTOR_1_OUTPUT, INJECTOR_1_PORT, INJECTOR_1_PIN, &engineConfiguration->injectionPinMode);
-	outputPinRegisterExt("injector2", INJECTOR_2_OUTPUT, INJECTOR_2_PORT, INJECTOR_2_PIN, &engineConfiguration->injectionPinMode);
-	outputPinRegisterExt("injector3", INJECTOR_3_OUTPUT, INJECTOR_3_PORT, INJECTOR_3_PIN, &engineConfiguration->injectionPinMode);
-	outputPinRegisterExt("injector4", INJECTOR_4_OUTPUT, INJECTOR_4_PORT, INJECTOR_4_PIN, &engineConfiguration->injectionPinMode);
-	outputPinRegisterExt("injector5", INJECTOR_5_OUTPUT, INJECTOR_5_PORT, INJECTOR_5_PIN, &engineConfiguration->injectionPinMode);
+	outputPinRegisterExt2("injector1", INJECTOR_1_OUTPUT, engineConfiguration->injectionPins[0], &engineConfiguration->injectionPinMode);
+	outputPinRegisterExt2("injector2", INJECTOR_2_OUTPUT, engineConfiguration->injectionPins[1], &engineConfiguration->injectionPinMode);
+	outputPinRegisterExt2("injector3", INJECTOR_3_OUTPUT, engineConfiguration->injectionPins[2], &engineConfiguration->injectionPinMode);
+	outputPinRegisterExt2("injector4", INJECTOR_4_OUTPUT, engineConfiguration->injectionPins[3], &engineConfiguration->injectionPinMode);
+	outputPinRegisterExt2("injector5", INJECTOR_5_OUTPUT, engineConfiguration->injectionPins[4], &engineConfiguration->injectionPinMode);
 
 	addConsoleActionII("injector", setInjectorEnabled);
 	addConsoleActionI("gfc", setGlobalFuelCorrection);
