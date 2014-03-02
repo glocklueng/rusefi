@@ -45,7 +45,6 @@ void initTriggerEmulator(void) {
 
 	initLogging(&logger, "position sensor(s) emulator");
 
-
 	configuration.outputPins[0] = TRIGGER_EMILATOR_PRIMARY;
 	configuration.outputPins[1] = TRIGGER_EMILATOR_SECONDARY;
 
@@ -61,8 +60,6 @@ void initTriggerEmulator(void) {
 
 	int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
 	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates);
-
-
 
 	addConsoleActionI("rpm", &setTriggerEmulatorRPM);
 
