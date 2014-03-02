@@ -5,7 +5,7 @@
 #include <math.h>
 
 #define EFI_SUPPORT_FORD_ASPIRE TRUE
-
+#define EFI_SIGNAL_EXECUTOR_SLEEP TRUE
 
 #include "eficonsole_logic.h"
 #include "rusefi_enums.h"

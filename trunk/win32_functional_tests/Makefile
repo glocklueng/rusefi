@@ -71,6 +71,8 @@ include $(PROJECT_DIR)/config/engines/engines.mk
 include $(PROJECT_DIR)/controllers/algo/algo.mk
 include $(PROJECT_DIR)/controllers/math/math.mk
 include $(PROJECT_DIR)/controllers/sensors/sensors.mk
+include $(PROJECT_DIR)/controllers/trigger/trigger.mk
+include $(PROJECT_DIR)/controllers/system/system.mk
 include $(PROJECT_DIR)/console/console.mk
 include $(PROJECT_DIR)/console_util/console_util.mk
 
@@ -80,6 +82,8 @@ SRC  = ${PORTSRC} \
        ${TESTSRC} \
        ${HALSRC} \
        ${PLATFORMSRC} \
+	$(TRIGGERSRC) \
+	$(SYSTEMSRC) \
 	$(CONSOLESRC) \
 	$(CONSOLEUTILSRC) \
 	$(CONTROLLERS_ALGO_SRC) \
@@ -91,6 +95,7 @@ SRC  = ${PORTSRC} \
        ${CHIBIOS}/os/various/memstreams.c \
 	$(UTILSRC) \
        rusEfiFunctionalTest.c \
+       boards.c \
        main.c
 
 #	$(ENGINES_SRC) \
@@ -112,7 +117,8 @@ UINCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	$(PROJECT_DIR)/controllers/sensors \
 	$(PROJECT_DIR)/controllers/system \
 	$(PROJECT_DIR)/controllers/algo \
-	$(PROJECT_DIR)/controllers/math  \
+	$(PROJECT_DIR)/controllers/math \
+	$(PROJECT_DIR)/controllers/trigger \
         ${CHIBIOS}/os/various
 
 # List the user directory to look for the libraries here

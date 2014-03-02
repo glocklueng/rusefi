@@ -14,3 +14,4 @@ void fatal(x);
  */
 #define TICKS_IN_MS  (CH_FREQUENCY / 1000)
 
+#define hal_lld_get_counter_value() 0
