@@ -52,6 +52,9 @@ void registerShaftPositionListener(ShaftPositionListener handler, char *msg) {
 static int hwEventCounters[HW_EVENT_TYPES];
 
 void hwHandleShaftSignal(ShaftEvents signal) {
+	chDbgCheck(engineConfiguration!=NULL, "engineConfiguration");
+	chDbgCheck(engineConfiguration2!=NULL, "engineConfiguration2");
+
 	int beforeCallback = hal_lld_get_counter_value();
 	int eventIndex = (int) signal;
 	chDbgCheck(eventIndex >= 0 && eventIndex < HW_EVENT_TYPES, "signal type");
