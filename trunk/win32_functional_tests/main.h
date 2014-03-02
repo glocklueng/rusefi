@@ -4,10 +4,8 @@
 
 #include "datalogging.h"
 
-// typedef int bool_t;
-
 void fatal(x);
-//void chDbgAssert(int c, char *msg, void *arg);
+void printToWin32Console(int *p);
 
 /**
  * number of SysClock ticks in one ms
