@@ -9,3 +9,4 @@
 #define ADC_LOGIC_COOLANT 0
 
 #define EFI_CONSOLE_UART_DEVICE (&SD1)
+
