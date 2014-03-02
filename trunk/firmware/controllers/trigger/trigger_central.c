@@ -96,9 +96,8 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 		hsAdd(&triggerCallback, diff);
 }
 
-static void showTriggerHistogram(void) {
+void printAllCallbacksHistogram(void) {
 	printHistogram(&logging, &triggerCallback);
-	showMainHistogram();
 }
 
 void initTriggerCentral(void) {
@@ -109,6 +108,4 @@ void initTriggerCentral(void) {
 	resetHistogram(&triggerCallback, "trigger");
 	initTriggerDecoder();
 	clearTriggerState(&triggerState);
-
-	addConsoleAction("trigger_hist", showTriggerHistogram);
 }

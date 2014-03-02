@@ -155,7 +155,14 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 		hsAdd(&mainLoopHisto, diff);
 }
 
+static void showTriggerHistogram(void) {
+	printAllCallbacksHistogram();
+	showMainHistogram();
+}
+
 void initMainEventListener() {
+	addConsoleAction("trigger_hist", showTriggerHistogram);
+
 	initLogging(&logger, "main event handler");
 	printMsg(&logger, "initMainLoop: %d", chTimeNow());
 	cbInit(&ignitionErrorDetection);

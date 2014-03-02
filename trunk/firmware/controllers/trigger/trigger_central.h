@@ -17,5 +17,6 @@ int getCrankEventCounter(void);
 int isSignalDecoderError(void);
 void hwHandleShaftSignal(ShaftEvents signal);
 void initTriggerCentral(void);
+void printAllCallbacksHistogram(void);
 
 #endif /* TRIGGER_CENTRAL_H_ */
