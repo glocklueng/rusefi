@@ -15,13 +15,11 @@
  */
 
 #include "main.h"
-//#include "shell.h"
 #include "chprintf.h"
 #include "rusEfiFunctionalTest.h"
 
 #define SHELL_WA_SIZE       THD_WA_SIZE(4096)
 #define CONSOLE_WA_SIZE     THD_WA_SIZE(4096)
-//#define TEST_WA_SIZE        THD_WA_SIZE(4096)
 
 static Thread *cdtp;
 //static Thread *shelltp1;
@@ -29,7 +27,7 @@ static Thread *cdtp;
 
 #define cputs(msg) chMsgSend(cdtp, (msg_t)msg)
 
-void mainPrint(int *p) {
+void printToWin32Console(int *p) {
 	cputs(p);
 }
 

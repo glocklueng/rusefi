@@ -12,8 +12,8 @@
 #define ADC_LOGIC_INTAKE_AIR 0
 #define ADC_LOGIC_COOLANT 0
 
-#define DELEGAGE (&SD1)
+#define DELEGATE (&SD1)
 
-#define EFI_CONSOLE_UART_DEVICE (&SD1)
+#define EFI_CONSOLE_UART_DEVICE (&testStream)
 
 #endif /* BOARDS_FT_H_ */

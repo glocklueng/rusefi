@@ -12,6 +12,7 @@
 #include "rusefi_enums.h"
 #include "pwm_generator_logic.h"
 #include "wave_math.h"
+#include "boards.h"
 
 engine_configuration_s engineConfiguration;
 engine_configuration2_s engineConfiguration2;
@@ -38,7 +39,7 @@ float getMap(void) {
 static PwmConfig configuration;
 
 static void triggerEmulatorCallback(PwmConfig *state, int stateIndex) {
-	print("hello %d\r\n", chTimeNow());
+//	print("hello %d\r\n", chTimeNow());
 }
 
 void rusEfiFunctionalTest(void) {
@@ -57,25 +58,23 @@ void rusEfiFunctionalTest(void) {
 }
 
 static size_t wt_writes(void *ip, const uint8_t *bp, size_t n) {
-//	cputs("wt_writes");
-	return n;
+	printToWin32Console(bp);
+	return DELEGATE->vmt->write(DELEGATE, bp, n);
 }
 
 static size_t wt_reads(void *ip, uint8_t *bp, size_t n) {
-//	cputs("wt_reads");
-	//return n;
-	return SD1.vmt->read(ip, bp, n);
+	return DELEGATE->vmt->read(DELEGATE, bp, n);
 }
 
 static msg_t wt_put(void *ip, uint8_t b) {
 //	cputs("wt_put");
-	return RDY_OK;
+	return DELEGATE->vmt->put(DELEGATE, b);
 }
 
 static msg_t wt_get(void *ip) {
 //	cputs("wt_get");
 	//return 0;
-	return SD1.vmt->get(ip);
+	return DELEGATE->vmt->get(DELEGATE);
 }
 
 static const struct Win32TestStreamVMT vmt = { wt_writes, wt_reads, wt_put, wt_get };
