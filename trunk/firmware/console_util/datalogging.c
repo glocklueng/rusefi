@@ -286,17 +286,17 @@ void resetLogging(Logging *logging) {
  * This method would output a simple console message immediately.
  * This method should only be invoked on main thread because only the main thread can write to the console
  */
-void printMsg(Logging *logging, const char *fmt, ...) {
+void printMsg(Logging *logger, const char *fmt, ...) {
 //	resetLogging(logging); // I guess 'reset' is not needed here?
-	appendMsgPrefix(logging);
+	appendMsgPrefix(logger);
 
 	va_list ap;
 	va_start(ap, fmt);
-	vappendPrintf(logging, fmt, ap);
+	vappendPrintf(logger, fmt, ap);
 	va_end(ap);
 
-	append(logging, DELIMETER);
-	printLine(logging);
+	append(logger, DELIMETER);
+	printLine(logger);
 }
 
 void scheduleMsg(Logging *logging, const char *fmt, ...) {
