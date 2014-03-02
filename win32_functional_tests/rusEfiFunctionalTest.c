@@ -13,9 +13,13 @@
 #include "pwm_generator_logic.h"
 #include "wave_math.h"
 #include "boards.h"
+#include "trigger_central.h"
 
-engine_configuration_s engineConfiguration;
-engine_configuration2_s engineConfiguration2;
+static engine_configuration_s ec;
+static engine_configuration2_s ec2;
+
+engine_configuration_s * engineConfiguration = &ec;
+engine_configuration2_s *engineConfiguration2 = &ec2;
 
 void setOutputPinValue(io_pin_e pin, int logicValue) {
 }
@@ -38,7 +42,23 @@ float getMap(void) {
 
 static PwmConfig configuration;
 
+static int primaryWheelState = FALSE;
+static int secondaryWheelState = FALSE;
+
 static void triggerEmulatorCallback(PwmConfig *state, int stateIndex) {
+	int newPrimaryWheelState = state->multiWave.waves[0].pinStates[stateIndex];
+	int newSecondaryWheelState = state->multiWave.waves[1].pinStates[stateIndex];
+
+	if (primaryWheelState != newPrimaryWheelState) {
+		primaryWheelState = newPrimaryWheelState;
+		hwHandleShaftSignal(primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN);
+	}
+
+	if (secondaryWheelState != newSecondaryWheelState) {
+		secondaryWheelState = newSecondaryWheelState;
+		hwHandleShaftSignal(secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN);
+	}
+
 //	print("hello %d\r\n", chTimeNow());
 }
 
@@ -47,14 +67,13 @@ void rusEfiFunctionalTest(void) {
 
 	resetConfigurationExt(FORD_ASPIRE_1996, &engineConfiguration, &engineConfiguration2);
 
-
-	float gRpm = 1200 * engineConfiguration.rpmMultiplier / 60.0; // per minute converted to per second
+	float gRpm = 1200 * engineConfiguration->rpmMultiplier / 60.0; // per minute converted to per second
 	configuration.period = frequency2period(gRpm);
 
-
-	trigger_shape_s *s = &engineConfiguration2.triggerShape;
-	int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
-	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates, triggerEmulatorCallback);
+	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+	int *pinStates[2] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates };
+	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates,
+			triggerEmulatorCallback);
 }
 
 static size_t wt_writes(void *ip, const uint8_t *bp, size_t n) {
@@ -85,5 +104,5 @@ static msg_t wt_get(void *ip) {
 static const struct Win32TestStreamVMT vmt = { wt_writes, wt_reads, wt_put, wt_get };
 
 void initTestStream(TestStream *ts) {
-	ts->vmt    = &vmt;
+	ts->vmt = &vmt;
 }
