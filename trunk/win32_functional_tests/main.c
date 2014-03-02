@@ -233,3 +233,17 @@ int hasFatalError(void) {
 int getVersion(void) {
 	return 239;
 }
+
+//void chDbgPanic(const char *msg, char * file, int line) {
+//		printf("assert failed: %s\r\n", "namic");
+//		exit(-1);
+//}
+//
+
+//void print(const char *format, ...) {
+//	va_list ap;
+//	va_start(ap, format);
+//	vprintf(format, ap);
+//	va_end(ap);
+//}
+//
