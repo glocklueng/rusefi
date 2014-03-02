@@ -66,7 +66,12 @@ static size_t wt_reads(void *ip, uint8_t *bp, size_t n) {
 	return DELEGATE->vmt->read(DELEGATE, bp, n);
 }
 
+static char putMessageBuffer[2];
+
 static msg_t wt_put(void *ip, uint8_t b) {
+	putMessageBuffer[0] = b;
+	putMessageBuffer[1] = 0;
+	printToWin32Console(putMessageBuffer);
 //	cputs("wt_put");
 	return DELEGATE->vmt->put(DELEGATE, b);
 }
