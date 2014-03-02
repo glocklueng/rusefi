@@ -88,7 +88,6 @@ void initHardware() {
 	 */
 	initHistograms();
 
-	initPinRepository();
 
 	/**
 	 * We need the LED_ERROR pin even before we read configuration

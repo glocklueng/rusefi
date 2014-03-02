@@ -10,6 +10,7 @@
 
 void runRusEfi(void);
 int getVersion(void);
+void firmwareError(const char *fmt, ...);
 void scheduleReset(void);
 
 #endif /* RUSEFI_H_ */

@@ -18,6 +18,7 @@
 #include "engines.h"
 
 #include "datalogging.h"
+#include "chprintf.h"
 
 #include "stm32f4xx_specific.h"
 

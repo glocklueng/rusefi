@@ -77,7 +77,6 @@
  *
  */
 
-
 #include "global.h"
 
 #include "main.h"
@@ -87,24 +86,36 @@
 #include "engine_controller.h"
 #include "lcd_2x16.h"
 #include "status_loop.h"
+#include "pin_repository.h"
 #if EFI_ENGINE_EMULATOR
 #include "engine_emulator.h"
 #endif /* EFI_ENGINE_EMULATOR */
 
 #include "tunerstudio.h"
 #include "status_loop.h"
+#include "memstreams.h"
 
 static Logging logging;
 
 int main_loop_started = FALSE;
 
+static MemoryStream errorMessageStream;
+char errorMessageBuffer[200];
+bool hasFirmwareError = FALSE;
+
 void runRusEfi(void) {
+	msObjectInit(&errorMessageStream, errorMessageBuffer, sizeof(errorMessageBuffer), 0);
+
 	/**
-	 * First we should initialize serial port console, it's important to know what's going on
+	 * First data structure keeps track of which hardware I/O pins are used by whom
+	 */
+	initPinRepository();
+
+	/**
+	 * Next we should initialize serial port console, it's important to know what's going on
 	 */
 	initializeConsole();
 	initLogging(&logging, "main");
-
 
 	/**
 	 * Initialize hardware drivers
@@ -139,11 +150,9 @@ void runRusEfi(void) {
 		updateTunerStudioState();
 #endif /* EFI_TUNER_STUDIO */
 
-
 #if EFI_HD44780_LCD
 		updateHD44780lcd();
 #endif
-
 
 		chThdSleepMilliseconds(5);
 	}
@@ -165,13 +174,13 @@ static void rebootNow(void) {
 void scheduleReset(void) {
 	scheduleMsg(&logging, "Rebooting in 5 seconds...");
 	lockAnyContext();
-	chVTSetI(&resetTimer, 5 * CH_FREQUENCY, (vtfunc_t)rebootNow, NULL);
+	chVTSetI(&resetTimer, 5 * CH_FREQUENCY, (vtfunc_t) rebootNow, NULL);
 	unlockAnyContext();
 }
 
 void onFatalError(const char *msg, char * file, int line) {
 	onDbgPanic();
-	lcdShowFatalMessage((char *)msg);
+	lcdShowFatalMessage((char *) msg);
 	if (!main_loop_started) {
 		print("fatal %s %s:%d\r\n", msg, file, line);
 		chThdSleepSeconds(1);
@@ -191,26 +200,40 @@ void UsageFaultVector(void) {
 
 	chDbgPanic("UsageFaultVector", __FILE__, __LINE__);
 
-  while (TRUE)
-    ;
+	while (TRUE)
+		;
 }
 
 void BusFaultVector(void) {
 
 	chDbgPanic("BusFaultVector", __FILE__, __LINE__);
 
-  while (TRUE)
-    ;
+	while (TRUE)
+		;
 }
 
 void HardFaultVector(void) {
 
 	chDbgPanic("HardFaultVector", __FILE__, __LINE__);
 
-  while (TRUE)
-    ;
+	while (TRUE)
+		;
 }
 
 int getVersion(void) {
-	return 20140228;
+	return 20140301;
 }
+
+void firmwareError(const char *fmt, ...) {
+	if (hasFirmwareError)
+		return;
+	hasFirmwareError = TRUE;
+	errorMessageStream.eos = 0; // reset
+	va_list ap;
+	va_start(ap, fmt);
+	chvprintf((BaseSequentialStream *) &errorMessageStream, fmt, ap);
+	va_end(ap);
+
+	errorMessageStream.buffer[errorMessageStream.eos] = 0; // need to terminate explicitly
+}
+
