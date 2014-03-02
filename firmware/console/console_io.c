@@ -8,7 +8,9 @@
 #include "console_io.h"
 #include "ch.h"
 
+#if EFI_PROD_CODE
 #include "usbconsole.h"
+#endif
 #include "rfiutil.h"
 
 /**
