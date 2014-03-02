@@ -9,5 +9,6 @@
 #define RUSEFIFUNCTIONALTEST_H_
 
 void rusEfiFunctionalTest(void);
+void initTestStream(TestStream *ts);
 
 #endif /* RUSEFIFUNCTIONALTEST_H_ */
