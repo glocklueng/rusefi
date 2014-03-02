@@ -95,6 +95,7 @@ include $(PROJECT_DIR)/config/engines/engines.mk
 include $(PROJECT_DIR)/controllers/algo/algo.mk
 include $(PROJECT_DIR)/controllers/math/math.mk
 include $(PROJECT_DIR)/controllers/sensors/sensors.mk
+include $(PROJECT_DIR)/controllers/system/system.mk
 include $(PROJECT_DIR)/console/console.mk
 include $(PROJECT_DIR)/console_util/console_util.mk
 
@@ -126,6 +127,7 @@ CSRC = $(PORTSRC) \
 	$(PLATFORMSRC) \
 	$(BOARDSRC) \
 	$(FATFSSRC) \
+	$(SYSTEMSRC) \
 	rusefi.c \
 	main.c \
 
