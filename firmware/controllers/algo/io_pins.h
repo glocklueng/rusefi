@@ -94,4 +94,7 @@ int getElectricalValue(int logicalValue, pin_output_mode_e mode);
 int getOutputPinValue(io_pin_e pin);
 void setDefaultPinState(io_pin_e pin, pin_output_mode_e *defaultState);
 
+void outputPinRegisterExt2(char *msg, io_pin_e ioPin, brain_pin_e brainPin, pin_output_mode_e *outputMode);
+
+
 #endif /* STATUS_LEDS_H_ */
