@@ -1,4 +1,8 @@
 
+#ifndef BOARDS_FT_H_
+#define BOARDS_FT_H_
+
+
 #define ADC_LOGIC_TPS 0
 #define ADC_LOGIC_AFR 0
 #define ADC_LOGIC_MAF 0
@@ -8,5 +12,8 @@
 #define ADC_LOGIC_INTAKE_AIR 0
 #define ADC_LOGIC_COOLANT 0
 
+#define DELEGAGE (&SD1)
+
 #define EFI_CONSOLE_UART_DEVICE (&SD1)
 
+#endif /* BOARDS_FT_H_ */
