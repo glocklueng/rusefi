@@ -22,6 +22,8 @@ static OutputPin outputs[IO_PIN_COUNT];
 static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_DEBUG, LED_EXT_1, LED_EXT_2,
 		LED_CHECK_ENGINE };
 
+static GPIO_TypeDef *PORTS[] = {GPIOA, GPIOB, GPIOC, GPIOD, GPIOE, GPIOF, GPIOG, GPIOH};
+
 static pin_output_mode_e DEFAULT_OUTPUT = OM_DEFAULT;
 
 /**
@@ -108,6 +110,21 @@ void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_
 	initOutputPinExt(msg, &outputs[ioPin], port, pin, mode);
 
 	setDefaultPinState(ioPin, outputMode);
+}
+
+GPIO_TypeDef * getHwPort(brain_pin_e brainPin) {
+	return PORTS[brainPin / 16];
+}
+
+int getHwPin(brain_pin_e brainPin) {
+	return brainPin % 16;
+}
+
+void outputPinRegisterExt2(char *msg, io_pin_e ioPin, brain_pin_e brainPin, pin_output_mode_e *outputMode) {
+	GPIO_TypeDef *hwPort = getHwPort(brainPin);
+	int hwPin = getHwPin(brainPin);
+
+	outputPinRegisterExt(msg, ioPin, hwPort, hwPin, outputMode);
 }
 
 void outputPinRegister(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin) {
@@ -217,4 +234,3 @@ void initOutputPins(void) {
 	chThdCreateStatic(comBlinkingStack, sizeof(comBlinkingStack), NORMALPRIO, (tfunc_t) comBlinkingThread, NULL);
 	chThdCreateStatic(errBlinkingStack, sizeof(errBlinkingStack), NORMALPRIO, (tfunc_t) errBlinkingThread, NULL);
 }
-

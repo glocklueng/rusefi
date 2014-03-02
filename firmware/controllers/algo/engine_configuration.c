@@ -155,6 +155,12 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->injectionPins[3] = GPIOE_5;
 	engineConfiguration->injectionPins[4] = GPIOE_6;
 //	engineConfiguration->injectionPins[5] = GPIOE_5;
+
+	engineConfiguration->ignitionPins[0] = GPIOC_15;
+	engineConfiguration->ignitionPins[1] = GPIOE_4;
+	engineConfiguration->ignitionPins[2] = GPIOE_0;
+	engineConfiguration->ignitionPins[3] = GPIOE_1;
+
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
