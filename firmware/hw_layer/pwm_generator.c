@@ -74,7 +74,7 @@ static time_t togglePwmState(PwmConfig *state) {
 		}
 	}
 
-	applyPinState(state, state->safe.phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->safe.phaseIndex - 1);
+	state->changeStateCallback(state, state->safe.phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->safe.phaseIndex - 1);
 
 	time_t nextSwitchTime = getNextSwitchTime(state);
 #if DEBUG_PWM
@@ -91,6 +91,7 @@ static time_t togglePwmState(PwmConfig *state) {
 }
 
 static void timerCallback(PwmConfig *state) {
+	// todo: use this implementation! but something is wrong with it :(
 	time_t timeToSleep = togglePwmState(state);
 	scheduleTask(&state->scheduling, timeToSleep, (schfunc_t)timerCallback, state);
 }
@@ -163,6 +164,8 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, float *switchTim
 	state->multiWave.waveCount = waveCount;
 
 	copyPwmParameters(state, phaseCount, switchTimes, waveCount, pinStates);
+
+	state->changeStateCallback = applyPinState;
 
 	state->safe.phaseIndex = 0;
 	state->safe.period = -1;

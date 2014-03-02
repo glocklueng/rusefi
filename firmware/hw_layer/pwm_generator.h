@@ -37,10 +37,12 @@ typedef struct {
 	int phaseIndex;
 } pwm_config_safe_state_s;
 
+typedef struct PwmConfig_struct PwmConfig;
+
 /**
  * @brief   Multi-channel software PWM output configuration
  */
-typedef struct {
+struct PwmConfig_struct {
 	io_pin_e outputPins[PWM_PHASE_MAX_WAVE_PER_PWM];
 	multi_wave_s multiWave;
 	char *name;
@@ -54,7 +56,10 @@ typedef struct {
 	scheduling_s scheduling;
 
 	pwm_config_safe_state_s safe;
-} PwmConfig;
+
+	void (*changeStateCallback)(PwmConfig *state, int stateIndex);
+
+};
 
 void initPwmGenerator(void);
 void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,

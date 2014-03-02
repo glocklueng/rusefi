@@ -221,7 +221,7 @@ void HardFaultVector(void) {
 }
 
 int getVersion(void) {
-	return 20140301;
+	return 20140302;
 }
 
 void firmwareError(const char *fmt, ...) {
