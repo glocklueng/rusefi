@@ -12,7 +12,4 @@ CONTROLLERSSRC = \
 	controllers/trigger/rpm_calculator.c \
 	controllers/malfunction_indicator.c \
 	controllers/map_averaging.c \
-	controllers/map_multiplier_thread.c \
-	controllers/system/signal_executor_sleep.c \
-	controllers/system/signal_executor_single_timer.c \
-	controllers/system/signal_executor_hw_timer.c
+	controllers/map_multiplier_thread.c
