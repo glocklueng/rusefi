@@ -219,6 +219,7 @@ typedef struct {
 	brain_pin_e injectionPins[12];
 	brain_pin_e fuelPumpPin;
 	brain_pin_e idleValvePin;
+	int vBattAdcChannel;
 } engine_configuration_s;
 
 /**
