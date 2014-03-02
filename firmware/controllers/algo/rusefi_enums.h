@@ -169,6 +169,9 @@ typedef enum {
 	Internal_ForceMyEnumIntSize_cranking_internal_error = ENUM_SIZE_HACK,
 } internal_error_e;
 
+/**
+ * Hardware pin
+ */
 typedef enum {
 	GPIOA_0 = 0,
 	GPIOA_1 = 1,
