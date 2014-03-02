@@ -59,7 +59,7 @@ void initTriggerEmulator(void) {
 	setTriggerEmulatorRPM(DEFAULT_EMULATION_RPM);
 
 	int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
-	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates);
+	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates, applyPinState);
 
 	addConsoleActionI("rpm", &setTriggerEmulatorRPM);
 
