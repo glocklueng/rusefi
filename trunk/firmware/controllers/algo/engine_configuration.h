@@ -211,7 +211,7 @@ typedef struct {
 	int HD44780height;
 
 	int tpsAdcChannel;
-	brain_pin_e injectorPins[12];
+	brain_pin_e ignitionPins[12];
 
 	trigger_config_s triggerConfig;
 
