@@ -1,5 +1,7 @@
 /*
- * wave_math.h
+ * @file wave_math.h
+ * TODO: this file needs a better name, maybe the methods shoould be moved somewhere?
+ *
  *
  * @date Dec 25, 2012
  * @author Andrey Belomutskiy, (c) 2012-2013
