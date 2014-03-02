@@ -58,15 +58,15 @@ extern TunerStudioState tsState;
 static void printStats(void) {
 #if EFI_TUNER_STUDIO_OVER_USB
 #else
-	print("TS RX on %s%d\r\n", portname(TS_SERIAL_RX_PORT), TS_SERIAL_RX_PIN);
-	print("TS TX on %s%d\r\n", portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN);
+	scheduleMsg(&logger, "TS RX on %s%d", portname(TS_SERIAL_RX_PORT), TS_SERIAL_RX_PIN);
+	scheduleMsg(&logger, "TS TX on %s%d", portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN);
 #endif /* EFI_TUNER_STUDIO_OVER_USB */
-	print("TunerStudio total/error counter=%d/%d\r\n", tsCounter, tsState.errorCounter);
-	print("TunerStudio H counter=%d\r\n", tsState.queryCommandCounter);
-	print("TunerStudio O counter=%d size=%d\r\n", tsState.outputChannelsCommandCounter, sizeof(tsOutputChannels));
-	print("TunerStudio C counter=%d size=%d\r\n", tsState.readPageCommandsCounter, sizeof(tsContstants));
-	print("TunerStudio B counter=%d size=%d\r\n", tsState.burnCommandCounter, sizeof(tsContstants));
-	print("TunerStudio W counter=%d\r\n", writeCounter);
+	scheduleMsg(&logger, "TunerStudio total/error counter=%d/%d", tsCounter, tsState.errorCounter);
+	scheduleMsg(&logger, "TunerStudio H counter=%d", tsState.queryCommandCounter);
+	scheduleMsg(&logger, "TunerStudio O counter=%d size=%d", tsState.outputChannelsCommandCounter, sizeof(tsOutputChannels));
+	scheduleMsg(&logger, "TunerStudio C counter=%d size=%d", tsState.readPageCommandsCounter, sizeof(tsContstants));
+	scheduleMsg(&logger, "TunerStudio B counter=%d size=%d", tsState.burnCommandCounter, sizeof(tsContstants));
+	scheduleMsg(&logger, "TunerStudio W counter=%d", writeCounter);
 }
 
 void tunerStudioWriteData(const uint8_t * buffer, int size) {

@@ -220,10 +220,6 @@ void HardFaultVector(void) {
 		;
 }
 
-int getVersion(void) {
-	return 20140302;
-}
-
 void firmwareError(const char *fmt, ...) {
 	if (hasFirmwareError)
 		return;
@@ -237,3 +233,6 @@ void firmwareError(const char *fmt, ...) {
 	errorMessageStream.buffer[errorMessageStream.eos] = 0; // need to terminate explicitly
 }
 
+int getVersion(void) {
+	return 220140302;
+}
