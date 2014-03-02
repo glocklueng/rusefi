@@ -18,6 +18,15 @@
 
 PROJECT_DIR = ../firmware
 
+# Output directory and files
+ifeq ($(BUILDDIR),)
+  BUILDDIR = build
+endif
+ifeq ($(BUILDDIR),.)
+  BUILDDIR = build
+endif
+
+
 
 #TRGT = mingw32-
 CC   = $(TRGT)gcc
@@ -135,12 +144,28 @@ OPT = -ggdb -O2 -fomit-frame-pointer -fgnu89-inline -std=gnu99
 ##############################################################################################
 
 
+# Various directories
+OBJDIR    = $(BUILDDIR)/obj
+LSTDIR    = $(BUILDDIR)/lst
+
+
 INCDIR  = $(patsubst %,-I%,$(DINCDIR) $(UINCDIR))
 LIBDIR  = $(patsubst %,-L%,$(DLIBDIR) $(ULIBDIR))
 DEFS    = $(DDEFS) $(UDEFS)
 ADEFS   = $(DADEFS) $(UADEFS)
+#OBJS    = $(ASRC:.s=.o) $(addprefix $(OBJDIR)/, $(notdir $(SRC:.c=.o)))
 OBJS    = $(ASRC:.s=.o) $(SRC:.c=.o)
 LIBS    = $(DLIBS) $(ULIBS)
+
+#ACOBJS    = $(addprefix $(OBJDIR)/, $(notdir $(ACSRC:.c=.o)))
+#ACPPOBJS  = $(addprefix $(OBJDIR)/, $(notdir $(ACPPSRC:.cpp=.o)))
+#TCOBJS    = $(addprefix $(OBJDIR)/, $(notdir $(TCSRC:.c=.o)))
+#TCPPOBJS  = $(addprefix $(OBJDIR)/, $(notdir $(TCPPSRC:.cpp=.o)))
+#ASMOBJS   = $(addprefix $(OBJDIR)/, $(notdir $(ASMSRC:.s=.o)))
+#ASMXOBJS  = $(addprefix $(OBJDIR)/, $(notdir $(ASMXSRC:.S=.o)))
+#OBJS	  = $(ASMXOBJS) $(ASMOBJS) $(ACOBJS) $(TCOBJS) $(ACPPOBJS) $(TCPPOBJS)
+
+
 
 LDFLAGS = -Wl,-Map=$(PROJECT).map,--cref,--no-warn-mismatch $(LIBDIR)
 ASFLAGS = -Wa,-amhls=$(<:.s=.lst) $(ADEFS)
