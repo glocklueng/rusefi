@@ -23,7 +23,7 @@
  * @retval TRUE         the channel was reset or CTRL-D pressed.
  * @retval FALSE        operation successful.
  */
-static bool_t getConsoleLine(BaseChannel *chp, char *line, unsigned size) {
+static bool_t getConsoleLine(BaseSequentialStream *chp, char *line, unsigned size) {
 	char *p = line;
 
 	while (TRUE) {
@@ -75,7 +75,7 @@ static msg_t consoleThreadThreadEntryPoint(void *arg) {
 	chRegSetThreadName("console thread");
 
 	while (TRUE) {
-		bool_t end = getConsoleLine((BaseChannel *) CONSOLE_CHANNEL, consoleInput, sizeof(consoleInput));
+		bool_t end = getConsoleLine((BaseSequentialStream *) CONSOLE_CHANNEL, consoleInput, sizeof(consoleInput));
 		if (end)
 			break;
 
