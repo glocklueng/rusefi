@@ -15,16 +15,15 @@
  */
 
 #include <stdint.h>
-#include <stm32_tim.h>
 #include "hal.h"
 #include "utlist.h"
-#include "io_pins.h"
 #include "engine_math.h"	// getOneDegreeTime
 #include "rpm_calculator.h"	// getRpm
 #include "signal_executor.h"
 #include "signal_executor_single_timer_algo.h"
 
 #if EFI_WAVE_ANALYZER
+#include <stm32_tim.h>
 #include "wave_chart.h"
 /**
  * Signal executors feed digital events right into WaveChart used by Sniffer tab of Dev Console
