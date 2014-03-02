@@ -29,6 +29,8 @@ static Thread *cdtp;
 //static Thread *shelltp1;
 //static Thread *shelltp2;
 
+TestStream testStream;
+
 static void cmd_mem(BaseSequentialStream *chp, int argc, char *argv[]) {
 	size_t n, size;
 
