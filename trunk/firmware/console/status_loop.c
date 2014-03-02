@@ -180,6 +180,9 @@ static void printVersion(systime_t nowSeconds) {
 
 static systime_t timeOfPreviousReport = (systime_t) -1;
 
+extern bool hasFirmwareError;
+extern char errorMessageBuffer[200];
+
 /**
  * @brief Sends all pending data to dev console
  */
@@ -190,6 +193,12 @@ void updateDevConsoleState(void) {
 	printPending();
 
 	pokeAdcInputs();
+
+	if (hasFirmwareError) {
+		printMsg(&logger, "firmware error: %s", errorMessageBuffer);
+		return;
+	}
+
 
 	if (!fullLog)
 		return;
