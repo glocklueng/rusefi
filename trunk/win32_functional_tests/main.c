@@ -220,6 +220,8 @@ int systicks2ms(int systicks) {
 }
 
 void onFatalError(const char *msg, char * file, int line) {
+	printf("onFatalError %s %s%d", msg, file, line);
+	exit(-1);
 }
 
 void warning(char *msg, float value) {
