@@ -7,6 +7,7 @@
 
 #include <string.h>
 
+#include "main.h"
 #include "trigger_central.h"
 #include "trigger_decoder.h"
 #include "main_trigger_callback.h"
