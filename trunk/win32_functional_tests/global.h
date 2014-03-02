@@ -2,6 +2,10 @@
 #include <ch.h>
 #include <hal.h>
 #include <time.h>
+#include <math.h>
+
+#define EFI_SUPPORT_FORD_ASPIRE TRUE
+
 
 #include "eficonsole_logic.h"
 #include "rusefi_enums.h"

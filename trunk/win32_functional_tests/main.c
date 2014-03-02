@@ -17,7 +17,7 @@
 #include "main.h"
 //#include "shell.h"
 #include "chprintf.h"
-#include "eficonsole.h"
+#include "rusEfiFunctionalTest.h"
 
 #define SHELL_WA_SIZE       THD_WA_SIZE(4096)
 #define CONSOLE_WA_SIZE     THD_WA_SIZE(4096)
@@ -185,7 +185,7 @@ int main(void) {
 	cputs("  - Listening for connections on SD2");
 	chEvtRegister(chnGetEventSource(&SD2), &sd2fel, 2);
 
-	initializeConsole();
+	rusEfiFunctionalTest();
 
 	/*
 	 * Events servicing loop.
