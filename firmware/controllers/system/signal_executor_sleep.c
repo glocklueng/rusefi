@@ -10,12 +10,9 @@
  */
 
 #include "main.h"
-#include "io_pins.h"
 #include "signal_executor.h"
-#include "eficonsole.h"
 #include "datalogging.h"
 #include "rpm_calculator.h"
-#include "injector_central.h"
 #include "engine_math.h"
 
 #if EFI_SIGNAL_EXECUTOR_SLEEP || defined(__DOXYGEN__)
