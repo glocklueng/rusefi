@@ -13,6 +13,9 @@
 #include "pin_repository.h"
 #include "eficonsole.h"
 #include "eficonsole_logic.h"
+#include "memstreams.h"
+#include "chprintf.h"
+#include "rusefi.h"
 
 #define PIN_REPO_SIZE 7 * 16
 char *PIN_USED[PIN_REPO_SIZE];
@@ -68,40 +71,80 @@ static void reportPins(void) {
 	print("Total pins count: %d\r\n", totalPinsUsed);
 }
 
+static MemoryStream portNameStream;
+static char portNameBuffer[20];
+
+char *hwPortname(brain_pin_e brainPin) {
+	GPIO_TypeDef *hwPort = getHwPort(brainPin);
+	int hwPin = getHwPin(brainPin);
+	portNameStream.eos = 0; // reset
+	chprintf((BaseSequentialStream *) &portNameStream, "%s%d", portname(hwPort), hwPin);
+	portNameStream.buffer[portNameStream.eos] = 0; // need to terminate explicitly
+	return portNameBuffer;
+}
+
 void initPinRepository(void) {
+	/**
+	 * this method cannot use console because this method is invoked before console is initialized
+	 */
 	initLogging(&logger, "pin repos");
+
+	msObjectInit(&portNameStream, portNameBuffer, sizeof(portNameBuffer), 0);
 
 	for (int i = 0; i < PIN_REPO_SIZE; i++)
 		PIN_USED[i] = 0;
 	initialized = TRUE;
-	print("Initializing pin repository\r\n");
 	addConsoleAction("pins", reportPins);
 }
 
+static inline void markUsed(int index, char *msg) {
+	PIN_USED[index] = msg;
+	totalPinsUsed++;
+}
+
 /**
- * This method would crash the program if pin is already in use
+ * This method would set an error condition if pin is already used
  */
-static void registerPin(char *msg, ioportid_t port, int pin) {
+void mySetPadMode(char *msg, ioportid_t port, ioportmask_t pin, iomode_t mode) {
 	if (!initialized)
 		fatal("repo not initialized");
-	int portIndex = getPortIndex(port);
-	int index = portIndex * 16 + pin;
 	print("%s on %s:%d\r\n", msg, portname(port), pin);
 
 	appendPrintf(&logger, "msg,%s", msg);
 	appendPrintf(&logger, " on %s%d%s", portname(port), pin, DELIMETER);
 	printLine(&logger);
 
+	int portIndex = getPortIndex(port);
+	int index = portIndex * 16 + pin;
+
+	if (PIN_USED[index] != NULL) {
+		firmwareError("Pin %s%d requested by %s but already used by %s", portname(port), pin, msg, PIN_USED[index]);
+//		print("!!!!!!!!!!!!! Already used [%s] %d\r\n", msg, pin);
+//		print("!!!!!!!!!!!!! Already used by [%s]\r\n", PIN_USED[index]);
+//		fatal("pin already used");
+		return;
+	}
+	markUsed(index, msg);
+
+	palSetPadMode(port, pin, mode);
+}
+
+/**
+ * This method would crash the program if pin is already in use
+ */
+void registedFundamentralIoPin(char *msg, ioportid_t port, ioportmask_t pin, iomode_t mode) {
+	if (!initialized)
+		fatal("repo not initialized");
+
+	int portIndex = getPortIndex(port);
+	int index = portIndex * 16 + pin;
+
 	if (PIN_USED[index] != NULL) {
 		print("!!!!!!!!!!!!! Already used [%s] %d\r\n", msg, pin);
 		print("!!!!!!!!!!!!! Already used by [%s]\r\n", PIN_USED[index]);
 		fatal("pin already used");
 	}
-	PIN_USED[index] = msg;
-	totalPinsUsed++;
-}
-
-void mySetPadMode(char *msg, ioportid_t port, ioportmask_t pin, iomode_t mode) {
-	registerPin(msg, port, pin);
+	markUsed(index, msg);
 	palSetPadMode(port, pin, mode);
 }
+
