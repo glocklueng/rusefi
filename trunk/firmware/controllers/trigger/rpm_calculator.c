@@ -75,8 +75,10 @@ static int isNoisySignal(rpm_s * rpmState, int now) {
  */
 static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	if (index != 0) {
+#if EFI_PROD_CODE
 		if (engineConfiguration->analogChartMode == AC_TRIGGER)
 			acAddData(getCrankshaftAngle(chTimeNow()), 1000 * ckpEventType + index);
+#endif
 		return;
 	}
 	rpmState.revolutionCounter++;
@@ -100,8 +102,10 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 		}
 	}
 	rpmState.lastRpmEventTime = now;
+#if EFI_PROD_CODE
 	if (engineConfiguration->analogChartMode == AC_TRIGGER)
 		acAddData(getCrankshaftAngle(now), index);
+#endif
 }
 
 void initRpmCalculator(void) {
