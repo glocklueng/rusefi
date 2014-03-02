@@ -82,10 +82,15 @@ SRC  = ${PORTSRC} \
        ${PLATFORMSRC} \
 	$(CONSOLESRC) \
 	$(CONSOLEUTILSRC) \
+	$(CONTROLLERS_ALGO_SRC) \
+	$(CONTROLLERS_MATH_SRC) \
+	$(CONTROLLERS_SENSORS_SRC) \
+	$(ENGINES_SRC) \
        $(BOARDSRC) \
        ${CHIBIOS}/os/various/chprintf.c \
        ${CHIBIOS}/os/various/memstreams.c \
 	$(UTILSRC) \
+       rusEfiFunctionalTest.c \
        main.c
 
 #	$(ENGINES_SRC) \
