@@ -266,6 +266,7 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->HD44780height = 4;
 
 	engineConfiguration->tpsAdcChannel = 15; // 15 is the old value
+	engineConfiguration->vBattAdcChannel = 1; // 1 is the old value
 }
 
 void setFordAspireengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {

@@ -145,6 +145,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 
 
 	engineConfiguration->tpsAdcChannel = 3;
+	engineConfiguration->vBattAdcChannel = 5;
 
 	engineConfiguration->needSecondTriggerInput = TRUE;
 
