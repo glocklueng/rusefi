@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Втр 10 Дек 2013 18:04:55
+Cmp-Mod V01 Created by CvPcb (2013-jul-07)-stable date = Пт 28 фев 2014 10:17:09
 
 BeginCmp
 TimeStamp = /4AD9C851;
@@ -57,17 +57,17 @@ IdModule  = SM0805;
 EndCmp
 
 BeginCmp
-TimeStamp = /529380F6;
+TimeStamp = /53102B7E;
 Reference = D101;
 ValeurCmp = LED;
-IdModule  = SM0805;
+IdModule  = LED-0805_A;
 EndCmp
 
 BeginCmp
-TimeStamp = /529C6F58;
+TimeStamp = /53102B67;
 Reference = D102;
 ValeurCmp = LED;
-IdModule  = SM0805;
+IdModule  = LED-0805_A;
 EndCmp
 
 BeginCmp
