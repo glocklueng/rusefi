@@ -32,5 +32,6 @@ int getRpm(void);
 int getRevolutionCounter(void);
 float getCrankshaftAngle(time_t time);
 int isRunning(void);
+void addWaveChartEvent(char *name, char *msg, char *msg2);
 
 #endif /* RPM_REPORTER_H_ */
