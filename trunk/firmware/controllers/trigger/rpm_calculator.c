@@ -11,6 +11,7 @@
  */
 
 #include "main.h"
+#include <string.h>
 #include "rpm_calculator.h"
 #include "trigger_central.h"
 #include "wave_math.h"
@@ -21,6 +22,7 @@
 #endif /* EFI_PROD_CODE */
 
 #include "wave_chart.h"
+#include "rfiutil.h"
 
 static rpm_s rpmState;
 
@@ -99,7 +101,7 @@ static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 	if (index != 0) {
 #if EFI_PROD_CODE
 		if (engineConfiguration->analogChartMode == AC_TRIGGER)
-			acAddData(getCrankshaftAngle(chTimeNow()), 1000 * ckpEventType + index);
+			acAddData(getCrankshaftAngle(chTimeNow()), 1000 * ckpSignalType + index);
 #endif
 		return;
 	}
@@ -132,6 +134,8 @@ static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 }
 
 void initRpmCalculator(void) {
+	strcpy(shaft_signal_msg_index, "_");
+
 	rpmState.rpm = 0;
 
 	// we need this initial to have not_running at first invocation

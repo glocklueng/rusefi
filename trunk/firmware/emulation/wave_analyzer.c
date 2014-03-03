@@ -161,10 +161,7 @@ static msg_t waThread(void *arg) {
 	while (TRUE) {
 		chThdSleepSeconds(CHART_RESET_DELAY);
 
-		if (isWaveChartFull(&waveChart)) {
-			publishChart(&waveChart);
-			resetWaveChart(&waveChart);
-		}
+		publishChartIfFull(&waveChart);
 	}
 #if defined __GNUC__
 	return -1;
@@ -257,9 +254,6 @@ void printWave(Logging *logging) {
 
 void initWaveAnalyzer(void) {
 #ifdef EFI_WAVE_ANALYZER
-
-	strcpy(shaft_signal_msg_index, "_");
-
 	initLogging(&logger, "wave");
 
 	initWave("input1 A8", 0, &LOGIC_ANALYZER_1_DRIVER, LOGIC_ANALYZER_1_PORT, LOGIC_ANALYZER_1_PIN, 1);

@@ -32,5 +32,6 @@ void initWaveChart(WaveChart *chart);
 void resetWaveChart(WaveChart *chart);
 void setChartSize(int newSize);
 int isWaveChartFull(WaveChart *chart);
+void publishChartIfFull(WaveChart *chart);
 
 #endif /* WAVE_CHART_H_ */
