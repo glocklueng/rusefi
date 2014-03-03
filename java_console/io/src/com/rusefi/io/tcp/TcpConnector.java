@@ -2,8 +2,9 @@ package com.rusefi.io.tcp;
 
 import com.irnems.FileLog;
 import com.rusefi.io.LinkConnector;
+import com.rusefi.io.LinkManager;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.net.URLConnection;
 import java.util.Collection;
@@ -18,6 +19,7 @@ public class TcpConnector implements LinkConnector {
     public static final String LOCALHOST = "localhost";
     private final int port;
     private Socket socket;
+    private BufferedInputStream stream;
 
     public TcpConnector(String port) {
         this.port = getTcpPort(port);
@@ -41,6 +43,24 @@ public class TcpConnector implements LinkConnector {
         FileLog.rlog("Connecting to " + port);
         try {
             socket = new Socket(LOCALHOST, port);
+            stream = new BufferedInputStream(socket.getInputStream());
+
+            final BufferedReader r = new BufferedReader(new InputStreamReader(stream));
+
+            LinkManager.IO_EXECUTOR.execute(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        try {
+                            String line = r.readLine();
+                            LinkManager.engineState.append(line + "\r\n");
+                        } catch (IOException e) {
+                            System.err.println("End of connection");
+                            return;
+                        }
+                    }
+                }
+            });
 
         } catch (IOException e) {
             throw new IllegalStateException(e);
