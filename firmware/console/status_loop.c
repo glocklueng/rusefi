@@ -37,6 +37,8 @@
 #include "lcd_2x16.h"
 #include "rfiutil.h"
 
+static volatile int fullLog;
+
 #if EFI_PROD_CODE
 
 extern engine_configuration_s * engineConfiguration;
@@ -45,7 +47,6 @@ extern engine_configuration2_s * engineConfiguration2;
 #define INITIAL_FULL_LOG TRUE
 //#define INITIAL_FULL_LOG FALSE
 
-static volatile int fullLog;
 volatile int needToReportStatus = FALSE;
 static int prevCkpEventCounter = -1;
 
@@ -67,10 +68,6 @@ void setFullLog(int value) {
 	print("Setting full logging: %s\r\n", boolean2string(value));
 	printMsg(&logger, "%s%d", FULL_LOGGING_KEY, value);
 	fullLog = value;
-}
-
-int getFullLog(void) {
-	return fullLog;
 }
 
 static void printStatus(void) {
@@ -312,3 +309,7 @@ void updateHD44780lcd(void) {
 
 }
 #endif
+
+int getFullLog(void) {
+	return fullLog;
+}
