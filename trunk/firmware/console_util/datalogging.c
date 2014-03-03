@@ -59,11 +59,14 @@ static int validateBuffer(Logging *logging, int extraLen, char *text) {
 
 	int currentLen = loggingSize(logging);
 	if (currentLen + extraLen > logging->bufferSize - 1) {
-		strcpy(logging->SMALL_BUFFER, "Logging buffer overflow: ");
-		strcat(logging->SMALL_BUFFER, logging->name);
-		strcat(logging->SMALL_BUFFER, "/");
-		strcat(logging->SMALL_BUFFER, text);
-		fatal(logging->SMALL_BUFFER);
+//		strcpy(logging->SMALL_BUFFER, "Logging buffer overflow: ");
+//		strcat(logging->SMALL_BUFFER, logging->name);
+//		strcat(logging->SMALL_BUFFER, "/");
+//		strcat(logging->SMALL_BUFFER, text);
+//		fatal(logging->SMALL_BUFFER);
+
+//		unlockOutputBuffer();
+//		resetLogging(logging);
 		return TRUE;
 	}
 	return FALSE;
