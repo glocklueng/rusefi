@@ -11,6 +11,7 @@
 void initStatusLoop(void);
 void updateDevConsoleState(void);
 int getFullLog(void);
+void printSensors(void);
 void setFullLog(int value);
 void sayOsHello(void);
 int hasFatalError(void);
