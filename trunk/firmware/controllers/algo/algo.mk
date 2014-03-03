@@ -9,6 +9,7 @@ CONTROLLERS_ALGO_SRC = $(PROJECT_DIR)/controllers/algo/map_adjuster.c \
 	$(PROJECT_DIR)/controllers/algo/event_registry.c \
 	$(PROJECT_DIR)/controllers/algo/idle_controller.c \
 	$(PROJECT_DIR)/controllers/algo/trigger_mazda.c \
+	$(PROJECT_DIR)/controllers/algo/wave_chart.c \
 	$(PROJECT_DIR)/controllers/algo/trigger_structure.c \
 	$(PROJECT_DIR)/controllers/algo/nmea.c \
 	$(PROJECT_DIR)/controllers/algo/trigger_decoder.c \
