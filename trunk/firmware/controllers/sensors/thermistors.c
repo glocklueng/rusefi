@@ -26,6 +26,8 @@ float getR1InVoltageDividor(float Vout, float Vin, float r2) {
 }
 
 float getR2InVoltageDividor(float Vout, float Vin, float r1) {
+	if (Vout == 0)
+		return NAN;
 	return r1 / (Vin / Vout - 1);
 }
 
