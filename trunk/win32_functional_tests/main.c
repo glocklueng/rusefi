@@ -200,6 +200,7 @@ int main(void) {
 	while (!chThdShouldTerminate()) {
 		chEvtDispatch(fhandlers, chEvtWaitOne(ALL_EVENTS));
 		printPendingMessages();
+		chThdSleepMilliseconds(100);
 	}
 
 	/*

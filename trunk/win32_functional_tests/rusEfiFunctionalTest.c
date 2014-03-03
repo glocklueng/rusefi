@@ -75,6 +75,8 @@ void rusEfiFunctionalTest(void) {
 	initStatusLoop();
 
 	resetConfigurationExt(FORD_ASPIRE_1996, engineConfiguration, engineConfiguration2);
+
+	initThermistors();
 	initAlgo();
 	initRpmCalculator();
 
@@ -90,6 +92,7 @@ void rusEfiFunctionalTest(void) {
 void printPendingMessages(void) {
 	printPending();
 	printSensors();
+	finishStatusLine();
 	publishChartIfFull(&waveChart);
 }
 
