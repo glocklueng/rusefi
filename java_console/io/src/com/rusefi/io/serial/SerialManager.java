@@ -1,7 +1,8 @@
-package com.irnems;
+package com.rusefi.io.serial;
 
-import com.irnems.core.EngineState;
+import com.irnems.FileLog;
 import com.irnems.core.MessagesCentral;
+import com.rusefi.io.LinkManager;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -11,10 +12,10 @@ import java.util.concurrent.ThreadFactory;
  * 7/9/13
  * (c) Andrey Belomutskiy
  */
-public class SerialManager {
+class SerialManager {
     public static String port;
 
-    private final static Executor SERIAL_EXECUTOR = Executors.newSingleThreadExecutor(new ThreadFactory() {
+    private final static Executor IO_EXECUTOR = Executors.newSingleThreadExecutor(new ThreadFactory() {
         @Override
         public Thread newThread(Runnable r) {
             Thread t = new Thread(r);
@@ -24,38 +25,28 @@ public class SerialManager {
         }
     });
 
-
-    public static EngineState engineState = new EngineState(new EngineState.EngineStateListenerImpl() {
-        @Override
-        public void beforeLine(String fullLine) {
-            FileLog.rlog("SerialManager.beforeLine: " + fullLine);
-            FileLog.INSTANCE.logLine(fullLine);
-        }
-    });
-
-    public static boolean onlyUI = false;
     private static boolean closed;
 
     public static void scheduleOpening() {
         FileLog.rlog("scheduleOpening");
-        SERIAL_EXECUTOR.execute(new Runnable() {
+        IO_EXECUTOR.execute(new Runnable() {
             @Override
             public void run() {
                 FileLog.rlog("scheduleOpening>openPort");
-                PortHolder.getInstance().openPort(port, engineState);
+                PortHolder.getInstance().openPort(port, LinkManager.engineState);
             }
         });
     }
 
     public static void restart() {
-        SERIAL_EXECUTOR.execute(new Runnable() {
+        IO_EXECUTOR.execute(new Runnable() {
             @Override
             public void run() {
                 MessagesCentral.getInstance().postMessage(SerialManager.class, "Restarting serial IO");
                 if (closed)
                     return;
                 PortHolder.getInstance().close();
-                PortHolder.getInstance().openPort(port, engineState);
+                PortHolder.getInstance().openPort(port, LinkManager.engineState);
             }
         });
     }

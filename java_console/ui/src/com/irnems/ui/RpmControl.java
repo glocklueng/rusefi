@@ -1,6 +1,6 @@
 package com.irnems.ui;
 
-import com.irnems.SerialManager;
+import com.rusefi.io.LinkManager;
 import com.irnems.core.EngineTimeListener;
 
 import javax.swing.*;
@@ -48,7 +48,7 @@ public class RpmControl {
         });
 
 
-        SerialManager.engineState.timeListeners.add(new EngineTimeListener() {
+        LinkManager.engineState.timeListeners.add(new EngineTimeListener() {
             @Override
             public void onTime(double time) {
                 rpmValue.setForeground(Color.green);

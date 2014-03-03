@@ -1,7 +1,10 @@
-package com.irnems;
+package com.rusefi.io.serial;
 
+import com.irnems.CommandQueue;
+import com.irnems.FileLog;
 import com.irnems.core.EngineState;
 import com.irnems.core.MessagesCentral;
+import com.rusefi.io.DataListener;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import org.jetbrains.annotations.Nullable;
@@ -12,8 +15,8 @@ import org.jetbrains.annotations.Nullable;
  * 7/25/13
  * (c) Andrey Belomutskiy
  */
-public class PortHolder {
-//    private static final int BAUD_RATE = 8 * 115200;// 921600;
+class PortHolder {
+    //    private static final int BAUD_RATE = 8 * 115200;// 921600;
 //    private static final int BAUD_RATE = 2 * 115200;
     private static final int BAUD_RATE = 115200;
     private static final int SECOND = 1000;
@@ -22,8 +25,6 @@ public class PortHolder {
     private final Object portLock = new Object();
 
     public static long startedAt = System.currentTimeMillis();
-
-//    public int getSecond()
 
     private PortHolder() {
     }
@@ -35,7 +36,7 @@ public class PortHolder {
         MessagesCentral.getInstance().postMessage(SerialManager.class, "Opening port: " + port);
         if (port == null)
             return;
-        open(port, new SerialPortReader.StringListener() {
+        open(port, new DataListener() {
             public void onStringArrived(String string) {
                 //                jTextAreaIn.append(string);
                 es.append(string);
@@ -43,7 +44,7 @@ public class PortHolder {
         });
     }
 
-    public boolean open(String port, SerialPortReader.StringListener listener) {
+    public boolean open(String port, DataListener listener) {
         SerialPort serialPort = new SerialPort(port);
         try {
             FileLog.rlog("Opening " + port + " @ " + BAUD_RATE);
@@ -92,7 +93,6 @@ public class PortHolder {
      * this method blocks till a connection is available
      */
     public void packAndSend(String command) throws InterruptedException {
-        command = "sec!" + command.length() + "!" + command;
         FileLog.rlog("Sending [" + command + "]");
         MessagesCentral.getInstance().postMessage(CommandQueue.class, "Sending [" + command + "]");
 

@@ -4,7 +4,8 @@ import com.irnems.core.EngineState;
 import com.irnems.core.MessagesCentral;
 import com.irnems.ui.*;
 import com.rusefi.AnalogChartPanel;
-import com.rusefi.SerialLookupFrame;
+import com.rusefi.PortLookupFrame;
+import com.rusefi.io.LinkManager;
 import jssc.SerialPortList;
 
 import javax.swing.*;
@@ -19,12 +20,12 @@ import javax.swing.*;
  * @see WavePanel
  */
 public class Launcher extends FrameHelper {
-    private static final Object CONSOLE_VERSION = "20140221";
+    private static final Object CONSOLE_VERSION = "20140303";
 
     public Launcher(String port) {
         FileLog.INSTANCE.start();
 
-        SerialManager.port = port;
+        LinkManager.start(port);
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -54,19 +55,19 @@ public class Launcher extends FrameHelper {
     protected void onWindowOpened() {
         super.onWindowOpened();
         setTitle("N/A");
-        SerialManager.scheduleOpening();
 
-        SerialManager.engineState.registerStringValueAction("rusEfiVersion", new EngineState.ValueCallback<String>() {
+        LinkManager.open();
+
+        LinkManager.engineState.registerStringValueAction("rusEfiVersion", new EngineState.ValueCallback<String>() {
             @Override
             public void onUpdate(String value) {
                 setTitle(value);
             }
         });
-
     }
 
     private void setTitle(String value) {
-        frame.setTitle("Console " + CONSOLE_VERSION + "; firmwave=" + value);
+        frame.setTitle("Console " + CONSOLE_VERSION + "; firmware=" + value);
     }
 
     @Override
@@ -94,21 +95,11 @@ public class Launcher extends FrameHelper {
             if (isPortDefined) {
                 new Launcher(args[0]);
             } else {
-                SerialLookupFrame.chooseSerialPort();
+                PortLookupFrame.chooseSerialPort();
             }
 
         } catch (Throwable e) {
             throw new IllegalStateException(e);
         }
     }
-//
-//    private static String lookupPort() {
-//        String[] ports = new String[]{};
-//        if (!SerialManager.onlyUI) {
-//            ports = SerialPortList.getPortNames();
-//            if (ports.length < 2)
-//                throw new IllegalStateException("expected two ports but got only " + Arrays.toString(ports));
-//        }
-//        return ports.length > 1 ? ports[1] : null;
-//    }
 }
