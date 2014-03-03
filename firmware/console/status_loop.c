@@ -37,7 +37,8 @@
 #include "lcd_2x16.h"
 #include "rfiutil.h"
 
-static volatile int fullLog;
+// this 'true' value is needed for simulator
+static volatile int fullLog = TRUE;
 
 #if EFI_PROD_CODE
 
