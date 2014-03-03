@@ -20,6 +20,7 @@ public class TcpConnector implements LinkConnector {
     private final int port;
     private Socket socket;
     private BufferedInputStream stream;
+    private BufferedWriter writer;
 
     public TcpConnector(String port) {
         this.port = getTcpPort(port);
@@ -43,6 +44,7 @@ public class TcpConnector implements LinkConnector {
         FileLog.rlog("Connecting to " + port);
         try {
             socket = new Socket(LOCALHOST, port);
+            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             stream = new BufferedInputStream(socket.getInputStream());
 
             final BufferedReader r = new BufferedReader(new InputStreamReader(stream));
@@ -74,6 +76,11 @@ public class TcpConnector implements LinkConnector {
 
     @Override
     public void send(String command) throws InterruptedException {
+        try {
+            writer.write(command  + "\r\n");
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
     public static Collection<? extends String> getAvailablePorts() {
