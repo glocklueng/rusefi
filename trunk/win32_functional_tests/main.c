@@ -197,8 +197,10 @@ int main(void) {
 	/*
 	 * Events servicing loop.
 	 */
-	while (!chThdShouldTerminate())
+	while (!chThdShouldTerminate()) {
 		chEvtDispatch(fhandlers, chEvtWaitOne(ALL_EVENTS));
+		printPendingMessages();
+	}
 
 	/*
 	 * Clean simulator exit.
