@@ -68,6 +68,13 @@ void setChartSize(int newSize) {
 	printStatus();
 }
 
+void publishChartIfFull(WaveChart *chart) {
+	if (isWaveChartFull(chart)) {
+		publishChart(chart);
+		resetWaveChart(chart);
+	}
+}
+
 int isWaveChartFull(WaveChart *chart) {
 	return chart->counter >= chartSize;
 }
