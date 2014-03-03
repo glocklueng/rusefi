@@ -70,7 +70,9 @@ static void reportSensorI(char *caption, int value) {
 #endif /* EFI_FILE_LOGGING */
 }
 
-
+void finishStatusLine(void) {
+	printLine(&logger);
+}
 
 void printSensors(void) {
 #if EFI_FILE_LOGGING
@@ -256,7 +258,7 @@ void updateDevConsoleState(void) {
 	printWave(&logger);
 #endif
 
-	printLine(&logger);
+	finishStatusLine();
 }
 
 /*
