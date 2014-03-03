@@ -9,13 +9,19 @@
 #ifndef WAVE_CHART_H_
 #define WAVE_CHART_H_
 
+#include "global.h"
+
+#if EFI_WAVE_CHART
 #include "datalogging.h"
+#endif /* EFI_WAVE_CHART */
 
 /**
  * @brief	Dev console sniffer data buffer
  */
 typedef struct {
+#if EFI_WAVE_CHART
 	Logging logging;
+#endif /* EFI_WAVE_CHART */
 	int counter;
 	volatile int isInitialized;
 } WaveChart;
