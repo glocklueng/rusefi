@@ -18,6 +18,8 @@
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
+static bool initialized = FALSE;
+
 /**
  * http://en.wikipedia.org/wiki/Voltage_divider
  */
@@ -80,6 +82,7 @@ float getResistance(Thermistor *thermistor) {
 }
 
 float getTemperatureC(Thermistor *thermistor) {
+	chDbgCheck(initialized, "initialized");
 	float resistance = getResistance(thermistor);
 
 	float kelvinTemperature = getKelvinTemperature(resistance, thermistor->config);
@@ -154,4 +157,5 @@ void initThermistors(void) {
 	ADC_LOGIC_COOLANT);
 	initThermistorCurve(&engineConfiguration2->iat, &engineConfiguration->iatThermistorConf,
 			ADC_LOGIC_INTAKE_AIR);
+	initialized = TRUE;
 }
