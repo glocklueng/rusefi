@@ -14,6 +14,12 @@
 #include "wave_math.h"
 #include "boards.h"
 #include "trigger_central.h"
+#include "datalogging.h"
+#include "algo.h"
+#include "rpm_calculator.h"
+#include "wave_chart.h"
+
+extern WaveChart waveChart;
 
 static engine_configuration_s ec;
 static engine_configuration2_s ec2;
@@ -65,7 +71,9 @@ static void triggerEmulatorCallback(PwmConfig *state, int stateIndex) {
 void rusEfiFunctionalTest(void) {
 	initializeConsole();
 
-	resetConfigurationExt(FORD_ASPIRE_1996, &engineConfiguration, &engineConfiguration2);
+	resetConfigurationExt(FORD_ASPIRE_1996, engineConfiguration, engineConfiguration2);
+	initAlgo();
+	initRpmCalculator();
 
 	float gRpm = 1200 * engineConfiguration->rpmMultiplier / 60.0; // per minute converted to per second
 	configuration.period = frequency2period(gRpm);
@@ -74,6 +82,11 @@ void rusEfiFunctionalTest(void) {
 	int *pinStates[2] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates };
 	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates,
 			triggerEmulatorCallback);
+}
+
+void printPendingMessages(void) {
+	printPending();
+	publishChartIfFull(&waveChart);
 }
 
 static size_t wt_writes(void *ip, const uint8_t *bp, size_t n) {

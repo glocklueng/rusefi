@@ -10,5 +10,6 @@
 
 void rusEfiFunctionalTest(void);
 void initTestStream(TestStream *ts);
+void printPendingMessages(void);
 
 #endif /* RUSEFIFUNCTIONALTEST_H_ */
