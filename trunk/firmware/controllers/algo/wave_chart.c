@@ -14,8 +14,12 @@
 #include <string.h>
 #include "wave_chart.h"
 #include "main.h"
+
+#if EFI_WAVE_CHART
+
 #include "eficonsole.h"
 #include "status_loop.h"
+
 
 #define CHART_DELIMETER	"!"
 
@@ -113,3 +117,5 @@ void initWaveChart(WaveChart *chart) {
 	addConsoleActionI("chartsize", setChartSize);
 	addConsoleActionI("chart", setChartActive);
 }
+
+#endif /* EFI_WAVE_CHART */
