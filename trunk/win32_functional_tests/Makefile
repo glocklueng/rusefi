@@ -56,7 +56,7 @@ DLIBS = -lws2_32
 #
 
 # Define project name here
-PROJECT = ch
+PROJECT = rusefi_simulator
 
 # Define linker script file here
 LDSCRIPT =
