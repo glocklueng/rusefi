@@ -2,7 +2,7 @@ package com.irnems.ui;
 
 import com.irnems.ChartRepository;
 import com.irnems.FileLog;
-import com.irnems.SerialManager;
+import com.rusefi.io.LinkManager;
 import com.irnems.core.EngineState;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
@@ -119,7 +119,7 @@ public class WavePanel extends JPanel {
         createSecondaryImage("Injector 3");
         createSecondaryImage("Injector 4");
 
-        SerialManager.engineState.registerStringValueAction("wave_chart", new EngineState.ValueCallback<String>() {
+        LinkManager.engineState.registerStringValueAction("wave_chart", new EngineState.ValueCallback<String>() {
             @Override
             public void onUpdate(String value) {
                 if (isPaused)

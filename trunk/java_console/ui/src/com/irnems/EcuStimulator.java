@@ -12,6 +12,7 @@ import com.irnems.ui.ChartHelper;
 import com.irnems.ui.RpmModel;
 import com.irnems.ui.widgets.PotCommand;
 import com.irnems.ui.widgets.RpmCommand;
+import com.rusefi.io.LinkManager;
 import net.ericaro.surfaceplotter.DefaultSurfaceModel;
 
 import javax.swing.*;
@@ -131,13 +132,13 @@ public class EcuStimulator {
                     latch.countDown();
                 }
             };
-            SerialManager.engineState.timeListeners.add(listener);
+            LinkManager.engineState.timeListeners.add(listener);
             try {
                 latch.await();
             } catch (InterruptedException e) {
                 throw new IllegalStateException(e);
             }
-            SerialManager.engineState.timeListeners.remove(listener);
+            LinkManager.engineState.timeListeners.remove(listener);
 
             // sorting measurements, taking middle value
             Collections.sort(dwells);

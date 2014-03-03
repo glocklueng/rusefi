@@ -1,5 +1,7 @@
-package com.irnems;
+package com.rusefi.io.serial;
 
+import com.irnems.FileLog;
+import com.rusefi.io.DataListener;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
@@ -9,11 +11,11 @@ import jssc.SerialPortException;
  * Date: 12/25/12
  * (c) Andrey Belomutskiy
  */
-public class SerialPortReader implements SerialPortEventListener {
+class SerialPortReader implements SerialPortEventListener {
     private SerialPort serialPort;
-    private StringListener listener;
+    private DataListener listener;
 
-    public SerialPortReader(SerialPort serialPort, StringListener listener) {
+    public SerialPortReader(SerialPort serialPort, DataListener listener) {
         this.serialPort = serialPort;
         this.listener = listener;
     }
@@ -35,11 +37,8 @@ public class SerialPortReader implements SerialPortEventListener {
             byte[] buffer = serialPort.readBytes(spe.getEventValue());
             String str = new String(buffer);
             listener.onStringArrived(str);
- //           System.out.println("arrived [" + str + "]");
+            //           System.out.println("arrived [" + str + "]");
         }
     }
 
-    public interface StringListener {
-        void onStringArrived(String string);
-    }
 }

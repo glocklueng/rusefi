@@ -1,5 +1,6 @@
 package com.irnems;
 
+import com.rusefi.io.LinkManager;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
@@ -29,7 +30,7 @@ public enum FileLog {
     }
 
     private static FileOutputStream openLog() throws FileNotFoundException {
-        if (SerialManager.onlyUI)
+        if (LinkManager.onlyUI)
             return null;
         String date = getDate();
         createFolderIfNeeded();

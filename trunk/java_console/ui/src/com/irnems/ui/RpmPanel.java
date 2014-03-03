@@ -1,7 +1,7 @@
 package com.irnems.ui;
 
 import com.irnems.EcuStimulator;
-import com.irnems.SerialManager;
+import com.rusefi.io.LinkManager;
 import com.irnems.core.EngineTimeListener;
 import com.irnems.core.Sensor;
 import com.irnems.ui.widgets.*;
@@ -61,12 +61,12 @@ public class RpmPanel {
         final Timer reconnectTimer = new Timer(10000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SerialManager.restart();
+                LinkManager.restart();
             }
         });
         reconnectTimer.restart();
 
-        SerialManager.engineState.timeListeners.add(new EngineTimeListener() {
+        LinkManager.engineState.timeListeners.add(new EngineTimeListener() {
             @Override
             public void onTime(double time) {
                 /**

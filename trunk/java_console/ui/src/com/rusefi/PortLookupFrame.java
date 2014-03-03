@@ -1,22 +1,30 @@
 package com.rusefi;
 
 import com.irnems.Launcher;
+import com.rusefi.io.tcp.TcpConnector;
 import jssc.SerialPortList;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
+ * This frame is used on startup to select the port we would be using
+ *
  * @author Andrey Belomutskiy
  *         2/14/14
  */
-public class SerialLookupFrame {
+public class PortLookupFrame {
     public static void chooseSerialPort() {
-        String ports[] = SerialPortList.getPortNames();
+        java.util.List<String> ports = new ArrayList<String>();
+        ports.addAll(Arrays.asList(SerialPortList.getPortNames()));
+        ports.addAll(TcpConnector.getAvailablePorts());
 
-        if (ports.length == 0) {
+
+        if (ports.size() == 0) {
             JOptionPane.showMessageDialog(null, "No serial ports found");
             System.exit(-1);
         }
@@ -33,10 +41,8 @@ public class SerialLookupFrame {
                 public void actionPerformed(ActionEvent e) {
                     frame.dispose();
                     new Launcher(port);
-
                 }
             });
-
 
             panel.add(button);
         }
@@ -44,7 +50,5 @@ public class SerialLookupFrame {
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
-
-
     }
 }

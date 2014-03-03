@@ -2,6 +2,7 @@ package com.irnems;
 
 import com.irnems.core.MessagesCentral;
 import com.irnems.core.Pair;
+import com.rusefi.io.LinkManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
@@ -63,7 +64,7 @@ public class CommandQueue {
 
         while (!command.equals(latestConfirmation)) {
             counter++;
-            PortHolder.getInstance().packAndSend(command);
+            LinkManager.send(command);
             synchronized (lock) {
                 lock.wait(pair.second);
             }
