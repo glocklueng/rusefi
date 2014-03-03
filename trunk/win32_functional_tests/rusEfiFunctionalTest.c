@@ -91,9 +91,11 @@ void rusEfiFunctionalTest(void) {
 
 void printPendingMessages(void) {
 	printPending();
-	printSensors();
-	finishStatusLine();
-	publishChartIfFull(&waveChart);
+	if(getFullLog()) {
+		printSensors();
+		finishStatusLine();
+		publishChartIfFull(&waveChart);
+	}
 }
 
 static size_t wt_writes(void *ip, const uint8_t *bp, size_t n) {
