@@ -4,10 +4,6 @@ import com.irnems.FileLog;
 import com.irnems.core.MessagesCentral;
 import com.rusefi.io.LinkManager;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-
 /**
  * 7/9/13
  * (c) Andrey Belomutskiy
@@ -15,21 +11,11 @@ import java.util.concurrent.ThreadFactory;
 class SerialManager {
     public static String port;
 
-    private final static Executor IO_EXECUTOR = Executors.newSingleThreadExecutor(new ThreadFactory() {
-        @Override
-        public Thread newThread(Runnable r) {
-            Thread t = new Thread(r);
-            t.setName("SerialManager executor thread");
-            t.setDaemon(true);  // need daemon thread so that COM thread is also daemon
-            return t;
-        }
-    });
-
     private static boolean closed;
 
     public static void scheduleOpening() {
         FileLog.rlog("scheduleOpening");
-        IO_EXECUTOR.execute(new Runnable() {
+        LinkManager.IO_EXECUTOR.execute(new Runnable() {
             @Override
             public void run() {
                 FileLog.rlog("scheduleOpening>openPort");
@@ -39,7 +25,7 @@ class SerialManager {
     }
 
     public static void restart() {
-        IO_EXECUTOR.execute(new Runnable() {
+        LinkManager.IO_EXECUTOR.execute(new Runnable() {
             @Override
             public void run() {
                 MessagesCentral.getInstance().postMessage(SerialManager.class, "Restarting serial IO");
