@@ -42,6 +42,7 @@ static volatile int fullLog = TRUE;
 
 extern engine_configuration_s * engineConfiguration;
 extern engine_configuration2_s * engineConfiguration2;
+#define FULL_LOGGING_KEY "fl"
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
 static Logging logger;
@@ -68,6 +69,10 @@ static void reportSensorI(char *caption, int value) {
 #if EFI_FILE_LOGGING
 	debugInt(&fileLogger, caption, value);
 #endif /* EFI_FILE_LOGGING */
+}
+
+static char* boolean2string(int value) {
+	return value ? "YES" : "NO";
 }
 
 void finishStatusLine(void) {
@@ -123,19 +128,8 @@ volatile int needToReportStatus = FALSE;
 static int prevCkpEventCounter = -1;
 
 static Logging logger2;
-#define FULL_LOGGING_KEY "fl"
 
 static time_t timeOfPreviousWarning = (systime_t) -10 * CH_FREQUENCY;
-
-static char* boolean2string(int value) {
-	return value ? "YES" : "NO";
-}
-
-void setFullLog(int value) {
-	print("Setting full logging: %s\r\n", boolean2string(value));
-	printMsg(&logger, "%s%d", FULL_LOGGING_KEY, value);
-	fullLog = value;
-}
 
 static void printStatus(void) {
 	needToReportStatus = TRUE;
@@ -311,7 +305,7 @@ void updateHD44780lcd(void) {
 	lcd_HD44780_print_string(buffer);
 
 }
-#endif
+#endif /* EFI_PROD_CODE */
 
 
 void initStatusLoop(void) {
@@ -319,20 +313,26 @@ void initStatusLoop(void) {
 	initLoggingExt(&logger, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 #endif /* EFI_PROD_CODE || EFI_SIMULATOR */
 
+	setFullLog(INITIAL_FULL_LOG);
+	addConsoleActionI(FULL_LOGGING_KEY, setFullLog);
+
 #if EFI_PROD_CODE
 	initLogging(&logger2, "main event handler");
 
-	setFullLog(INITIAL_FULL_LOG);
-
 	addConsoleActionII("sfm", showFuelMap);
 
-	addConsoleActionI(FULL_LOGGING_KEY, setFullLog);
 	addConsoleAction("status", printStatus);
 #endif /* EFI_PROD_CODE */
 
 #if EFI_FILE_LOGGING
 	initLogging(&fileLogger, "file logger");
 #endif /* EFI_FILE_LOGGING */
+}
+
+void setFullLog(int value) {
+	print("Setting full logging: %s\r\n", boolean2string(value));
+	printMsg(&logger, "%s%d", FULL_LOGGING_KEY, value);
+	fullLog = value;
 }
 
 int getFullLog(void) {
