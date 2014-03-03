@@ -18,6 +18,7 @@
 #include "algo.h"
 #include "rpm_calculator.h"
 #include "wave_chart.h"
+#include "status_loop.h"
 
 extern WaveChart waveChart;
 
@@ -71,6 +72,8 @@ static void triggerEmulatorCallback(PwmConfig *state, int stateIndex) {
 void rusEfiFunctionalTest(void) {
 	initializeConsole();
 
+	initStatusLoop();
+
 	resetConfigurationExt(FORD_ASPIRE_1996, engineConfiguration, engineConfiguration2);
 	initAlgo();
 	initRpmCalculator();
@@ -86,6 +89,7 @@ void rusEfiFunctionalTest(void) {
 
 void printPendingMessages(void) {
 	printPending();
+	printSensors();
 	publishChartIfFull(&waveChart);
 }
 
