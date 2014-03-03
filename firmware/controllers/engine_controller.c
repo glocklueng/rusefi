@@ -161,6 +161,12 @@ void initEngineContoller(void) {
 	initWaveAnalyzer();
 #endif
 
+	/**
+	 * there is an implicit dependency on the fact that 'tachometer' listener is the 1st listener - this case
+	 * other listeners can access current RPM value
+	 */
+	initRpmCalculator();
+
 
 #if EFI_TUNER_STUDIO
 	startTunerStudioConnectivity();
