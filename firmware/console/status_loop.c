@@ -40,62 +40,39 @@
 // this 'true' value is needed for simulator
 static volatile int fullLog = TRUE;
 
-#if EFI_PROD_CODE
-
 extern engine_configuration_s * engineConfiguration;
 extern engine_configuration2_s * engineConfiguration2;
 
-#define INITIAL_FULL_LOG TRUE
-//#define INITIAL_FULL_LOG FALSE
-
-volatile int needToReportStatus = FALSE;
-static int prevCkpEventCounter = -1;
-
+#if EFI_PROD_CODE || EFI_SIMULATOR
 static Logging logger;
-static Logging logger2;
+#endif /* EFI_PROD_CODE || EFI_SIMULATOR */
+
 #if EFI_FILE_LOGGING
 static Logging fileLogger;
 #endif /* EFI_FILE_LOGGING */
-static char LOGGING_BUFFER[500];
-#define FULL_LOGGING_KEY "fl"
-
-static time_t timeOfPreviousWarning = (systime_t) -10 * CH_FREQUENCY;
-
-static char* boolean2string(int value) {
-	return value ? "YES" : "NO";
-}
-
-void setFullLog(int value) {
-	print("Setting full logging: %s\r\n", boolean2string(value));
-	printMsg(&logger, "%s%d", FULL_LOGGING_KEY, value);
-	fullLog = value;
-}
-
-static void printStatus(void) {
-	needToReportStatus = TRUE;
-}
-
-//float getTCharge1(float tps) {
-//	float cltK = tempCtoKelvin(getCoolantTemperature());
-//	float iatK = tempCtoKelvin(getIntakeAirTemperature());
-//	return getTCharge(getCurrentRpm(), tps, cltK, iatK);
-//}
 
 static void reportSensorF(char *caption, float value, int precision) {
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	debugFloat(&logger, caption, value, precision);
+#endif /* EFI_PROD_CODE || EFI_SIMULATOR */
+
 #if EFI_FILE_LOGGING
 	debugFloat(&fileLogger, caption, value, precision);
 #endif /* EFI_FILE_LOGGING */
 }
 
 static void reportSensorI(char *caption, int value) {
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	debugInt(&logger, caption, value);
+#endif /* EFI_PROD_CODE || EFI_SIMULATOR */
 #if EFI_FILE_LOGGING
 	debugInt(&fileLogger, caption, value);
 #endif /* EFI_FILE_LOGGING */
 }
 
-static void printSensors(void) {
+
+
+void printSensors(void) {
 #if EFI_FILE_LOGGING
 	resetLogging(&fileLogger);
 #endif /* EFI_FILE_LOGGING */
@@ -131,6 +108,44 @@ static void printSensors(void) {
 	appendToLog(fileLogger.buffer);
 #endif /* EFI_FILE_LOGGING */
 }
+
+#define INITIAL_FULL_LOG TRUE
+//#define INITIAL_FULL_LOG FALSE
+
+static char LOGGING_BUFFER[500];
+
+#if EFI_PROD_CODE
+
+
+volatile int needToReportStatus = FALSE;
+static int prevCkpEventCounter = -1;
+
+static Logging logger2;
+#define FULL_LOGGING_KEY "fl"
+
+static time_t timeOfPreviousWarning = (systime_t) -10 * CH_FREQUENCY;
+
+static char* boolean2string(int value) {
+	return value ? "YES" : "NO";
+}
+
+void setFullLog(int value) {
+	print("Setting full logging: %s\r\n", boolean2string(value));
+	printMsg(&logger, "%s%d", FULL_LOGGING_KEY, value);
+	fullLog = value;
+}
+
+static void printStatus(void) {
+	needToReportStatus = TRUE;
+}
+
+//float getTCharge1(float tps) {
+//	float cltK = tempCtoKelvin(getCoolantTemperature());
+//	float iatK = tempCtoKelvin(getIntakeAirTemperature());
+//	return getTCharge(getCurrentRpm(), tps, cltK, iatK);
+//}
+
+
 
 #if EFI_CUSTOM_PANIC_METHOD
 extern char *dbg_panic_file;
@@ -270,21 +285,6 @@ static void showFuelMap(int rpm, int key100) {
 	scheduleMsg(&logger2, "fuel map value = %f", value);
 }
 
-void initStatusLoop(void) {
-	initLoggingExt(&logger, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
-	initLogging(&logger2, "main event handler");
-#if EFI_FILE_LOGGING
-	initLogging(&fileLogger, "file logger");
-#endif /* EFI_FILE_LOGGING */
-
-	setFullLog(INITIAL_FULL_LOG);
-
-	addConsoleActionII("sfm", showFuelMap);
-
-	addConsoleActionI(FULL_LOGGING_KEY, setFullLog);
-	addConsoleAction("status", printStatus);
-}
-
 void warning(char *msg, float value) {
 	time_t now = chTimeNow();
 	if (overflowDiff(now, timeOfPreviousWarning) < CH_FREQUENCY)
@@ -310,6 +310,28 @@ void updateHD44780lcd(void) {
 
 }
 #endif
+
+
+void initStatusLoop(void) {
+#if EFI_PROD_CODE || EFI_SIMULATOR
+	initLoggingExt(&logger, "status loop", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+#endif /* EFI_PROD_CODE || EFI_SIMULATOR */
+
+#if EFI_PROD_CODE
+	initLogging(&logger2, "main event handler");
+
+	setFullLog(INITIAL_FULL_LOG);
+
+	addConsoleActionII("sfm", showFuelMap);
+
+	addConsoleActionI(FULL_LOGGING_KEY, setFullLog);
+	addConsoleAction("status", printStatus);
+#endif /* EFI_PROD_CODE */
+
+#if EFI_FILE_LOGGING
+	initLogging(&fileLogger, "file logger");
+#endif /* EFI_FILE_LOGGING */
+}
 
 int getFullLog(void) {
 	return fullLog;
