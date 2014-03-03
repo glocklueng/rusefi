@@ -1,40 +1,20 @@
 EESchema Schematic File Version 2
-LIBS:project_specific_libs
 LIBS:power
 LIBS:device
 LIBS:conn
 LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:special
-LIBS:microcontrollers
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:intel
-LIBS:audio
 LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:contrib
+LIBS:project_specific_libs
 LIBS:logo_flipped
-LIBS:logo
 LIBS:art-electro-conn
 LIBS:cps_vrs_io_1-cache
-EELAYER 24 0
+EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "cps_vrs_io_1"
-Date "10 Dec 2013"
+Date "28 feb 2014"
 Rev ""
 Comp "based on http://code.google.com/p/daecu/"
 Comment1 "cps_vrs_io_1"
@@ -818,17 +798,6 @@ F 3 "" H 8300 1500 60  0000 C CNN
 $EndComp
 Connection ~ 8300 1575
 $Comp
-L LED D101
-U 1 1 529380F6
-P 13550 1150
-F 0 "D101" H 13550 1250 50  0000 C CNN
-F 1 "LED" H 13550 1050 50  0000 C CNN
-F 2 "SM0805" H 13550 1150 60  0001 C CNN
-F 3 "" H 13550 1150 60  0000 C CNN
-	1    13550 1150
-	-1   0    0    1   
-$EndComp
-$Comp
 L GND #PWR010
 U 1 1 52938112
 P 13350 1150
@@ -871,17 +840,6 @@ F 4 "VISHAY,CRCW0805100KFKEA" V -3370 1750 60  0001 C CNN "mfg,mfg#"
 F 5 "digi,CRCW0805100KFKEA" V -3370 1750 60  0001 C CNN "vend1,vend1#"
 	1    7000 1575
 	0    1    1    0   
-$EndComp
-$Comp
-L LED D102
-U 1 1 529C6F58
-P 6550 1575
-F 0 "D102" H 6550 1675 50  0000 C CNN
-F 1 "LED" H 6550 1475 50  0000 C CNN
-F 2 "SM0805" H 6550 1575 60  0001 C CNN
-F 3 "" H 6550 1575 60  0000 C CNN
-	1    6550 1575
-	-1   0    0    1   
 $EndComp
 $Comp
 L GND #PWR011
@@ -927,4 +885,26 @@ F 3 "" H 4775 2500 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	5125 2500 5125 2600
+$Comp
+L LED_0805 D102
+U 1 1 53102B67
+P 6550 1575
+F 0 "D102" H 6550 1675 50  0000 C CNN
+F 1 "LED" H 6550 1475 50  0000 C CNN
+F 2 "" H 6550 1575 60  0000 C CNN
+F 3 "" H 6550 1575 60  0000 C CNN
+	1    6550 1575
+	-1   0    0    1   
+$EndComp
+$Comp
+L LED_0805 D101
+U 1 1 53102B7E
+P 13550 1150
+F 0 "D101" H 13550 1250 50  0000 C CNN
+F 1 "LED" H 13550 1050 50  0000 C CNN
+F 2 "" H 13550 1150 60  0000 C CNN
+F 3 "" H 13550 1150 60  0000 C CNN
+	1    13550 1150
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
