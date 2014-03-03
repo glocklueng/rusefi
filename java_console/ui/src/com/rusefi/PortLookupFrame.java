@@ -25,7 +25,7 @@ public class PortLookupFrame {
 
 
         if (ports.size() == 0) {
-            JOptionPane.showMessageDialog(null, "No serial ports found");
+            JOptionPane.showMessageDialog(null, "No suitable ports found");
             System.exit(-1);
         }
 
