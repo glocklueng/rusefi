@@ -11,6 +11,8 @@
 #define EFI_SUPPORT_FORD_ASPIRE TRUE
 #define EFI_SIGNAL_EXECUTOR_SLEEP TRUE
 
+#define EFI_WAVE_CHART TRUE
+
 #include "eficonsole_logic.h"
 #include "rusefi_enums.h"
 
