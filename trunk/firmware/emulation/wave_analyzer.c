@@ -47,10 +47,6 @@ static void ensureInitialized(WaveReader *reader) {
 		fatal("wave analyzer NOT INITIALIZED");
 }
 
-void addWaveChartEvent(char *name, char * msg, char *msg2) {
-	addWaveChartEvent3(&waveChart, name, msg, msg2);
-}
-
 #ifdef EFI_WAVE_ANALYZER
 
 static void waAnaWidthCallback(WaveReader *reader) {
@@ -182,22 +178,9 @@ static void onTdcCallback(void) {
 	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, rpmBuffer, "");
 }
 
-static char shaft_signal_msg_index[15];
-
 static void onShaftSignalWA(ShaftEvents ckpSignalType, int index) {
 	if (index == 0) {
 		scheduleByAngle(&tdcScheduler, engineConfiguration->globalTriggerOffsetAngle, (schfunc_t) onTdcCallback, NULL);
-	}
-
-	itoa(&shaft_signal_msg_index[1], index);
-	if (ckpSignalType == SHAFT_PRIMARY_UP) {
-		addWaveChartEvent("crank", "up", shaft_signal_msg_index);
-	} else if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
-		addWaveChartEvent("crank", "down", shaft_signal_msg_index);
-	} else if (ckpSignalType == SHAFT_SECONDARY_UP) {
-		addWaveChartEvent("crank2", "up", shaft_signal_msg_index);
-	} else if (ckpSignalType == SHAFT_SECONDARY_DOWN) {
-		addWaveChartEvent("crank2", "down", shaft_signal_msg_index);
 	}
 }
 

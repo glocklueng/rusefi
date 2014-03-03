@@ -20,10 +20,13 @@
 #include "analog_chart.h"
 #endif /* EFI_PROD_CODE */
 
+#include "wave_chart.h"
+
 static rpm_s rpmState;
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
+extern WaveChart waveChart;
 
 /**
  * @return true if there was a full shaft revolution within the last second
@@ -68,12 +71,31 @@ static int isNoisySignal(rpm_s * rpmState, int now) {
 	return diff == 0;
 }
 
+static char shaft_signal_msg_index[15];
+
+void addWaveChartEvent(char *name, char * msg, char *msg2) {
+	addWaveChartEvent3(&waveChart, name, msg, msg2);
+}
+
+
 /**
  * @brief Shaft position callback used by RPM calculation logic.
  *
  * This callback is invoked on interrupt thread.
  */
-static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
+static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
+	itoa(&shaft_signal_msg_index[1], index);
+	if (ckpSignalType == SHAFT_PRIMARY_UP) {
+		addWaveChartEvent("crank", "up", shaft_signal_msg_index);
+	} else if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
+		addWaveChartEvent("crank", "down", shaft_signal_msg_index);
+	} else if (ckpSignalType == SHAFT_SECONDARY_UP) {
+		addWaveChartEvent("crank2", "up", shaft_signal_msg_index);
+	} else if (ckpSignalType == SHAFT_SECONDARY_DOWN) {
+		addWaveChartEvent("crank2", "down", shaft_signal_msg_index);
+	}
+
+
 	if (index != 0) {
 #if EFI_PROD_CODE
 		if (engineConfiguration->analogChartMode == AC_TRIGGER)
@@ -102,6 +124,7 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 		}
 	}
 	rpmState.lastRpmEventTime = now;
+// todo:  || EFI_SIMULATOR
 #if EFI_PROD_CODE
 	if (engineConfiguration->analogChartMode == AC_TRIGGER)
 		acAddData(getCrankshaftAngle(now), index);
