@@ -11,7 +11,10 @@
 
 #include "main.h"
 #include "signal_executor.h"
+
+#if EFI_WAVE_ANALYZER
 #include "rpm_calculator.h"
+#endif
 
 #if EFI_WAVE_ANALYZER
 
