@@ -11,8 +11,8 @@
 #include "main.h"
 #include "trigger_central.h"
 #include "engine_controller.h"
-#include "rpm_calculator.h"
 #include "idle_thread.h"
+#include "rpm_calculator.h"
 #include "settings.h"
 #include "signal_executor.h"
 #include "main_trigger_callback.h"
@@ -31,11 +31,10 @@
 #include "malfunction_indicator.h"
 #include "map_averaging.h"
 #include "malfunction_central.h"
-#include "advance_map.h"
 #include "pin_repository.h"
 #include "pwm_generator.h"
-#include "fuel_math.h"
 #include "adc_inputs.h"
+#include "algo.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -156,18 +155,12 @@ void initEngineContoller(void) {
 
 	initAnalogChart();
 
+	initAlgo();
+
 #ifdef EFI_WAVE_ANALYZER
 	initWaveAnalyzer();
 #endif
 
-	prepareFuelMap();
-	prepareTimingMap();
-
-	/**
-	 * there is an implicit dependency on the fact that 'tachometer' listener is the 1st listener - this case
-	 * other listeners can access current RPM value
-	 */
-	initRpmCalculator();
 
 #if EFI_TUNER_STUDIO
 	startTunerStudioConnectivity();

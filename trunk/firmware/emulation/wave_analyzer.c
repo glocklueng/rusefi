@@ -38,7 +38,7 @@ static scheduling_s tdcScheduler;
 
 static int waveReaderCount = 0;
 static WaveReader readers[MAX_ICU_COUNT];
-static WaveChart waveChart;
+extern WaveChart waveChart;
 
 static Logging logger;
 
@@ -278,8 +278,6 @@ void initWaveAnalyzer(void) {
 	strcpy(shaft_signal_msg_index, "_");
 
 	initLogging(&logger, "wave");
-
-	initWaveChart(&waveChart);
 
 	initWave("input1 A8", 0, &LOGIC_ANALYZER_1_DRIVER, LOGIC_ANALYZER_1_PORT, LOGIC_ANALYZER_1_PIN, 1);
 	initWave("input2 E5", 1, &LOGIC_ANALYZER_2_DRIVER, LOGIC_ANALYZER_2_PORT, LOGIC_ANALYZER_2_PIN, 1);
