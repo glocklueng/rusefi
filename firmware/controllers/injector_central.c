@@ -81,8 +81,6 @@ static void fuelBench(char * onStr, char *offStr, char *countStr) {
 	print("Done running fuel bench\r\n");
 }
 
-void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode);
-
 void initInjectorCentral(void) {
 	initLogging(&logger, "InjectorCentral");
 
