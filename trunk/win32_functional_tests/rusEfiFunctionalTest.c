@@ -122,3 +122,9 @@ static const struct Win32TestStreamVMT vmt = { wt_writes, wt_reads, wt_put, wt_g
 void initTestStream(TestStream *ts) {
 	ts->vmt = &vmt;
 }
+
+int isSerialOverTcpReady;
+
+int is_serial_ready() {
+	return isSerialOverTcpReady;
+}
