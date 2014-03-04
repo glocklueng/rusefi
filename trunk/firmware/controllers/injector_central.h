@@ -14,6 +14,7 @@
 #include "signal_executor.h"
 
 void initInjectorCentral(void);
+int isInjectionEnabled(void);
 int isInjectorEnabled(int cylinderId);
 void assertCylinderId(int cylinderId, char *msg);
 
