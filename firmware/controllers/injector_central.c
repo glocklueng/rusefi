@@ -18,12 +18,16 @@
 
 static Logging logger;
 
-int isInjectionEnabled = TRUE;
+static int isInjectionEnabledFlag = TRUE;
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
 static int is_injector_enabled[MAX_INJECTOR_COUNT];
+
+int isInjectionEnabled(void) {
+	return isInjectionEnabledFlag;
+}
 
 void assertCylinderId(int cylinderId, char *msg) {
 	int isValid = cylinderId >= 1 && cylinderId <= engineConfiguration->cylindersCount;
