@@ -11,7 +11,7 @@
 #include "main.h"
 #include "main_trigger_callback.h"
 #include "engine_controller.h"
-#include "settings.h"
+
 #include "trigger_central.h"
 #include "rpm_calculator.h"
 #include "signal_executor.h"
