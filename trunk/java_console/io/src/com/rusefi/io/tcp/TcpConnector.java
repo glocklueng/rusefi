@@ -6,7 +6,6 @@ import com.rusefi.io.LinkManager;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.URLConnection;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -71,13 +70,15 @@ public class TcpConnector implements LinkConnector {
 
     @Override
     public void restart() {
-        FileLog.rlog("Restarting on " + port);
+//        FileLog.rlog("Restarting on " + port);
     }
 
     @Override
     public void send(String command) throws InterruptedException {
+        FileLog.rlog("Writing " + command);
         try {
-            writer.write(command  + "\r\n");
+            writer.write(command + "\r\n");
+            writer.flush();
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
