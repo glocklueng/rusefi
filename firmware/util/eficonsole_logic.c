@@ -270,6 +270,7 @@ void handleConsoleLine(char *line) {
 	if (lineLength > 100) {
 		// todo: better max size logic
 		// todo: better reaction to excessive line
+		print("Long line?\r\n");
 		return;
 	}
 
