@@ -34,11 +34,8 @@ extern engine_configuration2_s *engineConfiguration2;
 
 static cyclic_buffer ignitionErrorDetection;
 
-extern int isInjectionEnabled;
-
-extern float globalFuelCorrection;
-
 static Logging logger;
+int isInjectionEnabled(void);
 
 /**
  * this field is accessed only from shaft sensor event handler.
@@ -72,7 +69,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 }
 
 static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
-	if (!isInjectionEnabled)
+	if (!isInjectionEnabled())
 		return;
 	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 
@@ -166,7 +163,7 @@ void initMainEventListener() {
 	cbInit(&ignitionErrorDetection);
 	resetHistogram(&mainLoopHisto, "main");
 
-	if (!isInjectionEnabled)
+	if (!isInjectionEnabled())
 		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
 
 	registerShaftPositionListener(&onShaftSignal, "main loop");
