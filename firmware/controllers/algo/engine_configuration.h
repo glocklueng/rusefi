@@ -220,6 +220,8 @@ typedef struct {
 	brain_pin_e fuelPumpPin;
 	brain_pin_e idleValvePin;
 	int vBattAdcChannel;
+
+	float globalFuelCorrection;
 } engine_configuration_s;
 
 /**

@@ -210,6 +210,13 @@ static void setGlobalTriggerOffsetAngle(int value) {
 	doPrintConfiguration();
 }
 
+static void setGlobalFuelCorrection(float value) {
+	if (value < 0.01 || value > 50)
+		return;
+	scheduleMsg(&logger, "setting fuel mult=%f", value);
+	engineConfiguration->globalFuelCorrection = value;
+}
+
 void initSettings(void) {
 	initLoggingExt(&logger, "settings control", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 
@@ -228,6 +235,7 @@ void initSettings(void) {
 	addConsoleActionI("set_rpm_multiplier", setrpmMultiplier);
 	// todo: start saving values into flash right away?
 
+	addConsoleActionF("set_global_fuel_correction", setGlobalFuelCorrection);
 
 	addConsoleActionII("set_cranking_fuel_min", setCrankingFuleMin);
 	addConsoleActionII("set_cranking_fuel_max", setCrankingFuleMax);
