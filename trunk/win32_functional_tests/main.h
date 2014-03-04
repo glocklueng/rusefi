@@ -1,11 +1,18 @@
 
 #include "global.h"
 #include "boards.h"
+#include "eficonsole.h"
 
 #include "datalogging.h"
 
 void fatal(x);
 void printToWin32Console(int *p);
+void warning(char *msg, float value);
+int systicks2ms(int systicks);
+
+// todo: move somewhere else?
+void lockAnyContext(void);
+void unlockAnyContext(void);
 
 /**
  * number of SysClock ticks in one ms

@@ -21,6 +21,8 @@
 #include "status_loop.h"
 #include "trigger_emulator_algo.h"
 #include "main_trigger_callback.h"
+#include "allsensors.h"
+
 
 extern WaveChart waveChart;
 
@@ -133,6 +135,6 @@ void initTestStream(TestStream *ts) {
 
 int isSerialOverTcpReady;
 
-int is_serial_ready() {
+int is_serial_ready(void) {
 	return isSerialOverTcpReady;
 }
