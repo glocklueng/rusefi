@@ -82,6 +82,8 @@ static msg_t console_thread(void *arg) {
 	return 0;
 }
 
+extern int isSerialOverTcpReady;
+
 /**
  * @brief Shell termination handler.
  *
@@ -121,9 +123,12 @@ static void sd1_handler(eventid_t id) {
 	flags = chEvtGetAndClearFlags(&sd1fel);
 	if ((flags & CHN_CONNECTED)) {
 		cputs("Init: connection on SD1");
+		isSerialOverTcpReady = TRUE;
+
 	}
 	if (flags & CHN_DISCONNECTED) {
 		cputs("Init: disconnection on SD1");
+		isSerialOverTcpReady = FALSE;
 		chSysLock();
 		chIQResetI(&SD1.iqueue);
 		chSysUnlock();
