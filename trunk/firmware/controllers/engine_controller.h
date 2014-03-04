@@ -13,9 +13,8 @@
 #include "signal_executor.h"
 #include "engine_configuration.h"
 
-int isCranking(void);
 void printTemperatureInfo(void);
 void initEngineContoller(void);
-void setDefaultEngineConfiguration(engine_configuration_s *engineConfiguration);
+//void setDefaultEngineConfiguration(engine_configuration_s *engineConfiguration);
 
 #endif /* ENGINE_STATUS_H_ */
