@@ -137,7 +137,7 @@ ULIBDIR =
 ULIBS =
 
 # Define optimisation level here
-OPT = -ggdb -g3 -O0 -fomit-frame-pointer -fgnu89-inline -std=gnu99 -Wimplicit-function-declaration
+OPT = -ggdb -g3 -O0 -fomit-frame-pointer -fgnu89-inline -std=gnu99 -Werror-implicit-function-declaration
 
 #
 # End of user defines
