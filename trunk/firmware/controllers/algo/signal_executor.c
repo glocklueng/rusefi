@@ -12,7 +12,7 @@
 #include "main.h"
 #include "signal_executor.h"
 
-#if EFI_WAVE_ANALYZER
+#if EFI_WAVE_CHART
 #include "rpm_calculator.h"
 #endif
 
@@ -58,7 +58,7 @@ static void turnHigh(OutputSignal *signal) {
 	setOutputPinValue(signal->io_pin, TRUE);
 	// sleep for the needed duration
 
-#if EFI_WAVE_ANALYZER
+#if EFI_WAVE_CHART
 	addWaveChartEvent(signal->name, "up", "");
 #endif /* EFI_WAVE_ANALYZER */
 }
