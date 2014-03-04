@@ -17,8 +17,7 @@
 #include "signal_executor.h"
 #include "eficonsole.h"
 #include "engine_math.h"
-#include "injector_central.h"
-#include "ignition_central.h"
+
 #include "engine_configuration.h"
 #include "interpolation.h"
 #include "advance_map.h"
@@ -70,7 +69,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 	if (isCranking())
 		scheduleSimpleMsg(&logger, "crankingFuel=", fuelTicks);
 
-	scheduleFuelInjection(delay, fuelTicks, event->actuator);
+	scheduleOutput(event->actuator, delay, fuelTicks, chTimeNow());
 }
 
 static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
@@ -118,7 +117,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 		//return;
 	}
 
-	scheduleSparkOut(event->actuator, sparkDelay * TICKS_IN_MS, dwellMs * TICKS_IN_MS);
+	scheduleOutput(event->actuator, sparkDelay * TICKS_IN_MS, dwellMs * TICKS_IN_MS, chTimeNow());
 }
 
 static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {

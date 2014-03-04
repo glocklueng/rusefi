@@ -12,6 +12,5 @@
 #include "signal_executor.h"
 
 void initIgnitionCentral(void);
-void scheduleSparkOut(OutputSignal *igniter, int offsetSysTicks, int lengthSysTicks);
 
 #endif /* IGNITION_CENTRAL_H_ */
