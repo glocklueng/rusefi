@@ -1,4 +1,4 @@
-/*
+/**
  * @file    pwm_generator_logic.h
  *
  * @date Mar 2, 2014
