@@ -40,7 +40,7 @@ public class EngineState {
     public List<EngineTimeListener> timeListeners = new CopyOnWriteArrayList<EngineTimeListener>();
 
     private final ResponseBuffer buffer;
-    private final List<StringActionPair> actions = new ArrayList<StringActionPair>();
+    private final List<StringActionPair> actions = new CopyOnWriteArrayList<StringActionPair>();
     private final Set<String> keys = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
 
     public EngineState(@NotNull final EngineStateListener listener) {
