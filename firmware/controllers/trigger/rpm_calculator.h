@@ -29,6 +29,8 @@ void initRpmCalculator(void);
  * @brief   Current RPM
  */
 int getRpm(void);
+int isCranking(void);
+
 int getRevolutionCounter(void);
 float getCrankshaftAngle(time_t time);
 int isRunning(void);
