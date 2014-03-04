@@ -17,33 +17,16 @@
 #include "pwm_generator.h"
 #include "io_pins.h"
 #include "pin_repository.h"
+#include "trigger_emulator_algo.h"
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
-static Logging logger;
-
-#if defined __GNUC__
-static PwmConfig configuration __attribute__((section(".ccm")));
-#else
-static PwmConfig configuration;
-#endif
-
-void setTriggerEmulatorRPM(int rpm) {
-	if (rpm == 0) {
-		configuration.period = NAN;
-	} else {
-		float gRpm = rpm * engineConfiguration->rpmMultiplier / 60.0; // per minute converted to per second
-		configuration.period = frequency2period(gRpm);
-	}
-	scheduleMsg(&logger, "Emulating position sensor(s). RPM=%d", rpm);
-}
+extern PwmConfig configuration;
 
 void initTriggerEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
 	print("Emulating %s\r\n", getConfigurationName(engineConfiguration));
-
-	initLogging(&logger, "position sensor(s) emulator");
 
 	configuration.outputPins[0] = TRIGGER_EMILATOR_PRIMARY;
 	configuration.outputPins[1] = TRIGGER_EMILATOR_SECONDARY;
@@ -54,15 +37,7 @@ void initTriggerEmulator(void) {
 	outputPinRegister("distributor ch2", configuration.outputPins[1],
 	SECONDARY_SHAFT_POSITION_EMULATION_PORT, SECONDARY_SHAFT_POSITION_EMULATION_PIN);
 
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
-
-	setTriggerEmulatorRPM(DEFAULT_EMULATION_RPM);
-
-	int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
-	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates, applyPinState);
-
-	addConsoleActionI("rpm", &setTriggerEmulatorRPM);
-
+	initTriggerEmulatorLogic(applyPinState);
 #else
 	print("No position sensor(s) emulation\r\n");
 #endif /* EFI_EMULATE_POSITION_SENSORS */
