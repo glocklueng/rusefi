@@ -57,7 +57,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 		return;
 	}
 
-	int fuelTicks = (int)(getFuelMs(rpm) * globalFuelCorrection * TICKS_IN_MS);
+	int fuelTicks = (int)(getFuelMs(rpm) * engineConfiguration->globalFuelCorrection * TICKS_IN_MS);
 	if (fuelTicks < 0) {
 		scheduleSimpleMsg(&logger, "ERROR: negative injectionPeriod ", fuelTicks);
 		return;

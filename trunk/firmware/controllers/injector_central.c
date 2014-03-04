@@ -19,7 +19,6 @@
 static Logging logger;
 
 int isInjectionEnabled = TRUE;
-float globalFuelCorrection = 1;
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
@@ -65,13 +64,6 @@ static void setInjectorEnabled(int id, int value) {
 	printStatus();
 }
 
-static void setGlobalFuelCorrection(int value) {
-	if (value < 10 || value > 500)
-		return;
-	scheduleSimpleMsg(&logger, "setting fuel mult=", value);
-	globalFuelCorrection = value / 100.0;
-}
-
 static void fuelBench(char * onStr, char *offStr, char *countStr) {
 	float onTime = atoff(onStr);
 	float offTime = atoff(offStr);
@@ -106,7 +98,6 @@ void initInjectorCentral(void) {
 	outputPinRegisterExt2("injector5", INJECTOR_5_OUTPUT, engineConfiguration->injectionPins[4], &engineConfiguration->injectionPinMode);
 
 	addConsoleActionII("injector", setInjectorEnabled);
-	addConsoleActionI("gfc", setGlobalFuelCorrection);
 
 	addConsoleActionSSS("fuelbench", &fuelBench);
 }
