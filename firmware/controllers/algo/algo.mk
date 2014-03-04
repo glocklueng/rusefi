@@ -14,5 +14,4 @@ CONTROLLERS_ALGO_SRC = $(PROJECT_DIR)/controllers/algo/map_adjuster.c \
 	$(PROJECT_DIR)/controllers/algo/nmea.c \
 	$(PROJECT_DIR)/controllers/algo/algo.c \
 	$(PROJECT_DIR)/controllers/algo/trigger_decoder.c \
-	$(PROJECT_DIR)/controllers/algo/malfunction_indicator.c \
 	$(PROJECT_DIR)/controllers/algo/signal_executor_single_timer_algo.c
