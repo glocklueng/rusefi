@@ -76,8 +76,10 @@ static msg_t consoleThreadThreadEntryPoint(void *arg) {
 
 	while (TRUE) {
 		bool_t end = getConsoleLine((BaseSequentialStream *) CONSOLE_CHANNEL, consoleInput, sizeof(consoleInput));
-		if (end)
-			break;
+		if (end) {
+			// firmware simulator is the only case when this happens
+			continue;
+		}
 
 		(console_line_callback)(consoleInput);
 	}
@@ -91,7 +93,7 @@ static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USA
 #endif /* EFI_SERIAL_OVER_UART */
 #endif /* EFI_SERIAL_OVER_USB */
 
-#ifndef EFI_SERIAL_OVER_USB
+#if ! defined EFI_SERIAL_OVER_USB && ! EFI_SIMULATOR
 int is_serial_ready(void) {
 	return TRUE;
 }
