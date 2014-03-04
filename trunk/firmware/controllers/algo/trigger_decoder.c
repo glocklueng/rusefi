@@ -66,8 +66,8 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *t
 //	scheduleMsg(&logger, "ratio %f", 1.0 * currentDuration/ shaftPositionState->toothed_previous_duration);
 #else
 	if (shaftPositionState->toothed_previous_duration != 0) {
-		printf("ratio %f: cur=%d pref=%d\r\n", 1.0 * currentDuration / shaftPositionState->toothed_previous_duration,
-				currentDuration, shaftPositionState->toothed_previous_duration);
+//		printf("ratio %f: cur=%d pref=%d\r\n", 1.0 * currentDuration / shaftPositionState->toothed_previous_duration,
+//				currentDuration, shaftPositionState->toothed_previous_duration);
 	}
 #endif
 
