@@ -16,6 +16,5 @@
 void initInjectorCentral(void);
 int isInjectorEnabled(int cylinderId);
 void assertCylinderId(int cylinderId, char *msg);
-void scheduleFuelInjection(int offsetSysTicks, int lengthSysTicks, OutputSignal *injector);
 
 #endif /* INJECTOR_CENTRAL_H_ */
