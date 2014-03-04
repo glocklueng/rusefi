@@ -20,6 +20,7 @@
 #include "wave_chart.h"
 #include "status_loop.h"
 #include "trigger_emulator_algo.h"
+#include "main_trigger_callback.h"
 
 extern WaveChart waveChart;
 
@@ -31,6 +32,11 @@ engine_configuration2_s *engineConfiguration2 = &ec2;
 
 void setOutputPinValue(io_pin_e pin, int logicValue) {
 }
+
+int isInjectionEnabled(void) {
+	return TRUE;
+}
+
 
 //void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 //
@@ -80,6 +86,8 @@ void rusEfiFunctionalTest(void) {
 	initRpmCalculator();
 
 	initTriggerEmulatorLogic(triggerEmulatorCallback);
+
+	initMainEventListener();
 
 }
 
