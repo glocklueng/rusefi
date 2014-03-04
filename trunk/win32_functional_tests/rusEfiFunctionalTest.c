@@ -19,6 +19,7 @@
 #include "rpm_calculator.h"
 #include "wave_chart.h"
 #include "status_loop.h"
+#include "trigger_emulator_algo.h"
 
 extern WaveChart waveChart;
 
@@ -46,8 +47,6 @@ void idleDebug(char *msg, int value) {
 float getMap(void) {
 	return 0;
 }
-
-static PwmConfig configuration;
 
 static int primaryWheelState = FALSE;
 static int secondaryWheelState = FALSE;
@@ -80,18 +79,13 @@ void rusEfiFunctionalTest(void) {
 	initAlgo();
 	initRpmCalculator();
 
-	float gRpm = 1200 * engineConfiguration->rpmMultiplier / 60.0; // per minute converted to per second
-	configuration.period = frequency2period(gRpm);
+	initTriggerEmulatorLogic(triggerEmulatorCallback);
 
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
-	int *pinStates[2] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates };
-	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates,
-			triggerEmulatorCallback);
 }
 
 void printPendingMessages(void) {
 	printPending();
-	if(getFullLog()) {
+	if (getFullLog()) {
 		printSensors();
 		finishStatusLine();
 		publishChartIfFull(&waveChart);
