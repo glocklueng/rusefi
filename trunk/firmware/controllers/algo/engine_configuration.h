@@ -227,6 +227,7 @@ typedef struct {
 	// todo: merge with channel settings, use full-scale Thermistor!
 	int cltAdcChannel;
 	int iatAdcChannel;
+	int mafAdcChannel;
 
 } engine_configuration_s;
 

@@ -148,6 +148,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->vBattAdcChannel = 5;
 	engineConfiguration->cltAdcChannel = 6;
 	engineConfiguration->iatAdcChannel = 7;
+	engineConfiguration->mafAdcChannel = 0;
 
 
 	engineConfiguration->globalFuelCorrection = 1;
