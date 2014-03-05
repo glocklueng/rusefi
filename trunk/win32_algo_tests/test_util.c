@@ -74,7 +74,51 @@ void testHistogram(void) {
 	assertEquals(1011, result[4]);
 }
 
+static void testMalfunctionCentralRemoveNonExistent() {
+	print("******************************************* testMalfunctionCentralRemoveNonExistent\r\n");
+	initMalfunctionCentral();
+
+	// this should not crash
+	removeError(OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
+}
+
+static void testMalfunctionCentralSameElementAgain() {
+	initMalfunctionCentral();
+	print("******************************************* testMalfunctionCentralSameElementAgain\r\n");
+	error_codes_set_s localCopy;
+
+	addError(OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
+	addError(OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
+	getErrorCodes(&localCopy);
+	assertEquals(1, localCopy.count);
+}
+
+static void testMalfunctionCentralRemoveFirstElement() {
+	initMalfunctionCentral();
+	print("******************************************* testMalfunctionCentralRemoveFirstElement\r\n");
+	error_codes_set_s localCopy;
+
+	obd_code_e firstElement = OBD_Engine_Coolant_Temperature_Circuit_Malfunction;
+	addError(firstElement);
+
+	obd_code_e secondElement = OBD_Intake_Air_Temperature_Circuit_Malfunction;
+	addError(secondElement);
+	getErrorCodes(&localCopy);
+	assertEquals(2, localCopy.count);
+
+	// let's remove first element - code
+	removeError(firstElement);
+
+	getErrorCodes(&localCopy);
+	assertEquals(1, localCopy.count);
+	assertEquals(secondElement, localCopy.error_codes[0]);
+}
+
 void testMalfunctionCentral(void) {
+	testMalfunctionCentralRemoveNonExistent();
+	testMalfunctionCentralSameElementAgain();
+	testMalfunctionCentralRemoveFirstElement();
+
 	print("******************************************* testMalfunctionCentral\r\n");
 	initMalfunctionCentral();
 
@@ -85,16 +129,20 @@ void testMalfunctionCentral(void) {
 	assertEquals(0, localCopy.count);
 
 	obd_code_e code = OBD_Engine_Coolant_Temperature_Circuit_Malfunction;
-
-	// this should not crash
-	removeError(code);
-
 	// let's add one error and validate
 	addError(code);
+
 	getErrorCodes(&localCopy);
-	assertEquals(1, localCopy.count);
+	assertEqualsM("count #1", 1, localCopy.count);
 	assertEquals(code, localCopy.error_codes[0]);
 
+	// if error before resolved and first element removed => in stack only cod2
+	int cod22 = 22;
+	removeError(cod22);
+	// element not present - nothing to removed
+	assertEquals(1, localCopy.count);
+	assertEquals(code, localCopy.error_codes[0]);
+	
 	// let's add same error one more time
 	print("adding same code again\r\n");
 	addError(code);
