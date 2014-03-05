@@ -146,6 +146,10 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 
 	engineConfiguration->tpsAdcChannel = 3;
 	engineConfiguration->vBattAdcChannel = 5;
+	engineConfiguration->cltAdcChannel = 6;
+	engineConfiguration->iatAdcChannel = 7;
+
+
 	engineConfiguration->globalFuelCorrection = 1;
 
 	engineConfiguration->needSecondTriggerInput = TRUE;
@@ -165,9 +169,6 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
-	engineConfiguration2->clt.channel = ADC_LOGIC_COOLANT;
-	engineConfiguration2->iat.channel = ADC_LOGIC_INTAKE_AIR;
-
 	/**
 	 * 720 is the range for four stroke
 	 */
