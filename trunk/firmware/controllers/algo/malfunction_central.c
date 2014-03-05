@@ -35,11 +35,11 @@ void addError(obd_code_e errorCode) {
 
 void removeError(obd_code_e errorCode) {
 	int pos = find_position(errorCode);
-	if (pos > 0) {
+	if (pos >= 0) {
 		for (int t = pos; t < error_codes_set.count; t++) 					// shift all right elements to one pos left
 			error_codes_set.error_codes[t] = error_codes_set.error_codes[t + 1];
-	}
 	error_codes_set.error_codes[--error_codes_set.count] = 0;				// place 0
+	}
 }
 
 void setError(int flag, obd_code_e errorCode) {
