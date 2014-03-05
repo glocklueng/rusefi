@@ -13,4 +13,6 @@ void initRtc(void);
 void date_set_tm(struct tm *);
 void date_get_tm(struct tm *);
 
+void dateToString(char *buffer);
+
 #endif /* RTC_HELPER_H_ */
