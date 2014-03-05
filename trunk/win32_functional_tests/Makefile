@@ -136,8 +136,11 @@ ULIBDIR =
 # List all user libraries here
 ULIBS =
 
-# Define optimisation level here
-OPT = -ggdb -g3 -O0 -fomit-frame-pointer -fgnu89-inline -std=gnu99 -Werror-implicit-function-declaration
+# more debugging
+#OPT = -ggdb -g3 -O0 -fomit-frame-pointer -fgnu89-inline -std=gnu99 -Werror-implicit-function-declaration
+
+# smaller file size
+OPT = -O0 -fomit-frame-pointer -fgnu89-inline -std=gnu99 -Werror-implicit-function-declaration
 
 #
 # End of user defines
