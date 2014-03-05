@@ -18,6 +18,8 @@
 #include "chprintf.h"
 #include "rusEfiFunctionalTest.h"
 
+test
+
 #define SHELL_WA_SIZE       THD_WA_SIZE(4096)
 #define CONSOLE_WA_SIZE     THD_WA_SIZE(4096)
 
