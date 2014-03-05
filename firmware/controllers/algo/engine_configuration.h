@@ -108,6 +108,7 @@ typedef struct {
 
 	map_s map;
 
+	// todo: merge with channel settings, use full-scale Thermistor here!
 	ThermistorConf cltThermistorConf; // size 40 (10*4), offset 336
 	ThermistorConf iatThermistorConf; // size 40, offset 376
 
@@ -222,6 +223,11 @@ typedef struct {
 	int vBattAdcChannel;
 
 	float globalFuelCorrection;
+
+	// todo: merge with channel settings, use full-scale Thermistor!
+	int cltAdcChannel;
+	int iatAdcChannel;
+
 } engine_configuration_s;
 
 /**

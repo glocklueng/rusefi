@@ -154,8 +154,8 @@ static void initThermistorCurve(Thermistor * t, ThermistorConf *config, int chan
 
 void initThermistors(void) {
 	initThermistorCurve(&engineConfiguration2->clt, &engineConfiguration->cltThermistorConf,
-	ADC_LOGIC_COOLANT);
+			engineConfiguration->cltAdcChannel);
 	initThermistorCurve(&engineConfiguration2->iat, &engineConfiguration->iatThermistorConf,
-			ADC_LOGIC_INTAKE_AIR);
+			engineConfiguration->iatAdcChannel);
 	initialized = TRUE;
 }
