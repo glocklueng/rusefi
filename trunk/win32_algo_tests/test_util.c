@@ -136,19 +136,11 @@ void testMalfunctionCentral(void) {
 	assertEqualsM("count #1", 1, localCopy.count);
 	assertEquals(code, localCopy.error_codes[0]);
 
-	// if error before resolved and first element removed => in stack only cod2
-	int cod22 = 22;
-	removeError(cod22);
+	// let's remove value which is not in the collection
+	removeError(22);
 	// element not present - nothing to removed
 	assertEquals(1, localCopy.count);
 	assertEquals(code, localCopy.error_codes[0]);
-	
-	// let's add same error one more time
-	print("adding same code again\r\n");
-	addError(code);
-	getErrorCodes(&localCopy);
-	// same code should be only present in the set once
-	assertEquals(1, localCopy.count);
 
 	code = OBD_Intake_Air_Temperature_Circuit_Malfunction;
 	addError(code);
