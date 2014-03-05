@@ -267,7 +267,10 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 
 	engineConfiguration->tpsAdcChannel = 3; // 15 is the old value
 	engineConfiguration->vBattAdcChannel = 0; // 1 is the old value
-	engineConfiguration->map.channel = 1;
+//	engineConfiguration->map.channel = 1;
+	engineConfiguration->mafAdcChannel = 1;
+	engineConfiguration->cltAdcChannel = 11;
+//	engineConfiguration->iatAdcChannel =
 }
 
 void setFordAspireengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
