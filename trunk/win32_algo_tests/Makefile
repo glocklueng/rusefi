@@ -120,6 +120,7 @@ INCDIR = . \
 	$(PROJECT_DIR)/config/engines \
 	$(PROJECT_DIR)/controllers/sensors \
 	test_data_structures \
+	test_basic_math \
 	$(PROJECT_DIR)/controllers/algo \
 	$(PROJECT_DIR)/controllers/math \
 	$(PROJECT_DIR)/ext_algo 
