@@ -1,6 +1,6 @@
 TEST_SRC = boards.c \
 	test_util.c \
-	test_engine_math.c \
+	test_data_structures/test_engine_math.c \
 	test_event_registry.c \
 	test_find_index.c \
 	test_fuel_map.c \

@@ -119,10 +119,12 @@ INCDIR = . \
 	$(PROJECT_DIR)/util \
 	$(PROJECT_DIR)/config/engines \
 	$(PROJECT_DIR)/controllers/sensors \
+	test_data_structures \
 	$(PROJECT_DIR)/controllers/algo \
 	$(PROJECT_DIR)/controllers/math \
 	$(PROJECT_DIR)/ext_algo 
 	
+
 
 #
 # Project, sources and paths
