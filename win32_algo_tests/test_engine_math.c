@@ -21,3 +21,7 @@ void testEngineMath(void) {
 	assertEqualsM("600 RPM", 5000, getOneDegreeTime(600) * 180);
 	assertEqualsM("6000 RPM", 500, getOneDegreeTime(6000) * 180);
 }
+
+float getMap(void) {
+	return 0;
+}
