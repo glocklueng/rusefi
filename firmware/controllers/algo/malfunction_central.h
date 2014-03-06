@@ -9,6 +9,13 @@
 #ifndef MALFUNCTION_CENTRAL_H_
 #define MALFUNCTION_CENTRAL_H_
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
+
+
 #include "main.h"
 #include "obd_error_codes.h"
 
@@ -42,5 +49,10 @@ void setError(int flag, obd_code_e errorCode);
 void getErrorCodes(error_codes_set_s * buffer);
 
 bool_t hasErrorCodes(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 #endif /* MALFUNCTION_CENTRAL_H_ */
