@@ -14,7 +14,7 @@ import java.util.Collections;
  *         3/3/14
  */
 public class TcpConnector implements LinkConnector {
-    private final static int DEFAULT_PORT = 29001;
+    public final static int DEFAULT_PORT = 29001;
     public static final String LOCALHOST = "localhost";
     private final int port;
     private Socket socket;
@@ -38,6 +38,9 @@ public class TcpConnector implements LinkConnector {
         return Integer.parseInt(port);
     }
 
+    /**
+     * this implementation is blocking
+     */
     @Override
     public void connect() {
         FileLog.rlog("Connecting to " + port);

@@ -113,6 +113,9 @@ public class CommandQueue {
         write(command, 300);
     }
 
+    /**
+     * Non-blocking command request
+     */
     public void write(String command, int timeout) {
         pendingCommands.add(new Pair<String, Integer>(command, timeout));
     }
