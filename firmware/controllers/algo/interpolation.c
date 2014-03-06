@@ -6,7 +6,10 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
+#if DEBUG_FUEL
 #include <stdio.h>
+#endif
+
 #include <math.h>
 
 #include "main.h"
