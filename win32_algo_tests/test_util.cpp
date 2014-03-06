@@ -137,7 +137,7 @@ void testMalfunctionCentral(void) {
 	assertEquals(code, localCopy.error_codes[0]);
 
 	// let's remove value which is not in the collection
-	removeError(22);
+	removeError((obd_code_e)22);
 	// element not present - nothing to removed
 	assertEquals(1, localCopy.count);
 	assertEquals(code, localCopy.error_codes[0]);
@@ -273,6 +273,6 @@ void testConsoleLogic(void) {
 	assertEquals(111, atoi(lastFirst));
 	assertEquals(333, atoi(lastThird));
 
-	addConsoleActionSSS("GPS", testGpsParser);
+	//addConsoleActionSSS("GPS", testGpsParser);
 }
 
