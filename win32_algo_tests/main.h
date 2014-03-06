@@ -11,6 +11,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "efilib.h"
 
 #include "global.h"
@@ -19,7 +25,7 @@
 
 typedef int bool_t;
 
-void fatal(x);
+void fatal(char* x);
 void chDbgAssert(int c, char *msg, void *arg);
 
 void print(const char *fmt, ...);
@@ -45,6 +51,10 @@ float getMaf(void);
 #define systicks2ms(x) (0)
 
 void warning(char *msg, float value);
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif /* MAIN_H_ */
