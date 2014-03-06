@@ -3,7 +3,6 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  * @author Kot_dnz 2014
  */
-#include <string.h>
 #include <math.h>
 #include <time.h>
 #include "main.h"

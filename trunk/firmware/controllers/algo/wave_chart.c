@@ -11,7 +11,6 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
-#include <string.h>
 #include "wave_chart.h"
 #include "main.h"
 

@@ -10,7 +10,6 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
-#include <string.h>
 #include <stdbool.h>
 #include "main.h"
 #include "rfiutil.h"
