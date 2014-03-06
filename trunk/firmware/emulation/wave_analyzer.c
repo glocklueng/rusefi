@@ -11,7 +11,6 @@
  */
 
 #include "main.h"
-#include <string.h>
 #include "wave_analyzer.h"
 #include "eficonsole.h"
 #include "wave_math.h"
