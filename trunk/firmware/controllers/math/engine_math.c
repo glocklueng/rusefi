@@ -6,7 +6,7 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
-#include <stdio.h>
+//#include <stdio.h>
 
 #include "engine_math.h"
 #include "main.h"
