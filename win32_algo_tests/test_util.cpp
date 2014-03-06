@@ -159,10 +159,6 @@ void testMalfunctionCentral(void) {
 	assertEquals(MAX_ERROR_CODES_COUNT - 1, localCopy.count);
 }
 
-void sendOutConfirmation(char *value, int i) {
-	// test implementation
-}
-
 static int lastInteger = -1;
 static int lastInteger2 = -1;
 

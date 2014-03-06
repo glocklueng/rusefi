@@ -9,17 +9,17 @@ PROJECT_DIR = ../firmware
 # Compiler options here.
 ifeq ($(USE_OPT),)
   #USE_OPT = $(RFLAGS) -O2 -fgnu89-inline -ggdb -fomit-frame-pointer -falign-functions=16 -std=gnu99 -Werror-implicit-function-declaration -Werror -Wno-error=pointer-sign -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=sign-compare -Wno-error=unused-parameter -Wno-error=missing-field-initializers
-  USE_OPT = -c -Wall -std=gnu99 -fgnu89-inline
+  USE_OPT = -c -Wall
 endif
 
 # C specific options here (added to USE_OPT).
 ifeq ($(USE_COPT),)
-  USE_COPT = 
+  USE_COPT = -std=gnu99 -fgnu89-inline
 endif
 
 # C++ specific options here (added to USE_OPT).
 ifeq ($(USE_CPPOPT),)
-  USE_CPPOPT = -fno-rtti
+  USE_CPPOPT = -fno-rtti -fpermissive -fno-exceptions -fno-use-cxa-atexit
 endif
 
 # Enable this if you want the linker to remove unused code and data
@@ -85,12 +85,14 @@ CSRC =	$(UTILSRC) \
 	$(CONTROLLERS_MATH_SRC) \
 	$(CONTROLLERS_SENSORS_SRC) \
 	$(ENGINES_SRC) \
-	$(TEST_SRC) \
-	main.c
+	$(TEST_SRC_C) \
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
-CPPSRC =
+CPPSRC = $(UTILSRC_CPP) \
+	$(CONTROLLERS_ALGO_SRC_CPP) \
+	$(TEST_SRC_CPP) \
+	main.cpp
 
 # C sources to be compiled in ARM mode regardless of the global setting.
 # NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
@@ -119,13 +121,12 @@ INCDIR = . \
 	$(PROJECT_DIR)/util \
 	$(PROJECT_DIR)/config/engines \
 	$(PROJECT_DIR)/controllers/sensors \
-	test_data_structures \
-	test_basic_math \
 	$(PROJECT_DIR)/controllers/algo \
 	$(PROJECT_DIR)/controllers/math \
-	$(PROJECT_DIR)/ext_algo 
+	$(PROJECT_DIR)/ext_algo \
+	test_data_structures \
+	test_basic_math \
 	
-
 
 #
 # Project, sources and paths
@@ -144,8 +145,8 @@ CPPC = $(TRGT)g++
 # Enable loading with g++ only if you need C++ runtime support.
 # NOTE: You can use C++ even without C++ support if you are careful. C++
 #       runtime support makes code size explode.
-LD   = $(TRGT)gcc
-#LD   = $(TRGT)g++
+#LD   = $(TRGT)gcc
+LD   = $(TRGT)g++
 CP   = $(TRGT)objcopy
 AS   = $(TRGT)gcc -x assembler-with-cpp
 OD   = $(TRGT)objdump

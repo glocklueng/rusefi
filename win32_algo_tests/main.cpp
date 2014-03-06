@@ -13,8 +13,11 @@
 #include <stdarg.h>
 
 #include "main.h"
-#include "map_resize.h"
 
+extern "C"
+{
+
+#include "map_resize.h"
 #include "test_idle_controller.h"
 #include "test_interpolation_3d.h"
 #include "test_find_index.h"
@@ -26,6 +29,9 @@
 #include "test_util.h"
 #include "engine_configuration.h"
 #include "test_trigger_decoder.h"
+
+}
+
 
 static engine_configuration_s ec;
 engine_configuration_s *engineConfiguration = &ec;
@@ -80,7 +86,6 @@ static engine_configuration2_s ec2;
 engine_configuration2_s *engineConfiguration2 = &ec2;
 
 int main(void) {
-
 	testInterpolate3d();
 	testFindIndex();
 	testInterpolate2d();
@@ -106,7 +111,7 @@ int main(void) {
 	testPinHelper();
 	testSetTableValue();
 
-	printf("Success 20130305\r\n");
+	printf("Success 20130306\r\n");
 
 //	resizeMap();
 
@@ -128,3 +133,4 @@ void fatal(char *x) {
   printf(x);
   exit(-1);
 }
+

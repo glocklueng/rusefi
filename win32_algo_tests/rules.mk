@@ -86,7 +86,7 @@ $(OBJS): | $(BUILDDIR)
 $(BUILDDIR) $(OBJDIR) $(LSTDIR):
 ifneq ($(USE_VERBOSE_COMPILE),yes)
 	@echo Compiler Options
-	@echo $(CC) -c $(CFLAGS) -I. $(IINCDIR) main.c -o main.o
+	@echo $(CPPC) -c $(CPPFLAGS) -I. $(IINCDIR) main.cpp -o main.o
 	@echo
 endif
 	mkdir -p $(OBJDIR)

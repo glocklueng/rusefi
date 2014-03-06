@@ -14,6 +14,10 @@
 #include "dodge_neon.h"
 #include "ford_1995_inline_6.h"
 
+void sendOutConfirmation(char *value, int i) {
+	// test implementation
+}
+
 static void testDodgeNeonDecoder(void) {
 	printf("*************************************************** testDodgeNeonDecoder\r\n");
 	initTriggerDecoder();
