@@ -124,10 +124,6 @@ void print(const char *format, ...) {
 	va_end(ap);
 }
 
-float getMap(void) {
-	return 0;
-}
-
 void fatal(char *x) {
   printf(x);
   exit(-1);
