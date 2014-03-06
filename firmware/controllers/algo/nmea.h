@@ -6,6 +6,12 @@
 #ifndef _NMEA_H_
 #define _NMEA_H_
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
+
 #define GPS_MAX_STRING 256
 
 typedef enum {
@@ -42,5 +48,10 @@ int nmea_valid_checksum(const char *);
 void nmea_parse_gpgga(char *, loc_t *);
 void nmea_parse_gprmc(char *, loc_t *);
 void gps_location(loc_t *, char *);
+
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif

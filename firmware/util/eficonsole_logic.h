@@ -11,6 +11,11 @@
 #ifndef RFICONSOLE_LOGIC_H_
 #define RFICONSOLE_LOGIC_H_
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 #define CONSOLE_MAX_ACTIONS 64
 
 #ifndef FALSE
@@ -58,5 +63,10 @@ void addConsoleActionII(char *token, VoidIntInt callback);
 void addConsoleActionF(char *token, VoidFloat callback);
 void addConsoleActionS(char *token, VoidCharPtr callback);
 void addConsoleActionSSS(char *token, VoidCharPtrCharPtrCharPtr callback);
+
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* RFICONSOLE_H_ */

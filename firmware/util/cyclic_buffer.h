@@ -8,6 +8,13 @@
 #ifndef CYCLIC_BUFFER_H_
 #define CYCLIC_BUFFER_H_
 
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
+
 #define CB_MAX_SIZE 16
 
 typedef struct {
@@ -19,5 +26,10 @@ typedef struct {
 void cbInit(cyclic_buffer *cb);
 void cbAdd(cyclic_buffer *cb, int value);
 int cbSum(cyclic_buffer *cb, int length);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 #endif /* CYCLIC_BUFFER_H_ */
