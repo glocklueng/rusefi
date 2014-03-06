@@ -9,6 +9,7 @@
 #define GLOBAL_H_
 
 #include <time.h>
+#include <string.h>
 
 #define EFI_SUPPORT_FORD_ASPIRE TRUE
 #define EFI_SUPPORT_DODGE_NEON TRUE
