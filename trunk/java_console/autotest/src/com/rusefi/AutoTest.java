@@ -22,7 +22,7 @@ public class AutoTest {
     private static final Executor e = Executors.newFixedThreadPool(10, new ThreadFactory() {
         @Override
         public Thread newThread(Runnable r) {
-            Thread t = new Thread();
+            Thread t = Executors.defaultThreadFactory().newThread(r);
             t.setDaemon(true);
             return t;
         }
@@ -56,6 +56,7 @@ public class AutoTest {
     private static void startSimulator() {
         try {
             String line;
+            FileLog.rlog("Executing " + SIMULATOR_COMMAND);
             Process p = Runtime.getRuntime().exec(SIMULATOR_COMMAND);
             BufferedReader input =
                     new BufferedReader
