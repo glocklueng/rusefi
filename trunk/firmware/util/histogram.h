@@ -16,6 +16,14 @@
 #ifndef HISTOGRAM_H_
 #define HISTOGRAM_H_
 
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
+
+
 #include <stdint.h>
 
 #define BOUND_LENGTH 895
@@ -32,5 +40,10 @@ int histogramGetIndex(int64_t value);
 void resetHistogram(histogram_s *h, char *name);
 void hsAdd(histogram_s *h, int64_t value);
 int hsReport(histogram_s *h, int* report);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 #endif /* HISTOGRAM_H_ */
