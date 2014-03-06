@@ -17,8 +17,6 @@ public class TcpConnector implements LinkConnector {
     public final static int DEFAULT_PORT = 29001;
     public static final String LOCALHOST = "localhost";
     private final int port;
-    private Socket socket;
-    private BufferedInputStream stream;
     private BufferedWriter writer;
 
     public TcpConnector(String port) {
@@ -45,18 +43,20 @@ public class TcpConnector implements LinkConnector {
     public void connect() {
         FileLog.rlog("Connecting to " + port);
         try {
-            socket = new Socket(LOCALHOST, port);
+            Socket socket = new Socket(LOCALHOST, port);
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            stream = new BufferedInputStream(socket.getInputStream());
+            BufferedInputStream stream = new BufferedInputStream(socket.getInputStream());
 
-            final BufferedReader r = new BufferedReader(new InputStreamReader(stream));
+            final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
             LinkManager.IO_EXECUTOR.execute(new Runnable() {
                 @Override
                 public void run() {
+                    Thread.currentThread().setName("TCP connector loop");
+                    FileLog.rlog("Running TCP connection loop");
                     while (true) {
                         try {
-                            String line = r.readLine();
+                            String line = reader.readLine();
                             LinkManager.engineState.append(line + "\r\n");
                         } catch (IOException e) {
                             System.err.println("End of connection");
