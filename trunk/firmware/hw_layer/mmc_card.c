@@ -9,8 +9,6 @@
  * default pinouts in case of SPI3 connected to MMC: PB3  - SCK, PB4  - MISO, PB5  - MOSI, PD4 - CS, 3.3v
  *
  */
-#include <stdio.h>
-#include <string.h>
 
 #include "main.h"
 #include "mmc_card.h"
@@ -18,6 +16,9 @@
 #include "pin_repository.h"
 
 #if EFI_FILE_LOGGING
+
+#include <stdio.h>
+#include <string.h>
 
 #define PUSHPULLDELAY 500
 
