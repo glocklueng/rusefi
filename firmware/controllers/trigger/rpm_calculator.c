@@ -11,7 +11,6 @@
  */
 
 #include "main.h"
-#include <string.h>
 #include "rpm_calculator.h"
 #include "trigger_central.h"
 #include "wave_math.h"

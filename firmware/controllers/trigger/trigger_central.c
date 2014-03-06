@@ -5,8 +5,6 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
-#include <string.h>
-
 #include "main.h"
 #include "trigger_central.h"
 #include "trigger_decoder.h"

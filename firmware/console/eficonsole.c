@@ -8,7 +8,6 @@
  */
 
 #include <stdarg.h>
-#include <string.h>
 #include <stdbool.h>
 #include "main.h"
 #include <chprintf.h>
