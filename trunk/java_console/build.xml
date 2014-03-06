@@ -23,7 +23,9 @@
 			<formatter type="brief"/>
 			<classpath path="build/classes:lib/junit.jar:lib/SteelSeries-3.9.30.jar"/>
 			<batchtest todir="build">
+				<fileset dir="io/src" includes="**/test/**/*Test.java"/>
 				<fileset dir="models/src" includes="**/test/**/*Test.java"/>
+				<fileset dir="ui/src" includes="**/test/**/*Test.java"/>
 			</batchtest>
 		</junit>
 
