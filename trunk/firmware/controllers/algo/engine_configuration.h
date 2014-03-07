@@ -9,7 +9,7 @@
 #ifndef ENGINE_CONFIGURATION_H_
 #define ENGINE_CONFIGURATION_H_
 
-#include "features.h"
+#include "efifeatures.h"
 #include "sensor_types.h"
 #include "can_header.h"
 #include "trigger_structure.h"
