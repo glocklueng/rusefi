@@ -37,7 +37,10 @@ static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionSta
 		return FALSE;
 	if (!shaftPositionState->shaft_is_synchronized)
 		return TRUE;
-	return shaftPositionState->current_index == triggerShape->shaftPositionEventCount - 1;
+	/**
+	 * in case of noise the counter could be above the expected number of events
+	 */
+	return shaftPositionState->current_index >= triggerShape->shaftPositionEventCount - 1;
 }
 
 /**
