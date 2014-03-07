@@ -101,8 +101,6 @@ void dateToString(char *lcd_str) {
 	}
 }
 
-static char dateBuffer[30];
-
 static void date_get(void) {
 	static time_t unix_time;
 	struct tm timp;
@@ -118,9 +116,6 @@ static void date_get(void) {
 				timp.tm_min, timp.tm_sec);
 		
 	}
-	dateToString(dateBuffer);
-
-	print("Prepared for LCD time is: %s\r\n", dateBuffer);
 }
 
 void initRtc(void) {
