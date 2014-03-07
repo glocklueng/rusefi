@@ -128,7 +128,8 @@ UINCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	$(PROJECT_DIR)/controllers/algo \
 	$(PROJECT_DIR)/controllers/math \
 	$(PROJECT_DIR)/controllers/trigger \
-        ${CHIBIOS}/os/various
+        ${CHIBIOS}/os/various \
+	simulator
 
 # List the user directory to look for the libraries here
 ULIBDIR =
