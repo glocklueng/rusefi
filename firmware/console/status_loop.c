@@ -36,7 +36,11 @@
 #include "engine_configuration.h"
 #include "lcd_2x16.h"
 #include "rfiutil.h"
+
+#if EFI_PROD_CODE
+// todo: move this logic to algo folder!
 #include "rtc_helper.h"
+#endif
 
 // this 'true' value is needed for simulator
 static volatile int fullLog = TRUE;
@@ -318,9 +322,11 @@ void updateHD44780lcd(void) {
 
 	lcd_HD44780_print_string(buffer);
 
+#if EFI_PROD_CODE
 	dateToString(dateBuffer);
 	lcd_HD44780_set_position(1, 0);
 	lcd_HD44780_print_string(dateBuffer);
+#endif /* EFI_PROD_CODE */
 }
 #endif /* EFI_PROD_CODE */
 
