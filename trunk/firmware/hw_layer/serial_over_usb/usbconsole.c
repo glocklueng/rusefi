@@ -12,7 +12,7 @@
 
 #include "usbconsole.h"
 #include "usbcfg.h"
-#include "features.h"
+#include "efifeatures.h"
 
 extern SerialUSBDriver SDU1;
 extern const SerialUSBConfig serusbcfg;

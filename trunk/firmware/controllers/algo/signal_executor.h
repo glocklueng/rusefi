@@ -11,7 +11,7 @@
 
 #include "rusefi_enums.h"
 #include "global.h"
-#include "features.h"
+#include "efifeatures.h"
 #include "io_pins.h"
 
 #if EFI_PROD_CODE

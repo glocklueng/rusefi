@@ -5,7 +5,7 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
-#include "features.h"
+#include "efifeatures.h"
 
 #ifndef NISSAN_PRIMERA_H_
 #define NISSAN_PRIMERA_H_
