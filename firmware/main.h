@@ -43,11 +43,7 @@
 
 #define Delay(ms) chThdSleepMilliseconds(ms)
 
-int warning(const char *fmt, ...);
 void updateHD44780lcd(void);
-int hasFatalError(void);
-void fatal3(char *msg, char *file, int line);
-#define fatal(x) (fatal3(x, __FILE__, __LINE__));
 int systicks2ms(int systicks);
 
 // todo: move somewhere else?
