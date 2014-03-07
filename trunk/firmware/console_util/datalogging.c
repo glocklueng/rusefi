@@ -70,7 +70,7 @@ static int validateBuffer(Logging *logging, int extraLen, char *text) {
 	return FALSE;
 }
 
-static void append(Logging *logging, char *text) {
+void append(Logging *logging, char *text) {
 	chDbgCheck(text!=NULL, "append NULL");
 	int extraLen = strlen(text);
 	int errcode = validateBuffer(logging, extraLen, text);
@@ -87,7 +87,7 @@ static void vappendPrintfI(Logging *logging, const char *fmt, va_list arg) {
 	append(logging, (char *) intermediateLoggingBufferData);
 }
 
-static void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
+void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
 	if (!intermediateLoggingBufferInited) {
 		fatal("intermediateLoggingBufferInited not inited!");
 		return;
