@@ -81,9 +81,11 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 		return; // we should not propagate event if we do not know where we are
 
 	if (triggerState.current_index >= engineConfiguration2->triggerShape.shaftPositionEventCount) {
-		warning("unexpected eventIndex=", triggerState.current_index);
-		for (int i = 0; i < HW_EVENT_TYPES; i++)
-			scheduleMsg(&logging, "event type: %d count=%d", i, hwEventCounters[i]);
+		int f = warning("unexpected eventIndex=%d", triggerState.current_index);
+		if(!f) {
+			for (int i = 0; i < HW_EVENT_TYPES; i++)
+				scheduleMsg(&logging, "event type: %d count=%d", i, hwEventCounters[i]);
+		}
 	} else {
 
 		/**

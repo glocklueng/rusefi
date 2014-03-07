@@ -145,7 +145,7 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 
 	if (rpm > engineConfiguration->rpmHardLimit) {
 		// technically this could be implemented via interpolate2d by setting everything above rpmHardLimit to zero
-		warning("skipping spark due to rpm=", rpm);
+		warning("skipping spark due to rpm=%d", rpm);
 		return 0;
 	}
 

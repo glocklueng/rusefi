@@ -54,13 +54,13 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 		return;
 	}
 
-	int fuelTicks = (int)(getFuelMs(rpm) * engineConfiguration->globalFuelCorrection * TICKS_IN_MS);
+	int fuelTicks = (int) (getFuelMs(rpm) * engineConfiguration->globalFuelCorrection * TICKS_IN_MS);
 	if (fuelTicks < 0) {
 		scheduleSimpleMsg(&logger, "ERROR: negative injectionPeriod ", fuelTicks);
 		return;
 	}
 
-	int delay = (int)(getOneDegreeTime(rpm) * event->angleOffset);
+	int delay = (int) (getOneDegreeTime(rpm) * event->angleOffset);
 
 	if (isCranking())
 		scheduleSimpleMsg(&logger, "crankingFuel=", fuelTicks);
@@ -75,7 +75,8 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 
 	ActuatorEventList *source =
 			isCranking() ?
-					&engineConfiguration2->engineEventConfiguration.crankingInjectionEvents : &engineConfiguration2->engineEventConfiguration.injectionEvents;
+					&engineConfiguration2->engineEventConfiguration.crankingInjectionEvents :
+					&engineConfiguration2->engineEventConfiguration.injectionEvents;
 	findEvents(eventIndex, source, &events);
 
 	if (events.size == 0)
@@ -92,19 +93,20 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 }
 
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
-	if(rpm ==0)
+	if (rpm == 0)
 		return;
 	float advance = getAdvance(rpm, getEngineLoad());
 
 	float sparkAdvanceMs = getOneDegreeTimeMs(rpm) * advance;
 
 	float dwellMs = getSparkDwellMs(rpm);
-	chDbgCheck(dwellMs >= 0, "invalid dwell");
+	if (dwellMs < 0)
+		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 
-	if (dwellMs == 0)
+	if (dwellMs <= 0)
 		return; // hard RPM limit was hit
 
-	float sparkDelay = (int)(getOneDegreeTimeMs(rpm) * event->angleOffset + sparkAdvanceMs - dwellMs);
+	float sparkDelay = (int) (getOneDegreeTimeMs(rpm) * event->angleOffset + sparkAdvanceMs - dwellMs);
 	int isIgnitionError = sparkDelay < 0;
 	cbAdd(&ignitionErrorDetection, isIgnitionError);
 	if (isIgnitionError) {
