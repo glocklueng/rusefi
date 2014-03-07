@@ -191,7 +191,7 @@ static void MMCumount(void) {
  * MMC card mount.
  */
 static void MMCmount(void) {
-	printMmcPinout();
+//	printMmcPinout();
 
 	if (fs_ready) {
 		print("Error: Already mounted. \"umountsd\" first\r\n");
@@ -224,7 +224,9 @@ static msg_t MMCmonThread(void)
 	chRegSetThreadName("MMC_Monitor");
 
 	while (TRUE) {
+		// this returns TRUE if SD module is there, even without an SD card?
 		if (blkIsInserted(&MMCD1)) {
+
 			if (fs_ready == FALSE) {
 				MMCmount();
 			}
