@@ -236,7 +236,7 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->crankingSettings.coolantTempMinC = 0; // 20ms at 0C
 	engineConfiguration->crankingSettings.fuelAtMinTempMs = 20;
 
-	engineConfiguration->ignitionPinMode = OM_INVERTED;
+//	engineConfiguration->ignitionPinMode = OM_INVERTED;
 
 	engineConfiguration->globalTriggerOffsetAngle = 175;
 
