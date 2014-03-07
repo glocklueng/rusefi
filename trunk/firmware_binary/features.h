@@ -15,6 +15,8 @@
 #define EFI_WAVE_ANALYZER TRUE
 
 
+#define EFI_WAVE_CHART TRUE
+
 //#define SERIAL_SPEED (8 * 115200)
 //#define SERIAL_SPEED (2 * 115200)
 #define SERIAL_SPEED 115200
@@ -108,7 +110,7 @@
 /**
  * Do we need GPS logic?
  */
-//#define EFI_UART_GPS TRUE
+#define EFI_UART_GPS TRUE
 
 //#define EFI_IDLE_CONTROL TRUE
 #define EFI_IDLE_CONTROL FALSE
