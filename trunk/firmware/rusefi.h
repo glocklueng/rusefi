@@ -8,11 +8,11 @@
 #ifndef RUSEFI_H_
 #define RUSEFI_H_
 
+#include "error_handling.h"
+
 void runRusEfi(void);
 int getVersion(void);
 void scheduleReset(void);
 
-// todo: extract this into a separate 'error_handling.h'?
-void firmwareError(const char *fmt, ...);
 
 #endif /* RUSEFI_H_ */
