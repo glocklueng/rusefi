@@ -36,6 +36,7 @@
 #include "engine_configuration.h"
 #include "lcd_2x16.h"
 #include "rfiutil.h"
+#include "rtc_helper.h"
 
 // this 'true' value is needed for simulator
 static volatile int fullLog = TRUE;
@@ -304,9 +305,9 @@ int warning(const char *fmt, ...) {
 }
 
 static char buffer[10];
+static char dateBuffer[30];
+
 void updateHD44780lcd(void) {
-	lcd_HD44780_set_position(0, 11);
-	lcd_HD44780_print_char('0' + (chTimeNowSeconds() % 10));
 
 	lcd_HD44780_set_position(0, 12);
 	char * ptr = itoa(buffer, getRpm());
@@ -317,6 +318,9 @@ void updateHD44780lcd(void) {
 
 	lcd_HD44780_print_string(buffer);
 
+	dateToString(dateBuffer);
+	lcd_HD44780_set_position(1, 0);
+	lcd_HD44780_print_string(dateBuffer);
 }
 #endif /* EFI_PROD_CODE */
 
