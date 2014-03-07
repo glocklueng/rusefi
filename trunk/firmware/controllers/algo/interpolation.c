@@ -100,11 +100,11 @@ float interpolate2d(float value, float bin[], float values[], int size) {
  */
 float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], int yBinSize, float* map[]) {
 	if (isnan(y)) {
-		warning("x is NaN in interpolate3d\r\n", x);
+		warning("%f: x is NaN in interpolate3d", x);
 		return NAN;
 	}
 	if (isnan(y)) {
-		warning("y is NaN in interpolate3d\r\n", y);
+		warning("%f: y is NaN in interpolate3d", y);
 		return NAN;
 	}
 

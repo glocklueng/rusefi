@@ -285,13 +285,21 @@ static void showFuelMap(int rpm, int key100) {
  * @returns TRUE in case there are too many warnings
  */
 // todo: extract to 'error_handling.c'
-int warning(char *msg, float value) {
+int warning(const char *fmt, ...) {
 	time_t now = chTimeNow();
 	if (overflowDiff(now, timeOfPreviousWarning) < CH_FREQUENCY)
 		return TRUE; // we just had another warning, let's not spam
 	timeOfPreviousWarning = now;
 
-	scheduleSimpleMsg(&logger, msg, (int) (1000 * value));
+	resetLogging(&logger); // todo: is 'reset' really needed here?
+	appendMsgPrefix(&logger);
+	va_list ap;
+	va_start(ap, fmt);
+	vappendPrintf(&logger, fmt, ap);
+	va_end(ap);
+	append(&logger, DELIMETER);
+	scheduleLogging(&logger);
+
 	return FALSE;
 }
 

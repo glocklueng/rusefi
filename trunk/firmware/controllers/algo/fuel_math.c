@@ -59,7 +59,7 @@ float getIatCorrection(float iat) {
  */
 float getInjectorLag(float vBatt) {
 	if (isnan(vBatt)) {
-		warning("vBatt=", vBatt);
+		warning("vBatt=%f", vBatt);
 		return 0;
 	}
 	float vBattCorrection = interpolate2d(vBatt, engineConfiguration->battInjectorLagCorrBins,
