@@ -162,10 +162,10 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->injectionPins[4] = GPIOE_6;
 //	engineConfiguration->injectionPins[5] = GPIOE_5;
 
-	engineConfiguration->ignitionPins[0] = GPIOC_15;
-	engineConfiguration->ignitionPins[1] = GPIOE_4;
-	engineConfiguration->ignitionPins[2] = GPIOE_0;
-	engineConfiguration->ignitionPins[3] = GPIOE_1;
+	engineConfiguration->ignitionPins[0] = GPIOC_7;
+	engineConfiguration->ignitionPins[1] = GPIOE_4; // todo: update this value
+	engineConfiguration->ignitionPins[2] = GPIOE_0; // todo: update this value
+	engineConfiguration->ignitionPins[3] = GPIOE_1; // todo: update this value
 
 }
 

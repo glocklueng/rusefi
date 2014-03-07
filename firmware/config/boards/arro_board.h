@@ -186,10 +186,12 @@
 #define IDLE_VALVE_PORT GPIOE
 #define IDLE_VALVE_PIN 2
 
+// todo: migrate to dynamic pin definition
 /* Check Engine light */
 #define LED_CHECK_ENGINE_PORT GPIOC
-#define LED_CHECK_ENGINE_PIN 7
+#define LED_CHECK_ENGINE_PIN 9
 
+// todo: migrate to dynamic pin definition
 /* Fuel pump */
 #define FUEL_PUMP_PORT GPIOC
 #define FUEL_PUMP_PIN 13
@@ -219,6 +221,7 @@
 #define SECONDARY_SHAFT_POSITION_EMULATION_PORT GPIOD
 #define SECONDARY_SHAFT_POSITION_EMULATION_PIN 2
 
+// todo: migrate to dynamic pin definition
 #define IDLE_SWITCH_PORT GPIOC
 #define IDLE_SWITCH_PIN 8
 
@@ -307,7 +310,8 @@
 #define HD44780_PORT_DB7	GPIOE
 #define HD44780_PIN_DB7	14
 
+// todo: migrate to dynamic pin definition
 #define FAN_RELAY_PORT GPIOC
-#define FAN_RELAY_PIN 9
+#define FAN_RELAY_PIN 15
 
 #endif /*ARRO_BOARD_H_*/

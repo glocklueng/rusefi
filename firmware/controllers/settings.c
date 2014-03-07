@@ -14,6 +14,7 @@
 #include "flash_main.h"
 #include "engine_controller.h"
 #include "rusefi.h"
+#include "pin_repository.h"
 
 static Logging logger;
 
@@ -121,6 +122,13 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %d", engineConfiguration->malfunctionIndicatorPinMode);
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
+	// todo: calculate coils count based on ignition mode
+	for (int i = 0; i < 4; i++) {
+		brain_pin_e brainPin = engineConfiguration->ignitionPins[i];
+		GPIO_TypeDef *hwPort = getHwPort(brainPin);
+		int hwPin = getHwPin(brainPin);
+		scheduleMsg(&logger, "ignition %d @ %s%d", i, portname(hwPort), hwPin);
+	}
 
 	//	appendPrintf(&logger, DELIMETER);
 //	scheduleLogging(&logger);
