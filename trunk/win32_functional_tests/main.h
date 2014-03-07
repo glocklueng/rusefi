@@ -4,10 +4,10 @@
 #include "eficonsole.h"
 
 #include "datalogging.h"
+#include "error_handling.h"
 
-void fatal(x);
+void fatal(char *x);
 void printToWin32Console(int *p);
-void warning(char *msg, float value);
 int systicks2ms(int systicks);
 
 // todo: move somewhere else?
