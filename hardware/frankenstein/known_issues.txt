@@ -1,2 +1,3 @@
 1) hi-side driver: the part number is for SOIC package but the board has MSOP package. Part number should be TC4427AEUA
 2) todo: add full 25x2 silkscreen on the back
+3) todo: hi-side net names are weird: control line indeces do not match output line indeces
