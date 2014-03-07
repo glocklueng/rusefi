@@ -117,6 +117,8 @@ void runRusEfi(void) {
 	initializeConsole();
 	initLogging(&logging, "main");
 
+	addConsoleAction("reset", scheduleReset);
+
 	/**
 	 * Initialize hardware drivers
 	 */

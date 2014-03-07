@@ -10,7 +10,9 @@
 
 void runRusEfi(void);
 int getVersion(void);
-void firmwareError(const char *fmt, ...);
 void scheduleReset(void);
+
+// todo: extract this into a separate 'error_handling.h'?
+void firmwareError(const char *fmt, ...);
 
 #endif /* RUSEFI_H_ */
