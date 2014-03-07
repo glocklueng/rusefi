@@ -43,7 +43,7 @@
 
 #define Delay(ms) chThdSleepMilliseconds(ms)
 
-void warning(char *msg, float value);
+int warning(char *msg, float value);
 void updateHD44780lcd(void);
 int hasFatalError(void);
 void fatal3(char *msg, char *file, int line);

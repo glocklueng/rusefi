@@ -281,13 +281,18 @@ static void showFuelMap(int rpm, int key100) {
 	scheduleMsg(&logger2, "fuel map value = %f", value);
 }
 
-void warning(char *msg, float value) {
+/**
+ * @returns TRUE in case there are too many warnings
+ */
+// todo: extract to 'error_handling.c'
+int warning(char *msg, float value) {
 	time_t now = chTimeNow();
 	if (overflowDiff(now, timeOfPreviousWarning) < CH_FREQUENCY)
-		return; // we just had another warning, let's not spam
+		return TRUE; // we just had another warning, let's not spam
 	timeOfPreviousWarning = now;
 
 	scheduleSimpleMsg(&logger, msg, (int) (1000 * value));
+	return FALSE;
 }
 
 static char buffer[10];
