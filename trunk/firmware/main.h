@@ -12,6 +12,7 @@
 #include "eficonsole.h"
 #include "eficonsole_logic.h"
 #include "efilib.h"
+#include "rusefi.h"
 
 #include "global.h"
 #include "features.h"
