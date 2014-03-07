@@ -138,8 +138,8 @@ INCDIR = . \
 
 #MCU  = cortex-m4
 
-#TRGT = arm-elf-
-#TRGT = arm-none-eabi-
+  TRGT = 
+
 CC   = $(TRGT)gcc
 CPPC = $(TRGT)g++
 # Enable loading with g++ only if you need C++ runtime support.
