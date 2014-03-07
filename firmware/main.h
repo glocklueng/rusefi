@@ -15,7 +15,7 @@
 #include "rusefi.h"
 
 #include "global.h"
-#include "features.h"
+#include "efifeatures.h"
 #include "engines.h"
 
 #include "datalogging.h"

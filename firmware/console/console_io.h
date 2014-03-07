@@ -18,7 +18,7 @@
 #define FALSE 0
 #endif
 
-#include "features.h"
+#include "efifeatures.h"
 #include "boards.h"
 
 #ifdef EFI_SERIAL_OVER_USB

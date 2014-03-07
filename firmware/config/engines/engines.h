@@ -9,7 +9,7 @@
 #define ENGINE_H_
 
 #include "boards.h"
-#include "features.h"
+#include "efifeatures.h"
 #include "rusefi_enums.h"
 
 #endif /* ENGINE_H_ */
