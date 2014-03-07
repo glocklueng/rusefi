@@ -232,13 +232,12 @@ void onFatalError(const char *msg, char * file, int line) {
 	exit(-1);
 }
 
-void warning(char *msg, float value) {
-	printf("Warning: %s %f\r\n", msg, value);
+int warning(const char *fmt, ...) {
+	printf("Warning: %s\r\n", fmt);
 }
 
-void fatal(char *x) {
-	printf(x);
-	exit(-1);
+void firmwareError(const char *fmt, ...) {
+	fatal3(fmt, __FILE__, __LINE__);
 }
 
 //void sendOutConfirmation(char *value, int i) {

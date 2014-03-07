@@ -6,7 +6,6 @@
 #include "datalogging.h"
 #include "error_handling.h"
 
-void fatal(char *x);
 void printToWin32Console(int *p);
 int systicks2ms(int systicks);
 
