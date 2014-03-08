@@ -236,5 +236,5 @@ void firmwareError(const char *fmt, ...) {
 }
 
 int getVersion(void) {
-	return 20140306;
+	return 20140307;
 }

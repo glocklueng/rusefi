@@ -113,7 +113,7 @@ $(OBJS): | $(BUILDDIR)
 $(BUILDDIR) $(OBJDIR) $(LSTDIR):
 ifneq ($(USE_VERBOSE_COMPILE),yes)
 	@echo Compiler Options
-	@echo $(CPPC) -c $(CPPFLAGS) -I. $(IINCDIR) main.cpp -o main.o -llibstd++
+	@echo $(CPPC) -c $(CPPFLAGS) -I. $(IINCDIR) main.cpp -o main.o
 	@echo
 endif
 	mkdir -p $(OBJDIR)
