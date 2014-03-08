@@ -20,7 +20,7 @@
 
 #define _MAX_FILLER 11
 
-char* itoa(uint8_t *p, int num);
+char* itoa10(uint8_t *p, int num);
 char hexC(int v);
 int isIsrContext(void);
 void chVTSetAny(VirtualTimer *vtp, systime_t time, vtfunc_t vtfunc, void *par);

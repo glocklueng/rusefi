@@ -256,7 +256,7 @@ static void printWithLength(char *line) {
 	int len = strlen(line);
 	strcpy(ioBuffer, "line:");
 	char *p = ioBuffer + strlen(ioBuffer);
-	p = itoa(p, len);
+	p = itoa10(p, len);
 	*p++ = ':';
 	strcpy(p, line);
 	p += len;

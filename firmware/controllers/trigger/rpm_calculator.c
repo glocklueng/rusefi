@@ -85,7 +85,7 @@ void addWaveChartEvent(char *name, char * msg, char *msg2) {
  * This callback is invoked on interrupt thread.
  */
 static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
-	itoa(&shaft_signal_msg_index[1], index);
+	itoa10(&shaft_signal_msg_index[1], index);
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
 		addWaveChartEvent("crank", "up", shaft_signal_msg_index);
 	} else if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
