@@ -11,12 +11,17 @@
 #include "main.h"
 #include "main_trigger_callback.h"
 
+extern "C"
+{
+#include "engine_controller.h"
+#include "settings.h"
 #include "trigger_central.h"
 #include "rpm_calculator.h"
 #include "signal_executor.h"
 #include "eficonsole.h"
 #include "engine_math.h"
-
+#include "injector_central.h"
+#include "ignition_central.h"
 #include "engine_configuration.h"
 #include "interpolation.h"
 #include "advance_map.h"
@@ -26,6 +31,7 @@
 #include "fuel_math.h"
 #include "histogram.h"
 #include "rfiutil.h"
+}
 
 // todo: move this to engine_configuration2_s for now
 

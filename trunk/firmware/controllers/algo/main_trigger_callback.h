@@ -11,7 +11,6 @@
 #define MAIN_LOOP_H_
 
 #include "main.h"
-#include "event_registry.h"
 
 #define MAX_INJECTOR_COUNT 12
 #define MAX_IGNITER_COUNT 4
@@ -20,6 +19,9 @@
 extern "C"
 {
 #endif /* __cplusplus */
+
+#include "event_registry.h"
+
 void initMainEventListener(void);
 void showMainHistogram(void);
 void onEveryMillisecondTimerSignal(void);

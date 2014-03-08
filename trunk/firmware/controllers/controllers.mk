@@ -10,3 +10,6 @@ CONTROLLERSSRC = \
 	$(PROJECT_DIR)/controllers/malfunction_indicator.c \
 	controllers/map_averaging.c \
 	controllers/map_multiplier_thread.c
+
+CONTROLLERSSRC_CPP = \
+	controllers/trigger/main_trigger_callback.cpp
