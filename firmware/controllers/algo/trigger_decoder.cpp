@@ -7,12 +7,11 @@
 
 #include "main.h"
 #include "trigger_decoder.h"
+#include "cyclic_buffer.h"
 extern "C"
 {
-#include "cyclic_buffer.h"
 #include "trigger_mazda.h"
 }
-
 
 #if EFI_PROD_CODE
 static Logging logger;
@@ -24,7 +23,7 @@ static cyclic_buffer errorDetection;
  * @return TRUE is something is wrong with trigger decoding
  */
 int isTriggerDecoderError(void) {
-	return cbSum(&errorDetection, 6) > 4;
+	return errorDetection.sum(6) > 4;
 }
 
 static inline int isSynchronizationGap(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
@@ -85,7 +84,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *t
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
 		 */
 		int isDecodingError = shaftPositionState->current_index != triggerShape->shaftPositionEventCount - 1;
-		cbAdd(&errorDetection, isDecodingError);
+		errorDetection.add(isDecodingError);
 
 		shaftPositionState->shaft_is_synchronized = TRUE;
 		shaftPositionState->current_index = 0;
@@ -187,7 +186,5 @@ void initTriggerDecoder(void) {
 #if EFI_PROD_CODE
 	initLogging(&logger, "trigger decoder");
 #endif
-
-cbInit(&errorDetection);
 }
 

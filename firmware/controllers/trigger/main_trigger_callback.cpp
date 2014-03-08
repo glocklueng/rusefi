@@ -114,7 +114,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 
 	float sparkDelay = (int) (getOneDegreeTimeMs(rpm) * event->angleOffset + sparkAdvanceMs - dwellMs);
 	int isIgnitionError = sparkDelay < 0;
-	cbAdd(&ignitionErrorDetection, isIgnitionError);
+	ignitionErrorDetection.add(isIgnitionError);
 	if (isIgnitionError) {
 		scheduleMsg(&logger, "Negative spark delay=%f", sparkDelay);
 		sparkDelay = 0;
@@ -168,7 +168,6 @@ void initMainEventListener() {
 
 	initLogging(&logger, "main event handler");
 	printMsg(&logger, "initMainLoop: %d", chTimeNow());
-	cbInit(&ignitionErrorDetection);
 	resetHistogram(&mainLoopHisto, "main");
 
 	if (!isInjectionEnabled())
@@ -178,5 +177,5 @@ void initMainEventListener() {
 }
 
 int isIgnitionTimingError(void) {
-	return cbSum(&ignitionErrorDetection, 6) > 4;
+	return ignitionErrorDetection.sum(6) > 4;
 }
