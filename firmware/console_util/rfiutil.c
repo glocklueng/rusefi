@@ -50,7 +50,7 @@ static char *ltoa_internal(char *p, long num, unsigned radix) {
 	return p;
 }
 
-static char* itoa_signed(char *p, int num, unsigned radix) {
+static char* itoa_signed(uint8_t *p, int num, unsigned radix) {
 	if (num < 0) {
 		*p++ = '-';
 		char *end = ltoa_internal(p, -num, radix);
@@ -65,7 +65,7 @@ static char* itoa_signed(char *p, int num, unsigned radix) {
 /**
  * Integer to string
  */
-char* itoa(const uint8_t *p, int num) {
+char* itoa(uint8_t *p, int num) {
 // todo: unit test
 	return itoa_signed(p, num, 10);
 }
