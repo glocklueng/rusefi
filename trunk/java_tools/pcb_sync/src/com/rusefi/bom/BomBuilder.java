@@ -48,7 +48,7 @@ public class BomBuilder {
 
             BomRecord bomRecord = bomDictionary.get(key);
             if (bomRecord == null) {
-                bw.write("### no BOM record for " + key + "\r\n");
+                bw.write("### no BOM record for " + key + ": " + e.getValue() + "\r\n");
                 i.remove();
             }
         }
@@ -150,9 +150,7 @@ public class BomBuilder {
                 continue;
             }
 
-
             result.put(ref, new BomRecord(mfgPart, storePart, customerRef));
-
 
             log("BOM key: " + ref);
             log("mfgPartNo: " + mfgPart);
@@ -161,7 +159,6 @@ public class BomBuilder {
 
         log("Got " + result.size() + " entries in BOM dictionary");
         log("Got " + ignoreList.size() + " entries in ignore list");
-
         return result;
     }
 
