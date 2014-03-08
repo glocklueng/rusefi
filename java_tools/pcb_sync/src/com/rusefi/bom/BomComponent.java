@@ -14,4 +14,9 @@ public class BomComponent {
     public String getReference() {
         return reference;
     }
+
+    @Override
+    public String toString() {
+        return reference;
+    }
 }
