@@ -1,80 +1,74 @@
-#
-#       !!!! Do NOT edit this makefile with an editor which replace tabs by spaces !!!!
-#
-##############################################################################################
-#
-# On command line:
-#
-# make all = Create project
-#
-# make clean = Clean project files.
-#
-# To rebuild project do "make clean" and "make all".
-#
-
-##############################################################################################
-# Start of default section
+##############################################################################
+# Build global options
+# NOTE: Can be overridden externally.
 #
 
 PROJECT_DIR = ../firmware
+#CHIBIOS = $(PROJECT_DIR)/chibios
 
-# Output directory and files
-ifeq ($(BUILDDIR),)
-  BUILDDIR = build
+# Compiler options here.
+ifeq ($(USE_OPT),)
+# -O2 is needed for mingw, without it there is a linking issue to isnanf?!?!
+  #USE_OPT = $(RFLAGS) -O2 -fgnu89-inline -ggdb -fomit-frame-pointer -falign-functions=16 -std=gnu99 -Werror-implicit-function-declaration -Werror -Wno-error=pointer-sign -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=sign-compare -Wno-error=unused-parameter -Wno-error=missing-field-initializers
+  USE_OPT = -c -Wall -O2
 endif
-ifeq ($(BUILDDIR),.)
-  BUILDDIR = build
+
+# C specific options here (added to USE_OPT).
+ifeq ($(USE_COPT),)
+  USE_COPT = -std=gnu99 -fgnu89-inline
 endif
 
+# C++ specific options here (added to USE_OPT).
+ifeq ($(USE_CPPOPT),)
+  USE_CPPOPT = -fno-rtti -fpermissive -fno-exceptions -fno-use-cxa-atexit
+endif
 
+# Enable this if you want the linker to remove unused code and data
+ifeq ($(USE_LINK_GC),)
+  USE_LINK_GC = yes
+endif
 
-#TRGT = mingw32-
-CC   = $(TRGT)gcc
-AS   = $(TRGT)gcc -x assembler-with-cpp
+# If enabled, this option allows to compile the application in THUMB mode.
+ifeq ($(USE_THUMB),)
+  USE_THUMB = no
+endif
+
+# Enable this if you want to see the full log while compiling.
+ifeq ($(USE_VERBOSE_COMPILE),)
+  USE_VERBOSE_COMPILE = no
+endif
+
+#
+# Build global options
+##############################################################################
+
+##############################################################################
+# Architecture or project specific options
+#
+
 
 # List all default C defines here, like -D_DEBUG=1
-DDEFS = -DSIMULATOR -DSHELL_USE_IPRINTF=FALSE
-
-# List all default ASM defines here, like -D_DEBUG=1
-DADEFS =
-
-# List all default directories to look for include files here
-DINCDIR =
-
-# List the default directory to look for the libraries here
-DLIBDIR =
-
-# List all default libraries here
-DLIBS = -lws2_32
+DDEFS =
 
 #
-# End of default section
-##############################################################################################
+# Architecture or project specific options
+##############################################################################
 
-##############################################################################################
-# Start of user section
+##############################################################################
+# Project, sources and paths
 #
 
-# Define project name here
+                            # Define project name here
 PROJECT = rusefi_simulator
 
-# Define linker script file here
-LDSCRIPT =
+#PROJECT_BOARD = OLIMEX_STM32_E407
+#ifneq ($(PROJECT_BOARD),OLIMEX_STM32_E407)
+#  PROJECT_BOARD = ST_STM32F4_DISCOVERY
+#endif
+#DDEFS += -D$(PROJECT_BOARD)
 
-# List all user C define here, like -D_DEBUG=1
-UDEFS =
-
-# Define ASM defines here
-UADEFS =
-
-# Imported source files
 CHIBIOS = ../firmware/chibios
-include $(CHIBIOS)/boards/simulator/board.mk
-include ${CHIBIOS}/os/hal/hal.mk
-include ${CHIBIOS}/os/hal/platforms/Win32/platform.mk
-include ${CHIBIOS}/os/ports/GCC/SIMIA32/port.mk
-include ${CHIBIOS}/os/kernel/kernel.mk
-
+# Imported source files and paths
 include $(PROJECT_DIR)/util/util.mk
 include $(PROJECT_DIR)/config/engines/engines.mk
 include $(PROJECT_DIR)/controllers/algo/algo.mk
@@ -85,8 +79,19 @@ include $(PROJECT_DIR)/controllers/system/system.mk
 include $(PROJECT_DIR)/console/console.mk
 include $(PROJECT_DIR)/console_util/console_util.mk
 
-# List C source files here
-SRC  = ${PORTSRC} \
+include $(CHIBIOS)/boards/simulator/board.mk
+include ${CHIBIOS}/os/hal/hal.mk
+include ${CHIBIOS}/os/hal/platforms/Win32/platform.mk
+include ${CHIBIOS}/os/ports/GCC/SIMIA32/port.mk
+include ${CHIBIOS}/os/kernel/kernel.mk
+
+# Define linker script file here
+#LDSCRIPT= config/system/STM32F407xG.ld
+#LDSCRIPT= $(PORTLD)/STM32F407xG_CCM.ld
+
+# C sources that can be compiled in ARM or THUMB mode depending on the global
+# setting.
+CSRC =	${PORTSRC} \
        ${KERNSRC} \
        ${TESTSRC} \
        ${HALSRC} \
@@ -105,18 +110,38 @@ SRC  = ${PORTSRC} \
 	$(UTILSRC) \
        rusEfiFunctionalTest.c \
        boards.c \
-       main.c
+	main.c
 
-#	$(ENGINES_SRC) \
-#	$(CONTROLLERS_ALGO_SRC) \
-#	$(CONTROLLERS_MATH_SRC) \
+# C++ sources that can be compiled in ARM or THUMB mode depending on the global
+# setting.
+CPPSRC = $(UTILSRC_CPP) \
+	$(CONTROLLERS_ALGO_SRC_CPP) \
+	$(TEST_SRC_CPP)
+# C sources to be compiled in ARM mode regardless of the global setting.
+# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
+#       option that results in lower performance and larger code size.
+ACSRC =
 
+# C++ sources to be compiled in ARM mode regardless of the global setting.
+# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
+#       option that results in lower performance and larger code size.
+ACPPSRC =
+
+# C sources to be compiled in THUMB mode regardless of the global setting.
+# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
+#       option that results in lower performance and larger code size.
+TCSRC =
+
+# C sources to be compiled in THUMB mode regardless of the global setting.
+# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
+#       option that results in lower performance and larger code size.
+TCPPSRC =
 
 # List ASM source files here
-ASRC =
+ASMSRC = $(PORTASM)
 
-# List all user directories here
-UINCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
+INCDIR = . \
+$(PORTINC) $(KERNINC) $(TESTINC) \
           $(HALINC) $(PLATFORMINC) $(BOARDINC) \
 	$(PROJECT_DIR)/util \
 	$(PROJECT_DIR)/console \
@@ -130,87 +155,94 @@ UINCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	$(PROJECT_DIR)/controllers/trigger \
         ${CHIBIOS}/os/various \
 	simulator
+	
+
+#
+# Project, sources and paths
+##############################################################################
+
+##############################################################################
+# Compiler settings
+#
+
+#MCU  = cortex-m4
+
+ifeq ($(OS),Windows_NT)
+  TRGT = i686-pc-mingw32-
+else
+  TRGT = 
+endif
+
+CC   = $(TRGT)gcc
+CPPC = $(TRGT)g++
+# Enable loading with g++ only if you need C++ runtime support.
+# NOTE: You can use C++ even without C++ support if you are careful. C++
+#       runtime support makes code size explode.
+#LD   = $(TRGT)gcc
+LD   = $(TRGT)g++
+CP   = $(TRGT)objcopy
+AS   = $(TRGT)gcc -x assembler-with-cpp
+OD   = $(TRGT)objdump
+HEX  = $(CP) -O ihex
+BIN  = $(CP) -O binary
+
+# ARM-specific options here
+AOPT =
+
+# THUMB-specific options here
+TOPT = -mthumb -DTHUMB
+
+# Define C warning options here
+CWARN = -Wall -Wextra -Wstrict-prototypes
+
+# Define C++ warning options here
+CPPWARN = -Wall -Wextra
+
+#
+# Compiler settings
+##############################################################################
+
+##############################################################################
+# Start of default section
+#
+
+# List all default ASM defines here, like -D_DEBUG=1
+DADEFS =
+
+# List all default directories to look for include files here
+DINCDIR =
+
+# List the default directory to look for the libraries here
+DLIBDIR =
+
+# List all default libraries here
+DLIBS = -lws2_32
+
+#
+# End of default section
+##############################################################################
+
+##############################################################################
+# Start of user section
+#
+
+# List all user C define here, like -D_DEBUG=1
+UDEFS =
+
+# Define ASM defines here
+UADEFS =
+
+# List all user directories here
+UINCDIR =
 
 # List the user directory to look for the libraries here
 ULIBDIR =
 
 # List all user libraries here
-ULIBS =
-
-# more debugging
-#OPT = -ggdb -g3 -O0 -fomit-frame-pointer -fgnu89-inline -std=gnu99 -Werror-implicit-function-declaration
-
-# smaller file size
-OPT = -O0 -fomit-frame-pointer -fgnu89-inline -std=gnu99 -Werror-implicit-function-declaration
+ULIBS = -lm
 
 #
 # End of user defines
-##############################################################################################
+##############################################################################
 
-
-# Various directories
-OBJDIR    = $(BUILDDIR)/obj
-LSTDIR    = $(BUILDDIR)/lst
-
-
-INCDIR  = $(patsubst %,-I%,$(DINCDIR) $(UINCDIR))
-LIBDIR  = $(patsubst %,-L%,$(DLIBDIR) $(ULIBDIR))
-DEFS    = $(DDEFS) $(UDEFS)
-ADEFS   = $(DADEFS) $(UADEFS)
-#OBJS    = $(ASRC:.s=.o) $(addprefix $(OBJDIR)/, $(notdir $(SRC:.c=.o)))
-OBJS    = $(ASRC:.s=.o) $(SRC:.c=.o)
-LIBS    = $(DLIBS) $(ULIBS)
-
-#ACOBJS    = $(addprefix $(OBJDIR)/, $(notdir $(ACSRC:.c=.o)))
-#ACPPOBJS  = $(addprefix $(OBJDIR)/, $(notdir $(ACPPSRC:.cpp=.o)))
-#TCOBJS    = $(addprefix $(OBJDIR)/, $(notdir $(TCSRC:.c=.o)))
-#TCPPOBJS  = $(addprefix $(OBJDIR)/, $(notdir $(TCPPSRC:.cpp=.o)))
-#ASMOBJS   = $(addprefix $(OBJDIR)/, $(notdir $(ASMSRC:.s=.o)))
-#ASMXOBJS  = $(addprefix $(OBJDIR)/, $(notdir $(ASMXSRC:.S=.o)))
-#OBJS	  = $(ASMXOBJS) $(ASMOBJS) $(ACOBJS) $(TCOBJS) $(ACPPOBJS) $(TCPPOBJS)
-
-
-
-LDFLAGS = -Wl,-Map=$(PROJECT).map,--cref,--no-warn-mismatch $(LIBDIR)
-ASFLAGS = -Wa,-amhls=$(<:.s=.lst) $(ADEFS)
-CPFLAGS = $(OPT) -Wall -Wextra -Wstrict-prototypes -fverbose-asm -Wa,-alms=$(<:.c=.lst) $(DEFS)
-
-# Generate dependency information
-CPFLAGS += -MD -MP -MF .dep/$(@F).d
-
-#
-# makefile rules
-#
-
-all: $(OBJS) $(PROJECT).exe
-
-%.o : %.c
-	$(CC) -c $(CPFLAGS) -I . $(INCDIR) $< -o $@
-
-%.o : %.s
-	$(AS) -c $(ASFLAGS) $< -o $@
-
-%exe: $(OBJS)
-	$(CC) $(OBJS) $(LDFLAGS) $(LIBS) -o $@
-
-gcov:
-	-mkdir gcov
-	$(COV) -u $(subst /,\,$(SRC))
-	-mv *.gcov ./gcov
-
-clean:
-	-rm -f $(OBJS)
-	-rm -f $(PROJECT).exe
-	-rm -f $(PROJECT).map
-	-rm -f $(SRC:.c=.c.bak)
-	-rm -f $(SRC:.c=.lst)
-	-rm -f $(ASRC:.s=.s.bak)
-	-rm -f $(ASRC:.s=.lst)
-	-rm -fR .dep
-
-#
-# Include the dependency files, should be the last of the makefile
-#
--include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
-
-# *** EOF ***
+include rules.mk
