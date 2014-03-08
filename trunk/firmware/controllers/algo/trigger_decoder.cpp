@@ -7,8 +7,13 @@
 
 #include "main.h"
 #include "trigger_decoder.h"
+extern "C"
+{
 #include "cyclic_buffer.h"
 #include "trigger_mazda.h"
+}
+
+
 #if EFI_PROD_CODE
 static Logging logger;
 #endif
