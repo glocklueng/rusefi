@@ -59,7 +59,7 @@ void dateToString(char *lcd_str) {
 	struct tm timp;
 	rtcGetTimeTm(&RTCD1, &timp);			// get RTC date/time
 	
-	itoa(buff, timp.tm_mon + 1);
+	itoa10(buff, timp.tm_mon + 1);
 	if(timp.tm_mon < 9) { 
 		lcd_str[0] = '0';
 		lcd_str[1] = buff[0];
@@ -67,7 +67,7 @@ void dateToString(char *lcd_str) {
 		lcd_str[0] = buff[0];
 		lcd_str[1] = buff[1];
 	}
-	itoa(buff, timp.tm_mday);
+	itoa10(buff, timp.tm_mday);
 	if(timp.tm_mday < 10) { 
 		lcd_str[3] = '0';
 		lcd_str[4] = buff[0];
@@ -75,7 +75,7 @@ void dateToString(char *lcd_str) {
 		lcd_str[3] = buff[0];
 		lcd_str[4] = buff[1];
 	}
-	itoa(buff, timp.tm_hour);
+	itoa10(buff, timp.tm_hour);
 	if(timp.tm_hour < 10) { 
 		lcd_str[6] = '0';
 		lcd_str[7] = buff[0];
@@ -83,7 +83,7 @@ void dateToString(char *lcd_str) {
 		lcd_str[6] = buff[0];
 		lcd_str[7] = buff[1];
 	}
-	itoa(buff, timp.tm_min);
+	itoa10(buff, timp.tm_min);
 	if(timp.tm_min < 10) { 
 		lcd_str[9] = '0';
 		lcd_str[10] = buff[0];
@@ -91,7 +91,7 @@ void dateToString(char *lcd_str) {
 		lcd_str[9] = buff[0];
 		lcd_str[10] = buff[1];
 	}
-	itoa(buff, timp.tm_sec);
+	itoa10(buff, timp.tm_sec);
 	if(timp.tm_sec < 10) { 
 		lcd_str[12] = '0';
 		lcd_str[13] = buff[0];

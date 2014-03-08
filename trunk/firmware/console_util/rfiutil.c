@@ -65,7 +65,7 @@ static char* itoa_signed(uint8_t *p, int num, unsigned radix) {
 /**
  * Integer to string
  */
-char* itoa(uint8_t *p, int num) {
+char* itoa10(uint8_t *p, int num) {
 // todo: unit test
 	return itoa_signed(p, num, 10);
 }
