@@ -139,6 +139,7 @@ CSRC = $(PORTSRC) \
 CPPSRC = $(CHCPPSRC) \
 	$(CONTROLLERSSRC_CPP) \
 	$(CONTROLLERS_ALGO_SRC_CPP) \
+	$(UTILSRC_CPP) \
 	main.cpp
 
 # C sources to be compiled in ARM mode regardless of the global setting.
