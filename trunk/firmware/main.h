@@ -13,7 +13,7 @@
 #ifdef __cplusplus
 extern "C"
 {
-#endif
+#endif /* __cplusplus */
 
 #include "eficonsole.h"
 #include "eficonsole_logic.h"
@@ -31,7 +31,7 @@ extern "C"
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 // todo: access some existing configuration field
 #define CORE_CLOCK 168000000
