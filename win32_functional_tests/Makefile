@@ -108,8 +108,8 @@ CSRC =	${PORTSRC} \
        ${CHIBIOS}/os/various/chprintf.c \
        ${CHIBIOS}/os/various/memstreams.c \
 	$(UTILSRC) \
-       rusEfiFunctionalTest.c \
-       boards.c \
+       simulator/rusEfiFunctionalTest.c \
+       simulator/boards.c \
 	main.c
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
