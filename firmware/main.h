@@ -9,6 +9,12 @@
 #define MAIN_H_
 
 #include <math.h>
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "eficonsole.h"
 #include "eficonsole_logic.h"
 #include "efilib.h"
@@ -22,6 +28,10 @@
 #include "chprintf.h"
 
 #include "stm32f4xx_specific.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 // todo: access some existing configuration field
 #define CORE_CLOCK 168000000
@@ -42,14 +52,19 @@
 #define currentTimeMillis() (chTimeNow() / TICKS_IN_MS)
 
 #define Delay(ms) chThdSleepMilliseconds(ms)
-
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 void updateHD44780lcd(void);
 int systicks2ms(int systicks);
 
-// todo: move somewhere else?
-
 void lockAnyContext(void);
 void unlockAnyContext(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif /* MAIN_H_ */

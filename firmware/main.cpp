@@ -1,20 +1,22 @@
 /**
- * @file	main.c
- * @brief C main entry point
- *
- * This file is so simple in anticipation of C++ migration under https://sourceforge.net/p/rusefi/tickets/33/
+ * @file	main.cpp
+ * @brief C++ main entry point
  *
  * @date Nov 29, 2012
  * @author Andrey Belomutskiy, (c) 2012-2014
  *      http://rusefi.com/
  */
 
+extern "C"
+{
 #include "global.h"
-
+}
 #include "main.h"
 
+extern "C"
+{
 #include "rusefi.h"
-
+}
 int main(void) {
 	/*
 	 * ChibiOS/RT initialization
@@ -25,3 +27,4 @@ int main(void) {
 	runRusEfi();
 	return 0;
 }
+
