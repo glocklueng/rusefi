@@ -121,7 +121,7 @@ public class BomBuilder {
     }
 
     private static Map<String, BomRecord> readBomDictionary(List<String> strings) {
-        Map<String, BomRecord> result = new HashMap<String, BomRecord>();
+        Map<String, BomRecord> result = new TreeMap<String, BomRecord>(String.CASE_INSENSITIVE_ORDER);
         for (String line : strings) {
             line = line.trim();
             if (line.isEmpty())
