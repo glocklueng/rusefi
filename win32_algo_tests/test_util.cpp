@@ -22,13 +22,12 @@ static cyclic_buffer sb;
 void testCyclicBuffer(void) {
 	print("*************************************** testCyclicBuffer\r\n");
 
-	cbInit(&sb);
-	cbAdd(&sb, 10);
+	sb.add(10);
 
-	assertEquals(10, cbSum(&sb, 3));
+	assertEquals(10, sb.sum(3));
 
-	cbAdd(&sb, 2);
-	assertEquals(12, cbSum(&sb, 2));
+	sb.add(2);
+	assertEquals(12, sb.sum(2));
 }
 
 void testHistogram(void) {
