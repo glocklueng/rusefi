@@ -13,15 +13,14 @@
 
 extern "C"
 {
-#include "engine_controller.h"
-#include "settings.h"
+//#include "settings.h"
 #include "trigger_central.h"
 #include "rpm_calculator.h"
 #include "signal_executor.h"
 #include "eficonsole.h"
 #include "engine_math.h"
-#include "injector_central.h"
-#include "ignition_central.h"
+//#include "injector_central.h"
+//#include "ignition_central.h"
 #include "engine_configuration.h"
 #include "interpolation.h"
 #include "advance_map.h"
@@ -31,6 +30,9 @@ extern "C"
 #include "fuel_math.h"
 #include "histogram.h"
 #include "rfiutil.h"
+
+int isInjectionEnabled(void);
+
 }
 
 // todo: move this to engine_configuration2_s for now
@@ -41,7 +43,6 @@ extern engine_configuration2_s *engineConfiguration2;
 static cyclic_buffer ignitionErrorDetection;
 
 static Logging logger;
-int isInjectionEnabled(void);
 
 /**
  * this field is accessed only from shaft sensor event handler.

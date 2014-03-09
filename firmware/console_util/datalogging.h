@@ -38,6 +38,12 @@ typedef struct {
 	volatile int isInitialized;
 } Logging;
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
+
 void lockOutputBuffer(void);
 void unlockOutputBuffer(void);
 
@@ -81,5 +87,9 @@ void scheduleIntValue(Logging *logging, char *msg, int value);
  * this should only be invoked by the 'main' thread in order to keep the console safe
  */
 void printPending(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* DATALOGGING_H_ */
