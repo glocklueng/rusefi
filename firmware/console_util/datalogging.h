@@ -79,7 +79,6 @@ void append(Logging *logging, char *text);
  */
  
 void scheduleLogging(Logging *logging);
-void scheduleSimpleMsg(Logging *logging, char *msg, int value);
 
 void scheduleIntValue(Logging *logging, char *msg, int value);
 
