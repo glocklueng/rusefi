@@ -49,27 +49,27 @@ extern engine_configuration2_s * engineConfiguration2;
 
 void writeToFlash(void) {
 	flashState.version = FLASH_DATA_VERSION;
-	scheduleSimpleMsg(&logger, "FLASH_DATA_VERSION=", flashState.version);
+	scheduleMsg(&logger, "FLASH_DATA_VERSION=%d", flashState.version);
 	crc result = calc_crc((const crc*) &flashState.configuration, sizeof(engine_configuration_s));
 	flashState.value = result;
-	scheduleSimpleMsg(&logger, "Reseting flash=", FLASH_USAGE);
+	scheduleMsg(&logger, "Reseting flash=%d", FLASH_USAGE);
 	flashErase(FLASH_ADDR, FLASH_USAGE);
-	scheduleSimpleMsg(&logger, "Flashing with CRC=", result);
+	scheduleMsg(&logger, "Flashing with CRC=%d", result);
 	time_t now = chTimeNow();
 	result = flashWrite(FLASH_ADDR, (const char *) &flashState, FLASH_USAGE);
-	scheduleSimpleMsg(&logger, "Flash programmed in (ms): ", chTimeNow() - now);
-	scheduleSimpleMsg(&logger, "Flashed: ", result);
+	scheduleMsg(&logger, "Flash programmed in (ms): %d", chTimeNow() - now);
+	scheduleMsg(&logger, "Flashed: %d", result);
 }
 
 static int isValid(FlashState *state) {
 	if (state->version != FLASH_DATA_VERSION) {
-		scheduleSimpleMsg(&logger, "Unexpected flash version: ", state->version);
+		scheduleMsg(&logger, "Unexpected flash version: %d", state->version);
 		return FALSE;
 	}
 	crc result = calc_crc((const crc*) &state->configuration, sizeof(engine_configuration_s));
 	if (result != state->value) {
-		scheduleSimpleMsg(&logger, "CRC got: ", result);
-		scheduleSimpleMsg(&logger, "CRC expected: ", state->value);
+		scheduleMsg(&logger, "CRC got: %d", result);
+		scheduleMsg(&logger, "CRC expected: %d", state->value);
 	}
 	return result == state->value;
 }
@@ -90,10 +90,10 @@ static void readFromFlash(void) {
 	setDefaultNonPersistentConfiguration(engineConfiguration2);
 
 	if (!isValid(&flashState)) {
-		scheduleSimpleMsg(&logger, "Not valid flash state, setting default", 0);
+		scheduleMsg(&logger, "Not valid flash state, setting default");
 		resetConfiguration(defaultEngineType);
 	} else {
-		scheduleSimpleMsg(&logger, "Got valid state from flash!", 0);
+		scheduleMsg(&logger, "Got valid state from flash!");
 		applyNonPersistentConfiguration(engineConfiguration, engineConfiguration2, engineConfiguration->engineType);
 	}
 }

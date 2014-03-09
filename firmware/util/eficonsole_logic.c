@@ -199,9 +199,9 @@ char *validateSecureLine(char *line) {
 	if (strncmp("sec!", line, 4) == 0) {
 		// COM protocol looses bytes, this is a super-naive error detection
 
-		print("sec mode [%s]\r\n", line);
+//		print("Got secure mode request header [%s]\r\n", line);
 		line += 4;
-		print("sec mode [%s]\r\n", line);
+//		print("Got secure mode request command [%s]\r\n", line);
 
 		char *divider = line;
 		while (*divider != '!') {
