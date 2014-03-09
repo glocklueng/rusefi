@@ -14,7 +14,7 @@ import static com.rusefi.bom.BomBuilder.log;
  */
 public class CpmFileModel {
 
-    public final Map<String, List<BomComponent>> componentsByKey = new TreeMap<String, List<BomComponent>>();
+    public final Map<String, List<BomComponent>> componentsByKey = new TreeMap<String, List<BomComponent>>(String.CASE_INSENSITIVE_ORDER);
 
     public int linesCount;
     public int componentsCount;
