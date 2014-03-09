@@ -313,14 +313,6 @@ void scheduleMsg(Logging *logging, const char *fmt, ...) {
 	scheduleLogging(logging);
 }
 
-/**
- * This method places a simple console message into the buffer for later output by the main thread
- * TODO: detect current threadId and merge this method with printSimpleMsg?
- */
-void scheduleSimpleMsg(Logging *logging, char *msg, int value) {
-	scheduleMsg(logging, "%s%d", msg, value);
-}
-
 // todo: remove this method, replace with 'scheduleMsg'
 void scheduleIntValue(Logging *logging, char *msg, int value) {
 	resetLogging(logging);

@@ -115,7 +115,7 @@ static void cmd_threads(void) {
 }
 
 void sendOutConfirmation(char *value, int i) {
-	scheduleSimpleMsg(&logger, value, i);
+	scheduleMsg(&logger, "%s%d", value, i);
 }
 
 /**
