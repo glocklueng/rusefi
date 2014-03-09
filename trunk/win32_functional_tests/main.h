@@ -6,12 +6,22 @@
 #include "datalogging.h"
 #include "error_handling.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void printToWin32Console(int *p);
 int systicks2ms(int systicks);
 
 // todo: move somewhere else?
 void lockAnyContext(void);
 void unlockAnyContext(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 /**
  * number of SysClock ticks in one ms
