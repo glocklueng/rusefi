@@ -57,20 +57,20 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 //	assertCylinderId(cylinderId, "onShaftSignal");
 
 	if (rpm > engineConfiguration->rpmHardLimit) {
-		scheduleSimpleMsg(&logger, "RPM above hard limit ", rpm);
+		scheduleMsg(&logger, "RPM above hard limit %d", rpm);
 		return;
 	}
 
 	int fuelTicks = (int) (getFuelMs(rpm) * engineConfiguration->globalFuelCorrection * TICKS_IN_MS);
 	if (fuelTicks < 0) {
-		scheduleSimpleMsg(&logger, "ERROR: negative injectionPeriod ", fuelTicks);
+		scheduleMsg(&logger, "ERROR: negative injectionPeriod %d", fuelTicks);
 		return;
 	}
 
 	int delay = (int) (getOneDegreeTime(rpm) * event->angleOffset);
 
 	if (isCranking())
-		scheduleSimpleMsg(&logger, "crankingFuel=", fuelTicks);
+		scheduleMsg(&logger, "crankingFuel=%d", fuelTicks);
 
 	scheduleOutput(event->actuator, delay, fuelTicks, chTimeNow());
 }

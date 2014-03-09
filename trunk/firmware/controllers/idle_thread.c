@@ -46,7 +46,7 @@ static void setIdle(int value) {
 	// todoL change parameter type, maybe change parameter validation
 	if (value < 1 || value > 999)
 		return;
-	scheduleSimpleMsg(&logger, "setting idle valve PWM ", value);
+	scheduleMsg(&logger, "setting idle valve PWM %d", value);
 	float v = 0.001 * value;
 	idleValve.multiWave.switchTimes[0] = 1 - v;
 }
@@ -83,7 +83,7 @@ static msg_t ivThread(int param) {
 
 static void setTargetIdle(int value) {
 	setTargetRpm(&idle, value);
-	scheduleSimpleMsg(&logger, "target idle RPM", value);
+	scheduleMsg(&logger, "target idle RPM %d", value);
 }
 
 void startIdleThread() {
@@ -94,7 +94,7 @@ void startIdleThread() {
 			);
 
 	idleInit(&idle);
-	scheduleSimpleMsg(&logger, "initial idle", idle.value);
+	scheduleMsg(&logger, "initial idle %d", idle.value);
 	if (!isIdleActive)
 		printMsg(&logger,
 				"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! idle control disabled");
