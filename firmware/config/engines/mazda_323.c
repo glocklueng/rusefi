@@ -10,11 +10,6 @@
 void setMazda323EngineConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->cylindersCount = 6;
 
-	/**
-	 * we have a sensor on the camshaft, so rpmMultiplier == 2
-	 */
-	engineConfiguration->rpmMultiplier = 2;
-
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
 
 	/**
