@@ -93,6 +93,7 @@ public class TcpConnector implements LinkConnector {
             s.close();
             return Collections.singletonList("" + DEFAULT_PORT);
         } catch (IOException e) {
+            System.err.println(e.toString());
             return Collections.emptyList();
         }
     }

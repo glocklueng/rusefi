@@ -34,6 +34,9 @@ public class ChartStatusPanel {
             int x = event.getX();
             xLabel.setText("" + x);
 
+            /**
+             * Time which corresponds to the mouse cursor screen location
+             */
             double time = translator.screenToTime(x, infoPanel.getWidth(), zoomProvider);
             timeLabel.setText("" + String.format("%.5f sec", time));
 
