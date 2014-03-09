@@ -1,8 +1,6 @@
-package com.irnems;
+package com.rusefi.io;
 
 import com.irnems.core.MessagesCentral;
-import com.irnems.core.Pair;
-import com.rusefi.io.LinkManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
@@ -17,11 +15,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 @SuppressWarnings("FieldCanBeLocal")
 public class CommandQueue {
     private static final String CONFIRMATION_PREFIX = "confirmation_";
+    public static final int DEFAULT_TIMEOUT = 300;
     private final Object lock = new Object();
     private String latestConfirmation;
 
     private static final CommandQueue instance = new CommandQueue();
-    private final BlockingQueue<Pair<String, Integer>> pendingCommands = new LinkedBlockingQueue<Pair<String, Integer>>();
+    private final BlockingQueue<MethodInvocation> pendingCommands = new LinkedBlockingQueue<MethodInvocation>();
 
     private final Runnable runnable = new Runnable() {
         @SuppressWarnings("InfiniteLoopStatement")
@@ -49,7 +48,7 @@ public class CommandQueue {
          * here we block in case there is no command to send
          */
         @NotNull
-        final Pair<String, Integer> command = pendingCommands.take();
+        final MethodInvocation command = pendingCommands.take();
         // got a command? let's send it!
         sendCommand(command);
     }
@@ -57,16 +56,16 @@ public class CommandQueue {
     /**
      * this method keeps retrying till a confirmation is received
      */
-    private void sendCommand(final Pair<String, Integer> pair) throws InterruptedException {
+    private void sendCommand(final MethodInvocation pair) throws InterruptedException {
         int counter = 0;
         latestConfirmation = null;
-        String command = pair.first;
+        String command = pair.getText();
 
         while (!command.equals(latestConfirmation)) {
             counter++;
             LinkManager.send(command);
             synchronized (lock) {
-                lock.wait(pair.second);
+                lock.wait(pair.getTimeout());
             }
         }
 
@@ -110,13 +109,35 @@ public class CommandQueue {
     }
 
     public void write(String command) {
-        write(command, 300);
+        write(command, DEFAULT_TIMEOUT);
+    }
+
+    public void write(String command, int timeout) {
+        write(command, timeout, InvocationConfirmationListener.VOID);
     }
 
     /**
      * Non-blocking command request
      */
-    public void write(String command, int timeout) {
-        pendingCommands.add(new Pair<String, Integer>(command, timeout));
+    public void write(String command, int timeout, InvocationConfirmationListener listener) {
+        pendingCommands.add(new MethodInvocation(command, timeout));
+    }
+
+    static class MethodInvocation {
+        private final String text;
+        private final int timeout;
+
+        MethodInvocation(String text, int timeout) {
+            this.text = text;
+            this.timeout = timeout;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public int getTimeout() {
+            return timeout;
+        }
     }
 }

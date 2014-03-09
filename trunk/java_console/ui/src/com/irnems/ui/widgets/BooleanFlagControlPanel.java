@@ -1,8 +1,8 @@
 package com.irnems.ui.widgets;
 
-import com.irnems.CommandQueue;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
+import com.rusefi.io.CommandQueue;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

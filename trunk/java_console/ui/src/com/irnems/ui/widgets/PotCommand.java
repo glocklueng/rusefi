@@ -1,9 +1,9 @@
 package com.irnems.ui.widgets;
 
-import com.irnems.CommandQueue;
 import com.irnems.core.MessagesCentral;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
+import com.rusefi.io.CommandQueue;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

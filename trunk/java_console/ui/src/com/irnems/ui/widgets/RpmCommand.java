@@ -1,6 +1,6 @@
 package com.irnems.ui.widgets;
 
-import com.irnems.CommandQueue;
+import com.rusefi.io.CommandQueue;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
