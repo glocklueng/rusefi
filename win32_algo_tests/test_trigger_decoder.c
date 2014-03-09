@@ -13,6 +13,7 @@
 #include "ford_aspire.h"
 #include "dodge_neon.h"
 #include "ford_1995_inline_6.h"
+#include "mazda_323.h"
 
 void sendOutConfirmation(char *value, int i) {
 	// test implementation
@@ -136,6 +137,15 @@ void testFordAspire(void) {
 	assertEqualsM("higher rpm dwell", 3.25, getSparkDwellMsT(&ec, 6000));
 }
 
+void testMazda323(void) {
+	printf("*************************************************** testMazda323\r\n");
+
+	engine_configuration_s ec;
+	engine_configuration2_s ec2;
+	resetConfigurationExt(MAZDA_323, &ec, &ec2);
+
+}
+
 void testMazdaMianaNbDecoder(void) {
 	printf("*************************************************** testMazdaMianaNbDecoder\r\n");
 
@@ -229,5 +239,7 @@ void testTriggerDecoder(void) {
 	test1995FordInline6TriggerDecoder();
 	testMazdaMianaNbDecoder();
 	testGY6_139QMB();
+
+	testMazda323();
 }
 
