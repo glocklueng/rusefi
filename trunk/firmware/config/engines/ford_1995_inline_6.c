@@ -34,9 +34,9 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 	setConstantDwell(engineConfiguration, 0.5);
 
 	/**
-	 * We treat the trigger as 3/0 toothed wheel
+	 * We treat the trigger as 6/0 toothed wheel
 	 */
-	engineConfiguration->triggerConfig.totalToothCount = 3;
+	engineConfiguration->triggerConfig.totalToothCount = 6;
 	engineConfiguration->triggerConfig.skippedToothCount = 0;
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
 	engineConfiguration->triggerConfig.useRiseEdge = TRUE;
