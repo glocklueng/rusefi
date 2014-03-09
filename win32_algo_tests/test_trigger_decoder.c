@@ -88,7 +88,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 	assertEqualsM("event index", 0, ecl->events[0].eventIndex);
 	assertEquals(13, ecl->events[0].angleOffset);
 
-	assertEqualsM("event index", 5, ecl->events[5].eventIndex);
+	assertEqualsM("event index", 10, ecl->events[5].eventIndex);
 	assertEquals(13, ecl->events[5].angleOffset);
 
 	trigger_state_s state;
@@ -105,7 +105,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_DOWN, r++);
 	assertEquals(1, state.current_index);
 
-	for (int i = 2; i < 4;) {
+	for (int i = 2; i < 10;) {
 		processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_UP, r++);
 		assertEqualsM("even", i++, state.current_index);
 		processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_DOWN, r++);
@@ -113,10 +113,10 @@ static void test1995FordInline6TriggerDecoder(void) {
 	}
 
 	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_UP, r++);
-	assertEquals(4, state.current_index);
+	assertEquals(10, state.current_index);
 
 	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_DOWN, r++);
-	assertEquals(5, state.current_index);
+	assertEquals(11, state.current_index);
 
 	processTriggerEvent(&state, shape, &ec.triggerConfig, SHAFT_PRIMARY_UP, r++);
 	assertEquals(0, state.current_index); // new revolution
