@@ -64,6 +64,8 @@ char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 		return "Gy6 139qmb";
 	case MAZDA_MIATA_NB:
 		return "Mazda Miata NB";
+	case MAZDA_323:
+		return "Mazda 323";
 	default:
 		return NULL;
 	}
