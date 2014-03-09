@@ -56,6 +56,8 @@ typedef enum {
 
 	ROVER_V8 = 10,
 
+	MAZDA_323 = 11,
+
 	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;
 
