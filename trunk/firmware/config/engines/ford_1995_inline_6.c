@@ -21,9 +21,9 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->cylindersCount = 6;
 
 	/**
-	 * we have a sensor on the camshaft, so rpmMultiplier == 2
+	 * 0.5 means primary position sensor is on a camshaft
 	 */
-	engineConfiguration->rpmMultiplier = 2;
+	engineConfiguration->rpmMultiplier = 0.5;
 
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
 	engineConfiguration->firingOrder = FO_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4;
@@ -34,12 +34,13 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 	setConstantDwell(engineConfiguration, 0.5);
 
 	/**
-	 * We treat the trigger as 6/0 toothed wheel
+	 * We treat the trigger as 3/0 toothed wheel
 	 */
-	engineConfiguration->triggerConfig.totalToothCount = 6;
+	engineConfiguration->triggerConfig.totalToothCount = 3;
 	engineConfiguration->triggerConfig.skippedToothCount = 0;
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
 	engineConfiguration->triggerConfig.useRiseEdge = TRUE;
+	engineConfiguration->needSecondTriggerInput = FALSE;
 }
 
 /**

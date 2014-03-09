@@ -104,6 +104,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 //	appendMsgPrefix(&logger);
 
 	scheduleMsg(&logger, "rpmHardLimit: %d", engineConfiguration->rpmHardLimit);
+	scheduleMsg(&logger, "rpmMultiplier=%f", engineConfiguration->rpmMultiplier);
 
 	scheduleMsg(&logger, "tpsMin: %d", engineConfiguration->tpsMin);
 	scheduleMsg(&logger, "tpsMax: %d", engineConfiguration->tpsMax);
