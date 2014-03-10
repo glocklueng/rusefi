@@ -19,7 +19,7 @@
 
 static pin_output_mode_e *pinDefaultState[IO_PIN_COUNT];
 static OutputPin outputs[IO_PIN_COUNT];
-static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_DEBUG, LED_EXT_1, LED_EXT_2,
+static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_DEBUG, LED_EXT_1,
 		LED_CHECK_ENGINE };
 
 static GPIO_TypeDef *PORTS[] = {GPIOA, GPIOB, GPIOC, GPIOD, GPIOE, GPIOF, GPIOG, GPIOH};
@@ -76,13 +76,13 @@ static void comBlinkingThread(void *arg) {
 
 		setOutputPinValue(LED_COMMUNICATION_1, 0);
 		setOutputPinValue(LED_EXT_1, 1);
-		setOutputPinValue(LED_EXT_2, 1);
+//		setOutputPinValue(LED_EXT_2, 1);
 //		setOutputPinValue(LED_EXT_3, 1);
 		chThdSleepMilliseconds(delay);
 
 		setOutputPinValue(LED_COMMUNICATION_1, 1);
 		setOutputPinValue(LED_EXT_1, 0);
-		setOutputPinValue(LED_EXT_2, 0);
+//		setOutputPinValue(LED_EXT_2, 0);
 //		setOutputPinValue(LED_EXT_3, 0);
 		chThdSleepMilliseconds(delay);
 	}
@@ -155,7 +155,7 @@ void initOutputPins(void) {
 	outputPinRegister("communication status 1", LED_COMMUNICATION_1, LED_COMMUNICATION_PORT, LED_COMMUNICATION_PIN);
 
 	outputPinRegister("ext led 1", LED_EXT_1, EXTRA_LED_1_PORT, EXTRA_LED_1_PIN);
-	outputPinRegister("ext led 2", LED_EXT_2, EXTRA_LED_2_PORT, EXTRA_LED_2_PIN);
+//	outputPinRegister("ext led 2", LED_EXT_2, EXTRA_LED_2_PORT, EXTRA_LED_2_PIN);
 //	outputPinRegister("ext led 3", LED_EXT_3, EXTRA_LED_2_PORT, EXTRA_LED_3_PIN);
 	outputPinRegister("alive1", LED_DEBUG, GPIOD, 6);
 

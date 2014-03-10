@@ -27,7 +27,7 @@
 #define STM32_PWM_USE_TIM9                  FALSE
 
 #define STM32_SPI_USE_SPI1                  FALSE
-#define STM32_SPI_USE_SPI2                  TRUE // external ADC
+#define STM32_SPI_USE_SPI2                  FALSE // external ADC
 #define STM32_SPI_USE_SPI3                  TRUE // potentiometer
 
 #define STM32_CAN_USE_CAN1                  TRUE
@@ -298,17 +298,17 @@
 #define GPS_SERIAL_RX_PIN 7
 
 #define HD44780_PORT_RS	GPIOE
-#define HD44780_PIN_RS	8
+#define HD44780_PIN_RS	9
 #define HD44780_PORT_E	GPIOE
-#define HD44780_PIN_E	10
+#define HD44780_PIN_E	11
 #define HD44780_PORT_DB4	GPIOE
-#define HD44780_PIN_DB4	11
+#define HD44780_PIN_DB4	13
 #define HD44780_PORT_DB5	GPIOE
-#define HD44780_PIN_DB5	12
-#define HD44780_PORT_DB6	GPIOE
-#define HD44780_PIN_DB6	13
-#define HD44780_PORT_DB7	GPIOE
-#define HD44780_PIN_DB7	14
+#define HD44780_PIN_DB5	15
+#define HD44780_PORT_DB6	GPIOB
+#define HD44780_PIN_DB6	11
+#define HD44780_PORT_DB7	GPIOB
+#define HD44780_PIN_DB7	13
 
 // todo: migrate to dynamic pin definition
 #define FAN_RELAY_PORT GPIOC
