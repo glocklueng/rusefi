@@ -163,7 +163,7 @@ void startTunerStudioConnectivity(void) {
 
 	syncTunerStudioCopy();
 
-	addConsoleAction("tss", printStats);
+	addConsoleAction("tsinfo", printStats);
 
 	chThdCreateStatic(TS_WORKING_AREA, sizeof(TS_WORKING_AREA), NORMALPRIO, tsThreadEntryPoint, NULL);
 }

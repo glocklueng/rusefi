@@ -18,6 +18,8 @@
 
 extern engine_configuration_s *engineConfiguration;
 
+static Logging logger;
+
 enum {
 	LCD_2X16_RESET = 0x30, LCD_2X16_4_BIT_BUS = 0x20,
 //	LCD_2X16_8_BIT_BUS = 0x30,
@@ -143,7 +145,18 @@ void lcd_HD44780_print_string(char* string) {
 		lcd_HD44780_print_char(*string++);
 }
 
+static void lcdInfo(void) {
+	scheduleMsg(&logger, "HD44780 RS=%s%d E=%s%d", portname(HD44780_PORT_RS), HD44780_PIN_RS, portname(HD44780_PORT_E), HD44780_PIN_E);
+	scheduleMsg(&logger, "HD44780 D4=%s%d D5=%s%d", portname(HD44780_PORT_DB4), HD44780_PIN_DB4, portname(HD44780_PORT_DB5), HD44780_PIN_DB5);
+	scheduleMsg(&logger, "HD44780 D6=%s%d D7=%s%d", portname(HD44780_PORT_DB6), HD44780_PIN_DB6, portname(HD44780_PORT_DB7), HD44780_PIN_DB7);
+}
+
 void lcd_HD44780_init(void) {
+	initLogging(&logger, "HD44780 driver");
+
+	addConsoleAction("lcdinfo", lcdInfo);
+
+
 	if (engineConfiguration->displayMode == DM_HD44780) {
 		mySetPadMode("lcd RS", HD44780_PORT_RS, HD44780_PIN_RS, PAL_MODE_OUTPUT_PUSHPULL);
 		mySetPadMode("lcd E", HD44780_PORT_E, HD44780_PIN_E, PAL_MODE_OUTPUT_PUSHPULL);
