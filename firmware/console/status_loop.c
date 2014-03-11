@@ -26,7 +26,9 @@
 #include "console_io.h"
 
 #include "advance_map.h"
+#if EFI_TUNER_STUDIO
 #include "tunerstudio.h"
+#endif /* EFI_TUNER_STUDIO */
 
 #include "wave_math.h"
 
