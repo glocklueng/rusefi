@@ -91,7 +91,6 @@
 #include "engine_emulator.h"
 #endif /* EFI_ENGINE_EMULATOR */
 
-#include "tunerstudio.h"
 #include "status_loop.h"
 #include "memstreams.h"
 
@@ -134,6 +133,7 @@ void runRusEfi(void) {
 #if EFI_ENGINE_EMULATOR
 	initEngineEmulator();
 #endif
+	startStatusThreads();
 
 	print("Running main loop\r\n");
 	main_loop_started = TRUE;
@@ -146,15 +146,6 @@ void runRusEfi(void) {
 		// sensor state + all pending messages for our own dev console
 		updateDevConsoleState();
 #endif /* EFI_CLI_SUPPORT */
-
-#if EFI_TUNER_STUDIO
-		// sensor state for EFI Analytics Tuner Studio
-		updateTunerStudioState();
-#endif /* EFI_TUNER_STUDIO */
-
-#if EFI_HD44780_LCD
-		updateHD44780lcd();
-#endif
 
 		chThdSleepMilliseconds(5);
 	}
