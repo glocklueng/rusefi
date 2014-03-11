@@ -31,7 +31,7 @@ public class RevolutionLog {
         return new RevolutionLog(time2rpm);
     }
 
-    public String getText(double time) {
+    public String getCrankAngleByTime(double time) {
         Map.Entry<Integer, Integer> entry = getTimeAndRpm(time);
         String text;
         if (entry == null) {
