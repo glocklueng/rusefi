@@ -26,6 +26,7 @@
 #include "console_io.h"
 
 #include "advance_map.h"
+#include "tunerstudio.h"
 
 #include "wave_math.h"
 
@@ -128,7 +129,6 @@ static char LOGGING_BUFFER[500];
 
 #if EFI_PROD_CODE
 
-
 volatile int needToReportStatus = FALSE;
 static int prevCkpEventCounter = -1;
 
@@ -145,8 +145,6 @@ static void printStatus(void) {
 //	float iatK = tempCtoKelvin(getIntakeAirTemperature());
 //	return getTCharge(getCurrentRpm(), tps, cltK, iatK);
 //}
-
-
 
 #if EFI_CUSTOM_PANIC_METHOD
 extern char *dbg_panic_file;
@@ -186,10 +184,11 @@ static void checkIfShouldHalt(void) {
 static systime_t timeOfPreviousPrintVersion = (systime_t) -1;
 
 static void printVersion(systime_t nowSeconds) {
-	if(overflowDiff(nowSeconds, timeOfPreviousPrintVersion) < 4)
+	if (overflowDiff(nowSeconds, timeOfPreviousPrintVersion) < 4)
 		return;
 	timeOfPreviousPrintVersion = nowSeconds;
-	appendPrintf(&logger, "rusEfiVersion%s%d %s%s", DELIMETER, getVersion(), getConfigurationName(engineConfiguration), DELIMETER);
+	appendPrintf(&logger, "rusEfiVersion%s%d %s%s", DELIMETER, getVersion(), getConfigurationName(engineConfiguration),
+			DELIMETER);
 }
 
 static systime_t timeOfPreviousReport = (systime_t) -1;
@@ -213,14 +212,11 @@ void updateDevConsoleState(void) {
 		return;
 	}
 
-
 	if (!fullLog)
 		return;
 
-
 	systime_t nowSeconds = chTimeNowSeconds();
 	printVersion(nowSeconds);
-
 
 	int currentCkpEventCounter = getCrankEventCounter();
 	if (prevCkpEventCounter == currentCkpEventCounter && timeOfPreviousReport == nowSeconds)
@@ -330,6 +326,28 @@ void updateHD44780lcd(void) {
 }
 #endif /* EFI_PROD_CODE */
 
+static WORKING_AREA(lcdThreadStack, UTILITY_THREAD_STACK_SIZE);
+
+static void lcdThread(void *arg) {
+	while (true) {
+#if EFI_HD44780_LCD
+		updateHD44780lcd();
+#endif
+		chThdSleepMilliseconds(50);
+	}
+}
+
+static WORKING_AREA(tsThreadStack, UTILITY_THREAD_STACK_SIZE);
+
+static void tsStatusThread(void *arg) {
+	while (true) {
+#if EFI_TUNER_STUDIO
+		// sensor state for EFI Analytics Tuner Studio
+		updateTunerStudioState();
+#endif /* EFI_TUNER_STUDIO */
+		chThdSleepMilliseconds(50);
+	}
+}
 
 void initStatusLoop(void) {
 #if EFI_PROD_CODE || EFI_SIMULATOR
@@ -350,6 +368,13 @@ void initStatusLoop(void) {
 #if EFI_FILE_LOGGING
 	initLogging(&fileLogger, "file logger");
 #endif /* EFI_FILE_LOGGING */
+
+}
+
+void startStatusThreads(void) {
+	// todo: refactoring needed, this file should probably be split into pieces
+	chThdCreateStatic(lcdThreadStack, sizeof(lcdThreadStack), NORMALPRIO, (tfunc_t) lcdThread, NULL);
+	chThdCreateStatic(tsThreadStack, sizeof(tsThreadStack), NORMALPRIO, (tfunc_t) tsStatusThread, NULL);
 }
 
 void setFullLog(int value) {
