@@ -15,6 +15,7 @@
 
 #include "trigger_input.h"
 #include "eficonsole.h"
+#include "board_test.h"
 
 #include "mcp3208.h"
 #include "HIP9011.h"
@@ -155,4 +156,7 @@ void initHardware() {
 //			chThdSleepMilliseconds(5);
 //		}
 //	}
+
+	initBoardTest();
+
 }
