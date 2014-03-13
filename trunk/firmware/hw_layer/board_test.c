@@ -1,8 +1,9 @@
 /**
  * @file	board_test.c
+ * @brief	This is a simple board testing utility
  *
  * @date Mar 12, 2014
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  *
  * This file is part of rusEfi - see http://rusefi.com
  *
@@ -19,7 +20,95 @@
  */
 
 #include "main.h"
+#include "rusefi_enums.h"
+#include "pin_repository.h"
+#include "gpio_helper.h"
+
+static volatile int stepCoutner = 0;
+static volatile brain_pin_e currentPin;
+static volatile int currentIndex = 0;
+
+static void waitForKey(void) {
+	print("Please hit N<ENTER> to continue\r\n");
+	int copy = stepCoutner;
+	while (copy == stepCoutner)
+		chThdSleepMilliseconds(10);
+}
+
+static void nextStep(void) {
+	stepCoutner++;
+}
+
+static void setIndex(int index) {
+	currentIndex = index;
+	nextStep();
+}
+
+static brain_pin_e BLINK_PINS[] = {
+		GPIOE_8, // HIGH DRIVER 1
+		GPIOE_10, // HIGH DRIVER 2
+		GPIOE_12, // HIGH DRIVER 3
+		GPIOE_14, // HIGH DRIVER 4
+		GPIOC_9, // HIGH DRIVER 5
+		GPIOC_7, // HIGH DRIVER 6
+		// index = 6
+		GPIOC_14, // OUT 1
+		GPIOC_15, // OUT2
+		GPIOE_6,  // OUT3
+		GPIOC_13, // OUT4
+		GPIOE_4, // OUT5
+		GPIOE_5, // OUT6
+		GPIOE_2, // OUT7
+		GPIOE_3, // OUT8
+		GPIOE_0, // OUT9
+		GPIOE_1, // OUT10
+		GPIOB_8, // OUT11
+		GPIOB_9, // OUT12
+		};
+
+static WORKING_AREA(btThreadStack, UTILITY_THREAD_STACK_SIZE);
+
+static msg_t ivThread(int param) {
+	chRegSetThreadName("board test blinking");
+
+	int value = 0;
+
+	while (TRUE) {
+		chThdSleepMilliseconds(250);
+		value = 1 - value;
+		GPIO_TypeDef *hwPort = getHwPort(currentPin);
+		uint32_t hwPin = getHwPin(currentPin);
+		palWritePad(hwPort, hwPin, value);
+	}
+	return 0;
+}
 
 void initBoardTest(void) {
+	// todo: add a command to go into board test mode after reboot
+	if (1 == 1)
+		return;
 
+	addConsoleAction("n", nextStep);
+	addConsoleActionI("set", setIndex);
+
+	chThdCreateStatic(btThreadStack, sizeof(btThreadStack), NORMALPRIO, (tfunc_t) ivThread, NULL);
+
+	// this code is ugly as hell, I had no time to think. Todo: refactor
+
+	int pinsCount = sizeof(BLINK_PINS) / sizeof(brain_pin_e);
+
+
+	while (currentIndex < pinsCount) {
+		currentPin = BLINK_PINS[currentIndex];
+
+		GPIO_TypeDef *hwPort = getHwPort(currentPin);
+		uint32_t hwPin = getHwPin(currentPin);
+
+		print("currentIndex=%d\r\n", currentIndex);
+		print("Let's test %s%d\r\n", portname(hwPort), hwPin);
+		mySetPadMode("test", hwPort, hwPin, PAL_STM32_MODE_OUTPUT);
+
+		currentIndex++;
+		waitForKey();
+	}
 }
