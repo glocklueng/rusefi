@@ -15,6 +15,7 @@ HW_LAYERESRC = $(PROJECT_DIR)/hw_layer/hardware.c \
 	$(PROJECT_DIR)/hw_layer/mmc_card.c \
 	$(PROJECT_DIR)/hw_layer/neo6m.c \
 	$(PROJECT_DIR)/hw_layer/gpio_helper.c \
+	$(PROJECT_DIR)/hw_layer/board_test.c \
 	$(PROJECT_DIR)/hw_layer/wave_analyzer_hw.c \
 	$(PROJECT_DIR)/hw_layer/pwm_generator.c
 
