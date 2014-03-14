@@ -23,15 +23,20 @@
 #include "rusefi_enums.h"
 #include "pin_repository.h"
 #include "gpio_helper.h"
+#include "adc_inputs.h"
 
 static volatile int stepCoutner = 0;
 static volatile brain_pin_e currentPin;
 static volatile int currentIndex = 0;
 
+static int isTimeForNextStep(int copy) {
+	return copy != stepCoutner;
+}
+
 static void waitForKey(void) {
 	print("Please hit N<ENTER> to continue\r\n");
 	int copy = stepCoutner;
-	while (copy == stepCoutner)
+	while (!isTimeForNextStep(copy))
 		chThdSleepMilliseconds(10);
 }
 
@@ -44,8 +49,7 @@ static void setIndex(int index) {
 	nextStep();
 }
 
-static brain_pin_e BLINK_PINS[] = {
-		GPIOE_8, // HIGH DRIVER 1
+static brain_pin_e BLINK_PINS[] = { GPIOE_8, // HIGH DRIVER 1
 		GPIOE_10, // HIGH DRIVER 2
 		GPIOE_12, // HIGH DRIVER 3
 		GPIOE_14, // HIGH DRIVER 4
@@ -97,6 +101,34 @@ void initBoardTest(void) {
 
 	int pinsCount = sizeof(BLINK_PINS) / sizeof(brain_pin_e);
 
+	while (currentIndex < EFI_ADC_SLOW_CHANNELS_COUNT) {
+		int hwIndex = getAdcHardwareIndexByInternalIndex(currentIndex);
+		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
+		int pin = getAdcChannelPin(hwIndex);
+
+		int value = getAdcValueByIndex(currentIndex);
+
+		int copy = stepCoutner;
+
+		int c = 0;
+
+		while (!isTimeForNextStep(copy)) {
+
+			print("ch%d hwIndex=%d %s%d\r\n", currentIndex, hwIndex, portname(port), pin);
+
+			int adcValue = getAdcValueByIndex(currentIndex);
+
+//		print("ADC%d val= %d%s", hwIndex, value, DELIMETER);
+			float volts = adcToVolts(adcValue) * 2;
+			print("v=%f     adc=%d             c=%d\r\n", volts, adcValue, c++);
+
+			chThdSleepMilliseconds(300);
+
+		}
+		currentIndex++;
+	}
+
+	currentIndex = 0;
 
 	while (currentIndex < pinsCount) {
 		currentPin = BLINK_PINS[currentIndex];
