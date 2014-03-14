@@ -327,10 +327,10 @@ static void printFullAdcReport(void) {
 		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
 		int pin = getAdcChannelPin(hwIndex);
 
-		int value = getAdcValueByIndex(index);
+		int adcValue = getAdcValueByIndex(index);
 		appendPrintf(&logger, " ch%d %s%d%s", index, portname(port), pin, DELIMETER);
-		appendPrintf(&logger, " ADC%d val= %d%s", hwIndex, value, DELIMETER);
-		float volts = adcToVoltsDivided(value);
+		appendPrintf(&logger, " ADC%d val= %d%s", hwIndex, adcValue, DELIMETER);
+		float volts = adcToVoltsDivided(adcValue);
 		debugFloat(&logger, "v ", volts, 1);
 	}
 	scheduleLogging(&logger);
