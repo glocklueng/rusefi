@@ -180,7 +180,7 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 #endif
 }
 
-static int getAdcValueByIndex(int internalIndex) {
+int getAdcValueByIndex(int internalIndex) {
 	return newState.adc_data[internalIndex];
 }
 
@@ -317,9 +317,13 @@ static void printAdcValue(int channel) {
 	scheduleMsg(&logger, "adc voltage : %f", volts);
 }
 
+int getAdcHardwareIndexByInternalIndex(int index) {
+	return hardwareIndexByIndernalAdcIndex[index];
+}
+
 static void printFullAdcReport(void) {
 	for (int index = 0; index < EFI_ADC_SLOW_CHANNELS_COUNT; index++) {
-		int hwIndex = hardwareIndexByIndernalAdcIndex[index];
+		int hwIndex = getAdcHardwareIndexByInternalIndex(index);
 		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
 		int pin = getAdcChannelPin(hwIndex);
 
