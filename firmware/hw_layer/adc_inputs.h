@@ -14,6 +14,8 @@
 GPIO_TypeDef* getAdcChannelPort(int hwChannel);
 int getAdcChannelPin(int hwChannel);
 void initAdcInputs(void);
+int getAdcHardwareIndexByInternalIndex(int index);
+int getAdcValueByIndex(int internalIndex);
 void pokeAdcInputs(void);
 int getInternalAdcValue(int index);
 
