@@ -182,6 +182,9 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->ignitionPins[2] = GPIOE_0; // todo: update this value
 	engineConfiguration->ignitionPins[3] = GPIOE_1; // todo: update this value
 
+	engineConfiguration->map.config.mapType = MT_CUSTOM;
+	engineConfiguration->map.config.Min = 0;
+	engineConfiguration->map.config.Max = 500;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
