@@ -13,7 +13,7 @@
 #include "global.h"
 
 float getTPS(void);
-int getTPSAdc(void);
+int getTPS10bitAdc(void);
 float getTPSVoltage(void);
 
 #endif

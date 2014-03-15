@@ -4,6 +4,8 @@
  *
  * http://rusefi.com/forum/viewtopic.php?f=3&t=469
  *
+ * FORD_INLINE_6_1995 = 7
+ *
  * @date Feb 12, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
@@ -11,6 +13,7 @@
 #include "main.h"
 #include "ford_1995_inline_6.h"
 #include "engine_math.h"
+#include "thermistors.h"
 
 #if EFI_SUPPORT_1995_FORD_INLINE_6 || defined(__DOXYGEN__)
 
@@ -41,6 +44,26 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
 	engineConfiguration->triggerConfig.useRiseEdge = TRUE;
 	engineConfiguration->needSecondTriggerInput = FALSE;
+
+
+	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, -10, 160310, 60, 7700, 120.00, 1180);
+	engineConfiguration->cltThermistorConf.bias_resistor = 2700;
+
+	setThermistorConfiguration(&engineConfiguration->iatThermistorConf, -10, 160310, 60, 7700, 120.00, 1180);
+	engineConfiguration->iatThermistorConf.bias_resistor = 2700;
+
+	engineConfiguration->tpsAdcChannel = 0; // input channel 5 is ADC0
+	engineConfiguration->cltAdcChannel = 4; // input channel 7 is ADC4
+	engineConfiguration->iatAdcChannel = 12; // input channel 6 is ADC12
+
+	// divided by 2 because of voltage divider, then converted into 10bit ADC value (TunerStudio format)
+	engineConfiguration->tpsMin = (1.250 / 2) * 1024 / 3.3;
+	engineConfiguration->tpsMax = (4.538 / 2) * 1024 / 3.3;
+
+	//	engineConfiguration->vBattAdcChannel = 0; //
+//	engineConfiguration->map.channel = 1;
+//	engineConfiguration->mafAdcChannel = 1;
+
 }
 
 /**

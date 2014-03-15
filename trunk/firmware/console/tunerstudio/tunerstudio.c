@@ -190,7 +190,7 @@ void updateTunerStudioState() {
 	tsOutputChannels.mass_air_flow = getMaf();
 	tsOutputChannels.air_fuel_ratio = getAfr();
 	tsOutputChannels.v_batt = getVBatt();
-	tsOutputChannels.tpsADC = getTPSAdc();
+	tsOutputChannels.tpsADC = getTPS10bitAdc();
 	tsOutputChannels.atmospherePressure = getAtmosphericPressure();
 	tsOutputChannels.manifold_air_pressure = getMap();
 	tsOutputChannels.checkEngine = hasErrorCodes();

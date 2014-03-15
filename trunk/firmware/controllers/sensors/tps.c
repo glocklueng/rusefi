@@ -30,7 +30,7 @@ float getTPSVoltage(void) {
  * We need ADC value because TunerStudio has a nice TPS configuration wizard, and this wizard
  * wants a TPS value.
  */
-int getTPSAdc(void) {
+int getTPS10bitAdc(void) {
 	int adc = getAdcValue(engineConfiguration->tpsAdcChannel);
 	return (int) adc / 4; // Only for TunerStudio compatibility. Max TS adc value in 1023
 }
@@ -41,7 +41,7 @@ int getTPSAdc(void) {
 static float getPrimatyRawTPS(void) {
 	// blue, 1st board
 	/* PA7 - blue TP */
-	float tpsValue = getTpsValue(getTPSAdc());
+	float tpsValue = getTpsValue(getTPS10bitAdc());
 	return tpsValue;
 }
 
