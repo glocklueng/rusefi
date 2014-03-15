@@ -104,6 +104,7 @@ typedef struct {
 	// todo: extract these two fields into a structure
 	// todo: we need two sets of TPS parameters - modern ETBs have to sensors
 	short int tpsMin; // size 2, offset 330
+	// tpsMax value as 10 bit ADC value. Not Voltage!
 	short int tpsMax; // size 2, offset 332
 	short int analogChartMode;
 
