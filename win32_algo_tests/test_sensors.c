@@ -7,11 +7,18 @@
 
 #include "main.h"
 #include "thermistors.h"
+#include "map.h"
 
 static ThermistorConf tc;
 
+static void testMapDecoding() {
+	assertEquals(-6.64, getMAPValueHonda_Denso183(0));
+	assertEquals(31.244, getMAPValueHonda_Denso183(1));
+}
+
 void testSensors(void) {
 	print("************************************************** testSensors\r\n");
+	testMapDecoding();
 	setThermistorConfiguration(&tc, 32, 9500, 75, 2100, 120, 1000);
 
 	prepareThermistorCurve(&tc);
