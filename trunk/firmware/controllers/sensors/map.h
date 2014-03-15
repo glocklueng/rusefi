@@ -10,5 +10,6 @@ float getRawMap(void);
  */
 float getMap(void);
 float getMapByVoltage(float voltage);
+float getMAPValueHonda_Denso183(float volts);
 
 #endif
