@@ -6,6 +6,12 @@
  * printing messages into this buffer. The purpose of the
  * buffer is to allow fast, non-blocking, thread-safe logging.
  *
+ * The idea is that each interrupt handler would have it's own logging buffer. You can add
+ * stuff into this buffer without any locking since it's you own buffer, and once you get
+ * the whole message you invoke the scheduleLogging() method which appends your local content
+ * into the global logging buffer, from which it is later dispatched to the console by our
+ * main console thread.
+ *
  * @date Feb 25, 2013
  * @author Andrey Belomutskiy, (c) 2012-2014
  *
