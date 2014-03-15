@@ -14,7 +14,7 @@ extern engine_configuration_s * engineConfiguration;
  * @brief	MAP value decoded for a 1.83 Honda sensor
  * @returns kPa value
  */
-static float getMAPValueHonda_Denso183(float volts) {
+float getMAPValueHonda_Denso183(float volts) {
 	return Honda_Denso183_Range / 5 * volts + Honda_Denso183_Min;
 }
 
