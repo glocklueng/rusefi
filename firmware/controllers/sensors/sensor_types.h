@@ -11,6 +11,8 @@
 #define MAP_ANGLE_SIZE 8
 #define MAP_WINDOW_SIZE 8
 
+#include "rusefi_enums.h"
+
 /**
  * @brief MAP averaging configuration
  */
@@ -29,7 +31,7 @@ typedef struct {
 
 	float Min;
 	float Max;
-	float Range;
+	map_type_e mapType;
 } MapConf_s;
 
 typedef struct {
