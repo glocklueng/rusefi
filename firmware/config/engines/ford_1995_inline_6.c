@@ -60,8 +60,10 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->tpsMin = (1.250 / 2) * 1024 / 3.3;
 	engineConfiguration->tpsMax = (4.538 / 2) * 1024 / 3.3;
 
+	engineConfiguration->map.config.mapType = MT_MPX4250;
+	engineConfiguration->map.channel = 2; // input channel 8 is ADC2
+
 	//	engineConfiguration->vBattAdcChannel = 0; //
-//	engineConfiguration->map.channel = 1;
 //	engineConfiguration->mafAdcChannel = 1;
 
 }

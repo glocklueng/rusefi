@@ -270,6 +270,8 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->mafAdcChannel = 1;
 	engineConfiguration->cltAdcChannel = 11;
 //	engineConfiguration->iatAdcChannel =
+
+	engineConfiguration->map.config.mapType = MT_DENSO183;
 }
 
 void setFordAspireengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
