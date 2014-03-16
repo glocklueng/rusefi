@@ -19,21 +19,31 @@ int getAdcValueByIndex(int internalIndex);
 void pokeAdcInputs(void);
 int getInternalAdcValue(int index);
 
+/* Depth of the conversion buffer, channels are sampled X times each.*/
+#define ADC_GRP1_BUF_DEPTH_SLOW      1
+#define ADC_MAX_SLOW_CHANNELS_COUNT 12
+
 // this structure contains one multi-channel ADC state snapshot
 typedef struct {
-	volatile adcsample_t adc_data[EFI_ADC_SLOW_CHANNELS_COUNT];
+	volatile adcsample_t adc_data[ADC_MAX_SLOW_CHANNELS_COUNT];
 	time_t time;
 } adc_state;
 
+typedef struct {
+	adcsample_t samples[ADC_MAX_SLOW_CHANNELS_COUNT * ADC_GRP1_BUF_DEPTH_SLOW];
 
-#define getAdcValue(channel) getInternalAdcValue(channel)
+
+} adc_hw_helper_s;
+
+
+#define getAdcValue(hwChannel) getInternalAdcValue(hwChannel)
 
 #define adcToVolts(adc) ((((float) 3.0) * (adc) / 4095))
 
 #define adcToVoltsDivided(adc) (adcToVolts(adc) * engineConfiguration->analogInputDividerCoefficient)
 
-#define getVoltage(channel) (adcToVolts(getAdcValue(channel)))
+#define getVoltage(hwChannel) (adcToVolts(getAdcValue(hwChannel)))
 
-#define getVoltageDivided(channel) (getVoltage(channel) * engineConfiguration->analogInputDividerCoefficient)
+#define getVoltageDivided(hwChannel) (getVoltage(hwChannel) * engineConfiguration->analogInputDividerCoefficient)
 
 #endif /* ADC_INPUTS_H_ */
