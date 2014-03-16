@@ -297,6 +297,10 @@ void appendMsgPrefix(Logging *logging) {
 	appendPrintf(logging, "msg%s", DELIMETER);
 }
 
+void appendMsgPostfix(Logging *logging) {
+	append(logging, DELIMETER);
+}
+
 void resetLogging(Logging *logging) {
 	char *buffer = logging->buffer;
 	chDbgCheck(buffer!=NULL, "null buffer");
@@ -329,7 +333,7 @@ void scheduleMsg(Logging *logging, const char *fmt, ...) {
 	vappendPrintf(logging, fmt, ap);
 	va_end(ap);
 
-	append(logging, DELIMETER);
+	appendMsgPostfix(logging);
 	scheduleLogging(logging);
 }
 
