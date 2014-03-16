@@ -129,8 +129,12 @@ void print(const char *format, ...) {
 	va_end(ap);
 }
 
-void fatal(char *x) {
-  printf(x);
+void fatal3(char *msg, char *file, int line) {
+  printf(msg);
   exit(-1);
 }
 
+int warning(const char *fmt, ...) {
+	 printf(fmt);
+	 exit(-1);
+}
