@@ -122,6 +122,11 @@ void warning(char *msg, float value) {
 	printf("Warning: %s %f\r\n", msg, value);
 }
 
+void firmwareError(const char *fmt, ...) {
+	  printf(fmt);
+	  exit(-1);
+}
+
 void print(const char *format, ...) {
 	va_list ap;
 	va_start(ap, format);
