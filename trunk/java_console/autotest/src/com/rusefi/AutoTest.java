@@ -48,6 +48,8 @@ public class AutoTest {
                 simulatorProcess.destroy();
             }
         }
+        FileLog.MAIN.logLine("Looks good!");
+        System.exit(0);
     }
 
     private static void runTest() throws InterruptedException {
@@ -89,14 +91,15 @@ public class AutoTest {
         Thread.sleep(5000); // let's give it some time to start
 
         mainTestBody();
-        FileLog.MAIN.logLine("Looks good!");
-        System.exit(0);
     }
 
     private static void mainTestBody() throws InterruptedException {
-        final AtomicBoolean responseFlag = new AtomicBoolean();
+        changeRpm(500);
+        changeRpm(2000);
+    }
 
-        int rpm = 500;
+    private static void changeRpm(int rpm) throws InterruptedException {
+        final AtomicBoolean responseFlag = new AtomicBoolean();
 
         CommandQueue.getInstance().write("rpm " + rpm, CommandQueue.DEFAULT_TIMEOUT, new InvocationConfirmationListener() {
             @Override
