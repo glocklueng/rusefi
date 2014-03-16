@@ -52,9 +52,9 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 	setThermistorConfiguration(&engineConfiguration->iatThermistorConf, -10, 160310, 60, 7700, 120.00, 1180);
 	engineConfiguration->iatThermistorConf.bias_resistor = 2700;
 
-	engineConfiguration->tpsAdcChannel = 0; // input channel 5 is ADC0
-	engineConfiguration->cltAdcChannel = 4; // input channel 7 is ADC4
-	engineConfiguration->iatAdcChannel = 12; // input channel 6 is ADC12
+	engineConfiguration->tpsAdcChannel = 4; // input channel 5 is PA4, that's ADC4
+	engineConfiguration->cltAdcChannel = 2; // input channel 7 is PA2, that's ADC2
+	engineConfiguration->iatAdcChannel = 3; // input channel 6 is PA3, that's ADC3
 
 	// divided by 2 because of voltage divider, then converted into 10bit ADC value (TunerStudio format)
 	engineConfiguration->tpsMin = (1.250 / 2) * 1024 / 3.3;
