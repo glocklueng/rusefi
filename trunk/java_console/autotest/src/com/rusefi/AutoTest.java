@@ -5,6 +5,7 @@ import com.irnems.FileLog;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
 import com.rusefi.io.CommandQueue;
+import com.rusefi.io.InvocationConfirmationListener;
 import com.rusefi.io.LinkManager;
 import com.rusefi.io.tcp.TcpConnector;
 
@@ -13,6 +14,7 @@ import java.io.InputStreamReader;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * rusEfi firmware simulator functional test suite
@@ -35,11 +37,14 @@ public class AutoTest {
     });
 
     public static void main(String[] args) throws InterruptedException {
+        FileLog.SIMULATOR_CONSOLE.start();
+        FileLog.MAIN.start();
+
         try {
             runTest();
         } finally {
             if (simulatorProcess != null) {
-                FileLog.rlog("Destroying subprocess...");
+                FileLog.rlog("Destroying sub-process...");
                 simulatorProcess.destroy();
             }
         }
@@ -80,16 +85,57 @@ public class AutoTest {
         LinkManager.open();
 
         FileLog.rlog("Let's give it some time to start...");
+        // todo: some way to know that we are alive
         Thread.sleep(5000); // let's give it some time to start
 
-        CommandQueue.getInstance().write("rpm 500", CommandQueue.DEFAULT_TIMEOUT);
+        mainTestBody();
+        FileLog.MAIN.logLine("Looks good!");
+        System.exit(0);
+    }
 
-        SensorCentral.getInstance().getValue(Sensor.RPM);
+    private static void mainTestBody() throws InterruptedException {
+        final AtomicBoolean responseFlag = new AtomicBoolean();
 
-        Thread.sleep(10 * SECOND);
+        int rpm = 500;
 
+        CommandQueue.getInstance().write("rpm " + rpm, CommandQueue.DEFAULT_TIMEOUT, new InvocationConfirmationListener() {
+            @Override
+            public void onCommandConfirmation() {
+                synchronized (responseFlag) {
+                    responseFlag.set(true);
+                    responseFlag.notifyAll();
+                }
+            }
+        });
+        waitForResponse(responseFlag, 20);
 
-        Thread.sleep(60 * 1000);
+        // todo: subscribe to RPM updates
+        Thread.sleep(5 * SECOND);
+        double actualRpm = SensorCentral.getInstance().getValue(Sensor.RPM);
+
+        if (!isCloseEnough(rpm, actualRpm))
+            throw new IllegalStateException("rpm change did not happen");
+    }
+
+    private static boolean isCloseEnough(double v1, double v2) {
+        if (v2 == 0)
+            return v1 == 0;
+        double ratio = v1 / v2;
+        return Math.abs(1 - ratio) < 0.05;
+    }
+
+    private static void waitForResponse(AtomicBoolean responseFlag, int timeoutSeconds) throws InterruptedException {
+        long end = System.currentTimeMillis() + timeoutSeconds * 1000;
+
+        synchronized (responseFlag) {
+            long now = System.currentTimeMillis();
+            while (!responseFlag.get() && now < end) {
+                responseFlag.wait(end - now);
+            }
+        }
+        if (!responseFlag.get())
+            throw new IllegalStateException("No response");
+        FileLog.MAIN.logLine("Got response!");
     }
 
     private static void startSimulator() {
@@ -104,11 +150,12 @@ public class AutoTest {
                             (new InputStreamReader(simulatorProcess.getInputStream()));
             while ((line = input.readLine()) != null) {
                 System.out.println("from console: " + line);
+                FileLog.SIMULATOR_CONSOLE.logLine(line);
             }
             System.out.println("end of console");
             input.close();
         } catch (Exception err) {
-            err.printStackTrace();
+            throw new IllegalStateException(err);
         }
     }
 }

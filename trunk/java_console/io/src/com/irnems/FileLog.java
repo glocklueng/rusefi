@@ -12,7 +12,9 @@ import java.util.Date;
  * (c) Andrey Belomutskiy
  */
 public enum FileLog {
-    INSTANCE;
+    MAIN,
+    SIMULATOR_CONSOLE;
+
     private static final String DIR = "out/";
 
     @Nullable
@@ -29,12 +31,12 @@ public enum FileLog {
         }
     }
 
-    private static FileOutputStream openLog() throws FileNotFoundException {
+    private FileOutputStream openLog() throws FileNotFoundException {
         if (LinkManager.onlyUI)
             return null;
         String date = getDate();
         createFolderIfNeeded();
-        String fileName = DIR + "rfi_report_" + date + ".csv";
+        String fileName = DIR + name() + "_rfi_report_" + date + ".csv";
         rlog("Writing to " + fileName);
         return new FileOutputStream(fileName, true);
     }

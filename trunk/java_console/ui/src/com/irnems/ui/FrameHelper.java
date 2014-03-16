@@ -38,6 +38,6 @@ public class FrameHelper {
 
     protected void onWindowClosed() {
         FileLog.rlog("onWindowClosed");
-        FileLog.INSTANCE.close();
+        FileLog.MAIN.close();
     }
 }

@@ -23,7 +23,7 @@ public class Launcher extends FrameHelper {
     private static final Object CONSOLE_VERSION = "20140304";
 
     public Launcher(String port) {
-        FileLog.INSTANCE.start();
+        FileLog.MAIN.start();
 
         LinkManager.start(port);
 

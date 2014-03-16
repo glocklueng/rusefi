@@ -27,7 +27,7 @@ public class LinkManager {
         @Override
         public void beforeLine(String fullLine) {
             FileLog.rlog("SerialManager.beforeLine: " + fullLine);
-            FileLog.INSTANCE.logLine(fullLine);
+            FileLog.MAIN.logLine(fullLine);
         }
     });
     public static boolean onlyUI = false;
