@@ -66,6 +66,8 @@ void resetLogging(Logging *logging);
 void printLine(Logging *logging);
 
 void appendMsgPrefix(Logging *logging);
+void appendMsgPostfix(Logging *logging);
+
 void scheduleMsg(Logging *logging, const char *fmt, ...);
 
 void printMsg(Logging *logging, const char *fmt, ...);
