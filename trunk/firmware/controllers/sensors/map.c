@@ -3,19 +3,24 @@
 #include "engine_configuration.h"
 #include "engine_math.h"
 #include "adc_inputs.h"
-
-#define Honda_Denso183_Min -6.64
-#define Honda_Denso183_Max 182.78
-#define Honda_Denso183_Range (Honda_Denso183_Max - Honda_Denso183_Min)
+#include "interpolation.h"
+#include "error_handling.h"
 
 extern engine_configuration_s * engineConfiguration;
 
 /**
  * @brief	MAP value decoded for a 1.83 Honda sensor
+ * -6.64kPa at zero volts
+ * 182.78kPa at 5 volts
+ *
  * @returns kPa value
  */
-float getMAPValueHonda_Denso183(float volts) {
-	return Honda_Denso183_Range / 5 * volts + Honda_Denso183_Min;
+float getMAPValueHonda_Denso183(float voltage) {
+	return interpolate(0, -6.64, 5, 182.78, voltage);
+}
+
+float getMAPValueMPX_4250(float voltage) {
+	return interpolate(0, 8, 5, 260, voltage);
 }
 
 /**
@@ -23,9 +28,21 @@ float getMAPValueHonda_Denso183(float volts) {
  * @returns kPa value
  */
 float getMapByVoltage(float voltage) {
+	MapConf_s * config = &engineConfiguration->map.config;
+	switch (config->mapType) {
+	case MT_CUSTOM:
+		return interpolate(0, config->Min, 5, config->Max, voltage);
+	case MT_DENSO183:
+		return getMAPValueHonda_Denso183(voltage);
+	case MT_MPX4250:
+		return getMAPValueMPX_4250(voltage);
+	default:
+		firmwareError("Unknown MAP type: %d", config->mapType);
+		return NAN;
+	}
 	// todo: here is the place where we should read the settings and decide
 	// todo: how to translate voltage into pressure
-	return getMAPValueHonda_Denso183(voltage);
+//	return getMAPValueHonda_Denso183(voltage);
 }
 
 float getRawMap(void) {
