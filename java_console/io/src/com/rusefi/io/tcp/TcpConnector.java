@@ -42,33 +42,34 @@ public class TcpConnector implements LinkConnector {
     @Override
     public void connect() {
         FileLog.rlog("Connecting to " + port);
+        BufferedInputStream stream;
         try {
             Socket socket = new Socket(LOCALHOST, port);
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            BufferedInputStream stream = new BufferedInputStream(socket.getInputStream());
+            stream = new BufferedInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to connect to simulator", e);
+        }
 
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
-            LinkManager.IO_EXECUTOR.execute(new Runnable() {
-                @Override
-                public void run() {
-                    Thread.currentThread().setName("TCP connector loop");
-                    FileLog.rlog("Running TCP connection loop");
-                    while (true) {
-                        try {
-                            String line = reader.readLine();
-                            LinkManager.engineState.append(line + "\r\n");
-                        } catch (IOException e) {
-                            System.err.println("End of connection");
-                            return;
-                        }
+        LinkManager.IO_EXECUTOR.execute(new Runnable() {
+            @Override
+            public void run() {
+                Thread.currentThread().setName("TCP connector loop");
+                FileLog.rlog("Running TCP connection loop");
+                while (true) {
+                    try {
+                        String line = reader.readLine();
+                        LinkManager.engineState.append(line + "\r\n");
+                    } catch (IOException e) {
+                        System.err.println("End of connection");
+                        return;
                     }
                 }
-            });
+            }
+        });
 
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
     }
 
     @Override
@@ -83,6 +84,7 @@ public class TcpConnector implements LinkConnector {
             writer.write(command + "\r\n");
             writer.flush();
         } catch (IOException e) {
+            System.err.println("err in send");
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
@@ -93,7 +95,7 @@ public class TcpConnector implements LinkConnector {
             s.close();
             return Collections.singletonList("" + DEFAULT_PORT);
         } catch (IOException e) {
-            System.err.println(e.toString());
+            System.out.println("Connection refused in getAvailablePorts(): simulator not running");
             return Collections.emptyList();
         }
     }
