@@ -14,8 +14,7 @@
 #include "map_averaging.h"
 #include "engine_configuration.h"
 
-/* Depth of the conversion buffer, channels are sampled X times each.*/
-#define ADC_GRP1_BUF_DEPTH_SLOW      1
+
 #define ADC_GRP1_BUF_DEPTH_FAST      1
 
 #define ADC_NUMBER_CHANNELS_FAST		1
@@ -44,10 +43,11 @@ static int hardwareIndexByIndernalAdcIndex[20];
 static int fastAdcValue;
 extern engine_configuration_s *engineConfiguration;
 
+static adc_hw_helper_s slowAdcState;
+
 /*
  * ADC samples buffer.
  */
-static adcsample_t samples_slow[EFI_ADC_SLOW_CHANNELS_COUNT * ADC_GRP1_BUF_DEPTH_SLOW];
 static adcsample_t samples_fast[ADC_NUMBER_CHANNELS_FAST * ADC_GRP1_BUF_DEPTH_FAST];
 
 static adcsample_t getAvgAdcValue(int index, adcsample_t *samples, int bufDepth, int numChannels) {
@@ -74,7 +74,7 @@ static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 
 		newState.time = chTimeNow();
 		for (int i = 0; i < EFI_ADC_SLOW_CHANNELS_COUNT; i++) {
-			int value = getAvgAdcValue(i, samples_slow, ADC_GRP1_BUF_DEPTH_SLOW, EFI_ADC_SLOW_CHANNELS_COUNT);
+			int value = getAvgAdcValue(i, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW, EFI_ADC_SLOW_CHANNELS_COUNT);
 			newState.adc_data[i] = value;
 		}
 	}
@@ -160,7 +160,7 @@ static void pwmpcb_slow(PWMDriver *pwmp) {
 	 will be executed in parallel to the current PWM cycle and will
 	 terminate before the next PWM cycle.*/chSysLockFromIsr()
 	;
-	adcStartConversionI(&ADC_SLOW, &adcgrpcfg_slow, samples_slow, ADC_GRP1_BUF_DEPTH_SLOW);
+	adcStartConversionI(&ADC_SLOW, &adcgrpcfg_slow, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW);
 	chSysUnlockFromIsr()
 	;
 #endif
@@ -184,11 +184,11 @@ int getAdcValueByIndex(int internalIndex) {
 	return newState.adc_data[internalIndex];
 }
 
-int getInternalAdcValue(int hwIndex) {
+int getInternalAdcValue(int hwChannel) {
 //	if (hwIndex==ADC_NUMBER_CHANNELS_FAST)
 //		return fastAdcValue;
 
-	int internalIndex = internalAdcIndexByHardwareIndex[hwIndex];
+	int internalIndex = internalAdcIndexByHardwareIndex[hwChannel];
 	return getAdcValueByIndex(internalIndex);
 }
 
