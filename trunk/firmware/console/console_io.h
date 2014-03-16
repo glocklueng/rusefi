@@ -21,7 +21,7 @@
 #include "efifeatures.h"
 #include "boards.h"
 
-#ifdef EFI_SERIAL_OVER_USB
+#if EFI_SERIAL_OVER_USB
  #include "usbcfg.h"
  extern SerialUSBDriver SDU1;
  #define CONSOLE_CHANNEL (&SDU1)

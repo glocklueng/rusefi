@@ -18,8 +18,8 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "main.h"
 #include "console_io.h"
-#include "ch.h"
 
 #if EFI_PROD_CODE
 #include "usbconsole.h"
@@ -99,7 +99,7 @@ static msg_t consoleThreadThreadEntryPoint(void *arg) {
 	return FALSE;
 }
 
-#ifdef EFI_SERIAL_OVER_USB
+#if EFI_SERIAL_OVER_USB
 #else
 #if EFI_SERIAL_OVER_UART
 static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
@@ -122,7 +122,7 @@ void consoleOutputBuffer(const int8_t *buf, int size) {
 
 void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
-#ifdef EFI_SERIAL_OVER_USB
+#if EFI_SERIAL_OVER_USB
 	usb_serial_start();
 
 #else
@@ -134,8 +134,8 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	sdStart(CONSOLE_CHANNEL, &serialConfig);
 
 	// cannot use pin repository here because pin repository prints to console
-	palSetPadMode(EFI_CONSOLE_PORT, EFI_CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
-	palSetPadMode(EFI_CONSOLE_PORT, EFI_CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
+	palSetPadMode(EFI_CONSOLE_RX_PORT, EFI_CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
+	palSetPadMode(EFI_CONSOLE_TX_PORT, EFI_CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
 #endif /* EFI_SERIAL_OVER_UART */
 #endif /* EFI_SERIAL_OVER_USB */
 	chThdCreateStatic(consoleThreadStack, sizeof(consoleThreadStack), NORMALPRIO, consoleThreadThreadEntryPoint, NULL);
