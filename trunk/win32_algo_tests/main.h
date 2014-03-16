@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <math.h>
+#include "error_handling.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -25,7 +26,6 @@ extern "C"
 
 typedef int bool_t;
 
-void fatal(char* x);
 void chDbgAssert(int c, char *msg, void *arg);
 
 void print(const char *fmt, ...);
@@ -49,8 +49,6 @@ float getVBatt(void);
 float getMaf(void);
 
 #define systicks2ms(x) (0)
-
-void warning(char *msg, float value);
 
 #ifdef __cplusplus
 }
