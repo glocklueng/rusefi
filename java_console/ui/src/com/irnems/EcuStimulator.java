@@ -209,7 +209,7 @@ public class EcuStimulator {
 
     private static void log(String message) {
         MessagesCentral.getInstance().postMessage(EcuStimulator.class, message);
-        FileLog.INSTANCE.logLine(message);
+        FileLog.MAIN.logLine(message);
     }
 
     private static String putValue(String msg, double value) {
