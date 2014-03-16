@@ -76,6 +76,14 @@ typedef enum {
 	Internal_ForceMyEnumIntSize_timing_mode = ENUM_SIZE_HACK,
 } timing_mode_e;
 
+typedef struct {
+	int afrAdcChannel;
+	float v1;
+	float value1;
+	float v2;
+	float value2;
+} afr_sensor_s;
+
 #define DWELL_COUNT 8
 /**
  * @brief	Engine configuration.
@@ -232,6 +240,8 @@ typedef struct {
 	int cltAdcChannel;
 	int iatAdcChannel;
 	int mafAdcChannel;
+
+	afr_sensor_s afrSensor;
 
 } engine_configuration_s;
 
