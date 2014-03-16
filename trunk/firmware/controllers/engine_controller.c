@@ -152,15 +152,22 @@ char * getPinNameByAdcChannel(int hwChannel, uint8_t *buffer) {
 
 static uint8_t pinNameBuffer[16];
 
-static void printAnalogChannelInfo(char *name, int hwChannel) {
+static void printAnalogChannelInfoExt(char *name, int hwChannel, float voltage) {
 	scheduleMsg(&logger, "%s ADC%d %s value=%fv", name, hwChannel, getPinNameByAdcChannel(hwChannel, pinNameBuffer),
-			getVoltageDivided(hwChannel));
+			voltage);
 }
+
+static void printAnalogChannelInfo(char *name, int hwChannel) {
+	printAnalogChannelInfoExt(name, hwChannel, getVoltageDivided(hwChannel));
+}
+
 
 static void printAnalogInfo(void) {
 	printAnalogChannelInfo("TPS", engineConfiguration->tpsAdcChannel);
 	printAnalogChannelInfo("CLT", engineConfiguration->cltAdcChannel);
 	printAnalogChannelInfo("IAT", engineConfiguration->iatAdcChannel);
+	printAnalogChannelInfo("MAF", engineConfiguration->mafAdcChannel);
+	printAnalogChannelInfoExt("Vbatt", engineConfiguration->vBattAdcChannel, getVBatt());
 }
 
 void printTemperatureInfo(void) {
