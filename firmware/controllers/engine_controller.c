@@ -143,14 +143,34 @@ static void initFuelPump(void) {
 	fuelPumpOn(SHAFT_PRIMARY_UP, 0);
 }
 
+
+char * getPinNameByAdcChannel(int hwChannel, uint8_t *buffer) {
+	strcpy(buffer, portname(getAdcChannelPort(hwChannel)));
+	itoa10(&buffer[2], getAdcChannelPin(hwChannel));
+	return buffer;
+}
+
+static uint8_t pinNameBuffer[16];
+
+static void printAnalogChannelInfo(char *name, int hwChannel) {
+	scheduleMsg(&logger, "%s ADC%d %s value=%fv", name, hwChannel, getPinNameByAdcChannel(hwChannel, pinNameBuffer),
+			getVoltageDivided(hwChannel));
+}
+
+static void printAnalogInfo(void) {
+	printAnalogChannelInfo("TPS", engineConfiguration->tpsAdcChannel);
+	printAnalogChannelInfo("CLT", engineConfiguration->cltAdcChannel);
+	printAnalogChannelInfo("IAT", engineConfiguration->iatAdcChannel);
+}
+
 void printTemperatureInfo(void) {
 	float rClt = getResistance(&engineConfiguration2->clt);
 	float rIat = getResistance(&engineConfiguration2->iat);
 
 	int cltChannel = engineConfiguration2->clt.channel;
-	scheduleMsg(&logger, "CLT R=%f on channel %d@%s%d", rClt, cltChannel, portname(getAdcChannelPort(cltChannel)), getAdcChannelPin(cltChannel));
+	scheduleMsg(&logger, "CLT R=%f on channel %d@%s", rClt, cltChannel, getPinNameByAdcChannel(cltChannel, pinNameBuffer));
 	int iatChannel = engineConfiguration2->iat.channel;
-	scheduleMsg(&logger, "IAT R=%f on channel %d@%s%d", rIat, iatChannel, portname(getAdcChannelPort(iatChannel)), getAdcChannelPin(iatChannel));
+	scheduleMsg(&logger, "IAT R=%f on channel %d@%s", rIat, iatChannel, getPinNameByAdcChannel(iatChannel, pinNameBuffer));
 
 	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMinTempMs,
 			engineConfiguration->crankingSettings.coolantTempMinC);
@@ -213,5 +233,5 @@ void initEngineContoller(void) {
 	initFuelPump();
 
 	addConsoleAction("tempinfo", printTemperatureInfo);
-
+	addConsoleAction("analoginfo", printAnalogInfo);
 }
