@@ -322,18 +322,23 @@ int getAdcHardwareIndexByInternalIndex(int index) {
 }
 
 static void printFullAdcReport(void) {
+
 	for (int index = 0; index < EFI_ADC_SLOW_CHANNELS_COUNT; index++) {
+		appendMsgPrefix(&logger);
+
 		int hwIndex = getAdcHardwareIndexByInternalIndex(index);
 		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
 		int pin = getAdcChannelPin(hwIndex);
 
 		int adcValue = getAdcValueByIndex(index);
-		appendPrintf(&logger, " ch%d %s%d%s", index, portname(port), pin, DELIMETER);
-		appendPrintf(&logger, " ADC%d val= %d%s", hwIndex, adcValue, DELIMETER);
-		float volts = adcToVoltsDivided(adcValue);
-		debugFloat(&logger, "v ", volts, 1);
+		appendPrintf(&logger, " ch%d %s%d", index, portname(port), pin);
+		appendPrintf(&logger, " ADC%d 12bit=%d", hwIndex, adcValue);
+		float volts = adcToVolts(adcValue);
+		appendPrintf(&logger, " v=%f", volts);
+
+		appendMsgPostfix(&logger);
+		scheduleLogging(&logger);
 	}
-	scheduleLogging(&logger);
 }
 
 static void printStatus(void) {
