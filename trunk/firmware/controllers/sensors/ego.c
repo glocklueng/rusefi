@@ -7,10 +7,9 @@
 extern engine_configuration_s *engineConfiguration;
 
 float getAfr(void) {
-	float volts = getVoltageDivided(ADC_LOGIC_AFR);
+	afr_sensor_s * sensor = &engineConfiguration->afrSensor;
 
-	/**
-	 * This decodes BPSX D1 Wideband Controller analog signal
-	 */
-	return interpolate(0, 9, 5, 19, volts);
+	float volts = getVoltageDivided(sensor->afrAdcChannel);
+
+	return interpolate(sensor->v1, sensor->value1, sensor->v2, sensor->value2, volts);
 }

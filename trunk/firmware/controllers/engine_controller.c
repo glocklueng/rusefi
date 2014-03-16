@@ -161,12 +161,12 @@ static void printAnalogChannelInfo(char *name, int hwChannel) {
 	printAnalogChannelInfoExt(name, hwChannel, getVoltageDivided(hwChannel));
 }
 
-
 static void printAnalogInfo(void) {
 	printAnalogChannelInfo("TPS", engineConfiguration->tpsAdcChannel);
 	printAnalogChannelInfo("CLT", engineConfiguration->cltAdcChannel);
 	printAnalogChannelInfo("IAT", engineConfiguration->iatAdcChannel);
 	printAnalogChannelInfo("MAF", engineConfiguration->mafAdcChannel);
+	printAnalogChannelInfo("AFR", engineConfiguration->afrSensor.afrAdcChannel);
 	printAnalogChannelInfoExt("Vbatt", engineConfiguration->vBattAdcChannel, getVBatt());
 }
 
