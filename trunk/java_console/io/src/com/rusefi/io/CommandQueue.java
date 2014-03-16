@@ -68,6 +68,8 @@ public class CommandQueue {
                 lock.wait(pair.getTimeout());
             }
         }
+        if (command.equals(latestConfirmation))
+            pair.listener.onCommandConfirmation();
 
         if (counter != 1)
             MessagesCentral.getInstance().postMessage(CommandQueue.class, "Took " + counter + " attempts");
@@ -120,16 +122,18 @@ public class CommandQueue {
      * Non-blocking command request
      */
     public void write(String command, int timeout, InvocationConfirmationListener listener) {
-        pendingCommands.add(new MethodInvocation(command, timeout));
+        pendingCommands.add(new MethodInvocation(command, timeout, listener));
     }
 
     static class MethodInvocation {
         private final String text;
         private final int timeout;
+        private final InvocationConfirmationListener listener;
 
-        MethodInvocation(String text, int timeout) {
+        MethodInvocation(String text, int timeout, InvocationConfirmationListener listener) {
             this.text = text;
             this.timeout = timeout;
+            this.listener = listener;
         }
 
         public String getText() {
