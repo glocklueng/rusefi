@@ -51,6 +51,17 @@ void setConstantDwell(engine_configuration_s *engineConfiguration, float dwellMs
 	}
 }
 
+void initBpsxD1Sensor(afr_sensor_s *sensor) {
+	/**
+	 * This decodes BPSX D1 Wideband Controller analog signal
+	 */
+	sensor->v1 = 0;
+	sensor->value1 = 9;
+	sensor->v2 = 5;
+	sensor->value2 = 19;
+}
+
+
 /**
  * @brief	Global default engine configuration
  * This method sets the default global engine configuration. These values are later overridden by engine-specific defaults
@@ -164,7 +175,9 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->cltAdcChannel = 6;
 	engineConfiguration->iatAdcChannel = 7;
 	engineConfiguration->mafAdcChannel = 0;
+	engineConfiguration->afrSensor.afrAdcChannel = 14;
 
+	initBpsxD1Sensor(&engineConfiguration->afrSensor);
 
 	engineConfiguration->globalFuelCorrection = 1;
 
