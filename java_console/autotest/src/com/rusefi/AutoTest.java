@@ -10,6 +10,7 @@ import com.rusefi.io.LinkManager;
 import com.rusefi.io.tcp.TcpConnector;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -18,7 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * rusEfi firmware simulator functional test suite
- *
+ * <p/>
  * java -cp rusefi_console.jar com.rusefi.AutoTest
  *
  * @author Andrey Belomutskiy
@@ -147,22 +148,45 @@ public class AutoTest {
         Thread.currentThread().setName("Main simulation");
 
         try {
-            String line;
             FileLog.rlog("Executing " + SIMULATOR_COMMAND);
             simulatorProcess = Runtime.getRuntime().exec(SIMULATOR_COMMAND);
             FileLog.rlog("simulatorProcess: " + simulatorProcess);
 
             BufferedReader input =
-                    new BufferedReader
-                            (new InputStreamReader(simulatorProcess.getInputStream()));
+                    new BufferedReader(new InputStreamReader(simulatorProcess.getInputStream()));
+            new Thread(createErrorStreamEcho()).start();
+
+            String line;
             while ((line = input.readLine()) != null) {
                 System.out.println("from console: " + line);
                 FileLog.SIMULATOR_CONSOLE.logLine(line);
             }
+
+            FileLog.rlog("exitValue: " + simulatorProcess.exitValue());
+
             System.out.println("end of console");
             input.close();
         } catch (Exception err) {
             throw new IllegalStateException(err);
         }
+    }
+
+    private static Runnable createErrorStreamEcho() {
+        return new Runnable() {
+            @Override
+            public void run() {
+                BufferedReader err =
+                        new BufferedReader(new InputStreamReader(simulatorProcess.getErrorStream()));
+                String errLine;
+                try {
+                    while ((errLine = err.readLine()) != null) {
+                        System.out.println("from err: " + errLine);
+                        FileLog.SIMULATOR_CONSOLE.logLine(errLine);
+                    }
+                } catch (IOException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        };
     }
 }
