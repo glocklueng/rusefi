@@ -25,6 +25,8 @@
 
 static rpm_s rpmState;
 
+#define TOP_DEAD_CENTER_MESSAGE "r"
+
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 extern WaveChart waveChart;
@@ -132,6 +134,22 @@ static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 #endif
 }
 
+static scheduling_s tdcScheduler;
+
+static char rpmBuffer[10];
+
+static void onTdcCallback(void) {
+	itoa10(rpmBuffer, getRpm());
+	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, rpmBuffer, "");
+}
+
+static void tdcMarkCallback(ShaftEvents ckpSignalType, int index) {
+	if (index == 0) {
+		scheduleByAngle(&tdcScheduler, engineConfiguration->globalTriggerOffsetAngle, (schfunc_t) onTdcCallback, NULL);
+	}
+}
+
+
 void initRpmCalculator(void) {
 	strcpy(shaft_signal_msg_index, "_");
 
@@ -141,4 +159,5 @@ void initRpmCalculator(void) {
 	rpmState.lastRpmEventTime = (time_t)-10 * CH_FREQUENCY;
 
 	registerShaftPositionListener(&shaftPositionCallback, "rpm reporter");
+	registerShaftPositionListener(&tdcMarkCallback, "chart TDC mark");
 }
