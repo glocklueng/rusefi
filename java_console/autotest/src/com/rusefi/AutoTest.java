@@ -10,6 +10,7 @@ import com.rusefi.io.LinkManager;
 import com.rusefi.io.tcp.TcpConnector;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.Executor;
@@ -148,6 +149,8 @@ public class AutoTest {
         Thread.currentThread().setName("Main simulation");
 
         try {
+            FileLog.rlog("Binary size: " + new File(SIMULATOR_COMMAND).length());
+
             FileLog.rlog("Executing " + SIMULATOR_COMMAND);
             simulatorProcess = Runtime.getRuntime().exec(SIMULATOR_COMMAND);
             FileLog.rlog("simulatorProcess: " + simulatorProcess);
