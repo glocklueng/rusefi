@@ -109,7 +109,7 @@ void initTriggerCentral(void) {
 
 	memset(hwEventCounters, 0, sizeof(hwEventCounters));
 
-	resetHistogram(&triggerCallback, "trigger");
+	initHistogram(&triggerCallback, "trigger");
 	initTriggerDecoder();
 	clearTriggerState(&triggerState);
 }

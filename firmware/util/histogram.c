@@ -34,7 +34,7 @@ static int initialized = FALSE;
 /**
  * @breif Internal histogram data structure
  */
-void initHistograms(void) {
+void initHistogramsModule(void) {
 	bounds[0] = 0;
 	for (int i = 1; i < BOUND_LENGTH; i++) {
 		int64_t prev = bounds[i - 1];
@@ -79,8 +79,10 @@ int histogramGetIndex(int64_t value) {
 /**
  * @brief Reset histogram_s to orignal state
  */
-void resetHistogram(histogram_s *h, char *name) {
-	h->name = name;
+void initHistogram(histogram_s *h, char *name) {
+	if(strlen(name) > sizeof(h->name) - 1)
+		firmwareError("Histogram name [%s] too long", name);
+	strcpy(h->name, name);
 	h->total_value = 0;
 	h->total_count = 0;
 	memset(h, 0, sizeof(histogram_s));
