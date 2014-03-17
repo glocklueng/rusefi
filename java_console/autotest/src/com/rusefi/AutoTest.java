@@ -19,6 +19,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * rusEfi firmware simulator functional test suite
  *
+ * java -cp rusefi_console.jar com.rusefi.AutoTest
+ *
  * @author Andrey Belomutskiy
  *         3/5/14
  */
@@ -148,6 +150,8 @@ public class AutoTest {
             String line;
             FileLog.rlog("Executing " + SIMULATOR_COMMAND);
             simulatorProcess = Runtime.getRuntime().exec(SIMULATOR_COMMAND);
+            FileLog.rlog("simulatorProcess: " + simulatorProcess);
+
             BufferedReader input =
                     new BufferedReader
                             (new InputStreamReader(simulatorProcess.getInputStream()));
