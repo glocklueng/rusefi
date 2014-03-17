@@ -33,7 +33,7 @@ void testCyclicBuffer(void) {
 void testHistogram(void) {
 	print("******************************************* testHistogram\r\n");
 
-	initHistograms();
+	initHistogramsModule();
 
 	assertEquals(80, histogramGetIndex(239));
 	assertEquals(223, histogramGetIndex(239239));
@@ -41,7 +41,7 @@ void testHistogram(void) {
 
 	histogram_s h;
 
-	resetHistogram(&h, "test");
+	initHistogram(&h, "test");
 
 	int result[5];
 	assertEquals(0, hsReport(&h, result));
