@@ -11,6 +11,7 @@ import java.util.TreeMap;
  * (c) Andrey Belomutskiy
  */
 public class RevolutionLog {
+    public static final String TOP_DEAD_CENTER_MESSAGE = "r";
     private final TreeMap<Integer, Integer> time2rpm;
 
     public RevolutionLog(TreeMap<Integer, Integer> time2rpm) {
@@ -31,22 +32,23 @@ public class RevolutionLog {
         return new RevolutionLog(time2rpm);
     }
 
-    public String getCrankAngleByTime(double time) {
+    public String getCrankAngleByTimeString(double time) {
+        double result = getCrankAngleByTime(time);
+        return Double.isNaN(result) ? "n/a" : String.format("%.2f", result);
+    }
+
+    public double getCrankAngleByTime(double time) {
         Map.Entry<Integer, Integer> entry = getTimeAndRpm(time);
-        String text;
         if (entry == null) {
-            text = "n/a";
+            return Double.NaN;
         } else {
             double diff = time - entry.getKey();
 
             Integer rpm = entry.getValue();
             double timeForRevolution = 60000 * WaveReport.SYS_TICKS_PER_MS / rpm;
 
-            double angle = 360.0 * diff / timeForRevolution;
-
-            text = String.format("%.2f", angle);
+            return 360.0 * diff / timeForRevolution;
         }
-        return text;
     }
 
     public Map.Entry<Integer, Integer> getTimeAndRpm(double time) {
