@@ -170,7 +170,21 @@ static void printAnalogInfo(void) {
 	printAnalogChannelInfoExt("Vbatt", engineConfiguration->vBattAdcChannel, getVBatt());
 }
 
+static void printThermistor(char *msg, Thermistor *thermistor) {
+	int adcChannel = thermistor->channel;
+	float r = getResistance(thermistor);
+
+	float t = getTemperatureC(thermistor);
+
+	scheduleMsg(&logger, "%s C=%f R=%f on channel %d@%s", msg, t, r, adcChannel, getPinNameByAdcChannel(adcChannel, pinNameBuffer));
+	scheduleMsg(&logger, "A=%f B=%f C=%f", thermistor->config->s_h_a, thermistor->config->s_h_b,  thermistor->config->s_h_c);
+
+}
+
 void printTemperatureInfo(void) {
+	printThermistor("CLT", &engineConfiguration2->clt);
+	printThermistor("IAT", &engineConfiguration2->iat);
+
 	float rClt = getResistance(&engineConfiguration2->clt);
 	float rIat = getResistance(&engineConfiguration2->iat);
 
