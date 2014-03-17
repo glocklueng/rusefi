@@ -29,15 +29,15 @@ extern "C"
 #define BOUND_LENGTH 895
 
 typedef struct {
-	char *name;
+	char name[16];
 	int64_t total_value;
 	int64_t total_count;
 	int values[BOUND_LENGTH];
 } histogram_s;
 
-void initHistograms(void);
+void initHistogramsModule(void);
 int histogramGetIndex(int64_t value);
-void resetHistogram(histogram_s *h, char *name);
+void initHistogram(histogram_s *h, char *name);
 void hsAdd(histogram_s *h, int64_t value);
 int hsReport(histogram_s *h, int* report);
 

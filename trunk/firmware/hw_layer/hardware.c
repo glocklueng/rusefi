@@ -87,7 +87,7 @@ void initHardware() {
 	/**
 	 * histograms is a data structure for CPU monitor, it does not depend on configuration
 	 */
-	initHistograms();
+	initHistogramsModule();
 
 
 	/**
