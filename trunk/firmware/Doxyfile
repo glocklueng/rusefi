@@ -740,6 +740,7 @@ INPUT                  = . \
 	config/engines \
 	config/boards \
 	console_util \
+	util \
 	console \
 	controllers \
 	controllers/math \
