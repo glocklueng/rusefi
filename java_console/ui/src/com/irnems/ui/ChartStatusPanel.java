@@ -40,7 +40,7 @@ public class ChartStatusPanel {
             double time = translator.screenToTime(x, infoPanel.getWidth(), zoomProvider);
             timeLabel.setText("" + String.format("%.5f sec", time));
 
-            String text = time2rpm == null ? "n/a" : time2rpm.getCrankAngleByTime(time);
+            String text = time2rpm == null ? "n/a" : time2rpm.getCrankAngleByTimeString(time);
             angleLabel.setText(text);
 
             Map.Entry<Integer, Integer> e = time2rpm.getTimeAndRpm(time);

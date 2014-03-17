@@ -2,6 +2,7 @@ package com.irnems.ui;
 
 import com.irnems.ChartRepository;
 import com.irnems.FileLog;
+import com.rusefi.RevolutionLog;
 import com.rusefi.io.LinkManager;
 import com.irnems.core.EngineState;
 import com.irnems.core.Sensor;
@@ -30,7 +31,6 @@ import java.util.Map;
  */
 public class WavePanel extends JPanel {
     private static final int EFI_DEFAULT_CHART_SIZE = 180;
-    private static final String TOP_DEAD_CENTER_MESSAGE = "r";
 
     private final Map<String, UpDownImage> images = new LinkedHashMap<String, UpDownImage>();
     private final JPanel imagePanel = new JPanel();
@@ -114,7 +114,7 @@ public class WavePanel extends JPanel {
         createSecondaryImage("Spark 3");
         createSecondaryImage("Spark 4");
 
-        createSecondaryImage("Injector 1");
+        createSecondaryImage(WaveChartParser.INJECTOR_1);
         createSecondaryImage("Injector 2");
         createSecondaryImage("Injector 3");
         createSecondaryImage("Injector 4");
@@ -138,7 +138,7 @@ public class WavePanel extends JPanel {
     public void displayChart(String value) {
         Map<String, StringBuilder> map = WaveChartParser.unpackToMap(value);
 
-        StringBuilder revolutions = map.get(TOP_DEAD_CENTER_MESSAGE);
+        StringBuilder revolutions = map.get(RevolutionLog.TOP_DEAD_CENTER_MESSAGE);
 
         statusPanel.setRevolutions(revolutions);
 

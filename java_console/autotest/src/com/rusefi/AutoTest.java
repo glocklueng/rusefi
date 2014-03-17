@@ -4,6 +4,7 @@ package com.rusefi;
 import com.irnems.FileLog;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
+import com.irnems.waves.WaveReport;
 import com.rusefi.io.CommandQueue;
 import com.rusefi.io.InvocationConfirmationListener;
 import com.rusefi.io.LinkManager;
@@ -120,15 +121,8 @@ public class AutoTest {
         Thread.sleep(5 * SECOND);
         double actualRpm = SensorCentral.getInstance().getValue(Sensor.RPM);
 
-        if (!isCloseEnough(rpm, actualRpm))
+        if (!WaveReport.isCloseEnough(rpm, actualRpm))
             throw new IllegalStateException("rpm change did not happen");
-    }
-
-    private static boolean isCloseEnough(double v1, double v2) {
-        if (v2 == 0)
-            return v1 == 0;
-        double ratio = v1 / v2;
-        return Math.abs(1 - ratio) < 0.05;
     }
 
     private static void waitForResponse(AtomicBoolean responseFlag, int timeoutSeconds) throws InterruptedException {

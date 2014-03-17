@@ -180,11 +180,11 @@ public class UpDownImage extends JPanel {
 
         int offset = 3;
         g.setColor(Color.black);
-        String fromAngle = time2rpm.getCrankAngleByTime(upDown.upTime);
+        String fromAngle = time2rpm.getCrankAngleByTimeString(upDown.upTime);
         g.drawString(fromAngle, x1 + offset, (int) (0.75 * d.height));
 
         g.setColor(Color.green);
-        String toAngle = time2rpm.getCrankAngleByTime(upDown.downTime);
+        String toAngle = time2rpm.getCrankAngleByTimeString(upDown.downTime);
         g.drawString(toAngle, x1 + offset, (int) (1.0 * d.height));
     }
 
