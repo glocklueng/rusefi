@@ -62,4 +62,13 @@
         <java jar="../java_console_binary/rusefi_console.jar" fork="true"/>
     </target>
 
+
+    <target name="autotest">
+	<java classpath="../java_console_binary/rusefi_console.jar" classname="com.rusefi.AutoTest"> 
+	</java>  
+
+    </target>
+
+
+
 </project>
