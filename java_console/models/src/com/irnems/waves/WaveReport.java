@@ -35,6 +35,13 @@ public class WaveReport implements TimeAxisTranslator {
         maxTime = list.get(list.size() - 1).downTime;
     }
 
+    public static boolean isCloseEnough(double v1, double v2) {
+        if (v2 == 0)
+            return v1 == 0;
+        double ratio = v1 / v2;
+        return Math.abs(1 - ratio) < 0.05;
+    }
+
     public List<UpDown> getList() {
         return list;
     }

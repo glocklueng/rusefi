@@ -10,6 +10,7 @@ import java.util.Map;
  * Andrey Belomutskiy (c) 2012-2014
  */
 public class WaveChartParser {
+    public static final String INJECTOR_1 = "Injector 1";
     private static final String DELI = "!";
 
     /**
