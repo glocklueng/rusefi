@@ -63,8 +63,8 @@
     </target>
 
 
-    <target name="autotest">
-	<java classpath="../java_console_binary/rusefi_console.jar" classname="com.rusefi.AutoTest"> 
+    <target name="autotest" depends="jar">
+	<java classpath="../java_console_binary/rusefi_console.jar" classname="com.rusefi.AutoTest" failonerror="true"> 
 	</java>  
 
     </target>
