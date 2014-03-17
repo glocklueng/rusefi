@@ -23,8 +23,6 @@
 #include "rfiutil.h"
 
 #define CHART_RESET_DELAY 1
-#define TOP_DEAD_CENTER_MESSAGE "r"
-
 
 extern engine_configuration_s *engineConfiguration;
 
@@ -32,8 +30,6 @@ static volatile uint32_t ckpPeriod; // different between current crank signal an
 static volatile int previousCrankSignalStart = 0;
 
 #define MAX_ICU_COUNT 5
-
-static scheduling_s tdcScheduler;
 
 static int waveReaderCount = 0;
 static WaveReader readers[MAX_ICU_COUNT];
@@ -167,19 +163,6 @@ static msg_t waThread(void *arg) {
 #endif
 }
 
-static char rpmBuffer[10];
-
-static void onTdcCallback(void) {
-	itoa10(rpmBuffer, getRpm());
-	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, rpmBuffer, "");
-}
-
-static void onShaftSignalWA(ShaftEvents ckpSignalType, int index) {
-	if (index == 0) {
-		scheduleByAngle(&tdcScheduler, engineConfiguration->globalTriggerOffsetAngle, (schfunc_t) onTdcCallback, NULL);
-	}
-}
-
 int getWaveLowWidth(int index) {
 	WaveReader *reader = &readers[index];
 	ensureInitialized(reader);
@@ -260,7 +243,6 @@ void initWaveAnalyzer(void) {
 	//	initWave("input0 C6", 2, &WAVE_TIMER, WAVE_INPUT_PORT, WAVE_INPUT_PIN, 0);
 
 	registerShaftPositionListener(&onWaveShaftSignal, "wave analyzer");
-	registerShaftPositionListener(&onShaftSignalWA, "crank chart");
 
 	addConsoleActionII("wm", setWaveModeSilent);
 
