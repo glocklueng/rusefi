@@ -85,7 +85,7 @@ void initHistogram(histogram_s *h, char *name) {
 	strcpy(h->name, name);
 	h->total_value = 0;
 	h->total_count = 0;
-	memset(h, 0, sizeof(histogram_s));
+	memset(h->values, 0, sizeof(h->values));
 }
 
 /**
