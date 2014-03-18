@@ -6,6 +6,7 @@
  */
 
 #include "pwm_generator_logic.h"
+#include "engine_math.h"
 
 static time_t getNextSwitchTime(PwmConfig *state) {
 	chDbgAssert(state->safe.phaseIndex < PWM_PHASE_MAX_COUNT,
@@ -32,7 +33,7 @@ static time_t togglePwmState(PwmConfig *state) {
 #endif
 
 	if (state->safe.phaseIndex == 0) {
-		if (isnan(state->period)) {
+		if (cisnan(state->period)) {
 			/**
 			 * zero period means PWM is paused
 			 */
