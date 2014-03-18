@@ -138,16 +138,17 @@ public class AutoTest {
         assertTrue("Events not null", events != null);
         List<WaveReport.UpDown> wr = WaveReport.parse(events.toString());
         int skipped = 0;
+        int passed = 0;
         for (WaveReport.UpDown ud : wr) {
             double angleByTime = revolutionLog.getCrankAngleByTime(ud.upTime);
             if (Double.isNaN(angleByTime)) {
                 skipped++;
                 continue;
-
             }
             assertCloseEnough(238.75, angleByTime);
+            passed++;
         }
-        assertTrue(skipped < 2);
+        assertTrue(skipped < 2 && passed > 0);
     }
 
     private static void assertTrue(String msg, boolean b) {
