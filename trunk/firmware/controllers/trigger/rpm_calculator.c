@@ -31,6 +31,8 @@ extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 extern WaveChart waveChart;
 
+static Logging logger;
+
 /**
  * @return true if there was a full shaft revolution within the last second
  */
@@ -149,8 +151,9 @@ static void tdcMarkCallback(ShaftEvents ckpSignalType, int index) {
 	}
 }
 
-
 void initRpmCalculator(void) {
+	initLogging(&logger, "rpm calc");
+
 	strcpy(shaft_signal_msg_index, "_");
 
 	rpmState.rpm = 0;
