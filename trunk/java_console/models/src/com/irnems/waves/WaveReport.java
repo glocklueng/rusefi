@@ -11,7 +11,8 @@ import java.util.List;
  * (c) Andrey Belomutskiy
  */
 public class WaveReport implements TimeAxisTranslator {
-    public static final WaveReport MOCK = new WaveReport(Collections.<UpDown>singletonList(new UpDown(0, -1, 1, -1)));
+    public static final String WAVE_CHART = "wave_chart";
+    public static final WaveReport MOCK = new WaveReport(Collections.singletonList(new UpDown(0, -1, 1, -1)));
     /**
      * number of ChibiOS systicks per ms
      */

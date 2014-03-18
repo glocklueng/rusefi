@@ -119,7 +119,7 @@ public class WavePanel extends JPanel {
         createSecondaryImage("Injector 3");
         createSecondaryImage("Injector 4");
 
-        LinkManager.engineState.registerStringValueAction("wave_chart", new EngineState.ValueCallback<String>() {
+        LinkManager.engineState.registerStringValueAction(WaveReport.WAVE_CHART, new EngineState.ValueCallback<String>() {
             @Override
             public void onUpdate(String value) {
                 if (isPaused)
