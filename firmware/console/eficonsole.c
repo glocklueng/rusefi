@@ -159,5 +159,5 @@ void initializeConsole() {
 #endif
 
 	addConsoleAction("fatal", myfatal);
-	addConsoleAction("ths", cmd_threads);
+	addConsoleAction("threadsinfo", cmd_threads);
 }
