@@ -22,6 +22,7 @@ public class EngineState {
         }
     };
     public static final String PACKING_DELIMITER = ":";
+    private final Object lock = new Object();
 
     static class StringActionPair extends Pair<String, ValueCallback<String>> {
         public final String prefix;
@@ -40,7 +41,7 @@ public class EngineState {
     public List<EngineTimeListener> timeListeners = new CopyOnWriteArrayList<EngineTimeListener>();
 
     private final ResponseBuffer buffer;
-    private final List<StringActionPair> actions = new CopyOnWriteArrayList<StringActionPair>();
+    private final List<StringActionPair> actions = new ArrayList<StringActionPair>();
     private final Set<String> keys = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
 
     public EngineState(@NotNull final EngineStateListener listener) {
@@ -228,8 +229,10 @@ public class EngineState {
      */
     private String handleResponse(String response, EngineStateListener listener) {
         String originalResponse = response;
-        for (StringActionPair pair : actions)
-            response = handleStringActionPair(response, pair, listener);
+        synchronized (lock) {
+            for (StringActionPair pair : actions)
+                response = handleStringActionPair(response, pair, listener);
+        }
         if (originalResponse.length() == response.length()) {
             FileLog.rlog("EngineState.unknown: " + response);
             // discarding invalid line
@@ -292,10 +295,24 @@ public class EngineState {
 //    }
 
     public void registerStringValueAction(String key, ValueCallback<String> callback) {
-        if (keys.contains(key))
-            throw new IllegalStateException("Already registered: " + key);
-        keys.add(key);
-        actions.add(new StringActionPair(key, callback));
+        synchronized (lock) {
+            if (keys.contains(key))
+                throw new IllegalStateException("Already registered: " + key);
+            keys.add(key);
+            actions.add(new StringActionPair(key, callback));
+        }
+    }
+
+    public void removeAction(String key) {
+        synchronized (lock) {
+            keys.remove(key);
+            for (Iterator<StringActionPair> it = actions.iterator(); it.hasNext(); ) {
+                if (it.next().first.equals(key)) {
+                    it.remove();
+                    break;
+                }
+            }
+        }
     }
 
     public void append(String append) {

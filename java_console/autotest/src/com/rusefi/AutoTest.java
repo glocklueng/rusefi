@@ -2,8 +2,10 @@ package com.rusefi;
 
 
 import com.irnems.FileLog;
+import com.irnems.core.EngineState;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
+import com.irnems.waves.WaveReport;
 import com.rusefi.io.CommandQueue;
 import com.rusefi.io.InvocationConfirmationListener;
 import com.rusefi.io.LinkManager;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.irnems.waves.WaveReport.isCloseEnough;
 
@@ -111,6 +114,28 @@ public class AutoTest {
     private static void mainTestBody() throws InterruptedException {
         changeRpm(500);
         changeRpm(2000);
+
+
+        String chart = getWaveChart();
+
+
+    }
+
+    private static String getWaveChart() throws InterruptedException {
+        final CountDownLatch waveChartLatch = new CountDownLatch(1);
+
+        final AtomicReference<String> result = new AtomicReference<String>();
+
+        LinkManager.engineState.registerStringValueAction(WaveReport.WAVE_CHART, new EngineState.ValueCallback<String>() {
+            @Override
+            public void onUpdate(String value) {
+                waveChartLatch.countDown();
+                result.set(value);
+            }
+        });
+        waveChartLatch.await(5, TimeUnit.SECONDS);
+        LinkManager.engineState.removeAction(WaveReport.WAVE_CHART);
+        return result.get();
     }
 
     private static void changeRpm(final int rpm) throws InterruptedException {
