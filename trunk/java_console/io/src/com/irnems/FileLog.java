@@ -60,6 +60,7 @@ public enum FileLog {
         try {
             fileLog.write((fullLine + "\r\n").getBytes());
             fileLog.flush();
+            System.out.println(fullLine);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
