@@ -1,5 +1,7 @@
 package com.irnems.waves;
 
+import com.rusefi.RevolutionLog;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -148,6 +150,11 @@ public class WaveReport implements TimeAxisTranslator {
                     "upTime=" + upTime +
                     ", downTime=" + downTime +
                     '}';
+        }
+
+        public double getDutyCycle(RevolutionLog rl) {
+            double angleDuration = (rl.getCrankAngleByTime(downTime) + 360 - rl.getCrankAngleByTime(upTime)) % 260;
+            return angleDuration / 360;
         }
     }
 }

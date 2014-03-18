@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 
+import static com.irnems.waves.WaveReport.isCloseEnough;
 import static junit.framework.Assert.*;
 
 /**
@@ -48,8 +49,10 @@ public class WaveChartParserTest {
         StringBuilder inj1 = result.get(WaveChartParser.INJECTOR_1);
         WaveReport wr = new WaveReport(inj1.toString());
 
-        for (WaveReport.UpDown up : wr.getList()) {
-            assertTrue(WaveReport.isCloseEnough(238.75, rl.getCrankAngleByTime(up.upTime)));
+        for (WaveReport.UpDown ud : wr.getList()) {
+            assertTrue(isCloseEnough(238.75, rl.getCrankAngleByTime(ud.upTime)));
+
+            assertTrue(isCloseEnough(0.308, ud.getDutyCycle(rl)));
         }
     }
 }
