@@ -59,7 +59,9 @@ public class AutoTest {
                 simulatorProcess.destroy();
             }
         }
-        FileLog.MAIN.logLine("Looks good!");
+        FileLog.MAIN.logLine("*******************************************************************************");
+        FileLog.MAIN.logLine("************************************  Looks good! *****************************");
+        FileLog.MAIN.logLine("*******************************************************************************");
         System.exit(0);
     }
 
@@ -133,9 +135,22 @@ public class AutoTest {
 
         RevolutionLog revolutionLog = RevolutionLog.parseRevolutions(revolutions);
         List<WaveReport.UpDown> wr = WaveReport.parse(chart.get(WaveChart.INJECTOR_1).toString());
+        int skipped = 0;
         for (WaveReport.UpDown ud : wr) {
-            assertTrue(isCloseEnough(238.75, revolutionLog.getCrankAngleByTime(ud.upTime)));
+            double angleByTime = revolutionLog.getCrankAngleByTime(ud.upTime);
+            if (Double.isNaN(angleByTime)) {
+                skipped++;
+                continue;
+
+            }
+            assertCloseEnough(238.75, angleByTime);
         }
+        assertTrue(skipped < 2);
+    }
+
+    private static void assertCloseEnough(double expected, double current) {
+        if (!isCloseEnough(expected, current))
+            throw new IllegalStateException("Got " + current + " while expecting " + expected);
     }
 
     private static void assertTrue(boolean b) {
