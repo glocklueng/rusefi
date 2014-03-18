@@ -190,6 +190,9 @@ void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigg
 //	return 0;
 //}
 
+/**
+ * there is some BS related to isnan in MinGW, so let's have all the issues in one place
+ */
 int cisnan(float f) {
 	return *(((int*)(&f)))  == 0x7FC00000;
 }
