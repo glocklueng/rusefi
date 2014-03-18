@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -116,7 +117,16 @@ public class AutoTest {
         changeRpm(2000);
 
 
+        getWaveChart();
+        // we want to wait for the 2nd chart to see same same RPM across the whole chart
         String chart = getWaveChart();
+
+
+        Map<String, StringBuilder> map = WaveChartParser.unpackToMap(chart);
+
+        StringBuilder revolutions = map.get(RevolutionLog.TOP_DEAD_CENTER_MESSAGE);
+        if (revolutions.length() == 0)
+            throw new IllegalStateException("Empty revolutions in " + chart);
 
 
     }
