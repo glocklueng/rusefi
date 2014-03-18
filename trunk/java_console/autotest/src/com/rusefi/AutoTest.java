@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -130,7 +131,16 @@ public class AutoTest {
         if (revolutions.length() == 0)
             throw new IllegalStateException("Empty revolutions in " + chartLine);
 
+        RevolutionLog revolutionLog = RevolutionLog.parseRevolutions(revolutions);
+        List<WaveReport.UpDown> wr = WaveReport.parse(chart.get(WaveChart.INJECTOR_1).toString());
+        for (WaveReport.UpDown ud : wr) {
+            assertTrue(isCloseEnough(238.75, revolutionLog.getCrankAngleByTime(ud.upTime)));
+        }
+    }
 
+    private static void assertTrue(boolean b) {
+        if (!b)
+            throw new IllegalStateException("Not true");
     }
 
     private static String getWaveChart() throws InterruptedException {
