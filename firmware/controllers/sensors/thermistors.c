@@ -14,6 +14,7 @@
 #include "thermistors.h"
 #include "adc_inputs.h"
 #include "engine_configuration.h"
+#include "engine_math.h"
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
@@ -91,12 +92,12 @@ float getTemperatureC(Thermistor *thermistor) {
 
 int isValidCoolantTemperature(float temperature) {
 	// I hope magic constants are appropriate here
-	return !isnan(temperature) && temperature > -50 && temperature < 250;
+	return !cisnan(temperature) && temperature > -50 && temperature < 250;
 }
 
 int isValidIntakeAirTemperature(float temperature) {
 	// I hope magic constants are appropriate here
-	return !isnan(temperature) && temperature > -50 && temperature < 100;
+	return !cisnan(temperature) && temperature > -50 && temperature < 100;
 }
 
 float getCoolantTemperature(void) {
