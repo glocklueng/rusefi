@@ -4,7 +4,6 @@ package com.rusefi;
 import com.irnems.FileLog;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
-import com.irnems.waves.WaveReport;
 import com.rusefi.io.CommandQueue;
 import com.rusefi.io.InvocationConfirmationListener;
 import com.rusefi.io.LinkManager;
@@ -16,6 +15,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import static com.irnems.waves.WaveReport.isCloseEnough;
 
 /**
  * rusEfi firmware simulator functional test suite
@@ -112,7 +113,7 @@ public class AutoTest {
         changeRpm(2000);
     }
 
-    private static void changeRpm(int rpm) throws InterruptedException {
+    private static void changeRpm(final int rpm) throws InterruptedException {
         final AtomicBoolean responseFlag = new AtomicBoolean();
 
         CommandQueue.getInstance().write("rpm " + rpm, CommandQueue.DEFAULT_TIMEOUT, new InvocationConfirmationListener() {
@@ -126,11 +127,22 @@ public class AutoTest {
         });
         waitForResponse(responseFlag, 20);
 
-        // todo: subscribe to RPM updates
-        Thread.sleep(5 * SECOND);
+        final CountDownLatch rpmLatch = new CountDownLatch(1);
+        SensorCentral.AdcListener listener = new SensorCentral.AdcListener() {
+            @Override
+            public void onAdcUpdate(SensorCentral model, double value) {
+                double actualRpm = SensorCentral.getInstance().getValue(Sensor.RPM);
+                if (isCloseEnough(rpm, actualRpm))
+                    rpmLatch.countDown();
+            }
+        };
+        SensorCentral.getInstance().addListener(Sensor.RPM, listener);
+        rpmLatch.await(5, TimeUnit.SECONDS);
+        SensorCentral.getInstance().removeListener(Sensor.RPM, listener);
+
         double actualRpm = SensorCentral.getInstance().getValue(Sensor.RPM);
 
-        if (!WaveReport.isCloseEnough(rpm, actualRpm))
+        if (!isCloseEnough(rpm, actualRpm))
             throw new IllegalStateException("rpm change did not happen");
     }
 
