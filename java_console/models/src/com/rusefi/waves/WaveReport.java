@@ -72,7 +72,11 @@ public class WaveReport implements TimeAxisTranslator {
             index += 2;
 
         while (index + 3 < array.length) {
-            if (array[index].equals("down")) {
+            if (!array[index].equals("up")) {
+                index += 2;
+                continue;
+            }
+            if (!array[index + 2].equals("down")) {
                 index += 2;
                 continue;
             }

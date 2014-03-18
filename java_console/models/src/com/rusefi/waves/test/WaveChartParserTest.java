@@ -59,6 +59,6 @@ public class WaveChartParserTest {
     @Test
     public void testUpOnly() {
         List<WaveReport.UpDown> list = WaveReport.parse("up!15500!up!25500!up!35500!up!45500!up!55500!up!65500!up!75500!up!85500!");
-        assertEquals(4, list.size());
+        assertEquals(0, list.size());
     }
 }
