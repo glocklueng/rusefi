@@ -183,6 +183,7 @@ static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigge
 	registerActuatorEvent(&config->injectionEvents, 1, addOutputSignal(INJECTOR_4_OUTPUT), 0);
 	registerActuatorEvent(&config->injectionEvents, 3, addOutputSignal(INJECTOR_2_OUTPUT), 0);
 //	registerActuatorEvent(&config->injectionEvents, 6, addOutputSignal(INJECTOR_1_OUTPUT), 0);
+	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_1_OUTPUT), 0);
 	registerActuatorEvent(&config->injectionEvents, 8, addOutputSignal(INJECTOR_3_OUTPUT), 0);
 
 
