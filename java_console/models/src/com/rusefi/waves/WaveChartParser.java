@@ -1,4 +1,4 @@
-package com.rusefi;
+package com.rusefi.waves;
 
 import com.irnems.FileLog;
 
@@ -10,13 +10,12 @@ import java.util.Map;
  * Andrey Belomutskiy (c) 2012-2014
  */
 public class WaveChartParser {
-    public static final String INJECTOR_1 = "Injector 1";
     private static final String DELI = "!";
 
     /**
      * This method unpacks a mixed-key message into a Map of messages by key
      */
-    public static Map<String, StringBuilder> unpackToMap(String value) {
+    public static WaveChart unpackToMap(String value) {
         FileLog.rlog(": " + value);
 
         String[] array = value.split(DELI);
@@ -39,6 +38,6 @@ public class WaveChartParser {
             sb.append(signal).append(DELI).append(val).append(DELI);
             index += 3;
         }
-        return map;
+        return new WaveChart(map);
     }
 }

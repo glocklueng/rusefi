@@ -5,18 +5,19 @@ import com.irnems.FileLog;
 import com.irnems.core.EngineState;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
-import com.rusefi.waves.RevolutionLog;
-import com.rusefi.waves.WaveReport;
 import com.rusefi.io.CommandQueue;
 import com.rusefi.io.InvocationConfirmationListener;
 import com.rusefi.io.LinkManager;
 import com.rusefi.io.tcp.TcpConnector;
+import com.rusefi.waves.RevolutionLog;
+import com.rusefi.waves.WaveChart;
+import com.rusefi.waves.WaveChartParser;
+import com.rusefi.waves.WaveReport;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -120,14 +121,14 @@ public class AutoTest {
 
         getWaveChart();
         // we want to wait for the 2nd chart to see same same RPM across the whole chart
-        String chart = getWaveChart();
+        String chartLine = getWaveChart();
 
 
-        Map<String, StringBuilder> map = WaveChartParser.unpackToMap(chart);
+        WaveChart chart = WaveChartParser.unpackToMap(chartLine);
 
-        StringBuilder revolutions = map.get(RevolutionLog.TOP_DEAD_CENTER_MESSAGE);
+        StringBuilder revolutions = chart.get(RevolutionLog.TOP_DEAD_CENTER_MESSAGE);
         if (revolutions.length() == 0)
-            throw new IllegalStateException("Empty revolutions in " + chart);
+            throw new IllegalStateException("Empty revolutions in " + chartLine);
 
 
     }
