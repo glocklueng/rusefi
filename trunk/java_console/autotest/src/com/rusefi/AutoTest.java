@@ -134,7 +134,9 @@ public class AutoTest {
             throw new IllegalStateException("Empty revolutions in " + chartLine);
 
         RevolutionLog revolutionLog = RevolutionLog.parseRevolutions(revolutions);
-        List<WaveReport.UpDown> wr = WaveReport.parse(chart.get(WaveChart.INJECTOR_1).toString());
+        StringBuilder events = chart.get(WaveChart.INJECTOR_1);
+        assertTrue("Events not null", events != null);
+        List<WaveReport.UpDown> wr = WaveReport.parse(events.toString());
         int skipped = 0;
         for (WaveReport.UpDown ud : wr) {
             double angleByTime = revolutionLog.getCrankAngleByTime(ud.upTime);
@@ -146,6 +148,11 @@ public class AutoTest {
             assertCloseEnough(238.75, angleByTime);
         }
         assertTrue(skipped < 2);
+    }
+
+    private static void assertTrue(String msg, boolean b) {
+        if (!b)
+            throw new IllegalStateException("Not true: " + msg);
     }
 
     private static void assertCloseEnough(double expected, double current) {
