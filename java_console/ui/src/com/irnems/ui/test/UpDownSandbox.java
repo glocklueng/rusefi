@@ -1,6 +1,6 @@
 package com.irnems.ui.test;
 
-import com.irnems.waves.WaveReport;
+import com.rusefi.waves.WaveReport;
 import com.irnems.core.test.WaveReportTest;
 import com.irnems.ui.FrameHelper;
 import com.irnems.ui.widgets.UpDownImage;

@@ -2,14 +2,14 @@ package com.irnems.ui;
 
 import com.irnems.ChartRepository;
 import com.irnems.FileLog;
-import com.rusefi.RevolutionLog;
+import com.rusefi.waves.RevolutionLog;
 import com.rusefi.io.LinkManager;
 import com.irnems.core.EngineState;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
 import com.irnems.ui.widgets.AnyCommand;
 import com.irnems.ui.widgets.UpDownImage;
-import com.irnems.waves.WaveReport;
+import com.rusefi.waves.WaveReport;
 import com.rusefi.WaveChartParser;
 
 import javax.swing.*;

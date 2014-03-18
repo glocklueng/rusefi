@@ -1,6 +1,6 @@
 package com.irnems.core.test;
 
-import com.irnems.waves.WaveReport;
+import com.rusefi.waves.WaveReport;
 import com.irnems.waves.ZoomProvider;
 import org.junit.Test;
 

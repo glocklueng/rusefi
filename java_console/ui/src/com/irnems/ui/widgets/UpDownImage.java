@@ -1,9 +1,9 @@
 package com.irnems.ui.widgets;
 
 import com.irnems.waves.TimeAxisTranslator;
-import com.irnems.waves.WaveReport;
+import com.rusefi.waves.WaveReport;
 import com.irnems.waves.ZoomProvider;
-import com.rusefi.RevolutionLog;
+import com.rusefi.waves.RevolutionLog;
 
 import javax.swing.*;
 import java.awt.*;
