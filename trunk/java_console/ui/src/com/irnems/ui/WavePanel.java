@@ -2,15 +2,16 @@ package com.irnems.ui;
 
 import com.irnems.ChartRepository;
 import com.irnems.FileLog;
-import com.rusefi.waves.RevolutionLog;
-import com.rusefi.io.LinkManager;
 import com.irnems.core.EngineState;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
 import com.irnems.ui.widgets.AnyCommand;
 import com.irnems.ui.widgets.UpDownImage;
+import com.rusefi.io.LinkManager;
+import com.rusefi.waves.RevolutionLog;
+import com.rusefi.waves.WaveChart;
+import com.rusefi.waves.WaveChartParser;
 import com.rusefi.waves.WaveReport;
-import com.rusefi.WaveChartParser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -114,7 +115,7 @@ public class WavePanel extends JPanel {
         createSecondaryImage("Spark 3");
         createSecondaryImage("Spark 4");
 
-        createSecondaryImage(WaveChartParser.INJECTOR_1);
+        createSecondaryImage(WaveChart.INJECTOR_1);
         createSecondaryImage("Injector 2");
         createSecondaryImage("Injector 3");
         createSecondaryImage("Injector 4");
@@ -136,13 +137,13 @@ public class WavePanel extends JPanel {
     }
 
     public void displayChart(String value) {
-        Map<String, StringBuilder> map = WaveChartParser.unpackToMap(value);
+        WaveChart map = WaveChartParser.unpackToMap(value);
 
         StringBuilder revolutions = map.get(RevolutionLog.TOP_DEAD_CENTER_MESSAGE);
 
         statusPanel.setRevolutions(revolutions);
 
-        for (Map.Entry<String, StringBuilder> e : map.entrySet()) {
+        for (Map.Entry<String, StringBuilder> e : map.map.entrySet()) {
             String imageName = e.getKey();
             String report = e.getValue().toString();
 
