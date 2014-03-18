@@ -178,11 +178,11 @@ static void showTriggerHistogram(void) {
 }
 
 void initMainEventListener() {
-	addConsoleAction("performance_histogram", showTriggerHistogram);
+	addConsoleAction("performanceinfo", showTriggerHistogram);
 
 	initLogging(&logger, "main event handler");
 	printMsg(&logger, "initMainLoop: %d", chTimeNow());
-	initHistogram(&mainLoopHisto, "main");
+	initHistogram(&mainLoopHisto, "main callback");
 
 	if (!isInjectionEnabled())
 		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
