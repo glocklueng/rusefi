@@ -5,7 +5,8 @@ import com.irnems.FileLog;
 import com.irnems.core.EngineState;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
-import com.irnems.waves.WaveReport;
+import com.rusefi.waves.RevolutionLog;
+import com.rusefi.waves.WaveReport;
 import com.rusefi.io.CommandQueue;
 import com.rusefi.io.InvocationConfirmationListener;
 import com.rusefi.io.LinkManager;
@@ -20,7 +21,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.irnems.waves.WaveReport.isCloseEnough;
+import static com.rusefi.waves.WaveReport.isCloseEnough;
 
 /**
  * rusEfi firmware simulator functional test suite

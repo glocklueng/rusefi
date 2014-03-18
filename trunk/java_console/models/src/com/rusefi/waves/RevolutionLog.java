@@ -1,6 +1,4 @@
-package com.rusefi;
-
-import com.irnems.waves.WaveReport;
+package com.rusefi.waves;
 
 import java.util.Map;
 import java.util.Set;

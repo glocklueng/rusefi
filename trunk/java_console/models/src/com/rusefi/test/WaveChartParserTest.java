@@ -1,14 +1,14 @@
 package com.rusefi.test;
 
-import com.irnems.waves.WaveReport;
-import com.rusefi.RevolutionLog;
+import com.rusefi.waves.WaveReport;
+import com.rusefi.waves.RevolutionLog;
 import com.rusefi.WaveChartParser;
 import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
 
-import static com.irnems.waves.WaveReport.isCloseEnough;
+import static com.rusefi.waves.WaveReport.isCloseEnough;
 import static junit.framework.Assert.*;
 
 /**

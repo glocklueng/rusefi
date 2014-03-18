@@ -1,6 +1,7 @@
-package com.irnems.waves;
+package com.rusefi.waves;
 
-import com.rusefi.RevolutionLog;
+import com.irnems.waves.TimeAxisTranslator;
+import com.irnems.waves.ZoomProvider;
 
 import java.util.ArrayList;
 import java.util.Collections;
