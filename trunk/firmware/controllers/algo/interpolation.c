@@ -14,6 +14,7 @@
 
 #include "main.h"
 #include "interpolation.h"
+#include "engine_math.h"
 
 #define INTERPOLATION_A(x1, y1, x2, y2) ((y1 - y2) / (x1 - x2))
 
@@ -48,7 +49,7 @@ float interpolate(float x1, float y1, float x2, float y2, float x) {
  * @note If the parameter is smaller than the first element of the array, -1 is returned.
  */
 int findIndex(float array[], int size, float value) {
-	if (isnan(value))
+	if (cisnan(value))
 		fatal("NaN in findIndex\r\n");
 
 	if (value < array[0])
@@ -99,11 +100,11 @@ float interpolate2d(float value, float bin[], float values[], int size) {
  * @brief	Two-dimensional table lookup with linear interpolation
  */
 float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], int yBinSize, float* map[]) {
-	if (isnan(y)) {
+	if (cisnan(y)) {
 		warning("%f: x is NaN in interpolate3d", x);
 		return NAN;
 	}
-	if (isnan(y)) {
+	if (cisnan(y)) {
 		warning("%f: y is NaN in interpolate3d", y);
 		return NAN;
 	}
