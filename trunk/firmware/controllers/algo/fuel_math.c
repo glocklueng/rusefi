@@ -55,13 +55,13 @@ void prepareFuelMap(void) {
  * @brief Engine warm-up fuel correction.
  */
 float getCltCorrection(float clt) {
-	if (isnan(clt))
+	if (cisnan(clt))
 		return 1; // this error should be already reported somewhere else, let's just handle it
 	return interpolate2d(clt, engineConfiguration->cltFuelCorrBins, engineConfiguration->cltFuelCorr, CLT_CURVE_SIZE);
 }
 
 float getIatCorrection(float iat) {
-	if (isnan(iat))
+	if (cisnan(iat))
 		return 1; // this error should be already reported somewhere else, let's just handle it
 	return interpolate2d(iat, engineConfiguration->iatFuelCorrBins, engineConfiguration->iatFuelCorr, IAT_CURVE_SIZE);
 }
@@ -72,7 +72,7 @@ float getIatCorrection(float iat) {
  * @return	Time in ms for injection opening time based on current battery voltage
  */
 float getInjectorLag(float vBatt) {
-	if (isnan(vBatt)) {
+	if (cisnan(vBatt)) {
 		warning("vBatt=%f", vBatt);
 		return 0;
 	}
@@ -117,7 +117,7 @@ float getRunningFuel(int rpm, float engineLoad) {
 
 float getStartingFuel(float coolantTemperature) {
 	// these magic constants are in Celsius
-	if (isnan(coolantTemperature)
+	if (cisnan(coolantTemperature)
 			|| coolantTemperature
 					< engineConfiguration->crankingSettings.coolantTempMinC)
 		return engineConfiguration->crankingSettings.fuelAtMinTempMs;
