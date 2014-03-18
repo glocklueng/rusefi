@@ -217,7 +217,7 @@ DINCDIR =
 DLIBDIR =
 
 # List all default libraries here
-DLIBS = -lws2_32
+DLIBS = -static-libgcc -static-libstdc++ -lws2_32
 
 #
 # End of default section
