@@ -14,9 +14,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -92,8 +90,19 @@ public class AutoTest {
         LinkManager.open();
 
         FileLog.rlog("Let's give it some time to start...");
-        // todo: some way to know that we are alive
-        Thread.sleep(5000); // let's give it some time to start
+
+        final CountDownLatch startup = new CountDownLatch(1);
+        SensorCentral.AdcListener listener = new SensorCentral.AdcListener() {
+            @Override
+            public void onAdcUpdate(SensorCentral model, double value) {
+                startup.countDown();
+            }
+        };
+        long waitStart = System.currentTimeMillis();
+        SensorCentral.getInstance().addListener(Sensor.RPM, listener);
+        startup.await(5, TimeUnit.SECONDS);
+        SensorCentral.getInstance().removeListener(Sensor.RPM, listener);
+        FileLog.MAIN.logLine("Got first signal in " + (System.currentTimeMillis() - waitStart));
 
         mainTestBody();
     }

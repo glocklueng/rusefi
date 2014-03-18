@@ -73,6 +73,15 @@ public class SensorCentral {
         listeners.add(listener);
     }
 
+    public void removeListener(Sensor sensor, AdcListener listener) {
+        List<AdcListener> listeners;
+        synchronized (allListeners) {
+            listeners = allListeners.get(sensor);
+        }
+        if (listeners != null)
+            listeners.remove(listener);
+    }
+
     public interface AdcListener {
         void onAdcUpdate(SensorCentral model, double value);
     }
