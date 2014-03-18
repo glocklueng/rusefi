@@ -190,4 +190,7 @@ void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigg
 //	return 0;
 //}
 
+int cisnan(float f) {
+	return *(((int*)(&f)))  == 0x7FC00000;
+}
 

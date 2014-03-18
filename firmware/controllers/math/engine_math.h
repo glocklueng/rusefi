@@ -10,6 +10,8 @@
 
 #include "engine_configuration.h"
 
+int cisnan(float f);
+
 //float getDefaultVE(int rpm);
 
 float getDefaultFuel(int rpm, float map);
