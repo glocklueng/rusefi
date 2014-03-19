@@ -25,10 +25,14 @@
 #include "advance_map.h"
 #include "fuel_math.h"
 #include "wave_chart.h"
+#include "settings.h"
+
 
 WaveChart waveChart;
 
 void initAlgo(void) {
+	initSettings();
+
 #if EFI_WAVE_CHART
 	initWaveChart(&waveChart);
 #endif

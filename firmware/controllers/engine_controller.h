@@ -13,8 +13,7 @@
 #include "signal_executor.h"
 #include "engine_configuration.h"
 
-void printTemperatureInfo(void);
+char * getPinNameByAdcChannel(int hwChannel, uint8_t *buffer);
 void initEngineContoller(void);
-//void setDefaultEngineConfiguration(engine_configuration_s *engineConfiguration);
 
 #endif /* ENGINE_STATUS_H_ */

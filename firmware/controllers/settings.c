@@ -14,7 +14,11 @@
 #include "flash_main.h"
 #include "engine_controller.h"
 #include "rusefi.h"
+#include "thermistors.h"
+
+#if EFI_PROD_CODE
 #include "pin_repository.h"
+#endif /* EFI_PROD_CODE */
 
 static Logging logger;
 
@@ -125,6 +129,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %d", engineConfiguration->malfunctionIndicatorPinMode);
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
+#if EFI_PROD_CODE
 	// todo: calculate coils count based on ignition mode
 	for (int i = 0; i < 4; i++) {
 		brain_pin_e brainPin = engineConfiguration->ignitionPins[i];
@@ -132,6 +137,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 		int hwPin = getHwPin(brainPin);
 		scheduleMsg(&logger, "ignition %d @ %s%d", i, portname(hwPort), hwPin);
 	}
+#endif /* EFI_PROD_CODE */
 
 	//	appendPrintf(&logger, DELIMETER);
 //	scheduleLogging(&logger);
@@ -153,10 +159,12 @@ static void setTimingMode(int value) {
 
 static void setEngineType(int value) {
 	engineConfiguration->engineType = (engine_type_e) value;
+#if EFI_PROD_CODE
 	resetConfiguration((engine_type_e) value);
 	writeToFlash();
-	doPrintConfiguration();
 	scheduleReset();
+#endif /* EFI_PROD_CODE */
+	doPrintConfiguration();
 }
 
 static void setInjectionPinMode(int value) {
@@ -199,6 +207,41 @@ static void setrpmMultiplier(int value) {
 	doPrintConfiguration();
 }
 
+static uint8_t pinNameBuffer[16];
+
+static void printThermistor(char *msg, Thermistor *thermistor) {
+	int adcChannel = thermistor->channel;
+	float r = getResistance(thermistor);
+
+	float t = getTemperatureC(thermistor);
+
+	scheduleMsg(&logger, "%s C=%f R=%f on channel %d", msg, t, r, adcChannel);
+	scheduleMsg(&logger, "A=%f B=%f C=%f", thermistor->config->s_h_a, thermistor->config->s_h_b,  thermistor->config->s_h_c);
+#if EFI_PROD_CODE
+	scheduleMsg(&logger, "@%s", getPinNameByAdcChannel(adcChannel, pinNameBuffer));
+#endif
+}
+
+static void printTemperatureInfo(void) {
+	printThermistor("CLT", &engineConfiguration2->clt);
+	printThermistor("IAT", &engineConfiguration2->iat);
+
+	float rClt = getResistance(&engineConfiguration2->clt);
+	float rIat = getResistance(&engineConfiguration2->iat);
+
+#if EFI_PROD_CODE
+	int cltChannel = engineConfiguration2->clt.channel;
+	scheduleMsg(&logger, "CLT R=%f on channel %d@%s", rClt, cltChannel, getPinNameByAdcChannel(cltChannel, pinNameBuffer));
+	int iatChannel = engineConfiguration2->iat.channel;
+	scheduleMsg(&logger, "IAT R=%f on channel %d@%s", rIat, iatChannel, getPinNameByAdcChannel(iatChannel, pinNameBuffer));
+
+	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMinTempMs,
+			engineConfiguration->crankingSettings.coolantTempMinC);
+	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMaxTempMs,
+			engineConfiguration->crankingSettings.coolantTempMaxC);
+#endif
+}
+
 /**
  * For example
  * set_cranking_fuel_min 15 0
@@ -230,6 +273,8 @@ static void setGlobalFuelCorrection(float value) {
 
 void initSettings(void) {
 	initLoggingExt(&logger, "settings control", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+
+	addConsoleAction("tempinfo", printTemperatureInfo);
 
 	addConsoleActionI("set_ignition_offset", setIgnitonOffset);
 	addConsoleActionI("set_global_trigger_offset_angle", setGlobalTriggerOffsetAngle);
