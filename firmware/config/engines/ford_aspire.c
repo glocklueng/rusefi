@@ -176,10 +176,16 @@ static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigge
 	registerActuatorEvent(&config->crankingInjectionEvents, 8, addOutputSignal(INJECTOR_4_OUTPUT), 0);
 
 	resetEventList(&config->injectionEvents);
-	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_1_OUTPUT), x);
-	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_3_OUTPUT), x + 180);
-	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x + 360);
-	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_2_OUTPUT), x + 540);
+
+	for(int i = 0;i < e->cylindersCount;i++) {
+		io_pin_e pin = INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1;
+		float angle = x + i * 720.0 / e->cylindersCount;
+		registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(pin), angle);
+	}
+//	i = 1;
+//	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder,i ) - 1), x + i * 720 / 4);
+//	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x + 360);
+//	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_2_OUTPUT), x + 540);
 //	registerActuatorEvent(&config->injectionEvents, 1, addOutputSignal(INJECTOR_4_OUTPUT), 0);
 //	registerActuatorEvent(&config->injectionEvents, 3, addOutputSignal(INJECTOR_2_OUTPUT), 0);
 //	registerActuatorEvent(&config->injectionEvents, 6, addOutputSignal(INJECTOR_1_OUTPUT), 0);
@@ -237,6 +243,7 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 
 //	engineConfiguration->ignitionPinMode = OM_INVERTED;
 
+	engineConfiguration->cylindersCount = 4;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 	engineConfiguration->globalTriggerAngleOffset = 175;
 	engineConfiguration->ignitionOffset = 35;
