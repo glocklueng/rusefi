@@ -187,14 +187,14 @@ static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigge
 
 
 	resetEventList(&config->ignitionEvents);
-	registerActuatorEvent(&config->ignitionEvents, 1, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
-	registerActuatorEvent(&config->ignitionEvents, 3, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
-	registerActuatorEvent(&config->ignitionEvents, 6, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
-	registerActuatorEvent(&config->ignitionEvents, 8, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
-//	registerActuatorEventExt(&config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x);
-//	registerActuatorEventExt(&config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x + 180);
-//	registerActuatorEventExt(&config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x + 360);
-//	registerActuatorEventExt(&config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x + 540);
+//	registerActuatorEvent(&config->ignitionEvents, 1, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
+//	registerActuatorEvent(&config->ignitionEvents, 3, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
+//	registerActuatorEvent(&config->ignitionEvents, 6, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
+//	registerActuatorEvent(&config->ignitionEvents, 8, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
+	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x);
+	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x + 180);
+	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x + 360);
+	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x + 540);
 }
 
 static void setDefaultMaps(engine_configuration_s *engineConfiguration) {
