@@ -114,7 +114,7 @@ public class AutoTest {
 
     private static void assertWave(WaveChart chart, RevolutionLog revolutionLog, String key, double width, double... expectedAngles) {
         StringBuilder events = chart.get(key);
-        assertTrue("Events not null", events != null);
+        assertTrue("Events not null for " + key, events != null);
         List<WaveReport.UpDown> wr = WaveReport.parse(events.toString());
         assertTrue("waves for " + key, !wr.isEmpty());
         for (WaveReport.UpDown ud : wr) {
