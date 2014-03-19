@@ -79,6 +79,8 @@ static void triggerEmulatorCallback(PwmConfig *state, int stateIndex) {
 void rusEfiFunctionalTest(void) {
 	initializeConsole();
 
+	initFakeBoard();
+
 	initStatusLoop();
 
 	resetConfigurationExt(FORD_ASPIRE_1996, engineConfiguration, engineConfiguration2);
@@ -103,7 +105,7 @@ void printPendingMessages(void) {
 }
 
 static size_t wt_writes(void *ip, const uint8_t *bp, size_t n) {
-	printToWin32Console(bp);
+	printToWin32Console((char*)bp);
 	return DELEGATE->vmt->write(DELEGATE, bp, n);
 }
 
@@ -116,7 +118,7 @@ static char putMessageBuffer[2];
 static msg_t wt_put(void *ip, uint8_t b) {
 	putMessageBuffer[0] = b;
 	putMessageBuffer[1] = 0;
-	printToWin32Console(putMessageBuffer);
+	printToWin32Console((char*)putMessageBuffer);
 //	cputs("wt_put");
 	return DELEGATE->vmt->put(DELEGATE, b);
 }
