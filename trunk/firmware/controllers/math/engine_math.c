@@ -176,6 +176,7 @@ void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigg
 	// let's find the last trigger angle which is less or equal to the desired angle
 	int i;
 	for (i = 0; i < s->size - 1; i++) {
+		// todo: we need binary search here
 		float angle = s->wave.switchTimes[i + 1] * 720 - firstAngle;
 		if (angle > angleOffset)
 			break;
