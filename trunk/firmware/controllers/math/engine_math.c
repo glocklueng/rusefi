@@ -168,7 +168,7 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
 	chDbgCheck(s->size > 0, "uninitialized trigger_shape_s");
 
-	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerOffsetAngle);
+	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
 
 	// todo: migrate to crankAngleRange?
 	float firstAngle = s->wave.switchTimes[0] * 720;

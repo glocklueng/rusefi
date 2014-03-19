@@ -122,7 +122,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "timingMode: %d", engineConfiguration->timingMode);
 	scheduleMsg(&logger, "fixedModeTiming: %d", (int) engineConfiguration->fixedModeTiming);
 	scheduleMsg(&logger, "crankingChargeAngle=%f", engineConfiguration->crankingChargeAngle);
-	scheduleMsg(&logger, "globalTriggerOffsetAngle=%f", engineConfiguration->globalTriggerOffsetAngle);
+	scheduleMsg(&logger, "globalTriggerAngleOffset=%f", engineConfiguration->globalTriggerAngleOffset);
 
 	scheduleMsg(&logger, "analogChartMode: %d", engineConfiguration->analogChartMode);
 
@@ -265,8 +265,8 @@ static void setCrankingFuleMax(int timeMs, int tempC) {
 	printTemperatureInfo();
 }
 
-static void setGlobalTriggerOffsetAngle(int value) {
-	engineConfiguration->globalTriggerOffsetAngle = value;
+static void setGlobalTriggerAngleOffset(int value) {
+	engineConfiguration->globalTriggerAngleOffset = value;
 	doPrintConfiguration();
 }
 
@@ -330,7 +330,7 @@ void initSettings(void) {
 	addConsoleAction("tempinfo", printTemperatureInfo);
 
 	addConsoleActionI("set_ignition_offset", setIgnitonOffset);
-	addConsoleActionI("set_global_trigger_offset_angle", setGlobalTriggerOffsetAngle);
+	addConsoleActionI("set_global_trigger_offset_angle", setGlobalTriggerAngleOffset);
 	addConsoleActionI("set_analog_chart_mode", setAnalogChartMode);
 	addConsoleActionI("set_fixed_mode_timing", setFixedModeTiming);
 	addConsoleActionI("set_timing_mode", setTimingMode);

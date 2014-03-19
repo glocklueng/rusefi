@@ -169,7 +169,7 @@ typedef struct {
 	 * This is the angle between Top Dead Center (TDC) and the first trigger event.
 	 * Knows this angle allows us to control timing and other angles in reference to TDC.
 	 */
-	float globalTriggerOffsetAngle;
+	float globalTriggerAngleOffset;
 	/**
 	 * We have 3.3V ADC and most of the analog input signals are 5V, this forces us to use
 	 * voltage dividers on the input circuits. This parameter holds the coefficient of these dividers.

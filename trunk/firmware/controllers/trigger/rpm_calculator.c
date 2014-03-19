@@ -147,7 +147,7 @@ static void onTdcCallback(void) {
 
 static void tdcMarkCallback(ShaftEvents ckpSignalType, int index) {
 	if (index == 0) {
-		scheduleByAngle(&tdcScheduler, engineConfiguration->globalTriggerOffsetAngle, (schfunc_t) onTdcCallback, NULL);
+		scheduleByAngle(&tdcScheduler, engineConfiguration->globalTriggerAngleOffset, (schfunc_t) onTdcCallback, NULL);
 	}
 }
 
