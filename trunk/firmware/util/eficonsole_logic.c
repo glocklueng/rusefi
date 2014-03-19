@@ -18,7 +18,7 @@
 #include "main.h"
 #include "eficonsole_logic.h"
 #include "efilib.h"
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 #include "eficonsole.h"
 static Logging logging;
 #endif /* EFI_PROD_CODE */
@@ -78,7 +78,7 @@ void addConsoleActionF(char *token, VoidFloat callback) {
  * @brief This function prints out a list of all available commands
  */
 void helpCommand(void) {
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	scheduleMsg(&logging, "%d actions available", consoleActionCount);
 	for (int i = 0; i < consoleActionCount; i++) {
 		TokenCallback *current = &consoleActions[i];
@@ -185,7 +185,7 @@ int strEqual(char *str1, char *str2) {
 }
 
 void initConsoleLogic() {
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	initLogging(&logging, "rfi console");
 #endif /* EFI_PROD_CODE */
 	resetConsoleActions();
