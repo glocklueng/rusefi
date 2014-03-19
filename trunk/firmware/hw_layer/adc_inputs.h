@@ -10,6 +10,7 @@
 #define ADC_INPUTS_H_
 
 #include "main.h"
+#include "adc_math.h"
 
 GPIO_TypeDef* getAdcChannelPort(int hwChannel);
 int getAdcChannelPin(int hwChannel);
@@ -38,12 +39,6 @@ typedef struct {
 
 #define getAdcValue(hwChannel) getInternalAdcValue(hwChannel)
 
-#define adcToVolts(adc) ((((float) 3.0) * (adc) / 4095))
-
 #define adcToVoltsDivided(adc) (adcToVolts(adc) * engineConfiguration->analogInputDividerCoefficient)
-
-#define getVoltage(hwChannel) (adcToVolts(getAdcValue(hwChannel)))
-
-#define getVoltageDivided(hwChannel) (getVoltage(hwChannel) * engineConfiguration->analogInputDividerCoefficient)
 
 #endif /* ADC_INPUTS_H_ */

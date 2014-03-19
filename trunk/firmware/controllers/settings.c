@@ -15,6 +15,7 @@
 #include "engine_controller.h"
 #include "rusefi.h"
 #include "thermistors.h"
+#include "adc_inputs.h"
 
 #if EFI_PROD_CODE
 #include "pin_repository.h"
@@ -211,12 +212,13 @@ static uint8_t pinNameBuffer[16];
 
 static void printThermistor(char *msg, Thermistor *thermistor) {
 	int adcChannel = thermistor->channel;
+	float voltage = getVoltageDivided(adcChannel);
 	float r = getResistance(thermistor);
 
 	float t = getTemperatureC(thermistor);
 
-	scheduleMsg(&logger, "%s C=%f R=%f on channel %d", msg, t, r, adcChannel);
-	scheduleMsg(&logger, "A=%f B=%f C=%f", thermistor->config->s_h_a, thermistor->config->s_h_b,  thermistor->config->s_h_c);
+	scheduleMsg(&logger, "%s v=%f C=%f R=%f on channel %d", msg, voltage, t, r, adcChannel);
+	scheduleMsg(&logger, "bias=%f A=%f B=%f C=%f", thermistor->config->bias_resistor, thermistor->config->s_h_a, thermistor->config->s_h_b,  thermistor->config->s_h_c);
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "@%s", getPinNameByAdcChannel(adcChannel, pinNameBuffer));
 #endif
