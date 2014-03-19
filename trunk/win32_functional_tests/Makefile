@@ -149,6 +149,7 @@ $(PORTINC) $(KERNINC) $(TESTINC) \
 	$(PROJECT_DIR)/console_util \
 	$(PROJECT_DIR)/config/engines \
 	$(PROJECT_DIR)/ext_algo \
+	$(PROJECT_DIR)/controllers \
 	$(PROJECT_DIR)/controllers/sensors \
 	$(PROJECT_DIR)/controllers/system \
 	$(PROJECT_DIR)/controllers/algo \
