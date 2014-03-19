@@ -2,11 +2,8 @@ package com.rusefi;
 
 
 import com.irnems.FileLog;
-import com.irnems.core.EngineState;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
-import com.rusefi.io.CommandQueue;
-import com.rusefi.io.InvocationConfirmationListener;
 import com.rusefi.io.LinkManager;
 import com.rusefi.io.tcp.TcpConnector;
 import com.rusefi.waves.RevolutionLog;
@@ -16,8 +13,10 @@ import com.rusefi.waves.WaveReport;
 
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicReference;
 
+import static com.rusefi.IoUtil.*;
+import static com.rusefi.TestingUtils.assertCloseEnough;
+import static com.rusefi.TestingUtils.assertTrue;
 import static com.rusefi.waves.WaveReport.isCloseEnough;
 
 /**
@@ -95,10 +94,7 @@ public class AutoTest {
         changeRpm(500);
         changeRpm(2000);
 
-
-        getWaveChart();
-        // we want to wait for the 2nd chart to see same same RPM across the whole chart
-        String chartLine = getWaveChart();
+        String chartLine = getNextWaveChart();
 
 
         WaveChart chart = WaveChartParser.unpackToMap(chartLine);
@@ -125,47 +121,8 @@ public class AutoTest {
         assertTrue(skipped < 2 && passed > 0);
     }
 
-    private static void assertTrue(String msg, boolean b) {
-        if (!b)
-            throw new IllegalStateException("Not true: " + msg);
-    }
-
-    private static void assertCloseEnough(double expected, double current) {
-        if (!isCloseEnough(expected, current))
-            throw new IllegalStateException("Got " + current + " while expecting " + expected);
-    }
-
-    private static void assertTrue(boolean b) {
-        if (!b)
-            throw new IllegalStateException("Not true");
-    }
-
-    private static String getWaveChart() throws InterruptedException {
-        final CountDownLatch waveChartLatch = new CountDownLatch(1);
-
-        final AtomicReference<String> result = new AtomicReference<String>();
-
-        LinkManager.engineState.registerStringValueAction(WaveReport.WAVE_CHART, new EngineState.ValueCallback<String>() {
-            @Override
-            public void onUpdate(String value) {
-                waveChartLatch.countDown();
-                result.set(value);
-            }
-        });
-        waveChartLatch.await(5, TimeUnit.SECONDS);
-        LinkManager.engineState.removeAction(WaveReport.WAVE_CHART);
-        return result.get();
-    }
-
     private static void changeRpm(final int rpm) throws InterruptedException {
-        final CountDownLatch responseLatch = new CountDownLatch(1);
-        CommandQueue.getInstance().write("rpm " + rpm, CommandQueue.DEFAULT_TIMEOUT, new InvocationConfirmationListener() {
-            @Override
-            public void onCommandConfirmation() {
-                responseLatch.countDown();
-            }
-        });
-        responseLatch.await(20, TimeUnit.SECONDS);
+        sendCommand("rpm " + rpm);
 
         final CountDownLatch rpmLatch = new CountDownLatch(1);
         SensorCentral.AdcListener listener = new SensorCentral.AdcListener() {
@@ -185,4 +142,5 @@ public class AutoTest {
         if (!isCloseEnough(rpm, actualRpm))
             throw new IllegalStateException("rpm change did not happen");
     }
+
 }
