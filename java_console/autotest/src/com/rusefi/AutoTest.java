@@ -107,7 +107,7 @@ public class AutoTest {
         assertWave(chart, revolutionLog, WaveChart.INJECTOR_1, 238.75);
         assertWave(chart, revolutionLog, WaveChart.INJECTOR_2, 53.04);
         assertWave(chart, revolutionLog, WaveChart.INJECTOR_3, 417.04);
-//        assertWave(chart, revolutionLog, WaveChart.INJECTOR_4, 417.04);
+        assertWave(chart, revolutionLog, WaveChart.INJECTOR_4, 594.04);
     }
 
     private static void assertWave(WaveChart chart, RevolutionLog revolutionLog, String key, double expectedAngle) {
@@ -122,8 +122,10 @@ public class AutoTest {
                 skipped++;
                 continue;
             }
-            assertCloseEnough(expectedAngle, angleByTime);
+            assertCloseEnough("angle", expectedAngle, angleByTime);
             passed++;
+
+            assertCloseEnough("width", 0.33, ud.getDutyCycle(revolutionLog));
         }
         assertTrue(skipped < 2 && passed > 0);
     }

@@ -12,9 +12,9 @@ public class TestingUtils {
             throw new IllegalStateException("Not true: " + msg);
     }
 
-    static void assertCloseEnough(double expected, double current) {
+    static void assertCloseEnough(String msg, double expected, double current) {
         if (!isCloseEnough(expected, current))
-            throw new IllegalStateException("Got " + current + " while expecting " + expected);
+            throw new IllegalStateException(msg + ": Got " + current + " while expecting " + expected);
     }
 
     static void assertTrue(boolean b) {
