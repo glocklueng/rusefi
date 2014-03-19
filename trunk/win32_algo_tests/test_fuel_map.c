@@ -117,7 +117,7 @@ extern int outputSignalCount;
 void testAngleResolver(void) {
 	printf("*************************************************** testAngleResolver\r\n");
 
-	engineConfiguration->globalTriggerOffsetAngle = 175;
+	engineConfiguration->globalTriggerAngleOffset = 175;
 	trigger_shape_s * ts = &engineConfiguration2->triggerShape;
 
 	confgiureFordAspireTriggerShape(ts);
