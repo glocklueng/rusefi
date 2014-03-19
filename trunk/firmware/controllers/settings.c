@@ -277,6 +277,15 @@ static void setGlobalFuelCorrection(float value) {
 	engineConfiguration->globalFuelCorrection = value;
 }
 
+static void setWholeTimingMap(float value) {
+	scheduleMsg(&logger, "Setting whole timing map to %f", value);
+	for (int l = 0; l < IGN_LOAD_COUNT; l++) {
+		for (int r = 0; r < IGN_RPM_COUNT; r++) {
+			engineConfiguration->ignitionTable[l][r] = value;
+		}
+	}
+}
+
 static void setWholeFuelMap(float value) {
 	scheduleMsg(&logger, "Setting whole fuel map to %f", value);
 	for (int l = 0; l < FUEL_LOAD_COUNT; l++) {
@@ -284,6 +293,20 @@ static void setWholeFuelMap(float value) {
 			engineConfiguration->fuelTable[l][r] = value;
 		}
 	}
+}
+
+static void setTimingMap(char * rpmStr, char *loadStr, char *valueStr) {
+	float rpm = atoff(rpmStr);
+	float engineLoad = atoff(loadStr);
+	float value = atoi(valueStr);
+
+	int rpmIndex = findIndex(engineConfiguration->ignitionRpmBins, IGN_RPM_COUNT, rpm);
+	rpmIndex = rpmIndex < 0 ? 0 : rpmIndex;
+	int loadIndex = findIndex(engineConfiguration->ignitionLoadBins, IGN_LOAD_COUNT, engineLoad);
+	loadIndex = loadIndex < 0 ? 0 : loadIndex;
+
+	engineConfiguration->ignitionTable[loadIndex][rpmIndex] = value;
+	scheduleMsg(&logger, "Setting timing map entry %d:%d to %f", rpmIndex, loadIndex, value);
 }
 
 static void setFuelMap(char * rpmStr, char *loadStr, char *valueStr) {
@@ -297,7 +320,7 @@ static void setFuelMap(char * rpmStr, char *loadStr, char *valueStr) {
 	loadIndex = loadIndex < 0 ? 0 : loadIndex;
 
 	engineConfiguration->fuelTable[loadIndex][rpmIndex] = value;
-	scheduleMsg(&logger, "Setting whole fuel map entry %d:%d to %f", rpmIndex, loadIndex, value);
+	scheduleMsg(&logger, "Setting fuel map entry %d:%d to %f", rpmIndex, loadIndex, value);
 }
 
 void initSettings(void) {
@@ -328,5 +351,8 @@ void initSettings(void) {
 
 	addConsoleActionF("set_whole_fuel_map", setWholeFuelMap);
 	addConsoleActionSSS("set_fuel_map", setFuelMap);
+
+	addConsoleActionF("set_whole_timing_map", setWholeTimingMap);
+	addConsoleActionSSS("set_timing_map", setTimingMap);
 }
 
