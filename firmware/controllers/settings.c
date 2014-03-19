@@ -28,6 +28,10 @@ static char LOGGING_BUFFER[1000];
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
+static void doPrintConfiguration(void) {
+	printConfiguration(engineConfiguration, engineConfiguration2);
+}
+
 static void printIntArray(int array[], int size) {
 	for (int j = 0; j < size; j++)
 		print("%d ", array[j]);
@@ -35,12 +39,12 @@ static void printIntArray(int array[], int size) {
 }
 
 void printFloatArray(char *prefix, float array[], int size) {
-//	appendMsgPrefix(&logger);
-//	appendPrintf(&logger, prefix);
-//	for (int j = 0; j < size; j++)
-//		appendPrintf(&logger, "%f ", array[j]);
-//	appendPrintf(&logger, DELIMETER);
-//	scheduleLogging(&logger);
+	appendMsgPrefix(&logger);
+	appendPrintf(&logger, prefix);
+	for (int j = 0; j < size; j++)
+		appendPrintf(&logger, "%f ", array[j]);
+	appendMsgPostfix(&logger);
+	scheduleLogging(&logger);
 }
 
 char* getConfigurationName(engine_configuration_s *engineConfiguration) {
@@ -144,10 +148,6 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 //	scheduleLogging(&logger);
 }
 
-static void doPrintConfiguration(void) {
-	printConfiguration(engineConfiguration, engineConfiguration2);
-}
-
 static void setFixedModeTiming(int value) {
 	engineConfiguration->fixedModeTiming = value;
 	doPrintConfiguration();
@@ -203,7 +203,7 @@ static void setAnalogChartMode(int value) {
 	doPrintConfiguration();
 }
 
-static void setrpmMultiplier(int value) {
+static void setRpmMultiplier(int value) {
 	engineConfiguration->rpmMultiplier = value;
 	doPrintConfiguration();
 }
@@ -218,7 +218,8 @@ static void printThermistor(char *msg, Thermistor *thermistor) {
 	float t = getTemperatureC(thermistor);
 
 	scheduleMsg(&logger, "%s v=%f C=%f R=%f on channel %d", msg, voltage, t, r, adcChannel);
-	scheduleMsg(&logger, "bias=%f A=%f B=%f C=%f", thermistor->config->bias_resistor, thermistor->config->s_h_a, thermistor->config->s_h_b,  thermistor->config->s_h_c);
+	scheduleMsg(&logger, "bias=%f A=%f B=%f C=%f", thermistor->config->bias_resistor, thermistor->config->s_h_a,
+			thermistor->config->s_h_b, thermistor->config->s_h_c);
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "@%s", getPinNameByAdcChannel(adcChannel, pinNameBuffer));
 #endif
@@ -233,9 +234,11 @@ static void printTemperatureInfo(void) {
 
 #if EFI_PROD_CODE
 	int cltChannel = engineConfiguration2->clt.channel;
-	scheduleMsg(&logger, "CLT R=%f on channel %d@%s", rClt, cltChannel, getPinNameByAdcChannel(cltChannel, pinNameBuffer));
+	scheduleMsg(&logger, "CLT R=%f on channel %d@%s", rClt, cltChannel,
+			getPinNameByAdcChannel(cltChannel, pinNameBuffer));
 	int iatChannel = engineConfiguration2->iat.channel;
-	scheduleMsg(&logger, "IAT R=%f on channel %d@%s", rIat, iatChannel, getPinNameByAdcChannel(iatChannel, pinNameBuffer));
+	scheduleMsg(&logger, "IAT R=%f on channel %d@%s", rIat, iatChannel,
+			getPinNameByAdcChannel(iatChannel, pinNameBuffer));
 
 	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMinTempMs,
 			engineConfiguration->crankingSettings.coolantTempMinC);
@@ -273,9 +276,19 @@ static void setGlobalFuelCorrection(float value) {
 	engineConfiguration->globalFuelCorrection = value;
 }
 
+static void setWholeFuelMap(float value) {
+	scheduleMsg(&logger, "Setting whole fuel map to %f", value);
+	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
+		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
+			engineConfiguration->fuelTable[k][r] = value;
+		}
+	}
+}
+
 void initSettings(void) {
 	initLoggingExt(&logger, "settings control", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 
+	addConsoleAction("showconfig", doPrintConfiguration);
 	addConsoleAction("tempinfo", printTemperatureInfo);
 
 	addConsoleActionI("set_ignition_offset", setIgnitonOffset);
@@ -290,12 +303,14 @@ void initSettings(void) {
 	addConsoleActionI("set_idle_pin_mode", setIdlePinMode);
 	addConsoleActionI("set_fuel_pump_pin_mode", setFuelPumpPinMode);
 	addConsoleActionI("set_malfunction_indicator_pin_mode", setMalfunctionIndicatorPinMode);
-	addConsoleActionI("set_rpm_multiplier", setrpmMultiplier);
+	addConsoleActionI("set_rpm_multiplier", setRpmMultiplier);
 	// todo: start saving values into flash right away?
 
 	addConsoleActionF("set_global_fuel_correction", setGlobalFuelCorrection);
 
 	addConsoleActionII("set_cranking_fuel_min", setCrankingFuleMin);
 	addConsoleActionII("set_cranking_fuel_max", setCrankingFuleMax);
+
+	addConsoleActionF("set_whole_fuel_map", setWholeFuelMap);
 }
 

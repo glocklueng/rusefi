@@ -98,10 +98,6 @@ static void readFromFlash(void) {
 	}
 }
 
-static void doPrintConfiguration(void) {
-	printConfiguration(engineConfiguration, engineConfiguration2);
-}
-
 static void doResetConfiguration(void) {
 	resetConfiguration(engineConfiguration->engineType);
 }
@@ -110,7 +106,6 @@ void initFlash(void) {
 	initLogging(&logger, "Flash memory");
 	print("initFlash()\r\n");
 
-	addConsoleAction("showconfig", doPrintConfiguration);
 
 	addConsoleAction("readconfig", readFromFlash);
 	addConsoleAction("writeconfig", writeToFlash);
