@@ -19,6 +19,7 @@
 
 static cyclic_buffer sb;
 
+
 void testCyclicBuffer(void) {
 	print("*************************************** testCyclicBuffer\r\n");
 

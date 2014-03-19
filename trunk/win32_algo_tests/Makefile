@@ -86,7 +86,7 @@ CSRC =	$(UTILSRC) \
 	$(CONTROLLERS_MATH_SRC) \
 	$(CONTROLLERS_SENSORS_SRC) \
 	$(ENGINES_SRC) \
-	$(TEST_SRC_C) \
+	$(TEST_SRC_C)
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -126,7 +126,7 @@ INCDIR = . \
 	$(PROJECT_DIR)/controllers/math \
 	$(PROJECT_DIR)/ext_algo \
 	test_data_structures \
-	test_basic_math \
+	test_basic_math
 	
 
 #
