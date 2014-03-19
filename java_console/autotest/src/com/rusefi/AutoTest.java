@@ -129,7 +129,7 @@ public class AutoTest {
 
             assertCloseEnough("width for " + key, ud.getDutyCycle(revolutionLog), width);
         }
-        assertTrue(skipped < 2 && passed > 0);
+        assertTrue("wave for " + key + ": " + skipped + "/" + passed, skipped < 2 && passed > 0);
     }
 
     private static void changeRpm(final int rpm) throws InterruptedException {
