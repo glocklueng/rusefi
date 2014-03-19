@@ -16,6 +16,7 @@
 #include "rusefi.h"
 #include "thermistors.h"
 #include "adc_inputs.h"
+#include "interpolation.h"
 
 #if EFI_PROD_CODE
 #include "pin_repository.h"
@@ -278,11 +279,25 @@ static void setGlobalFuelCorrection(float value) {
 
 static void setWholeFuelMap(float value) {
 	scheduleMsg(&logger, "Setting whole fuel map to %f", value);
-	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
+	for (int l = 0; l < FUEL_LOAD_COUNT; l++) {
 		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
-			engineConfiguration->fuelTable[k][r] = value;
+			engineConfiguration->fuelTable[l][r] = value;
 		}
 	}
+}
+
+static void setFuelMap(char * rpmStr, char *loadStr, char *valueStr) {
+	float rpm = atoff(rpmStr);
+	float engineLoad = atoff(loadStr);
+	float value = atoi(valueStr);
+
+	int rpmIndex = findIndex(engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT, rpm);
+	rpmIndex = rpmIndex < 0 ? 0 : rpmIndex;
+	int loadIndex = findIndex(engineConfiguration->fuelLoadBins, FUEL_LOAD_COUNT, engineLoad);
+	loadIndex = loadIndex < 0 ? 0 : loadIndex;
+
+	engineConfiguration->fuelTable[loadIndex][rpmIndex] = value;
+	scheduleMsg(&logger, "Setting whole fuel map entry %d:%d to %f", rpmIndex, loadIndex, value);
 }
 
 void initSettings(void) {
@@ -312,5 +327,6 @@ void initSettings(void) {
 	addConsoleActionII("set_cranking_fuel_max", setCrankingFuleMax);
 
 	addConsoleActionF("set_whole_fuel_map", setWholeFuelMap);
+	addConsoleActionSSS("set_fuel_map", setFuelMap);
 }
 
