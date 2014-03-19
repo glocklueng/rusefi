@@ -16,8 +16,8 @@
 
 #define EFI_CONSOLE_UART_DEVICE (&testStream)
 
-float getVoltageDivided(int);
-float getVoltage(int channel);
+//float getVoltageDivided(int);
 int getAdcValue(int channel);
+void initFakeBoard(void);
 
 #endif /* BOARDS_FT_H_ */
