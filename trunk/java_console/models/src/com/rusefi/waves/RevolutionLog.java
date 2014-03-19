@@ -1,8 +1,6 @@
 package com.rusefi.waves;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * 1/11/14.
@@ -36,9 +34,23 @@ public class RevolutionLog {
     }
 
     public double getCrankAngleByTime(double time) {
+        return doGetAngle(time, true);
+    }
+
+    private double doGetAngle(double time, boolean tryNextRevolution) {
         Map.Entry<Integer, Integer> entry = getTimeAndRpm(time);
         if (entry == null) {
-            return Double.NaN;
+            if (tryNextRevolution && time2rpm.size() >= 2) {
+                // we are here if the value is below the first revolution point
+                List<Map.Entry<Integer, Integer>> element = new ArrayList<Map.Entry<Integer, Integer>>(time2rpm.entrySet());
+                Map.Entry<Integer, Integer> first = element.get(0);
+                Map.Entry<Integer, Integer> second = element.get(1);
+
+                int oneRevolutionDuration = second.getKey() - first.getKey();
+                return doGetAngle(time + oneRevolutionDuration, false);
+            } else {
+                return Double.NaN;
+            }
         } else {
             double diff = time - entry.getKey();
 

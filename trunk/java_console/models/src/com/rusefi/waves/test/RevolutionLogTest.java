@@ -13,6 +13,9 @@ public class RevolutionLogTest {
     public void backTime() {
         RevolutionLog r = RevolutionLog.parseRevolutions("2000!148958!2000!154958!2000!160958!2000!166958!");
 
-        Assert.assertEquals(Double.NaN, r.getCrankAngleByTime(147915));
+        Assert.assertEquals(594.84, r.getCrankAngleByTime(147915));
+
+        // too back into the past
+        Assert.assertEquals(Double.NaN, r.getCrankAngleByTime(140915));
     }
 }
