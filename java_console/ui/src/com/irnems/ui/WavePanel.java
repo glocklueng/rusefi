@@ -110,15 +110,15 @@ public class WavePanel extends JPanel {
         createSecondaryImage("input1 A8");
         createSecondaryImage("input2 E5");
 
-        createSecondaryImage("Spark 1");
-        createSecondaryImage("Spark 2");
-        createSecondaryImage("Spark 3");
-        createSecondaryImage("Spark 4");
+        createSecondaryImage(WaveChart.SPARK_1);
+        createSecondaryImage(WaveChart.SPARK_2);
+        createSecondaryImage(WaveChart.SPARK_3);
+        createSecondaryImage(WaveChart.SPARK_4);
 
         createSecondaryImage(WaveChart.INJECTOR_1);
-        createSecondaryImage("Injector 2");
-        createSecondaryImage("Injector 3");
-        createSecondaryImage("Injector 4");
+        createSecondaryImage(WaveChart.INJECTOR_2);
+        createSecondaryImage(WaveChart.INJECTOR_3);
+        createSecondaryImage(WaveChart.INJECTOR_4);
 
         LinkManager.engineState.registerStringValueAction(WaveReport.WAVE_CHART, new EngineState.ValueCallback<String>() {
             @Override
