@@ -116,20 +116,13 @@ public class AutoTest {
         StringBuilder events = chart.get(key);
         assertTrue("Events not null", events != null);
         List<WaveReport.UpDown> wr = WaveReport.parse(events.toString());
-        int skipped = 0;
-        int passed = 0;
+        assertTrue("waves for " + key, !wr.isEmpty());
         for (WaveReport.UpDown ud : wr) {
             double angleByTime = revolutionLog.getCrankAngleByTime(ud.upTime);
-            if (Double.isNaN(angleByTime)) {
-                skipped++;
-                continue;
-            }
             assertCloseEnough("angle for " + key, angleByTime, expectedAngles);
-            passed++;
 
             assertCloseEnough("width for " + key, ud.getDutyCycle(revolutionLog), width);
         }
-        assertTrue("wave for " + key + ": " + skipped + "/" + passed + ": " + events, skipped < 2 && passed > 0);
     }
 
     private static void changeRpm(final int rpm) throws InterruptedException {
