@@ -133,7 +133,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->fuelPumpPinMode = OM_DEFAULT;
 	engineConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
 
-	engineConfiguration->globalTriggerOffsetAngle = 0;
+	engineConfiguration->globalTriggerAngleOffset = 0;
 
 
 	engineConfiguration->engineLoadMode = LM_MAF;
