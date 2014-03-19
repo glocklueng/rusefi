@@ -31,7 +31,7 @@ static void mapCallback(int rpm, float key, float value) {
 	appendPrintf(logging, " ");
 	appendPrintf(logging, "%d", 100 * value);
 
-	appendPrintf(logging, DELIMETER);
+	appendMsgPostfix(logging);
 	scheduleLogging(logging);
 }
 
