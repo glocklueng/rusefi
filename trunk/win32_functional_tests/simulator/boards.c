@@ -30,12 +30,28 @@ static void setVoltage(int hwChannel, float voltage) {
 }
 
 static void setCltVoltage(float voltage) {
-	initLogging(&logger, "simulator board");
 	setVoltage(engineConfiguration->cltAdcChannel, voltage);
 }
 
+static void setIatVoltage(float voltage) {
+	setVoltage(engineConfiguration->iatAdcChannel, voltage);
+}
+
+static void setMafVoltage(float voltage) {
+	setVoltage(engineConfiguration->mafAdcChannel, voltage);
+}
+
+static void setAfrVoltage(float voltage) {
+	setVoltage(engineConfiguration->afrSensor.afrAdcChannel, voltage);
+}
+
 void initFakeBoard(void) {
+	initLogging(&logger, "simulator board");
+
 	addConsoleActionF("set_fake_clt_voltage", setCltVoltage);
+	addConsoleActionF("set_fake_iat_voltage", setIatVoltage);
+	addConsoleActionF("set_fake_maf_voltage", setMafVoltage);
+	addConsoleActionF("set_fake_afr_voltage", setAfrVoltage);
 }
 
 
