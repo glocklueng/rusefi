@@ -104,13 +104,15 @@ public class AutoTest {
             throw new IllegalStateException("Empty revolutions in " + chartLine);
 
         RevolutionLog revolutionLog = RevolutionLog.parseRevolutions(revolutions);
-        assertWave(chart, revolutionLog, WaveChart.INJECTOR_1, 238.75);
-        assertWave(chart, revolutionLog, WaveChart.INJECTOR_2, 53.04);
-        assertWave(chart, revolutionLog, WaveChart.INJECTOR_3, 417.04);
-        assertWave(chart, revolutionLog, WaveChart.INJECTOR_4, 594.04);
+        assertWave(chart, revolutionLog, WaveChart.INJECTOR_1, 0.33, 238.75);
+        assertWave(chart, revolutionLog, WaveChart.INJECTOR_2, 0.33, 53.04);
+        assertWave(chart, revolutionLog, WaveChart.INJECTOR_3, 0.33, 417.04);
+        assertWave(chart, revolutionLog, WaveChart.INJECTOR_4, 0.33, 594.04);
+
+        assertWave(chart, revolutionLog, WaveChart.SPARK_1, 0.41, 53.05, 238.75, 417.72, 594.84);
     }
 
-    private static void assertWave(WaveChart chart, RevolutionLog revolutionLog, String key, double expectedAngle) {
+    private static void assertWave(WaveChart chart, RevolutionLog revolutionLog, String key, double width, double... expectedAngles) {
         StringBuilder events = chart.get(key);
         assertTrue("Events not null", events != null);
         List<WaveReport.UpDown> wr = WaveReport.parse(events.toString());
@@ -122,10 +124,10 @@ public class AutoTest {
                 skipped++;
                 continue;
             }
-            assertCloseEnough("angle", expectedAngle, angleByTime);
+            assertCloseEnough("angle for " + key, angleByTime, expectedAngles);
             passed++;
 
-            assertCloseEnough("width", 0.33, ud.getDutyCycle(revolutionLog));
+            assertCloseEnough("width for " + key, ud.getDutyCycle(revolutionLog), width);
         }
         assertTrue(skipped < 2 && passed > 0);
     }
