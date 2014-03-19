@@ -65,11 +65,6 @@ static Logging logger;
 static engine_configuration2_s ec2;
 engine_configuration2_s * engineConfiguration2 = &ec2;
 
-int isCranking(void) {
-	int rpm = getRpm();
-	return isCrankingR(rpm);
-}
-
 static void updateStatusLeds(void) {
 	int is_cranking = isCranking();
 	setOutputPinValue(LED_RUNNING, getRpm() > 0 && !is_cranking);

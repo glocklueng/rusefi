@@ -44,10 +44,6 @@ int isInjectionEnabled(void) {
 //
 //}
 
-int isCranking(void) {
-	return 0;
-}
-
 void idleDebug(char *msg, int value) {
 
 }

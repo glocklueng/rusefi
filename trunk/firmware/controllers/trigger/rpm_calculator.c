@@ -41,6 +41,11 @@ int isRunning() {
 	return overflowDiff(now, rpmState.lastRpmEventTime) < CH_FREQUENCY;
 }
 
+int isCranking(void) {
+	int rpm = getRpm();
+	return isCrankingR(rpm);
+}
+
 /**
  * @return -1 in case of isNoisySignal(), current RPM otherwise
  */
