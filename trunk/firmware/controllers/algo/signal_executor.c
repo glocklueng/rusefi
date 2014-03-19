@@ -87,7 +87,7 @@ static void turnLow(OutputSignal *signal) {
 	scheduleLogging(&signal->logging);
 #endif /* EFI_DEFAILED_LOGGING */
 
-#if EFI_WAVE_ANALYZER
+#if EFI_WAVE_CHART
 	addWaveChartEvent(signal->name, "down", "");
 #endif /* EFI_WAVE_ANALYZER */
 }
