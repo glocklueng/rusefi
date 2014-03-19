@@ -42,6 +42,6 @@ public class AnyCommand extends JPanel {
 
     private static boolean isSlowCommand(String cmd) {
         String lc = cmd.toLowerCase();
-        return lc.startsWith("set_engine_type") || lc.startsWith("writeconfig");
+        return lc.startsWith("set_engine_type") || lc.startsWith("writeconfig") || lc.startsWith("showconfig");
     }
 }
