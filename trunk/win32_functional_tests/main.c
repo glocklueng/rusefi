@@ -27,7 +27,7 @@ static Thread *cdtp;
 
 #define cputs(msg) chMsgSend(cdtp, (msg_t)msg)
 
-void printToWin32Console(int *p) {
+void printToWin32Console(char *p) {
 	cputs(p);
 }
 
@@ -234,10 +234,11 @@ void onFatalError(const char *msg, char * file, int line) {
 
 int warning(const char *fmt, ...) {
 	printf("Warning: %s\r\n", fmt);
+	return 0;
 }
 
 void firmwareError(const char *fmt, ...) {
-	fatal3(fmt, __FILE__, __LINE__);
+	fatal3((char*)fmt, __FILE__, __LINE__);
 }
 
 //void sendOutConfirmation(char *value, int i) {
