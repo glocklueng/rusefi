@@ -137,6 +137,17 @@ static float default_timing_table[AD_LOAD_COUNT][AD_RPM_COUNT] = {
 /* Load 4.400000 */{	0.350000,	5.590000,	0.502000,	0.910000,	0.864000,	0.954000,	1.324000,	-7.436000,	1.170000,	1.054000,	2.058000,	2.098000,	2.636000,	-12.352000,	-12.352000,	-12.352000}
 };
 
+
+static void addFuelEvents(engine_configuration_s *e,  trigger_shape_s * s, EventHandlerConfiguration *config) {
+	resetEventList(&config->injectionEvents);
+
+	for(int i = 0;i < e->cylindersCount;i++) {
+		io_pin_e pin = INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1;
+		float angle = e->injectionOffset + i * 720.0 / e->cylindersCount;
+		registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(pin), angle);
+	}
+}
+
 static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigger_shape_s * s, EventHandlerConfiguration *config) {
 	float x = -106 + 360;
 
@@ -175,13 +186,9 @@ static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigge
 	registerActuatorEvent(&config->crankingInjectionEvents, 8, addOutputSignal(INJECTOR_3_OUTPUT), 0);
 	registerActuatorEvent(&config->crankingInjectionEvents, 8, addOutputSignal(INJECTOR_4_OUTPUT), 0);
 
-	resetEventList(&config->injectionEvents);
+	addFuelEvents(e, s, config);
 
-	for(int i = 0;i < e->cylindersCount;i++) {
-		io_pin_e pin = INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1;
-		float angle = x + i * 720.0 / e->cylindersCount;
-		registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(pin), angle);
-	}
+
 //	i = 1;
 //	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder,i ) - 1), x + i * 720 / 4);
 //	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x + 360);
@@ -247,6 +254,7 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 	engineConfiguration->globalTriggerAngleOffset = 175;
 	engineConfiguration->ignitionOffset = 35;
+	engineConfiguration->injectionOffset = 254;
 
 	setDefaultMaps(engineConfiguration);
 	engineConfiguration->crankingSettings.crankingRpm = 550;
