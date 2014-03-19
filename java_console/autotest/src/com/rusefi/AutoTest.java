@@ -16,7 +16,6 @@ import com.rusefi.waves.WaveReport;
 
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.rusefi.waves.WaveReport.isCloseEnough;
@@ -159,18 +158,14 @@ public class AutoTest {
     }
 
     private static void changeRpm(final int rpm) throws InterruptedException {
-        final AtomicBoolean responseFlag = new AtomicBoolean();
-
+        final CountDownLatch responseLatch = new CountDownLatch(1);
         CommandQueue.getInstance().write("rpm " + rpm, CommandQueue.DEFAULT_TIMEOUT, new InvocationConfirmationListener() {
             @Override
             public void onCommandConfirmation() {
-                synchronized (responseFlag) {
-                    responseFlag.set(true);
-                    responseFlag.notifyAll();
-                }
+                responseLatch.countDown();
             }
         });
-        waitForResponse(responseFlag, 20);
+        responseLatch.await(20, TimeUnit.SECONDS);
 
         final CountDownLatch rpmLatch = new CountDownLatch(1);
         SensorCentral.AdcListener listener = new SensorCentral.AdcListener() {
@@ -189,19 +184,5 @@ public class AutoTest {
 
         if (!isCloseEnough(rpm, actualRpm))
             throw new IllegalStateException("rpm change did not happen");
-    }
-
-    private static void waitForResponse(AtomicBoolean responseFlag, int timeoutSeconds) throws InterruptedException {
-        long end = System.currentTimeMillis() + timeoutSeconds * 1000;
-
-        synchronized (responseFlag) {
-            long now = System.currentTimeMillis();
-            while (!responseFlag.get() && now < end) {
-                responseFlag.wait(end - now);
-            }
-        }
-        if (!responseFlag.get())
-            throw new IllegalStateException("No response");
-        FileLog.MAIN.logLine("Got response!");
     }
 }
