@@ -37,5 +37,7 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm);
 
 void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list, OutputSignal *actuator, float angleOffset);
 
+int getCylinderId(firing_order_e firingOrder, int index);
+
 
 #endif /* ENGINE_MATH_H_ */
