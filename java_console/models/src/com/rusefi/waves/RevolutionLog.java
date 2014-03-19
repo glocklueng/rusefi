@@ -16,7 +16,7 @@ public class RevolutionLog {
         this.time2rpm = time2rpm;
     }
 
-    public static RevolutionLog parseRevolutions(StringBuilder revolutions) {
+    public static RevolutionLog parseRevolutions(CharSequence revolutions) {
         TreeMap<Integer, Integer> time2rpm = new TreeMap<Integer, Integer>();
         if (revolutions == null)
             return new RevolutionLog(time2rpm);
