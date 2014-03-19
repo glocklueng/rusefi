@@ -11,7 +11,7 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-void printToWin32Console(int *p);
+void printToWin32Console(char *p);
 int systicks2ms(int systicks);
 
 // todo: move somewhere else?
