@@ -109,6 +109,7 @@ CSRC =	${PORTSRC} \
        ${CHIBIOS}/os/various/memstreams.c \
 	$(UTILSRC) \
        simulator/rusEfiFunctionalTest.c \
+	$(PROJECT_DIR)/controllers/settings.c \
        simulator/boards.c \
 	main.c
 
