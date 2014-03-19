@@ -31,7 +31,9 @@
 WaveChart waveChart;
 
 void initAlgo(void) {
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	initSettings();
+#endif
 
 #if EFI_WAVE_CHART
 	initWaveChart(&waveChart);
