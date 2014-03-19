@@ -5,19 +5,37 @@
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
 
+#include "main.h"
 #include "boards.h"
+#include "engine_configuration.h"
+#include "adc_math.h"
 
-float getVoltageDivided(int channel) {
-	return 0;
+static Logging logger;
+extern engine_configuration_s *engineConfiguration;
+
+
+//float getVoltageDivided(int channel) {
+//	return 0;
+//}
+//
+static float fakeAdcValues[16];
+
+int getAdcValue(int hwChannel) {
+	return fakeAdcValues[hwChannel];
 }
 
-float getVoltage(int channel) {
-	return 0;
+static void setVoltage(int hwChannel, float voltage) {
+	scheduleMsg(&logger, "fake voltage: channel %d value %f", hwChannel, voltage);
+	fakeAdcValues[hwChannel] = voltsToAdc(voltage);
 }
 
+static void setCltVoltage(float voltage) {
+	initLogging(&logger, "simulator board");
+	setVoltage(engineConfiguration->cltAdcChannel, voltage);
+}
 
-int getAdcValue(int channel) {
-	return 0;
+void initFakeBoard(void) {
+	addConsoleActionF("set_fake_clt_voltage", setCltVoltage);
 }
 
 

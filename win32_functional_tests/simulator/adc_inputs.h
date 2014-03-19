@@ -8,4 +8,6 @@
 #ifndef ADC_INPUTS_H_
 #define ADC_INPUTS_H_
 
+#include "adc_math.h"
+
 #endif /* ADC_INPUTS_H_ */
