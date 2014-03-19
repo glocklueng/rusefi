@@ -1,5 +1,7 @@
 package com.rusefi;
 
+import java.util.Arrays;
+
 import static com.rusefi.waves.WaveReport.isCloseEnough;
 
 /**
@@ -12,9 +14,12 @@ public class TestingUtils {
             throw new IllegalStateException("Not true: " + msg);
     }
 
-    static void assertCloseEnough(String msg, double expected, double current) {
-        if (!isCloseEnough(expected, current))
-            throw new IllegalStateException(msg + ": Got " + current + " while expecting " + expected);
+    static void assertCloseEnough(String msg, double current, double... expectations) {
+        for (double expected : expectations) {
+            if (isCloseEnough(expected, current))
+                return;
+        }
+        throw new IllegalStateException(msg + ": Got " + current + " while expecting " + Arrays.toString(expectations));
     }
 
     static void assertTrue(boolean b) {
