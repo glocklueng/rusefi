@@ -134,7 +134,7 @@ typedef struct {
 	/**
 	 * this value could be used to offset the whole ignition timing table by a constant
 	 */
-	float ignitonOffset;
+	float ignitionOffset;
 
 	/**
 	 * While cranking (which causes battery voltage to drop) we can calculate dwell time in shaft
@@ -242,6 +242,8 @@ typedef struct {
 	int mafAdcChannel;
 
 	afr_sensor_s afrSensor;
+
+	float injectionOffset;
 
 } engine_configuration_s;
 

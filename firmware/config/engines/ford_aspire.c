@@ -224,7 +224,6 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->tpsMin = 1;
 	engineConfiguration->tpsMax = 1000;
 
-	engineConfiguration->ignitonOffset = 35;
 	engineConfiguration->rpmHardLimit = 7000;
 
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, -20, 18000, 23.8889, 2100, 48.8889, 1000);
@@ -239,6 +238,7 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 //	engineConfiguration->ignitionPinMode = OM_INVERTED;
 
 	engineConfiguration->globalTriggerAngleOffset = 175;
+	engineConfiguration->ignitionOffset = 35;
 
 	setDefaultMaps(engineConfiguration);
 	engineConfiguration->crankingSettings.crankingRpm = 550;
