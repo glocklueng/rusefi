@@ -26,7 +26,6 @@
 #include "engine_controller.h"
 #include "idle_thread.h"
 #include "rpm_calculator.h"
-#include "settings.h"
 #include "signal_executor.h"
 #include "main_trigger_callback.h"
 #include "map_multiplier_thread.h"
@@ -170,39 +169,9 @@ static void printAnalogInfo(void) {
 	printAnalogChannelInfoExt("Vbatt", engineConfiguration->vBattAdcChannel, getVBatt());
 }
 
-static void printThermistor(char *msg, Thermistor *thermistor) {
-	int adcChannel = thermistor->channel;
-	float r = getResistance(thermistor);
-
-	float t = getTemperatureC(thermistor);
-
-	scheduleMsg(&logger, "%s C=%f R=%f on channel %d@%s", msg, t, r, adcChannel, getPinNameByAdcChannel(adcChannel, pinNameBuffer));
-	scheduleMsg(&logger, "A=%f B=%f C=%f", thermistor->config->s_h_a, thermistor->config->s_h_b,  thermistor->config->s_h_c);
-
-}
-
-void printTemperatureInfo(void) {
-	printThermistor("CLT", &engineConfiguration2->clt);
-	printThermistor("IAT", &engineConfiguration2->iat);
-
-	float rClt = getResistance(&engineConfiguration2->clt);
-	float rIat = getResistance(&engineConfiguration2->iat);
-
-	int cltChannel = engineConfiguration2->clt.channel;
-	scheduleMsg(&logger, "CLT R=%f on channel %d@%s", rClt, cltChannel, getPinNameByAdcChannel(cltChannel, pinNameBuffer));
-	int iatChannel = engineConfiguration2->iat.channel;
-	scheduleMsg(&logger, "IAT R=%f on channel %d@%s", rIat, iatChannel, getPinNameByAdcChannel(iatChannel, pinNameBuffer));
-
-	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMinTempMs,
-			engineConfiguration->crankingSettings.coolantTempMinC);
-	scheduleMsg(&logger, "cranking fuel %fms @ %fC", engineConfiguration->crankingSettings.fuelAtMaxTempMs,
-			engineConfiguration->crankingSettings.coolantTempMaxC);
-}
-
 void initEngineContoller(void) {
 	initLogging(&logger, "Engine Controller");
 
-	initSettings();
 	initSensors();
 
 	initPwmGenerator();
@@ -253,6 +222,5 @@ void initEngineContoller(void) {
 
 	initFuelPump();
 
-	addConsoleAction("tempinfo", printTemperatureInfo);
 	addConsoleAction("analoginfo", printAnalogInfo);
 }
