@@ -184,8 +184,8 @@ static void setIdlePinMode(int value) {
 	doPrintConfiguration();
 }
 
-static void setIgnitonOffset(int value) {
-	engineConfiguration->ignitonOffset = value;
+static void setIgnitionOffset(int value) {
+	engineConfiguration->ignitionOffset = value;
 	doPrintConfiguration();
 }
 
@@ -329,7 +329,7 @@ void initSettings(void) {
 	addConsoleAction("showconfig", doPrintConfiguration);
 	addConsoleAction("tempinfo", printTemperatureInfo);
 
-	addConsoleActionI("set_ignition_offset", setIgnitonOffset);
+	addConsoleActionI("set_ignition_offset", setIgnitionOffset);
 	addConsoleActionI("set_global_trigger_offset_angle", setGlobalTriggerAngleOffset);
 	addConsoleActionI("set_analog_chart_mode", setAnalogChartMode);
 	addConsoleActionI("set_fixed_mode_timing", setFixedModeTiming);
