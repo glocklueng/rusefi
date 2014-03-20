@@ -21,12 +21,20 @@
 #ifndef OUTPUTSIGNALLIST_H_
 #define OUTPUTSIGNALLIST_H_
 
+#include "signal_executor.h"
+#include "io_pins.h"
+
+#define OUTPUT_SIGNAL_MAX_SIZE 40
+
 class OutputSignalList {
 public:
 	OutputSignalList();
 	void clear();
+	OutputSignal * add(io_pin_e ioPin);
+
 private:
 	int size;
+	OutputSignal signals[OUTPUT_SIGNAL_MAX_SIZE];
 
 };
 
