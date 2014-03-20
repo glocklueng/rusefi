@@ -15,6 +15,14 @@
  */
 #define DEFAULT_EMULATION_RPM 1200
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void initTriggerEmulatorLogic(pwm_gen_callback *callback);
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* TRIGGER_EMULATOR_ALGO_H_ */
