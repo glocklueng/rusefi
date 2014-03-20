@@ -11,6 +11,8 @@
 
 #include <time.h>
 
+#define NOISY_RPM -1
+
 typedef struct {
 	volatile int rpm;
 	volatile time_t lastRpmEventTime;
