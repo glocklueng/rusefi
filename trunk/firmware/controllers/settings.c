@@ -86,9 +86,9 @@ char* getConfigurationName(engine_configuration_s *engineConfiguration) {
  */
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 
-	resetLogging(&logger);
-	appendPrintf(&logger, "msg%s%s", DELIMETER, getConfigurationName(engineConfiguration));
-	printLine(&logger);
+	scheduleMsg(&logger, getConfigurationName(engineConfiguration));
+
+	scheduleMsg(&logger, "configurationVersion=%d", getGlobalConfigurationVersion());
 
 	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
 //		print("line %d (%f): ", k, engineConfiguration->fuelKeyBins[k]);
@@ -166,6 +166,7 @@ static void setEngineType(int value) {
 	writeToFlash();
 	scheduleReset();
 #endif /* EFI_PROD_CODE */
+	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
 }
 
