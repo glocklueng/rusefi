@@ -26,7 +26,7 @@ extern "C"
 #include "trigger_mazda.h"
 }
 
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 static Logging logger;
 #endif
 
