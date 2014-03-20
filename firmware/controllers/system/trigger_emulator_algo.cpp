@@ -39,7 +39,9 @@ void initTriggerEmulatorLogic(pwm_gen_callback *callback) {
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	setTriggerEmulatorRPM(DEFAULT_EMULATION_RPM);
 	int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
-	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates, callback);
+	weComplexInit("position sensor", &configuration, s->size, s->wave.switchTimes, 2, pinStates,
+			NULL,
+			callback);
 
 	addConsoleActionI("rpm", &setTriggerEmulatorRPM);
 
