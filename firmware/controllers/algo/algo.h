@@ -8,6 +8,15 @@
 #ifndef ALGO_H_
 #define ALGO_H_
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void initAlgo(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* ALGO_H_ */
