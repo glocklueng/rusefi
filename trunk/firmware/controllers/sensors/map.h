@@ -1,6 +1,11 @@
 #ifndef MAP_H_
 #define MAP_H_
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 /**
  * @return Raw MAP sensor value right now
  */
@@ -12,5 +17,9 @@ float getMap(void);
 float getMapByVoltage(float voltage);
 float getMAPValueHonda_Denso183(float volts);
 float getMAPValueMPX_4250(float volts);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif

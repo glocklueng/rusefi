@@ -84,6 +84,11 @@ typedef enum {
 
 #define IO_PIN_COUNT 100
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void initPrimaryPins(void);
 void initOutputPins(void);
 char *getPinName(io_pin_e io_pin);
@@ -95,6 +100,9 @@ int getOutputPinValue(io_pin_e pin);
 void setDefaultPinState(io_pin_e pin, pin_output_mode_e *defaultState);
 
 void outputPinRegisterExt2(char *msg, io_pin_e ioPin, brain_pin_e brainPin, pin_output_mode_e *outputMode);
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 
 #endif /* STATUS_LEDS_H_ */
