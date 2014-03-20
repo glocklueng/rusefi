@@ -29,7 +29,7 @@ void clearTriggerState(trigger_state_s *state) {
 }
 
 void triggerShapeInit(trigger_shape_s *trigger) {
-	trigger->size = 0;
+	memset(trigger, 0, sizeof(trigger_shape_s));
 }
 
 void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
