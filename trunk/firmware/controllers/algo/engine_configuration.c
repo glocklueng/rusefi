@@ -26,6 +26,9 @@
 #include "interpolation.h"
 #include "trigger_decoder.h"
 
+#if EFI_PROD_CODE
+#include "tunerstudio.h"
+#endif
 
 #include "audi_aan.h"
 #include "dodge_neon.h"
@@ -266,10 +269,14 @@ void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *eng
 		setMazda323EngineConfiguration(engineConfiguration);
 		break;
 	default:
-		fatal("Unexpected engine type")
-		;
+		firmwareError("Unexpected engine type: %d", engineType);
+
 	}
 	applyNonPersistentConfiguration(engineConfiguration, engineConfiguration2, engineType);
+
+#if EFI_TUNER_STUDIO
+	syncTunerStudioCopy();
+#endif
 }
 
 void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, engine_type_e engineType) {

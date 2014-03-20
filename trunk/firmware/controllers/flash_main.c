@@ -15,7 +15,7 @@
 #include "flash.h"
 #include "rusefi.h"
 
-#include "tunerstudio.h"
+//#include "tunerstudio.h"
 #include "engine_controller.h"
 
 #include "datalogging.h"
@@ -74,12 +74,8 @@ static int isValid(FlashState *state) {
 	return result == state->value;
 }
 
-void resetConfiguration(engine_type_e engineType) {
-	resetConfigurationExt(engineType, engineConfiguration, engineConfiguration2);
-
-#if EFI_TUNER_STUDIO
-	syncTunerStudioCopy();
-#endif
+static void doResetConfiguration(void) {
+	resetConfigurationExt(defaultEngineType, engineConfiguration, engineConfiguration2);
 }
 
 static void readFromFlash(void) {
@@ -91,15 +87,11 @@ static void readFromFlash(void) {
 
 	if (!isValid(&flashState)) {
 		scheduleMsg(&logger, "Not valid flash state, setting default");
-		resetConfiguration(defaultEngineType);
+		doResetConfiguration();
 	} else {
 		scheduleMsg(&logger, "Got valid state from flash!");
 		applyNonPersistentConfiguration(engineConfiguration, engineConfiguration2, engineConfiguration->engineType);
 	}
-}
-
-static void doResetConfiguration(void) {
-	resetConfiguration(engineConfiguration->engineType);
 }
 
 void initFlash(void) {
