@@ -22,6 +22,5 @@ typedef struct {
 
 void initFlash(void);
 void writeToFlash(void);
-void resetConfiguration(engine_type_e engineType);
 
 #endif /* FLASH_MAIN_H_ */

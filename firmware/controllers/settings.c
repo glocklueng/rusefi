@@ -161,8 +161,8 @@ static void setTimingMode(int value) {
 
 static void setEngineType(int value) {
 	engineConfiguration->engineType = (engine_type_e) value;
+	resetConfigurationExt((engine_type_e) value, engineConfiguration, engineConfiguration2);
 #if EFI_PROD_CODE
-	resetConfiguration((engine_type_e) value);
 	writeToFlash();
 	scheduleReset();
 #endif /* EFI_PROD_CODE */
