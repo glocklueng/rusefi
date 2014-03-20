@@ -89,6 +89,8 @@ void rusEfiFunctionalTest(void) {
 
 	initMainEventListener();
 
+	initTriggerCentral();
+
 }
 
 void printPendingMessages(void) {
