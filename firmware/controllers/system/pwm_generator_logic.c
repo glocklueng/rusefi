@@ -105,6 +105,8 @@ static msg_t deThread(PwmConfig *state) {
  * into our own permanent storage, right?
  */
 void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes, int waveCount, int **pinStates) {
+	state->multiWave.phaseCount = phaseCount;
+
 	for (int phaseIndex = 0; phaseIndex < phaseCount; phaseIndex++) {
 		state->multiWave.switchTimes[phaseIndex] = switchTimes[phaseIndex];
 
@@ -137,7 +139,6 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, float *switchTim
 	state->safe.period = -1;
 	state->safe.iteration = -1;
 	state->name = msg;
-	state->multiWave.phaseCount = phaseCount;
 	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack), NORMALPRIO, (tfunc_t) deThread, state);
 
 //	timerCallback(state);
