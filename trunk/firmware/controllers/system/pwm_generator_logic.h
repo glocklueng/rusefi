@@ -55,7 +55,17 @@ struct PwmConfig_struct {
 	pwm_gen_callback *changeStateCallback;
 };
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void weComplexInit(char *msg, PwmConfig *state,
 		int phaseCount, float *swithcTimes, int waveCount, int **pinStates, pwm_gen_callback *callback);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 #endif /* PWM_GENERATOR_LOGIC_H_ */
