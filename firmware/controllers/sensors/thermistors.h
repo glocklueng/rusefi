@@ -15,7 +15,10 @@
 
 #include "sensor_types.h"
 
-
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
 /**
  * Vout=r2/(r1+r2)*Vin
  */
@@ -45,5 +48,9 @@ void setThermistorConfiguration(ThermistorConf * tc, float temp1, float r1, floa
 		float r3);
 void prepareThermistorCurve(ThermistorConf * config);
 void initThermistors(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* THERMISTORS_H_ */
