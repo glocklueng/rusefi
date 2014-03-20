@@ -41,6 +41,17 @@
 
 #define ADC_CHANNEL_FAST_ADC 256
 
+static volatile int globalConfigurationVersion = 0;
+
+int getGlobalConfigurationVersion(void) {
+	return globalConfigurationVersion;
+}
+
+void incrementGlobalConfigurationVersion(void) {
+	globalConfigurationVersion++;
+}
+
+
 /**
  * @brief Sets the same dwell time across the whole getRpm() range
  */

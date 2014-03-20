@@ -279,4 +279,7 @@ void printFloatArray(char *prefix, float array[], int size);
 void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, engine_type_e engineType);
 
+void incrementGlobalConfigurationVersion(void);
+int getGlobalConfigurationVersion(void);
+
 #endif /* ENGINE_CONFIGURATION_H_ */
