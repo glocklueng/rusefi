@@ -25,6 +25,12 @@ typedef struct {
 	ActuatorEvent events[MAX_EVENT_COUNT];
 } ActuatorEventList;
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
+
 void resetEventList(ActuatorEventList *list);
 
 /**
@@ -38,5 +44,10 @@ void resetEventList(ActuatorEventList *list);
 void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset);
 
 void findEvents(int eventIndex, ActuatorEventList *source, ActuatorEventList *target);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 #endif /* EVENT_REGISTRY_H_ */
