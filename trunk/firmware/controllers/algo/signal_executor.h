@@ -79,6 +79,11 @@ struct OutputSignal_struct {
 	OutputSignal *next;
 };
 
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
 void resetOutputSignals(void);
 OutputSignal * addOutputSignal(io_pin_e ioPin);
 void initOutputSignal(OutputSignal *signal, io_pin_e ioPin);
@@ -88,5 +93,9 @@ void scheduleOutputBase(OutputSignal *signal, int offset, int duration);
 
 void scheduleTask(scheduling_s *scheduling, int delay, schfunc_t callback, void *param);
 void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* SPARKOUT_H_ */
