@@ -8,6 +8,7 @@
 #include "trigger_emulator_algo.h"
 #include "engine_configuration.h"
 #include "wave_math.h"
+#include "LocalVersionHolder.h"
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
@@ -19,6 +20,7 @@ PwmConfig configuration;
 #endif
 
 static Logging logger;
+static LocalVersionHolder localVersion;
 
 void setTriggerEmulatorRPM(int rpm) {
 	if (rpm == 0) {
