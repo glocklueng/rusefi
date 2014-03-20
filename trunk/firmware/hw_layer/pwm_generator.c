@@ -45,7 +45,7 @@ void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
 	outputPinRegister(msg, state->outputPins[0], port, pin);
 
 	state->period = frequency2period(freq);
-	weComplexInit(msg, state, 2, switchTimes, 1, pinStates, applyPinState);
+	weComplexInit(msg, state, 2, switchTimes, 1, pinStates, NULL, applyPinState);
 }
 
 void initPwmGenerator(void) {

@@ -121,7 +121,9 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes,
 }
 
 void weComplexInit(char *msg, PwmConfig *state, int phaseCount,
-		float *switchTimes, int waveCount, int **pinStates, pwm_gen_callback *stateChangeCallback) {
+		float *switchTimes, int waveCount, int **pinStates,
+		pwm_cycle_callback *cycleCallback,
+		pwm_gen_callback *stateChangeCallback) {
 
 	chDbgCheck(state->period != 0, "period is not initialized");
 	chDbgCheck(phaseCount > 1, "count is too small");
