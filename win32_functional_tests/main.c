@@ -216,51 +216,6 @@ int main(void) {
 	return 0;
 }
 
-//void print(const char *format, ...) {
-//	va_list ap;
-//	va_start(ap, format);
-//	vprintf(format, ap);
-//	va_end(ap);
-//}
-
 int systicks2ms(int systicks) {
 	return systicks / TICKS_IN_MS;
 }
-
-void onFatalError(const char *msg, char * file, int line) {
-	printf("onFatalError %s %s%d", msg, file, line);
-	exit(-1);
-}
-
-int warning(const char *fmt, ...) {
-	printf("Warning: %s\r\n", fmt);
-	return 0;
-}
-
-void firmwareError(const char *fmt, ...) {
-	fatal3((char*)fmt, __FILE__, __LINE__);
-}
-
-//void sendOutConfirmation(char *value, int i) {
-//}
-
-int hasFatalError(void) {
-	return false;
-}
-int getVersion(void) {
-	return 239;
-}
-
-//void chDbgPanic(const char *msg, char * file, int line) {
-//		printf("assert failed: %s\r\n", "namic");
-//		exit(-1);
-//}
-//
-
-//void print(const char *format, ...) {
-//	va_list ap;
-//	va_start(ap, format);
-//	vprintf(format, ap);
-//	va_end(ap);
-//}
-//
