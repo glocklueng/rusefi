@@ -21,6 +21,11 @@ typedef struct {
 	volatile int revolutionCounter;
 } rpm_s;
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 /**
  * @brief   Initialize RPM calculator
  */
@@ -35,5 +40,9 @@ int getRevolutionCounter(void);
 float getCrankshaftAngle(time_t time);
 int isRunning(void);
 void addWaveChartEvent(char *name, char *msg, char *msg2);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* RPM_REPORTER_H_ */
