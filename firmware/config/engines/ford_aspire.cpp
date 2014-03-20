@@ -138,7 +138,6 @@ static float default_timing_table[AD_LOAD_COUNT][AD_RPM_COUNT] = {
 };
 
 static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigger_shape_s * s, EventHandlerConfiguration *config) {
-	float x = -106 + 360;
 
 	resetEventList(&config->crankingInjectionEvents);
 //	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_1_OUTPUT), x);
@@ -187,6 +186,8 @@ static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigge
 //	registerActuatorEvent(&config->injectionEvents, 6, addOutputSignal(INJECTOR_1_OUTPUT), 0);
 //	registerActuatorEvent(&config->injectionEvents, 8, addOutputSignal(INJECTOR_3_OUTPUT), 0);
 
+	float y = -106 + 360;
+	float x = 74;
 
 	resetEventList(&config->ignitionEvents);
 //	registerActuatorEvent(&config->ignitionEvents, 1, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
