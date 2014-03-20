@@ -17,6 +17,11 @@
 #include "hal.h"
 #include "io_pins.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void initPinRepository(void);
 char *hwPortname(brain_pin_e brainPin);
 void mySetPadMode(char *msg, ioportid_t port, ioportmask_t pin, iomode_t mode);
@@ -26,5 +31,10 @@ void outputPinRegister(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t p
 
 int getHwPin(brain_pin_e brainPin);
 GPIO_TypeDef * getHwPort(brain_pin_e brainPin);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 #endif /* PIN_REPOSITORY_H_ */
