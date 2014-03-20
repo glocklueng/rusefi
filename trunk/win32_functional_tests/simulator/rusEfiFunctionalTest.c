@@ -138,3 +138,26 @@ int isSerialOverTcpReady;
 int is_serial_ready(void) {
 	return isSerialOverTcpReady;
 }
+
+void onFatalError(const char *msg, char * file, int line) {
+	printf("onFatalError %s %s%d", msg, file, line);
+	exit(-1);
+}
+
+int warning(const char *fmt, ...) {
+	printf("Warning: %s\r\n", fmt);
+	return 0;
+}
+
+
+void firmwareError(const char *fmt, ...) {
+	fatal3((char*)fmt, __FILE__, __LINE__);
+}
+
+int hasFatalError(void) {
+	return false;
+}
+
+int getVersion(void) {
+	return 239;
+}
