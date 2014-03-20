@@ -14,11 +14,20 @@
 #define DEBUG_PWM FALSE
 
 #include "gpio_helper.h"
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void applyPinState(PwmConfig *state, int stateIndex);
 
 void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
 		float dutyCycle, float freq, io_pin_e ioPin);
 
 void initPwmGenerator(void);
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* PWM_GENERATOR_H_ */
