@@ -53,7 +53,7 @@ static time_t togglePwmState(PwmConfig *state) {
 		}
 	}
 
-	state->changeStateCallback(state,
+	state->stateChangeCallback(state,
 			state->safe.phaseIndex == 0 ?
 					state->multiWave.phaseCount - 1 :
 					state->safe.phaseIndex - 1);
@@ -121,7 +121,7 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes,
 }
 
 void weComplexInit(char *msg, PwmConfig *state, int phaseCount,
-		float *switchTimes, int waveCount, int **pinStates, pwm_gen_callback *callback) {
+		float *switchTimes, int waveCount, int **pinStates, pwm_gen_callback *stateChangeCallback) {
 
 	chDbgCheck(state->period != 0, "period is not initialized");
 	chDbgCheck(phaseCount > 1, "count is too small");
@@ -134,7 +134,7 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount,
 
 	copyPwmParameters(state, phaseCount, switchTimes, waveCount, pinStates);
 
-	state->changeStateCallback = callback;
+	state->stateChangeCallback = stateChangeCallback;
 
 	state->safe.phaseIndex = 0;
 	state->safe.period = -1;

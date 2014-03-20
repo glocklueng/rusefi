@@ -32,6 +32,7 @@ typedef struct {
 
 typedef struct PwmConfig_struct PwmConfig;
 
+typedef void (pwm_cycle_callback)(PwmConfig *state);
 typedef void (pwm_gen_callback)(PwmConfig *state, int stateIndex);
 
 /**
@@ -52,13 +53,24 @@ struct PwmConfig_struct {
 
 	pwm_config_safe_state_s safe;
 
-	pwm_gen_callback *changeStateCallback;
+	/**
+	 * this callback is invoked before each wave generation cycle
+	 */
+	pwm_cycle_callback *cycleCallback;
+
+	/**
+	 * this main callback is invoked when it's time to switch level on amy of the output channels
+	 */
+	pwm_gen_callback *stateChangeCallback;
 };
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif /* __cplusplus */
+
+void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes,
+		int waveCount, int **pinStates);
 
 void weComplexInit(char *msg, PwmConfig *state,
 		int phaseCount, float *swithcTimes, int waveCount, int **pinStates, pwm_gen_callback *callback);
