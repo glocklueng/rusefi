@@ -142,7 +142,7 @@ static void addFuelEvents(engine_configuration_s *e,  trigger_shape_s * s, Event
 	resetEventList(&config->injectionEvents);
 
 	for(int i = 0;i < e->cylindersCount;i++) {
-		io_pin_e pin = INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1;
+		io_pin_e pin = (io_pin_e)((int)INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1);
 		float angle = e->injectionOffset + i * 720.0 / e->cylindersCount;
 		registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(pin), angle);
 	}
