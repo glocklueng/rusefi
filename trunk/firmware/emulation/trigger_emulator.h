@@ -22,9 +22,11 @@ extern "C"
 
 
 void initTriggerEmulator(void);
-void setTriggerEmulatorRPM(int value);
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
+
+void setTriggerEmulatorRPM(int value);
+
 
 #endif /* DIST_EMULATOR_H_ */
