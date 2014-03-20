@@ -269,6 +269,11 @@ typedef struct {
 	EventHandlerConfiguration engineEventConfiguration;
 } engine_configuration2_s;
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 char* getConfigurationName(engine_configuration_s *engineConfiguration);
 void setDefaultConfiguration(engine_configuration_s *engineConfiguration);
 void setConstantDwell(engine_configuration_s *engineConfiguration, float dwellMs);
@@ -281,5 +286,10 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 
 void incrementGlobalConfigurationVersion(void);
 int getGlobalConfigurationVersion(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 #endif /* ENGINE_CONFIGURATION_H_ */
