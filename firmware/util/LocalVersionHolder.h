@@ -8,13 +8,16 @@
 #ifndef LOCALVERSIONHOLDER_H_
 #define LOCALVERSIONHOLDER_H_
 
+#include "stdbool.h"
+
 class LocalVersionHolder {
 public:
-//ctor
 	LocalVersionHolder();
 
+	bool isOld();
+
 private:
-	int localVersion;
+	bool localVersion;
 
 };
 
