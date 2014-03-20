@@ -6,17 +6,21 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
+extern "C" {
+
 #include "main.h"
 #include "engine_emulator.h"
 
 #include "status_loop.h"
-#include "trigger_emulator.h"
 #include "advance_map.h"
 #include "wave_analyzer.h"
 #include "fuel_math.h"
 #include "pin_repository.h"
 #include "poten.h"
 #include "rfi_perftest.h"
+}
+#include "trigger_emulator.h"
+
 
 static WORKING_AREA(eeThreadStack, UTILITY_THREAD_STACK_SIZE);
 

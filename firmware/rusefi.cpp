@@ -77,6 +77,8 @@
  *
  */
 
+extern "C" {
+
 #include "global.h"
 
 #include "main.h"
@@ -87,19 +89,21 @@
 #include "lcd_2x16.h"
 #include "status_loop.h"
 #include "pin_repository.h"
-#if EFI_ENGINE_EMULATOR
-#include "engine_emulator.h"
-#endif /* EFI_ENGINE_EMULATOR */
 
 #include "status_loop.h"
 #include "memstreams.h"
+}
+
+#if EFI_ENGINE_EMULATOR
+#include "engine_emulator.h"
+#endif /* EFI_ENGINE_EMULATOR */
 
 static Logging logging;
 
 int main_loop_started = FALSE;
 
 static MemoryStream errorMessageStream;
-char errorMessageBuffer[200];
+uint8_t errorMessageBuffer[200];
 bool hasFirmwareError = FALSE;
 
 void runRusEfi(void) {
@@ -169,6 +173,10 @@ void scheduleReset(void) {
 	lockAnyContext();
 	chVTSetI(&resetTimer, 5 * CH_FREQUENCY, (vtfunc_t) rebootNow, NULL);
 	unlockAnyContext();
+}
+
+extern "C" {
+void onFatalError(const char *msg, char * file, int line);
 }
 
 void onFatalError(const char *msg, char * file, int line) {

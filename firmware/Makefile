@@ -131,15 +131,16 @@ CSRC = $(PORTSRC) \
 	$(BOARDSRC) \
 	$(FATFSSRC) \
 	$(TRIGGERSRC) \
-	$(SYSTEMSRC) \
-	rusefi.c \
+	$(SYSTEMSRC)
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
 CPPSRC = $(CHCPPSRC) \
 	$(CONTROLLERSSRC_CPP) \
+	$(EMULATIONSRC_CPP) \
 	$(CONTROLLERS_ALGO_SRC_CPP) \
 	$(UTILSRC_CPP) \
+	rusefi.cpp \
 	main.cpp
 
 # C sources to be compiled in ARM mode regardless of the global setting.
