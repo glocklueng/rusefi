@@ -18,6 +18,13 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "OutputSignalList.h"
 
+OutputSignalList::OutputSignalList() {
+	clear();
+}
 
+void OutputSignalList::clear() {
+	size = 0;
+}
 

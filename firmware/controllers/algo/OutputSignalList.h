@@ -21,7 +21,14 @@
 #ifndef OUTPUTSIGNALLIST_H_
 #define OUTPUTSIGNALLIST_H_
 
+class OutputSignalList {
+public:
+	OutputSignalList();
+	void clear();
+private:
+	int size;
 
+};
 
 
 #endif /* OUTPUTSIGNALLIST_H_ */
