@@ -10,6 +10,12 @@
 
 #include "engine_configuration.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
+
 int cisnan(float f);
 
 //float getDefaultVE(int rpm);
@@ -39,5 +45,8 @@ void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigg
 
 int getCylinderId(firing_order_e firingOrder, int index);
 
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* ENGINE_MATH_H_ */
