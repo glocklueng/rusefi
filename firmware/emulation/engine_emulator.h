@@ -8,6 +8,18 @@
 #ifndef ENGINE_EMULATOR_H_
 #define ENGINE_EMULATOR_H_
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
+
 void initEngineEmulator(void);
+
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 #endif /* ENGINE_EMULATOR_H_ */
