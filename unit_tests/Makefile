@@ -92,6 +92,7 @@ CSRC =	$(UTILSRC) \
 # setting.
 CPPSRC = $(UTILSRC_CPP) \
 	$(CONTROLLERS_ALGO_SRC_CPP) \
+	$(ENGINES_SRC_CPP) \
 	$(TEST_SRC_CPP) \
 	main.cpp
 
