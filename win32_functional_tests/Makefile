@@ -119,6 +119,7 @@ CSRC =	${PORTSRC} \
 CPPSRC = $(UTILSRC_CPP) \
 	$(CONTROLLERS_ALGO_SRC_CPP) \
 	$(CONTROLLERSSRC_CPP) \
+	$(SYSTEMSRC_CPP) \
 	$(TEST_SRC_CPP)
 # C sources to be compiled in ARM mode regardless of the global setting.
 # NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
