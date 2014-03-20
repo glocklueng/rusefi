@@ -15,7 +15,16 @@
 #include "trigger_structure.h"
 #include "engine_configuration.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
+
 void initTriggerEmulator(void);
 void setTriggerEmulatorRPM(int value);
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* DIST_EMULATOR_H_ */
