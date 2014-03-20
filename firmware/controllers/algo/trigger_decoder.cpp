@@ -196,7 +196,7 @@ void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_
 }
 
 void initTriggerDecoder(void) {
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	initLogging(&logger, "trigger decoder");
 #endif
 }
