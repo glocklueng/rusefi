@@ -122,7 +122,7 @@ static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 	if (hadRpmRecently) {
 		if (isNoisySignal(&rpmState, now)) {
 			// unexpected state. Noise?
-			rpmState.rpm = -1;
+			rpmState.rpm = NOISY_RPM;
 		} else {
 			int diff = now - rpmState.lastRpmEventTime;
 			// 60000 because per minute

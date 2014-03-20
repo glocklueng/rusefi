@@ -24,8 +24,7 @@
 #include "main.h"
 #include "main_trigger_callback.h"
 
-extern "C"
-{
+extern "C" {
 //#include "settings.h"
 #include "trigger_central.h"
 #include "rpm_calculator.h"
@@ -164,6 +163,12 @@ void showMainHistogram(void) {
  */
 static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
+
+	int rpm = getRpm();
+	if (rpm == NOISY_RPM) {
+		scheduleMsg(&logger, "noisy trigger");
+		return;
+	}
 	int beforeCallback = hal_lld_get_counter_value();
 	handleFuel(ckpSignalType, eventIndex);
 	handleSpark(ckpSignalType, eventIndex);
