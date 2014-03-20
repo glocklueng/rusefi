@@ -14,7 +14,16 @@
 
 #include "engine_configuration.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguration);
 void setFordAspireengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* FORD_ASPIRE_H_ */
