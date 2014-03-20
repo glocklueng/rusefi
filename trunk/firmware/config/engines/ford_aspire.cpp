@@ -137,17 +137,6 @@ static float default_timing_table[AD_LOAD_COUNT][AD_RPM_COUNT] = {
 /* Load 4.400000 */{	0.350000,	5.590000,	0.502000,	0.910000,	0.864000,	0.954000,	1.324000,	-7.436000,	1.170000,	1.054000,	2.058000,	2.098000,	2.636000,	-12.352000,	-12.352000,	-12.352000}
 };
 
-
-static void addFuelEvents(engine_configuration_s *e,  trigger_shape_s * s, EventHandlerConfiguration *config) {
-	resetEventList(&config->injectionEvents);
-
-	for(int i = 0;i < e->cylindersCount;i++) {
-		io_pin_e pin = (io_pin_e)((int)INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1);
-		float angle = e->injectionOffset + i * 720.0 / e->cylindersCount;
-		registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(pin), angle);
-	}
-}
-
 static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigger_shape_s * s, EventHandlerConfiguration *config) {
 	float x = -106 + 360;
 
