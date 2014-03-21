@@ -8,7 +8,6 @@ import com.rusefi.io.LinkManager;
 import com.rusefi.io.tcp.TcpConnector;
 import com.rusefi.waves.RevolutionLog;
 import com.rusefi.waves.WaveChart;
-import com.rusefi.waves.WaveChartParser;
 import com.rusefi.waves.WaveReport;
 
 import java.util.List;
@@ -91,20 +90,27 @@ public class AutoTest {
     }
 
     private static void mainTestBody() throws InterruptedException {
+        WaveChart chart;
+        // todo: interesting changeRpm(100);
+        changeRpm(200);
+
+        chart = nextChart();
+        float x = 55;
+        assertWave(chart, WaveChart.SPARK_1, 0.45, x, x + 180, x + 360, x + 540);
+
+
         changeRpm(500);
         changeRpm(2000);
 
-        String chartLine = getNextWaveChart();
 
-
-        WaveChart chart = WaveChartParser.unpackToMap(chartLine);
+        chart = nextChart();
 
         assertWave(chart, WaveChart.INJECTOR_1, 0.33, 238.75);
         assertWave(chart, WaveChart.INJECTOR_2, 0.33, 53.04);
         assertWave(chart, WaveChart.INJECTOR_3, 0.33, 417.04);
         assertWave(chart, WaveChart.INJECTOR_4, 0.33, 594.04);
 
-        float x = 44;
+        x = 44;
         assertWave(chart, WaveChart.SPARK_1, 0.41, x, x + 180, x + 360, x + 540);
     }
 
@@ -138,13 +144,13 @@ public class AutoTest {
             }
         };
         SensorCentral.getInstance().addListener(Sensor.RPM, listener);
-        rpmLatch.await(5, TimeUnit.SECONDS);
+        rpmLatch.await(10, TimeUnit.SECONDS);
         SensorCentral.getInstance().removeListener(Sensor.RPM, listener);
 
         double actualRpm = SensorCentral.getInstance().getValue(Sensor.RPM);
 
         if (!isCloseEnough(rpm, actualRpm))
-            throw new IllegalStateException("rpm change did not happen");
+            throw new IllegalStateException("rpm change did not happen: " + rpm);
     }
 
 }
