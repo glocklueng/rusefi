@@ -41,7 +41,7 @@ float getBaseAdvance(int rpm, float engineLoad) {
 
 float getAdvance(int rpm, float engineLoad) {
 	if (isCrankingR(rpm))
-		return engineConfiguration->crankingTimingAngle;
+		return engineConfiguration->crankingTimingAngle + engineConfiguration->ignitionOffset;
 
 	return getBaseAdvance(rpm, engineLoad) + engineConfiguration->ignitionOffset;
 }
