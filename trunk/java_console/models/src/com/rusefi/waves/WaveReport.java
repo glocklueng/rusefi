@@ -159,7 +159,7 @@ public class WaveReport implements TimeAxisTranslator {
         }
 
         public double getDutyCycle(RevolutionLog rl) {
-            double angleDuration = (rl.getCrankAngleByTime(downTime) + 360 - rl.getCrankAngleByTime(upTime)) % 360;
+            double angleDuration = (rl.getCrankAngleByTime(downTime) + 720 - rl.getCrankAngleByTime(upTime)) % 360;
             if (angleDuration < 0)
                 throw new IllegalStateException("Negative width: " + angleDuration);
             return angleDuration / 360;
