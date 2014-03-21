@@ -125,7 +125,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	if (dwellMs <= 0)
 		return; // hard RPM limit was hit
 
-	float sparkDelay = (int) (getOneDegreeTimeMs(rpm) * event->angleOffset + sparkAdvanceMs - dwellMs);
+	float sparkDelay = getOneDegreeTimeMs(rpm) * event->angleOffset + sparkAdvanceMs - dwellMs;
 	int isIgnitionError = sparkDelay < 0;
 	ignitionErrorDetection.add(isIgnitionError);
 	if (isIgnitionError) {
