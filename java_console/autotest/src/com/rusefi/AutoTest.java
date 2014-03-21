@@ -109,7 +109,7 @@ public class AutoTest {
         assertWave(chart, revolutionLog, WaveChart.INJECTOR_3, 0.33, 417.04);
         assertWave(chart, revolutionLog, WaveChart.INJECTOR_4, 0.33, 594.04);
 
-        float x = 55;
+        float x = 44;
         assertWave(chart, revolutionLog, WaveChart.SPARK_1, 0.41, x, x + 180, x + 360, x + 540);
     }
 
