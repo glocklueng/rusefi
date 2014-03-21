@@ -28,6 +28,11 @@ public class WaveChart {
         this.map = map;
     }
 
+    public RevolutionLog getRevolutionsLog() {
+        StringBuilder revolutions = get(RevolutionLog.TOP_DEAD_CENTER_MESSAGE);
+        return RevolutionLog.parseRevolutions(revolutions);
+    }
+
     public StringBuilder get(String key) {
         return map.get(key);
     }
