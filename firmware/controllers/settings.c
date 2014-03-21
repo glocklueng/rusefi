@@ -299,7 +299,7 @@ static void setWholeFuelMap(float value) {
 static void setTimingMap(char * rpmStr, char *loadStr, char *valueStr) {
 	float rpm = atoff(rpmStr);
 	float engineLoad = atoff(loadStr);
-	float value = atoi(valueStr);
+	float value = atoff(valueStr);
 
 	int rpmIndex = findIndex(engineConfiguration->ignitionRpmBins, IGN_RPM_COUNT, rpm);
 	rpmIndex = rpmIndex < 0 ? 0 : rpmIndex;
@@ -313,7 +313,7 @@ static void setTimingMap(char * rpmStr, char *loadStr, char *valueStr) {
 static void setFuelMap(char * rpmStr, char *loadStr, char *valueStr) {
 	float rpm = atoff(rpmStr);
 	float engineLoad = atoff(loadStr);
-	float value = atoi(valueStr);
+	float value = atoff(valueStr);
 
 	int rpmIndex = findIndex(engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT, rpm);
 	rpmIndex = rpmIndex < 0 ? 0 : rpmIndex;
