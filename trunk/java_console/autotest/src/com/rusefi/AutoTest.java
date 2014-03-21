@@ -117,7 +117,8 @@ public class AutoTest {
         sendCommand("set_fuel_map 2000 4 15.66");
         sendCommand("set_fuel_map 2200 4.2 15.66");
         sendCommand("set_fuel_map 2000 4.2 15.66");
-        sendCommand("set_fake_maf_voltage 2"); // fake 2 means 4 because of the divider. should we simplify this?
+        // fake 2 means 4 on the gauge because of the divider. should we simplify this?
+        sendCommand("set_fake_maf_voltage 2");
         chart = nextChart();
 
         assertWave(chart, WaveChart.INJECTOR_1, 0.522, 238.75);
