@@ -99,21 +99,20 @@ public class AutoTest {
 
         WaveChart chart = WaveChartParser.unpackToMap(chartLine);
 
-        StringBuilder revolutions = chart.get(RevolutionLog.TOP_DEAD_CENTER_MESSAGE);
-        if (revolutions.length() == 0)
-            throw new IllegalStateException("Empty revolutions in " + chartLine);
-
-        RevolutionLog revolutionLog = RevolutionLog.parseRevolutions(revolutions);
-        assertWave(chart, revolutionLog, WaveChart.INJECTOR_1, 0.33, 238.75);
-        assertWave(chart, revolutionLog, WaveChart.INJECTOR_2, 0.33, 53.04);
-        assertWave(chart, revolutionLog, WaveChart.INJECTOR_3, 0.33, 417.04);
-        assertWave(chart, revolutionLog, WaveChart.INJECTOR_4, 0.33, 594.04);
+        assertWave(chart, WaveChart.INJECTOR_1, 0.33, 238.75);
+        assertWave(chart, WaveChart.INJECTOR_2, 0.33, 53.04);
+        assertWave(chart, WaveChart.INJECTOR_3, 0.33, 417.04);
+        assertWave(chart, WaveChart.INJECTOR_4, 0.33, 594.04);
 
         float x = 44;
-        assertWave(chart, revolutionLog, WaveChart.SPARK_1, 0.41, x, x + 180, x + 360, x + 540);
+        assertWave(chart, WaveChart.SPARK_1, 0.41, x, x + 180, x + 360, x + 540);
     }
 
-    private static void assertWave(WaveChart chart, RevolutionLog revolutionLog, String key, double width, double... expectedAngles) {
+    private static void assertWave(WaveChart chart, String key, double width, double... expectedAngles) {
+        RevolutionLog revolutionLog = chart.getRevolutionsLog();
+        if (revolutionLog.keySet().isEmpty())
+            throw new IllegalStateException("Empty revolutions in " + chart);
+
         StringBuilder events = chart.get(key);
         assertTrue("Events not null for " + key, events != null);
         List<WaveReport.UpDown> wr = WaveReport.parse(events.toString());
