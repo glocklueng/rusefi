@@ -27,6 +27,9 @@ public class IoUtil {
     }
 
     static String getNextWaveChart() throws InterruptedException {
+        // we need to skip TWO because spark could have been scheduled a while ago and happen now
+        // todo: improve this logic, compare times
+        getWaveChart();
         getWaveChart();
         // we want to wait for the 2nd chart to see same same RPM across the whole chart
         return getWaveChart();
