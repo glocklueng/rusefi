@@ -4,6 +4,8 @@ import com.irnems.core.EngineState;
 import com.rusefi.io.CommandQueue;
 import com.rusefi.io.InvocationConfirmationListener;
 import com.rusefi.io.LinkManager;
+import com.rusefi.waves.WaveChart;
+import com.rusefi.waves.WaveChartParser;
 import com.rusefi.waves.WaveReport;
 
 import java.util.concurrent.CountDownLatch;
@@ -50,5 +52,9 @@ public class IoUtil {
         waveChartLatch.await(5, TimeUnit.SECONDS);
         LinkManager.engineState.removeAction(WaveReport.WAVE_CHART);
         return result.get();
+    }
+
+    static WaveChart nextChart() throws InterruptedException {
+        return WaveChartParser.unpackToMap(getNextWaveChart());
     }
 }
