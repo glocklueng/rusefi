@@ -96,7 +96,7 @@ public class AutoTest {
 
         chart = nextChart();
         float x = 55;
-        assertWave(chart, WaveChart.SPARK_1, 0.45, x, x + 180, x + 360, x + 540);
+        assertWave(chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
 
 
         changeRpm(500);
@@ -105,13 +105,24 @@ public class AutoTest {
 
         chart = nextChart();
 
-        assertWave(chart, WaveChart.INJECTOR_1, 0.33, 238.75);
-        assertWave(chart, WaveChart.INJECTOR_2, 0.33, 53.04);
-        assertWave(chart, WaveChart.INJECTOR_3, 0.33, 417.04);
-        assertWave(chart, WaveChart.INJECTOR_4, 0.33, 594.04);
+        assertWave(chart, WaveChart.INJECTOR_1, 0.051, 238.75);
+        assertWave(chart, WaveChart.INJECTOR_2, 0.051, 53.04);
+        assertWave(chart, WaveChart.INJECTOR_3, 0.051, 417.04);
+        assertWave(chart, WaveChart.INJECTOR_4, 0.051, 594.04);
 
         x = 44;
-        assertWave(chart, WaveChart.SPARK_1, 0.41, x, x + 180, x + 360, x + 540);
+        assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
+
+        sendCommand("set_fake_maf_voltage 4");
+        chart = nextChart();
+
+        assertWave(chart, WaveChart.INJECTOR_1, 0.522, 238.75);
+        assertWave(chart, WaveChart.INJECTOR_2, 0.522, 53.04);
+        assertWave(chart, WaveChart.INJECTOR_3, 0.522, 417.04);
+        assertWave(chart, WaveChart.INJECTOR_4, 0.522, 594.04);
+
+        x = 58;
+        assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
     }
 
     private static void assertWave(WaveChart chart, String key, double width, double... expectedAngles) {
