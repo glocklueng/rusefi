@@ -11,7 +11,7 @@
 #define AD_LOAD_COUNT 16
 #define AD_RPM_COUNT 16
 
-float getAdvance(int rpm, float maf);
+float getAdvance(int rpm, float engineLoad);
 void prepareTimingMap(void);
 
 #endif /* ADVANCE_H_ */
