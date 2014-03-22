@@ -31,11 +31,17 @@ public class AutoTest {
         FileLog.SIMULATOR_CONSOLE.start();
         FileLog.MAIN.start();
 
+        boolean failed = false;
         try {
             runTest();
+        } catch (Throwable e) {
+            e.printStackTrace();
+            failed = true;
         } finally {
             ExecHelper.destroy();
         }
+        if (failed)
+            System.exit(-1);
         FileLog.MAIN.logLine("*******************************************************************************");
         FileLog.MAIN.logLine("************************************  Looks good! *****************************");
         FileLog.MAIN.logLine("*******************************************************************************");
