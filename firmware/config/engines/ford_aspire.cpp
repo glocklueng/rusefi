@@ -137,7 +137,8 @@ static float default_timing_table[AD_LOAD_COUNT][AD_RPM_COUNT] = {
 /* Load 4.400000 */{	0.350000,	5.590000,	0.502000,	0.910000,	0.864000,	0.954000,	1.324000,	-7.436000,	1.170000,	1.054000,	2.058000,	2.098000,	2.636000,	-12.352000,	-12.352000,	-12.352000}
 };
 
-static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigger_shape_s * s, EventHandlerConfiguration *config) {
+static void configureAspireEngineEventHandler(engine_configuration_s *e,
+		engine_configuration2_s *engineConfiguration2, trigger_shape_s * s, EventHandlerConfiguration *config) {
 
 	resetEventList(&config->crankingInjectionEvents);
 //	registerActuatorEventExt(e, s, &config->crankingInjectionEvents, addOutputSignal(INJECTOR_1_OUTPUT), x);
@@ -188,11 +189,13 @@ static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigge
 
 	float y = -106 + 360;
 
-	resetEventList(&config->ignitionEvents);
-	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
-	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 180);
-	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 360);
-	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 540);
+//	resetEventList(&config->ignitionEvents);
+//	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
+//	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 180);
+//	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 360);
+//	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 540);
+
+	initializeIgnitionActions(e, engineConfiguration2);
 }
 
 static void setDefaultMaps(engine_configuration_s *engineConfiguration) {
@@ -281,6 +284,7 @@ void setFordAspireengine_configuration2_s(engine_configuration_s *engineConfigur
 
 
 	configureAspireEngineEventHandler(engineConfiguration,
+			engineConfiguration2,
 
 			&engineConfiguration2->triggerShape,
 
