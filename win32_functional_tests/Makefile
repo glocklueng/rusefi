@@ -112,6 +112,7 @@ CSRC =	${PORTSRC} \
        simulator/rusEfiFunctionalTest.c \
 	$(PROJECT_DIR)/controllers/settings.c \
        simulator/boards.c \
+	$(PROJECT_DIR)/emulation/analog_chart.c \
 	main.c
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
@@ -157,6 +158,7 @@ $(PORTINC) $(KERNINC) $(TESTINC) \
 	$(PROJECT_DIR)/controllers/sensors \
 	$(PROJECT_DIR)/controllers/system \
 	$(PROJECT_DIR)/hw_layer/algo \
+	$(PROJECT_DIR)/emulation \
 	$(PROJECT_DIR)/controllers/algo \
 	$(PROJECT_DIR)/controllers/math \
 	$(PROJECT_DIR)/controllers/math \
