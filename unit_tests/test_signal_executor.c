@@ -19,6 +19,10 @@ extern OutputSignal *st_output_list;
 static io_pin_e testLastToggledPin;
 static int testToggleCounter;
 
+int getRevolutionCounter(void) {
+	return 0;
+}
+
 void setOutputPinValue(io_pin_e pin, int value) {
 	// this is a test implementation of the method - we use it to see what's going on
 	testLastToggledPin = pin;
