@@ -65,10 +65,11 @@ struct OutputSignal_struct {
 	time_t hi_time;
 
 	/**
-	 * this timer is used to wait for the time to activate the thread
+	 * We are alternating instances so that events which extend into next revolution are not overriden while
+	 * scheduling next revolution events
 	 */
-	scheduling_s signalTimerUp;
-	scheduling_s signalTimerDown;
+	scheduling_s signalTimerUp[2];
+	scheduling_s signalTimerDown[2];
 
 	executor_status_t status;
 

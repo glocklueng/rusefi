@@ -104,8 +104,12 @@ void scheduleOutput(OutputSignal *signal, int delay, int dwell, time_t now) {
 
 	scheduleOutputBase(signal, delay, dwell);
 
-	scheduleTask(&signal->signalTimerUp, delay, (schfunc_t) &turnHigh, (void *) signal);
-	scheduleTask(&signal->signalTimerDown, delay + dwell, (schfunc_t) &turnLow, (void*)signal);
+	int index = getRevolutionCounter() % 2;
+	scheduling_s * sUp = &signal->signalTimerUp[index];
+	scheduling_s * sDown = &signal->signalTimerDown[index];
+
+	scheduleTask(sUp, delay, (schfunc_t) &turnHigh, (void *) signal);
+	scheduleTask(sDown, delay + dwell, (schfunc_t) &turnLow, (void*)signal);
 
 	signal->last_scheduling_time = now;
 }
