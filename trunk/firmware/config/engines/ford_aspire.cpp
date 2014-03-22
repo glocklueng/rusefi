@@ -187,17 +187,12 @@ static void configureAspireEngineEventHandler(engine_configuration_s *e,  trigge
 //	registerActuatorEvent(&config->injectionEvents, 8, addOutputSignal(INJECTOR_3_OUTPUT), 0);
 
 	float y = -106 + 360;
-	float x = 74;
 
 	resetEventList(&config->ignitionEvents);
-//	registerActuatorEvent(&config->ignitionEvents, 1, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
-//	registerActuatorEvent(&config->ignitionEvents, 3, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
-//	registerActuatorEvent(&config->ignitionEvents, 6, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
-//	registerActuatorEvent(&config->ignitionEvents, 8, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
-	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x);
-	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x + 180);
-	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x + 360);
-	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), x + 540);
+	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
+	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 180);
+	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 360);
+	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 540);
 }
 
 static void setDefaultMaps(engine_configuration_s *engineConfiguration) {
@@ -243,13 +238,13 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->cylindersCount = 4;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 	engineConfiguration->globalTriggerAngleOffset = 175;
-	engineConfiguration->ignitionOffset = 180 + 35;
-	engineConfiguration->injectionOffset = 254;
+	engineConfiguration->ignitionOffset = 269;
+	engineConfiguration->injectionOffset = 254 - 20;
 
 	setDefaultMaps(engineConfiguration);
 	engineConfiguration->crankingSettings.crankingRpm = 550;
 	engineConfiguration->crankingChargeAngle = 65;
-	engineConfiguration->crankingTimingAngle = 65 - (180 + 35);
+	engineConfiguration->crankingTimingAngle = 55 + 65 - (180 + 35)  - 54;
 
 	for (int i = 0; i < DWELL_CURVE_SIZE; i++) {
 		engineConfiguration->sparkDwellBins[i] = 0;
