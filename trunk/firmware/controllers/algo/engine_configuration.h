@@ -29,7 +29,6 @@ typedef struct {
 	short int crankingRpm;
 } cranking_parameters_s;
 
-
 /**
  * @brief Here we store information about which injector or spark should be fired when.
  */
@@ -56,8 +55,7 @@ typedef enum {
 	/**
 	 * You would use this value if you want to see a detailed graph of your trigger events
 	 */
-	AC_TRIGGER = 1,
-	AC_MAP = 2,
+	AC_TRIGGER = 1, AC_MAP = 2,
 
 	Internal_ForceMyEnumIntSize_analog_chart_mode = ENUM_SIZE_HACK,
 } analog_chart_e;
@@ -151,7 +149,6 @@ typedef struct {
 
 	// WARNING: by default, our small enums are ONE BYTE. but if the are surrounded by non-enums - alignments do the trick
 	engine_type_e engineType;
-
 
 	float fuelTable[FUEL_LOAD_COUNT][FUEL_RPM_COUNT]; // size 1024, offset 1816
 	float fuelLoadBins[FUEL_LOAD_COUNT]; // offset 2840
@@ -247,6 +244,8 @@ typedef struct {
 
 	float crankingTimingAngle;
 
+	int triggerShapeSynchPointIndex;
+
 } engine_configuration_s;
 
 /**
@@ -260,9 +259,7 @@ typedef struct {
 	Thermistor iat;
 	Thermistor clt;
 
-
 	int crankAngleRange;
-
 
 	trigger_shape_s triggerShape;
 
@@ -272,8 +269,7 @@ typedef struct {
 } engine_configuration2_s;
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif /* __cplusplus */
 
 char* getConfigurationName(engine_configuration_s *engineConfiguration);
@@ -283,8 +279,10 @@ void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfigu
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 void printFloatArray(char *prefix, float array[], int size);
 
-void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
-void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, engine_type_e engineType);
+void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *engineConfiguration,
+		engine_configuration2_s *engineConfiguration2);
+void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration,
+		engine_configuration2_s *engineConfiguration2, engine_type_e engineType);
 
 void incrementGlobalConfigurationVersion(void);
 int getGlobalConfigurationVersion(void);
@@ -292,6 +290,5 @@ int getGlobalConfigurationVersion(void);
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
-
 
 #endif /* ENGINE_CONFIGURATION_H_ */
