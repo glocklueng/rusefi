@@ -22,7 +22,7 @@
 #include "trigger_emulator_algo.h"
 #include "main_trigger_callback.h"
 #include "allsensors.h"
-
+#include "analog_chart.h"
 
 extern WaveChart waveChart;
 
@@ -84,6 +84,8 @@ void rusEfiFunctionalTest(void) {
 	initThermistors();
 	initAlgo();
 	initRpmCalculator();
+
+	initAnalogChart();
 
 	initTriggerEmulatorLogic(triggerEmulatorCallback);
 
