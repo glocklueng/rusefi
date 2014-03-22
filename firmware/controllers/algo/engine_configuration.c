@@ -147,6 +147,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->fuelPumpPinMode = OM_DEFAULT;
 	engineConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
 
+	engineConfiguration->triggerShapeSynchPointIndex = 0;
 	engineConfiguration->globalTriggerAngleOffset = 0;
 	engineConfiguration->injectionOffset = 0;
 	engineConfiguration->ignitionOffset = 0;

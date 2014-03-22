@@ -244,6 +244,10 @@ typedef struct {
 
 	float crankingTimingAngle;
 
+	/**
+	 * This is the index of trigger synchronization event within trigger shape declaration
+	 * TODO: this could be detected programmatically by running the trigger shape & detecting synch event
+	 */
 	int triggerShapeSynchPointIndex;
 
 } engine_configuration_s;
