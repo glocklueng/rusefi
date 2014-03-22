@@ -16,7 +16,7 @@
 #include "wave_math.h"
 #include "engine_configuration.h"
 #include "engine_math.h"
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 #include "analog_chart.h"
 #endif /* EFI_PROD_CODE */
 
@@ -107,7 +107,7 @@ static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 
 
 	if (index != 0) {
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 		if (engineConfiguration->analogChartMode == AC_TRIGGER)
 			acAddData(getCrankshaftAngle(chTimeNow()), 1000 * ckpSignalType + index);
 #endif
@@ -134,8 +134,7 @@ static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 		}
 	}
 	rpmState.lastRpmEventTime = now;
-// todo:  || EFI_SIMULATOR
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	if (engineConfiguration->analogChartMode == AC_TRIGGER)
 		acAddData(getCrankshaftAngle(now), index);
 #endif
