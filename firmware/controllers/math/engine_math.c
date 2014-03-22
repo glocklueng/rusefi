@@ -194,6 +194,9 @@ void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigg
 	}
 	float angle = s->wave.switchTimes[i] * 720 - firstAngle;
 
+	i = 0;
+	angle = 0;
+
 	registerActuatorEvent(list, i, actuator, angleOffset - angle);
 }
 
