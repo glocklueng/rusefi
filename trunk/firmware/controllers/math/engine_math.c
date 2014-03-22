@@ -125,16 +125,15 @@ int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm) {
 }
 
 void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
-	resetEventList(&config->ignitionEvents);
 	chDbgCheck(engineConfiguration->cylindersCount > 0, "cylindersCount");
 
-	int x = 13; //todo
+	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
+	resetEventList(&config->ignitionEvents);
 
 	if (engineConfiguration->ignitionMode == IM_ONE_COIL) {
 
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-			float angle = x + 720.0 * i / engineConfiguration->cylindersCount;
+			float angle = 720.0 * i / engineConfiguration->cylindersCount;
 
 			registerActuatorEventExt(engineConfiguration,
 					&engineConfiguration2->triggerShape,
