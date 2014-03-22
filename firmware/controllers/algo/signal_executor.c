@@ -99,6 +99,9 @@ static void turnLow(OutputSignal *signal) {
  * @param	dwell	the number of ticks of output duration
  *
  */
+
+int getRevolutionCounter(void);
+
 void scheduleOutput(OutputSignal *signal, int delay, int dwell, time_t now) {
 	chDbgCheck(dwell >= 0, "dwell cannot be negative");
 
