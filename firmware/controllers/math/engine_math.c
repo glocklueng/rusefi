@@ -130,18 +130,32 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 	resetEventList(&config->ignitionEvents);
 
-	if (engineConfiguration->ignitionMode == IM_ONE_COIL) {
-
+	switch (engineConfiguration->ignitionMode) {
+	case IM_ONE_COIL:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
+			// todo: extract method
 			float angle = 720.0 * i / engineConfiguration->cylindersCount;
 
 			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
 					addOutputSignal(SPARKOUT_1_OUTPUT), angle);
 		}
+		break;
+	case IM_WASTED_SPARK:
+		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
+			float angle = 720.0 * i / engineConfiguration->cylindersCount;
 
-	} else
+			io_pin_e ioPin = SPARKOUT_1_OUTPUT + (getCylinderId(engineConfiguration->firingOrder, i) - 1) % (engineConfiguration->cylindersCount / 2);
+
+			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
+					addOutputSignal(ioPin), angle);
+
+		}
+
+		break;
+
+	default:
 		firmwareError("unsupported ignitionMode %d in initializeIgnitionActions()", engineConfiguration->ignitionMode);
-
+	}
 }
 
 void addFuelEvents(engine_configuration_s *e, trigger_shape_s * s, ActuatorEventList *list, injection_mode_e mode) {
