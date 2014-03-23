@@ -30,7 +30,6 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 26ms at -40C
 	engineConfiguration->crankingSettings.fuelAtMinTempMs = 26;
 
-
 	engineConfiguration->triggerConfig.syncRatioFrom = 0.72 * 0.8;
 	engineConfiguration->triggerConfig.syncRatioTo = 0.72 * 1.3;
 
@@ -42,7 +41,11 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 }
 
-static void configureEngineEventHandler(EventHandlerConfiguration *config) {
+void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+	resetOutputSignals();
+
+	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
+
 	float x = 51;
 
 	resetEventList(&config->crankingInjectionEvents);
@@ -58,12 +61,6 @@ static void configureEngineEventHandler(EventHandlerConfiguration *config) {
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_2_OUTPUT), x + 180);
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_3_OUTPUT), x + 360);
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_4_OUTPUT), x + 540);
-
-}
-
-void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-
-	configureEngineEventHandler(&engineConfiguration2->engineEventConfiguration);
 
 }
 
