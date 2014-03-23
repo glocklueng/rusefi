@@ -104,6 +104,11 @@ public class AutoTest {
     private static void testFord6() {
         WaveChart chart;
         changeRpm(2000);
+        chart = nextChart();
+
+        int x = 10;
+        assertWave(chart, WaveChart.SPARK_1, 0.01666, x, x + 120, x + 240, x + 360, x + 480, x + 600);
+
     }
 
     private static void testFordAspire() {
