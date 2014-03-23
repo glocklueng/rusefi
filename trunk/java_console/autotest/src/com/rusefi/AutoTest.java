@@ -117,6 +117,8 @@ public class AutoTest {
         assertWave(chart, WaveChart.INJECTOR_2, 0.1, 231);
         assertWave(chart, WaveChart.INJECTOR_3, 0.1, 591);
         assertWave(chart, WaveChart.INJECTOR_4, 0.1, 51);
+
+        assertWave(chart, WaveChart.SPARK_1, 0.13333, 6);
     }
 
     private static void testFordFiesta() {
@@ -216,7 +218,7 @@ public class AutoTest {
         double actualRpm = SensorCentral.getInstance().getValue(Sensor.RPM);
 
         if (!isCloseEnough(rpm, actualRpm))
-            throw new IllegalStateException("rpm change did not happen: " + rpm);
+            throw new IllegalStateException("rpm change did not happen: " + rpm + ", actual " + actualRpm);
     }
 
 }
