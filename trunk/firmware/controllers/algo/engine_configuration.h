@@ -225,7 +225,6 @@ typedef struct {
 	trigger_config_s triggerConfig;
 
 	int needSecondTriggerInput;
-	int unused2[14];
 	int vBattAdcChannel;
 
 	float globalFuelCorrection;
