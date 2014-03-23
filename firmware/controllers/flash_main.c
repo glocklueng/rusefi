@@ -35,12 +35,14 @@ static engine_type_e defaultEngineType = FORD_ASPIRE_1996;
 static Logging logger;
 
 #if defined __GNUC__
-static FlashState flashState __attribute__((section(".ccm")));
+FlashState flashState __attribute__((section(".ccm")));
 #else
-static FlashState flashState;
+FlashState flashState;
 #endif
 
 engine_configuration_s *engineConfiguration = &flashState.persistentConfiguration.engineConfiguration;
+board_configuratino_s *boardConfiguration = &flashState.persistentConfiguration.boardConfiguration;
+
 extern engine_configuration2_s * engineConfiguration2;
 
 #define FLASH_ADDR 0x08060000
