@@ -216,7 +216,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	boardConfiguration->injectionPins[2] = GPIOE_3;
 	boardConfiguration->injectionPins[3] = GPIOE_5;
 	boardConfiguration->injectionPins[4] = GPIOE_6;
-//	engineConfiguration->injectionPins[5] = GPIOE_5;
+	boardConfiguration->injectionPins[5] = GPIOC_12;
 	boardConfiguration->injectionPinMode = OM_DEFAULT;
 
 	boardConfiguration->ignitionPins[0] = GPIOC_7;
