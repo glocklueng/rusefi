@@ -86,10 +86,10 @@ static void test1995FordInline6TriggerDecoder(void) {
 	ActuatorEventList *ecl = &ec2.engineEventConfiguration.ignitionEvents;
 	assertEqualsM("ignition events size", 6, ecl->size);
 	assertEqualsM("event index", 0, ecl->events[0].eventIndex);
-	assertEquals(13, ecl->events[0].angleOffset);
+	assertEquals(0, ecl->events[0].angleOffset);
 
 	assertEqualsM("event index", 10, ecl->events[5].eventIndex);
-	assertEquals(13, ecl->events[5].angleOffset);
+	assertEquals(0, ecl->events[5].angleOffset);
 
 	trigger_state_s state;
 	clearTriggerState(&state);
