@@ -107,11 +107,14 @@ void initInjectorCentral(void) {
 	printStatus();
 
 	// todo: should we move this code closer to the injection logic?
+	// todo: dynamic initialization
+	// todo: consider actual cylinders count
 	outputPinRegisterExt2("injector1", INJECTOR_1_OUTPUT, boardConfiguration->injectionPins[0], &boardConfiguration->injectionPinMode);
 	outputPinRegisterExt2("injector2", INJECTOR_2_OUTPUT, boardConfiguration->injectionPins[1], &boardConfiguration->injectionPinMode);
 	outputPinRegisterExt2("injector3", INJECTOR_3_OUTPUT, boardConfiguration->injectionPins[2], &boardConfiguration->injectionPinMode);
 	outputPinRegisterExt2("injector4", INJECTOR_4_OUTPUT, boardConfiguration->injectionPins[3], &boardConfiguration->injectionPinMode);
 	outputPinRegisterExt2("injector5", INJECTOR_5_OUTPUT, boardConfiguration->injectionPins[4], &boardConfiguration->injectionPinMode);
+	outputPinRegisterExt2("injector5", INJECTOR_6_OUTPUT, boardConfiguration->injectionPins[5], &boardConfiguration->injectionPinMode);
 
 	addConsoleActionII("injector", setInjectorEnabled);
 
