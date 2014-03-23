@@ -113,18 +113,21 @@ public class AutoTest {
         changeRpm(2000);
         chart = nextChart();
 
-        assertWave(chart, WaveChart.INJECTOR_1, 0.1, 411);
-        assertWave(chart, WaveChart.INJECTOR_2, 0.1, 231);
-        assertWave(chart, WaveChart.INJECTOR_3, 0.1, 591);
         assertWave(chart, WaveChart.INJECTOR_4, 0.1, 51);
+        assertWave(chart, WaveChart.INJECTOR_2, 0.1, 231);
+        assertWave(chart, WaveChart.INJECTOR_1, 0.1, 411);
+        assertWave(chart, WaveChart.INJECTOR_3, 0.1, 591);
 
-        assertWave(chart, WaveChart.SPARK_1, 0.13333, 6);
+        assertWave(chart, WaveChart.SPARK_4, 0.13333, 6);
+        assertWave(chart, WaveChart.SPARK_2, 0.13333, 186);
+        assertWave(chart, WaveChart.SPARK_1, 0.13333, 366);
+        assertWave(chart, WaveChart.SPARK_3, 0.13333, 546);
     }
 
     private static void testFordFiesta() {
-        WaveChart chart;
-        changeRpm(2000);
-        chart = nextChart();
+//        WaveChart chart;
+//        changeRpm(2000);
+//        chart = nextChart();
     }
 
     private static void testFord6() {
