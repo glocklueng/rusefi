@@ -141,7 +141,7 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engi
 		}
 
 	} else
-		fatal("unfinished initializeIgnitionActions");
+		firmwareError("unsupported ignitionMode %d in initializeIgnitionActions()", engineConfiguration->ignitionMode);
 
 }
 
@@ -196,7 +196,7 @@ void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigg
 	// explicit check for zero to avoid issues where logical zero is not exactly zero due to float nature
 	float angle = i == 0 ? 0 : fixAngle(s->wave.switchTimes[(triggerIndexOfZeroEvent + i) % s->size] * 720 - firstAngle);
 
-	chDbgCheck(angleOffset > angle, "registerActuatorEventExt");
+	chDbgCheck(angleOffset >= angle, "angle constraint violation in registerActuatorEventExt()");
 
 //	i = 0;
 //	angle = 0;
