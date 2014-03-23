@@ -95,7 +95,18 @@ public class AutoTest {
         mainTestBody();
     }
 
-    private static void mainTestBody() throws InterruptedException {
+    private static void mainTestBody() {
+        testFordAspire();
+        sendCommand("set_engine_type 7");
+        testFord6();
+    }
+
+    private static void testFord6() {
+        WaveChart chart;
+        changeRpm(2000);
+    }
+
+    private static void testFordAspire() {
         WaveChart chart;
         // todo: interesting changeRpm(100);
         changeRpm(200);
@@ -153,7 +164,7 @@ public class AutoTest {
         }
     }
 
-    private static void changeRpm(final int rpm) throws InterruptedException {
+    private static void changeRpm(final int rpm) {
         sendCommand("rpm " + rpm);
 
         final CountDownLatch rpmLatch = new CountDownLatch(1);
@@ -166,7 +177,11 @@ public class AutoTest {
             }
         };
         SensorCentral.getInstance().addListener(Sensor.RPM, listener);
-        rpmLatch.await(10, TimeUnit.SECONDS);
+        try {
+            rpmLatch.await(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e);
+        }
         SensorCentral.getInstance().removeListener(Sensor.RPM, listener);
 
         double actualRpm = SensorCentral.getInstance().getValue(Sensor.RPM);
