@@ -114,6 +114,9 @@ public class AutoTest {
         chart = nextChart();
 
         assertWave(chart, WaveChart.INJECTOR_1, 0.1, 411);
+        assertWave(chart, WaveChart.INJECTOR_2, 0.1, 231);
+        assertWave(chart, WaveChart.INJECTOR_3, 0.1, 591);
+        assertWave(chart, WaveChart.INJECTOR_4, 0.1, 51);
     }
 
     private static void testFordFiesta() {
