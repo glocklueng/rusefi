@@ -97,8 +97,29 @@ public class AutoTest {
 
     private static void mainTestBody() {
         testFordAspire();
+
+        sendCommand("set_engine_type 2");
+        testDodgeNeon();
+
         sendCommand("set_engine_type 7");
         testFord6();
+
+        sendCommand("set_engine_type 4");
+        testFordFiesta();
+    }
+
+    private static void testDodgeNeon() {
+        WaveChart chart;
+        changeRpm(2000);
+        chart = nextChart();
+
+        assertWave(chart, WaveChart.INJECTOR_1, 0.1, 411);
+    }
+
+    private static void testFordFiesta() {
+        WaveChart chart;
+        changeRpm(2000);
+        chart = nextChart();
     }
 
     private static void testFord6() {
