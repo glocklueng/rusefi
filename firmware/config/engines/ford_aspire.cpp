@@ -175,25 +175,7 @@ static void configureAspireEngineEventHandler(engine_configuration_s *e,
 //	registerActuatorEvent(&config->crankingInjectionEvents, 8, addOutputSignal(INJECTOR_3_OUTPUT), 0);
 //	registerActuatorEvent(&config->crankingInjectionEvents, 8, addOutputSignal(INJECTOR_4_OUTPUT), 0);
 
-	addFuelEvents(e, s, config);
-
-
-//	i = 1;
-//	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder,i ) - 1), x + i * 720 / 4);
-//	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_4_OUTPUT), x + 360);
-//	registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(INJECTOR_2_OUTPUT), x + 540);
-//	registerActuatorEvent(&config->injectionEvents, 1, addOutputSignal(INJECTOR_4_OUTPUT), 0);
-//	registerActuatorEvent(&config->injectionEvents, 3, addOutputSignal(INJECTOR_2_OUTPUT), 0);
-//	registerActuatorEvent(&config->injectionEvents, 6, addOutputSignal(INJECTOR_1_OUTPUT), 0);
-//	registerActuatorEvent(&config->injectionEvents, 8, addOutputSignal(INJECTOR_3_OUTPUT), 0);
-
-	float y = -106 + 360;
-
-//	resetEventList(&config->ignitionEvents);
-//	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 0);
-//	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 180);
-//	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 360);
-//	registerActuatorEventExt(e, s, &config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), 540);
+	addFuelEvents(e, s, &config->injectionEvents, e->injectionMode);
 
 	initializeIgnitionActions(e, engineConfiguration2);
 }

@@ -154,6 +154,14 @@ typedef enum {
 	Internal_ForceMyEnumIntSize_ignition_mode = ENUM_SIZE_HACK,
 } ignition_mode_e;
 
+typedef enum {
+	IM_SIMULTANEOUS = 0,
+	IM_SEQUENTIAL = 1,
+	IM_BATCH = 2,
+
+	Internal_ForceMyEnumIntSize_injection_mode = ENUM_SIZE_HACK,
+} injection_mode_e;
+
 /**
  * @brief Ignition Mode while cranking
  */

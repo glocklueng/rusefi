@@ -155,7 +155,11 @@ typedef struct {
 	// RPM is float and not integer in order to use unified methods for interpolation
 	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
 
-	int unused[5];
+	int unused[3];
+
+	injection_mode_e crankingInjectionMode;
+	injection_mode_e injectionMode;
+
 
 	/**
 	 * This is the angle between Top Dead Center (TDC) and the first trigger event.
