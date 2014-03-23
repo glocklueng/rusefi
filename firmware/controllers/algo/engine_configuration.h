@@ -228,7 +228,7 @@ typedef struct {
 	int needSecondTriggerInput;
 	brain_pin_e injectionPins[12];
 	brain_pin_e fuelPumpPin;
-	brain_pin_e idleValvePin;
+	int unused;
 	int vBattAdcChannel;
 
 	float globalFuelCorrection;
@@ -251,6 +251,11 @@ typedef struct {
 	int triggerShapeSynchPointIndex;
 
 } engine_configuration_s;
+
+typedef struct {
+	brain_pin_e idleValvePin;
+} board_configuratino_s;
+
 
 /**
  * this part of the structure is separate just because so far
