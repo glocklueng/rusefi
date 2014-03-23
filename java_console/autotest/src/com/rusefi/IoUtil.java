@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *         3/19/14.
  */
 public class IoUtil {
-    static void sendCommand(String command) throws InterruptedException {
+    static void sendCommand(String command) {
         final CountDownLatch responseLatch = new CountDownLatch(1);
         CommandQueue.getInstance().write(command, CommandQueue.DEFAULT_TIMEOUT, new InvocationConfirmationListener() {
             @Override
@@ -25,10 +25,18 @@ public class IoUtil {
                 responseLatch.countDown();
             }
         });
-        responseLatch.await(20, TimeUnit.SECONDS);
+        wait(responseLatch, 20);
     }
 
-    static String getNextWaveChart() throws InterruptedException {
+    private static void wait(CountDownLatch responseLatch, int seconds) {
+        try {
+            responseLatch.await(seconds, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    static String getNextWaveChart() {
         // we need to skip TWO because spark could have been scheduled a while ago and happen now
         // todo: improve this logic, compare times
         getWaveChart();
@@ -37,7 +45,7 @@ public class IoUtil {
         return getWaveChart();
     }
 
-    private static String getWaveChart() throws InterruptedException {
+    private static String getWaveChart() {
         final CountDownLatch waveChartLatch = new CountDownLatch(1);
 
         final AtomicReference<String> result = new AtomicReference<String>();
@@ -49,12 +57,12 @@ public class IoUtil {
                 result.set(value);
             }
         });
-        waveChartLatch.await(5, TimeUnit.SECONDS);
+        wait(waveChartLatch, 5);
         LinkManager.engineState.removeAction(WaveReport.WAVE_CHART);
         return result.get();
     }
 
-    static WaveChart nextChart() throws InterruptedException {
+    static WaveChart nextChart() {
         return WaveChartParser.unpackToMap(getNextWaveChart());
     }
 }
