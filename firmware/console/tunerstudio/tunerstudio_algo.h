@@ -26,6 +26,8 @@ void handleTestCommand(void);
 void handleQueryCommand(void);
 void handleOutputChannelsCommand(void);
 
+char *getWorkingPageAddr(int pageIndex);
+int getTunerStudioPageSize(int pageIndex);
 void handleValueWriteCommand(void);
 void handlePageReadCommand(void);
 void handleBurnCommand(void);

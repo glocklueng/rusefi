@@ -141,6 +141,12 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "idleValvePin: %d", boardConfiguration->idleValvePin);
 
 #if EFI_PROD_CODE
+	for(int i = 0;i < engineConfiguration->cylindersCount;i++) {
+		brain_pin_e brainPin = engineConfiguration->injectionPins[i];
+
+		scheduleMsg(&logger, "injection %d @ %d", i, brainPin);
+	}
+
 	// todo: calculate coils count based on ignition mode
 	for (int i = 0; i < 4; i++) {
 		brain_pin_e brainPin = engineConfiguration->ignitionPins[i];
