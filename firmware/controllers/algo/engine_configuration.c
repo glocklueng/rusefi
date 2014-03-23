@@ -81,7 +81,8 @@ void initBpsxD1Sensor(afr_sensor_s *sensor) {
  * This method sets the default global engine configuration. These values are later overridden by engine-specific defaults
  * and the settings saves in flash memory.
  */
-void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
+void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
+		board_configuration_s *boardConfiguration) {
 	memset(engineConfiguration, 0, sizeof(engine_configuration_s));
 
 
@@ -144,13 +145,13 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 
 	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
 
-	engineConfiguration->injectionPinMode = OM_DEFAULT;
-	engineConfiguration->ignitionPinMode = OM_DEFAULT;
-	engineConfiguration->idlePinMode = OM_DEFAULT;
-	engineConfiguration->fuelPumpPinMode = OM_DEFAULT;
-	engineConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
-	engineConfiguration->ignitionMode = IM_ONE_COIL;
+	boardConfiguration->injectionPinMode = OM_DEFAULT;
+	boardConfiguration->ignitionPinMode = OM_DEFAULT;
+	boardConfiguration->idleValvePinMode = OM_DEFAULT;
+	boardConfiguration->fuelPumpPinMode = OM_DEFAULT;
+	boardConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
 
+	engineConfiguration->ignitionMode = IM_ONE_COIL;
 	engineConfiguration->triggerShapeSynchPointIndex = 0;
 	engineConfiguration->globalTriggerAngleOffset = 0;
 	engineConfiguration->injectionOffset = 0;
@@ -204,17 +205,17 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
 
 	engineConfiguration->needSecondTriggerInput = TRUE;
 
-	engineConfiguration->injectionPins[0] = GPIOB_9;
-	engineConfiguration->injectionPins[1] = GPIOB_8;
-	engineConfiguration->injectionPins[2] = GPIOE_3;
-	engineConfiguration->injectionPins[3] = GPIOE_5;
-	engineConfiguration->injectionPins[4] = GPIOE_6;
+	boardConfiguration->injectionPins[0] = GPIOB_9;
+	boardConfiguration->injectionPins[1] = GPIOB_8;
+	boardConfiguration->injectionPins[2] = GPIOE_3;
+	boardConfiguration->injectionPins[3] = GPIOE_5;
+	boardConfiguration->injectionPins[4] = GPIOE_6;
 //	engineConfiguration->injectionPins[5] = GPIOE_5;
 
-	engineConfiguration->ignitionPins[0] = GPIOC_7;
-	engineConfiguration->ignitionPins[1] = GPIOE_4; // todo: update this value
-	engineConfiguration->ignitionPins[2] = GPIOE_0; // todo: update this value
-	engineConfiguration->ignitionPins[3] = GPIOE_1; // todo: update this value
+	boardConfiguration->ignitionPins[0] = GPIOC_7;
+	boardConfiguration->ignitionPins[1] = GPIOE_4; // todo: update this value
+	boardConfiguration->ignitionPins[2] = GPIOE_0; // todo: update this value
+	boardConfiguration->ignitionPins[3] = GPIOE_1; // todo: update this value
 
 	engineConfiguration->map.config.mapType = MT_CUSTOM;
 	engineConfiguration->map.config.Min = 0;
@@ -231,11 +232,14 @@ void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfigu
 	engineConfiguration2->hasCltSensor = TRUE;
 }
 
-void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+void resetConfigurationExt(engine_type_e engineType,
+		engine_configuration_s *engineConfiguration,
+		engine_configuration2_s *engineConfiguration2,
+		board_configuration_s *boardConfiguration) {
 	/**
 	 * Let's apply global defaults first
 	 */
-	setDefaultConfiguration(engineConfiguration);
+	setDefaultConfiguration(engineConfiguration, boardConfiguration);
 	engineConfiguration->engineType = engineType;
 	/**
 	 * And override them with engine-specific defaults
@@ -243,7 +247,7 @@ void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *eng
 	switch (engineType) {
 #if EFI_SUPPORT_DODGE_NEON || defined(__DOXYGEN__)
 	case DODGE_NEON_1995:
-		setDodgeNeonEngineConfiguration(engineConfiguration);
+		setDodgeNeonEngineConfiguration(engineConfiguration, boardConfiguration);
 		break;
 #endif /* EFI_SUPPORT_DODGE_NEON */
 #if EFI_SUPPORT_FORD_ASPIRE || defined(__DOXYGEN__)

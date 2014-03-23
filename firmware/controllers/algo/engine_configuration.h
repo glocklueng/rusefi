@@ -155,12 +155,7 @@ typedef struct {
 	// RPM is float and not integer in order to use unified methods for interpolation
 	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
 
-	// WARNING: by default, our small enums are ONE BYTE. this one is made 4-byte with the 'ENUM_SIZE_HACK' hack
-	pin_output_mode_e injectionPinMode;
-	pin_output_mode_e ignitionPinMode;
-	pin_output_mode_e idlePinMode;
-	pin_output_mode_e fuelPumpPinMode;
-	pin_output_mode_e malfunctionIndicatorPinMode;
+	int unused[5];
 
 	/**
 	 * This is the angle between Top Dead Center (TDC) and the first trigger event.
@@ -221,14 +216,12 @@ typedef struct {
 	int HD44780height;
 
 	int tpsAdcChannel;
-	brain_pin_e ignitionPins[12];
+	int unused5[12];
 
 	trigger_config_s triggerConfig;
 
 	int needSecondTriggerInput;
-	brain_pin_e injectionPins[12];
-	brain_pin_e fuelPumpPin;
-	int unused;
+	int unused2[14];
 	int vBattAdcChannel;
 
 	float globalFuelCorrection;
@@ -253,12 +246,26 @@ typedef struct {
 } engine_configuration_s;
 
 typedef struct {
+	// WARNING: by default, our small enums are ONE BYTE. this one is made 4-byte with the 'ENUM_SIZE_HACK' hack
 	brain_pin_e idleValvePin;
-} board_configuratino_s;
+	pin_output_mode_e idleValvePinMode;
+
+	brain_pin_e fuelPumpPin;
+	pin_output_mode_e fuelPumpPinMode;
+
+	brain_pin_e injectionPins[12];
+	pin_output_mode_e injectionPinMode;
+
+	brain_pin_e ignitionPins[12];
+	pin_output_mode_e ignitionPinMode;
+
+	brain_pin_e malfunctionIndicatorPin;
+	pin_output_mode_e malfunctionIndicatorPinMode;
+} board_configuration_s;
 
 typedef struct {
 	engine_configuration_s engineConfiguration;
-	board_configuratino_s boardConfiguration;
+	board_configuration_s boardConfiguration;
 } persistent_config_s;
 
 /**
@@ -286,14 +293,16 @@ extern "C" {
 #endif /* __cplusplus */
 
 char* getConfigurationName(engine_configuration_s *engineConfiguration);
-void setDefaultConfiguration(engine_configuration_s *engineConfiguration);
+void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
 void setConstantDwell(engine_configuration_s *engineConfiguration, float dwellMs);
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2);
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 void printFloatArray(char *prefix, float array[], int size);
 
-void resetConfigurationExt(engine_type_e engineType, engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2);
+void resetConfigurationExt(engine_type_e engineType,
+		engine_configuration_s *engineConfiguration,
+		engine_configuration2_s *engineConfiguration2,
+		board_configuration_s *boardConfiguration);
 void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2, engine_type_e engineType);
 

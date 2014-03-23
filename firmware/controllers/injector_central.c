@@ -35,6 +35,7 @@ static int isInjectionEnabledFlag = TRUE;
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
+extern board_configuration_s *boardConfiguration;
 
 static int is_injector_enabled[MAX_INJECTOR_COUNT];
 
@@ -87,7 +88,7 @@ static void fuelBench(char * onStr, char *offStr, char *countStr) {
 	int count = atoi(countStr);
 
 	print("Running fuel bench: ON_TIME=%f, OFF_TIME=%f. Counter=%d\r\n", onTime, offTime, count);
-	scheduleMsg(&logger, "INJECTOR_1_OUTPUT on %s\r\n", hwPortname(engineConfiguration->injectionPins[0]));
+	scheduleMsg(&logger, "INJECTOR_1_OUTPUT on %s\r\n", hwPortname(boardConfiguration->injectionPins[0]));
 
 	for (int i = 0; i < count; i++) {
 		setOutputPinValue(INJECTOR_1_OUTPUT, TRUE);
@@ -106,11 +107,11 @@ void initInjectorCentral(void) {
 	printStatus();
 
 	// todo: should we move this code closer to the injection logic?
-	outputPinRegisterExt2("injector1", INJECTOR_1_OUTPUT, engineConfiguration->injectionPins[0], &engineConfiguration->injectionPinMode);
-	outputPinRegisterExt2("injector2", INJECTOR_2_OUTPUT, engineConfiguration->injectionPins[1], &engineConfiguration->injectionPinMode);
-	outputPinRegisterExt2("injector3", INJECTOR_3_OUTPUT, engineConfiguration->injectionPins[2], &engineConfiguration->injectionPinMode);
-	outputPinRegisterExt2("injector4", INJECTOR_4_OUTPUT, engineConfiguration->injectionPins[3], &engineConfiguration->injectionPinMode);
-	outputPinRegisterExt2("injector5", INJECTOR_5_OUTPUT, engineConfiguration->injectionPins[4], &engineConfiguration->injectionPinMode);
+	outputPinRegisterExt2("injector1", INJECTOR_1_OUTPUT, boardConfiguration->injectionPins[0], &boardConfiguration->injectionPinMode);
+	outputPinRegisterExt2("injector2", INJECTOR_2_OUTPUT, boardConfiguration->injectionPins[1], &boardConfiguration->injectionPinMode);
+	outputPinRegisterExt2("injector3", INJECTOR_3_OUTPUT, boardConfiguration->injectionPins[2], &boardConfiguration->injectionPinMode);
+	outputPinRegisterExt2("injector4", INJECTOR_4_OUTPUT, boardConfiguration->injectionPins[3], &boardConfiguration->injectionPinMode);
+	outputPinRegisterExt2("injector5", INJECTOR_5_OUTPUT, boardConfiguration->injectionPins[4], &boardConfiguration->injectionPinMode);
 
 	addConsoleActionII("injector", setInjectorEnabled);
 
