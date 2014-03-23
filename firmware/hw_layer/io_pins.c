@@ -17,6 +17,8 @@
 #include "trigger_decoder.h"
 #include "console_io.h"
 
+extern board_configuration_s *boardConfiguration;
+
 static pin_output_mode_e *pinDefaultState[IO_PIN_COUNT];
 static OutputPin outputs[IO_PIN_COUNT];
 static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_DEBUG, LED_EXT_1,
@@ -159,7 +161,7 @@ void initOutputPins(void) {
 //	outputPinRegister("ext led 3", LED_EXT_3, EXTRA_LED_2_PORT, EXTRA_LED_3_PIN);
 	outputPinRegister("alive1", LED_DEBUG, GPIOD, 6);
 
-	outputPinRegister("MalfunctionIndicator", LED_CHECK_ENGINE, LED_CHECK_ENGINE_PORT, LED_CHECK_ENGINE_PIN);
+	outputPinRegister("MalfunctionIndicator", LED_CHECK_ENGINE, getHwPort(boardConfiguration->malfunctionIndicatorPin), getHwPin(boardConfiguration->malfunctionIndicatorPin));
 
 	outputPinRegister("spi CS1", SPI_CS_1, SPI_CS1_PORT, SPI_CS1_PIN);
 	outputPinRegister("spi CS2", SPI_CS_2, SPI_CS2_PORT, SPI_CS2_PIN);
@@ -168,9 +170,9 @@ void initOutputPins(void) {
 	outputPinRegister("spi CS5", SPI_CS_SD_MODULE, SPI_SD_MODULE_PORT, SPI_SD_MODULE_PIN);
 
 	// todo: should we move this code closer to the fuel pump logic?
-	outputPinRegister("fuel pump relay", FUEL_PUMP_RELAY, FUEL_PUMP_PORT, FUEL_PUMP_PIN);
+	outputPinRegister("fuel pump relay", FUEL_PUMP_RELAY, getHwPort(boardConfiguration->fuelPumpPin), getHwPin(boardConfiguration->fuelPumpPin));
 
-	outputPinRegister("fan relay", FAN_RELAY, FAN_RELAY_PORT, FAN_RELAY_PIN);
+	outputPinRegister("fan relay", FAN_RELAY, getHwPort(boardConfiguration->fanPin), getHwPin(boardConfiguration->fanPin));
 
 	initialLedsBlink();
 

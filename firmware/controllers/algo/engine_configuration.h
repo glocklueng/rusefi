@@ -261,6 +261,9 @@ typedef struct {
 
 	brain_pin_e malfunctionIndicatorPin;
 	pin_output_mode_e malfunctionIndicatorPinMode;
+
+	brain_pin_e fanPin;
+	pin_output_mode_e fanPinMode;
 } board_configuration_s;
 
 typedef struct {
