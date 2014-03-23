@@ -51,6 +51,7 @@
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
 extern engine_configuration_s *engineConfiguration;
+extern board_configuration_s *boardConfiguration;
 
 /**
  * CH_FREQUENCY is the number of system ticks in a second
@@ -114,7 +115,7 @@ static void initPeriodicEvents(void) {
 
 static void fuelPumpOff(void *arg) {
 	if (getOutputPinValue(FUEL_PUMP_RELAY))
-		scheduleMsg(&logger, "fuelPump OFF at %s%d", portname(FUEL_PUMP_PORT ), FUEL_PUMP_PIN);
+		scheduleMsg(&logger, "fuelPump OFF at %s%d", portname(getHwPort(boardConfiguration->fuelPumpPin) ), getHwPin(boardConfiguration->fuelPumpPin));
 	turnOutputPinOff(FUEL_PUMP_RELAY);
 }
 
@@ -122,7 +123,7 @@ static void fuelPumpOn(ShaftEvents signal, int index) {
 	if (index != 0)
 		return; // let's not abuse the timer - one time per revolution would be enough
 	if (!getOutputPinValue(FUEL_PUMP_RELAY))
-		scheduleMsg(&logger, "fuelPump ON at %s%d", portname(FUEL_PUMP_PORT ), FUEL_PUMP_PIN);
+		scheduleMsg(&logger, "fuelPump ON at %s%d", portname(getHwPort(boardConfiguration->fuelPumpPin) ), getHwPin(boardConfiguration->fuelPumpPin));
 	turnOutputPinOn(FUEL_PUMP_RELAY);
 	/**
 	 * the idea of this implementation is that we turn the pump when the ECU turns on or

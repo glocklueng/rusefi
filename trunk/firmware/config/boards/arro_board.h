@@ -199,20 +199,6 @@
 #define SECONDARY_SHAFT_POSITION_INPUT_PIN 5
 #define SECONDARY_SHAFT_POSITION_INPUT_CHANNEL ICU_CHANNEL_1
 
-
-#define IDLE_VALVE_PORT GPIOE
-#define IDLE_VALVE_PIN 2
-
-// todo: migrate to dynamic pin definition
-/* Check Engine light */
-#define LED_CHECK_ENGINE_PORT GPIOC
-#define LED_CHECK_ENGINE_PIN 9
-
-// todo: migrate to dynamic pin definition
-/* Fuel pump */
-#define FUEL_PUMP_PORT GPIOC
-#define FUEL_PUMP_PIN 13
-
 /* Logic analyzer */
 #define LOGIC_ANALYZER_1_DRIVER ICUD1
 #define LOGIC_ANALYZER_1_PORT GPIOA
@@ -300,7 +286,6 @@
 #define EFI_SIGNAL_EXECUTOR_SINGLE_TIMER FALSE
 #define EFI_SIGNAL_EXECUTOR_HW_TIMER FALSE
 
-
 //#define EFI_SIGNAL_EXECUTOR_SLEEP FALSE
 //#define EFI_SIGNAL_EXECUTOR_SINGLE_TIMER TRUE
 
@@ -325,9 +310,5 @@
 #define HD44780_PIN_DB6	11
 #define HD44780_PORT_DB7	GPIOB
 #define HD44780_PIN_DB7	13
-
-// todo: migrate to dynamic pin definition
-#define FAN_RELAY_PORT GPIOC
-#define FAN_RELAY_PIN 15
 
 #endif /*ARRO_BOARD_H_*/

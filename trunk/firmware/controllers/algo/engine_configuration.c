@@ -84,7 +84,7 @@ void initBpsxD1Sensor(afr_sensor_s *sensor) {
 void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 		board_configuration_s *boardConfiguration) {
 	memset(engineConfiguration, 0, sizeof(engine_configuration_s));
-
+	memset(boardConfiguration, 0, sizeof(board_configuration_s));
 
 	engineConfiguration->injectorLag = 0.0;
 
@@ -145,12 +145,6 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 
 	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
 
-	boardConfiguration->injectionPinMode = OM_DEFAULT;
-	boardConfiguration->ignitionPinMode = OM_DEFAULT;
-	boardConfiguration->idleValvePinMode = OM_DEFAULT;
-	boardConfiguration->fuelPumpPinMode = OM_DEFAULT;
-	boardConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
-
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
 	engineConfiguration->triggerShapeSynchPointIndex = 0;
 	engineConfiguration->globalTriggerAngleOffset = 0;
@@ -205,21 +199,35 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 
 	engineConfiguration->needSecondTriggerInput = TRUE;
 
+	engineConfiguration->map.config.mapType = MT_CUSTOM;
+	engineConfiguration->map.config.Min = 0;
+	engineConfiguration->map.config.Max = 500;
+
+	boardConfiguration->idleValvePin = GPIOE_2;
+	boardConfiguration->idleValvePinMode = OM_DEFAULT;
+	boardConfiguration->fuelPumpPin = GPIOC_13;
+	boardConfiguration->fuelPumpPinMode = OM_DEFAULT;
+
 	boardConfiguration->injectionPins[0] = GPIOB_9;
 	boardConfiguration->injectionPins[1] = GPIOB_8;
 	boardConfiguration->injectionPins[2] = GPIOE_3;
 	boardConfiguration->injectionPins[3] = GPIOE_5;
 	boardConfiguration->injectionPins[4] = GPIOE_6;
 //	engineConfiguration->injectionPins[5] = GPIOE_5;
+	boardConfiguration->injectionPinMode = OM_DEFAULT;
 
 	boardConfiguration->ignitionPins[0] = GPIOC_7;
 	boardConfiguration->ignitionPins[1] = GPIOE_4; // todo: update this value
 	boardConfiguration->ignitionPins[2] = GPIOE_0; // todo: update this value
 	boardConfiguration->ignitionPins[3] = GPIOE_1; // todo: update this value
+	boardConfiguration->ignitionPinMode = OM_DEFAULT;
 
-	engineConfiguration->map.config.mapType = MT_CUSTOM;
-	engineConfiguration->map.config.Min = 0;
-	engineConfiguration->map.config.Max = 500;
+	boardConfiguration->malfunctionIndicatorPin = GPIOC_9;
+	boardConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
+
+	boardConfiguration->fanPin = GPIOC_15;
+	boardConfiguration->fanPinMode = OM_DEFAULT;
+
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {

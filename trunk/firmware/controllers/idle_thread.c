@@ -29,12 +29,14 @@
 #include "wave_math.h"
 #include "idle_thread.h"
 #include "pin_repository.h"
+#include "engine_configuration.h"
 
 #define IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY 200
 
 static WORKING_AREA(ivThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static int isIdleActive = EFI_IDLE_CONTROL;
+extern board_configuration_s *boardConfiguration;
 
 /**
  * here we keep the value we got from IDLE SWITCH input
@@ -102,7 +104,7 @@ static void setTargetIdle(int value) {
 void startIdleThread() {
 	initLogging(&logger, "Idle Valve Control");
 
-	wePlainInit("Idle Valve", &idleValve, IDLE_VALVE_PORT, IDLE_VALVE_PIN, 0.5, IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY,
+	wePlainInit("Idle Valve", &idleValve, getHwPort(boardConfiguration->idleValvePin), getHwPin(boardConfiguration->idleValvePin), 0.5, IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY,
 			IDLE_VALVE
 			);
 
