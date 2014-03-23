@@ -82,6 +82,9 @@ void initBpsxD1Sensor(afr_sensor_s *sensor) {
  * and the settings saves in flash memory.
  */
 void setDefaultConfiguration(engine_configuration_s *engineConfiguration) {
+	memset(engineConfiguration, 0, sizeof(engine_configuration_s));
+
+
 	engineConfiguration->injectorLag = 0.0;
 
 	for (int i = 0; i < IAT_CURVE_SIZE; i++) {

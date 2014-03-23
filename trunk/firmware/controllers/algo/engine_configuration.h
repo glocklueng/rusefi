@@ -256,6 +256,10 @@ typedef struct {
 	brain_pin_e idleValvePin;
 } board_configuratino_s;
 
+typedef struct {
+	engine_configuration_s engineConfiguration;
+	board_configuratino_s boardConfiguration;
+} persistent_config_s;
 
 /**
  * this part of the structure is separate just because so far

@@ -12,13 +12,7 @@
 #include "engine_configuration.h"
 #include "crc.h"
 
-#define FLASH_DATA_VERSION 20140309
-
-typedef struct {
-	engine_configuration_s engineConfiguration;
-	board_configuratino_s boardConfiguration;
-} persistent_config_s;
-
+#define FLASH_DATA_VERSION 20140321
 
 typedef struct {
 	int version;
