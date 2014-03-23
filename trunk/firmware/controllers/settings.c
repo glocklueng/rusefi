@@ -28,7 +28,7 @@ static char LOGGING_BUFFER[1000];
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
-extern board_configuratino_s *boardConfiguration;
+extern board_configuration_s *boardConfiguration;
 
 static void doPrintConfiguration(void) {
 	printConfiguration(engineConfiguration, engineConfiguration2);
@@ -130,11 +130,11 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 
 	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->crankingSettings.crankingRpm);
 
-	scheduleMsg(&logger, "injectionPinMode: %d", engineConfiguration->injectionPinMode);
-	scheduleMsg(&logger, "ignitionPinMode: %d", engineConfiguration->ignitionPinMode);
-	scheduleMsg(&logger, "idlePinMode: %d", engineConfiguration->idlePinMode);
-	scheduleMsg(&logger, "fuelPumpPinMode: %d", engineConfiguration->fuelPumpPinMode);
-	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %d", engineConfiguration->malfunctionIndicatorPinMode);
+	scheduleMsg(&logger, "injectionPinMode: %d", boardConfiguration->injectionPinMode);
+	scheduleMsg(&logger, "ignitionPinMode: %d", boardConfiguration->ignitionPinMode);
+	scheduleMsg(&logger, "idlePinMode: %d", boardConfiguration->idleValvePinMode);
+	scheduleMsg(&logger, "fuelPumpPinMode: %d", boardConfiguration->fuelPumpPinMode);
+	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %d", boardConfiguration->malfunctionIndicatorPinMode);
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
 
@@ -142,14 +142,14 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 
 #if EFI_PROD_CODE
 	for(int i = 0;i < engineConfiguration->cylindersCount;i++) {
-		brain_pin_e brainPin = engineConfiguration->injectionPins[i];
+		brain_pin_e brainPin = boardConfiguration->injectionPins[i];
 
 		scheduleMsg(&logger, "injection %d @ %d", i, brainPin);
 	}
 
 	// todo: calculate coils count based on ignition mode
 	for (int i = 0; i < 4; i++) {
-		brain_pin_e brainPin = engineConfiguration->ignitionPins[i];
+		brain_pin_e brainPin = boardConfiguration->ignitionPins[i];
 		GPIO_TypeDef *hwPort = getHwPort(brainPin);
 		int hwPin = getHwPin(brainPin);
 		scheduleMsg(&logger, "ignition %d @ %s%d", i, portname(hwPort), hwPin);
@@ -172,7 +172,7 @@ static void setTimingMode(int value) {
 
 static void setEngineType(int value) {
 	engineConfiguration->engineType = (engine_type_e) value;
-	resetConfigurationExt((engine_type_e) value, engineConfiguration, engineConfiguration2);
+	resetConfigurationExt((engine_type_e) value, engineConfiguration, engineConfiguration2, boardConfiguration);
 #if EFI_PROD_CODE
 	writeToFlash();
 	scheduleReset();
@@ -182,12 +182,12 @@ static void setEngineType(int value) {
 }
 
 static void setInjectionPinMode(int value) {
-	engineConfiguration->injectionPinMode = (pin_output_mode_e) value;
+	boardConfiguration->injectionPinMode = (pin_output_mode_e) value;
 	doPrintConfiguration();
 }
 
 static void setIgnitionPinMode(int value) {
-	engineConfiguration->ignitionPinMode = (pin_output_mode_e) value;
+	boardConfiguration->ignitionPinMode = (pin_output_mode_e) value;
 	doPrintConfiguration();
 }
 
@@ -197,7 +197,7 @@ static void setIdlePin(int value) {
 }
 
 static void setIdlePinMode(int value) {
-	engineConfiguration->idlePinMode = (pin_output_mode_e) value;
+	boardConfiguration->idleValvePinMode = (pin_output_mode_e) value;
 	doPrintConfiguration();
 }
 
@@ -207,12 +207,12 @@ static void setIgnitionOffset(int value) {
 }
 
 static void setFuelPumpPinMode(int value) {
-	engineConfiguration->fuelPumpPinMode = (pin_output_mode_e) value;
+	boardConfiguration->fuelPumpPinMode = (pin_output_mode_e) value;
 	doPrintConfiguration();
 }
 
 static void setMalfunctionIndicatorPinMode(int value) {
-	engineConfiguration->malfunctionIndicatorPinMode = (pin_output_mode_e) value;
+	boardConfiguration->malfunctionIndicatorPinMode = (pin_output_mode_e) value;
 	doPrintConfiguration();
 }
 

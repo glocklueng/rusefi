@@ -13,10 +13,11 @@
 #include "engine_configuration.h"
 #include "thermistors.h"
 
-void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration) {
+void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration,
+		board_configuration_s *boardConfiguration) {
 	engineConfiguration->rpmHardLimit = 7000;
 
-	engineConfiguration->ignitionPinMode = OM_OPENDRAIN;
+	boardConfiguration->ignitionPinMode = OM_OPENDRAIN;
 
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 0, 32500, 30, 7550, 100, 700);
 	engineConfiguration->cltThermistorConf.bias_resistor = 2200;

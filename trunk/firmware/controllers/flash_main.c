@@ -41,7 +41,7 @@ FlashState flashState;
 #endif
 
 engine_configuration_s *engineConfiguration = &flashState.persistentConfiguration.engineConfiguration;
-board_configuratino_s *boardConfiguration = &flashState.persistentConfiguration.boardConfiguration;
+board_configuration_s *boardConfiguration = &flashState.persistentConfiguration.boardConfiguration;
 
 extern engine_configuration2_s * engineConfiguration2;
 
@@ -77,7 +77,7 @@ static int isValid(FlashState *state) {
 }
 
 static void doResetConfiguration(void) {
-	resetConfigurationExt(defaultEngineType, engineConfiguration, engineConfiguration2);
+	resetConfigurationExt(defaultEngineType, engineConfiguration, engineConfiguration2, boardConfiguration);
 }
 
 static void readFromFlash(void) {
