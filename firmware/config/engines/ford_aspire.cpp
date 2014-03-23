@@ -137,16 +137,6 @@ static float default_timing_table[AD_LOAD_COUNT][AD_RPM_COUNT] = {
 /* Load 4.400000 */{	0.350000,	5.590000,	0.502000,	0.910000,	0.864000,	0.954000,	1.324000,	-7.436000,	1.170000,	1.054000,	2.058000,	2.098000,	2.636000,	-12.352000,	-12.352000,	-12.352000}
 };
 
-static void configureAspireEngineEventHandler(engine_configuration_s *e,
-		engine_configuration2_s *engineConfiguration2, trigger_shape_s * s, EventHandlerConfiguration *config) {
-
-	addFuelEvents(e, s, &config->crankingInjectionEvents, e->crankingInjectionMode);
-
-	addFuelEvents(e, s, &config->injectionEvents, e->injectionMode);
-
-	initializeIgnitionActions(e, engineConfiguration2);
-}
-
 static void setDefaultMaps(engine_configuration_s *engineConfiguration) {
 	for (int i = 0; i < FUEL_LOAD_COUNT; i++)
 		engineConfiguration->fuelLoadBins[i] = default_fuel_maf_bins[i];
@@ -229,15 +219,16 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->map.config.mapType = MT_DENSO183;
 }
 
-void setFordAspireengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+void setFordAspireengine_configuration2_s(engine_configuration_s *e, engine_configuration2_s *engineConfiguration2) {
 
+	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 
-	configureAspireEngineEventHandler(engineConfiguration,
-			engineConfiguration2,
+	addFuelEvents(e, s, &config->crankingInjectionEvents, e->crankingInjectionMode);
 
-			&engineConfiguration2->triggerShape,
+	addFuelEvents(e, s, &config->injectionEvents, e->injectionMode);
 
-			&engineConfiguration2->engineEventConfiguration);
+	initializeIgnitionActions(e, engineConfiguration2);
 }
 
 #endif /* EFI_SUPPORT_FORD_ASPIRE */
