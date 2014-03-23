@@ -145,13 +145,13 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engi
 
 }
 
-void addFuelEvents(engine_configuration_s *e,  trigger_shape_s * s, EventHandlerConfiguration *config) {
-	resetEventList(&config->injectionEvents);
+void addFuelEvents(engine_configuration_s *e,  trigger_shape_s * s, ActuatorEventList *list, injection_mode_e mode) {
+	resetEventList(list);
 
 	for(int i = 0;i < e->cylindersCount;i++) {
 		io_pin_e pin = (io_pin_e)((int)INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1);
 		float angle = e->injectionOffset + i * 720.0 / e->cylindersCount;
-		registerActuatorEventExt(e, s, &config->injectionEvents, addOutputSignal(pin), angle);
+		registerActuatorEventExt(e, s, list, addOutputSignal(pin), angle);
 	}
 }
 
