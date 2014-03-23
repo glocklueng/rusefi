@@ -20,7 +20,6 @@
  */
 
 //#include <stdio.h>
-
 #include "engine_math.h"
 #include "main.h"
 #include "engine_configuration.h"
@@ -124,7 +123,8 @@ int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm) {
 	return rpm > 0 && rpm < engineConfiguration->crankingSettings.crankingRpm;
 }
 
-void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
+		engine_configuration2_s *engineConfiguration2) {
 	chDbgCheck(engineConfiguration->cylindersCount > 0, "cylindersCount");
 
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
@@ -135,9 +135,8 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engi
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 			float angle = 720.0 * i / engineConfiguration->cylindersCount;
 
-			registerActuatorEventExt(engineConfiguration,
-					&engineConfiguration2->triggerShape,
-					&config->ignitionEvents, addOutputSignal(SPARKOUT_1_OUTPUT), angle);
+			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
+					addOutputSignal(SPARKOUT_1_OUTPUT), angle);
 		}
 
 	} else
@@ -145,16 +144,31 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engi
 
 }
 
-void addFuelEvents(engine_configuration_s *e,  trigger_shape_s * s, ActuatorEventList *list, injection_mode_e mode) {
+void addFuelEvents(engine_configuration_s *e, trigger_shape_s * s, ActuatorEventList *list, injection_mode_e mode) {
 	resetEventList(list);
 
-	for(int i = 0;i < e->cylindersCount;i++) {
-		io_pin_e pin = (io_pin_e)((int)INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1);
-		float angle = e->injectionOffset + i * 720.0 / e->cylindersCount;
-		registerActuatorEventExt(e, s, list, addOutputSignal(pin), angle);
+	switch (mode) {
+	case IM_SEQUENTIAL:
+		for (int i = 0; i < e->cylindersCount; i++) {
+			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1);
+			float angle = e->injectionOffset + i * 720.0 / e->cylindersCount;
+			registerActuatorEventExt(e, s, list, addOutputSignal(pin), angle);
+		}
+		break;
+	case IM_SIMULTANEOUS:
+		for (int i = 0; i < e->cylindersCount; i++) {
+			float angle = e->injectionOffset + i * 720.0 / e->cylindersCount;
+
+			for (int j = 0; j < e->cylindersCount; j++) {
+				io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + j);
+				registerActuatorEventExt(e, s, list, addOutputSignal(pin), angle);
+			}
+		}
+		break;
+	default:
+		firmwareError("Unexpected injection mode %d", mode);
 	}
 }
-
 
 /**
  * @return Spark dwell time, in milliseconds.
@@ -175,7 +189,8 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
 }
 
-void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
+void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list,
+		OutputSignal *actuator, float angleOffset) {
 	chDbgCheck(s->size > 0, "uninitialized trigger_shape_s");
 
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
@@ -194,7 +209,8 @@ void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigg
 			break;
 	}
 	// explicit check for zero to avoid issues where logical zero is not exactly zero due to float nature
-	float angle = i == 0 ? 0 : fixAngle(s->wave.switchTimes[(triggerIndexOfZeroEvent + i) % s->size] * 720 - firstAngle);
+	float angle =
+			i == 0 ? 0 : fixAngle(s->wave.switchTimes[(triggerIndexOfZeroEvent + i) % s->size] * 720 - firstAngle);
 
 	chDbgCheck(angleOffset >= angle, "angle constraint violation in registerActuatorEventExt()");
 
@@ -204,7 +220,6 @@ void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigg
 	registerActuatorEvent(list, i, actuator, angleOffset - angle);
 }
 
-
 //float getTriggerEventAngle(int triggerEventIndex) {
 //	return 0;
 //}
@@ -213,10 +228,10 @@ void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigg
  * there is some BS related to isnan in MinGW, so let's have all the issues in one place
  */
 int cisnan(float f) {
-	return *(((int*)(&f)))  == 0x7FC00000;
+	return *(((int*) (&f))) == 0x7FC00000;
 }
 
-static int order_1_THEN_3_THEN_4_THEN2[] = {1, 3, 4, 2};
+static int order_1_THEN_3_THEN_4_THEN2[] = { 1, 3, 4, 2 };
 
 /**
  * @param index from zero to cylindersCount - 1
@@ -224,7 +239,7 @@ static int order_1_THEN_3_THEN_4_THEN2[] = {1, 3, 4, 2};
  */
 int getCylinderId(firing_order_e firingOrder, int index) {
 
-	switch(firingOrder) {
+	switch (firingOrder) {
 	case FO_ONE_CYLINDER:
 		return 1;
 	case FO_1_THEN_3_THEN_4_THEN2:
