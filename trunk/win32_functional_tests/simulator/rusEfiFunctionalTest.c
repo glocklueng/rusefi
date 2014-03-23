@@ -30,7 +30,7 @@ static persistent_config_s config;
 static engine_configuration2_s ec2;
 
 engine_configuration_s * engineConfiguration = &config.engineConfiguration;
-board_configuratino_s *boardConfiguration = &config.boardConfiguration;
+board_configuration_s *boardConfiguration = &config.boardConfiguration;
 engine_configuration2_s *engineConfiguration2 = &ec2;
 
 void setOutputPinValue(io_pin_e pin, int logicValue) {
@@ -80,7 +80,7 @@ void rusEfiFunctionalTest(void) {
 
 	initStatusLoop();
 
-	resetConfigurationExt(FORD_ASPIRE_1996, engineConfiguration, engineConfiguration2);
+	resetConfigurationExt(FORD_ASPIRE_1996, engineConfiguration, engineConfiguration2, boardConfiguration);
 
 	initThermistors();
 	initAlgo();
