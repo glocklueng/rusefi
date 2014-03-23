@@ -28,6 +28,7 @@ static char LOGGING_BUFFER[1000];
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
+extern board_configuratino_s *boardConfiguration;
 
 static void doPrintConfiguration(void) {
 	printConfiguration(engineConfiguration, engineConfiguration2);
@@ -136,6 +137,9 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %d", engineConfiguration->malfunctionIndicatorPinMode);
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
+
+	scheduleMsg(&logger, "idleValvePin: %d", boardConfiguration->idleValvePin);
+
 #if EFI_PROD_CODE
 	// todo: calculate coils count based on ignition mode
 	for (int i = 0; i < 4; i++) {
@@ -178,6 +182,11 @@ static void setInjectionPinMode(int value) {
 
 static void setIgnitionPinMode(int value) {
 	engineConfiguration->ignitionPinMode = (pin_output_mode_e) value;
+	doPrintConfiguration();
+}
+
+static void setIdlePin(int value) {
+	boardConfiguration->idleValvePin = (brain_pin_e) value;
 	doPrintConfiguration();
 }
 
@@ -340,6 +349,7 @@ void initSettings(void) {
 
 	addConsoleActionI("set_injection_pin_mode", setInjectionPinMode);
 	addConsoleActionI("set_ignition_pin_mode", setIgnitionPinMode);
+	addConsoleActionI("set_idle_pin", setIdlePin);
 	addConsoleActionI("set_idle_pin_mode", setIdlePinMode);
 	addConsoleActionI("set_fuel_pump_pin_mode", setFuelPumpPinMode);
 	addConsoleActionI("set_malfunction_indicator_pin_mode", setMalfunctionIndicatorPinMode);
