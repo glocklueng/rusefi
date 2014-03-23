@@ -1,6 +1,8 @@
 /**
  * @file	dodge_neon.c
  *
+ * DODGE_NEON_1995 = 2
+ *
  * @date Dec 16, 2013
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
