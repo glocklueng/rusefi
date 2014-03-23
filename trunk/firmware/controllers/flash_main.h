@@ -15,8 +15,14 @@
 #define FLASH_DATA_VERSION 20140309
 
 typedef struct {
+	engine_configuration_s engineConfiguration;
+	board_configuratino_s boardConfiguration;
+} persistent_config_s;
+
+
+typedef struct {
 	int version;
-	engine_configuration_s configuration;
+	persistent_config_s persistentConfiguration;
 	crc value;
 } FlashState;
 

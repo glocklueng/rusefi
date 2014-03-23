@@ -40,7 +40,7 @@ static FlashState flashState __attribute__((section(".ccm")));
 static FlashState flashState;
 #endif
 
-engine_configuration_s *engineConfiguration = &flashState.configuration;
+engine_configuration_s *engineConfiguration = &flashState.persistentConfiguration.engineConfiguration;
 extern engine_configuration2_s * engineConfiguration2;
 
 #define FLASH_ADDR 0x08060000
@@ -50,7 +50,7 @@ extern engine_configuration2_s * engineConfiguration2;
 void writeToFlash(void) {
 	flashState.version = FLASH_DATA_VERSION;
 	scheduleMsg(&logger, "FLASH_DATA_VERSION=%d", flashState.version);
-	crc result = calc_crc((const crc*) &flashState.configuration, sizeof(engine_configuration_s));
+	crc result = calc_crc((const crc*) &flashState.persistentConfiguration, sizeof(persistent_config_s));
 	flashState.value = result;
 	scheduleMsg(&logger, "Reseting flash=%d", FLASH_USAGE);
 	flashErase(FLASH_ADDR, FLASH_USAGE);
@@ -66,7 +66,7 @@ static int isValid(FlashState *state) {
 		scheduleMsg(&logger, "Unexpected flash version: %d", state->version);
 		return FALSE;
 	}
-	crc result = calc_crc((const crc*) &state->configuration, sizeof(engine_configuration_s));
+	crc result = calc_crc((const crc*) &state->persistentConfiguration, sizeof(persistent_config_s));
 	if (result != state->value) {
 		scheduleMsg(&logger, "CRC got: %d", result);
 		scheduleMsg(&logger, "CRC expected: %d", state->value);
