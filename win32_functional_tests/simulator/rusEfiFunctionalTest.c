@@ -26,10 +26,11 @@
 
 extern WaveChart waveChart;
 
-static engine_configuration_s ec;
+static persistent_config_s config;
 static engine_configuration2_s ec2;
 
-engine_configuration_s * engineConfiguration = &ec;
+engine_configuration_s * engineConfiguration = &config.engineConfiguration;
+board_configuratino_s *boardConfiguration = &config.boardConfiguration;
 engine_configuration2_s *engineConfiguration2 = &ec2;
 
 void setOutputPinValue(io_pin_e pin, int logicValue) {
