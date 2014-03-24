@@ -148,7 +148,7 @@ public class AutoTest {
 
         chart = nextChart();
         float x = 55;
-        assertWave(chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
+        assertWave("aspire", chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
 
 
         changeRpm(600);
