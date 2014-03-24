@@ -156,8 +156,8 @@ public class AutoTest {
         assertWave(chart, WaveChart.SPARK_1, 0.04, x, x + 180, x + 360, x + 540);
         sendCommand("set_cranking_rpm 700");
         chart = nextChart();
-        x = 70;
-//        assertWave("cranking@600", chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
+        x = 55;
+        assertWave("cranking@600", chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
 
         changeRpm(2000);
         sendCommand("set_whole_fuel_map 1.57");
