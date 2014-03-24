@@ -150,7 +150,15 @@ public class AutoTest {
         assertWave(chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
 
 
-        changeRpm(500);
+        changeRpm(600);
+        chart = nextChart();
+        x = 76;
+        assertWave(chart, WaveChart.SPARK_1, 0.04, x, x + 180, x + 360, x + 540);
+        sendCommand("set_cranking_rpm 700");
+        chart = nextChart();
+        x = 70;
+//        assertWave("cranking@600", chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
+
         changeRpm(2000);
         sendCommand("set_whole_fuel_map 1.57");
 
@@ -181,20 +189,25 @@ public class AutoTest {
         assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
     }
 
+
     private static void assertWave(WaveChart chart, String key, double width, double... expectedAngles) {
+        assertWave("", chart, key, width, expectedAngles);
+    }
+
+    private static void assertWave(String msg, WaveChart chart, String key, double width, double... expectedAngles) {
         RevolutionLog revolutionLog = chart.getRevolutionsLog();
         if (revolutionLog.keySet().isEmpty())
-            throw new IllegalStateException("Empty revolutions in " + chart);
+            throw new IllegalStateException(msg + "Empty revolutions in " + chart);
 
         StringBuilder events = chart.get(key);
-        assertTrue("Events not null for " + key, events != null);
+        assertTrue(msg + "Events not null for " + key, events != null);
         List<WaveReport.UpDown> wr = WaveReport.parse(events.toString());
-        assertTrue("waves for " + key, !wr.isEmpty());
+        assertTrue(msg + "waves for " + key, !wr.isEmpty());
         for (WaveReport.UpDown ud : wr) {
             double angleByTime = revolutionLog.getCrankAngleByTime(ud.upTime);
-            assertCloseEnough("angle for " + key, angleByTime, expectedAngles);
+            assertCloseEnough(msg + "angle for " + key, angleByTime, expectedAngles);
 
-            assertCloseEnough("width for " + key, ud.getDutyCycle(revolutionLog), width);
+            assertCloseEnough(msg + "width for " + key, ud.getDutyCycle(revolutionLog), width);
         }
     }
 
