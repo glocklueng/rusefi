@@ -24,6 +24,7 @@
 extern "C"
 {
 #include "trigger_mazda.h"
+#include "wave_math.h"
 }
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
@@ -78,7 +79,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s co
 		return;
 	}
 
-	int currentDuration = now - shaftPositionState->toothed_previous_time;
+	int currentDuration = overflowDiff(now, shaftPositionState->toothed_previous_time);
 
 // todo: skip a number of signal from the beginning
 
