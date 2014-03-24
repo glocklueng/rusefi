@@ -80,6 +80,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s co
 	}
 
 	int currentDuration = overflowDiff(now, shaftPositionState->toothed_previous_time);
+	chDbgCheck(currentDuration >=0, "negative duration?");
 
 // todo: skip a number of signal from the beginning
 
