@@ -14,6 +14,7 @@
 #include "dodge_neon.h"
 #include "engine_configuration.h"
 #include "thermistors.h"
+#include "engine_math.h"
 
 void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration,
 		board_configuration_s *boardConfiguration) {
@@ -39,12 +40,19 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->triggerConfig.triggerType = TT_DODGE_NEON;
 	engineConfiguration->ignitionMode = IM_INDIVIDUAL_COILS;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
+
+	engineConfiguration->ignitionOffset = 51;
+	engineConfiguration->injectionOffset = 360 + 51;
+	engineConfiguration->triggerShapeSynchPointIndex = 3;
 }
 
 void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	resetOutputSignals();
 
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
+
+	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+	addFuelEvents(engineConfiguration, s, &config->injectionEvents, engineConfiguration->injectionMode);
 
 	float x = 51;
 
