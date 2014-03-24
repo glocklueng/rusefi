@@ -41,9 +41,9 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->ignitionMode = IM_INDIVIDUAL_COILS;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 
-	engineConfiguration->ignitionOffset = 51;
-	engineConfiguration->injectionOffset = 360 + 51;
-	engineConfiguration->triggerShapeSynchPointIndex = 3;
+//	engineConfiguration->ignitionOffset = 51;
+//	engineConfiguration->injectionOffset = 360 + 51;
+//	engineConfiguration->triggerShapeSynchPointIndex = 3;
 }
 
 void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
@@ -51,8 +51,8 @@ void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfigura
 
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
-	addFuelEvents(engineConfiguration, s, &config->injectionEvents, engineConfiguration->injectionMode);
+//	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+//	addFuelEvents(engineConfiguration, s, &config->injectionEvents, engineConfiguration->injectionMode);
 
 	float x = 51;
 
