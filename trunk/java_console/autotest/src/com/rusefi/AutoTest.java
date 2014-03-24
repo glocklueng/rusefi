@@ -118,7 +118,7 @@ public class AutoTest {
         assertWave(chart, WaveChart.INJECTOR_1, 0.1, 411);
         assertWave(chart, WaveChart.INJECTOR_3, 0.1, 591);
 
-        assertWave(chart, WaveChart.SPARK_4, 0.13333, 6);
+        assertWave("Neon", chart, WaveChart.SPARK_4, 0.13333, 6);
         assertWave(chart, WaveChart.SPARK_2, 0.13333, 186);
         assertWave(chart, WaveChart.SPARK_1, 0.13333, 366);
         assertWave(chart, WaveChart.SPARK_3, 0.13333, 546);
