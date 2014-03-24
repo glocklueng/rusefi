@@ -19,9 +19,56 @@ void sendOutConfirmation(char *value, int i) {
 	// test implementation
 }
 
+int getTheAngle(engine_type_e engineType) {
+	persistent_config_s persistentConfig;
+	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
+	engine_configuration2_s ec2;
+
+	resetConfigurationExt(engineType, ec, &ec2, &persistentConfig.boardConfiguration);
+
+	trigger_state_s state;
+	clearTriggerState(&state);
+
+	trigger_shape_s * shape = &ec2.triggerShape;
+	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
+
+	int primaryWheelState = FALSE;
+	int secondaryWheelState = FALSE;
+
+	for (int i = 0; i < 100; i++) {
+
+		int stateIndex = i % shape->size;
+
+		int time = 10000 * shape->wave.switchTimes[stateIndex];
+
+		int newPrimaryWheelState = shape->wave.waves[0].pinStates[stateIndex];
+		int newSecondaryWheelState = shape->wave.waves[1].pinStates[stateIndex];
+
+		if (primaryWheelState != newPrimaryWheelState) {
+			primaryWheelState = newPrimaryWheelState;
+			ShaftEvents s = primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN;
+			processTriggerEvent(&state, shape, &ec->triggerConfig, s, time);
+		}
+
+		if (secondaryWheelState != newSecondaryWheelState) {
+			secondaryWheelState = newSecondaryWheelState;
+			ShaftEvents s = secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN;
+			processTriggerEvent(&state, shape, &ec->triggerConfig, s, time);
+		}
+
+		if (state.shaft_is_synchronized) {
+			return stateIndex;
+		}
+	}
+
+	return -1;
+}
+
 static void testDodgeNeonDecoder(void) {
 	printf("*************************************************** testDodgeNeonDecoder\r\n");
 	initTriggerDecoder();
+
+	assertEquals(-1, getTheAngle(DODGE_NEON_1995));
 
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
@@ -33,11 +80,7 @@ static void testDodgeNeonDecoder(void) {
 	trigger_state_s state;
 	clearTriggerState(&state);
 
-
-
-
 	assertFalseM("1 shaft_is_synchronized", state.shaft_is_synchronized);
-
 
 	int r = 0;
 	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 60);
@@ -129,6 +172,8 @@ static void test1995FordInline6TriggerDecoder(void) {
 void testFordAspire(void) {
 	printf("*************************************************** testTriggerDecoder\r\n");
 
+	assertEquals(4, getTheAngle(FORD_ASPIRE_1996));
+
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
@@ -194,10 +239,8 @@ void testMazdaMianaNbDecoder(void) {
 	assertTrueM("1e shaft_is_synchronized", state.shaft_is_synchronized);
 	assertEquals(0, state.current_index);
 
-
 	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 720);
 	assertTrueM("1f shaft_is_synchronized", state.shaft_is_synchronized);
-
 
 }
 
