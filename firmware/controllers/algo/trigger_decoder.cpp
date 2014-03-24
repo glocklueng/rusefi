@@ -39,8 +39,8 @@ int isTriggerDecoderError(void) {
 	return errorDetection.sum(6) > 4;
 }
 
-static inline int isSynchronizationGap(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
-		trigger_config_s *triggerConfig, int currentDuration) {
+static inline int isSynchronizationGap(trigger_state_s const *shaftPositionState, trigger_shape_s const *triggerShape,
+		trigger_config_s const *triggerConfig, const int currentDuration) {
 	if (!triggerConfig->isSynchronizationNeeded)
 		return FALSE;
 
@@ -48,8 +48,9 @@ static inline int isSynchronizationGap(trigger_state_s *shaftPositionState, trig
 			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioTo;
 }
 
-static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
-		trigger_config_s *triggerConfig) {
+static inline int noSynchronizationResetNeeded(trigger_state_s const *shaftPositionState,
+		trigger_shape_s const *triggerShape,
+		trigger_config_s const*triggerConfig) {
 	if (triggerConfig->isSynchronizationNeeded)
 		return FALSE;
 	if (!shaftPositionState->shaft_is_synchronized)
@@ -63,8 +64,8 @@ static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionSta
 /**
  * @brief This method changes the state of trigger_state_s data structure according to the trigger event
  */
-void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s *triggerShape,
-		trigger_config_s *triggerConfig, ShaftEvents signal, time_t now) {
+void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s const *triggerShape,
+		trigger_config_s const *triggerConfig, ShaftEvents signal, time_t now) {
 
 	int isLessImportant = (triggerConfig->useRiseEdge && signal != SHAFT_PRIMARY_UP)
 			|| (!triggerConfig->useRiseEdge && signal != SHAFT_PRIMARY_DOWN);
