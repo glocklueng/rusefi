@@ -11,7 +11,7 @@
 
 static ThermistorConf tc;
 
-static void testMapDecoding() {
+static void testMapDecoding(void) {
 	assertEqualsM("denso 0 volts", -6.64, getMAPValueHonda_Denso183(0));
 	assertEquals(31.244, getMAPValueHonda_Denso183(1));
 
