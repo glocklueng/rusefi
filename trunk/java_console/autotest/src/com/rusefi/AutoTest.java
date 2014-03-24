@@ -143,6 +143,7 @@ public class AutoTest {
     private static void testFordAspire() {
         WaveChart chart;
         // todo: interesting changeRpm(100);
+        sendCommand("set_cranking_rpm 500");
         changeRpm(200);
 
         chart = nextChart();
