@@ -29,6 +29,7 @@ extern "C"
 #include "test_util.h"
 #include "engine_configuration.h"
 #include "test_trigger_decoder.h"
+#include "engine_math.h"
 
 }
 
@@ -41,7 +42,7 @@ static float absF(float value) {
 }
 
 void assertEqualsM(char *msg, float expected, float actual) {
-	if (isnan(actual) && !isnan(expected)) {
+	if (cisnan(actual) && !cisnan(expected)) {
 		printf("Unexpected: %s %.4f while expected %.4f\r\n", msg, actual, expected);
 		exit(-1);
 	}
