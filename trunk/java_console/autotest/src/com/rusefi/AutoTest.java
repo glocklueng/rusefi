@@ -113,12 +113,14 @@ public class AutoTest {
         changeRpm(2000);
         chart = nextChart();
 
-        assertWave(chart, WaveChart.INJECTOR_4, 0.1, 51);
-        assertWave(chart, WaveChart.INJECTOR_2, 0.1, 231);
-        assertWave(chart, WaveChart.INJECTOR_1, 0.1, 411);
-        assertWave(chart, WaveChart.INJECTOR_3, 0.1, 591);
+        String msg = "Neon";
 
-        assertWave("Neon", chart, WaveChart.SPARK_4, 0.13333, 6);
+        assertWave(msg, chart, WaveChart.INJECTOR_4, 0.1, 51);
+        assertWave(msg, chart, WaveChart.INJECTOR_2, 0.1, 231);
+        assertWave(msg, chart, WaveChart.INJECTOR_1, 0.1, 411);
+        assertWave(msg, chart, WaveChart.INJECTOR_3, 0.1, 591);
+
+        assertWave(msg, chart, WaveChart.SPARK_4, 0.13333, 6);
         assertWave(chart, WaveChart.SPARK_2, 0.13333, 186);
         assertWave(chart, WaveChart.SPARK_1, 0.13333, 366);
         assertWave(chart, WaveChart.SPARK_3, 0.13333, 546);
@@ -198,15 +200,15 @@ public class AutoTest {
     private static void assertWave(String msg, WaveChart chart, String key, double width, double... expectedAngles) {
         RevolutionLog revolutionLog = chart.getRevolutionsLog();
         if (revolutionLog.keySet().isEmpty())
-            throw new IllegalStateException(msg + "Empty revolutions in " + chart);
+            throw new IllegalStateException(msg + " Empty revolutions in " + chart);
 
         StringBuilder events = chart.get(key);
-        assertTrue(msg + "Events not null for " + key, events != null);
+        assertTrue(msg + " Events not null for " + key, events != null);
         List<WaveReport.UpDown> wr = WaveReport.parse(events.toString());
-        assertTrue(msg + "waves for " + key, !wr.isEmpty());
+        assertTrue(msg + " waves for " + key, !wr.isEmpty());
         for (WaveReport.UpDown ud : wr) {
             double angleByTime = revolutionLog.getCrankAngleByTime(ud.upTime);
-            assertCloseEnough(msg + "angle for " + key, angleByTime, expectedAngles);
+            assertCloseEnough(msg + " angle for " + key, angleByTime, expectedAngles);
 
             assertCloseEnough(msg + "width for " + key, ud.getDutyCycle(revolutionLog), width);
         }
