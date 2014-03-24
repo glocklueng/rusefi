@@ -39,7 +39,9 @@ int getTheAngle(engine_type_e engineType) {
 
 		int stateIndex = i % shape->size;
 
-		int time = 10000 * shape->wave.switchTimes[stateIndex];
+		int loopIndex = i / shape->size;
+
+		int time = 10000 * (loopIndex + shape->wave.switchTimes[stateIndex]);
 
 		int newPrimaryWheelState = shape->wave.waves[0].pinStates[stateIndex];
 		int newSecondaryWheelState = shape->wave.waves[1].pinStates[stateIndex];
@@ -68,7 +70,7 @@ static void testDodgeNeonDecoder(void) {
 	printf("*************************************************** testDodgeNeonDecoder\r\n");
 	initTriggerDecoder();
 
-	assertEquals(-1, getTheAngle(DODGE_NEON_1995));
+	assertEquals(1, getTheAngle(DODGE_NEON_1995));
 
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
@@ -119,6 +121,9 @@ static void testDodgeNeonDecoder(void) {
 
 static void test1995FordInline6TriggerDecoder(void) {
 	printf("*************************************************** test1995FordInline6TriggerDecoder\r\n");
+
+	assertEquals(0, getTheAngle(FORD_INLINE_6_1995));
+
 	initTriggerDecoder();
 	resetOutputSignals();
 
@@ -141,10 +146,10 @@ static void test1995FordInline6TriggerDecoder(void) {
 
 	trigger_shape_s * shape = &ec2.triggerShape;
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
-	int r = 0;
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 10);
+	int r = 10;
+	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r);
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 11);
+	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, ++r);
 	assertTrue(state.shaft_is_synchronized); // first signal rise synchronize
 	assertEquals(0, state.current_index);
 	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
