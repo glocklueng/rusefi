@@ -76,6 +76,10 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 void setFordInline6_2(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	resetOutputSignals();
 
+	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
+
+	resetEventList(&config->crankingInjectionEvents);
+	resetEventList(&config->injectionEvents);
 	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
 }
 

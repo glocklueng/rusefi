@@ -52,17 +52,17 @@ void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfigura
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
-//	addFuelEvents(engineConfiguration, s, &config->injectionEvents, engineConfiguration->injectionMode);
+	addFuelEvents(engineConfiguration, s, &config->injectionEvents, engineConfiguration->injectionMode);
 
 	float x = 51;
 
 	resetEventList(&config->crankingInjectionEvents);
 
-	resetEventList(&config->injectionEvents);
-	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_4_OUTPUT), x);
-	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_2_OUTPUT), x + 180);
-	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_1_OUTPUT), x + 360);
-	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_3_OUTPUT), x + 540);
+//	resetEventList(&config->injectionEvents);
+//	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_4_OUTPUT), x);
+//	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_2_OUTPUT), x + 180);
+//	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_1_OUTPUT), x + 360);
+//	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_3_OUTPUT), x + 540);
 
 	resetEventList(&config->ignitionEvents);
 	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_4_OUTPUT), x);
