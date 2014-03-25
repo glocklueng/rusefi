@@ -86,12 +86,15 @@ CSRC =	$(UTILSRC) \
 	$(CONTROLLERS_MATH_SRC) \
 	$(CONTROLLERS_SENSORS_SRC) \
 	$(ENGINES_SRC) \
+	$(PROJECT_DIR)/controllers/trigger/trigger_mazda.c \
+	$(PROJECT_DIR)/controllers/trigger/trigger_structure.c \
 	$(TEST_SRC_C)
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
 CPPSRC = $(UTILSRC_CPP) \
 	$(CONTROLLERS_ALGO_SRC_CPP) \
+	$(PROJECT_DIR)/controllers/trigger/trigger_decoder.cpp \
 	$(ENGINES_SRC_CPP) \
 	$(TEST_SRC_CPP) \
 	main.cpp
@@ -125,6 +128,7 @@ INCDIR = . \
 	$(PROJECT_DIR)/controllers/sensors \
 	$(PROJECT_DIR)/controllers/algo \
 	$(PROJECT_DIR)/controllers/math \
+	$(PROJECT_DIR)/controllers/trigger \
 	$(PROJECT_DIR)/ext_algo \
 	test_data_structures \
 	test_basic_math
