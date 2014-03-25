@@ -13,7 +13,7 @@
 /**
  * this is RPM. 10000 rpm is only 166Hz, 800 rpm is 13Hz
  */
-#define DEFAULT_EMULATION_RPM 1200
+#define DEFAULT_EMULATION_RPM 600
 
 #ifdef __cplusplus
 extern "C"
