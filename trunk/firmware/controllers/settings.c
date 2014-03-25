@@ -126,9 +126,9 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "crankingTimingAngle=%f", engineConfiguration->crankingTimingAngle);
 	scheduleMsg(&logger, "globalTriggerAngleOffset=%f", engineConfiguration->globalTriggerAngleOffset);
 
-	scheduleMsg(&logger, "analogChartMode: %d", engineConfiguration->analogChartMode);
+//	scheduleMsg(&logger, "analogChartMode: %d", engineConfiguration->analogChartMode);
 
-	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->crankingSettings.crankingRpm);
+//	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->crankingSettings.crankingRpm);
 
 	scheduleMsg(&logger, "injectionPinMode: %d", boardConfiguration->injectionPinMode);
 	scheduleMsg(&logger, "ignitionPinMode: %d", boardConfiguration->ignitionPinMode);
