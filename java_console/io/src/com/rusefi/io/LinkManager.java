@@ -26,7 +26,6 @@ public class LinkManager {
     public static EngineState engineState = new EngineState(new EngineState.EngineStateListenerImpl() {
         @Override
         public void beforeLine(String fullLine) {
-            FileLog.rlog("SerialManager.beforeLine: " + fullLine);
             FileLog.MAIN.logLine(fullLine);
         }
     });
