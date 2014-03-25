@@ -196,13 +196,13 @@ public class EngineState {
     public static String unpackString(String message) {
         String prefix = "line" + PACKING_DELIMITER;
         if (!message.startsWith(prefix)) {
-            FileLog.rlog("EngineState: unexpected header: " + message);
+            FileLog.MAIN.logLine("EngineState: unexpected header: " + message);
             return null;
         }
         message = message.substring(prefix.length());
         int delimiterIndex = message.indexOf(PACKING_DELIMITER);
         if (delimiterIndex == -1) {
-            FileLog.rlog("Delimiter not found in: " + message);
+            FileLog.MAIN.logLine("Delimiter not found in: " + message);
             return null;
         }
         String lengthToken = message.substring(0, delimiterIndex);
@@ -210,13 +210,13 @@ public class EngineState {
         try {
             expectedLen = Integer.parseInt(lengthToken);
         } catch (NumberFormatException e) {
-            FileLog.rlog("invalid len: " + lengthToken);
+            FileLog.MAIN.logLine("invalid len: " + lengthToken);
             return null;
         }
 
         String response = message.substring(delimiterIndex + 1);
         if (response.length() != expectedLen) {
-            FileLog.rlog("message len does not match header: " + message);
+            FileLog.MAIN.logLine("message len does not match header: " + message);
             response = null;
         }
         return response;
