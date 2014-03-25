@@ -1,5 +1,6 @@
 package com.rusefi;
 
+import com.irnems.FileLog;
 import com.irnems.core.EngineState;
 import com.rusefi.io.CommandQueue;
 import com.rusefi.io.InvocationConfirmationListener;
@@ -19,6 +20,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class IoUtil {
     static void sendCommand(String command) {
         final CountDownLatch responseLatch = new CountDownLatch(1);
+        long time = System.currentTimeMillis();
         CommandQueue.getInstance().write(command, CommandQueue.DEFAULT_TIMEOUT, new InvocationConfirmationListener() {
             @Override
             public void onCommandConfirmation() {
@@ -26,6 +28,7 @@ public class IoUtil {
             }
         });
         wait(responseLatch, 20);
+        FileLog.MAIN.logLine("Command [" + command + "] executed in " + (System.currentTimeMillis() - time));
     }
 
     private static void wait(CountDownLatch responseLatch, int seconds) {

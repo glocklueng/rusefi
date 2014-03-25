@@ -216,6 +216,7 @@ public class AutoTest {
 
     private static void changeRpm(final int rpm) {
         sendCommand("rpm " + rpm);
+        long time = System.currentTimeMillis();
 
         final CountDownLatch rpmLatch = new CountDownLatch(1);
         SensorCentral.AdcListener listener = new SensorCentral.AdcListener() {
@@ -232,6 +233,7 @@ public class AutoTest {
         } catch (InterruptedException e) {
             throw new IllegalStateException(e);
         }
+        FileLog.MAIN.logLine("RPM change [" + rpm + "] executed in " + (System.currentTimeMillis() - time));
         SensorCentral.getInstance().removeListener(Sensor.RPM, listener);
 
         double actualRpm = SensorCentral.getInstance().getValue(Sensor.RPM);
