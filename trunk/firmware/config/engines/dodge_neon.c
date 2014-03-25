@@ -50,10 +50,8 @@ void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfigura
 
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
-	addFuelEvents(engineConfiguration, s, &config->injectionEvents, engineConfiguration->injectionMode);
+	addFuelEvents(engineConfiguration, engineConfiguration2, &config->injectionEvents, engineConfiguration->injectionMode);
 
-	float x = 51;
 
 	resetEventList(&config->crankingInjectionEvents);
 

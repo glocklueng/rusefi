@@ -37,12 +37,12 @@ float getEngineLoadT(engine_configuration_s *engineConfiguration);
 #define getEngineLoad() getEngineLoadT(engineConfiguration)
 
 void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
-void addFuelEvents(engine_configuration_s *e,  trigger_shape_s * s, ActuatorEventList *list, injection_mode_e mode);
+void addFuelEvents(engine_configuration_s const *e,  engine_configuration2_s *engineConfiguration2, ActuatorEventList *list, injection_mode_e mode);
 
 float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm);
 #define getSparkDwellMs(rpm) getSparkDwellMsT(engineConfiguration, rpm)
 
-void registerActuatorEventExt(engine_configuration_s *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list, OutputSignal *actuator, float angleOffset);
+void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list, OutputSignal *actuator, float angleOffset);
 
 int getCylinderId(firing_order_e firingOrder, int index);
 
