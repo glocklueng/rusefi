@@ -25,6 +25,7 @@
 #include "allsensors.h"
 #include "interpolation.h"
 #include "trigger_decoder.h"
+#include "engine_math.h"
 
 #if EFI_PROD_CODE
 #include "tunerstudio.h"
@@ -308,6 +309,8 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 	chDbgCheck(engineConfiguration2->triggerShape.shaftPositionEventCount, "shaftPositionEventCount is zero");
 
 	resetOutputSignals();
+	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
+
 	switch (engineConfiguration->engineType) {
 #if EFI_SUPPORT_DODGE_NEON
 	case DODGE_NEON_1995:

@@ -58,7 +58,6 @@ void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfigura
 	resetEventList(&config->crankingInjectionEvents);
 
 
-	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
 
 //	resetEventList(&config->injectionEvents);
 //	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_4_OUTPUT), x);

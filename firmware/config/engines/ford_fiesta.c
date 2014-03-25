@@ -43,9 +43,6 @@ void setFordFiestaengine_configuration2_s(engine_configuration_s *engineConfigur
 	// injector 2 activated at the 36th tooth event while normal running
 	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_2_OUTPUT), 180);
 
-
-	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
-
 }
 
 #endif /* EFI_SUPPORT_FORD_FIESTA */
