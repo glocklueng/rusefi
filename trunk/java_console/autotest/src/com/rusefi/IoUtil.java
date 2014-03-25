@@ -9,6 +9,7 @@ import com.rusefi.waves.WaveChart;
 import com.rusefi.waves.WaveChartParser;
 import com.rusefi.waves.WaveReport;
 
+import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -28,6 +29,8 @@ public class IoUtil {
             }
         });
         wait(responseLatch, 20);
+        if (LinkManager.hasError())
+            throw new IllegalStateException("IO error");
         FileLog.MAIN.logLine("Command [" + command + "] executed in " + (System.currentTimeMillis() - time));
     }
 
