@@ -4,6 +4,13 @@
 #include <time.h>
 #include <math.h>
 
+#include "boards.h"
+#include "eficonsole.h"
+#include "efilib.h"
+#include "datalogging.h"
+#include "error_handling.h"
+
+
 #ifndef GLOBAL_FT_H_
 #define GLOBAL_FT_H_
 
