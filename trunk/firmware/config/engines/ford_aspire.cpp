@@ -226,8 +226,6 @@ void setFordAspireengine_configuration2_s(engine_configuration_s *e, engine_conf
 	addFuelEvents(e, s, &config->crankingInjectionEvents, e->crankingInjectionMode);
 
 	addFuelEvents(e, s, &config->injectionEvents, e->injectionMode);
-
-	initializeIgnitionActions(e, engineConfiguration2);
 }
 
 #endif /* EFI_SUPPORT_FORD_ASPIRE */

@@ -78,7 +78,6 @@ void setFordInline6_2(engine_configuration_s *engineConfiguration, engine_config
 
 	resetEventList(&config->crankingInjectionEvents);
 	resetEventList(&config->injectionEvents);
-	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
 }
 
 #endif /* EFI_SUPPORT_1995_FORD_INLINE_6 */
