@@ -9,20 +9,14 @@
 #define TRIGGER_DECODER_H_
 
 #include <time.h>
+
 #ifdef __cplusplus
 extern "C"
 {
-
-#include "trigger_structure.h"
-#include "engine_configuration.h"
-
-#else
-
-#include "trigger_structure.h"
-#include "engine_configuration.h"
-
 #endif
 
+#include "trigger_structure.h"
+#include "engine_configuration.h"
 
 int isTriggerDecoderError(void);
 void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, ShaftEvents signal, time_t now);

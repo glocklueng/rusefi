@@ -7,4 +7,5 @@ TRIGGER_SRC = \
 
 TRIGGER_SRC_CPP = \
 	$(PROJECT_DIR)/controllers/trigger/trigger_decoder.cpp \
+	$(PROJECT_DIR)/controllers/trigger/trigger_chrysler.cpp \
 	$(PROJECT_DIR)/controllers/trigger/main_trigger_callback.cpp
