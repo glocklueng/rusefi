@@ -220,8 +220,6 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 }
 
 void setFordAspireengine_configuration2_s(engine_configuration_s *e, engine_configuration2_s *engineConfiguration2) {
-	resetOutputSignals();
-
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 
