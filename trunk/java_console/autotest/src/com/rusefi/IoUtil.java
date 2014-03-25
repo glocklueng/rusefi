@@ -22,6 +22,7 @@ public class IoUtil {
     static void sendCommand(String command) {
         final CountDownLatch responseLatch = new CountDownLatch(1);
         long time = System.currentTimeMillis();
+        FileLog.MAIN.logLine("Sending command [" + command + "]");
         CommandQueue.getInstance().write(command, CommandQueue.DEFAULT_TIMEOUT, new InvocationConfirmationListener() {
             @Override
             public void onCommandConfirmation() {
