@@ -152,14 +152,14 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
 		}
 
 		break;
-//	case IM_INDIVIDUAL_COILS:
-//		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-//			float angle = i * 720.0 / engineConfiguration->cylindersCount;
-//
-//			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
-//			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents, addOutputSignal(pin), angle);
-//		}
-//		break;
+	case IM_INDIVIDUAL_COILS:
+		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
+			float angle = i * 720.0 / engineConfiguration->cylindersCount;
+
+			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
+			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents, addOutputSignal(pin), angle);
+		}
+		break;
 
 	default:
 		firmwareError("unsupported ignitionMode %d in initializeIgnitionActions()", engineConfiguration->ignitionMode);
