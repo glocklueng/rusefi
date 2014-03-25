@@ -25,7 +25,7 @@ public class TestingUtils {
     }
 
     private static void fail(String message) {
-        FileLog.rlog("FAILURE: " + message);
+        FileLog.MAIN.logLine("FAILURE: " + message);
         throw new IllegalStateException(message);
     }
 
