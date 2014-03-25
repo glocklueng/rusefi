@@ -41,7 +41,7 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->ignitionMode = IM_INDIVIDUAL_COILS;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 
-//	engineConfiguration->ignitionOffset = 51;
+	engineConfiguration->ignitionOffset = 360 + 51;
 	engineConfiguration->injectionOffset = 360 + 51;
 	engineConfiguration->triggerShapeSynchPointIndex = 1;
 }
@@ -58,17 +58,20 @@ void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfigura
 
 	resetEventList(&config->crankingInjectionEvents);
 
+
+	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
+
 //	resetEventList(&config->injectionEvents);
 //	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_4_OUTPUT), x);
 //	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_2_OUTPUT), x + 180);
 //	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_1_OUTPUT), x + 360);
 //	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_3_OUTPUT), x + 540);
 
-	resetEventList(&config->ignitionEvents);
-	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_4_OUTPUT), x);
-	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_2_OUTPUT), x + 180);
-	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_1_OUTPUT), x + 360);
-	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_3_OUTPUT), x + 540);
+//	resetEventList(&config->ignitionEvents);
+//	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_4_OUTPUT), x);
+//	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_2_OUTPUT), x + 180);
+//	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_1_OUTPUT), x + 360);
+//	registerActuatorEvent(&config->ignitionEvents, 0, addOutputSignal(SPARKOUT_3_OUTPUT), x + 540);
 
 }
 
