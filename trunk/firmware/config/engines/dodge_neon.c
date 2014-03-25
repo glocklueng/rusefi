@@ -42,7 +42,7 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 
 //	engineConfiguration->ignitionOffset = 51;
-//	engineConfiguration->injectionOffset = 360 + 51;
+	engineConfiguration->injectionOffset = 360 + 51;
 	engineConfiguration->triggerShapeSynchPointIndex = 1;
 }
 
