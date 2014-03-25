@@ -74,8 +74,6 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
  * @brief These settings are not persistent yet
  */
 void setFordInline6_2(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	resetOutputSignals();
-
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 
 	resetEventList(&config->crankingInjectionEvents);

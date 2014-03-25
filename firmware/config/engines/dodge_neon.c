@@ -47,7 +47,6 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 }
 
 void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	resetOutputSignals();
 
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 
