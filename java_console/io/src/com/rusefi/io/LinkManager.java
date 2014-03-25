@@ -64,4 +64,8 @@ public class LinkManager {
     public static void restart() {
         connector.restart();
     }
+
+    public static boolean hasError() {
+        return connector.hasError();
+    }
 }
