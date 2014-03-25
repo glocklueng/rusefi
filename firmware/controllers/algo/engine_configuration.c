@@ -300,6 +300,9 @@ void resetConfigurationExt(engine_type_e engineType,
 }
 
 void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, engine_type_e engineType) {
+// todo: this would require 'initThermistors() to re-establish a referece, todo: fix
+//	memset(engineConfiguration2, 0, sizeof(engine_configuration2_s));
+
 	initializeTriggerShape(engineConfiguration, engineConfiguration2);
 	chDbgCheck(engineConfiguration2->triggerShape.size != 0, "size is zero");
 	chDbgCheck(engineConfiguration2->triggerShape.shaftPositionEventCount, "shaftPositionEventCount is zero");
