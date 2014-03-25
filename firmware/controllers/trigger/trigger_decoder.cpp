@@ -24,6 +24,8 @@
 extern "C"
 {
 #include "trigger_mazda.h"
+#include "trigger_chrysler.h"
+#include "trigger_structure.h"
 #include "wave_math.h"
 }
 
@@ -137,19 +139,6 @@ void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfig
 
 	engineConfiguration2->triggerShape.shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
 	checkSwitchTimes(s->size, s->wave.switchTimes);
-}
-
-static void configureNeonTriggerShape(trigger_shape_s *s) {
-	triggerShapeInit(s);
-
-	triggerAddEvent(s, 60, T_PRIMARY, TV_HIGH);
-	triggerAddEvent(s, 210, T_PRIMARY, TV_LOW);
-	triggerAddEvent(s, 420, T_PRIMARY, TV_HIGH);
-	triggerAddEvent(s, 630, T_PRIMARY, TV_LOW);
-	// voodoo magic - we always need 720 at the end
-	triggerAddEvent(s, 720, T_PRIMARY, TV_LOW);
-
-	s->shaftPositionEventCount = 4;
 }
 
 static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
