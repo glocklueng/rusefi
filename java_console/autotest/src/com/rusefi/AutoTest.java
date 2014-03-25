@@ -138,7 +138,7 @@ public class AutoTest {
         chart = nextChart();
 
         int x = 10;
-        assertWave(chart, WaveChart.SPARK_1, 0.01666, x, x + 120, x + 240, x + 360, x + 480, x + 600);
+        assertWave("ford 6", chart, WaveChart.SPARK_1, 0.01666, x, x + 120, x + 240, x + 360, x + 480, x + 600);
 
     }
 
