@@ -1,5 +1,7 @@
 package com.rusefi;
 
+import com.irnems.FileLog;
+
 import java.util.Arrays;
 
 import static com.rusefi.waves.WaveReport.isCloseEnough;
@@ -11,7 +13,7 @@ import static com.rusefi.waves.WaveReport.isCloseEnough;
 public class TestingUtils {
     static void assertTrue(String msg, boolean b) {
         if (!b)
-            throw new IllegalStateException("Not true: " + msg);
+            fail("Not true: " + msg);
     }
 
     static void assertCloseEnough(String msg, double current, double... expectations) {
@@ -19,11 +21,16 @@ public class TestingUtils {
             if (isCloseEnough(expected, current))
                 return;
         }
-        throw new IllegalStateException(msg + ": Got " + current + " while expecting " + Arrays.toString(expectations));
+        fail(msg + ": Got " + current + " while expecting " + Arrays.toString(expectations));
+    }
+
+    private static void fail(String message) {
+        FileLog.rlog("FAILURE: " + message);
+        throw new IllegalStateException(message);
     }
 
     static void assertTrue(boolean b) {
         if (!b)
-            throw new IllegalStateException("Not true");
+            fail("Not true");
     }
 }
