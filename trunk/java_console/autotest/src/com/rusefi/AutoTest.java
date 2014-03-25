@@ -77,7 +77,7 @@ public class AutoTest {
          */
         LinkManager.open();
 
-        FileLog.rlog("Let's give it some time to start...");
+        FileLog.MAIN.logLine("Let's give it some time to start...");
 
         final CountDownLatch startup = new CountDownLatch(1);
         SensorCentral.AdcListener listener = new SensorCentral.AdcListener() {
