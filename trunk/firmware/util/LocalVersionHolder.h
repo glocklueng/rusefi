@@ -15,6 +15,7 @@ public:
 	LocalVersionHolder();
 
 	bool isOld();
+	int getVersion();
 
 private:
 	bool localVersion;
