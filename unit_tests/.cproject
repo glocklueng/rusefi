@@ -37,6 +37,7 @@
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/unit_tests/controllers_math&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/unit_tests/controllers_sensors&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/unit_tests/controllers_algo&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/unit_tests/controllers_trigger&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/unit_tests/util&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.1681941669" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin"/>
@@ -55,6 +56,7 @@
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/unit_tests/controllers_math&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/unit_tests/controllers_sensors&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/unit_tests/controllers_algo&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/unit_tests/controllers_trigger&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/cygdrive/c/stuff/rusefi_sourceforge/unit_tests/util&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1693315995" superClass="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin"/>
@@ -143,5 +145,12 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/unit_tests"/>
+		</configuration>
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/unit_tests"/>
+		</configuration>
+	</storageModule>
 </cproject>
