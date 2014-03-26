@@ -3,6 +3,7 @@
 *****************************************************************************
 *** Releases                                                              ***
 *****************************************************************************
+03/26/2014	r2413	C++, refactoring & improvements
 02/23/2013	r1777	trigger is now configurable via TunerStudio
 01/30/2014	r1309	true trigger angles, VBatt signal
 01/12/2014	r1007	refactoring, refactoring & refactoring
