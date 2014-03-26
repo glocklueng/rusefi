@@ -12,8 +12,17 @@
 
 #include "global.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 float getTPS(void);
 int getTPS10bitAdc(void);
 float getTPSVoltage(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif
