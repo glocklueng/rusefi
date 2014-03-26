@@ -31,6 +31,7 @@ public:
 	OutputSignalList();
 	void clear();
 	OutputSignal * add(io_pin_e ioPin);
+	int getSize();
 
 private:
 	int size;
