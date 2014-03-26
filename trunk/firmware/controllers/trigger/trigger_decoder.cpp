@@ -222,6 +222,8 @@ int findTriggerZeroEventIndex(trigger_shape_s const * shape, trigger_config_s co
 			return stateIndex;
 		}
 	}
+	firmwareError("findTriggerZeroEventIndex() failed");
+	return -1;
 }
 
 void initTriggerDecoder(void) {
