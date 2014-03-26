@@ -86,7 +86,7 @@ extern "C" {
 #include "eficonsole.h"
 #include "hardware.h"
 #include "engine_controller.h"
-#include "lcd_2x16.h"
+#include "lcd_HD44780.h"
 #include "status_loop.h"
 #include "pin_repository.h"
 

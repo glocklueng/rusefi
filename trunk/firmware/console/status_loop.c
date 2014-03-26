@@ -51,12 +51,12 @@
 #include "engine_math.h"
 #include "idle_thread.h"
 #include "engine_configuration.h"
-#include "lcd_2x16.h"
 #include "rfiutil.h"
 
 #if EFI_PROD_CODE
 // todo: move this logic to algo folder!
 #include "rtc_helper.h"
+#include "lcd_HD44780.h"
 #endif
 
 // this 'true' value is needed for simulator

@@ -23,7 +23,7 @@
 #include "histogram.h"
 #include "mmc_card.h"
 #include "neo6m.h"
-#include "lcd_2x16.h"
+#include "lcd_HD44780.h"
 #include "eficonsole_logic.h"
 #include "flash_main.h"
 #include "trigger_central.h"
