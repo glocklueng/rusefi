@@ -85,8 +85,7 @@ struct OutputSignal_struct {
 extern "C"
 {
 #endif /* __cplusplus */
-//void resetOutputSignals(void);
-//OutputSignal * addOutputSignal(io_pin_e ioPin);
+
 void initOutputSignal(OutputSignal *signal, io_pin_e ioPin);
 void scheduleOutput(OutputSignal *signal, int delay, int dwell, time_t now);
 void initOutputSignalBase(OutputSignal *signal);
