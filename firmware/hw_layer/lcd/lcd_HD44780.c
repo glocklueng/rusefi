@@ -1,5 +1,5 @@
 /**
- * @file lcd_2x16.c
+ * @file lcd_HD44780.c
  * @brief HD44780 character display driver
  *
  *
@@ -10,7 +10,7 @@
 
 #include "main.h"
 
-#include "lcd_2x16.h"
+#include "lcd_HD44780.h"
 #include "pin_repository.h"
 #include "string.h"
 
