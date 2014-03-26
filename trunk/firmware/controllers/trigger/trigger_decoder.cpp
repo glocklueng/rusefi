@@ -187,6 +187,43 @@ void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_
 	}
 }
 
+int findTriggerZeroEventIndex(trigger_shape_s const * shape, trigger_config_s const*triggerConfig) {
+
+	trigger_state_s state;
+	clearTriggerState(&state);
+
+	int primaryWheelState = FALSE;
+	int secondaryWheelState = FALSE;
+
+	for (int i = 0; i < 100; i++) {
+
+		int stateIndex = i % shape->size;
+
+		int loopIndex = i / shape->size;
+
+		int time = 10000 * (loopIndex + shape->wave.switchTimes[stateIndex]);
+
+		int newPrimaryWheelState = shape->wave.waves[0].pinStates[stateIndex];
+		int newSecondaryWheelState = shape->wave.waves[1].pinStates[stateIndex];
+
+		if (primaryWheelState != newPrimaryWheelState) {
+			primaryWheelState = newPrimaryWheelState;
+			ShaftEvents s = primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN;
+			processTriggerEvent(&state, shape, triggerConfig, s, time);
+		}
+
+		if (secondaryWheelState != newSecondaryWheelState) {
+			secondaryWheelState = newSecondaryWheelState;
+			ShaftEvents s = secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN;
+			processTriggerEvent(&state, shape, triggerConfig, s, time);
+		}
+
+		if (state.shaft_is_synchronized) {
+			return stateIndex;
+		}
+	}
+}
+
 void initTriggerDecoder(void) {
 #if EFI_PROD_CODE || EFI_SIMULATOR
 	initLogging(&logger, "trigger decoder");
