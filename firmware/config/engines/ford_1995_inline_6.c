@@ -76,8 +76,8 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 void setFordInline6_2(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 
-	resetEventList(&config->crankingInjectionEvents);
-	resetEventList(&config->injectionEvents);
+	addFuelEvents(engineConfiguration, engineConfiguration2, &config->crankingInjectionEvents, engineConfiguration->crankingInjectionMode);
+	addFuelEvents(engineConfiguration, engineConfiguration2, &config->injectionEvents, engineConfiguration->injectionMode);
 }
 
 #endif /* EFI_SUPPORT_1995_FORD_INLINE_6 */
