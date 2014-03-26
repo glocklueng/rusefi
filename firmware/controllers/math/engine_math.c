@@ -258,6 +258,8 @@ int cisnan(float f) {
 
 static int order_1_THEN_3_THEN_4_THEN2[] = { 1, 3, 4, 2 };
 
+static int order_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4[] = {1, 5, 3, 6, 2, 4};
+
 /**
  * @param index from zero to cylindersCount - 1
  * @return cylinderId from one to cylindersCount
@@ -269,6 +271,8 @@ int getCylinderId(firing_order_e firingOrder, int index) {
 		return 1;
 	case FO_1_THEN_3_THEN_4_THEN2:
 		return order_1_THEN_3_THEN_4_THEN2[index];
+	case FO_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4:
+		return order_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4[index];
 
 	default:
 		firmwareError("getCylinderId not supported for %d", firingOrder);
