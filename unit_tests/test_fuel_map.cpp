@@ -102,7 +102,7 @@ static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
 	triggerAddEvent(s, 121.90, T_SECONDARY, TV_LOW);
 	triggerAddEvent(s, 232.76, T_SECONDARY, TV_HIGH);
 	triggerAddEvent(s, 300.54, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, 360, T_PRIMARY, 1);
+	triggerAddEvent(s, 360, T_PRIMARY, TV_HIGH);
 
 	triggerAddEvent(s, 409.8412, T_SECONDARY, TV_HIGH);
 	triggerAddEvent(s, 478.6505, T_SECONDARY, TV_LOW);
