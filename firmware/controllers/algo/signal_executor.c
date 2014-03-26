@@ -40,8 +40,9 @@
 
 #define OUTPUT_SIGNAL_COUNT 120
 
+#define EFI_USE_CCM TRUE
 
-#if defined __GNUC__
+#if EFI_USE_CCM || defined __GNUC__
 static OutputSignal signals[OUTPUT_SIGNAL_COUNT] __attribute__((section(".ccm")));
 #else
 static OutputSignal signals[OUTPUT_SIGNAL_COUNT];
