@@ -95,6 +95,8 @@ typedef struct {
 	 * TODO with eliminating RPM_MULT magic constant
 	 */
 	int shaftPositionEventCount;
+
+	int triggerShapeSynchPointIndex;
 } trigger_shape_s;
 
 
