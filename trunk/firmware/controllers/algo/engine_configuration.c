@@ -310,6 +310,9 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 
 	resetOutputSignals();
 	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
+	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
+	addFuelEvents(engineConfiguration, engineConfiguration2, &config->crankingInjectionEvents, engineConfiguration->crankingInjectionMode);
+	addFuelEvents(engineConfiguration, engineConfiguration2, &config->injectionEvents, engineConfiguration->injectionMode);
 
 	switch (engineConfiguration->engineType) {
 #if EFI_SUPPORT_DODGE_NEON
