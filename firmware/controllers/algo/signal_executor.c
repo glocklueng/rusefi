@@ -40,7 +40,13 @@
 
 #define OUTPUT_SIGNAL_COUNT 120
 
+
+#if defined __GNUC__
+static OutputSignal signals[OUTPUT_SIGNAL_COUNT] __attribute__((section(".ccm")));
+#else
 static OutputSignal signals[OUTPUT_SIGNAL_COUNT];
+#endif
+
 int outputSignalCount;
 
 void resetOutputSignals(void) {
