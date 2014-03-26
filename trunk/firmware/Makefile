@@ -142,6 +142,7 @@ CPPSRC = $(CHCPPSRC) \
 	$(SYSTEMSRC_CPP) \
 	$(ENGINES_SRC_CPP) \
 	$(UTILSRC_CPP) \
+	$(CONTROLLERS_MATH_SRC_CPP) \
 	rusefi.cpp \
 	main.cpp
 
