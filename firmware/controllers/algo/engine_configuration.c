@@ -146,6 +146,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 
 	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
 
+	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
 	engineConfiguration->injectionMode = IM_SEQUENTIAL;
 
