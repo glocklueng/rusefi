@@ -26,6 +26,7 @@
 #include "allsensors.h"
 #include "io_pins.h"
 #include "OutputSignalList.h"
+#include "trigger_decoder.h"
 
 /*
  * default Volumetric Efficiency
@@ -114,7 +115,8 @@ float getEngineLoadT(engine_configuration_s *engineConfiguration) {
 		// TODO: real implementation
 		return getMap();
 	default:
-		fatal("Unexpected engine load parameter");
+		fatal("Unexpected engine load parameter")
+		;
 		return -1;
 	}
 }
@@ -146,8 +148,9 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 			float angle = 720.0 * i / engineConfiguration->cylindersCount;
 
-			int id = (getCylinderId(engineConfiguration->firingOrder, i) - 1) % (engineConfiguration->cylindersCount / 2);
-			io_pin_e ioPin = (io_pin_e)(SPARKOUT_1_OUTPUT + id);
+			int id = (getCylinderId(engineConfiguration->firingOrder, i) - 1)
+					% (engineConfiguration->cylindersCount / 2);
+			io_pin_e ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
 
 			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
 					outputSignals.add(ioPin), angle);
@@ -224,7 +227,7 @@ void registerActuatorEventExt(engine_configuration_s const *engineConfiguration,
 
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
 
-	int triggerIndexOfZeroEvent = engineConfiguration->triggerShapeSynchPointIndex;
+	int triggerIndexOfZeroEvent = s->triggerShapeSynchPointIndex;
 
 	// todo: migrate to crankAngleRange?
 	float firstAngle = s->wave.switchTimes[triggerIndexOfZeroEvent] * 720;
@@ -284,12 +287,16 @@ int getCylinderId(firing_order_e firingOrder, int index) {
 	return -1;
 }
 
-
-void prepareOutputSignals(engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2) {
+void prepareOutputSignals(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	outputSignals.clear();
+
+	engineConfiguration2->triggerShape.triggerShapeSynchPointIndex = findTriggerZeroEventIndex(
+			&engineConfiguration2->triggerShape, &engineConfiguration->triggerConfig);
+
 	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
-	addFuelEvents(engineConfiguration, engineConfiguration2, &config->crankingInjectionEvents, engineConfiguration->crankingInjectionMode);
-	addFuelEvents(engineConfiguration, engineConfiguration2, &config->injectionEvents, engineConfiguration->injectionMode);
+	addFuelEvents(engineConfiguration, engineConfiguration2, &config->crankingInjectionEvents,
+			engineConfiguration->crankingInjectionMode);
+	addFuelEvents(engineConfiguration, engineConfiguration2, &config->injectionEvents,
+			engineConfiguration->injectionMode);
 }
