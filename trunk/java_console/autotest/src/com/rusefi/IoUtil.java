@@ -49,7 +49,9 @@ public class IoUtil {
         getWaveChart();
         getWaveChart();
         // we want to wait for the 2nd chart to see same same RPM across the whole chart
-        return getWaveChart();
+        String result = getWaveChart();
+        FileLog.MAIN.logLine("current chart: " + result);
+        return result;
     }
 
     private static String getWaveChart() {
