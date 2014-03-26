@@ -29,11 +29,6 @@ void setFordFiestaDefaultEngineConfiguration(engine_configuration_s *engineConfi
 }
 
 void setFordFiestaengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
-
-	addFuelEvents(engineConfiguration, engineConfiguration2, &config->crankingInjectionEvents, engineConfiguration->crankingInjectionMode);
-	addFuelEvents(engineConfiguration, engineConfiguration2, &config->injectionEvents, engineConfiguration->injectionMode);
-
 }
 
 #endif /* EFI_SUPPORT_FORD_FIESTA */
