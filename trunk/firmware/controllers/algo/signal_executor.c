@@ -38,7 +38,7 @@
 
 #endif /* EFI_WAVE_ANALYZER */
 
-#define OUTPUT_SIGNAL_COUNT 40
+#define OUTPUT_SIGNAL_COUNT 80
 
 static OutputSignal signals[OUTPUT_SIGNAL_COUNT];
 int outputSignalCount;
