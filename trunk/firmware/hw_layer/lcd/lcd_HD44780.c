@@ -21,7 +21,9 @@ extern engine_configuration_s *engineConfiguration;
 static Logging logger;
 
 enum {
-	LCD_2X16_RESET = 0x30,
+	LCD_HD44780_RESET = 0x30,
+	LCD_HD44780_DISPLAY_ON = 0x0C,
+
 	LCD_2X16_4_BIT_BUS = 0x20,
 //	LCD_2X16_8_BIT_BUS = 0x30,
 //	LCD_2X16_LINE_ONE = 0x20,
@@ -30,7 +32,6 @@ enum {
 //	LCD_2X16_FONT_5X10 = 0x24,
 //	LCD_2X16_DISPLAY_CLEAR = 0x01,
 //	LCD_2X16_DISPLAY_HOME = 0x02,
-//	LCD_2X16_DISPLAY_ON = 0x0C,
 //	LCD_2X16_DISPLAY_RIGHT = 0x1C,
 //	LCD_2X16_DISPLAY_LEFT = 0x18,
 //	LCD_2X16_DISPLAY_SHIFT = 0x05,
@@ -45,7 +46,7 @@ enum {
 //	LCD_2X16_BUSY_FLAG = 0x80,
 //	LCD_2X16_COMMAND = 0x01,
 //	LCD_2X16_DATA = 0x00,
-} lcd_2x16_command;
+} lcd_HD44780_command;
 
 // http://web.alfredstate.edu/weimandn/lcd/lcd_addressing/lcd_addressing_index.html
 static const int lineStart[] = { 0, 0x40, 0x14, 0x54 };
@@ -157,15 +158,15 @@ void lcd_HD44780_init(void) {
 
 	addConsoleAction("lcdinfo", lcdInfo);
 
-
 	if (engineConfiguration->displayMode == DM_HD44780) {
+		// initialize hardware lines
 		mySetPadMode("lcd RS", HD44780_PORT_RS, HD44780_PIN_RS, PAL_MODE_OUTPUT_PUSHPULL);
 		mySetPadMode("lcd E", HD44780_PORT_E, HD44780_PIN_E, PAL_MODE_OUTPUT_PUSHPULL);
 		mySetPadMode("lcd DB4", HD44780_PORT_DB4, HD44780_PIN_DB4, PAL_MODE_OUTPUT_PUSHPULL);
 		mySetPadMode("lcd DB6", HD44780_PORT_DB5, HD44780_PIN_DB5, PAL_MODE_OUTPUT_PUSHPULL);
 		mySetPadMode("lcd DB7", HD44780_PORT_DB6, HD44780_PIN_DB6, PAL_MODE_OUTPUT_PUSHPULL);
 		mySetPadMode("lcd DB8", HD44780_PORT_DB7, HD44780_PIN_DB7, PAL_MODE_OUTPUT_PUSHPULL);
-
+		// and zero values
 		palWritePad(HD44780_PORT_RS, HD44780_PIN_RS, 0);
 		palWritePad(HD44780_PORT_E, HD44780_PIN_E, 0);
 		palWritePad(HD44780_PORT_DB4, HD44780_PIN_DB4, 0);
@@ -176,10 +177,10 @@ void lcd_HD44780_init(void) {
 
 
 	chThdSleepMilliseconds(20); // LCD needs some time to wake up
-	lcd_HD44780_write(LCD_2X16_RESET); // reset 1x
+	lcd_HD44780_write(LCD_HD44780_RESET); // reset 1x
 	chThdSleepMilliseconds(1);
-	lcd_HD44780_write(LCD_2X16_RESET); // reset 2x
-	lcd_HD44780_write(LCD_2X16_RESET); // reset 3x
+	lcd_HD44780_write(LCD_HD44780_RESET); // reset 2x
+	lcd_HD44780_write(LCD_HD44780_RESET); // reset 3x
 
 	lcd_HD44780_write(LCD_2X16_4_BIT_BUS);	// 4 bit, 2 line
 	chThdSleepMicroseconds(40);
@@ -189,7 +190,7 @@ void lcd_HD44780_init(void) {
 	chThdSleepMicroseconds(40);
 
 	lcd_HD44780_write(0x00);	// display and cursor control
-	lcd_HD44780_write(0xC0);
+	lcd_HD44780_write(LCD_HD44780_DISPLAY_ON);
 	chThdSleepMicroseconds(40);
 
 	lcd_HD44780_write(0x00);	// display clear
