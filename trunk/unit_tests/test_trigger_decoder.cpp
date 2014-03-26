@@ -15,6 +15,11 @@
 #include "ford_1995_inline_6.h"
 #include "mazda_323.h"
 
+extern "C"
+{
+void sendOutConfirmation(char *value, int i);
+}
+
 void sendOutConfirmation(char *value, int i) {
 	// test implementation
 }
