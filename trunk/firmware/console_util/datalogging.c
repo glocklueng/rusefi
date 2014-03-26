@@ -260,6 +260,8 @@ static void commonSimpleMsg(Logging *logging, char *msg, int value) {
 	appendPrintf(logging, "%s%d", msg, value);
 }
 
+static char header[16];
+
 /**
  * this method should invoked on the main thread only
  */
@@ -274,10 +276,13 @@ static void printWithLength(char *line) {
 	 * whole buffer then to invoke 'chSequentialStreamPut' once per character.
 	 */
 	int len = strlen(line);
-	strcpy(ioBuffer, "line:");
-	char *p = ioBuffer + strlen(ioBuffer);
+	strcpy(header, "line:");
+	char *p = header + strlen(header);
 	p = itoa10(p, len);
 	*p++ = ':';
+	*p++ = '\0';
+
+	p = ioBuffer;
 	strcpy(p, line);
 	p += len;
 	*p++ = '\r';
@@ -285,6 +290,7 @@ static void printWithLength(char *line) {
 
 	if (!is_serial_ready())
 		return;
+	consoleOutputBuffer((const int8_t *)header, strlen(header));
 	consoleOutputBuffer((const int8_t *)ioBuffer, p - ioBuffer);
 }
 
