@@ -55,12 +55,6 @@ static char pendingBuffer[OUTPUT_BUFFER];
  * We copy all the pending data into this buffer once we are ready to push it out
  */
 static char outputBuffer[OUTPUT_BUFFER];
-/**
- * ... and we need another buffer for to make the message with with control sum
- * TODO: if needed we can eliminate this buffer by making some space in the start
- * of the 'outputBuffer' into which we would put the control sum when time comes
- */
-static char ioBuffer[OUTPUT_BUFFER];
 
 static MemoryStream intermediateLoggingBuffer;
 static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE]; //todo define max-printf-buffer
@@ -282,8 +276,7 @@ static void printWithLength(char *line) {
 	*p++ = ':';
 	*p++ = '\0';
 
-	p = ioBuffer;
-	strcpy(p, line);
+	p = line;
 	p += len;
 	*p++ = '\r';
 	*p++ = '\n';
@@ -291,7 +284,7 @@ static void printWithLength(char *line) {
 	if (!is_serial_ready())
 		return;
 	consoleOutputBuffer((const int8_t *)header, strlen(header));
-	consoleOutputBuffer((const int8_t *)ioBuffer, p - ioBuffer);
+	consoleOutputBuffer((const int8_t *)line, p - line);
 }
 
 void printLine(Logging *logging) {
