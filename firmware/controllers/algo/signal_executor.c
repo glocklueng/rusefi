@@ -38,31 +38,6 @@
 
 #endif /* EFI_WAVE_ANALYZER */
 
-#define OUTPUT_SIGNAL_COUNT 120
-
-#define EFI_USE_CCM TRUE
-
-#if EFI_USE_CCM || defined __GNUC__
-static OutputSignal signals[OUTPUT_SIGNAL_COUNT] __attribute__((section(".ccm")));
-#else
-static OutputSignal signals[OUTPUT_SIGNAL_COUNT];
-#endif
-
-int outputSignalCount;
-
-void resetOutputSignals(void) {
-	outputSignalCount = 0;
-}
-
-OutputSignal * addOutputSignal(io_pin_e ioPin) {
-	chDbgCheck(outputSignalCount < OUTPUT_SIGNAL_COUNT, "too many output signals");
-	OutputSignal *signal = &signals[outputSignalCount++];
-
-	initOutputSignal(signal, ioPin);
-
-	return signal;
-}
-
 void initOutputSignalBase(OutputSignal *signal) {
 	signal->status = IDLE;
 	signal->last_scheduling_time = 0;
