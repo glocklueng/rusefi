@@ -28,11 +28,10 @@ extern "C"
 #include "test_signal_executor.h"
 #include "test_util.h"
 #include "engine_configuration.h"
-#include "test_trigger_decoder.h"
 #include "engine_math.h"
-
 }
 
+#include "test_trigger_decoder.h"
 
 static engine_configuration_s ec;
 engine_configuration_s *engineConfiguration = &ec;
