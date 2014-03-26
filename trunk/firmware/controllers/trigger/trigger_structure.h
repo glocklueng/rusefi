@@ -97,10 +97,20 @@ typedef struct {
 	int shaftPositionEventCount;
 } trigger_shape_s;
 
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void clearTriggerState(trigger_state_s *state);
 void triggerShapeInit(trigger_shape_s *trigger);
 void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, trigger_value_e state);
 
 void checkSwitchTimes(int size, float *switchTimes);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* TRIGGER_STRUCTURE_H_ */
