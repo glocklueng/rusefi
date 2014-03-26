@@ -24,7 +24,7 @@
 #include "signal_executor.h"
 #include "io_pins.h"
 
-#define OUTPUT_SIGNAL_MAX_SIZE 40
+#define OUTPUT_SIGNAL_MAX_SIZE 120
 
 class OutputSignalList {
 public:
