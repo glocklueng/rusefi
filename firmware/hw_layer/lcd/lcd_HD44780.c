@@ -21,7 +21,8 @@ extern engine_configuration_s *engineConfiguration;
 static Logging logger;
 
 enum {
-	LCD_2X16_RESET = 0x30, LCD_2X16_4_BIT_BUS = 0x20,
+	LCD_2X16_RESET = 0x30,
+	LCD_2X16_4_BIT_BUS = 0x20,
 //	LCD_2X16_8_BIT_BUS = 0x30,
 //	LCD_2X16_LINE_ONE = 0x20,
 //	LCD_2X16_LINES_TWO = 0x28,
@@ -173,13 +174,12 @@ void lcd_HD44780_init(void) {
 		palWritePad(HD44780_PORT_DB7, HD44780_PIN_DB7, 0);
 	}
 
-	// LCD needs some time to wake up
-	chThdSleepMilliseconds(50);
 
-	lcd_HD44780_write(LCD_2X16_RESET);
+	chThdSleepMilliseconds(20); // LCD needs some time to wake up
+	lcd_HD44780_write(LCD_2X16_RESET); // reset 1x
 	chThdSleepMilliseconds(1);
-
-	lcd_HD44780_write(0x30);
+	lcd_HD44780_write(LCD_2X16_RESET); // reset 2x
+	lcd_HD44780_write(LCD_2X16_RESET); // reset 3x
 
 	lcd_HD44780_write(LCD_2X16_4_BIT_BUS);	// 4 bit, 2 line
 	chThdSleepMicroseconds(40);
