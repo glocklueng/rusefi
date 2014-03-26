@@ -309,11 +309,7 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 	chDbgCheck(engineConfiguration2->triggerShape.size != 0, "size is zero");
 	chDbgCheck(engineConfiguration2->triggerShape.shaftPositionEventCount, "shaftPositionEventCount is zero");
 
-	resetOutputSignals();
-	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
-	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
-	addFuelEvents(engineConfiguration, engineConfiguration2, &config->crankingInjectionEvents, engineConfiguration->crankingInjectionMode);
-	addFuelEvents(engineConfiguration, engineConfiguration2, &config->injectionEvents, engineConfiguration->injectionMode);
+	prepareOutputSignals(engineConfiguration, engineConfiguration2);
 
 	switch (engineConfiguration->engineType) {
 #if EFI_SUPPORT_DODGE_NEON
