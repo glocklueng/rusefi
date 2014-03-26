@@ -31,17 +31,8 @@ void setFordFiestaDefaultEngineConfiguration(engine_configuration_s *engineConfi
 void setFordFiestaengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 
-	resetEventList(&config->crankingInjectionEvents);
-	// injector 1 activated at the 1st tooth event while cranking
-	registerActuatorEvent(&config->crankingInjectionEvents, 0, addOutputSignal(INJECTOR_1_OUTPUT), 0);
-	// injector 2 activated at the 36th st tooth event while cranking (do not forget - there are 70 events overall, 35 ups and 46 downs
-	registerActuatorEvent(&config->crankingInjectionEvents, 0, addOutputSignal(INJECTOR_2_OUTPUT), 360);
-
-	resetEventList(&config->injectionEvents);
-	// injector 1 activated at the 1st tooth event while normal running
-	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_1_OUTPUT), 0);
-	// injector 2 activated at the 36th tooth event while normal running
-	registerActuatorEvent(&config->injectionEvents, 0, addOutputSignal(INJECTOR_2_OUTPUT), 180);
+	addFuelEvents(engineConfiguration, engineConfiguration2, &config->crankingInjectionEvents, engineConfiguration->crankingInjectionMode);
+	addFuelEvents(engineConfiguration, engineConfiguration2, &config->injectionEvents, engineConfiguration->injectionMode);
 
 }
 
