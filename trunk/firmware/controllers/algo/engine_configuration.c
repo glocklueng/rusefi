@@ -151,7 +151,6 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	engineConfiguration->injectionMode = IM_SEQUENTIAL;
 
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
-	engineConfiguration->triggerShapeSynchPointIndex = 0;
 	engineConfiguration->globalTriggerAngleOffset = 0;
 	engineConfiguration->injectionOffset = 0;
 	engineConfiguration->ignitionOffset = 0;

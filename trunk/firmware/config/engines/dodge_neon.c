@@ -43,7 +43,6 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 
 	engineConfiguration->ignitionOffset = 360 + 51;
 	engineConfiguration->injectionOffset = 360 + 51;
-	engineConfiguration->triggerShapeSynchPointIndex = 1;
 }
 
 void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
