@@ -19,18 +19,10 @@ void sendOutConfirmation(char *value, int i) {
 	// test implementation
 }
 
-int getTheAngle(engine_type_e engineType) {
-	persistent_config_s persistentConfig;
-	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
-	engine_configuration2_s ec2;
-
-	resetConfigurationExt(engineType, ec, &ec2, &persistentConfig.boardConfiguration);
+int findTriggerZeroEventIndex(trigger_shape_s const * shape, trigger_config_s const*triggerConfig) {
 
 	trigger_state_s state;
 	clearTriggerState(&state);
-
-	trigger_shape_s * shape = &ec2.triggerShape;
-	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
 
 	int primaryWheelState = FALSE;
 	int secondaryWheelState = FALSE;
@@ -49,13 +41,13 @@ int getTheAngle(engine_type_e engineType) {
 		if (primaryWheelState != newPrimaryWheelState) {
 			primaryWheelState = newPrimaryWheelState;
 			ShaftEvents s = primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN;
-			processTriggerEvent(&state, shape, &ec->triggerConfig, s, time);
+			processTriggerEvent(&state, shape, triggerConfig, s, time);
 		}
 
 		if (secondaryWheelState != newSecondaryWheelState) {
 			secondaryWheelState = newSecondaryWheelState;
 			ShaftEvents s = secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN;
-			processTriggerEvent(&state, shape, &ec->triggerConfig, s, time);
+			processTriggerEvent(&state, shape, triggerConfig, s, time);
 		}
 
 		if (state.shaft_is_synchronized) {
@@ -63,7 +55,17 @@ int getTheAngle(engine_type_e engineType) {
 		}
 	}
 
-	return -1;
+}
+
+int getTheAngle(engine_type_e engineType) {
+	persistent_config_s persistentConfig;
+	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
+	engine_configuration2_s ec2;
+
+	resetConfigurationExt(engineType, ec, &ec2, &persistentConfig.boardConfiguration);
+
+	trigger_shape_s * shape = &ec2.triggerShape;
+	return findTriggerZeroEventIndex(shape, &ec->triggerConfig);
 }
 
 static void testDodgeNeonDecoder(void) {
