@@ -8,6 +8,7 @@
 #include "event_registry.h"
 #include "test_event_registry.h"
 #include "main.h"
+#include "OutputSignalList.h"
 
 static ActuatorEventList eventList;
 static ActuatorEventList result;
@@ -25,16 +26,17 @@ void testEventRegistry(void) {
 
 	printf("resetting\r\n");
 	resetEventList(&eventList);
-	resetOutputSignals();
+	OutputSignalList list;
+
 	printf("registering 0\r\n");
 
-	registerActuatorEvent(&eventList, 0, addOutputSignal(10), 0);
-	registerActuatorEvent(&eventList, 0, addOutputSignal(20), 10);
+	registerActuatorEvent(&eventList, 0, list.add((io_pin_e)10), 0);
+	registerActuatorEvent(&eventList, 0, list.add((io_pin_e)20), 10);
 	assertEquals(2, eventList.size);
 
 	printf("registering 1\r\n");
-	registerActuatorEvent(&eventList, 1, addOutputSignal(30), 0);
-	registerActuatorEvent(&eventList, 1, addOutputSignal(40), 10);
+	registerActuatorEvent(&eventList, 1, list.add((io_pin_e)30), 0);
+	registerActuatorEvent(&eventList, 1, list.add((io_pin_e)40), 10);
 	assertEquals(4, eventList.size);
 
 	printf("Looking for 0\r\n");

@@ -125,7 +125,6 @@ static void test1995FordInline6TriggerDecoder(void) {
 	assertEquals(0, getTheAngle(FORD_INLINE_6_1995));
 
 	initTriggerDecoder();
-	resetOutputSignals();
 
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
