@@ -182,7 +182,6 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->globalTriggerAngleOffset = 175;
 	engineConfiguration->ignitionOffset = 269;
 	engineConfiguration->injectionOffset = 254 - 20;
-	engineConfiguration->triggerShapeSynchPointIndex = 4;
 
 	setDefaultMaps(engineConfiguration);
 	engineConfiguration->crankingSettings.crankingRpm = 550;
