@@ -122,6 +122,14 @@ public class AutoTest {
 
         x = 58;
         TestingUtils.assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
+
+
+        sendCommand("set_global_trigger_offset_angle 130");
+        chart = nextChart();
+        x = 102;
+        TestingUtils.assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
+
+        sendCommand("set_ignition_mode 1");
     }
 
 
