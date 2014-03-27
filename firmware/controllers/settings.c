@@ -289,6 +289,19 @@ static void setCrankingFuelMax(int timeMs, int tempC) {
 
 static void setGlobalTriggerAngleOffset(int value) {
 	engineConfiguration->globalTriggerAngleOffset = value;
+	incrementGlobalConfigurationVersion();
+	doPrintConfiguration();
+}
+
+static void setCrankingTimingAngle(float value) {
+	engineConfiguration->crankingTimingAngle = value;
+	incrementGlobalConfigurationVersion();
+	doPrintConfiguration();
+}
+
+static void setCrankingChargeAngle(float value) {
+	engineConfiguration->crankingChargeAngle = value;
+	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
 }
 
@@ -372,6 +385,8 @@ void initSettings(void) {
 	addConsoleActionII("set_cranking_fuel_min", setCrankingFuelMin);
 	addConsoleActionII("set_cranking_fuel_max", setCrankingFuelMax);
 	addConsoleActionI("set_cranking_rpm", setCrankingRpm);
+	addConsoleActionF("set_cranking_timing_angle", setCrankingTimingAngle);
+	addConsoleActionF("set_cranking_charge_angle", setCrankingChargeAngle);
 
 	addConsoleActionF("set_whole_fuel_map", setWholeFuelMap);
 	addConsoleActionSSS("set_fuel_map", setFuelMap);
