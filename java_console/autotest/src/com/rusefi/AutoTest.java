@@ -67,6 +67,8 @@ public class AutoTest {
         WaveChart chart;
         // todo: interesting changeRpm(100);
         sendCommand("set_cranking_rpm 500");
+        sendCommand("set_cranking_charge_angle 65");
+        sendCommand("set_cranking_timing_angle 31");
         IoUtil.changeRpm(200);
 
         chart = nextChart();
