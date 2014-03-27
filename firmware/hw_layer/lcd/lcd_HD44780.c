@@ -3,9 +3,9 @@
  * @brief HD44780 character display driver
  *
  *
- * http://forum.chibios.org/phpbb/viewtopic.php?f=16&t=1584
+ * see http://joshuagalloway.com/lcd.html
  * @date 13.12.2013
- * @author shilow
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "main.h"
@@ -201,8 +201,6 @@ void lcd_HD44780_init(void) {
 	lcd_HD44780_write(LCD_HD44780_SHIFT_CURSOR_RIGHT);
 
 	lcd_HD44780_set_position(0, 0);
-	lcd_HD44780_print_string("rusefi here\n");
-	lcd_HD44780_print_string(__DATE__);
 }
 
 void lcdShowFatalMessage(char *message) {
