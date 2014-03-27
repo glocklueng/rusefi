@@ -23,6 +23,8 @@ static Logging logger;
 enum {
 	LCD_HD44780_RESET = 0x30,
 	LCD_HD44780_DISPLAY_ON = 0x0C,
+	LCD_HD44780_DISPLAY_CLEAR = 0x01,
+	LCD_HD44780_SHIFT_CURSOR_RIGHT = 0x06,
 
 	LCD_2X16_4_BIT_BUS = 0x20,
 //	LCD_2X16_8_BIT_BUS = 0x30,
@@ -30,7 +32,6 @@ enum {
 //	LCD_2X16_LINES_TWO = 0x28,
 //	LCD_2X16_FONT_5X8 = 0x20,
 //	LCD_2X16_FONT_5X10 = 0x24,
-//	LCD_2X16_DISPLAY_CLEAR = 0x01,
 //	LCD_2X16_DISPLAY_HOME = 0x02,
 //	LCD_2X16_DISPLAY_RIGHT = 0x1C,
 //	LCD_2X16_DISPLAY_LEFT = 0x18,
@@ -39,7 +40,6 @@ enum {
 //	LCD_2X16_CURSOR_BLINK = 0x09,
 //	LCD_2X16_CURSOR_RIGHT = 0x14,
 //	LCD_2X16_CURSOR_LEFT = 0x10,
-//	LCD_2X16_SHIFT_RIGHT = 0x06,
 //	LCD_2X16_SHIFT_LEFT = 0x04,
 //	LCD_2X16_CGRAM_ADDR = 0x40,
 	LCD_2X16_DDRAM_ADDR = 0x80,
@@ -194,11 +194,11 @@ void lcd_HD44780_init(void) {
 	chThdSleepMicroseconds(40);
 
 	lcd_HD44780_write(0x00);	// display clear
-	lcd_HD44780_write(0x01);
+	lcd_HD44780_write(LCD_HD44780_DISPLAY_CLEAR);
 	chThdSleepMilliseconds(2);
 
 	lcd_HD44780_write(0x00);	// entry mode set
-	lcd_HD44780_write(0x60);
+	lcd_HD44780_write(LCD_HD44780_SHIFT_CURSOR_RIGHT);
 
 	lcd_HD44780_set_position(0, 0);
 	lcd_HD44780_print_string("rusefi here\n");
