@@ -193,11 +193,9 @@ void lcd_HD44780_init(void) {
 	lcd_HD44780_write(LCD_HD44780_DISPLAY_ON);
 	chThdSleepMicroseconds(40);
 
-	lcd_HD44780_write(0x00);	// display clear
 	lcd_HD44780_write(LCD_HD44780_DISPLAY_CLEAR);
 	chThdSleepMilliseconds(2);
 
-	lcd_HD44780_write(0x00);	// entry mode set
 	lcd_HD44780_write(LCD_HD44780_SHIFT_CURSOR_RIGHT);
 
 	lcd_HD44780_set_position(0, 0);
