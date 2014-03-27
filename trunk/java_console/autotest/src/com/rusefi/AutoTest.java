@@ -73,6 +73,11 @@ public class AutoTest {
         float x = 55;
         TestingUtils.assertWave("aspire", chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
 
+        sendCommand("set_cranking_charge_angle 40");
+        chart = nextChart();
+        x = 80;
+        TestingUtils.assertWave("aspire", chart, WaveChart.SPARK_1, 40.0 / 360, x, x + 180, x + 360, x + 540);
+        sendCommand("set_cranking_charge_angle 65");
 
         IoUtil.changeRpm(600);
         chart = nextChart();
@@ -133,6 +138,6 @@ public class AutoTest {
         FileLog.MAIN.logLine("*******************************************************************************");
         FileLog.MAIN.logLine("************************************  Looks good! *****************************");
         FileLog.MAIN.logLine("*******************************************************************************");
-        System.exit(0);
+        System.exit(0); // this is a safer method eliminating the issue of non-daemon threads
     }
 }
