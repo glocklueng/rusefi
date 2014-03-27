@@ -11,7 +11,7 @@
 #include "error_handling.h"
 
 void runRusEfi(void);
-int getVersion(void);
+int getRusEfiVersion(void);
 void scheduleReset(void);
 
 

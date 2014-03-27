@@ -10,6 +10,7 @@
 #include "pin_repository.h"
 #include "io_pins.h"
 #include "rtc_helper.h"
+#include "rfiutil.h"
 
 #include "adc_inputs.h"
 
@@ -142,6 +143,11 @@ void initHardware() {
 #if EFI_HD44780_LCD
 //	initI2Cmodule();
 	lcd_HD44780_init();
+
+	char buffer[16];
+	itoa10(buffer, getRusEfiVersion());
+	lcd_HD44780_print_string(buffer);
+
 #endif
 
 	addConsoleActionII("i2c", sendI2Cbyte);

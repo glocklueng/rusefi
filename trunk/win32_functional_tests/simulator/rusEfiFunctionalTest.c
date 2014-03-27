@@ -161,6 +161,6 @@ int hasFatalError(void) {
 	return false;
 }
 
-int getVersion(void) {
+int getRusEfiVersion(void) {
 	return 239;
 }

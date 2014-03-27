@@ -47,11 +47,11 @@ static void myfatal(void) {
 }
 
 static void sayHello(void) {
-	print("*** rusEFI (c) Andrey Belomutskiy, 2012-2014. All rights reserved.\r\n");
-	printMsg(&logger, "rusEFI VERSION=%d", getVersion());
-	print("*** Chibios Kernel:       %s\r\n", CH_KERNEL_VERSION);
-	print("*** Compiled:     " __DATE__ " - " __TIME__ " \r\n");
-	print("COMPILER=%s\r\n", __VERSION__);
+	printMsg(&logger, "*** rusEFI (c) Andrey Belomutskiy, 2012-2014. All rights reserved.");
+	printMsg(&logger, "rusEFI v%d", getRusEfiVersion());
+	printMsg(&logger, "*** Chibios Kernel:       %s", CH_KERNEL_VERSION);
+	printMsg(&logger, "*** Compiled:     " __DATE__ " - " __TIME__ "");
+	printMsg(&logger, "COMPILER=%s", __VERSION__);
 	printMsg(&logger, "CH_FREQUENCY=%d", CH_FREQUENCY);
 #ifdef SERIAL_SPEED
 	printMsg(&logger, "SERIAL_SPEED=%d", SERIAL_SPEED);

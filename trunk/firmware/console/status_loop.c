@@ -203,7 +203,7 @@ static void printVersion(systime_t nowSeconds) {
 	if (overflowDiff(nowSeconds, timeOfPreviousPrintVersion) < 4)
 		return;
 	timeOfPreviousPrintVersion = nowSeconds;
-	appendPrintf(&logger, "rusEfiVersion%s%d %s%s", DELIMETER, getVersion(), getConfigurationName(engineConfiguration),
+	appendPrintf(&logger, "rusEfiVersion%s%d %s%s", DELIMETER, getRusEfiVersion(), getConfigurationName(engineConfiguration),
 			DELIMETER);
 }
 
@@ -325,12 +325,15 @@ static char dateBuffer[30];
 
 void updateHD44780lcd(void) {
 
+	lcd_HD44780_set_position(0, 11);
+	lcd_HD44780_print_char('R');
 	lcd_HD44780_set_position(0, 12);
+
 	char * ptr = itoa10(buffer, getRpm());
 	ptr[0] = 0;
 	int len = ptr - buffer;
 	for (int i = 0; i < 6 - len; i++)
-		lcd_HD44780_print_char('_');
+		lcd_HD44780_print_char(' ');
 
 	lcd_HD44780_print_string(buffer);
 

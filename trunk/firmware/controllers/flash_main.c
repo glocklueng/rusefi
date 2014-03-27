@@ -84,7 +84,7 @@ static void doResetConfiguration(void) {
 static void readFromFlash(void) {
 
 	flashRead(FLASH_ADDR, (char *) &flashState, FLASH_USAGE);
-	engineConfiguration->firmwareVersion = getVersion();
+	engineConfiguration->firmwareVersion = getRusEfiVersion();
 
 	setDefaultNonPersistentConfiguration(engineConfiguration2);
 

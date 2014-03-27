@@ -234,6 +234,6 @@ void firmwareError(const char *fmt, ...) {
 	errorMessageStream.buffer[errorMessageStream.eos] = 0; // need to terminate explicitly
 }
 
-int getVersion(void) {
-	return 20140325;
+int getRusEfiVersion(void) {
+	return 20140326;
 }
