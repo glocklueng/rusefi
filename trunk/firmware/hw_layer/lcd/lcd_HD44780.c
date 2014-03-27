@@ -189,14 +189,16 @@ void lcd_HD44780_init(void) {
 	lcd_HD44780_write(0x80);
 	chThdSleepMicroseconds(40);
 
-	lcd_HD44780_write(0x00);	// display and cursor control
-	lcd_HD44780_write(LCD_HD44780_DISPLAY_ON);
+	lcd_HD44780_write(0x08);	// display and cursor control
 	chThdSleepMicroseconds(40);
 
 	lcd_HD44780_write(LCD_HD44780_DISPLAY_CLEAR);
 	chThdSleepMilliseconds(2);
 
 	lcd_HD44780_write(LCD_HD44780_SHIFT_CURSOR_RIGHT);
+	chThdSleepMilliseconds(2);
+
+	lcd_HD44780_write(LCD_HD44780_DISPLAY_ON);
 
 	lcd_HD44780_set_position(0, 0);
 }
