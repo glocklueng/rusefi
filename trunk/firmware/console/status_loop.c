@@ -337,6 +337,13 @@ void updateHD44780lcd(void) {
 
 	lcd_HD44780_print_string(buffer);
 
+
+	lcd_HD44780_set_position(2, 0);
+	lcd_HD44780_print_char('C');
+
+	ftoa(buffer, getCoolantTemperature(), 100);
+	lcd_HD44780_print_string(buffer);
+
 #if EFI_PROD_CODE
 	dateToString(dateBuffer);
 	lcd_HD44780_set_position(1, 0);
