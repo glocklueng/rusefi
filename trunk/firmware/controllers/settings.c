@@ -299,6 +299,12 @@ static void setCrankingTimingAngle(float value) {
 	doPrintConfiguration();
 }
 
+static void setIgnitionMode(int value) {
+	engineConfiguration->ignitionMode = value;
+	incrementGlobalConfigurationVersion();
+	doPrintConfiguration();
+}
+
 static void setCrankingChargeAngle(float value) {
 	engineConfiguration->crankingChargeAngle = value;
 	incrementGlobalConfigurationVersion();
@@ -387,6 +393,7 @@ void initSettings(void) {
 	addConsoleActionI("set_cranking_rpm", setCrankingRpm);
 	addConsoleActionF("set_cranking_timing_angle", setCrankingTimingAngle);
 	addConsoleActionF("set_cranking_charge_angle", setCrankingChargeAngle);
+	addConsoleActionI("set_ignition_mode", setIgnitionMode);
 
 	addConsoleActionF("set_whole_fuel_map", setWholeFuelMap);
 	addConsoleActionSSS("set_fuel_map", setFuelMap);
