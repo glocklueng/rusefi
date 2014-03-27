@@ -12,7 +12,6 @@ import com.rusefi.waves.WaveChart;
 import com.rusefi.waves.WaveChartParser;
 import com.rusefi.waves.WaveReport;
 
-import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -27,6 +26,8 @@ public class IoUtil {
     static void sendCommand(String command) {
         final CountDownLatch responseLatch = new CountDownLatch(1);
         long time = System.currentTimeMillis();
+        if (LinkManager.hasError())
+            throw new IllegalStateException("IO error");
         FileLog.MAIN.logLine("Sending command [" + command + "]");
         CommandQueue.getInstance().write(command, CommandQueue.DEFAULT_TIMEOUT, new InvocationConfirmationListener() {
             @Override

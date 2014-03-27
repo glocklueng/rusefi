@@ -53,7 +53,7 @@ public class TestingUtils {
         assertTrue(msg + " waves for " + key, !wr.isEmpty());
         for (WaveReport.UpDown ud : wr) {
             double angleByTime = revolutionLog.getCrankAngleByTime(ud.upTime);
-            assertCloseEnough(msg + " angle for " + key, angleByTime, expectedAngles);
+            assertCloseEnough(msg + " angle for " + key + "@" + ud.upTime, angleByTime, expectedAngles);
 
             assertCloseEnough(msg + "width for " + key, ud.getDutyCycle(revolutionLog), width);
         }
