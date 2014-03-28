@@ -151,6 +151,8 @@ void testFordAspire(void) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 	resetConfigurationExt(FORD_ASPIRE_1996, ec, &ec2, &persistentConfig.boardConfiguration);
+	ec->crankingChargeAngle = 65;
+	ec->crankingTimingAngle = 31;
 
 	assertEqualsM("cranking dwell", 54.166670, getSparkDwellMsT(ec, 200));
 	assertEqualsM("running dwell", 4, getSparkDwellMsT(ec, 2000));
