@@ -100,6 +100,9 @@ int isValidIntakeAirTemperature(float temperature) {
 	return !cisnan(temperature) && temperature > -50 && temperature < 100;
 }
 
+/**
+ * @return coolant temperature, in Celcius
+ */
 float getCoolantTemperature(void) {
 	float temperature = getTemperatureC(&engineConfiguration2->clt);
 	if (!isValidCoolantTemperature(temperature))
