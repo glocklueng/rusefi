@@ -173,7 +173,7 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 8;
 
 	engineConfiguration->crankingSettings.coolantTempMinC = 0; // 20ms at 0C
-	engineConfiguration->crankingSettings.fuelAtMinTempMs = 20;
+	engineConfiguration->crankingSettings.fuelAtMinTempMs = 15;
 
 //	engineConfiguration->ignitionPinMode = OM_INVERTED;
 
