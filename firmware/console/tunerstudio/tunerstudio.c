@@ -201,6 +201,7 @@ void handleBurnCommand(void) {
 	scheduleMsg(&logger, "va2=%d", flashState.persistentConfiguration.boardConfiguration.idleValvePin);
 
 	writeToFlash();
+	incrementGlobalConfigurationVersion();
 }
 
 static msg_t tsThreadEntryPoint(void *arg) {
