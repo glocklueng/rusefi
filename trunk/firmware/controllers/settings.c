@@ -77,6 +77,8 @@ char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 		return "Mazda Miata NB";
 	case MAZDA_323:
 		return "Mazda 323";
+	case SATURN_ION_2004:
+		return "Saturn Ion";
 	default:
 		return NULL;
 	}
