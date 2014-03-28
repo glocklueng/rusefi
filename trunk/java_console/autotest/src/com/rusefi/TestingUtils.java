@@ -58,4 +58,8 @@ public class TestingUtils {
             assertCloseEnough(msg + "width for " + key, ud.getDutyCycle(revolutionLog), width);
         }
     }
+
+    static void assertNull(String msg, Object value) {
+        assertTrue(msg, value == null);
+    }
 }

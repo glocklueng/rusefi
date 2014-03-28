@@ -6,6 +6,8 @@ import com.rusefi.waves.WaveChart;
 
 import static com.rusefi.IoUtil.nextChart;
 import static com.rusefi.IoUtil.sendCommand;
+import static com.rusefi.TestingUtils.assertNull;
+import static com.rusefi.TestingUtils.assertWave;
 
 /**
  * rusEfi firmware simulator functional test suite
@@ -36,15 +38,15 @@ public class AutoTest {
 
         String msg = "Neon";
 
-        TestingUtils.assertWave(msg, chart, WaveChart.INJECTOR_4, 0.1, 51);
-        TestingUtils.assertWave(msg, chart, WaveChart.INJECTOR_2, 0.1, 231);
-        TestingUtils.assertWave(msg, chart, WaveChart.INJECTOR_1, 0.1, 411);
-        TestingUtils.assertWave(msg, chart, WaveChart.INJECTOR_3, 0.1, 591);
+        assertWave(msg, chart, WaveChart.INJECTOR_4, 0.1, 51);
+        assertWave(msg, chart, WaveChart.INJECTOR_2, 0.1, 231);
+        assertWave(msg, chart, WaveChart.INJECTOR_1, 0.1, 411);
+        assertWave(msg, chart, WaveChart.INJECTOR_3, 0.1, 591);
 
-        TestingUtils.assertWave(msg, chart, WaveChart.SPARK_4, 0.13333, 6);
-        TestingUtils.assertWave(chart, WaveChart.SPARK_2, 0.13333, 186);
-        TestingUtils.assertWave(chart, WaveChart.SPARK_1, 0.13333, 366);
-        TestingUtils.assertWave(chart, WaveChart.SPARK_3, 0.13333, 546);
+        assertWave(msg, chart, WaveChart.SPARK_4, 0.13333, 6);
+        assertWave(chart, WaveChart.SPARK_2, 0.13333, 186);
+        assertWave(chart, WaveChart.SPARK_1, 0.13333, 366);
+        assertWave(chart, WaveChart.SPARK_3, 0.13333, 546);
     }
 
     private static void testFordFiesta() {
@@ -59,7 +61,7 @@ public class AutoTest {
         chart = nextChart();
 
         int x = 10;
-        TestingUtils.assertWave("ford 6", chart, WaveChart.SPARK_1, 0.01666, x, x + 120, x + 240, x + 360, x + 480, x + 600);
+        assertWave("ford 6", chart, WaveChart.SPARK_1, 0.01666, x, x + 120, x + 240, x + 360, x + 480, x + 600);
 
     }
 
@@ -73,41 +75,41 @@ public class AutoTest {
 
         chart = nextChart();
         float x = 55;
-        TestingUtils.assertWave("aspire", chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
+        assertWave("aspire", chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
 
         sendCommand("set_cranking_timing_angle 40");
         chart = nextChart();
         x = 64;
-        TestingUtils.assertWave("aspire", chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
+        assertWave("aspire", chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
         sendCommand("set_cranking_timing_angle -149");
 
         sendCommand("set_cranking_charge_angle 40");
         chart = nextChart();
         x = 80;
-        TestingUtils.assertWave("aspire", chart, WaveChart.SPARK_1, 40.0 / 360, x, x + 180, x + 360, x + 540);
+        assertWave("aspire", chart, WaveChart.SPARK_1, 40.0 / 360, x, x + 180, x + 360, x + 540);
         sendCommand("set_cranking_charge_angle 65");
 
         IoUtil.changeRpm(600);
         chart = nextChart();
         x = 76;
-        TestingUtils.assertWave(chart, WaveChart.SPARK_1, 0.04, x, x + 180, x + 360, x + 540);
+        assertWave(chart, WaveChart.SPARK_1, 0.04, x, x + 180, x + 360, x + 540);
         sendCommand("set_cranking_rpm 700");
         chart = nextChart();
         x = 55;
-        TestingUtils.assertWave("cranking@600", chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
+        assertWave("cranking@600", chart, WaveChart.SPARK_1, 0.18, x, x + 180, x + 360, x + 540);
 
         IoUtil.changeRpm(2000);
         sendCommand("set_whole_fuel_map 1.57");
 
         chart = nextChart();
 
-        TestingUtils.assertWave(chart, WaveChart.INJECTOR_1, 0.051, 238.75);
-        TestingUtils.assertWave(chart, WaveChart.INJECTOR_2, 0.051, 53.04);
-        TestingUtils.assertWave(chart, WaveChart.INJECTOR_3, 0.051, 417.04);
-        TestingUtils.assertWave(chart, WaveChart.INJECTOR_4, 0.051, 594.04);
+        assertWave(chart, WaveChart.INJECTOR_1, 0.051, 238.75);
+        assertWave(chart, WaveChart.INJECTOR_2, 0.051, 53.04);
+        assertWave(chart, WaveChart.INJECTOR_3, 0.051, 417.04);
+        assertWave(chart, WaveChart.INJECTOR_4, 0.051, 594.04);
 
         x = 44;
-        TestingUtils.assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
+        assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
 
         sendCommand("set_fuel_map 2200 4 15.66");
         sendCommand("set_fuel_map 2000 4 15.66");
@@ -117,23 +119,24 @@ public class AutoTest {
         sendCommand("set_fake_maf_voltage 2");
         chart = nextChart();
 
-        TestingUtils.assertWave(chart, WaveChart.INJECTOR_1, 0.522, 238.75);
-        TestingUtils.assertWave(chart, WaveChart.INJECTOR_2, 0.522, 53.04);
-        TestingUtils.assertWave(chart, WaveChart.INJECTOR_3, 0.522, 417.04);
-        TestingUtils.assertWave(chart, WaveChart.INJECTOR_4, 0.522, 594.04);
+        assertWave(chart, WaveChart.INJECTOR_1, 0.522, 238.75);
+        assertWave(chart, WaveChart.INJECTOR_2, 0.522, 53.04);
+        assertWave(chart, WaveChart.INJECTOR_3, 0.522, 417.04);
+        assertWave(chart, WaveChart.INJECTOR_4, 0.522, 594.04);
 
         x = 58;
-        TestingUtils.assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
-
+        assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
+        assertNull("chart for " + WaveChart.SPARK_2, chart.get(WaveChart.SPARK_2));
 
         sendCommand("set_global_trigger_offset_angle 130");
         chart = nextChart();
         x = 102;
-        TestingUtils.assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
+        assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
 
         sendCommand("set_ignition_mode 1");
+        chart = nextChart();
+        assertNull("chart for " + WaveChart.SPARK_2, chart.get(WaveChart.SPARK_2));
     }
-
 
     public static void main(String[] args) throws InterruptedException {
         FileLog.SIMULATOR_CONSOLE.start();
