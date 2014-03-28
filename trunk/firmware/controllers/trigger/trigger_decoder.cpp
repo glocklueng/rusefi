@@ -25,6 +25,7 @@ extern "C"
 {
 #include "trigger_mazda.h"
 #include "trigger_chrysler.h"
+#include "trigger_gm.h"
 #include "trigger_structure.h"
 #include "wave_math.h"
 }
@@ -141,7 +142,7 @@ void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfig
 	checkSwitchTimes(s->size, s->wave.switchTimes);
 }
 
-static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
+static void configureFordAspireTriggerShape(trigger_shape_s * s) {
 	triggerShapeInit(s);
 
 	s->shaftPositionEventCount = 10;
@@ -178,7 +179,11 @@ void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_
 		return;
 
 	case TT_FORD_ASPIRE:
-		confgiureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
+		configureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
+		return;
+
+	case TT_GM_7X:
+		configureGmTriggerShape(&engineConfiguration2->triggerShape);
 		return;
 
 	default:
