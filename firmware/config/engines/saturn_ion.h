@@ -8,6 +8,18 @@
 #ifndef SATURN_ION_H_
 #define SATURN_ION_H_
 
+#include "engine_configuration.h"
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
+void setSaturnIonEngineConfiguration(engine_configuration_s *engineConfiguration);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 
 #endif /* SATURN_ION_H_ */

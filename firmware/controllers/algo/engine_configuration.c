@@ -290,6 +290,9 @@ void resetConfigurationExt(engine_type_e engineType,
 	case MAZDA_323:
 		setMazda323EngineConfiguration(engineConfiguration);
 		break;
+	case SATURN_ION_2004:
+		setSaturnIonEngineConfiguration(engineConfiguration);
+		break;
 	default:
 		firmwareError("Unexpected engine type: %d", engineType);
 
@@ -348,6 +351,8 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 		break;
 	case MAZDA_323:
 		setMazda323configuration2_s(engineConfiguration, engineConfiguration2);
+		break;
+	case SATURN_ION_2004:
 		break;
 	default:
 		fatal("Unexpected engine type")

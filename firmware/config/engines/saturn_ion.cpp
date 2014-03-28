@@ -11,4 +11,6 @@
 
 #include "saturn_ion.h"
 
+void setSaturnIonEngineConfiguration(engine_configuration_s *engineConfiguration) {
 
+}
