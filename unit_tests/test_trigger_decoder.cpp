@@ -100,7 +100,6 @@ static void test1995FordInline6TriggerDecoder(void) {
 	engine_configuration2_s ec2;
 
 	resetConfigurationExt(FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
-	prepareOutputSignals(ec, &ec2); // in reality this is invoked by trigger callback
 
 	ActuatorEventList *ecl = &ec2.engineEventConfiguration.ignitionEvents;
 	assertEqualsM("ignition events size", 6, ecl->size);
