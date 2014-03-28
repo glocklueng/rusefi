@@ -137,6 +137,7 @@ public class AutoTest {
         sendCommand("set_ignition_mode 1");
         chart = nextChart();
         assertWave(chart, WaveChart.SPARK_2, 0.133, x);
+        assertWave(chart, WaveChart.SPARK_3, 0.133, x + 360);
     }
 
     public static void main(String[] args) throws InterruptedException {
