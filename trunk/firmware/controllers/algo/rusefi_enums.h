@@ -58,6 +58,8 @@ typedef enum {
 
 	MAZDA_323 = 11,
 
+	SATURN_ION_2004 = 12,
+
 	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;
 

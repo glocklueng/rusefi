@@ -42,6 +42,7 @@
 #include "GY6_139QMB.h"
 #include "mazda_miata_nb.h"
 #include "mazda_323.h"
+#include "saturn_ion.h"
 
 #define ADC_CHANNEL_FAST_ADC 256
 
