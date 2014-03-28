@@ -76,18 +76,18 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 		return;
 	}
 
-	int fuelTicks = (int) (getFuelMs(rpm) * engineConfiguration->globalFuelCorrection * TICKS_IN_MS);
-	if (fuelTicks < 0) {
-		scheduleMsg(&logger, "ERROR: negative injectionPeriod %d", fuelTicks);
+	float fuelMs = (int) (getFuelMs(rpm) * engineConfiguration->globalFuelCorrection);
+	if (fuelMs < 0) {
+		scheduleMsg(&logger, "ERROR: negative injectionPeriod %f", fuelMs);
 		return;
 	}
 
 	int delay = (int) (getOneDegreeTime(rpm) * event->angleOffset);
 
 	if (isCranking())
-		scheduleMsg(&logger, "crankingFuel=%d", fuelTicks);
+		scheduleMsg(&logger, "crankingFuel=%f for CLT=%fC", fuelMs, getCoolantTemperature());
 
-	scheduleOutput(event->actuator, delay, fuelTicks, chTimeNow());
+	scheduleOutput(event->actuator, delay, fuelMs * TICKS_IN_MS, chTimeNow());
 }
 
 static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
