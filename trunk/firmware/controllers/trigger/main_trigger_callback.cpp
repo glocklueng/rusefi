@@ -42,6 +42,9 @@ extern "C" {
 #include "fuel_math.h"
 #include "histogram.h"
 #include "rfiutil.h"
+#include "LocalVersionHolder.h"
+
+static LocalVersionHolder localVersion;
 
 int isInjectionEnabled(void);
 
@@ -170,6 +173,10 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 		return;
 	}
 	int beforeCallback = hal_lld_get_counter_value();
+	if(eventIndex == 0 && localVersion.isOld())
+		prepareOutputSignals(engineConfiguration, engineConfiguration2);
+
+
 	handleFuel(ckpSignalType, eventIndex);
 	handleSpark(ckpSignalType, eventIndex);
 	int diff = hal_lld_get_counter_value() - beforeCallback;

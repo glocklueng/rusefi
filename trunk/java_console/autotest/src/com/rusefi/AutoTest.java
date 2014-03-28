@@ -130,12 +130,13 @@ public class AutoTest {
 
         sendCommand("set_global_trigger_offset_angle 130");
         chart = nextChart();
-        x = 102;
+        x = 58;
         assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
 
+        // let's enable more channels dynamically
         sendCommand("set_ignition_mode 1");
         chart = nextChart();
-        assertNull("chart for " + WaveChart.SPARK_2, chart.get(WaveChart.SPARK_2));
+        assertWave(chart, WaveChart.SPARK_2, 0.133, x);
     }
 
     public static void main(String[] args) throws InterruptedException {
