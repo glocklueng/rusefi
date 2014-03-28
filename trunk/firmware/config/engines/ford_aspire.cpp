@@ -185,8 +185,8 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 
 	setDefaultMaps(engineConfiguration);
 	engineConfiguration->crankingSettings.crankingRpm = 550;
-	engineConfiguration->crankingChargeAngle = 65;
-	engineConfiguration->crankingTimingAngle = -149;
+	engineConfiguration->crankingChargeAngle = 70;
+	engineConfiguration->crankingTimingAngle = 35;
 
 	for (int i = 0; i < DWELL_CURVE_SIZE; i++) {
 		engineConfiguration->sparkDwellBins[i] = 0;
