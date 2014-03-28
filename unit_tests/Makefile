@@ -95,6 +95,7 @@ CSRC =	$(UTILSRC) \
 CPPSRC = $(UTILSRC_CPP) \
 	$(CONTROLLERS_ALGO_SRC_CPP) \
 	$(PROJECT_DIR)/controllers/trigger/trigger_chrysler.cpp \
+	$(PROJECT_DIR)/controllers/trigger/trigger_gm.cpp \
 	$(PROJECT_DIR)/controllers/trigger/trigger_decoder.cpp \
 	$(ENGINES_SRC_CPP) \
 	$(CONTROLLERS_MATH_SRC_CPP) \
