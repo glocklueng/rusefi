@@ -50,10 +50,14 @@ extern engine_configuration2_s * engineConfiguration2;
 
 #define FLASH_USAGE sizeof(FlashState)
 
+crc flashStateCrc(FlashState *state) {
+	return calc_crc((const crc*) &state->persistentConfiguration, sizeof(persistent_config_s));
+}
+
 void writeToFlash(void) {
 	flashState.version = FLASH_DATA_VERSION;
 	scheduleMsg(&logger, "FLASH_DATA_VERSION=%d", flashState.version);
-	crc result = calc_crc((const crc*) &flashState.persistentConfiguration, sizeof(persistent_config_s));
+	crc result = flashStateCrc(&flashState);
 	flashState.value = result;
 	scheduleMsg(&logger, "Reseting flash=%d", FLASH_USAGE);
 	flashErase(FLASH_ADDR, FLASH_USAGE);
@@ -69,7 +73,7 @@ static int isValidCrc(FlashState *state) {
 		scheduleMsg(&logger, "Unexpected flash version: %d", state->version);
 		return FALSE;
 	}
-	crc result = calc_crc((const crc*) &state->persistentConfiguration, sizeof(persistent_config_s));
+	crc result = flashStateCrc(state);
 	int isValidCrc = result == state->value;
 	if (!isValidCrc)
 		scheduleMsg(&logger, "CRC got %d while %d expected", result, state->value);
@@ -83,7 +87,6 @@ static void doResetConfiguration(void) {
 static void readFromFlash(void) {
 
 	flashRead(FLASH_ADDR, (char *) &flashState, FLASH_USAGE);
-	engineConfiguration->firmwareVersion = getRusEfiVersion();
 
 	setDefaultNonPersistentConfiguration(engineConfiguration2);
 
@@ -94,6 +97,8 @@ static void readFromFlash(void) {
 		scheduleMsg(&logger, "Got valid configuration from flash!");
 		applyNonPersistentConfiguration(engineConfiguration, engineConfiguration2, engineConfiguration->engineType);
 	}
+	// we can only change the state after the CRC check
+	engineConfiguration->firmwareVersion = getRusEfiVersion();
 }
 
 void initFlash(void) {
