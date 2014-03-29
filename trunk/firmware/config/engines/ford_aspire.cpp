@@ -202,6 +202,7 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->sparkDwellBins[7] = 12500;
 	engineConfiguration->sparkDwell[7] = 0;
 
+	engineConfiguration->ignitionMode = IM_ONE_COIL;
 	engineConfiguration->triggerConfig.triggerType = TT_FORD_ASPIRE;
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
 
