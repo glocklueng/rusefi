@@ -76,7 +76,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 		return;
 	}
 
-	float fuelMs = (int) (getFuelMs(rpm) * engineConfiguration->globalFuelCorrection);
+	float fuelMs = getFuelMs(rpm) * engineConfiguration->globalFuelCorrection;
 	if (fuelMs < 0) {
 		scheduleMsg(&logger, "ERROR: negative injectionPeriod %f", fuelMs);
 		return;
