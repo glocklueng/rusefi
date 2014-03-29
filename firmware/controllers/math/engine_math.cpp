@@ -253,9 +253,6 @@ void registerActuatorEventExt(engine_configuration_s const *engineConfiguration,
 
 	chDbgCheck(angleOffset >= angle, "angle constraint violation in registerActuatorEventExt()");
 
-//	i = 0;
-//	angle = 0;
-
 	registerActuatorEvent(list, i, actuator, angleOffset - angle);
 }
 
