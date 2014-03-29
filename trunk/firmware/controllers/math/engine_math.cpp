@@ -197,6 +197,13 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 			}
 		}
 		break;
+	case IM_BATCH:
+		for (int i = 0; i < e->cylindersCount; i++) {
+			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + (i % 2));
+			float angle = e->injectionOffset + i * 720.0 / e->cylindersCount;
+			registerActuatorEventExt(e, s, list, outputSignals.add(pin), angle);
+		}
+		break;
 	default:
 		firmwareError("Unexpected injection mode %d", mode);
 	}
