@@ -21,6 +21,23 @@ float getTPS(void);
 int getTPS10bitAdc(void);
 float getTPSVoltage(void);
 
+typedef struct {
+	// time in systicks
+	// todo: one day we should migrate all times to float seconds or milliseconds?
+	time_t prevTime;
+	// value 0-100%
+	float prevValue;
+	// time in systicks
+	time_t curTime;
+	// value 0-100%
+	float curValue;
+	// % per second
+	float rateOfChange;
+} tps_roc_s;
+
+void saveTpsState(time_t now, float curValue);
+float getTpsRateOfChange(void);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
