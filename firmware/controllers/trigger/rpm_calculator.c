@@ -25,6 +25,8 @@
 
 static rpm_s rpmState;
 
+#define UNREALISTIC_RPM 30000
+
 #define TOP_DEAD_CENTER_MESSAGE "r"
 
 extern engine_configuration_s *engineConfiguration;
@@ -77,7 +79,7 @@ int getRevolutionCounter(void) {
  * @return TRUE if noise is detected
  */
 static int isNoisySignal(rpm_s * rpmState, int now) {
-	int diff = now - rpmState->lastRpmEventTime;
+	int diff = overflowDiff(now, rpmState->lastRpmEventTime);
 	return diff == 0;
 }
 
@@ -130,7 +132,8 @@ static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 			// / 4 because each cylinder sends a signal
 			// need to measure time from the previous non-skipped event
 
-			rpmState.rpm = (int)(60000 * TICKS_IN_MS / engineConfiguration->rpmMultiplier / diff);
+			int rpm = (int)(60000 * TICKS_IN_MS / engineConfiguration->rpmMultiplier / diff);
+			rpmState.rpm = rpm > UNREALISTIC_RPM ? NOISY_RPM : rpm;
 		}
 	}
 	rpmState.lastRpmEventTime = now;
