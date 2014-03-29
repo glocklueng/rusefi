@@ -16,7 +16,7 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-#define CONSOLE_MAX_ACTIONS 64
+#define CONSOLE_MAX_ACTIONS 96
 
 #ifndef FALSE
 #define FALSE       0
