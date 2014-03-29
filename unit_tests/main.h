@@ -18,6 +18,8 @@ extern "C"
 {
 #endif
 
+#define CH_FREQUENCY 1000
+
 #include "efilib.h"
 
 #include "global.h"
