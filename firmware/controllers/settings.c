@@ -165,11 +165,13 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 static void setFixedModeTiming(int value) {
 	engineConfiguration->fixedModeTiming = value;
 	doPrintConfiguration();
+	incrementGlobalConfigurationVersion();
 }
 
 static void setTimingMode(int value) {
 	engineConfiguration->timingMode = (timing_mode_e) value;
 	doPrintConfiguration();
+	incrementGlobalConfigurationVersion();
 }
 
 static void setEngineType(int value) {
@@ -177,7 +179,7 @@ static void setEngineType(int value) {
 	resetConfigurationExt((engine_type_e) value, engineConfiguration, engineConfiguration2, boardConfiguration);
 #if EFI_PROD_CODE
 	writeToFlash();
-	scheduleReset();
+//	scheduleReset();
 #endif /* EFI_PROD_CODE */
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
@@ -301,6 +303,18 @@ static void setCrankingTimingAngle(float value) {
 	doPrintConfiguration();
 }
 
+static void setCrankingInjectionMode(int value) {
+	engineConfiguration->crankingInjectionMode = value;
+	incrementGlobalConfigurationVersion();
+	doPrintConfiguration();
+}
+
+static void setInjectionMode(int value) {
+	engineConfiguration->injectionMode = value;
+	incrementGlobalConfigurationVersion();
+	doPrintConfiguration();
+}
+
 static void setIgnitionMode(int value) {
 	engineConfiguration->ignitionMode = value;
 	incrementGlobalConfigurationVersion();
@@ -396,6 +410,8 @@ void initSettings(void) {
 	addConsoleActionF("set_cranking_timing_angle", setCrankingTimingAngle);
 	addConsoleActionF("set_cranking_charge_angle", setCrankingChargeAngle);
 	addConsoleActionI("set_ignition_mode", setIgnitionMode);
+	addConsoleActionI("set_cranking_injection_mode", setCrankingInjectionMode);
+	addConsoleActionI("set_injection_mode", setInjectionMode);
 
 	addConsoleActionF("set_whole_fuel_map", setWholeFuelMap);
 	addConsoleActionSSS("set_fuel_map", setFuelMap);
