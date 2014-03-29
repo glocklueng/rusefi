@@ -18,7 +18,7 @@ public:
 	int getVersion();
 
 private:
-	bool localVersion;
+	int localVersion;
 
 };
 
