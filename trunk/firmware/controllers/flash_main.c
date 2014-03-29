@@ -64,17 +64,16 @@ void writeToFlash(void) {
 	scheduleMsg(&logger, "Flashed: %d", result);
 }
 
-static int isValid(FlashState *state) {
+static int isValidCrc(FlashState *state) {
 	if (state->version != FLASH_DATA_VERSION) {
 		scheduleMsg(&logger, "Unexpected flash version: %d", state->version);
 		return FALSE;
 	}
 	crc result = calc_crc((const crc*) &state->persistentConfiguration, sizeof(persistent_config_s));
-	if (result != state->value) {
-		scheduleMsg(&logger, "CRC got: %d", result);
-		scheduleMsg(&logger, "CRC expected: %d", state->value);
-	}
-	return result == state->value;
+	int isValidCrc = result == state->value;
+	if (!isValidCrc)
+		scheduleMsg(&logger, "CRC got %d while %d expected", result, state->value);
+	return isValidCrc;
 }
 
 static void doResetConfiguration(void) {
@@ -88,11 +87,11 @@ static void readFromFlash(void) {
 
 	setDefaultNonPersistentConfiguration(engineConfiguration2);
 
-	if (!isValid(&flashState)) {
-		scheduleMsg(&logger, "Not valid flash state, setting default");
+	if (!isValidCrc(&flashState)) {
+		scheduleMsg(&logger, "Need to reset flash to default");
 		doResetConfiguration();
 	} else {
-		scheduleMsg(&logger, "Got valid state from flash!");
+		scheduleMsg(&logger, "Got valid configuration from flash!");
 		applyNonPersistentConfiguration(engineConfiguration, engineConfiguration2, engineConfiguration->engineType);
 	}
 }
