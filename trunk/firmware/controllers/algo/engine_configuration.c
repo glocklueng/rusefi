@@ -212,6 +212,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	boardConfiguration->idleValvePinMode = OM_DEFAULT;
 	boardConfiguration->fuelPumpPin = GPIOC_13;
 	boardConfiguration->fuelPumpPinMode = OM_DEFAULT;
+	boardConfiguration->electronicThrottlePin1 = GPIOC_9;
 
 	boardConfiguration->injectionPins[0] = GPIOB_9;
 	boardConfiguration->injectionPins[1] = GPIOB_8;

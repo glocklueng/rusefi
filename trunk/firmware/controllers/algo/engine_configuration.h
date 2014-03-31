@@ -260,6 +260,9 @@ typedef struct {
 
 	brain_pin_e fanPin;
 	pin_output_mode_e fanPinMode;
+
+	brain_pin_e electronicThrottlePin1;
+	pin_output_mode_e electronicThrottlePin1Mode;
 } board_configuration_s;
 
 typedef struct {
