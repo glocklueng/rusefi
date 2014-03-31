@@ -2,7 +2,8 @@
  * @file    idle_thread.c
  * @brief   Idle Air Control valve thread.
  *
- * 			This thread looks at current RPM and decides if it should increase or decrease IAC duty cycle
+ * This thread looks at current RPM and decides if it should increase or decrease IAC duty cycle.
+ * This file is has the hardware & scheduling logic, desired idle level lives separately
  *
  *
  * @date May 23, 2013
@@ -43,10 +44,14 @@ extern board_configuration_s *boardConfiguration;
  */
 static volatile int idleSwitchState;
 
+static Logging logger;
+
 static PwmConfig idleValve;
 
+/**
+ * Idle level calculation algorithm lives in idle_controller.c
+ */
 static IdleValveState idle;
-static Logging logger;
 
 int getIdleSwitch() {
 	return idleSwitchState;
@@ -67,8 +72,11 @@ static void setIdleValvePwm(int value) {
 	if (value < 1 || value > 999)
 		return;
 	scheduleMsg(&logger, "setting idle valve PWM %d", value);
-	float v = 0.001 * value;
-	idleValve.multiWave.switchTimes[0] = v;
+	/**
+	 * currently IDEL level is an integer per mil (0-1000 range), and PWM takes a fioat in the 0..1 range
+	 * todo: unify?
+	 */
+	setSimplePwmDutyCycle(&idleValve, 0.001 * value);
 }
 
 static msg_t ivThread(int param) {
