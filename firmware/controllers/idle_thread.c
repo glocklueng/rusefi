@@ -35,7 +35,7 @@
 
 static WORKING_AREA(ivThreadStack, UTILITY_THREAD_STACK_SIZE);
 
-static int isIdleActive = EFI_IDLE_CONTROL;
+static volatile int isIdleControlActive = EFI_IDLE_CONTROL;
 extern board_configuration_s *boardConfiguration;
 
 /**
@@ -57,7 +57,12 @@ void idleDebug(char *msg, int value) {
 	scheduleLogging(&logger);
 }
 
-static void setIdle(int value) {
+static void setIdleControlEnabled(int value) {
+	isIdleControlActive = value;
+	scheduleMsg(&logger, "isIdleControlActive=%d", isIdleControlActive);
+}
+
+static void setIdleValvePwm(int value) {
 	// todo: change parameter type, maybe change parameter validation?
 	if (value < 1 || value > 999)
 		return;
@@ -73,9 +78,10 @@ static msg_t ivThread(int param) {
 	while (TRUE) {
 		chThdSleepMilliseconds(100);
 
+		// this value is not used yet
 		idleSwitchState = palReadPad(IDLE_SWITCH_PORT, IDLE_SWITCH_PIN);
 
-		if (!isIdleActive)
+		if (!isIdleControlActive)
 			continue;
 
 		int nowSec = chTimeNowSeconds();
@@ -85,7 +91,7 @@ static msg_t ivThread(int param) {
 		if (currentIdleValve != newValue) {
 			currentIdleValve = newValue;
 
-			setIdle(newValue);
+			setIdleValvePwm(newValue);
 		}
 	}
 #if defined __GNUC__
@@ -93,15 +99,15 @@ static msg_t ivThread(int param) {
 #endif
 }
 
-static void setTargetIdle(int value) {
-	setTargetRpm(&idle, value);
+static void setIdleRpmAction(int value) {
+	setIdleRpm(&idle, value);
 	scheduleMsg(&logger, "target idle RPM %d", value);
 }
 
 void startIdleThread() {
 	initLogging(&logger, "Idle Valve Control");
 
-	wePlainInit(&idleValve, "Idle Valve",
+	startSimplePwm(&idleValve, "Idle Valve",
 			boardConfiguration->idleValvePin,
 			0.5,
 			IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY,
@@ -110,15 +116,14 @@ void startIdleThread() {
 
 	idleInit(&idle);
 	scheduleMsg(&logger, "initial idle %d", idle.value);
-	if (!isIdleActive)
-		printMsg(&logger,
-				"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! idle control disabled");
-
-	addConsoleActionI("target", setTargetIdle);
 
 	chThdCreateStatic(ivThreadStack, sizeof(ivThreadStack), NORMALPRIO, (tfunc_t)ivThread, NULL);
 
+	// this is idle switch INPUT - sometimes there is a switch on the throttle pedal
+	// this switch is not used yet
 	mySetPadMode("idle switch", IDLE_SWITCH_PORT, IDLE_SWITCH_PIN, PAL_MODE_INPUT);
 
-	addConsoleActionI("idle", setIdle);
+	addConsoleActionI("set_idle_rpm", setIdleRpmAction);
+	addConsoleActionI("set_idle_pwm", setIdleValvePwm);
+	addConsoleActionI("set_idle_enabled", setIdleControlEnabled);
 }
