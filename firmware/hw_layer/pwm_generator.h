@@ -22,8 +22,8 @@ extern "C"
 
 void applyPinState(PwmConfig *state, int stateIndex);
 
-void wePlainInit(char *msg, PwmConfig *state, GPIO_TypeDef * port, int pin,
-		float dutyCycle, float freq, io_pin_e ioPin);
+void wePlainInit(PwmConfig *state, char *msg, brain_pin_e brainPin, io_pin_e ioPin,
+		float dutyCycle, float frequency);
 
 void initPwmGenerator(void);
 #ifdef __cplusplus
