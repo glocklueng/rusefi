@@ -34,7 +34,7 @@ typedef struct {
 
 void idleInit(IdleValveState *idle);
 int getIdle(IdleValveState *idle, int currentRpm, int time);
-void setTargetRpm(IdleValveState *idle, int targetRpm);
+void setIdleRpm(IdleValveState *idle, int targetRpm);
 
 // todo: move these somewhere else!
 int max(int i1, int i2);

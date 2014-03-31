@@ -33,7 +33,7 @@ void applyPinState(PwmConfig *state, int stateIndex) {
 	}
 }
 
-void wePlainInit(PwmConfig *state, char *msg, brain_pin_e brainPin, io_pin_e ioPin,
+void startSimplePwm(PwmConfig *state, char *msg, brain_pin_e brainPin, io_pin_e ioPin,
 		float dutyCycle, float frequency) {
 
 	GPIO_TypeDef * port = getHwPort(brainPin);

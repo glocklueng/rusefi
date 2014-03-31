@@ -214,6 +214,8 @@ void initEngineContoller(void) {
 
 #if EFI_IDLE_CONTROL
 	startIdleThread();
+#else
+	scheduleMsg(&logger, "no idle control");
 #endif
 
 	initFuelPump();
