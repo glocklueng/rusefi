@@ -58,12 +58,12 @@ void idleDebug(char *msg, int value) {
 }
 
 static void setIdle(int value) {
-	// todoL change parameter type, maybe change parameter validation
+	// todo: change parameter type, maybe change parameter validation?
 	if (value < 1 || value > 999)
 		return;
 	scheduleMsg(&logger, "setting idle valve PWM %d", value);
 	float v = 0.001 * value;
-	idleValve.multiWave.switchTimes[0] = 1 - v;
+	idleValve.multiWave.switchTimes[0] = v;
 }
 
 static msg_t ivThread(int param) {
@@ -81,9 +81,6 @@ static msg_t ivThread(int param) {
 		int nowSec = chTimeNowSeconds();
 
 		int newValue = getIdle(&idle, getRpm(), nowSec);
-
-		// todo: invert wave & eliminate this inversion?
-		newValue = 1000 - newValue; // convert algorithm value into actual PMW value
 
 		if (currentIdleValve != newValue) {
 			currentIdleValve = newValue;
@@ -104,7 +101,10 @@ static void setTargetIdle(int value) {
 void startIdleThread() {
 	initLogging(&logger, "Idle Valve Control");
 
-	wePlainInit("Idle Valve", &idleValve, getHwPort(boardConfiguration->idleValvePin), getHwPin(boardConfiguration->idleValvePin), 0.5, IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY,
+	wePlainInit(&idleValve, "Idle Valve",
+			boardConfiguration->idleValvePin,
+			0.5,
+			IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY,
 			IDLE_VALVE
 			);
 

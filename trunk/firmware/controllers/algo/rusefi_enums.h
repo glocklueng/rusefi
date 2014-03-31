@@ -183,7 +183,7 @@ typedef enum {
 } internal_error_e;
 
 /**
- * Hardware pin
+ * Hardware pin. This enum is platform-specific.
  */
 typedef enum {
 	GPIOA_0 = 0,
