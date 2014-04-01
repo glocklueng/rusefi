@@ -36,6 +36,7 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = TRUE;
 	engineConfiguration->triggerConfig.useRiseEdge = FALSE;
+	engineConfiguration->needSecondTriggerInput = FALSE;
 
 	engineConfiguration->triggerConfig.triggerType = TT_DODGE_NEON;
 	engineConfiguration->ignitionMode = IM_INDIVIDUAL_COILS;
