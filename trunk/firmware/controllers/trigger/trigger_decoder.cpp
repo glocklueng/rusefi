@@ -187,7 +187,7 @@ void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_
 		return;
 
 	default:
-		fatal("not implemented")
+		firmwareError("initializeTriggerShape() not implemented: %d", tt->triggerType);
 		;
 	}
 }
