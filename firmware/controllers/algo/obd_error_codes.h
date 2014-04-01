@@ -11,6 +11,11 @@
 #ifndef OBD_ERROR_CODES_H_
 #define OBD_ERROR_CODES_H_
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 #include "rusefi_enums.h"
 
 typedef enum {
@@ -1662,5 +1667,10 @@ typedef enum {
 	// this is needed for proper enum size, this matters for malfunction_central
 	Internal_ForceMyEnumIntSize_cranking_obd_code = ENUM_SIZE_HACK,
 } obd_code_e;
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 #endif /* OBD_ERROR_CODES_H_ */
