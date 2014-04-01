@@ -8,6 +8,7 @@ CONTROLLERSSRC = \
 	controllers/settings.c \
 	controllers/flash_main.c \
 	$(PROJECT_DIR)/controllers/malfunction_indicator.c \
+	$(PROJECT_DIR)/controllers/error_handling.c \
 	controllers/map_averaging.c \
 	controllers/map_multiplier_thread.c
 

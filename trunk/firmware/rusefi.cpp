@@ -109,6 +109,8 @@ bool hasFirmwareError = FALSE;
 void runRusEfi(void) {
 	msObjectInit(&errorMessageStream, errorMessageBuffer, sizeof(errorMessageBuffer), 0);
 
+	initErrorHandling();
+
 	/**
 	 * First data structure keeps track of which hardware I/O pins are used by whom
 	 */
