@@ -13,7 +13,17 @@ extern "C"
 {
 #endif /* __cplusplus */
 
+/**
+ * Something is wrong, but we can live with it: some minor sensor is disconnected
+ * or something like that
+ *
+ */
 int warning(const char *fmt, ...);
+/**
+ * Something really bad had happened - firmware cannot function
+ *
+ * todo: better method name?
+ */
 void firmwareError(const char *fmt, ...);
 
 int hasFatalError(void);
