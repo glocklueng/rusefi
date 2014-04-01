@@ -151,8 +151,6 @@ static int prevCkpEventCounter = -1;
 
 static Logging logger2;
 
-static time_t timeOfPreviousWarning = (systime_t) -10 * CH_FREQUENCY;
-
 static void printStatus(void) {
 	needToReportStatus = TRUE;
 }
@@ -297,28 +295,6 @@ static void showFuelMap(int rpm, int key100) {
 	print("fuel map rpm=%d, key=%f: %d\r\n", rpm, engineLoad, (int) (100 * value));
 
 	scheduleMsg(&logger2, "fuel map value = %f", value);
-}
-
-/**
- * @returns TRUE in case there are too many warnings
- */
-// todo: extract to 'error_handling.c'
-int warning(const char *fmt, ...) {
-	time_t now = chTimeNow();
-	if (overflowDiff(now, timeOfPreviousWarning) < CH_FREQUENCY)
-		return TRUE; // we just had another warning, let's not spam
-	timeOfPreviousWarning = now;
-
-	resetLogging(&logger); // todo: is 'reset' really needed here?
-	appendMsgPrefix(&logger);
-	va_list ap;
-	va_start(ap, fmt);
-	vappendPrintf(&logger, fmt, ap);
-	va_end(ap);
-	append(&logger, DELIMETER);
-	scheduleLogging(&logger);
-
-	return FALSE;
 }
 
 static char buffer[10];
