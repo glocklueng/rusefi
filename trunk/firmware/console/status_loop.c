@@ -52,6 +52,7 @@
 #include "idle_thread.h"
 #include "engine_configuration.h"
 #include "rfiutil.h"
+#include "svnversion.h"
 
 #if EFI_PROD_CODE
 // todo: move this logic to algo folder!
@@ -203,7 +204,7 @@ static void printVersion(systime_t nowSeconds) {
 	if (overflowDiff(nowSeconds, timeOfPreviousPrintVersion) < 4)
 		return;
 	timeOfPreviousPrintVersion = nowSeconds;
-	appendPrintf(&logger, "rusEfiVersion%s%d %s%s", DELIMETER, getRusEfiVersion(), getConfigurationName(engineConfiguration),
+	appendPrintf(&logger, "rusEfiVersion%s%d@%d %s%s", DELIMETER, getRusEfiVersion(), SVN_VERSION, getConfigurationName(engineConfiguration),
 			DELIMETER);
 }
 

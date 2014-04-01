@@ -28,6 +28,7 @@
 #include "eficonsole_logic.h"
 #include "flash_main.h"
 #include "trigger_central.h"
+#include "svnversion.h"
 
 McpAdcState adcState;
 
@@ -145,7 +146,7 @@ void initHardware() {
 	lcd_HD44780_init();
 
 	char buffer[16];
-	itoa10(buffer, getRusEfiVersion());
+	itoa10(buffer, SVN_VERSION);
 	lcd_HD44780_print_string(buffer);
 
 #endif
