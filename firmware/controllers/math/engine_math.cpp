@@ -115,8 +115,7 @@ float getEngineLoadT(engine_configuration_s *engineConfiguration) {
 		// TODO: real implementation
 		return getMap();
 	default:
-		fatal("Unexpected engine load parameter")
-		;
+		firmwareError("Unexpected engine load parameter: %d", engineConfiguration->engineLoadMode);
 		return -1;
 	}
 }

@@ -356,8 +356,7 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 	case SATURN_ION_2004:
 		break;
 	default:
-		fatal("Unexpected engine type")
-		;
+		firmwareError("Unexpected engine type: %d", engineConfiguration->engineType);
 	}
 
 }
