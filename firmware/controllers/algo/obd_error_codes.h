@@ -571,7 +571,7 @@ typedef enum {
 	//P0557 Brake Booster Pressure Sensor Circuit Low
 	//P0558 Brake Booster Pressure Sensor Circuit High
 	//P0559 Brake Booster Pressure Sensor Circuit Intermittent
-	//P0560 System Voltage Malfunction
+	OBD_System_Voltage_Malfunction = 560,
 	//P0561 System Voltage Unstable
 	//P0562 System Voltage Low
 	//P0563 System Voltage High
@@ -617,7 +617,7 @@ typedef enum {
 	//P0603 Internal Control Module Keep Alive Memory (KAM) Error
 	//P0604 Internal Control Module Random Access Memory (RAM) Error
 	//P0605 Internal Control Module Read Only Memory (ROM) Error
-	//P0606 PCM Processor Fault
+	OBD_PCM_Processor_Fault = 606,
 	//P0607 Control Module Performance
 	//P0608 Control Module VSS Output "A" Malfunction
 	//P0609 Control Module VSS Output "B" Malfunction
