@@ -47,6 +47,7 @@ void setFordInline6(engine_configuration_s *engineConfiguration, board_configura
 	engineConfiguration->triggerConfig.useRiseEdge = TRUE;
 	engineConfiguration->needSecondTriggerInput = FALSE;
 
+	engineConfiguration->globalTriggerAngleOffset = 0;
 	engineConfiguration->ignitionOffset = 13;
 
 
