@@ -11,7 +11,6 @@
 
 #include <stdio.h>
 #include <math.h>
-#include "error_handling.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -20,9 +19,11 @@ extern "C"
 
 #define CH_FREQUENCY 1000
 
+#include "global.h"
+#include "error_handling.h"
+
 #include "efilib.h"
 
-#include "global.h"
 #include "boards.h"
 #include "engines.h"
 
