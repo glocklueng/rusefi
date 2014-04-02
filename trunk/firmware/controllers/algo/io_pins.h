@@ -10,6 +10,8 @@
 
 #include "main.h"
 
+#define GPIO_NULL NULL
+
 typedef enum {
 	LED_CRANKING, // Orange on-board LED
 	LED_RUNNING, // Green on-board LED

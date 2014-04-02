@@ -24,7 +24,7 @@ static OutputPin outputs[IO_PIN_COUNT];
 static io_pin_e leds[] = { LED_CRANKING, LED_RUNNING, LED_ERROR, LED_COMMUNICATION_1, LED_DEBUG, LED_EXT_1,
 		LED_CHECK_ENGINE };
 
-static GPIO_TypeDef *PORTS[] = {GPIOA, GPIOB, GPIOC, GPIOD, GPIOE, GPIOF, GPIOG, GPIOH};
+static GPIO_TypeDef *PORTS[] = { GPIOA, GPIOB, GPIOC, GPIOD, GPIOE, GPIOF, GPIOG, GPIOH };
 
 static pin_output_mode_e DEFAULT_OUTPUT = OM_DEFAULT;
 
@@ -104,10 +104,13 @@ static void errBlinkingThread(void *arg) {
 }
 
 void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode) {
+	if (port == GPIO_NULL ) // that's for GRIO_NONE
+		return;
+
 	assertOMode(*outputMode);
-	iomode_t mode = (*outputMode == OM_DEFAULT || *outputMode == OM_INVERTED) ?
-	PAL_MODE_OUTPUT_PUSHPULL :
-																				PAL_MODE_OUTPUT_OPENDRAIN;
+	iomode_t mode =
+			(*outputMode == OM_DEFAULT || *outputMode == OM_INVERTED) ?
+					PAL_MODE_OUTPUT_PUSHPULL : PAL_MODE_OUTPUT_OPENDRAIN;
 
 	initOutputPinExt(msg, &outputs[ioPin], port, pin, mode);
 
@@ -115,10 +118,14 @@ void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_
 }
 
 GPIO_TypeDef * getHwPort(brain_pin_e brainPin) {
+	if (brainPin == GPIO_NONE)
+		return GPIO_NULL ;
 	return PORTS[brainPin / 16];
 }
 
 int getHwPin(brain_pin_e brainPin) {
+	if (brainPin == GPIO_NONE)
+		return -1;
 	return brainPin % 16;
 }
 
@@ -161,7 +168,8 @@ void initOutputPins(void) {
 //	outputPinRegister("ext led 3", LED_EXT_3, EXTRA_LED_2_PORT, EXTRA_LED_3_PIN);
 	outputPinRegister("alive1", LED_DEBUG, GPIOD, 6);
 
-	outputPinRegister("MalfunctionIndicator", LED_CHECK_ENGINE, getHwPort(boardConfiguration->malfunctionIndicatorPin), getHwPin(boardConfiguration->malfunctionIndicatorPin));
+	outputPinRegister("MalfunctionIndicator", LED_CHECK_ENGINE, getHwPort(boardConfiguration->malfunctionIndicatorPin),
+			getHwPin(boardConfiguration->malfunctionIndicatorPin));
 
 	outputPinRegister("spi CS1", SPI_CS_1, SPI_CS1_PORT, SPI_CS1_PIN);
 	outputPinRegister("spi CS2", SPI_CS_2, SPI_CS2_PORT, SPI_CS2_PIN);
@@ -170,9 +178,11 @@ void initOutputPins(void) {
 	outputPinRegister("spi CS5", SPI_CS_SD_MODULE, SPI_SD_MODULE_PORT, SPI_SD_MODULE_PIN);
 
 	// todo: should we move this code closer to the fuel pump logic?
-	outputPinRegister("fuel pump relay", FUEL_PUMP_RELAY, getHwPort(boardConfiguration->fuelPumpPin), getHwPin(boardConfiguration->fuelPumpPin));
+	outputPinRegister("fuel pump relay", FUEL_PUMP_RELAY, getHwPort(boardConfiguration->fuelPumpPin),
+			getHwPin(boardConfiguration->fuelPumpPin));
 
-	outputPinRegister("fan relay", FAN_RELAY, getHwPort(boardConfiguration->fanPin), getHwPin(boardConfiguration->fanPin));
+	outputPinRegister("fan relay", FAN_RELAY, getHwPort(boardConfiguration->fanPin),
+			getHwPin(boardConfiguration->fanPin));
 
 	initialLedsBlink();
 
@@ -205,6 +215,6 @@ void initOutputPins(void) {
 	 ledRegister(LED_HUGE_20, GPIOE, 1);
 	 */
 
-	chThdCreateStatic(comBlinkingStack, sizeof(comBlinkingStack), NORMALPRIO, (tfunc_t) comBlinkingThread, NULL);
-	chThdCreateStatic(errBlinkingStack, sizeof(errBlinkingStack), NORMALPRIO, (tfunc_t) errBlinkingThread, NULL);
+	chThdCreateStatic(comBlinkingStack, sizeof(comBlinkingStack), NORMALPRIO, (tfunc_t) comBlinkingThread, NULL );
+	chThdCreateStatic(errBlinkingStack, sizeof(errBlinkingStack), NORMALPRIO, (tfunc_t) errBlinkingThread, NULL );
 }
