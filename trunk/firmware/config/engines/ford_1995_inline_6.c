@@ -20,7 +20,7 @@
 /**
  * @brief Default values for persistent properties
  */
-void setFordInline6(engine_configuration_s *engineConfiguration) {
+void setFordInline6(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 	engineConfiguration->cylindersCount = 6;
 
 	/**
@@ -70,6 +70,21 @@ void setFordInline6(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->iatAdcChannel = 2;
 	engineConfiguration->cltAdcChannel = 1;
 	engineConfiguration->afrSensor.afrAdcChannel = 11;
+
+	// 6 channel output board
+	// output 1 is PB9
+	// output 5 is PC13
+	// output 6 is PC15
+
+//	boardConfiguration->fuelPumpPin = GPIOC_13;
+//	boardConfiguration->injectionPins[0] = GPIOB_9;
+//	// todo: boardConfiguration->injectionPins[1] = GPIOB_8;
+//	boardConfiguration->injectionPins[2] = GPIO_NONE;
+//
+//	boardConfiguration->ignitionPins[0] = GPIOC_15;
+//
+//	boardConfiguration->fanPin = GPIO_NONE;
+
 
 	// divided by 2 because of voltage divider, then converted into 10bit ADC value (TunerStudio format)
 	engineConfiguration->tpsMin = (1.250 / 2) * 1024 / 3.3;

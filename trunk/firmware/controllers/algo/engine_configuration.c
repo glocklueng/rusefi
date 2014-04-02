@@ -279,7 +279,7 @@ void resetConfigurationExt(engine_type_e engineType,
 		break;
 #if EFI_SUPPORT_1995_FORD_INLINE_6 || defined(__DOXYGEN__)
 	case FORD_INLINE_6_1995:
-		setFordInline6(engineConfiguration);
+		setFordInline6(engineConfiguration, boardConfiguration);
 		break;
 #endif /* EFI_SUPPORT_1995_FORD_INLINE_6 */
 	case GY6_139QMB:
