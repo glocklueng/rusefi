@@ -19,6 +19,7 @@
  */
 
 #include "main.h"
+#include "obd_error_codes.h"
 #include "trigger_decoder.h"
 #include "cyclic_buffer.h"
 extern "C" {
@@ -104,7 +105,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s co
 		errorDetection.add(isDecodingError);
 
 		if (isTriggerDecoderError())
-			warning("trigger decoding issue");
+			warning(OBD_PCM_Processor_Fault, "trigger decoding issue");
 
 		shaftPositionState->shaft_is_synchronized = TRUE;
 		shaftPositionState->current_index = 0;

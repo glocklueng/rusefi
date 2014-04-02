@@ -13,14 +13,14 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-//#include "obd_error_codes.h"
+#include "obd_error_codes.h"
 
 /**
  * Something is wrong, but we can live with it: some minor sensor is disconnected
  * or something like that
  *
  */
-int warning(const char *fmt, ...);
+int warning(obd_code_e code, const char *fmt, ...);
 /**
  * Something really bad had happened - firmware cannot function
  *

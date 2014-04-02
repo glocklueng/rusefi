@@ -4,11 +4,14 @@
 #include <time.h>
 #include <math.h>
 
+#include "rusefi_enums.h"
+#include "obd_error_codes.h"
+#include "error_handling.h"
+
 #include "boards.h"
 #include "eficonsole.h"
 #include "efilib.h"
 #include "datalogging.h"
-#include "error_handling.h"
 
 
 #ifndef GLOBAL_FT_H_

@@ -73,7 +73,7 @@ float getIatCorrection(float iat) {
  */
 float getInjectorLag(float vBatt) {
 	if (cisnan(vBatt)) {
-		warning("vBatt=%f", vBatt);
+		warning(OBD_System_Voltage_Malfunction, "vBatt=%f", vBatt);
 		return 0;
 	}
 	float vBattCorrection = interpolate2d(vBatt, engineConfiguration->battInjectorLagCorrBins,
