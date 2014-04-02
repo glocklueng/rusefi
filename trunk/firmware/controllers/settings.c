@@ -17,6 +17,7 @@
 #include "thermistors.h"
 #include "adc_inputs.h"
 #include "interpolation.h"
+#include "tps.h"
 
 #if EFI_PROD_CODE
 #include "pin_repository.h"
@@ -247,6 +248,11 @@ static void printThermistor(char *msg, Thermistor *thermistor) {
 #endif
 }
 
+static void printTPSInfo(void) {
+	scheduleMsg(&logger, "tps min %d/max %d", engineConfiguration->tpsMin, engineConfiguration->tpsMax);
+	scheduleMsg(&logger, "current 10bit=%d value=%f rate=%f", getTPS10bitAdc(), getTPS(), getTpsRateOfChange());
+}
+
 static void printTemperatureInfo(void) {
 	printThermistor("CLT", &engineConfiguration2->clt);
 	printThermistor("IAT", &engineConfiguration2->iat);
@@ -385,6 +391,7 @@ void initSettings(void) {
 
 	addConsoleAction("showconfig", doPrintConfiguration);
 	addConsoleAction("tempinfo", printTemperatureInfo);
+	addConsoleAction("tpsinfo", printTPSInfo);
 
 	addConsoleActionI("set_ignition_offset", setIgnitionOffset);
 	addConsoleActionI("set_global_trigger_offset_angle", setGlobalTriggerAngleOffset);
