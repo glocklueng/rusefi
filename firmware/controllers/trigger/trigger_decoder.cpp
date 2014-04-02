@@ -196,6 +196,7 @@ int findTriggerZeroEventIndex(trigger_shape_s const * shape, trigger_config_s co
 
 	trigger_state_s state;
 	clearTriggerState(&state);
+	errorDetection.clear();
 
 	int primaryWheelState = FALSE;
 	int secondaryWheelState = FALSE;
