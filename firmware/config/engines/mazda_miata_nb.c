@@ -20,6 +20,8 @@ void setMazdaMiataNbEngineConfiguration(engine_configuration_s *engineConfigurat
 
 	engineConfiguration->cltThermistorConf.bias_resistor = 2700;
 	engineConfiguration->iatThermistorConf.bias_resistor = 2700;
+
+	// 10 deg before TDC is default timing
 }
 
 void setMazdaMiataNb_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
