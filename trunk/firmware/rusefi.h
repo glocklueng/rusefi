@@ -8,8 +8,6 @@
 #ifndef RUSEFI_H_
 #define RUSEFI_H_
 
-#include "error_handling.h"
-
 void runRusEfi(void);
 int getRusEfiVersion(void);
 void scheduleReset(void);
