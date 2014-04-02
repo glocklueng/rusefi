@@ -1,5 +1,5 @@
 /**
- * @file	test_trigger_decoder.c
+ * @file	test_trigger_decoder.cpp
  *
  * @date Dec 24, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -143,7 +143,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 }
 
 void testFordAspire(void) {
-	printf("*************************************************** testTriggerDecoder\r\n");
+	printf("*************************************************** testFordAspire\r\n");
 
 	assertEquals(4, getTheAngle(FORD_ASPIRE_1996));
 
