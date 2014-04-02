@@ -162,8 +162,13 @@ typedef struct {
 
 
 	/**
-	 * This is the angle between Top Dead Center (TDC) and the first trigger event.
-	 * Knows this angle allows us to control timing and other angles in reference to TDC.
+	 * Inside rusEfi all the angles are handled in relation to the trigger synchronization event
+	 * which depends on the trigger shape and has nothing to do wit Top Dead Center (TDC)
+	 *
+	 * For engine configuration humans need angles from TDC.
+	 *
+	 * This field is the angle between Top Dead Center (TDC) and the first trigger event.
+	 * Knowing this angle allows us to control timing and other angles in reference to TDC.
 	 */
 	float globalTriggerAngleOffset;
 	/**
