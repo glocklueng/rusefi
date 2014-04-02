@@ -15,12 +15,13 @@ extern "C"
 {
 #endif /* __cplusplus */
 
+#include "global.h"
+
 #include "eficonsole.h"
 #include "eficonsole_logic.h"
 #include "efilib.h"
 #include "rusefi.h"
 
-#include "global.h"
 #include "efifeatures.h"
 #include "engines.h"
 
@@ -65,6 +66,5 @@ void unlockAnyContext(void);
 #ifdef __cplusplus
 }
 #endif
-
 
 #endif /* MAIN_H_ */

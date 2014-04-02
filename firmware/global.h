@@ -14,6 +14,8 @@
 #include <string.h>
 
 #include "rusefi_enums.h"
+#include "obd_error_codes.h"
+#include "error_handling.h"
 
 /* definition to expand macro then apply to pragma message */
 #define VALUE_TO_STRING(x) #x
