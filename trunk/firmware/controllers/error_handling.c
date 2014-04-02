@@ -16,7 +16,7 @@ static Logging logger;
 /**
  * @returns TRUE in case there are too many warnings
  */
-int warning(const char *fmt, ...) {
+int warning(obd_code_e code, const char *fmt, ...) {
 	time_t now = chTimeNow();
 	if (overflowDiff(now, timeOfPreviousWarning) < CH_FREQUENCY)
 		return TRUE; // we just had another warning, let's not spam

@@ -147,11 +147,10 @@ void onFatalError(const char *msg, char * file, int line) {
 	exit(-1);
 }
 
-int warning(const char *fmt, ...) {
+int warning(obd_code_e code, const char *fmt, ...) {
 	printf("Warning: %s\r\n", fmt);
 	return 0;
 }
-
 
 void firmwareError(const char *fmt, ...) {
 	fatal3((char*)fmt, __FILE__, __LINE__);

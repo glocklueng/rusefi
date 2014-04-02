@@ -16,7 +16,7 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-// todo: damn, why does this include breaks compilation? #include "rusefi_enums.h"
+#include "rusefi_enums.h"
 
 typedef enum {
 //P0001 Fuel Volume Regulator Control Circuit/Open

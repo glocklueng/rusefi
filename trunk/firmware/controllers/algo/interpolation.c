@@ -101,11 +101,11 @@ float interpolate2d(float value, float bin[], float values[], int size) {
  */
 float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], int yBinSize, float* map[]) {
 	if (cisnan(y)) {
-		warning("%f: x is NaN in interpolate3d", x);
+		warning(OBD_PCM_Processor_Fault, "%f: x is NaN in interpolate3d", x);
 		return NAN;
 	}
 	if (cisnan(y)) {
-		warning("%f: y is NaN in interpolate3d", y);
+		warning(OBD_PCM_Processor_Fault, "%f: y is NaN in interpolate3d", y);
 		return NAN;
 	}
 

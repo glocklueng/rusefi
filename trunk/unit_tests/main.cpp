@@ -13,6 +13,7 @@
 #include <stdarg.h>
 
 #include "main.h"
+#include "error_handling.h"
 
 extern "C"
 {
@@ -118,8 +119,9 @@ int main(void) {
 	return EXIT_SUCCESS;
 }
 
-void warning(char *msg, float value) {
-	printf("Warning: %s %f\r\n", msg, value);
+
+int warning(obd_code_e code, const char *fmt, ...) {
+	printf("Warning: %s\r\n", fmt);
 }
 
 void firmwareError(const char *fmt, ...) {
