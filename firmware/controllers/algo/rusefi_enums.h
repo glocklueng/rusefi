@@ -11,6 +11,8 @@
 #ifndef RUSEFI_ENUMS_H_
 #define RUSEFI_ENUMS_H_
 
+#include "efifeatures.h"
+
 // for now I want all enums to be 32 bit integers. At some point maybe we will make the one-byte
 // this is about offsets and sizes in TunerStudio
 #define ENUM_SIZE_HACK 2000000000

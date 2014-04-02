@@ -1,4 +1,4 @@
-/*
+/**
  * @file efifeatures.h
  *
  * @brief In this header we can configure which firmware modules are used.
