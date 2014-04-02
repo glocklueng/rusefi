@@ -21,8 +21,7 @@
 #include "main.h"
 #include "trigger_decoder.h"
 #include "cyclic_buffer.h"
-extern "C"
-{
+extern "C" {
 #include "trigger_mazda.h"
 #include "trigger_chrysler.h"
 #include "trigger_gm.h"
@@ -53,8 +52,7 @@ static inline int isSynchronizationGap(trigger_state_s const *shaftPositionState
 }
 
 static inline int noSynchronizationResetNeeded(trigger_state_s const *shaftPositionState,
-		trigger_shape_s const *triggerShape,
-		trigger_config_s const*triggerConfig) {
+		trigger_shape_s const *triggerShape, trigger_config_s const*triggerConfig) {
 	if (triggerConfig->isSynchronizationNeeded)
 		return FALSE;
 	if (!shaftPositionState->shaft_is_synchronized)
@@ -83,7 +81,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s co
 	}
 
 	int currentDuration = overflowDiff(now, shaftPositionState->toothed_previous_time);
-	chDbgCheck(currentDuration >=0, "negative duration?");
+	chDbgCheck(currentDuration >= 0, "negative duration?");
 
 // todo: skip a number of signal from the beginning
 
@@ -104,6 +102,9 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s co
 		 */
 		int isDecodingError = shaftPositionState->current_index != triggerShape->shaftPositionEventCount - 1;
 		errorDetection.add(isDecodingError);
+
+		if (isTriggerDecoderError())
+			warning("trigger decoding issue");
 
 		shaftPositionState->shaft_is_synchronized = TRUE;
 		shaftPositionState->current_index = 0;
@@ -147,7 +148,6 @@ static void configureFordAspireTriggerShape(trigger_shape_s * s) {
 
 	s->shaftPositionEventCount = 10;
 
-
 	triggerAddEvent(s, 53.747, T_SECONDARY, TV_HIGH);
 	triggerAddEvent(s, 121.90, T_SECONDARY, TV_LOW); // delta = 68.153
 	triggerAddEvent(s, 232.76, T_SECONDARY, TV_HIGH); // delta = 110.86
@@ -161,8 +161,8 @@ static void configureFordAspireTriggerShape(trigger_shape_s * s) {
 	triggerAddEvent(s, 720, T_PRIMARY, TV_LOW);
 }
 
-
-void initializeTriggerShape(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+void initializeTriggerShape(engine_configuration_s *engineConfiguration,
+		engine_configuration2_s *engineConfiguration2) {
 	trigger_config_s *tt = &engineConfiguration->triggerConfig;
 	switch (tt->triggerType) {
 
