@@ -248,7 +248,9 @@ static void printThermistor(char *msg, Thermistor *thermistor) {
 }
 
 static void printTPSInfo(void) {
+#if EFI_PROD_CODE
 	scheduleMsg(&logger, "tps min %d/max %d v=%f @%s", engineConfiguration->tpsMin, engineConfiguration->tpsMax, getTPSVoltage(), hwPortname(engineConfiguration->tpsAdcChannel));
+#endif
 	scheduleMsg(&logger, "current 10bit=%d value=%f rate=%f", getTPS10bitAdc(), getTPS(), getTpsRateOfChange());
 }
 
