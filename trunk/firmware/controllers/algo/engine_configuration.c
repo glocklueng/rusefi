@@ -155,6 +155,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	engineConfiguration->globalTriggerAngleOffset = 0;
 	engineConfiguration->injectionOffset = 0;
 	engineConfiguration->ignitionOffset = 0;
+	engineConfiguration->overrideCrankingIgnition = TRUE;
 
 
 	engineConfiguration->engineLoadMode = LM_MAF;

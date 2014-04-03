@@ -225,7 +225,8 @@ typedef struct {
 	int HD44780height;
 
 	int tpsAdcChannel;
-	int unused5[12];
+	int overrideCrankingIgnition;
+	int unused5[11];
 
 	trigger_config_s triggerConfig;
 
