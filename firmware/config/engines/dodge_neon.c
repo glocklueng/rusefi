@@ -80,6 +80,9 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	boardConfiguration->fuelPumpPin = GPIOC_13; // Frankenstein: low side - inj #4
 	boardConfiguration->fuelPumpPinMode = OM_DEFAULT;
 
+	// set_injection_pin_mode 0
+	boardConfiguration->injectionPinMode = OM_DEFAULT;
+
 	// Frankenstein: high side #1: PE8
 	// Frankenstein: high side #2: PE10
 

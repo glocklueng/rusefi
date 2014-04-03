@@ -1,5 +1,5 @@
 /**
- * @file    ford_aspire.c
+ * @file    ford_aspire.cpp
  * @brief	1996 Ford Aspire default engine configuration
  *
  * @date Sep 9, 2013
