@@ -208,11 +208,13 @@ static void setIdlePinMode(int value) {
 static void setInjectionOffset(int value) {
 	engineConfiguration->injectionOffset = value;
 	doPrintConfiguration();
+	incrementGlobalConfigurationVersion();
 }
 
 static void setIgnitionOffset(int value) {
 	engineConfiguration->ignitionOffset = value;
 	doPrintConfiguration();
+	incrementGlobalConfigurationVersion();
 }
 
 static void setFuelPumpPinMode(int value) {
