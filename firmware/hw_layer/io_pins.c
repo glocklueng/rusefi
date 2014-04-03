@@ -55,6 +55,8 @@ inline static void assertOMode(pin_output_mode_e mode) {
  * @brief Sets the value according to current electrical settings
  */
 void setOutputPinValue(io_pin_e pin, int logicValue) {
+	if (outputs[pin].port == GPIO_NULL)
+		return;
 	chDbgCheck(pinDefaultState[pin]!=NULL, "pin mode not initialized");
 	pin_output_mode_e mode = *pinDefaultState[pin];
 	setPinValue(&outputs[pin], getElectricalValue(logicValue, mode), logicValue);
@@ -104,13 +106,16 @@ static void errBlinkingThread(void *arg) {
 }
 
 void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode) {
-	if (port == GPIO_NULL ) // that's for GRIO_NONE
+	if (port == GPIO_NULL) {
+		// that's for GRIO_NONE
+		outputs[ioPin].port = port;
 		return;
+	}
 
 	assertOMode(*outputMode);
-	iomode_t mode =
-			(*outputMode == OM_DEFAULT || *outputMode == OM_INVERTED) ?
-					PAL_MODE_OUTPUT_PUSHPULL : PAL_MODE_OUTPUT_OPENDRAIN;
+	iomode_t mode = (*outputMode == OM_DEFAULT || *outputMode == OM_INVERTED) ?
+	PAL_MODE_OUTPUT_PUSHPULL :
+																				PAL_MODE_OUTPUT_OPENDRAIN;
 
 	initOutputPinExt(msg, &outputs[ioPin], port, pin, mode);
 
@@ -119,7 +124,7 @@ void outputPinRegisterExt(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_
 
 GPIO_TypeDef * getHwPort(brain_pin_e brainPin) {
 	if (brainPin == GPIO_NONE)
-		return GPIO_NULL ;
+		return GPIO_NULL;
 	return PORTS[brainPin / 16];
 }
 
@@ -215,6 +220,6 @@ void initOutputPins(void) {
 	 ledRegister(LED_HUGE_20, GPIOE, 1);
 	 */
 
-	chThdCreateStatic(comBlinkingStack, sizeof(comBlinkingStack), NORMALPRIO, (tfunc_t) comBlinkingThread, NULL );
-	chThdCreateStatic(errBlinkingStack, sizeof(errBlinkingStack), NORMALPRIO, (tfunc_t) errBlinkingThread, NULL );
+	chThdCreateStatic(comBlinkingStack, sizeof(comBlinkingStack), NORMALPRIO, (tfunc_t) comBlinkingThread, NULL);
+	chThdCreateStatic(errBlinkingStack, sizeof(errBlinkingStack), NORMALPRIO, (tfunc_t) errBlinkingThread, NULL);
 }
