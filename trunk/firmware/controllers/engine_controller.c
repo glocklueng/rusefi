@@ -81,6 +81,8 @@ static void updateErrorCodes(void) {
 }
 
 static void fanRelayControl(void) {
+	if (boardConfiguration->fanPin == GPIO_NONE)
+		return;
 
 	int isCurrentlyOn = getOutputPinValue(FAN_RELAY);
 	int newValue;
@@ -115,7 +117,8 @@ static void initPeriodicEvents(void) {
 
 static void fuelPumpOff(void *arg) {
 	if (getOutputPinValue(FUEL_PUMP_RELAY))
-		scheduleMsg(&logger, "fuelPump OFF at %s%d", portname(getHwPort(boardConfiguration->fuelPumpPin) ), getHwPin(boardConfiguration->fuelPumpPin));
+		scheduleMsg(&logger, "fuelPump OFF at %s%d", portname(getHwPort(boardConfiguration->fuelPumpPin)),
+				getHwPin(boardConfiguration->fuelPumpPin));
 	turnOutputPinOff(FUEL_PUMP_RELAY);
 }
 
@@ -123,7 +126,8 @@ static void fuelPumpOn(ShaftEvents signal, int index) {
 	if (index != 0)
 		return; // let's not abuse the timer - one time per revolution would be enough
 	if (!getOutputPinValue(FUEL_PUMP_RELAY))
-		scheduleMsg(&logger, "fuelPump ON at %s%d", portname(getHwPort(boardConfiguration->fuelPumpPin) ), getHwPin(boardConfiguration->fuelPumpPin));
+		scheduleMsg(&logger, "fuelPump ON at %s%d", portname(getHwPort(boardConfiguration->fuelPumpPin)),
+				getHwPin(boardConfiguration->fuelPumpPin));
 	turnOutputPinOn(FUEL_PUMP_RELAY);
 	/**
 	 * the idea of this implementation is that we turn the pump when the ECU turns on or
@@ -137,7 +141,6 @@ static void initFuelPump(void) {
 	registerShaftPositionListener(&fuelPumpOn, "fuel pump");
 	fuelPumpOn(SHAFT_PRIMARY_UP, 0);
 }
-
 
 char * getPinNameByAdcChannel(int hwChannel, uint8_t *buffer) {
 	strcpy(buffer, portname(getAdcChannelPort(hwChannel)));
@@ -185,7 +188,6 @@ void initEngineContoller(void) {
 	 * other listeners can access current RPM value
 	 */
 	initRpmCalculator();
-
 
 #if EFI_TUNER_STUDIO
 	startTunerStudioConnectivity();
