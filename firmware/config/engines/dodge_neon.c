@@ -42,7 +42,8 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->ignitionMode = IM_INDIVIDUAL_COILS;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 
-	engineConfiguration->globalTriggerAngleOffset = 0;
+	// set_global_trigger_offset_angle 510
+	engineConfiguration->globalTriggerAngleOffset = 510;
 	engineConfiguration->ignitionOffset = 360 + 51;
 	engineConfiguration->injectionOffset = 360 + 51;
 }
