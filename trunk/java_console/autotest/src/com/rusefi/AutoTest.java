@@ -117,6 +117,7 @@ public class AutoTest {
         sendCommand("set_fuel_map 2000 4.2 15.66");
         // fake 2 means 4 on the gauge because of the divider. should we simplify this?
         sendCommand("set_fake_maf_voltage 2");
+        sendCommand("set_global_trigger_offset_angle 175");
         chart = nextChart();
 
         assertWave(chart, WaveChart.INJECTOR_1, 0.522, 238.75);
@@ -130,7 +131,7 @@ public class AutoTest {
 
         sendCommand("set_global_trigger_offset_angle 130");
         chart = nextChart();
-        x = 58;
+        x = 11;
         assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
 
         // let's enable more channels dynamically

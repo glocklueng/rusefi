@@ -180,7 +180,7 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->cylindersCount = 4;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 	engineConfiguration->globalTriggerAngleOffset = 175;
-	engineConfiguration->ignitionOffset = 269;
+	engineConfiguration->ignitionOffset = 94;
 	engineConfiguration->injectionOffset = 254 - 20;
 
 	setDefaultMaps(engineConfiguration);
