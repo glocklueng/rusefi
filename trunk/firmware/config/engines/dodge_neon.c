@@ -18,12 +18,11 @@
 
 void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration,
 		board_configuration_s *boardConfiguration) {
-	engineConfiguration->rpmHardLimit = 7000;
-
-	boardConfiguration->ignitionPinMode = OM_OPENDRAIN;
+	// set_rpm_hard_limit 400
+	engineConfiguration->rpmHardLimit = 4000; // yes, 4k. let's play it safe for now
 
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 0, 32500, 30, 7550, 100, 700);
-	engineConfiguration->cltThermistorConf.bias_resistor = 2200;
+	engineConfiguration->cltThermistorConf.bias_resistor = 2700;
 
 	engineConfiguration->crankingSettings.coolantTempMaxC = 37.7; // 5ms at 37.7C
 	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 5;
@@ -39,13 +38,16 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->needSecondTriggerInput = FALSE;
 
 	engineConfiguration->triggerConfig.triggerType = TT_DODGE_NEON;
-	engineConfiguration->ignitionMode = IM_INDIVIDUAL_COILS;
+	engineConfiguration->ignitionMode = IM_WASTED_SPARK;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 
 	// set_global_trigger_offset_angle 510
 	engineConfiguration->globalTriggerAngleOffset = 510;
-	engineConfiguration->ignitionOffset = 360 + 51;
-	engineConfiguration->injectionOffset = 360 + 51;
+	engineConfiguration->ignitionOffset = 621;
+	engineConfiguration->injectionOffset = 621;
+
+	// set_ignition_pin_mode 0
+	boardConfiguration->ignitionPinMode = OM_DEFAULT;
 }
 
 void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {

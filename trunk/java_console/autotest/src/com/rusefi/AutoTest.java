@@ -34,6 +34,7 @@ public class AutoTest {
     private static void testDodgeNeon() {
         WaveChart chart;
         IoUtil.changeRpm(2000);
+        sendCommand("set_ignition_mode 1");
         chart = nextChart();
 
         String msg = "Neon";

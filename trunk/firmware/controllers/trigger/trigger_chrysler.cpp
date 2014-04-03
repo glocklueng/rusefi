@@ -14,9 +14,9 @@ void configureNeonTriggerShape(trigger_shape_s *s) {
 	int base = 720 - 630;
 
 	triggerAddEvent(s, base + 60 , T_PRIMARY, TV_HIGH);
-	triggerAddEvent(s, base + 210, T_PRIMARY, TV_LOW);
-	triggerAddEvent(s, base + 420, T_PRIMARY, TV_HIGH);
-	triggerAddEvent(s, base + 630, T_PRIMARY, TV_LOW);
+	triggerAddEvent(s, base + 210, T_PRIMARY, TV_LOW); // width = 150
+	triggerAddEvent(s, base + 420, T_PRIMARY, TV_HIGH); // width = 210
+	triggerAddEvent(s, base + 630, T_PRIMARY, TV_LOW); // width = 210
 
 	s->shaftPositionEventCount = 4;
 }
