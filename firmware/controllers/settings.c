@@ -292,6 +292,16 @@ static void setCrankingRpm(int value) {
 	doPrintConfiguration();
 }
 
+static void setFiringOrder(int value) {
+	engineConfiguration->firingOrder = (firing_order_e)value;
+	doPrintConfiguration();
+}
+
+static void setRpmHardLimit(int value) {
+	engineConfiguration->rpmHardLimit = value;
+	doPrintConfiguration();
+}
+
 static void setCrankingFuelMax(int timeMs, int tempC) {
 	engineConfiguration->crankingSettings.coolantTempMaxC = tempC;
 	engineConfiguration->crankingSettings.fuelAtMaxTempMs = timeMs;
@@ -426,5 +436,8 @@ void initSettings(void) {
 
 	addConsoleActionF("set_whole_timing_map", setWholeTimingMap);
 	addConsoleActionSSS("set_timing_map", setTimingMap);
+
+	addConsoleActionI("set_rpm_hard_limit", setRpmHardLimit);
+	addConsoleActionI("set_firing_order", setFiringOrder);
 }
 

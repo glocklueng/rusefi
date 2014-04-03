@@ -37,8 +37,14 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->triggerConfig.useRiseEdge = FALSE;
 	engineConfiguration->needSecondTriggerInput = FALSE;
 
+	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
+	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
+	engineConfiguration->injectionMode = IM_SEQUENTIAL;
+
 	engineConfiguration->triggerConfig.triggerType = TT_DODGE_NEON;
+	// set_ignition_mode 2
 	engineConfiguration->ignitionMode = IM_WASTED_SPARK;
+	//
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 
 	// set_global_trigger_offset_angle 510
