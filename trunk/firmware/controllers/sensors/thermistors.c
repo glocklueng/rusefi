@@ -145,8 +145,10 @@ void prepareThermistorCurve(ThermistorConf * config) {
 
 float getIntakeAirTemperature(void) {
 	float temperature = getTemperatureC(&engineConfiguration2->iat);
-	if (!isValidIntakeAirTemperature(temperature))
+	if (!isValidIntakeAirTemperature(temperature)) {
+		warning(OBD_PCM_Processor_Fault, "unrealistic intake temperature %f", temperature);
 		return NAN;
+	}
 	return temperature;
 }
 
