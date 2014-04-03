@@ -147,8 +147,9 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 			float angle = 720.0 * i / engineConfiguration->cylindersCount;
 
-			int id = (getCylinderId(engineConfiguration->firingOrder, i) - 1)
-					% (engineConfiguration->cylindersCount / 2);
+			int wastedIndex = i % (engineConfiguration->cylindersCount / 2);
+
+			int id = (getCylinderId(engineConfiguration->firingOrder, wastedIndex) - 1);
 			io_pin_e ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
 
 			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
