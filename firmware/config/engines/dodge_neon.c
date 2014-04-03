@@ -87,8 +87,8 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	boardConfiguration->ignitionPins[1] = GPIO_NONE;
 	boardConfiguration->ignitionPins[2] = GPIOE_10; // // Frankenstein: high side #2
 
-	// set_ignition_pin_mode 0
-	boardConfiguration->ignitionPinMode = OM_DEFAULT;
+	// set_ignition_pin_mode 1
+	boardConfiguration->ignitionPinMode = OM_INVERTED;
 
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 0, 32500, 30, 7550, 100, 700);
 	engineConfiguration->cltThermistorConf.bias_resistor = 2700;
