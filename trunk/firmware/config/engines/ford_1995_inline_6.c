@@ -74,17 +74,17 @@ void setFordInline6(engine_configuration_s *engineConfiguration, board_configura
 
 	// 6 channel output board
 	// output 1 is PB9
+	// output 3 is PE3
 	// output 5 is PC13
 	// output 6 is PC15
 
-//	boardConfiguration->fuelPumpPin = GPIOC_13;
-//	boardConfiguration->injectionPins[0] = GPIOB_9;
-//	// todo: boardConfiguration->injectionPins[1] = GPIOB_8;
-//	boardConfiguration->injectionPins[2] = GPIO_NONE;
-//
-//	boardConfiguration->ignitionPins[0] = GPIOC_15;
-//
-//	boardConfiguration->fanPin = GPIO_NONE;
+	boardConfiguration->fuelPumpPin = GPIOC_13;
+	boardConfiguration->injectionPins[0] = GPIOB_9;
+	boardConfiguration->injectionPins[1] = GPIOE_3;
+	boardConfiguration->ignitionPins[0] = GPIOC_15;
+
+	boardConfiguration->injectionPins[2] = GPIO_NONE;
+	boardConfiguration->fanPin = GPIO_NONE;
 
 
 	// divided by 2 because of voltage divider, then converted into 10bit ADC value (TunerStudio format)
