@@ -21,6 +21,8 @@ void setMazdaMiataNbEngineConfiguration(engine_configuration_s *engineConfigurat
 	engineConfiguration->cltThermistorConf.bias_resistor = 2700;
 	engineConfiguration->iatThermistorConf.bias_resistor = 2700;
 
+//	boardConfiguration->fuelPumpPin = GPIOC_13;
+
 	// 10 deg before TDC is default timing
 }
 
