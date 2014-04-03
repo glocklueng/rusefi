@@ -248,7 +248,7 @@ static void printThermistor(char *msg, Thermistor *thermistor) {
 }
 
 static void printTPSInfo(void) {
-	scheduleMsg(&logger, "tps min %d/max %d", engineConfiguration->tpsMin, engineConfiguration->tpsMax);
+	scheduleMsg(&logger, "tps min %d/max %d v=%f @%s", engineConfiguration->tpsMin, engineConfiguration->tpsMax, getTPSVoltage(), hwPortname(engineConfiguration->tpsAdcChannel));
 	scheduleMsg(&logger, "current 10bit=%d value=%f rate=%f", getTPS10bitAdc(), getTPS(), getTpsRateOfChange());
 }
 
