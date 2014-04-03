@@ -178,17 +178,19 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 
+	float baseAngle = e->globalTriggerAngleOffset + e->injectionOffset;
+
 	switch (mode) {
 	case IM_SEQUENTIAL:
 		for (int i = 0; i < e->cylindersCount; i++) {
 			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1);
-			float angle = e->injectionOffset + i * 720.0 / e->cylindersCount;
+			float angle = baseAngle + i * 720.0 / e->cylindersCount;
 			registerActuatorEventExt(e, s, list, outputSignals.add(pin), angle);
 		}
 		break;
 	case IM_SIMULTANEOUS:
 		for (int i = 0; i < e->cylindersCount; i++) {
-			float angle = e->injectionOffset + i * 720.0 / e->cylindersCount;
+			float angle = baseAngle + i * 720.0 / e->cylindersCount;
 
 			for (int j = 0; j < e->cylindersCount; j++) {
 				io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + j);
@@ -199,7 +201,7 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 	case IM_BATCH:
 		for (int i = 0; i < e->cylindersCount; i++) {
 			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + (i % 2));
-			float angle = e->injectionOffset + i * 720.0 / e->cylindersCount;
+			float angle = baseAngle + i * 720.0 / e->cylindersCount;
 			registerActuatorEventExt(e, s, list, outputSignals.add(pin), angle);
 		}
 		break;
