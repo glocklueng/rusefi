@@ -133,29 +133,28 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 
 //	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->crankingSettings.crankingRpm);
 
-	scheduleMsg(&logger, "injectionPinMode: %d", boardConfiguration->injectionPinMode);
-	scheduleMsg(&logger, "ignitionPinMode: %d", boardConfiguration->ignitionPinMode);
 	scheduleMsg(&logger, "idlePinMode: %d", boardConfiguration->idleValvePinMode);
-	scheduleMsg(&logger, "fuelPumpPinMode: %d", boardConfiguration->fuelPumpPinMode);
 	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %d", boardConfiguration->malfunctionIndicatorPinMode);
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
-
 
 	scheduleMsg(&logger, "idleValvePin: %d", boardConfiguration->idleValvePin);
 
 #if EFI_PROD_CODE
-	for(int i = 0;i < engineConfiguration->cylindersCount;i++) {
+	scheduleMsg(&logger, "fuelPumpPin: mode %d @ %s", boardConfiguration->fuelPumpPinMode, hwPortname(boardConfiguration->fuelPumpPin));
+
+
+	scheduleMsg(&logger, "injectionPins: mode %d", boardConfiguration->injectionPinMode);
+	for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 		brain_pin_e brainPin = boardConfiguration->injectionPins[i];
 
-		scheduleMsg(&logger, "injection %d @ %d", i, brainPin);
+		scheduleMsg(&logger, "injection %d @ %s", i, hwPortname(brainPin));
 	}
 
+	scheduleMsg(&logger, "ignitionPins: mode %d", boardConfiguration->ignitionPinMode);
 	// todo: calculate coils count based on ignition mode
 	for (int i = 0; i < 4; i++) {
 		brain_pin_e brainPin = boardConfiguration->ignitionPins[i];
-		GPIO_TypeDef *hwPort = getHwPort(brainPin);
-		int hwPin = getHwPin(brainPin);
-		scheduleMsg(&logger, "ignition %d @ %s%d", i, portname(hwPort), hwPin);
+		scheduleMsg(&logger, "ignition %d @ %s", i, hwPortname(brainPin));
 	}
 #endif /* EFI_PROD_CODE */
 
