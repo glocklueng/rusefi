@@ -205,6 +205,11 @@ static void setIdlePinMode(int value) {
 	doPrintConfiguration();
 }
 
+static void setInjectionOffset(int value) {
+	engineConfiguration->injectionOffset = value;
+	doPrintConfiguration();
+}
+
 static void setIgnitionOffset(int value) {
 	engineConfiguration->ignitionOffset = value;
 	doPrintConfiguration();
@@ -405,6 +410,7 @@ void initSettings(void) {
 	addConsoleAction("tpsinfo", printTPSInfo);
 
 	addConsoleActionI("set_ignition_offset", setIgnitionOffset);
+	addConsoleActionI("set_injection_offset", setInjectionOffset);
 	addConsoleActionI("set_global_trigger_offset_angle", setGlobalTriggerAngleOffset);
 	addConsoleActionI("set_analog_chart_mode", setAnalogChartMode);
 	addConsoleActionI("set_fixed_mode_timing", setFixedModeTiming);
