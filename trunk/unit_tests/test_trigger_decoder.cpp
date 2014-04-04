@@ -151,6 +151,10 @@ void testFordAspire(void) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 	resetConfigurationExt(FORD_ASPIRE_1996, ec, &ec2, &persistentConfig.boardConfiguration);
+
+	assertEquals(800, ec->fuelRpmBins[0]);
+	assertEquals(7000, ec->fuelRpmBins[15]);
+
 	ec->crankingChargeAngle = 65;
 	ec->crankingTimingAngle = 31;
 
