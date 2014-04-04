@@ -1,5 +1,5 @@
 /**
- * @file	engine_math.c
+ * @file	engine_math.cpp
  * @brief
  *
  * @date Jul 13, 2013
@@ -74,13 +74,15 @@ float getOneDegreeTimeMs(int rpm) {
 
 /**
  * @return time needed to rotate crankshaft by one degree, in systicks
+ * @deprecated use getOneDegreeTimeMs
  */
 float getOneDegreeTime(int rpm) {
 	return getOneDegreeTimeMs(rpm) * TICKS_IN_MS;
 }
 
 /**
- * @return number of system it needed for one crankshaft revolution
+ * @return number of system it needed for one crankshaft revolution, in systicks
+ * @todo migrate getOneDegreeTimeMs
  */
 float getCrankshaftRevolutionTime(int rpm) {
 	return 360 * getOneDegreeTime(rpm);
