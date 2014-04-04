@@ -189,8 +189,16 @@ static void showTriggerHistogram(void) {
 	showMainHistogram();
 }
 
+static void showMainInfo(void) {
+	int rpm = getRpm();
+	float el = getEngineLoad();
+	scheduleMsg(&logger, "rpm %d engine_load %f", rpm, el);
+	scheduleMsg(&logger, "fuel %fms timing %f", getFuelMs(rpm), getAdvance(rpm, el));
+}
+
 void initMainEventListener() {
 	addConsoleAction("performanceinfo", showTriggerHistogram);
+	addConsoleAction("maininfo", showMainInfo);
 
 	initLogging(&logger, "main event handler");
 	printMsg(&logger, "initMainLoop: %d", chTimeNow());
