@@ -309,3 +309,25 @@ void prepareOutputSignals(engine_configuration_s *engineConfiguration, engine_co
 	addFuelEvents(engineConfiguration, engineConfiguration2, &config->injectionEvents,
 			engineConfiguration->injectionMode);
 }
+
+
+static void setTableBin(float array[], int size, float l, float r) {
+	for (int i = 0; i < size; i++)
+		array[i] = interpolate(0, l, size - 1, r, i);
+}
+
+void setFuelRpmBin(engine_configuration_s *engineConfiguration, float l, float r) {
+	setTableBin(engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT, l, r);
+}
+
+void setFuelLoadBin(engine_configuration_s *engineConfiguration, float l, float r) {
+	setTableBin(engineConfiguration->fuelLoadBins, FUEL_LOAD_COUNT, l, r);
+}
+
+void setTimingRpmBin(engine_configuration_s *engineConfiguration, float l, float r) {
+	setTableBin(engineConfiguration->ignitionRpmBins, IGN_RPM_COUNT, l, r);
+}
+
+void setTimingLoadBin(engine_configuration_s *engineConfiguration, float l, float r) {
+	setTableBin(engineConfiguration->ignitionLoadBins, IGN_LOAD_COUNT, l, r);
+}
