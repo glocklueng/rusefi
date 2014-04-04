@@ -18,14 +18,24 @@ void setMazdaMiataNbEngineConfiguration(engine_configuration_s *engineConfigurat
 	engineConfiguration->triggerConfig.useRiseEdge = FALSE;
 	engineConfiguration->globalTriggerAngleOffset = 320;
 
+	// set_cranking_injection_mode 0
+	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
+	// set_injection_mode 1
+	engineConfiguration->injectionMode = IM_SEQUENTIAL;
+	// set_ignition_mode 2
+	engineConfiguration->ignitionMode = IM_WASTED_SPARK;
+	// set_firing_order 2
+	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
+
 	engineConfiguration->cltThermistorConf.bias_resistor = 2700;
 	engineConfiguration->iatThermistorConf.bias_resistor = 2700;
 
 //	boardConfiguration->fuelPumpPin = GPIOC_13;
 
-	// 10 deg before TDC is default timing
+// 10 deg before TDC is default timing
 }
 
-void setMazdaMiataNb_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+void setMazdaMiataNb_configuration2_s(engine_configuration_s *engineConfiguration,
+		engine_configuration2_s *engineConfiguration2) {
 }
 
