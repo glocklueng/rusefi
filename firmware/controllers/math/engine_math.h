@@ -48,6 +48,11 @@ int getCylinderId(firing_order_e firingOrder, int index);
 void prepareOutputSignals(engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2);
 
+void setFuelRpmBin(engine_configuration_s *engineConfiguration, float l, float r);
+void setFuelLoadBin(engine_configuration_s *engineConfiguration, float l, float r);
+void setTimingRpmBin(engine_configuration_s *engineConfiguration, float l, float r);
+void setTimingLoadBin(engine_configuration_s *engineConfiguration, float l, float r);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

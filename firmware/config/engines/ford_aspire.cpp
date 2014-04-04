@@ -140,8 +140,9 @@ static float default_timing_table[AD_LOAD_COUNT][AD_RPM_COUNT] = {
 static void setDefaultMaps(engine_configuration_s *engineConfiguration) {
 	for (int i = 0; i < FUEL_LOAD_COUNT; i++)
 		engineConfiguration->fuelLoadBins[i] = default_fuel_maf_bins[i];
-	for (int i = 0; i < FUEL_RPM_COUNT; i++)
-		engineConfiguration->fuelRpmBins[i] = default_fuel_rpm_bins[i];
+
+	setFuelRpmBin(engineConfiguration, 800, 7000);
+
 	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
 		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
 			engineConfiguration->fuelTable[k][r] = default_fuel_table[k][r];
