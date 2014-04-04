@@ -95,6 +95,8 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 0, 32500, 30, 7550, 100, 700);
 	engineConfiguration->cltThermistorConf.bias_resistor = 2700;
+
+	engineConfiguration->analogChartFrequency = 7;
 }
 
 void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
