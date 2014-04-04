@@ -153,12 +153,12 @@ void handleValueWriteCommand(void) {
 	int now = chTimeNow();
 	if (overflowDiff(now, previousWriteReport) > 5 * TICKS_IN_MS) {
 		previousWriteReport = now;
-		scheduleMsg(&logger, "page %d offset %d: value=%d", pageId, writeRequest.offset, writeRequest.value);
+//		scheduleMsg(&logger, "page %d offset %d: value=%d", pageId, writeRequest.offset, writeRequest.value);
 	}
 
 	getWorkingPageAddr(pageId)[writeRequest.offset] = writeRequest.value;
 
-	scheduleMsg(&logger, "va=%d", configWorkingCopy.boardConfiguration.idleValvePin);
+//	scheduleMsg(&logger, "va=%d", configWorkingCopy.boardConfiguration.idleValvePin);
 }
 
 void handlePageReadCommand(void) {
