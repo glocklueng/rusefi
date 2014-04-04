@@ -156,7 +156,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	engineConfiguration->injectionOffset = 0;
 	engineConfiguration->ignitionOffset = 0;
 	engineConfiguration->overrideCrankingIgnition = TRUE;
-
+	engineConfiguration->analogChartFrequency = 20;
 
 	engineConfiguration->engineLoadMode = LM_MAF;
 
