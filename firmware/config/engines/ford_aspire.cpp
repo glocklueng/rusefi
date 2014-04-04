@@ -19,45 +19,6 @@
 #if EFI_SUPPORT_FORD_ASPIRE || defined(__DOXYGEN__)
 
 /**
- * Just the default RPM bin - with TunerStudio you can adjust even the bins
- */
-
-static float default_fuel_maf_bins[FUEL_LOAD_COUNT] = {/*0*/ 1.200000,
-/*1*/ 1.413333,
-/*2*/ 1.626667,
-/*3*/ 1.840000,
-/*4*/ 2.053333,
-/*5*/ 2.266667,
-/*6*/ 2.480000,
-/*7*/ 2.693333,
-/*8*/ 2.906667,
-/*9*/ 3.120000,
-/*10*/ 3.333333,
-/*11*/ 3.546667,
-/*12*/ 3.760000,
-/*13*/ 3.973333,
-/*14*/ 4.186667,
-/*15*/ 4.400000,
-};
-static float default_fuel_rpm_bins[FUEL_RPM_COUNT] = {/*0*/ 800.000000,
-/*1*/ 1213.333374,
-/*2*/ 1626.666748,
-/*3*/ 2040.000000,
-/*4*/ 2453.333496,
-/*5*/ 2866.666748,
-/*6*/ 3280.000000,
-/*7*/ 3693.333496,
-/*8*/ 4106.666992,
-/*9*/ 4520.000000,
-/*10*/ 4933.333496,
-/*11*/ 5346.666992,
-/*12*/ 5760.000000,
-/*13*/ 6173.333496,
-/*14*/ 6586.666992,
-/*15*/ 7000.000000,
-};
-
-/**
  * This is just the default map which is stored into flash memory in case flash is empty
  * The convenient way to override these default would be to tune this map using TunerStudio software
  * with which rusEfi is integrated
@@ -82,41 +43,6 @@ static float default_fuel_table[FUEL_LOAD_COUNT][FUEL_RPM_COUNT] = {
 /* Load 4.400000 */{	17.010000,	15.250000,	15.680000,	15.440000,	15.270000,	15.470000,	15.800000,	15.730000,	15.600000,	15.790000,	16.120001,	16.110001,	15.630000,	15.150000,	15.150000,	15.150000}
 };
 
-static float default_timing_maf_table[AD_LOAD_COUNT] = {/*0*/ 1.200000,
-/*1*/ 1.413333,
-/*2*/ 1.626667,
-/*3*/ 1.840000,
-/*4*/ 2.053333,
-/*5*/ 2.266667,
-/*6*/ 2.480000,
-/*7*/ 2.693333,
-/*8*/ 2.906667,
-/*9*/ 3.120000,
-/*10*/ 3.333333,
-/*11*/ 3.546667,
-/*12*/ 3.760000,
-/*13*/ 3.973333,
-/*14*/ 4.186667,
-/*15*/ 4.400000,
-};
-static float default_timing_rpm_table[AD_RPM_COUNT] = {/*0*/ 800.000000,
-/*1*/ 1213.333374,
-/*2*/ 1626.666748,
-/*3*/ 2040.000000,
-/*4*/ 2453.333496,
-/*5*/ 2866.666748,
-/*6*/ 3280.000000,
-/*7*/ 3693.333496,
-/*8*/ 4106.666992,
-/*9*/ 4520.000000,
-/*10*/ 4933.333496,
-/*11*/ 5346.666992,
-/*12*/ 5760.000000,
-/*13*/ 6173.333496,
-/*14*/ 6586.666992,
-/*15*/ 7000.000000,
-};
-
 static float default_timing_table[AD_LOAD_COUNT][AD_RPM_COUNT] = {
 /* RPM					800.000000	1213.333374	1626.666748	2040.000000	2453.333496	2866.666748	3280.000000	3693.333496	4106.666992	4520.000000	4933.333496	5346.666992	5760.000000	6173.333496	6586.666992	7000.000000*/
 /* Load 1.200000 */{	0.662000,	-7.730000,	-16.722000,	-23.139999,	-29.398001,	-31.268000,	-32.108002,	-30.436001,	-30.896000,	-26.656000,	-24.704000,	-25.108000,	-25.132000,	-25.459999,	-25.459999,	-25.459999},
@@ -138,21 +64,17 @@ static float default_timing_table[AD_LOAD_COUNT][AD_RPM_COUNT] = {
 };
 
 static void setDefaultMaps(engine_configuration_s *engineConfiguration) {
-	for (int i = 0; i < FUEL_LOAD_COUNT; i++)
-		engineConfiguration->fuelLoadBins[i] = default_fuel_maf_bins[i];
 
+	setFuelLoadBin(engineConfiguration, 1.2, 4.4);
 	setFuelRpmBin(engineConfiguration, 800, 7000);
+	setTimingLoadBin(engineConfiguration, 1.2, 4.4);
+	setTimingRpmBin(engineConfiguration, 800, 7000);
 
 	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
 		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
 			engineConfiguration->fuelTable[k][r] = default_fuel_table[k][r];
 		}
 	}
-
-	for (int i = 0; i < AD_LOAD_COUNT; i++)
-		engineConfiguration->ignitionLoadBins[i] = default_timing_maf_table[i];
-	for (int i = 0; i < AD_RPM_COUNT; i++)
-		engineConfiguration->ignitionRpmBins[i] = default_timing_rpm_table[i];
 
 	for (int k = 0; k < AD_LOAD_COUNT; k++) {
 		for (int r = 0; r < AD_RPM_COUNT; r++) {

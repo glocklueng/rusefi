@@ -120,6 +120,11 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 
 	setConstantDwell(engineConfiguration, 4); // 4ms is global default dwell
 
+	setFuelLoadBin(engineConfiguration, 1.2, 4.4);
+	setFuelRpmBin(engineConfiguration, 800, 7000);
+	setTimingLoadBin(engineConfiguration, 1.2, 4.4);
+	setTimingRpmBin(engineConfiguration, 800, 7000);
+
 	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
 		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
 			// 3ms would be the global default
