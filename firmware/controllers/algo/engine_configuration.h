@@ -226,7 +226,8 @@ typedef struct {
 
 	int tpsAdcChannel;
 	int overrideCrankingIgnition;
-	int unused5[11];
+	int analogChartFrequency;
+	int unused5[10];
 
 	trigger_config_s triggerConfig;
 
