@@ -44,6 +44,10 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->triggerConfig.useRiseEdge = FALSE;
 	engineConfiguration->needSecondTriggerInput = TRUE;
 
+	// set_cranking_charge_angle 70
+	engineConfiguration->crankingChargeAngle = 70;
+	// set_cranking_timing_angle 0
+	engineConfiguration->crankingTimingAngle = 0;
 
 	// set_cranking_injection_mode 0
 	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
