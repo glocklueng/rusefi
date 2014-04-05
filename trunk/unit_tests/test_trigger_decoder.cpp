@@ -39,7 +39,7 @@ static void testDodgeNeonDecoder(void) {
 	printf("*************************************************** testDodgeNeonDecoder\r\n");
 	initTriggerDecoder();
 
-	assertEqualsM("trigger zero index", 0, getTheAngle(DODGE_NEON_1995));
+	assertEqualsM("trigger zero index", 8, getTheAngle(DODGE_NEON_1995));
 
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;

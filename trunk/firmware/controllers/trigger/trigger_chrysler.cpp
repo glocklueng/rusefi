@@ -13,17 +13,16 @@ void configureNeonTriggerShape(trigger_shape_s *s) {
 	// voodoo magic - we always need 720 at the end
 	int base = 720 - 560;
 
-//	s->initialState[0] = 1;
+	s->initialState[0] = 1;
 
-//	triggerAddEvent(s, base - 720 + 600, T_SECONDARY, TV_HIGH);
-//	triggerAddEvent(s, base - 720 + 604, T_SECONDARY, TV_LOW);
-//	triggerAddEvent(s, base - 720 + 616, T_SECONDARY, TV_HIGH);
-//	triggerAddEvent(s, base - 720 + 620, T_SECONDARY, TV_LOW);
-//	triggerAddEvent(s, base - 720 + 643, T_SECONDARY, TV_HIGH);
-//	triggerAddEvent(s, base - 720 + 648, T_SECONDARY, TV_LOW);
-//	triggerAddEvent(s, base - 720 + 671, T_SECONDARY, TV_HIGH);
-//	triggerAddEvent(s, base - 720 + 676, T_SECONDARY, TV_LOW);
-
+	triggerAddEvent(s, base - 720 + 600, T_SECONDARY, TV_HIGH);
+	triggerAddEvent(s, base - 720 + 604, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, base - 720 + 616, T_SECONDARY, TV_HIGH);
+	triggerAddEvent(s, base - 720 + 620, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, base - 720 + 643, T_SECONDARY, TV_HIGH);
+	triggerAddEvent(s, base - 720 + 648, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, base - 720 + 671, T_SECONDARY, TV_HIGH);
+	triggerAddEvent(s, base - 720 + 676, T_SECONDARY, TV_LOW);
 
 	triggerAddEvent(s, base + 0, T_PRIMARY, TV_LOW);
 
@@ -62,6 +61,6 @@ void configureNeonTriggerShape(trigger_shape_s *s) {
 
 	triggerAddEvent(s, base + 560, T_PRIMARY, TV_HIGH); // width =
 
-	s->shaftPositionEventCount = 4 + 8 + 8 + 8;
+	s->shaftPositionEventCount = 4 + 8 + 8 + 8 + 8;
 }
 
