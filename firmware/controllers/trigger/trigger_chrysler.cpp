@@ -76,13 +76,13 @@ void configureNeonTriggerShape(trigger_shape_s *s) {
 	triggerAddEvent(s, base + 305, T_SECONDARY, TV_HIGH);
 	triggerAddEvent(s, base + 310, T_SECONDARY, TV_LOW);
 
-//	triggerAddEvent(s, base + 374, T_SECONDARY, TV_HIGH);
+	triggerAddEvent(s, base + 374, T_SECONDARY, TV_HIGH);
 
 	triggerAddEvent(s, base + 395, T_PRIMARY, TV_LOW); // width =
 
-//	triggerAddEvent(s, base + 418, T_SECONDARY, TV_LOW);
-//	triggerAddEvent(s, base + 436, T_SECONDARY, TV_HIGH);
-//	triggerAddEvent(s, base + 441, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, base + 418, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, base + 436, T_SECONDARY, TV_HIGH);
+	triggerAddEvent(s, base + 441, T_SECONDARY, TV_LOW);
 //	triggerAddEvent(s, base + 463, T_SECONDARY, TV_HIGH);
 //	triggerAddEvent(s, base + 448, T_SECONDARY, TV_LOW);
 //	triggerAddEvent(s, base + 492, T_SECONDARY, TV_HIGH);
@@ -91,6 +91,6 @@ void configureNeonTriggerShape(trigger_shape_s *s) {
 
 	triggerAddEvent(s, base + 560, T_PRIMARY, TV_HIGH); // width =
 
-	s->shaftPositionEventCount = 4 + 8 + 8;
+	s->shaftPositionEventCount = 4 + 8 + 8 + 4;
 }
 
