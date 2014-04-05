@@ -367,13 +367,9 @@ static void setWholeTimingMap(float value) {
 	}
 }
 
-static void setWholeFuelMap(float value) {
+static void setWholeFuelMapCmd(float value) {
 	scheduleMsg(&logger, "Setting whole fuel map to %f", value);
-	for (int l = 0; l < FUEL_LOAD_COUNT; l++) {
-		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
-			engineConfiguration->fuelTable[l][r] = value;
-		}
-	}
+	setWholeFuelMap(engineConfiguration, value);
 }
 
 static void setTimingMap(char * rpmStr, char *loadStr, char *valueStr) {
@@ -439,7 +435,7 @@ void initSettings(void) {
 	addConsoleActionI("set_cranking_injection_mode", setCrankingInjectionMode);
 	addConsoleActionI("set_injection_mode", setInjectionMode);
 
-	addConsoleActionF("set_whole_fuel_map", setWholeFuelMap);
+	addConsoleActionF("set_whole_fuel_map", setWholeFuelMapCmd);
 	addConsoleActionSSS("set_fuel_map", setFuelMap);
 
 	addConsoleActionF("set_whole_timing_map", setWholeTimingMap);

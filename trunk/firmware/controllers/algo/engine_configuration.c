@@ -77,6 +77,13 @@ void initBpsxD1Sensor(afr_sensor_s *sensor) {
 	sensor->value2 = 19;
 }
 
+void setWholeFuelMap(engine_configuration_s *engineConfiguration, float value) {
+	for (int l = 0; l < FUEL_LOAD_COUNT; l++) {
+		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
+			engineConfiguration->fuelTable[l][r] = value;
+		}
+	}
+}
 
 /**
  * @brief	Global default engine configuration
@@ -125,12 +132,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	setTimingLoadBin(engineConfiguration, 1.2, 4.4);
 	setTimingRpmBin(engineConfiguration, 800, 7000);
 
-	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
-		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
-			// 3ms would be the global default
-			engineConfiguration->fuelTable[k][r] = 3;
-		}
-	}
+	setWholeFuelMap(engineConfiguration, 3);
 
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 0, 9500, 23.8889, 2100, 48.8889, 1000);
 	engineConfiguration->cltThermistorConf.bias_resistor =  1500;
