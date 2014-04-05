@@ -91,7 +91,7 @@ static void testDodgeNeonDecoder(void) {
 static void test1995FordInline6TriggerDecoder(void) {
 	printf("*************************************************** test1995FordInline6TriggerDecoder\r\n");
 
-	assertEquals(0, getTheAngle(FORD_INLINE_6_1995));
+	assertEqualsM("triggerIndex ", 0, getTheAngle(FORD_INLINE_6_1995));
 
 	initTriggerDecoder();
 
