@@ -22,10 +22,16 @@ public class TestingUtils {
 
     static void assertCloseEnough(String msg, double current, double... expectations) {
         for (double expected : expectations) {
-            if (isCloseEnough(expected, current))
+            if (isCloseEnough(fixAngle(expected), current))
                 return;
         }
         fail(msg + ": Got " + current + " while expecting " + Arrays.toString(expectations));
+    }
+
+    private static double fixAngle(double angle) {
+        while (angle > 720)
+            angle -= 720;
+        return angle;
     }
 
     private static void fail(String message) {
