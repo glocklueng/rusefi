@@ -61,7 +61,7 @@ public class AutoTest {
         IoUtil.changeRpm(2000);
         chart = nextChart();
 
-        int x = 10;
+        int x = 7;
         assertWave("ford 6", chart, WaveChart.SPARK_1, 0.01666, x, x + 120, x + 240, x + 360, x + 480, x + 600);
 
     }
@@ -109,7 +109,7 @@ public class AutoTest {
         assertWave(chart, WaveChart.INJECTOR_3, 0.051, 417.04);
         assertWave(chart, WaveChart.INJECTOR_4, 0.051, 594.04);
 
-        x = 44;
+        x = 24;
         assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
 
         sendCommand("set_fuel_map 2200 4 15.66");
@@ -126,13 +126,13 @@ public class AutoTest {
         assertWave(chart, WaveChart.INJECTOR_3, 0.522, 417.04);
         assertWave(chart, WaveChart.INJECTOR_4, 0.522, 594.04);
 
-        x = 58;
+        x = 41;
         assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
         assertNull("chart for " + WaveChart.SPARK_2, chart.get(WaveChart.SPARK_2));
 
         sendCommand("set_global_trigger_offset_angle 130");
         chart = nextChart();
-        x = 11;
+        x = 716;
         assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
 
         // let's enable more channels dynamically
@@ -140,6 +140,11 @@ public class AutoTest {
         chart = nextChart();
         assertWave(chart, WaveChart.SPARK_2, 0.133, x);
         assertWave(chart, WaveChart.SPARK_3, 0.133, x + 360);
+
+        sendCommand("set_whole_timing_map 200");
+        chart = nextChart();
+        x = 196;
+        assertWave(chart, WaveChart.SPARK_2, 0.133, x);
     }
 
     public static void main(String[] args) throws InterruptedException {
