@@ -20,7 +20,7 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 		board_configuration_s *boardConfiguration) {
 	engineConfiguration->triggerConfig.triggerType = TT_DODGE_NEON;
 
-	// set_rpm_hard_limit 400
+	// set_rpm_hard_limit 4000
 	engineConfiguration->rpmHardLimit = 4000; // yes, 4k. let's play it safe for now
 	// set_cranking_rpm 550
 	engineConfiguration->crankingSettings.crankingRpm = 550;
@@ -34,6 +34,7 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 26ms at -40C
 	engineConfiguration->crankingSettings.fuelAtMinTempMs = 10;
 
+	// set_whole_timing_map 3
 	setWholeFuelMap(engineConfiguration, 3);
 
 	engineConfiguration->triggerConfig.syncRatioFrom = 0.72 * 0.8;
