@@ -38,7 +38,7 @@ static time_t togglePwmState(PwmConfig *state) {
 			 */
 			return TICKS_IN_MS;
 		}
-		if (state->cycleCallback != NULL )
+		if (state->cycleCallback != NULL)
 			state->cycleCallback(state);
 		chDbgAssert(state->period != 0, "period not initialized", NULL);
 		if (state->safe.period != state->period) {
@@ -62,6 +62,10 @@ static time_t togglePwmState(PwmConfig *state) {
 	scheduleMsg(&logger, "%s: nextSwitchTime %d", state->name, nextSwitchTime);
 #endif
 	time_t timeToSwitch = nextSwitchTime - chTimeNow();
+	if (timeToSwitch < 0) {
+//todo: introduce error and test this error handling		warning(OBD_PCM_Processor_Fault, "PWM: negative switch time");
+//todo: introduce error and test this error handling		timeToSwitch = 1;
+	}
 
 	state->safe.phaseIndex++;
 	if (state->safe.phaseIndex == state->multiWave.phaseCount) {
@@ -123,8 +127,14 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, float *switchTim
 
 	chDbgCheck(state->period != 0, "period is not initialized");
 	chDbgCheck(phaseCount > 1, "count is too small");
-	chDbgCheck(phaseCount <= PWM_PHASE_MAX_COUNT, "count is too large");
-	chDbgCheck(switchTimes[phaseCount - 1] == 1, "last switch time has to be 1");
+	if (phaseCount > PWM_PHASE_MAX_COUNT) {
+		firmwareError("too many phases in PWM");
+		return;
+	}
+	if (switchTimes[phaseCount - 1] != 1) {
+		firmwareError("last switch time has to be 1");
+		return;
+	}
 	chDbgCheck(waveCount > 0, "waveCount should be positive");
 	checkSwitchTimes(phaseCount, switchTimes);
 
