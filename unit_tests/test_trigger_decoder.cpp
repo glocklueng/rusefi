@@ -39,7 +39,7 @@ static void testDodgeNeonDecoder(void) {
 	printf("*************************************************** testDodgeNeonDecoder\r\n");
 	initTriggerDecoder();
 
-	assertEquals(1, getTheAngle(DODGE_NEON_1995));
+	assertEqualsM("trigger zero index", 0, getTheAngle(DODGE_NEON_1995));
 
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
@@ -47,45 +47,45 @@ static void testDodgeNeonDecoder(void) {
 
 	resetConfigurationExt(DODGE_NEON_1995, ec, &ec2, &persistentConfig.boardConfiguration);
 
-	trigger_shape_s * shape = &ec2.triggerShape;
-	trigger_state_s state;
-	clearTriggerState(&state);
-
-	assertFalseM("1 shaft_is_synchronized", state.shaft_is_synchronized);
-
-	int r = 0;
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 60);
-	assertFalseM("2 shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
-
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 210);
-	assertFalseM("3 shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
-
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 420);
-	assertFalseM("4 shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
-
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 630);
-	assertFalse(state.shaft_is_synchronized); // still no synchronization
-
-	printf("2nd camshaft revolution\r\n");
-	r = 720;
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 60);
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 210);
-	assertTrue(state.shaft_is_synchronized);
-	assertEquals(0, state.current_index);
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 420);
-	assertEquals(1, state.current_index);
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 630);
-	assertEquals(2, state.current_index);
-
-	printf("3rd camshaft revolution\r\n");
-	r = 2 * 720;
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 60);
-	assertEqualsM("current index", 3, state.current_index);
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 210);
-	assertTrue(state.shaft_is_synchronized);
-	assertEqualsM("current index", 0, state.current_index);
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 420);
-	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 630);
+//	trigger_shape_s * shape = &ec2.triggerShape;
+//	trigger_state_s state;
+//	clearTriggerState(&state);
+//
+//	assertFalseM("1 shaft_is_synchronized", state.shaft_is_synchronized);
+//
+//	int r = 0;
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 60);
+//	assertFalseM("2 shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
+//
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 210);
+//	assertFalseM("3 shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
+//
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 420);
+//	assertFalseM("4 shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
+//
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 630);
+//	assertFalse(state.shaft_is_synchronized); // still no synchronization
+//
+//	printf("2nd camshaft revolution\r\n");
+//	r = 720;
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 60);
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 210);
+//	assertTrue(state.shaft_is_synchronized);
+//	assertEquals(0, state.current_index);
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 420);
+//	assertEquals(1, state.current_index);
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 630);
+//	assertEquals(2, state.current_index);
+//
+//	printf("3rd camshaft revolution\r\n");
+//	r = 2 * 720;
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 60);
+//	assertEqualsM("current index", 3, state.current_index);
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 210);
+//	assertTrue(state.shaft_is_synchronized);
+//	assertEqualsM("current index", 0, state.current_index);
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 420);
+//	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 630);
 }
 
 static void test1995FordInline6TriggerDecoder(void) {
@@ -262,7 +262,7 @@ void testTriggerDecoder(void) {
 	assertEquals(ec2.triggerShape.wave.switchTimes[2], 0.75);
 	assertEquals(ec2.triggerShape.wave.switchTimes[3], 1);
 
-	//todo: uncomment testDodgeNeonDecoder();
+	testDodgeNeonDecoder();
 	testFordAspire();
 	test1995FordInline6TriggerDecoder();
 	testMazdaMianaNbDecoder();
