@@ -262,7 +262,7 @@ void testTriggerDecoder(void) {
 	assertEquals(ec2.triggerShape.wave.switchTimes[2], 0.75);
 	assertEquals(ec2.triggerShape.wave.switchTimes[3], 1);
 
-	testDodgeNeonDecoder();
+	//todo: uncomment testDodgeNeonDecoder();
 	testFordAspire();
 	test1995FordInline6TriggerDecoder();
 	testMazdaMianaNbDecoder();
