@@ -50,7 +50,7 @@ float getAdvance(int rpm, float engineLoad) {
 }
 
 void prepareTimingMap(void) {
-	for (int k = 0; k < FUEL_LOAD_COUNT; k++)
-		timing_ptrs[k] = engineConfiguration->fuelTable[k];
+	for (int k = 0; k < AD_LOAD_COUNT; k++)
+		timing_ptrs[k] = engineConfiguration->ignitionTable[k];
 	initialized = TRUE;
 }
