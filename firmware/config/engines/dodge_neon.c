@@ -39,7 +39,7 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = TRUE;
 	engineConfiguration->triggerConfig.useRiseEdge = FALSE;
-//	engineConfiguration->needSecondTriggerInput = FALSE;
+	engineConfiguration->needSecondTriggerInput = TRUE;
 
 
 	// set_cranking_injection_mode 0
