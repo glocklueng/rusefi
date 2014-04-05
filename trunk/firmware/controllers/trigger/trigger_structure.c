@@ -37,7 +37,7 @@ void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e wave
 	if (trigger->size == 0) {
 		trigger->size = 1;
 		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
-			trigger->wave.waves[i].pinStates[0] = 0;
+			trigger->wave.waves[i].pinStates[0] = trigger->initialState[i];
 
 		trigger->wave.switchTimes[0] = angle;
 		trigger->wave.waves[waveIndex].pinStates[0] = state;
