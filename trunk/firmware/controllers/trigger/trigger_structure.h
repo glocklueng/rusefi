@@ -96,6 +96,8 @@ typedef struct {
 	 */
 	int shaftPositionEventCount;
 
+	int initialState[PWM_PHASE_MAX_WAVE_PER_PWM];
+
 	int triggerShapeSynchPointIndex;
 } trigger_shape_s;
 
