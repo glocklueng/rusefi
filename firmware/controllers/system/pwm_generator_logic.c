@@ -62,9 +62,9 @@ static time_t togglePwmState(PwmConfig *state) {
 	scheduleMsg(&logger, "%s: nextSwitchTime %d", state->name, nextSwitchTime);
 #endif
 	time_t timeToSwitch = nextSwitchTime - chTimeNow();
-	if (timeToSwitch < 0) {
+	if (timeToSwitch < 1) {
 //todo: introduce error and test this error handling		warning(OBD_PCM_Processor_Fault, "PWM: negative switch time");
-//todo: introduce error and test this error handling		timeToSwitch = 1;
+		timeToSwitch = 1;
 	}
 
 	state->safe.phaseIndex++;
