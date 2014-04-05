@@ -34,6 +34,8 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 26ms at -40C
 	engineConfiguration->crankingSettings.fuelAtMinTempMs = 10;
 
+	setWholeFuelMap(engineConfiguration, 3);
+
 	engineConfiguration->triggerConfig.syncRatioFrom = 0.72 * 0.8;
 	engineConfiguration->triggerConfig.syncRatioTo = 0.72 * 1.3;
 
