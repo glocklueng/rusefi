@@ -403,6 +403,16 @@ static void setFuelMap(char * rpmStr, char *loadStr, char *valueStr) {
 	scheduleMsg(&logger, "Setting fuel map entry %d:%d to %f", rpmIndex, loadIndex, value);
 }
 
+static void enableInjection(void) {
+	engineConfiguration2->isInjectionEnabledFlag = TRUE;
+	scheduleMsg(&logger, "injection enabled");
+}
+
+static void disableInjection(void) {
+	engineConfiguration2->isInjectionEnabledFlag = FALSE;
+	scheduleMsg(&logger, "injection disabled");
+}
+
 void initSettings(void) {
 	initLoggingExt(&logger, "settings control", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 
@@ -446,5 +456,8 @@ void initSettings(void) {
 
 	addConsoleActionI("set_rpm_hard_limit", setRpmHardLimit);
 	addConsoleActionI("set_firing_order", setFiringOrder);
+
+	addConsoleAction("enable_injection", enableInjection);
+	addConsoleAction("disable_injection", disableInjection);
 }
 
