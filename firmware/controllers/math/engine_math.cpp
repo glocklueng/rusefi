@@ -126,11 +126,13 @@ int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm) {
 	return rpm > 0 && rpm < engineConfiguration->crankingSettings.crankingRpm;
 }
 
-OutputSignalList outputSignals;
+OutputSignalList ignitionSignals;
+OutputSignalList injectonSignals;
 
 void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2) {
 	chDbgCheck(engineConfiguration->cylindersCount > 0, "cylindersCount");
+	ignitionSignals.clear();
 
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 	resetEventList(&config->ignitionEvents);
@@ -142,7 +144,7 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
 			float angle = 720.0 * i / engineConfiguration->cylindersCount;
 
 			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
-					outputSignals.add(SPARKOUT_1_OUTPUT), angle);
+					ignitionSignals.add(SPARKOUT_1_OUTPUT), angle);
 		}
 		break;
 	case IM_WASTED_SPARK:
@@ -155,7 +157,7 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
 			io_pin_e ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
 
 			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
-					outputSignals.add(ioPin), angle);
+					ignitionSignals.add(ioPin), angle);
 
 		}
 
@@ -166,7 +168,7 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
 
 			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
 			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
-					outputSignals.add(pin), angle);
+					ignitionSignals.add(pin), angle);
 		}
 		break;
 
@@ -188,7 +190,7 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 		for (int i = 0; i < e->cylindersCount; i++) {
 			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1);
 			float angle = baseAngle + i * 720.0 / e->cylindersCount;
-			registerActuatorEventExt(e, s, list, outputSignals.add(pin), angle);
+			registerActuatorEventExt(e, s, list, injectonSignals.add(pin), angle);
 		}
 		break;
 	case IM_SIMULTANEOUS:
@@ -197,7 +199,7 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 
 			for (int j = 0; j < e->cylindersCount; j++) {
 				io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + j);
-				registerActuatorEventExt(e, s, list, outputSignals.add(pin), angle);
+				registerActuatorEventExt(e, s, list, injectonSignals.add(pin), angle);
 			}
 		}
 		break;
@@ -205,7 +207,7 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 		for (int i = 0; i < e->cylindersCount; i++) {
 			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + (i % 2));
 			float angle = baseAngle + i * 720.0 / e->cylindersCount;
-			registerActuatorEventExt(e, s, list, outputSignals.add(pin), angle);
+			registerActuatorEventExt(e, s, list, injectonSignals.add(pin), angle);
 		}
 		break;
 	default:
@@ -296,13 +298,12 @@ int getCylinderId(firing_order_e firingOrder, int index) {
 }
 
 void prepareOutputSignals(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-	outputSignals.clear();
 
 	// todo: move this reset into decoder
 	engineConfiguration2->triggerShape.triggerShapeSynchPointIndex = findTriggerZeroEventIndex(
 			&engineConfiguration2->triggerShape, &engineConfiguration->triggerConfig);
 
-	initializeIgnitionActions(engineConfiguration, engineConfiguration2);
+	injectonSignals.clear();
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 	addFuelEvents(engineConfiguration, engineConfiguration2, &config->crankingInjectionEvents,
 			engineConfiguration->crankingInjectionMode);

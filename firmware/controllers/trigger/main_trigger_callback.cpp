@@ -173,8 +173,20 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 		return;
 	}
 	int beforeCallback = hal_lld_get_counter_value();
-	if (eventIndex == 0 && localVersion.isOld())
-		prepareOutputSignals(engineConfiguration, engineConfiguration2);
+	if (eventIndex == 0) {
+		if (localVersion.isOld())
+			prepareOutputSignals(engineConfiguration, engineConfiguration2);
+
+		/**
+		 * TODO: warning. there is a bit of a hack here, todo: improve.
+		 * currently output signals/times signalTimerUp from the previous revolutions could be
+		 * still used because they have crossed the revolution boundary
+		 * but we are already reporpousing the output signals, but everything works because we
+		 * are not affecting that space in memory. todo: use two instances of 'ignitionSignals'
+		 */
+
+		initializeIgnitionActions(engineConfiguration, engineConfiguration2);
+	}
 
 	handleFuel(ckpSignalType, eventIndex);
 	handleSpark(ckpSignalType, eventIndex);
