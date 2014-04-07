@@ -139,6 +139,32 @@ void printSensors(void) {
 #endif /* EFI_FILE_LOGGING */
 }
 
+void printState(int currentCkpEventCounter) {
+	printSensors();
+
+	int rpm = getRpm();
+	debugInt(&logger, "ckp_c", currentCkpEventCounter);
+	debugInt(&logger, "fuel_lag", getRevolutionCounter());
+
+//	debugInt(&logger, "idl", getIdleSwitch());
+
+//	debugFloat(&logger, "table_spark", getAdvance(rpm, getMaf()), 2);
+
+	float engineLoad = getMaf();
+	debugFloat(&logger, "fuel_base", getBaseFuel(rpm, engineLoad), 2);
+//	debugFloat(&logger, "fuel_iat", getIatCorrection(getIntakeAirTemperature()), 2);
+//	debugFloat(&logger, "fuel_clt", getCltCorrection(getCoolantTemperature()), 2);
+//	debugFloat(&logger, "fuel_lag", getInjectorLag(getVBatt()), 2);
+	debugFloat(&logger, "fuel", getRunningFuel(rpm, engineLoad), 2);
+
+	debugFloat(&logger, "timing", getAdvance(rpm, engineLoad), 2);
+
+//		float map = getMap();
+//		float fuel = getDefaultFuel(rpm, map);
+//		debugFloat(&logger, "d_fuel", fuel, 2);
+
+}
+
 #define INITIAL_FULL_LOG TRUE
 //#define INITIAL_FULL_LOG FALSE
 
@@ -239,33 +265,14 @@ void updateDevConsoleState(void) {
 
 	timeOfPreviousReport = nowSeconds;
 
-	int rpm = getRpm();
 
 	prevCkpEventCounter = currentCkpEventCounter;
 
-	printSensors();
+	printState(currentCkpEventCounter);
 
-	debugInt(&logger, "ckp_c", currentCkpEventCounter);
-
-//	debugInt(&logger, "idl", getIdleSwitch());
-
-//	debugFloat(&logger, "table_spark", getAdvance(rpm, getMaf()), 2);
-
-	float engineLoad = getMaf();
-	debugFloat(&logger, "fuel_base", getBaseFuel(rpm, engineLoad), 2);
-	debugFloat(&logger, "fuel_iat", getIatCorrection(getIntakeAirTemperature()), 2);
-	debugFloat(&logger, "fuel_clt", getCltCorrection(getCoolantTemperature()), 2);
-	debugFloat(&logger, "fuel_lag", getInjectorLag(getVBatt()), 2);
-	debugFloat(&logger, "fuel", getRunningFuel(rpm, engineLoad), 2);
-
-	debugFloat(&logger, "timing", getAdvance(rpm, engineLoad), 2);
-
-//		float map = getMap();
-//		float fuel = getDefaultFuel(rpm, map);
-//		debugFloat(&logger, "d_fuel", fuel, 2);
 
 #if EFI_WAVE_ANALYZER
-	printWave(&logger);
+//	printWave(&logger);
 #endif
 
 	finishStatusLine();
