@@ -117,9 +117,9 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	if (rpm == 0)
 		return;
-	float advance = getAdvance(rpm, getEngineLoad());
+//	float advance = getAdvance(rpm, getEngineLoad());
 
-	float sparkAdvanceMs = getOneDegreeTimeMs(rpm) * advance;
+//	float sparkAdvanceMs = getOneDegreeTimeMs(rpm) * advance;
 
 	float dwellMs = getSparkDwellMs(rpm);
 	if (dwellMs < 0)
@@ -128,7 +128,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	if (dwellMs <= 0)
 		return; // hard RPM limit was hit
 
-	float sparkDelay = getOneDegreeTimeMs(rpm) * event->angleOffset + sparkAdvanceMs - dwellMs;
+	float sparkDelay = getOneDegreeTimeMs(rpm) * event->angleOffset;
 	int isIgnitionError = sparkDelay < 0;
 	ignitionErrorDetection.add(isIgnitionError);
 	if (isIgnitionError) {
@@ -188,7 +188,9 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 		float dwellMs = getSparkDwellMs(rpm);
 		float advance = getAdvance(rpm, getEngineLoad());
 
-		initializeIgnitionActions(0, engineConfiguration, engineConfiguration2);
+		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
+
+		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2);
 	}
 
 	handleFuel(ckpSignalType, eventIndex);
