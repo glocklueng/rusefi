@@ -31,8 +31,6 @@
 
 static Logging logger;
 
-static int isInjectionEnabledFlag = TRUE;
-
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 extern board_configuration_s *boardConfiguration;
@@ -40,7 +38,7 @@ extern board_configuration_s *boardConfiguration;
 static int is_injector_enabled[MAX_INJECTOR_COUNT];
 
 int isInjectionEnabled(void) {
-	return isInjectionEnabledFlag;
+	return engineConfiguration2->isInjectionEnabledFlag;
 }
 
 void assertCylinderId(int cylinderId, char *msg) {
