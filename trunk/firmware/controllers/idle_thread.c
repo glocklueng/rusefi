@@ -87,7 +87,7 @@ static msg_t ivThread(int param) {
 		chThdSleepMilliseconds(100);
 
 		// this value is not used yet
-		idleSwitchState = palReadPad(IDLE_SWITCH_PORT, IDLE_SWITCH_PIN);
+		idleSwitchState = palReadPad(getHwPort(boardConfiguration->idleSwitchPin), getHwPin(boardConfiguration->idleSwitchPin));
 
 		if (!isIdleControlActive)
 			continue;
@@ -129,7 +129,7 @@ void startIdleThread() {
 
 	// this is idle switch INPUT - sometimes there is a switch on the throttle pedal
 	// this switch is not used yet
-	mySetPadMode("idle switch", IDLE_SWITCH_PORT, IDLE_SWITCH_PIN, PAL_MODE_INPUT);
+	mySetPadMode("idle switch", getHwPort(boardConfiguration->idleSwitchPin), getHwPin(boardConfiguration->idleSwitchPin), PAL_MODE_INPUT);
 
 	addConsoleActionI("set_idle_rpm", setIdleRpmAction);
 	addConsoleActionI("set_idle_pwm", setIdleValvePwm);
