@@ -38,6 +38,16 @@
 
 #endif /* EFI_WAVE_ANALYZER */
 
+#if EFI_PROD_CODE || EFI_SIMULATOR
+	Logging logger;
+#endif
+
+void initSignalExecutor(void) {
+#if EFI_PROD_CODE || EFI_SIMULATOR
+	initLogging(&logger, "s exec");
+#endif
+}
+
 void initOutputSignalBase(OutputSignal *signal) {
 	signal->status = IDLE;
 	signal->last_scheduling_time = 0;
@@ -48,10 +58,22 @@ static void turnHigh(OutputSignal *signal) {
 #if EFI_DEFAILED_LOGGING
 	signal->hi_time = chTimeNow();
 #endif /* EFI_DEFAILED_LOGGING */
+	io_pin_e pin = signal->io_pin;
 	// turn the output level ACTIVE
 	// todo: this XOR should go inside the setOutputPinValue method
-	setOutputPinValue(signal->io_pin, TRUE);
+	setOutputPinValue(pin, TRUE);
 	// sleep for the needed duration
+
+#if EFI_PROD_CODE || EFI_SIMULATOR
+	if(
+			pin == SPARKOUT_1_OUTPUT ||
+			pin == SPARKOUT_3_OUTPUT) {
+		time_t now = chTimeNow();
+		float an = getCrankshaftAngle(now);
+		scheduleMsg(&logger, "spark up%d %d", pin, now);
+		scheduleMsg(&logger, "spark angle %d %f", (int)an, an);
+	}
+#endif
 
 #if EFI_WAVE_CHART
 	addWaveChartEvent(signal->name, "up", "");
