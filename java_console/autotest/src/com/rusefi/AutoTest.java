@@ -44,10 +44,10 @@ public class AutoTest {
         assertWave(msg, chart, WaveChart.INJECTOR_1, 0.1, 300);
         assertWave(msg, chart, WaveChart.INJECTOR_3, 0.1, 480);
 
-        assertWave(msg, chart, WaveChart.SPARK_4, 0.13333, 662);
-        assertWave(chart, WaveChart.SPARK_2, 0.13333, 122);
-        assertWave(chart, WaveChart.SPARK_1, 0.13333, 302);
-        assertWave(chart, WaveChart.SPARK_3, 0.13333, 482);
+        assertWave(msg, chart, WaveChart.SPARK_4, 0.13333, 149);
+        assertWave(chart, WaveChart.SPARK_2, 0.13333, 149 + 180);
+        assertWave(chart, WaveChart.SPARK_1, 0.13333, 149 + 360);
+        assertWave(chart, WaveChart.SPARK_3, 0.13333, 149 + 540);
     }
 
     private static void testFordFiesta() {
@@ -120,7 +120,7 @@ public class AutoTest {
         assertWave(chart, WaveChart.INJECTOR_3, 0.051, 417.04);
         assertWave(chart, WaveChart.INJECTOR_4, 0.051, 594.04);
 
-        x = 24;
+        x = 22;
         assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
 
         sendCommand("set_fuel_map 2200 4 15.66");
@@ -143,7 +143,7 @@ public class AutoTest {
 
         sendCommand("set_global_trigger_offset_angle 130");
         chart = nextChart();
-        x = 716;
+        x = 580;
         assertWave(chart, WaveChart.SPARK_1, 0.133, x, x + 180, x + 360, x + 540);
 
         // let's enable more channels dynamically
@@ -154,7 +154,7 @@ public class AutoTest {
 
         sendCommand("set_whole_timing_map 200");
         chart = nextChart();
-        x = 196;
+        x = 59;
         assertWave(chart, WaveChart.SPARK_2, 0.133, x);
     }
 
