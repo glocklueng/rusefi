@@ -19,7 +19,7 @@ public class LogViewer extends JPanel {
     public static final FileFilter FILE_FILTER = new FileFilter() {
         @Override
         public boolean accept(File pathname) {
-            return pathname.getName().startsWith("rfi_report");
+            return pathname.getName().contains("MAIN_rfi_report");
         }
     };
     private final JLabel folderLabel = new JLabel();
