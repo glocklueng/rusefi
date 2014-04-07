@@ -47,9 +47,9 @@ static void testDodgeNeonDecoder(void) {
 
 	resetConfigurationExt(DODGE_NEON_1995, ec, &ec2, &persistentConfig.boardConfiguration);
 
-//	trigger_shape_s * shape = &ec2.triggerShape;
-//	trigger_state_s state;
-//	clearTriggerState(&state);
+	trigger_shape_s * shape = &ec2.triggerShape;
+	trigger_state_s state;
+	clearTriggerState(&state);
 //
 //	assertFalseM("1 shaft_is_synchronized", state.shaft_is_synchronized);
 //
