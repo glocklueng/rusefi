@@ -86,7 +86,6 @@ public class LogViewer extends JPanel {
         boxPanel.add(fileList);
         boxPanel.add(descPanel);
 
-
         add(boxPanel);
     }
 
@@ -167,7 +166,7 @@ public class LogViewer extends JPanel {
         FileUtils.readFile2(filename, engineState);
 
         if (ChartRepository.getInstance().getSize() > 0)
-            WavePanel.getInstance().displayChart(ChartRepository.getInstance().getChart(0));
+            WavePanel.getInstance().reloadFile();
         refreshCountPanel();
     }
 }
