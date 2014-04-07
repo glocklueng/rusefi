@@ -12,6 +12,9 @@
 extern "C"
 {
 #endif /* __cplusplus */
+
+void printState(int currentCkpEventCounter);
+
 void initStatusLoop(void);
 void updateDevConsoleState(void);
 int getFullLog(void);
