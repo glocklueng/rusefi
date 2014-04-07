@@ -295,6 +295,8 @@ typedef struct {
 	cranking_ignition_mode_e crankingIgnitionMode;
 
 	EventHandlerConfiguration engineEventConfiguration;
+
+	int isInjectionEnabledFlag;
 } engine_configuration2_s;
 
 #ifdef __cplusplus

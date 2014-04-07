@@ -317,6 +317,9 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 // todo: this would require 'initThermistors() to re-establish a referece, todo: fix
 //	memset(engineConfiguration2, 0, sizeof(engine_configuration2_s));
 
+
+	engineConfiguration2->isInjectionEnabledFlag = TRUE;
+
 	initializeTriggerShape(engineConfiguration, engineConfiguration2);
 	chDbgCheck(engineConfiguration2->triggerShape.size != 0, "size is zero");
 	chDbgCheck(engineConfiguration2->triggerShape.shaftPositionEventCount, "shaftPositionEventCount is zero");
