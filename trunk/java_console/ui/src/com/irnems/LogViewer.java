@@ -83,7 +83,8 @@ public class LogViewer extends JPanel {
             }
         });
 
-        boxPanel.add(fileList);
+        JScrollPane scrollPane = new JScrollPane(fileList);
+        boxPanel.add(scrollPane);
         boxPanel.add(descPanel);
 
         add(boxPanel);
