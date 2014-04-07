@@ -3,6 +3,7 @@ package com.irnems;
 import com.irnems.core.EngineState;
 import com.irnems.file.FileUtils;
 import com.irnems.ui.WavePanel;
+import com.irnems.ui.widgets.UpDownImage;
 import com.rusefi.FIleItem;
 import com.rusefi.io.LinkManager;
 
@@ -31,6 +32,7 @@ public class LogViewer extends JPanel {
     private final DefaultListModel<FIleItem> fileListModel = new DefaultListModel<FIleItem>();
     private final JList<FIleItem> fileList = new JList<FIleItem>(fileListModel);
     private String currentFolder;
+    private static JPanel descPanel = new JPanel();
 
 
 //    int currentChartIndex = 0;
@@ -65,11 +67,7 @@ public class LogViewer extends JPanel {
 
         add(folderPanel, BorderLayout.NORTH);
 
-
-        JPanel descPanel = new JPanel();
-        descPanel.add(new JLabel("Total digital charts: "));
-        descPanel.add(new JLabel("" + ChartRepository.getInstance().getSize()));
-
+        refreshCountPanel();
 
         JPanel boxPanel = new JPanel();
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
@@ -90,6 +88,13 @@ public class LogViewer extends JPanel {
 
 
         add(boxPanel);
+    }
+
+    private void refreshCountPanel() {
+        descPanel.removeAll();
+        descPanel.add(new JLabel("Total digital charts: "));
+        descPanel.add(new JLabel("" + ChartRepository.getInstance().getSize()));
+        UpDownImage.trueRepaint(descPanel);
     }
 
     private void openFolder(String folderName) {
@@ -163,5 +168,6 @@ public class LogViewer extends JPanel {
 
         if (ChartRepository.getInstance().getSize() > 0)
             WavePanel.getInstance().displayChart(ChartRepository.getInstance().getChart(0));
+        refreshCountPanel();
     }
 }
