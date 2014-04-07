@@ -38,16 +38,17 @@ public class AutoTest {
         chart = nextChart();
 
         String msg = "Neon";
+        float x = 110;
+        assertWave(msg, chart, WaveChart.INJECTOR_4, 0.1, x + 540);
+        assertWave(msg, chart, WaveChart.INJECTOR_2, 0.1, x);
+        assertWave(msg, chart, WaveChart.INJECTOR_1, 0.1, x + 180);
+        assertWave(msg, chart, WaveChart.INJECTOR_3, 0.1, x + 360);
 
-        assertWave(msg, chart, WaveChart.INJECTOR_4, 0.1, 660);
-        assertWave(msg, chart, WaveChart.INJECTOR_2, 0.1, 120);
-        assertWave(msg, chart, WaveChart.INJECTOR_1, 0.1, 300);
-        assertWave(msg, chart, WaveChart.INJECTOR_3, 0.1, 480);
-
-        assertWave(msg, chart, WaveChart.SPARK_4, 0.13333, 149);
-        assertWave(chart, WaveChart.SPARK_2, 0.13333, 149 + 180);
-        assertWave(chart, WaveChart.SPARK_1, 0.13333, 149 + 360);
-        assertWave(chart, WaveChart.SPARK_3, 0.13333, 149 + 540);
+        x = 122;
+        assertWave(msg, chart, WaveChart.SPARK_4, 0.13333, x + 540);
+        assertWave(msg, chart, WaveChart.SPARK_2, 0.13333, x);
+        assertWave(msg, chart, WaveChart.SPARK_1, 0.13333, x + 180);
+        assertWave(msg, chart, WaveChart.SPARK_3, 0.13333, x + 360);
     }
 
     private static void testFordFiesta() {
