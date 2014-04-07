@@ -36,7 +36,7 @@ float getTriggerEventAngle(int triggerEventIndex);
 float getEngineLoadT(engine_configuration_s *engineConfiguration);
 #define getEngineLoad() getEngineLoadT(engineConfiguration)
 
-void initializeIgnitionActions(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
+void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 void addFuelEvents(engine_configuration_s const *e,  engine_configuration2_s *engineConfiguration2, ActuatorEventList *list, injection_mode_e mode);
 
 float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm);

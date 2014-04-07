@@ -185,7 +185,10 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 		 * are not affecting that space in memory. todo: use two instances of 'ignitionSignals'
 		 */
 
-		initializeIgnitionActions(engineConfiguration, engineConfiguration2);
+		float dwellMs = getSparkDwellMs(rpm);
+		float advance = getAdvance(rpm, getEngineLoad());
+
+		initializeIgnitionActions(0, engineConfiguration, engineConfiguration2);
 	}
 
 	handleFuel(ckpSignalType, eventIndex);
