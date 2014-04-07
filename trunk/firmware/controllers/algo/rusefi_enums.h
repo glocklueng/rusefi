@@ -139,6 +139,12 @@ typedef enum {
 } pin_output_mode_e;
 
 typedef enum {
+	PI_DEFAULT = 0,
+
+	Internal_ForceMyEnumIntSize_pin_input_mode = ENUM_SIZE_HACK,
+} pin_input_mode_e;
+
+typedef enum {
 	FO_ONE_CYLINDER = 1,
 	FO_1_THEN_3_THEN_4_THEN2 = 2,
 	FO_1_THEN_2_THEN_4_THEN3 = 3,
