@@ -242,6 +242,8 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	boardConfiguration->fanPin = GPIOC_15;
 	boardConfiguration->fanPinMode = OM_DEFAULT;
 
+	boardConfiguration->idleSwitchPin = GPIOC_8;
+
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
