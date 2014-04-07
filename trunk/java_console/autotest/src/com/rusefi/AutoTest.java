@@ -78,6 +78,13 @@ public class AutoTest {
         assertWave("aspire default cranking ", chart, WaveChart.SPARK_1, 0.1944, x, x + 180, x + 360, x + 540);
 
 
+        IoUtil.changeRpm(600);
+        chart = nextChart();
+        x = 76;
+        assertWave("aspire default runnint ", chart, WaveChart.SPARK_1, 0.04, x, x + 180, x + 360, x + 540);
+
+        IoUtil.changeRpm(200);
+
         sendCommand("set_cranking_charge_angle 65");
         sendCommand("set_cranking_timing_angle 31");
 
@@ -98,9 +105,6 @@ public class AutoTest {
         sendCommand("set_cranking_charge_angle 65");
 
         IoUtil.changeRpm(600);
-        chart = nextChart();
-        x = 76;
-        assertWave(chart, WaveChart.SPARK_1, 0.04, x, x + 180, x + 360, x + 540);
         sendCommand("set_cranking_rpm 700");
         chart = nextChart();
         x = 55;
