@@ -129,7 +129,7 @@ int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm) {
 OutputSignalList ignitionSignals;
 OutputSignalList injectonSignals;
 
-void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
+void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2) {
 	chDbgCheck(engineConfiguration->cylindersCount > 0, "cylindersCount");
 	ignitionSignals.clear();
@@ -141,7 +141,7 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
 	case IM_ONE_COIL:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 			// todo: extract method
-			float angle = 720.0 * i / engineConfiguration->cylindersCount;
+			float angle = baseAngle + 720.0 * i / engineConfiguration->cylindersCount;
 
 			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
 					ignitionSignals.add(SPARKOUT_1_OUTPUT), angle);
@@ -149,7 +149,7 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
 		break;
 	case IM_WASTED_SPARK:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-			float angle = 720.0 * i / engineConfiguration->cylindersCount;
+			float angle = baseAngle + 720.0 * i / engineConfiguration->cylindersCount;
 
 			int wastedIndex = i % (engineConfiguration->cylindersCount / 2);
 
@@ -164,7 +164,7 @@ void initializeIgnitionActions(engine_configuration_s *engineConfiguration,
 		break;
 	case IM_INDIVIDUAL_COILS:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-			float angle = i * 720.0 / engineConfiguration->cylindersCount;
+			float angle = baseAngle + 720.0 * i / engineConfiguration->cylindersCount;
 
 			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
 			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
