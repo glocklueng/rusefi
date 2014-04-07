@@ -49,6 +49,10 @@ public class EngineState {
             public void onResponse(String message) {
                 String response = unpackString(message);
                 if (response != null) {
+                    // todo: improve this hack
+                    int i = response.indexOf("2014: ");
+                    if (i != -1)
+                        response = response.substring(i + 6);
                     String copy = response;
                     listener.beforeLine(response);
                     while (!response.isEmpty())
