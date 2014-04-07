@@ -3,12 +3,15 @@ package com.irnems;
 import com.irnems.core.EngineState;
 import com.irnems.file.FileUtils;
 import com.irnems.ui.WavePanel;
+import com.rusefi.FIleItem;
 import com.rusefi.io.LinkManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileFilter;
 
@@ -25,8 +28,8 @@ public class LogViewer extends JPanel {
     };
     private final JLabel folderLabel = new JLabel();
     private final JLabel fileLabel = new JLabel();
-    private final DefaultListModel<String> fileListModel = new DefaultListModel<String>();
-    private final JList<String> fileList = new JList<String>(fileListModel);
+    private final DefaultListModel<FIleItem> fileListModel = new DefaultListModel<FIleItem>();
+    private final JList<FIleItem> fileList = new JList<FIleItem>(fileListModel);
     private String currentFolder;
 
 
@@ -72,6 +75,16 @@ public class LogViewer extends JPanel {
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
         boxPanel.setBorder(BorderFactory.createLineBorder(Color.cyan));
 
+        fileList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    FIleItem selectedItem = fileList.getSelectedValue();
+                    openFile(selectedItem.getFile());
+                }
+            }
+        });
+
         boxPanel.add(fileList);
         boxPanel.add(descPanel);
 
@@ -97,8 +110,8 @@ public class LogViewer extends JPanel {
 
     }
 
-    private String getFileDesc(File file) {
-        return file.getName() + " " + file.getUsableSpace();
+    private FIleItem getFileDesc(File file) {
+        return new FIleItem(file);
     }
 
 
