@@ -44,11 +44,6 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration->triggerConfig.useRiseEdge = FALSE;
 	engineConfiguration->needSecondTriggerInput = TRUE;
 
-	// set_cranking_charge_angle 70
-	engineConfiguration->crankingChargeAngle = 7;
-	// set_cranking_timing_angle 0
-	engineConfiguration->crankingTimingAngle = 0;
-
 	// set_cranking_injection_mode 0
 	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
 	// set_injection_mode 1
@@ -59,12 +54,17 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 	// set_firing_order 2
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 
-	// set_global_trigger_offset_angle 510
-	engineConfiguration->globalTriggerAngleOffset = 510;
-	// set_ignition_offset 557
-	engineConfiguration->ignitionOffset = -163;
+	// set_global_trigger_offset_angle 497
+	engineConfiguration->globalTriggerAngleOffset = 497;
+	// set_ignition_offset 350
+	engineConfiguration->ignitionOffset = 350;
 	 // set_injection_offset 510
 	engineConfiguration->injectionOffset = 510;
+
+	// set_cranking_charge_angle 70
+	engineConfiguration->crankingChargeAngle = 7;
+	// set_cranking_timing_angle 0
+	engineConfiguration->crankingTimingAngle = 0;
 
 	// Frankenstein: low side - inj #1: PC14
 	// Frankenstein: low side - inj #2: PC15
