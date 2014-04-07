@@ -23,6 +23,25 @@ public class LinkManager {
             return t;
         }
     });
+    public static final String LOG_VIEWER = "log viewer";
+    private static final LinkConnector VOID = new LinkConnector() {
+        @Override
+        public void connect() {
+        }
+
+        @Override
+        public void send(String command) throws InterruptedException {
+        }
+
+        @Override
+        public void restart() {
+        }
+
+        @Override
+        public boolean hasError() {
+            return false;
+        }
+    };
     public static EngineState engineState = new EngineState(new EngineState.EngineStateListenerImpl() {
         @Override
         public void beforeLine(String fullLine) {
@@ -31,13 +50,21 @@ public class LinkManager {
     });
     public static boolean onlyUI = false;
     private static LinkConnector connector;
+    private static String port;
 
     public static void start(String port) {
-        if (TcpConnector.isTcpPort(port)) {
+        LinkManager.port = port;
+        if (port.equals(LOG_VIEWER)) {
+            connector = LinkManager.VOID;
+        } else if (TcpConnector.isTcpPort(port)) {
             connector = new TcpConnector(port);
         } else {
             connector = new SerialConnector(port);
         }
+    }
+
+    public static boolean isLogViewer() {
+        return connector == LinkManager.VOID;
     }
 
     public static void open() {
