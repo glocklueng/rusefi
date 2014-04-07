@@ -173,9 +173,8 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 		return;
 	}
 	int beforeCallback = hal_lld_get_counter_value();
-	if(eventIndex == 0 && localVersion.isOld())
+	if (eventIndex == 0 && localVersion.isOld())
 		prepareOutputSignals(engineConfiguration, engineConfiguration2);
-
 
 	handleFuel(ckpSignalType, eventIndex);
 	handleSpark(ckpSignalType, eventIndex);
