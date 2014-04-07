@@ -274,6 +274,13 @@ typedef struct {
 	brain_pin_e idleSwitchPin;
 	pin_input_mode_e idleSwitchPinMode;
 
+	brain_pin_e HD44780_rs;
+	brain_pin_e HD44780_e;
+	brain_pin_e HD44780_db4;
+	brain_pin_e HD44780_db6;
+	brain_pin_e HD44780_db7;
+	brain_pin_e HD44780_db8;
+
 } board_configuration_s;
 
 typedef struct {
