@@ -99,7 +99,7 @@ void rusEfiFunctionalTest(void) {
 void printPendingMessages(void) {
 	printPending();
 	if (getFullLog()) {
-		printSensors();
+		printState(getCrankEventCounter());
 		finishStatusLine();
 		publishChartIfFull(&waveChart);
 	}
