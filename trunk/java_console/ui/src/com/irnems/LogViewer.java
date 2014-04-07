@@ -3,6 +3,7 @@ package com.irnems;
 import com.irnems.core.EngineState;
 import com.irnems.file.FileUtils;
 import com.irnems.ui.WavePanel;
+import com.rusefi.io.LinkManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +24,7 @@ public class LogViewer extends JPanel {
         }
     };
     private final JLabel folderLabel = new JLabel();
+    private final JLabel fileLabel = new JLabel();
     private final DefaultListModel<String> fileListModel = new DefaultListModel<String>();
     private final JList<String> fileList = new JList<String>(fileListModel);
     private String currentFolder;
@@ -54,8 +56,9 @@ public class LogViewer extends JPanel {
 
         folderPanel.add(folderButton);
         folderPanel.add(folderLabel);
+        folderPanel.add(fileLabel);
 
-        folderPanel.setBackground(Color.red);
+        //folderPanel.setBackground(Color.red);
 
         add(folderPanel, BorderLayout.NORTH);
 
@@ -77,7 +80,7 @@ public class LogViewer extends JPanel {
     }
 
     private void openFolder(String folderName) {
-        folderLabel.setText(folderName);
+        folderLabel.setText("Current folder: " + folderName);
         currentFolder = folderName;
 
         File folder = new File(folderName);
@@ -89,7 +92,7 @@ public class LogViewer extends JPanel {
         for (File file : files)
             fileListModel.addElement(getFileDesc(file));
 
-        if (files.length > 0)
+        if (files.length > 0 && LinkManager.isLogViewer())
             openFile(files[0]);
 
     }
@@ -127,6 +130,7 @@ public class LogViewer extends JPanel {
 //
 //
     private void openFile(File file) {
+        fileLabel.setText("Current file: " + file.getName());
         String filename = file.getAbsolutePath();
         EngineState.EngineStateListener listener = new EngineState.EngineStateListenerImpl() {
         };
