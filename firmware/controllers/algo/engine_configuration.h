@@ -270,6 +270,10 @@ typedef struct {
 
 	brain_pin_e electronicThrottlePin1;
 	pin_output_mode_e electronicThrottlePin1Mode;
+
+	brain_pin_e idleSwitchPin;
+	pin_input_mode_e idleSwitchPinMode;
+
 } board_configuration_s;
 
 typedef struct {
