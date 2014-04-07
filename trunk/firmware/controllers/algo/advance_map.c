@@ -46,7 +46,7 @@ float getAdvance(int rpm, float engineLoad) {
 	} else {
 		angle = getBaseAdvance(rpm, engineLoad);
 	}
-	return fixAngle(angle + engineConfiguration->ignitionOffset + engineConfiguration->globalTriggerAngleOffset);
+	return fixAngle(angle + engineConfiguration->ignitionOffset);
 }
 
 void prepareTimingMap(void) {

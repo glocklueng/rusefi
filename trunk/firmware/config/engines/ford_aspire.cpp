@@ -103,13 +103,13 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->cylindersCount = 4;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 	engineConfiguration->globalTriggerAngleOffset = 175;
-	engineConfiguration->ignitionOffset = 94;
+	engineConfiguration->ignitionOffset = 98 - 11;
 	engineConfiguration->injectionOffset = 59;
 
 	setDefaultMaps(engineConfiguration);
 	engineConfiguration->crankingSettings.crankingRpm = 550;
 	engineConfiguration->crankingChargeAngle = 70;
-	engineConfiguration->crankingTimingAngle = 35;
+	engineConfiguration->crankingTimingAngle = 26 + 11;
 
 	for (int i = 0; i < DWELL_CURVE_SIZE; i++) {
 		engineConfiguration->sparkDwellBins[i] = 0;
