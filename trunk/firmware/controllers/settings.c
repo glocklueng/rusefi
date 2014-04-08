@@ -161,6 +161,8 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	}
 #endif /* EFI_PROD_CODE */
 
+	scheduleMsg(&logger, "isInjectionEnabledFlag %d", engineConfiguration2->isInjectionEnabledFlag);
+
 	//	appendPrintf(&logger, DELIMETER);
 //	scheduleLogging(&logger);
 }
