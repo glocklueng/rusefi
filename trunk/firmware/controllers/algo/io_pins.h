@@ -94,6 +94,12 @@ typedef enum {
 	SPI_CS_4,
 	SPI_CS_SD_MODULE,
 
+
+	/**
+	 * This output pin is used to turn alternator on or off
+	 */
+	ALTERNATOR_SWITCH,
+
 } io_pin_e;
 
 #define IO_PIN_COUNT 100
