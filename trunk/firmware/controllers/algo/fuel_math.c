@@ -83,8 +83,8 @@ float getInjectorLag(float vBatt) {
 
 float getBaseFuel(int rpm, float engineLoad) {
 	chDbgCheck(initialized, "fuel map initialized");
-	return interpolate3d(engineLoad, engineConfiguration->fuelLoadBins, FUEL_LOAD_COUNT, rpm, engineConfiguration->fuelRpmBins,
-	FUEL_RPM_COUNT, fuel_ptrs);
+	return interpolate3d(engineLoad, engineConfiguration->fuelLoadBins, FUEL_LOAD_COUNT, rpm,
+			engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT, fuel_ptrs);
 }
 
 float getCrankingFuel(void) {
@@ -106,8 +106,10 @@ float getFuelMs(int rpm) {
 }
 
 float getRunningFuel(int rpm, float engineLoad) {
-	if(cisnan(engineLoad))
-		return nan;
+	if (cisnan(engineLoad)) {
+		// the warning message should be already produced by the sensor decoder
+		return NAN;
+	}
 	float baseFuel = getBaseFuel(rpm, engineLoad);
 
 	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
@@ -119,18 +121,14 @@ float getRunningFuel(int rpm, float engineLoad) {
 
 float getStartingFuel(float coolantTemperature) {
 	// these magic constants are in Celsius
-	if (cisnan(coolantTemperature)
-			|| coolantTemperature
-					< engineConfiguration->crankingSettings.coolantTempMinC)
+	if (cisnan(coolantTemperature) || coolantTemperature < engineConfiguration->crankingSettings.coolantTempMinC)
 		return engineConfiguration->crankingSettings.fuelAtMinTempMs;
-	if (coolantTemperature
-			> engineConfiguration->crankingSettings.coolantTempMaxC)
+	if (coolantTemperature > engineConfiguration->crankingSettings.coolantTempMaxC)
 		return engineConfiguration->crankingSettings.fuelAtMaxTempMs;
 	return interpolate(engineConfiguration->crankingSettings.coolantTempMinC,
 			engineConfiguration->crankingSettings.fuelAtMinTempMs,
 			engineConfiguration->crankingSettings.coolantTempMaxC,
-			engineConfiguration->crankingSettings.fuelAtMaxTempMs,
-			coolantTemperature);
+			engineConfiguration->crankingSettings.fuelAtMaxTempMs, coolantTemperature);
 }
 
 /**
