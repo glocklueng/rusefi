@@ -106,6 +106,8 @@ float getFuelMs(int rpm) {
 }
 
 float getRunningFuel(int rpm, float engineLoad) {
+	if(cisnan(engineLoad))
+		return nan;
 	float baseFuel = getBaseFuel(rpm, engineLoad);
 
 	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
