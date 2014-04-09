@@ -10,5 +10,7 @@ CONTROLLERSSRC = \
 	$(PROJECT_DIR)/controllers/malfunction_indicator.c \
 	$(PROJECT_DIR)/controllers/error_handling.c \
 	controllers/map_averaging.c \
-	controllers/map_multiplier_thread.c
+	controllers/map_multiplier_thread.c \
+	$(PROJECT_DIR)/controllers/alternatorController.c
+	
 
