@@ -150,7 +150,7 @@ void printState(int currentCkpEventCounter) {
 
 //	debugFloat(&logger, "table_spark", getAdvance(rpm, getMaf()), 2);
 
-	float engineLoad = getMaf();
+	float engineLoad = getEngineLoad();
 	debugFloat(&logger, "fuel_base", getBaseFuel(rpm, engineLoad), 2);
 //	debugFloat(&logger, "fuel_iat", getIatCorrection(getIntakeAirTemperature()), 2);
 //	debugFloat(&logger, "fuel_clt", getCltCorrection(getCoolantTemperature()), 2);
