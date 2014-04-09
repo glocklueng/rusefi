@@ -53,6 +53,11 @@ float getTpsValue(int adc) {
 		return 0;
 	if (adc > engineConfiguration->tpsMax)
 		return 100;
+	// todo: double comparison using EPS
+	if (engineConfiguration->tpsMin == engineConfiguration->tpsMax) {
+		firmwareError("Invalid TPS configuration: same value");
+		return 0;
+	}
 	return interpolate(engineConfiguration->tpsMin, 0, engineConfiguration->tpsMax, 100, adc);
 }
 
@@ -98,3 +103,7 @@ float getTPS(void) {
 	return getPrimatyRawTPS();
 }
 
+int convertVoltageTo10bitADC(float voltage) {
+	// divided by 2 because of voltage divider, then converted into 10bit ADC value (TunerStudio format)
+	return (int)(voltage / 2 * 1024 / 3.3);
+}

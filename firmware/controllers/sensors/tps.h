@@ -18,6 +18,7 @@ extern "C"
 #endif /* __cplusplus */
 
 float getTPS(void);
+int convertVoltageTo10bitADC(float voltage);
 int getTPS10bitAdc(void);
 float getTPSVoltage(void);
 

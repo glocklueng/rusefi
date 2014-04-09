@@ -13,7 +13,7 @@
 #include "main.h"
 #include "ford_1995_inline_6.h"
 #include "engine_math.h"
-#include "thermistors.h"
+#include "allsensors.h"
 
 #if EFI_SUPPORT_1995_FORD_INLINE_6 || defined(__DOXYGEN__)
 
@@ -86,10 +86,8 @@ void setFordInline6(engine_configuration_s *engineConfiguration, board_configura
 	boardConfiguration->injectionPins[2] = GPIO_NONE;
 	boardConfiguration->fanPin = GPIO_NONE;
 
-
-	// divided by 2 because of voltage divider, then converted into 10bit ADC value (TunerStudio format)
-	engineConfiguration->tpsMin = (1.250 / 2) * 1024 / 3.3;
-	engineConfiguration->tpsMax = (4.538 / 2) * 1024 / 3.3;
+	engineConfiguration->tpsMin = convertVoltageTo10bitADC(1.250);
+	engineConfiguration->tpsMax = convertVoltageTo10bitADC(4.538);
 
 	engineConfiguration->map.config.mapType = MT_MPX4250;
 	engineConfiguration->map.channel = 2; // input channel 8 is ADC2

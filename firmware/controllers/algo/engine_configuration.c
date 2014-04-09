@@ -172,6 +172,9 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	engineConfiguration->fanOnTemperature = 75;
 	engineConfiguration->fanOffTemperature = 70;
 
+	engineConfiguration->tpsMin = convertVoltageTo10bitADC(1.250);
+	engineConfiguration->tpsMax = convertVoltageTo10bitADC(4.538);
+
 	engineConfiguration->can_nbc_type = CAN_BUS_NBC_BMW;
 	engineConfiguration->can_sleep_period = 50;
 	engineConfiguration->canReadEnabled = TRUE;
