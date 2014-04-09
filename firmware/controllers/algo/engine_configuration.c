@@ -299,7 +299,7 @@ void resetConfigurationExt(engine_type_e engineType,
 		setGy6139qmbDefaultEngineConfiguration(engineConfiguration);
 		break;
 	case MAZDA_MIATA_NB:
-		setMazdaMiataNbEngineConfiguration(engineConfiguration);
+		setMazdaMiataNbEngineConfiguration(engineConfiguration, boardConfiguration);
 		break;
 	case MAZDA_323:
 		setMazda323EngineConfiguration(engineConfiguration);
