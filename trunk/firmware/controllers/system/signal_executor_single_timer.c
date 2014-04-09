@@ -54,11 +54,14 @@ static OutputSignal *output_list = NULL;
  * @param [in] delay the number of ticks before the output signal immediate output if delay is zero.
  * @param [in] dwell the number of ticks of output duration.
  */
-void scheduleOutput(OutputSignal *signal, int delay, int dwell) {
+void scheduleOutput(OutputSignal *signal, int delay, int duration) {
 	chDbgCheck(signal->initialized, "Signal not initialized");
-	chDbgCheck(dwell >= 0, "dwell cannot be negative");
+	if(duration < 0) {
+		firmwareError("duration cannot be negative: %d", duration)
+		return;
+	}
 
-	signal->duration = dwell;
+	signal->duration = duration;
 	signal->offset = delay;
 
 	/* generate an update event to reload timer's counter value, according to new set of output timings */
@@ -123,19 +126,19 @@ void initOutputScheduler(void)
 #endif
 #if 0
 	TIM2->PSC = STM32_PCLK1*2 / ((1<<16) * RC_PWM_FREQ); //50Hz frequency
-	TIM2->CCMR1 |= TIM_CCMR1_CC1S_0; //channel 1 = input on T1
-	TIM2->DIER |= TIM_DIER_CC1IE;  //enable capture/compare interrupt
-	TIM2->CCER |= TIM_CCER_CC1E;   //Capture/Compare output enable
+	TIM2->CCMR1 |= TIM_CCMR1_CC1S_0;//channel 1 = input on T1
+	TIM2->DIER |= TIM_DIER_CC1IE;//enable capture/compare interrupt
+	TIM2->CCER |= TIM_CCER_CC1E;//Capture/Compare output enable
 	nvicEnableVector(TIM2_IRQn, 12);
-	TIM2->CR1 |= TIM_CR1_CEN;      //counter enable
+	TIM2->CR1 |= TIM_CR1_CEN;//counter enable
 #endif
 	RCC->APB1ENR |= RCC_APB1ENR_TIM7EN;
 	nvicEnableVector(TIM7_IRQn, CORTEX_PRIORITY_MASK(2));
-	TIM7->ARR = initial_interval;		/* Timer's period */
+	TIM7->ARR = initial_interval; /* Timer's period */
 	TIM7->PSC = PRESCALLER;
-	TIM7->CR1 &= ~STM32_TIM_CR1_ARPE;	/* ARR register is NOT buffered, allows to update timer's period on-fly. */
-	TIM7->DIER |= STM32_TIM_DIER_UIE;	/* Interrupt enable */
-	TIM7->CR1 |= STM32_TIM_CR1_CEN;		/* Counter enable */
+	TIM7->CR1 &= ~STM32_TIM_CR1_ARPE; /* ARR register is NOT buffered, allows to update timer's period on-fly. */
+	TIM7->DIER |= STM32_TIM_DIER_UIE; /* Interrupt enable */
+	TIM7->CR1 |= STM32_TIM_CR1_CEN; /* Counter enable */
 	chMtxInit(&mtx); /* Mutex initialization before use */
 }
 
@@ -153,7 +156,7 @@ CH_FAST_IRQ_HANDLER(STM32_TIM7_HANDLER)
 #define GET_DURATION(o) ((o)->status ? (o)->signalTimerDown.moment : (o)->signalTimerUp.moment)
 
 	OutputSignal *out;
-	time_t next;	/* Time to next output event */
+	time_t next; /* Time to next output event */
 	time_t now;
 #if 1
 	static bool val = 0;
@@ -174,10 +177,10 @@ CH_FAST_IRQ_HANDLER(STM32_TIM7_HANDLER)
 		next = MIN(next, n);
 	}
 	if (0xFFFF != next) {
-		TIM7->ARR = CT2TT(ST2CT(next));	/* Update scheduler timing */
+		TIM7->ARR = CT2TT(ST2CT(next)); /* Update scheduler timing */
 	}
 #endif
-	TIM7->SR &= ~STM32_TIM_SR_UIF;	/* Reset interrupt flag */
+	TIM7->SR &= ~STM32_TIM_SR_UIF; /* Reset interrupt flag */
 }
 
 /**
