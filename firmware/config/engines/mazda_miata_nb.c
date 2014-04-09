@@ -10,6 +10,10 @@
 #include "mazda_miata_nb.h"
 
 void setMazdaMiataNbEngineConfiguration(engine_configuration_s *engineConfiguration) {
+	// set_rpm_hard_limit 3000
+	engineConfiguration->rpmHardLimit = 3000; // yes, 3k. let's play it safe for now
+
+
 	engineConfiguration->triggerConfig.triggerType = TT_MAZDA_MIATA_NB;
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = TRUE;
 
