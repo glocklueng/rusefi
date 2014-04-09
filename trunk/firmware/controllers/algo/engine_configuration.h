@@ -274,6 +274,9 @@ typedef struct {
 	brain_pin_e idleSwitchPin;
 	pin_input_mode_e idleSwitchPinMode;
 
+	brain_pin_e alternatorControlPin;
+	pin_output_mode_e alternatorControlPinMode;
+
 	brain_pin_e HD44780_rs;
 	brain_pin_e HD44780_e;
 	brain_pin_e HD44780_db4;
