@@ -31,6 +31,12 @@ int needInterpolationLogging = TRUE;
  * @note	For example, "interpolate(engineConfiguration.tpsMin, 0, engineConfiguration.tpsMax, 100, adc);"
  */
 float interpolate(float x1, float y1, float x2, float y2, float x) {
+	// todo: double comparison using EPS
+	if (x1 == x2) {
+		firmwareError("Same x1 and x2 in interpolate: %f/%f", x1, x2);
+		return NAN;
+	}
+
 	// a*x1 + b = y1
 	// a*x2 + b = y2
 //	chDbgCheck(x1 != x2, "no way we can interpolate");
@@ -112,13 +118,13 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 	int xIndex = findIndex(xBin, xBinSize, x);
 #if	DEBUG_INTERPOLATION
 	if (needInterpolationLogging)
-		printf("X index=%d\r\n", xIndex);
+	printf("X index=%d\r\n", xIndex);
 #endif
 	int yIndex = findIndex(yBin, yBinSize, y);
 	if (xIndex < 0 && yIndex < 0) {
 #if	DEBUG_INTERPOLATION
 		if (needInterpolationLogging)
-			printf("X and Y are smaller than smallest cell in table: %d\r\n", xIndex);
+		printf("X and Y are smaller than smallest cell in table: %d\r\n", xIndex);
 #endif
 		return map[0][0];
 	}
@@ -126,7 +132,7 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 	if (xIndex < 0) {
 #if	DEBUG_INTERPOLATION
 		if (needInterpolationLogging)
-			printf("X is smaller than smallest cell in table: %dr\n", xIndex);
+		printf("X is smaller than smallest cell in table: %dr\n", xIndex);
 #endif
 		// no interpolation should be fine here.
 		return map[0][yIndex];
@@ -135,7 +141,7 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 	if (yIndex < 0) {
 #if	DEBUG_INTERPOLATION
 		if (needInterpolationLogging)
-			printf("Y is smaller than smallest cell in table: %d\r\n", yIndex);
+		printf("Y is smaller than smallest cell in table: %d\r\n", yIndex);
 #endif
 		// no interpolation should be fine here.
 		return map[xIndex][0];
@@ -144,7 +150,7 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 	if (xIndex == xBinSize - 1 && yIndex == yBinSize - 1) {
 #if	DEBUG_INTERPOLATION
 		if (needInterpolationLogging)
-			printf("X and Y are larger than largest cell in table: %d %d\r\n", xIndex, yIndex);
+		printf("X and Y are larger than largest cell in table: %d %d\r\n", xIndex, yIndex);
 #endif
 		return map[xBinSize - 1][yBinSize - 1];
 	}
@@ -152,7 +158,7 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 	if (xIndex == xBinSize - 1) {
 #if	DEBUG_INTERPOLATION
 		if (needInterpolationLogging)
-			printf("TODO BETTER LOGGING x overflow %d\r\n", yIndex);
+		printf("TODO BETTER LOGGING x overflow %d\r\n", yIndex);
 #endif
 		// todo: implement better handling - y interpolation
 		return map[xBinSize - 1][yIndex];
@@ -161,7 +167,7 @@ float interpolate3d(float x, float xBin[], int xBinSize, float y, float yBin[], 
 	if (yIndex == yBinSize - 1) {
 #if	DEBUG_INTERPOLATION
 		if (needInterpolationLogging)
-			printf("Y is larger than largest cell in table: %d\r\n", yIndex);
+		printf("Y is larger than largest cell in table: %d\r\n", yIndex);
 #endif
 		// todo: implement better handling - x interpolation
 		return map[xIndex][yBinSize - 1];
