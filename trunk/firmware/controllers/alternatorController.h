@@ -1,6 +1,6 @@
 /**
  * @file    alternatorController.h
- * @brief   alternator controller for GY6139qmb engine
+ * @brief   alternator controller
  *
  * @date Apr 6, 2014
  * @author Dmitry Sidin
