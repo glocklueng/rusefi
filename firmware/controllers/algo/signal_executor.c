@@ -106,17 +106,20 @@ static void turnLow(OutputSignal *signal) {
 
 int getRevolutionCounter(void);
 
-void scheduleOutput(OutputSignal *signal, int delay, int dwell, time_t now) {
-	chDbgCheck(dwell >= 0, "dwell cannot be negative");
+void scheduleOutput(OutputSignal *signal, int delay, int duration, time_t now) {
+	if (duration < 0) {
+		firmwareError("duration cannot be negative: %d", duration);
+		return;
+	}
 
-	scheduleOutputBase(signal, delay, dwell);
+	scheduleOutputBase(signal, delay, duration);
 
 	int index = getRevolutionCounter() % 2;
 	scheduling_s * sUp = &signal->signalTimerUp[index];
 	scheduling_s * sDown = &signal->signalTimerDown[index];
 
 	scheduleTask(sUp, delay, (schfunc_t) &turnHigh, (void *) signal);
-	scheduleTask(sDown, delay + dwell, (schfunc_t) &turnLow, (void*)signal);
+	scheduleTask(sDown, delay + duration, (schfunc_t) &turnLow, (void*)signal);
 
 	signal->last_scheduling_time = now;
 }
