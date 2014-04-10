@@ -142,7 +142,4 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->map.config.mapType = MT_DENSO183;
 }
 
-void setFordAspireengine_configuration2_s(engine_configuration_s *e, engine_configuration2_s *engineConfiguration2) {
-}
-
 #endif /* EFI_SUPPORT_FORD_ASPIRE */

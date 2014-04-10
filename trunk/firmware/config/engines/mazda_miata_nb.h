@@ -12,6 +12,5 @@
 #include "engine_configuration.h"
 
 void setMazdaMiataNbEngineConfiguration(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
-void setMazdaMiataNb_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 
 #endif /* MAZDA_MIATA_NB_H_ */

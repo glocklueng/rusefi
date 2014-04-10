@@ -62,6 +62,10 @@ typedef enum {
 
 	SATURN_ION_2004 = 12,
 
+	MINI_COOPER_R50 = 13,
+
+	FORD_ESCORT_GT = 14,
+
 	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;
 
@@ -72,6 +76,7 @@ typedef enum {
 	TT_MAZDA_MIATA_NA = 3,
 	TT_MAZDA_MIATA_NB = 4,
 	TT_GM_7X = 5,
+	TT_MINI_COOPER_R50 = 6,
 
 	Internal_ForceMyEnumIntSize_trigger_type = ENUM_SIZE_HACK,
 } trigger_type_e;

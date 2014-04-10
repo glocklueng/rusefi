@@ -77,8 +77,3 @@ void setMazdaMiataNbEngineConfiguration(engine_configuration_s *engineConfigurat
 
 // 10 deg before TDC is default timing
 }
-
-void setMazdaMiataNb_configuration2_s(engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2) {
-}
-

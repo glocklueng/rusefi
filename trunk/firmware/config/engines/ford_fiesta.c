@@ -28,7 +28,4 @@ void setFordFiestaDefaultEngineConfiguration(engine_configuration_s *engineConfi
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 }
 
-void setFordFiestaengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-}
-
 #endif /* EFI_SUPPORT_FORD_FIESTA */
