@@ -2,6 +2,8 @@
  * @file    ford_aspire.cpp
  * @brief	1996 Ford Aspire default engine configuration
  *
+ * FORD_ASPIRE_1996 = 3
+ *
  * @date Sep 9, 2013
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
@@ -131,6 +133,20 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 
 	engineConfiguration->HD44780width = 20;
 	engineConfiguration->HD44780height = 4;
+
+	// Frankenstein analog input #1: adc1
+	// Frankenstein analog input #2: adc3
+	// Frankenstein analog input #3: adc13
+	// Frankenstein analog input #4: adc11
+	// Frankenstein analog input #5: adc
+	// Frankenstein analog input #6: adc
+	// Frankenstein analog input #7: adc
+	// Frankenstein analog input #8: adc
+	// Frankenstein analog input #9: adc
+	// Frankenstein analog input #10: adc
+	// Frankenstein analog input #11: adc
+	// Frankenstein analog input #12: adc
+
 
 	engineConfiguration->tpsAdcChannel = 3; // 15 is the old value
 	engineConfiguration->vBattAdcChannel = 0; // 1 is the old value
