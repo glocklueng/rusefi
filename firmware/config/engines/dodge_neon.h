@@ -15,7 +15,6 @@
 
 void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration,
 		board_configuration_s *boardConfiguration);
-void setDodgeNeonengine_configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 
 #endif /* EFI_SUPPORT_DODGE_NEON */
 

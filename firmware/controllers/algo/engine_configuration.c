@@ -43,6 +43,7 @@
 #include "mazda_miata_nb.h"
 #include "mazda_323.h"
 #include "saturn_ion.h"
+#include "MiniCooperR50.h"
 
 #define ADC_CHANNEL_FAST_ADC 256
 
@@ -307,6 +308,10 @@ void resetConfigurationExt(engine_type_e engineType,
 	case SATURN_ION_2004:
 		setSaturnIonEngineConfiguration(engineConfiguration);
 		break;
+	case MINI_COOPER_R50:
+		setMiniCooperR50(engineConfiguration, boardConfiguration);
+	case FORD_ESCORT_GT:
+		//return "Ford Escort GT";
 	default:
 		firmwareError("Unexpected engine type: %d", engineType);
 
@@ -319,7 +324,7 @@ void resetConfigurationExt(engine_type_e engineType,
 }
 
 void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, engine_type_e engineType) {
-// todo: this would require 'initThermistors() to re-establish a referece, todo: fix
+// todo: this would require 'initThermistors() to re-establish a reference, todo: fix
 //	memset(engineConfiguration2, 0, sizeof(engine_configuration2_s));
 
 
@@ -331,49 +336,5 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 
 	prepareOutputSignals(engineConfiguration, engineConfiguration2);
 	initializeIgnitionActions(0, engineConfiguration, engineConfiguration2);
-
-	switch (engineConfiguration->engineType) {
-#if EFI_SUPPORT_DODGE_NEON
-	case DODGE_NEON_1995:
-		setDodgeNeonengine_configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-#endif /* EFI_SUPPORT_DODGE_NEON */
-#if EFI_SUPPORT_FORD_ASPIRE
-	case FORD_ASPIRE_1996:
-		setFordAspireengine_configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-#endif /* EFI_SUPPORT_FORD_ASPIRE */
-#if EFI_SUPPORT_FORD_FIESTA
-	case FORD_FIESTA:
-		setFordFiestaengine_configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-#endif /* EFI_SUPPORT_FORD_FIESTA */
-#if EFI_SUPPORT_NISSAN_PRIMERA
-		case NISSAN_PRIMERA:
-		setNissanPrimeraengine_configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-#endif /* EFI_SUPPORT_NISSAN_PRIMERA */
-	case HONDA_ACCORD:
-		setHondaAccordConfiguration2(engineConfiguration, engineConfiguration2);
-		break;
-#if EFI_SUPPORT_1995_FORD_INLINE_6 || defined(__DOXYGEN__)
-	case FORD_INLINE_6_1995:
-		setFordInline6_2(engineConfiguration, engineConfiguration2);
-		break;
-#endif /* EFI_SUPPORT_1995_FORD_INLINE_6 */
-	case GY6_139QMB:
-		setGy6139qmbengine_configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-	case MAZDA_MIATA_NB:
-		setMazdaMiataNb_configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-	case MAZDA_323:
-		setMazda323configuration2_s(engineConfiguration, engineConfiguration2);
-		break;
-	case SATURN_ION_2004:
-		break;
-	default:
-		firmwareError("Unexpected engine type: %d", engineConfiguration->engineType);
-	}
 
 }

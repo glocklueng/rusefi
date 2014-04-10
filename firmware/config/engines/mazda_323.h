@@ -17,6 +17,5 @@
 #include "engine_configuration.h"
 
 void setMazda323EngineConfiguration(engine_configuration_s *engineConfiguration);
-void setMazda323configuration2_s(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 
 #endif /* MAZDA_323_H_ */

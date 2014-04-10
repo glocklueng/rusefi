@@ -97,10 +97,4 @@ void setFordInline6(engine_configuration_s *engineConfiguration, board_configura
 
 }
 
-/**
- * @brief These settings are not persistent yet
- */
-void setFordInline6_2(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-}
-
 #endif /* EFI_SUPPORT_1995_FORD_INLINE_6 */

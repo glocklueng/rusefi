@@ -80,6 +80,10 @@ char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 		return "Mazda 323";
 	case SATURN_ION_2004:
 		return "Saturn Ion";
+	case MINI_COOPER_R50:
+		return "Mini Cooper R50";
+	case FORD_ESCORT_GT:
+		return "Ford Escort GT";
 	default:
 		return NULL;
 	}

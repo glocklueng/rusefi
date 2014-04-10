@@ -14,6 +14,3 @@ void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->triggerConfig.skippedToothCount = 2;
 }
 
-void setHondaAccordConfiguration2(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
-}
-
