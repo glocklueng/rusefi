@@ -311,8 +311,7 @@ void prepareOutputSignals(engine_configuration_s *engineConfiguration, engine_co
 			engineConfiguration->injectionMode);
 }
 
-
-static void setTableBin(float array[], int size, float l, float r) {
+void setTableBin(float array[], int size, float l, float r) {
 	for (int i = 0; i < size; i++)
 		array[i] = interpolate(0, l, size - 1, r, i);
 }

@@ -68,10 +68,10 @@ static void turnHigh(OutputSignal *signal) {
 	if(
 			pin == SPARKOUT_1_OUTPUT ||
 			pin == SPARKOUT_3_OUTPUT) {
-		time_t now = chTimeNow();
-		float an = getCrankshaftAngle(now);
-		scheduleMsg(&logger, "spark up%d %d", pin, now);
-		scheduleMsg(&logger, "spark angle %d %f", (int)an, an);
+//		time_t now = chTimeNow();
+//		float an = getCrankshaftAngle(now);
+//		scheduleMsg(&logger, "spark up%d %d", pin, now);
+//		scheduleMsg(&logger, "spark angle %d %f", (int)an, an);
 	}
 #endif
 

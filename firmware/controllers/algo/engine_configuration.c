@@ -134,6 +134,9 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	setTimingLoadBin(engineConfiguration, 1.2, 4.4);
 	setTimingRpmBin(engineConfiguration, 800, 7000);
 
+	setTableBin(engineConfiguration->map.config.samplingAngleBins, MAP_ANGLE_SIZE, 800, 7000);
+	setTableBin(engineConfiguration->map.config.samplingWindowBins, MAP_ANGLE_SIZE, 800, 7000);
+
 	setWholeFuelMap(engineConfiguration, 3);
 
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 0, 9500, 23.8889, 2100, 48.8889, 1000);
