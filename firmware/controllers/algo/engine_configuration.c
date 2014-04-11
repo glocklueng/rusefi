@@ -44,6 +44,7 @@
 #include "mazda_323.h"
 #include "saturn_ion.h"
 #include "MiniCooperR50.h"
+#include "ford_escort_gt.h"
 
 #define ADC_CHANNEL_FAST_ADC 256
 
@@ -310,8 +311,10 @@ void resetConfigurationExt(engine_type_e engineType,
 		break;
 	case MINI_COOPER_R50:
 		setMiniCooperR50(engineConfiguration, boardConfiguration);
+		break;
 	case FORD_ESCORT_GT:
-		//return "Ford Escort GT";
+		setFordEscortGt(engineConfiguration, boardConfiguration);
+		break;
 	default:
 		firmwareError("Unexpected engine type: %d", engineType);
 
