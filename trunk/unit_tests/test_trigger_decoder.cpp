@@ -276,7 +276,7 @@ void testTriggerDecoder(void) {
 	test1995FordInline6TriggerDecoder();
 	testMazdaMianaNbDecoder();
 	testGY6_139QMB();
-//	testFordEscortGt();
+	testFordEscortGt();
 
 	testMazda323();
 }

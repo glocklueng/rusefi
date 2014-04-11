@@ -63,10 +63,25 @@ void configureMazdaProtegeLx(engine_configuration_s *engineConfiguration,
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 
 	triggerShapeInit(s);
+	s->initialState[0] = 1;
+
+	float w = 720 / 4 * 0.215;
+	float a = 5;
+	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
+	a += 180;
+	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
+	a += 180;
+	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
+	a += 180;
+	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
+	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
 
 	triggerAddEvent(s, 720 * 0.928, T_PRIMARY, TV_LOW);
 	triggerAddEvent(s, 720, T_PRIMARY, TV_HIGH);
 
-	s->shaftPositionEventCount = 2;
-
+	s->shaftPositionEventCount = 2 + 8;
+	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
 }
