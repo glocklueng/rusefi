@@ -223,6 +223,15 @@ void testMazdaMianaNbDecoder(void) {
 
 }
 
+void testFordEscortGt(void) {
+	printf("*************************************************** testFordEscortGt\r\n");
+
+	persistent_config_s persistentConfig;
+	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
+	engine_configuration2_s ec2;
+	resetConfigurationExt(FORD_ESCORT_GT, ec, &ec2, &persistentConfig.boardConfiguration);
+}
+
 void testGY6_139QMB(void) {
 	printf("*************************************************** testGY6_139QMB\r\n");
 
@@ -267,6 +276,7 @@ void testTriggerDecoder(void) {
 	test1995FordInline6TriggerDecoder();
 	testMazdaMianaNbDecoder();
 	testGY6_139QMB();
+//	testFordEscortGt();
 
 	testMazda323();
 }
