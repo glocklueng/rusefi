@@ -12,4 +12,5 @@ ENGINES_SRC = $(PROJECT_DIR)/config/engines/audi_aan.c \
 
 ENGINES_SRC_CPP = $(PROJECT_DIR)/config/engines/ford_aspire.cpp \
 	$(PROJECT_DIR)/config/engines/MiniCooperR50.cpp \
+	$(PROJECT_DIR)/config/engines/ford_escort_gt.cpp \
 	$(PROJECT_DIR)/config/engines/saturn_ion.cpp
