@@ -14,8 +14,11 @@ extern "C"
 #endif /* __cplusplus */
 
 #include "trigger_structure.h"
+#include "engine_configuration.h"
 
 void initializeMazdaMiataNbShape(trigger_shape_s *s);
+void configureMazdaProtegeLx(engine_configuration_s *engineConfiguration,
+		engine_configuration2_s *engineConfiguration2);
 
 #ifdef __cplusplus
 }
