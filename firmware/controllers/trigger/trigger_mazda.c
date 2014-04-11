@@ -56,3 +56,17 @@ void initializeMazdaMiataNbShape(trigger_shape_s *s) {
 
 	s->shaftPositionEventCount = 6 + 16;
 }
+
+void configureMazdaProtegeLx(engine_configuration_s *engineConfiguration,
+		engine_configuration2_s *engineConfiguration2) {
+
+	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+
+	triggerShapeInit(s);
+
+	triggerAddEvent(s, 720 * 0.928, T_PRIMARY, TV_LOW);
+	triggerAddEvent(s, 720, T_PRIMARY, TV_HIGH);
+
+	s->shaftPositionEventCount = 2;
+
+}

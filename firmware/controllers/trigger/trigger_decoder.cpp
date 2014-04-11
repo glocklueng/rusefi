@@ -187,6 +187,10 @@ void initializeTriggerShape(engine_configuration_s *engineConfiguration,
 		configureGmTriggerShape(&engineConfiguration2->triggerShape);
 		return;
 
+	case TT_FORD_ESCORT_GT:
+		configureMazdaProtegeLx(engineConfiguration, engineConfiguration2);
+		return;
+
 	default:
 		firmwareError("initializeTriggerShape() not implemented: %d", tt->triggerType);
 		;

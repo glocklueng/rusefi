@@ -8,7 +8,7 @@
 #include "ford_escort_gt.h"
 
 void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
-	engineConfiguration->triggerConfig.triggerType = TT_MINI_COOPER_R50;
+	engineConfiguration->triggerConfig.triggerType = TT_FORD_ESCORT_GT;
 }
 
 
