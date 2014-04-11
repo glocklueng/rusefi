@@ -48,6 +48,7 @@ int getCylinderId(firing_order_e firingOrder, int index);
 void prepareOutputSignals(engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2);
 
+void setTableBin(float array[], int size, float l, float r);
 void setFuelRpmBin(engine_configuration_s *engineConfiguration, float l, float r);
 void setFuelLoadBin(engine_configuration_s *engineConfiguration, float l, float r);
 void setTimingRpmBin(engine_configuration_s *engineConfiguration, float l, float r);

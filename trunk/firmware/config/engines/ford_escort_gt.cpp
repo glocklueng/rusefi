@@ -1,6 +1,8 @@
 /**
  * @file	ford_escort_gt.cpp
  *
+ * FORD_ESCORT_GT = 14
+ *
  * @date Apr 11, 2014
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
