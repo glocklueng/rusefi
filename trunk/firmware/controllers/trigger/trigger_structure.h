@@ -96,6 +96,8 @@ typedef struct {
 	 */
 	int shaftPositionEventCount;
 
+	// todo: add a runtime validation which would verify that this field was set properly
+	// tood: maybe even automate this flag calculation?
 	int initialState[PWM_PHASE_MAX_WAVE_PER_PWM];
 
 	int triggerShapeSynchPointIndex;
