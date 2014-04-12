@@ -138,6 +138,9 @@ typedef enum {
 	 * GND for logical ON, VCC for logical OFF
 	 */
 	OM_INVERTED = 1,
+	/**
+	 * logical OFF is floating, logical ON is GND
+	 */
 	OM_OPENDRAIN = 2,
 	OM_OPENDRAIN_INVERTED = 3,
 
