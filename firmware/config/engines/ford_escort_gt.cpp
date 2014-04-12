@@ -21,6 +21,9 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 
 	setSingleCoilDwell(engineConfiguration);
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
+
+	boardConfiguration->triggerSimulatorPinModes[0] = OM_OPENDRAIN;
+	boardConfiguration->triggerSimulatorPinModes[1] = OM_OPENDRAIN;
 }
 
 
