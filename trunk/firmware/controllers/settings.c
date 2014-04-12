@@ -163,6 +163,9 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 		brain_pin_e brainPin = boardConfiguration->ignitionPins[i];
 		scheduleMsg(&logger, "ignition %d @ %s", i, hwPortname(brainPin));
 	}
+
+	scheduleMsg(&logger, "primary trigger simulator: %s %d", hwPortname(boardConfiguration->triggerSimulatorPins[0]), boardConfiguration->triggerSimulatorPinModes[0]);
+	scheduleMsg(&logger, "secondary trigger simulator: %s %d", hwPortname(boardConfiguration->triggerSimulatorPins[1]), boardConfiguration->triggerSimulatorPinModes[1]);
 #endif /* EFI_PROD_CODE */
 
 	scheduleMsg(&logger, "isInjectionEnabledFlag %d", engineConfiguration2->isInjectionEnabledFlag);
