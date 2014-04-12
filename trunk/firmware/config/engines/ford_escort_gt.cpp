@@ -16,9 +16,14 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 
 	engineConfiguration->cylindersCount = 4;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
-	engineConfiguration->globalTriggerAngleOffset = 175;
-	engineConfiguration->ignitionOffset = 98 - 11;
+	// set_global_trigger_offset_angle 256
+	engineConfiguration->globalTriggerAngleOffset = 256;
+	// set_ignition_offset 170
+	engineConfiguration->ignitionOffset = 170;
+	// set_injection_offset 510
 	engineConfiguration->injectionOffset = 59;
+
+
 
 	setSingleCoilDwell(engineConfiguration);
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
@@ -71,6 +76,9 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	boardConfiguration->injectionPins[2] = GPIO_NONE; // Frankenstein: low side - inj #8
 	boardConfiguration->injectionPins[3] = GPIO_NONE; // Frankenstein: low side - inj #6
 	boardConfiguration->injectionPinMode = OM_DEFAULT;
+
+	// set_whole_timing_map 3
+	setWholeFuelMap(engineConfiguration, 3);
 
 	// since CLT is not wired up yet let's just use same value for min and max
 	// set_cranking_fuel_max 6 40

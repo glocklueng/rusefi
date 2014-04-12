@@ -63,7 +63,7 @@ void configureMazdaProtegeLx(engine_configuration_s *engineConfiguration,
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 
 	triggerShapeInit(s);
-	s->initialState[0] = 1;
+//	s->initialState[0] = 1;
 
 	float w = 720 / 4 * 0.215;
 	float a = 5;
@@ -82,20 +82,20 @@ void configureMazdaProtegeLx(engine_configuration_s *engineConfiguration,
 	float z = 0.093;
 
 	a = 180;
-	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_LOW);
-	triggerAddEvent(s, a, T_PRIMARY, TV_HIGH);
+	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_HIGH);
+	triggerAddEvent(s, a, T_PRIMARY, TV_LOW);
 
 	a += 180;
-	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_LOW);
-	triggerAddEvent(s, a, T_PRIMARY, TV_HIGH);
+	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_HIGH);
+	triggerAddEvent(s, a, T_PRIMARY, TV_LOW);
 
 	a += 180;
-	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_LOW);
-	triggerAddEvent(s, a, T_PRIMARY, TV_HIGH);
+	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_HIGH);
+	triggerAddEvent(s, a, T_PRIMARY, TV_LOW);
 
 	a += 180;
-	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_LOW);
-	triggerAddEvent(s, a, T_PRIMARY, TV_HIGH);
+	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_HIGH);
+	triggerAddEvent(s, a, T_PRIMARY, TV_LOW);
 
 
 //	s->shaftPositionEventCount = 2 + 8;
