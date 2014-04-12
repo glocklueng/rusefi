@@ -284,6 +284,9 @@ typedef struct {
 	brain_pin_e HD44780_db7;
 	brain_pin_e HD44780_db8;
 
+	brain_pin_e triggerSimulatorPins[2];
+	pin_output_mode_e triggerSimulatorPinModes[2];
+
 } board_configuration_s;
 
 typedef struct {

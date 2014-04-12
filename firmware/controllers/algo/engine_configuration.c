@@ -252,6 +252,11 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 
 	boardConfiguration->idleSwitchPin = GPIOC_8;
 
+	boardConfiguration->triggerSimulatorPins[0] = GPIOD_1;
+	boardConfiguration->triggerSimulatorPins[1] = GPIOD_2;
+
+	boardConfiguration->triggerSimulatorPinModes[0] = OM_DEFAULT;
+	boardConfiguration->triggerSimulatorPinModes[1] = OM_DEFAULT;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
