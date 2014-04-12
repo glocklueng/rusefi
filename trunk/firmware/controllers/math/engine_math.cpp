@@ -122,6 +122,22 @@ float getEngineLoadT(engine_configuration_s *engineConfiguration) {
 	}
 }
 
+void setSingleCoilDwell(engine_configuration_s *engineConfiguration) {
+	for (int i = 0; i < DWELL_CURVE_SIZE; i++) {
+		engineConfiguration->sparkDwellBins[i] = 0;
+		engineConfiguration->sparkDwell[i] = -1;
+	}
+
+	engineConfiguration->sparkDwellBins[5] = 1;
+	engineConfiguration->sparkDwell[5] = 4;
+
+	engineConfiguration->sparkDwellBins[6] = 4500;
+	engineConfiguration->sparkDwell[6] = 4;
+
+	engineConfiguration->sparkDwellBins[7] = 12500;
+	engineConfiguration->sparkDwell[7] = 0;
+}
+
 int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm) {
 	return rpm > 0 && rpm < engineConfiguration->crankingSettings.crankingRpm;
 }
