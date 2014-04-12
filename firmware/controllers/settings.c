@@ -144,6 +144,9 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %d", boardConfiguration->malfunctionIndicatorPinMode);
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
+	scheduleMsg(&logger, "needSecondTriggerInput: %d", engineConfiguration->needSecondTriggerInput);
+
+
 
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "idleValvePin: %s", hwPortname(boardConfiguration->idleValvePin));

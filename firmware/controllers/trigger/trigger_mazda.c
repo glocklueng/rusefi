@@ -67,21 +67,38 @@ void configureMazdaProtegeLx(engine_configuration_s *engineConfiguration,
 
 	float w = 720 / 4 * 0.215;
 	float a = 5;
-	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
-	a += 180;
-	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
-	a += 180;
-	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
-	a += 180;
-	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
+//	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
+//	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
+//	a += 180;
+//	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
+//	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
+//	a += 180;
+//	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
+//	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
+//	a += 180;
+//	triggerAddEvent(s, a, T_SECONDARY, TV_LOW);
+//	triggerAddEvent(s, a + w, T_SECONDARY, TV_HIGH);
 
-	triggerAddEvent(s, 720 * 0.928, T_PRIMARY, TV_LOW);
-	triggerAddEvent(s, 720, T_PRIMARY, TV_HIGH);
+	float z = 0.093;
 
-	s->shaftPositionEventCount = 2 + 8;
+	a = 180;
+	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_LOW);
+	triggerAddEvent(s, a, T_PRIMARY, TV_HIGH);
+
+	a += 180;
+	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_LOW);
+	triggerAddEvent(s, a, T_PRIMARY, TV_HIGH);
+
+	a += 180;
+	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_LOW);
+	triggerAddEvent(s, a, T_PRIMARY, TV_HIGH);
+
+	a += 180;
+	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_LOW);
+	triggerAddEvent(s, a, T_PRIMARY, TV_HIGH);
+
+
+//	s->shaftPositionEventCount = 2 + 8;
+	s->shaftPositionEventCount = 8;
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
 }
