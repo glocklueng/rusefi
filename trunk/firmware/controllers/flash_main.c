@@ -81,7 +81,7 @@ static int isValidCrc(FlashState *state) {
 }
 
 static void doResetConfiguration(void) {
-	resetConfigurationExt(defaultEngineType, engineConfiguration, engineConfiguration2, boardConfiguration);
+	resetConfigurationExt(engineConfiguration->engineType, engineConfiguration, engineConfiguration2, boardConfiguration);
 }
 
 static void readFromFlash(void) {
@@ -92,7 +92,7 @@ static void readFromFlash(void) {
 
 	if (!isValidCrc(&flashState)) {
 		scheduleMsg(&logger, "Need to reset flash to default");
-		doResetConfiguration();
+		resetConfigurationExt(defaultEngineType, engineConfiguration, engineConfiguration2, boardConfiguration);
 	} else {
 		scheduleMsg(&logger, "Got valid configuration from flash!");
 		applyNonPersistentConfiguration(engineConfiguration, engineConfiguration2, engineConfiguration->engineType);
