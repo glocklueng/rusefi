@@ -54,6 +54,8 @@ void setFuelLoadBin(engine_configuration_s *engineConfiguration, float l, float 
 void setTimingRpmBin(engine_configuration_s *engineConfiguration, float l, float r);
 void setTimingLoadBin(engine_configuration_s *engineConfiguration, float l, float r);
 
+void setSingleCoilDwell(engine_configuration_s *engineConfiguration);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

@@ -113,20 +113,7 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->crankingChargeAngle = 70;
 	engineConfiguration->crankingTimingAngle = 26 + 11;
 
-	for (int i = 0; i < DWELL_CURVE_SIZE; i++) {
-		engineConfiguration->sparkDwellBins[i] = 0;
-		engineConfiguration->sparkDwell[i] = -1;
-	}
-
-	engineConfiguration->sparkDwellBins[5] = 1;
-	engineConfiguration->sparkDwell[5] = 4;
-
-	engineConfiguration->sparkDwellBins[6] = 4500;
-	engineConfiguration->sparkDwell[6] = 4;
-
-	engineConfiguration->sparkDwellBins[7] = 12500;
-	engineConfiguration->sparkDwell[7] = 0;
-
+	setSingleCoilDwell(engineConfiguration);
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
 	engineConfiguration->triggerConfig.triggerType = TT_FORD_ASPIRE;
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
