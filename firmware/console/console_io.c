@@ -106,7 +106,7 @@ static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USA
 #endif /* EFI_SERIAL_OVER_UART */
 #endif /* EFI_SERIAL_OVER_USB */
 
-#if ! defined EFI_SERIAL_OVER_USB && ! EFI_SIMULATOR
+#if ! EFI_SERIAL_OVER_USB && ! EFI_SIMULATOR
 int is_serial_ready(void) {
 	return TRUE;
 }
