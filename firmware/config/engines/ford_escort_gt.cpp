@@ -81,7 +81,7 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	boardConfiguration->injectionPins[3] = GPIO_NONE; // Frankenstein: low side - inj #6
 	boardConfiguration->injectionPinMode = OM_DEFAULT;
 
-	// set_whole_timing_map 3
+	// set_whole_fuel_map 3
 	setWholeFuelMap(engineConfiguration, 3);
 
 	// since CLT is not wired up yet let's just use same value for min and max

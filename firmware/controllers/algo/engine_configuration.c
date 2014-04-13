@@ -298,6 +298,11 @@ void resetConfigurationExt(engine_type_e engineType,
 		setFordFiestaDefaultEngineConfiguration(engineConfiguration);
 		break;
 #endif /* EFI_SUPPORT_FORD_FIESTA */
+#if EFI_SUPPORT_NISSAN_PRIMERA || defined(__DOXYGEN__)
+	case NISSAN_PRIMERA:
+		setNissanPrimeraEngineConfiguration(engineConfiguration);
+		break;
+#endif
 	case HONDA_ACCORD:
 		setHondaAccordConfiguration(engineConfiguration);
 		break;
