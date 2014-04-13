@@ -124,7 +124,8 @@ static void fuelPumpOff(void *arg) {
 static void fuelPumpOn(ShaftEvents signal, int index) {
 	if (index != 0)
 		return; // let's not abuse the timer - one time per revolution would be enough
-	if (!getOutputPinValue(FUEL_PUMP_RELAY))
+	// todo: the check about GPIO_NONE should be somewhere else!
+	if (!getOutputPinValue(FUEL_PUMP_RELAY) && boardConfiguration->fuelPumpPin != GPIO_NONE)
 		scheduleMsg(&logger, "fuelPump ON at %s", hwPortname(boardConfiguration->fuelPumpPin));
 	turnOutputPinOn(FUEL_PUMP_RELAY);
 	/**
