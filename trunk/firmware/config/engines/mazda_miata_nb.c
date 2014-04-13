@@ -75,5 +75,9 @@ void setMazdaMiataNbEngineConfiguration(engine_configuration_s *engineConfigurat
 	boardConfiguration->electronicThrottlePin1 = GPIO_NONE;
 	boardConfiguration->idleSwitchPin = GPIO_NONE;
 
+	// set_whole_fuel_map 3
+	setWholeFuelMap(engineConfiguration, 3);
+
+
 // 10 deg before TDC is default timing
 }
