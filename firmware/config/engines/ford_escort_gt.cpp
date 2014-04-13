@@ -77,8 +77,10 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 
 	boardConfiguration->injectionPins[0] = GPIOB_9; // Frankenstein: low side - inj #12
 	boardConfiguration->injectionPins[1] = GPIOB_8; // Frankenstein: low side - inj #11
-	boardConfiguration->injectionPins[2] = GPIO_NONE; // Frankenstein: low side - inj #8
-	boardConfiguration->injectionPins[3] = GPIO_NONE; // Frankenstein: low side - inj #6
+	boardConfiguration->injectionPins[2] = GPIO_NONE;
+	boardConfiguration->injectionPins[3] = GPIO_NONE;
+	boardConfiguration->injectionPins[4] = GPIO_NONE;
+	boardConfiguration->injectionPins[5] = GPIO_NONE;
 	boardConfiguration->injectionPinMode = OM_DEFAULT;
 
 	// set_whole_fuel_map 3
