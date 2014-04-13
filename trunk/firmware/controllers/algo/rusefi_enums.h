@@ -193,6 +193,14 @@ typedef enum {
 } cranking_ignition_mode_e;
 
 typedef enum {
+	SPI_NONE = 0,
+	SPI_DEVICE_1 = 1,
+	SPI_DEVICE_2 = 2,
+
+	Internal_ForceMyEnumIntSize_spi_device = ENUM_SIZE_HACK,
+} spi_device_e;
+
+typedef enum {
 	IE_NO_ERROR = 0,
 	IE_UNEXPECTED_FIRING_ORDER = 1,
 
