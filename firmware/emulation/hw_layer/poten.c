@@ -16,7 +16,7 @@
  * MCP42010 digital potentiometer driver
  *
  *
- * 1	CS		pin select						PB12
+ * 1	CS		pin select						PB12		PA10
  * 2	SCK		serial clock					PA5			PC10
  * 3	SI		serial input		(MOSI)		PA7			PC12
  * 4	Vss 	ground
@@ -51,13 +51,13 @@ SPIDriver * getDigiralPotDevice(void) {
 
 // PA13 & PA14 are system pins
 
-// chip select
-#define POTEN_CS_PORT GPIOE
-#define POTEN_CS_PIN 15
-
 //// chip select
-//#define POTEN_CS_PORT GPIOA
-//#define POTEN_CS_PIN 10
+//#define POTEN_CS_PORT GPIOE
+//#define POTEN_CS_PIN 15
+
+// chip select
+#define POTEN_CS_PORT GPIOA
+#define POTEN_CS_PIN 10
 //#define POT_SPI &SPID3
 
 
