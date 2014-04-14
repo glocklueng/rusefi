@@ -12,6 +12,7 @@
 #include "eficonsole.h"
 #include "engine_configuration.h"
 #include "flash_main.h"
+#include "adc_inputs.h"
 #include "engine_controller.h"
 #include "rusefi.h"
 #include "thermistors.h"
@@ -271,7 +272,10 @@ static void printThermistor(char *msg, Thermistor *thermistor) {
 
 static void printTPSInfo(void) {
 #if EFI_PROD_CODE
-	scheduleMsg(&logger, "tps min %d/max %d v=%f @%s", engineConfiguration->tpsMin, engineConfiguration->tpsMax, getTPSVoltage(), hwPortname(engineConfiguration->tpsAdcChannel));
+	GPIO_TypeDef* port = getAdcChannelPort(engineConfiguration->tpsAdcChannel);
+	int pin = getAdcChannelPin(engineConfiguration->tpsAdcChannel);
+
+	scheduleMsg(&logger, "tps min %d/max %d v=%f @%s%d", engineConfiguration->tpsMin, engineConfiguration->tpsMax, getTPSVoltage(), portname(port), pin);
 #endif
 	scheduleMsg(&logger, "current 10bit=%d value=%f rate=%f", getTPS10bitAdc(), getTPS(), getTpsRateOfChange());
 }
@@ -343,19 +347,19 @@ static void setCrankingTimingAngle(float value) {
 }
 
 static void setCrankingInjectionMode(int value) {
-	engineConfiguration->crankingInjectionMode = value;
+	engineConfiguration->crankingInjectionMode = (injection_mode_e)value;
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
 }
 
 static void setInjectionMode(int value) {
-	engineConfiguration->injectionMode = value;
+	engineConfiguration->injectionMode = (injection_mode_e)value;
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
 }
 
 static void setIgnitionMode(int value) {
-	engineConfiguration->ignitionMode = value;
+	engineConfiguration->ignitionMode = (ignition_mode_e)value;
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
 }
