@@ -92,7 +92,7 @@ void initOutputSignalBase(OutputSignal *signal);
 void scheduleOutputBase(OutputSignal *signal, float delayMs, float durationMs);
 
 void initSignalExecutor(void);
-void scheduleTask(scheduling_s *scheduling, int delay, schfunc_t callback, void *param);
+void scheduleTask(scheduling_s *scheduling, float delay, schfunc_t callback, void *param);
 void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param);
 
 #ifdef __cplusplus
