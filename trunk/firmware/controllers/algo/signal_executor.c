@@ -39,7 +39,7 @@
 #endif /* EFI_WAVE_ANALYZER */
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
-	Logging logger;
+	static Logging logger;
 #endif
 
 void initSignalExecutor(void) {
