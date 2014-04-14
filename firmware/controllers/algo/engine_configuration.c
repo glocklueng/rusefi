@@ -290,7 +290,7 @@ void resetConfigurationExt(engine_type_e engineType,
 #endif /* EFI_SUPPORT_DODGE_NEON */
 #if EFI_SUPPORT_FORD_ASPIRE || defined(__DOXYGEN__)
 	case FORD_ASPIRE_1996:
-		setFordAspireEngineConfiguration(engineConfiguration);
+		setFordAspireEngineConfiguration(engineConfiguration, boardConfiguration);
 		break;
 #endif /* EFI_SUPPORT_FORD_ASPIRE */
 #if EFI_SUPPORT_FORD_FIESTA || defined(__DOXYGEN__)

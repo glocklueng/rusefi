@@ -85,7 +85,7 @@ static void setDefaultMaps(engine_configuration_s *engineConfiguration) {
 	}
 }
 
-void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguration) {
+void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 	engineConfiguration->tpsMin = 1;
 	engineConfiguration->tpsMax = 1000;
 
