@@ -106,25 +106,25 @@ static void turnLow(OutputSignal *signal) {
 
 int getRevolutionCounter(void);
 
-void scheduleOutput(OutputSignal *signal, int delay, int duration, time_t now) {
-	if (duration < 0) {
-		firmwareError("duration cannot be negative: %d", duration);
+void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs, time_t now) {
+	if (durationMs < 0) {
+		firmwareError("duration cannot be negative: %d", durationMs);
 		return;
 	}
 
-	scheduleOutputBase(signal, delay, duration);
+	scheduleOutputBase(signal, delayMs, durationMs);
 
 	int index = getRevolutionCounter() % 2;
 	scheduling_s * sUp = &signal->signalTimerUp[index];
 	scheduling_s * sDown = &signal->signalTimerDown[index];
 
-	scheduleTask(sUp, delay, (schfunc_t) &turnHigh, (void *) signal);
-	scheduleTask(sDown, delay + duration, (schfunc_t) &turnLow, (void*)signal);
+	scheduleTask(sUp, TICKS_IN_MS * delayMs, (schfunc_t) &turnHigh, (void *) signal);
+	scheduleTask(sDown, TICKS_IN_MS * (delayMs + durationMs), (schfunc_t) &turnLow, (void*)signal);
 
 	signal->last_scheduling_time = now;
 }
 
-void scheduleOutputBase(OutputSignal *signal, int offset, int duration) {
+void scheduleOutputBase(OutputSignal *signal, float delayMs, float durationMs) {
 	/**
 	 * it's better to check for the exact 'TRUE' value since otherwise
 	 * we would accept any memory garbage

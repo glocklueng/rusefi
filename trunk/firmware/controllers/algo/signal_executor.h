@@ -87,9 +87,9 @@ extern "C"
 #endif /* __cplusplus */
 
 void initOutputSignal(OutputSignal *signal, io_pin_e ioPin);
-void scheduleOutput(OutputSignal *signal, int delay, int dwell, time_t now);
+void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs, time_t now);
 void initOutputSignalBase(OutputSignal *signal);
-void scheduleOutputBase(OutputSignal *signal, int offset, int duration);
+void scheduleOutputBase(OutputSignal *signal, float delayMs, float durationMs);
 
 void initSignalExecutor(void);
 void scheduleTask(scheduling_s *scheduling, int delay, schfunc_t callback, void *param);
