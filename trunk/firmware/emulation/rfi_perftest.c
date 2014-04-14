@@ -1,8 +1,8 @@
-/*
- * rdi_perftest.c
+/**
+ * @file rdi_perftest.c
  *
- *  Created on: Nov 30, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Nov 30, 2012
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "main.h"
@@ -18,7 +18,7 @@
 //#define TEST_PORT GPIOB
 //#define TEST_PIN 6
 
-static OutputPin testOutput;
+//static OutputPin testOutput;
 
 static void testSystemCalls(int count) {
 	time_t start, time;
@@ -92,7 +92,23 @@ static void testRusefiMethods(int count) {
 
 static void testMath(int count) {
 	time_t start, time;
-	int tempi = 1;
+
+	int64_t temp64 = 0;
+	start = currentTimeMillis();
+	for (int64_t i = 0; i < count; i++)
+		temp64 += i;
+	time = currentTimeMillis() - start;
+	if (temp64 != 0)
+		print("Finished %d iterations of int64_t summation in %dms\r\n", count, time);
+
+	temp64 = 1;
+	start = currentTimeMillis();
+	for (int64_t i = 0; i < count; i++)
+		temp64 *= i;
+	time = currentTimeMillis() - start;
+	if (temp64 != 0)
+		print("Finished %d iterations of int64_t multiplication in %dms\r\n", count, time);
+
 
 	start = currentTimeMillis();
 	for (int i = 0; i < count; i++)
@@ -100,6 +116,7 @@ static void testMath(int count) {
 	time = currentTimeMillis() - start;
 	print("Finished %d iterations of empty loop in %dms\r\n", count, time);
 
+	int tempi = 1;
 	start = currentTimeMillis();
 	for (int i = 0; i < count; i++)
 		tempi += tempi;
