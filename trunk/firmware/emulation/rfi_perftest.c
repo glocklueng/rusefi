@@ -20,6 +20,8 @@
 
 //static OutputPin testOutput;
 
+Logging logger;
+
 static void testSystemCalls(int count) {
 	time_t start, time;
 	long result = 0;
@@ -32,7 +34,7 @@ static void testSystemCalls(int count) {
 
 	time = currentTimeMillis() - start;
 	// Finished 100000 iterations of 'setPinValue()' in 120ms
-//	print("Finished %d iterations of 'setPinValue()' in %dms\r\n", count, time);
+//	prin("Finished %d iterations of 'setPinValue()' in %dms\r\n", count, time);
 
 	start = currentTimeMillis();
 	for (int i = 0; i < count; i++)
@@ -40,7 +42,7 @@ static void testSystemCalls(int count) {
 	time = currentTimeMillis() - start;
 	if (result != 0) {
 		// Finished 100000 iterations of 'chTimeNow()' in 33ms
-		print("Finished %d iterations of 'chTimeNow()' in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of 'chTimeNow()' in %dms", count, time);
 	}
 
 	start = currentTimeMillis();
@@ -54,7 +56,7 @@ static void testSystemCalls(int count) {
 	time = currentTimeMillis() - start;
 	if (result != 0) {
 		// Finished 100000 iterations of 'chTimeNow()' with chSysLock in 144ms
-		print("Finished %d iterations of 'chTimeNow()' with chSysLock in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of 'chTimeNow()' with chSysLock in %dms", count, time);
 	}
 
 	count /= 10;
@@ -64,7 +66,7 @@ static void testSystemCalls(int count) {
 		result += currentTimeMillis();
 	time = currentTimeMillis() - start;
 	if (result != 0)
-		print("Finished %d iterations of 'currentTimeMillis' in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of 'currentTimeMillis' in %dms", count, time);
 
 }
 
@@ -79,7 +81,7 @@ static void testRusefiMethods(int count) {
 		tempi += getBaseFuel(4020, 2.21111);
 	time = currentTimeMillis() - start;
 	if (tempi != 0)
-		print("Finished %d iterations of getBaseFuel in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of getBaseFuel in %dms", count, time);
 
 	start = currentTimeMillis();
 
@@ -87,7 +89,7 @@ static void testRusefiMethods(int count) {
 //		tempi += getDefaultFuel(4020, 2.21111);
 //	time = currentTimeMillis() - start;
 //	if (tempi == 0)
-//		print("Finished %d iterations of getDefaultFuel in %dms\r\n", count, time);
+//		rint("Finished %d iterations of getDefaultFuel in %dms\r\n", count, time);
 }
 
 static void testMath(int count) {
@@ -99,22 +101,22 @@ static void testMath(int count) {
 		temp64 += i;
 	time = currentTimeMillis() - start;
 	if (temp64 != 0)
-		print("Finished %d iterations of int64_t summation in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of int64_t summation in %dms", count, time);
 
 	temp64 = 1;
 	start = currentTimeMillis();
 	for (int64_t i = 0; i < count; i++)
 		temp64 *= i;
 	time = currentTimeMillis() - start;
-	if (temp64 != 0)
-		print("Finished %d iterations of int64_t multiplication in %dms\r\n", count, time);
+	if (temp64 == 0)
+		scheduleMsg(&logger, "Finished %d iterations of int64_t multiplication in %dms", count, time);
 
 
 	start = currentTimeMillis();
 	for (int i = 0; i < count; i++)
 		;
 	time = currentTimeMillis() - start;
-	print("Finished %d iterations of empty loop in %dms\r\n", count, time);
+	scheduleMsg(&logger, "Finished %d iterations of empty loop in %dms", count, time);
 
 	int tempi = 1;
 	start = currentTimeMillis();
@@ -122,7 +124,7 @@ static void testMath(int count) {
 		tempi += tempi;
 	time = currentTimeMillis() - start;
 	if (tempi == 0)
-		print("Finished %d iterations of int summation in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of int summation in %dms", count, time);
 
 	start = currentTimeMillis();
 	tempi = 1;
@@ -130,7 +132,7 @@ static void testMath(int count) {
 		tempi += (tempi + 100) / 130;
 	time = currentTimeMillis() - start;
 	if (tempi != 0)
-		print("Finished %d iterations of int division in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of int division in %dms", count, time);
 
 	start = currentTimeMillis();
 	long templ = 1;
@@ -138,7 +140,7 @@ static void testMath(int count) {
 		templ += templ;
 	time = currentTimeMillis() - start;
 	if (templ == 0)
-		print("Finished %d iterations of long summation in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of long summation in %dms", count, time);
 
 	start = currentTimeMillis();
 	templ = 1;
@@ -147,7 +149,7 @@ static void testMath(int count) {
 	time = currentTimeMillis() - start;
 	if (templ != 0) {
 		// Finished 100000 iterations of long division in 45ms
-		print("Finished %d iterations of long division in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of long division in %dms", count, time);
 	}
 
 	start = currentTimeMillis();
@@ -156,7 +158,7 @@ static void testMath(int count) {
 		tempf += tempf;
 	time = currentTimeMillis() - start;
 	if (tempf != 0)
-		print("Finished %d iterations of float summation in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of float summation in %dms", count, time);
 
 	start = currentTimeMillis();
 	tempf = 1;
@@ -165,7 +167,7 @@ static void testMath(int count) {
 	time = currentTimeMillis() - start;
 	if (tempf != 0) {
 		// Finished 100000 iterations of float division in 65ms
-		print("Finished %d iterations of float division in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of float division in %dms", count, time);
 	}
 
 	start = currentTimeMillis();
@@ -174,7 +176,7 @@ static void testMath(int count) {
 		tempd += tempd / 2;
 	time = currentTimeMillis() - start;
 	if (tempd != 0)
-		print("Finished %d iterations of double summation in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of double summation in %dms", count, time);
 
 	start = currentTimeMillis();
 	tempd = 1;
@@ -182,7 +184,7 @@ static void testMath(int count) {
 		tempd += (tempd + 100) / 130.0;
 	time = currentTimeMillis() - start;
 	if (tempd != 0)
-		print("Finished %d iterations of double division in %dms\r\n", count, time);
+		scheduleMsg(&logger, "Finished %d iterations of double division in %dms", count, time);
 
 }
 
@@ -193,6 +195,8 @@ static void runTests(int count) {
 }
 
 void initTimePerfActions() {
+
+	initLogging(&logger, "perftest");
 //	initOutputPin("test pad", &testOutput, TEST_PORT, TEST_PIN);
-	addConsoleActionI("testmath", runTests);
+	addConsoleActionI("perftest", runTests);
 }
