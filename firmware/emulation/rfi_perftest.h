@@ -1,8 +1,8 @@
-/*
- * rfi_perftest.h
+/**
+ * @file rfi_perftest.h
  *
- *  Created on: Nov 30, 2012
- *      Author: Andrey Belomutskiy, (c) 2012-2013
+ * @date Nov 30, 2012
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #ifndef RFI_PERFTEST_H_
