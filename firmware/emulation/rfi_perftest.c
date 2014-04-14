@@ -22,7 +22,7 @@
 
 Logging logger;
 
-static void testSystemCalls(int count) {
+static void testSystemCalls(const int count) {
 	time_t start, time;
 	long result = 0;
 
@@ -59,19 +59,15 @@ static void testSystemCalls(int count) {
 		scheduleMsg(&logger, "Finished %d iterations of 'chTimeNow()' with chSysLock in %dms", count, time);
 	}
 
-	count /= 10;
-
 	start = currentTimeMillis();
 	for (int i = 0; i < count; i++)
 		result += currentTimeMillis();
 	time = currentTimeMillis() - start;
 	if (result != 0)
 		scheduleMsg(&logger, "Finished %d iterations of 'currentTimeMillis' in %dms", count, time);
-
 }
 
-
-static void testRusefiMethods(int count) {
+static void testRusefiMethods(const int count) {
 	time_t start, time;
 	int tempi = 1;
 
@@ -92,7 +88,7 @@ static void testRusefiMethods(int count) {
 //		rint("Finished %d iterations of getDefaultFuel in %dms\r\n", count, time);
 }
 
-static void testMath(int count) {
+static void testMath(const int count) {
 	time_t start, time;
 
 	int64_t temp64 = 0;
@@ -188,8 +184,8 @@ static void testMath(int count) {
 
 }
 
-static void runTests(int count) {
-	testRusefiMethods(count);
+static void runTests(const int count) {
+	testRusefiMethods(count / 10);
 	testSystemCalls(count);
 	testMath(count);
 }
