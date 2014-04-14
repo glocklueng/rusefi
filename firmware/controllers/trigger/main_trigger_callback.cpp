@@ -87,7 +87,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 //	if (isCranking())
 //		scheduleMsg(&logger, "crankingFuel=%f for CLT=%fC", fuelMs, getCoolantTemperature());
 
-	scheduleOutput(event->actuator, delay * TICKS_IN_MS, fuelMs * TICKS_IN_MS, chTimeNow());
+	scheduleOutput(event->actuator, delay, fuelMs, chTimeNow());
 }
 
 static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
@@ -137,7 +137,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 		//return;
 	}
 
-	scheduleOutput(event->actuator, sparkDelay * TICKS_IN_MS, dwellMs * TICKS_IN_MS, chTimeNow());
+	scheduleOutput(event->actuator, sparkDelay, dwellMs, chTimeNow());
 }
 
 static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
