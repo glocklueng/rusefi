@@ -90,12 +90,6 @@ void scheduleTask(scheduling_s *scheduling, int delay, schfunc_t callback, void 
 	chMtxUnlock();
 }
 
-/// @todo Move this function in common part of code.
-void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param) {
-	int delay = (int)(getOneDegreeTime(getRpm()) * angle);
-	scheduleTask(timer, delay, callback, param);
-}
-
 #define SOURCE_DIVIDER ((STM32_HCLK) / (STM32_PCLK1))
 //#pragma message VAR_NAME_VALUE(DIVIDER)
 #define PRESCALLER (84)
