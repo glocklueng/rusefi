@@ -2,7 +2,7 @@
  * @file	honda_accord.h
  *
  * @date Jan 12, 2014
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #ifndef HONDA_ACCORD_H_
