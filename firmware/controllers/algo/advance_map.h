@@ -2,7 +2,7 @@
  * advance.h
  *
  * @date Mar 27, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #ifndef ADVANCE_H_
