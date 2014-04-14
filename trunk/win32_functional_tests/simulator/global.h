@@ -12,6 +12,7 @@
 #include "eficonsole.h"
 #include "efilib.h"
 #include "datalogging.h"
+#include "efitime.h"
 
 
 #ifndef GLOBAL_FT_H_
