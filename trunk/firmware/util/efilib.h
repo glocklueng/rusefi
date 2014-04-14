@@ -8,6 +8,7 @@
 #ifndef EFILIB_H_
 #define EFILIB_H_
 
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -23,6 +24,7 @@ int atoi(const char *string);
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
+
 
 
 #endif /* EFILIB_H_ */
