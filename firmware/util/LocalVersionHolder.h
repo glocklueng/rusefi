@@ -2,7 +2,7 @@
  * @file	LocalVersionHolder.h
  *
  * @date Mar 19, 2014
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #ifndef LOCALVERSIONHOLDER_H_
