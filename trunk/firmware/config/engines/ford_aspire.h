@@ -19,7 +19,7 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguration);
+void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
 
 #ifdef __cplusplus
 }
