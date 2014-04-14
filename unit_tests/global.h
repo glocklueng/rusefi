@@ -11,6 +11,7 @@
 #include <time.h>
 #include <string.h>
 
+#include "efitime.h"
 
 #define TRUE 1
 #define FALSE 0
