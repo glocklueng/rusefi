@@ -17,8 +17,6 @@
 #include <stdint.h>
 #include "hal.h"
 #include "utlist.h"
-#include "engine_math.h"	// getOneDegreeTime
-#include "rpm_calculator.h"	// getRpm
 #include "signal_executor.h"
 #include "signal_executor_single_timer_algo.h"
 
@@ -47,7 +45,7 @@ static OutputSignal *output_list = NULL;
 /**
  * @brief Schedule output
  *
- * Set new parametrs to output event.
+ * Set new parameters to output event.
  * When to become active and how long to stay active.
  *
  * @param [in, out] signal Signal related to an output.
