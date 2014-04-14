@@ -139,7 +139,7 @@ void initOutputScheduler(void)
  *
  * This is the core of "Single Timer" signal executor.
  * Each time closest in time output event is found and TIM7 is loaded to generate IRQ at exact moment.
- * FAST IRQ handler is used to minimaze the jitter in output signal, caused by RTOS switching threads and by busy threads.
+ * FAST IRQ handler is used to minimize the jitter in output signal, caused by RTOS switching threads and by busy threads.
  * Timer7 is used as output scheduler (to drive all outputs - spark plugs and fuel injectors).
  */
 CH_FAST_IRQ_HANDLER(STM32_TIM7_HANDLER)
