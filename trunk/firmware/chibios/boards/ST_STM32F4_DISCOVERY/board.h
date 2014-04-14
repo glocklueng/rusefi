@@ -27,6 +27,7 @@
 #define BOARD_ST_STM32F4_DISCOVERY
 #define BOARD_NAME                  "STMicroelectronics STM32F4-Discovery"
 
+#define STM32_LSECLK			32768
 
 /*
  * Board oscillators-related settings.
