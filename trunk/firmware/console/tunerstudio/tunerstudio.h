@@ -2,7 +2,7 @@
  * @file	tunerstudio.h
  *
  * @date Aug 26, 2013
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #ifndef TUNERSTUDIO_H_
