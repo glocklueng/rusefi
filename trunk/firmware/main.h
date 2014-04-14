@@ -23,6 +23,7 @@ extern "C"
 #include "rusefi.h"
 
 #include "efifeatures.h"
+#include "efitime.h"
 #include "engines.h"
 
 #include "datalogging.h"
