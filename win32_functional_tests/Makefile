@@ -110,7 +110,6 @@ CSRC =	${PORTSRC} \
        ${CHIBIOS}/os/various/memstreams.c \
 	$(UTILSRC) \
        simulator/rusEfiFunctionalTest.c \
-	$(PROJECT_DIR)/controllers/settings.c \
        simulator/boards.c \
 	$(PROJECT_DIR)/emulation/analog_chart.c \
 	main.c
@@ -119,6 +118,7 @@ CSRC =	${PORTSRC} \
 # setting.
 CPPSRC = $(UTILSRC_CPP) \
 	$(CONTROLLERS_ALGO_SRC_CPP) \
+	$(PROJECT_DIR)/controllers/settings.cpp \
 	$(TRIGGER_SRC_CPP) \
 	$(SYSTEMSRC_CPP) \
 	$(CONTROLLERS_MATH_SRC_CPP) \
