@@ -87,6 +87,7 @@ static engine_configuration2_s ec2;
 engine_configuration2_s *engineConfiguration2 = &ec2;
 
 int main(void) {
+	testOverflow64Counter();
 	testInterpolate3d();
 	testFindIndex();
 	testInterpolate2d();
@@ -112,7 +113,7 @@ int main(void) {
 	testPinHelper();
 	testSetTableValue();
 
-	printf("Success 20130411\r\n");
+	printf("Success 20130414\r\n");
 
 //	resizeMap();
 
