@@ -13,7 +13,16 @@
 #include "signal_executor.h"
 #include "engine_configuration.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 char * getPinNameByAdcChannel(int hwChannel, uint8_t *buffer);
 void initEngineContoller(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* ENGINE_STATUS_H_ */

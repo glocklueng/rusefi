@@ -20,7 +20,16 @@ typedef struct {
 	crc value;
 } FlashState;
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void initFlash(void);
 void writeToFlash(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* FLASH_MAIN_H_ */
