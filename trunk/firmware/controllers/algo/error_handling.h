@@ -2,7 +2,7 @@
  * @file	error_handling.h
  *
  * @date Mar 6, 2014
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #ifndef ERROR_HANDLING_H_
