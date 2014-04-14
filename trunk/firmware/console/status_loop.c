@@ -62,6 +62,7 @@
 
 // this 'true' value is needed for simulator
 static volatile int fullLog = TRUE;
+int warningEnabled = TRUE;
 
 extern engine_configuration_s * engineConfiguration;
 extern engine_configuration2_s * engineConfiguration2;
@@ -304,6 +305,10 @@ static void showFuelMap(int rpm, int key100) {
 	scheduleMsg(&logger2, "fuel map value = %f", value);
 }
 
+static void setWarningEnabled(int value) {
+	warningEnabled = value;
+}
+
 static char buffer[10];
 static char dateBuffer[30];
 
@@ -366,6 +371,7 @@ void initStatusLoop(void) {
 
 	setFullLog(INITIAL_FULL_LOG);
 	addConsoleActionI(FULL_LOGGING_KEY, setFullLog);
+	addConsoleActionI("warn", setWarningEnabled);
 
 #if EFI_PROD_CODE
 	initLogging(&logger2, "main event handler");
