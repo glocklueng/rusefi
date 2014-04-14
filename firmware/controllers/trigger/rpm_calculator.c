@@ -13,7 +13,6 @@
 #include "main.h"
 #include "rpm_calculator.h"
 #include "trigger_central.h"
-#include "wave_math.h"
 #include "engine_configuration.h"
 #include "engine_math.h"
 #if EFI_PROD_CODE || EFI_SIMULATOR
