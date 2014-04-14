@@ -63,6 +63,7 @@
 // this 'true' value is needed for simulator
 static volatile int fullLog = TRUE;
 int warningEnabled = TRUE;
+//int warningEnabled = FALSE;
 
 extern engine_configuration_s * engineConfiguration;
 extern engine_configuration2_s * engineConfiguration2;
@@ -70,6 +71,11 @@ extern engine_configuration2_s * engineConfiguration2;
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
 static Logging logger;
+
+static void setWarningEnabled(int value) {
+	warningEnabled = value;
+}
+
 #endif /* EFI_PROD_CODE || EFI_SIMULATOR */
 
 #if EFI_FILE_LOGGING
@@ -303,10 +309,6 @@ static void showFuelMap(int rpm, int key100) {
 	print("fuel map rpm=%d, key=%f: %d\r\n", rpm, engineLoad, (int) (100 * value));
 
 	scheduleMsg(&logger2, "fuel map value = %f", value);
-}
-
-static void setWarningEnabled(int value) {
-	warningEnabled = value;
 }
 
 static char buffer[10];
