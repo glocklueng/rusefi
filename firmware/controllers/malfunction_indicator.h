@@ -15,7 +15,16 @@
 
 #if EFI_MALFUNCTIONAL_INDICATOR
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void initMalfunctionIndicator(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif
 

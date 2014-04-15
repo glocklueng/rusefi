@@ -11,6 +11,15 @@
 
 #include "signal_executor.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void initIgnitionCentral(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* IGNITION_CENTRAL_H_ */
