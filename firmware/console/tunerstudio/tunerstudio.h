@@ -27,8 +27,17 @@ typedef struct
 			unsigned char value;
 		} TunerStudioWriteRequest;
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 		void startTunerStudioConnectivity(void);
 		void syncTunerStudioCopy(void);
 		void updateTunerStudioState(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* TUNERSTUDIO_H_ */
