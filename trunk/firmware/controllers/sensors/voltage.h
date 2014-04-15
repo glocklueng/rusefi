@@ -12,7 +12,16 @@
 
 #include "main.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 float getVRef(void);
 float getVBatt(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif
