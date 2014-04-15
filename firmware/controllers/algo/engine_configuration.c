@@ -45,6 +45,7 @@
 #include "saturn_ion.h"
 #include "MiniCooperR50.h"
 #include "ford_escort_gt.h"
+#include "citroenBerlingoTU3JP.h"
 
 #define ADC_CHANNEL_FAST_ADC 256
 
@@ -328,6 +329,9 @@ void resetConfigurationExt(engine_type_e engineType,
 		break;
 	case FORD_ESCORT_GT:
 		setFordEscortGt(engineConfiguration, boardConfiguration);
+		break;
+	case CITROEN_TU3JP:
+		setCitroenBerlingoTU3JPConfiguration(engineConfiguration, boardConfiguration);
 		break;
 	default:
 		firmwareError("Unexpected engine type: %d", engineType);
