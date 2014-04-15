@@ -66,6 +66,8 @@ typedef enum {
 
 	FORD_ESCORT_GT = 14,
 
+	CITROEN_TU3JP = 15,
+
 	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;
 
