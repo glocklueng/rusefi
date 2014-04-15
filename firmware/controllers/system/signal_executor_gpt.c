@@ -9,4 +9,20 @@
  * Output resolution in general is discussed @ http://rusefi.com/forum/viewtopic.php?t=2
  */
 
+//#include "main.h"
 
+//static void gptCallback(GPTDriver *gptp) {
+//
+//}
+//
+//static const GPTConfig gpt3cfg = {
+//   60000000, /* 60 MHz timer clock.*/
+//   gpt3cb /* Timer callback.*/
+//};
+//
+//void initGptExecutor(void) {
+//
+//	gptStart(&GPTD5, &gptCfg);
+//
+//}
+//
