@@ -34,12 +34,19 @@
 #define STM32_ICU_USE_TIM8                  FALSE
 #define STM32_ICU_USE_TIM9                  TRUE // wave input
 
+// todo: switch to continues ADC conversion for slow ADC?
+#define EFI_INTERNAL_SLOW_ADC_PWM	&PWMD8
+// todo: switch to continues ADC conversion for fast ADC?
+#define EFI_INTERNAL_FAST_ADC_PWM	&PWMD4
+
+
 #define STM32_PWM_USE_TIM1                  FALSE
 #define STM32_PWM_USE_TIM2                  FALSE
 #define STM32_PWM_USE_TIM3                  FALSE
+//
 #define STM32_PWM_USE_TIM4                  TRUE // fast adc
-#define STM32_PWM_USE_TIM5                  TRUE // slow adc
-#define STM32_PWM_USE_TIM8                  FALSE
+#define STM32_PWM_USE_TIM5                  FALSE
+#define STM32_PWM_USE_TIM8                  TRUE // slow adc
 #define STM32_PWM_USE_TIM9                  FALSE
 
 #define STM32_SPI_USE_SPI1                  FALSE
@@ -51,9 +58,6 @@
 
 #define STM32_I2C_I2C1_RX_DMA_STREAM        STM32_DMA_STREAM_ID(1, 5)
 #define STM32_I2C_I2C1_TX_DMA_STREAM        STM32_DMA_STREAM_ID(1, 6)
-
-#define EFI_INTERNAL_SLOW_ADC_PWM	&PWMD5
-#define EFI_INTERNAL_FAST_ADC_PWM	&PWMD4
 
 #define EFI_CAN_DEVICE CAND2
 #define EFI_CAN_RX_PORT GPIOB
