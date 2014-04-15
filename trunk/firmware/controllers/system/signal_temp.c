@@ -9,6 +9,7 @@
 
 // https://my.st.com/public/STe2ecommunities/mcu/Lists/cortex_mx_stm32/Flat.aspx?RootFolder=https%3a%2f%2fmy.st.com%2fpublic%2fSTe2ecommunities%2fmcu%2fLists%2fcortex_mx_stm32%2fInterrupt%20on%20CEN%20bit%20setting%20in%20TIM7&FolderCTID=0x01200200770978C69A1141439FE559EB459D7580009C4E14902C3CDE46A77F0FFD06506F5B&currentviews=474
 
+#if EFI_PROD_CODE
 
 int globalCounter = 0;
 
@@ -53,3 +54,4 @@ void TIM_Init(void)
 
 }
 
+#endif /* EFI_PROD_CODE */
