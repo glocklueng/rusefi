@@ -67,18 +67,32 @@ static Logging logger;
 static engine_configuration2_s ec2;
 engine_configuration2_s * engineConfiguration2 = &ec2;
 
-static void updateStatusLeds(void) {
-	int is_cranking = isCranking();
-	setOutputPinValue(LED_RUNNING, getRpm() > 0 && !is_cranking);
-	setOutputPinValue(LED_CRANKING, is_cranking);
+static msg_t csThread(void) {
+	while (TRUE) {
+		int is_cranking = isCranking();
+		int is_running = getRpm() > 0 && !is_cranking;
+		if (is_running) {
+			// blinking while running
+			setOutputPinValue(LED_RUNNING, 0);
+			chThdSleepMilliseconds(50);
+			setOutputPinValue(LED_RUNNING, 1);
+			chThdSleepMilliseconds(50);
+		} else {
+			// constant on while cranking and off if engine is stopped
+			setOutputPinValue(LED_RUNNING, is_cranking);
+			chThdSleepMilliseconds(100);
+		}
+	}
 }
 
 static void updateErrorCodes(void) {
 	/**
 	 * technically we can set error codes right inside the getMethods, but I a bit on a fence about it
 	 */
-	setError(isValidIntakeAirTemperature(getIntakeAirTemperature()), OBD_Intake_Air_Temperature_Circuit_Malfunction);
-	setError(isValidCoolantTemperature(getCoolantTemperature()), OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
+	setError(isValidIntakeAirTemperature(getIntakeAirTemperature()),
+			OBD_Intake_Air_Temperature_Circuit_Malfunction);
+	setError(isValidCoolantTemperature(getCoolantTemperature()),
+			OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
 }
 
 static void fanRelayControl(void) {
@@ -89,9 +103,11 @@ static void fanRelayControl(void) {
 	int newValue;
 	if (isCurrentlyOn) {
 		// if the fan is already on, we keep it on till the 'fanOff' temperature
-		newValue = getCoolantTemperature() > engineConfiguration->fanOffTemperature;
+		newValue = getCoolantTemperature()
+				> engineConfiguration->fanOffTemperature;
 	} else {
-		newValue = getCoolantTemperature() > engineConfiguration->fanOnTemperature;
+		newValue = getCoolantTemperature()
+				> engineConfiguration->fanOnTemperature;
 	}
 
 	if (isCurrentlyOn != newValue) {
@@ -103,8 +119,6 @@ static void fanRelayControl(void) {
 Overflow64Counter halTime;
 
 static void onEveny10Milliseconds(void *arg) {
-	updateStatusLeds();
-
 	/**
 	 * We need to push current value into the 64 bit counter often enough so that we do not miss an overflow
 	 */
@@ -125,7 +139,8 @@ static void initPeriodicEvents(void) {
 
 static void fuelPumpOff(void *arg) {
 	if (getOutputPinValue(FUEL_PUMP_RELAY))
-		scheduleMsg(&logger, "fuelPump OFF at %s%d", hwPortname(boardConfiguration->fuelPumpPin));
+		scheduleMsg(&logger, "fuelPump OFF at %s%d",
+				hwPortname(boardConfiguration->fuelPumpPin));
 	turnOutputPinOff(FUEL_PUMP_RELAY);
 }
 
@@ -133,8 +148,10 @@ static void fuelPumpOn(ShaftEvents signal, int index) {
 	if (index != 0)
 		return; // let's not abuse the timer - one time per revolution would be enough
 	// todo: the check about GPIO_NONE should be somewhere else!
-	if (!getOutputPinValue(FUEL_PUMP_RELAY) && boardConfiguration->fuelPumpPin != GPIO_NONE)
-		scheduleMsg(&logger, "fuelPump ON at %s", hwPortname(boardConfiguration->fuelPumpPin));
+	if (!getOutputPinValue(FUEL_PUMP_RELAY)
+			&& boardConfiguration->fuelPumpPin != GPIO_NONE)
+		scheduleMsg(&logger, "fuelPump ON at %s",
+				hwPortname(boardConfiguration->fuelPumpPin));
 	turnOutputPinOn(FUEL_PUMP_RELAY);
 	/**
 	 * the idea of this implementation is that we turn the pump when the ECU turns on or
@@ -150,16 +167,17 @@ static void initFuelPump(void) {
 }
 
 char * getPinNameByAdcChannel(int hwChannel, uint8_t *buffer) {
-	strcpy((char*)buffer, portname(getAdcChannelPort(hwChannel)));
+	strcpy((char*) buffer, portname(getAdcChannelPort(hwChannel)));
 	itoa10(&buffer[2], getAdcChannelPin(hwChannel));
-	return (char*)buffer;
+	return (char*) buffer;
 }
 
 static uint8_t pinNameBuffer[16];
 
-static void printAnalogChannelInfoExt(char *name, int hwChannel, float voltage) {
-	scheduleMsg(&logger, "%s ADC%d %s value=%fv", name, hwChannel, getPinNameByAdcChannel(hwChannel, pinNameBuffer),
-			voltage);
+static void printAnalogChannelInfoExt(char *name, int hwChannel,
+		float voltage) {
+	scheduleMsg(&logger, "%s ADC%d %s value=%fv", name, hwChannel,
+			getPinNameByAdcChannel(hwChannel, pinNameBuffer), voltage);
 }
 
 static void printAnalogChannelInfo(char *name, int hwChannel) {
@@ -172,8 +190,11 @@ static void printAnalogInfo(void) {
 	printAnalogChannelInfo("IAT", engineConfiguration->iatAdcChannel);
 	printAnalogChannelInfo("MAF", engineConfiguration->mafAdcChannel);
 	printAnalogChannelInfo("AFR", engineConfiguration->afrSensor.afrAdcChannel);
-	printAnalogChannelInfoExt("Vbatt", engineConfiguration->vBattAdcChannel, getVBatt());
+	printAnalogChannelInfoExt("Vbatt", engineConfiguration->vBattAdcChannel,
+			getVBatt());
 }
+
+static WORKING_AREA(csThreadStack, UTILITY_THREAD_STACK_SIZE);// declare thread stack
 
 void initEngineContoller(void) {
 	initLogging(&logger, "Engine Controller");
@@ -202,6 +223,9 @@ void initEngineContoller(void) {
 
 // multiple issues with this	initMapAdjusterThread();
 	initPeriodicEvents();
+
+	chThdCreateStatic(csThreadStack, sizeof(csThreadStack), LOWPRIO,
+			(tfunc_t) csThread, NULL);
 
 #if EFI_SIGNAL_EXECUTOR_SINGLE_TIMER
 	initOutputScheduler();
