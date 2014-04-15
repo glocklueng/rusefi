@@ -47,6 +47,7 @@
 #include "pwm_generator.h"
 #include "adc_inputs.h"
 #include "algo.h"
+#include "efilib2.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -99,8 +100,15 @@ static void fanRelayControl(void) {
 	}
 }
 
+Overflow64Counter halTime;
+
 static void onEveny10Milliseconds(void *arg) {
 	updateStatusLeds();
+
+	/**
+	 * We need to push current value into the 64 bit counter often enough so that we do not miss an overflow
+	 */
+	halTime.offer(hal_lld_get_counter_value());
 
 	updateErrorCodes();
 
