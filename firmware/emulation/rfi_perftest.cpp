@@ -190,9 +190,18 @@ static void runTests(const int count) {
 	testMath(count);
 }
 
+//Overflow64Counter halTime;
+
+static void timeInfo(void) {
+	scheduleMsg(&logger, "chTimeNow as seconds = %d", chTimeNowSeconds());
+//	scheduleMsg(&logger, "chTimeNow as seconds = %d", chTimeNowSeconds());
+}
+
 void initTimePerfActions() {
 
 	initLogging(&logger, "perftest");
 //	initOutputPin("test pad", &testOutput, TEST_PORT, TEST_PIN);
 	addConsoleActionI("perftest", runTests);
+
+	addConsoleAction("timeinfo", timeInfo);
 }
