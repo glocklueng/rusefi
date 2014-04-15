@@ -11,5 +11,5 @@ CONTROLLERSSRC = \
 	controllers/map_multiplier_thread.c \
 	$(PROJECT_DIR)/controllers/alternatorController.c
 	
-CONTROLLERS_SRC_CPP = $(PROJECT_DIR)/controllers/settings.cpp \ 
+CONTROLLERS_SRC_CPP = $(PROJECT_DIR)/controllers/settings.cpp \
  	$(PROJECT_DIR)/controllers/engine_controller.cpp
