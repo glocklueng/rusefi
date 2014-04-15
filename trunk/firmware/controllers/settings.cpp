@@ -85,6 +85,8 @@ char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 		return "Mini Cooper R50";
 	case FORD_ESCORT_GT:
 		return "Ford Escort GT";
+	case CITROEN_TU3JP:
+		return "Citroen TU3JP";
 	default:
 		return NULL;
 	}

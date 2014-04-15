@@ -10,6 +10,15 @@
 
 #include "engine_configuration.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void setCitroenBerlingoTU3JPConfiguration(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* CITROENBERLINGOTU3JP_H_ */
