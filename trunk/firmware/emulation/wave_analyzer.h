@@ -31,9 +31,10 @@ typedef struct {
 	volatile int last_wave_high_width; // time period in systimer ticks
 } WaveReader;
 
-//#define WAVE_TIMER ICUD3
-//#define WAVE_INPUT_PORT GPIOC
-//#define WAVE_INPUT_PIN 6
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
 
 void initWaveAnalyzer(void);
 void pokeWaveInfo(void);
@@ -54,5 +55,9 @@ int getPeriodEventTime(int index);
 //int getCrankPeriod();
 
 void printWave(Logging *logging);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* WAVE_ANALYZER_H_ */
