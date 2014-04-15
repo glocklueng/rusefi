@@ -14,6 +14,7 @@
 #include "time.h"
 #include "engine_math.h"
 #include "gpio_helper.h"
+#include "efilib2.h"
 
 //#define TEST_PORT GPIOB
 //#define TEST_PIN 6
@@ -190,14 +191,24 @@ static void runTests(const int count) {
 	testMath(count);
 }
 
-//Overflow64Counter halTime;
+extern Overflow64Counter halTime;
+
+int rtcStartTime;
+
+#include "chrtclib.h"
 
 static void timeInfo(void) {
 	scheduleMsg(&logger, "chTimeNow as seconds = %d", chTimeNowSeconds());
-//	scheduleMsg(&logger, "chTimeNow as seconds = %d", chTimeNowSeconds());
+	scheduleMsg(&logger, "hal seconds = %d", halTime.get() / 168000000LL);
+
+	int unix = rtcGetTimeUnixSec(&RTCD1) - rtcStartTime;
+	scheduleMsg(&logger, "unix seconds = %d", unix);
+
 }
 
 void initTimePerfActions() {
+	rtcStartTime = rtcGetTimeUnixSec(&RTCD1);
+
 
 	initLogging(&logger, "perftest");
 //	initOutputPin("test pad", &testOutput, TEST_PORT, TEST_PIN);
