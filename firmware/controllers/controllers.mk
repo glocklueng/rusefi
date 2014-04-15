@@ -1,6 +1,5 @@
 
 CONTROLLERSSRC = \
- 	controllers/engine_controller.c \
 	controllers/electronic_throttle.c \
 	controllers/idle_thread.c \
 	controllers/injector_central.c \
@@ -12,4 +11,5 @@ CONTROLLERSSRC = \
 	controllers/map_multiplier_thread.c \
 	$(PROJECT_DIR)/controllers/alternatorController.c
 	
-CONTROLLERS_SRC_CPP = controllers/settings.cpp 
+CONTROLLERS_SRC_CPP = $(PROJECT_DIR)/controllers/settings.cpp \ 
+ 	$(PROJECT_DIR)/controllers/engine_controller.cpp

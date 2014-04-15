@@ -1,5 +1,5 @@
 /**
- * @file    engine_controller.c
+ * @file    engine_controller.cpp
  * @brief   Controllers package entry point code
  *
  *
@@ -142,9 +142,9 @@ static void initFuelPump(void) {
 }
 
 char * getPinNameByAdcChannel(int hwChannel, uint8_t *buffer) {
-	strcpy(buffer, portname(getAdcChannelPort(hwChannel)));
+	strcpy((char*)buffer, portname(getAdcChannelPort(hwChannel)));
 	itoa10(&buffer[2], getAdcChannelPin(hwChannel));
-	return buffer;
+	return (char*)buffer;
 }
 
 static uint8_t pinNameBuffer[16];
