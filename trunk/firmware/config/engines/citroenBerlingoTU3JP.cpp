@@ -10,6 +10,10 @@
 void setCitroenBerlingoTU3JPConfiguration(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 	engineConfiguration->engineType = CITROEN_TU3JP;
 
+	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL;
+	engineConfiguration->triggerConfig.totalToothCount = 60;
+	engineConfiguration->triggerConfig.skippedToothCount = 2;
+
 
 	// set_cranking_injection_mode 0
 	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
