@@ -143,6 +143,9 @@ extern ch_trace_buffer_t dbg_trace_buffer;
 /* Parameters checking related macros.                                       */
 /*===========================================================================*/
 
+
+void chDbgPanic3(const char *msg, char * file, int line);
+
 #if CH_DBG_ENABLE_CHECKS || defined(__DOXYGEN__)
 /**
  * @name    Macro Functions
