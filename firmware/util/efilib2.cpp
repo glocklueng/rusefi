@@ -7,6 +7,16 @@
 
 #include "efilib2.h"
 
+/**
+ * The main use-case of this class is to keep track of a 64-bit global number of CPU ticks from reset.
+ *
+ * stm32f4 hardware has a 32-bit Cycle Count Register (CYCCNT), which is incremented with every CPU cycle.
+ * With 32 bits and 168MHz speed this counter overflows every 4B/168M = 23 seconds. The job of this class is to
+ * keep track of the current CYCCNT value, detect these overflows, and provide a nice,
+ * clean 64 bit global cycle counter.
+ *
+ * In order for this to function, it's your responsibility to invoke offer() method at least once a second.
+ */
 Overflow64Counter::Overflow64Counter() {
 	currentBase = 0;
 	currentValue = 0;
