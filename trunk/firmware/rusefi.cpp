@@ -225,6 +225,17 @@ void HardFaultVector(void) {
 		;
 }
 
+static char panicMessage[200];
+
+void chDbgStackOverflowPanic(Thread *otp) {
+  strcpy(panicMessage, "stack overflow: ");
+#ifdef CH_USE_REGISTRY
+  strcat(panicMessage, otp->p_name);
+#endif
+  chDbgPanic(panicMessage, __FILE__, __LINE__);
+}
+
+
 void firmwareError(const char *fmt, ...) {
 	if (hasFirmwareError)
 		return;
