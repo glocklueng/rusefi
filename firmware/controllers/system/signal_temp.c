@@ -27,7 +27,6 @@ static void setTimer(int arr) {
 }
 
 static void callback(void) {
-
 	GPIOD->ODR ^= (1 << 13);   // Toggle D13
 
 	globalCounter++;
@@ -48,8 +47,8 @@ void TIM_Init(void) {
 	if (1==1)
 		return; // something is not right with this code :(
 
-	RCC->APB1ENR |= RCC_APB1ENR_TIM5EN;   // Enable TIM6 clock
-	NVIC_EnableIRQ(TIM5_IRQn);   // Enable TIM6 IRQ
+	RCC->APB1ENR |= RCC_APB1ENR_TIM5EN;   // Enable TIM5 clock
+	NVIC_EnableIRQ(TIM5_IRQn);   // Enable TIM5 IRQ
 	TIM->DIER |= TIM_DIER_UIE;   // Enable interrupt on update event
 	TIM->CR1 |= TIM_CR1_OPM; // one pulse mode: count down ARR and stop
 	TIM->CR1 &= ~TIM_CR1_ARPE; /* ARR register is NOT buffered, allows to update timer's period on-fly. */
