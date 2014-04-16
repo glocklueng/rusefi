@@ -144,8 +144,6 @@ extern ch_trace_buffer_t dbg_trace_buffer;
 /*===========================================================================*/
 
 
-void chDbgPanic3(const char *msg, char * file, int line);
-
 #if CH_DBG_ENABLE_CHECKS || defined(__DOXYGEN__)
 /**
  * @name    Macro Functions
@@ -165,7 +163,7 @@ void chDbgPanic3(const char *msg, char * file, int line);
 #if !defined(chDbgCheck)
 #define chDbgCheck(c, func) {                                               \
   if (!(c))                                                                 \
-  chDbgPanic(__QUOTE_THIS(func)"()");                                     \
+    chDbgPanic(__QUOTE_THIS(func)"()");                                     \
 }
 #endif /* !defined(chDbgCheck) */
 /** @} */
