@@ -60,7 +60,7 @@ ODFLAGS	  = -x --syms
 ASFLAGS   = $(MCFLAGS) -Wa,-amhls=$(LSTDIR)/$(notdir $(<:.s=.lst)) $(ADEFS)
 ASXFLAGS  = $(MCFLAGS) -Wa,-amhls=$(LSTDIR)/$(notdir $(<:.S=.lst)) $(ADEFS)
 CFLAGS    = $(MCFLAGS) $(OPT) $(COPT) $(CWARN) -Wa,-alms=$(LSTDIR)/$(notdir $(<:.c=.lst)) $(DEFS)
-CPPFLAGS  = $(MCFLAGS) $(OPT) $(CPPOPT) $(CPPWARN) -Wa,-alms=$(LSTDIR)/$(notdir $(<:.cpp=.lst)) $(DEFS)
+CPPFLAGS  = $(MCFLAGS) $(CPPOPT) $(CPPWARN) -Wa,-alms=$(LSTDIR)/$(notdir $(<:.cpp=.lst)) $(DEFS)
 ifeq ($(USE_LINK_GC),yes)
   LDFLAGS = $(MCFLAGS) -nostartfiles -T$(LDSCRIPT) -Wl,-Map=$(BUILDDIR)/$(PROJECT).map,--cref,--no-warn-mismatch,--gc-sections $(LLIBDIR)
 else
@@ -113,7 +113,7 @@ $(OBJS): | $(BUILDDIR)
 $(BUILDDIR) $(OBJDIR) $(LSTDIR):
 ifneq ($(USE_VERBOSE_COMPILE),yes)
 	@echo Compiler Options
-	@echo $(CC) -c $(CFLAGS) -I. $(IINCDIR) main.c -o main.o
+	@echo $(CPPC) -c $(CPPFLAGS) -I. $(IINCDIR) main.cpp -o main.o -llibstd++
 	@echo
 endif
 	mkdir -p $(OBJDIR)

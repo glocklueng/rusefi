@@ -114,7 +114,7 @@ void dbg_check_enable(void) {
 void dbg_check_lock(void) {
 
   if ((dbg_isr_cnt != 0) || (dbg_lock_cnt != 0))
-    chDbgPanic("SV#4");
+    chDbgPanic("SV#4 misplaced chSysLock()");
   dbg_enter_lock();
 }
 
@@ -138,7 +138,7 @@ void dbg_check_unlock(void) {
 void dbg_check_lock_from_isr(void) {
 
   if ((dbg_isr_cnt <= 0) || (dbg_lock_cnt != 0))
-    chDbgPanic("SV#6");
+    chDbgPanic("SV#6 misplaced chSysLockFromIsr");
   dbg_enter_lock();
 }
 
@@ -193,7 +193,7 @@ void dbg_check_leave_isr(void) {
 void chDbgCheckClassI(void) {
 
   if ((dbg_isr_cnt < 0) || (dbg_lock_cnt <= 0))
-    chDbgPanic("SV#10");
+    chDbgPanic("SV#10 misplaced I-class function");
 }
 
 /**
@@ -268,10 +268,11 @@ const char *dbg_panic_msg;
  *
  * @param[in] msg       the pointer to the panic message string
  */
-void chDbgPanic(const char *msg) {
 
-  dbg_panic_msg = msg;
-  chSysHalt();
+void chDbgPanic3(const char *msg, char * file, int line);
+
+void chDbgPanic(const char *msg) {
+	chDbgPanic3(msg, __FILE__, __LINE__);
 }
 #endif /* CH_DBG_ENABLED */
 
