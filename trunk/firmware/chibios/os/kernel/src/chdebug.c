@@ -81,7 +81,7 @@ cnt_t dbg_lock_cnt;
 void dbg_check_disable(void) {
 
   if ((dbg_isr_cnt != 0) || (dbg_lock_cnt != 0))
-    chDbgPanic("SV#1", __FILE__, __LINE__);
+    chDbgPanic("SV#1");
 }
 
 /**
@@ -92,7 +92,7 @@ void dbg_check_disable(void) {
 void dbg_check_suspend(void) {
 
   if ((dbg_isr_cnt != 0) || (dbg_lock_cnt != 0))
-    chDbgPanic("SV#2", __FILE__, __LINE__);
+    chDbgPanic("SV#2");
 }
 
 /**
@@ -103,7 +103,7 @@ void dbg_check_suspend(void) {
 void dbg_check_enable(void) {
 
   if ((dbg_isr_cnt != 0) || (dbg_lock_cnt != 0))
-    chDbgPanic("SV#3", __FILE__, __LINE__);
+    chDbgPanic("SV#3");
 }
 
 /**
@@ -114,7 +114,7 @@ void dbg_check_enable(void) {
 void dbg_check_lock(void) {
 
   if ((dbg_isr_cnt != 0) || (dbg_lock_cnt != 0))
-    chDbgPanic("SV#4 misplaced chSysLock()", __FILE__, __LINE__);
+    chDbgPanic("SV#4 misplaced chSysLock()");
   dbg_enter_lock();
 }
 
@@ -126,7 +126,7 @@ void dbg_check_lock(void) {
 void dbg_check_unlock(void) {
 
   if ((dbg_isr_cnt != 0) || (dbg_lock_cnt <= 0))
-    chDbgPanic("SV#5", __FILE__, __LINE__);
+    chDbgPanic("SV#5");
   dbg_leave_lock();
 }
 
@@ -138,7 +138,7 @@ void dbg_check_unlock(void) {
 void dbg_check_lock_from_isr(void) {
 
   if ((dbg_isr_cnt <= 0) || (dbg_lock_cnt != 0))
-    chDbgPanic("SV#6 misplaced chSysLockFromIsr", __FILE__, __LINE__);
+    chDbgPanic("SV#6 misplaced chSysLockFromIsr");
   dbg_enter_lock();
 }
 
@@ -150,7 +150,7 @@ void dbg_check_lock_from_isr(void) {
 void dbg_check_unlock_from_isr(void) {
 
   if ((dbg_isr_cnt <= 0) || (dbg_lock_cnt <= 0))
-    chDbgPanic("SV#7", __FILE__, __LINE__);
+    chDbgPanic("SV#7");
   dbg_leave_lock();
 }
 
@@ -163,7 +163,7 @@ void dbg_check_enter_isr(void) {
 
   port_lock_from_isr();
   if ((dbg_isr_cnt < 0) || (dbg_lock_cnt != 0))
-    chDbgPanic("SV#8", __FILE__, __LINE__);
+    chDbgPanic("SV#8");
   dbg_isr_cnt++;
   port_unlock_from_isr();
 }
@@ -177,7 +177,7 @@ void dbg_check_leave_isr(void) {
 
   port_lock_from_isr();
   if ((dbg_isr_cnt <= 0) || (dbg_lock_cnt != 0))
-    chDbgPanic("SV#9", __FILE__, __LINE__);
+    chDbgPanic("SV#9");
   dbg_isr_cnt--;
   port_unlock_from_isr();
 }
@@ -193,7 +193,7 @@ void dbg_check_leave_isr(void) {
 void chDbgCheckClassI(void) {
 
   if ((dbg_isr_cnt < 0) || (dbg_lock_cnt <= 0))
-    chDbgPanic("SV#10 misplaced I-class function", __FILE__, __LINE__);
+    chDbgPanic("SV#10 misplaced I-class function");
 }
 
 /**
@@ -207,7 +207,7 @@ void chDbgCheckClassI(void) {
 void chDbgCheckClassS(void) {
 
   if ((dbg_isr_cnt != 0) || (dbg_lock_cnt <= 0))
-    chDbgPanic("SV#11", __FILE__, __LINE__);
+    chDbgPanic("SV#11");
 }
 
 #endif /* CH_DBG_SYSTEM_STATE_CHECK */
@@ -271,8 +271,8 @@ const char *dbg_panic_msg;
 
 void chDbgPanic3(const char *msg, char * file, int line);
 
-void chDbgPanic(const char *msg, char * file, int line) {
-	chDbgPanic3(msg, file, line);
+void chDbgPanic(const char *msg) {
+	chDbgPanic3(msg, __FILE__, __LINE__);
 }
 #endif /* CH_DBG_ENABLED */
 

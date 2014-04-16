@@ -195,7 +195,7 @@ void onFatalError(const char *msg, char * file, int line) {
 
 void DebugMonitorVector(void) {
 
-	chDbgPanic("DebugMonitorVector", __FILE__, __LINE__);
+	chDbgPanic3("DebugMonitorVector", __FILE__, __LINE__);
 
 	while (TRUE)
 		;
@@ -203,7 +203,7 @@ void DebugMonitorVector(void) {
 
 void UsageFaultVector(void) {
 
-	chDbgPanic("UsageFaultVector", __FILE__, __LINE__);
+	chDbgPanic3("UsageFaultVector", __FILE__, __LINE__);
 
 	while (TRUE)
 		;
@@ -211,7 +211,7 @@ void UsageFaultVector(void) {
 
 void BusFaultVector(void) {
 
-	chDbgPanic("BusFaultVector", __FILE__, __LINE__);
+	chDbgPanic3("BusFaultVector", __FILE__, __LINE__);
 
 	while (TRUE)
 		;
@@ -219,7 +219,7 @@ void BusFaultVector(void) {
 
 void HardFaultVector(void) {
 
-	chDbgPanic("HardFaultVector", __FILE__, __LINE__);
+	chDbgPanic3("HardFaultVector", __FILE__, __LINE__);
 
 	while (TRUE)
 		;
@@ -255,7 +255,7 @@ void chDbgStackOverflowPanic(Thread *otp) {
 #ifdef CH_USE_REGISTRY
   strcat(panicMessage, otp->p_name);
 #endif
-  chDbgPanic(panicMessage, __FILE__, __LINE__);
+  chDbgPanic3(panicMessage, __FILE__, __LINE__);
 }
 
 

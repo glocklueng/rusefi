@@ -37,7 +37,7 @@ static char fatalErrorMessage[200];
 void fatal3(char *msg, char *file, int line) {
 	strcpy(fatalErrorMessage, msg);
 #if EFI_CUSTOM_PANIC_METHOD
-	chDbgPanic(fatalErrorMessage, file, line);
+	chDbgPanic3(fatalErrorMessage, file, line);
 #else
 	chDbgPanic(fatalErrorMessage);
 #endif

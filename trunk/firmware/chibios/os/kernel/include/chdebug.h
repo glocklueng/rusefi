@@ -165,7 +165,7 @@ void chDbgPanic3(const char *msg, char * file, int line);
 #if !defined(chDbgCheck)
 #define chDbgCheck(c, func) {                                               \
   if (!(c))                                                                 \
-    chDbgPanic(__QUOTE_THIS(func)"()", __FILE__, __LINE__);                 \
+  chDbgPanic(__QUOTE_THIS(func)"()");                                     \
 }
 #endif /* !defined(chDbgCheck) */
 /** @} */
@@ -204,7 +204,7 @@ void chDbgPanic3(const char *msg, char * file, int line);
 #if !defined(chDbgAssert)
 #define chDbgAssert(c, m, r) {                                              \
   if (!(c))                                                                 \
-    chDbgPanic(m, __FILE__, __LINE__);                                      \
+    chDbgPanic(m);                                                          \
 }
 #endif /* !defined(chDbgAssert) */
 /** @} */
@@ -246,7 +246,7 @@ extern "C" {
 #endif
 #if CH_DBG_ENABLED
   extern const char *dbg_panic_msg;
-  void chDbgPanic(const char *msg, char * file, int line);
+  void chDbgPanic(const char *msg);
 #endif
 #ifdef __cplusplus
 }
