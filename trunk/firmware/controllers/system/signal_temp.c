@@ -1,6 +1,11 @@
 /**
  * @file	signal_temp.c
  *
+ * Work in progress. https://sourceforge.net/p/rusefi/tickets/24/
+ *
+ * Here we have a 1MHz timer dedicated to event scheduling. We are using one of the 32-bit timers here,
+ * so this timer can schedule events up to 4B/100M = 4000 seconds from now.
+ *
  * @date Apr 14, 2014
  * @author Andrey Belomutskiy, (c) 2012-2013
  */
