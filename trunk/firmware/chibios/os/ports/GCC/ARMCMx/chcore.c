@@ -34,9 +34,6 @@
  */
 
 #include "ch.h"
-#include "string.h"
-
-
 
 /**
  * @brief   Halts the system.
