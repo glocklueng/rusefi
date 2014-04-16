@@ -16,19 +16,20 @@ int globalCounter = 0;
 static TIM_TypeDef *TIM = TIM5;
 
 static void setTimer(int arr) {
-	TIM->ARR = arr;
+	TIM->ARR = arr - 1;
 	TIM->EGR |= TIM_EGR_UG; // generate an update event to reload timer's counter value
 	TIM->CR1 |= TIM_CR1_CEN; // restart timer
 }
 
 static void callback(void) {
+
 	GPIOD->ODR ^= (1 << 13);   // Toggle D13
 
 	globalCounter++;
 
-	if (globalCounter < 6) {
-		setTimer(499 * globalCounter);
-	}
+//	if (globalCounter < 6) {
+	setTimer(100000);
+//	}
 }
 
 CH_FAST_IRQ_HANDLER(STM32_TIM5_HANDLER) {
@@ -38,9 +39,9 @@ CH_FAST_IRQ_HANDLER(STM32_TIM5_HANDLER) {
 	TIM->SR = (int) ~STM32_TIM_SR_UIF;   // Interrupt has been handled
 }
 
-
-void TIM_Init(void)
-{
+void TIM_Init(void) {
+	if (1==1)
+		return; // something is not right with this code :(
 
 	RCC->APB1ENR |= RCC_APB1ENR_TIM5EN;   // Enable TIM6 clock
 	NVIC_EnableIRQ(TIM5_IRQn);   // Enable TIM6 IRQ
@@ -48,10 +49,9 @@ void TIM_Init(void)
 	TIM->CR1 |= TIM_CR1_OPM; // one pulse mode: count down ARR and stop
 	TIM->CR1 &= ~TIM_CR1_ARPE; /* ARR register is NOT buffered, allows to update timer's period on-fly. */
 
-	TIM->PSC = 41999;   // Set prescaler to 41999
+	TIM->PSC = 84 - 1;   // 168MHz / 2 / 84 = 1MHz, each tick is a microsecond
 
-	setTimer(999);
-
+	setTimer(100000);
 }
 
 #endif /* EFI_PROD_CODE */
