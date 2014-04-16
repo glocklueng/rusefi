@@ -160,6 +160,10 @@ int hasFatalError(void) {
 	return false;
 }
 
+void chDbgPanic3(const char *msg, char * file, int line) {
+	onFatalError(msg, file, line);
+}
+
 int getRusEfiVersion(void) {
 	return 239;
 }
