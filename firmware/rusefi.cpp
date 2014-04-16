@@ -225,6 +225,29 @@ void HardFaultVector(void) {
 		;
 }
 
+
+extern int main_loop_started;
+
+int hasFatalError(void);
+
+void onFatalError(const char *msg, char * file, int line);
+
+char *dbg_panic_file;
+int dbg_panic_line;
+
+extern "C" {
+void chDbgPanic3(const char *msg, char * file, int line);
+}
+
+void chDbgPanic3(const char *msg, char * file, int line) {
+	if (hasFatalError())
+		return;
+	dbg_panic_file = file;
+	dbg_panic_line = line;
+	dbg_panic_msg = msg;
+	onFatalError(dbg_panic_msg, dbg_panic_file, dbg_panic_line);
+}
+
 static char panicMessage[200];
 
 void chDbgStackOverflowPanic(Thread *otp) {

@@ -262,8 +262,6 @@ void dbg_trace(Thread *otp) {
  *          written once and then the system is halted.
  */
 const char *dbg_panic_msg;
-char *dbg_panic_file;
-int dbg_panic_line;
 
 /**
  * @brief   Prints a panic message on the console and then halts the system.
@@ -271,23 +269,10 @@ int dbg_panic_line;
  * @param[in] msg       the pointer to the panic message string
  */
 
-extern int main_loop_started;
-
-int hasFatalError(void);
-
-void onFatalError(const char *msg, char * file, int line);
+void chDbgPanic3(const char *msg, char * file, int line);
 
 void chDbgPanic(const char *msg, char * file, int line) {
-#if CH_DBG_ENABLED
-	if (hasFatalError())
-		return;
-	dbg_panic_file = file;
-	dbg_panic_line = line;
-	dbg_panic_msg = msg;
-	onFatalError(dbg_panic_msg, dbg_panic_file, dbg_panic_line);
-#else
-  chSysHalt();
-#endif
+	chDbgPanic3(msg, file, line);
 }
 #endif /* CH_DBG_ENABLED */
 
