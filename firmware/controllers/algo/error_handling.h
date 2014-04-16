@@ -32,6 +32,8 @@ int hasFatalError(void);
 void fatal3(char *msg, char *file, int line);
 #define fatal(x) (fatal3(x, __FILE__, __LINE__));
 
+void chDbgPanic3(const char *msg, char * file, int line);
+
 void initErrorHandling(void);
 
 #ifdef __cplusplus
