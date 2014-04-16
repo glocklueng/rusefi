@@ -36,8 +36,6 @@
 #ifndef _CHCORE_V7M_H_
 #define _CHCORE_V7M_H_
 
-#include "chdebug.h"
-
 /*===========================================================================*/
 /* Port constants.                                                           */
 /*===========================================================================*/
@@ -488,8 +486,6 @@ struct context {
 #define port_wait_for_interrupt()
 #endif
 
-void chDbgStackOverflowPanic(Thread *otp);
-
 /**
  * @brief   Performs a context switch between two threads.
  * @details This is the most critical code in any port, this function
@@ -506,7 +502,7 @@ void chDbgStackOverflowPanic(Thread *otp);
 #define port_switch(ntp, otp) {                                             \
   register struct intctx *r13 asm ("r13");                                  \
   if ((stkalign_t *)(r13 - 1) < otp->p_stklimit)                            \
-    chDbgStackOverflowPanic(otp);                                           \
+    chDbgPanic("stack overflow");                                           \
   _port_switch(ntp, otp);                                                   \
 }
 #endif
