@@ -68,6 +68,7 @@ static engine_configuration2_s ec2;
 engine_configuration2_s * engineConfiguration2 = &ec2;
 
 static msg_t csThread(void) {
+	chRegSetThreadName("status");
 	while (TRUE) {
 		int is_cranking = isCranking();
 		int is_running = getRpm() > 0 && !is_cranking;
