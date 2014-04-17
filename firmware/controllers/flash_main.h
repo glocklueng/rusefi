@@ -12,7 +12,7 @@
 #include "engine_configuration.h"
 #include "crc.h"
 
-#define FLASH_DATA_VERSION 2626
+#define FLASH_DATA_VERSION 2727
 
 typedef struct {
 	int version;
