@@ -44,8 +44,8 @@ CH_FAST_IRQ_HANDLER(STM32_TIM5_HANDLER) {
 }
 
 void TIM_Init(void) {
-	if (1==1)
-		return; // something is not right with this code :(
+//	if (1==1)
+//		return; // something is not right with this code :(
 
 	RCC->APB1ENR |= RCC_APB1ENR_TIM5EN;   // Enable TIM5 clock
 	NVIC_EnableIRQ(TIM5_IRQn);   // Enable TIM5 IRQ
