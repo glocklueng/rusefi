@@ -17,6 +17,7 @@
 #include "engine_configuration.h"
 
 extern engine_configuration_s *engineConfiguration;
+extern board_configuration_s *boardConfiguration;
 
 static Logging logger;
 
@@ -160,19 +161,19 @@ void lcd_HD44780_init(void) {
 
 	if (engineConfiguration->displayMode == DM_HD44780) {
 		// initialize hardware lines
-		mySetPadMode("lcd RS", HD44780_PORT_RS, HD44780_PIN_RS, PAL_MODE_OUTPUT_PUSHPULL);
-		mySetPadMode("lcd E", HD44780_PORT_E, HD44780_PIN_E, PAL_MODE_OUTPUT_PUSHPULL);
-		mySetPadMode("lcd DB4", HD44780_PORT_DB4, HD44780_PIN_DB4, PAL_MODE_OUTPUT_PUSHPULL);
-		mySetPadMode("lcd DB6", HD44780_PORT_DB5, HD44780_PIN_DB5, PAL_MODE_OUTPUT_PUSHPULL);
-		mySetPadMode("lcd DB7", HD44780_PORT_DB6, HD44780_PIN_DB6, PAL_MODE_OUTPUT_PUSHPULL);
-		mySetPadMode("lcd DB8", HD44780_PORT_DB7, HD44780_PIN_DB7, PAL_MODE_OUTPUT_PUSHPULL);
+		mySetPadMode("lcd RS", getHwPort(boardConfiguration->HD44780_rs), getHwPin(boardConfiguration->HD44780_rs), PAL_MODE_OUTPUT_PUSHPULL);
+		mySetPadMode("lcd E", getHwPort(boardConfiguration->HD44780_e), getHwPin(boardConfiguration->HD44780_e), PAL_MODE_OUTPUT_PUSHPULL);
+		mySetPadMode("lcd DB4", getHwPort(boardConfiguration->HD44780_db4), getHwPin(boardConfiguration->HD44780_db4), PAL_MODE_OUTPUT_PUSHPULL);
+		mySetPadMode("lcd DB6", getHwPort(boardConfiguration->HD44780_db5), getHwPin(boardConfiguration->HD44780_db5), PAL_MODE_OUTPUT_PUSHPULL);
+		mySetPadMode("lcd DB7", getHwPort(boardConfiguration->HD44780_db6), getHwPin(boardConfiguration->HD44780_db6), PAL_MODE_OUTPUT_PUSHPULL);
+		mySetPadMode("lcd DB8", getHwPort(boardConfiguration->HD44780_db7), getHwPin(boardConfiguration->HD44780_db7), PAL_MODE_OUTPUT_PUSHPULL);
 		// and zero values
-		palWritePad(HD44780_PORT_RS, HD44780_PIN_RS, 0);
-		palWritePad(HD44780_PORT_E, HD44780_PIN_E, 0);
-		palWritePad(HD44780_PORT_DB4, HD44780_PIN_DB4, 0);
-		palWritePad(HD44780_PORT_DB5, HD44780_PIN_DB5, 0);
-		palWritePad(HD44780_PORT_DB6, HD44780_PIN_DB6, 0);
-		palWritePad(HD44780_PORT_DB7, HD44780_PIN_DB7, 0);
+		palWritePad(getHwPort(boardConfiguration->HD44780_rs), getHwPin(boardConfiguration->HD44780_rs), 0);
+		palWritePad(getHwPort(boardConfiguration->HD44780_e), getHwPin(boardConfiguration->HD44780_e), 0);
+		palWritePad(getHwPort(boardConfiguration->HD44780_db4), getHwPin(boardConfiguration->HD44780_db4), 0);
+		palWritePad(getHwPort(boardConfiguration->HD44780_db5), getHwPin(boardConfiguration->HD44780_db5), 0);
+		palWritePad(getHwPort(boardConfiguration->HD44780_db6), getHwPin(boardConfiguration->HD44780_db6), 0);
+		palWritePad(getHwPort(boardConfiguration->HD44780_db7), getHwPin(boardConfiguration->HD44780_db7), 0);
 	}
 
 
