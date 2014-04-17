@@ -41,6 +41,10 @@ static float absF(float value) {
 	return value > 0 ? value : -value;
 }
 
+uint64_t getTimeNowUs(void) {
+	return 0;
+}
+
 void assertEqualsM(char *msg, float expected, float actual) {
 	if (cisnan(actual) && !cisnan(expected)) {
 		printf("Unexpected: %s %.4f while expected %.4f\r\n", msg, actual, expected);
