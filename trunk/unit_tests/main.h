@@ -23,6 +23,7 @@ extern "C"
 #include "error_handling.h"
 
 #include "efilib.h"
+#include "efitime.h"
 
 #include "boards.h"
 #include "engines.h"
