@@ -278,6 +278,6 @@ void testTriggerDecoder(void) {
 	testGY6_139QMB();
 	testFordEscortGt();
 
-	testMazda323();
+//	testMazda323();
 }
 
