@@ -37,6 +37,9 @@ struct scheduling_struct {
 #if EFI_SIGNAL_EXECUTOR_SINGLE_TIMER
 	volatile time_t moment;
 #endif /* EFI_SIGNAL_EXECUTOR_SINGLE_TIMER */
+
+	volatile uint64_t momentUs;
+	scheduling_s *next;
 };
 
 typedef enum {
