@@ -346,6 +346,7 @@ void updateHD44780lcd(void) {
 static WORKING_AREA(lcdThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static void lcdThread(void *arg) {
+	chRegSetThreadName("lcd");
 	while (true) {
 #if EFI_HD44780_LCD
 		updateHD44780lcd();
@@ -357,6 +358,7 @@ static void lcdThread(void *arg) {
 static WORKING_AREA(tsThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static void tsStatusThread(void *arg) {
+	chRegSetThreadName("tuner s");
 	while (true) {
 #if EFI_TUNER_STUDIO
 		// sensor state for EFI Analytics Tuner Studio
