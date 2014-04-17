@@ -111,7 +111,7 @@ static void lcd_HD44780_write(uint8_t data) {
 }
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_write_command(uint8_t data) {
+void lcd_HD44780_write_command(uint8_t data) {
 	palClearPad(getHwPort(boardConfiguration->HD44780_rs), getHwPin(boardConfiguration->HD44780_rs));
 
 	lcd_HD44780_write(data);
@@ -119,7 +119,7 @@ void lcd_2x16_write_command(uint8_t data) {
 }
 
 //-----------------------------------------------------------------------------
-void lcd_2x16_write_data(uint8_t data) {
+void lcd_HD44780_write_data(uint8_t data) {
 	palSetPad(getHwPort(boardConfiguration->HD44780_rs), getHwPin(boardConfiguration->HD44780_rs));
 
 	lcd_HD44780_write(data);
@@ -132,14 +132,14 @@ void lcd_2x16_write_data(uint8_t data) {
 void lcd_HD44780_set_position(uint8_t row, uint8_t column) {
 	chDbgCheck(row <= engineConfiguration->HD44780height, "invalid row");
 	currentRow = row;
-	lcd_2x16_write_command(LCD_HD44780_DDRAM_ADDR + lineStart[row] + column);
+	lcd_HD44780_write_command(LCD_HD44780_DDRAM_ADDR + lineStart[row] + column);
 }
 
 void lcd_HD44780_print_char(char data) {
 	if (data == '\n') {
 		lcd_HD44780_set_position(++currentRow, 0);
 	} else {
-		lcd_2x16_write_data(data);
+		lcd_HD44780_write_data(data);
 	}
 }
 
@@ -190,16 +190,16 @@ void lcd_HD44780_init(void) {
 	lcd_HD44780_write(0x80);
 	chThdSleepMicroseconds(40);
 
-	lcd_HD44780_write(0x08);	// display and cursor control
+	lcd_HD44780_write_command(0x08);	// display and cursor control
 	chThdSleepMicroseconds(40);
 
-	lcd_HD44780_write(LCD_HD44780_DISPLAY_CLEAR);
+	lcd_HD44780_write_command(LCD_HD44780_DISPLAY_CLEAR);
 	chThdSleepMilliseconds(2);
 
-	lcd_HD44780_write(LCD_HD44780_SHIFT_CURSOR_RIGHT);
+	lcd_HD44780_write_command(LCD_HD44780_SHIFT_CURSOR_RIGHT);
 	chThdSleepMilliseconds(2);
 
-	lcd_HD44780_write(LCD_HD44780_DISPLAY_ON);
+	lcd_HD44780_write_command(LCD_HD44780_DISPLAY_ON);
 
 	lcd_HD44780_set_position(0, 0);
 }
