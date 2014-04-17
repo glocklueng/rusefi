@@ -15,6 +15,9 @@
 #include "pin_repository.h"
 #include "engine_configuration.h"
 #include "voltage.h"
+
+#if 0
+
 extern board_configuration_s *boardConfiguration;
 
 #define ALTERNATOR_VALVE_PWM_FREQUENCY 30000
@@ -55,3 +58,5 @@ void initAlternatorCtrl() {
 				);
 	chThdCreateStatic(ivThreadStack, sizeof(ivThreadStack), LOWPRIO, (tfunc_t)AltCtrlThread, NULL);
 }
+
+#endif
