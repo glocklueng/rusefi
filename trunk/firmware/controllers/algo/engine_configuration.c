@@ -259,6 +259,13 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 
 	boardConfiguration->triggerSimulatorPinModes[0] = OM_DEFAULT;
 	boardConfiguration->triggerSimulatorPinModes[1] = OM_DEFAULT;
+
+	boardConfiguration->HD44780_rs = GPIOE_9;
+	boardConfiguration->HD44780_e = GPIOE_11;
+	boardConfiguration->HD44780_db4 = GPIOE_13;
+	boardConfiguration->HD44780_db5 = GPIOE_15;
+	boardConfiguration->HD44780_db6 = GPIOB_11;
+	boardConfiguration->HD44780_db7 = GPIOB_13;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
