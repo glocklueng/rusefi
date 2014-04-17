@@ -66,7 +66,7 @@ void resetWaveChart(WaveChart *chart) {
 	appendPrintf(&chart->logging, "wave_chart%s", DELIMETER);
 }
 
-static char LOGGING_BUFFER[5000];
+static char LOGGING_BUFFER[5000] __attribute__((section(".ccm")));
 
 static void printStatus(void) {
 	scheduleIntValue(&logger, "chart", isChartActive);
