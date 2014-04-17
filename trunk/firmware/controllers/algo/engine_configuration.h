@@ -280,9 +280,9 @@ typedef struct {
 	brain_pin_e HD44780_rs;
 	brain_pin_e HD44780_e;
 	brain_pin_e HD44780_db4;
+	brain_pin_e HD44780_db5;
 	brain_pin_e HD44780_db6;
 	brain_pin_e HD44780_db7;
-	brain_pin_e HD44780_db8;
 
 	brain_pin_e triggerSimulatorPins[2];
 	pin_output_mode_e triggerSimulatorPinModes[2];
