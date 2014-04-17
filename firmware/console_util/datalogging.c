@@ -50,7 +50,7 @@
 /**
  * This is the buffer into which all the data providers write
  */
-static char pendingBuffer[OUTPUT_BUFFER];
+static char pendingBuffer[OUTPUT_BUFFER] __attribute__((section(".ccm")));
 /**
  * We copy all the pending data into this buffer once we are ready to push it out
  */
