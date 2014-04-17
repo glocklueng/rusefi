@@ -119,6 +119,12 @@ static void fanRelayControl(void) {
 
 Overflow64Counter halTime;
 
+uint64_t getTimeNowUs(void) {
+	// todo: synchronization? multi-threading?
+	halTime.offer(hal_lld_get_counter_value());
+	return halTime.get() / (CORE_CLOCK / 1000000);
+}
+
 static void onEveny10Milliseconds(void *arg) {
 	/**
 	 * We need to push current value into the 64 bit counter often enough so that we do not miss an overflow
