@@ -14,6 +14,7 @@ extern "C"
 #endif /* __cplusplus */
 
 void testSignalExecutor(void);
+int getRevolutionCounter(void);
 
 #ifdef __cplusplus
 }
