@@ -13,6 +13,7 @@
 #include "test_signal_executor.h"
 #include "io_pins.h"
 #include "utlist.h"
+#include "event_queue.h"
 
 extern OutputSignal *st_output_list;
 
@@ -32,6 +33,8 @@ void setOutputPinValue(io_pin_e pin, int value) {
 void scheduleTask(scheduling_s *scheduling, float delay, schfunc_t callback, void *param) {
 
 }
+
+EventQueue eq;
 
 void testSignalExecutor() {
 	print("*************************************** testSignalExecutor\r\n");
