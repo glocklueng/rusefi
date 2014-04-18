@@ -10,7 +10,7 @@
 #ifndef EVENT_SCHEDULER_H_
 #define EVENT_SCHEDULER_H_
 
-#define EMPTY_QUEUE 0x0FFFFFFFFFFFFFFFLL;
+#define EMPTY_QUEUE 0x0FFFFFFFFFFFFFFFLL
 
 class EventQueue {
 public:
