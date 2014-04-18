@@ -24,8 +24,8 @@ static TIM_TypeDef *TIM = TIM5;
 
 schfunc_t globalTimerCallback;
 
-static void setTimer(int arr) {
-	TIM->ARR = arr - 1;
+void setTimer(int timeUs) {
+	TIM->ARR = timeUs - 1;
 	TIM->EGR |= TIM_EGR_UG; // generate an update event to reload timer's counter value
 	TIM->CR1 |= TIM_CR1_CEN; // restart timer
 }
