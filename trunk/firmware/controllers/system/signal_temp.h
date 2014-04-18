@@ -8,6 +8,15 @@
 #ifndef SIGNAL_TEMP_H_
 #define SIGNAL_TEMP_H_
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void TIM_Init(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* SIGNAL_TEMP_H_ */
