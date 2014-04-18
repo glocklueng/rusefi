@@ -22,6 +22,7 @@ Record{size=696, name=' build/obj/io_pins.o@ .bss.errBlinkingStack'}
 Record{size=696, name=' build/obj/io_pins.o@ .bss.comBlinkingStack'}
 Record{size=696, name=' build/obj/injector_central.o@ .bss.benchThreadStack'}
 Record{size=696, name=' build/obj/idle_thread.o@ .bss.ivThreadStack'}
+Record{size=696, name=' build/obj/board_test.o@ .bss.btThreadStack'}
 Record{size=600, name=' build/obj/usbcfg.o@SDU1'}
 Record{size=560, name=' build/obj/mmc_card.o@MMC_FS'}
 Record{size=548, name=' build/obj/mmc_card.o@ .bss.FDLogFile'}
@@ -44,6 +45,7 @@ Record{size=260, name=' build/obj/signal_executor.o@logger'}
 Record{size=260, name=' build/obj/rtc_helper.o@logger'}
 Record{size=260, name=' build/obj/rpm_calculator.o@logger'}
 Record{size=260, name=' build/obj/pwm_generator.o@logger'}
+Record{size=260, name=' build/obj/poten.o@logger'}
 Record{size=260, name=' build/obj/pin_repository.o@logger'}
 Record{size=260, name=' build/obj/neo6m.o@logging'}
 Record{size=260, name=' build/obj/mmc_card.o@logger'}
@@ -139,6 +141,7 @@ Record{size=4, name=' build/obj/rtc_helper.o@ .bss.unix_time.9103'}
 Record{size=4, name=' build/obj/rtc_helper.o@ .bss.buff.9098'}
 Record{size=4, name=' build/obj/pin_repository.o@ .bss.totalPinsUsed'}
 Record{size=4, name=' build/obj/pin_repository.o@ .bss.initialized'}
+Record{size=4, name=' build/obj/neo6m.o@ .bss.uartErrors'}
 Record{size=4, name=' build/obj/neo6m.o@ .bss.gpsMesagesCount'}
 Record{size=4, name=' build/obj/mmc_card.o@ .bss.totalLoggedBytes'}
 Record{size=4, name=' build/obj/mmc_card.o@ .bss.errorReported'}
@@ -196,4 +199,4 @@ Record{size=1, name=' build/obj/mmc_card.o@fs_ready'}
 Record{size=1, name=' build/obj/lcd_HD44780.o@ .bss.lcd_HD44780_command'}
 Record{size=1, name=' build/obj/injector_central.o@pin'}
 Record{size=1, name=' build/obj/datalogging.o@ .bss.intermediateLoggingBufferInited'}
-Total size: 62673
+Total size: 63633
