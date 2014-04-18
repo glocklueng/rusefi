@@ -39,6 +39,21 @@ EventQueue eq;
 void testSignalExecutor() {
 	print("*************************************** testSignalExecutor\r\n");
 
+	assertEquals(EMPTY_QUEUE, eq.getNextEventTime());
+	scheduling_s s1;
+	scheduling_s s2;
+
+	eq.schedule(&s1, 0, 10, NULL, NULL);
+	assertEquals(10, eq.getNextEventTime());
+
+	eq.execute(11);
+
+	assertEquals(EMPTY_QUEUE, eq.getNextEventTime());
+
+	eq.schedule(&s1, 0, 10, NULL, NULL);
+	eq.schedule(&s2, 0, 13, NULL, NULL);
+	assertEquals(10, eq.getNextEventTime());
+
 //	OutputSignal s1;
 //	OutputSignal s2;
 //
