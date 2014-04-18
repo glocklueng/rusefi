@@ -14,6 +14,7 @@ extern "C"
 #endif /* __cplusplus */
 
 void TIM_Init(void);
+void setTimer(int timeUs);
 
 #ifdef __cplusplus
 }
