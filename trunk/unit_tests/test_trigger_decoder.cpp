@@ -15,8 +15,7 @@
 #include "ford_1995_inline_6.h"
 #include "mazda_323.h"
 
-extern "C"
-{
+extern "C" {
 void sendOutConfirmation(char *value, int i);
 }
 
@@ -273,7 +272,7 @@ void testTriggerDecoder(void) {
 
 	testDodgeNeonDecoder();
 	testFordAspire();
-// todo: uncommment	test1995FordInline6TriggerDecoder();
+	test1995FordInline6TriggerDecoder();
 	testMazdaMianaNbDecoder();
 	testGY6_139QMB();
 	testFordEscortGt();
