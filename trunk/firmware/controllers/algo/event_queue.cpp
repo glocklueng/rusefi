@@ -16,7 +16,7 @@ EventQueue::EventQueue() {
 void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
 	uint64_t time = nowUs + delayUs;
 
-//	scheduling->momentUs = time;
+	scheduling->momentUs = time;
 	LL_PREPEND(head, scheduling);
 }
 
@@ -31,10 +31,27 @@ uint64_t EventQueue::getNextEventTime(void) {
 
 	LL_FOREACH(head, elt)
 	{
-//		if (elt->momentUs < result)
-//			result = elt->momentUs;
+		if (elt->momentUs < result)
+			result = elt->momentUs;
 
 	}
 	return result;
+
+}
+
+void EventQueue::execute(uint64_t now) {
+	scheduling_s * elt, *tmp;
+
+//	DL_FOREACH_SAFE()
+
+	// here we need safe iteration because we are removing elements
+	LL_FOREACH_SAFE(head, elt, tmp)
+	{
+		if (elt->momentUs < now) {
+			LL_DELETE(head, elt);
+
+		}
+
+	}
 
 }

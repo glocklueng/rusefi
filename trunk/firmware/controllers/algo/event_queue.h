@@ -19,6 +19,8 @@ public:
 	void schedule(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param);
 	void schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param);
 
+	void execute(uint64_t now);
+
 	uint64_t getNextEventTime(void);
 private:
 	scheduling_s *head;
