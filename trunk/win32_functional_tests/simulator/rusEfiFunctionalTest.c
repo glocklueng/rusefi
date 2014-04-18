@@ -164,6 +164,11 @@ void chDbgPanic3(const char *msg, char * file, int line) {
 	onFatalError(msg, file, line);
 }
 
+uint64_t getTimeNowUs(void) {
+
+	return chTimeNow() * (1000000 / CH_FREQUENCY);
+}
+
 int getRusEfiVersion(void) {
 	return 239;
 }
