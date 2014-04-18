@@ -14,6 +14,8 @@ EventQueue::EventQueue() {
 }
 
 void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
+	if (callback == NULL)
+		firmwareError("NULL callback");
 	uint64_t time = nowUs + delayUs;
 
 	scheduling->momentUs = time;
@@ -44,7 +46,7 @@ void EventQueue::execute(uint64_t now) {
 
 //	DL_FOREACH_SAFE()
 
-	// here we need safe iteration because we are removing elements
+// here we need safe iteration because we are removing elements
 	LL_FOREACH_SAFE(head, elt, tmp)
 	{
 		if (elt->momentUs < now) {
