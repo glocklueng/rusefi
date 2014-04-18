@@ -36,6 +36,10 @@ void scheduleTask(scheduling_s *scheduling, float delay, schfunc_t callback, voi
 
 EventQueue eq;
 
+static void callback(void *a) {
+
+}
+
 void testSignalExecutor() {
 	print("*************************************** testSignalExecutor\r\n");
 
@@ -43,16 +47,20 @@ void testSignalExecutor() {
 	scheduling_s s1;
 	scheduling_s s2;
 
-	eq.schedule(&s1, 0, 10, NULL, NULL);
+	eq.schedule(&s1, 0, 10, callback, NULL);
 	assertEquals(10, eq.getNextEventTime());
 
 	eq.execute(11);
 
 	assertEquals(EMPTY_QUEUE, eq.getNextEventTime());
 
-	eq.schedule(&s1, 0, 10, NULL, NULL);
-	eq.schedule(&s2, 0, 13, NULL, NULL);
+	eq.schedule(&s1, 0, 10, callback, NULL);
+	eq.schedule(&s2, 0, 13, callback, NULL);
 	assertEquals(10, eq.getNextEventTime());
+
+	eq.execute(1);
+	assertEquals(10, eq.getNextEventTime());
+
 
 //	OutputSignal s1;
 //	OutputSignal s2;
