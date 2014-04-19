@@ -72,8 +72,11 @@ public class IoUtil {
                 result.set(value);
             }
         });
-        wait(waveChartLatch, 5);
+        int timeout = 15;
+        wait(waveChartLatch, timeout);
         LinkManager.engineState.removeAction(WaveReport.WAVE_CHART);
+        if (result.get() == null)
+            throw new IllegalStateException("Did not receive chart in " + timeout);
         return result.get();
     }
 
