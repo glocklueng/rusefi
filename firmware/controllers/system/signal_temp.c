@@ -35,16 +35,17 @@ static void callback(void) {
 
 	globalCounter++;
 
-	if (globalTimerCallback == NULL) {
-		firmwareError("NULL globalTimerCallback");
-		return;
-	}
-	globalTimerCallback(NULL);
+//	if (globalTimerCallback == NULL) {
+//		firmwareError("NULL globalTimerCallback");
+//		return;
+//	}
+//	globalTimerCallback(NULL);
 //	if (globalCounter < 6) {
 	setTimer(100000);
 //	}
 }
 
+// if you decide to move this to .cpp do not forget to make that a C method
 CH_FAST_IRQ_HANDLER(STM32_TIM5_HANDLER) {
 	if (((TIM->SR & 0x0001) != 0) && ((TIM->DIER & 0x0001) != 0)) {
 		callback();
