@@ -226,6 +226,8 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	engineConfiguration->map.config.Min = 0;
 	engineConfiguration->map.config.Max = 500;
 
+	engineConfiguration->diffLoadEnrichmentCoef = 1;
+
 	boardConfiguration->idleValvePin = GPIOE_2;
 	boardConfiguration->idleValvePinMode = OM_DEFAULT;
 	boardConfiguration->fuelPumpPin = GPIOC_13;
