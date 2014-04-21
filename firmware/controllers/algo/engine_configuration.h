@@ -246,6 +246,8 @@ typedef struct {
 	float injectionOffset;
 
 	float crankingTimingAngle;
+
+	float diffLoadEnrichmentCoef;
 } engine_configuration_s;
 
 typedef struct {
