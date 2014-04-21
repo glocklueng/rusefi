@@ -1,0 +1,224 @@
+
+C:\stuff\rusefi_sourceforge\firmware>rd /s /q .dep 
+
+C:\stuff\rusefi_sourceforge\firmware>rd /s /q build 
+
+C:\stuff\rusefi_sourceforge\firmware>compile.bat
+from svn info: Path: .
+from svn info: Working Copy Root Path: C:\stuff\rusefi_sourceforge
+from svn info: URL: https://rusefi@svn.code.sf.net/p/rusefi/code/trunk/firmware
+from svn info: Repository Root: https://rusefi@svn.code.sf.net/p/rusefi/code
+from svn info: Repository UUID: f70035ab-f2bc-4b8d-aa29-9bd2fd43cf08
+from svn info: Revision: 2772
+from svn info: Node Kind: directory
+from svn info: Schedule: normal
+from svn info: Last Changed Author: rusefi
+from svn info: Last Changed Rev: 2772
+Version [2772]
+from svn info: Last Changed Date: 2014-04-21 18:07:40 -0500 (Mon, 21 Apr 2014)
+from svn info: 
+Starting compilation
+Compiler Options
+arm-none-eabi-g++ -c -mcpu=cortex-m4 -fno-rtti -fno-exceptions -fno-use-cxa-atexit -Wall -Wextra -Wa,-alms=build/lst/ -DST_STM32F4_DISCOVERY -DCORTEX_USE_FPU=TRUE -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -MD -MP -MF .dep/build.d -I. -Ichibios/os/ports/common/ARMCMx/CMSIS/include -Ichibios/os/ports/common/ARMCMx -Ichibios/os/ports/GCC/ARMCMx -Ichibios/os/ports/GCC/ARMCMx/STM32F4xx -Ichibios/os/kernel/include -Ichibios/os/hal/include -Ichibios/os/hal/platforms/STM32F4xx -Ichibios/os/hal/platforms/STM32 -Ichibios/os/hal/platforms/STM32/GPIOv2 -Ichibios/os/hal/platforms/STM32/I2Cv1 -Ichibios/os/hal/platforms/STM32/OTGv1 -Ichibios/os/hal/platforms/STM32/RTCv2 -Ichibios/os/hal/platforms/STM32/SPIv1 -Ichibios/os/hal/platforms/STM32/TIMv1 -Ichibios/os/hal/platforms/STM32/USARTv1 -Ichibios/boards/ST_STM32F4_DISCOVERY -Ichibios/os/various/cpp_wrappers -Ichibios/os/various -Iconfig/system -Iconfig/engines -Iconfig/boards -Iconfig -Ichibios/os/various -Iext -Iext_algo -Iutil -Iconsole_util -Iconsole -Iconsole/tunerstudio -Ihw_layer -Ihw_layer/serial_over_usb -Ihw_layer/algo -Ihw_layer/lcd -Iemulation/hw_layer -Iemulation -Icontrollers -Icontrollers/sensors -Icontrollers/system -Icontrollers/algo -Icontrollers/math -Icontrollers/trigger main.cpp -o main.o -llibstd++
+
+mkdir -p build/obj
+mkdir -p build/lst
+Compiling crt0.c
+Compiling vectors.c
+Compiling chcore.c
+Compiling chcore_v7m.c
+Compiling nvic.c
+Compiling chsys.c
+Compiling chdebug.c
+Compiling chlists.c
+Compiling chvt.c
+Compiling chschd.c
+Compiling chthreads.c
+Compiling chdynamic.c
+Compiling chregistry.c
+Compiling chsem.c
+Compiling chmtx.c
+Compiling chcond.c
+Compiling chevents.c
+Compiling chmsg.c
+Compiling chmboxes.c
+Compiling chqueues.c
+Compiling chmemcore.c
+Compiling chheap.c
+Compiling chmempools.c
+Compiling chprintf.c
+Compiling memstreams.c
+Compiling chrtclib.c
+Compiling data_buffer.c
+Compiling listener_array.c
+Compiling crc.c
+Compiling histogram.c
+Compiling eficonsole_logic.c
+Compiling wave_math.c
+Compiling audi_aan.c
+Compiling dodge_neon.c
+Compiling ford_fiesta.c
+Compiling ford_1995_inline_6.c
+Compiling nissan_primera.c
+Compiling mazda_miata_nb.c
+Compiling honda_accord.c
+Compiling snow_blower.c
+Compiling GY6_139QMB.c
+Compiling mazda_323.c
+Compiling eficonsole.c
+Compiling console_io.c
+Compiling status_loop.c
+Compiling tunerstudio_algo.c
+Compiling tunerstudio.c
+Compiling datalogging.c
+Compiling rfiutil.c
+Compiling hal.c
+Compiling adc.c
+Compiling can.c
+Compiling ext.c
+Compiling gpt.c
+Compiling i2c.c
+Compiling icu.c
+Compiling mac.c
+Compiling mmc_spi.c
+Compiling mmcsd.c
+Compiling pal.c
+Compiling pwm.c
+Compiling rtc.c
+Compiling sdc.c
+Compiling serial.c
+Compiling serial_usb.c
+Compiling spi.c
+Compiling tm.c
+Compiling uart.c
+Compiling usb.c
+Compiling poten.c
+Compiling analog_chart.c
+Compiling wave_analyzer.c
+Compiling hardware.c
+Compiling adc_inputs.c
+Compiling trigger_input.c
+Compiling pin_repository.c
+Compiling io_pins.c
+Compiling mcp3208.c
+Compiling lcd_HD44780.c
+Compiling can_hw.c
+Compiling HIP9011.c
+Compiling usbcfg.c
+Compiling usbconsole.c
+Compiling flash.c
+Compiling rtc_helper.c
+Compiling mmc_card.c
+Compiling neo6m.c
+Compiling gpio_helper.c
+Compiling board_test.c
+Compiling wave_analyzer_hw.c
+Compiling pwm_generator.c
+Compiling electronic_throttle.c
+Compiling idle_thread.c
+Compiling injector_central.c
+Compiling ignition_central.c
+Compiling flash_main.c
+Compiling malfunction_indicator.c
+Compiling error_handling.c
+Compiling map_averaging.c
+Compiling map_multiplier_thread.c
+Compiling alternatorController.c
+Compiling map_adjuster.c
+Compiling advance_map.c
+Compiling engine_configuration.c
+Compiling signal_executor.c
+Compiling interpolation.c
+Compiling malfunction_central.c
+Compiling event_registry.c
+Compiling idle_controller.c
+Compiling wave_chart.c
+Compiling nmea.c
+Compiling algo.c
+Compiling signal_executor_single_timer_algo.c
+Compiling avg_values.c
+Compiling tps.c
+Compiling allsensors.c
+Compiling maf.c
+Compiling map.c
+Compiling ego.c
+Compiling voltage.c
+Compiling thermistors.c
+Compiling stm32_dma.c
+Compiling hal_lld.c
+Compiling adc_lld.c
+Compiling ext_lld_isr.c
+Compiling can_lld.c
+Compiling ext_lld.c
+Compiling mac_lld.c
+Compiling sdc_lld.c
+Compiling pal_lld.c
+Compiling i2c_lld.c
+Compiling usb_lld.c
+Compiling rtc_lld.c
+Compiling spi_lld.c
+Compiling gpt_lld.c
+Compiling icu_lld.c
+Compiling pwm_lld.c
+Compiling serial_lld.c
+Compiling uart_lld.c
+Compiling board.c
+Compiling fatfs_diskio.c
+Compiling fatfs_syscall.c
+Compiling ff.c
+Compiling ccsbcs.c
+Compiling trigger_central.c
+Compiling trigger_mazda.c
+Compiling trigger_structure.c
+Compiling rpm_calculator.c
+Compiling pwm_generator_logic.c
+Compiling signal_executor_sleep.c
+Compiling signal_executor_single_timer.c
+Compiling signal_temp.c
+Compiling signal_executor_hw_timer.c
+Compiling ch.cpp
+Compiling trigger_decoder.cpp
+Compiling trigger_chrysler.cpp
+Compiling trigger_gm.cpp
+Compiling main_trigger_callback.cpp
+Compiling trigger_emulator.cpp
+Compiling rfi_perftest.cpp
+Compiling engine_emulator.cpp
+Compiling OutputSignalArray.cpp
+Compiling fuel_math.cpp
+Compiling accel_enrichmemnt.cpp
+Compiling event_queue.cpp
+Compiling trigger_emulator_algo.cpp
+Compiling SingleTimerExecutor.cpp
+Compiling ford_aspire.cpp
+Compiling MiniCooperR50.cpp
+Compiling ford_escort_gt.cpp
+Compiling citroenBerlingoTU3JP.cpp
+Compiling saturn_ion.cpp
+Compiling settings.cpp
+Compiling engine_controller.cpp
+Compiling cyclic_buffer.cpp
+Compiling efilib.cpp
+Compiling efilib2.cpp
+Compiling LocalVersionHolder.cpp
+Compiling engine_math.cpp
+Compiling rusefi.cpp
+Compiling main.cpp
+Linking build/rusefi.elf
+Creating build/rusefi.hex
+Creating build/rusefi.bin
+Creating build/rusefi.dmp
+Done
+Build complete success.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+Scanning
+
+Creating archive firmaware_binary.zip
+
+Compressing  features.h
+Compressing  flash.bat
+Compressing  rusefi.hex
+Compressing  rusefi.ini
+
+Everything is Ok
