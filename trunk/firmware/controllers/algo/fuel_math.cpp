@@ -35,6 +35,7 @@
 #include "engine_configuration.h"
 #include "allsensors.h"
 #include "engine_math.h"
+#include "rpm_calculator.h"
 
 static float *fuel_ptrs[FUEL_LOAD_COUNT];
 static int initialized = FALSE;
@@ -90,8 +91,6 @@ float getBaseFuel(int rpm, float engineLoad) {
 float getCrankingFuel(void) {
 	return getStartingFuel(getCoolantTemperature());
 }
-
-int isCranking(void);
 
 /**
  * @returns	Length of fuel injection, in milliseconds
