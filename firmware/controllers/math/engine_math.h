@@ -1,4 +1,4 @@
-/*
+/**
  * @file	engine_math.h
  *
  * @date Jul 13, 2013

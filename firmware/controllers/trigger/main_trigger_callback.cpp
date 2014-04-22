@@ -90,13 +90,14 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 	scheduleOutput(event->actuator, delay, fuelMs, chTimeNow());
 }
 
-static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
+static void handleFuel(int eventIndex) {
 	if (!isInjectionEnabled())
 		return;
 	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 
 	/**
-	 * Ignition events are defined by addFuelEvents()
+	 * Ignition events are defined by addFuelEvents() according to selected
+	 * fueling strategy
 	 */
 	ActuatorEventList *source =
 			isCranking() ?
@@ -143,7 +144,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	scheduleOutput(event->actuator, sparkDelay, dwellMs, chTimeNow());
 }
 
-static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
+static void handleSpark(int eventIndex) {
 	int rpm = getRpm();
 
 	/**
@@ -200,8 +201,8 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2);
 	}
 
-	handleFuel(ckpSignalType, eventIndex);
-	handleSpark(ckpSignalType, eventIndex);
+	handleFuel(eventIndex);
+	handleSpark(eventIndex);
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
 		hsAdd(&mainLoopHisto, diff);
