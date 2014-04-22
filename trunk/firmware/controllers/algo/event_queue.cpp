@@ -19,8 +19,10 @@ void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs,
 	uint64_t time = nowUs + delayUs;
 
 	scheduling->momentUs = time;
+#if EFI_SIGNAL_EXECUTOR_ONE_TIMER
 	scheduling->callback = callback;
 	scheduling->param = param;
+#endif
 	LL_PREPEND(head, scheduling);
 }
 
@@ -40,7 +42,6 @@ uint64_t EventQueue::getNextEventTime(void) {
 
 	}
 	return result;
-
 }
 
 void EventQueue::execute(uint64_t now) {
