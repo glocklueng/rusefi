@@ -13,7 +13,8 @@ EventQueue::EventQueue() {
 	head = NULL;
 }
 
-void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
+void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs,
+		schfunc_t callback, void *param) {
 	if (callback == NULL)
 		firmwareError("NULL callback");
 	uint64_t time = nowUs + delayUs;
@@ -23,10 +24,21 @@ void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs,
 	scheduling->callback = callback;
 	scheduling->param = param;
 #endif
+
+	scheduling_s * elt;
+	LL_FOREACH(head, elt)
+	{
+		if (elt == scheduling) {
+			firmwareError("re-adding element");
+			return;
+		}
+	}
+
 	LL_PREPEND(head, scheduling);
 }
 
-void EventQueue::schedule(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param) {
+void EventQueue::schedule(scheduling_s *scheduling, int delayUs,
+		schfunc_t callback, void *param) {
 	schedule(scheduling, getTimeNowUs(), delayUs, callback, param);
 }
 
