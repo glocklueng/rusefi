@@ -1,5 +1,5 @@
 /**
- * @file    main_trigger_callback.c
+ * @file    main_trigger_callback.cpp
  * @brief   Main logic is here!
  *
  * See http://rusefi.com/docs/html/
@@ -95,6 +95,9 @@ static void handleFuel(ShaftEvents ckpSignalType, int eventIndex) {
 		return;
 	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 
+	/**
+	 * Ignition events are defined by addFuelEvents()
+	 */
 	ActuatorEventList *source =
 			isCranking() ?
 					&engineConfiguration2->engineEventConfiguration.crankingInjectionEvents :
@@ -143,6 +146,10 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 static void handleSpark(ShaftEvents ckpSignalType, int eventIndex) {
 	int rpm = getRpm();
 
+	/**
+	 * Ignition schedule is defined once per revolution
+	 * See initializeIgnitionActions()
+	 */
 	findEvents(eventIndex, &engineConfiguration2->engineEventConfiguration.ignitionEvents, &events);
 	if (events.size == 0)
 		return;
