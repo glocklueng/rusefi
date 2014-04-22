@@ -52,7 +52,7 @@ void printToWin32Console(char *p);
 int systicks2ms(int systicks);
 
 // todo: move somewhere else?
-void lockAnyContext(void);
+int lockAnyContext(void);
 void unlockAnyContext(void);
 
 #ifdef __cplusplus
