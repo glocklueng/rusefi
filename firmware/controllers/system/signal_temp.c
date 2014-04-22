@@ -35,22 +35,24 @@ static void callback(void) {
 
 	globalCounter++;
 
-//	if (globalTimerCallback == NULL) {
-//		firmwareError("NULL globalTimerCallback");
-//		return;
-//	}
-//	globalTimerCallback(NULL);
+	if (globalTimerCallback == NULL) {
+		firmwareError("NULL globalTimerCallback");
+		return;
+	}
+	globalTimerCallback(NULL);
 //	if (globalCounter < 6) {
 //	setTimer(100000);
 //	}
 }
 
 // if you decide to move this to .cpp do not forget to make that a C method
-CH_FAST_IRQ_HANDLER(STM32_TIM5_HANDLER) {
+CH_IRQ_HANDLER(STM32_TIM5_HANDLER) {
+	CH_IRQ_PROLOGUE();
 	if (((TIM->SR & 0x0001) != 0) && ((TIM->DIER & 0x0001) != 0)) {
 		callback();
 	}
 	TIM->SR = (int) ~STM32_TIM_SR_UIF;   // Interrupt has been handled
+	CH_IRQ_EPILOGUE();
 }
 
 void TIM_Init(void) {
@@ -58,7 +60,8 @@ void TIM_Init(void) {
 //		return; // something is not right with this code :(
 
 	RCC ->APB1ENR |= RCC_APB1ENR_TIM5EN;   // Enable TIM5 clock
-	NVIC_EnableIRQ(TIM5_IRQn);   // Enable TIM5 IRQ
+//	NVIC_EnableIRQ(TIM5_IRQn);   // Enable TIM5 IRQ
+	nvicEnableVector(TIM5_IRQn, CORTEX_PRIORITY_MASK(12));
 	TIM->DIER |= TIM_DIER_UIE;   // Enable interrupt on update event
 	TIM->CR1 |= TIM_CR1_OPM; // one pulse mode: count down ARR and stop
 	TIM->CR1 &= ~TIM_CR1_ARPE; /* ARR register is NOT buffered, allows to update timer's period on-fly. */
