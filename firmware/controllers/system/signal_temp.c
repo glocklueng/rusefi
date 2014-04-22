@@ -41,7 +41,7 @@ static void callback(void) {
 //	}
 //	globalTimerCallback(NULL);
 //	if (globalCounter < 6) {
-	setTimer(100000);
+//	setTimer(100000);
 //	}
 }
 
@@ -65,7 +65,7 @@ void TIM_Init(void) {
 
 	TIM->PSC = 84 - 1;   // 168MHz / 2 / 84 = 1MHz, each tick is a microsecond
 
-	setTimer(100000);
+//	setTimer(100000);
 }
 
 #endif /* EFI_PROD_CODE */

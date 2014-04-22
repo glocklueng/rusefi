@@ -30,8 +30,6 @@
 #include "trigger_central.h"
 #include "svnversion.h"
 
-#include "signal_temp.h"
-
 McpAdcState adcState;
 
 static void initSpiModule(SPIDriver *driver, ioportid_t sckPort, ioportmask_t sckPin, ioportid_t misoPort,
@@ -110,9 +108,6 @@ void initHardware() {
 
 	initOutputPins();
 	initAdcInputs();
-
-	TIM_Init();
-
 
 #if EFI_HIP_9011
 	initHip9011();
