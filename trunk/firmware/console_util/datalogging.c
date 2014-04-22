@@ -106,9 +106,9 @@ void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
 		fatal("intermediateLoggingBufferInited not inited!");
 		return;
 	}
-	int isLocked = dbg_lock_cnt != 0;
+	int is_locked = isLocked();
 	int icsr_vectactive = isIsrContext();
-	if (isLocked) {
+	if (is_locked) {
 		vappendPrintfI(logging, fmt, arg);
 	} else {
 		if (icsr_vectactive == 0) {
