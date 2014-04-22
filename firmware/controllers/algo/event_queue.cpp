@@ -19,6 +19,8 @@ void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs,
 	uint64_t time = nowUs + delayUs;
 
 	scheduling->momentUs = time;
+	scheduling->callback = callback;
+	scheduling->param = param;
 	LL_PREPEND(head, scheduling);
 }
 
@@ -51,9 +53,7 @@ void EventQueue::execute(uint64_t now) {
 	{
 		if (elt->momentUs < now) {
 			LL_DELETE(head, elt);
-
+			elt->callback(elt->param);
 		}
-
 	}
-
 }
