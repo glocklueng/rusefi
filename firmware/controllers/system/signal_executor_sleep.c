@@ -56,4 +56,8 @@ void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 	initOutputSignalBase(signal);
 }
 
+void initSignalExecutorImpl(void) {
+
+}
+
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */

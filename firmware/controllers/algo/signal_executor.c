@@ -46,6 +46,7 @@ void initSignalExecutor(void) {
 #if EFI_PROD_CODE || EFI_SIMULATOR
 	initLogging(&logger, "s exec");
 #endif
+	initSignalExecutorImpl();
 }
 
 void initOutputSignalBase(OutputSignal *signal) {
