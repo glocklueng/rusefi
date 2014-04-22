@@ -20,8 +20,6 @@ static void executorCallback(void *arg) {
 }
 
 Executor::Executor() {
-	globalTimerCallback = executorCallback;
-	TIM_Init();
 }
 
 void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
@@ -32,7 +30,7 @@ void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, s
 
 void scheduleTask(scheduling_s *scheduling, float delayMs, schfunc_t callback, void *param) {
 	// todo: eliminate this /100. Times still come as systick times here
-	instance.schedule(scheduling, getTimeNowUs(), delayMs * 1000000 / 100, callback, param);
+	instance.schedule(scheduling, getTimeNowUs(), delayMs * 1000000 / 100000, callback, param);
 }
 
 void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
@@ -42,6 +40,10 @@ void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 	initOutputSignalBase(signal);
 }
 
+void initSignalExecutorImpl(void) {
+	globalTimerCallback = executorCallback;
+	TIM_Init();
+}
 
 #endif
 
