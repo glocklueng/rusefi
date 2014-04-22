@@ -39,6 +39,11 @@ struct scheduling_struct {
 #endif /* EFI_SIGNAL_EXECUTOR_SINGLE_TIMER */
 
 	volatile uint64_t momentUs;
+#if EFI_SIGNAL_EXECUTOR_ONE_TIMER
+	schfunc_t callback;
+	void *param;
+#endif
+
 	scheduling_s *next;
 };
 
