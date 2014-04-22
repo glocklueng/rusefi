@@ -31,7 +31,9 @@ void setOutputPinValue(io_pin_e pin, int value) {
 }
 
 void scheduleTask(scheduling_s *scheduling, float delay, schfunc_t callback, void *param) {
+}
 
+void initSignalExecutorImpl(void) {
 }
 
 EventQueue eq;
