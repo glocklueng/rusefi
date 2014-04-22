@@ -54,7 +54,9 @@ void EventQueue::execute(uint64_t now) {
 	{
 		if (elt->momentUs < now) {
 			LL_DELETE(head, elt);
+#if EFI_SIGNAL_EXECUTOR_ONE_TIMER
 			elt->callback(elt->param);
+#endif /* EFI_SIGNAL_EXECUTOR_ONE_TIMER */
 		}
 	}
 }
