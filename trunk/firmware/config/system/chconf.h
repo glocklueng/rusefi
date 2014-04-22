@@ -54,7 +54,7 @@ void chDbgPanic3(const char *msg, char * file, int line);
 }
 
 
-#define PORT_IDLE_THREAD_STACK_SIZE     64
+#define PORT_IDLE_THREAD_STACK_SIZE     256
 
 #define CHPRINTF_USE_FLOAT          TRUE
 
