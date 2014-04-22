@@ -107,7 +107,7 @@ void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
 		return;
 	}
 	int isLocked = dbg_lock_cnt != 0;
-	int icsr_vectactive = dbg_isr_cnt > 0;
+	int icsr_vectactive = isIsrContext();
 	if (isLocked) {
 		vappendPrintfI(logging, fmt, arg);
 	} else {
