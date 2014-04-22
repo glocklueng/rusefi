@@ -71,11 +71,12 @@
  *
  * @section sec_fuel_injection Fuel Injection
  *
- * See fuel_math.c for details on fuel amount logic
  *
  * @sectuion sec_misc
  *
- * See rpm_calculator.c for details on how getRpm() is calculated
+ * <BR>See main_trigger_callback.cpp for main trigger event handler
+ * <BR>See fuel_math.cpp for details on fuel amount logic
+ * <BR>See rpm_calculator.c for details on how getRpm() is calculated
  *
  */
 
