@@ -125,6 +125,11 @@ uint64_t getTimeNowUs(void) {
 	return halTime.get() / (CORE_CLOCK / 1000000);
 }
 
+efitimems_t getTimeNowMs(void) {
+	// todo: migrate to getTimeNowUs? or not?
+	return chTimeNow() / TICKS_IN_MS;
+}
+
 static void onEveny10Milliseconds(void *arg) {
 	/**
 	 * We need to push current value into the 64 bit counter often enough so that we do not miss an overflow

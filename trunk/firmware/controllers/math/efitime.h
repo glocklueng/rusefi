@@ -13,6 +13,12 @@
 #include <stdint.h>
 #include "efifeatures.h"
 
+/**
+ * integer time in milliseconds
+ * 32 bit 4B / 1000 = 4M seconds = 1111.11 hours = 46 days.
+ * Please restart your ECU every 46 days? :)
+ */
+typedef uint32_t efitimems_t;
 
 #ifdef __cplusplus
 extern "C"
@@ -29,6 +35,8 @@ extern "C"
  * The primary implementation counts the number of CPU cycles from MCU reset.
  */
 uint64_t getTimeNowUs(void);
+
+efitimems_t getTimeNowMs(void);
 
 #ifdef __cplusplus
 }
