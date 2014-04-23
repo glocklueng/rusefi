@@ -36,7 +36,10 @@ extern "C"
  */
 uint64_t getTimeNowUs(void);
 
-efitimems_t getTimeNowMs(void);
+/**
+ * @brief   Returns the number of milliseconds since the board initialization.
+ */
+efitimems_t currentTimeMillis(void);
 
 #ifdef __cplusplus
 }
