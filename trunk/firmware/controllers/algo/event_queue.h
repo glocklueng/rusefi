@@ -21,7 +21,7 @@ public:
 
 	void execute(uint64_t now);
 
-	uint64_t getNextEventTime(void);
+	uint64_t getNextEventTime(uint64_t nowUs);
 private:
 	scheduling_s *head;
 };
