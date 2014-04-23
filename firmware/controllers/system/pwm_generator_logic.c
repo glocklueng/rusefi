@@ -8,21 +8,21 @@
 #include "pwm_generator_logic.h"
 #include "engine_math.h"
 
-static time_t getNextSwitchTime(PwmConfig *state) {
+static float getNextSwitchTimeMs(PwmConfig *state) {
 	chDbgAssert(state->safe.phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", NULL);
 	int iteration = state->safe.iteration;
 	float switchTime = state->multiWave.switchTimes[state->safe.phaseIndex];
-	float period = state->safe.period;
+	float periodMs = state->safe.periodMs;
 #if DEBUG_PWM
 	scheduleMsg(&logger, "iteration=%d switchTime=%f period=%f", iteration, switchTime, period);
 #endif
 
-	systime_t timeToSwitch = (systime_t) ((iteration + switchTime) * period);
+	float timeToSwitch = (iteration + switchTime) * periodMs;
 
 #if DEBUG_PWM
 	scheduleMsg(&logger, "start=%d timeToSwitch=%d", state->safe.start, timeToSwitch);
 #endif
-	return state->safe.start + timeToSwitch;
+	return state->safe.startMs + timeToSwitch;
 }
 
 static time_t togglePwmState(PwmConfig *state) {
@@ -32,22 +32,22 @@ static time_t togglePwmState(PwmConfig *state) {
 #endif
 
 	if (state->safe.phaseIndex == 0) {
-		if (cisnan(state->period)) {
+		if (cisnan(state->periodMs)) {
 			/**
 			 * zero period means PWM is paused
 			 */
-			return TICKS_IN_MS;
+			return 1;
 		}
 		if (state->cycleCallback != NULL)
 			state->cycleCallback(state);
-		chDbgAssert(state->period != 0, "period not initialized", NULL);
-		if (state->safe.period != state->period) {
+		chDbgAssert(state->periodMs != 0, "period not initialized", NULL);
+		if (state->safe.periodMs != state->periodMs) {
 			/**
 			 * period length has changed - we need to reset internal state
 			 */
-			state->safe.start = chTimeNow();
+			state->safe.startMs = chTimeNow() * 1.0 / TICKS_IN_MS;
 			state->safe.iteration = 0;
-			state->safe.period = state->period;
+			state->safe.periodMs = state->periodMs;
 #if DEBUG_PWM
 			scheduleMsg(&logger, "state reset start=%d iteration=%d", state->safe.start, state->safe.iteration);
 #endif
@@ -57,11 +57,11 @@ static time_t togglePwmState(PwmConfig *state) {
 	state->stateChangeCallback(state,
 			state->safe.phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->safe.phaseIndex - 1);
 
-	time_t nextSwitchTime = getNextSwitchTime(state);
+	float nextSwitchTime = getNextSwitchTimeMs(state);
 #if DEBUG_PWM
 	scheduleMsg(&logger, "%s: nextSwitchTime %d", state->name, nextSwitchTime);
 #endif
-	time_t timeToSwitch = nextSwitchTime - chTimeNow();
+	time_t timeToSwitch = nextSwitchTime * TICKS_IN_MS - chTimeNow();
 	if (timeToSwitch < 1) {
 //todo: introduce error and test this error handling		warning(OBD_PCM_Processor_Fault, "PWM: negative switch time");
 		timeToSwitch = 1;
@@ -125,7 +125,7 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes, int
 void weComplexInit(char *msg, PwmConfig *state, int phaseCount, float *switchTimes, int waveCount, int **pinStates,
 		pwm_cycle_callback *cycleCallback, pwm_gen_callback *stateChangeCallback) {
 
-	chDbgCheck(state->period != 0, "period is not initialized");
+	chDbgCheck(state->periodMs != 0, "period is not initialized");
 	chDbgCheck(phaseCount > 1, "count is too small");
 	if (phaseCount > PWM_PHASE_MAX_COUNT) {
 		firmwareError("too many phases in PWM");
@@ -146,7 +146,7 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, float *switchTim
 	state->stateChangeCallback = stateChangeCallback;
 
 	state->safe.phaseIndex = 0;
-	state->safe.period = -1;
+	state->safe.periodMs = -1;
 	state->safe.iteration = -1;
 	state->name = msg;
 //	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack), NORMALPRIO, (tfunc_t) deThread, state);
