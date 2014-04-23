@@ -35,7 +35,7 @@ void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, s
 }
 
 void scheduleTask(scheduling_s *scheduling, float delayMs, schfunc_t callback, void *param) {
-	if(delayMs==0) {
+	if (delayMs == 0) {
 		callback(param);
 		return;
 	}
