@@ -62,7 +62,6 @@ void scheduleTask(scheduling_s *scheduling, float delayMs, schfunc_t callback, v
 void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 	signal->io_pin = ioPin;
 	signal->name = getPinName(ioPin);
-//	signal->duration = 0;
 	initOutputSignalBase(signal);
 }
 
@@ -70,7 +69,7 @@ void initSignalExecutorImpl(void) {
 	globalTimerCallback = executorCallback;
 #if EFI_PROD_CODE
 	initMicrosecondTimer();
-#endif
+#endif /* EFI_PROD_CODE */
 }
 
 #endif
