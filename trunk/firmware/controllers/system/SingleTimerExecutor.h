@@ -16,6 +16,7 @@ public:
 	Executor();
 	void schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param);
 	EventQueue eq;
+	void setTimer(uint64_t now);
 };
 
 #endif /* SINGLETIMEREXECUTOR_H_ */

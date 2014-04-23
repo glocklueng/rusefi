@@ -15,8 +15,15 @@ static Executor instance;
 
 extern schfunc_t globalTimerCallback;
 
+void Executor::setTimer(uint64_t nowUs) {
+	uint64_t nextEventTime = eq.getNextEventTime(nowUs);
+	setHardwareUsTimer(nextEventTime - nowUs);
+}
+
 static void executorCallback(void *arg) {
-	instance.eq.execute(getTimeNowUs());
+	uint64_t now = getTimeNowUs();
+	instance.eq.execute(now);
+	instance.setTimer(now);
 }
 
 Executor::Executor() {
@@ -24,8 +31,7 @@ Executor::Executor() {
 
 void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
 	eq.schedule(scheduling, nowUs, delayUs, callback, param);
-	uint64_t nextEventTime = eq.getNextEventTime(nowUs);
-	setTimer(nextEventTime - nowUs);
+	setTimer(nowUs);
 }
 
 void scheduleTask(scheduling_s *scheduling, float delayMs, schfunc_t callback, void *param) {
