@@ -52,7 +52,7 @@ void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 
 void initSignalExecutorImpl(void) {
 	globalTimerCallback = executorCallback;
-	TIM_Init();
+	initMicrosecondTimer();
 }
 
 #endif

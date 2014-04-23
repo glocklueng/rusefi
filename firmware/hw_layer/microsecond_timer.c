@@ -16,8 +16,6 @@
 
 #if EFI_PROD_CODE
 
-int globalCounter = 0;
-
 static TIM_TypeDef *TIM = TIM5;
 
 schfunc_t globalTimerCallback;
@@ -29,18 +27,11 @@ void setHardwareUsTimer(int timeUs) {
 }
 
 static void callback(void) {
-	GPIOD ->ODR ^= (1 << 13);   // Toggle D13
-
-	globalCounter++;
-
 	if (globalTimerCallback == NULL) {
 		firmwareError("NULL globalTimerCallback");
 		return;
 	}
 	globalTimerCallback(NULL);
-//	if (globalCounter < 6) {
-//	setTimer(100000);
-//	}
 }
 
 // if you decide to move this to .cpp do not forget to make that a C method
@@ -53,20 +44,14 @@ CH_IRQ_HANDLER(STM32_TIM5_HANDLER) {
 	CH_IRQ_EPILOGUE();
 }
 
-void TIM_Init(void) {
-//	if (1==1)
-//		return; // something is not right with this code :(
-
+void initMicrosecondTimer(void) {
 	RCC ->APB1ENR |= RCC_APB1ENR_TIM5EN;   // Enable TIM5 clock
-//	NVIC_EnableIRQ(TIM5_IRQn);   // Enable TIM5 IRQ
 	nvicEnableVector(TIM5_IRQn, CORTEX_PRIORITY_MASK(12));
 	TIM->DIER |= TIM_DIER_UIE;   // Enable interrupt on update event
 	TIM->CR1 |= TIM_CR1_OPM; // one pulse mode: count down ARR and stop
 	TIM->CR1 &= ~TIM_CR1_ARPE; /* ARR register is NOT buffered, allows to update timer's period on-fly. */
 
 	TIM->PSC = 84 - 1;   // 168MHz / 2 / 84 = 1MHz, each tick is a microsecond
-
-//	setTimer(100000);
 }
 
 #endif /* EFI_PROD_CODE */
