@@ -25,7 +25,7 @@
 
 extern engine_configuration_s *engineConfiguration;
 
-static volatile uint32_t ckpPeriod; // different between current crank signal and previous crank signal
+static volatile uint32_t ckpPeriodUs; // difference between current crank signal and previous crank signal
 static volatile uint64_t previousCrankSignalStart = 0;
 
 #define MAX_ICU_COUNT 5
@@ -71,7 +71,7 @@ static void waIcuPeriodCallback(WaveReader *reader) {
 
 //	dbAdd(&wavePeriodTime, now);
 
-	int period = ckpPeriod;  // local copy of volatile variable
+	int period = ckpPeriodUs;  // local copy of volatile variable
 
 	uint64_t offset = nowUs - previousCrankSignalStart;
 
@@ -140,9 +140,9 @@ static void initWave(char *name, int index, ICUDriver *driver, ioportid_t port, 
 static void onWaveShaftSignal(ShaftEvents ckpSignalType, int index) {
 	if (index != 0)
 		return;
-	systime_t now = chTimeNow();
-	ckpPeriod = overflowDiff(now, previousCrankSignalStart);
-	previousCrankSignalStart = now;
+	uint64_t nowUs = getTimeNowUs();
+	ckpPeriodUs = nowUs - previousCrankSignalStart;
+	previousCrankSignalStart = nowUs;
 }
 
 static WORKING_AREA(waThreadStack, UTILITY_THREAD_STACK_SIZE);
