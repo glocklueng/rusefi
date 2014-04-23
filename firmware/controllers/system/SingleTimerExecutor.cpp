@@ -1,8 +1,13 @@
-/*
- * SingleTimerExecutor.cpp
+/**
+ * @file SingleTimerExecutor.cpp
  *
- *  Created on: Apr 18, 2014
- *      Author: Andrey
+ * This class combines the 1MHz hardware timer and microsecond_timer.c
+ * and pending events queue event_queue.cpp
+ *
+ * todo: add thread safety
+ *
+ * @date: Apr 18, 2014
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "SingleTimerExecutor.h"
@@ -17,23 +22,32 @@ static Executor instance;
 
 extern schfunc_t globalTimerCallback;
 
-void Executor::setTimer(uint64_t nowUs) {
-	uint64_t nextEventTime = eq.getNextEventTime(nowUs);
-	setHardwareUsTimer(nextEventTime - nowUs);
+static void executorCallback(void *arg) {
+	instance.execute(getTimeNowUs());
 }
 
-static void executorCallback(void *arg) {
-	uint64_t now = getTimeNowUs();
-	instance.eq.execute(now);
-	instance.setTimer(now);
+void Executor::setTimer(uint64_t nowUs) {
+	uint64_t nextEventTime = queue.getNextEventTime(nowUs);
+	setHardwareUsTimer(nextEventTime - nowUs);
 }
 
 Executor::Executor() {
 }
 
 void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
-	eq.schedule(scheduling, nowUs, delayUs, callback, param);
+	queue.schedule(scheduling, nowUs, delayUs, callback, param);
 	setTimer(nowUs);
+}
+
+void Executor::execute(uint64_t now) {
+	/**
+	 * Let's execute actions we should execute at this point
+	 */
+	queue.execute(now);
+	/**
+	 * Let's set up the timer for the next execution
+	 */
+	setTimer(now);
 }
 
 void scheduleTask(scheduling_s *scheduling, float delayMs, schfunc_t callback, void *param) {
