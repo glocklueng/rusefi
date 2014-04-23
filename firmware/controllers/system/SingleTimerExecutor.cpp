@@ -7,7 +7,7 @@
 
 #include "SingleTimerExecutor.h"
 #include "efitime.h"
-#include "signal_temp.h"
+#include "microsecond_timer.h"
 
 #if EFI_SIGNAL_EXECUTOR_ONE_TIMER || defined(__DOXYGEN__)
 

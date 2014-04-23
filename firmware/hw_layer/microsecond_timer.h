@@ -1,5 +1,5 @@
 /**
- * @file	signal_temp.h
+ * @file	microsecond_timer.h
  *
  * @date Apr 14, 2014
  * @author Andrey Belomutskiy, (c) 2012-2013

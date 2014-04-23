@@ -1,10 +1,8 @@
 /**
- * @file	signal_temp.c
- *
- * Work in progress. https://sourceforge.net/p/rusefi/tickets/24/
+ * @file	microsecond_timer.c
  *
  * Here we have a 1MHz timer dedicated to event scheduling. We are using one of the 32-bit timers here,
- * so this timer can schedule events up to 4B/100M = 4000 seconds from now.
+ * so this timer can schedule events up to 4B/100M ~ 4000 seconds ~ 1 hour from current time.
  *
  * @date Apr 14, 2014
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -12,7 +10,7 @@
 
 #include "main.h"
 #include "signal_executor.h"
-#include "signal_temp.h"
+#include "microsecond_timer.h"
 
 // https://my.st.com/public/STe2ecommunities/mcu/Lists/cortex_mx_stm32/Flat.aspx?RootFolder=https%3a%2f%2fmy.st.com%2fpublic%2fSTe2ecommunities%2fmcu%2fLists%2fcortex_mx_stm32%2fInterrupt%20on%20CEN%20bit%20setting%20in%20TIM7&FolderCTID=0x01200200770978C69A1141439FE559EB459D7580009C4E14902C3CDE46A77F0FFD06506F5B&currentviews=474
 
