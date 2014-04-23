@@ -45,7 +45,7 @@ static time_t togglePwmState(PwmConfig *state) {
 			/**
 			 * period length has changed - we need to reset internal state
 			 */
-			state->safe.startMs = chTimeNow() * 1.0 / TICKS_IN_MS;
+			state->safe.startMs = getTimeNowUs() / 1000.0;
 			state->safe.iteration = 0;
 			state->safe.periodMs = state->periodMs;
 #if DEBUG_PWM
