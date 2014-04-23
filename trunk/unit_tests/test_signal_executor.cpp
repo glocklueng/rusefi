@@ -45,23 +45,23 @@ static void callback(void *a) {
 void testSignalExecutor() {
 	print("*************************************** testSignalExecutor\r\n");
 
-	assertEquals(EMPTY_QUEUE, eq.getNextEventTime());
+	assertEquals(EMPTY_QUEUE, eq.getNextEventTime(0));
 	scheduling_s s1;
 	scheduling_s s2;
 
 	eq.schedule(&s1, 0, 10, callback, NULL);
-	assertEquals(10, eq.getNextEventTime());
+	assertEquals(10, eq.getNextEventTime(0));
 
 	eq.execute(11);
 
-	assertEquals(EMPTY_QUEUE, eq.getNextEventTime());
+	assertEquals(EMPTY_QUEUE, eq.getNextEventTime(0));
 
 	eq.schedule(&s1, 0, 10, callback, NULL);
 	eq.schedule(&s2, 0, 13, callback, NULL);
-	assertEquals(10, eq.getNextEventTime());
+	assertEquals(10, eq.getNextEventTime(0));
 
 	eq.execute(1);
-	assertEquals(10, eq.getNextEventTime());
+	assertEquals(10, eq.getNextEventTime(0));
 
 
 //	OutputSignal s1;
