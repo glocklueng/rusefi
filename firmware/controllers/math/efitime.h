@@ -25,6 +25,8 @@ extern "C"
 {
 #endif /* __cplusplus */
 
+#define US_PER_SECOND 1000000
+
 // todo: implement a function to work with times considering counter overflow
 #define overflowDiff(now, time) ((now) - (time))
 
