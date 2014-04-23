@@ -42,13 +42,16 @@ void EventQueue::schedule(scheduling_s *scheduling, int delayUs,
 	schedule(scheduling, getTimeNowUs(), delayUs, callback, param);
 }
 
-uint64_t EventQueue::getNextEventTime(void) {
+uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
 	scheduling_s * elt;
 	// this is a large value which is expected to be larger than any real time
 	uint64_t result = EMPTY_QUEUE;
 
 	LL_FOREACH(head, elt)
 	{
+		if(elt->momentUs<=nowUs) {
+			continue;
+		}
 		if (elt->momentUs < result)
 			result = elt->momentUs;
 
