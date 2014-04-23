@@ -7,7 +7,9 @@
 
 #include "SingleTimerExecutor.h"
 #include "efitime.h"
+#if EFI_PROD_CODE
 #include "microsecond_timer.h"
+#endif
 
 #if EFI_SIGNAL_EXECUTOR_ONE_TIMER || defined(__DOXYGEN__)
 
@@ -52,7 +54,9 @@ void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 
 void initSignalExecutorImpl(void) {
 	globalTimerCallback = executorCallback;
+#if EFI_PROD_CODE
 	initMicrosecondTimer();
+#endif
 }
 
 #endif
