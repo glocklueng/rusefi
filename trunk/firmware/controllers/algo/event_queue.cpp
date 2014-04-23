@@ -13,8 +13,7 @@ EventQueue::EventQueue() {
 	head = NULL;
 }
 
-void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs,
-		schfunc_t callback, void *param) {
+void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
 	if (callback == NULL)
 		firmwareError("NULL callback");
 	uint64_t time = nowUs + delayUs;
@@ -37,11 +36,13 @@ void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs,
 	LL_PREPEND(head, scheduling);
 }
 
-void EventQueue::schedule(scheduling_s *scheduling, int delayUs,
-		schfunc_t callback, void *param) {
+void EventQueue::schedule(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param) {
 	schedule(scheduling, getTimeNowUs(), delayUs, callback, param);
 }
 
+/**
+ * Get the timestamp of the soonest pending action
+ */
 uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
 	scheduling_s * elt;
 	// this is a large value which is expected to be larger than any real time
@@ -49,20 +50,21 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
 
 	LL_FOREACH(head, elt)
 	{
-		if(elt->momentUs<=nowUs) {
+		if (elt->momentUs <= nowUs) {
+			// todo: I am not so sure about this branch
 			continue;
 		}
 		if (elt->momentUs < result)
 			result = elt->momentUs;
-
 	}
 	return result;
 }
 
+/**
+ * Invoke all pending actions prior to specified timestamp
+ */
 void EventQueue::execute(uint64_t now) {
 	scheduling_s * elt, *tmp;
-
-//	DL_FOREACH_SAFE()
 
 // here we need safe iteration because we are removing elements
 	LL_FOREACH_SAFE(head, elt, tmp)
