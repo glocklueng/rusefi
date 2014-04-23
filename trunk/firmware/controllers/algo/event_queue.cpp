@@ -1,5 +1,9 @@
 /**
  * @file event_queue.cpp
+ * This is a data structure which keeps track of all pending events
+ * Implemented as a linked list, which is fine since the number of
+ * pending events is pretty low
+ * todo: MAYBE migrate to a better data structure, but that's low priority
  *
  * @date Apr 17, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
@@ -69,7 +73,7 @@ void EventQueue::execute(uint64_t now) {
 // here we need safe iteration because we are removing elements
 	LL_FOREACH_SAFE(head, elt, tmp)
 	{
-		if (elt->momentUs < now) {
+		if (elt->momentUs <= now) {
 			LL_DELETE(head, elt);
 #if EFI_SIGNAL_EXECUTOR_ONE_TIMER
 			elt->callback(elt->param);
