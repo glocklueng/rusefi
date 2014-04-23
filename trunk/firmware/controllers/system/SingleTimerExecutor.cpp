@@ -24,11 +24,15 @@ Executor::Executor() {
 
 void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
 	eq.schedule(scheduling, nowUs, delayUs, callback, param);
-	uint64_t nextEventTime = eq.getNextEventTime();
-	setTimer(nextEventTime - getTimeNowUs());
+	uint64_t nextEventTime = eq.getNextEventTime(nowUs);
+	setTimer(nextEventTime - nowUs);
 }
 
 void scheduleTask(scheduling_s *scheduling, float delayMs, schfunc_t callback, void *param) {
+	if(delayMs==0) {
+		callback(param);
+		return;
+	}
 	// todo: eliminate this /100. Times still come as systick times here
 	instance.schedule(scheduling, getTimeNowUs(), delayMs * 1000000 / 100000, callback, param);
 }
