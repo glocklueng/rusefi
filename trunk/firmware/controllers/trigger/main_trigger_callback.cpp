@@ -200,6 +200,11 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 
 		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2);
 	}
+	if(rpm==0) {
+		// this happens while we just start cranking
+		// todo: check for 'trigger->is_synchnonized?'
+		return;
+	}
 
 	handleFuel(eventIndex);
 	handleSpark(eventIndex);
