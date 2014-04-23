@@ -150,7 +150,7 @@ void handleValueWriteCommand(void) {
 //	unsigned char value = writeBuffer[1];
 //
 
-	efitimems_t nowMs = getTimeNowMs();
+	efitimems_t nowMs = currentTimeMillis();
 	if (nowMs - previousWriteReportMs > 5) {
 		previousWriteReportMs = nowMs;
 //		scheduleMsg(&logger, "page %d offset %d: value=%d", pageId, writeRequest.offset, writeRequest.value);

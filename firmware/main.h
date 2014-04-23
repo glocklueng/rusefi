@@ -48,11 +48,6 @@ extern "C"
  */
 #define chTimeNowSeconds() (chTimeNow() / CH_FREQUENCY)
 
-/**
- * @brief   Returns the number of milliseconds since the board initialization.
- */
-#define currentTimeMillis() (chTimeNow() / TICKS_IN_MS)
-
 #define Delay(ms) chThdSleepMilliseconds(ms)
 #ifdef __cplusplus
 extern "C"
