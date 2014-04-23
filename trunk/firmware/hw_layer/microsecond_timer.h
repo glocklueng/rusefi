@@ -13,7 +13,7 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-void TIM_Init(void);
+void initMicrosecondTimer(void);
 void setHardwareUsTimer(int timeUs);
 
 #ifdef __cplusplus
