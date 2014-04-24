@@ -27,6 +27,8 @@ extern "C"
 
 #define US_PER_SECOND 1000000
 
+#define US_TO_TI_TEMP 10
+
 // todo: implement a function to work with times considering counter overflow
 #define overflowDiff(now, time) ((now) - (time))
 
