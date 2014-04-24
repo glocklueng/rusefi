@@ -76,33 +76,9 @@ static time_t togglePwmState(PwmConfig *state) {
 }
 
 static void timerCallback(PwmConfig *state) {
-	// todo: use this implementation! but something is wrong with it :(
 	time_t timeToSleep = togglePwmState(state);
 	scheduleTask(&state->scheduling, timeToSleep, (schfunc_t) timerCallback, state);
 }
-
-//static msg_t deThread(PwmConfig *state) {
-//	chRegSetThreadName("Wave");
-//
-//#if DEBUG_PWM
-//	scheduleMsg(&logger, "Thread started for %s", state->name);
-//#endif
-//
-////	setPadValue(state, state->idleState); todo: currently pin is always zero at first iteration.
-//// we can live with that for now
-//	// todo: figure out overflow
-//
-//	while (TRUE) {
-//		time_t timeToSwitch = togglePwmState(state);
-//#if DEBUG_PWM
-//		scheduleMsg(&logger, "%s: sleep %d", state->name, timeToSwitch);
-//#endif
-//		chThdSleep(timeToSwitch);
-//	}
-//#if defined __GNUC__
-//	return -1;
-//#endif
-//}
 
 /**
  * Incoming parameters are potentially just values on current stack, so we have to copy
@@ -149,8 +125,6 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, float *switchTim
 	state->safe.periodMs = -1;
 	state->safe.iteration = -1;
 	state->name = msg;
-//	chThdCreateStatic(state->deThreadStack, sizeof(state->deThreadStack), NORMALPRIO, (tfunc_t) deThread, state);
 
 	timerCallback(state);
-
 }
