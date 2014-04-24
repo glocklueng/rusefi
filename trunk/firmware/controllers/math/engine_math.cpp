@@ -84,8 +84,8 @@ float getOneDegreeTime(int rpm) {
  * @return number of system it needed for one crankshaft revolution, in systicks
  * @todo migrate getOneDegreeTimeMs
  */
-float getCrankshaftRevolutionTime(int rpm) {
-	return 360 * getOneDegreeTime(rpm);
+float getCrankshaftRevolutionTimeMs(int rpm) {
+	return 360 * getOneDegreeTimeMs(rpm);
 }
 
 /**

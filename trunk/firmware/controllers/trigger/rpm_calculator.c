@@ -66,9 +66,9 @@ int getRpm() {
 float getCrankshaftAngle(uint64_t time) {
 	int timeSinceZeroAngle = overflowDiff(time, rpmState.lastRpmEventTime);
 
-	float cRevolutionTime = getCrankshaftRevolutionTime(rpmState.rpm);
+	float cRevolutionTime = getCrankshaftRevolutionTimeMs(rpmState.rpm);
 
-	return 360 * timeSinceZeroAngle / cRevolutionTime;
+	return 360 * timeSinceZeroAngle / cRevolutionTime / 100;
 }
 
 int getRevolutionCounter(void) {
