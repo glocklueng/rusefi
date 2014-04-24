@@ -47,6 +47,11 @@ uint64_t getTimeNowUs(void);
  */
 efitimems_t currentTimeMillis(void);
 
+/**
+ * @brief   Current system time in seconds.
+ */
+int chTimeNowSeconds(void);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
