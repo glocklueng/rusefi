@@ -30,7 +30,7 @@ void setOutputPinValue(io_pin_e pin, int value) {
 	testToggleCounter++;
 }
 
-void scheduleTask(scheduling_s *scheduling, float delay, schfunc_t callback, void *param) {
+void scheduleTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param) {
 }
 
 void initSignalExecutorImpl(void) {

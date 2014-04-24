@@ -117,7 +117,7 @@ int main(void) {
 	testPinHelper();
 	testSetTableValue();
 
-	printf("Success 20130422\r\n");
+	printf("Success 20130423\r\n");
 
 //	resizeMap();
 
