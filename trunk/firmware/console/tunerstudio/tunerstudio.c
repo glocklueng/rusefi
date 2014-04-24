@@ -218,7 +218,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 		}
 		if (!wasReady) {
 			wasReady = TRUE;
-//			scheduleSimpleMsg(&logger, "ts channel is now ready ", chTimeNow());
+//			scheduleSimpleMsg(&logger, "ts channel is now ready ", hTimeNow());
 		}
 
 		short command = (short) chSequentialStreamGet(TS_SERIAL_DEVICE);
