@@ -118,7 +118,7 @@ void addWaveChartEvent3(WaveChart *chart, char *name, char * msg, char * msg2) {
 		return;
 	lockOutputBuffer(); // we have multiple threads writing to the same output buffer
 	appendPrintf(&chart->logging, "%s%s%s%s", name, CHART_DELIMETER, msg, CHART_DELIMETER);
-	appendPrintf(&chart->logging, "%d%s%s", chTimeNow(), msg2, CHART_DELIMETER);
+	appendPrintf(&chart->logging, "%d%s%s", getTimeNowUs() / US_TO_TI_TEMP, msg2, CHART_DELIMETER);
 	chart->counter++;
 	unlockOutputBuffer();
 }
