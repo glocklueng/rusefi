@@ -25,7 +25,7 @@ float getDefaultFuel(int rpm, float map);
 
 float getOneDegreeTimeMs(int rpm);
 float getOneDegreeTime(int rpm);
-float getCrankshaftRevolutionTime(int rpm);
+float getCrankshaftRevolutionTimeMs(int rpm);
 
 int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm);
 #define isCrankingR(rpm) isCrankingRT(engineConfiguration, rpm)

@@ -81,7 +81,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s co
 		return;
 	}
 
-	uint64_t currentDuration = nowUs - shaftPositionState->toothed_previous_time;
+	int64_t currentDuration = nowUs - shaftPositionState->toothed_previous_time;
 	chDbgCheck(currentDuration >= 0, "negative duration?");
 
 // todo: skip a number of signal from the beginning
