@@ -24,7 +24,6 @@ float getDefaultFuel(int rpm, float map);
 //float getTCharge(int rpm, int tps, float coolantTemp, float airTemp);
 
 float getOneDegreeTimeMs(int rpm);
-float getOneDegreeTime(int rpm);
 float getCrankshaftRevolutionTimeMs(int rpm);
 
 int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm);
