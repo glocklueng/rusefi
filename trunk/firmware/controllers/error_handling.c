@@ -19,7 +19,7 @@ extern int warningEnabled;
  * @returns TRUE in case there are too many warnings
  */
 int warning(obd_code_e code, const char *fmt, ...) {
-	int now = chTimeNowSeconds();
+	int now = getTimeNowSeconds();
 	if (now == timeOfPreviousWarning || !warningEnabled)
 		return TRUE; // we just had another warning, let's not spam
 	timeOfPreviousWarning = now;

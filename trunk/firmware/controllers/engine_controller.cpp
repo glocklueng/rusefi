@@ -130,7 +130,7 @@ efitimems_t currentTimeMillis(void) {
 	return chTimeNow() / TICKS_IN_MS;
 }
 
-int chTimeNowSeconds(void) {
+int getTimeNowSeconds(void) {
 	return chTimeNow() / CH_FREQUENCY;
 }
 
