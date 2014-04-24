@@ -169,6 +169,10 @@ uint64_t getTimeNowUs(void) {
 	return chTimeNow() * (1000000 / CH_FREQUENCY);
 }
 
+efitimems_t currentTimeMillis(void) {
+	return getTimeNowUs() * 1000;
+}
+
 int getRusEfiVersion(void) {
 	return 239;
 }
