@@ -176,6 +176,6 @@ void initRpmCalculator(void) {
 }
 
 void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param) {
-	int delay = (int)(getOneDegreeTime(getRpm()) * angle);
-	scheduleTask(timer, delay * 1000000 / 100000, callback, param);
+	float delayMs = getOneDegreeTimeMs(getRpm()) * angle;
+	scheduleTask(timer, MS2US(delayMs), callback, param);
 }
