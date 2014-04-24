@@ -73,16 +73,7 @@ float getOneDegreeTimeMs(int rpm) {
 }
 
 /**
- * @return time needed to rotate crankshaft by one degree, in systicks
- * @deprecated use getOneDegreeTimeMs
- */
-float getOneDegreeTime(int rpm) {
-	return getOneDegreeTimeMs(rpm) * TICKS_IN_MS;
-}
-
-/**
- * @return number of system it needed for one crankshaft revolution, in systicks
- * @todo migrate getOneDegreeTimeMs
+ * @return number of milliseconds in one crankshaft revolution
  */
 float getCrankshaftRevolutionTimeMs(int rpm) {
 	return 360 * getOneDegreeTimeMs(rpm);
