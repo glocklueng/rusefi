@@ -57,7 +57,7 @@ void initOutputSignalBase(OutputSignal *signal) {
 
 static void turnHigh(OutputSignal *signal) {
 #if EFI_DEFAILED_LOGGING
-	signal->hi_time = chTimeNow();
+//	signal->hi_time = hTimeNow();
 #endif /* EFI_DEFAILED_LOGGING */
 	io_pin_e pin = signal->io_pin;
 	// turn the output level ACTIVE
@@ -69,7 +69,7 @@ static void turnHigh(OutputSignal *signal) {
 	if(
 			pin == SPARKOUT_1_OUTPUT ||
 			pin == SPARKOUT_3_OUTPUT) {
-//		time_t now = chTimeNow();
+//		time_t now = hTimeNow();
 //		float an = getCrankshaftAngle(now);
 //		scheduleMsg(&logger, "spark up%d %d", pin, now);
 //		scheduleMsg(&logger, "spark angle %d %f", (int)an, an);
@@ -87,7 +87,7 @@ static void turnLow(OutputSignal *signal) {
 	setOutputPinValue(signal->io_pin, FALSE);
 
 #if EFI_DEFAILED_LOGGING
-	systime_t after = chTimeNow();
+	systime_t after = hTimeNow();
 	debugInt(&signal->logging, "a_time", after - signal->hi_time);
 	scheduleLogging(&signal->logging);
 #endif /* EFI_DEFAILED_LOGGING */
