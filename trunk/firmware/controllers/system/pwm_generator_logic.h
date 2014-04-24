@@ -48,7 +48,6 @@ struct PwmConfig_struct {
 	 */
 	float periodMs;
 
-	WORKING_AREA(deThreadStack, UTILITY_THREAD_STACK_SIZE);
 	scheduling_s scheduling;
 
 	pwm_config_safe_state_s safe;
