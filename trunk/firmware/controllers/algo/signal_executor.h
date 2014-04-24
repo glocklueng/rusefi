@@ -69,8 +69,8 @@ struct OutputSignal_struct {
 #endif
 	int initialized;
 
-	time_t last_scheduling_time;
-	time_t hi_time;
+//	time_t last_scheduling_time;
+//	time_t hi_time;
 
 	/**
 	 * We are alternating instances so that events which extend into next revolution are not overriden while
@@ -95,7 +95,7 @@ extern "C"
 #endif /* __cplusplus */
 
 void initOutputSignal(OutputSignal *signal, io_pin_e ioPin);
-void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs, time_t now);
+void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs);
 void initOutputSignalBase(OutputSignal *signal);
 void scheduleOutputBase(OutputSignal *signal, float delayMs, float durationMs);
 

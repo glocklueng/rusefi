@@ -51,7 +51,7 @@ void initSignalExecutor(void) {
 
 void initOutputSignalBase(OutputSignal *signal) {
 	signal->status = IDLE;
-	signal->last_scheduling_time = 0;
+//	signal->last_scheduling_time = 0;
 	signal->initialized = TRUE;
 }
 
@@ -107,7 +107,7 @@ static void turnLow(OutputSignal *signal) {
 
 int getRevolutionCounter(void);
 
-void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs, time_t now) {
+void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs) {
 	if (durationMs < 0) {
 		firmwareError("duration cannot be negative: %d", durationMs);
 		return;
@@ -122,7 +122,7 @@ void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs, time_
 	scheduleTask(sUp, TICKS_IN_MS * delayMs, (schfunc_t) &turnHigh, (void *) signal);
 	scheduleTask(sDown, TICKS_IN_MS * (delayMs + durationMs), (schfunc_t) &turnLow, (void*)signal);
 
-	signal->last_scheduling_time = now;
+//	signal->last_scheduling_time = now;
 }
 
 void scheduleOutputBase(OutputSignal *signal, float delayMs, float durationMs) {
