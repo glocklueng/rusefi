@@ -26,7 +26,7 @@ typedef struct {
 	/**
 	 * Start time of current iteration
 	 */
-	float startMs;
+	uint64_t startUs;
 	int phaseIndex;
 } pwm_config_safe_state_s;
 

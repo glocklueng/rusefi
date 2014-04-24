@@ -22,7 +22,7 @@ static float getNextSwitchTimeMs(PwmConfig *state) {
 #if DEBUG_PWM
 	scheduleMsg(&logger, "start=%d timeToSwitch=%d", state->safe.start, timeToSwitch);
 #endif
-	return state->safe.startMs + timeToSwitch;
+	return state->safe.startUs / 1000 + timeToSwitch;
 }
 
 static time_t togglePwmState(PwmConfig *state) {
@@ -45,7 +45,7 @@ static time_t togglePwmState(PwmConfig *state) {
 			/**
 			 * period length has changed - we need to reset internal state
 			 */
-			state->safe.startMs = getTimeNowUs() / 1000.0;
+			state->safe.startUs = getTimeNowUs();
 			state->safe.iteration = 0;
 			state->safe.periodMs = state->periodMs;
 #if DEBUG_PWM
