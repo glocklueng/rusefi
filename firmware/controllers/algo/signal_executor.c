@@ -119,8 +119,8 @@ void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs) {
 	scheduling_s * sUp = &signal->signalTimerUp[index];
 	scheduling_s * sDown = &signal->signalTimerDown[index];
 
-	scheduleTask(sUp, TICKS_IN_MS * delayMs * 1000000 / 100000, (schfunc_t) &turnHigh, (void *) signal);
-	scheduleTask(sDown, TICKS_IN_MS * (delayMs + durationMs) * 1000000 / 100000, (schfunc_t) &turnLow, (void*)signal);
+	scheduleTask(sUp, MS2US(delayMs), (schfunc_t) &turnHigh, (void *) signal);
+	scheduleTask(sDown, MS2US(delayMs + durationMs), (schfunc_t) &turnLow, (void*)signal);
 
 //	signal->last_scheduling_time = now;
 }
