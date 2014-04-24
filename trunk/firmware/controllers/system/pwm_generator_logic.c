@@ -8,7 +8,7 @@
 #include "pwm_generator_logic.h"
 #include "engine_math.h"
 
-static float getNextSwitchTimeMs(PwmConfig *state) {
+static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
 	chDbgAssert(state->safe.phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", NULL);
 	int iteration = state->safe.iteration;
 	float switchTime = state->multiWave.switchTimes[state->safe.phaseIndex];
@@ -17,12 +17,12 @@ static float getNextSwitchTimeMs(PwmConfig *state) {
 	scheduleMsg(&logger, "iteration=%d switchTime=%f period=%f", iteration, switchTime, period);
 #endif
 
-	float timeToSwitch = (iteration + switchTime) * periodMs;
+	uint64_t timeToSwitchUs = (iteration + switchTime) * periodMs * 1000;
 
 #if DEBUG_PWM
 	scheduleMsg(&logger, "start=%d timeToSwitch=%d", state->safe.start, timeToSwitch);
 #endif
-	return state->safe.startUs / 1000 + timeToSwitch;
+	return state->safe.startUs + timeToSwitchUs;
 }
 
 static time_t togglePwmState(PwmConfig *state) {
@@ -57,11 +57,11 @@ static time_t togglePwmState(PwmConfig *state) {
 	state->stateChangeCallback(state,
 			state->safe.phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->safe.phaseIndex - 1);
 
-	float nextSwitchTime = getNextSwitchTimeMs(state);
+	float nextSwitchTimeUs = getNextSwitchTimeUs(state);
 #if DEBUG_PWM
 	scheduleMsg(&logger, "%s: nextSwitchTime %d", state->name, nextSwitchTime);
 #endif
-	time_t timeToSwitch = nextSwitchTime * TICKS_IN_MS - chTimeNow();
+	time_t timeToSwitch = nextSwitchTimeUs / US_TO_TI_TEMP - chTimeNow();
 	if (timeToSwitch < 1) {
 //todo: introduce error and test this error handling		warning(OBD_PCM_Processor_Fault, "PWM: negative switch time");
 		timeToSwitch = 1;
@@ -77,6 +77,7 @@ static time_t togglePwmState(PwmConfig *state) {
 
 static void timerCallback(PwmConfig *state) {
 	time_t timeToSleep = togglePwmState(state);
+	// parameter here is still in systicks
 	scheduleTask(&state->scheduling, timeToSleep, (schfunc_t) timerCallback, state);
 }
 
