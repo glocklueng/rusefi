@@ -130,6 +130,10 @@ efitimems_t currentTimeMillis(void) {
 	return chTimeNow() / TICKS_IN_MS;
 }
 
+int chTimeNowSeconds(void) {
+	return chTimeNow() / CH_FREQUENCY;
+}
+
 static void onEveny10Milliseconds(void *arg) {
 	/**
 	 * We need to push current value into the 64 bit counter often enough so that we do not miss an overflow
