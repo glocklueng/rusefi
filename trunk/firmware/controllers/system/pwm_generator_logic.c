@@ -25,7 +25,7 @@ static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
 	return state->safe.startUs + timeToSwitchUs;
 }
 
-static time_t togglePwmState(PwmConfig *state) {
+static uint64_t togglePwmState(PwmConfig *state) {
 #if DEBUG_PWM
 	scheduleMsg(&logger, "togglePwmState phaseIndex=%d iteration=%d", state->safe.phaseIndex, state->safe.iteration);
 	scheduleMsg(&logger, "state->period=%f state->safe.period=%f", state->period, state->safe.period);
@@ -57,14 +57,14 @@ static time_t togglePwmState(PwmConfig *state) {
 	state->stateChangeCallback(state,
 			state->safe.phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->safe.phaseIndex - 1);
 
-	float nextSwitchTimeUs = getNextSwitchTimeUs(state);
+	uint64_t nextSwitchTimeUs = getNextSwitchTimeUs(state);
 #if DEBUG_PWM
 	scheduleMsg(&logger, "%s: nextSwitchTime %d", state->name, nextSwitchTime);
 #endif
-	time_t timeToSwitch = nextSwitchTimeUs / US_TO_TI_TEMP - chTimeNow();
+	uint64_t timeToSwitch = nextSwitchTimeUs - getTimeNowUs();
 	if (timeToSwitch < 1) {
 //todo: introduce error and test this error handling		warning(OBD_PCM_Processor_Fault, "PWM: negative switch time");
-		timeToSwitch = 1;
+		timeToSwitch = 10;
 	}
 
 	state->safe.phaseIndex++;
@@ -78,7 +78,7 @@ static time_t togglePwmState(PwmConfig *state) {
 static void timerCallback(PwmConfig *state) {
 	time_t timeToSleep = togglePwmState(state);
 	// parameter here is still in systicks
-	scheduleTask(&state->scheduling, timeToSleep, (schfunc_t) timerCallback, state);
+	scheduleTask(&state->scheduling, timeToSleep / US_TO_TI_TEMP, (schfunc_t) timerCallback, state);
 }
 
 /**
