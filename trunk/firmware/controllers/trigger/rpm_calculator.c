@@ -63,7 +63,7 @@ int getRpm() {
 /**
  * @return Current crankshaft angle, 0 to 720 for four-stroke
  */
-float getCrankshaftAngle(time_t time) {
+float getCrankshaftAngle(uint64_t time) {
 	int timeSinceZeroAngle = overflowDiff(time, rpmState.lastRpmEventTime);
 
 	float cRevolutionTime = getCrankshaftRevolutionTime(rpmState.rpm);
