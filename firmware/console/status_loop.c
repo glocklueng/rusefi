@@ -263,7 +263,7 @@ void updateDevConsoleState(void) {
 	if (!fullLog)
 		return;
 
-	systime_t nowSeconds = chTimeNowSeconds();
+	systime_t nowSeconds = getTimeNowSeconds();
 	printVersion(nowSeconds);
 
 	int currentCkpEventCounter = getCrankEventCounter();
