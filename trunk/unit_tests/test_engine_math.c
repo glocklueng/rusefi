@@ -18,8 +18,8 @@ void testEngineMath(void) {
 
 	engineConfiguration->rpmMultiplier = 0.5;
 
-	assertEqualsM("600 RPM", 5000, getOneDegreeTime(600) * 180);
-	assertEqualsM("6000 RPM", 500, getOneDegreeTime(6000) * 180);
+	assertEqualsM("600 RPM", 50, getOneDegreeTimeMs(600) * 180);
+	assertEqualsM("6000 RPM", 5, getOneDegreeTimeMs(6000) * 180);
 }
 
 float getMap(void) {
