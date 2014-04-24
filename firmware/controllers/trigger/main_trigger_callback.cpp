@@ -87,7 +87,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 //	if (isCranking())
 //		scheduleMsg(&logger, "crankingFuel=%f for CLT=%fC", fuelMs, getCoolantTemperature());
 
-	scheduleOutput(event->actuator, delay, fuelMs, chTimeNow());
+	scheduleOutput(event->actuator, delay, fuelMs, getTimeNowUs() / US_TO_TI_TEMP);
 }
 
 static void handleFuel(int eventIndex) {
@@ -230,7 +230,7 @@ void initMainEventListener() {
 	addConsoleAction("maininfo", showMainInfo);
 
 	initLogging(&logger, "main event handler");
-	printMsg(&logger, "initMainLoop: %d", chTimeNow());
+	printMsg(&logger, "initMainLoop: %d", currentTimeMillis());
 	initHistogram(&mainLoopHisto, "main callback");
 
 	if (!isInjectionEnabled())
