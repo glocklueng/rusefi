@@ -78,7 +78,7 @@ static uint64_t togglePwmState(PwmConfig *state) {
 static void timerCallback(PwmConfig *state) {
 	time_t timeToSleep = togglePwmState(state);
 	// parameter here is still in systicks
-	scheduleTask(&state->scheduling, timeToSleep / US_TO_TI_TEMP, (schfunc_t) timerCallback, state);
+	scheduleTask(&state->scheduling, timeToSleep / US_TO_TI_TEMP * 1000000 / 100000, (schfunc_t) timerCallback, state);
 }
 
 /**
