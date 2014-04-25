@@ -19,7 +19,7 @@ EventQueue::EventQueue() {
 	head = NULL;
 }
 
-void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
+void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
 	if (callback == NULL)
 		firmwareError("NULL callback");
 	uint64_t time = nowUs + delayUs;
@@ -42,8 +42,8 @@ void EventQueue::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs,
 	LL_PREPEND(head, scheduling);
 }
 
-void EventQueue::schedule(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param) {
-	schedule(scheduling, getTimeNowUs(), delayUs, callback, param);
+void EventQueue::insertTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param) {
+	insertTask(scheduling, getTimeNowUs(), delayUs, callback, param);
 }
 
 /**
@@ -69,7 +69,7 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
 /**
  * Invoke all pending actions prior to specified timestamp
  */
-void EventQueue::execute(uint64_t now) {
+void EventQueue::executeAll(uint64_t now) {
 	scheduling_s * elt, *tmp;
 
 // here we need safe iteration because we are removing elements
@@ -82,4 +82,8 @@ void EventQueue::execute(uint64_t now) {
 #endif /* EFI_SIGNAL_EXECUTOR_ONE_TIMER */
 		}
 	}
+}
+
+void EventQueue::clear(void) {
+	head = NULL;
 }

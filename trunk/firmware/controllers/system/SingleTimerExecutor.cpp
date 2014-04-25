@@ -35,7 +35,7 @@ Executor::Executor() {
 }
 
 void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
-	queue.schedule(scheduling, nowUs, delayUs, callback, param);
+	queue.insertTask(scheduling, nowUs, delayUs, callback, param);
 	setTimer(nowUs);
 }
 
@@ -43,7 +43,7 @@ void Executor::execute(uint64_t now) {
 	/**
 	 * Let's execute actions we should execute at this point
 	 */
-	queue.execute(now);
+	queue.executeAll(now);
 	/**
 	 * Let's set up the timer for the next execution
 	 */
