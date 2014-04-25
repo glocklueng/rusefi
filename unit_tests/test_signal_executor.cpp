@@ -36,10 +36,12 @@ void scheduleTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, voi
 void initSignalExecutorImpl(void) {
 }
 
-EventQueue eq;
+static EventQueue eq;
+
+static int callbackCounter = 0;
 
 static void callback(void *a) {
-
+	callbackCounter++;
 }
 
 void testSignalExecutor() {
@@ -49,19 +51,33 @@ void testSignalExecutor() {
 	scheduling_s s1;
 	scheduling_s s2;
 
-	eq.schedule(&s1, 0, 10, callback, NULL);
+	eq.insertTask(&s1, 0, 10, callback, NULL);
 	assertEquals(10, eq.getNextEventTime(0));
 
-	eq.execute(11);
+	eq.executeAll(1);
+	assertEqualsM("callbacks not expected", 0, callbackCounter);
+
+	eq.executeAll(11);
+	assertEquals(1, callbackCounter);
 
 	assertEquals(EMPTY_QUEUE, eq.getNextEventTime(0));
 
-	eq.schedule(&s1, 0, 10, callback, NULL);
-	eq.schedule(&s2, 0, 13, callback, NULL);
+	eq.insertTask(&s1, 0, 10, callback, NULL);
+	eq.insertTask(&s2, 0, 13, callback, NULL);
 	assertEquals(10, eq.getNextEventTime(0));
 
-	eq.execute(1);
+	eq.executeAll(1);
 	assertEquals(10, eq.getNextEventTime(0));
+
+	eq.clear();
+	callbackCounter = 0;
+	// both events are scheduled for the same time
+	eq.insertTask(&s1, 0, 10, callback, NULL);
+	eq.insertTask(&s2, 0, 10, callback, NULL);
+
+	eq.executeAll(11);
+
+	assertEquals(2, callbackCounter);
 
 
 //	OutputSignal s1;
