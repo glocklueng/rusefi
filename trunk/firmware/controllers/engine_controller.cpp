@@ -125,6 +125,10 @@ uint64_t getTimeNowUs(void) {
 	return halTime.get() / (CORE_CLOCK / 1000000);
 }
 
+uint64_t getHalTimer(void) {
+	return halTime.get();
+}
+
 efitimems_t currentTimeMillis(void) {
 	// todo: migrate to getTimeNowUs? or not?
 	return chTimeNow() / TICKS_IN_MS;

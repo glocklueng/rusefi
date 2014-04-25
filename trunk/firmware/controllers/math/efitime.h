@@ -42,6 +42,8 @@ extern "C"
  */
 uint64_t getTimeNowUs(void);
 
+uint64_t getHalTimer(void);
+
 /**
  * @brief   Returns the number of milliseconds since the board initialization.
  */
