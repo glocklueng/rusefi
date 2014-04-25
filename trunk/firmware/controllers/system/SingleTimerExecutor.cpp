@@ -1,7 +1,7 @@
 /**
  * @file SingleTimerExecutor.cpp
  *
- * This class combines the 1MHz hardware timer and microsecond_timer.c
+ * This class combines the powers of a 1MHz hardware timer from microsecond_timer.c
  * and pending events queue event_queue.cpp
  *
  * todo: add thread safety
