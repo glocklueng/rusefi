@@ -50,6 +50,15 @@ void Executor::execute(uint64_t now) {
 	setTimer(now);
 }
 
+/**
+ * @brief Schedule an event
+ *
+ * Invokes event callback after the specified amount of time.
+ *
+ * @param [in, out] scheduling Data structure to keep this event in the collection.
+ * @param [in] delayUs the number of microseconds before the output signal immediate output if delay is zero.
+ * @param [in] dwell the number of ticks of output duration.
+ */
 void scheduleTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param) {
 	if (delayUs == 0) {
 		callback(param);

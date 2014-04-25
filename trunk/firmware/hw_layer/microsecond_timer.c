@@ -20,6 +20,9 @@ static TIM_TypeDef *TIM = TIM5;
 
 schfunc_t globalTimerCallback;
 
+/**
+ * sets the alarm to the specified number of microseconds from now
+ */
 void setHardwareUsTimer(int timeUs) {
 	TIM->ARR = timeUs - 1;
 	TIM->EGR |= TIM_EGR_UG; // generate an update event to reload timer's counter value
