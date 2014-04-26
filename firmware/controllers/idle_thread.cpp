@@ -117,9 +117,10 @@ void startIdleThread() {
 
 	startSimplePwm(&idleValve, "Idle Valve",
 			boardConfiguration->idleValvePin,
+			IDLE_VALVE,
 			0.5,
-			IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY,
-			IDLE_VALVE
+			IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY
+
 			);
 
 	idleInit(&idle);
