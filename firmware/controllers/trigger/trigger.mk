@@ -1,8 +1,8 @@
 
-TRIGGER_SRC = \
-	$(PROJECT_DIR)/controllers/trigger/rpm_calculator.c
+TRIGGER_SRC = 
 
 TRIGGER_SRC_CPP = \
+	$(PROJECT_DIR)/controllers/trigger/rpm_calculator.cpp \
 	$(PROJECT_DIR)/controllers/trigger/trigger_central.cpp \
 	$(PROJECT_DIR)/controllers/trigger/trigger_mazda.cpp \
 	$(PROJECT_DIR)/controllers/trigger/trigger_structure.cpp \

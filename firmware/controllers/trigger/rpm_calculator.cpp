@@ -87,7 +87,7 @@ static int isNoisySignal(rpm_s * rpmState, uint64_t nowUs) {
 	return diff < 1000; // that's 1ms
 }
 
-static char shaft_signal_msg_index[15];
+static uint8_t shaft_signal_msg_index[15];
 
 void addWaveChartEvent(char *name, char * msg, char *msg2) {
 	addWaveChartEvent3(&waveChart, name, msg, msg2);
@@ -102,13 +102,13 @@ void addWaveChartEvent(char *name, char * msg, char *msg2) {
 static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 	itoa10(&shaft_signal_msg_index[1], index);
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
-		addWaveChartEvent("crank", "up", shaft_signal_msg_index);
+		addWaveChartEvent("crank", "up", (char*)shaft_signal_msg_index);
 	} else if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
-		addWaveChartEvent("crank", "down", shaft_signal_msg_index);
+		addWaveChartEvent("crank", "down", (char*)shaft_signal_msg_index);
 	} else if (ckpSignalType == SHAFT_SECONDARY_UP) {
-		addWaveChartEvent("crank2", "up", shaft_signal_msg_index);
+		addWaveChartEvent("crank2", "up", (char*)shaft_signal_msg_index);
 	} else if (ckpSignalType == SHAFT_SECONDARY_DOWN) {
-		addWaveChartEvent("crank2", "down", shaft_signal_msg_index);
+		addWaveChartEvent("crank2", "down", (char*)shaft_signal_msg_index);
 	}
 
 
@@ -149,11 +149,11 @@ static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 
 static scheduling_s tdcScheduler;
 
-static char rpmBuffer[10];
+static uint8_t rpmBuffer[10];
 
 static void onTdcCallback(void) {
 	itoa10(rpmBuffer, getRpm());
-	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, rpmBuffer, "");
+	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, (char*)rpmBuffer, "");
 }
 
 static void tdcMarkCallback(ShaftEvents ckpSignalType, int index) {
@@ -165,7 +165,7 @@ static void tdcMarkCallback(ShaftEvents ckpSignalType, int index) {
 void initRpmCalculator(void) {
 	initLogging(&logger, "rpm calc");
 
-	strcpy(shaft_signal_msg_index, "_");
+	strcpy((char*)shaft_signal_msg_index, "_");
 
 	rpmState.rpm = 0;
 
