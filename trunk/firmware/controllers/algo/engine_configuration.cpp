@@ -31,6 +31,7 @@
 #include "tunerstudio.h"
 #endif
 
+extern "C" {
 #include "audi_aan.h"
 #include "dodge_neon.h"
 #include "ford_aspire.h"
@@ -46,6 +47,7 @@
 #include "MiniCooperR50.h"
 #include "ford_escort_gt.h"
 #include "citroenBerlingoTU3JP.h"
+}
 
 #define ADC_CHANNEL_FAST_ADC 256
 

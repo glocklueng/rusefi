@@ -23,6 +23,8 @@
 
 #include "main.h"
 #include "main_trigger_callback.h"
+#include "ec2.h"
+
 
 extern "C" {
 //#include "settings.h"

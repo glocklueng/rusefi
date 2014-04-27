@@ -48,6 +48,7 @@
 #include "adc_inputs.h"
 #include "algo.h"
 #include "efilib2.h"
+#include "ec2.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 

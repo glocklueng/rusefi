@@ -15,6 +15,8 @@
 #include "adc_inputs.h"
 #include "engine_configuration.h"
 #include "engine_math.h"
+#include "ec2.h"
+
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
