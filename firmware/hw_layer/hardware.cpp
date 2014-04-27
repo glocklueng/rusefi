@@ -75,10 +75,10 @@ void initI2Cmodule(void) {
 static char txbuf[1];
 
 static void sendI2Cbyte(int addr, int data) {
-	i2cAcquireBus(&I2CD1);
-	txbuf[0] = data;
-	i2cMasterTransmit(&I2CD1, addr, txbuf, 1, NULL, 0);
-	i2cReleaseBus(&I2CD1);
+//	i2cAcquireBus(&I2CD1);
+//	txbuf[0] = data;
+//	i2cMasterTransmit(&I2CD1, addr, txbuf, 1, NULL, 0);
+//	i2cReleaseBus(&I2CD1);
 }
 
 void initHardware() {
@@ -148,7 +148,7 @@ void initHardware() {
 	lcd_HD44780_init();
 
 	char buffer[16];
-	itoa10(buffer, SVN_VERSION);
+	itoa10((uint8_t*)buffer, SVN_VERSION);
 	lcd_HD44780_print_string(buffer);
 
 #endif
