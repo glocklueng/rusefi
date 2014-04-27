@@ -13,6 +13,8 @@
 #include "allsensors.h"
 #include "engine_math.h"
 #include "OutputSignalList.h"
+#include "ec2.h"
+
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
