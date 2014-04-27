@@ -10,6 +10,7 @@
 #include "engine_math.h"
 #include "engine_configuration.h"
 #include "ec2.h"
+#include "map.h"
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
