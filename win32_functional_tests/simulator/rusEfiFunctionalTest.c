@@ -9,6 +9,7 @@
 #include "rusEfiFunctionalTest.h"
 #include "eficonsole.h"
 #include "engine_configuration.h"
+#include "ec2.h"
 #include "rusefi_enums.h"
 #include "pwm_generator_logic.h"
 #include "wave_math.h"
