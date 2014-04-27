@@ -14,6 +14,8 @@
 
 #include "main.h"
 #include "error_handling.h"
+#include "ec2.h"
+
 
 extern "C"
 {
