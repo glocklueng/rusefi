@@ -25,7 +25,6 @@ extern "C"
 #include "test_interpolation_3d.h"
 #include "test_find_index.h"
 #include "test_fuel_map.h"
-#include "test_engine_math.h"
 #include "test_event_registry.h"
 #include "test_sensors.h"
 #include "test_signal_executor.h"
@@ -34,6 +33,7 @@ extern "C"
 #include "engine_math.h"
 }
 
+#include "test_engine_math.h"
 #include "test_trigger_decoder.h"
 
 static engine_configuration_s ec;
