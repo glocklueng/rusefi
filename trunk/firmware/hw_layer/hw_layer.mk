@@ -1,7 +1,6 @@
 
-HW_LAYERESRC = $(PROJECT_DIR)/hw_layer/hardware.c \
+HW_LAYERSRC = $(PROJECT_DIR)/hw_layer/hardware.c \
 	$(PROJECT_DIR)/hw_layer/adc_inputs.c \
-	$(PROJECT_DIR)/hw_layer/trigger_input.c \
 	$(PROJECT_DIR)/hw_layer/pin_repository.c \
 	$(PROJECT_DIR)/hw_layer/io_pins.c \
 	$(PROJECT_DIR)/hw_layer/mcp3208.c \
@@ -20,3 +19,4 @@ HW_LAYERESRC = $(PROJECT_DIR)/hw_layer/hardware.c \
 	$(PROJECT_DIR)/hw_layer/wave_analyzer_hw.c \
 	$(PROJECT_DIR)/hw_layer/pwm_generator.c
 
+HW_LAYER_SRC_CPP = $(PROJECT_DIR)/hw_layer/trigger_input.cpp
