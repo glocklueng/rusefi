@@ -19,6 +19,7 @@
 #include "adc_inputs.h"
 #include "interpolation.h"
 #include "tps.h"
+#include "ec2.h"
 
 #if EFI_PROD_CODE
 #include "pin_repository.h"

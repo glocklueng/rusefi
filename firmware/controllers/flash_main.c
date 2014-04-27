@@ -30,8 +30,9 @@
 #include "honda_accord.h"
 #include "GY6_139QMB.h"
 
+#include "ec2.h"
+
 static engine_type_e defaultEngineType = FORD_ASPIRE_1996;
-//static engine_type_e defaultEngineType = DODGE_NEON_1995;
 
 static Logging logger;
 

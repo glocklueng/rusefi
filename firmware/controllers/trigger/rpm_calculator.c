@@ -14,6 +14,7 @@
 #include "rpm_calculator.h"
 #include "trigger_central.h"
 #include "engine_configuration.h"
+#include "ec2.h"
 #include "engine_math.h"
 #if EFI_PROD_CODE || EFI_SIMULATOR
 #include "analog_chart.h"

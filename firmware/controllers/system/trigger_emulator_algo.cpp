@@ -9,6 +9,7 @@
 #include "engine_configuration.h"
 #include "wave_math.h"
 #include "LocalVersionHolder.h"
+#include "ec2.h"
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
