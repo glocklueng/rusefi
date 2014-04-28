@@ -36,9 +36,10 @@ typedef struct {
 
 class multi_wave_s {
 public:
-	float getSwitchTime(int index) const;
-	void setSwitchTime(int index, float value);
+	float getSwitchTime(int phaseIndex) const;
+	void setSwitchTime(int phaseIndex, float value);
 	void checkSwitchTimes(int size);
+	int getChannelState(int channelIndex, int phaseIndex) const;
 	/**
 	 * Number of events in the cycle
 	 */

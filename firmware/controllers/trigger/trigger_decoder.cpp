@@ -214,8 +214,8 @@ int findTriggerZeroEventIndex(trigger_shape_s const * shape, trigger_config_s co
 
 		int time = 10000 * (loopIndex + shape->wave.getSwitchTime(stateIndex));
 
-		int newPrimaryWheelState = shape->wave.waves[0].pinStates[stateIndex];
-		int newSecondaryWheelState = shape->wave.waves[1].pinStates[stateIndex];
+		int newPrimaryWheelState = shape->wave.getChannelState(0, stateIndex);
+		int newSecondaryWheelState = shape->wave.getChannelState(1, stateIndex);
 
 		if (primaryWheelState != newPrimaryWheelState) {
 			primaryWheelState = newPrimaryWheelState;
