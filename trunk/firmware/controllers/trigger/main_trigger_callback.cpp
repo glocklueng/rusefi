@@ -67,16 +67,6 @@ static Logging logger;
 static ActuatorEventList events;
 
 static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
-//	int cylinderId = event->actuatorId;
-//	if (cylinderId == 0)
-//		return; // no cylinder should be fired at this event
-//	assertCylinderId(cylinderId, "onShaftSignal");
-
-	if (rpm > engineConfiguration->rpmHardLimit) {
-		scheduleMsg(&logger, "RPM above hard limit %d", rpm);
-		return;
-	}
-
 	float fuelMs = getFuelMs(rpm) * engineConfiguration->globalFuelCorrection;
 	if (fuelMs < 0) {
 		scheduleMsg(&logger, "ERROR: negative injectionPeriod %f", fuelMs);
