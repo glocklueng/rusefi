@@ -14,7 +14,6 @@
 #include "flash_main.h"
 #include "adc_inputs.h"
 #include "engine_controller.h"
-#include "rusefi.h"
 #include "thermistors.h"
 #include "adc_inputs.h"
 #include "interpolation.h"
@@ -22,6 +21,7 @@
 #include "ec2.h"
 
 #if EFI_PROD_CODE
+#include "rusefi.h"
 #include "pin_repository.h"
 #endif /* EFI_PROD_CODE */
 

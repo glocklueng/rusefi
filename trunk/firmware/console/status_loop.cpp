@@ -37,7 +37,6 @@
 #include "engine_state.h"
 #include "io_pins.h"
 #include "mmc_card.h"
-#include "rusefi.h"
 #include "console_io.h"
 
 #include "advance_map.h"
@@ -59,6 +58,7 @@
 // todo: move this logic to algo folder!
 #include "rtc_helper.h"
 #include "lcd_HD44780.h"
+#include "rusefi.h"
 #endif
 
 // this 'true' value is needed for simulator
