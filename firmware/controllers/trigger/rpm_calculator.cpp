@@ -178,6 +178,8 @@ void initRpmCalculator(void) {
 
 /**
  * Schedules a callback 'angle' degree of crankshaft from now.
+ * The callback would be executed once after the duration of time which
+ * it takes the crankshaft to rotate to the specified angle.
  */
 void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param) {
 	float delayMs = getOneDegreeTimeMs(getRpm()) * angle;
