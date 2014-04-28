@@ -36,6 +36,8 @@ typedef struct {
 
 class multi_wave_s {
 public:
+	float getSwitchTime(int index);
+	void setSwitchTime(int index, float value);
 	/**
 	 * Number of events in the cycle
 	 */

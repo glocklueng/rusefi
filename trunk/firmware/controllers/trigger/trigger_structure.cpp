@@ -21,6 +21,14 @@
 #include "main.h"
 #include "trigger_structure.h"
 
+float multi_wave_s::getSwitchTime(int index) {
+	return switchTimes[index];
+}
+
+void multi_wave_s::setSwitchTime(int index, float value) {
+	switchTimes[index] = value;
+}
+
 void clearTriggerState(trigger_state_s *state) {
 	state->shaft_is_synchronized = FALSE;
 	state->toothed_previous_time = 0;
@@ -39,7 +47,7 @@ void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e wave
 		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
 			trigger->wave.waves[i].pinStates[0] = trigger->initialState[i];
 
-		trigger->wave.switchTimes[0] = angle;
+		trigger->wave.setSwitchTime(0, angle);
 		trigger->wave.waves[waveIndex].pinStates[0] = state;
 		return;
 	}
