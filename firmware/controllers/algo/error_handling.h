@@ -36,6 +36,10 @@ void chDbgPanic3(const char *msg, char * file, int line);
 
 void initErrorHandling(void);
 
+// todo: better place for this shared declaration?
+int getRusEfiVersion(void);
+
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
