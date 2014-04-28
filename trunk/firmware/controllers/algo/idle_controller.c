@@ -15,6 +15,7 @@
 
 #include "idle_controller.h"
 
+// todo: move this to "idle_controller.h"
 void idleDebug(char *msg, int value);
 int isCranking(void);
 
