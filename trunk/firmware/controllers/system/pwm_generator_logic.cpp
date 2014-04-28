@@ -113,7 +113,7 @@ void weComplexInit(char *msg, PwmConfig *state, int phaseCount, float *switchTim
 		return;
 	}
 	chDbgCheck(waveCount > 0, "waveCount should be positive");
-	checkSwitchTimes(phaseCount, switchTimes);
+	checkSwitchTimes2(phaseCount, switchTimes);
 
 	state->multiWave.waveCount = waveCount;
 
