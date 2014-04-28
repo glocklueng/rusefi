@@ -183,7 +183,7 @@ static void fuelPumpOn(ShaftEvents signal, int index) {
 }
 
 static void initFuelPump(void) {
-	registerShaftPositionListener(&fuelPumpOn, "fuel pump");
+	addTriggerEventListener(&fuelPumpOn, "fuel pump");
 	fuelPumpOn(SHAFT_PRIMARY_UP, 0);
 }
 
