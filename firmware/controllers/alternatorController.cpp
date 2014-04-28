@@ -1,6 +1,6 @@
 /**
- * @file    alternatorController.c
- * @brief   alternator controller
+ * @file    alternatorController.cpp
+ * @brief   alternator controller - turn alternator off if you do not really need it
  *
  * @date Apr 6, 2014
  * @author Dmitry Sidin

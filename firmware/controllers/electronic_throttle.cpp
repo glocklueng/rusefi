@@ -1,5 +1,5 @@
 /**
- * @file	electronic_throttle.c
+ * @file	electronic_throttle.cpp
  * @brief	Electronic Throttle Module driver L298N
  *
  * todo: make this more universal if/when we get other hardware options
