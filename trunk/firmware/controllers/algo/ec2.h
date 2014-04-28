@@ -1,5 +1,8 @@
-/*
+/**
  * ec2.h
+ *
+ * this is a mess because some code is still in C and some is
+ * already in C++. trigger structure is C++
  *
  *  Created on: Apr 26, 2014
  *      Author: Andrey
@@ -43,6 +46,10 @@ void prepareOutputSignals(engine_configuration_s *engineConfiguration,
 
 void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 void addFuelEvents(engine_configuration_s const *e,  engine_configuration2_s *engineConfiguration2, ActuatorEventList *list, injection_mode_e mode);
+
+void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list, OutputSignal *actuator, float angleOffset);
+
+
 
 void resetConfigurationExt(engine_type_e engineType,
 		engine_configuration_s *engineConfiguration,

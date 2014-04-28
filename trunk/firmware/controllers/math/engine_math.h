@@ -35,8 +35,6 @@ float getEngineLoadT(engine_configuration_s *engineConfiguration);
 float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm);
 #define getSparkDwellMs(rpm) getSparkDwellMsT(engineConfiguration, rpm)
 
-void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list, OutputSignal *actuator, float angleOffset);
-
 int getCylinderId(firing_order_e firingOrder, int index);
 
 void setTableBin(float array[], int size, float l, float r);

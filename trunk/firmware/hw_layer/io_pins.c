@@ -14,7 +14,7 @@
 #include "gpio_helper.h"
 #include "status_loop.h"
 #include "main_trigger_callback.h"
-#include "trigger_decoder.h"
+#include "engine_configuration.h"
 #include "console_io.h"
 
 extern board_configuration_s *boardConfiguration;
@@ -91,6 +91,9 @@ static void comBlinkingThread(void *arg) {
 		chThdSleepMilliseconds(delay);
 	}
 }
+
+// todo: fix this, should be a proper declaration in a .h file
+int isTriggerDecoderError(void);
 
 static void errBlinkingThread(void *arg) {
 	chRegSetThreadName("err blinking");
