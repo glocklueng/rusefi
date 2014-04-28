@@ -109,7 +109,6 @@ CSRC =	${PORTSRC} \
        ${CHIBIOS}/os/various/chprintf.c \
        ${CHIBIOS}/os/various/memstreams.c \
 	$(UTILSRC) \
-       simulator/rusEfiFunctionalTest.c \
        simulator/boards.c \
 	$(PROJECT_DIR)/emulation/analog_chart.c \
 	main.c
@@ -125,6 +124,7 @@ CPPSRC = $(UTILSRC_CPP) \
 	$(CONTROLLERS_SENSORS_SRC_CPP) \
 	$(CONTROLLERS_MATH_SRC_CPP) \
 	$(ENGINES_SRC_CPP) \
+	$(PROJECT_DIR)/simulator/rusEfiFunctionalTest.cpp \
 	$(TEST_SRC_CPP)
 # C sources to be compiled in ARM mode regardless of the global setting.
 # NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
