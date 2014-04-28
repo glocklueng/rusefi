@@ -176,6 +176,9 @@ void initRpmCalculator(void) {
 	addTriggerEventListener(&tdcMarkCallback, "chart TDC mark");
 }
 
+/**
+ * Schedules a callback 'angle' degree of crankshaft from now.
+ */
 void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param) {
 	float delayMs = getOneDegreeTimeMs(getRpm()) * angle;
 	scheduleTask(timer, MS2US(delayMs), callback, param);
