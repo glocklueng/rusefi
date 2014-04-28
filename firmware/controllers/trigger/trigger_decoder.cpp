@@ -141,7 +141,7 @@ void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfig
 	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount);
 
 	engineConfiguration2->triggerShape.shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
-	checkSwitchTimes(s->size, s->wave.switchTimes);
+	s->wave.checkSwitchTimes(s->size);
 }
 
 static void configureFordAspireTriggerShape(trigger_shape_s * s) {
@@ -212,7 +212,7 @@ int findTriggerZeroEventIndex(trigger_shape_s const * shape, trigger_config_s co
 
 		int loopIndex = i / shape->size;
 
-		int time = 10000 * (loopIndex + shape->wave.switchTimes[stateIndex]);
+		int time = 10000 * (loopIndex + shape->wave.getSwitchTime(stateIndex));
 
 		int newPrimaryWheelState = shape->wave.waves[0].pinStates[stateIndex];
 		int newSecondaryWheelState = shape->wave.waves[1].pinStates[stateIndex];

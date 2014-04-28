@@ -21,7 +21,7 @@
 #include "main.h"
 #include "trigger_structure.h"
 
-float multi_wave_s::getSwitchTime(int index) {
+float multi_wave_s::getSwitchTime(int index) const {
 	return switchTimes[index];
 }
 
@@ -58,11 +58,16 @@ void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e wave
 
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
 		trigger->wave.waves[i].pinStates[index] = trigger->wave.waves[i].pinStates[index - 1];
-	trigger->wave.switchTimes[index] = angle;
+	trigger->wave.setSwitchTime(index,  angle);
 	trigger->wave.waves[waveIndex].pinStates[index] = state;
 }
 
-void checkSwitchTimes(int size, float *switchTimes) {
+void checkSwitchTimes2(int size, float *switchTimes) {
+
 	for (int i = 0; i < size - 1; i++)
 		chDbgCheck(switchTimes[i] < switchTimes[i + 1], "invalid switchTimes");
+}
+
+void multi_wave_s::checkSwitchTimes(int size) {
+	checkSwitchTimes2(size, switchTimes);
 }

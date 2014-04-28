@@ -37,7 +37,7 @@ void applyPinState(PwmConfig *state, int stateIndex) {
  * @param dutyCycle value between 0 and 1
  */
 void setSimplePwmDutyCycle(PwmConfig *state, float dutyCycle) {
-	state->multiWave.switchTimes[0] = dutyCycle;
+	state->multiWave.setSwitchTime(0, dutyCycle);
 }
 
 void startSimplePwm(PwmConfig *state, char *msg, brain_pin_e brainPin, io_pin_e ioPin,

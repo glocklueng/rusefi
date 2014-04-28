@@ -36,8 +36,9 @@ typedef struct {
 
 class multi_wave_s {
 public:
-	float getSwitchTime(int index);
+	float getSwitchTime(int index) const;
 	void setSwitchTime(int index, float value);
+	void checkSwitchTimes(int size);
 	/**
 	 * Number of events in the cycle
 	 */
@@ -47,6 +48,7 @@ public:
 	 */
 	int waveCount;
 	single_wave_s waves[PWM_PHASE_MAX_WAVE_PER_PWM];
+//private:
 	/**
 	 * values in the (0..1] range which refer to points within the period at at which pin state should be changed
 	 * So, in the simplest case we turn pin off at 0.3 and turn it on at 1 - that would give us a 70% duty cycle PWM
@@ -83,6 +85,8 @@ typedef struct {
 } trigger_shape_s;
 
 
+void checkSwitchTimes2(int size, float *switchTimes);
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -91,8 +95,6 @@ extern "C"
 void clearTriggerState(trigger_state_s *state);
 void triggerShapeInit(trigger_shape_s *trigger);
 void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, trigger_value_e state);
-
-void checkSwitchTimes(int size, float *switchTimes);
 
 #ifdef __cplusplus
 }
