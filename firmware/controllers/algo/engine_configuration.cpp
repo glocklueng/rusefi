@@ -152,6 +152,15 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	engineConfiguration->rpmHardLimit = 7000;
 	engineConfiguration->crankingSettings.crankingRpm = 550;
 
+	// set_cranking_fuel_max 6 40
+	engineConfiguration->crankingSettings.coolantTempMaxC = 40; // 6ms at 40C
+	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 6;
+
+	// set_cranking_fuel_min 6 -40
+	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 6ms at -40C
+	engineConfiguration->crankingSettings.fuelAtMinTempMs = 6;
+
+
 	engineConfiguration->analogInputDividerCoefficient = 2;
 
 	engineConfiguration->crankingChargeAngle = 70;
