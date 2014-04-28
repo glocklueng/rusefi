@@ -67,7 +67,9 @@ typedef enum {
 	T_SECONDARY = 1
 } trigger_wheel_e;
 
-typedef struct {
+class trigger_shape_s {
+public:
+//	trigger_shape_s(int a);
 	multi_wave_s wave;
 	int size;
 
@@ -83,7 +85,7 @@ typedef struct {
 	int initialState[PWM_PHASE_MAX_WAVE_PER_PWM];
 
 	int triggerShapeSynchPointIndex;
-} trigger_shape_s;
+};
 
 
 void checkSwitchTimes2(int size, float *switchTimes);
