@@ -172,8 +172,8 @@ void initRpmCalculator(void) {
 	// we need this initial to have not_running at first invocation
 	rpmState.lastRpmEventTimeUs = (uint64_t)-10 * US_PER_SECOND;
 
-	registerShaftPositionListener(&shaftPositionCallback, "rpm reporter");
-	registerShaftPositionListener(&tdcMarkCallback, "chart TDC mark");
+	addTriggerEventListener(&shaftPositionCallback, "rpm reporter");
+	addTriggerEventListener(&tdcMarkCallback, "chart TDC mark");
 }
 
 void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param) {

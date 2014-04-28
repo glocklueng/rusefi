@@ -229,7 +229,7 @@ void initMainEventListener() {
 	if (!isInjectionEnabled())
 		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
 
-	registerShaftPositionListener(&onShaftSignal, "main loop");
+	addTriggerEventListener(&onShaftSignal, "main loop");
 }
 
 int isIgnitionTimingError(void) {

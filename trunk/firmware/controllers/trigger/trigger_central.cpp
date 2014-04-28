@@ -40,8 +40,14 @@ int getCrankEventCounter() {
 	return shaftEventCounter;
 }
 
-void registerShaftPositionListener(ShaftPositionListener handler, char *msg) {
-	print("registerCkpListener: %s\r\n", msg);
+/**
+ * @brief Adds a trigger event listener
+ *
+ * Trigger event listener would be invoked on each trigger event. For example, for a 60/2 wheel
+ * that would be 116 events: 58 SHAFT_PRIMARY_UP and 58 SHAFT_PRIMARY_DOWN events.
+ */
+void addTriggerEventListener(ShaftPositionListener handler, char *name) {
+	print("registerCkpListener: %s\r\n", name);
 	registerCallback(&triggerListeneres, (IntListener) handler, NULL);
 }
 
