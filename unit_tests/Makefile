@@ -99,6 +99,7 @@ CPPSRC = $(UTILSRC_CPP) \
 	$(PROJECT_DIR)/controllers/trigger/trigger_structure.cpp \
 	$(ENGINES_SRC_CPP) \
 	$(CONTROLLERS_MATH_SRC_CPP) \
+	$(CONTROLLERS_SENSORS_SRC_CPP) \
 	$(TEST_SRC_CPP) \
 	main.cpp
 
