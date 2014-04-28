@@ -8,7 +8,7 @@
 #ifndef TRIGGER_CENTRAL_H_
 #define TRIGGER_CENTRAL_H_
 
-#include "trigger_structure.h"
+#include "rusefi_enums.h"
 
 typedef void (*ShaftPositionListener)(ShaftEvents signal, int index);
 

@@ -14,13 +14,6 @@
 #define PWM_PHASE_MAX_COUNT 150
 #define PWM_PHASE_MAX_WAVE_PER_PWM 2
 
-typedef enum {
-	SHAFT_PRIMARY_UP = 0,
-	SHAFT_PRIMARY_DOWN = 1,
-	SHAFT_SECONDARY_UP = 2,
-	SHAFT_SECONDARY_DOWN = 3,
-} ShaftEvents;
-
 typedef struct {
 	/**
 	 * TRUE if we know where we are
