@@ -6,14 +6,15 @@
  */
 
 #include "global.h"
+#include "boards.h"
 #include "rusEfiFunctionalTest.h"
+#include "console_io.h"
 #include "eficonsole.h"
 #include "engine_configuration.h"
 #include "ec2.h"
 #include "rusefi_enums.h"
 #include "pwm_generator_logic.h"
 #include "wave_math.h"
-#include "boards.h"
 #include "trigger_central.h"
 #include "datalogging.h"
 #include "algo.h"
@@ -24,6 +25,7 @@
 #include "main_trigger_callback.h"
 #include "allsensors.h"
 #include "analog_chart.h"
+#include "injector_central.h"
 
 extern WaveChart waveChart;
 
@@ -45,6 +47,12 @@ int isInjectionEnabled(void) {
 //void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 //
 //}
+
+// todo: move this to "idle_controller.h"
+
+extern "C" {
+void idleDebug(char *msg, int value);
+}
 
 void idleDebug(char *msg, int value) {
 
