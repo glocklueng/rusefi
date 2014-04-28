@@ -39,6 +39,7 @@ void initErrorHandling(void);
 // todo: better place for this shared declaration?
 int getRusEfiVersion(void);
 
+#define efiAssert(x, y) chDbgAssert(x, y, NULL)
 
 #ifdef __cplusplus
 }

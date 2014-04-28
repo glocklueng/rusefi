@@ -232,12 +232,6 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 		return getOneDegreeTimeMs(rpm) * angle;
 	}
 
-	if (rpm > engineConfiguration->rpmHardLimit) {
-		// technically this could be implemented via interpolate2d by setting everything above rpmHardLimit to zero
-		warning(OBD_PCM_Processor_Fault, "skipping spark due to rpm=%d", rpm);
-		return 0;
-	}
-
 	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
 }
 
