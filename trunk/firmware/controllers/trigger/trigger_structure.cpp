@@ -25,6 +25,10 @@ float multi_wave_s::getSwitchTime(int index) const {
 	return switchTimes[index];
 }
 
+int multi_wave_s::getChannelState(int channelIndex, int phaseIndex) const {
+	return waves[channelIndex].pinStates[phaseIndex];
+}
+
 void multi_wave_s::setSwitchTime(int index, float value) {
 	switchTimes[index] = value;
 }
@@ -57,7 +61,7 @@ void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e wave
 	int index = trigger->size++;
 
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
-		trigger->wave.waves[i].pinStates[index] = trigger->wave.waves[i].pinStates[index - 1];
+		trigger->wave.waves[i].pinStates[index] = trigger->wave.getChannelState(i, index - 1);
 	trigger->wave.setSwitchTime(index,  angle);
 	trigger->wave.waves[waveIndex].pinStates[index] = state;
 }
