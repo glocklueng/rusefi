@@ -34,7 +34,8 @@ typedef struct {
 	int pinStates[PWM_PHASE_MAX_COUNT];
 } single_wave_s;
 
-typedef struct {
+class multi_wave_s {
+public:
 	/**
 	 * Number of events in the cycle
 	 */
@@ -49,7 +50,7 @@ typedef struct {
 	 * So, in the simplest case we turn pin off at 0.3 and turn it on at 1 - that would give us a 70% duty cycle PWM
 	 */
 	float switchTimes[PWM_PHASE_MAX_COUNT];
-} multi_wave_s;
+};
 
 typedef enum {
 	TV_LOW = 0,
@@ -60,24 +61,6 @@ typedef enum {
 	T_PRIMARY = 0,
 	T_SECONDARY = 1
 } trigger_wheel_e;
-
-/**
- * @brief Trigger wheel(s) configuration
- */
-typedef struct {
-	trigger_type_e triggerType;
-
-	int isSynchronizationNeeded;
-
-	int totalToothCount;
-	int skippedToothCount;
-
-	float syncRatioFrom;
-	float syncRatioTo;
-
-	int useRiseEdge;
-
-} trigger_config_s;
 
 typedef struct {
 	multi_wave_s wave;

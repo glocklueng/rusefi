@@ -82,6 +82,26 @@ typedef struct {
 } afr_sensor_s;
 
 #define DWELL_COUNT 8
+
+/**
+ * @brief Trigger wheel(s) configuration
+ */
+typedef struct {
+	trigger_type_e triggerType;
+
+	int isSynchronizationNeeded;
+
+	int totalToothCount;
+	int skippedToothCount;
+
+	float syncRatioFrom;
+	float syncRatioTo;
+
+	int useRiseEdge;
+
+} trigger_config_s;
+
+
 /**
  * @brief	Engine configuration.
  * 		Values in this data structure are adjustable and persisted in on-board flash RAM.
