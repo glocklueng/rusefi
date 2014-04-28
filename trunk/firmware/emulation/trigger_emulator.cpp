@@ -28,8 +28,8 @@ void initTriggerEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
 	print("Emulating %s\r\n", getConfigurationName(engineConfiguration));
 
-	triggerSignal.outputPins[0] = TRIGGER_EMILATOR_PRIMARY;
-	triggerSignal.outputPins[1] = TRIGGER_EMILATOR_SECONDARY;
+	triggerSignal.outputPins[0] = TRIGGER_EMULATOR_PRIMARY;
+	triggerSignal.outputPins[1] = TRIGGER_EMULATOR_SECONDARY;
 
 	outputPinRegisterExt2("distributor ch1", triggerSignal.outputPins[0], boardConfiguration->triggerSimulatorPins[0],
 			&boardConfiguration->triggerSimulatorPinModes[0]);
