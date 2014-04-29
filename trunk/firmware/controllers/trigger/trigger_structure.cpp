@@ -21,11 +21,16 @@
 #include "main.h"
 #include "trigger_structure.h"
 
+multi_wave_s::multi_wave_s(float *st) {
+
+}
+
 float multi_wave_s::getSwitchTime(int index) const {
 	return switchTimes[index];
 }
 
-trigger_shape_s::trigger_shape_s() {
+trigger_shape_s::trigger_shape_s() :
+		w(switchTimes) {
 	reset();
 }
 

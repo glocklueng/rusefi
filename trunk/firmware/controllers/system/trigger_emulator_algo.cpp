@@ -16,7 +16,7 @@ extern engine_configuration2_s *engineConfiguration2;
 
 static float swtchTms[PWM_PHASE_MAX_COUNT];
 
-PwmConfig triggerSignal((int*)swtchTms);
+PwmConfig triggerSignal(swtchTms);
 
 static Logging logger;
 static LocalVersionHolder localVersion;
