@@ -24,6 +24,10 @@ static Logging logger;
 static LocalVersionHolder localVersion;
 
 void setTriggerEmulatorRPM(int rpm) {
+	/**
+	 * All we need to do here is to change the periodMs
+	 * togglePwmState() would see that the periodMs has changed and act accordingly
+	 */
 	if (rpm == 0) {
 		triggerSignal.periodMs = NAN;
 	} else {
