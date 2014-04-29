@@ -1,5 +1,5 @@
 /*
- * @file	algo.c
+ * @file	algo.cpp
  *
  * @date Mar 2, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
