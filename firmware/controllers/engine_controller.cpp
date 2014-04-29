@@ -248,9 +248,6 @@ void initEngineContoller(void) {
 	chThdCreateStatic(csThreadStack, sizeof(csThreadStack), LOWPRIO,
 			(tfunc_t) csThread, NULL);
 
-#if EFI_SIGNAL_EXECUTOR_SINGLE_TIMER
-	initOutputScheduler();
-#endif
 	initInjectorCentral();
 	initIgnitionCentral();
 	initMalfunctionCentral();
