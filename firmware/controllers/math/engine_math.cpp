@@ -244,19 +244,19 @@ void registerActuatorEventExt(engine_configuration_s const *engineConfiguration,
 	int triggerIndexOfZeroEvent = s->triggerShapeSynchPointIndex;
 
 	// todo: migrate to crankAngleRange?
-	float firstAngle = s->wave.getSwitchTime(triggerIndexOfZeroEvent) * 720;
+	float firstAngle = s->wave->getSwitchTime(triggerIndexOfZeroEvent) * 720;
 
 	// let's find the last trigger angle which is less or equal to the desired angle
 	int i;
 	for (i = 0; i < s->size - 1; i++) {
 		// todo: we need binary search here
-		float angle = fixAngle(s->wave.getSwitchTime((triggerIndexOfZeroEvent + i + 1) % s->size) * 720 - firstAngle);
+		float angle = fixAngle(s->wave->getSwitchTime((triggerIndexOfZeroEvent + i + 1) % s->size) * 720 - firstAngle);
 		if (angle > angleOffset)
 			break;
 	}
 	// explicit check for zero to avoid issues where logical zero is not exactly zero due to float nature
 	float angle =
-			i == 0 ? 0 : fixAngle(s->wave.getSwitchTime((triggerIndexOfZeroEvent + i) % s->size) * 720 - firstAngle);
+			i == 0 ? 0 : fixAngle(s->wave->getSwitchTime((triggerIndexOfZeroEvent + i) % s->size) * 720 - firstAngle);
 
 	chDbgCheck(angleOffset >= angle, "angle constraint violation in registerActuatorEventExt()");
 

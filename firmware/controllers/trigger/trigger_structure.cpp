@@ -25,6 +25,11 @@ float multi_wave_s::getSwitchTime(int index) const {
 	return switchTimes[index];
 }
 
+trigger_shape_s::trigger_shape_s() {
+	memset(this, 0, sizeof(trigger_shape_s));
+	wave = &w;
+}
+
 int multi_wave_s::getChannelState(int channelIndex, int phaseIndex) const {
 	return waves[channelIndex].pinStates[phaseIndex];
 }
@@ -41,19 +46,20 @@ void clearTriggerState(trigger_state_s *state) {
 }
 
 void triggerShapeInit(trigger_shape_s *trigger) {
-	efiAssert(trigger!=NULL, "NULL trigger");
-	memset(trigger, 0, sizeof(trigger_shape_s));
+	// todo: remove this method?
+	// todo: implement 'clean'?
 }
 
 void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
+	efiAssert(trigger->wave!=NULL, "trigger->wave null");
 	angle /= 720;
 	if (trigger->size == 0) {
 		trigger->size = 1;
 		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
-			trigger->wave.waves[i].pinStates[0] = trigger->initialState[i];
+			trigger->wave->waves[i].pinStates[0] = trigger->initialState[i];
 
-		trigger->wave.setSwitchTime(0, angle);
-		trigger->wave.waves[waveIndex].pinStates[0] = state;
+		trigger->wave->setSwitchTime(0, angle);
+		trigger->wave->waves[waveIndex].pinStates[0] = state;
 		return;
 	}
 
@@ -62,9 +68,9 @@ void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e wave
 	int index = trigger->size++;
 
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
-		trigger->wave.waves[i].pinStates[index] = trigger->wave.getChannelState(i, index - 1);
-	trigger->wave.setSwitchTime(index,  angle);
-	trigger->wave.waves[waveIndex].pinStates[index] = state;
+		trigger->wave->waves[i].pinStates[index] = trigger->wave->getChannelState(i, index - 1);
+	trigger->wave->setSwitchTime(index, angle);
+	trigger->wave->waves[waveIndex].pinStates[index] = state;
 }
 
 void checkSwitchTimes2(int size, float *switchTimes) {
