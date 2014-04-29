@@ -22,7 +22,13 @@
 #include "trigger_structure.h"
 
 multi_wave_s::multi_wave_s(float *st) {
+}
 
+void multi_wave_s::reset(void) {
+	phaseCount = 0;
+	waveCount = 0;
+	memset(waves, 0, sizeof(waves));
+	memset(switchTimes, 0, sizeof(switchTimes));
 }
 
 float multi_wave_s::getSwitchTime(int index) const {
@@ -35,7 +41,12 @@ trigger_shape_s::trigger_shape_s() :
 }
 
 void trigger_shape_s::reset() {
-	memset(this, 0, sizeof(trigger_shape_s));
+	size = 0;
+	shaftPositionEventCount = 0;
+	triggerShapeSynchPointIndex = 0;
+	memset(initialState, 0, sizeof(initialState));
+	memset(switchTimes, 0, sizeof(switchTimes));
+	wave.reset();
 }
 
 int multi_wave_s::getChannelState(int channelIndex, int phaseIndex) const {
