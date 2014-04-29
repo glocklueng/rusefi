@@ -30,15 +30,17 @@ typedef struct {
 	int phaseIndex;
 } pwm_config_safe_state_s;
 
-typedef struct PwmConfig_struct PwmConfig;
+class PwmConfig;
 
 typedef void (pwm_cycle_callback)(PwmConfig *state);
 typedef void (pwm_gen_callback)(PwmConfig *state, int stateIndex);
 
+
 /**
  * @brief   Multi-channel software PWM output configuration
  */
-struct PwmConfig_struct {
+class PwmConfig {
+public:
 	io_pin_e outputPins[PWM_PHASE_MAX_WAVE_PER_PWM];
 	multi_wave_s multiWave;
 	char *name;
