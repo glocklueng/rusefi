@@ -28,7 +28,7 @@ void multi_wave_s::reset(void) {
 	phaseCount = 0;
 	waveCount = 0;
 	memset(waves, 0, sizeof(waves));
-	memset(switchTimes, 0, sizeof(switchTimes));
+//	memset(switchTimes, 0, sizeof(switchTimes));
 }
 
 float multi_wave_s::getSwitchTime(int index) const {
