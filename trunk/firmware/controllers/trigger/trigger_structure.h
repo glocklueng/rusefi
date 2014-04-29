@@ -70,6 +70,7 @@ typedef enum {
 class trigger_shape_s {
 public:
 	trigger_shape_s();
+	void reset();
 	multi_wave_s w;
 	multi_wave_s *wave;
 	int size;

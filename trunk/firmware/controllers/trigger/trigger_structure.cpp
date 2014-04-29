@@ -26,6 +26,10 @@ float multi_wave_s::getSwitchTime(int index) const {
 }
 
 trigger_shape_s::trigger_shape_s() {
+	reset();
+}
+
+void trigger_shape_s::reset() {
 	memset(this, 0, sizeof(trigger_shape_s));
 	wave = &w;
 }
