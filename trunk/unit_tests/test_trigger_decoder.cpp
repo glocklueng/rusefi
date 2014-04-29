@@ -265,10 +265,10 @@ void testTriggerDecoder(void) {
 
 	initializeSkippedToothTriggerShapeExt(&ec2, 2, 0);
 	assertEquals(ec2.triggerShape->size, 4);
-	assertEquals(ec2.triggerShape->wave.switchTimes[0], 0.25);
-	assertEquals(ec2.triggerShape->wave.switchTimes[1], 0.5);
-	assertEquals(ec2.triggerShape->wave.switchTimes[2], 0.75);
-	assertEquals(ec2.triggerShape->wave.switchTimes[3], 1);
+	assertEquals(ec2.triggerShape->wave->switchTimes[0], 0.25);
+	assertEquals(ec2.triggerShape->wave->switchTimes[1], 0.5);
+	assertEquals(ec2.triggerShape->wave->switchTimes[2], 0.75);
+	assertEquals(ec2.triggerShape->wave->switchTimes[3], 1);
 
 	testDodgeNeonDecoder();
 	testFordAspire();
