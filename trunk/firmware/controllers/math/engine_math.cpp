@@ -150,7 +150,7 @@ void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineCo
 			// todo: extract method
 			float angle = baseAngle + 720.0 * i / engineConfiguration->cylindersCount;
 
-			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
+			registerActuatorEventExt(engineConfiguration, engineConfiguration2->triggerShape, &config->ignitionEvents,
 					ignitionSignals.add(SPARKOUT_1_OUTPUT), angle);
 		}
 		break;
@@ -163,7 +163,7 @@ void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineCo
 			int id = (getCylinderId(engineConfiguration->firingOrder, wastedIndex) - 1);
 			io_pin_e ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
 
-			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
+			registerActuatorEventExt(engineConfiguration, engineConfiguration2->triggerShape, &config->ignitionEvents,
 					ignitionSignals.add(ioPin), angle);
 
 		}
@@ -174,7 +174,7 @@ void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineCo
 			float angle = baseAngle + 720.0 * i / engineConfiguration->cylindersCount;
 
 			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
-			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
+			registerActuatorEventExt(engineConfiguration, engineConfiguration2->triggerShape, &config->ignitionEvents,
 					ignitionSignals.add(pin), angle);
 		}
 		break;
@@ -188,7 +188,7 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 		ActuatorEventList *list, injection_mode_e mode) {
 	resetEventList(list);
 
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+	trigger_shape_s *s = engineConfiguration2->triggerShape;
 
 	float baseAngle = e->globalTriggerAngleOffset + e->injectionOffset;
 
@@ -301,8 +301,8 @@ int getCylinderId(firing_order_e firingOrder, int index) {
 void prepareOutputSignals(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 
 	// todo: move this reset into decoder
-	engineConfiguration2->triggerShape.triggerShapeSynchPointIndex = findTriggerZeroEventIndex(
-			&engineConfiguration2->triggerShape, &engineConfiguration->triggerConfig);
+	engineConfiguration2->triggerShape->triggerShapeSynchPointIndex = findTriggerZeroEventIndex(
+			engineConfiguration2->triggerShape, &engineConfiguration->triggerConfig);
 
 	injectonSignals.clear();
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;

@@ -89,6 +89,8 @@ extern "C" {
 #include "eficonsole.h"
 #include "hardware.h"
 #include "engine_controller.h"
+#include "ec2.h"
+#include "trigger_structure.h"
 #include "lcd_HD44780.h"
 #include "status_loop.h"
 #include "pin_repository.h"
@@ -109,7 +111,16 @@ static MemoryStream errorMessageStream;
 uint8_t errorMessageBuffer[200];
 bool hasFirmwareError = FALSE;
 
+extern engine_configuration2_s * engineConfiguration2;
+static trigger_shape_s triggerShape;
+
+static void initDataStructures(void) {
+	engineConfiguration2->triggerShape = &triggerShape;
+}
+
 void runRusEfi(void) {
+	initDataStructures();
+
 	msObjectInit(&errorMessageStream, errorMessageBuffer, sizeof(errorMessageBuffer), 0);
 
 	initErrorHandling();

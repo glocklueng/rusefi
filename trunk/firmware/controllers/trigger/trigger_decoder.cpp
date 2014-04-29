@@ -137,10 +137,10 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 
 void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount,
 		int skippedCount) {
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+	trigger_shape_s *s = engineConfiguration2->triggerShape;
 	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount);
 
-	engineConfiguration2->triggerShape.shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
+	s->shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
 	s->wave.checkSwitchTimes(s->size);
 }
 
@@ -172,19 +172,19 @@ void initializeTriggerShape(engine_configuration_s *engineConfiguration,
 		return;
 
 	case TT_MAZDA_MIATA_NB:
-		initializeMazdaMiataNbShape(&engineConfiguration2->triggerShape);
+		initializeMazdaMiataNbShape(engineConfiguration2->triggerShape);
 		return;
 
 	case TT_DODGE_NEON:
-		configureNeonTriggerShape(&engineConfiguration2->triggerShape);
+		configureNeonTriggerShape(engineConfiguration2->triggerShape);
 		return;
 
 	case TT_FORD_ASPIRE:
-		configureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
+		configureFordAspireTriggerShape(engineConfiguration2->triggerShape);
 		return;
 
 	case TT_GM_7X:
-		configureGmTriggerShape(&engineConfiguration2->triggerShape);
+		configureGmTriggerShape(engineConfiguration2->triggerShape);
 		return;
 
 	case TT_FORD_ESCORT_GT:
