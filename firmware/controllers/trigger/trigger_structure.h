@@ -36,6 +36,7 @@ typedef struct {
 
 class multi_wave_s {
 public:
+	multi_wave_s(float *st);
 	float getSwitchTime(int phaseIndex) const;
 	void setSwitchTime(int phaseIndex, float value);
 	void checkSwitchTimes(int size);
@@ -87,6 +88,8 @@ public:
 	int initialState[PWM_PHASE_MAX_WAVE_PER_PWM];
 
 	int triggerShapeSynchPointIndex;
+private:
+	float switchTimes[PWM_PHASE_MAX_COUNT];
 };
 
 
