@@ -1,5 +1,5 @@
 /**
- * @file    idle_thread.c
+ * @file    idle_thread.cpp
  * @brief   Idle Air Control valve thread.
  *
  * This thread looks at current RPM and decides if it should increase or decrease IAC duty cycle.
