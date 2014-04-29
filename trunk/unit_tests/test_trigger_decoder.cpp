@@ -30,7 +30,7 @@ int getTheAngle(engine_type_e engineType) {
 
 	resetConfigurationExt(engineType, ec, &ec2, &persistentConfig.boardConfiguration);
 
-	trigger_shape_s * shape = &ec2.triggerShape;
+	trigger_shape_s * shape = ec2.triggerShape;
 	return findTriggerZeroEventIndex(shape, &ec->triggerConfig);
 }
 
@@ -46,7 +46,7 @@ static void testDodgeNeonDecoder(void) {
 
 	resetConfigurationExt(DODGE_NEON_1995, ec, &ec2, &persistentConfig.boardConfiguration);
 
-	trigger_shape_s * shape = &ec2.triggerShape;
+	trigger_shape_s * shape = ec2.triggerShape;
 	trigger_state_s state;
 	clearTriggerState(&state);
 //
@@ -111,7 +111,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 	trigger_state_s state;
 	clearTriggerState(&state);
 
-	trigger_shape_s * shape = &ec2.triggerShape;
+	trigger_shape_s * shape = ec2.triggerShape;
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
 	int r = 10;
 	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r);
@@ -183,7 +183,7 @@ void testMazdaMianaNbDecoder(void) {
 
 	trigger_state_s state;
 	clearTriggerState(&state);
-	trigger_shape_s * shape = &ec2.triggerShape;
+	trigger_shape_s * shape = ec2.triggerShape;
 
 	int a = 0;
 	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 20);
@@ -243,7 +243,7 @@ void testGY6_139QMB(void) {
 	clearTriggerState(&state);
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
 
-	trigger_shape_s * shape = &ec2.triggerShape;
+	trigger_shape_s * shape = ec2.triggerShape;
 
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
 	assertEquals(0, state.current_index);
@@ -264,11 +264,11 @@ void testTriggerDecoder(void) {
 	engine_configuration2_s ec2;
 
 	initializeSkippedToothTriggerShapeExt(&ec2, 2, 0);
-	assertEquals(ec2.triggerShape.size, 4);
-	assertEquals(ec2.triggerShape.wave.switchTimes[0], 0.25);
-	assertEquals(ec2.triggerShape.wave.switchTimes[1], 0.5);
-	assertEquals(ec2.triggerShape.wave.switchTimes[2], 0.75);
-	assertEquals(ec2.triggerShape.wave.switchTimes[3], 1);
+	assertEquals(ec2.triggerShape->size, 4);
+	assertEquals(ec2.triggerShape->wave.switchTimes[0], 0.25);
+	assertEquals(ec2.triggerShape->wave.switchTimes[1], 0.5);
+	assertEquals(ec2.triggerShape->wave.switchTimes[2], 0.75);
+	assertEquals(ec2.triggerShape->wave.switchTimes[3], 1);
 
 	testDodgeNeonDecoder();
 	testFordAspire();
