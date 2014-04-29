@@ -23,7 +23,9 @@ extern "C"
  * this part of the structure is separate just because so far
  * these fields are not integrated with Tuner Studio. Step by step :)
  */
-typedef struct {
+class engine_configuration2_s {
+public:
+	engine_configuration2_s();
 	int hasMapSensor;
 	int hasCltSensor;
 
@@ -32,6 +34,7 @@ typedef struct {
 
 	int crankAngleRange;
 
+	trigger_shape_s ts;
 	trigger_shape_s *triggerShape;
 
 	cranking_ignition_mode_e crankingIgnitionMode;
@@ -39,7 +42,7 @@ typedef struct {
 	EventHandlerConfiguration engineEventConfiguration;
 
 	int isInjectionEnabledFlag;
-} engine_configuration2_s;
+};
 
 void prepareOutputSignals(engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2);
