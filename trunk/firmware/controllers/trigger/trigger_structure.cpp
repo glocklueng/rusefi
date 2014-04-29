@@ -41,6 +41,7 @@ void clearTriggerState(trigger_state_s *state) {
 }
 
 void triggerShapeInit(trigger_shape_s *trigger) {
+	efiAssert(trigger!=NULL, "NULL trigger");
 	memset(trigger, 0, sizeof(trigger_shape_s));
 }
 
