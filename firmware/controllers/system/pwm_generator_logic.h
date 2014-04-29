@@ -41,6 +41,7 @@ typedef void (pwm_gen_callback)(PwmConfig *state, int stateIndex);
  */
 class PwmConfig {
 public:
+	PwmConfig(int *st);
 	io_pin_e outputPins[PWM_PHASE_MAX_WAVE_PER_PWM];
 	multi_wave_s multiWave;
 	char *name;

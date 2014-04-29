@@ -8,6 +8,10 @@
 #include "pwm_generator_logic.h"
 #include "engine_math.h"
 
+PwmConfig::PwmConfig(int *st) {
+
+}
+
 static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
 	chDbgAssert(state->safe.phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", NULL);
 	int iteration = state->safe.iteration;

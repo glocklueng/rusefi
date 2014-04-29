@@ -14,11 +14,9 @@
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
-#if EFI_PROD_CODE && defined __GNUC__
-PwmConfig triggerSignal __attribute__((section(".ccm")));
-#else
-PwmConfig triggerSignal;
-#endif
+static float swtchTms[PWM_PHASE_MAX_COUNT];
+
+PwmConfig triggerSignal((int*)swtchTms);
 
 static Logging logger;
 static LocalVersionHolder localVersion;
