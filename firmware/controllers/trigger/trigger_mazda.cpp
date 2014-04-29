@@ -60,7 +60,7 @@ void initializeMazdaMiataNbShape(trigger_shape_s *s) {
 void configureMazdaProtegeLx(engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2) {
 
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+	trigger_shape_s *s = engineConfiguration2->triggerShape;
 
 	triggerShapeInit(s);
 //	s->initialState[0] = 1;

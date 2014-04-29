@@ -84,7 +84,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 static void handleFuel(int eventIndex) {
 	if (!isInjectionEnabled())
 		return;
-	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
+	chDbgCheck(eventIndex < engineConfiguration2->triggerShape->shaftPositionEventCount, "event index");
 
 	/**
 	 * Ignition events are defined by addFuelEvents() according to selected
@@ -161,7 +161,7 @@ void showMainHistogram(void) {
  * This is the main entry point into the primary shaft signal handler signal. Both injection and ignition are controlled from this method.
  */
 static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
-	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
+	chDbgCheck(eventIndex < engineConfiguration2->triggerShape->shaftPositionEventCount, "event index");
 
 	int rpm = getRpm();
 	if (rpm == 0) {
