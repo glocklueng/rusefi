@@ -46,7 +46,8 @@ static volatile int idleSwitchState;
 
 static Logging logger;
 
-static PwmConfig idleValve;
+static float swtchTms[PWM_PHASE_MAX_COUNT];
+static PwmConfig idleValve((int*)swtchTms);
 
 /**
  * Idle level calculation algorithm lives in idle_controller.c
