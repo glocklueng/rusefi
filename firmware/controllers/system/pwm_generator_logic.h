@@ -53,6 +53,9 @@ public:
 
 	scheduling_s scheduling;
 
+	single_wave_s waves[2];
+	single_wave_s sr[2] = {waves[0], waves[1]};
+
 	pwm_config_safe_state_s safe;
 
 	/**
