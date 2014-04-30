@@ -47,7 +47,7 @@ uint64_t getTimeNowUs(void) {
 	return 0;
 }
 
-void assertEqualsM(char *msg, float expected, float actual) {
+void assertEqualsM(const char *msg, float expected, float actual) {
 	if (cisnan(actual) && !cisnan(expected)) {
 		printf("Unexpected: %s %.4f while expected %.4f\r\n", msg, actual, expected);
 		exit(-1);
@@ -66,7 +66,7 @@ void assertEquals(float expected, float actual) {
 	assertEqualsM("", expected, actual);
 }
 
-void assertTrueM(char *msg, float actual) {
+void assertTrueM(const char *msg, float actual) {
 	assertEqualsM(msg, TRUE, actual);
 }
 
@@ -74,7 +74,7 @@ void assertTrue(float actual) {
 	assertTrueM("", actual);
 }
 
-void assertFalseM(char *msg, float actual) {
+void assertFalseM(const char *msg, float actual) {
 	assertEqualsM(msg, FALSE, actual);
 }
 
