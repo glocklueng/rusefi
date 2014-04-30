@@ -40,8 +40,8 @@ void setSimplePwmDutyCycle(PwmConfig *state, float dutyCycle) {
 	state->multiWave.setSwitchTime(0, dutyCycle);
 }
 
-void startSimplePwm(PwmConfig *state, const char *msg, brain_pin_e brainPin, io_pin_e ioPin,
-		float dutyCycle, float frequency) {
+void startSimplePwm(PwmConfig *state, const char *msg, brain_pin_e brainPin, io_pin_e ioPin, float dutyCycle,
+		float frequency, int initPin) {
 
 	GPIO_TypeDef * port = getHwPort(brainPin);
 	int pin = getHwPin(brainPin);
@@ -53,7 +53,8 @@ void startSimplePwm(PwmConfig *state, const char *msg, brain_pin_e brainPin, io_
 
 	state->outputPins[0] = ioPin;
 
-	outputPinRegister(msg, state->outputPins[0], port, pin);
+	if (initPin)
+		outputPinRegister(msg, state->outputPins[0], port, pin);
 
 	state->periodMs = frequency2period(frequency);
 	weComplexInit(msg, state, 2, switchTimes, 1, pinStates, NULL, applyPinState);

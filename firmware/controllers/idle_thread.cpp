@@ -126,9 +126,8 @@ void startIdleThread() {
 			boardConfiguration->idleValvePin,
 			IDLE_VALVE,
 			0.5,
-			IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY
-
-			);
+			IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY,
+			TRUE);
 
 	idleInit(&idle);
 	scheduleMsg(&logger, "initial idle %d", idle.value);
