@@ -197,13 +197,13 @@ char * getPinNameByAdcChannel(int hwChannel, uint8_t *buffer) {
 
 static uint8_t pinNameBuffer[16];
 
-static void printAnalogChannelInfoExt(char *name, int hwChannel,
+static void printAnalogChannelInfoExt(const char *name, int hwChannel,
 		float voltage) {
 	scheduleMsg(&logger, "%s ADC%d %s value=%fv", name, hwChannel,
 			getPinNameByAdcChannel(hwChannel, pinNameBuffer), voltage);
 }
 
-static void printAnalogChannelInfo(char *name, int hwChannel) {
+static void printAnalogChannelInfo(const char *name, int hwChannel) {
 	printAnalogChannelInfoExt(name, hwChannel, getVoltageDivided(hwChannel));
 }
 

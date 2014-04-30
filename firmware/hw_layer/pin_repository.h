@@ -27,7 +27,7 @@ char *hwPortname(brain_pin_e brainPin);
 void mySetPadMode(const char *msg, ioportid_t port, ioportmask_t pin, iomode_t mode);
 char *portname(GPIO_TypeDef* GPIOx);
 // does not exactly belong here, but that works better for tests
-void outputPinRegister(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin);
+void outputPinRegister(const char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin);
 
 int getHwPin(brain_pin_e brainPin);
 GPIO_TypeDef * getHwPort(brain_pin_e brainPin);

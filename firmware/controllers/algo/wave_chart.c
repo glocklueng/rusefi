@@ -109,7 +109,7 @@ void publishChart(WaveChart *chart) {
 /**
  * @brief	Register a change in sniffed signal
  */
-void addWaveChartEvent3(WaveChart *chart, char *name, char * msg, char * msg2) {
+void addWaveChartEvent3(WaveChart *chart, const char *name, const char * msg, const char * msg2) {
 	chDbgCheck(chart->isInitialized, "chart not initialized");
 #if DEBUG_WAVE
 	scheduleSimpleMsg(&debugLogging, "current", chart->counter);

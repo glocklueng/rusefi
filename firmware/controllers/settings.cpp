@@ -52,7 +52,7 @@ void printFloatArray(char *prefix, float array[], int size) {
 	scheduleLogging(&logger);
 }
 
-char* getConfigurationName(engine_configuration_s *engineConfiguration) {
+const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 	switch (engineConfiguration->engineType) {
 #if EFI_SUPPORT_DODGE_NEON
 	case DODGE_NEON_1995:
