@@ -8,7 +8,7 @@
 #include "pwm_generator_logic.h"
 #include "engine_math.h"
 
-PwmConfig::PwmConfig(float *st) : multiWave(st) {
+PwmConfig::PwmConfig(float *st) : multiWave(st, sr) {
 
 }
 

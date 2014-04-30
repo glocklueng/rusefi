@@ -36,7 +36,7 @@ typedef struct {
 
 class multi_wave_s {
 public:
-	multi_wave_s(float *st);
+	multi_wave_s(float *st, single_wave_s *waves);
 	void reset(void);
 	float getSwitchTime(int phaseIndex) const;
 	void setSwitchTime(int phaseIndex, float value);
@@ -50,7 +50,7 @@ public:
 	 * Number of signal wires
 	 */
 	int waveCount;
-	single_wave_s waves[PWM_PHASE_MAX_WAVE_PER_PWM];
+	single_wave_s *waves;
 //private:
 	/**
 	 * values in the (0..1] range which refer to points within the period at at which pin state should be changed
@@ -90,6 +90,11 @@ public:
 	int triggerShapeSynchPointIndex;
 private:
 	float switchTimes[PWM_PHASE_MAX_COUNT];
+
+	single_wave_s waves[2];
+
+	single_wave_s sr[2] = {waves[0], waves[1]};
+
 };
 
 
