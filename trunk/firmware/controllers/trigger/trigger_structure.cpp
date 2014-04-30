@@ -37,7 +37,7 @@ float multi_wave_s::getSwitchTime(int index) const {
 }
 
 trigger_shape_s::trigger_shape_s() :
-		wave(switchTimes, sr) {
+		wave(switchTimes, waves) {
 	reset();
 }
 

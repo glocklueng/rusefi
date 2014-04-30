@@ -92,9 +92,6 @@ private:
 	float switchTimes[PWM_PHASE_MAX_COUNT];
 
 	single_wave_s waves[2];
-
-	single_wave_s sr[2] = {waves[0], waves[1]};
-
 };
 
 
