@@ -40,7 +40,7 @@ void setSimplePwmDutyCycle(PwmConfig *state, float dutyCycle) {
 	state->multiWave.setSwitchTime(0, dutyCycle);
 }
 
-void startSimplePwm(PwmConfig *state, char *msg, brain_pin_e brainPin, io_pin_e ioPin,
+void startSimplePwm(PwmConfig *state, const char *msg, brain_pin_e brainPin, io_pin_e ioPin,
 		float dutyCycle, float frequency) {
 
 	GPIO_TypeDef * port = getHwPort(brainPin);

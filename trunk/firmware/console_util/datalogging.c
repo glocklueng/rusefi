@@ -237,22 +237,6 @@ void debugFloat(Logging *logging, char *caption, float value, int precision) {
 	appendFloat(logging, value, precision);
 	append(logging, DELIMETER);
 }
-/*
-void logInt(Logging *logging, LoggingPoints loggingPoint, int value) {
-	char *caption = getCaption(loggingPoint);
-	debugInt(logging, caption, value);
-}
-
-void logFloat(Logging *logging, LoggingPoints loggingPoint, float value) {
-	debugFloat(logging, getCaption(loggingPoint), value, 2);
-}
-*/
-
-static void commonSimpleMsg(Logging *logging, char *msg, int value) {
-	resetLogging(logging);
-	appendMsgPrefix(logging);
-	appendPrintf(logging, "%s%d", msg, value);
-}
 
 static char header[16];
 

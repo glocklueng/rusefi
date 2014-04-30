@@ -144,7 +144,7 @@ void outputPinRegisterExt2(const char *msg, io_pin_e ioPin, brain_pin_e brainPin
 	outputPinRegisterExt(msg, ioPin, hwPort, hwPin, outputMode);
 }
 
-void outputPinRegister(char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin) {
+void outputPinRegister(const char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin) {
 	outputPinRegisterExt(msg, ioPin, port, pin, &DEFAULT_OUTPUT);
 }
 
