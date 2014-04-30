@@ -364,7 +364,6 @@ void resetConfigurationExt(engine_type_e engineType,
 }
 
 engine_configuration2_s::engine_configuration2_s() {
-	triggerShape = &ts;
 }
 
 void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, engine_type_e engineType) {
@@ -375,8 +374,8 @@ void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration
 	engineConfiguration2->isInjectionEnabledFlag = TRUE;
 
 	initializeTriggerShape(engineConfiguration, engineConfiguration2);
-	chDbgCheck(engineConfiguration2->triggerShape->size != 0, "size is zero");
-	chDbgCheck(engineConfiguration2->triggerShape->shaftPositionEventCount, "shaftPositionEventCount is zero");
+	chDbgCheck(engineConfiguration2->triggerShape.size != 0, "size is zero");
+	chDbgCheck(engineConfiguration2->triggerShape.shaftPositionEventCount, "shaftPositionEventCount is zero");
 
 	prepareOutputSignals(engineConfiguration, engineConfiguration2);
 	initializeIgnitionActions(0, engineConfiguration, engineConfiguration2);

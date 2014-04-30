@@ -66,6 +66,7 @@ void clearTriggerState(trigger_state_s *state) {
 }
 
 void triggerShapeInit(trigger_shape_s *trigger) {
+	// todo: inline & remove method
 	trigger->reset();
 }
 

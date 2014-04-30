@@ -80,13 +80,13 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 	/**
 	 * This invocation changes the state of
 	 */
-	processTriggerEvent(&triggerState, engineConfiguration2->triggerShape, &engineConfiguration->triggerConfig, signal,
+	processTriggerEvent(&triggerState, &engineConfiguration2->triggerShape, &engineConfiguration->triggerConfig, signal,
 			nowUs);
 
 	if (!triggerState.shaft_is_synchronized)
 		return; // we should not propagate event if we do not know where we are
 
-	if (triggerState.current_index >= engineConfiguration2->triggerShape->shaftPositionEventCount) {
+	if (triggerState.current_index >= engineConfiguration2->triggerShape.shaftPositionEventCount) {
 		int f = warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.current_index);
 		if(!f) {
 			for (int i = 0; i < HW_EVENT_TYPES; i++)
