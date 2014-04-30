@@ -11,5 +11,6 @@ CONTROLLERS_SRC_CPP = $(PROJECT_DIR)/controllers/settings.cpp \
 	controllers/flash_main.cpp \
 	controllers/injector_central.cpp \
 	controllers/idle_thread.cpp \
+	controllers/PwmTester.cpp \
 	$(PROJECT_DIR)/controllers/alternatorController.cpp \
  	$(PROJECT_DIR)/controllers/engine_controller.cpp
