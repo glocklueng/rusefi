@@ -14,9 +14,12 @@
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
+static single_wave_s waves[2];
+static single_wave_s sr[2] = {waves[0], waves[1]};
+
 static float swtchTms[PWM_PHASE_MAX_COUNT];
 
-PwmConfig triggerSignal(swtchTms);
+PwmConfig triggerSignal(swtchTms, sr);
 
 static Logging logger;
 static LocalVersionHolder localVersion;

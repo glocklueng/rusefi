@@ -41,7 +41,7 @@ typedef void (pwm_gen_callback)(PwmConfig *state, int stateIndex);
  */
 class PwmConfig {
 public:
-	PwmConfig(float *st);
+	PwmConfig(float *switchTimes, single_wave_s *waves);
 	io_pin_e outputPins[PWM_PHASE_MAX_WAVE_PER_PWM];
 	multi_wave_s multiWave;
 	char *name;
@@ -52,9 +52,6 @@ public:
 	float periodMs;
 
 	scheduling_s scheduling;
-
-	single_wave_s waves[2];
-	single_wave_s sr[2] = {waves[0], waves[1]};
 
 	pwm_config_safe_state_s safe;
 
