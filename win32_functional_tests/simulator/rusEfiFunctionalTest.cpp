@@ -151,7 +151,7 @@ int is_serial_ready(void) {
 	return isSerialOverTcpReady;
 }
 
-void onFatalError(const char *msg, char * file, int line) {
+void onFatalError(const char *msg, const char * file, int line) {
 	printf("onFatalError %s %s%d", msg, file, line);
 	exit(-1);
 }
@@ -169,7 +169,7 @@ int hasFatalError(void) {
 	return false;
 }
 
-void chDbgPanic3(const char *msg, char * file, int line) {
+void chDbgPanic3(const char *msg, const char * file, int line) {
 	onFatalError(msg, file, line);
 }
 
