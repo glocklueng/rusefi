@@ -49,6 +49,8 @@
 #include "algo.h"
 #include "efilib2.h"
 #include "ec2.h"
+#include "PwmTester.h"
+
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -249,6 +251,7 @@ void initEngineContoller(void) {
 			(tfunc_t) csThread, NULL);
 
 	initInjectorCentral();
+	initPwmTester();
 	initIgnitionCentral();
 	initMalfunctionCentral();
 
