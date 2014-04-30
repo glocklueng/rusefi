@@ -120,7 +120,7 @@ void testAngleResolver(void) {
 	printf("*************************************************** testAngleResolver\r\n");
 
 	engineConfiguration->globalTriggerAngleOffset = 175;
-	trigger_shape_s * ts = engineConfiguration2->triggerShape;
+	trigger_shape_s * ts = &engineConfiguration2->triggerShape;
 
 	confgiureFordAspireTriggerShape(ts);
 	assertEqualsM("shape size", 10, ts->size);
@@ -129,7 +129,7 @@ void testAngleResolver(void) {
 
 	resetEventList(&ae);
 	printf("*************************************************** testAngleResolver 0\r\n");
-	registerActuatorEventExt(engineConfiguration, engineConfiguration2->triggerShape, &ae, list.add(INJECTOR_1_OUTPUT), 53 - 175);
+	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &ae, list.add(INJECTOR_1_OUTPUT), 53 - 175);
 	assertEqualsM("size", 1, ae.size);
 	assertEquals(1, list.getSize());
 	assertEquals(0, ae.events[0].eventIndex);
@@ -137,7 +137,7 @@ void testAngleResolver(void) {
 
 	printf("*************************************************** testAngleResolver 2\r\n");
 	resetEventList(&ae);
-	registerActuatorEventExt(engineConfiguration, engineConfiguration2->triggerShape, &ae, list.add(INJECTOR_1_OUTPUT), 51 + 180 - 175);
+	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &ae, list.add(INJECTOR_1_OUTPUT), 51 + 180 - 175);
 	assertEquals(2, ae.events[0].eventIndex);
 	assertEquals(51.9870, ae.events[0].angleOffset);
 }

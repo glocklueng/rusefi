@@ -34,8 +34,7 @@ public:
 
 	int crankAngleRange;
 
-	trigger_shape_s ts;
-	trigger_shape_s *triggerShape;
+	trigger_shape_s triggerShape;
 
 	cranking_ignition_mode_e crankingIgnitionMode;
 

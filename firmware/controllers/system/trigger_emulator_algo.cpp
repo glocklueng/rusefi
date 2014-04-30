@@ -39,7 +39,7 @@ static void updateTriggerShapeIfNeeded(PwmConfig *state) {
 	if(localVersion.isOld()) {
 		scheduleMsg(&logger, "Stimulator: updating trigger shape: %d/%d %d", localVersion.getVersion(), getGlobalConfigurationVersion(), currentTimeMillis());
 
-		trigger_shape_s *s = engineConfiguration2->triggerShape;
+		trigger_shape_s *s = &engineConfiguration2->triggerShape;
 		int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
 		copyPwmParameters(state, s->size, s->wave.switchTimes, 2, pinStates);
 		state->safe.periodMs = -1; // this would cause loop re-initialization
@@ -50,7 +50,7 @@ void initTriggerEmulatorLogic(pwm_gen_callback *stateChangeCallback) {
 	initLogging(&logger, "position sensor(s) emulator");
 
 
-	trigger_shape_s *s = engineConfiguration2->triggerShape;
+	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	setTriggerEmulatorRPM(DEFAULT_EMULATION_RPM);
 	int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
 	weComplexInit("position sensor", &triggerSignal, s->size, s->wave.switchTimes, 2, pinStates,
