@@ -30,9 +30,10 @@ typedef struct {
 /**
  * @brief   PWM configuration for the specific output pin
  */
-typedef struct {
+class single_wave_s {
+public:
 	int pinStates[PWM_PHASE_MAX_COUNT];
-} single_wave_s;
+};
 
 class multi_wave_s {
 public:
