@@ -251,7 +251,7 @@ void initEngineContoller(void) {
 			(tfunc_t) csThread, NULL);
 
 	initInjectorCentral();
-	initPwmTester();
+//	initPwmTester();
 	initIgnitionCentral();
 	initMalfunctionCentral();
 
