@@ -32,7 +32,8 @@ typedef struct {
  */
 class single_wave_s {
 public:
-	int pinStates[PWM_PHASE_MAX_COUNT];
+	single_wave_s(int *pinStates);
+	int *pinStates;
 };
 
 class multi_wave_s {
@@ -70,7 +71,16 @@ typedef enum {
 	T_SECONDARY = 1
 } trigger_wheel_e;
 
+class trigger_shape_helper {
+	int pinStates1[PWM_PHASE_MAX_COUNT];
+	int pinStates2[PWM_PHASE_MAX_COUNT];
+public:
+	single_wave_s waves[2] = {single_wave_s(pinStates1), single_wave_s(pinStates2)};
+};
+
 class trigger_shape_s {
+private:
+	trigger_shape_helper h;
 public:
 	trigger_shape_s();
 	void reset();
@@ -91,8 +101,6 @@ public:
 	int triggerShapeSynchPointIndex;
 private:
 	float switchTimes[PWM_PHASE_MAX_COUNT];
-
-	single_wave_s waves[2];
 };
 
 
