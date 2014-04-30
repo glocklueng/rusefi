@@ -21,8 +21,9 @@
 #include "main.h"
 #include "trigger_structure.h"
 
-multi_wave_s::multi_wave_s(float *switchTimes) {
+multi_wave_s::multi_wave_s(float *switchTimes, single_wave_s *waves) {
 	this->switchTimes = switchTimes;
+	this->waves = waves;
 }
 
 void multi_wave_s::reset(void) {
@@ -36,7 +37,7 @@ float multi_wave_s::getSwitchTime(int index) const {
 }
 
 trigger_shape_s::trigger_shape_s() :
-		wave(switchTimes) {
+		wave(switchTimes, sr) {
 	reset();
 }
 
