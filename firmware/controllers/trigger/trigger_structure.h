@@ -75,6 +75,9 @@ class trigger_shape_helper {
 	int pinStates1[PWM_PHASE_MAX_COUNT];
 	int pinStates2[PWM_PHASE_MAX_COUNT];
 public:
+	/*
+	 * Interesting fact: this does not compile with g++ 4.6 and works with g++ 4.8
+	 */
 	single_wave_s waves[2] = {single_wave_s(pinStates1), single_wave_s(pinStates2)};
 };
 
