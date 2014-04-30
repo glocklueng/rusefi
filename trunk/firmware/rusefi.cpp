@@ -111,16 +111,7 @@ static MemoryStream errorMessageStream;
 uint8_t errorMessageBuffer[200];
 bool hasFirmwareError = FALSE;
 
-extern engine_configuration2_s * engineConfiguration2;
-static trigger_shape_s triggerShape;
-
-static void initDataStructures(void) {
-	engineConfiguration2->triggerShape = &triggerShape;
-}
-
 void runRusEfi(void) {
-	initDataStructures();
-
 	msObjectInit(&errorMessageStream, errorMessageBuffer, sizeof(errorMessageBuffer), 0);
 
 	initErrorHandling();
