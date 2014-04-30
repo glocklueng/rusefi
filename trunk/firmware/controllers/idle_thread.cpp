@@ -48,8 +48,10 @@ static Logging logger;
 
 static float _switchTimes[PWM_PHASE_MAX_COUNT];
 
-static single_wave_s waves[2];
-static single_wave_s sr[2] = {waves[0], waves[1]};
+// todo: extract helper for simple PWM?
+static int pinStates[2];
+static single_wave_s wave(pinStates);
+static single_wave_s sr[1] = {wave};
 
 static PwmConfig idleValve(_switchTimes, sr);
 

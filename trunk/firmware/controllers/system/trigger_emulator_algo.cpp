@@ -14,7 +14,13 @@
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
-static single_wave_s waves[2];
+/*
+ * todo: should we simply re-use instances used by trigger_decoder?
+ * todo: since we are emulating same shape we are decoding
+ */
+static int pinStates1[PWM_PHASE_MAX_COUNT];
+static int pinStates2[PWM_PHASE_MAX_COUNT];
+static single_wave_s waves[2] = {single_wave_s(pinStates1), single_wave_s(pinStates2)};
 static single_wave_s sr[2] = {waves[0], waves[1]};
 
 static float swtchTms[PWM_PHASE_MAX_COUNT];

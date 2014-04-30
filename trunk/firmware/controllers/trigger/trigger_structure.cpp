@@ -21,6 +21,10 @@
 #include "main.h"
 #include "trigger_structure.h"
 
+single_wave_s::single_wave_s(int *ps) {
+	this->pinStates = ps;
+}
+
 multi_wave_s::multi_wave_s(float *switchTimes, single_wave_s *waves) {
 	this->switchTimes = switchTimes;
 	this->waves = waves;
@@ -29,7 +33,6 @@ multi_wave_s::multi_wave_s(float *switchTimes, single_wave_s *waves) {
 void multi_wave_s::reset(void) {
 	phaseCount = 0;
 	waveCount = 0;
-	memset(waves, 0, sizeof(waves));
 }
 
 float multi_wave_s::getSwitchTime(int index) const {
@@ -37,7 +40,7 @@ float multi_wave_s::getSwitchTime(int index) const {
 }
 
 trigger_shape_s::trigger_shape_s() :
-		wave(switchTimes, waves) {
+		wave(switchTimes, h.waves) {
 	reset();
 }
 
@@ -74,8 +77,13 @@ void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e wave
 	angle /= 720;
 	if (trigger->size == 0) {
 		trigger->size = 1;
-		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
-			trigger->wave.waves[i].pinStates[0] = trigger->initialState[i];
+		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
+			single_wave_s *wave = &trigger->wave.waves[i];
+
+			efiAssert(wave!=NULL, "wave is NULL");
+			efiAssert(wave->pinStates!=NULL, "wave pinStates is NULL");
+			wave->pinStates[0] = trigger->initialState[i];
+		}
 
 		trigger->wave.setSwitchTime(0, angle);
 		trigger->wave.waves[waveIndex].pinStates[0] = state;
