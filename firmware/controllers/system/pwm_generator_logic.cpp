@@ -8,8 +8,7 @@
 #include "pwm_generator_logic.h"
 #include "engine_math.h"
 
-PwmConfig::PwmConfig(float *st) : multiWave(st, sr) {
-
+PwmConfig::PwmConfig(float *st, single_wave_s *waves) : multiWave(st, waves) {
 }
 
 static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
