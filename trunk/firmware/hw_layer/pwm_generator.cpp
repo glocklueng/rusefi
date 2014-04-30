@@ -1,5 +1,5 @@
 /**
- * @file    pwm_generator.c
+ * @file    pwm_generator.cpp
  * @brief   software PWM generator
  *
  * Software PWM implementation. Considering how low all frequencies are, we can totally afford a couple of float multiplications.
