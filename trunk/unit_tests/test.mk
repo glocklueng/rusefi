@@ -9,7 +9,8 @@ TEST_SRC_CPP = test_util.cpp \
 	test_data_structures/test_engine_math.cpp \
 	test_trigger_decoder.cpp \
 	test_fuel_map.cpp \
-	test_signal_executor.cpp
+	test_signal_executor.cpp \
+	test_accel_enrichment.cpp
 
 	
 	
