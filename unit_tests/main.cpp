@@ -15,6 +15,7 @@
 #include "main.h"
 #include "error_handling.h"
 #include "ec2.h"
+#include "test_accel_enrichment.h"
 
 
 extern "C"
@@ -118,6 +119,8 @@ int main(void) {
 
 	testPinHelper();
 	testSetTableValue();
+
+	testAccelEnrichment();
 
 	printf("Success 20130429\r\n");
 
