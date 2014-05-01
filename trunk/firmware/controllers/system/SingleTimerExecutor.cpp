@@ -67,7 +67,6 @@ void scheduleTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, voi
 		callback(param);
 		return;
 	}
-	// todo: eliminate this /100. Times still come as systick times here
 	instance.schedule(scheduling, getTimeNowUs(), delayUs, callback, param);
 }
 
