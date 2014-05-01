@@ -34,7 +34,7 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayU
 	LL_FOREACH(head, elt)
 	{
 		if (elt == scheduling) {
-			firmwareError("re-adding element");
+			firmwareError("re-adding element into event_queue");
 			return;
 		}
 	}
