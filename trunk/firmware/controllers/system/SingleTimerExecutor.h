@@ -19,6 +19,9 @@ public:
 private:
 	EventQueue queue;
 	bool_t reentrantLock;
+	void doExecute(uint64_t nowUs);
+	void lock(void);
+	void unlock(void);
 };
 
 #endif /* SINGLETIMEREXECUTOR_H_ */

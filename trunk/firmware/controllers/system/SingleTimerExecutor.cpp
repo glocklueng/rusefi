@@ -30,13 +30,32 @@ Executor::Executor() {
 	reentrantLock = FALSE;
 }
 
+void Executor::lock(void) {
+	//todo
+}
+
+void Executor::unlock(void) {
+	//todo
+}
+
 void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
+	lock();
 	queue.insertTask(scheduling, nowUs, delayUs, callback, param);
 	if (!reentrantLock)
-		execute(nowUs);
+		doExecute(nowUs);
+	unlock();
 }
 
 void Executor::execute(uint64_t nowUs) {
+	lock();
+	doExecute(nowUs);
+	unlock();
+}
+
+/*
+ * this private method is executed under lock
+ */
+void Executor::doExecute(uint64_t nowUs) {
 	/**
 	 * Let's execute actions we should execute at this point.
 	 * reentrantLock takes care of the use case where the actions we are executing are scheduling
