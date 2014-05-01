@@ -51,6 +51,7 @@ typedef struct {
 static void complexCallback(TestPwm *testPwm) {
 	callbackCounter++;
 
+	eq.insertTask(&testPwm->s, complexTestNow, testPwm->period, (schfunc_t)complexCallback, testPwm);
 }
 
 static void testSignalExecutor2(void) {
@@ -58,15 +59,24 @@ static void testSignalExecutor2(void) {
 	eq.clear();
 	TestPwm p1;
 	TestPwm p2;
+	p1.period = 2;
+	p2.period = 3;
 
 	complexTestNow = 0;
 	callbackCounter = 0;
 	eq.insertTask(&p1.s, 0, 0, (schfunc_t)complexCallback, &p1);
 	eq.insertTask(&p2.s, 0, 0, (schfunc_t)complexCallback, &p2);
-	eq.executeAll(0);
-	assertEquals(2, callbackCounter);
+	eq.executeAll(complexTestNow);
+	assertEqualsM("callbackCounter #1", 2, callbackCounter);
+	assertEquals(2, eq.size());
 
+	eq.executeAll(complexTestNow = 2);
+	assertEqualsM("callbackCounter #2", 3, callbackCounter);
+	assertEquals(2, eq.size());
 
+	eq.executeAll(complexTestNow = 3);
+	assertEqualsM("callbackCounter #3", 4, callbackCounter);
+	assertEquals(2, eq.size());
 
 }
 
