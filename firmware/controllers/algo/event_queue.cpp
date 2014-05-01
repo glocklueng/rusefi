@@ -72,16 +72,23 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
 void EventQueue::executeAll(uint64_t now) {
 	scheduling_s * current, *tmp;
 
+	scheduling_s * executionList = NULL;
+
 // here we need safe iteration because we are removing elements
 	LL_FOREACH_SAFE(head, current, tmp)
 	{
 		if (current->momentUs <= now) {
 			LL_DELETE(head, current);
-#if EFI_SIGNAL_EXECUTOR_ONE_TIMER
-			current->callback(current->param);
-#endif /* EFI_SIGNAL_EXECUTOR_ONE_TIMER */
+			LL_PREPEND(executionList, current);
 		}
 	}
+	LL_FOREACH(executionList, current)
+	{
+#if EFI_SIGNAL_EXECUTOR_ONE_TIMER
+		current->callback(current->param);
+#endif /* EFI_SIGNAL_EXECUTOR_ONE_TIMER */
+	}
+
 }
 
 void EventQueue::clear(void) {
