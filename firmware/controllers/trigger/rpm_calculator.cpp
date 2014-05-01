@@ -89,7 +89,7 @@ static int isNoisySignal(rpm_s * rpmState, uint64_t nowUs) {
 
 static uint8_t shaft_signal_msg_index[15];
 
-void addWaveChartEvent(char *name, char * msg, char *msg2) {
+void addWaveChartEvent(const char *name, const char * msg, const char *msg2) {
 	addWaveChartEvent3(&waveChart, name, msg, msg2);
 }
 
