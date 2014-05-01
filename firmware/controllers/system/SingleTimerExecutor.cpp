@@ -42,15 +42,15 @@ void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, s
 	setTimer(nowUs);
 }
 
-void Executor::execute(uint64_t now) {
+void Executor::execute(uint64_t nowUs) {
 	/**
 	 * Let's execute actions we should execute at this point
 	 */
-	queue.executeAll(now);
+	queue.executeAll(nowUs);
 	/**
 	 * Let's set up the timer for the next execution
 	 */
-	setTimer(now);
+	setTimer(nowUs);
 }
 
 /**
