@@ -41,7 +41,36 @@ static void callback(void *a) {
 	callbackCounter++;
 }
 
-void testSignalExecutor() {
+static int complexTestNow;
+
+typedef struct {
+	scheduling_s s;
+	int period;
+} TestPwm;
+
+static void complexCallback(TestPwm *testPwm) {
+	callbackCounter++;
+
+}
+
+static void testSignalExecutor2(void) {
+	print("*************************************** testSignalExecutor2\r\n");
+	eq.clear();
+	TestPwm p1;
+	TestPwm p2;
+
+	complexTestNow = 0;
+	callbackCounter = 0;
+	eq.insertTask(&p1.s, 0, 0, (schfunc_t)complexCallback, &p1);
+	eq.insertTask(&p2.s, 0, 0, (schfunc_t)complexCallback, &p2);
+	eq.executeAll(0);
+	assertEquals(2, callbackCounter);
+
+
+
+}
+
+void testSignalExecutor(void) {
 	print("*************************************** testSignalExecutor\r\n");
 
 	assertEquals(EMPTY_QUEUE, eq.getNextEventTime(0));
@@ -99,4 +128,5 @@ void testSignalExecutor() {
 	eq.executeAll(11);
 
 	assertEquals(2, callbackCounter);
+	testSignalExecutor2();
 }
