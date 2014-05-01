@@ -24,6 +24,7 @@ public:
 	uint64_t getNextEventTime(uint64_t nowUs);
 	void clear(void);
 private:
+	void assertState(scheduling_s *scheduling);
 	scheduling_s *head;
 };
 

@@ -21,6 +21,18 @@ EventQueue::EventQueue() {
 	head = NULL;
 }
 
+void EventQueue::assertState(scheduling_s *scheduling) {
+	// this code is just to validate state, no functional load
+	scheduling_s * current;
+	LL_FOREACH(head, current)
+	{
+		if (current == scheduling) {
+			firmwareError("re-adding element into event_queue");
+			return;
+		}
+	}
+}
+
 void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
 	if (callback == NULL)
 		firmwareError("NULL callback");
@@ -30,14 +42,7 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayU
 	scheduling->callback = callback;
 	scheduling->param = param;
 
-	scheduling_s * elt;
-	LL_FOREACH(head, elt)
-	{
-		if (elt == scheduling) {
-			firmwareError("re-adding element into event_queue");
-			return;
-		}
-	}
+	assertState(scheduling);
 
 	LL_PREPEND(head, scheduling);
 }
@@ -71,7 +76,7 @@ void EventQueue::executeAll(uint64_t now) {
 
 	scheduling_s * executionList = NULL;
 
-// here we need safe iteration because we are removing elements
+// we need safe iteration because we are removing elements inside the loop
 	LL_FOREACH_SAFE(head, current, tmp)
 	{
 		if (current->momentUs <= now) {
