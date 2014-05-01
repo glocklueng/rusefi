@@ -26,18 +26,16 @@ typedef void (*schfunc_t)(void *);
 
 typedef struct scheduling_struct scheduling_s;
 struct scheduling_struct {
-	//int initialized;
 #if EFI_SIGNAL_EXECUTOR_SLEEP
 	VirtualTimer timer;
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
 
-	volatile uint64_t momentUs;
 #if EFI_SIGNAL_EXECUTOR_ONE_TIMER
+	volatile uint64_t momentUs;
 	schfunc_t callback;
 	void *param;
-#endif
-
 	scheduling_s *next;
+#endif
 };
 
 typedef enum {
