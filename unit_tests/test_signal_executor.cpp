@@ -1,5 +1,5 @@
 /**
- * @file	test_signal_executor.c
+ * @file	test_signal_executor.cpp
  *
  * @date Nov 28, 2013
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -13,8 +13,6 @@
 #include "io_pins.h"
 #include "utlist.h"
 #include "event_queue.h"
-
-extern OutputSignal *st_output_list;
 
 static io_pin_e testLastToggledPin;
 static int testToggleCounter;
