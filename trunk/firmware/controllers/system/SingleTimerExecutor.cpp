@@ -28,6 +28,9 @@ static void executorCallback(void *arg) {
 
 void Executor::setTimer(uint64_t nowUs) {
 	uint64_t nextEventTime = queue.getNextEventTime(nowUs);
+	efiAssert(nextEventTime > nowUs, "setTimer constraint");
+	if (nextEventTime == EMPTY_QUEUE)
+		return; // no pending events in the queue
 	setHardwareUsTimer(nextEventTime - nowUs);
 }
 
