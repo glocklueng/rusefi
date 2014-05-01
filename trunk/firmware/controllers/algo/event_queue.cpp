@@ -15,6 +15,8 @@
 #include "efitime.h"
 #include "utlist.h"
 
+#if EFI_SIGNAL_EXECUTOR_ONE_TIMER
+
 EventQueue::EventQueue() {
 	head = NULL;
 }
@@ -25,10 +27,8 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayU
 	uint64_t time = nowUs + delayUs;
 
 	scheduling->momentUs = time;
-#if EFI_SIGNAL_EXECUTOR_ONE_TIMER
 	scheduling->callback = callback;
 	scheduling->param = param;
-#endif
 
 	scheduling_s * elt;
 	LL_FOREACH(head, elt)
@@ -77,10 +77,8 @@ void EventQueue::executeAll(uint64_t now) {
 		if (current->momentUs <= now) {
 			LL_DELETE(head, current);
 //			LL_PREPEND(executionList, current);
-#if EFI_SIGNAL_EXECUTOR_ONE_TIMER
-		current->callback(current->param);
-#endif /* EFI_SIGNAL_EXECUTOR_ONE_TIMER */
-}
+			current->callback(current->param);
+		}
 	}
 	LL_FOREACH(executionList, current)
 	{
@@ -91,3 +89,6 @@ void EventQueue::executeAll(uint64_t now) {
 void EventQueue::clear(void) {
 	head = NULL;
 }
+
+#endif /* EFI_SIGNAL_EXECUTOR_ONE_TIMER */
+
