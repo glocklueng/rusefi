@@ -50,18 +50,15 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayU
  * Get the timestamp of the soonest pending action
  */
 uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
-	scheduling_s * elt;
+	scheduling_s * current;
 	// this is a large value which is expected to be larger than any real time
 	uint64_t result = EMPTY_QUEUE;
 
-	LL_FOREACH(head, elt)
+	LL_FOREACH(head, current)
 	{
-		if (elt->momentUs <= nowUs) {
-			// todo: I am not so sure about this branch
-			continue;
-		}
-		if (elt->momentUs < result)
-			result = elt->momentUs;
+		efiAssert(current->momentUs > nowUs, "executeAll should have been called");
+		if (current->momentUs < result)
+			result = current->momentUs;
 	}
 	return result;
 }
