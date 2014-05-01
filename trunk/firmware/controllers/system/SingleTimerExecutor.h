@@ -15,10 +15,9 @@ class Executor {
 public:
 	Executor();
 	void schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param);
-	void execute(uint64_t now);
+	void execute(uint64_t nowUs);
 private:
 	EventQueue queue;
-	void setTimer(uint64_t now);
 };
 
 #endif /* SINGLETIMEREXECUTOR_H_ */
