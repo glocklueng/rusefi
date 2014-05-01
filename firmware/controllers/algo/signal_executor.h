@@ -54,16 +54,7 @@ struct OutputSignal_struct {
 	 */
 	char *name;
 	io_pin_e io_pin;
-#if 0	// depricated
-	// time in system ticks
-	volatile int offset;
-	// time in system ticks
-	volatile int duration;
-#endif
 	int initialized;
-
-//	time_t last_scheduling_time;
-//	time_t hi_time;
 
 	/**
 	 * We are alternating instances so that events which extend into next revolution are not overriden while
@@ -78,7 +69,7 @@ struct OutputSignal_struct {
 	// todo
 #endif
 
-	OutputSignal *next;
+//	OutputSignal *next;
 };
 
 
