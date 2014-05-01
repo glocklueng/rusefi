@@ -27,18 +27,24 @@ static void executorCallback(void *arg) {
 }
 
 Executor::Executor() {
+	reentrantLock = FALSE;
 }
 
 void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
 	queue.insertTask(scheduling, nowUs, delayUs, callback, param);
+	if(!reentrantLock)
 	execute(nowUs);
 }
 
 void Executor::execute(uint64_t nowUs) {
 	/**
-	 * Let's execute actions we should execute at this point
+	 * Let's execute actions we should execute at this point.
+	 * reentrantLock takes care of the use case where the actions we are executing are scheduling
+	 * further invocations
 	 */
+	reentrantLock = TRUE;
 	queue.executeAll(nowUs);
+	reentrantLock = FALSE;
 	/**
 	 * Let's set up the timer for the next execution
 	 */

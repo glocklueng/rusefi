@@ -18,6 +18,7 @@ public:
 	void execute(uint64_t nowUs);
 private:
 	EventQueue queue;
+	bool_t reentrantLock;
 };
 
 #endif /* SINGLETIMEREXECUTOR_H_ */
