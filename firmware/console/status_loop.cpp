@@ -83,7 +83,7 @@ static void setWarningEnabled(int value) {
 static Logging fileLogger;
 #endif /* EFI_FILE_LOGGING */
 
-static void reportSensorF(char *caption, float value, int precision) {
+static void reportSensorF(const char *caption, float value, int precision) {
 #if EFI_PROD_CODE || EFI_SIMULATOR
 	debugFloat(&logger, caption, value, precision);
 #endif /* EFI_PROD_CODE || EFI_SIMULATOR */
