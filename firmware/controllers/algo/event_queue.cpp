@@ -79,14 +79,14 @@ void EventQueue::executeAll(uint64_t now) {
 	{
 		if (current->momentUs <= now) {
 			LL_DELETE(head, current);
-			LL_PREPEND(executionList, current);
-		}
-	}
-	LL_FOREACH(executionList, current)
-	{
+//			LL_PREPEND(executionList, current);
 #if EFI_SIGNAL_EXECUTOR_ONE_TIMER
 		current->callback(current->param);
 #endif /* EFI_SIGNAL_EXECUTOR_ONE_TIMER */
+}
+	}
+	LL_FOREACH(executionList, current)
+	{
 	}
 
 }
