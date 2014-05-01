@@ -26,14 +26,6 @@ static void executorCallback(void *arg) {
 	instance.execute(getTimeNowUs());
 }
 
-void Executor::setTimer(uint64_t nowUs) {
-	uint64_t nextEventTime = queue.getNextEventTime(nowUs);
-	efiAssert(nextEventTime > nowUs, "setTimer constraint");
-	if (nextEventTime == EMPTY_QUEUE)
-		return; // no pending events in the queue
-	setHardwareUsTimer(nextEventTime - nowUs);
-}
-
 Executor::Executor() {
 }
 
@@ -50,7 +42,11 @@ void Executor::execute(uint64_t nowUs) {
 	/**
 	 * Let's set up the timer for the next execution
 	 */
-	setTimer(nowUs);
+	uint64_t nextEventTime = queue.getNextEventTime(nowUs);
+	efiAssert(nextEventTime > nowUs, "setTimer constraint");
+	if (nextEventTime == EMPTY_QUEUE)
+		return; // no pending events in the queue
+	setHardwareUsTimer(nextEventTime - nowUs);
 }
 
 /**
