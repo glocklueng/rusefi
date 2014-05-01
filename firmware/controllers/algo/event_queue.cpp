@@ -91,6 +91,13 @@ void EventQueue::executeAll(uint64_t now) {
 
 }
 
+int EventQueue::size(void) {
+	scheduling_s *tmp;
+	int result;
+	LL_COUNT(head, tmp, result);
+	return result;
+}
+
 void EventQueue::clear(void) {
 	head = NULL;
 }
