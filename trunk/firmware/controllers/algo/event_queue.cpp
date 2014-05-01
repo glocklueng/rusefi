@@ -70,15 +70,15 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
  * Invoke all pending actions prior to specified timestamp
  */
 void EventQueue::executeAll(uint64_t now) {
-	scheduling_s * elt, *tmp;
+	scheduling_s * current, *tmp;
 
 // here we need safe iteration because we are removing elements
-	LL_FOREACH_SAFE(head, elt, tmp)
+	LL_FOREACH_SAFE(head, current, tmp)
 	{
-		if (elt->momentUs <= now) {
-			LL_DELETE(head, elt);
+		if (current->momentUs <= now) {
+			LL_DELETE(head, current);
 #if EFI_SIGNAL_EXECUTOR_ONE_TIMER
-			elt->callback(elt->param);
+			current->callback(current->param);
 #endif /* EFI_SIGNAL_EXECUTOR_ONE_TIMER */
 		}
 	}
