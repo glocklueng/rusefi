@@ -42,9 +42,9 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayU
 	LL_PREPEND(head, scheduling);
 }
 
-void EventQueue::insertTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param) {
-	insertTask(scheduling, getTimeNowUs(), delayUs, callback, param);
-}
+//void EventQueue::insertTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param) {
+//	insertTask(scheduling, getTimeNowUs(), delayUs, callback, param);
+//}
 
 /**
  * Get the timestamp of the soonest pending action
