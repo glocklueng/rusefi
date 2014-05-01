@@ -76,19 +76,21 @@ void EventQueue::executeAll(uint64_t now) {
 
 	scheduling_s * executionList = NULL;
 
-// we need safe iteration because we are removing elements inside the loop
+	// we need safe iteration because we are removing elements inside the loop
 	LL_FOREACH_SAFE(head, current, tmp)
 	{
 		if (current->momentUs <= now) {
 			LL_DELETE(head, current);
-//			LL_PREPEND(executionList, current);
-			current->callback(current->param);
+			LL_PREPEND(executionList, current);
 		}
 	}
-	LL_FOREACH(executionList, current)
-	{
-	}
 
+	/*
+	 * we need safe iteration here because 'callback' might change change 'current->next'
+	 * while re-inserting it into the queue from within the callback
+	 */
+	LL_FOREACH_SAFE(executionList, current, tmp)
+		current->callback(current->param);
 }
 
 int EventQueue::size(void) {
