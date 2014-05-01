@@ -60,7 +60,7 @@ static MemoryStream intermediateLoggingBuffer;
 static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE]; //todo define max-printf-buffer
 static bool intermediateLoggingBufferInited = FALSE;
 
-static int validateBuffer(Logging *logging, int extraLen, char *text) {
+static int validateBuffer(Logging *logging, int extraLen, const char *text) {
 	if (logging->buffer == NULL) {
 		strcpy(logging->SMALL_BUFFER, "Logging not initialized: ");
 		strcat(logging->SMALL_BUFFER, logging->name);
@@ -84,7 +84,7 @@ static int validateBuffer(Logging *logging, int extraLen, char *text) {
 	return FALSE;
 }
 
-void append(Logging *logging, char *text) {
+void append(Logging *logging, const char *text) {
 	chDbgCheck(text!=NULL, "append NULL");
 	int extraLen = strlen(text);
 	int errcode = validateBuffer(logging, extraLen, text);
@@ -197,7 +197,7 @@ void initLogging(Logging *logging, const char *name) {
 	initLoggingExt(logging, name, logging->DEFAULT_BUFFER, sizeof(logging->DEFAULT_BUFFER));
 }
 
-void debugInt(Logging *logging, char *caption, int value) {
+void debugInt(Logging *logging, const char *caption, int value) {
 	append(logging, caption);
 	append(logging, DELIMETER);
 	appendPrintf(logging, "%d%s", value, DELIMETER);
@@ -230,7 +230,7 @@ void appendFloat(Logging *logging, float value, int precision) {
 	}
 }
 
-void debugFloat(Logging *logging, char *caption, float value, int precision) {
+void debugFloat(Logging *logging, const char *caption, float value, int precision) {
 	append(logging, caption);
 	append(logging, DELIMETER);
 
