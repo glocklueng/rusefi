@@ -49,7 +49,31 @@ void testSignalExecutor() {
 	assertEquals(EMPTY_QUEUE, eq.getNextEventTime(0));
 	scheduling_s s1;
 	scheduling_s s2;
+	scheduling_s s3;
 
+	eq.insertTask(&s1, 0, 10, callback, NULL);
+	eq.insertTask(&s2, 0, 11, callback, NULL);
+	eq.insertTask(&s3, 0, 12, callback, NULL);
+	callbackCounter = 0;
+	eq.executeAll(10);
+	assertEquals(1, callbackCounter);
+	callbackCounter = 0;
+	eq.executeAll(11);
+	assertEquals(1, callbackCounter);
+	eq.clear();
+
+	eq.insertTask(&s1, 0, 12, callback, NULL);
+	eq.insertTask(&s2, 0, 11, callback, NULL);
+	eq.insertTask(&s3, 0, 10, callback, NULL);
+	callbackCounter = 0;
+	eq.executeAll(10);
+	assertEquals(1, callbackCounter);
+	callbackCounter = 0;
+	eq.executeAll(11);
+	assertEquals(1, callbackCounter);
+	eq.clear();
+
+	callbackCounter = 0;
 	eq.insertTask(&s1, 0, 10, callback, NULL);
 	assertEquals(10, eq.getNextEventTime(0));
 
