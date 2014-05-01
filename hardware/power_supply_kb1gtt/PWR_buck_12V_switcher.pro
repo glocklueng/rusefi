@@ -1,4 +1,4 @@
-update=4/2/2014 5:59:21 AM
+update=4/6/2014 4:40:46 PM
 last_client=eeschema
 [common]
 NetDir=
@@ -43,7 +43,7 @@ LibName7=PCB-modules/project_specific_modules
 [eeschema]
 version=1
 LibDir=
-NetFmtName=
+NetFmtName=PcbnewAdvanced
 RptD_X=0
 RptD_Y=100
 RptLab=1
