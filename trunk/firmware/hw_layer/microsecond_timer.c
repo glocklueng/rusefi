@@ -16,6 +16,9 @@
 
 #if EFI_PROD_CODE
 
+#define HW_TIMER_PRIORITY 12
+#define HW_TIMER_IRQ TIM5_IRQn
+
 static TIM_TypeDef *TIM = TIM5;
 
 schfunc_t globalTimerCallback;
@@ -49,7 +52,7 @@ CH_IRQ_HANDLER(STM32_TIM5_HANDLER) {
 
 void initMicrosecondTimer(void) {
 	RCC ->APB1ENR |= RCC_APB1ENR_TIM5EN;   // Enable TIM5 clock
-	nvicEnableVector(TIM5_IRQn, CORTEX_PRIORITY_MASK(12));
+	nvicEnableVector(HW_TIMER_IRQ, CORTEX_PRIORITY_MASK(HW_TIMER_PRIORITY));
 	TIM->DIER |= TIM_DIER_UIE;   // Enable interrupt on update event
 	TIM->CR1 |= TIM_CR1_OPM; // one pulse mode: count down ARR and stop
 	TIM->CR1 &= ~TIM_CR1_ARPE; /* ARR register is NOT buffered, allows to update timer's period on-fly. */
