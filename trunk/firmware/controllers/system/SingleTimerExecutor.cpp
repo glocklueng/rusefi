@@ -84,6 +84,10 @@ void Executor::doExecute(uint64_t nowUs) {
  * @param [in] dwell the number of ticks of output duration.
  */
 void scheduleTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param) {
+	if (delayUs < 0) {
+		firmwareError("Negative delayUs");
+		return;
+	}
 	if (delayUs == 0) {
 		callback(param);
 		return;
