@@ -57,6 +57,10 @@ static void sayHello(void) {
 	printMsg(&logger, "SERIAL_SPEED=%d", SERIAL_SPEED);
 #endif
 
+#ifdef CORTEX_MAX_KERNEL_PRIORITY
+	printMsg(&logger, "CORTEX_MAX_KERNEL_PRIORITY=%d", CORTEX_MAX_KERNEL_PRIORITY);
+#endif
+
 #ifdef STM32_ADCCLK
 	printMsg(&logger, "STM32_ADCCLK=%d", STM32_ADCCLK);
 	printMsg(&logger, "STM32_TIMCLK1=%d", STM32_TIMCLK1);
