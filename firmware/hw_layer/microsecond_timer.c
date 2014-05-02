@@ -40,12 +40,11 @@ static void callback(void) {
 	globalTimerCallback(NULL);
 }
 
-// if you decide to move this to .cpp do not forget to make that a C method
+// if you decide to move this to .cpp do not forget to make that an extern "C" method
 CH_IRQ_HANDLER(STM32_TIM5_HANDLER) {
 	CH_IRQ_PROLOGUE();
-	if (((TIM->SR & 0x0001) != 0) && ((TIM->DIER & 0x0001) != 0)) {
+	if (((TIM->SR & 0x0001) != 0) && ((TIM->DIER & 0x0001) != 0))
 		callback();
-	}
 	TIM->SR = (int) ~STM32_TIM_SR_UIF;   // Interrupt has been handled
 	CH_IRQ_EPILOGUE();
 }
