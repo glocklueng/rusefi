@@ -32,12 +32,16 @@ extern board_configuration_s *boardConfiguration;
 static void startPwmTest(int freq) {
 	scheduleMsg(&logger, "running pwm test @%d", freq);
 
+	// currently this is PB9 by default
 	startSimplePwm(&pwmTest[0], "tester", boardConfiguration->injectionPins[0],
 			INJECTOR_1_OUTPUT, 0.5, freq / 1000, FALSE);
+	// currently this is PB8 by default
 	startSimplePwm(&pwmTest[1], "tester", boardConfiguration->injectionPins[1],
 			INJECTOR_2_OUTPUT, 0.5, freq / 100, FALSE);
+	// currently this is PE3 by default
 	startSimplePwm(&pwmTest[2], "tester", boardConfiguration->injectionPins[2],
 			INJECTOR_3_OUTPUT, 0.5, freq, FALSE);
+	// currently this is PE5 by default
 	startSimplePwm(&pwmTest[3], "tester", boardConfiguration->injectionPins[3],
 			INJECTOR_4_OUTPUT, 0.5, freq / 33.3, FALSE);
 }
@@ -45,4 +49,5 @@ static void startPwmTest(int freq) {
 void initPwmTester(void) {
 	initLogging(&logger, "pwm test");
 	addConsoleActionI("pwmtest", startPwmTest);
+// un-comment this to start pwm test on start up 	startPwmTest(1000);
 }
