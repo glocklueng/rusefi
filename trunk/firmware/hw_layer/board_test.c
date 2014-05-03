@@ -29,6 +29,8 @@ static volatile int stepCoutner = 0;
 static volatile brain_pin_e currentPin;
 static volatile int currentIndex = 0;
 
+extern int slowAdcChannelCount;
+
 static int isTimeForNextStep(int copy) {
 	return copy != stepCoutner;
 }
@@ -101,7 +103,7 @@ void initBoardTest(void) {
 
 	int pinsCount = sizeof(BLINK_PINS) / sizeof(brain_pin_e);
 
-	while (currentIndex < EFI_ADC_SLOW_CHANNELS_COUNT) {
+	while (currentIndex < slowAdcChannelCount) {
 		int hwIndex = getAdcHardwareIndexByInternalIndex(currentIndex);
 		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
 		int pin = getAdcChannelPin(hwIndex);

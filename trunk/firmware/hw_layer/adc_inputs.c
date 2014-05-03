@@ -14,6 +14,10 @@
 #include "map_averaging.h"
 #include "engine_configuration.h"
 
+/**
+ * Number of slow-mode ADC channels in use
+ */
+int slowAdcChannelCount;
 
 #define ADC_GRP1_BUF_DEPTH_FAST      1
 
@@ -75,8 +79,8 @@ static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 		adcCallbackCounter_slow++;
 
 //		newState.time = chimeNow();
-		for (int i = 0; i < EFI_ADC_SLOW_CHANNELS_COUNT; i++) {
-			int value = getAvgAdcValue(i, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW, EFI_ADC_SLOW_CHANNELS_COUNT);
+		for (int i = 0; i < slowAdcChannelCount; i++) {
+			int value = getAvgAdcValue(i, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW, slowAdcChannelCount);
 			newState.adc_data[i] = value;
 		}
 	}
@@ -99,7 +103,7 @@ static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 /*
  * ADC conversion group.
  */
-static ADCConversionGroup adcgrpcfg_slow = { FALSE, EFI_ADC_SLOW_CHANNELS_COUNT, adc_callback_slow, NULL,
+static ADCConversionGroup adcgrpcfg_slow = { FALSE, 0, adc_callback_slow, NULL,
 /* HW dependent part.*/
 ADC_TwoSamplingDelay_20Cycles,   // cr1
 		ADC_CR2_SWSTART, // cr2
@@ -120,7 +124,7 @@ ADC_TwoSamplingDelay_20Cycles,   // cr1
 
 		, // In this field must be specified the sample times for channels 0...9
 
-		ADC_SQR1_NUM_CH(EFI_ADC_SLOW_CHANNELS_COUNT), // Conversion group sequence 13...16 + sequence length
+		0, // Conversion group sequence 13...16 + sequence length
 
 		0
 //		| ADC_SQR2_SQ7_N(ADC_CHANNEL_IN12) /* PC2 - green */
@@ -325,7 +329,7 @@ int getAdcHardwareIndexByInternalIndex(int index) {
 
 static void printFullAdcReport(void) {
 
-	for (int index = 0; index < EFI_ADC_SLOW_CHANNELS_COUNT; index++) {
+	for (int index = 0; index < slowAdcChannelCount; index++) {
 		appendMsgPrefix(&logger);
 
 		int hwIndex = getAdcHardwareIndexByInternalIndex(index);
@@ -367,62 +371,68 @@ void initAdcInputs() {
 	adcStart(&ADC_SLOW, NULL);
 	adcStart(&ADC_FAST, NULL);
 
+	adcgrpcfg_slow.sqr1 = 0;
 	adcgrpcfg_slow.sqr2 = 0;
 	adcgrpcfg_slow.sqr3 = 0;
 
-	int index = 0;
+	slowAdcChannelCount = 0;
 
 #if EFI_USE_ADC_CHANNEL_IN0
-	initSlowChannel(index++, ADC_CHANNEL_IN0); // PA0
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN0); // PA0
 #endif
 #if EFI_USE_ADC_CHANNEL_IN1
-	initSlowChannel(index++, ADC_CHANNEL_IN1); // PA1
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN1); // PA1
 #endif
 #if EFI_USE_ADC_CHANNEL_IN2
-	initSlowChannel(index++, ADC_CHANNEL_IN2); // PA2
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN2); // PA2
 #endif
 #if EFI_USE_ADC_CHANNEL_IN3
-	initSlowChannel(index++, ADC_CHANNEL_IN3); // PA3
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN3); // PA3
 #endif
 #if EFI_USE_ADC_CHANNEL_IN4
-	initSlowChannel(index++, ADC_CHANNEL_IN4); // PA4
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN4); // PA4
 #endif
 #if EFI_USE_ADC_CHANNEL_IN5
 	initSlowChannel(index++, ADC_CHANNEL_IN5); // PA5 - this is also TIM2_CH1
 #endif
 #if EFI_USE_ADC_CHANNEL_IN6
-	initSlowChannel(index++, ADC_CHANNEL_IN6); // PA6
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN6); // PA6
 #endif
 #if EFI_USE_ADC_CHANNEL_IN7
-	initSlowChannel(index++, ADC_CHANNEL_IN7); // PA7
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN7); // PA7
 #endif
 #if EFI_USE_ADC_CHANNEL_IN8
-	initSlowChannel(index++, ADC_CHANNEL_IN8); // PB0
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN8); // PB0
 #endif
 #if EFI_USE_ADC_CHANNEL_IN9
-	initSlowChannel(index++, ADC_CHANNEL_IN9); // PB1
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN9); // PB1
 #endif
 #if EFI_USE_ADC_CHANNEL_IN10
-	initSlowChannel(index++, ADC_CHANNEL_IN10); // PC0
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN10); // PC0
 #endif
 #if EFI_USE_ADC_CHANNEL_IN11
-	initSlowChannel(index++, ADC_CHANNEL_IN11); // PC1
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN11); // PC1
 #endif
 #if EFI_USE_ADC_CHANNEL_IN12
-	initSlowChannel(index++, ADC_CHANNEL_IN12); // PC2
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN12); // PC2
 #endif
 #if EFI_USE_ADC_CHANNEL_IN13
-	initSlowChannel(index++, ADC_CHANNEL_IN13); // PC3
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN13); // PC3
 #endif
 #if EFI_USE_ADC_CHANNEL_IN14
-	initSlowChannel(index++, ADC_CHANNEL_IN14); // PC4
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN14); // PC4
 #endif
 #if EFI_USE_ADC_CHANNEL_IN15
-	initSlowChannel(index++, ADC_CHANNEL_IN15); // PC5
+	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN15); // PC5
 #endif
 
-	if (index != EFI_ADC_SLOW_CHANNELS_COUNT)
-		fatal("Invalud internal ADC config");
+	adcgrpcfg_slow.num_channels = slowAdcChannelCount;
+
+	adcgrpcfg_slow.sqr1 += ADC_SQR1_NUM_CH(slowAdcChannelCount);
+
+	//if(slowAdcChannelCount > ADC_MAX_SLOW_CHANNELS_COUNT) // todo: do we need this logic? do we need thic check
+
+
 
 	/*
 	 * Initializes the PWM driver.
