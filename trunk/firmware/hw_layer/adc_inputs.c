@@ -48,6 +48,7 @@ static int hardwareIndexByIndernalAdcIndex[20];
 
 static int fastAdcValue;
 extern engine_configuration_s *engineConfiguration;
+extern board_configuration_s *boardConfiguration;
 
 static adc_hw_helper_s slowAdcState;
 
@@ -251,7 +252,8 @@ GPIO_TypeDef* getAdcChannelPort(int hwChannel) {
 	case ADC_CHANNEL_IN15:
 		return GPIOC;
 	default:
-		fatal("Unknown hw channel");
+		fatal("Unknown hw channel")
+		;
 		return NULL;
 	}
 }
@@ -293,7 +295,8 @@ int getAdcChannelPin(int hwChannel) {
 	case ADC_CHANNEL_IN15:
 		return 5;
 	default:
-		fatal("Unknown hw channel");
+		fatal("Unknown hw channel")
+		;
 		return -1;
 	}
 }
@@ -377,62 +380,34 @@ void initAdcInputs() {
 
 	slowAdcChannelCount = 0;
 
-#if EFI_USE_ADC_CHANNEL_IN0
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN0); // PA0
-#endif
-#if EFI_USE_ADC_CHANNEL_IN1
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN1); // PA1
-#endif
-#if EFI_USE_ADC_CHANNEL_IN2
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN2); // PA2
-#endif
-#if EFI_USE_ADC_CHANNEL_IN3
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN3); // PA3
-#endif
-#if EFI_USE_ADC_CHANNEL_IN4
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN4); // PA4
-#endif
-#if EFI_USE_ADC_CHANNEL_IN5
-	initSlowChannel(index++, ADC_CHANNEL_IN5); // PA5 - this is also TIM2_CH1
-#endif
-#if EFI_USE_ADC_CHANNEL_IN6
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN6); // PA6
-#endif
-#if EFI_USE_ADC_CHANNEL_IN7
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN7); // PA7
-#endif
-#if EFI_USE_ADC_CHANNEL_IN8
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN8); // PB0
-#endif
-#if EFI_USE_ADC_CHANNEL_IN9
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN9); // PB1
-#endif
-#if EFI_USE_ADC_CHANNEL_IN10
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN10); // PC0
-#endif
-#if EFI_USE_ADC_CHANNEL_IN11
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN11); // PC1
-#endif
-#if EFI_USE_ADC_CHANNEL_IN12
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN12); // PC2
-#endif
-#if EFI_USE_ADC_CHANNEL_IN13
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN13); // PC3
-#endif
-#if EFI_USE_ADC_CHANNEL_IN14
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN14); // PC4
-#endif
-#if EFI_USE_ADC_CHANNEL_IN15
-	initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN15); // PC5
-#endif
+	for (int adc = 0; adc < HW_MAX_ADC_INDEX; adc++) {
+		if (boardConfiguration->adcHwChannelEnabled[adc]) {
+			initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN0 + adc);
+		}
+	}
+
+	// ADC_CHANNEL_IN0 // PA0
+	// ADC_CHANNEL_IN1 // PA1
+	// ADC_CHANNEL_IN2 // PA2
+	// ADC_CHANNEL_IN3 // PA3
+	// ADC_CHANNEL_IN4 // PA4
+	// ADC_CHANNEL_IN5 // PA5 - this is also TIM2_CH1
+	// ADC_CHANNEL_IN6 // PA6
+	// ADC_CHANNEL_IN7 // PA7
+	// ADC_CHANNEL_IN8 // PB0
+	// ADC_CHANNEL_IN9 // PB1
+	// ADC_CHANNEL_IN10 // PC0
+	// ADC_CHANNEL_IN11 // PC1
+	// ADC_CHANNEL_IN12 // PC2
+	// ADC_CHANNEL_IN13 // PC3
+	// ADC_CHANNEL_IN14 // PC4
+	// ADC_CHANNEL_IN15 // PC5
 
 	adcgrpcfg_slow.num_channels = slowAdcChannelCount;
 
 	adcgrpcfg_slow.sqr1 += ADC_SQR1_NUM_CH(slowAdcChannelCount);
 
 	//if(slowAdcChannelCount > ADC_MAX_SLOW_CHANNELS_COUNT) // todo: do we need this logic? do we need thic check
-
-
 
 	/*
 	 * Initializes the PWM driver.

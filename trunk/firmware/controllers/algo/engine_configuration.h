@@ -269,6 +269,8 @@ typedef struct {
 	float diffLoadEnrichmentCoef;
 } engine_configuration_s;
 
+#define HW_MAX_ADC_INDEX 16
+
 typedef struct {
 	// WARNING: by default, our small enums are ONE BYTE. this one is made 4-byte with the 'ENUM_SIZE_HACK' hack
 	brain_pin_e idleValvePin;
@@ -313,6 +315,8 @@ typedef struct {
 	 */
 	spi_device_e digitalPotentiometerSpiDevice;
 	brain_pin_e digitalPotentiometerChipSelect[4];
+
+	uint8_t adcHwChannelEnabled[HW_MAX_ADC_INDEX];
 
 
 } board_configuration_s;
