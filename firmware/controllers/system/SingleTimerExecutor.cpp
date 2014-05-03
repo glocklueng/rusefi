@@ -39,13 +39,15 @@ void Executor::unlock(void) {
 }
 
 void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
-	if (!reentrantLock)
+	if (!reentrantLock) {
+		// this would guard the queue and disable interrupts
 		lock();
+	}
 	queue.insertTask(scheduling, nowUs, delayUs, callback, param);
-	if (!reentrantLock)
+	if (!reentrantLock) {
 		doExecute(nowUs);
-	if (!reentrantLock)
 		unlock();
+	}
 }
 
 void Executor::execute(uint64_t nowUs) {
@@ -86,6 +88,7 @@ void Executor::doExecute(uint64_t nowUs) {
  * @param [in] dwell the number of ticks of output duration.
  */
 void scheduleTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param) {
+	efiAssert(delayUs >= 0, "delayUs"); // todo: remove this line?
 	if (delayUs < 0) {
 		firmwareError("Negative delayUs");
 		return;
