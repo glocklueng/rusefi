@@ -31,19 +31,21 @@ Executor::Executor() {
 }
 
 void Executor::lock(void) {
-	//todo
+	lockAnyContext();
 }
 
 void Executor::unlock(void) {
-	//todo
+	unlockAnyContext();
 }
 
 void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
-	lock();
+	if (!reentrantLock)
+		lock();
 	queue.insertTask(scheduling, nowUs, delayUs, callback, param);
 	if (!reentrantLock)
 		doExecute(nowUs);
-	unlock();
+	if (!reentrantLock)
+		unlock();
 }
 
 void Executor::execute(uint64_t nowUs) {
