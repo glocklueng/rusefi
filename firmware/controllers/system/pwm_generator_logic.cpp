@@ -1,6 +1,9 @@
 /*
  * @file    pwm_generator_logic.c
  *
+ * This PWM implementation keep track of when it would be the next time to toggle the signal.
+ * It constantly sets timer to that next toggle time, then sets the timer again from the callback, and so on.
+ *
  * @date Mar 2, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
@@ -28,6 +31,9 @@ static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
 	return state->safe.startUs + timeToSwitchUs;
 }
 
+/**
+ * @return Next time for signal toggle
+ */
 static uint64_t togglePwmState(PwmConfig *state) {
 #if DEBUG_PWM
 	scheduleMsg(&logger, "togglePwmState phaseIndex=%d iteration=%d", state->safe.phaseIndex, state->safe.iteration);
