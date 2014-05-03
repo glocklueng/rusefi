@@ -278,6 +278,19 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	boardConfiguration->HD44780_db5 = GPIOE_15;
 	boardConfiguration->HD44780_db6 = GPIOB_11;
 	boardConfiguration->HD44780_db7 = GPIOB_13;
+
+	memset(boardConfiguration->adcHwChannelEnabled, 0, sizeof(boardConfiguration->adcHwChannelEnabled));
+	boardConfiguration->adcHwChannelEnabled[0] = TRUE;
+	boardConfiguration->adcHwChannelEnabled[1] = TRUE;
+	boardConfiguration->adcHwChannelEnabled[2] = TRUE;
+	boardConfiguration->adcHwChannelEnabled[3] = TRUE;
+	boardConfiguration->adcHwChannelEnabled[4] = TRUE;
+
+	boardConfiguration->adcHwChannelEnabled[6] = TRUE;
+	boardConfiguration->adcHwChannelEnabled[7] = TRUE;
+	boardConfiguration->adcHwChannelEnabled[11] = TRUE;
+	boardConfiguration->adcHwChannelEnabled[12] = TRUE;
+	boardConfiguration->adcHwChannelEnabled[13] = TRUE;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
