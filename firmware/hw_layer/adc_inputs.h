@@ -34,6 +34,8 @@ int getInternalAdcValue(int index);
 #define ADC_GRP1_BUF_DEPTH_SLOW      1
 #define ADC_MAX_SLOW_CHANNELS_COUNT 12
 
+//typedef struct
+
 // this structure contains one multi-channel ADC state snapshot
 typedef struct {
 	volatile adcsample_t adc_data[ADC_MAX_SLOW_CHANNELS_COUNT];
