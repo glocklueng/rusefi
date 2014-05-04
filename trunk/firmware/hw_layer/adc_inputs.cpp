@@ -36,9 +36,9 @@ AdcConfiguration::AdcConfiguration(ADCConversionGroup* hwConfig) {
 #define PWM_FREQ_FAST 1500000   /* PWM clock frequency. I wonder what does this setting mean?  */
 #define PWM_PERIOD_FAST 50  /* PWM period (in PWM ticks).    */
 
-#define ADC_SLOW ADCD1
+#define ADC_SLOW_DEVICE ADCD1
 
-#define ADC_FAST ADCD2
+#define ADC_FAST_DEVICE ADCD2
 
 #define ADC_DEBUG_KEY "adcDebug"
 
@@ -157,7 +157,7 @@ static void pwmpcb_slow(PWMDriver *pwmp) {
 	 will be executed in parallel to the current PWM cycle and will
 	 terminate before the next PWM cycle.*/chSysLockFromIsr()
 	;
-	adcStartConversionI(&ADC_SLOW, &adcgrpcfgSlow, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW);
+	adcStartConversionI(&ADC_SLOW_DEVICE, &adcgrpcfgSlow, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW);
 	chSysUnlockFromIsr()
 	;
 #endif
@@ -171,7 +171,7 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 	 will be executed in parallel to the current PWM cycle and will
 	 terminate before the next PWM cycle.*/chSysLockFromIsr()
 	;
-	adcStartConversionI(&ADC_FAST, &adcgrpcfg_fast, samples_fast, ADC_GRP1_BUF_DEPTH_FAST);
+	adcStartConversionI(&ADC_FAST_DEVICE, &adcgrpcfg_fast, samples_fast, ADC_GRP1_BUF_DEPTH_FAST);
 	chSysUnlockFromIsr()
 	;
 #endif
@@ -389,11 +389,11 @@ void initAdcInputs() {
 	/*
 	 * Initializes the ADC driver.
 	 */
-	adcStart(&ADC_SLOW, NULL);
-	adcStart(&ADC_FAST, NULL);
+	adcStart(&ADC_SLOW_DEVICE, NULL);
+	adcStart(&ADC_FAST_DEVICE, NULL);
 
 	for (int adc = 0; adc < HW_MAX_ADC_INDEX; adc++) {
-		if (boardConfiguration->adcHwChannelEnabled[adc]) {
+		if (ADC_SLOW == boardConfiguration->adcHwChannelEnabled[adc]) {
 			slowAdc.addChannel(ADC_CHANNEL_IN0 + adc);
 		}
 	}
