@@ -20,6 +20,7 @@
  */
 
 #include "main.h"
+#include "board_test.h"
 #include "rusefi_enums.h"
 #include "pin_repository.h"
 #include "gpio_helper.h"

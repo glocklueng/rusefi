@@ -13,10 +13,10 @@ HW_LAYERSRC = $(PROJECT_DIR)/hw_layer/pin_repository.c \
 	$(PROJECT_DIR)/hw_layer/mmc_card.c \
 	$(PROJECT_DIR)/hw_layer/neo6m.c \
 	$(PROJECT_DIR)/hw_layer/gpio_helper.c \
-	$(PROJECT_DIR)/hw_layer/board_test.c \
 	$(PROJECT_DIR)/hw_layer/wave_analyzer_hw.c
 
 HW_LAYER_SRC_CPP = $(PROJECT_DIR)/hw_layer/hardware.cpp \
  	$(PROJECT_DIR)/hw_layer/adc_inputs.cpp \
+	$(PROJECT_DIR)/hw_layer/board_test.cpp \
 	$(PROJECT_DIR)/hw_layer/pwm_generator.cpp \
 	$(PROJECT_DIR)/hw_layer/trigger_input.cpp
