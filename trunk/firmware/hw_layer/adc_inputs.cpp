@@ -273,7 +273,6 @@ int getAdcChannelPin(int hwChannel) {
 		return 4;
 	case ADC_CHANNEL_IN5:
 		return 5;
-		break;
 	case ADC_CHANNEL_IN6:
 		return 6;
 	case ADC_CHANNEL_IN7:
