@@ -15,9 +15,13 @@
 #include "map_averaging.h"
 #include "engine_configuration.h"
 
-AdcConfiguration::AdcConfiguration(const ADCConversionGroup* hwConfig) {
+AdcConfiguration::AdcConfiguration(ADCConversionGroup* hwConfig) {
 	this->hwConfig = hwConfig;
 	channelCount = 0;
+
+	hwConfig->sqr1 = 0;
+	hwConfig->sqr2 = 0;
+	hwConfig->sqr3 = 0;
 }
 
 #define ADC_GRP1_BUF_DEPTH_FAST      1
@@ -86,7 +90,7 @@ static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 /*
  * ADC conversion group.
  */
-static ADCConversionGroup adcgrpcfg_slow = { FALSE, 0, adc_callback_slow, NULL,
+static ADCConversionGroup adcgrpcfgSlow = { FALSE, 0, adc_callback_slow, NULL,
 /* HW dependent part.*/
 ADC_TwoSamplingDelay_20Cycles,   // cr1
 		ADC_CR2_SWSTART, // cr2
@@ -124,9 +128,9 @@ ADC_TwoSamplingDelay_20Cycles,   // cr1
 // Conversion group sequence 1...6
 		};
 
-static AdcConfiguration slowAdc(&adcgrpcfg_slow);
+static AdcConfiguration slowAdc(&adcgrpcfgSlow);
 
-static const ADCConversionGroup adcgrpcfg_fast = { FALSE, ADC_NUMBER_CHANNELS_FAST, adc_callback_fast, NULL,
+static ADCConversionGroup adcgrpcfg_fast = { FALSE, ADC_NUMBER_CHANNELS_FAST, adc_callback_fast, NULL,
 /* HW dependent part.*/
 ADC_TwoSamplingDelay_5Cycles,   // cr1
 		ADC_CR2_SWSTART, // cr2
@@ -153,7 +157,7 @@ static void pwmpcb_slow(PWMDriver *pwmp) {
 	 will be executed in parallel to the current PWM cycle and will
 	 terminate before the next PWM cycle.*/chSysLockFromIsr()
 	;
-	adcStartConversionI(&ADC_SLOW, &adcgrpcfg_slow, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW);
+	adcStartConversionI(&ADC_SLOW, &adcgrpcfgSlow, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW);
 	chSysUnlockFromIsr()
 	;
 #endif
@@ -297,15 +301,20 @@ int AdcConfiguration::size() {
 	return channelCount;
 }
 
+void AdcConfiguration::init(void) {
+	hwConfig->num_channels = size();
+	hwConfig->sqr1 += ADC_SQR1_NUM_CH(size());
+}
+
 void AdcConfiguration::addChannel(int hwChannel) {
 	int logicChannel = channelCount++;
 
 	internalAdcIndexByHardwareIndex[hwChannel] = logicChannel;
 	hardwareIndexByIndernalAdcIndex[logicChannel] = hwChannel;
 	if (logicChannel < 6) {
-		adcgrpcfg_slow.sqr3 += (hwChannel) << (5 * logicChannel);
+		hwConfig->sqr3 += (hwChannel) << (5 * logicChannel);
 	} else {
-		adcgrpcfg_slow.sqr2 += (hwChannel) << (5 * (logicChannel - 6));
+		hwConfig->sqr2 += (hwChannel) << (5 * (logicChannel - 6));
 	}
 
 	initAdcHwChannel(hwChannel);
@@ -383,10 +392,6 @@ void initAdcInputs() {
 	adcStart(&ADC_SLOW, NULL);
 	adcStart(&ADC_FAST, NULL);
 
-	adcgrpcfg_slow.sqr1 = 0;
-	adcgrpcfg_slow.sqr2 = 0;
-	adcgrpcfg_slow.sqr3 = 0;
-
 	for (int adc = 0; adc < HW_MAX_ADC_INDEX; adc++) {
 		if (boardConfiguration->adcHwChannelEnabled[adc]) {
 			slowAdc.addChannel(ADC_CHANNEL_IN0 + adc);
@@ -410,9 +415,7 @@ void initAdcInputs() {
 	// ADC_CHANNEL_IN14 // PC4
 	// ADC_CHANNEL_IN15 // PC5
 
-	adcgrpcfg_slow.num_channels = slowAdc.size();
-
-	adcgrpcfg_slow.sqr1 += ADC_SQR1_NUM_CH(slowAdc.size());
+	slowAdc.init();
 
 	//if(slowAdcChannelCount > ADC_MAX_SLOW_CHANNELS_COUNT) // todo: do we need this logic? do we need thic check
 
