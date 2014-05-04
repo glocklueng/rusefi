@@ -9,13 +9,14 @@
 
 class AdcConfiguration {
 public:
-	AdcConfiguration(const ADCConversionGroup* hwConfig);
+	AdcConfiguration(ADCConversionGroup* hwConfig);
 	void addChannel(int hwChannelIndex);
 	int getAdcHardwareIndexByInternalIndex(int index);
 	int internalAdcIndexByHardwareIndex[20];
 	int size();
+	void init(void);
 private:
-	const ADCConversionGroup* hwConfig;
+	ADCConversionGroup* hwConfig;
 	/**
 	 * Number of ADC channels in use
 	 */
