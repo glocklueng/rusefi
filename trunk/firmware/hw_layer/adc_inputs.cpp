@@ -8,16 +8,17 @@
 
 #include "main.h"
 #include "adc_inputs.h"
+#include "AdcConfiguration.h"
 
 #include "pin_repository.h"
 #include "engine_math.h"
 #include "map_averaging.h"
 #include "engine_configuration.h"
 
-/**
- * Number of slow-mode ADC channels in use
- */
-int slowAdcChannelCount;
+AdcConfiguration::AdcConfiguration(const ADCConversionGroup* hwConfig) {
+	this->hwConfig = hwConfig;
+	channelCount = 0;
+}
 
 #define ADC_GRP1_BUF_DEPTH_FAST      1
 
@@ -43,9 +44,6 @@ static int adcCallbackCounter_slow = 0;
 
 static int adcDebugReporting = FALSE;
 
-static int internalAdcIndexByHardwareIndex[20];
-static int hardwareIndexByIndernalAdcIndex[20];
-
 static int fastAdcValue;
 extern engine_configuration_s *engineConfiguration;
 extern board_configuration_s *boardConfiguration;
@@ -69,23 +67,7 @@ static adcsample_t getAvgAdcValue(int index, adcsample_t *samples, int bufDepth,
 
 static adc_state newState;
 
-static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
-	(void) buffer;
-	(void) n;
-	/* Note, only in the ADC_COMPLETE state because the ADC driver fires an
-	 intermediate callback when the buffer is half full.*/
-	if (adcp->state == ADC_COMPLETE) {
-		/* Calculates the average values from the ADC samples.*/
-
-		adcCallbackCounter_slow++;
-
-//		newState.time = chimeNow();
-		for (int i = 0; i < slowAdcChannelCount; i++) {
-			int value = getAvgAdcValue(i, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW, slowAdcChannelCount);
-			newState.adc_data[i] = value;
-		}
-	}
-}
+static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n);
 
 static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 	(void) buffer;
@@ -142,6 +124,8 @@ ADC_TwoSamplingDelay_20Cycles,   // cr1
 // Conversion group sequence 1...6
 		};
 
+static AdcConfiguration slowAdc(&adcgrpcfg_slow);
+
 static const ADCConversionGroup adcgrpcfg_fast = { FALSE, ADC_NUMBER_CHANNELS_FAST, adc_callback_fast, NULL,
 /* HW dependent part.*/
 ADC_TwoSamplingDelay_5Cycles,   // cr1
@@ -158,6 +142,8 @@ ADC_TwoSamplingDelay_5Cycles,   // cr1
 
 		// Conversion group sequence 1...6
 		};
+
+static const AdcConfiguration fastAdc(&adcgrpcfg_fast);
 
 static void pwmpcb_slow(PWMDriver *pwmp) {
 #ifdef EFI_INTERNAL_ADC
@@ -195,7 +181,7 @@ int getInternalAdcValue(int hwChannel) {
 //	if (hwIndex==ADC_NUMBER_CHANNELS_FAST)
 //		return fastAdcValue;
 
-	int internalIndex = internalAdcIndexByHardwareIndex[hwChannel];
+	int internalIndex = slowAdc.internalAdcIndexByHardwareIndex[hwChannel];
 	return getAdcValueByIndex(internalIndex);
 }
 
@@ -307,7 +293,13 @@ static void initAdcHwChannel(int hwChannel) {
 	initAdcPin(port, pin, "hw");
 }
 
-void initSlowChannel(int logicChannel, int hwChannel) {
+int AdcConfiguration::size() {
+	return channelCount;
+}
+
+void AdcConfiguration::addChannel(int hwChannel) {
+	int logicChannel = channelCount++;
+
 	internalAdcIndexByHardwareIndex[hwChannel] = logicChannel;
 	hardwareIndexByIndernalAdcIndex[logicChannel] = hwChannel;
 	if (logicChannel < 6) {
@@ -325,16 +317,16 @@ static void printAdcValue(int channel) {
 	scheduleMsg(&logger, "adc voltage : %f", volts);
 }
 
-int getAdcHardwareIndexByInternalIndex(int index) {
+int AdcConfiguration::getAdcHardwareIndexByInternalIndex(int index) {
 	return hardwareIndexByIndernalAdcIndex[index];
 }
 
 static void printFullAdcReport(void) {
 
-	for (int index = 0; index < slowAdcChannelCount; index++) {
+	for (int index = 0; index < slowAdc.size(); index++) {
 		appendMsgPrefix(&logger);
 
-		int hwIndex = getAdcHardwareIndexByInternalIndex(index);
+		int hwIndex = slowAdc.getAdcHardwareIndexByInternalIndex(index);
 		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
 		int pin = getAdcChannelPin(hwIndex);
 
@@ -358,6 +350,24 @@ static void setAdcDebugReporting(int value) {
 	printStatus();
 }
 
+static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
+	(void) buffer;
+	(void) n;
+	/* Note, only in the ADC_COMPLETE state because the ADC driver fires an
+	 intermediate callback when the buffer is half full.*/
+	if (adcp->state == ADC_COMPLETE) {
+		/* Calculates the average values from the ADC samples.*/
+
+		adcCallbackCounter_slow++;
+
+//		newState.time = chimeNow();
+		for (int i = 0; i < slowAdc.size(); i++) {
+			int value = getAvgAdcValue(i, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW, slowAdc.size());
+			newState.adc_data[i] = value;
+		}
+	}
+}
+
 void initAdcInputs() {
 
 	initLoggingExt(&logger, "ADC", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
@@ -377,11 +387,9 @@ void initAdcInputs() {
 	adcgrpcfg_slow.sqr2 = 0;
 	adcgrpcfg_slow.sqr3 = 0;
 
-	slowAdcChannelCount = 0;
-
 	for (int adc = 0; adc < HW_MAX_ADC_INDEX; adc++) {
 		if (boardConfiguration->adcHwChannelEnabled[adc]) {
-			initSlowChannel(slowAdcChannelCount++, ADC_CHANNEL_IN0 + adc);
+			slowAdc.addChannel(ADC_CHANNEL_IN0 + adc);
 		}
 	}
 
@@ -402,9 +410,9 @@ void initAdcInputs() {
 	// ADC_CHANNEL_IN14 // PC4
 	// ADC_CHANNEL_IN15 // PC5
 
-	adcgrpcfg_slow.num_channels = slowAdcChannelCount;
+	adcgrpcfg_slow.num_channels = slowAdc.size();
 
-	adcgrpcfg_slow.sqr1 += ADC_SQR1_NUM_CH(slowAdcChannelCount);
+	adcgrpcfg_slow.sqr1 += ADC_SQR1_NUM_CH(slowAdc.size());
 
 	//if(slowAdcChannelCount > ADC_MAX_SLOW_CHANNELS_COUNT) // todo: do we need this logic? do we need thic check
 

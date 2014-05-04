@@ -25,12 +25,13 @@
 #include "pin_repository.h"
 #include "gpio_helper.h"
 #include "adc_inputs.h"
+#include "AdcConfiguration.h"
 
 static volatile int stepCoutner = 0;
 static volatile brain_pin_e currentPin;
 static volatile int currentIndex = 0;
 
-extern int slowAdcChannelCount;
+extern AdcConfiguration slowAdc;
 
 static int isTimeForNextStep(int copy) {
 	return copy != stepCoutner;
@@ -104,7 +105,7 @@ void initBoardTest(void) {
 
 	int pinsCount = sizeof(BLINK_PINS) / sizeof(brain_pin_e);
 
-	while (currentIndex < slowAdcChannelCount) {
+	while (currentIndex < slowAdc.size()) {
 		int hwIndex = getAdcHardwareIndexByInternalIndex(currentIndex);
 		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
 		int pin = getAdcChannelPin(hwIndex);
