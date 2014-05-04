@@ -316,7 +316,7 @@ typedef struct {
 	spi_device_e digitalPotentiometerSpiDevice;
 	brain_pin_e digitalPotentiometerChipSelect[4];
 
-	uint8_t adcHwChannelEnabled[HW_MAX_ADC_INDEX];
+	adc_channel_mode_e adcHwChannelEnabled[HW_MAX_ADC_INDEX];
 
 
 } board_configuration_s;

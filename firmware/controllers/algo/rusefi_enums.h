@@ -85,6 +85,14 @@ typedef enum {
 } trigger_type_e;
 
 typedef enum {
+	ADC_OFF = 0,
+	ADC_SLOW = 1,
+	ADC_FAST = 2,
+
+	Internal_ForceMyEnumIntSize_adc_channel_mode = ENUM_SIZE_HACK,
+} adc_channel_mode_e;
+
+typedef enum {
 	SHAFT_PRIMARY_UP = 0,
 	SHAFT_PRIMARY_DOWN = 1,
 	SHAFT_SECONDARY_UP = 2,

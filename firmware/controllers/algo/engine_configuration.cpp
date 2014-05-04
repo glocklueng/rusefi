@@ -280,17 +280,17 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	boardConfiguration->HD44780_db7 = GPIOB_13;
 
 	memset(boardConfiguration->adcHwChannelEnabled, 0, sizeof(boardConfiguration->adcHwChannelEnabled));
-	boardConfiguration->adcHwChannelEnabled[0] = TRUE;
-	boardConfiguration->adcHwChannelEnabled[1] = TRUE;
-	boardConfiguration->adcHwChannelEnabled[2] = TRUE;
-	boardConfiguration->adcHwChannelEnabled[3] = TRUE;
-	boardConfiguration->adcHwChannelEnabled[4] = TRUE;
+	boardConfiguration->adcHwChannelEnabled[0] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[1] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[2] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[3] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[4] = ADC_SLOW;
 
-	boardConfiguration->adcHwChannelEnabled[6] = TRUE;
-	boardConfiguration->adcHwChannelEnabled[7] = TRUE;
-	boardConfiguration->adcHwChannelEnabled[11] = TRUE;
-	boardConfiguration->adcHwChannelEnabled[12] = TRUE;
-	boardConfiguration->adcHwChannelEnabled[13] = TRUE;
+	boardConfiguration->adcHwChannelEnabled[6] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[7] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[11] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[12] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[13] = ADC_SLOW;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
