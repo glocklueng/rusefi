@@ -21,6 +21,8 @@
 
 static TIM_TypeDef *TIM = TIM5;
 
+static volatile int64_t lastSetTimerTime;
+
 schfunc_t globalTimerCallback;
 
 /**
@@ -30,6 +32,8 @@ void setHardwareUsTimer(int timeUs) {
 	TIM->ARR = timeUs - 1;
 	TIM->EGR |= TIM_EGR_UG; // generate an update event to reload timer's counter value
 	TIM->CR1 |= TIM_CR1_CEN; // restart timer
+
+	lastSetTimerTime = getTimeNowUs();
 }
 
 static void callback(void) {
@@ -57,6 +61,10 @@ static msg_t mwThread(int param) {
 	int currentIdleValve = -1;
 	while (TRUE) {
 		chThdSleepMilliseconds(1000);
+
+		// todo: replace magic constant with 2 * US_IN_SEC...?
+		efiAssert(getTimeNowUs() < lastSetTimerTime + 2000000, "Timer not set for too long");
+
 	}
 	return -1;
 }
@@ -70,6 +78,7 @@ void initMicrosecondTimer(void) {
 
 	TIM->PSC = 84 - 1;   // 168MHz / 2 / 84 = 1MHz, each tick is a microsecond
 
+	lastSetTimerTime = getTimeNowUs();
 	chThdCreateStatic(mwThreadStack, sizeof(mwThreadStack), NORMALPRIO, (tfunc_t)mwThread, NULL);
 
 }
