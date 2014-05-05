@@ -49,6 +49,18 @@ CH_IRQ_HANDLER(STM32_TIM5_HANDLER) {
 	CH_IRQ_EPILOGUE();
 }
 
+static WORKING_AREA(mwThreadStack, UTILITY_THREAD_STACK_SIZE);
+
+static msg_t mwThread(int param) {
+	chRegSetThreadName("timer watchdog");
+
+	int currentIdleValve = -1;
+	while (TRUE) {
+		chThdSleepMilliseconds(1000);
+	}
+	return -1;
+}
+
 void initMicrosecondTimer(void) {
 	RCC ->APB1ENR |= RCC_APB1ENR_TIM5EN;   // Enable TIM5 clock
 	nvicEnableVector(HW_TIMER_IRQ, CORTEX_PRIORITY_MASK(HW_TIMER_PRIORITY));
@@ -57,6 +69,9 @@ void initMicrosecondTimer(void) {
 	TIM->CR1 &= ~TIM_CR1_ARPE; /* ARR register is NOT buffered, allows to update timer's period on-fly. */
 
 	TIM->PSC = 84 - 1;   // 168MHz / 2 / 84 = 1MHz, each tick is a microsecond
+
+	chThdCreateStatic(mwThreadStack, sizeof(mwThreadStack), NORMALPRIO, (tfunc_t)mwThread, NULL);
+
 }
 
 #endif /* EFI_PROD_CODE */
