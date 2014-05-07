@@ -21,6 +21,7 @@
 #define HW_TIMER_IRQ TIM5_IRQn
 
 static volatile int64_t lastSetTimerTime;
+static int lastSetTimerValue;
 static volatile bool_t isTimerPending = FALSE;
 
 static volatile int timerCallbackCounter = 0;
@@ -33,11 +34,13 @@ schfunc_t globalTimerCallback;
  * This function should be invoked under kernel lock which would disable interrupts.
  */
 void setHardwareUsTimer(int timeUs) {
+	efiAssert(timeUs > 0 && timeUs < 10 * US_PER_SECOND, "invalid time parameter");
 	TIM->ARR = timeUs - 1;
 	TIM->EGR |= TIM_EGR_UG; // generate an update event to reload timer's counter value
 	TIM->CR1 |= TIM_CR1_CEN; // restart timer
 
 	lastSetTimerTime = getTimeNowUs();
+	lastSetTimerValue = timeUs;
 	isTimerPending = TRUE;
 	timerRestartCounter++;
 }
