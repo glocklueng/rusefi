@@ -231,6 +231,7 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 		float angle = engineConfiguration->crankingChargeAngle;
 		return getOneDegreeTimeMs(rpm) * angle;
 	}
+	efiAssert(!cisnan(rpm), "invalid rpm");
 
 	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
 }
