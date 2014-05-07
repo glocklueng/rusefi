@@ -37,7 +37,7 @@ static void startPwmTest(int freq) {
 			INJECTOR_1_OUTPUT, 0.5, freq / 1000, FALSE);
 	// currently this is PB8 by default
 	startSimplePwm(&pwmTest[1], "tester", boardConfiguration->injectionPins[1],
-			INJECTOR_2_OUTPUT, 0.5, freq / 100, FALSE);
+			LED_CRANKING, 0.5, freq / 100, FALSE);
 	// currently this is PE3 by default
 	startSimplePwm(&pwmTest[2], "tester", boardConfiguration->injectionPins[2],
 			INJECTOR_3_OUTPUT, 0.5, freq, FALSE);
