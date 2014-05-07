@@ -22,6 +22,7 @@
 static TIM_TypeDef *TIM = TIM5;
 
 static volatile int64_t lastSetTimerTime;
+static bool_t timerPending = FALSE;
 
 schfunc_t globalTimerCallback;
 
@@ -34,6 +35,7 @@ void setHardwareUsTimer(int timeUs) {
 	TIM->CR1 |= TIM_CR1_CEN; // restart timer
 
 	lastSetTimerTime = getTimeNowUs();
+	timerPending = TRUE;
 }
 
 static void callback(void) {
@@ -41,6 +43,7 @@ static void callback(void) {
 		firmwareError("NULL globalTimerCallback");
 		return;
 	}
+	timerPending = FALSE;
 	globalTimerCallback(NULL);
 }
 
@@ -63,7 +66,8 @@ static msg_t mwThread(int param) {
 		chThdSleepMilliseconds(1000);
 
 		// todo: replace magic constant with 2 * US_IN_SEC...?
-		efiAssert(getTimeNowUs() < lastSetTimerTime + 2000000, "Timer not set for too long");
+		const char * msg = timerPending ? "Timer not set for too long PENDING" : "Timer not set for too long NOT PE";
+		efiAssert(getTimeNowUs() < lastSetTimerTime + 2000000, msg);
 
 	}
 	return -1;
