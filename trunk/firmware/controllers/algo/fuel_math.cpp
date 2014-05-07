@@ -85,6 +85,8 @@ float getInjectorLag(float vBatt) {
 
 float getBaseFuel(int rpm, float engineLoad) {
 	chDbgCheck(initialized, "fuel map initialized");
+	efiAssert(!cisnan(engineLoad), "invalid el");
+	efiAssert(!cisnan(engineLoad), "invalid rpm");
 	return interpolate3d(engineLoad, engineConfiguration->fuelLoadBins, FUEL_LOAD_COUNT, rpm,
 			engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT, fuel_ptrs);
 }
