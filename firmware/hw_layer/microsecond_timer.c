@@ -16,10 +16,9 @@
 
 #if EFI_PROD_CODE
 
+#define TIM TIM5
 #define HW_TIMER_PRIORITY 12
 #define HW_TIMER_IRQ TIM5_IRQn
-
-static TIM_TypeDef *TIM = TIM5;
 
 static volatile int64_t lastSetTimerTime;
 static volatile bool_t isTimerPending = FALSE;
@@ -30,7 +29,8 @@ static volatile int timerRestartCounter = 0;
 schfunc_t globalTimerCallback;
 
 /**
- * sets the alarm to the specified number of microseconds from now
+ * sets the alarm to the specified number of microseconds from now.
+ * This function should be invoked under kernel lock which would disable interrupts.
  */
 void setHardwareUsTimer(int timeUs) {
 	TIM->ARR = timeUs - 1;
@@ -55,7 +55,7 @@ static void callback(void) {
 // if you decide to move this to .cpp do not forget to make that an extern "C" method
 CH_IRQ_HANDLER(STM32_TIM5_HANDLER) {
 	CH_IRQ_PROLOGUE();
-	if (((TIM->SR & 0x0001) != 0) && ((TIM->DIER & 0x0001) != 0))
+	if (((TIM->SR & TIM_SR_UIF) != 0) && ((TIM->DIER & TIM_DIER_UIE) != 0))
 		callback();
 	TIM->SR = (int) ~STM32_TIM_SR_UIF;   // Interrupt has been handled
 	CH_IRQ_EPILOGUE();
@@ -66,14 +66,12 @@ static WORKING_AREA(mwThreadStack, UTILITY_THREAD_STACK_SIZE);
 static msg_t mwThread(int param) {
 	chRegSetThreadName("timer watchdog");
 
-	int currentIdleValve = -1;
 	while (TRUE) {
-		chThdSleepMilliseconds(1000);
+		chThdSleepMilliseconds(1000); // once a second is enough
 
-		// todo: replace magic constant with 2 * US_IN_SEC...?
-		const char * msg = isTimerPending ? "Timer not set for too long PENDING" : "Timer not set for too long NOT PE";
-		efiAssert(getTimeNowUs() < lastSetTimerTime + 2000000, msg);
-
+		const char * msg = isTimerPending ? "No callback for too long" : "Timer not reset for awhile";
+		// 2 seconds of inactivity would not look right
+		efiAssert(getTimeNowUs() < lastSetTimerTime + 2 * US_PER_SECOND, msg);
 	}
 	return -1;
 }
@@ -89,7 +87,6 @@ void initMicrosecondTimer(void) {
 
 	lastSetTimerTime = getTimeNowUs();
 	chThdCreateStatic(mwThreadStack, sizeof(mwThreadStack), NORMALPRIO, (tfunc_t)mwThread, NULL);
-
 }
 
 #endif /* EFI_PROD_CODE */
