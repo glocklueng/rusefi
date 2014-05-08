@@ -38,5 +38,4 @@ int warning(obd_code_e code, const char *fmt, ...) {
 
 void initErrorHandling(void) {
 	initLogging(&logger, "error handling");
-
 }
