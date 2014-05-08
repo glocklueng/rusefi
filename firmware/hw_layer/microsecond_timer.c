@@ -16,9 +16,7 @@
 
 #if EFI_PROD_CODE
 
-#define TIM TIM5
-#define HW_TIMER_PRIORITY 12
-#define HW_TIMER_IRQ TIM5_IRQn
+#define GPTDEVICE GPTD5
 
 static volatile int64_t lastSetTimerTime;
 static int lastSetTimerValue;
@@ -35,9 +33,10 @@ schfunc_t globalTimerCallback;
  */
 void setHardwareUsTimer(int timeUs) {
 	efiAssert(timeUs > 0 && timeUs < 10 * US_PER_SECOND, "invalid time parameter");
-	TIM->ARR = timeUs - 1;
-	TIM->EGR |= TIM_EGR_UG; // generate an update event to reload timer's counter value
-	TIM->CR1 |= TIM_CR1_CEN; // restart timer
+
+	if (GPTDEVICE.state == GPT_ONESHOT)
+		gptStopTimerI(&GPTDEVICE);
+	gptStartOneShotI(&GPTDEVICE, timeUs);
 
 	lastSetTimerTime = getTimeNowUs();
 	lastSetTimerValue = timeUs;
@@ -45,26 +44,28 @@ void setHardwareUsTimer(int timeUs) {
 	timerRestartCounter++;
 }
 
-static void callback(void) {
+static void callback(GPTDriver *gptp) {
 	timerCallbackCounter++;
 	if (globalTimerCallback == NULL) {
 		firmwareError("NULL globalTimerCallback");
 		return;
 	}
 	isTimerPending = FALSE;
+
+
+//	setOutputPinValue(LED_CRANKING, timerCallbackCounter % 2);
+//
+//	int mod395 = timerCallbackCounter % 395;
+//	chSysLockFromIsr();
+//	setHardwareUsTimer(400 - mod395);
+//	chSysUnlockFromIsr();
+
 	globalTimerCallback(NULL);
 }
 
-// if you decide to move this to .cpp do not forget to make that an extern "C" method
-CH_IRQ_HANDLER(STM32_TIM5_HANDLER) {
-	CH_IRQ_PROLOGUE();
-	if (((TIM->SR & TIM_SR_UIF) != 0) && ((TIM->DIER & TIM_DIER_UIE) != 0))
-		callback();
-	TIM->SR = (int) ~STM32_TIM_SR_UIF;   // Interrupt has been handled
-	CH_IRQ_EPILOGUE();
-}
-
 static WORKING_AREA(mwThreadStack, UTILITY_THREAD_STACK_SIZE);
+
+static const char * msg;
 
 static msg_t mwThread(int param) {
 	chRegSetThreadName("timer watchdog");
@@ -72,24 +73,29 @@ static msg_t mwThread(int param) {
 	while (TRUE) {
 		chThdSleepMilliseconds(1000); // once a second is enough
 
-		const char * msg = isTimerPending ? "No callback for too long" : "Timer not reset for awhile";
+		msg = isTimerPending ? "No_cb too long" : "Timer not awhile";
 		// 2 seconds of inactivity would not look right
 		efiAssert(getTimeNowUs() < lastSetTimerTime + 2 * US_PER_SECOND, msg);
 	}
 	return -1;
 }
 
-void initMicrosecondTimer(void) {
-	RCC ->APB1ENR |= RCC_APB1ENR_TIM5EN;   // Enable TIM5 clock
-	nvicEnableVector(HW_TIMER_IRQ, CORTEX_PRIORITY_MASK(HW_TIMER_PRIORITY));
-	TIM->DIER |= TIM_DIER_UIE;   // Enable interrupt on update event
-	TIM->CR1 |= TIM_CR1_OPM; // one pulse mode: count down ARR and stop
-	TIM->CR1 &= ~TIM_CR1_ARPE; /* ARR register is NOT buffered, allows to update timer's period on-fly. */
+//static const GPTConfig gpt5cfg;
 
-	TIM->PSC = 84 - 1;   // 168MHz / 2 / 84 = 1MHz, each tick is a microsecond
+static const GPTConfig gpt5cfg = { 1000000, /* 1 MHz timer clock.*/
+callback, /* Timer callback.*/
+0 };
+
+void initMicrosecondTimer(void) {
+
+	gptStart(&GPTDEVICE, &gpt5cfg);
 
 	lastSetTimerTime = getTimeNowUs();
 	chThdCreateStatic(mwThreadStack, sizeof(mwThreadStack), NORMALPRIO, (tfunc_t)mwThread, NULL);
+
+//	chSysLock();
+//	setHardwareUsTimer(300);
+//	chSysUnlock();
 }
 
 #endif /* EFI_PROD_CODE */
