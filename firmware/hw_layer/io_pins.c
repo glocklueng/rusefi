@@ -76,7 +76,7 @@ void setDefaultPinState(io_pin_e pin, pin_output_mode_e *outputMode) {
 static void comBlinkingThread(void *arg) {
 	chRegSetThreadName("comm blinking");
 	while (TRUE) {
-		int delay = is_serial_ready() ? 100 : 33;
+		int delay = isConsoleReady() ? 100 : 33;
 
 		setOutputPinValue(LED_COMMUNICATION_1, 0);
 		setOutputPinValue(LED_EXT_1, 1);

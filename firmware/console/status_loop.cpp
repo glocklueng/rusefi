@@ -249,7 +249,7 @@ extern char errorMessageBuffer[200];
  * @brief Sends all pending data to dev console
  */
 void updateDevConsoleState(void) {
-	if (!is_serial_ready())
+	if (!isConsoleReady())
 		return;
 	checkIfShouldHalt();
 	printPending();

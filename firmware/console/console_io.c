@@ -42,7 +42,7 @@ static bool_t getConsoleLine(BaseSequentialStream *chp, char *line, unsigned siz
 	char *p = line;
 
 	while (TRUE) {
-		if (!is_serial_ready()) {
+		if (!isConsoleReady()) {
 			// we better do not read from USB serial before it is ready
 			chThdSleepMilliseconds(10);
 			continue;
@@ -109,7 +109,7 @@ static SerialConfig serialConfig = {SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USAR
 #endif /* EFI_SERIAL_OVER_USB */
 
 #if ! EFI_SERIAL_OVER_USB && ! EFI_SIMULATOR
-int is_serial_ready(void) {
+int isConsoleReady(void) {
 	return isSerialConsoleStarted;
 }
 #endif
@@ -122,7 +122,7 @@ void consoleOutputBuffer(const int8_t *buf, int size) {
 	chSequentialStreamWrite(CONSOLE_CHANNEL, buf, size);
 }
 
-void startChibiosConsole(void (*console_line_callback_p)(char *)) {
+void startConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
 #if EFI_SERIAL_OVER_USB
 	usb_serial_start();

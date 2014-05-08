@@ -147,7 +147,7 @@ void initTestStream(TestStream *ts) {
 
 int isSerialOverTcpReady;
 
-int is_serial_ready(void) {
+int isConsoleReady(void) {
 	return isSerialOverTcpReady;
 }
 

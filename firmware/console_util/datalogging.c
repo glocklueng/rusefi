@@ -265,7 +265,7 @@ static void printWithLength(char *line) {
 	*p++ = '\r';
 	*p++ = '\n';
 
-	if (!is_serial_ready())
+	if (!isConsoleReady())
 		return;
 	consoleOutputBuffer((const int8_t *)header, strlen(header));
 	consoleOutputBuffer((const int8_t *)line, p - line);
