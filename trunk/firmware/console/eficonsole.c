@@ -140,7 +140,7 @@ void sendOutConfirmation(char *value, int i) {
  * This methods prints the message to whatever is configured as our primary console
  */
 void print(const char *format, ...) {
-	if (!is_serial_ready())
+	if (!isConsoleReady())
 		return;
 	va_list ap;
 	va_start(ap, format);
@@ -152,7 +152,7 @@ void initializeConsole() {
 	initIntermediateLoggingBuffer();
 	initConsoleLogic();
 
-	startChibiosConsole(&handleConsoleLine);
+	startConsole(&handleConsoleLine);
 
 	initLogging(&logger, "console");
 
