@@ -26,6 +26,8 @@
 #endif
 #include "rfiutil.h"
 
+static bool_t isSerialConsoleStarted = FALSE;
+
 /**
  * @brief   Reads a whole line from the input channel.
  *
@@ -108,7 +110,7 @@ static SerialConfig serialConfig = {SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USAR
 
 #if ! EFI_SERIAL_OVER_USB && ! EFI_SIMULATOR
 int is_serial_ready(void) {
-	return TRUE;
+	return isSerialConsoleStarted;
 }
 #endif
 
@@ -136,6 +138,8 @@ void startChibiosConsole(void (*console_line_callback_p)(char *)) {
 	// cannot use pin repository here because pin repository prints to console
 	palSetPadMode(EFI_CONSOLE_RX_PORT, EFI_CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
 	palSetPadMode(EFI_CONSOLE_TX_PORT, EFI_CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
+
+	isSerialConsoleStarted = TRUE;
 #endif /* EFI_SERIAL_OVER_UART */
 #endif /* EFI_SERIAL_OVER_USB */
 	chThdCreateStatic(consoleThreadStack, sizeof(consoleThreadStack), NORMALPRIO, consoleThreadThreadEntryPoint, NULL);
