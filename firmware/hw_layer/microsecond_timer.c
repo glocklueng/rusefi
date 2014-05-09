@@ -32,6 +32,8 @@ schfunc_t globalTimerCallback;
  * This function should be invoked under kernel lock which would disable interrupts.
  */
 void setHardwareUsTimer(int32_t timeUs) {
+	if (timeUs == 1)
+		timeUs = 2; // for some reason '1' does not really work
 	efiAssert(timeUs > 0, "neg timeUs");
 	efiAssert(timeUs < 10 * US_PER_SECOND, "invld time prmtr");
 
@@ -53,13 +55,14 @@ static void callback(GPTDriver *gptp) {
 	}
 	isTimerPending = FALSE;
 
-
+//	// test code
 //	setOutputPinValue(LED_CRANKING, timerCallbackCounter % 2);
-//
-//	int mod395 = timerCallbackCounter % 395;
-//	chSysLockFromIsr();
-//	setHardwareUsTimer(400 - mod395);
-//	chSysUnlockFromIsr();
+//	int mod = timerCallbackCounter % 400;
+//	chSysLockFromIsr()
+//	;
+//	setHardwareUsTimer(400 - mod);
+//	chSysUnlockFromIsr()
+//	;
 
 	globalTimerCallback(NULL);
 }
@@ -67,6 +70,8 @@ static void callback(GPTDriver *gptp) {
 static WORKING_AREA(mwThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static const char * msg;
+
+static char buff[12];
 
 static msg_t mwThread(int param) {
 	chRegSetThreadName("timer watchdog");
@@ -92,11 +97,14 @@ void initMicrosecondTimer(void) {
 	gptStart(&GPTDEVICE, &gpt5cfg);
 
 	lastSetTimerTime = getTimeNowUs();
-	chThdCreateStatic(mwThreadStack, sizeof(mwThreadStack), NORMALPRIO, (tfunc_t)mwThread, NULL);
+	chThdCreateStatic(mwThreadStack, sizeof(mwThreadStack), NORMALPRIO, (tfunc_t) mwThread, NULL);
 
-//	chSysLock();
+//	// test code
+//	chSysLock()
+//	;
 //	setHardwareUsTimer(300);
-//	chSysUnlock();
+//	chSysUnlock()
+//	;
 }
 
 #endif /* EFI_PROD_CODE */
