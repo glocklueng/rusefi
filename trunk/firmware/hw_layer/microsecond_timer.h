@@ -14,7 +14,7 @@ extern "C"
 #endif /* __cplusplus */
 
 void initMicrosecondTimer(void);
-void setHardwareUsTimer(int timeUs);
+void setHardwareUsTimer(int32_t timeUs);
 
 #ifdef __cplusplus
 }

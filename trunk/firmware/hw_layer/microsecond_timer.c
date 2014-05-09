@@ -31,8 +31,9 @@ schfunc_t globalTimerCallback;
  * sets the alarm to the specified number of microseconds from now.
  * This function should be invoked under kernel lock which would disable interrupts.
  */
-void setHardwareUsTimer(int timeUs) {
-	efiAssert(timeUs > 0 && timeUs < 10 * US_PER_SECOND, "invld time prmtr");
+void setHardwareUsTimer(int32_t timeUs) {
+	efiAssert(timeUs > 0, "neg timeUs");
+	efiAssert(timeUs < 10 * US_PER_SECOND, "invld time prmtr");
 
 	if (GPTDEVICE.state == GPT_ONESHOT)
 		gptStopTimerI(&GPTDEVICE);
