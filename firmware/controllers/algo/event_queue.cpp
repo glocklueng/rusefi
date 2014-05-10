@@ -17,6 +17,8 @@
 
 #if EFI_SIGNAL_EXECUTOR_ONE_TIMER
 
+#define QUEUE_LENGTH_LIMIT 1000
+
 EventQueue::EventQueue() {
 	head = NULL;
 }
@@ -24,8 +26,13 @@ EventQueue::EventQueue() {
 void EventQueue::assertState(scheduling_s *scheduling) {
 	// this code is just to validate state, no functional load
 	scheduling_s * current;
+	int counter = 0;
 	LL_FOREACH(head, current)
 	{
+		if (++counter > QUEUE_LENGTH_LIMIT) {
+			firmwareError("Looped queue?");
+			return;
+		}
 		if (current == scheduling) {
 			firmwareError("re-adding element into event_queue");
 			return;
@@ -43,6 +50,8 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayU
 	scheduling->param = param;
 
 	assertState(scheduling);
+	if (hasFirmwareError())
+		return;
 
 	LL_PREPEND(head, scheduling);
 }
@@ -59,8 +68,13 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
 	// this is a large value which is expected to be larger than any real time
 	uint64_t result = EMPTY_QUEUE;
 
+	int counter = 0;
 	LL_FOREACH(head, current)
 	{
+		if (++counter > QUEUE_LENGTH_LIMIT) {
+			firmwareError("Is this list looped #2?");
+			return EMPTY_QUEUE;
+		}
 		efiAssert(current->momentUs > nowUs, "executeAll should have been called");
 		if (current->momentUs < result)
 			result = current->momentUs;
@@ -76,9 +90,15 @@ void EventQueue::executeAll(uint64_t now) {
 
 	scheduling_s * executionList = NULL;
 
+	int counter = 0;
+
 	// we need safe iteration because we are removing elements inside the loop
 	LL_FOREACH_SAFE(head, current, tmp)
 	{
+		if (++counter > QUEUE_LENGTH_LIMIT) {
+			firmwareError("Is this list looped?");
+			return;
+		}
 		if (current->momentUs <= now) {
 			LL_DELETE(head, current);
 			LL_PREPEND(executionList, current);
