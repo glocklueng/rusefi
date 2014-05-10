@@ -122,7 +122,7 @@ int main(void) {
 
 	testAccelEnrichment();
 
-	printf("Success 20130501\r\n");
+	printf("Success 20130510\r\n");
 
 //	resizeMap();
 
@@ -132,6 +132,10 @@ int main(void) {
 
 int warning(obd_code_e code, const char *fmt, ...) {
 	printf("Warning: %s\r\n", fmt);
+}
+
+bool_t hasFirmwareError(void) {
+	return FALSE;
 }
 
 void firmwareError(const char *fmt, ...) {
