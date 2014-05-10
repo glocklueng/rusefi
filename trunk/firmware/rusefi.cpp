@@ -109,7 +109,7 @@ int main_loop_started = FALSE;
 
 static MemoryStream errorMessageStream;
 uint8_t errorMessageBuffer[200];
-bool hasFirmwareError = FALSE;
+static bool hasFirmwareErrorFlag = FALSE;
 
 void runRusEfi(void) {
 	msObjectInit(&errorMessageStream, errorMessageBuffer, sizeof(errorMessageBuffer), 0);
@@ -132,7 +132,7 @@ void runRusEfi(void) {
 	/**
 	 * Initialize hardware drivers
 	 */
-	initHardware();
+	initHardware(&logging);
 
 	initStatusLoop();
 	/**
@@ -261,11 +261,14 @@ void chDbgStackOverflowPanic(Thread *otp) {
   chDbgPanic3(panicMessage, __FILE__, __LINE__);
 }
 
+bool_t hasFirmwareError(void) {
+	return hasFirmwareErrorFlag;
+}
 
 void firmwareError(const char *fmt, ...) {
-	if (hasFirmwareError)
+	if (hasFirmwareErrorFlag)
 		return;
-	hasFirmwareError = TRUE;
+	hasFirmwareErrorFlag = TRUE;
 	errorMessageStream.eos = 0; // reset
 	va_list ap;
 	va_start(ap, fmt);
@@ -276,5 +279,5 @@ void firmwareError(const char *fmt, ...) {
 }
 
 int getRusEfiVersion(void) {
-	return 20140509;
+	return 20140510;
 }
