@@ -14,7 +14,7 @@ extern "C"
 #endif /* __cplusplus */
 
 #include "obd_error_codes.h"
-#include "stdint.h"
+#include "stdbool.h"
 
 /**
  * Something is wrong, but we can live with it: some minor sensor is disconnected
