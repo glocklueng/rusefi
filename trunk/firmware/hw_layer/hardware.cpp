@@ -99,7 +99,7 @@ void initHardware(Logging *logger) {
 	 */
 	initPrimaryPins();
 
-	if (hasFirmwareError)
+	if (hasFirmwareError())
 		return;
 
 	/**
@@ -107,7 +107,7 @@ void initHardware(Logging *logger) {
 	 * if flash state does not look right.
 	 */
 	initFlash();
-	if (hasFirmwareError)
+	if (hasFirmwareError())
 		return;
 
 	initRtc();
@@ -152,7 +152,7 @@ void initHardware(Logging *logger) {
 #if EFI_HD44780_LCD
 //	initI2Cmodule();
 	lcd_HD44780_init();
-	if (hasFirmwareError)
+	if (hasFirmwareError())
 		return;
 
 	char buffer[16];
