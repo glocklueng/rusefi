@@ -323,6 +323,6 @@ typedef enum {
 	MT_MPX4250 = 2,
 
 	Internal_ForceMyEnumIntSize_cranking_map_type = ENUM_SIZE_HACK,
-} map_type_e;
+} air_pressure_sensor_type_e;
 
 #endif /* RUSEFI_ENUMS_H_ */

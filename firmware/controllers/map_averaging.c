@@ -127,7 +127,7 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	atmosphericPressure = currentMaxPressure;
 	currentMaxPressure = 0;
 
-	MapConf_s * config = &engineConfiguration->map.config;
+	MAP_sensor_config_s * config = &engineConfiguration->map;
 
 	float a_samplingStart = interpolate2d(getRpm(), config->samplingAngleBins, config->samplingAngle,
 	MAP_ANGLE_SIZE);

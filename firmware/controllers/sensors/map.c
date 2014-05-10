@@ -24,12 +24,7 @@ float getMAPValueMPX_4250(float voltage) {
 	return interpolate(0, 8, 5, 260, voltage);
 }
 
-/**
- * @brief	MAP value decoded according to current settings
- * @returns kPa value
- */
-float getMapByVoltage(float voltage) {
-	MapConf_s * config = &engineConfiguration->map.config;
+float decodePressure(float voltage, air_pressure_sensor_config_s * config) {
 	switch (config->mapType) {
 	case MT_CUSTOM:
 		return interpolate(0, config->Min, 5, config->Max, voltage);
@@ -43,7 +38,16 @@ float getMapByVoltage(float voltage) {
 	}
 }
 
+/**
+ * @brief	MAP value decoded according to current settings
+ * @returns kPa value
+ */
+float getMapByVoltage(float voltage) {
+	air_pressure_sensor_config_s * config = &engineConfiguration->map.sensor;
+	return decodePressure(voltage, config);
+}
+
 float getRawMap(void) {
-	float voltage = getVoltageDivided(engineConfiguration->map.channel);
+	float voltage = getVoltageDivided(engineConfiguration->map.sensor.hwChannel);
 	return getMapByVoltage(voltage);
 }

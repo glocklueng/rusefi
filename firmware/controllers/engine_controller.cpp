@@ -213,7 +213,8 @@ static void printAnalogInfo(void) {
 	printAnalogChannelInfo("IAT", engineConfiguration->iatAdcChannel);
 	printAnalogChannelInfo("MAF", engineConfiguration->mafAdcChannel);
 	printAnalogChannelInfo("AFR", engineConfiguration->afrSensor.afrAdcChannel);
-	printAnalogChannelInfo("MAP", engineConfiguration->map.channel);
+	printAnalogChannelInfo("MAP", engineConfiguration->map.sensor.hwChannel);
+	printAnalogChannelInfo("BARO", engineConfiguration->baroSensor.hwChannel);
 	printAnalogChannelInfoExt("Vbatt", engineConfiguration->vBattAdcChannel,
 			getVBatt());
 }

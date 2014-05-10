@@ -141,12 +141,12 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 
 	engineConfiguration->tpsAdcChannel = 3;
 	engineConfiguration->vBattAdcChannel = 0;
-	engineConfiguration->map.channel = 4;
+	engineConfiguration->map.sensor.hwChannel = 4;
 	engineConfiguration->mafAdcChannel = 1;
 	engineConfiguration->cltAdcChannel = 11;
 //	engineConfiguration->iatAdcChannel =
 
-	engineConfiguration->map.config.mapType = MT_DENSO183;
+	engineConfiguration->map.sensor.mapType = MT_DENSO183;
 }
 
 #endif /* EFI_SUPPORT_FORD_ASPIRE */
