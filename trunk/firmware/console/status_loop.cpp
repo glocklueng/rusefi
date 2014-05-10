@@ -204,7 +204,7 @@ void onDbgPanic(void) {
 	setOutputPinValue(LED_ERROR, 1);
 }
 
-int hasFatalError(void) {
+bool_t hasFatalError(void) {
 	return dbg_panic_msg != NULL;
 }
 

@@ -14,6 +14,7 @@ extern "C"
 #endif /* __cplusplus */
 
 #include "obd_error_codes.h"
+#include "stdint.h"
 
 /**
  * Something is wrong, but we can live with it: some minor sensor is disconnected
@@ -29,7 +30,7 @@ int warning(obd_code_e code, const char *fmt, ...);
 void firmwareError(const char *fmt, ...);
 bool_t hasFirmwareError(void);
 
-int hasFatalError(void);
+bool_t hasFatalError(void);
 void fatal3(char *msg, char *file, int line);
 #define fatal(x) (fatal3(x, __FILE__, __LINE__));
 
