@@ -422,7 +422,7 @@ void initAdcInputs() {
 	/*
 	 * Initializes the PWM driver.
 	 */
-//	pwmStart(EFI_INTERNAL_SLOW_ADC_PWM, &pwmcfg_slow);
+	pwmStart(EFI_INTERNAL_SLOW_ADC_PWM, &pwmcfg_slow);
 //	pwmStart(EFI_INTERNAL_FAST_ADC_PWM, &pwmcfg_fast);
 	addConsoleActionI("adc", printAdcValue);
 	addConsoleAction("fadc", printFullAdcReport);
