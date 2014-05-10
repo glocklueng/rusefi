@@ -21,14 +21,27 @@ public class BomBuilder {
     private static Map<String, BomRecord> bomDictionary;
     private static Set<String> ignoreList = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
 
+    static boolean printQtyInFull = true;
+    static boolean printPadCount = false;
+
     public static void main(String[] args) throws IOException {
-        if (args.length != 3) {
+        if (args.length < 3) {
             System.out.println("bom_builder [FILE_NAME.CMP] COMPONENTS_DICTIONARY.CSV OUTPUT_FILE.CSV");
             return;
         }
         cmpFileName = args[0];
         bomDictionaryName = args[1];
         String outputFileName = args[2];
+
+        for (int i = 3; i < args.length; i++) {
+            String option = args[i].trim().toLowerCase();
+            if (option.equals("printpadcount")) {
+                printPadCount = true;
+            } else if (option.equals("skipqtyinfull")) {
+                printQtyInFull = false;
+            }
+        }
+
 
         allComponents.readCmpFile(FileUtils.readFileToList(cmpFileName));
 
@@ -134,23 +147,31 @@ public class BomBuilder {
 
             String[] tokens = line.split(",");
 
-            if (tokens.length != 4) {
-                log("Unexpected line: " + line + " Expected 4 tokens but " + tokens.length);
+            if (tokens.length < 2) {
+                log("Unexpected line: " + line + " Expected at least two tokens but " + tokens.length);
                 System.exit(-1);
             }
 
             String ref = tokens[0];
             String mfgPart = tokens[1];
-            String storePart = tokens[2];
-            String customerRef = tokens[3];
 
-            if (storePart.equalsIgnoreCase(IGNORE_TAG)) {
-                log("Ignore entry: " + ref);
+            if (mfgPart.equalsIgnoreCase(IGNORE_TAG)) {
+                log("Ignoring entry: " + ref);
                 ignoreList.add(ref);
                 continue;
             }
 
-            result.put(ref, new BomRecord(mfgPart, storePart, customerRef));
+            if (tokens.length != 6) {
+                log("Unexpected line: " + line + " Expected 4 tokens but " + tokens.length);
+                System.exit(-1);
+            }
+
+            String storePart = tokens[2];
+            String componentName = tokens[3];
+            int padCount = Integer.parseInt(tokens[4]);
+            String customerRef = tokens[5];
+
+            result.put(ref, new BomRecord(mfgPart, storePart, customerRef, padCount, componentName));
 
             log("BOM key: " + ref);
             log("mfgPartNo: " + mfgPart);
