@@ -242,7 +242,6 @@ static void printVersion(systime_t nowSeconds) {
 
 static systime_t timeOfPreviousReport = (systime_t) -1;
 
-extern bool hasFirmwareError;
 extern char errorMessageBuffer[200];
 
 /**
@@ -256,7 +255,7 @@ void updateDevConsoleState(void) {
 
 	pokeAdcInputs();
 
-	if (hasFirmwareError) {
+	if (hasFirmwareError()) {
 		printMsg(&logger, "firmware error: %s", errorMessageBuffer);
 		return;
 	}
