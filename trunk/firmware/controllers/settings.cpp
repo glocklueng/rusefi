@@ -19,6 +19,7 @@
 #include "interpolation.h"
 #include "tps.h"
 #include "ec2.h"
+#include "map.h"
 
 #if EFI_PROD_CODE
 #include "rusefi.h"
@@ -150,12 +151,10 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 
 	scheduleMsg(&logger, "needSecondTriggerInput: %d", engineConfiguration->needSecondTriggerInput);
 
-
-
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "idleValvePin: %s", hwPortname(boardConfiguration->idleValvePin));
-	scheduleMsg(&logger, "fuelPumpPin: mode %d @ %s", boardConfiguration->fuelPumpPinMode, hwPortname(boardConfiguration->fuelPumpPin));
-
+	scheduleMsg(&logger, "fuelPumpPin: mode %d @ %s", boardConfiguration->fuelPumpPinMode,
+			hwPortname(boardConfiguration->fuelPumpPin));
 
 	scheduleMsg(&logger, "injectionPins: mode %d", boardConfiguration->injectionPinMode);
 	for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
@@ -171,8 +170,10 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 		scheduleMsg(&logger, "ignition %d @ %s", i, hwPortname(brainPin));
 	}
 
-	scheduleMsg(&logger, "primary trigger simulator: %s %d", hwPortname(boardConfiguration->triggerSimulatorPins[0]), boardConfiguration->triggerSimulatorPinModes[0]);
-	scheduleMsg(&logger, "secondary trigger simulator: %s %d", hwPortname(boardConfiguration->triggerSimulatorPins[1]), boardConfiguration->triggerSimulatorPinModes[1]);
+	scheduleMsg(&logger, "primary trigger simulator: %s %d", hwPortname(boardConfiguration->triggerSimulatorPins[0]),
+			boardConfiguration->triggerSimulatorPinModes[0]);
+	scheduleMsg(&logger, "secondary trigger simulator: %s %d", hwPortname(boardConfiguration->triggerSimulatorPins[1]),
+			boardConfiguration->triggerSimulatorPinModes[1]);
 #endif /* EFI_PROD_CODE */
 
 	scheduleMsg(&logger, "isInjectionEnabledFlag %d", engineConfiguration2->isInjectionEnabledFlag);
@@ -273,12 +274,23 @@ static void printThermistor(char *msg, Thermistor *thermistor) {
 #endif
 }
 
+static void printMAPInfo(void) {
+#if EFI_PROD_CODE
+	scheduleMsg(&logger, "map type=%d raw=%f MAP=%f", engineConfiguration->map.config.mapType, getRawMap(), getMap());
+	if (engineConfiguration->map.config.mapType == MT_CUSTOM) {
+		scheduleMsg(&logger, "min=%f max=%f", engineConfiguration->map.config.Min,
+				engineConfiguration->map.config.Max);
+	}
+#endif
+}
+
 static void printTPSInfo(void) {
 #if EFI_PROD_CODE
 	GPIO_TypeDef* port = getAdcChannelPort(engineConfiguration->tpsAdcChannel);
 	int pin = getAdcChannelPin(engineConfiguration->tpsAdcChannel);
 
-	scheduleMsg(&logger, "tps min %d/max %d v=%f @%s%d", engineConfiguration->tpsMin, engineConfiguration->tpsMax, getTPSVoltage(), portname(port), pin);
+	scheduleMsg(&logger, "tps min %d/max %d v=%f @%s%d", engineConfiguration->tpsMin, engineConfiguration->tpsMax,
+			getTPSVoltage(), portname(port), pin);
 #endif
 	scheduleMsg(&logger, "current 10bit=%d value=%f rate=%f", getTPS10bitAdc(), getTPS(), getTpsRateOfChange());
 }
@@ -322,7 +334,7 @@ static void setCrankingRpm(int value) {
 }
 
 static void setFiringOrder(int value) {
-	engineConfiguration->firingOrder = (firing_order_e)value;
+	engineConfiguration->firingOrder = (firing_order_e) value;
 	doPrintConfiguration();
 }
 
@@ -350,19 +362,19 @@ static void setCrankingTimingAngle(float value) {
 }
 
 static void setCrankingInjectionMode(int value) {
-	engineConfiguration->crankingInjectionMode = (injection_mode_e)value;
+	engineConfiguration->crankingInjectionMode = (injection_mode_e) value;
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
 }
 
 static void setInjectionMode(int value) {
-	engineConfiguration->injectionMode = (injection_mode_e)value;
+	engineConfiguration->injectionMode = (injection_mode_e) value;
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
 }
 
 static void setIgnitionMode(int value) {
-	engineConfiguration->ignitionMode = (ignition_mode_e)value;
+	engineConfiguration->ignitionMode = (ignition_mode_e) value;
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
 }
@@ -438,6 +450,7 @@ void initSettings(void) {
 	addConsoleAction("showconfig", doPrintConfiguration);
 	addConsoleAction("tempinfo", printTemperatureInfo);
 	addConsoleAction("tpsinfo", printTPSInfo);
+	addConsoleAction("mapinfo", printMAPInfo);
 
 	addConsoleActionI("set_ignition_offset", setIgnitionOffset);
 	addConsoleActionI("set_injection_offset", setInjectionOffset);

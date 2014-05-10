@@ -284,7 +284,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	boardConfiguration->adcHwChannelEnabled[1] = ADC_SLOW;
 	boardConfiguration->adcHwChannelEnabled[2] = ADC_SLOW;
 	boardConfiguration->adcHwChannelEnabled[3] = ADC_SLOW;
-	boardConfiguration->adcHwChannelEnabled[4] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[4] = ADC_FAST;
 
 	boardConfiguration->adcHwChannelEnabled[6] = ADC_SLOW;
 	boardConfiguration->adcHwChannelEnabled[7] = ADC_SLOW;

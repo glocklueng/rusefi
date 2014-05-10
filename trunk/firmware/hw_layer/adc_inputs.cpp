@@ -130,7 +130,7 @@ ADC_TwoSamplingDelay_20Cycles,   // cr1
 
 static AdcConfiguration slowAdc(&adcgrpcfgSlow);
 
-static ADCConversionGroup adcgrpcfg_fast = { FALSE, ADC_NUMBER_CHANNELS_FAST, adc_callback_fast, NULL,
+static ADCConversionGroup adcgrpcfg_fast = { FALSE, 0 /* num_channels */, adc_callback_fast, NULL,
 /* HW dependent part.*/
 ADC_TwoSamplingDelay_5Cycles,   // cr1
 		ADC_CR2_SWSTART, // cr2
@@ -141,13 +141,12 @@ ADC_TwoSamplingDelay_5Cycles,   // cr1
 		ADC_SQR1_NUM_CH(ADC_NUMBER_CHANNELS_FAST), // Conversion group sequence 13...16 + sequence length
 
 		0, // Conversion group sequence 7...12
-		0 | ADC_SQR3_SQ1_N(ADC_CHANNEL_IN3) /* PA3 */
-// maf		| ADC_SQR3_SQ1_N(ADC_CHANNEL_IN13) /* PC3 */
+		0
 
-		// Conversion group sequence 1...6
+// Conversion group sequence 1...6
 		};
 
-static const AdcConfiguration fastAdc(&adcgrpcfg_fast);
+static AdcConfiguration fastAdc(&adcgrpcfg_fast);
 
 static void pwmpcb_slow(PWMDriver *pwmp) {
 #ifdef EFI_INTERNAL_ADC
@@ -192,8 +191,8 @@ int getAdcValueByIndex(int internalIndex) {
 }
 
 int getInternalAdcValue(int hwChannel) {
-//	if (hwIndex==ADC_NUMBER_CHANNELS_FAST)
-//		return fastAdcValue;
+	if (boardConfiguration->adcHwChannelEnabled[hwChannel] == ADC_FAST)
+		return fastAdcValue;
 
 	int internalIndex = slowAdc.internalAdcIndexByHardwareIndex[hwChannel];
 	return getAdcValueByIndex(internalIndex);
@@ -326,6 +325,7 @@ void AdcConfiguration::addChannel(int hwChannel) {
 	} else {
 		hwConfig->sqr2 += (hwChannel) << (5 * (logicChannel - 6));
 	}
+	// todo: support for more then 12 channels? not sure how needed it would be
 
 	initAdcHwChannel(hwChannel);
 }
@@ -408,6 +408,9 @@ void initAdcInputs() {
 		}
 	}
 
+	fastAdc.addChannel(ADC_CHANNEL_IN4);
+	fastAdc.init();
+
 	// ADC_CHANNEL_IN0 // PA0
 	// ADC_CHANNEL_IN1 // PA1
 	// ADC_CHANNEL_IN2 // PA2
@@ -427,7 +430,7 @@ void initAdcInputs() {
 
 	slowAdc.init();
 
-	//if(slowAdcChannelCount > ADC_MAX_SLOW_CHANNELS_COUNT) // todo: do we need this logic? do we need thic check
+	//if(slowAdcChannelCount > ADC_MAX_SLOW_CHANNELS_COUNT) // todo: do we need this logic? do we need this check
 
 	/*
 	 * Initializes the PWM driver.
