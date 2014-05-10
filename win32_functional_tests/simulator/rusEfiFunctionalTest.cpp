@@ -89,7 +89,7 @@ void rusEfiFunctionalTest(void) {
 
 	initStatusLoop();
 
-	resetConfigurationExt(FORD_ASPIRE_1996, engineConfiguration, engineConfiguration2, boardConfiguration);
+	resetConfigurationExt(NULL, FORD_ASPIRE_1996, engineConfiguration, engineConfiguration2, boardConfiguration);
 
 	initThermistors();
 	initAlgo();
