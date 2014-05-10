@@ -135,7 +135,7 @@ typedef struct {
 
 	cranking_parameters_s crankingSettings;
 
-	map_s map;
+	MAP_sensor_config_s map;
 
 	// todo: merge with channel settings, use full-scale Thermistor here!
 	ThermistorConf cltThermistorConf; // size 40 (10*4), offset 336
@@ -267,6 +267,8 @@ typedef struct {
 	float crankingTimingAngle;
 
 	float diffLoadEnrichmentCoef;
+
+	air_pressure_sensor_config_s baroSensor;
 } engine_configuration_s;
 
 #define HW_MAX_ADC_INDEX 16

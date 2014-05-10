@@ -48,8 +48,6 @@
 #include "ford_escort_gt.h"
 #include "citroenBerlingoTU3JP.h"
 
-#define ADC_CHANNEL_FAST_ADC 256
-
 static volatile int globalConfigurationVersion = 0;
 
 int getGlobalConfigurationVersion(void) {
@@ -136,8 +134,8 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 	setTimingLoadBin(engineConfiguration, 1.2, 4.4);
 	setTimingRpmBin(engineConfiguration, 800, 7000);
 
-	setTableBin(engineConfiguration->map.config.samplingAngleBins, MAP_ANGLE_SIZE, 800, 7000);
-	setTableBin(engineConfiguration->map.config.samplingWindowBins, MAP_ANGLE_SIZE, 800, 7000);
+	setTableBin(engineConfiguration->map.samplingAngleBins, MAP_ANGLE_SIZE, 800, 7000);
+	setTableBin(engineConfiguration->map.samplingWindowBins, MAP_ANGLE_SIZE, 800, 7000);
 
 	// set_whole_timing_map 3
 	setWholeFuelMap(engineConfiguration, 3);
@@ -169,7 +167,8 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 
 	engineConfiguration->analogChartMode = AC_TRIGGER;
 
-	engineConfiguration->map.channel = ADC_CHANNEL_FAST_ADC;
+	engineConfiguration->map.sensor.hwChannel = 4;
+	engineConfiguration->baroSensor.hwChannel = 4;
 
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
@@ -232,9 +231,9 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 
 	engineConfiguration->needSecondTriggerInput = TRUE;
 
-	engineConfiguration->map.config.mapType = MT_CUSTOM;
-	engineConfiguration->map.config.Min = 0;
-	engineConfiguration->map.config.Max = 500;
+	engineConfiguration->map.sensor.mapType = MT_CUSTOM;
+	engineConfiguration->map.sensor.Min = 0;
+	engineConfiguration->map.sensor.Max = 500;
 
 	engineConfiguration->diffLoadEnrichmentCoef = 1;
 

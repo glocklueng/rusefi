@@ -276,10 +276,10 @@ static void printThermistor(char *msg, Thermistor *thermistor) {
 
 static void printMAPInfo(void) {
 #if EFI_PROD_CODE
-	scheduleMsg(&logger, "map type=%d raw=%f MAP=%f", engineConfiguration->map.config.mapType, getRawMap(), getMap());
-	if (engineConfiguration->map.config.mapType == MT_CUSTOM) {
-		scheduleMsg(&logger, "min=%f max=%f", engineConfiguration->map.config.Min,
-				engineConfiguration->map.config.Max);
+	scheduleMsg(&logger, "map type=%d raw=%f MAP=%f", engineConfiguration->map.sensor.mapType, getRawMap(), getMap());
+	if (engineConfiguration->map.sensor.mapType == MT_CUSTOM) {
+		scheduleMsg(&logger, "min=%f max=%f", engineConfiguration->map.sensor.Min,
+				engineConfiguration->map.sensor.Max);
 	}
 #endif
 }
