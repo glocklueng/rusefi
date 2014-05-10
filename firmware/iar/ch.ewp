@@ -333,6 +333,7 @@
           <state>$PROJ_DIR$\..\controllers\system</state>
           <state>$PROJ_DIR$\..\controllers\sensors</state>
           <state>$PROJ_DIR$\..\controllers\math</state>
+          <state>$PROJ_DIR$\..\controllers\trigger</state>
           <state>$PROJ_DIR$\..\util</state>
           <state>$PROJ_DIR$\..\console</state>
           <state>$PROJ_DIR$\..\console\algo</state>
@@ -396,7 +397,7 @@
         </option>
         <option>
           <name>IccLang</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IccCDialect</name>
@@ -2067,12 +2068,6 @@
     <name>controllers</name>
     <group>
       <name>algo</name>
-    <file>
-      <name>$PROJ_DIR$\..\controllers\algo\wave_chart.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\controllers\algo\wave_chart.h</name>
-    </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\advance_map.c</name>
       </file>
@@ -2113,6 +2108,9 @@
         <name>$PROJ_DIR$\..\controllers\algo\io_pins.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\controllers\main_trigger_callback.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\malfunction_central.c</name>
       </file>
       <file>
@@ -2137,16 +2135,10 @@
         <name>$PROJ_DIR$\..\controllers\algo\signal_executor_single_timer_algo.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\trigger_decoder.c</name>
+        <name>$PROJ_DIR$\..\controllers\algo\wave_chart.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\trigger_decoder.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\trigger_structure.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\trigger_structure.h</name>
+        <name>$PROJ_DIR$\..\controllers\algo\wave_chart.h</name>
       </file>
     </group>
     <group>
@@ -2239,6 +2231,54 @@
         <name>$PROJ_DIR$\..\controllers\system\signal_executor_sleep.h</name>
       </file>
     </group>
+    <group>
+      <name>trigger</name>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\main_trigger_callback.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\rpm_calculator.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\rpm_calculator.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_central.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_central.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_chrysler.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_chrysler.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_decoder.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_decoder.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_gm.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_gm.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_mazda.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_mazda.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_structure.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_structure.h</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\controllers\electronic_throttle.cpp</name>
     </file>
@@ -2276,12 +2316,6 @@
       <name>$PROJ_DIR$\..\controllers\injector_central.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\controllers\main_trigger_callback.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\controllers\main_trigger_callback.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\controllers\malfunction_indicator.c</name>
     </file>
     <file>
@@ -2298,12 +2332,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\map_multiplier_thread.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\controllers\rpm_calculator.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\controllers\rpm_calculator.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\settings.c</name>
