@@ -375,11 +375,11 @@ void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *e
 		engine_configuration2_s *engineConfiguration2, engine_type_e engineType) {
 // todo: this would require 'initThermistors() to re-establish a reference, todo: fix
 //	memset(engineConfiguration2, 0, sizeof(engine_configuration2_s));
-
+#if EFI_PROD_CODE
 	printMsg(logger, "applyNonPersistentConfiguration()");
+#endif
 	engineConfiguration2->isInjectionEnabledFlag = TRUE;
 
-	printMsg(logger, "%x %x", engineConfiguration, engineConfiguration2);
 	initializeTriggerShape(logger, engineConfiguration, engineConfiguration2);
 	if (engineConfiguration2->triggerShape.size == 0) {
 		firmwareError("size is zero");
