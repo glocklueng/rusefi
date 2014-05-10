@@ -51,7 +51,6 @@ static volatile float v_mapAccumulator = 0;
  */
 static volatile int mapMeasurementsCounter = 0;
 
-static float atmosphericPressure;
 static float currentMaxPressure;
 
 /**
@@ -63,10 +62,6 @@ extern engine_configuration_s *engineConfiguration;
 
 static scheduling_s startTimer;
 static scheduling_s endTimer;
-
-float getAtmosphericPressure(void) {
-	return atmosphericPressure;
-}
 
 static void startAveraging(void*arg) {
 	chSysLockFromIsr()
@@ -124,7 +119,6 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	perRevolution = perRevolutionCounter;
 	perRevolutionCounter = 0;
 
-	atmosphericPressure = currentMaxPressure;
 	currentMaxPressure = 0;
 
 	MAP_sensor_config_s * config = &engineConfiguration->map;

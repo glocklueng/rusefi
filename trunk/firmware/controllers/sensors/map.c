@@ -51,3 +51,8 @@ float getRawMap(void) {
 	float voltage = getVoltageDivided(engineConfiguration->map.sensor.hwChannel);
 	return getMapByVoltage(voltage);
 }
+
+float getBaroPressure(void) {
+	float voltage = getVoltageDivided(engineConfiguration->baroSensor.hwChannel);
+	return decodePressure(voltage, &engineConfiguration->baroSensor);
+}
