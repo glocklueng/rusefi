@@ -20,7 +20,7 @@
 
 #include "main.h"
 #include "map_averaging.h"
-#include "idle_controller.h" // that's for min/max. todo: move these somewhere?#include "trigger_central.h"
+#include "trigger_central.h"
 #include "adc_inputs.h"
 #include "map.h"
 #include "analog_chart.h"
