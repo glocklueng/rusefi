@@ -53,7 +53,7 @@
 #if defined __GNUC__
 static char pendingBuffer[OUTPUT_BUFFER] __attribute__((section(".ccm")));
 #else
-static char pendingBuffer[OUTPUT_BUFFER] __attribute__((section(".ccm")));
+static char pendingBuffer[OUTPUT_BUFFER];
 #endif
 /**
  * We copy all the pending data into this buffer once we are ready to push it out
