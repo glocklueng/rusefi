@@ -20,8 +20,7 @@
 
 #include "main.h"
 #include "map_averaging.h"
-#include "idle_controller.h" // that's for min/max. todo: move these somewhere?
-#include "trigger_central.h"
+#include "idle_controller.h" // that's for min/max. todo: move these somewhere?#include "trigger_central.h"
 #include "adc_inputs.h"
 #include "map.h"
 #include "analog_chart.h"
@@ -131,9 +130,9 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	MapConf_s * config = &engineConfiguration->map.config;
 
 	float a_samplingStart = interpolate2d(getRpm(), config->samplingAngleBins, config->samplingAngle,
-			MAP_ANGLE_SIZE);
+	MAP_ANGLE_SIZE);
 	float a_samplingWindow = interpolate2d(getRpm(), config->samplingWindowBins, config->samplingWindow,
-			MAP_WINDOW_SIZE);
+	MAP_WINDOW_SIZE);
 
 	scheduleByAngle(&startTimer, a_samplingStart, startAveraging, NULL);
 	scheduleByAngle(&endTimer, a_samplingStart + a_samplingWindow, endAveraging, NULL);
@@ -143,7 +142,16 @@ static void showMapStats(void) {
 	scheduleMsg(&logger, "per revolution %d", perRevolution);
 }
 
+float getMapVoltage(void) {
+	return v_averagedMapValue;
+}
+
+/**
+ * because of MAP window averaging, MAP is only available while engine is spinning
+ */
 float getMap(void) {
+	if (getRpm() == 0)
+		return getRawMap(); // maybe return NaN and have a
 	return getMapByVoltage(v_averagedMapValue);
 }
 

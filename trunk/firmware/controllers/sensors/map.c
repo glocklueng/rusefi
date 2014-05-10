@@ -5,6 +5,7 @@
 #include "adc_inputs.h"
 #include "interpolation.h"
 #include "error_handling.h"
+#include "map.h"
 
 extern engine_configuration_s * engineConfiguration;
 
@@ -40,9 +41,6 @@ float getMapByVoltage(float voltage) {
 		firmwareError("Unknown MAP type: %d", config->mapType);
 		return NAN;
 	}
-	// todo: here is the place where we should read the settings and decide
-	// todo: how to translate voltage into pressure
-//	return getMAPValueHonda_Denso183(voltage);
 }
 
 float getRawMap(void) {
