@@ -1939,6 +1939,12 @@
         <name>$PROJ_DIR$\..\config\engines\audi_aan.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\config\engines\citroenBerlingoTU3JP.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\citroenBerlingoTU3JP.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\config\engines\dodge_neon.cpp</name>
       </file>
       <file>
@@ -1946,6 +1952,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\engine.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\engines.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\ford_1995_inline_6.cpp</name>
@@ -1960,10 +1969,22 @@
         <name>$PROJ_DIR$\..\config\engines\ford_aspire.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\config\engines\ford_escort_gt.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\ford_escort_gt.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\config\engines\ford_fiesta.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\ford_fiesta.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\GY6_139QMB.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\GY6_139QMB.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\honda_accord.cpp</name>
@@ -1972,10 +1993,34 @@
         <name>$PROJ_DIR$\..\config\engines\honda_accord.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\config\engines\mazda_323.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\mazda_323.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\mazda_miata_nb.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\mazda_miata_nb.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\MiniCooperR50.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\MiniCooperR50.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\config\engines\nissan_primera.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\nissan_primera.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\saturn_ion.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\saturn_ion.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\snow_blower.cpp</name>
@@ -2056,16 +2101,46 @@
     <group>
       <name>algo</name>
       <file>
+        <name>$PROJ_DIR$\..\controllers\algo\accel_enrichment.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\accel_enrichment.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\advance_map.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\advance_map.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\controllers\algo\algo.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\algo.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\can_header.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\ec2.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\engine_configuration.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\engine_configuration.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\engine_state.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\error_handling.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\event_queue.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\event_queue.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\event_registry.c</name>
@@ -2098,6 +2173,9 @@
         <name>$PROJ_DIR$\..\controllers\main_trigger_callback.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\controllers\algo\main_trigger_callback.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\malfunction_central.c</name>
       </file>
       <file>
@@ -2110,10 +2188,28 @@
         <name>$PROJ_DIR$\..\controllers\algo\map_adjuster.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\controllers\algo\nmea.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\nmea.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\obd_error_codes.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\OutputSignalArray.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\OutputSignalList.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\rusefi_enums.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\signal_executor.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\signal_executor.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\wave_chart.c</name>
@@ -2273,6 +2369,12 @@
       </file>
     </group>
     <file>
+      <name>$PROJ_DIR$\..\controllers\alternatorController.cpp</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\alternatorController.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\controllers\electronic_throttle.cpp</name>
     </file>
     <file>
@@ -2283,6 +2385,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\engine_controller.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\error_handling.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\flash_main.cpp</name>
@@ -2325,6 +2430,15 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\map_multiplier_thread.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\obd2viaCAN.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\PwmTester.cpp</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\PwmTester.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\settings.cpp</name>
@@ -2441,6 +2555,15 @@
       <name>$PROJ_DIR$\..\hw_layer\adc_inputs.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\hw_layer\AdcConfiguration.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\board_test.cpp</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\board_test.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\hw_layer\can_hw.c</name>
     </file>
     <file>
@@ -2480,10 +2603,22 @@
       <name>$PROJ_DIR$\..\hw_layer\mcp3208.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\hw_layer\microsecond_timer.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\microsecond_timer.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\hw_layer\mmc_card.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\mmc_card.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\neo6m.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\neo6m.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\pin_repository.c</name>
@@ -2927,6 +3062,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\various\chprintf.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\various\chrtclib.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\various\chrtclib.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\various\memstreams.c</name>
