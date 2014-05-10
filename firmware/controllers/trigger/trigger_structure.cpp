@@ -21,8 +21,16 @@
 #include "main.h"
 #include "trigger_structure.h"
 
+single_wave_s::single_wave_s() {
+	init(NULL);
+}
+
 single_wave_s::single_wave_s(int *ps) {
-	this->pinStates = ps;
+	init(ps);
+}
+
+void single_wave_s::init(int *pinStates) {
+	this->pinStates = pinStates;
 }
 
 multi_wave_s::multi_wave_s(float *switchTimes, single_wave_s *waves) {
@@ -39,9 +47,15 @@ float multi_wave_s::getSwitchTime(int index) const {
 	return switchTimes[index];
 }
 
+trigger_shape_helper::trigger_shape_helper() {
+	waves[0].init(pinStates0);
+	waves[1].init(pinStates1);
+}
+
 trigger_shape_s::trigger_shape_s() :
-		wave(switchTimes, h.waves) {
+		wave(switchTimes, NULL) {
 	reset();
+	wave.waves = h.waves;
 }
 
 void trigger_shape_s::reset() {

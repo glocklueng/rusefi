@@ -32,8 +32,11 @@ typedef struct {
  */
 class single_wave_s {
 public:
+	single_wave_s();
 	single_wave_s(int *pinStates);
+	void init(int *pinStates);
 	int *pinStates;
+
 };
 
 class multi_wave_s {
@@ -72,13 +75,12 @@ typedef enum {
 } trigger_wheel_e;
 
 class trigger_shape_helper {
+	int pinStates0[PWM_PHASE_MAX_COUNT];
 	int pinStates1[PWM_PHASE_MAX_COUNT];
-	int pinStates2[PWM_PHASE_MAX_COUNT];
 public:
-	/*
-	 * Interesting fact: this does not compile with g++ 4.6 and works with g++ 4.8
-	 */
-	single_wave_s waves[2] = {single_wave_s(pinStates1), single_wave_s(pinStates2)};
+	trigger_shape_helper();
+
+	single_wave_s waves[2];
 };
 
 class trigger_shape_s {
