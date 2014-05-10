@@ -231,9 +231,11 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration,
 
 	engineConfiguration->needSecondTriggerInput = TRUE;
 
-	engineConfiguration->map.sensor.mapType = MT_CUSTOM;
-	engineConfiguration->map.sensor.Min = 0;
-	engineConfiguration->map.sensor.Max = 500;
+	engineConfiguration->map.sensor.mapType = MT_MPX4250;
+
+	engineConfiguration->baroSensor.mapType = MT_CUSTOM;
+	engineConfiguration->baroSensor.Min = 0;
+	engineConfiguration->baroSensor.Max = 500;
 
 	engineConfiguration->diffLoadEnrichmentCoef = 1;
 

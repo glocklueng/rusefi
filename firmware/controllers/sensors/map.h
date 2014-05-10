@@ -10,6 +10,7 @@ extern "C"
  * @return Raw MAP sensor value right now
  */
 float getRawMap(void);
+float getBaroPressure(void);
 /**
  * @return MAP value averaged within a window of measurement
  */
