@@ -80,8 +80,14 @@ void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e wave
 		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
 			single_wave_s *wave = &trigger->wave.waves[i];
 
-			efiAssert(wave!=NULL, "wave is NULL");
-			efiAssert(wave->pinStates!=NULL, "wave pinStates is NULL");
+			if (wave == NULL) {
+				firmwareError("wave is NULL");
+				return;
+			}
+			if (wave->pinStates == NULL) {
+				firmwareError("wave pinStates is NULL");
+				return;
+			}
 			wave->pinStates[0] = trigger->initialState[i];
 		}
 
