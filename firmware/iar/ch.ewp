@@ -2062,7 +2062,7 @@
         <name>$PROJ_DIR$\..\controllers\algo\advance_map.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\engine_configuration.c</name>
+        <name>$PROJ_DIR$\..\controllers\algo\engine_configuration.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\engine_configuration.h</name>
@@ -2354,7 +2354,7 @@
       <name>$PROJ_DIR$\..\emulation\analog_chart.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\emulation\engine_emulator.c</name>
+      <name>$PROJ_DIR$\..\emulation\engine_emulator.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\emulation\engine_emulator.h</name>
@@ -2366,7 +2366,7 @@
       <name>$PROJ_DIR$\..\emulation\rfi_perftest.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\emulation\trigger_emulator.c</name>
+      <name>$PROJ_DIR$\..\emulation\trigger_emulator.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\emulation\trigger_emulator.h</name>
@@ -2410,10 +2410,10 @@
     <group>
       <name>lcd</name>
       <file>
-        <name>$PROJ_DIR$\..\hw_layer\lcd\lcd_2x16.c</name>
+        <name>$PROJ_DIR$\..\hw_layer\lcd\lcd_HD44780.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\hw_layer\lcd\lcd_2x16.h</name>
+        <name>$PROJ_DIR$\..\hw_layer\lcd\lcd_HD44780.h</name>
       </file>
     </group>
     <group>
@@ -2492,7 +2492,7 @@
       <name>$PROJ_DIR$\..\hw_layer\pin_repository.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\hw_layer\pwm_generator.c</name>
+      <name>$PROJ_DIR$\..\hw_layer\pwm_generator.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\pwm_generator.h</name>
