@@ -3064,12 +3064,6 @@
         <name>$PROJ_DIR$\..\chibios\os\various\chprintf.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\chibios\os\various\chrtclib.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\chibios\os\various\chrtclib.h</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\chibios\os\various\memstreams.c</name>
       </file>
       <file>
