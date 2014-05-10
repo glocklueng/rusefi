@@ -27,6 +27,7 @@ int warning(obd_code_e code, const char *fmt, ...);
  * todo: better method name?
  */
 void firmwareError(const char *fmt, ...);
+bool_t hasFirmwareError(void);
 
 int hasFatalError(void);
 void fatal3(char *msg, char *file, int line);
