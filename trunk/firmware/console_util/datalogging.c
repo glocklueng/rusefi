@@ -50,7 +50,11 @@
 /**
  * This is the buffer into which all the data providers write
  */
+#if defined __GNUC__
 static char pendingBuffer[OUTPUT_BUFFER] __attribute__((section(".ccm")));
+#else
+static char pendingBuffer[OUTPUT_BUFFER] __attribute__((section(".ccm")));
+#endif
 /**
  * We copy all the pending data into this buffer once we are ready to push it out
  */

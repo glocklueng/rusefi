@@ -66,7 +66,11 @@ void resetWaveChart(WaveChart *chart) {
 	appendPrintf(&chart->logging, "wave_chart%s", DELIMETER);
 }
 
+#if defined __GNUC__
 static char WAVE_LOGGING_BUFFER[5000] __attribute__((section(".ccm")));
+#else
+static char WAVE_LOGGING_BUFFER[5000];
+#endif
 
 static void printStatus(void) {
 	scheduleIntValue(&logger, "chart", isChartActive);
