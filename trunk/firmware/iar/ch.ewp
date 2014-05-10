@@ -1930,13 +1930,13 @@
     <group>
       <name>engines</name>
       <file>
-        <name>$PROJ_DIR$\..\config\engines\audi_aan.c</name>
+        <name>$PROJ_DIR$\..\config\engines\audi_aan.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\audi_aan.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\config\engines\dodge_neon.c</name>
+        <name>$PROJ_DIR$\..\config\engines\dodge_neon.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\dodge_neon.h</name>
@@ -1945,37 +1945,37 @@
         <name>$PROJ_DIR$\..\config\engines\engine.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\config\engines\ford_1995_inline_6.c</name>
+        <name>$PROJ_DIR$\..\config\engines\ford_1995_inline_6.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\ford_1995_inline_6.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\config\engines\ford_aspire.c</name>
+        <name>$PROJ_DIR$\..\config\engines\ford_aspire.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\ford_aspire.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\config\engines\ford_fiesta.c</name>
+        <name>$PROJ_DIR$\..\config\engines\ford_fiesta.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\ford_fiesta.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\config\engines\honda_accord.c</name>
+        <name>$PROJ_DIR$\..\config\engines\honda_accord.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\honda_accord.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\config\engines\nissan_primera.c</name>
+        <name>$PROJ_DIR$\..\config\engines\nissan_primera.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\nissan_primera.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\config\engines\snow_blower.c</name>
+        <name>$PROJ_DIR$\..\config\engines\snow_blower.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\snow_blower.h</name>
@@ -2067,6 +2067,12 @@
     <name>controllers</name>
     <group>
       <name>algo</name>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\algo\wave_chart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\algo\wave_chart.h</name>
+    </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\advance_map.c</name>
       </file>
@@ -2086,7 +2092,7 @@
         <name>$PROJ_DIR$\..\controllers\algo\event_registry.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\fuel_math.c</name>
+        <name>$PROJ_DIR$\..\controllers\algo\fuel_math.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\fuel_math.h</name>
@@ -2152,7 +2158,7 @@
         <name>$PROJ_DIR$\..\controllers\math\avg_values.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\math\engine_math.c</name>
+        <name>$PROJ_DIR$\..\controllers\math\engine_math.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\math\engine_math.h</name>
@@ -2234,13 +2240,13 @@
       </file>
     </group>
     <file>
-      <name>$PROJ_DIR$\..\controllers\electronic_throttle.c</name>
+      <name>$PROJ_DIR$\..\controllers\electronic_throttle.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\electronic_throttle.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\controllers\engine_controller.c</name>
+      <name>$PROJ_DIR$\..\controllers\engine_controller.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\engine_controller.h</name>
@@ -2252,7 +2258,7 @@
       <name>$PROJ_DIR$\..\controllers\flash_main.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\controllers\idle_thread.c</name>
+      <name>$PROJ_DIR$\..\controllers\idle_thread.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\idle_thread.h</name>
@@ -2264,7 +2270,7 @@
       <name>$PROJ_DIR$\..\controllers\ignition_central.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\controllers\injector_central.c</name>
+      <name>$PROJ_DIR$\..\controllers\injector_central.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\injector_central.h</name>
@@ -2356,12 +2362,6 @@
     <file>
       <name>$PROJ_DIR$\..\emulation\wave_analyzer.h</name>
     </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\wave_chart.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\wave_chart.h</name>
-    </file>
   </group>
   <group>
     <name>ext</name>
@@ -2399,7 +2399,7 @@
       <name>$PROJ_DIR$\..\hw_layer\adc_external.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\hw_layer\adc_inputs.c</name>
+      <name>$PROJ_DIR$\..\hw_layer\adc_inputs.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\adc_inputs.h</name>
