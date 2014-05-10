@@ -116,6 +116,8 @@ static void date_set(char *strDate) {
 
 void initRtc(void) {
 	initLogging(&logger, "rtc");
+	printMsg(&logger, "initRtc()");
+
 	// yes, it's my begin time  and we always start from this one 1391894433 - 2014-02-08 21:20:03
 	rtcSetTimeUnixSec(&RTCD1, 1391894433);
 	addConsoleAction("date_get", date_get);
