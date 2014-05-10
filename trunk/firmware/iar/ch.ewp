@@ -343,6 +343,8 @@
           <state>$PROJ_DIR$\..\config\engines</state>
           <state>$PROJ_DIR$\..\config\boards</state>
           <state>$PROJ_DIR$\..\hw_layer\algo</state>
+          <state>$PROJ_DIR$\..\hw_layer\lcd</state>
+          <state>$PROJ_DIR$\..\hw_layer\serial_over_usb</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1998,12 +2000,21 @@
   <group>
     <name>console</name>
     <group>
-      <name>algo</name>
+      <name>tunerstudio</name>
       <file>
-        <name>$PROJ_DIR$\..\console\algo\tunerstudio_algo.c</name>
+        <name>$PROJ_DIR$\..\console\tunerstudio\tunerstudio.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\console\algo\tunerstudio_algo.h</name>
+        <name>$PROJ_DIR$\..\console\tunerstudio\tunerstudio.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\console\tunerstudio\tunerstudio_algo.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\console\tunerstudio\tunerstudio_algo.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\console\tunerstudio\tunerstudio_configuration.h</name>
       </file>
     </group>
     <file>
@@ -2019,28 +2030,10 @@
       <name>$PROJ_DIR$\..\console\rficonsole.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\console\status_loop.c</name>
+      <name>$PROJ_DIR$\..\console\status_loop.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\console\status_loop.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\console\tunerstudio.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\console\tunerstudio.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\console\usbcfg.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\console\usbcfg.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\console\usbconsole.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\console\usbconsole.h</name>
     </file>
   </group>
   <group>
@@ -2129,12 +2122,6 @@
         <name>$PROJ_DIR$\..\controllers\algo\signal_executor.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\signal_executor_single_timer_algo.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\signal_executor_single_timer_algo.h</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\controllers\algo\wave_chart.c</name>
       </file>
       <file>
@@ -2192,7 +2179,7 @@
         <name>$PROJ_DIR$\..\controllers\sensors\sensors.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\sensors\thermistors.c</name>
+        <name>$PROJ_DIR$\..\controllers\sensors\thermistors.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\sensors\thermistors.h</name>
@@ -2213,22 +2200,34 @@
     <group>
       <name>system</name>
       <file>
+        <name>$PROJ_DIR$\..\controllers\system\pwm_generator_logic.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\pwm_generator_logic.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\system\signal_executor_hw_timer.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\system\signal_executor_hw_timer.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\system\signal_executor_single_timer.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\system\signal_executor_single_timer.h</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\controllers\system\signal_executor_sleep.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\system\signal_executor_sleep.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\SingleTimerExecutor.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\SingleTimerExecutor.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\trigger_emulator_algo.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\trigger_emulator_algo.h</name>
       </file>
     </group>
     <group>
@@ -2373,12 +2372,6 @@
       <name>$PROJ_DIR$\..\emulation\rfi_perftest.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\emulation\toothed_wheel_emulator.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\toothed_wheel_emulator.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\emulation\trigger_emulator.c</name>
     </file>
     <file>
@@ -2415,12 +2408,33 @@
   <group>
     <name>hw_layer</name>
     <group>
+      <name>algo</name>
+      <file>
+        <name>$PROJ_DIR$\..\hw_layer\algo\adc_math.h</name>
+      </file>
+    </group>
+    <group>
       <name>lcd</name>
       <file>
         <name>$PROJ_DIR$\..\hw_layer\lcd\lcd_2x16.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\hw_layer\lcd\lcd_2x16.h</name>
+      </file>
+    </group>
+    <group>
+      <name>serial_over_usb</name>
+      <file>
+        <name>$PROJ_DIR$\..\hw_layer\serial_over_usb\usbcfg.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\hw_layer\serial_over_usb\usbcfg.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\hw_layer\serial_over_usb\usbconsole.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\hw_layer\serial_over_usb\usbconsole.h</name>
       </file>
     </group>
     <file>
@@ -2499,7 +2513,7 @@
       <name>$PROJ_DIR$\..\hw_layer\stm32f4xx_specific.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\hw_layer\trigger_input.c</name>
+      <name>$PROJ_DIR$\..\hw_layer\trigger_input.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\trigger_input.h</name>
