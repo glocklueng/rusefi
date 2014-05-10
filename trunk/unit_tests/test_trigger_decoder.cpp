@@ -28,7 +28,7 @@ int getTheAngle(engine_type_e engineType) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 
-	resetConfigurationExt(engineType, ec, &ec2, &persistentConfig.boardConfiguration);
+	resetConfigurationExt(NULL, engineType, ec, &ec2, &persistentConfig.boardConfiguration);
 
 	trigger_shape_s * shape = &ec2.triggerShape;
 	return findTriggerZeroEventIndex(shape, &ec->triggerConfig);
@@ -44,7 +44,7 @@ static void testDodgeNeonDecoder(void) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 
-	resetConfigurationExt(DODGE_NEON_1995, ec, &ec2, &persistentConfig.boardConfiguration);
+	resetConfigurationExt(NULL, DODGE_NEON_1995, ec, &ec2, &persistentConfig.boardConfiguration);
 
 	trigger_shape_s * shape = &ec2.triggerShape;
 	trigger_state_s state;
@@ -98,7 +98,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 
-	resetConfigurationExt(FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
+	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
 
 	ActuatorEventList *ecl = &ec2.engineEventConfiguration.ignitionEvents;
 	assertEqualsM("ignition events size", 6, ecl->size);
@@ -149,7 +149,7 @@ void testFordAspire(void) {
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
-	resetConfigurationExt(FORD_ASPIRE_1996, ec, &ec2, &persistentConfig.boardConfiguration);
+	resetConfigurationExt(NULL, FORD_ASPIRE_1996, ec, &ec2, &persistentConfig.boardConfiguration);
 
 	assertEquals(800, ec->fuelRpmBins[0]);
 	assertEquals(7000, ec->fuelRpmBins[15]);
@@ -169,7 +169,7 @@ void testMazda323(void) {
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
-	resetConfigurationExt(MAZDA_323, ec, &ec2, &persistentConfig.boardConfiguration);
+	resetConfigurationExt(NULL, MAZDA_323, ec, &ec2, &persistentConfig.boardConfiguration);
 
 }
 
@@ -179,7 +179,7 @@ void testMazdaMianaNbDecoder(void) {
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
-	resetConfigurationExt(MAZDA_MIATA_NB, ec, &ec2, &persistentConfig.boardConfiguration);
+	resetConfigurationExt(NULL, MAZDA_MIATA_NB, ec, &ec2, &persistentConfig.boardConfiguration);
 
 	trigger_state_s state;
 	clearTriggerState(&state);
@@ -228,7 +228,7 @@ void testFordEscortGt(void) {
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
-	resetConfigurationExt(FORD_ESCORT_GT, ec, &ec2, &persistentConfig.boardConfiguration);
+	resetConfigurationExt(NULL, FORD_ESCORT_GT, ec, &ec2, &persistentConfig.boardConfiguration);
 }
 
 void testGY6_139QMB(void) {
@@ -237,7 +237,7 @@ void testGY6_139QMB(void) {
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
-	resetConfigurationExt(GY6_139QMB, ec, &ec2, &persistentConfig.boardConfiguration);
+	resetConfigurationExt(NULL, GY6_139QMB, ec, &ec2, &persistentConfig.boardConfiguration);
 
 	trigger_state_s state;
 	clearTriggerState(&state);
