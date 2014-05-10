@@ -222,6 +222,8 @@ static void printAnalogInfo(void) {
 static WORKING_AREA(csThreadStack, UTILITY_THREAD_STACK_SIZE);// declare thread stack
 
 void initEngineContoller(void) {
+	if (hasFirmwareError())
+		return;
 	initLogging(&logger, "Engine Controller");
 
 	initSensors();

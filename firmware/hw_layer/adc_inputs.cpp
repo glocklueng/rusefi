@@ -390,6 +390,7 @@ static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 void initAdcInputs() {
 
 	initLoggingExt(&logger, "ADC", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
+	printMsg(&logger, "initAdcInputs()");
 
 	printStatus();
 

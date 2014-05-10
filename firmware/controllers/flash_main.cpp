@@ -82,29 +82,31 @@ static int isValidCrc(FlashState *state) {
 }
 
 static void doResetConfiguration(void) {
-	resetConfigurationExt(engineConfiguration->engineType, engineConfiguration, engineConfiguration2, boardConfiguration);
+	resetConfigurationExt(&logger, engineConfiguration->engineType, engineConfiguration, engineConfiguration2, boardConfiguration);
 }
 
 static void readFromFlash(void) {
+	printMsg(&logger, "readFromFlash()");
 
 	flashRead(FLASH_ADDR, (char *) &flashState, FLASH_USAGE);
 
 	setDefaultNonPersistentConfiguration(engineConfiguration2);
 
 	if (!isValidCrc(&flashState)) {
-		scheduleMsg(&logger, "Need to reset flash to default");
-		resetConfigurationExt(defaultEngineType, engineConfiguration, engineConfiguration2, boardConfiguration);
+		printMsg(&logger, "Need to reset flash to default");
+		resetConfigurationExt(&logger, defaultEngineType, engineConfiguration, engineConfiguration2, boardConfiguration);
 	} else {
-		scheduleMsg(&logger, "Got valid configuration from flash!");
-		applyNonPersistentConfiguration(engineConfiguration, engineConfiguration2, engineConfiguration->engineType);
+		printMsg(&logger, "Got valid configuration from flash!");
+		applyNonPersistentConfiguration(&logger, engineConfiguration, engineConfiguration2, engineConfiguration->engineType);
 	}
+	printMsg(&logger, "readFromFlash()4");
 	// we can only change the state after the CRC check
 	engineConfiguration->firmwareVersion = getRusEfiVersion();
 }
 
 void initFlash(void) {
-	initLogging(&logger, "Flash memory");
 	print("initFlash()\r\n");
+	initLogging(&logger, "Flash memory");
 
 
 	addConsoleAction("readconfig", readFromFlash);

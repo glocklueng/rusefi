@@ -51,13 +51,11 @@ void addFuelEvents(engine_configuration_s const *e,  engine_configuration2_s *en
 
 void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list, OutputSignal *actuator, float angleOffset);
 
-
-
-void resetConfigurationExt(engine_type_e engineType,
+void resetConfigurationExt(Logging * logger, engine_type_e engineType,
 		engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2,
 		board_configuration_s *boardConfiguration);
-void applyNonPersistentConfiguration(engine_configuration_s *engineConfiguration,
+void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2, engine_type_e engineType);
 
 

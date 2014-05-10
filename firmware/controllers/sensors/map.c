@@ -25,7 +25,7 @@ float getMAPValueMPX_4250(float voltage) {
 }
 
 float decodePressure(float voltage, air_pressure_sensor_config_s * config) {
-	switch (config->mapType) {
+	switch (config->sensorType) {
 	case MT_CUSTOM:
 		return interpolate(0, config->Min, 5, config->Max, voltage);
 	case MT_DENSO183:
@@ -33,7 +33,7 @@ float decodePressure(float voltage, air_pressure_sensor_config_s * config) {
 	case MT_MPX4250:
 		return getMAPValueMPX_4250(voltage);
 	default:
-		firmwareError("Unknown MAP type: %d", config->mapType);
+		firmwareError("Unknown MAP type: %d", config->sensorType);
 		return NAN;
 	}
 }
