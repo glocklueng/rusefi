@@ -81,7 +81,8 @@ static void sendI2Cbyte(int addr, int data) {
 //	i2cReleaseBus(&I2CD1);
 }
 
-void initHardware() {
+void initHardware(Logging *logger) {
+	printMsg(logger, "initHardware()");
 	// todo: enable protection. it's disabled because it takes
 	// 10 extra seconds to re-flash the chip
 	//flashProtect();
@@ -98,11 +99,16 @@ void initHardware() {
 	 */
 	initPrimaryPins();
 
+	if (hasFirmwareError)
+		return;
+
 	/**
 	 * this call reads configuration from flash memory or sets default configuration
 	 * if flash state does not look right.
 	 */
 	initFlash();
+	if (hasFirmwareError)
+		return;
 
 	initRtc();
 
@@ -146,6 +152,8 @@ void initHardware() {
 #if EFI_HD44780_LCD
 //	initI2Cmodule();
 	lcd_HD44780_init();
+	if (hasFirmwareError)
+		return;
 
 	char buffer[16];
 	itoa10((uint8_t*)buffer, SVN_VERSION);
@@ -167,5 +175,5 @@ void initHardware() {
 //	}
 
 	initBoardTest();
-
+	printMsg(logger, "initHardware() OK!");
 }
