@@ -163,7 +163,7 @@ static void initialLedsBlink(void) {
 }
 
 void initPrimaryPins(void) {
-	outputPinRegister("error", LED_ERROR, LED_ERROR_PORT, LED_ERROR_PIN);
+	outputPinRegister("LED_ERROR", LED_ERROR, LED_ERROR_PORT, LED_ERROR_PIN);
 }
 
 void initOutputPins(void) {
