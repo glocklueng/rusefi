@@ -228,10 +228,7 @@ void HardFaultVector(void) {
 		;
 }
 
-
 extern int main_loop_started;
-
-int hasFatalError(void);
 
 void onFatalError(const char *msg, char * file, int line);
 
