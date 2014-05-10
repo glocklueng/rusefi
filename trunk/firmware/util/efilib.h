@@ -22,8 +22,8 @@ float atoff(const char *string);
 int atoi(const char *string);
 int cisnan(float f);
 
-int max(int i1, int i2);
-int min(int i1, int i2);
+int maxI(int i1, int i2);
+int minI(int i1, int i2);
 float maxF(float i1, float i2);
 
 #ifdef __cplusplus

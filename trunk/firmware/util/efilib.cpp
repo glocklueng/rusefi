@@ -11,6 +11,18 @@
 #include <math.h>
 #include "efilib.h"
 
+int minI(int i1, int i2) {
+	return i1 < i2 ? i1 : i2;
+}
+
+int maxI(int i1, int i2) {
+	return i1 > i2 ? i1 : i2;
+}
+
+float maxF(float i1, float i2) {
+	return i1 > i2 ? i1 : i2;
+}
+
 int indexOf(const char *string, char ch) {
 	// todo: there should be a standard function for this
 	int len = strlen(string);
