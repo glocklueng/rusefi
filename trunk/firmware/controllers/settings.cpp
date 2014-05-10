@@ -196,7 +196,7 @@ static void setTimingMode(int value) {
 
 static void setEngineType(int value) {
 	engineConfiguration->engineType = (engine_type_e) value;
-	resetConfigurationExt((engine_type_e) value, engineConfiguration, engineConfiguration2, boardConfiguration);
+	resetConfigurationExt(&logger, (engine_type_e) value, engineConfiguration, engineConfiguration2, boardConfiguration);
 #if EFI_PROD_CODE
 	writeToFlash();
 //	scheduleReset();
@@ -276,10 +276,17 @@ static void printThermistor(char *msg, Thermistor *thermistor) {
 
 static void printMAPInfo(void) {
 #if EFI_PROD_CODE
-	scheduleMsg(&logger, "map type=%d raw=%f MAP=%f", engineConfiguration->map.sensor.mapType, getRawMap(), getMap());
-	if (engineConfiguration->map.sensor.mapType == MT_CUSTOM) {
+	scheduleMsg(&logger, "map type=%d raw=%f MAP=%f", engineConfiguration->map.sensor.sensorType, getRawMap(), getMap());
+	if (engineConfiguration->map.sensor.sensorType == MT_CUSTOM) {
 		scheduleMsg(&logger, "min=%f max=%f", engineConfiguration->map.sensor.Min,
 				engineConfiguration->map.sensor.Max);
+	}
+
+
+	scheduleMsg(&logger, "baro type=%d value=%f", engineConfiguration->baroSensor.sensorType, getBaroPressure());
+	if (engineConfiguration->baroSensor.sensorType == MT_CUSTOM) {
+		scheduleMsg(&logger, "min=%f max=%f", engineConfiguration->baroSensor.Min,
+				engineConfiguration->baroSensor.Max);
 	}
 #endif
 }

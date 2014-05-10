@@ -163,8 +163,12 @@ static void configureFordAspireTriggerShape(trigger_shape_s * s) {
 	triggerAddEvent(s, 720, T_PRIMARY, TV_LOW);
 }
 
-void initializeTriggerShape(engine_configuration_s *engineConfiguration,
+/**
+ * External logger is needed because at this point our logger is not yet initialized
+ */
+void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2) {
+	printMsg(logger, "initializeTriggerShape()");
 	trigger_config_s *tt = &engineConfiguration->triggerConfig;
 	switch (tt->triggerType) {
 

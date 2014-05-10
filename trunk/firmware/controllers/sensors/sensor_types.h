@@ -16,7 +16,7 @@
 typedef struct {
 	float Min;
 	float Max;
-	air_pressure_sensor_type_e mapType;
+	air_pressure_sensor_type_e sensorType;
 	int hwChannel;
 } air_pressure_sensor_config_s;
 

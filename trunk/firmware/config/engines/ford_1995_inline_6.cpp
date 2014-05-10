@@ -89,7 +89,7 @@ void setFordInline6(engine_configuration_s *engineConfiguration, board_configura
 	engineConfiguration->tpsMin = convertVoltageTo10bitADC(1.250);
 	engineConfiguration->tpsMax = convertVoltageTo10bitADC(4.538);
 
-	engineConfiguration->map.sensor.mapType = MT_MPX4250;
+	engineConfiguration->map.sensor.sensorType = MT_MPX4250;
 	engineConfiguration->map.sensor.hwChannel = 2; // input channel 8 is ADC2
 
 	//	engineConfiguration->vBattAdcChannel = 0; //
