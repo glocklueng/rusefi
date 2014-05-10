@@ -185,7 +185,7 @@ static char* get2ndCaption(int loggingPoint) {
 }
 
 void initLoggingExt(Logging *logging, const char *name, char *buffer, int bufferSize) {
-	print("Init logging\r\n");
+	print("Init logging %s\r\n", name);
 	logging->name = name;
 	logging->buffer = buffer;
 	logging->bufferSize = bufferSize;
