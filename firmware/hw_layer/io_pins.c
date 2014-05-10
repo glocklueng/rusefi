@@ -108,7 +108,8 @@ static void errBlinkingThread(void *arg) {
 	}
 }
 
-static void outputPinRegisterExt(const char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin, pin_output_mode_e *outputMode) {
+static void outputPinRegisterExt(const char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin,
+		pin_output_mode_e *outputMode) {
 	if (port == GPIO_NULL) {
 		// that's for GRIO_NONE
 		outputs[ioPin].port = port;
@@ -128,12 +129,20 @@ static void outputPinRegisterExt(const char *msg, io_pin_e ioPin, GPIO_TypeDef *
 GPIO_TypeDef * getHwPort(brain_pin_e brainPin) {
 	if (brainPin == GPIO_NONE)
 		return GPIO_NULL;
+	if (brainPin > GPIO_NONE) {
+		firmwareError("Invalid brain_pin_e: %d", brainPin);
+		return GPIO_NULL;
+	}
 	return PORTS[brainPin / 16];
 }
 
 int getHwPin(brain_pin_e brainPin) {
 	if (brainPin == GPIO_NONE)
 		return -1;
+	if (brainPin > GPIO_NONE) {
+		firmwareError("Invalid brain_pin_e: %d", brainPin);
+		return -1;
+	}
 	return brainPin % 16;
 }
 
