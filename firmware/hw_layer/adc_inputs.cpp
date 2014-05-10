@@ -155,7 +155,8 @@ static void pwmpcb_slow(PWMDriver *pwmp) {
 
 	/* Starts an asynchronous ADC conversion operation, the conversion
 	 will be executed in parallel to the current PWM cycle and will
-	 terminate before the next PWM cycle.*/chSysLockFromIsr()
+	 terminate before the next PWM cycle.*/
+	chSysLockFromIsr()
 	;
 	adcStartConversionI(&ADC_SLOW_DEVICE, &adcgrpcfgSlow, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW);
 	chSysUnlockFromIsr()
@@ -167,10 +168,19 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 #ifdef EFI_INTERNAL_ADC
 	(void) pwmp;
 
-	/* Starts an asynchronous ADC conversion operation, the conversion
-	 will be executed in parallel to the current PWM cycle and will
-	 terminate before the next PWM cycle.*/chSysLockFromIsr()
+	/*
+	 * Starts an asynchronous ADC conversion operation, the conversion
+	 * will be executed in parallel to the current PWM cycle and will
+	 * terminate before the next PWM cycle.
+	 */
+	chSysLockFromIsr()
 	;
+	if (ADC_FAST_DEVICE.state != ADC_READY &&
+	ADC_FAST_DEVICE.state != ADC_COMPLETE &&
+	ADC_FAST_DEVICE.state != ADC_ERROR) {
+		firmwareError("ADC fast not ready?");
+		return;
+	}
 	adcStartConversionI(&ADC_FAST_DEVICE, &adcgrpcfg_fast, samples_fast, ADC_GRP1_BUF_DEPTH_FAST);
 	chSysUnlockFromIsr()
 	;
@@ -423,7 +433,7 @@ void initAdcInputs() {
 	 * Initializes the PWM driver.
 	 */
 	pwmStart(EFI_INTERNAL_SLOW_ADC_PWM, &pwmcfg_slow);
-//	pwmStart(EFI_INTERNAL_FAST_ADC_PWM, &pwmcfg_fast);
+	pwmStart(EFI_INTERNAL_FAST_ADC_PWM, &pwmcfg_fast);
 	addConsoleActionI("adc", printAdcValue);
 	addConsoleAction("fadc", printFullAdcReport);
 #else
