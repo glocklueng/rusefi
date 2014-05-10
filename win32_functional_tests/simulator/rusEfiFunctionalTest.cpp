@@ -165,7 +165,7 @@ void firmwareError(const char *fmt, ...) {
 	fatal3((char*)fmt, __FILE__, __LINE__);
 }
 
-int hasFatalError(void) {
+bool_t hasFatalError(void) {
 	return false;
 }
 
