@@ -13,6 +13,10 @@
 
 #include "efitime.h"
 
+typedef int bool_t;
+
+typedef void * Logging;
+
 #define TRUE 1
 #define FALSE 0
 
