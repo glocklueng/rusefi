@@ -12,10 +12,11 @@
 #include "engine_configuration.h"
 #include "crc.h"
 
-#define FLASH_DATA_VERSION 2727
+#define FLASH_DATA_VERSION 3000
 
 typedef struct {
 	int version;
+	int size;
 	persistent_config_s persistentConfiguration;
 	crc value;
 } FlashState;
