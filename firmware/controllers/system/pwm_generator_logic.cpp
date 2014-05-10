@@ -11,7 +11,8 @@
 #include "pwm_generator_logic.h"
 #include "engine_math.h"
 
-PwmConfig::PwmConfig(float *st, single_wave_s *waves) : multiWave(st, waves) {
+PwmConfig::PwmConfig(float *st, single_wave_s *waves) :
+		multiWave(st, waves) {
 }
 
 static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
@@ -108,11 +109,14 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes, int
 	}
 }
 
-void weComplexInit(const char *msg, PwmConfig *state, int phaseCount, float *switchTimes, int waveCount, int **pinStates,
-		pwm_cycle_callback *cycleCallback, pwm_gen_callback *stateChangeCallback) {
+void weComplexInit(const char *msg, PwmConfig *state, int phaseCount, float *switchTimes, int waveCount,
+		int **pinStates, pwm_cycle_callback *cycleCallback, pwm_gen_callback *stateChangeCallback) {
 
 	chDbgCheck(state->periodMs != 0, "period is not initialized");
-	chDbgCheck(phaseCount > 1, "count is too small");
+	if (phaseCount == 0) {
+		firmwareError("signal length cannot be zero");
+		return;
+	}
 	if (phaseCount > PWM_PHASE_MAX_COUNT) {
 		firmwareError("too many phases in PWM");
 		return;

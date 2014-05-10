@@ -251,11 +251,11 @@ void chDbgPanic3(const char *msg, const char * file, int line) {
 static char panicMessage[200];
 
 void chDbgStackOverflowPanic(Thread *otp) {
-  strcpy(panicMessage, "stack overflow: ");
+	strcpy(panicMessage, "stack overflow: ");
 #ifdef CH_USE_REGISTRY
-  strcat(panicMessage, otp->p_name);
+	strcat(panicMessage, otp->p_name);
 #endif
-  chDbgPanic3(panicMessage, __FILE__, __LINE__);
+	chDbgPanic3(panicMessage, __FILE__, __LINE__);
 }
 
 bool_t hasFirmwareError(void) {
