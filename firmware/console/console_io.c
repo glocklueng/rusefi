@@ -147,9 +147,12 @@ void startConsole(void (*console_line_callback_p)(char *)) {
 
 extern cnt_t dbg_isr_cnt;
 
-int lockAnyContext(void) {
-	int is_locked = isLocked();
-	if (is_locked)
+/**
+ * @return TRUE if already in locked context
+ */
+bool_t lockAnyContext(void) {
+	int alreadyLocked = isLocked();
+	if (alreadyLocked)
 		return TRUE;
 	if (isIsrContext()) {
 		chSysLockFromIsr()
@@ -161,8 +164,8 @@ int lockAnyContext(void) {
 	return FALSE;
 }
 
-void lockOutputBuffer(void) {
-	lockAnyContext();
+bool_t lockOutputBuffer(void) {
+	return lockAnyContext();
 }
 
 void unlockAnyContext(void) {
