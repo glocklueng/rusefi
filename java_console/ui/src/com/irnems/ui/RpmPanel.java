@@ -1,10 +1,11 @@
 package com.irnems.ui;
 
 import com.irnems.EcuStimulator;
-import com.rusefi.io.LinkManager;
+import com.irnems.Launcher;
 import com.irnems.core.EngineTimeListener;
 import com.irnems.core.Sensor;
 import com.irnems.ui.widgets.*;
+import com.rusefi.io.LinkManager;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -97,7 +98,8 @@ public class RpmPanel {
         JPanel controls = new JPanel(new MigLayout());
         controls.setBorder(BorderFactory.createLineBorder(Color.red));
         JButton button = createButton();
-//        controls.add(button, "grow, wrap");
+        if (Launcher.SHOW_STIMULATOR)
+            controls.add(button, "grow, wrap");
 
         controls.add(new RpmCommand(), "grow, wrap");
 //        controls.add(new PotCommand(0).panel, "grow, wrap");
@@ -124,7 +126,7 @@ public class RpmPanel {
     }
 
     private JButton createButton() {
-        final JButton button = new JButton("run ECU stimulation");
+        final JButton button = new JButton("stimulate stock ECU");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
