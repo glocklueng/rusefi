@@ -129,7 +129,9 @@ void printSensors(void) {
 
 	if (engineConfiguration2->hasMapSensor) {
 		reportSensorF(getCaption(LP_MAP), getMap(), 2);
+		reportSensorF("map_r", getRawMap(), 2);
 	}
+	reportSensorF("baro", getBaroPressure(), 2);
 
 	reportSensorF("afr", getAfr(), 2);
 	reportSensorF("vref", getVRef(), 2);
