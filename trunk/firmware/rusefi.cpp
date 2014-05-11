@@ -1,5 +1,5 @@
 /**
- * @file	rusefi.c
+ * @file	rusefi.cpp
  * @brief Initialization code and main status reporting look
  *
  * @date Dec 25, 2013
@@ -276,5 +276,5 @@ void firmwareError(const char *fmt, ...) {
 }
 
 int getRusEfiVersion(void) {
-	return 20140510;
+	return 20140511;
 }
