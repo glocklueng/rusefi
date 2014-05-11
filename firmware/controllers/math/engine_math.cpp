@@ -238,7 +238,7 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 
 void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
-	chDbgCheck(s->size > 0, "uninitialized trigger_shape_s");
+	chDbgCheck(s->getSize() > 0, "uninitialized trigger_shape_s");
 
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
 
@@ -249,15 +249,15 @@ void registerActuatorEventExt(engine_configuration_s const *engineConfiguration,
 
 	// let's find the last trigger angle which is less or equal to the desired angle
 	int i;
-	for (i = 0; i < s->size - 1; i++) {
+	for (i = 0; i < s->getSize() - 1; i++) {
 		// todo: we need binary search here
-		float angle = fixAngle(s->wave.getSwitchTime((triggerIndexOfZeroEvent + i + 1) % s->size) * 720 - firstAngle);
+		float angle = fixAngle(s->wave.getSwitchTime((triggerIndexOfZeroEvent + i + 1) % s->getSize()) * 720 - firstAngle);
 		if (angle > angleOffset)
 			break;
 	}
 	// explicit check for zero to avoid issues where logical zero is not exactly zero due to float nature
 	float angle =
-			i == 0 ? 0 : fixAngle(s->wave.getSwitchTime((triggerIndexOfZeroEvent + i) % s->size) * 720 - firstAngle);
+			i == 0 ? 0 : fixAngle(s->wave.getSwitchTime((triggerIndexOfZeroEvent + i) % s->getSize()) * 720 - firstAngle);
 
 	chDbgCheck(angleOffset >= angle, "angle constraint violation in registerActuatorEventExt()");
 

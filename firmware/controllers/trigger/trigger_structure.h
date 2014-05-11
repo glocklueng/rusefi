@@ -86,12 +86,13 @@ public:
 class trigger_shape_s {
 private:
 	trigger_shape_helper h;
+	int size;
 public:
 	trigger_shape_s();
 	void addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state);
 	void reset();
+	int getSize();
 	multi_wave_s wave;
-	int size;
 
 	/**
 	 * Total count of shaft events per CAM or CRANK shaft revolution.
