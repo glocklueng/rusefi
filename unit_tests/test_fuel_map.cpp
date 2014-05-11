@@ -123,7 +123,7 @@ void testAngleResolver(void) {
 	trigger_shape_s * ts = &engineConfiguration2->triggerShape;
 
 	confgiureFordAspireTriggerShape(ts);
-	assertEqualsM("shape size", 10, ts->size);
+	assertEqualsM("shape size", 10, ts->getSize());
 
 	OutputSignalList list;
 
