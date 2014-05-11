@@ -98,7 +98,7 @@ void testFuelMap(void) {
 }
 
 static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
-	triggerShapeInit(s);
+	s->reset();
 
 	triggerAddEvent(s, 53.747, T_SECONDARY, TV_HIGH);
 	triggerAddEvent(s, 121.90, T_SECONDARY, TV_LOW);
