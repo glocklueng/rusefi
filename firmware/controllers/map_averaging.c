@@ -113,7 +113,7 @@ static void endAveraging(void *arg) {
  */
 static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	// this callback is invoked on interrupt thread
-	if (index != 0)
+	if (index != 0 || !isValidRpm())
 		return;
 
 	perRevolution = perRevolutionCounter;
