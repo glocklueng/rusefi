@@ -21,7 +21,7 @@
 #include "trigger_mazda.h"
 
 void initializeMazdaMiataNbShape(trigger_shape_s *s) {
-	triggerShapeInit(s);
+	s->reset();
 
 	/**
 	 * cam sensor is primary, crank sensor is secondary
@@ -62,7 +62,7 @@ void configureMazdaProtegeLx(engine_configuration_s *engineConfiguration,
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 
-	triggerShapeInit(s);
+	s->reset();
 //	s->initialState[0] = 1;
 
 	float w = 720 / 4 * 0.215;

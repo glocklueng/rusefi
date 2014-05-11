@@ -82,11 +82,6 @@ void clearTriggerState(trigger_state_s *state) {
 	state->current_index = 0;
 }
 
-void triggerShapeInit(trigger_shape_s *trigger) {
-	// todo: inline & remove method
-	trigger->reset();
-}
-
 void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
 	angle /= 720;
 	if (trigger->size == 0) {

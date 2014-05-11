@@ -148,7 +148,7 @@ void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfig
 }
 
 static void configureFordAspireTriggerShape(trigger_shape_s * s) {
-	triggerShapeInit(s);
+	s->reset();
 
 	s->shaftPositionEventCount = 10;
 
