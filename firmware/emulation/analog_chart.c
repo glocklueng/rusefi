@@ -43,8 +43,7 @@ void acAddData(float angle, float value) {
 		pendingData = TRUE;
 		resetLogging(&logging);
 		// message header
-		appendPrintf(&logging, "msg%s", DELIMETER);
-		appendPrintf(&logging, "analog_chart|");
+		appendPrintf(&logging, "analog_chart%s", DELIMETER);
 	}
 
 	if (loggingSize(&logging) < sizeof(LOGGING_BUFFER) - 100)
