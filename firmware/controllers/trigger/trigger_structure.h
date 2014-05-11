@@ -88,6 +88,7 @@ private:
 	trigger_shape_helper h;
 public:
 	trigger_shape_s();
+	void addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state);
 	void reset();
 	multi_wave_s wave;
 	int size;
