@@ -381,7 +381,7 @@ void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *e
 	engineConfiguration2->isInjectionEnabledFlag = TRUE;
 
 	initializeTriggerShape(logger, engineConfiguration, engineConfiguration2);
-	if (engineConfiguration2->triggerShape.size == 0) {
+	if (engineConfiguration2->triggerShape.getSize() == 0) {
 		firmwareError("size is zero");
 		return;
 	}
