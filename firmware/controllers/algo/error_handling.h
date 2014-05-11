@@ -41,6 +41,10 @@ void initErrorHandling(void);
 // todo: better place for this shared declaration?
 int getRusEfiVersion(void);
 
+/**
+ * @deprecated Global panic is inconvenient because it's hard to deliver the error message while whole instance
+ * is stopped. Please use firmwareWarning() instead
+ */
 #define efiAssert(x, y) chDbgAssert(x, y, NULL)
 
 #ifdef __cplusplus
