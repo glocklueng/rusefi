@@ -92,11 +92,7 @@ CSRC =	$(UTILSRC) \
 # setting.
 CPPSRC = $(UTILSRC_CPP) \
 	$(CONTROLLERS_ALGO_SRC_CPP) \
-	$(PROJECT_DIR)/controllers/trigger/trigger_mazda.cpp \
-	$(PROJECT_DIR)/controllers/trigger/trigger_chrysler.cpp \
-	$(PROJECT_DIR)/controllers/trigger/trigger_gm.cpp \
-	$(PROJECT_DIR)/controllers/trigger/trigger_decoder.cpp \
-	$(PROJECT_DIR)/controllers/trigger/trigger_structure.cpp \
+	$(TRIGGER_DECODERS_SRC_CPP) \
 	$(ENGINES_SRC_CPP) \
 	$(CONTROLLERS_MATH_SRC_CPP) \
 	$(CONTROLLERS_SENSORS_SRC_CPP) \
