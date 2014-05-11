@@ -38,7 +38,7 @@ static Logging logger;
 /**
  * @return true if there was a full shaft revolution within the last second
  */
-int isRunning() {
+bool_t isRunning() {
 	uint64_t nowUs = getTimeNowUs();
 	return nowUs - rpmState.lastRpmEventTimeUs < US_PER_SECOND;
 }
@@ -47,7 +47,7 @@ uint64_t getLastRpmEventTime(void) {
 	return rpmState.lastRpmEventTimeUs;
 }
 
-int isCranking(void) {
+bool_t isCranking(void) {
 	int rpm = getRpm();
 	return isCrankingR(rpm);
 }
