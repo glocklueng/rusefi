@@ -12,6 +12,7 @@
 
 #include "SingleTimerExecutor.h"
 #include "efitime.h"
+#include "rfiutil.h"
 #if EFI_PROD_CODE
 #include "microsecond_timer.h"
 #endif
@@ -67,6 +68,10 @@ void Executor::doExecute(uint64_t nowUs) {
 	 */
 	reentrantLock = TRUE;
 	queue.executeAll(nowUs);
+	if (!isLocked()) {
+		firmwareError("Someone has stolen my lock");
+		return;
+	}
 	reentrantLock = FALSE;
 	/**
 	 * Let's set up the timer for the next execution
