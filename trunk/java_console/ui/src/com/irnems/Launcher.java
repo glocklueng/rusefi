@@ -21,6 +21,7 @@ import javax.swing.*;
  */
 public class Launcher extends FrameHelper {
     private static final Object CONSOLE_VERSION = "20140407";
+    public static final boolean SHOW_STIMULATOR = false;
 
     public Launcher(String port) {
         FileLog.MAIN.start();
@@ -36,7 +37,8 @@ public class Launcher extends FrameHelper {
         tabbedPane.addTab("Analog Sniffer", new AnalogChartPanel());
 
 //        tabbedPane.addTab("ADC", new AdcPanel(new BooleanInputsModel()).createAdcPanel());
-//        tabbedPane.add("Emulation Map", EcuStimulator.panel);
+        if (SHOW_STIMULATOR)
+            tabbedPane.add("Emulation Map", EcuStimulator.panel);
 //        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
         tabbedPane.add("MessagesCentral", new MsgPanel(true));
 
