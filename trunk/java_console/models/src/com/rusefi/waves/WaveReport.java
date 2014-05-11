@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Date: 6/23/13
  * (c) Andrey Belomutskiy
+ * @see com.rusefi.AnalogChartPanel.AnalogChart
  */
 public class WaveReport implements TimeAxisTranslator {
     public static final String WAVE_CHART = "wave_chart";
