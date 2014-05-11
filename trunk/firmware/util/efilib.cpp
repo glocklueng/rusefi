@@ -15,6 +15,10 @@ int minI(int i1, int i2) {
 	return i1 < i2 ? i1 : i2;
 }
 
+int absI(int32_t value) {
+	return value >= 0 ? value : -value;
+}
+
 int maxI(int i1, int i2) {
 	return i1 > i2 ? i1 : i2;
 }
@@ -61,7 +65,7 @@ static char todofixthismesswithcopy[100];
 float atoff(const char *param) {
 	int totallen = strlen(param);
 	if (totallen > sizeof(todofixthismesswithcopy) - 1)
-		return (float)NAN;
+		return (float) NAN;
 	strcpy(todofixthismesswithcopy, param);
 	char *string = todofixthismesswithcopy;
 
