@@ -22,10 +22,12 @@
 #include "obd_error_codes.h"
 #include "trigger_decoder.h"
 #include "cyclic_buffer.h"
-extern "C" {
 #include "trigger_mazda.h"
 #include "trigger_chrysler.h"
 #include "trigger_gm.h"
+#include "trigger_bmw.h"
+
+extern "C" {
 #include "trigger_structure.h"
 #include "wave_math.h"
 }
@@ -196,6 +198,10 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 
 	case TT_FORD_ESCORT_GT:
 		configureMazdaProtegeLx(engineConfiguration, engineConfiguration2);
+		return;
+
+	case TT_MINI_COOPER_R50:
+		configureMiniCooperTriggerShape(engineConfiguration, engineConfiguration2);
 		return;
 
 	default:
