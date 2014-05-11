@@ -211,26 +211,26 @@ void appendFloat(Logging *logging, float value, int precision) {
 	// todo: this implementation is less than perfect
 	switch (precision) {
 	case 1:
-	  appendPrintf(logging, "%..10f",  value);
-	  break;
+		appendPrintf(logging, "%..10f", value);
+		break;
 	case 2:
-	  appendPrintf(logging, "%..100f",  value);
-	  break;
+		appendPrintf(logging, "%..100f", value);
+		break;
 	case 3:
-	  appendPrintf(logging, "%..1000f",  value);
-	  	  break;
+		appendPrintf(logging, "%..1000f", value);
+		break;
 	case 4:
-	  appendPrintf(logging, "%..10000f",  value);
-	  	  break;
+		appendPrintf(logging, "%..10000f", value);
+		break;
 	case 5:
-	  appendPrintf(logging, "%..100000f",  value);
-	  	  break;
+		appendPrintf(logging, "%..100000f", value);
+		break;
 	case 6:
-	  appendPrintf(logging, "%..1000000f",  value);
-	  	  break;
+		appendPrintf(logging, "%..1000000f", value);
+		break;
 
 	default:
-	  appendPrintf(logging, "%f",  value);
+		appendPrintf(logging, "%f", value);
 	}
 }
 
@@ -271,8 +271,8 @@ static void printWithLength(char *line) {
 
 	if (!isConsoleReady())
 		return;
-	consoleOutputBuffer((const int8_t *)header, strlen(header));
-	consoleOutputBuffer((const int8_t *)line, p - line);
+	consoleOutputBuffer((const int8_t *) header, strlen(header));
+	consoleOutputBuffer((const int8_t *) line, p - line);
 }
 
 void printLine(Logging *logging) {
@@ -340,7 +340,7 @@ void scheduleLogging(Logging *logging) {
 	// this could be done without locking
 	int newLength = strlen(logging->buffer);
 
-	lockOutputBuffer();
+	bool_t alreadyLocked = lockOutputBuffer();
 	// I hope this is fast enough to operate under sys lock
 	int curLength = strlen(pendingBuffer);
 	if (curLength + newLength >= OUTPUT_BUFFER) {
@@ -352,13 +352,15 @@ void scheduleLogging(Logging *logging) {
 //		strcpy(fatalMessage, "datalogging.c: output buffer overflow: ");
 //		strcat(fatalMessage, logging->name);
 //		fatal(fatalMessage);
-		unlockOutputBuffer();
+		if (!alreadyLocked)
+			unlockOutputBuffer();
 		resetLogging(logging);
 		return;
 	}
 
 	strcat(pendingBuffer, logging->buffer);
-	unlockOutputBuffer();
+	if (!alreadyLocked)
+		unlockOutputBuffer();
 	resetLogging(logging);
 }
 
@@ -379,7 +381,6 @@ void printPending() {
 	if (strlen(outputBuffer) > 0)
 		printWithLength(outputBuffer);
 }
-
 
 void initIntermediateLoggingBuffer(void) {
 	msObjectInit(&intermediateLoggingBuffer, intermediateLoggingBufferData, INTERMEDIATE_LOGGING_BUFFER_SIZE, 0);
