@@ -73,6 +73,7 @@ include $(PROJECT_DIR)/config/engines/engines.mk
 include $(PROJECT_DIR)/controllers/algo/algo.mk
 include $(PROJECT_DIR)/controllers/math/math.mk
 include $(PROJECT_DIR)/controllers/sensors/sensors.mk
+include $(PROJECT_DIR)/controllers/trigger/trigger.mk
 include test.mk
 
 # Define linker script file here
