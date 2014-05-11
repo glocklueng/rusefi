@@ -8,7 +8,7 @@
 #include "trigger_chrysler.h"
 
 void configureNeonTriggerShape(trigger_shape_s *s) {
-	triggerShapeInit(s);
+	s->reset();
 
 	// voodoo magic - we always need 720 at the end
 	int base = 720 - 560;
