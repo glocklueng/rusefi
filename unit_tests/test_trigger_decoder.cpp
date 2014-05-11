@@ -222,7 +222,17 @@ void testMazdaMianaNbDecoder(void) {
 
 }
 
-void testFordEscortGt(void) {
+static void testMiniCooper(void) {
+	printf("*************************************************** testMiniCooper\r\n");
+
+	persistent_config_s persistentConfig;
+	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
+	engine_configuration2_s ec2;
+	resetConfigurationExt(NULL, MINI_COOPER_R50, ec, &ec2, &persistentConfig.boardConfiguration);
+
+}
+
+static void testFordEscortGt(void) {
 	printf("*************************************************** testFordEscortGt\r\n");
 
 	persistent_config_s persistentConfig;
@@ -276,6 +286,7 @@ void testTriggerDecoder(void) {
 	testMazdaMianaNbDecoder();
 	testGY6_139QMB();
 	testFordEscortGt();
+	testMiniCooper();
 
 //	testMazda323();
 }
