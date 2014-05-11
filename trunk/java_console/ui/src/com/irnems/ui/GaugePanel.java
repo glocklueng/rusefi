@@ -36,7 +36,8 @@ public class GaugePanel extends JComponent {
         box2.add(createGauge(Sensor.ADVANCE0));
         box2.add(createGauge(Sensor.MAF));
         box2.add(createGauge(Sensor.FUEL));
-        box2.add(createGauge(Sensor.FUEL_BASE));
+        box2.add(createGauge(Sensor.BARO));
+        //box2.add(createGauge(Sensor.FUEL_BASE));
         box2.add(createGauge(Sensor.FUEL_CLT));
         box2.add(createGauge(Sensor.FUEL_IAT));
         box2.add(createGauge(Sensor.FUEL_LAG));

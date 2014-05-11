@@ -10,6 +10,7 @@ public enum Sensor {
     RPM("RPM"),
     MAP("MAP"),
     MAP_RAW("MAP_RAW"),
+    BARO("Baro"),
     TIMING("Timing"),
     THROTTLE("throttle", "%", 100),
     COOLANT("coolant", "F", 300),
