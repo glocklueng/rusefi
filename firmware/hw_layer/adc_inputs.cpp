@@ -72,17 +72,7 @@ static adcsample_t getAvgAdcValue(int index, adcsample_t *samples, int bufDepth,
 static adc_state newState;
 
 static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n);
-
-static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
-	(void) buffer;
-	(void) n;
-//	/* Note, only in the ADC_COMPLETE state because the ADC driver fires an
-//	 intermediate callback when the buffer is half full.*/
-	if (adcp->state == ADC_COMPLETE) {
-		fastAdcValue = getAvgAdcValue(0, samples_fast, ADC_GRP1_BUF_DEPTH_FAST, ADC_NUMBER_CHANNELS_FAST);
-		mapAveragingCallback(fastAdcValue);
-	}
-}
+static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n);
 
 #define MY_SAMPLING_SLOW ADC_SAMPLE_480
 #define MY_SAMPLING_FAST ADC_SAMPLE_28
@@ -372,8 +362,8 @@ static void setAdcDebugReporting(int value) {
 static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 	(void) buffer;
 	(void) n;
-	/* Note, only in the ADC_COMPLETE state because the ADC driver fires an
-	 intermediate callback when the buffer is half full.*/
+	/* Note, only in the ADC_COMPLETE state because the ADC driver fires
+	 * an intermediate callback when the buffer is half full. */
 	if (adcp->state == ADC_COMPLETE) {
 		/* Calculates the average values from the ADC samples.*/
 
@@ -386,6 +376,18 @@ static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 		}
 	}
 }
+
+static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
+	(void) buffer;
+	(void) n;
+//	/* Note, only in the ADC_COMPLETE state because the ADC driver fires an
+//	 intermediate callback when the buffer is half full.*/
+	if (adcp->state == ADC_COMPLETE) {
+		fastAdcValue = getAvgAdcValue(0, samples_fast, ADC_GRP1_BUF_DEPTH_FAST, fastAdc.size());
+		mapAveragingCallback(fastAdcValue);
+	}
+}
+
 
 void initAdcInputs() {
 
@@ -404,12 +406,16 @@ void initAdcInputs() {
 	adcStart(&ADC_FAST_DEVICE, NULL);
 
 	for (int adc = 0; adc < HW_MAX_ADC_INDEX; adc++) {
-		if (ADC_SLOW == boardConfiguration->adcHwChannelEnabled[adc]) {
+		adc_channel_mode_e mode = boardConfiguration->adcHwChannelEnabled[adc];
+
+		if (mode == ADC_SLOW) {
 			slowAdc.addChannel(ADC_CHANNEL_IN0 + adc);
+		} else if (mode == ADC_FAST) {
+			fastAdc.addChannel(ADC_CHANNEL_IN0 + adc);
 		}
 	}
 
-	fastAdc.addChannel(ADC_CHANNEL_IN4);
+	slowAdc.init();
 	fastAdc.init();
 
 	// ADC_CHANNEL_IN0 // PA0
@@ -429,7 +435,6 @@ void initAdcInputs() {
 	// ADC_CHANNEL_IN14 // PC4
 	// ADC_CHANNEL_IN15 // PC5
 
-	slowAdc.init();
 
 	//if(slowAdcChannelCount > ADC_MAX_SLOW_CHANNELS_COUNT) // todo: do we need this logic? do we need this check
 
