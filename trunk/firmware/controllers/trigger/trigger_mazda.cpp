@@ -94,8 +94,8 @@ void configureMazdaProtegeLx(engine_configuration_s *engineConfiguration,
 	triggerAddEvent(s, a, T_PRIMARY, TV_LOW);
 
 	a += 180;
-	triggerAddEvent(s, a - z * 720, T_PRIMARY, TV_HIGH);
-	triggerAddEvent(s, a, T_PRIMARY, TV_LOW);
+	s->addEvent(a - z * 720, T_PRIMARY, TV_HIGH);
+	s->addEvent(a, T_PRIMARY, TV_LOW);
 
 
 //	s->shaftPositionEventCount = 2 + 8;
