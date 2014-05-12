@@ -21,8 +21,10 @@ public class BomBuilder {
     private static Map<String, BomRecord> bomDictionary;
     private static Set<String> ignoreList = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
 
-    static boolean printQtyInFull = true;
-    static boolean printPadCount = false;
+    private static boolean printQtyInFull = true;
+    private static boolean printPadCount = false;
+    private static boolean printReference = false;
+    private static boolean printUserComment = false;
 
     public static void main(String[] args) throws IOException {
         if (args.length < 3) {
@@ -34,10 +36,14 @@ public class BomBuilder {
         String outputFileName = args[2];
 
         for (int i = 3; i < args.length; i++) {
-            String option = args[i].trim().toLowerCase();
-            if (option.equals("printpadcount")) {
+            String option = args[i].trim();
+            if (option.equalsIgnoreCase("printUserComment")) {
+                printUserComment = true;
+            } else if (option.equalsIgnoreCase("printreference")) {
+                printReference = true;
+            } else if (option.equalsIgnoreCase("printpadcount")) {
                 printPadCount = true;
-            } else if (option.equals("skipqtyinfull")) {
+            } else if (option.equalsIgnoreCase("skipqtyinfull")) {
                 printQtyInFull = false;
             }
         }
@@ -89,7 +95,7 @@ public class BomBuilder {
                 throw new NullPointerException();
 
             for (BomComponent c : list)
-                writeLine(bw, bomRecord, 1, c.getReference() + ": ");
+                writeLine(bw, bomRecord, 1, c.getReference() + ": ", c.getReference());
         }
         bw.close();
     }
@@ -114,7 +120,7 @@ public class BomBuilder {
             BomRecord bomRecord = bomDictionary.get(key);
             if (bomRecord == null)
                 throw new NullPointerException();
-            writeLine(bw, bomRecord, list.size(), "");
+            writeLine(bw, bomRecord, list.size(), "", "");
         }
         bw.close();
     }
@@ -127,10 +133,15 @@ public class BomBuilder {
         bw.write("### " + ignoreList.size() + " entries in ignore list\r\n");
     }
 
-    private static void writeLine(BufferedWriter bw, BomRecord bomRecord, int quantity, String prefix) throws IOException {
+    private static void writeLine(BufferedWriter bw, BomRecord bomRecord, int quantity, String prefix, String reference) throws IOException {
         bw.write(quantity + DELIMITER +
-                bomRecord.getStorePart() + DELIMITER +
-                prefix + bomRecord.getCustomerRef() + "\r\n");
+                        bomRecord.getStorePart() + DELIMITER +
+                        prefix + bomRecord.getCustomerRef() + DELIMITER +
+                        (printReference ? reference + DELIMITER : "") +
+                        (printUserComment ? bomRecord.getUserComment() + DELIMITER : "") +
+                        (printPadCount ? bomRecord.getPadCount() + DELIMITER : "") +
+                        "\r\n"
+        );
     }
 
     private static Map<String, BomRecord> readBomDictionary(List<String> strings) {
@@ -162,7 +173,7 @@ public class BomBuilder {
             }
 
             if (tokens.length != 6) {
-                log("Unexpected line: " + line + " Expected 4 tokens but " + tokens.length);
+                log("Unexpected line: [" + line + "] Expected 6 tokens but " + tokens.length);
                 System.exit(-1);
             }
 

@@ -9,14 +9,14 @@ public class BomRecord {
     private final String storePart;
     private final String customerRef;
     private final int padCount;
-    private final String componentName;
+    private final String userComment;
 
-    public BomRecord(String mfgPart, String storePart, String customerRef, int padCount, String componentName) {
+    public BomRecord(String mfgPart, String storePart, String customerRef, int padCount, String userComment) {
         this.mfgPart = mfgPart;
         this.storePart = storePart;
         this.customerRef = customerRef;
         this.padCount = padCount;
-        this.componentName = componentName;
+        this.userComment = userComment;
     }
 
     public String getMfgPart() {
@@ -29,5 +29,13 @@ public class BomRecord {
 
     public String getCustomerRef() {
         return customerRef;
+    }
+
+    public int getPadCount() {
+        return padCount;
+    }
+
+    public String getUserComment() {
+        return userComment;
     }
 }
