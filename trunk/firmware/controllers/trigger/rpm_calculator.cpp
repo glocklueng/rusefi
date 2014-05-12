@@ -43,8 +43,7 @@ bool_t isRunning(void) {
 	return nowUs - rpmState.lastRpmEventTimeUs < US_PER_SECOND;
 }
 
-bool_t isValidRpm(void) {
-	int rpm = getRpm();
+bool_t isValidRpm(int rpm) {
 	return rpm > 0 && rpm < UNREALISTIC_RPM;
 }
 
@@ -160,9 +159,8 @@ static void onTdcCallback(void) {
 }
 
 static void tdcMarkCallback(ShaftEvents ckpSignalType, int index) {
-	if (index == 0 && isValidRpm()) {
+	if (index == 0)
 		scheduleByAngle(&tdcScheduler, engineConfiguration->globalTriggerAngleOffset, (schfunc_t) onTdcCallback, NULL);
-	}
 }
 
 void initRpmCalculator(void) {
@@ -186,8 +184,9 @@ void initRpmCalculator(void) {
  */
 void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param) {
 	int rpm = getRpm();
-	if (rpm == 0 || rpm == NOISY_RPM) {
-		firmwareError("Invalid rpm: %d", rpm);
+	if (!isValidRpm(rpm)) {
+		// this might happen in case of a single trigger event after a pause
+		warning(OBD_PCM_Processor_Fault, "Invalid rpm: %d", rpm);
 		return;
 	}
 	float delayMs = getOneDegreeTimeMs(rpm) * angle;

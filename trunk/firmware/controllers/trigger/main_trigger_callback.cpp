@@ -110,12 +110,6 @@ static void handleFuel(int eventIndex) {
 }
 
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
-	efiAssert(rpm != 0, "non-zero RPM expected here");
-
-//	float advance = getAdvance(rpm, getEngineLoad());
-
-//	float sparkAdvanceMs = getOneDegreeTimeMs(rpm) * advance;
-
 	float dwellMs = getSparkDwellMs(rpm);
 	if (dwellMs < 0)
 		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
@@ -134,6 +128,8 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 
 static void handleSpark(int eventIndex) {
 	int rpm = getRpm();
+	if (!isValidRpm(rpm))
+		return; // this might happen for instance in case of a single trigger event after a pause
 
 	/**
 	 * Ignition schedule is defined once per revolution

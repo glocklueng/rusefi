@@ -113,7 +113,12 @@ static void endAveraging(void *arg) {
  */
 static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	// this callback is invoked on interrupt thread
-	if (index != 0 || !isValidRpm())
+
+	if (index != 0)
+		return;
+
+	int rpm = getRpm();
+	if(!isValidRpm(rpm))
 		return;
 
 	perRevolution = perRevolutionCounter;
@@ -123,13 +128,12 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 
 	MAP_sensor_config_s * config = &engineConfiguration->map;
 
-	float a_samplingStart = interpolate2d(getRpm(), config->samplingAngleBins, config->samplingAngle,
-	MAP_ANGLE_SIZE);
-	float a_samplingWindow = interpolate2d(getRpm(), config->samplingWindowBins, config->samplingWindow,
-	MAP_WINDOW_SIZE);
+	float startAngle = interpolate2d(rpm, config->samplingAngleBins, config->samplingAngle, MAP_ANGLE_SIZE);
+	float windowAngle = interpolate2d(rpm, config->samplingWindowBins, config->samplingWindow, MAP_WINDOW_SIZE);
 
-	scheduleByAngle(&startTimer, a_samplingStart, startAveraging, NULL);
-	scheduleByAngle(&endTimer, a_samplingStart + a_samplingWindow, endAveraging, NULL);
+	// todo: schedule this based on closest trigger event, same as ignition works
+	scheduleByAngle(&startTimer, startAngle, startAveraging, NULL);
+	scheduleByAngle(&endTimer, startAngle + windowAngle, endAveraging, NULL);
 }
 
 static void showMapStats(void) {
