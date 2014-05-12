@@ -69,7 +69,7 @@ public class PcbMergeTool {
     private static ModuleNode findModuleByName(PcbNode destNode, String moduleName) {
         for (PcbNode node : destNode.iterate("module")) {
             ModuleNode mn = (ModuleNode) node;
-            if (moduleName.toLowerCase().equals(mn.name.toLowerCase()))
+            if (moduleName.toLowerCase().equals(mn.getReference().toLowerCase()))
                 return mn;
         }
         return null;

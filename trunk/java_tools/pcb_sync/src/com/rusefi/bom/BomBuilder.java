@@ -1,5 +1,7 @@
 package com.rusefi.bom;
 
+import com.rusefi.pcb.ModuleNode;
+import com.rusefi.pcb.PcbNode;
 import com.rusefi.util.FileUtils;
 
 import java.io.BufferedWriter;
@@ -25,17 +27,21 @@ public class BomBuilder {
     private static boolean printPadCount = false;
     private static boolean printReference = false;
     private static boolean printUserComment = false;
+    private static PcbNode pcb;
 
     public static void main(String[] args) throws IOException {
         if (args.length < 3) {
-            System.out.println("bom_builder [FILE_NAME.CMP] COMPONENTS_DICTIONARY.CSV OUTPUT_FILE.CSV");
+            System.out.println("bom_builder FILE_NAME.CMP PCB.kicad_pcb COMPONENTS_DICTIONARY.CSV OUTPUT_FILE.CSV");
             return;
         }
         cmpFileName = args[0];
-        bomDictionaryName = args[1];
-        String outputFileName = args[2];
+        String pcbFileName = args[1];
+        bomDictionaryName = args[2];
+        String outputFileName = args[3];
 
-        for (int i = 3; i < args.length; i++) {
+        pcb = PcbNode.readFromFile(pcbFileName);
+
+        for (int i = 4; i < args.length; i++) {
             String option = args[i].trim();
             if (option.equalsIgnoreCase("printUserComment")) {
                 printUserComment = true;
@@ -83,21 +89,44 @@ public class BomBuilder {
         writeCommonHeader(bw);
         writeMissingElements(bomDictionary, bw, componentsByKey);
 
+        StringBuilder notMounted = new StringBuilder();
+
         for (Map.Entry<String, List<BomComponent>> e : componentsByKey.entrySet()) {
-            String key = e.getKey();
+            // for instance, SM0805_47pF
+            String componentName = e.getKey();
+
             List<BomComponent> list = e.getValue();
 
-            if (ignoreList.contains(key))
+            if (ignoreList.contains(componentName))
                 continue;
 
-            BomRecord bomRecord = bomDictionary.get(key);
+            BomRecord bomRecord = bomDictionary.get(componentName);
             if (bomRecord == null)
                 throw new NullPointerException();
 
-            for (BomComponent c : list)
+
+
+
+            for (BomComponent c : list) {
+                if (!findModule(c.getReference())) {
+                    bw.write("Not mounted: " + c.getReference() + "\r\n");
+                    continue;
+                }
                 writeLine(bw, bomRecord, 1, c.getReference() + ": ", c.getReference());
+            }
         }
         bw.close();
+    }
+
+    private static boolean findModule(String reference) {
+        for (PcbNode node : pcb.iterate("module")) {
+            if (node instanceof ModuleNode) {
+                ModuleNode mn = (ModuleNode) node;
+                if (mn.getReference().equalsIgnoreCase(reference))
+                    return true;
+            }
+        }
+        return false;
     }
 
     private static void writeCompactPartList(String outputFileName, Map<String, BomRecord> bomDictionary) throws IOException {
@@ -109,15 +138,16 @@ public class BomBuilder {
         writeMissingElements(bomDictionary, bw, componentsByKey);
 
         for (Map.Entry<String, List<BomComponent>> e : componentsByKey.entrySet()) {
-            String key = e.getKey();
+            // for instance, SM0805_47pF
+            String componentName = e.getKey();
 
-            if (ignoreList.contains(key))
+            if (ignoreList.contains(componentName))
                 continue;
 
             List<BomComponent> list = e.getValue();
-            log(list.size() + " items of " + key);
+            log(list.size() + " items of " + componentName);
 
-            BomRecord bomRecord = bomDictionary.get(key);
+            BomRecord bomRecord = bomDictionary.get(componentName);
             if (bomRecord == null)
                 throw new NullPointerException();
             writeLine(bw, bomRecord, list.size(), "", "");
