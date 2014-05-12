@@ -42,7 +42,7 @@ uint64_t getLastRpmEventTime(void);
 int getRevolutionCounter(void);
 float getCrankshaftAngle(uint64_t timeUs);
 bool_t isRunning(void);
-bool_t isValidRpm(void);
+bool_t isValidRpm(int rpm);
 void addWaveChartEvent(const char *name, const char *msg, const char *msg2);
 
 #ifdef __cplusplus
