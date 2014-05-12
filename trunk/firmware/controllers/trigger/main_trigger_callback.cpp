@@ -81,7 +81,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 	scheduleOutput(event->actuator, delay, fuelMs);
 }
 
-static void handleFuel(int eventIndex) {
+static void handleFuel(int eventIndex, int rpm) {
 	if (!isInjectionEnabled())
 		return;
 	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
@@ -99,10 +99,6 @@ static void handleFuel(int eventIndex) {
 	if (events.size == 0)
 		return;
 
-//	scheduleSimpleMsg(&logger, "eventId size=", events.size);
-
-	int rpm = getRpm();
-
 	for (int i = 0; i < events.size; i++) {
 		ActuatorEvent *event = &events.events[i];
 		handleFuelInjectionEvent(event, rpm);
@@ -111,8 +107,10 @@ static void handleFuel(int eventIndex) {
 
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	float dwellMs = getSparkDwellMs(rpm);
-	if (dwellMs < 0)
+	if (dwellMs < 0) {
 		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
+		return;
+	}
 
 	float sparkDelay = getOneDegreeTimeMs(rpm) * event->angleOffset;
 	int isIgnitionError = sparkDelay < 0;
@@ -126,8 +124,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	scheduleOutput(event->actuator, sparkDelay, dwellMs);
 }
 
-static void handleSpark(int eventIndex) {
-	int rpm = getRpm();
+static void handleSpark(int eventIndex, int rpm) {
 	if (!isValidRpm(rpm))
 		return; // this might happen for instance in case of a single trigger event after a pause
 
@@ -166,7 +163,7 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 		return;
 	}
 	if (rpm == NOISY_RPM) {
-		scheduleMsg(&logger, "noisy trigger");
+		warning(OBD_Camshaft_Position_Sensor_Circuit_Range_Performance, "noisy trigger");
 		return;
 	}
 	if (rpm > engineConfiguration->rpmHardLimit) {
@@ -195,8 +192,8 @@ static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
 		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2);
 	}
 
-	handleFuel(eventIndex);
-	handleSpark(eventIndex);
+	handleFuel(eventIndex, rpm);
+	handleSpark(eventIndex, rpm);
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
 		hsAdd(&mainLoopHisto, diff);
