@@ -95,6 +95,8 @@ static void turnLow(OutputSignal *signal) {
 #endif /* EFI_WAVE_ANALYZER */
 }
 
+int getRevolutionCounter(void);
+
 /**
  *
  * @param	delay	the number of ticks before the output signal
@@ -102,9 +104,6 @@ static void turnLow(OutputSignal *signal) {
  * @param	dwell	the number of ticks of output duration
  *
  */
-
-int getRevolutionCounter(void);
-
 void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs) {
 	if (durationMs < 0) {
 		firmwareError("duration cannot be negative: %d", durationMs);
