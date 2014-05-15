@@ -230,13 +230,15 @@ void initEngineContoller(void) {
 
 	initPwmGenerator();
 
+#if EFI_ANALOG_CHART
 	initAnalogChart();
+#endif /* EFI_ANALOG_CHART */
 
 	initAlgo();
 
-#ifdef EFI_WAVE_ANALYZER
+#if EFI_WAVE_ANALYZER
 	initWaveAnalyzer();
-#endif
+#endif /* EFI_WAVE_ANALYZER */
 
 	/**
 	 * there is an implicit dependency on the fact that 'tachometer' listener is the 1st listener - this case
@@ -262,8 +264,14 @@ void initEngineContoller(void) {
 #if EFI_ELECTRONIC_THROTTLE_BODY
 	initElectronicThrottle();
 #endif /* EFI_ELECTRONIC_THROTTLE_BODY */
+
+#if EFI_MALFUNCTION_INDICATOR
 	initMalfunctionIndicator();
+#endif /* EFI_MALFUNCTION_INDICATOR */
+
+#if EFI_MAP_AVERAGING
 	initMapAveraging();
+#endif /* EFI_MAP_AVERAGING */
 
 	/**
 	 * This method initialized the main listener which actually runs injectors & ignition
@@ -276,7 +284,10 @@ void initEngineContoller(void) {
 	scheduleMsg(&logger, "no idle control");
 #endif
 
+#if EFI_FUEL_PUMP
 	initFuelPump();
+#endif
+
 
 	addConsoleAction("analoginfo", printAnalogInfo);
 }
