@@ -36,6 +36,7 @@ struct scheduling_struct {
 	void *param;
 	scheduling_s *next;
 #endif
+	char *name;
 };
 
 typedef enum {
