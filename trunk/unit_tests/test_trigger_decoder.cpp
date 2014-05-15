@@ -100,7 +100,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 
 	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
 
-	ActuatorEventList *ecl = &ec2.engineEventConfiguration.ignitionEvents;
+	ActuatorEventList *ecl = &ec2.engineEventConfiguration.ignitionEvents[0];
 	assertEqualsM("ignition events size", 6, ecl->size);
 	assertEqualsM("event index", 0, ecl->events[0].eventIndex);
 	assertEquals(0, ecl->events[0].angleOffset);

@@ -119,7 +119,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	scheduleOutput(event->actuator, sparkDelay, dwellMs);
 }
 
-static void handleSpark(int eventIndex, int rpm) {
+static void handleSpark(int eventIndex, int rpm, ActuatorEventList *list) {
 	if (!isValidRpm(rpm))
 		return; // this might happen for instance in case of a single trigger event after a pause
 
@@ -127,7 +127,7 @@ static void handleSpark(int eventIndex, int rpm) {
 	 * Ignition schedule is defined once per revolution
 	 * See initializeIgnitionActions()
 	 */
-	findEvents(eventIndex, &engineConfiguration2->engineEventConfiguration.ignitionEvents, &events);
+	findEvents(eventIndex, list, &events);
 	if (events.size == 0)
 		return;
 
@@ -193,11 +193,11 @@ static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex) {
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
-		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2, dwellMs);
+		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2, dwellMs, &engineConfiguration2->engineEventConfiguration.ignitionEvents[0]);
 	}
 
 	handleFuel(eventIndex, rpm);
-	handleSpark(eventIndex, rpm);
+	handleSpark(eventIndex, rpm, &engineConfiguration2->engineEventConfiguration.ignitionEvents[0]);
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
 		hsAdd(&mainLoopHisto, diff);

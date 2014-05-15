@@ -34,7 +34,7 @@ typedef struct {
 typedef struct {
 	ActuatorEventList crankingInjectionEvents;
 	ActuatorEventList injectionEvents;
-	ActuatorEventList ignitionEvents;
+	ActuatorEventList ignitionEvents[2];
 } EventHandlerConfiguration;
 
 #define FUEL_RPM_COUNT 16
