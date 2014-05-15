@@ -29,6 +29,8 @@
 #include "interpolation.h"
 #include "signal_executor.h"
 
+#if EFI_MAP_AVERAGING
+
 #define FAST_MAP_CHART_SKIP_FACTOR 16
 
 static Logging logger;
@@ -158,3 +160,11 @@ void initMapAveraging(void) {
 	addTriggerEventListener(&shaftPositionCallback, "rpm reporter");
 	addConsoleAction("faststat", showMapStats);
 }
+
+#else
+
+float getMap(void) {
+	return getRawMap();
+}
+
+#endif /* EFI_MAP_AVERAGING */

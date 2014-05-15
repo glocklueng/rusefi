@@ -384,7 +384,9 @@ static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 //	 intermediate callback when the buffer is half full.*/
 	if (adcp->state == ADC_COMPLETE) {
 		fastAdcValue = getAvgAdcValue(0, samples_fast, ADC_GRP1_BUF_DEPTH_FAST, fastAdc.size());
+#if EFI_MAP_AVERAGING
 		mapAveragingCallback(fastAdcValue);
+#endif /* EFI_MAP_AVERAGING */
 	}
 }
 
