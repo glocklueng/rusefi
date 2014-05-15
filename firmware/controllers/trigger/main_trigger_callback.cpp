@@ -26,14 +26,11 @@
 #include "ec2.h"
 
 extern "C" {
-//#include "settings.h"
 #include "trigger_central.h"
 #include "rpm_calculator.h"
 #include "signal_executor.h"
 #include "eficonsole.h"
 #include "engine_math.h"
-//#include "injector_central.h"
-//#include "ignition_central.h"
 #include "engine_configuration.h"
 #include "interpolation.h"
 #include "advance_map.h"
@@ -50,8 +47,6 @@ static LocalVersionHolder localVersion;
 int isInjectionEnabled(void);
 
 }
-
-// todo: move this to engine_configuration2_s for now
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
@@ -107,7 +102,7 @@ static void handleFuel(int eventIndex, int rpm) {
 
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	float dwellMs = getSparkDwellMs(rpm);
-	if (dwellMs < 0) {
+	if (cisnan(dwellMs) || dwellMs < 0) {
 		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 		return;
 	}
@@ -153,7 +148,7 @@ void showMainHistogram(void) {
 /**
  * This is the main entry point into the primary shaft signal handler signal. Both injection and ignition are controlled from this method.
  */
-static void onShaftSignal(ShaftEvents ckpSignalType, int eventIndex) {
+static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex) {
 	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 
 	int rpm = getRpm();
@@ -222,7 +217,7 @@ void initMainEventListener() {
 	if (!isInjectionEnabled())
 		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
 
-	addTriggerEventListener(&onShaftSignal, "main loop");
+	addTriggerEventListener(&onTriggerEvent, "main loop");
 }
 
 int isIgnitionTimingError(void) {
