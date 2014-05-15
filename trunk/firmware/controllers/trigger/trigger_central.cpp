@@ -101,9 +101,11 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 	}
 	int afterCallback = hal_lld_get_counter_value();
 	int diff = afterCallback - beforeCallback;
+#if EFI_HISTOGRAMS
 	// this counter is only 32 bits so it overflows every minute, let's ignore the value in case of the overflow for simplicity
 	if (diff > 0)
 		hsAdd(&triggerCallback, diff);
+#endif /* EFI_HISTOGRAMS */
 }
 
 void printAllCallbacksHistogram(void) {
@@ -115,7 +117,9 @@ void initTriggerCentral(void) {
 
 	memset(hwEventCounters, 0, sizeof(hwEventCounters));
 
+#if EFI_HISTOGRAMS
 	initHistogram(&triggerCallback, "all callbacks");
+#endif /* EFI_HISTOGRAMS */
 	initTriggerDecoder();
 	clearTriggerState(&triggerState);
 }

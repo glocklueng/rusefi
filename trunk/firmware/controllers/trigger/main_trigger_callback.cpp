@@ -198,9 +198,11 @@ static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex) {
 
 	handleFuel(eventIndex, rpm);
 	handleSpark(eventIndex, rpm, &engineConfiguration2->engineEventConfiguration.ignitionEvents[0]);
+#if EFI_HISTOGRAMS
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
 		hsAdd(&mainLoopHisto, diff);
+#endif /* EFI_HISTOGRAMS */
 }
 
 static void showTriggerHistogram(void) {
@@ -221,7 +223,9 @@ void initMainEventListener() {
 
 	initLogging(&logger, "main event handler");
 	printMsg(&logger, "initMainLoop: %d", currentTimeMillis());
+#if EFI_HISTOGRAMS
 	initHistogram(&mainLoopHisto, "main callback");
+#endif /* EFI_HISTOGRAMS */
 
 	if (!isInjectionEnabled())
 		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");

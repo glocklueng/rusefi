@@ -87,11 +87,12 @@ void initHardware(Logging *logger) {
 	// 10 extra seconds to re-flash the chip
 	//flashProtect();
 
+#if EFI_HISTOGRAMS
 	/**
 	 * histograms is a data structure for CPU monitor, it does not depend on configuration
 	 */
 	initHistogramsModule();
-
+#endif /* EFI_HISTOGRAMS */
 
 
 	/**
