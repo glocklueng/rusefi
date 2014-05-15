@@ -146,7 +146,8 @@ void showMainHistogram(void) {
 }
 
 /**
- * This is the main entry point into the primary shaft signal handler signal. Both injection and ignition are controlled from this method.
+ * This is the main trigger event handler.
+ * Both injection and ignition are controlled from this method.
  */
 static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex) {
 	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
@@ -179,12 +180,20 @@ static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex) {
 		 * are not affecting that space in memory. todo: use two instances of 'ignitionSignals'
 		 */
 
+		/**
+		 * Within one engine cycle all cylinders are fired with same timing advance.
+		 * todo: one day we can control cylinders individually
+		 */
 		float dwellMs = getSparkDwellMs(rpm);
+		if (cisnan(dwellMs) || dwellMs < 0) {
+			firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
+			return;
+		}
 		float advance = getAdvance(rpm, getEngineLoad());
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
-		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2);
+		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2, dwellMs);
 	}
 
 	handleFuel(eventIndex, rpm);

@@ -136,8 +136,18 @@ int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm) {
 OutputSignalList ignitionSignals;
 OutputSignalList injectonSignals;
 
+
+static void registerSparkEvent(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
+		ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
+
+	registerActuatorEventExt(engineConfiguration, s, list,
+			actuator, angleOffset);
+
+
+}
+
 void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2) {
+		engine_configuration2_s *engineConfiguration2, float dwellMs) {
 	chDbgCheck(engineConfiguration->cylindersCount > 0, "cylindersCount");
 	ignitionSignals.clear();
 
@@ -150,7 +160,7 @@ void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineCo
 			// todo: extract method
 			float angle = baseAngle + 720.0 * i / engineConfiguration->cylindersCount;
 
-			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
+			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
 					ignitionSignals.add(SPARKOUT_1_OUTPUT), angle);
 		}
 		break;
@@ -160,10 +170,10 @@ void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineCo
 
 			int wastedIndex = i % (engineConfiguration->cylindersCount / 2);
 
-			int id = (getCylinderId(engineConfiguration->firingOrder, wastedIndex) - 1);
+			int id = getCylinderId(engineConfiguration->firingOrder, wastedIndex) - 1;
 			io_pin_e ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
 
-			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
+			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
 					ignitionSignals.add(ioPin), angle);
 
 		}
@@ -174,7 +184,7 @@ void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineCo
 			float angle = baseAngle + 720.0 * i / engineConfiguration->cylindersCount;
 
 			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
-			registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
+			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
 					ignitionSignals.add(pin), angle);
 		}
 		break;

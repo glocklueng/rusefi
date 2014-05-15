@@ -391,6 +391,7 @@ void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *e
 	}
 
 	prepareOutputSignals(engineConfiguration, engineConfiguration2);
-	initializeIgnitionActions(0, engineConfiguration, engineConfiguration2);
+	// todo: looks like this is here only for unit tests. todo: remove
+	initializeIgnitionActions(0, engineConfiguration, engineConfiguration2, 0);
 
 }
