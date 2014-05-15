@@ -20,5 +20,7 @@
 
 #define EFI_WAVE_CHART TRUE
 
+#define EFI_ANALOG_CHART TRUE
+
 
 #endif /* EFIFEATURES_H_ */
