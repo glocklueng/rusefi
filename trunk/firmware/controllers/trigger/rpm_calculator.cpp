@@ -151,7 +151,7 @@ static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 #endif
 }
 
-static scheduling_s tdcScheduler;
+static scheduling_s tdcScheduler[2];
 
 static uint8_t rpmBuffer[10];
 
@@ -161,12 +161,17 @@ static void onTdcCallback(void) {
 }
 
 static void tdcMarkCallback(ShaftEvents ckpSignalType, int index) {
-	if (index == 0)
-		scheduleByAngle(&tdcScheduler, engineConfiguration->globalTriggerAngleOffset, (schfunc_t) onTdcCallback, NULL);
+	if (index == 0) {
+		int index = getRevolutionCounter() % 2;
+		scheduleByAngle(&tdcScheduler[index], engineConfiguration->globalTriggerAngleOffset, (schfunc_t) onTdcCallback, NULL);
+	}
 }
 
 void initRpmCalculator(void) {
 	initLogging(&logger, "rpm calc");
+
+	tdcScheduler[0].name = "tdc0";
+	tdcScheduler[1].name = "tdc1";
 
 	strcpy((char*) shaft_signal_msg_index, "_");
 

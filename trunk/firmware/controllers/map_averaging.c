@@ -62,8 +62,8 @@ static float v_averagedMapValue;
 
 extern engine_configuration_s *engineConfiguration;
 
-static scheduling_s startTimer;
-static scheduling_s endTimer;
+static scheduling_s startTimer[2];
+static scheduling_s endTimer[2];
 
 static void startAveraging(void*arg) {
 	chSysLockFromIsr()
@@ -133,9 +133,10 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
 	float startAngle = interpolate2d(rpm, config->samplingAngleBins, config->samplingAngle, MAP_ANGLE_SIZE);
 	float windowAngle = interpolate2d(rpm, config->samplingWindowBins, config->samplingWindow, MAP_WINDOW_SIZE);
 
+	int structIndex = getRevolutionCounter() % 2;
 	// todo: schedule this based on closest trigger event, same as ignition works
-	scheduleByAngle(&startTimer, startAngle, startAveraging, NULL);
-	scheduleByAngle(&endTimer, startAngle + windowAngle, endAveraging, NULL);
+	scheduleByAngle(&startTimer[structIndex], startAngle, startAveraging, NULL);
+	scheduleByAngle(&endTimer[structIndex], startAngle + windowAngle, endAveraging, NULL);
 }
 
 static void showMapStats(void) {
@@ -157,6 +158,13 @@ float getMap(void) {
 
 void initMapAveraging(void) {
 	initLogging(&logger, "Map Averaging");
+
+	startTimer[0].name = "map start0";
+	startTimer[1].name = "map start1";
+	endTimer[0].name = "map end0";
+	endTimer[1].name = "map end1";
+
+
 	addTriggerEventListener(&shaftPositionCallback, "rpm reporter");
 	addConsoleAction("faststat", showMapStats);
 }
