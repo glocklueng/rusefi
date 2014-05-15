@@ -11,6 +11,8 @@
 #include "status_loop.h"
 #include "engine_configuration.h"
 
+#if EFI_ANALOG_CHART
+
 static char LOGGING_BUFFER[5000];
 static Logging logging;
 
@@ -54,3 +56,5 @@ void initAnalogChart(void) {
 	initLoggingExt(&logging, "analog chart", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 	initialized = TRUE;
 }
+
+#endif /* EFI_ANALOG_CHART */

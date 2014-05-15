@@ -94,7 +94,9 @@ static int isNoisySignal(rpm_s * rpmState, uint64_t nowUs) {
 static uint8_t shaft_signal_msg_index[15];
 
 void addWaveChartEvent(const char *name, const char * msg, const char *msg2) {
+#if EFI_WAVE_CHART
 	addWaveChartEvent3(&waveChart, name, msg, msg2);
+#endif /* EFI_WAVE_CHART */
 }
 
 /**
@@ -115,7 +117,7 @@ static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 	}
 
 	if (index != 0) {
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if EFI_ANALOG_CHART
 		if (engineConfiguration->analogChartMode == AC_TRIGGER)
 			acAddData(getCrankshaftAngle(getTimeNowUs()), 1000 * ckpSignalType + index);
 #endif
@@ -143,7 +145,7 @@ static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 		}
 	}
 	rpmState.lastRpmEventTimeUs = nowUs;
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if EFI_ANALOG_CHART
 	if (engineConfiguration->analogChartMode == AC_TRIGGER)
 		acAddData(getCrankshaftAngle(nowUs), index);
 #endif
