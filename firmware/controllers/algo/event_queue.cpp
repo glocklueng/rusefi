@@ -34,7 +34,7 @@ void EventQueue::assertState(scheduling_s *scheduling) {
 			return;
 		}
 		if (current == scheduling) {
-			firmwareError("re-adding element into event_queue");
+			firmwareError("re-adding element into event_queue: [%s]", scheduling->name);
 			return;
 		}
 	}
