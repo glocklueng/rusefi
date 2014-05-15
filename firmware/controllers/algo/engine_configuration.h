@@ -320,6 +320,10 @@ typedef struct {
 
 	adc_channel_mode_e adcHwChannelEnabled[HW_MAX_ADC_INDEX];
 
+	brain_pin_e primaryTriggerInputPin;
+	brain_pin_e secondaryTriggerInputPin;
+	brain_pin_e primaryLogicAnalyzerPin;
+	brain_pin_e secondaryLogicAnalyzerPin;
 
 } board_configuration_s;
 

@@ -285,6 +285,12 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->adcHwChannelEnabled[11] = ADC_SLOW;
 	boardConfiguration->adcHwChannelEnabled[12] = ADC_SLOW;
 	boardConfiguration->adcHwChannelEnabled[13] = ADC_SLOW;
+
+	boardConfiguration->primaryTriggerInputPin = GPIOC_6;
+	boardConfiguration->secondaryTriggerInputPin = GPIOA_5;
+	boardConfiguration->primaryLogicAnalyzerPin = GPIOA_8;
+	boardConfiguration->secondaryLogicAnalyzerPin = GPIOE_7;
+
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
