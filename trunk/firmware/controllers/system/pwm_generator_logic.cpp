@@ -13,6 +13,7 @@
 
 PwmConfig::PwmConfig(float *st, single_wave_s *waves) :
 		multiWave(st, waves) {
+	scheduling.name = "PwmConfig";
 }
 
 static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
