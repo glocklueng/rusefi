@@ -147,12 +147,12 @@ static void registerSparkEvent(engine_configuration_s const *engineConfiguration
 }
 
 void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2, float dwellMs) {
+		engine_configuration2_s *engineConfiguration2, float dwellMs, ActuatorEventList *list) {
 	chDbgCheck(engineConfiguration->cylindersCount > 0, "cylindersCount");
 	ignitionSignals.clear();
 
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
-	resetEventList(&config->ignitionEvents);
+	resetEventList(list);
 
 	switch (engineConfiguration->ignitionMode) {
 	case IM_ONE_COIL:
@@ -160,7 +160,7 @@ void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineCo
 			// todo: extract method
 			float angle = baseAngle + 720.0 * i / engineConfiguration->cylindersCount;
 
-			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
+			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list,
 					ignitionSignals.add(SPARKOUT_1_OUTPUT), angle);
 		}
 		break;
@@ -173,7 +173,7 @@ void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineCo
 			int id = getCylinderId(engineConfiguration->firingOrder, wastedIndex) - 1;
 			io_pin_e ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
 
-			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
+			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list,
 					ignitionSignals.add(ioPin), angle);
 
 		}
@@ -184,7 +184,7 @@ void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineCo
 			float angle = baseAngle + 720.0 * i / engineConfiguration->cylindersCount;
 
 			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
-			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, &config->ignitionEvents,
+			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list,
 					ignitionSignals.add(pin), angle);
 		}
 		break;
