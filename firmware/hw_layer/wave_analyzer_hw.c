@@ -76,7 +76,7 @@ static int getAlternateFunctions(ICUDriver *driver) {
 	return -1;
 }
 
-static ICUDriver * getInputCaptureDriver(brain_pin_e hwPin) {
+ICUDriver * getInputCaptureDriver(brain_pin_e hwPin) {
 #if STM32_ICU_USE_TIM1
 	if (hwPin == GPIOA_8)
 		return &ICUD1;
