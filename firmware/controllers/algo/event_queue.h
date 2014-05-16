@@ -25,7 +25,7 @@ public:
 	void clear(void);
 	int size(void);
 private:
-	void assertState(scheduling_s *scheduling);
+	bool_t checkIfPending(scheduling_s *scheduling);
 	scheduling_s *head;
 };
 

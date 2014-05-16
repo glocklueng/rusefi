@@ -23,7 +23,7 @@ EventQueue::EventQueue() {
 	head = NULL;
 }
 
-void EventQueue::assertState(scheduling_s *scheduling) {
+bool_t EventQueue::checkIfPending(scheduling_s *scheduling) {
 	// this code is just to validate state, no functional load
 	scheduling_s * current;
 	int counter = 0;
@@ -31,13 +31,14 @@ void EventQueue::assertState(scheduling_s *scheduling) {
 	{
 		if (++counter > QUEUE_LENGTH_LIMIT) {
 			firmwareError("Looped queue?");
-			return;
+			return FALSE;
 		}
 		if (current == scheduling) {
-			firmwareError("re-adding element into event_queue: [%s]", scheduling->name);
-			return;
+			warning(OBD_PCM_Processor_Fault, "re-adding element into event_queue: [%s]", scheduling->name);
+			return TRUE;
 		}
 	}
+	return FALSE;
 }
 
 void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
@@ -45,13 +46,14 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayU
 		firmwareError("NULL callback");
 	uint64_t time = nowUs + delayUs;
 
+	int alreadyPending = checkIfPending(scheduling);
+	if (alreadyPending || hasFirmwareError())
+		return;
+
 	scheduling->momentUs = time;
 	scheduling->callback = callback;
 	scheduling->param = param;
 
-	assertState(scheduling);
-	if (hasFirmwareError())
-		return;
 
 	LL_PREPEND(head, scheduling);
 }
