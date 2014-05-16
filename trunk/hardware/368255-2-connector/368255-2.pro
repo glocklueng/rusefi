@@ -1,6 +1,6 @@
-update=15.05.2014 13:53:40
+update=16.05.2014 11:39:20
 version=1
-last_client=pcbnew
+last_client=kicad
 [eeschema]
 version=1
 LibDir=
@@ -41,8 +41,6 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=symbols/368255-2
-[general]
-version=1
 [cvpcb]
 version=1
 NetIExt=net
@@ -81,3 +79,5 @@ LibName9=led
 LibName10=dip_sockets
 LibName11=modules/368255-2
 LibName12=modules/kt819a_mod
+[general]
+version=1

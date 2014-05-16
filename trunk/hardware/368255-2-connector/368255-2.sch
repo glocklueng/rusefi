@@ -37,7 +37,7 @@ $Descr B 11000 17000 portrait
 encoding utf-8
 Sheet 1 1
 Title "ECU adapter"
-Date "15 may 2014"
+Date "16 may 2014"
 Rev "1"
 Comp "DAECU"
 Comment1 ""
@@ -728,4 +728,44 @@ Wire Wire Line
 Wire Wire Line
 	1500 3100 3350 3100
 Connection ~ 1450 3150
+$Comp
+L CONN_1 P37
+U 1 1 5374C241
+P 2100 4450
+F 0 "P37" V 2180 4450 40  0000 L CNN
+F 1 "CONN_1" H 2100 4505 30  0001 C CNN
+F 2 "" H 2100 4450 60  0000 C CNN
+F 3 "" H 2100 4450 60  0000 C CNN
+	1    2100 4450
+	0    -1   -1   0   
+$EndComp
+$Comp
+L CONN_1 P36
+U 1 1 5374C093
+P 2300 4450
+F 0 "P36" V 2380 4450 40  0000 L CNN
+F 1 "CONN_1" H 2300 4505 30  0001 C CNN
+F 2 "" H 2300 4450 60  0000 C CNN
+F 3 "" H 2300 4450 60  0000 C CNN
+	1    2300 4450
+	0    -1   -1   0   
+$EndComp
+Connection ~ 2300 4600
+Wire Wire Line
+	2900 4600 2900 4750
+Text Label 2500 4600 0    60   ~ 0
+GND
+Wire Wire Line
+	2100 4600 2900 4600
+$Comp
+L GND #PWR01
+U 1 1 5374C132
+P 2900 4750
+F 0 "#PWR01" H 2900 4750 30  0001 C CNN
+F 1 "GND" H 2900 4680 30  0001 C CNN
+F 2 "" H 2900 4750 60  0000 C CNN
+F 3 "" H 2900 4750 60  0000 C CNN
+	1    2900 4750
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
