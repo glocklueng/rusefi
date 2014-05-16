@@ -102,6 +102,8 @@ void addWaveChartEvent(const char *name, const char * msg, const char *msg2) {
 /**
  * @brief Shaft position callback used by RPM calculation logic.
  *
+ * This callback should always be the first of trigger callbacks because other callbacks depend of values
+ * updated here.
  * This callback is invoked on interrupt thread.
  */
 static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {

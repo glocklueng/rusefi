@@ -168,6 +168,9 @@ static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex) {
 	}
 
 	int beforeCallback = hal_lld_get_counter_value();
+
+	int revolutionIndex = getRevolutionCounter() % 2;
+
 	if (eventIndex == 0) {
 		if (localVersion.isOld())
 			prepareOutputSignals(engineConfiguration, engineConfiguration2);
@@ -193,11 +196,11 @@ static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex) {
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
-		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2, dwellMs, &engineConfiguration2->engineEventConfiguration.ignitionEvents[0]);
+		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2, dwellMs, &engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
 	}
 
 	handleFuel(eventIndex, rpm);
-	handleSpark(eventIndex, rpm, &engineConfiguration2->engineEventConfiguration.ignitionEvents[0]);
+	handleSpark(eventIndex, rpm, &engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
 #if EFI_HISTOGRAMS
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
