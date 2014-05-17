@@ -2332,6 +2332,12 @@
         <name>$PROJ_DIR$\..\controllers\trigger\rpm_calculator.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_bmw.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_bmw.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\trigger\trigger_central.cpp</name>
       </file>
       <file>
