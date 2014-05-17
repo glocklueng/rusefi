@@ -13,6 +13,23 @@ void configureMiniCooperTriggerShape(engine_configuration_s *engineConfiguration
 
 	s->reset();
 
+	s->initialState[0] = 1;
+
+	float w = 2.96;
+	float a = w / 2;
+	for (int i = 0; i < 19; i++) {
+		a += w;
+		s->addEvent(a, T_SECONDARY, TV_HIGH);
+		a += w;
+		s->addEvent(a, T_SECONDARY, TV_LOW);
+	}
+	a += 3 * w;
+	s->addEvent(a, T_SECONDARY, TV_HIGH);
+	a += 2 * w;
+	s->addEvent(a, T_SECONDARY, TV_LOW);
+
+
+
 	s->addEvent(376.4444444, T_PRIMARY, TV_LOW);
 	s->addEvent(720, T_PRIMARY, TV_HIGH);
 
