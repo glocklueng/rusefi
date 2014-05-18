@@ -284,13 +284,6 @@ void registerActuatorEventExt(engine_configuration_s const *engineConfiguration,
 //	return 0;
 //}
 
-/**
- * there is some BS related to isnan in MinGW, so let's have all the issues in one place
- */
-int cisnan(float f) {
-	return *(((int*) (&f))) == 0x7FC00000;
-}
-
 static int order_1_THEN_3_THEN_4_THEN2[] = { 1, 3, 4, 2 };
 
 static int order_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4[] = { 1, 5, 3, 6, 2, 4 };
