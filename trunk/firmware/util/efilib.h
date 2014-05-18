@@ -10,6 +10,9 @@
 
 #include "stdint.h"
 
+// number of milliseconds in one period of given frequency (per second)
+#define frequency2period(freq) (((float)1000) / (freq))
+
 #ifdef __cplusplus
 extern "C"
 {
