@@ -10,16 +10,8 @@
 #define FLASH_MAIN_H_
 
 #include "engine_configuration.h"
-#include "crc.h"
 
 #define FLASH_DATA_VERSION 3002
-
-typedef struct {
-	int version;
-	int size;
-	persistent_config_s persistentConfiguration;
-	crc_t value;
-} persistent_config_container_s;
 
 #ifdef __cplusplus
 extern "C"

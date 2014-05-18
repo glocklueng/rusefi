@@ -54,8 +54,14 @@
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
-extern engine_configuration_s *engineConfiguration;
-extern board_configuration_s *boardConfiguration;
+#if defined __GNUC__
+persistent_config_container_s persistentState __attribute__((section(".ccm")));
+#else
+persistent_config_container_s persistentState;
+#endif
+
+engine_configuration_s *engineConfiguration = &persistentState.persistentConfiguration.engineConfiguration;
+board_configuration_s *boardConfiguration = &persistentState.persistentConfiguration.boardConfiguration;
 
 /**
  * CH_FREQUENCY is the number of system ticks in a second

@@ -36,14 +36,10 @@ static engine_type_e defaultEngineType = FORD_ASPIRE_1996;
 
 static Logging logger;
 
-#if defined __GNUC__
-persistent_config_container_s persistentState __attribute__((section(".ccm")));
-#else
-persistent_config_container_s persistentState;
-#endif
+extern persistent_config_container_s persistentState;
 
-engine_configuration_s *engineConfiguration = &persistentState.persistentConfiguration.engineConfiguration;
-board_configuration_s *boardConfiguration = &persistentState.persistentConfiguration.boardConfiguration;
+extern engine_configuration_s *engineConfiguration;
+extern board_configuration_s *boardConfiguration;
 
 extern engine_configuration2_s * engineConfiguration2;
 
