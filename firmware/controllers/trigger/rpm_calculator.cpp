@@ -11,12 +11,15 @@
  */
 
 #include "main.h"
+
+#if EFI_SHAFT_POSITION_INPUT
+
 #include "rpm_calculator.h"
 #include "trigger_central.h"
 #include "engine_configuration.h"
 #include "ec2.h"
 #include "engine_math.h"
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if EFI_ANALOG_CHART
 #include "analog_chart.h"
 #endif /* EFI_PROD_CODE */
 
@@ -205,3 +208,5 @@ void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void 
 	}
 	scheduleTask(timer, MS2US(delayMs), callback, param);
 }
+
+#endif /* EFI_SHAFT_POSITION_INPUT */
