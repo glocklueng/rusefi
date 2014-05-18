@@ -122,7 +122,7 @@ int main(void) {
 
 	testAccelEnrichment();
 
-	printf("Success 20130515\r\n");
+	printf("Success 20130518\r\n");
 
 //	resizeMap();
 
