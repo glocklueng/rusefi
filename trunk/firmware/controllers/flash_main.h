@@ -19,7 +19,7 @@ typedef struct {
 	int size;
 	persistent_config_s persistentConfiguration;
 	crc_t value;
-} FlashState;
+} persistent_config_container_s;
 
 #ifdef __cplusplus
 extern "C"
