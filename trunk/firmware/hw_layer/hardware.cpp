@@ -6,6 +6,7 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
+#include "main.h"
 #include "hardware.h"
 #include "pin_repository.h"
 #include "io_pins.h"
@@ -25,7 +26,6 @@
 #include "mmc_card.h"
 #include "neo6m.h"
 #include "lcd_HD44780.h"
-#include "eficonsole_logic.h"
 #include "flash_main.h"
 #include "trigger_central.h"
 #include "svnversion.h"
