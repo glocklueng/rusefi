@@ -10,6 +10,7 @@
 #define ENGINE_CONFIGURATION_H_
 
 #include "efifeatures.h"
+#include "crc.h"
 #include "sensor_types.h"
 #include "can_header.h"
 #include "event_registry.h"
@@ -332,6 +333,12 @@ typedef struct {
 	board_configuration_s boardConfiguration;
 } persistent_config_s;
 
+typedef struct {
+	int version;
+	int size;
+	persistent_config_s persistentConfiguration;
+	crc_t value;
+} persistent_config_container_s;
 
 #ifdef __cplusplus
 extern "C" {
