@@ -8,7 +8,7 @@
 #ifndef SINGLETIMEREXECUTOR_H_
 #define SINGLETIMEREXECUTOR_H_
 
-#include "signal_executor.h"
+#include "scheduler.h"
 #include "event_queue.h"
 
 class Executor {

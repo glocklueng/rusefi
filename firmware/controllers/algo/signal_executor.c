@@ -49,6 +49,12 @@ void initSignalExecutor(void) {
 	initSignalExecutorImpl();
 }
 
+void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
+	signal->io_pin = ioPin;
+	signal->name = getPinName(ioPin);
+	initOutputSignalBase(signal);
+}
+
 void initOutputSignalBase(OutputSignal *signal) {
 	signal->status = IDLE;
 //	signal->last_scheduling_time = 0;

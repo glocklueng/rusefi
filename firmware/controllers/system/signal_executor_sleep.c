@@ -23,10 +23,8 @@
  */
 
 #include "main.h"
-#include "signal_executor.h"
+#include "scheduler.h"
 #include "datalogging.h"
-//#include "rpm_calculator.h"
-//#include "engine_math.h"
 
 #if EFI_SIGNAL_EXECUTOR_SLEEP || defined(__DOXYGEN__)
 
