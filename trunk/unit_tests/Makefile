@@ -73,6 +73,7 @@ include $(PROJECT_DIR)/config/engines/engines.mk
 include $(PROJECT_DIR)/controllers/algo/algo.mk
 include $(PROJECT_DIR)/controllers/core/core.mk
 include $(PROJECT_DIR)/controllers/math/math.mk
+include $(PROJECT_DIR)/controllers/system/system.mk
 include $(PROJECT_DIR)/controllers/sensors/sensors.mk
 include $(PROJECT_DIR)/controllers/trigger/trigger.mk
 include test.mk
@@ -101,6 +102,7 @@ CPPSRC = $(UTILSRC_CPP) \
 	$(CONTROLLERS_MATH_SRC_CPP) \
 	$(CONTROLLERS_SENSORS_SRC_CPP) \
 	$(TEST_SRC_CPP) \
+	$(PROJECT_DIR)/controllers/system/event_queue.cpp \
 	main.cpp
 
 # C sources to be compiled in ARM mode regardless of the global setting.
@@ -133,6 +135,7 @@ INCDIR = . \
 	$(PROJECT_DIR)/controllers/algo \
 	$(PROJECT_DIR)/controllers/core \
 	$(PROJECT_DIR)/controllers/math \
+	$(PROJECT_DIR)/controllers/system \
 	$(PROJECT_DIR)/controllers/trigger \
 	$(PROJECT_DIR)/ext_algo \
 	test_data_structures \
