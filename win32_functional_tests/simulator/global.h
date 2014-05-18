@@ -18,7 +18,7 @@
 #ifndef GLOBAL_FT_H_
 #define GLOBAL_FT_H_
 
-#include "eficonsole_logic.h"
+#include "cli_registry.h"
 #include "rusefi_enums.h"
 
 #define EFI_CUSTOM_PANIC_METHOD 1

@@ -1,22 +1,21 @@
-/*
- * @date Nov 15, 2012
- * @author Andrey Belomutskiy, (c) 2012-2014
- */
-
 /**
- * @file    eficonsole_logic.c
- * @brief   Console interactive shell code
+ * @file    cli_registry.c
+ * @brief   Command-line interface commands registry
  *
  * Here we have a data structure which holds all the dynamically-registered
  * command line interface action names & callback. This logic is invoked in
  * user context by the console thread - see consoleThreadThreadEntryPoint
+ *
+ *
+ * @date Nov 15, 2012
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include <stdarg.h>
 #include <string.h>
 #include <stdbool.h>
 #include "main.h"
-#include "eficonsole_logic.h"
+#include "cli_registry.h"
 #include "efilib.h"
 #if EFI_PROD_CODE || EFI_SIMULATOR
 #include "eficonsole.h"

@@ -13,6 +13,13 @@
 // number of milliseconds in one period of given frequency (per second)
 #define frequency2period(freq) (((float)1000) / (freq))
 
+#ifndef FALSE
+#define FALSE       0
+#endif
+#ifndef TRUE
+#define TRUE        (!FALSE)
+#endif
+
 #ifdef __cplusplus
 extern "C"
 {

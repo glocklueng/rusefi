@@ -18,7 +18,7 @@ extern "C"
 #include "global.h"
 
 #include "eficonsole.h"
-#include "eficonsole_logic.h"
+#include "cli_registry.h"
 #include "efilib.h"
 #include "rusefi.h"
 

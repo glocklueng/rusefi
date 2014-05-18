@@ -1,11 +1,9 @@
-/*
+/**
+ * @file    cli_registry.h
+ * @brief   Command-line interface commands registry
+ *
  * @date Nov 15, 2012
  * @author Andrey Belomutskiy, (c) 2012-2014
- */
-
-/**
- * @file    eficonsole_logic.h
- * @brief   Console interactive shell header
  */
 
 #ifndef RFICONSOLE_LOGIC_H_
@@ -17,13 +15,6 @@ extern "C"
 #endif /* __cplusplus */
 
 #define CONSOLE_MAX_ACTIONS 96
-
-#ifndef FALSE
-#define FALSE       0
-#endif
-#ifndef TRUE
-#define TRUE        (!FALSE)
-#endif
 
 typedef enum {
 	NO_PARAMETER,
@@ -63,7 +54,6 @@ void addConsoleActionII(const char *token, VoidIntInt callback);
 void addConsoleActionF(const char *token, VoidFloat callback);
 void addConsoleActionS(const char *token, VoidCharPtr callback);
 void addConsoleActionSSS(const char *token, VoidCharPtrCharPtrCharPtr callback);
-
 
 #ifdef __cplusplus
 }
