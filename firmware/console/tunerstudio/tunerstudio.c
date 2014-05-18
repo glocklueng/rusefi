@@ -45,7 +45,7 @@ static Logging logger;
 extern engine_configuration_s *engineConfiguration;
 extern board_configuration_s *boardConfiguration;
 extern persistent_config_s configWorkingCopy;
-extern FlashState flashState;
+extern persistent_config_container_s flashState;
 
 extern SerialUSBDriver SDU1;
 #define CONSOLE_DEVICE &SDU1
