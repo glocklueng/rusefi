@@ -22,6 +22,9 @@
  */
 
 #include "main.h"
+
+#if EFI_ENGINE_CONTROL
+
 #include "main_trigger_callback.h"
 #include "ec2.h"
 
@@ -239,3 +242,5 @@ void initMainEventListener() {
 int isIgnitionTimingError(void) {
 	return ignitionErrorDetection.sum(6) > 4;
 }
+
+#endif /* EFI_ENGINE_CONTROL */
