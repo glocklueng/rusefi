@@ -51,15 +51,15 @@ extern engine_configuration2_s * engineConfiguration2;
 
 #define FLASH_USAGE sizeof(FlashState)
 
-crc flashStateCrc(FlashState *state) {
-	return calc_crc((const crc*) &state->persistentConfiguration, sizeof(persistent_config_s));
+crc_t flashStateCrc(FlashState *state) {
+	return calc_crc((const crc_t*) &state->persistentConfiguration, sizeof(persistent_config_s));
 }
 
 void writeToFlash(void) {
 	flashState.size = sizeof(FlashState);
 	flashState.version = FLASH_DATA_VERSION;
 	scheduleMsg(&logger, "FLASH_DATA_VERSION=%d", flashState.version);
-	crc result = flashStateCrc(&flashState);
+	crc_t result = flashStateCrc(&flashState);
 	flashState.value = result;
 	scheduleMsg(&logger, "Reseting flash=%d", FLASH_USAGE);
 	flashErase(FLASH_ADDR, FLASH_USAGE);
@@ -75,7 +75,7 @@ static int isValidCrc(FlashState *state) {
 		scheduleMsg(&logger, "Unexpected flash version: %d", state->version);
 		return FALSE;
 	}
-	crc result = flashStateCrc(state);
+	crc_t result = flashStateCrc(state);
 	int isValidCrc = result == state->value;
 	if (!isValidCrc)
 		scheduleMsg(&logger, "CRC got %d while %d expected", result, state->value);

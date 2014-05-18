@@ -18,7 +18,7 @@ typedef struct {
 	int version;
 	int size;
 	persistent_config_s persistentConfiguration;
-	crc value;
+	crc_t value;
 } FlashState;
 
 #ifdef __cplusplus
