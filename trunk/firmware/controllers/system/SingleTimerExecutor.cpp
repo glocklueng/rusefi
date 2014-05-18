@@ -13,6 +13,7 @@
 #include "SingleTimerExecutor.h"
 #include "efitime.h"
 #include "rfiutil.h"
+
 #if EFI_PROD_CODE
 #include "microsecond_timer.h"
 #endif
@@ -103,12 +104,6 @@ void scheduleTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, voi
 		return;
 	}
 	instance.schedule(scheduling, getTimeNowUs(), delayUs, callback, param);
-}
-
-void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
-	signal->io_pin = ioPin;
-	signal->name = getPinName(ioPin);
-	initOutputSignalBase(signal);
 }
 
 void initSignalExecutorImpl(void) {

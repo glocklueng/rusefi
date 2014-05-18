@@ -13,6 +13,7 @@
 #include "global.h"
 #include "efifeatures.h"
 #include "io_pins.h"
+#include "scheduler.h"
 
 #if EFI_PROD_CODE
 #include "datalogging.h"
@@ -21,23 +22,6 @@
 #if EFI_SIGNAL_EXECUTOR_SLEEP
 #include "signal_executor_sleep.h"
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
-
-typedef void (*schfunc_t)(void *);
-
-typedef struct scheduling_struct scheduling_s;
-struct scheduling_struct {
-#if EFI_SIGNAL_EXECUTOR_SLEEP
-	VirtualTimer timer;
-#endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
-
-#if EFI_SIGNAL_EXECUTOR_ONE_TIMER
-	volatile uint64_t momentUs;
-	schfunc_t callback;
-	void *param;
-	scheduling_s *next;
-#endif
-	char *name;
-};
 
 typedef enum {
 	IDLE = 0, ACTIVE
@@ -84,7 +68,6 @@ void scheduleOutputBase(OutputSignal *signal, float delayMs, float durationMs);
 
 void initSignalExecutor(void);
 void initSignalExecutorImpl(void);
-void scheduleTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param);
 void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param);
 
 #ifdef __cplusplus
