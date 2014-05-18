@@ -5,7 +5,7 @@
  * so this timer can schedule events up to 4B/100M ~ 4000 seconds ~ 1 hour from current time.
  *
  * @date Apr 14, 2014
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #include "main.h"
