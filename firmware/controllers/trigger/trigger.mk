@@ -10,6 +10,7 @@ TRIGGER_DECODERS_SRC_CPP = \
 	$(PROJECT_DIR)/controllers/trigger/trigger_gm.cpp
 
 TRIGGER_SRC_CPP = \
+	$(PROJECT_DIR)/controllers/trigger/trigger_emulator_algo.cpp \
 	$(PROJECT_DIR)/controllers/trigger/rpm_calculator.cpp \
 	$(PROJECT_DIR)/controllers/trigger/trigger_central.cpp \
 	$(PROJECT_DIR)/controllers/trigger/main_trigger_callback.cpp
