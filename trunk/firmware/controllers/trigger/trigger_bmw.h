@@ -2,7 +2,7 @@
  * @file	trigger_bmw.h
  *
  * @date May 11, 2014
- * @author Andrey Belomutskiy, (c) 2012-2013
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 #ifndef TRIGGER_BMW_H_
 #define TRIGGER_BMW_H_
