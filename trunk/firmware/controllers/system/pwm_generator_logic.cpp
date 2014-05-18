@@ -1,4 +1,4 @@
-/*
+/**
  * @file    pwm_generator_logic.c
  *
  * This PWM implementation keep track of when it would be the next time to toggle the signal.
@@ -9,7 +9,6 @@
  */
 
 #include "pwm_generator_logic.h"
-#include "engine_math.h"
 
 PwmConfig::PwmConfig(float *st, single_wave_s *waves) :
 		multiWave(st, waves) {

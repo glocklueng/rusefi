@@ -7,7 +7,6 @@
 
 #include "main.h"
 #include "error_handling.h"
-#include "wave_math.h"
 
 static time_t timeOfPreviousWarning = -10;
 
