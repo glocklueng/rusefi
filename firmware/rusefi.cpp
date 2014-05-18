@@ -187,7 +187,7 @@ void onFatalError(const char *msg, const char * file, int line);
 }
 
 void onFatalError(const char *msg, const char * file, int line) {
-	onDbgPanic();
+	setOutputPinValue(LED_ERROR, 1);
 	lcdShowFatalMessage((char *) msg);
 	if (!main_loop_started) {
 		print("fatal %s %s:%d\r\n", msg, file, line);
