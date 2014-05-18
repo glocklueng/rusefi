@@ -1,5 +1,6 @@
 
 junction controllers_algo ..\firmware\controllers\algo 
+junction controllers_core ..\firmware\controllers\core
 junction controllers_math ..\firmware\controllers\math 
 junction controllers_trigger ..\firmware\controllers\trigger 
 junction engines ..\firmware\config\engines
