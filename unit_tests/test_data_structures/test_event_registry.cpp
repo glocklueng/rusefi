@@ -15,10 +15,6 @@ static ActuatorEventList result;
 
 int pinDefaultState[IO_PIN_COUNT];
 
-void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
-	signal->io_pin = ioPin;
-}
-
 extern int outputSignalCount;
 
 void testEventRegistry(void) {
