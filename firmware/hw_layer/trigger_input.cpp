@@ -6,8 +6,11 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
-#include "trigger_input.h"
+#include "main.h"
 
+#if EFI_SHAFT_POSITION_INPUT
+
+#include "trigger_input.h"
 #include "wave_analyzer_hw.h"
 #include "pin_repository.h"
 #include "trigger_structure.h"
@@ -21,7 +24,6 @@ static WaveReaderHw secondaryCrankInput;
 extern engine_configuration_s *engineConfiguration;
 extern board_configuration_s *boardConfiguration;
 
-#if EFI_SHAFT_POSITION_INPUT
 
 static inline ICUDriver *getPrimaryInputCaptureDriver(void) {
 	return getInputCaptureDriver(boardConfiguration->primaryTriggerInputPin);
@@ -60,11 +62,9 @@ static void shaft_icu_period_callback(ICUDriver *icup) {
  */
 static ICUConfig shaft_icucfg = { ICU_INPUT_ACTIVE_LOW, 100000, /* 100kHz ICU clock frequency.   */
 shaft_icu_width_callback, shaft_icu_period_callback };
-#endif
 
 void initShaftPositionInputCapture(void) {
 
-#if EFI_SHAFT_POSITION_INPUT
 
 	// initialize primary Input Capture Unit pin
 	initWaveAnalyzerDriver(&primaryCrankInput, getPrimaryInputCaptureDriver(),
@@ -90,7 +90,7 @@ void initShaftPositionInputCapture(void) {
 	icuStart(getSecondaryInputCaptureDriver(), &shaft_icucfg);
 	icuEnable(getSecondaryInputCaptureDriver());
 
-#else
 	print("crank input disabled\r\n");
-#endif
 }
+
+#endif /* EFI_SHAFT_POSITION_INPUT */
