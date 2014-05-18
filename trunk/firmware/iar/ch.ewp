@@ -330,6 +330,7 @@
           <state>$PROJ_DIR$\..\tunerstudio</state>
           <state>$PROJ_DIR$\..\controllers</state>
           <state>$PROJ_DIR$\..\controllers\algo</state>
+          <state>$PROJ_DIR$\..\controllers\core</state>
           <state>$PROJ_DIR$\..\controllers\system</state>
           <state>$PROJ_DIR$\..\controllers\sensors</state>
           <state>$PROJ_DIR$\..\controllers\math</state>
@@ -2137,12 +2138,6 @@
         <name>$PROJ_DIR$\..\controllers\algo\error_handling.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\event_queue.cpp</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\event_queue.h</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\controllers\algo\event_registry.c</name>
       </file>
       <file>
@@ -2159,12 +2154,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\idle_controller.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\interpolation.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\interpolation.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\io_pins.h</name>
@@ -2219,24 +2208,39 @@
       </file>
     </group>
     <group>
+      <name>core</name>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\avg_values.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\avg_values.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\EfiWave.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\EfiWave.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\interpolation.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\interpolation.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\signal_filtering.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\signal_filtering.h</name>
+      </file>
+    </group>
+    <group>
       <name>math</name>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\math\avg_values.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\math\avg_values.h</name>
-      </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\math\engine_math.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\math\engine_math.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\math\signal_filtering.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\math\signal_filtering.h</name>
       </file>
     </group>
     <group>
@@ -2290,16 +2294,19 @@
     <group>
       <name>system</name>
       <file>
+        <name>$PROJ_DIR$\..\controllers\system\event_queue.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\system\event_queue.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\system\pwm_generator_logic.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\system\pwm_generator_logic.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\system\signal_executor_hw_timer.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\system\signal_executor_hw_timer.h</name>
+        <name>$PROJ_DIR$\..\controllers\system\scheduler.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\system\signal_executor_sleep.c</name>
@@ -2312,12 +2319,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\system\SingleTimerExecutor.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\system\trigger_emulator_algo.cpp</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\system\trigger_emulator_algo.h</name>
       </file>
     </group>
     <group>
@@ -2354,6 +2355,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\trigger\trigger_decoder.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_emulator_algo.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_emulator_algo.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\trigger\trigger_gm.cpp</name>
@@ -3080,6 +3087,12 @@
   <group>
     <name>util</name>
     <file>
+      <name>$PROJ_DIR$\..\util\cli_registry.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\util\cli_registry.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\util\crc.c</name>
     </file>
     <file>
@@ -3096,12 +3109,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\util\data_buffer.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\util\eficonsole_logic.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\util\eficonsole_logic.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\util\efilib.cpp</name>
