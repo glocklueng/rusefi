@@ -160,7 +160,7 @@ void initHardware(Logging *logger) {
 	itoa10((uint8_t*)buffer, SVN_VERSION);
 	lcd_HD44780_print_string(buffer);
 
-#endif
+#endif /* EFI_HD44780_LCD */
 
 	addConsoleActionII("i2c", sendI2Cbyte);
 

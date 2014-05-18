@@ -91,7 +91,9 @@ extern "C" {
 #include "engine_controller.h"
 #include "ec2.h"
 #include "trigger_structure.h"
+#if EFI_HD44780_LCD
 #include "lcd_HD44780.h"
+#endif /* EFI_HD44780_LCD */
 #include "status_loop.h"
 #include "pin_repository.h"
 
@@ -234,7 +236,9 @@ void chDbgPanic3(const char *msg, const char * file, int line) {
 
 
 	setOutputPinValue(LED_ERROR, 1);
+#if EFI_HD44780_LCD
 	lcdShowFatalMessage((char *) msg);
+#endif /* EFI_HD44780_LCD */
 	if (!main_loop_started) {
 		print("fatal %s %s:%d\r\n", msg, file, line);
 		chThdSleepSeconds(1);
