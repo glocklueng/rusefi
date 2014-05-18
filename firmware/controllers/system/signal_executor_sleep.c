@@ -47,13 +47,6 @@ void scheduleTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, voi
 	unlockAnyContext();
 }
 
-void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
-	signal->io_pin = ioPin;
-	signal->name = getPinName(ioPin);
-//	signal->duration = 0;
-	initOutputSignalBase(signal);
-}
-
 void initSignalExecutorImpl(void) {
 
 }
