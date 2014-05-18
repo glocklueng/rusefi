@@ -12,7 +12,6 @@
 
 #include "main.h"
 #include "mmc_card.h"
-#include "eficonsole_logic.h"
 #include "pin_repository.h"
 
 #if EFI_FILE_LOGGING

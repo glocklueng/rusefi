@@ -12,7 +12,6 @@
 #include "main.h"
 #include "pin_repository.h"
 #include "eficonsole.h"
-#include "eficonsole_logic.h"
 #include "memstreams.h"
 #include "chprintf.h"
 #include "rusefi.h"
