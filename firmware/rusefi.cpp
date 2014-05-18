@@ -182,20 +182,6 @@ void scheduleReset(void) {
 	unlockAnyContext();
 }
 
-extern "C" {
-void onFatalError(const char *msg, const char * file, int line);
-}
-
-void onFatalError(const char *msg, const char * file, int line) {
-	setOutputPinValue(LED_ERROR, 1);
-	lcdShowFatalMessage((char *) msg);
-	if (!main_loop_started) {
-		print("fatal %s %s:%d\r\n", msg, file, line);
-		chThdSleepSeconds(1);
-		chSysHalt();
-	}
-}
-
 void DebugMonitorVector(void) {
 
 	chDbgPanic3("DebugMonitorVector", __FILE__, __LINE__);
@@ -245,7 +231,15 @@ void chDbgPanic3(const char *msg, const char * file, int line) {
 	dbg_panic_file = file;
 	dbg_panic_line = line;
 	dbg_panic_msg = msg;
-	onFatalError(dbg_panic_msg, dbg_panic_file, dbg_panic_line);
+
+
+	setOutputPinValue(LED_ERROR, 1);
+	lcdShowFatalMessage((char *) msg);
+	if (!main_loop_started) {
+		print("fatal %s %s:%d\r\n", msg, file, line);
+		chThdSleepSeconds(1);
+		chSysHalt();
+	}
 }
 
 static char panicMessage[200];
