@@ -37,13 +37,13 @@ static engine_type_e defaultEngineType = FORD_ASPIRE_1996;
 static Logging logger;
 
 #if defined __GNUC__
-persistent_config_container_s flashState __attribute__((section(".ccm")));
+persistent_config_container_s persistentState __attribute__((section(".ccm")));
 #else
-persistent_config_container_s flashState;
+persistent_config_container_s persistentState;
 #endif
 
-engine_configuration_s *engineConfiguration = &flashState.persistentConfiguration.engineConfiguration;
-board_configuration_s *boardConfiguration = &flashState.persistentConfiguration.boardConfiguration;
+engine_configuration_s *engineConfiguration = &persistentState.persistentConfiguration.engineConfiguration;
+board_configuration_s *boardConfiguration = &persistentState.persistentConfiguration.boardConfiguration;
 
 extern engine_configuration2_s * engineConfiguration2;
 
@@ -56,16 +56,16 @@ crc_t flashStateCrc(persistent_config_container_s *state) {
 }
 
 void writeToFlash(void) {
-	flashState.size = PERSISTENT_SIZE;
-	flashState.version = FLASH_DATA_VERSION;
-	scheduleMsg(&logger, "FLASH_DATA_VERSION=%d", flashState.version);
-	crc_t result = flashStateCrc(&flashState);
-	flashState.value = result;
+	persistentState.size = PERSISTENT_SIZE;
+	persistentState.version = FLASH_DATA_VERSION;
+	scheduleMsg(&logger, "FLASH_DATA_VERSION=%d", persistentState.version);
+	crc_t result = flashStateCrc(&persistentState);
+	persistentState.value = result;
 	scheduleMsg(&logger, "Reseting flash, size=%d", PERSISTENT_SIZE);
 	flashErase(FLASH_ADDR, PERSISTENT_SIZE);
 	scheduleMsg(&logger, "Flashing with CRC=%d", result);
 	efitimems_t nowMs = currentTimeMillis();
-	result = flashWrite(FLASH_ADDR, (const char *) &flashState, PERSISTENT_SIZE);
+	result = flashWrite(FLASH_ADDR, (const char *) &persistentState, PERSISTENT_SIZE);
 	scheduleMsg(&logger, "Flash programmed in (ms): %d", currentTimeMillis() - nowMs);
 	scheduleMsg(&logger, "Flashed: %d", result);
 }
@@ -90,11 +90,11 @@ static void doResetConfiguration(void) {
 static void readFromFlash(void) {
 	printMsg(&logger, "readFromFlash()");
 
-	flashRead(FLASH_ADDR, (char *) &flashState, PERSISTENT_SIZE);
+	flashRead(FLASH_ADDR, (char *) &persistentState, PERSISTENT_SIZE);
 
 	setDefaultNonPersistentConfiguration(engineConfiguration2);
 
-	if (!isValidCrc(&flashState) || flashState.size != PERSISTENT_SIZE) {
+	if (!isValidCrc(&persistentState) || persistentState.size != PERSISTENT_SIZE) {
 		printMsg(&logger, "Need to reset flash to default");
 		resetConfigurationExt(&logger, defaultEngineType, engineConfiguration, engineConfiguration2,
 				boardConfiguration);
