@@ -13,7 +13,7 @@
 #include "histogram.h"
 
 #include "malfunction_central.h"
-#include "eficonsole_logic.h"
+#include "cli_registry.h"
 
 #include "nmea.h"
 #include "efilib2.h"
