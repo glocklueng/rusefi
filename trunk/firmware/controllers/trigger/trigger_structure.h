@@ -8,11 +8,10 @@
 #ifndef TRIGGER_STRUCTURE_H_
 #define TRIGGER_STRUCTURE_H_
 
-#include "rusefi_enums.h"
-#include "stdint.h"
+#include <stdint.h>
 
-#define PWM_PHASE_MAX_COUNT 150
-#define PWM_PHASE_MAX_WAVE_PER_PWM 2
+#include "rusefi_enums.h"
+#include "EfiWave.h"
 
 typedef struct {
 	/**
@@ -26,43 +25,6 @@ typedef struct {
 	uint64_t toothed_previous_time;
 
 } trigger_state_s;
-
-/**
- * @brief   PWM configuration for the specific output pin
- */
-class single_wave_s {
-public:
-	single_wave_s();
-	single_wave_s(int *pinStates);
-	void init(int *pinStates);
-	int *pinStates;
-
-};
-
-class multi_wave_s {
-public:
-	multi_wave_s(float *st, single_wave_s *waves);
-	void reset(void);
-	float getSwitchTime(int phaseIndex) const;
-	void setSwitchTime(int phaseIndex, float value);
-	void checkSwitchTimes(int size);
-	int getChannelState(int channelIndex, int phaseIndex) const;
-	/**
-	 * Number of events in the cycle
-	 */
-	int phaseCount;
-	/**
-	 * Number of signal wires
-	 */
-	int waveCount;
-	single_wave_s *waves;
-//private:
-	/**
-	 * values in the (0..1] range which refer to points within the period at at which pin state should be changed
-	 * So, in the simplest case we turn pin off at 0.3 and turn it on at 1 - that would give us a 70% duty cycle PWM
-	 */
-	float *switchTimes;
-};
 
 typedef enum {
 	TV_LOW = 0,
@@ -109,9 +71,6 @@ public:
 private:
 	float switchTimes[PWM_PHASE_MAX_COUNT];
 };
-
-
-void checkSwitchTimes2(int size, float *switchTimes);
 
 #ifdef __cplusplus
 extern "C"

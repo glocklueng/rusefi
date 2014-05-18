@@ -9,7 +9,7 @@
 #define PWM_GENERATOR_LOGIC_H_
 
 #include "global.h"
-#include "trigger_structure.h"
+#include "EfiWave.h"
 #include "io_pins.h"
 #include "signal_executor.h"
 

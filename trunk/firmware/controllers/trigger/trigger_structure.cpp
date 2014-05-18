@@ -21,32 +21,6 @@
 #include "main.h"
 #include "trigger_structure.h"
 
-single_wave_s::single_wave_s() {
-	init(NULL);
-}
-
-single_wave_s::single_wave_s(int *ps) {
-	init(ps);
-}
-
-void single_wave_s::init(int *pinStates) {
-	this->pinStates = pinStates;
-}
-
-multi_wave_s::multi_wave_s(float *switchTimes, single_wave_s *waves) {
-	this->switchTimes = switchTimes;
-	this->waves = waves;
-}
-
-void multi_wave_s::reset(void) {
-	phaseCount = 0;
-	waveCount = 0;
-}
-
-float multi_wave_s::getSwitchTime(int index) const {
-	return switchTimes[index];
-}
-
 trigger_shape_helper::trigger_shape_helper() {
 	waves[0].init(pinStates0);
 	waves[1].init(pinStates1);
@@ -122,12 +96,6 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_v
 void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
 	// todo: inline this method
 	trigger->addEvent(angle, waveIndex, state);
-}
-
-void checkSwitchTimes2(int size, float *switchTimes) {
-
-	for (int i = 0; i < size - 1; i++)
-		chDbgCheck(switchTimes[i] < switchTimes[i + 1], "invalid switchTimes");
 }
 
 void multi_wave_s::checkSwitchTimes(int size) {
