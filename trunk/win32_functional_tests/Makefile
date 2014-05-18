@@ -73,6 +73,7 @@ CHIBIOS = ../firmware/chibios
 include $(PROJECT_DIR)/util/util.mk
 include $(PROJECT_DIR)/config/engines/engines.mk
 include $(PROJECT_DIR)/controllers/algo/algo.mk
+include $(PROJECT_DIR)/controllers/core/core.mk
 include $(PROJECT_DIR)/controllers/math/math.mk
 include $(PROJECT_DIR)/controllers/sensors/sensors.mk
 include $(PROJECT_DIR)/controllers/trigger/trigger.mk
@@ -102,6 +103,7 @@ CSRC =	${PORTSRC} \
 	$(CONSOLESRC) \
 	$(CONSOLEUTILSRC) \
 	$(CONTROLLERS_ALGO_SRC) \
+	$(CONTROLLERS_CORE_SRC) \
 	$(CONTROLLERS_MATH_SRC) \
 	$(CONTROLLERS_SENSORS_SRC) \
 	$(ENGINES_SRC) \
@@ -123,6 +125,7 @@ CPPSRC = $(UTILSRC_CPP) \
 	$(SYSTEMSRC_CPP) \
 	$(CONSOLE_SRC_CPP) \
 	$(CONTROLLERS_SENSORS_SRC_CPP) \
+	$(CONTROLLERS_CORE_SRC_CPP) \
 	$(CONTROLLERS_MATH_SRC_CPP) \
 	$(ENGINES_SRC_CPP) \
 	$(PROJECT_DIR)/simulator/rusEfiFunctionalTest.cpp \
@@ -159,13 +162,13 @@ $(PORTINC) $(KERNINC) $(TESTINC) \
 	$(PROJECT_DIR)/config/engines \
 	$(PROJECT_DIR)/ext_algo \
 	$(PROJECT_DIR)/controllers \
-	$(PROJECT_DIR)/controllers/sensors \
-	$(PROJECT_DIR)/controllers/system \
 	$(PROJECT_DIR)/hw_layer/algo \
 	$(PROJECT_DIR)/emulation \
 	$(PROJECT_DIR)/controllers/algo \
+	$(PROJECT_DIR)/controllers/core \
 	$(PROJECT_DIR)/controllers/math \
-	$(PROJECT_DIR)/controllers/math \
+	$(PROJECT_DIR)/controllers/sensors \
+	$(PROJECT_DIR)/controllers/system \
 	$(PROJECT_DIR)/controllers/trigger \
         ${CHIBIOS}/os/various \
 	simulator
