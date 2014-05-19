@@ -122,13 +122,12 @@ int main(void) {
 
 	testAccelEnrichment();
 
-	printf("Success 20130518\r\n");
+	printf("Success 20130519\r\n");
 
 //	resizeMap();
 
 	return EXIT_SUCCESS;
 }
-
 
 int warning(obd_code_e code, const char *fmt, ...) {
 	printf("Warning: %s\r\n", fmt);
