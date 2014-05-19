@@ -55,8 +55,7 @@ float interpolate(float x1, float y1, float x2, float y2, float x) {
  * @note If the parameter is smaller than the first element of the array, -1 is returned.
  */
 int findIndex(float array[], int size, float value) {
-	if (cisnan(value))
-		fatal("NaN in findIndex\r\n");
+	efiAssert(!cisnan(value), "NaN in findIndex", 0);
 
 	if (value < array[0])
 		return -1;
@@ -67,7 +66,7 @@ int findIndex(float array[], int size, float value) {
 
 	while (1) {
 		if (size-- == 0)
-			fatal("Unexpected state in binary search.");
+			efiAssert(FALSE, "Unexpected state in binary search", 0);
 
 		middle = (left + right) / 2;
 

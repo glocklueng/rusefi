@@ -38,10 +38,7 @@ static void copyActuatorEvent(ActuatorEvent *source, ActuatorEvent*target) {
 }
 
 ActuatorEvent * getNextActuatorEvent(ActuatorEventList *list) {
-	if (list->size == MAX_EVENT_COUNT) {
-		fatal("registerActuatorEvent() too many events");
-		return NULL;
-	}
+	efiAssert(list->size < MAX_EVENT_COUNT, "registerActuatorEvent() too many events", NULL);
 	return &list->events[list->size++];
 }
 

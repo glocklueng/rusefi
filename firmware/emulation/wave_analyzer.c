@@ -40,8 +40,7 @@ extern WaveChart waveChart;
 static Logging logger;
 
 static void ensureInitialized(WaveReader *reader) {
-	if (!reader->hw.started)
-		fatal("wave analyzer NOT INITIALIZED");
+	efiAssertVoid(reader->hw.started, "wave analyzer NOT INITIALIZED");
 }
 
 #ifdef EFI_WAVE_ANALYZER
