@@ -53,11 +53,15 @@ void multi_wave_s::setSwitchTime(int index, float value) {
 	switchTimes[index] = value;
 }
 
-void clearTriggerState(trigger_state_s *state) {
-	state->shaft_is_synchronized = FALSE;
-	state->toothed_previous_time = 0;
-	state->toothed_previous_duration = 0;
-	state->current_index = 0;
+trigger_state_s::trigger_state_s() {
+	clear();
+}
+
+void trigger_state_s::clear() {
+	shaft_is_synchronized = FALSE;
+	toothed_previous_time = 0;
+	toothed_previous_duration = 0;
+	current_index = 0;
 }
 
 void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state) {

@@ -213,7 +213,6 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*triggerConfig) {
 
 	trigger_state_s state;
-	clearTriggerState(&state);
 	errorDetection.clear();
 
 	int primaryWheelState = FALSE;
