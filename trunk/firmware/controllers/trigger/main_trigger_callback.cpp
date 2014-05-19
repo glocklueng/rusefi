@@ -116,10 +116,25 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 	if (isIgnitionError) {
 		scheduleMsg(&logger, "Negative spark delay=%f", sparkDelay);
 		sparkDelay = 0;
-		//return;
+		return;
 	}
 
-	scheduleOutput(event->actuator, sparkDelay, dwellMs);
+	OutputSignal *signal = event->actuator;
+	//scheduleOutput(event->actuator, sparkDelay, dwellMs);
+
+	if (cisnan(dwellMs)) {
+		firmwareError("NaN in scheduleOutput", dwellMs);
+		return;
+	}
+
+	int index = getRevolutionCounter() % 2;
+	scheduling_s * sUp = &signal->signalTimerUp[index];
+	scheduling_s * sDown = &signal->signalTimerDown[index];
+
+	scheduleTask(sUp, (int)MS2US(sparkDelay), (schfunc_t) &turnPinHigh, (void *) signal);
+	scheduleTask(sDown, (int)MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
+
+
 }
 
 static void handleSpark(int eventIndex, int rpm, ActuatorEventList *list) {
