@@ -26,7 +26,11 @@
 #include "mmc_card.h"
 #include "neo6m.h"
 #include "lcd_HD44780.h"
+
+#if EFI_INTERNAL_FLASH
 #include "flash_main.h"
+#endif /* EFI_INTERNAL_FLASH */
+
 #include "trigger_central.h"
 #include "svnversion.h"
 
@@ -103,11 +107,14 @@ void initHardware(Logging *logger) {
 	if (hasFirmwareError())
 		return;
 
+#if EFI_INTERNAL_FLASH
 	/**
 	 * this call reads configuration from flash memory or sets default configuration
 	 * if flash state does not look right.
 	 */
 	initFlash();
+#endif /* EFI_INTERNAL_FLASH */
+
 	if (hasFirmwareError())
 		return;
 
