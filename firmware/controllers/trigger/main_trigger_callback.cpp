@@ -44,8 +44,17 @@ extern "C" {
 #include "histogram.h"
 #include "rfiutil.h"
 #include "LocalVersionHolder.h"
+#include "event_queue.h"
 
 static LocalVersionHolder localVersion;
+
+/**
+ * In order to archive higher event precision, we are using a hybrid approach
+ * where we are scheduling events based on the closest trigger event with a time offset.
+ *
+ * This queue is using global trigger event index as 'time'
+ */
+static EventQueue triggerEventsQueue;
 
 int isInjectionEnabled(void);
 
@@ -222,8 +231,10 @@ static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex) {
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
-		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2, dwellAngle, &engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
+		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2, &engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
 	}
+
+	triggerEventsQueue.executeAll(getCrankEventCounter());
 
 	handleFuel(eventIndex, rpm);
 	handleSpark(eventIndex, rpm, &engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);

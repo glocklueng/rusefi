@@ -137,13 +137,13 @@ OutputSignalList ignitionSignals;
 OutputSignalList injectonSignals;
 
 static void registerSparkEvent(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
-		ActuatorEventList *list, OutputSignal *actuator, float chargeAngle, float dwellAngle) {
+		ActuatorEventList *list, OutputSignal *actuator, float chargeAngle) {
 
 	registerActuatorEventExt(engineConfiguration, s, list, actuator, chargeAngle);
 }
 
 void initializeIgnitionActions(float chargeAngle, engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2, float dwellAngle, ActuatorEventList *list) {
+		engine_configuration2_s *engineConfiguration2, ActuatorEventList *list) {
 	chDbgCheck(engineConfiguration->cylindersCount > 0, "cylindersCount");
 	ignitionSignals.clear();
 
@@ -156,7 +156,7 @@ void initializeIgnitionActions(float chargeAngle, engine_configuration_s *engine
 			float angle = chargeAngle + 720.0 * i / engineConfiguration->cylindersCount;
 
 			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list,
-					ignitionSignals.add(SPARKOUT_1_OUTPUT), angle, dwellAngle);
+					ignitionSignals.add(SPARKOUT_1_OUTPUT), angle);
 		}
 		break;
 	case IM_WASTED_SPARK:
@@ -169,7 +169,7 @@ void initializeIgnitionActions(float chargeAngle, engine_configuration_s *engine
 			io_pin_e ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
 
 			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list,
-					ignitionSignals.add(ioPin), angle, dwellAngle);
+					ignitionSignals.add(ioPin), angle);
 
 		}
 
@@ -180,7 +180,7 @@ void initializeIgnitionActions(float chargeAngle, engine_configuration_s *engine
 
 			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
 			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list, ignitionSignals.add(pin),
-					angle, dwellAngle);
+					angle);
 		}
 		break;
 
