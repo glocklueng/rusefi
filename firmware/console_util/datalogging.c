@@ -76,7 +76,7 @@ static int validateBuffer(Logging *logging, int extraLen, const char *text) {
 		strcat(logging->SMALL_BUFFER, logging->name);
 		strcat(logging->SMALL_BUFFER, "/");
 		strcat(logging->SMALL_BUFFER, text);
-		fatal(logging->SMALL_BUFFER);
+		firmwareError(logging->SMALL_BUFFER);
 //		unlockOutputBuffer();
 //		resetLogging(logging);
 		return TRUE;
@@ -103,7 +103,7 @@ static void vappendPrintfI(Logging *logging, const char *fmt, va_list arg) {
 
 void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
 	if (!intermediateLoggingBufferInited) {
-		fatal("intermediateLoggingBufferInited not inited!");
+		firmwareError("intermediateLoggingBufferInited not inited!");
 		return;
 	}
 	int is_locked = isLocked();
@@ -154,7 +154,7 @@ char* getCaption(LoggingPoints loggingPoint) {
 	case LP_MAP_RAW:
 		return "MAP_R";
 	}
-	fatal("No such loggingPoint");
+	firmwareError("No such loggingPoint");
 	return NULL;
 }
 
@@ -176,7 +176,7 @@ static char* get2ndCaption(int loggingPoint) {
 	case LP_MAF:
 		return "MAF";
 	}
-	fatal("No such loggingPoint");
+	firmwareError("No such loggingPoint");
 	return NULL;
 }
 

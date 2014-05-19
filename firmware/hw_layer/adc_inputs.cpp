@@ -254,7 +254,7 @@ GPIO_TypeDef* getAdcChannelPort(int hwChannel) {
 	case ADC_CHANNEL_IN15:
 		return GPIOC;
 	default:
-		fatal("Unknown hw channel")
+		firmwareError("Unknown hw channel")
 		;
 		return NULL;
 	}
@@ -296,7 +296,7 @@ int getAdcChannelPin(int hwChannel) {
 	case ADC_CHANNEL_IN15:
 		return 5;
 	default:
-		fatal("Unknown hw channel")
+		firmwareError("Unknown hw channel")
 		;
 		return -1;
 	}
