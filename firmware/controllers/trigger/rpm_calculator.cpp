@@ -24,8 +24,10 @@
 #if EFI_ANALOG_CHART
 #include "analog_chart.h"
 #endif /* EFI_PROD_CODE */
+
 #if EFI_WAVE_CHART
 #include "wave_chart.h"
+extern WaveChart waveChart;
 #endif /* EFI_WAVE_CHART */
 
 static rpm_s rpmState;
@@ -36,7 +38,6 @@ static rpm_s rpmState;
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
-extern WaveChart waveChart;
 
 static Logging logger;
 
