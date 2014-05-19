@@ -17,17 +17,22 @@ class trigger_state_s {
 public:
 	trigger_state_s();
 	void clear();
+	int getCurrentIndex();
+	void nextRevolution();
+	void nextTriggerEvent();
 
 	/**
 	 * TRUE if we know where we are
 	 */
 	unsigned char shaft_is_synchronized;
 
-	int current_index;
-
 	uint64_t toothed_previous_duration;
 	uint64_t toothed_previous_time;
-
+private:
+	/**
+	 * index within trigger revolution, from 0 to trigger event count
+	 */
+	int current_index;
 };
 
 typedef enum {
