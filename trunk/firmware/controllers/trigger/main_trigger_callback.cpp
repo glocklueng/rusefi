@@ -127,14 +127,22 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 		return;
 	}
 
-	int index = getRevolutionCounter() % 2;
-	scheduling_s * sUp = &signal->signalTimerUp[index];
-	scheduling_s * sDown = &signal->signalTimerDown[index];
+	/**
+	 * We are alternating two event lists in order to avoid a potential issue around revolution boundary
+	 * when an event is scheduled within the next revolution.
+	 */
+	scheduling_s * sUp = &signal->signalTimerUp[0];
+	scheduling_s * sDown = &signal->signalTimerDown[0];
 
+	/**
+	 * The start of charge is always within the current trigger event range, so just plain time-based scheduling
+	 */
 	scheduleTask(sUp, (int)MS2US(sparkDelay), (schfunc_t) &turnPinHigh, (void *) signal);
+	/**
+	 * Spark event is often happening during a later trigger event timeframe
+	 * TODO: improve precision
+	 */
 	scheduleTask(sDown, (int)MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
-
-
 }
 
 static void handleSpark(int eventIndex, int rpm, ActuatorEventList *list) {
