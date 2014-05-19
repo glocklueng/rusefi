@@ -8,7 +8,7 @@
 
 #include "main.h"
 #include "PwmTester.h"
-#include "trigger_structure.h"
+#include "EfiWave.h"
 #include "pwm_generator_logic.h"
 #include "engine_configuration.h"
 #include "pwm_generator.h"
