@@ -23,10 +23,6 @@
 #include "signal_executor_sleep.h"
 #endif /* EFI_SIGNAL_EXECUTOR_SLEEP */
 
-typedef enum {
-	IDLE = 0, ACTIVE
-} executor_status_t;
-
 /**
  * @brief   Asynchronous output signal data structure
  */
@@ -45,14 +41,6 @@ struct OutputSignal_struct {
 	 */
 	scheduling_s signalTimerUp[2];
 	scheduling_s signalTimerDown[2];
-
-	executor_status_t status;
-
-#if EFI_SIGNAL_EXECUTOR_HW_TIMER
-	// todo
-#endif
-
-//	OutputSignal *next;
 };
 
 #ifdef __cplusplus
