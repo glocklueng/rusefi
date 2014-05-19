@@ -26,6 +26,7 @@
 #include "mmc_card.h"
 #include "neo6m.h"
 #include "lcd_HD44780.h"
+#include "settings.h"
 
 #if EFI_INTERNAL_FLASH
 #include "flash_main.h"
@@ -113,6 +114,8 @@ void initHardware(Logging *logger) {
 	 * if flash state does not look right.
 	 */
 	initFlash();
+#else
+	setEngineType((int)FORD_ASPIRE_1996);
 #endif /* EFI_INTERNAL_FLASH */
 
 	if (hasFirmwareError())
