@@ -34,10 +34,8 @@ static Logging logging;
 
 static trigger_state_s triggerState;
 
-static volatile int shaftEventCounter;
-
-int getCrankEventCounter() {
-	return shaftEventCounter;
+uint64_t getCrankEventCounter() {
+	return triggerState.getTotalEventCounter();
 }
 
 /**
@@ -74,8 +72,6 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 		triggerState.shaft_is_synchronized = FALSE;
 	}
 	previousShaftEventTime = nowUs;
-	// this is not atomic, but it's fine here
-	shaftEventCounter++;
 
 	/**
 	 * This invocation changes the state of
