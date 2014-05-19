@@ -142,8 +142,6 @@ static void registerSparkEvent(engine_configuration_s const *engineConfiguration
 
 	registerActuatorEventExt(engineConfiguration, s, list,
 			actuator, angleOffset);
-
-
 }
 
 void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineConfiguration,
@@ -151,7 +149,6 @@ void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineCo
 	chDbgCheck(engineConfiguration->cylindersCount > 0, "cylindersCount");
 	ignitionSignals.clear();
 
-	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
 	resetEventList(list);
 
 	switch (engineConfiguration->ignitionMode) {

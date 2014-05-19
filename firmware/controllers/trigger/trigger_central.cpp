@@ -100,8 +100,8 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 		invokeIntIntCallbacks(&triggerListeneres, signal, triggerState.current_index);
 	}
 	int afterCallback = hal_lld_get_counter_value();
-	int diff = afterCallback - beforeCallback;
 #if EFI_HISTOGRAMS
+	int diff = afterCallback - beforeCallback;
 	// this counter is only 32 bits so it overflows every minute, let's ignore the value in case of the overflow for simplicity
 	if (diff > 0)
 		hsAdd(&triggerCallback, diff);

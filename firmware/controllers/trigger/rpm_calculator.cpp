@@ -209,7 +209,7 @@ void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void 
 		firmwareError("NaN delay?");
 		return;
 	}
-	scheduleTask(timer, MS2US(delayMs), callback, param);
+	scheduleTask(timer, (int)MS2US(delayMs), callback, param);
 }
 
 #endif /* EFI_SHAFT_POSITION_INPUT */

@@ -98,7 +98,9 @@ static msg_t consoleThreadThreadEntryPoint(void *arg) {
 
 		(console_line_callback)(consoleInput);
 	}
+#if defined __GNUC__
 	return FALSE;
+#endif        
 }
 
 #if EFI_SERIAL_OVER_USB
