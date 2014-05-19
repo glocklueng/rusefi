@@ -151,6 +151,10 @@ int isConsoleReady(void) {
 	return isSerialOverTcpReady;
 }
 
+bool_t hasFirmwareError(void) {
+	return FALSE;
+}
+
 void onFatalError(const char *msg, const char * file, int line) {
 	printf("onFatalError %s %s%d", msg, file, line);
 	exit(-1);
