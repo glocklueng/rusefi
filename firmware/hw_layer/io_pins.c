@@ -13,9 +13,12 @@
 #include "pin_repository.h"
 #include "gpio_helper.h"
 #include "status_loop.h"
-#include "main_trigger_callback.h"
 #include "engine_configuration.h"
 #include "console_io.h"
+
+#if EFI_ENGINE_CONTROL
+#include "main_trigger_callback.h"
+#endif /* EFI_ENGINE_CONTROL */
 
 extern board_configuration_s *boardConfiguration;
 
