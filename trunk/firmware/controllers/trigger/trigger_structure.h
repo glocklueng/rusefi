@@ -13,7 +13,11 @@
 #include "rusefi_enums.h"
 #include "EfiWave.h"
 
-typedef struct {
+class trigger_state_s {
+public:
+	trigger_state_s();
+	void clear();
+
 	/**
 	 * TRUE if we know where we are
 	 */
@@ -24,7 +28,7 @@ typedef struct {
 	uint64_t toothed_previous_duration;
 	uint64_t toothed_previous_time;
 
-} trigger_state_s;
+};
 
 typedef enum {
 	TV_LOW = 0,
@@ -77,7 +81,6 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-void clearTriggerState(trigger_state_s *state);
 void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, trigger_value_e state);
 
 #ifdef __cplusplus

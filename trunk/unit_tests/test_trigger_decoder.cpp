@@ -48,7 +48,6 @@ static void testDodgeNeonDecoder(void) {
 
 	trigger_shape_s * shape = &ec2.triggerShape;
 	trigger_state_s state;
-	clearTriggerState(&state);
 //
 //	assertFalseM("1 shaft_is_synchronized", state.shaft_is_synchronized);
 //
@@ -109,7 +108,6 @@ static void test1995FordInline6TriggerDecoder(void) {
 	assertEquals(0, ecl->events[5].position.angleOffset);
 
 	trigger_state_s state;
-	clearTriggerState(&state);
 
 	trigger_shape_s * shape = &ec2.triggerShape;
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
@@ -182,7 +180,6 @@ void testMazdaMianaNbDecoder(void) {
 	resetConfigurationExt(NULL, MAZDA_MIATA_NB, ec, &ec2, &persistentConfig.boardConfiguration);
 
 	trigger_state_s state;
-	clearTriggerState(&state);
 	trigger_shape_s * shape = &ec2.triggerShape;
 
 	int a = 0;
@@ -250,7 +247,6 @@ void testGY6_139QMB(void) {
 	resetConfigurationExt(NULL, GY6_139QMB, ec, &ec2, &persistentConfig.boardConfiguration);
 
 	trigger_state_s state;
-	clearTriggerState(&state);
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
 
 	trigger_shape_s * shape = &ec2.triggerShape;
