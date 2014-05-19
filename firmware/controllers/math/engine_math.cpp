@@ -144,7 +144,7 @@ static void registerSparkEvent(engine_configuration_s const *engineConfiguration
 
 void initializeIgnitionActions(float chargeAngle, engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2, ActuatorEventList *list) {
-	chDbgCheck(engineConfiguration->cylindersCount > 0, "cylindersCount");
+	efiAssertVoid(engineConfiguration->cylindersCount > 0, "cylindersCount");
 	ignitionSignals.clear();
 
 	resetEventList(list);
