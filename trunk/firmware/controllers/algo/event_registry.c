@@ -37,12 +37,18 @@ static void copyActuatorEvent(ActuatorEvent *source, ActuatorEvent*target) {
 	target->position.angleOffset = source->position.angleOffset;
 }
 
-void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset) {
+ActuatorEvent * getNextActuatorEvent(ActuatorEventList *list) {
 	if (list->size == MAX_EVENT_COUNT) {
 		fatal("registerActuatorEvent() too many events");
-		return;
+		return NULL;
 	}
-	ActuatorEvent *e = &list->events[list->size++];
+	return &list->events[list->size++];
+}
+
+void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset) {
+	ActuatorEvent *e = getNextActuatorEvent(list);
+	if (e == NULL)
+		return; // error already reported
 	e->position.eventIndex = eventIndex;
 	e->actuator = actuator;
 	e->position.angleOffset = angleOffset;

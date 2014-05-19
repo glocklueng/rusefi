@@ -136,12 +136,10 @@ int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm) {
 OutputSignalList ignitionSignals;
 OutputSignalList injectonSignals;
 
-
 static void registerSparkEvent(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
 
-	registerActuatorEventExt(engineConfiguration, s, list,
-			actuator, angleOffset);
+	registerActuatorEventExt(engineConfiguration, s, list, actuator, angleOffset);
 }
 
 void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineConfiguration,
@@ -181,8 +179,8 @@ void initializeIgnitionActions(float baseAngle, engine_configuration_s *engineCo
 			float angle = baseAngle + 720.0 * i / engineConfiguration->cylindersCount;
 
 			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
-			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list,
-					ignitionSignals.add(pin), angle);
+			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list, ignitionSignals.add(pin),
+					angle);
 		}
 		break;
 
@@ -243,7 +241,8 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
 }
 
-static void findTriggerPosition(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, event_trigger_position_s *position, float angleOffset) {
+static void findTriggerPosition(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
+		event_trigger_position_s *position, float angleOffset) {
 
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
 
@@ -280,15 +279,13 @@ void registerActuatorEventExt(engine_configuration_s const *engineConfiguration,
 		ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
 	chDbgCheck(s->getSize() > 0, "uninitialized trigger_shape_s");
 
-	event_trigger_position_s position;
-	findTriggerPosition(engineConfiguration, s, &position, angleOffset);
+	ActuatorEvent *e = getNextActuatorEvent(list);
+	if (e == NULL)
+		return; // error already reported
+	e->actuator = actuator;
 
-	registerActuatorEvent(list, position.eventIndex, actuator, position.angleOffset);
+	findTriggerPosition(engineConfiguration, s, &e->position, angleOffset);
 }
-
-//float getTriggerEventAngle(int triggerEventIndex) {
-//	return 0;
-//}
 
 static int order_1_THEN_3_THEN_4_THEN2[] = { 1, 3, 4, 2 };
 
