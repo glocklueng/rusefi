@@ -52,6 +52,10 @@ static void icuPeriordCallBack(ICUDriver *driver) {
 }
 
 static int getAlternateFunctions(ICUDriver *driver) {
+	if (driver == NULL) {
+		firmwareError("getAlternateFunctions(NULL)");
+		return -1;
+	}
 #if STM32_ICU_USE_TIM1
 	if (driver == &ICUD1)
 		return GPIO_AF_TIM1;
