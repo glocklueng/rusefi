@@ -121,5 +121,4 @@ void initTriggerCentral(void) {
 	initHistogram(&triggerCallback, "all callbacks");
 #endif /* EFI_HISTOGRAMS */
 	initTriggerDecoder();
-	triggerState.clear();
 }
