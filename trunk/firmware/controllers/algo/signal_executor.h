@@ -55,7 +55,6 @@ struct OutputSignal_struct {
 //	OutputSignal *next;
 };
 
-
 #ifdef __cplusplus
 extern "C"
 {
