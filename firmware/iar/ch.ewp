@@ -2147,6 +2147,12 @@
         <name>$PROJ_DIR$\..\controllers\algo\malfunction_central.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\controllers\algo\nmea.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\nmea.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\obd_error_codes.h</name>
       </file>
       <file>
