@@ -156,7 +156,7 @@ inline static int getElectricalValue1(pin_output_mode_e mode) {
 
 // todo: this method is here for unit test visibility. todo: move to a bette place!
 int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
-	chDbgCheck(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e");
+	efiAssert(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e", -1);
 
 	return logicalValue ? getElectricalValue1(mode) : getElectricalValue0(mode);
 }

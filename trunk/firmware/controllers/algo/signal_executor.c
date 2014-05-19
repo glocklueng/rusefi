@@ -135,7 +135,7 @@ void scheduleOutputBase(OutputSignal *signal, float delayMs, float durationMs) {
 	 * it's better to check for the exact 'TRUE' value since otherwise
 	 * we would accept any memory garbage
 	 */
-	chDbgCheck(signal->initialized == TRUE, "Signal not initialized");
+	efiAssertVoid(signal->initialized == TRUE, "Signal not initialized");
 //	signal->offset = offset;
 //	signal->duration = duration;
 }

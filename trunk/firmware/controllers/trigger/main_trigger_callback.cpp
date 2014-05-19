@@ -82,7 +82,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 static void handleFuel(int eventIndex, int rpm) {
 	if (!isInjectionEnabled())
 		return;
-	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
+	efiAssertVoid(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 
 	/**
 	 * Ignition events are defined by addFuelEvents() according to selected
@@ -168,7 +168,7 @@ void showMainHistogram(void) {
  * Both injection and ignition are controlled from this method.
  */
 static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex) {
-	chDbgCheck(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
+	efiAssertVoid(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 
 	int rpm = getRpm();
 	if (rpm == 0) {

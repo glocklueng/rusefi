@@ -76,7 +76,7 @@ static void printStatus(void) {
 }
 
 static void setInjectorEnabled(int id, int value) {
-	chDbgCheck(id >= 0 && id < engineConfiguration->cylindersCount, "injector id");
+	efiAssertVoid(id >= 0 && id < engineConfiguration->cylindersCount, "injector id");
 	is_injector_enabled[id] = value;
 	printStatus();
 }

@@ -277,7 +277,7 @@ static void findTriggerPosition(engine_configuration_s const *engineConfiguratio
 
 void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
-	chDbgCheck(s->getSize() > 0, "uninitialized trigger_shape_s");
+	efiAssertVoid(s->getSize() > 0, "uninitialized trigger_shape_s");
 
 	ActuatorEvent *e = getNextActuatorEvent(list);
 	if (e == NULL)

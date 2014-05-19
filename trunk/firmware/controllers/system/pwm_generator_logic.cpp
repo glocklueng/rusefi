@@ -112,7 +112,7 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes, int
 void weComplexInit(const char *msg, PwmConfig *state, int phaseCount, float *switchTimes, int waveCount,
 		int **pinStates, pwm_cycle_callback *cycleCallback, pwm_gen_callback *stateChangeCallback) {
 
-	chDbgCheck(state->periodMs != 0, "period is not initialized");
+	efiAssertVoid(state->periodMs != 0, "period is not initialized");
 	if (phaseCount == 0) {
 		firmwareError("signal length cannot be zero");
 		return;
@@ -125,7 +125,7 @@ void weComplexInit(const char *msg, PwmConfig *state, int phaseCount, float *swi
 		firmwareError("last switch time has to be 1");
 		return;
 	}
-	chDbgCheck(waveCount > 0, "waveCount should be positive");
+	efiAssertVoid(waveCount > 0, "waveCount should be positive");
 	checkSwitchTimes2(phaseCount, switchTimes);
 
 	state->multiWave.waveCount = waveCount;
