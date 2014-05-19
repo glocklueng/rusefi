@@ -84,7 +84,7 @@ static msg_t mwThread(int param) {
 			buff[0] = 'c';
 			buff[1] = 'l';
 			itoa10(&buff[2], lastSetTimerValue);
-			fatal(buff);
+			firmwareError(buff);
 			return -1;
 		}
 
