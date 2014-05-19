@@ -18,6 +18,7 @@ public:
 	trigger_state_s();
 	int getCurrentIndex();
 	uint64_t getTotalEventCounter();
+	uint64_t getStartOfRevolutionIndex();
 	void nextRevolution(int triggerEventCount);
 	void nextTriggerEvent();
 

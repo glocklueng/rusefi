@@ -18,6 +18,7 @@ extern "C"
 #endif /* __cplusplus */
 void addTriggerEventListener(ShaftPositionListener handler, const char *name);
 uint64_t getCrankEventCounter(void);
+uint64_t getStartOfRevolutionIndex(void);
 int isSignalDecoderError(void);
 void hwHandleShaftSignal(ShaftEvents signal);
 void initTriggerCentral(void);
