@@ -19,17 +19,22 @@
  */
 
 #include "main.h"
+
+#if EFI_MAP_AVERAGING
+
 #include "map_averaging.h"
 #include "trigger_central.h"
 #include "adc_inputs.h"
 #include "map.h"
-#include "analog_chart.h"
 #include "engine_state.h"
 #include "engine_configuration.h"
 #include "interpolation.h"
 #include "signal_executor.h"
 
-#if EFI_MAP_AVERAGING
+#if EFI_ANALOG_CHART
+#include "analog_chart.h"
+#endif /* EFI_ANALOG_CHART */
+
 
 #define FAST_MAP_CHART_SKIP_FACTOR 16
 
