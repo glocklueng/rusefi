@@ -54,7 +54,7 @@ static inline int isSynchronizationGap(trigger_state_s const *shaftPositionState
 			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioTo;
 }
 
-static inline int noSynchronizationResetNeeded(trigger_state_s const *shaftPositionState,
+static inline int noSynchronizationResetNeeded(trigger_state_s *shaftPositionState,
 		trigger_shape_s const *triggerShape, trigger_config_s const*triggerConfig) {
 	if (triggerConfig->isSynchronizationNeeded)
 		return FALSE;
@@ -63,7 +63,7 @@ static inline int noSynchronizationResetNeeded(trigger_state_s const *shaftPosit
 	/**
 	 * in case of noise the counter could be above the expected number of events
 	 */
-	return shaftPositionState->current_index >= triggerShape->shaftPositionEventCount - 1;
+	return shaftPositionState->getCurrentIndex() >= triggerShape->shaftPositionEventCount - 1;
 }
 
 /**
@@ -79,7 +79,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s co
 		/**
 		 * For less important events we simply increment the index.
 		 */
-		shaftPositionState->current_index++;
+		shaftPositionState->nextTriggerEvent();
 		return;
 	}
 
@@ -103,16 +103,16 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s co
 		/**
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
 		 */
-		int isDecodingError = shaftPositionState->current_index != triggerShape->shaftPositionEventCount - 1;
+		int isDecodingError = shaftPositionState->getCurrentIndex() != triggerShape->shaftPositionEventCount - 1;
 		errorDetection.add(isDecodingError);
 
 		if (isTriggerDecoderError())
 			warning(OBD_PCM_Processor_Fault, "trigger decoding issue");
 
 		shaftPositionState->shaft_is_synchronized = TRUE;
-		shaftPositionState->current_index = 0;
+		shaftPositionState->nextRevolution();
 	} else {
-		shaftPositionState->current_index++;
+		shaftPositionState->nextTriggerEvent();
 	}
 
 	shaftPositionState->toothed_previous_duration = currentDuration;

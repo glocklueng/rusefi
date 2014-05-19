@@ -57,6 +57,18 @@ trigger_state_s::trigger_state_s() {
 	clear();
 }
 
+int trigger_state_s::getCurrentIndex() {
+	return current_index;
+}
+
+void trigger_state_s::nextRevolution() {
+	current_index = 0;
+}
+
+void trigger_state_s::nextTriggerEvent() {
+	current_index++;
+}
+
 void trigger_state_s::clear() {
 	shaft_is_synchronized = FALSE;
 	toothed_previous_time = 0;

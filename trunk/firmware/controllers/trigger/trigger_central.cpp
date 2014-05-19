@@ -86,8 +86,8 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 	if (!triggerState.shaft_is_synchronized)
 		return; // we should not propagate event if we do not know where we are
 
-	if (triggerState.current_index >= engineConfiguration2->triggerShape.shaftPositionEventCount) {
-		int f = warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.current_index);
+	if (triggerState.getCurrentIndex() >= engineConfiguration2->triggerShape.shaftPositionEventCount) {
+		int f = warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.getCurrentIndex());
 		if(!f) {
 			for (int i = 0; i < HW_EVENT_TYPES; i++)
 				scheduleMsg(&logging, "event type: %d count=%d", i, hwEventCounters[i]);
@@ -97,7 +97,7 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 		/**
 		 * Here we invoke all the listeners - the main engine control logic is inside these listeners
 		 */
-		invokeIntIntCallbacks(&triggerListeneres, signal, triggerState.current_index);
+		invokeIntIntCallbacks(&triggerListeneres, signal, triggerState.getCurrentIndex());
 	}
 	int afterCallback = hal_lld_get_counter_value();
 #if EFI_HISTOGRAMS
