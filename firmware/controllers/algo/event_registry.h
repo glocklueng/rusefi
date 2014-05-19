@@ -55,7 +55,7 @@ void resetEventList(ActuatorEventList *list);
  * @param	actuator injector or coil OutputSignal
  */
 void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset);
-
+ActuatorEvent * getNextActuatorEvent(ActuatorEventList *list);
 void findEvents(int eventIndex, ActuatorEventList *source, ActuatorEventList *target);
 
 #ifdef __cplusplus
