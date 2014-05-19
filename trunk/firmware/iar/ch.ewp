@@ -2164,6 +2164,12 @@
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\signal_executor.h</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\wave_chart.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\wave_chart.h</name>
+      </file>
     </group>
     <group>
       <name>core</name>
@@ -2407,6 +2413,42 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\settings.h</name>
+    </file>
+  </group>
+  <group>
+    <name>emulation</name>
+    <group>
+      <name>hw_layer</name>
+    </group>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\analog_chart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\analog_chart.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\engine_emulator.cpp</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\engine_emulator.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\rfi_perftest.cpp</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\rfi_perftest.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\trigger_emulator.cpp</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\trigger_emulator.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\wave_analyzer.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\emulation\wave_analyzer.h</name>
     </file>
   </group>
   <group>
