@@ -7,13 +7,16 @@
  */
 
 #include "main.h"
+#include "engine_configuration.h"
 #include "adc_inputs.h"
 #include "AdcConfiguration.h"
 
 #include "pin_repository.h"
 #include "engine_math.h"
+
+#if EFI_SPEED_DENSITY
 #include "map_averaging.h"
-#include "engine_configuration.h"
+#endif /* EFI_SPEED_DENSITY */
 
 AdcConfiguration::AdcConfiguration(ADCConversionGroup* hwConfig) {
 	this->hwConfig = hwConfig;

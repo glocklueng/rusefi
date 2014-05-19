@@ -44,11 +44,21 @@
  */
 #define EFI_CLI_SUPPORT TRUE
 
+#define EFI_INTERNAL_FLASH TRUE
 
 /**
  * Usually you need shaft position input, but maybe you do not need it?
  */
 #define EFI_SHAFT_POSITION_INPUT TRUE
+
+#define EFI_ANALOG_INPUTS TRUE
+
+/**
+ * Maybe we are just sniffing what's going on?
+ */
+#define EFI_ENGINE_CONTROL TRUE
+
+#define EFI_SPEED_DENSITY TRUE
 
 /**
  * MCP42010 digital potentiometer support. This could be useful if you are stimulating some
