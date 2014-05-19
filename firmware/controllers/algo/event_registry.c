@@ -32,9 +32,9 @@ void resetEventList(ActuatorEventList *list) {
 }
 
 static void copyActuatorEvent(ActuatorEvent *source, ActuatorEvent*target) {
-	target->eventIndex = source->eventIndex;
+	target->position.eventIndex = source->position.eventIndex;
 	target->actuator = source->actuator;
-	target->angleOffset = source->angleOffset;
+	target->position.angleOffset = source->position.angleOffset;
 }
 
 void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset) {
@@ -43,9 +43,9 @@ void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal
 		return;
 	}
 	ActuatorEvent *e = &list->events[list->size++];
-	e->eventIndex = eventIndex;
+	e->position.eventIndex = eventIndex;
 	e->actuator = actuator;
-	e->angleOffset = angleOffset;
+	e->position.angleOffset = angleOffset;
 }
 
 void findEvents(int eventIndex, ActuatorEventList *source, ActuatorEventList *target) {
@@ -53,7 +53,7 @@ void findEvents(int eventIndex, ActuatorEventList *source, ActuatorEventList *ta
 	// todo: implement something faster
 	for (int i = 0; i < source->size; i++) {
 		ActuatorEvent *s = &source->events[i];
-		if (s->eventIndex != eventIndex)
+		if (s->position.eventIndex != eventIndex)
 			continue;
 		// todo: migrate to pointers instead of copying an object?
 		copyActuatorEvent(s, &target->events[target->size++]);

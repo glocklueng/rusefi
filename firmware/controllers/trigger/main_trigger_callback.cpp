@@ -71,7 +71,7 @@ static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
 		return;
 	}
 
-	float delay = getOneDegreeTimeMs(rpm) * event->angleOffset;
+	float delay = getOneDegreeTimeMs(rpm) * event->position.angleOffset;
 
 //	if (isCranking())
 //		scheduleMsg(&logger, "crankingFuel=%f for CLT=%fC", fuelMs, getCoolantTemperature());
@@ -110,7 +110,7 @@ static void handleSparkEvent(ActuatorEvent *event, int rpm) {
 		return;
 	}
 
-	float sparkDelay = getOneDegreeTimeMs(rpm) * event->angleOffset;
+	float sparkDelay = getOneDegreeTimeMs(rpm) * event->position.angleOffset;
 	int isIgnitionError = sparkDelay < 0;
 	ignitionErrorDetection.add(isIgnitionError);
 	if (isIgnitionError) {
