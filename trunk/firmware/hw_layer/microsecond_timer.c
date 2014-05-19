@@ -90,7 +90,7 @@ static msg_t mwThread(int param) {
 
 		msg = isTimerPending ? "No_cb too long" : "Timer not awhile";
 		// 2 seconds of inactivity would not look right
-		efiAssert(getTimeNowUs() < lastSetTimerTime + 2 * US_PER_SECOND, msg);
+		efiAssert(getTimeNowUs() < lastSetTimerTime + 2 * US_PER_SECOND, msg, -1);
 	}
 #if defined __GNUC__
 	return -1;

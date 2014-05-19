@@ -45,7 +45,7 @@ int getRusEfiVersion(void);
  * @deprecated Global panic is inconvenient because it's hard to deliver the error message while whole instance
  * is stopped. Please use firmwareWarning() instead
  */
-#define efiAssert(x, y) chDbgAssert(x, y, NULL)
+#define efiAssert(condition, message, result) { if (!(condition)) { firmwareError(message); return result; } }
 
 #define efiAssertVoid(condition, message) { if (!(condition)) { firmwareError(message); return; } }
 

@@ -121,7 +121,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s co
 }
 
 static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeethCount, int skippedCount) {
-	efiAssert(s != NULL, "trigger_shape_s is NULL");
+	efiAssertVoid(s != NULL, "trigger_shape_s is NULL");
 	s->reset();
 
 	float toothWidth = 0.5;

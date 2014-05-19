@@ -34,8 +34,8 @@ static int initialized = FALSE;
 
 float getBaseAdvance(int rpm, float engineLoad) {
 	chDbgAssert(initialized, "fuel map initialized", NULL);
-	efiAssert(!cisnan(engineLoad), "invalid el");
-	efiAssert(!cisnan(engineLoad), "invalid rpm");
+	efiAssert(!cisnan(engineLoad), "invalid el", NAN);
+	efiAssert(!cisnan(engineLoad), "invalid rpm", NAN);
 	return interpolate3d(engineLoad, engineConfiguration->ignitionLoadBins, AD_LOAD_COUNT, rpm,
 			engineConfiguration->ignitionRpmBins,
 			AD_RPM_COUNT, timing_ptrs);

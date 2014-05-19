@@ -78,7 +78,7 @@ void Executor::doExecute(uint64_t nowUs) {
 	 * Let's set up the timer for the next execution
 	 */
 	uint64_t nextEventTime = queue.getNextEventTime(nowUs);
-	efiAssert(nextEventTime > nowUs, "setTimer constraint");
+	efiAssertVoid(nextEventTime > nowUs, "setTimer constraint");
 	if (nextEventTime == EMPTY_QUEUE)
 		return; // no pending events in the queue
 	setHardwareUsTimer(nextEventTime - nowUs);
