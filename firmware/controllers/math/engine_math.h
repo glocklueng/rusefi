@@ -11,6 +11,14 @@
 #include "engine_configuration.h"
 
 #ifdef __cplusplus
+#include "trigger_structure.h"
+
+void findTriggerPosition(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
+		event_trigger_position_s *position, float angleOffset);
+
+#endif
+
+#ifdef __cplusplus
 extern "C"
 {
 #endif /* __cplusplus */
@@ -34,6 +42,7 @@ float getEngineLoadT(engine_configuration_s *engineConfiguration);
 
 float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm);
 #define getSparkDwellMs(rpm) getSparkDwellMsT(engineConfiguration, rpm)
+
 
 int getCylinderId(firing_order_e firingOrder, int index);
 
