@@ -214,7 +214,7 @@ static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex) {
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
-		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2, dwellMs, &engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
+		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2, dwellAngle, &engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
 	}
 
 	handleFuel(eventIndex, rpm);
