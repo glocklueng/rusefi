@@ -97,6 +97,7 @@ int isTriggerDecoderError(void);
 
 static void errBlinkingThread(void *arg) {
 	chRegSetThreadName("err blinking");
+#if EFI_ENGINE_CONTROL
 	while (TRUE) {
 		int delay = 33;
 		if (isTriggerDecoderError() || isIgnitionTimingError())
@@ -106,6 +107,7 @@ static void errBlinkingThread(void *arg) {
 			setOutputPinValue(LED_ERROR, 0);
 		chThdSleepMilliseconds(delay);
 	}
+#endif /* EFI_ENGINE_CONTROL */
 }
 
 static void outputPinRegisterExt(const char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin,
