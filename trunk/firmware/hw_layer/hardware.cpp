@@ -83,7 +83,7 @@ void initI2Cmodule(void) {
 			PAL_MODE_ALTERNATE(EFI_I2C_AF) | PAL_STM32_OTYPE_OPENDRAIN);
 }
 
-static char txbuf[1];
+//static char txbuf[1];
 
 static void sendI2Cbyte(int addr, int data) {
 //	i2cAcquireBus(&I2CD1);

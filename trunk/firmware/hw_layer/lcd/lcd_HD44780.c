@@ -71,7 +71,7 @@ static void lcdSleep(int period) {
 	}
 }
 
-static char txbuf[1];
+//static char txbuf[1];
 #define LCD_PORT_EXP_ADDR 0x20
 
 //-----------------------------------------------------------------------------

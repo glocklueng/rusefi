@@ -92,7 +92,9 @@ static msg_t mwThread(int param) {
 		// 2 seconds of inactivity would not look right
 		efiAssert(getTimeNowUs() < lastSetTimerTime + 2 * US_PER_SECOND, msg);
 	}
+#if defined __GNUC__
 	return -1;
+#endif        
 }
 
 //static const GPTConfig gpt5cfg;

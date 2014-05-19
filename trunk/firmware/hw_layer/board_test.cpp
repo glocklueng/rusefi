@@ -88,7 +88,9 @@ static msg_t ivThread(int param) {
 		uint32_t hwPin = getHwPin(currentPin);
 		palWritePad(hwPort, hwPin, value);
 	}
+#if defined __GNUC__
 	return 0;
+#endif        
 }
 
 void initBoardTest(void) {
