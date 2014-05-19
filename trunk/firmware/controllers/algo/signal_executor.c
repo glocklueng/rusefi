@@ -56,8 +56,6 @@ void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 }
 
 void initOutputSignalBase(OutputSignal *signal) {
-	signal->status = IDLE;
-//	signal->last_scheduling_time = 0;
 	signal->initialized = TRUE;
 }
 
