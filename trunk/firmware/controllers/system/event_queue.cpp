@@ -77,7 +77,7 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
 			firmwareError("Is this list looped #2?");
 			return EMPTY_QUEUE;
 		}
-		efiAssert(current->momentUs > nowUs, "executeAll should have been called");
+		efiAssert(current->momentUs > nowUs, "executeAll should have been called", EMPTY_QUEUE);
 		if (current->momentUs < result)
 			result = current->momentUs;
 	}
