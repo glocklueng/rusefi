@@ -39,20 +39,20 @@
         <option>
           <name>Input variant</name>
           <version>3</version>
-          <state>0</state>
+          <state>6</state>
         </option>
         <option>
           <name>Input description</name>
-          <state>Automatic choice of formatter.</state>
+          <state>No specifier n, no float nor long long, no scan set, no assignment suppressing.</state>
         </option>
         <option>
           <name>Output variant</name>
           <version>2</version>
-          <state>0</state>
+          <state>7</state>
         </option>
         <option>
           <name>Output description</name>
-          <state>Automatic choice of formatter.</state>
+          <state>No specifier a, A, no specifier n, no float nor long long, no flags.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -83,7 +83,7 @@
         </option>
         <option>
           <name>OGProductVersion</name>
-          <state>6.50.3.4744</state>
+          <state>5.10.0.159</state>
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
@@ -162,6 +162,10 @@
         <version>28</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
+        <option>
+          <name>CCOptimizationNoSizeConstraints</name>
+          <state>0</state>
+        </option>
         <option>
           <name>CCDefines</name>
           <state></state>
@@ -308,26 +312,11 @@
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\RTCv2</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\USARTv1</state>
+          <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\OTGv1</state>
           <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx</state>
           <state>$PROJ_DIR$\..\chibios\os\various</state>
           <state>$PROJ_DIR$\..\chibios\os\various\devices_lib\accel</state>
-          <state>$PROJ_DIR$\..\config\system</state>
           <state>$PROJ_DIR$\..\chibios\boards\ST_STM32F4_DISCOVERY</state>
-          <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\OTGv1</state>
-          <state>$PROJ_DIR$\..\config</state>
-          <state>$PROJ_DIR$\..\ext</state>
-          <state>$PROJ_DIR$\..\ext_algo</state>
-          <state>$PROJ_DIR$\..\emulation</state>
-          <state>$PROJ_DIR$\..\emulation\hw_layer</state>
-          <state>$PROJ_DIR$\..\hw_layer\lcd</state>
-          <state>$PROJ_DIR$\..\hw_layer</state>
-          <state>$PROJ_DIR$\..\russianefi</state>
-          <state>$PROJ_DIR$\..\russianefi\adc</state>
-          <state>$PROJ_DIR$\..\russianefi\algo</state>
-          <state>$PROJ_DIR$\..\russianefi\ckp</state>
-          <state>$PROJ_DIR$\..\settings</state>
-          <state>$PROJ_DIR$\..\splib</state>
-          <state>$PROJ_DIR$\..\tunerstudio</state>
           <state>$PROJ_DIR$\..\controllers</state>
           <state>$PROJ_DIR$\..\controllers\algo</state>
           <state>$PROJ_DIR$\..\controllers\core</state>
@@ -335,17 +324,24 @@
           <state>$PROJ_DIR$\..\controllers\sensors</state>
           <state>$PROJ_DIR$\..\controllers\math</state>
           <state>$PROJ_DIR$\..\controllers\trigger</state>
-          <state>$PROJ_DIR$\..\util</state>
           <state>$PROJ_DIR$\..\console</state>
-          <state>$PROJ_DIR$\..\console\tunerstudio</state>
-          <state>$PROJ_DIR$\..\console_util</state>
-          <state>$PROJ_DIR$\..</state>
           <state>$PROJ_DIR$\..\config</state>
           <state>$PROJ_DIR$\..\config\engines</state>
           <state>$PROJ_DIR$\..\config\boards</state>
+          <state>$PROJ_DIR$\..\config\system</state>
+          <state>$PROJ_DIR$\..\console\tunerstudio</state>
+          <state>$PROJ_DIR$\..\console_util</state>
+          <state>$PROJ_DIR$\..\emulation</state>
+          <state>$PROJ_DIR$\..\emulation\hw_layer</state>
           <state>$PROJ_DIR$\..\hw_layer\algo</state>
           <state>$PROJ_DIR$\..\hw_layer\lcd</state>
           <state>$PROJ_DIR$\..\hw_layer\serial_over_usb</state>
+          <state>$PROJ_DIR$\..\hw_layer</state>
+          <state>$PROJ_DIR$\..\ext</state>
+          <state>$PROJ_DIR$\..\ext_algo</state>
+          <state>$PROJ_DIR$\..\emulation</state>
+          <state>$PROJ_DIR$\..\emulation\hw_layer</state>
+          <state>$PROJ_DIR$\..\util</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -436,10 +432,6 @@
         </option>
         <option>
           <name>IccFloatSemantics</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>CCOptimizationNoSizeConstraints</name>
           <state>0</state>
         </option>
       </data>
@@ -594,8 +586,9 @@
         </option>
         <option>
           <name>AUserIncludes</name>
-          <state>$PROJ_DIR$\..\config\system</state>
+          <state>$PROJ_DIR$\..</state>
           <state>$PROJ_DIR$\..\chibios\os\ports\IAR\ARMCMx\STM32F4xx</state>
+          <state>$PROJ_DIR$\..\chibios\boards\ST_STM32F4_DISCOVERY</state>
         </option>
         <option>
           <name>AExtraOptionsCheckV2</name>
@@ -666,6 +659,10 @@
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
+          <name>IlinkOutputFile</name>
+          <state>ch.out</state>
+        </option>
+        <option>
           <name>IlinkLibIOConfig</name>
           <state>1</state>
         </option>
@@ -676,10 +673,6 @@
         <option>
           <name>IlinkInputFileSlave</name>
           <state>0</state>
-        </option>
-        <option>
-          <name>IlinkOutputFile</name>
-          <state>ch.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -739,11 +732,11 @@
         </option>
         <option>
           <name>IlinkIcfOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\ST\stm32f407xG.icf</state>
+          <state>$PROJ_DIR$\ch.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -999,7 +992,7 @@
         <option>
           <name>Variant</name>
           <version>20</version>
-          <state>0</state>
+          <state>39</state>
         </option>
         <option>
           <name>GEndianMode</name>
@@ -1008,20 +1001,20 @@
         <option>
           <name>Input variant</name>
           <version>3</version>
-          <state>0</state>
+          <state>6</state>
         </option>
         <option>
           <name>Input description</name>
-          <state></state>
+          <state>No specifier n, no float nor long long, no scan set, no assignment suppressing.</state>
         </option>
         <option>
           <name>Output variant</name>
           <version>2</version>
-          <state>0</state>
+          <state>7</state>
         </option>
         <option>
           <name>Output description</name>
-          <state></state>
+          <state>No specifier a, A, no specifier n, no float nor long long, no flags.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -1034,7 +1027,7 @@
         </option>
         <option>
           <name>OGCoreOrChip</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GRuntimeLibSelect</name>
@@ -1048,15 +1041,15 @@
         </option>
         <option>
           <name>RTDescription</name>
-          <state></state>
+          <state>Use the normal configuration of the C/C++ runtime library. No locale interface, C locale, no file descriptor support, no multibytes in printf and scanf, and no hex floats in strtod.</state>
         </option>
         <option>
           <name>OGProductVersion</name>
-          <state>6.50.3.4744</state>
+          <state>5.10.0.159</state>
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state></state>
+          <state>6.30.3.53229</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -1068,7 +1061,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state></state>
+          <state>STM32F4xxx	ST STM32F4xxx</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -1076,7 +1069,7 @@
         </option>
         <option>
           <name>GEndianModeBE</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>OGBufferedTerminalOutput</name>
@@ -1102,17 +1095,17 @@
         </option>
         <option>
           <name>RTConfigPath2</name>
-          <state></state>
+          <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Normal.h</state>
         </option>
         <option>
           <name>GFPUCoreSlave</name>
           <version>20</version>
-          <state>1</state>
+          <state>39</state>
         </option>
         <option>
           <name>GBECoreSlave</name>
           <version>20</version>
-          <state>1</state>
+          <state>39</state>
         </option>
         <option>
           <name>OGUseCmsis</name>
@@ -1132,6 +1125,10 @@
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
+          <name>CCOptimizationNoSizeConstraints</name>
+          <state>0</state>
+        </option>
+        <option>
           <name>CCDefines</name>
           <state>NDEBUG</state>
         </option>
@@ -1149,15 +1146,15 @@
         </option>
         <option>
           <name>CCListCFile</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCListCMnemonics</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCListCMessages</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCListAssFile</name>
@@ -1165,7 +1162,7 @@
         </option>
         <option>
           <name>CCListAssSource</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCEnableRemarks</name>
@@ -1238,7 +1235,7 @@
         </option>
         <option>
           <name>CCCompilerRuntimeInfo</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IFpuProcessor</name>
@@ -1246,7 +1243,7 @@
         </option>
         <option>
           <name>OutputFile</name>
-          <state></state>
+          <state>$FILE_BNAME$.o</state>
         </option>
         <option>
           <name>CCLibConfigHeader</name>
@@ -1262,7 +1259,24 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state></state>
+          <state>$PROJ_DIR$\..\</state>
+          <state>$PROJ_DIR$\..\chibios\os\kernel\include</state>
+          <state>$PROJ_DIR$\..\chibios\os\ports\common\ARMCMx</state>
+          <state>$PROJ_DIR$\..\chibios\os\ports\common\ARMCMx\CMSIS\include</state>
+          <state>$PROJ_DIR$\..\chibios\os\ports\IAR\ARMCMx</state>
+          <state>$PROJ_DIR$\..\chibios\os\ports\IAR\ARMCMx\STM32F4xx</state>
+          <state>$PROJ_DIR$\..\chibios\os\hal\include</state>
+          <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32</state>
+          <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\DMAv1</state>
+          <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\GPIOv2</state>
+          <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\SPIv1</state>
+          <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1</state>
+          <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\USARTv1</state>
+          <state>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx</state>
+          <state>$PROJ_DIR$\..\chibios\os\various</state>
+          <state>$PROJ_DIR$\..\chibios\os\various\devices_lib\accel</state>
+          <state>$PROJ_DIR$\..\chibios\boards\ST_STM32F4_DISCOVERY</state>
+          <state>$PROJ_DIR$\..\..\..\test</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1287,11 +1301,11 @@
         <option>
           <name>CCOptStrategy</name>
           <version>0</version>
-          <state>0</state>
+          <state>2</state>
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>1</state>
+          <state>3</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -1355,10 +1369,6 @@
           <name>IccFloatSemantics</name>
           <state>0</state>
         </option>
-        <option>
-          <name>CCOptimizationNoSizeConstraints</name>
-          <state>0</state>
-        </option>
       </data>
     </settings>
     <settings>
@@ -1419,7 +1429,7 @@
         </option>
         <option>
           <name>AList</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>AListHeader</name>
@@ -1491,7 +1501,7 @@
         </option>
         <option>
           <name>AOutputFile</name>
-          <state></state>
+          <state>$FILE_BNAME$.o</state>
         </option>
         <option>
           <name>AMultibyteSupport</name>
@@ -1511,7 +1521,9 @@
         </option>
         <option>
           <name>AUserIncludes</name>
-          <state></state>
+          <state>$PROJ_DIR$\..</state>
+          <state>$PROJ_DIR$\..\chibios\os\ports\IAR\ARMCMx\STM32F4xx</state>
+          <state>$PROJ_DIR$\..\chibios\boards\ST_STM32F4_DISCOVERY</state>
         </option>
         <option>
           <name>AExtraOptionsCheckV2</name>
@@ -1582,6 +1594,10 @@
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
+          <name>IlinkOutputFile</name>
+          <state>ch.out</state>
+        </option>
+        <option>
           <name>IlinkLibIOConfig</name>
           <state>1</state>
         </option>
@@ -1592,10 +1608,6 @@
         <option>
           <name>IlinkInputFileSlave</name>
           <state>0</state>
-        </option>
-        <option>
-          <name>IlinkOutputFile</name>
-          <state>###Unitialized###</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -1631,35 +1643,35 @@
         </option>
         <option>
           <name>IlinkMapFile</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkLogFile</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkLogInitialization</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkLogModule</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkLogSection</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkLogVeneer</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkIcfOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>lnk0t.icf</state>
+          <state>$PROJ_DIR$\ch.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1719,7 +1731,7 @@
         </option>
         <option>
           <name>IlinkProgramEntryLabel</name>
-          <state></state>
+          <state>__iar_program_start</state>
         </option>
         <option>
           <name>DoFill</name>
@@ -1790,15 +1802,15 @@
         </option>
         <option>
           <name>IlinkLogAutoLibSelect</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkLogRedirSymbols</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkLogUnusedFragments</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkCrcReverseByteOrder</name>
@@ -1888,39 +1900,6 @@
     </settings>
   </configuration>
   <group>
-    <name>chibios</name>
-    <group>
-      <name>boards</name>
-      <group>
-        <name>ST_STM32F4_DISCOVERY</name>
-        <file>
-          <name>$PROJ_DIR$\..\chibios\boards\ST_STM32F4_DISCOVERY\board.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\chibios\boards\ST_STM32F4_DISCOVERY\board.h</name>
-        </file>
-      </group>
-    </group>
-    <group>
-      <name>ext</name>
-      <group>
-        <name>fatfs</name>
-        <group>
-          <name>src</name>
-          <group>
-            <name>option</name>
-            <file>
-              <name>$PROJ_DIR$\..\chibios\ext\fatfs\src\option\ccsbcs.c</name>
-            </file>
-          </group>
-          <file>
-            <name>$PROJ_DIR$\..\chibios\ext\fatfs\src\ff.c</name>
-          </file>
-        </group>
-      </group>
-    </group>
-  </group>
-  <group>
     <name>config</name>
     <group>
       <name>boards</name>
@@ -1950,9 +1929,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\dodge_neon.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\config\engines\engine.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\config\engines\engines.h</name>
@@ -2042,6 +2018,9 @@
         <name>$PROJ_DIR$\..\config\system\mcuconf.h</name>
       </file>
     </group>
+    <file>
+      <name>$PROJ_DIR$\..\config\efifeatures.h</name>
+    </file>
   </group>
   <group>
     <name>console</name>
@@ -2159,9 +2138,6 @@
         <name>$PROJ_DIR$\..\controllers\algo\io_pins.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\main_trigger_callback.h</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\controllers\algo\main_trigger_callback.h</name>
       </file>
       <file>
@@ -2169,18 +2145,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\malfunction_central.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\map_adjuster.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\map_adjuster.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\nmea.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\nmea.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\obd_error_codes.h</name>
@@ -2200,21 +2164,9 @@
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\signal_executor.h</name>
       </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\wave_chart.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\algo\wave_chart.h</name>
-      </file>
     </group>
     <group>
       <name>core</name>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\core\avg_values.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\core\avg_values.h</name>
-      </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\core\EfiWave.cpp</name>
       </file>
@@ -2227,15 +2179,12 @@
       <file>
         <name>$PROJ_DIR$\..\controllers\core\interpolation.h</name>
       </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\core\signal_filtering.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\controllers\core\signal_filtering.h</name>
-      </file>
     </group>
     <group>
       <name>math</name>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\math\efitime.h</name>
+      </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\math\engine_math.cpp</name>
       </file>
@@ -2270,7 +2219,7 @@
         <name>$PROJ_DIR$\..\controllers\sensors\map.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\sensors\sensors.h</name>
+        <name>$PROJ_DIR$\..\controllers\sensors\sensor_types.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\sensors\thermistors.cpp</name>
@@ -2459,72 +2408,6 @@
     <file>
       <name>$PROJ_DIR$\..\controllers\settings.h</name>
     </file>
-    <file>
-      <name>$PROJ_DIR$\..\controllers\signal_executor.h</name>
-    </file>
-  </group>
-  <group>
-    <name>emulation</name>
-    <group>
-      <name>hw_layer</name>
-      <file>
-        <name>$PROJ_DIR$\..\emulation\hw_layer\poten.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\emulation\hw_layer\poten.h</name>
-      </file>
-    </group>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\analog_chart.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\analog_chart.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\engine_emulator.cpp</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\engine_emulator.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\rfi_perftest.cpp</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\rfi_perftest.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\trigger_emulator.cpp</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\trigger_emulator.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\wave_analyzer.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\emulation\wave_analyzer.h</name>
-    </file>
-  </group>
-  <group>
-    <name>ext</name>
-    <file>
-      <name>$PROJ_DIR$\..\ext\diskio.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\ext\ff.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\ext\ffconf.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\ext\integer.h</name>
-    </file>
-  </group>
-  <group>
-    <name>ext_algo</name>
-    <file>
-      <name>$PROJ_DIR$\..\ext_algo\utlist.h</name>
-    </file>
   </group>
   <group>
     <name>hw_layer</name>
@@ -2670,6 +2553,15 @@
   <group>
     <name>os</name>
     <group>
+      <name>board</name>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\boards\ST_STM32F4_DISCOVERY\board.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\boards\ST_STM32F4_DISCOVERY\board.h</name>
+      </file>
+    </group>
+    <group>
       <name>hal</name>
       <group>
         <name>include</name>
@@ -2686,9 +2578,6 @@
           <name>$PROJ_DIR$\..\chibios\os\hal\include\gpt.h</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1\gpt_lld.h</name>
-        </file>
-        <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\include\hal.h</name>
         </file>
         <file>
@@ -2696,9 +2585,6 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\include\icu.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1\icu_lld.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\include\mac.h</name>
@@ -2731,12 +2617,6 @@
           <name>$PROJ_DIR$\..\chibios\os\hal\include\spi.h</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\OTGv1\stm32_otg.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1\stm32_tim.h</name>
-        </file>
-        <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\include\uart.h</name>
         </file>
         <file>
@@ -2744,9 +2624,6 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\include\usb_cdc.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\OTGv1\usb_lld.h</name>
         </file>
       </group>
       <group>
@@ -2764,9 +2641,6 @@
           <name>$PROJ_DIR$\..\chibios\os\hal\src\gpt.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1\gpt_lld.c</name>
-        </file>
-        <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\src\hal.c</name>
         </file>
         <file>
@@ -2776,16 +2650,10 @@
           <name>$PROJ_DIR$\..\chibios\os\hal\src\icu.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1\icu_lld.c</name>
-        </file>
-        <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\src\mac.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\src\mmc_spi.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\chibios\os\hal\src\mmcsd.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\src\pal.c</name>
@@ -2813,9 +2681,6 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\src\usb.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\OTGv1\usb_lld.c</name>
         </file>
       </group>
     </group>
@@ -2950,15 +2815,6 @@
     </group>
     <group>
       <name>platform</name>
-      <group>
-        <name>STM32</name>
-        <file>
-          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\RTCv2\rtc_lld.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\RTCv2\rtc_lld.h</name>
-        </file>
-      </group>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx\adc_lld.c</name>
       </file>
@@ -2970,6 +2826,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\can_lld.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1\gpt_lld.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1\gpt_lld.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx\hal_lld.c</name>
@@ -2984,6 +2846,12 @@
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\I2Cv1\i2c_lld.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1\icu_lld.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1\icu_lld.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\GPIOv2\pal_lld.c</name>
       </file>
       <file>
@@ -2994,6 +2862,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1\pwm_lld.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\RTCv2\rtc_lld.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\RTCv2\rtc_lld.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\USARTv1\serial_lld.c</name>
@@ -3014,10 +2888,22 @@
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx\stm32_dma.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\OTGv1\stm32_otg.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx\stm32_rcc.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\TIMv1\stm32_tim.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32F4xx\stm32f4xx.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\OTGv1\usb_lld.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\hal\platforms\STM32\OTGv1\usb_lld.h</name>
       </file>
     </group>
     <group>
@@ -3061,15 +2947,6 @@
     </group>
     <group>
       <name>various</name>
-      <group>
-        <name>fatfs_bindings</name>
-        <file>
-          <name>$PROJ_DIR$\..\chibios\os\various\fatfs_bindings\fatfs_diskio.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\chibios\os\various\fatfs_bindings\fatfs_syscall.c</name>
-        </file>
-      </group>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\various\chprintf.c</name>
       </file>
@@ -3123,9 +3000,6 @@
       <name>$PROJ_DIR$\..\util\efilib2.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\util\global.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\util\histogram.c</name>
     </file>
     <file>
@@ -3151,16 +3025,31 @@
     </file>
   </group>
   <file>
+    <name>$PROJ_DIR$\..\chconf.h</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\global.h</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\halconf.h</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\..\main.cpp</name>
   </file>
   <file>
     <name>$PROJ_DIR$\..\main.h</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\..\mcuconf.h</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\..\rusefi.cpp</name>
   </file>
   <file>
     <name>$PROJ_DIR$\..\rusefi.h</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\svnversion.h</name>
   </file>
 </project>
 
