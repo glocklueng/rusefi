@@ -66,11 +66,7 @@ static bool intermediateLoggingBufferInited = FALSE;
 
 static int validateBuffer(Logging *logging, int extraLen, const char *text) {
 	if (logging->buffer == NULL) {
-		strcpy(logging->SMALL_BUFFER, "Logging not initialized: ");
-		strcat(logging->SMALL_BUFFER, logging->name);
-		strcat(logging->SMALL_BUFFER, "/");
-		strcat(logging->SMALL_BUFFER, text);
-		fatal(logging->SMALL_BUFFER);
+		firmwareError("Logging not initialized: %s", logging->name);
 		return TRUE;
 	}
 
@@ -290,7 +286,10 @@ void appendMsgPostfix(Logging *logging) {
 
 void resetLogging(Logging *logging) {
 	char *buffer = logging->buffer;
-	chDbgCheck(buffer!=NULL, "null buffer");
+	if (buffer == NULL) {
+		firmwareError("Null buffer: %s", logging->name);
+		return;
+	}
 	logging->linePointer = buffer;
 }
 
