@@ -110,7 +110,7 @@ void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s co
 			warning(OBD_PCM_Processor_Fault, "trigger decoding issue");
 
 		shaftPositionState->shaft_is_synchronized = TRUE;
-		shaftPositionState->nextRevolution();
+		shaftPositionState->nextRevolution(triggerShape->shaftPositionEventCount);
 	} else {
 		shaftPositionState->nextTriggerEvent();
 	}

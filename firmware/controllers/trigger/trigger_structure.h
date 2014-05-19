@@ -17,7 +17,8 @@ class trigger_state_s {
 public:
 	trigger_state_s();
 	int getCurrentIndex();
-	void nextRevolution();
+	uint64_t getTotalEventCounter();
+	void nextRevolution(int triggerEventCount);
 	void nextTriggerEvent();
 
 	/**
