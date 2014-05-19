@@ -115,7 +115,7 @@ int getEventCounter(int index) {
 
 static void initWave(char *name, int index, ICUDriver *driver, ioportid_t port, int pin, int mode) {
 	waveReaderCount++;
-	chDbgCheck(index < MAX_ICU_COUNT, "too many ICUs");
+	efiAssertVoid(index < MAX_ICU_COUNT, "too many ICUs");
 	WaveReader *reader = &readers[index];
 	WaveReaderHw *hw = &reader->hw;
 
