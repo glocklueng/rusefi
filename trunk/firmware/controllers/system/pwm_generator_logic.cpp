@@ -8,6 +8,7 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
+#include "main.h"
 #include "pwm_generator_logic.h"
 
 PwmConfig::PwmConfig(float *st, single_wave_s *waves) :
@@ -16,7 +17,7 @@ PwmConfig::PwmConfig(float *st, single_wave_s *waves) :
 }
 
 static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
-	chDbgAssert(state->safe.phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", NULL);
+	efiAssert(state->safe.phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", 0);
 	int iteration = state->safe.iteration;
 	float switchTime = state->multiWave.switchTimes[state->safe.phaseIndex];
 	float periodMs = state->safe.periodMs;
@@ -50,7 +51,7 @@ static uint64_t togglePwmState(PwmConfig *state) {
 		}
 		if (state->cycleCallback != NULL)
 			state->cycleCallback(state);
-		chDbgAssert(state->periodMs != 0, "period not initialized", NULL);
+		efiAssert(state->periodMs != 0, "period not initialized", 0);
 		if (state->safe.periodMs != state->periodMs) {
 			/**
 			 * period length has changed - we need to reset internal state
