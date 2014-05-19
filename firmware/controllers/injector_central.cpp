@@ -48,7 +48,7 @@ void assertCylinderId(int cylinderId, char *msg) {
 		// we are here only in case of a fatal issue - at this point it is fine to make some blocking i-o
 		//scheduleSimpleMsg(&logger, "cid=", cylinderId);
 		print("ERROR [%s] cid=%d\r\n", msg, cylinderId);
-		chDbgAssert(TRUE, "Cylinder ID", null);
+		efiAssertVoid(FALSE, "Cylinder ID");
 	}
 }
 

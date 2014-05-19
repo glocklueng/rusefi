@@ -47,6 +47,9 @@ int getRusEfiVersion(void);
  */
 #define efiAssert(x, y) chDbgAssert(x, y, NULL)
 
+#define efiAssertVoid(condition, message) { if (!(condition)) { firmwareError(message); return; } }
+
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
