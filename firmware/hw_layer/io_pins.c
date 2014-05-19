@@ -51,7 +51,7 @@ void turnOutputPinOff(io_pin_e pin) {
 
 inline static void assertOMode(pin_output_mode_e mode) {
 	// mode >= 0  is always true since that's an unsigned
-	chDbgCheck(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e");
+	efiAssertVoid(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e");
 }
 
 /**
@@ -60,7 +60,7 @@ inline static void assertOMode(pin_output_mode_e mode) {
 void setOutputPinValue(io_pin_e pin, int logicValue) {
 	if (outputs[pin].port == GPIO_NULL)
 		return;
-	chDbgCheck(pinDefaultState[pin]!=NULL, "pin mode not initialized");
+	efiAssertVoid(pinDefaultState[pin]!=NULL, "pin mode not initialized");
 	pin_output_mode_e mode = *pinDefaultState[pin];
 	setPinValue(&outputs[pin], getElectricalValue(logicValue, mode), logicValue);
 }
