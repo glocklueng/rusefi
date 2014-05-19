@@ -19,12 +19,14 @@
 #include "engine_configuration.h"
 #include "ec2.h"
 #include "engine_math.h"
+#include "rfiutil.h"
+
 #if EFI_ANALOG_CHART
 #include "analog_chart.h"
 #endif /* EFI_PROD_CODE */
-
+#if EFI_WAVE_CHART
 #include "wave_chart.h"
-#include "rfiutil.h"
+#endif /* EFI_WAVE_CHART */
 
 static rpm_s rpmState;
 
