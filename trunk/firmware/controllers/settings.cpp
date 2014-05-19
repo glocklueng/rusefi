@@ -196,8 +196,8 @@ static void setTimingMode(int value) {
 	incrementGlobalConfigurationVersion();
 }
 
-static void setEngineType(int value) {
-	engineConfiguration->engineType = (engine_type_e) value;
+void setEngineType(int value) {
+	engineConfiguration->engineType = (engine_type_e)value;
 	resetConfigurationExt(&logger, (engine_type_e) value, engineConfiguration, engineConfiguration2, boardConfiguration);
 #if EFI_INTERNAL_FLASH
 	writeToFlash();
