@@ -36,11 +36,14 @@ struct OutputSignal_struct {
 	int initialized;
 
 	/**
-	 * We are alternating instances so that events which extend into next revolution are not overriden while
+	 * We are alternating instances so that events which extend into next revolution are not reused while
 	 * scheduling next revolution events
 	 */
 	scheduling_s signalTimerUp[2];
 	scheduling_s signalTimerDown[2];
+
+	scheduling_s triggerEvent;
+	float angleOffsetParam;
 };
 
 #ifdef __cplusplus
