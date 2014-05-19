@@ -166,7 +166,8 @@ int warning(obd_code_e code, const char *fmt, ...) {
 }
 
 void firmwareError(const char *fmt, ...) {
-	fatal3((char*)fmt, __FILE__, __LINE__);
+	printf("firmwareError [%s]", fmt);
+	exit(-1);
 }
 
 bool_t hasFatalError(void) {
