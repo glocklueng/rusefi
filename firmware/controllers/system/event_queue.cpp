@@ -15,8 +15,6 @@
 #include "efitime.h"
 #include "utlist.h"
 
-#if EFI_SIGNAL_EXECUTOR_ONE_TIMER
-
 #define QUEUE_LENGTH_LIMIT 1000
 
 EventQueue::EventQueue() {
@@ -125,6 +123,3 @@ int EventQueue::size(void) {
 void EventQueue::clear(void) {
 	head = NULL;
 }
-
-#endif /* EFI_SIGNAL_EXECUTOR_ONE_TIMER */
-
