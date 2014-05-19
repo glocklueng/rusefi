@@ -31,8 +31,7 @@ void firmwareError(const char *fmt, ...);
 bool_t hasFirmwareError(void);
 
 bool_t hasFatalError(void);
-void fatal3(char *msg, char *file, int line);
-#define fatal(x) (fatal3(x, __FILE__, __LINE__));
+//void fatal3(char *msg, char *file, int line);
 
 void chDbgPanic3(const char *msg, const char * file, int line);
 

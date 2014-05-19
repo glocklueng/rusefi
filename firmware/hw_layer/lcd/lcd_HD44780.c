@@ -64,7 +64,7 @@ static void lcdSleep(int period) {
 		for (int i = 0; i < ticks; i++)
 			a += i;
 		// the purpose of this code is to fool the compiler so that the loop is not optimized away
-		chDbgCheck(a != 0, "true");
+		efiAssertVoid(a != 0, "true");
 
 	} else {
 		chThdSleepMicroseconds(period);

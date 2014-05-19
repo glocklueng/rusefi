@@ -238,6 +238,7 @@ bool_t hasFirmwareError(void) {
 void firmwareError(const char *fmt, ...) {
 	if (hasFirmwareErrorFlag)
 		return;
+	setOutputPinValue(LED_ERROR, 1);
 	hasFirmwareErrorFlag = TRUE;
 	errorMessageStream.eos = 0; // reset
 	va_list ap;
