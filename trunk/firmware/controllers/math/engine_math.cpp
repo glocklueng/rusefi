@@ -241,7 +241,7 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
 }
 
-static void findTriggerPosition(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
+void findTriggerPosition(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		event_trigger_position_s *position, float angleOffset) {
 
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
