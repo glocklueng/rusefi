@@ -38,6 +38,10 @@ uint64_t getCrankEventCounter() {
 	return triggerState.getTotalEventCounter();
 }
 
+uint64_t getStartOfRevolutionIndex() {
+	return triggerState.getStartOfRevolutionIndex();
+}
+
 /**
  * @brief Adds a trigger event listener
  *
