@@ -279,10 +279,12 @@ void initEngineContoller(void) {
 	initMapAveraging();
 #endif /* EFI_MAP_AVERAGING */
 
+#if EFI_ENGINE_CONTROL
 	/**
 	 * This method initialized the main listener which actually runs injectors & ignition
 	 */
 	initMainEventListener();
+#endif /* EFI_ENGINE_CONTROL */
 
 #if EFI_IDLE_CONTROL
 	startIdleThread();
