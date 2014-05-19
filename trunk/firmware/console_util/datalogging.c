@@ -85,7 +85,7 @@ static int validateBuffer(Logging *logging, int extraLen, const char *text) {
 }
 
 void append(Logging *logging, const char *text) {
-	chDbgCheck(text!=NULL, "append NULL");
+	efiAssertVoid(text != NULL, "append NULL");
 	int extraLen = strlen(text);
 	int errcode = validateBuffer(logging, extraLen, text);
 	if (errcode)
