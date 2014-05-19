@@ -132,14 +132,14 @@ void testAngleResolver(void) {
 	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &ae, list.add(INJECTOR_1_OUTPUT), 53 - 175);
 	assertEqualsM("size", 1, ae.size);
 	assertEquals(1, list.getSize());
-	assertEquals(0, ae.events[0].eventIndex);
-	assertEquals(53, ae.events[0].angleOffset);
+	assertEquals(0, ae.events[0].position.eventIndex);
+	assertEquals(53, ae.events[0].position.angleOffset);
 
 	printf("*************************************************** testAngleResolver 2\r\n");
 	resetEventList(&ae);
 	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &ae, list.add(INJECTOR_1_OUTPUT), 51 + 180 - 175);
-	assertEquals(2, ae.events[0].eventIndex);
-	assertEquals(51.9870, ae.events[0].angleOffset);
+	assertEquals(2, ae.events[0].position.eventIndex);
+	assertEquals(51.9870, ae.events[0].position.angleOffset);
 }
 
 void testPinHelper(void) {
