@@ -311,7 +311,7 @@ static void printTemperatureInfo(void) {
 	float rClt = getResistance(&engineConfiguration2->clt);
 	float rIat = getResistance(&engineConfiguration2->iat);
 
-#if EFI_PROD_CODE
+#if EFI_ANALOG_INPUTS
 	int cltChannel = engineConfiguration2->clt.channel;
 	scheduleMsg(&logger, "CLT R=%f on channel %d@%s", rClt, cltChannel,
 			getPinNameByAdcChannel(cltChannel, pinNameBuffer));
