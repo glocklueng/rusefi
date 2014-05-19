@@ -91,15 +91,16 @@ extern "C" {
 #include "engine_controller.h"
 #include "ec2.h"
 #include "trigger_structure.h"
-#if EFI_HD44780_LCD
-#include "lcd_HD44780.h"
-#endif /* EFI_HD44780_LCD */
 #include "status_loop.h"
 #include "pin_repository.h"
 
 #include "status_loop.h"
 #include "memstreams.h"
 }
+
+#if EFI_HD44780_LCD
+#include "lcd_HD44780.h"
+#endif /* EFI_HD44780_LCD */
 
 #if EFI_ENGINE_EMULATOR
 #include "engine_emulator.h"
@@ -219,32 +220,6 @@ void HardFaultVector(void) {
 extern int main_loop_started;
 
 void onFatalError(const char *msg, char * file, int line);
-
-const char *dbg_panic_file;
-int dbg_panic_line;
-
-extern "C" {
-void chDbgPanic3(const char *msg, const char * file, int line);
-}
-
-void chDbgPanic3(const char *msg, const char * file, int line) {
-	if (hasFatalError())
-		return;
-	dbg_panic_file = file;
-	dbg_panic_line = line;
-	dbg_panic_msg = msg;
-
-
-	setOutputPinValue(LED_ERROR, 1);
-#if EFI_HD44780_LCD
-	lcdShowFatalMessage((char *) msg);
-#endif /* EFI_HD44780_LCD */
-	if (!main_loop_started) {
-		print("fatal %s %s:%d\r\n", msg, file, line);
-		chThdSleepSeconds(1);
-		chSysHalt();
-	}
-}
 
 static char panicMessage[200];
 
