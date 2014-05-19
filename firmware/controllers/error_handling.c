@@ -29,7 +29,6 @@ void chDbgPanic3(const char *msg, const char * file, int line) {
 	dbg_panic_line = line;
 	dbg_panic_msg = msg;
 
-
 	setOutputPinValue(LED_ERROR, 1);
 #if EFI_HD44780_LCD
 	lcdShowFatalMessage((char *) msg);

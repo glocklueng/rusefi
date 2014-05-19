@@ -46,6 +46,10 @@ static void myfatal(void) {
 	chDbgCheck(0, "my fatal");
 }
 
+static void myerror(void) {
+	firmwareError("firmwareError: %d", getRusEfiVersion());
+}
+
 static void sayHello(void) {
 	printMsg(&logger, "*** rusEFI (c) Andrey Belomutskiy, 2012-2014. All rights reserved.");
 	printMsg(&logger, "rusEFI v%d@%d", getRusEfiVersion(), SVN_VERSION);
@@ -163,5 +167,6 @@ void initializeConsole() {
 #endif
 
 	addConsoleAction("fatal", myfatal);
+	addConsoleAction("error", myerror);
 	addConsoleAction("threadsinfo", cmd_threads);
 }
