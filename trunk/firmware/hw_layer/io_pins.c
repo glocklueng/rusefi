@@ -106,7 +106,7 @@ static void errBlinkingThread(void *arg) {
 		if (isTriggerDecoderError() || isIgnitionTimingError())
 			setOutputPinValue(LED_ERROR, 1);
 		chThdSleepMilliseconds(delay);
-		if (!hasFatalError())
+		if (!hasFatalError() && !hasFirmwareError())
 			setOutputPinValue(LED_ERROR, 0);
 		chThdSleepMilliseconds(delay);
 	}
