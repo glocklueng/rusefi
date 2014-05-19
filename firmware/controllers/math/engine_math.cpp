@@ -243,9 +243,7 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
 }
 
-void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
-		ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
-	chDbgCheck(s->getSize() > 0, "uninitialized trigger_shape_s");
+static void findTriggerPosition(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, event_trigger_position_s *position, float angleOffset) {
 
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
 
@@ -274,7 +272,18 @@ void registerActuatorEventExt(engine_configuration_s const *engineConfiguration,
 		return;
 	}
 
-	registerActuatorEvent(list, i, actuator, angleOffset - angle);
+	position->eventIndex = i;
+	position->angleOffset = angleOffset - angle;
+}
+
+void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
+		ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
+	chDbgCheck(s->getSize() > 0, "uninitialized trigger_shape_s");
+
+	event_trigger_position_s position;
+	findTriggerPosition(engineConfiguration, s, &position, angleOffset);
+
+	registerActuatorEvent(list, position.eventIndex, actuator, position.angleOffset);
 }
 
 //float getTriggerEventAngle(int triggerEventIndex) {
