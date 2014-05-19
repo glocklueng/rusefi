@@ -11,7 +11,7 @@
 #include "global.h"
 #include "EfiWave.h"
 #include "io_pins.h"
-#include "signal_executor.h"
+#include "scheduler.h"
 
 typedef struct {
 	/**
