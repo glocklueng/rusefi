@@ -154,6 +154,8 @@ static void pwmpcb_slow(PWMDriver *pwmp) {
 	ADC_FAST_DEVICE.state != ADC_COMPLETE &&
 	ADC_FAST_DEVICE.state != ADC_ERROR) {
 		firmwareError("ADC slow not ready?");
+		chSysUnlockFromIsr()
+		;
 		return;
 	}
 	adcStartConversionI(&ADC_SLOW_DEVICE, &adcgrpcfgSlow, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW);
@@ -177,6 +179,8 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 	ADC_FAST_DEVICE.state != ADC_COMPLETE &&
 	ADC_FAST_DEVICE.state != ADC_ERROR) {
 		firmwareError("ADC fast not ready?");
+		chSysUnlockFromIsr()
+		;
 		return;
 	}
 	adcStartConversionI(&ADC_FAST_DEVICE, &adcgrpcfg_fast, samples_fast, ADC_GRP1_BUF_DEPTH_FAST);
@@ -399,7 +403,6 @@ static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 	}
 }
 
-
 void initAdcInputs() {
 
 	initLoggingExt(&logger, "ADC", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
@@ -445,7 +448,6 @@ void initAdcInputs() {
 	// ADC_CHANNEL_IN13 // PC3
 	// ADC_CHANNEL_IN14 // PC4
 	// ADC_CHANNEL_IN15 // PC5
-
 
 	//if(slowAdcChannelCount > ADC_MAX_SLOW_CHANNELS_COUNT) // todo: do we need this logic? do we need this check
 
