@@ -256,16 +256,15 @@ void updateDevConsoleState(void) {
 	checkIfShouldHalt();
 	printPending();
 
-	pokeAdcInputs();
-
 	if (hasFirmwareError()) {
-
 		if (!firmwareErrorReported || !PRINT_FIRMWARE_ONCE)
 			printMsg(&logger, "firmware error: %s", errorMessageBuffer);
 		firmwareErrorReported = TRUE;
 		warningEnabled = FALSE;
 		return;
 	}
+
+	pokeAdcInputs();
 
 	if (!fullLog)
 		return;

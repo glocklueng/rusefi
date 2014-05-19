@@ -34,8 +34,14 @@
 
 #include "trigger_central.h"
 #include "svnversion.h"
+#include "engine_configuration.h"
+#include "ec2.h"
 
 McpAdcState adcState;
+
+extern engine_configuration_s *engineConfiguration;
+extern engine_configuration2_s * engineConfiguration2;
+extern board_configuration_s *boardConfiguration;
 
 static void initSpiModule(SPIDriver *driver, ioportid_t sckPort, ioportmask_t sckPin, ioportid_t misoPort,
 		ioportmask_t misoPin, ioportid_t mosiPort, ioportmask_t mosiPin, int af) {
@@ -115,7 +121,8 @@ void initHardware(Logging *logger) {
 	 */
 	initFlash();
 #else
-	setEngineType((int)FORD_ASPIRE_1996);
+	engineConfiguration->engineType = FORD_ASPIRE_1996;
+	resetConfigurationExt(logger, engineConfiguration->engineType, engineConfiguration, engineConfiguration2, boardConfiguration);
 #endif /* EFI_INTERNAL_FLASH */
 
 	if (hasFirmwareError())
