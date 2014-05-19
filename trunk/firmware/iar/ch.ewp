@@ -2458,6 +2458,27 @@
     </file>
   </group>
   <group>
+    <name>ext</name>
+    <file>
+      <name>$PROJ_DIR$\..\chibios\ext\fatfs\src\option\ccsbcs.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ext\diskio.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\chibios\ext\fatfs\src\ff.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ext\ff.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ext\ffconf.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\ext\integer.h</name>
+    </file>
+  </group>
+  <group>
     <name>hw_layer</name>
     <group>
       <name>algo</name>
@@ -2702,6 +2723,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\src\mmc_spi.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\chibios\os\hal\src\mmcsd.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\chibios\os\hal\src\pal.c</name>
@@ -3000,6 +3024,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\various\chprintf.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\various\fatfs_bindings\fatfs_diskio.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\chibios\os\various\fatfs_bindings\fatfs_syscall.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\chibios\os\various\memstreams.c</name>
