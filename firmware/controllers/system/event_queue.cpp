@@ -52,7 +52,6 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayU
 	scheduling->callback = callback;
 	scheduling->param = param;
 
-
 	LL_PREPEND(head, scheduling);
 }
 
