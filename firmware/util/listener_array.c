@@ -9,8 +9,7 @@
 #include "main.h"
 
 void registerCallback(IntListenerArray *array, IntListener handler, void *arg) {
-	if (array->currentListenersCount == MAX_INT_LISTENER_COUNT)
-		fatal("Too many callbacks");
+	efiAssertVoid(array->currentListenersCount < MAX_INT_LISTENER_COUNT, "Too many callbacks");
 	int index = array->currentListenersCount++;
 	array->callbacks[index] = handler;
 	array->args[index] = arg;
