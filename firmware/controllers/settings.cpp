@@ -8,10 +8,8 @@
 
 #include "main.h"
 #include "settings.h"
-
 #include "eficonsole.h"
 #include "engine_configuration.h"
-#include "flash_main.h"
 #include "adc_inputs.h"
 #include "engine_controller.h"
 #include "thermistors.h"
@@ -25,6 +23,10 @@
 #include "rusefi.h"
 #include "pin_repository.h"
 #endif /* EFI_PROD_CODE */
+
+#if EFI_INTERNAL_FLASH
+#include "flash_main.h"
+#endif /* EFI_INTERNAL_FLASH */
 
 static Logging logger;
 
@@ -197,7 +199,7 @@ static void setTimingMode(int value) {
 static void setEngineType(int value) {
 	engineConfiguration->engineType = (engine_type_e) value;
 	resetConfigurationExt(&logger, (engine_type_e) value, engineConfiguration, engineConfiguration2, boardConfiguration);
-#if EFI_PROD_CODE
+#if EFI_INTERNAL_FLASH
 	writeToFlash();
 //	scheduleReset();
 #endif /* EFI_PROD_CODE */
@@ -269,7 +271,7 @@ static void printThermistor(char *msg, Thermistor *thermistor) {
 	scheduleMsg(&logger, "%s v=%f C=%f R=%f on channel %d", msg, voltage, t, r, adcChannel);
 	scheduleMsg(&logger, "bias=%f A=%f B=%f C=%f", thermistor->config->bias_resistor, thermistor->config->s_h_a,
 			thermistor->config->s_h_b, thermistor->config->s_h_c);
-#if EFI_PROD_CODE
+#if EFI_ANALOG_INPUTS
 	scheduleMsg(&logger, "@%s", getPinNameByAdcChannel(adcChannel, pinNameBuffer));
 #endif
 }
