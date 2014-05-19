@@ -5,7 +5,7 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
-#include "signal_executor.h"
+#include "scheduler.h"
 
 #ifndef EVENT_SCHEDULER_H_
 #define EVENT_SCHEDULER_H_

@@ -24,4 +24,15 @@ private:
 	void unlock(void);
 };
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
+void initSignalExecutorImpl(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 #endif /* SINGLETIMEREXECUTOR_H_ */
