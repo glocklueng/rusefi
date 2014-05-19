@@ -13,10 +13,24 @@
 
 #define MAX_EVENT_COUNT 40
 
+/**
+ * This structure defines an angle position within the trigger
+ */
 typedef struct {
+	/**
+	 * That's trigger event index
+	 */
 	int eventIndex;
-	OutputSignal *actuator;
+	/**
+	 * Angle offset from the trigger event
+	 */
 	float angleOffset;
+} event_trigger_position_s;
+
+typedef struct {
+	event_trigger_position_s position;
+	OutputSignal *actuator;
+	scheduling_s signalTimer;
 } ActuatorEvent;
 
 typedef struct {
