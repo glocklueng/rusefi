@@ -137,7 +137,10 @@ void initHardware(Logging *logger) {
 
 	// todo: figure out better startup logic
 	initTriggerCentral();
+
+#if EFI_SHAFT_POSITION_INPUT
 	initShaftPositionInputCapture();
+#endif /* EFI_SHAFT_POSITION_INPUT */
 
 	initSpiModules();
 
