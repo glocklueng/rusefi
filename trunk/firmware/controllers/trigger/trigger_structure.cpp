@@ -62,8 +62,13 @@ int trigger_state_s::getCurrentIndex() {
 	return current_index;
 }
 
-void trigger_state_s::nextRevolution() {
+uint64_t trigger_state_s::getTotalEventCounter() {
+	return totalEventCountBase + current_index;
+}
+
+void trigger_state_s::nextRevolution(int triggerEventCount) {
 	current_index = 0;
+	totalEventCountBase += triggerEventCount;
 }
 
 void trigger_state_s::nextTriggerEvent() {
