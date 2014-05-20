@@ -82,6 +82,7 @@ public:
 	int triggerShapeSynchPointIndex;
 private:
 	float switchTimes[PWM_PHASE_MAX_COUNT];
+	float previousAngle;
 };
 
 #ifdef __cplusplus

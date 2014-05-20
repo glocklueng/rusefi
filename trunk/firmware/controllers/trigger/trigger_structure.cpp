@@ -20,6 +20,7 @@
 
 #include "main.h"
 #include "trigger_structure.h"
+#include "error_handling.h"
 
 trigger_shape_helper::trigger_shape_helper() {
 	waves[0].init(pinStates0);
@@ -43,6 +44,7 @@ void trigger_shape_s::reset() {
 	memset(initialState, 0, sizeof(initialState));
 	memset(switchTimes, 0, sizeof(switchTimes));
 	wave.reset();
+	previousAngle = 0;
 }
 
 int multi_wave_s::getChannelState(int channelIndex, int phaseIndex) const {
@@ -88,6 +90,8 @@ void trigger_state_s::clear() {
 
 void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
 	angle /= 720;
+	efiAssertVoid(angle > previousAngle, "invalid angle order");
+	previousAngle = angle;
 	if (size == 0) {
 		size = 1;
 		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
