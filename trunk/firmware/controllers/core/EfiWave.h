@@ -7,7 +7,7 @@
 #ifndef EFI_WAVE_H_
 #define EFI_WAVE_H_
 
-#define PWM_PHASE_MAX_COUNT 150
+#define PWM_PHASE_MAX_COUNT 250
 #define PWM_PHASE_MAX_WAVE_PER_PWM 2
 
 /**
