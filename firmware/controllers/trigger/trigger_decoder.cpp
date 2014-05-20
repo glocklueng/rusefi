@@ -218,7 +218,7 @@ int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*tr
 	int primaryWheelState = FALSE;
 	int secondaryWheelState = FALSE;
 
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 4 * PWM_PHASE_MAX_COUNT; i++) {
 
 		int stateIndex = i % shape->getSize();
 
@@ -241,9 +241,8 @@ int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*tr
 			processTriggerEvent(&state, shape, triggerConfig, s, time);
 		}
 
-		if (state.shaft_is_synchronized) {
+		if (state.shaft_is_synchronized)
 			return stateIndex;
-		}
 	}
 	firmwareError("findTriggerZeroEventIndex() failed");
 	return -1;
