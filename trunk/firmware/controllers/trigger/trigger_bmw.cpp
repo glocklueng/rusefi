@@ -21,7 +21,7 @@ void configureMiniCooperTriggerShape(engine_configuration_s *engineConfiguration
 
 	s->reset();
 
-	s->initialState[0] = 1;
+//	s->initialState[0] = 1;
 
 	float w = 360.0 / 121;
 	float a = w / 2;
@@ -33,8 +33,11 @@ void configureMiniCooperTriggerShape(engine_configuration_s *engineConfiguration
 	s->addEvent(a, T_SECONDARY, TV_LOW);
 	a += 2 * w;
 
-	s->addEvent(376.4444444, T_PRIMARY, TV_LOW);
-	s->addEvent(720, T_PRIMARY, TV_HIGH);
+	for (int i = 0; i < 27; i++)
+		a = addPair(s, a, w);
+
+	s->addEvent(376.4444444, T_PRIMARY, TV_HIGH);
+	s->addEvent(720, T_PRIMARY, TV_LOW);
 
 	s->shaftPositionEventCount = s->getSize();
 	/**
