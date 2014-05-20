@@ -7,6 +7,14 @@
 
 #include "trigger_bmw.h"
 
+static inline float addPair(trigger_shape_s *s, float a, float w) {
+	s->addEvent(a, T_SECONDARY, TV_LOW);
+	a += w;
+	s->addEvent(a, T_SECONDARY, TV_HIGH);
+	a += w;
+	return a;
+}
+
 void configureMiniCooperTriggerShape(engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2) {
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
@@ -15,20 +23,15 @@ void configureMiniCooperTriggerShape(engine_configuration_s *engineConfiguration
 
 	s->initialState[0] = 1;
 
-	float w = 2.96;
+	float w = 360.0 / 121;
 	float a = w / 2;
-	for (int i = 0; i < 19; i++) {
-		a += w;
-		s->addEvent(a, T_SECONDARY, TV_HIGH);
-		a += w;
-		s->addEvent(a, T_SECONDARY, TV_LOW);
-	}
-	a += 3 * w;
+	for (int i = 0; i < 19; i++)
+		a = addPair(s, a, w);
+
 	s->addEvent(a, T_SECONDARY, TV_HIGH);
-	a += 2 * w;
+	a += 3 * w;
 	s->addEvent(a, T_SECONDARY, TV_LOW);
-
-
+	a += 2 * w;
 
 	s->addEvent(376.4444444, T_PRIMARY, TV_LOW);
 	s->addEvent(720, T_PRIMARY, TV_HIGH);
