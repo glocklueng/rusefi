@@ -40,10 +40,6 @@ extern "C"
 static engine_configuration_s ec;
 engine_configuration_s *engineConfiguration = &ec;
 
-static float absF(float value) {
-	return value > 0 ? value : -value;
-}
-
 uint64_t getTimeNowUs(void) {
 	return 0;
 }

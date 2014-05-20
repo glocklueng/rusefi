@@ -22,6 +22,10 @@ int minI(int i1, int i2) {
 	return i1 < i2 ? i1 : i2;
 }
 
+float absF(float value) {
+	return value > 0 ? value : -value;
+}
+
 int absI(int32_t value) {
 	return value >= 0 ? value : -value;
 }
