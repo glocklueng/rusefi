@@ -25,19 +25,43 @@ void configureMiniCooperTriggerShape(engine_configuration_s *engineConfiguration
 
 	float w = 360.0 / 121;
 	float a = w / 2;
-	for (int i = 0; i < 19; i++)
+	s->addEvent(a, T_SECONDARY, TV_LOW);
+	a += w;
+
+	for (int i = 0; i <= 22; i++)
 		a = addPair(s, a, w);
 
 	a += 3 * w;
+
+	float firstGapAngle = a;
+
 	s->addEvent(a, T_SECONDARY, TV_HIGH);
 	a += 3 * w;
 	s->addEvent(a, T_SECONDARY, TV_LOW);
 	a += w;
 
-//	for (int i = 0; i < 27; i++)
-//		a = addPair(s, a, w);
+	for (int i = 0; i < 36; i++)
+		a = addPair(s, a, w);
 
-	s->addEvent(376.4444444, T_PRIMARY, TV_HIGH);
+	s->addEvent(376, T_PRIMARY, TV_HIGH);
+
+	for (int i = 0; i < 21; i++)
+		a = addPair(s, a, w);
+	a += 3 * w;
+
+	efiAssertVoid(absF(firstGapAngle + 360 - a) < 0.1, "shape constraint");
+
+	s->addEvent(a, T_SECONDARY, TV_HIGH);
+	a += 3 * w;
+	s->addEvent(a, T_SECONDARY, TV_LOW);
+	a += w;
+
+	for (int i = 0; i < 33; i++)
+		a = addPair(s, a, w);
+
+	efiAssertVoid(absF(720 - w / 2 - a) < 0.1, "shape constraint");
+	s->addEvent(a, T_SECONDARY, TV_HIGH);
+
 	s->addEvent(720, T_PRIMARY, TV_LOW);
 
 	s->shaftPositionEventCount = s->getSize();
