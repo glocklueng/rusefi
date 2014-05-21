@@ -28,7 +28,7 @@ extern engine_configuration2_s *engineConfiguration2;
 // we need this initial to have not_running at first invocation
 static volatile uint64_t previousShaftEventTime = (efitimems_t) -10 * US_PER_SECOND;
 
-static IntListenerArray triggerListeneres;
+static TriggerCentral triggerCentral;
 
 static Logging logging;
 
@@ -42,15 +42,19 @@ uint64_t getStartOfRevolutionIndex() {
 	return triggerState.getStartOfRevolutionIndex();
 }
 
+void TriggerCentral::addEventListener(ShaftPositionListener listener, const char *name) {
+	print("registerCkpListener: %s\r\n", name);
+	registerCallback(&triggerListeneres, (IntListener) listener, NULL);
+}
+
 /**
  * @brief Adds a trigger event listener
  *
  * Trigger event listener would be invoked on each trigger event. For example, for a 60/2 wheel
  * that would be 116 events: 58 SHAFT_PRIMARY_UP and 58 SHAFT_PRIMARY_DOWN events.
  */
-void addTriggerEventListener(ShaftPositionListener handler, const char *name) {
-	print("registerCkpListener: %s\r\n", name);
-	registerCallback(&triggerListeneres, (IntListener) handler, NULL);
+void addTriggerEventListener(ShaftPositionListener listener, const char *name) {
+	triggerCentral.addEventListener(listener, name);
 }
 
 #define HW_EVENT_TYPES 4
@@ -58,6 +62,11 @@ void addTriggerEventListener(ShaftPositionListener handler, const char *name) {
 static int hwEventCounters[HW_EVENT_TYPES];
 
 void hwHandleShaftSignal(ShaftEvents signal) {
+	triggerCentral.handleShaftSignal(signal, getTimeNowUs());
+}
+
+void TriggerCentral::handleShaftSignal(ShaftEvents signal, uint64_t nowUs) {
+
 	efiAssertVoid(engineConfiguration!=NULL, "engineConfiguration");
 	efiAssertVoid(engineConfiguration2!=NULL, "engineConfiguration2");
 
@@ -65,8 +74,6 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 	int eventIndex = (int) signal;
 	efiAssertVoid(eventIndex >= 0 && eventIndex < HW_EVENT_TYPES, "signal type");
 	hwEventCounters[eventIndex]++;
-
-	uint64_t nowUs = getTimeNowUs();
 
 	if (nowUs - previousShaftEventTime > US_PER_SECOND) {
 		/**
