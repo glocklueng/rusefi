@@ -9,8 +9,20 @@
 #define TRIGGER_CENTRAL_H_
 
 #include "rusefi_enums.h"
+#include "listener_array.h"
 
 typedef void (*ShaftPositionListener)(ShaftEvents signal, int index);
+
+#ifdef __cplusplus
+
+class TriggerCentral {
+public:
+	void addEventListener(ShaftPositionListener handler, const char *name);
+	void handleShaftSignal(ShaftEvents signal, uint64_t nowUs);
+
+	IntListenerArray triggerListeneres;
+};
+#endif
 
 #ifdef __cplusplus
 extern "C"
