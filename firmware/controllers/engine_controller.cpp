@@ -176,7 +176,7 @@ static void fuelPumpOff(void *arg) {
 	turnOutputPinOff(FUEL_PUMP_RELAY);
 }
 
-static void fuelPumpOn(ShaftEvents signal, int index) {
+static void fuelPumpOn(ShaftEvents signal, int index, void *arg) {
 	if (index != 0)
 		return; // let's not abuse the timer - one time per revolution would be enough
 	// todo: the check about GPIO_NONE should be somewhere else!
@@ -194,8 +194,8 @@ static void fuelPumpOn(ShaftEvents signal, int index) {
 }
 
 static void initFuelPump(void) {
-	addTriggerEventListener(&fuelPumpOn, "fuel pump");
-	fuelPumpOn(SHAFT_PRIMARY_UP, 0);
+	addTriggerEventListener(&fuelPumpOn, "fuel pump", NULL);
+	fuelPumpOn(SHAFT_PRIMARY_UP, 0, NULL);
 }
 
 char * getPinNameByAdcChannel(int hwChannel, uint8_t *buffer) {

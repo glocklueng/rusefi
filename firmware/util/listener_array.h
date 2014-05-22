@@ -36,7 +36,7 @@ void invokeCallbacks(IntListenerArray *array, int value);
 void invokeJustArgCallbacks(IntListenerArray *array);
 void invokeArgIntCallbacks(IntListenerArray *array, int value);
 void invokeIntIntCallbacks(IntListenerArray *array, int value, int value2);
-void invokeIntIntVoidCallbacks(IntListenerArray *array, int value, int value2, void *arg);
+void invokeIntIntVoidCallbacks(IntListenerArray *array, int value, int value2);
 
 #ifdef __cplusplus
 }

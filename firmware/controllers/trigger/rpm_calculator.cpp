@@ -112,7 +112,7 @@ void addWaveChartEvent(const char *name, const char * msg, const char *msg2) {
  * updated here.
  * This callback is invoked on interrupt thread.
  */
-void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
+void shaftPositionCallback(ShaftEvents ckpSignalType, int index, RpmCalculator *rpmState) {
 	itoa10(&shaft_signal_msg_index[1], index);
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
 		addWaveChartEvent("crank", "up", (char*) shaft_signal_msg_index);
@@ -131,28 +131,28 @@ void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 #endif
 		return;
 	}
-	rpmState.revolutionCounter++;
+	rpmState->revolutionCounter++;
 
 	uint64_t nowUs = getTimeNowUs();
 
 	int hadRpmRecently = isRunning();
 
 	if (hadRpmRecently) {
-		if (isNoisySignal(&rpmState, nowUs)) {
+		if (isNoisySignal(rpmState, nowUs)) {
 			// unexpected state. Noise?
-			rpmState.rpm = NOISY_RPM;
+			rpmState->rpm = NOISY_RPM;
 		} else {
-			uint64_t diff = nowUs - rpmState.lastRpmEventTimeUs;
+			uint64_t diff = nowUs - rpmState->lastRpmEventTimeUs;
 			// 60000 because per minute
 			// * 2 because each revolution of crankshaft consists of two camshaft revolutions
 			// / 4 because each cylinder sends a signal
 			// need to measure time from the previous non-skipped event
 
 			int rpm = (int) (60 * US_PER_SECOND / engineConfiguration->rpmMultiplier / diff);
-			rpmState.rpm = rpm > UNREALISTIC_RPM ? NOISY_RPM : rpm;
+			rpmState->rpm = rpm > UNREALISTIC_RPM ? NOISY_RPM : rpm;
 		}
 	}
-	rpmState.lastRpmEventTimeUs = nowUs;
+	rpmState->lastRpmEventTimeUs = nowUs;
 #if EFI_ANALOG_CHART
 	if (engineConfiguration->analogChartMode == AC_TRIGGER)
 		acAddData(getCrankshaftAngle(nowUs), index);
@@ -168,7 +168,7 @@ static void onTdcCallback(void) {
 	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, (char*) rpmBuffer, "");
 }
 
-static void tdcMarkCallback(ShaftEvents ckpSignalType, int index) {
+static void tdcMarkCallback(ShaftEvents ckpSignalType, int index, void *arg) {
 	if (index == 0) {
 		int index = getRevolutionCounter() % 2;
 		scheduleByAngle(&tdcScheduler[index], engineConfiguration->globalTriggerAngleOffset, (schfunc_t) onTdcCallback, NULL);
@@ -188,8 +188,8 @@ void initRpmCalculator(void) {
 	// we need this initial to have not_running at first invocation
 	rpmState.lastRpmEventTimeUs = (uint64_t) -10 * US_PER_SECOND;
 
-	addTriggerEventListener(&shaftPositionCallback, "rpm reporter");
-	addTriggerEventListener(&tdcMarkCallback, "chart TDC mark");
+	addTriggerEventListener((ShaftPositionListener)&shaftPositionCallback, "rpm reporter", &rpmState);
+	addTriggerEventListener(&tdcMarkCallback, "chart TDC mark", NULL);
 }
 
 /**

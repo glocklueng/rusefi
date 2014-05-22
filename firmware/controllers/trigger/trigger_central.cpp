@@ -39,9 +39,9 @@ uint64_t getStartOfRevolutionIndex() {
 	return triggerState.getStartOfRevolutionIndex();
 }
 
-void TriggerCentral::addEventListener(ShaftPositionListener listener, const char *name) {
+void TriggerCentral::addEventListener(ShaftPositionListener listener, const char *name, void *arg) {
 	print("registerCkpListener: %s\r\n", name);
-	registerCallback(&triggerListeneres, (IntListener) listener, NULL);
+	registerCallback(&triggerListeneres, (IntListener) listener, arg);
 }
 
 /**
@@ -50,8 +50,8 @@ void TriggerCentral::addEventListener(ShaftPositionListener listener, const char
  * Trigger event listener would be invoked on each trigger event. For example, for a 60/2 wheel
  * that would be 116 events: 58 SHAFT_PRIMARY_UP and 58 SHAFT_PRIMARY_DOWN events.
  */
-void addTriggerEventListener(ShaftPositionListener listener, const char *name) {
-	triggerCentral.addEventListener(listener, name);
+void addTriggerEventListener(ShaftPositionListener listener, const char *name, void *arg) {
+	triggerCentral.addEventListener(listener, name, arg);
 }
 
 extern configuration_s *configuration;
@@ -104,7 +104,7 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, ShaftEven
 		/**
 		 * Here we invoke all the listeners - the main engine control logic is inside these listeners
 		 */
-		invokeIntIntCallbacks(&triggerListeneres, signal, triggerState.getCurrentIndex());
+		invokeIntIntVoidCallbacks(&triggerListeneres, signal, triggerState.getCurrentIndex());
 	}
 	int afterCallback = hal_lld_get_counter_value();
 #if EFI_HISTOGRAMS

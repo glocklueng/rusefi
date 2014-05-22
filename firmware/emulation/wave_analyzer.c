@@ -139,7 +139,7 @@ static void initWave(char *name, int index, ICUDriver *driver, ioportid_t port, 
 //	return ckpPeriod;
 //}
 
-static void onWaveShaftSignal(ShaftEvents ckpSignalType, int index) {
+static void onWaveShaftSignal(ShaftEvents ckpSignalType, int index, void *arg) {
 	if (index != 0)
 		return;
 	uint64_t nowUs = getTimeNowUs();
@@ -243,7 +243,7 @@ void initWaveAnalyzer(void) {
 	initWave("input2 E5", 1, getInputCaptureDriver(boardConfiguration->secondaryLogicAnalyzerPin), getHwPort(boardConfiguration->secondaryLogicAnalyzerPin), getHwPin(boardConfiguration->secondaryLogicAnalyzerPin), 1);
 	//	initWave("input0 C6", 2, &WAVE_TIMER, WAVE_INPUT_PORT, WAVE_INPUT_PIN, 0);
 
-	addTriggerEventListener(&onWaveShaftSignal, "wave analyzer");
+	addTriggerEventListener(&onWaveShaftSignal, "wave analyzer", NULL);
 
 	addConsoleActionII("wm", setWaveModeSilent);
 
