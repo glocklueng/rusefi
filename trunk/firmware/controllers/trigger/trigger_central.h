@@ -16,12 +16,16 @@ typedef void (*ShaftPositionListener)(ShaftEvents signal, int index);
 #ifdef __cplusplus
 #include "ec2.h"
 
+#define HW_EVENT_TYPES 4
+
 class TriggerCentral {
 public:
+	TriggerCentral();
 	void addEventListener(ShaftPositionListener handler, const char *name);
 	void handleShaftSignal(configuration_s *configuration, ShaftEvents signal, uint64_t nowUs);
-
+private:
 	IntListenerArray triggerListeneres;
+	int hwEventCounters[HW_EVENT_TYPES];
 };
 #endif
 

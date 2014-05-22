@@ -25,7 +25,7 @@ static histogram_s triggerCallback;
 // we need this initial to have not_running at first invocation
 static volatile uint64_t previousShaftEventTime = (efitimems_t) -10 * US_PER_SECOND;
 
-static TriggerCentral triggerCentral;
+TriggerCentral triggerCentral;
 
 static Logging logging;
 
@@ -54,14 +54,14 @@ void addTriggerEventListener(ShaftPositionListener listener, const char *name) {
 	triggerCentral.addEventListener(listener, name);
 }
 
-#define HW_EVENT_TYPES 4
-
-static int hwEventCounters[HW_EVENT_TYPES];
-
 extern configuration_s *configuration;
 
 void hwHandleShaftSignal(ShaftEvents signal) {
 	triggerCentral.handleShaftSignal(configuration, signal, getTimeNowUs());
+}
+
+TriggerCentral::TriggerCentral() {
+	memset(hwEventCounters, 0, sizeof(hwEventCounters));
 }
 
 void TriggerCentral::handleShaftSignal(configuration_s *configuration, ShaftEvents signal, uint64_t nowUs) {
@@ -87,8 +87,8 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, ShaftEven
 	/**
 	 * This invocation changes the state of
 	 */
-	processTriggerEvent(&triggerState, &configuration->engineConfiguration2->triggerShape, &configuration->engineConfiguration->triggerConfig, signal,
-			nowUs);
+	processTriggerEvent(&triggerState, &configuration->engineConfiguration2->triggerShape,
+			&configuration->engineConfiguration->triggerConfig, signal, nowUs);
 
 	if (!triggerState.shaft_is_synchronized)
 		return; // we should not propagate event if we do not know where we are
@@ -121,8 +121,6 @@ void printAllCallbacksHistogram(void) {
 
 void initTriggerCentral(void) {
 	initLogging(&logging, "ShaftPosition");
-
-	memset(hwEventCounters, 0, sizeof(hwEventCounters));
 
 #if EFI_HISTOGRAMS
 	initHistogram(&triggerCallback, "all callbacks");
