@@ -51,7 +51,6 @@
 #include "ec2.h"
 #include "PwmTester.h"
 
-
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
 #if defined __GNUC__
@@ -75,6 +74,10 @@ static Logging logger;
 
 static engine_configuration2_s ec2;
 engine_configuration2_s * engineConfiguration2 = &ec2;
+
+static configuration_s cfg = {&persistentState.persistentConfiguration.engineConfiguration, &ec2};
+
+configuration_s * configuration = &cfg;
 
 static msg_t csThread(void) {
 	chRegSetThreadName("status");

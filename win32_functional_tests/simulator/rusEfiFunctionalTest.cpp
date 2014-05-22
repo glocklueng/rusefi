@@ -36,6 +36,10 @@ engine_configuration_s * engineConfiguration = &config.engineConfiguration;
 board_configuration_s *boardConfiguration = &config.boardConfiguration;
 engine_configuration2_s *engineConfiguration2 = &ec2;
 
+static configuration_s cfg = {engineConfiguration, engineConfiguration2};
+
+configuration_s * configuration = &cfg;
+
 void setOutputPinValue(io_pin_e pin, int logicValue) {
 }
 

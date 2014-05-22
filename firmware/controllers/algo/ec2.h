@@ -44,6 +44,11 @@ public:
 	int isInjectionEnabledFlag;
 };
 
+typedef struct {
+	engine_configuration_s *engineConfiguration;
+	engine_configuration2_s *engineConfiguration2;
+} configuration_s;
+
 void prepareOutputSignals(engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2);
 

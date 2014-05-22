@@ -22,9 +22,6 @@ static histogram_s triggerCallback __attribute__((section(".ccm")));
 static histogram_s triggerCallback;
 #endif
 
-extern engine_configuration_s *engineConfiguration;
-extern engine_configuration2_s *engineConfiguration2;
-
 // we need this initial to have not_running at first invocation
 static volatile uint64_t previousShaftEventTime = (efitimems_t) -10 * US_PER_SECOND;
 
@@ -61,14 +58,17 @@ void addTriggerEventListener(ShaftPositionListener listener, const char *name) {
 
 static int hwEventCounters[HW_EVENT_TYPES];
 
+extern configuration_s *configuration;
+
 void hwHandleShaftSignal(ShaftEvents signal) {
-	triggerCentral.handleShaftSignal(signal, getTimeNowUs());
+	triggerCentral.handleShaftSignal(configuration, signal, getTimeNowUs());
 }
 
-void TriggerCentral::handleShaftSignal(ShaftEvents signal, uint64_t nowUs) {
+void TriggerCentral::handleShaftSignal(configuration_s *configuration, ShaftEvents signal, uint64_t nowUs) {
+	efiAssertVoid(configuration!=NULL, "configuration");
 
-	efiAssertVoid(engineConfiguration!=NULL, "engineConfiguration");
-	efiAssertVoid(engineConfiguration2!=NULL, "engineConfiguration2");
+	efiAssertVoid(configuration->engineConfiguration!=NULL, "engineConfiguration");
+	efiAssertVoid(configuration->engineConfiguration2!=NULL, "engineConfiguration2");
 
 	int beforeCallback = hal_lld_get_counter_value();
 	int eventIndex = (int) signal;
@@ -87,15 +87,15 @@ void TriggerCentral::handleShaftSignal(ShaftEvents signal, uint64_t nowUs) {
 	/**
 	 * This invocation changes the state of
 	 */
-	processTriggerEvent(&triggerState, &engineConfiguration2->triggerShape, &engineConfiguration->triggerConfig, signal,
+	processTriggerEvent(&triggerState, &configuration->engineConfiguration2->triggerShape, &configuration->engineConfiguration->triggerConfig, signal,
 			nowUs);
 
 	if (!triggerState.shaft_is_synchronized)
 		return; // we should not propagate event if we do not know where we are
 
-	if (triggerState.getCurrentIndex() >= engineConfiguration2->triggerShape.shaftPositionEventCount) {
+	if (triggerState.getCurrentIndex() >= configuration->engineConfiguration2->triggerShape.shaftPositionEventCount) {
 		int f = warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.getCurrentIndex());
-		if(!f) {
+		if (!f) {
 			for (int i = 0; i < HW_EVENT_TYPES; i++)
 				scheduleMsg(&logging, "event type: %d count=%d", i, hwEventCounters[i]);
 		}
@@ -111,7 +111,7 @@ void TriggerCentral::handleShaftSignal(ShaftEvents signal, uint64_t nowUs) {
 	int diff = afterCallback - beforeCallback;
 	// this counter is only 32 bits so it overflows every minute, let's ignore the value in case of the overflow for simplicity
 	if (diff > 0)
-		hsAdd(&triggerCallback, diff);
+	hsAdd(&triggerCallback, diff);
 #endif /* EFI_HISTOGRAMS */
 }
 

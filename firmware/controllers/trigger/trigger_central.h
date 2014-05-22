@@ -14,19 +14,19 @@
 typedef void (*ShaftPositionListener)(ShaftEvents signal, int index);
 
 #ifdef __cplusplus
+#include "ec2.h"
 
 class TriggerCentral {
 public:
 	void addEventListener(ShaftPositionListener handler, const char *name);
-	void handleShaftSignal(ShaftEvents signal, uint64_t nowUs);
+	void handleShaftSignal(configuration_s *configuration, ShaftEvents signal, uint64_t nowUs);
 
 	IntListenerArray triggerListeneres;
 };
 #endif
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif /* __cplusplus */
 void addTriggerEventListener(ShaftPositionListener handler, const char *name);
 uint64_t getCrankEventCounter(void);
