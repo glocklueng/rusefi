@@ -12,6 +12,9 @@
 
 #include "rusefi_enums.h"
 #include "EfiWave.h"
+#include "engine_configuration.h"
+
+class trigger_shape_s;
 
 class TriggerState {
 public:
@@ -21,6 +24,8 @@ public:
 	uint64_t getStartOfRevolutionIndex();
 	void nextRevolution(int triggerEventCount);
 	void nextTriggerEvent();
+	void processTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, ShaftEvents signal, uint64_t nowUs);
+
 
 	/**
 	 * TRUE if we know where we are
