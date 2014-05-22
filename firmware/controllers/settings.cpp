@@ -18,6 +18,7 @@
 #include "tps.h"
 #include "ec2.h"
 #include "map.h"
+#include "trigger_decoder.h"
 
 #if EFI_PROD_CODE
 #include "rusefi.h"
@@ -197,8 +198,9 @@ static void setTimingMode(int value) {
 }
 
 void setEngineType(int value) {
-	engineConfiguration->engineType = (engine_type_e)value;
-	resetConfigurationExt(&logger, (engine_type_e) value, engineConfiguration, engineConfiguration2, boardConfiguration);
+	engineConfiguration->engineType = (engine_type_e) value;
+	resetConfigurationExt(&logger, (engine_type_e) value, engineConfiguration, engineConfiguration2,
+			boardConfiguration);
 #if EFI_INTERNAL_FLASH
 	writeToFlash();
 //	scheduleReset();
@@ -278,17 +280,15 @@ static void printThermistor(char *msg, Thermistor *thermistor) {
 
 static void printMAPInfo(void) {
 #if EFI_PROD_CODE
-	scheduleMsg(&logger, "map type=%d raw=%f MAP=%f", engineConfiguration->map.sensor.sensorType, getRawMap(), getMap());
+	scheduleMsg(&logger, "map type=%d raw=%f MAP=%f", engineConfiguration->map.sensor.sensorType, getRawMap(),
+			getMap());
 	if (engineConfiguration->map.sensor.sensorType == MT_CUSTOM) {
-		scheduleMsg(&logger, "min=%f max=%f", engineConfiguration->map.sensor.Min,
-				engineConfiguration->map.sensor.Max);
+		scheduleMsg(&logger, "min=%f max=%f", engineConfiguration->map.sensor.Min, engineConfiguration->map.sensor.Max);
 	}
-
 
 	scheduleMsg(&logger, "baro type=%d value=%f", engineConfiguration->baroSensor.sensorType, getBaroPressure());
 	if (engineConfiguration->baroSensor.sensorType == MT_CUSTOM) {
-		scheduleMsg(&logger, "min=%f max=%f", engineConfiguration->baroSensor.Min,
-				engineConfiguration->baroSensor.Max);
+		scheduleMsg(&logger, "min=%f max=%f", engineConfiguration->baroSensor.Min, engineConfiguration->baroSensor.Max);
 	}
 #endif
 }
@@ -384,6 +384,13 @@ static void setInjectionMode(int value) {
 
 static void setIgnitionMode(int value) {
 	engineConfiguration->ignitionMode = (ignition_mode_e) value;
+	incrementGlobalConfigurationVersion();
+	doPrintConfiguration();
+}
+
+static void setTotalToothCount(int value) {
+	engineConfiguration->triggerConfig.totalToothCount = value;
+	initializeTriggerShape(&logger, engineConfiguration, engineConfiguration2);
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
 }
@@ -500,5 +507,6 @@ void initSettings(void) {
 
 	addConsoleAction("enable_injection", enableInjection);
 	addConsoleAction("disable_injection", disableInjection);
+	addConsoleActionI("set_total_tooth_count", setTotalToothCount);
 }
 
