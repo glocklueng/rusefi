@@ -118,7 +118,7 @@ static void endAveraging(void *arg) {
 /**
  * Shaft Position callback used to schedule start and end of MAP averaging
  */
-static void shaftPositionCallback(ShaftEvents ckpEventType, int index) {
+static void shaftPositionCallback(ShaftEvents ckpEventType, int index, void *arg) {
 	// this callback is invoked on interrupt thread
 
 	if (index != 0)
@@ -170,7 +170,7 @@ void initMapAveraging(void) {
 	endTimer[1].name = "map end1";
 
 
-	addTriggerEventListener(&shaftPositionCallback, "rpm reporter");
+	addTriggerEventListener(&shaftPositionCallback, "rpm reporter", NULL);
 	addConsoleAction("faststat", showMapStats);
 }
 

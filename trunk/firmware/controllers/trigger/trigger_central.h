@@ -11,7 +11,7 @@
 #include "rusefi_enums.h"
 #include "listener_array.h"
 
-typedef void (*ShaftPositionListener)(ShaftEvents signal, int index);
+typedef void (*ShaftPositionListener)(ShaftEvents signal, int index, void *arg);
 
 #ifdef __cplusplus
 #include "ec2.h"
@@ -21,7 +21,7 @@ typedef void (*ShaftPositionListener)(ShaftEvents signal, int index);
 class TriggerCentral {
 public:
 	TriggerCentral();
-	void addEventListener(ShaftPositionListener handler, const char *name);
+	void addEventListener(ShaftPositionListener handler, const char *name, void *arg);
 	void handleShaftSignal(configuration_s *configuration, ShaftEvents signal, uint64_t nowUs);
 private:
 	IntListenerArray triggerListeneres;
@@ -32,7 +32,7 @@ private:
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
-void addTriggerEventListener(ShaftPositionListener handler, const char *name);
+void addTriggerEventListener(ShaftPositionListener handler, const char *name, void *arg);
 uint64_t getCrankEventCounter(void);
 uint64_t getStartOfRevolutionIndex(void);
 int isSignalDecoderError(void);

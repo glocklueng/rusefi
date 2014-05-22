@@ -184,7 +184,7 @@ void showMainHistogram(void) {
  * This is the main trigger event handler.
  * Both injection and ignition are controlled from this method.
  */
-static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex) {
+static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, void *arg) {
 	efiAssertVoid(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 
 	int rpm = getRpm();
@@ -270,7 +270,7 @@ void initMainEventListener() {
 	if (!isInjectionEnabled())
 		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
 
-	addTriggerEventListener(&onTriggerEvent, "main loop");
+	addTriggerEventListener(&onTriggerEvent, "main loop", NULL);
 }
 
 int isIgnitionTimingError(void) {
