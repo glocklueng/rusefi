@@ -29,7 +29,7 @@ TriggerCentral triggerCentral;
 
 static Logging logging;
 
-static trigger_state_s triggerState;
+static TriggerState triggerState;
 
 uint64_t getCrankEventCounter() {
 	return triggerState.getTotalEventCounter();

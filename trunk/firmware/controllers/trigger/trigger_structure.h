@@ -13,9 +13,9 @@
 #include "rusefi_enums.h"
 #include "EfiWave.h"
 
-class trigger_state_s {
+class TriggerState {
 public:
-	trigger_state_s();
+	TriggerState();
 	int getCurrentIndex();
 	uint64_t getTotalEventCounter();
 	uint64_t getStartOfRevolutionIndex();
