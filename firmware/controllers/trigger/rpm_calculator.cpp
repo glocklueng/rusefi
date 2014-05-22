@@ -30,7 +30,7 @@
 extern WaveChart waveChart;
 #endif /* EFI_WAVE_CHART */
 
-static rpm_s rpmState;
+static RpmCalculator rpmState;
 
 #define UNREALISTIC_RPM 30000
 
@@ -92,7 +92,7 @@ int getRevolutionCounter(void) {
  *
  * @return TRUE if noise is detected
  */
-static int isNoisySignal(rpm_s * rpmState, uint64_t nowUs) {
+static int isNoisySignal(RpmCalculator * rpmState, uint64_t nowUs) {
 	uint64_t diff = nowUs - rpmState->lastRpmEventTimeUs;
 	return diff < 1000; // that's 1ms
 }
@@ -112,7 +112,7 @@ void addWaveChartEvent(const char *name, const char * msg, const char *msg2) {
  * updated here.
  * This callback is invoked on interrupt thread.
  */
-static void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
+void shaftPositionCallback(ShaftEvents ckpSignalType, int index) {
 	itoa10(&shaft_signal_msg_index[1], index);
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
 		addWaveChartEvent("crank", "up", (char*) shaft_signal_msg_index);

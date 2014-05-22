@@ -13,7 +13,9 @@
 
 #define NOISY_RPM -1
 
-typedef struct {
+#ifdef __cplusplus
+class RpmCalculator {
+public:
 	volatile int rpm;
 	volatile uint64_t lastRpmEventTimeUs;
 	/**
@@ -21,7 +23,9 @@ typedef struct {
 	 * crankshaft could be camshaft.
 	 */
 	volatile int revolutionCounter;
-} rpm_s;
+};
+
+#endif
 
 #ifdef __cplusplus
 extern "C"
