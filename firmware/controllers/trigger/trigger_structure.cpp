@@ -55,33 +55,33 @@ void multi_wave_s::setSwitchTime(int index, float value) {
 	switchTimes[index] = value;
 }
 
-trigger_state_s::trigger_state_s() {
+TriggerState::TriggerState() {
 	clear();
 	totalEventCountBase = 0;
 }
 
-int trigger_state_s::getCurrentIndex() {
+int TriggerState::getCurrentIndex() {
 	return current_index;
 }
 
-uint64_t trigger_state_s::getStartOfRevolutionIndex() {
+uint64_t TriggerState::getStartOfRevolutionIndex() {
 	return totalEventCountBase;
 }
 
-uint64_t trigger_state_s::getTotalEventCounter() {
+uint64_t TriggerState::getTotalEventCounter() {
 	return totalEventCountBase + current_index;
 }
 
-void trigger_state_s::nextRevolution(int triggerEventCount) {
+void TriggerState::nextRevolution(int triggerEventCount) {
 	current_index = 0;
 	totalEventCountBase += triggerEventCount;
 }
 
-void trigger_state_s::nextTriggerEvent() {
+void TriggerState::nextTriggerEvent() {
 	current_index++;
 }
 
-void trigger_state_s::clear() {
+void TriggerState::clear() {
 	shaft_is_synchronized = FALSE;
 	toothed_previous_time = 0;
 	toothed_previous_duration = 0;

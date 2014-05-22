@@ -21,7 +21,7 @@ extern "C"
 
 
 int isTriggerDecoderError(void);
-void processTriggerEvent(trigger_state_s *shaftPositionState, trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, ShaftEvents signal, uint64_t nowUs);
+void processTriggerEvent(TriggerState *triggerState, trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, ShaftEvents signal, uint64_t nowUs);
 void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount, int skippedCount);
 void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*triggerConfig);
