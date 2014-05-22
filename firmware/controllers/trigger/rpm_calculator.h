@@ -16,6 +16,7 @@
 #ifdef __cplusplus
 class RpmCalculator {
 public:
+	RpmCalculator();
 	volatile int rpm;
 	volatile uint64_t lastRpmEventTimeUs;
 	/**

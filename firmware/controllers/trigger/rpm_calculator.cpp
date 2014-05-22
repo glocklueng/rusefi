@@ -41,6 +41,13 @@ extern engine_configuration2_s *engineConfiguration2;
 
 static Logging logger;
 
+RpmCalculator::RpmCalculator() {
+	rpm = 0;
+
+	// we need this initial to have not_running at first invocation
+	lastRpmEventTimeUs = (uint64_t) -10 * US_PER_SECOND;
+}
+
 /**
  * @return true if there was a full shaft revolution within the last second
  */
@@ -182,11 +189,6 @@ void initRpmCalculator(void) {
 	tdcScheduler[1].name = "tdc1";
 
 	strcpy((char*) shaft_signal_msg_index, "_");
-
-	rpmState.rpm = 0;
-
-	// we need this initial to have not_running at first invocation
-	rpmState.lastRpmEventTimeUs = (uint64_t) -10 * US_PER_SECOND;
 
 	addTriggerEventListener((ShaftPositionListener)&shaftPositionCallback, "rpm reporter", &rpmState);
 	addTriggerEventListener(&tdcMarkCallback, "chart TDC mark", NULL);
