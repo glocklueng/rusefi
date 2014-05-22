@@ -43,3 +43,9 @@ void invokeIntIntCallbacks(IntListenerArray *array, int value, int value2) {
 	}
 }
 
+void invokeIntIntVoidCallbacks(IntListenerArray *array, int value, int value2, void *arg) {
+	for (int i = 0; i < array->currentListenersCount; i++) {
+		IntIntVoidListener listener = (IntIntVoidListener)array->callbacks[i];
+		(listener)(value, value2, arg);
+	}
+}
