@@ -87,7 +87,7 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, ShaftEven
 	/**
 	 * This invocation changes the state of
 	 */
-	processTriggerEvent(&triggerState, &configuration->engineConfiguration2->triggerShape,
+	triggerState.processTriggerEvent(&configuration->engineConfiguration2->triggerShape,
 			&configuration->engineConfiguration->triggerConfig, signal, nowUs);
 
 	if (!triggerState.shaft_is_synchronized)

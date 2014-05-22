@@ -69,8 +69,8 @@ static inline int noSynchronizationResetNeeded(TriggerState *shaftPositionState,
 /**
  * @brief This method changes the state of trigger_state_s data structure according to the trigger event
  */
-void processTriggerEvent(TriggerState *shaftPositionState, trigger_shape_s const *triggerShape,
-		trigger_config_s const *triggerConfig, ShaftEvents signal, uint64_t nowUs) {
+void TriggerState::processTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, ShaftEvents signal, uint64_t nowUs) {
+
 
 	int isLessImportant = (triggerConfig->useRiseEdge && signal != SHAFT_PRIMARY_UP)
 			|| (!triggerConfig->useRiseEdge && signal != SHAFT_PRIMARY_DOWN);
@@ -79,11 +79,11 @@ void processTriggerEvent(TriggerState *shaftPositionState, trigger_shape_s const
 		/**
 		 * For less important events we simply increment the index.
 		 */
-		shaftPositionState->nextTriggerEvent();
+		nextTriggerEvent();
 		return;
 	}
 
-	int64_t currentDuration = nowUs - shaftPositionState->toothed_previous_time;
+	int64_t currentDuration = nowUs - toothed_previous_time;
 	efiAssertVoid(currentDuration >= 0, "negative duration?");
 
 // todo: skip a number of signal from the beginning
@@ -92,32 +92,31 @@ void processTriggerEvent(TriggerState *shaftPositionState, trigger_shape_s const
 //	scheduleMsg(&logger, "from %f to %f %d %d", triggerConfig->syncRatioFrom, triggerConfig->syncRatioTo, currentDuration, shaftPositionState->toothed_previous_duration);
 //	scheduleMsg(&logger, "ratio %f", 1.0 * currentDuration/ shaftPositionState->toothed_previous_duration);
 #else
-	if (shaftPositionState->toothed_previous_duration != 0) {
+	if (toothed_previous_duration != 0) {
 //		printf("ratio %f: cur=%d pref=%d\r\n", 1.0 * currentDuration / shaftPositionState->toothed_previous_duration,
 //				currentDuration, shaftPositionState->toothed_previous_duration);
 	}
 #endif
 
-	if (noSynchronizationResetNeeded(shaftPositionState, triggerShape, triggerConfig)
-			|| isSynchronizationGap(shaftPositionState, triggerShape, triggerConfig, currentDuration)) {
+	if (noSynchronizationResetNeeded(this, triggerShape, triggerConfig)
+			|| isSynchronizationGap(this, triggerShape, triggerConfig, currentDuration)) {
 		/**
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
 		 */
-		int isDecodingError = shaftPositionState->getCurrentIndex() != triggerShape->shaftPositionEventCount - 1;
+		int isDecodingError = getCurrentIndex() != triggerShape->shaftPositionEventCount - 1;
 		errorDetection.add(isDecodingError);
 
 		if (isTriggerDecoderError())
 			warning(OBD_PCM_Processor_Fault, "trigger decoding issue");
 
-		shaftPositionState->shaft_is_synchronized = TRUE;
-		shaftPositionState->nextRevolution(triggerShape->shaftPositionEventCount);
+		shaft_is_synchronized = TRUE;
+		nextRevolution(triggerShape->shaftPositionEventCount);
 	} else {
-		shaftPositionState->nextTriggerEvent();
+		nextTriggerEvent();
 	}
 
-	shaftPositionState->toothed_previous_duration = currentDuration;
-	shaftPositionState->toothed_previous_time = nowUs;
-
+	toothed_previous_duration = currentDuration;
+	toothed_previous_time = nowUs;
 }
 
 static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeethCount, int skippedCount) {
@@ -232,13 +231,13 @@ int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*tr
 		if (primaryWheelState != newPrimaryWheelState) {
 			primaryWheelState = newPrimaryWheelState;
 			ShaftEvents s = primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN;
-			processTriggerEvent(&state, shape, triggerConfig, s, time);
+			state.processTriggerEvent(shape, triggerConfig, s, time);
 		}
 
 		if (secondaryWheelState != newSecondaryWheelState) {
 			secondaryWheelState = newSecondaryWheelState;
 			ShaftEvents s = secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN;
-			processTriggerEvent(&state, shape, triggerConfig, s, time);
+			state.processTriggerEvent(shape, triggerConfig, s, time);
 		}
 
 		if (state.shaft_is_synchronized)
