@@ -41,6 +41,7 @@ void setFordInline6(engine_configuration_s *engineConfiguration, board_configura
 	/**
 	 * We treat the trigger as 6/0 toothed wheel
 	 */
+	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL;
 	engineConfiguration->triggerConfig.totalToothCount = 6;
 	engineConfiguration->triggerConfig.skippedToothCount = 0;
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
