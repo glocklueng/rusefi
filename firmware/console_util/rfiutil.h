@@ -18,14 +18,11 @@
 #define FALSE 0
 #endif
 
-#define _MAX_FILLER 11
-
 #ifdef __cplusplus
 extern "C"
 {
 #endif /* __cplusplus */
 
-char* itoa10(uint8_t *p, int num);
 char hexC(int v);
 int isIsrContext(void);
 int isLocked(void);

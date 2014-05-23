@@ -19,7 +19,9 @@
 #include "engine_configuration.h"
 #include "ec2.h"
 #include "engine_math.h"
+#if EFI_PROD_CODE
 #include "rfiutil.h"
+#endif
 
 #if EFI_ANALOG_CHART
 #include "analog_chart.h"
@@ -104,7 +106,7 @@ static int isNoisySignal(RpmCalculator * rpmState, uint64_t nowUs) {
 	return diff < 1000; // that's 1ms
 }
 
-static uint8_t shaft_signal_msg_index[15];
+static char shaft_signal_msg_index[15];
 
 void addWaveChartEvent(const char *name, const char * msg, const char *msg2) {
 #if EFI_WAVE_CHART
@@ -168,7 +170,7 @@ void shaftPositionCallback(ShaftEvents ckpSignalType, int index, RpmCalculator *
 
 static scheduling_s tdcScheduler[2];
 
-static uint8_t rpmBuffer[10];
+static char rpmBuffer[10];
 
 static void onTdcCallback(void) {
 	itoa10(rpmBuffer, getRpm());

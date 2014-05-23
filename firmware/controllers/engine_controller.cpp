@@ -198,13 +198,13 @@ static void initFuelPump(void) {
 	fuelPumpOn(SHAFT_PRIMARY_UP, 0, NULL);
 }
 
-char * getPinNameByAdcChannel(int hwChannel, uint8_t *buffer) {
+char * getPinNameByAdcChannel(int hwChannel, char *buffer) {
 	strcpy((char*) buffer, portname(getAdcChannelPort(hwChannel)));
 	itoa10(&buffer[2], getAdcChannelPin(hwChannel));
 	return (char*) buffer;
 }
 
-static uint8_t pinNameBuffer[16];
+static char pinNameBuffer[16];
 
 static void printAnalogChannelInfoExt(const char *name, int hwChannel,
 		float voltage) {
