@@ -53,9 +53,9 @@ RpmCalculator::RpmCalculator() {
 /**
  * @return true if there was a full shaft revolution within the last second
  */
-bool_t isRunning(void) {
+bool_t RpmCalculator::isRunning(void) {
 	uint64_t nowUs = getTimeNowUs();
-	return nowUs - rpmState.lastRpmEventTimeUs < US_PER_SECOND;
+	return nowUs - lastRpmEventTimeUs < US_PER_SECOND;
 }
 
 bool_t isValidRpm(int rpm) {
@@ -75,7 +75,7 @@ bool_t isCranking(void) {
  * @return -1 in case of isNoisySignal(), current RPM otherwise
  */
 int getRpm() {
-	if (!isRunning())
+	if (!rpmState.isRunning())
 		return 0;
 	return rpmState.rpm;
 }
@@ -144,7 +144,7 @@ void shaftPositionCallback(ShaftEvents ckpSignalType, int index, RpmCalculator *
 
 	uint64_t nowUs = getTimeNowUs();
 
-	int hadRpmRecently = isRunning();
+	bool_t hadRpmRecently = rpmState->isRunning();
 
 	if (hadRpmRecently) {
 		if (isNoisySignal(rpmState, nowUs)) {
