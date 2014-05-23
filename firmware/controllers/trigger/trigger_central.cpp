@@ -10,11 +10,13 @@
 #include "trigger_decoder.h"
 #include "main_trigger_callback.h"
 #include "engine_configuration.h"
-#include "histogram.h"
-#include "rfiutil.h"
 #include "listener_array.h"
 #include "wave_math.h"
 #include "data_buffer.h"
+#include "histogram.h"
+#if EFI_PROD_CODE
+#include "rfiutil.h"
+#endif
 
 #if defined __GNUC__
 static histogram_s triggerCallback __attribute__((section(".ccm")));
@@ -54,11 +56,13 @@ void addTriggerEventListener(ShaftPositionListener listener, const char *name, v
 	triggerCentral.addEventListener(listener, name, arg);
 }
 
+#if EFI_PROD_CODE
 extern configuration_s *configuration;
 
 void hwHandleShaftSignal(ShaftEvents signal) {
 	triggerCentral.handleShaftSignal(configuration, signal, getTimeNowUs());
 }
+#endif /* EFI_PROD_CODE */
 
 TriggerCentral::TriggerCentral() {
 	memset(hwEventCounters, 0, sizeof(hwEventCounters));
@@ -70,7 +74,9 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, ShaftEven
 	efiAssertVoid(configuration->engineConfiguration!=NULL, "engineConfiguration");
 	efiAssertVoid(configuration->engineConfiguration2!=NULL, "engineConfiguration2");
 
+#if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int beforeCallback = hal_lld_get_counter_value();
+#endif
 	int eventIndex = (int) signal;
 	efiAssertVoid(eventIndex >= 0 && eventIndex < HW_EVENT_TYPES, "signal type");
 	hwEventCounters[eventIndex]++;
@@ -96,8 +102,11 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, ShaftEven
 	if (triggerState.getCurrentIndex() >= configuration->engineConfiguration2->triggerShape.shaftPositionEventCount) {
 		int f = warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.getCurrentIndex());
 		if (!f) {
+#if EFI_PROD_CODE
+			// this temporary code is about trigger noise debugging
 			for (int i = 0; i < HW_EVENT_TYPES; i++)
 				scheduleMsg(&logging, "event type: %d count=%d", i, hwEventCounters[i]);
+#endif
 		}
 	} else {
 
@@ -106,8 +115,8 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, ShaftEven
 		 */
 		invokeIntIntVoidCallbacks(&triggerListeneres, signal, triggerState.getCurrentIndex());
 	}
+#if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int afterCallback = hal_lld_get_counter_value();
-#if EFI_HISTOGRAMS
 	int diff = afterCallback - beforeCallback;
 	// this counter is only 32 bits so it overflows every minute, let's ignore the value in case of the overflow for simplicity
 	if (diff > 0)
@@ -116,11 +125,15 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, ShaftEven
 }
 
 void printAllCallbacksHistogram(void) {
+#if EFI_PROD_CODE
 	printHistogram(&logging, &triggerCallback);
+#endif
 }
 
 void initTriggerCentral(void) {
+#if EFI_PROD_CODE
 	initLogging(&logging, "ShaftPosition");
+#endif
 
 #if EFI_HISTOGRAMS
 	initHistogram(&triggerCallback, "all callbacks");
