@@ -40,8 +40,10 @@ extern "C"
 static engine_configuration_s ec;
 engine_configuration_s *engineConfiguration = &ec;
 
+int timeNow = 0;
+
 uint64_t getTimeNowUs(void) {
-	return 0;
+	return timeNow;
 }
 
 void assertEqualsM(const char *msg, float expected, float actual) {
