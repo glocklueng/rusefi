@@ -24,8 +24,10 @@ public:
 	 * crankshaft could be camshaft.
 	 */
 	volatile int revolutionCounter;
+	bool_t isRunning(void);
 };
 
+void shaftPositionCallback(ShaftEvents ckpSignalType, int index, RpmCalculator *rpmState);
 #endif
 
 #ifdef __cplusplus
