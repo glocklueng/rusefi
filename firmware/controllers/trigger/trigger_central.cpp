@@ -56,7 +56,7 @@ void addTriggerEventListener(ShaftPositionListener listener, const char *name, v
 	triggerCentral.addEventListener(listener, name, arg);
 }
 
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 extern configuration_s *configuration;
 
 void hwHandleShaftSignal(ShaftEvents signal) {
@@ -66,6 +66,7 @@ void hwHandleShaftSignal(ShaftEvents signal) {
 
 TriggerCentral::TriggerCentral() {
 	memset(hwEventCounters, 0, sizeof(hwEventCounters));
+	clearCallbacks(&triggerListeneres);
 }
 
 void TriggerCentral::handleShaftSignal(configuration_s *configuration, ShaftEvents signal, uint64_t nowUs) {

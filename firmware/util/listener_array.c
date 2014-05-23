@@ -49,3 +49,7 @@ void invokeIntIntVoidCallbacks(IntListenerArray *array, int value, int value2) {
 		(listener)(value, value2, array->args[i]);
 	}
 }
+
+void clearCallbacks(IntListenerArray *array) {
+	array->currentListenersCount = 0;
+}

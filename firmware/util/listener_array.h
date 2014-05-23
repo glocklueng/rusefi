@@ -24,7 +24,6 @@ typedef void (*IntIntVoidListener)(int value1, int value2, void *arg);
 typedef void (*ArgListener)(void *arg);
 typedef void (*ArgIntListener)(void *arg, int value);
 
-
 typedef struct {
 	int currentListenersCount;
 	IntListener callbacks[MAX_INT_LISTENER_COUNT];
@@ -37,6 +36,7 @@ void invokeJustArgCallbacks(IntListenerArray *array);
 void invokeArgIntCallbacks(IntListenerArray *array, int value);
 void invokeIntIntCallbacks(IntListenerArray *array, int value, int value2);
 void invokeIntIntVoidCallbacks(IntListenerArray *array, int value, int value2);
+void clearCallbacks(IntListenerArray *array);
 
 #ifdef __cplusplus
 }
