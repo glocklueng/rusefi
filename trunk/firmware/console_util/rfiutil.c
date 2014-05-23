@@ -42,47 +42,6 @@ int mylog10(int param) {
 	return mylog10(param / 10) + 1;
 }
 
-static char *ltoa_internal(char *p, long num, unsigned radix) {
-	int i;
-	char *q;
-
-	q = p + _MAX_FILLER;
-	do {
-		i = (int) (num % radix);
-		i += '0';
-		if (i > '9')
-			i += 'A' - '0' - 10;
-		*--q = i;
-	} while ((num /= radix) != 0);
-
-	i = (int) (p + _MAX_FILLER - q);
-	do
-		*p++ = *q++;
-	while (--i);
-
-	return p;
-}
-
-static char* itoa_signed(uint8_t *p, int num, unsigned radix) {
-	if (num < 0) {
-		*p++ = '-';
-		char *end = ltoa_internal(p, -num, radix);
-		*end = 0;
-		return end;
-	}
-	char *end = ltoa_internal(p, num, radix);
-	*end = 0;
-	return end;
-}
-
-/**
- * Integer to string
- */
-char* itoa10(uint8_t *p, int num) {
-// todo: unit test
-	return itoa_signed(p, num, 10);
-}
-
 char hexChar(int v) {
 	v = v & 0xF;
 	if (v < 10)

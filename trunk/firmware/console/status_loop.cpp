@@ -324,7 +324,7 @@ void updateHD44780lcd(void) {
 	lcd_HD44780_print_char('R');
 	lcd_HD44780_set_position(0, 10);
 
-	char * ptr = itoa10((uint8_t*) buffer, getRpm());
+	char * ptr = itoa10(buffer, getRpm());
 	ptr[0] = 0;
 	int len = ptr - buffer;
 	for (int i = 0; i < 6 - len; i++)

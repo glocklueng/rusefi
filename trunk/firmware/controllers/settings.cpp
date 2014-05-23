@@ -261,7 +261,7 @@ static void setRpmMultiplier(int value) {
 	doPrintConfiguration();
 }
 
-static uint8_t pinNameBuffer[16];
+static char pinNameBuffer[16];
 
 static void printThermistor(char *msg, Thermistor *thermistor) {
 	int adcChannel = thermistor->channel;
