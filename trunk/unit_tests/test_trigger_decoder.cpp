@@ -15,6 +15,8 @@
 #include "ford_1995_inline_6.h"
 #include "mazda_323.h"
 
+#include "trigger_central.h"
+
 extern "C" {
 void sendOutConfirmation(char *value, int i);
 }
@@ -264,6 +266,33 @@ void testGY6_139QMB(void) {
 	assertEquals(1, state.getCurrentIndex());
 }
 
+static void testRpmCalculator(void) {
+	printf("*************************************************** testRpmCalculator\r\n");
+
+
+	persistent_config_s persistentConfig;
+	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
+	engine_configuration2_s ec2;
+
+	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
+
+
+	ec->triggerConfig.totalToothCount = 4;
+	initializeTriggerShape(NULL, ec, &ec2);
+	incrementGlobalConfigurationVersion();
+
+	configuration_s configuration = {ec, &ec2};
+
+	TriggerCentral triggerCentral;
+
+	int now = 0;
+
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, now);
+
+
+
+}
+
 void testTriggerDecoder(void) {
 	printf("*************************************************** testTriggerDecoder\r\n");
 
@@ -285,5 +314,7 @@ void testTriggerDecoder(void) {
 	testMiniCooper();
 
 //	testMazda323();
+
+	testRpmCalculator();
 }
 
