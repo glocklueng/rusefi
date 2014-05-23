@@ -43,6 +43,4 @@ char* itoa10(char *p, int num);
 }
 #endif /* __cplusplus */
 
-
-
 #endif /* EFILIB_H_ */

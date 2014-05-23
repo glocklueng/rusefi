@@ -185,7 +185,9 @@ static void tdcMarkCallback(ShaftEvents ckpSignalType, int index, void *arg) {
 }
 
 void initRpmCalculator(void) {
+#if EFI_PROD_CODE
 	initLogging(&logger, "rpm calc");
+#endif
 
 	tdcScheduler[0].name = "tdc0";
 	tdcScheduler[1].name = "tdc1";
