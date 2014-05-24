@@ -48,6 +48,8 @@ extern "C" {
 
 static LocalVersionHolder localVersion;
 
+static MainTriggerCallback mainTriggerCallback;
+
 /**
  * In order to archive higher event precision, we are using a hybrid approach
  * where we are scheduling events based on the closest trigger event with a time offset.
@@ -57,10 +59,8 @@ static LocalVersionHolder localVersion;
 static EventQueue triggerEventsQueue;
 
 int isInjectionEnabled(void);
-
 }
 
-extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
 static cyclic_buffer ignitionErrorDetection;
@@ -74,7 +74,7 @@ static Logging logger;
 static ActuatorEventList events;
 
 static void handleFuelInjectionEvent(ActuatorEvent *event, int rpm) {
-	float fuelMs = getFuelMs(rpm) * engineConfiguration->globalFuelCorrection;
+	float fuelMs = getFuelMs(rpm) * mainTriggerCallback.engineConfiguration->globalFuelCorrection;
 	if (fuelMs < 0) {
 		scheduleMsg(&logger, "ERROR: negative injectionPeriod %f", fuelMs);
 		return;
@@ -113,7 +113,7 @@ static void handleFuel(int eventIndex, int rpm) {
 }
 
 static void handleSparkEvent(ActuatorEvent *event, int rpm) {
-	float dwellMs = getSparkDwellMs(rpm);
+	float dwellMs = getSparkDwellMsT(mainTriggerCallback.engineConfiguration, rpm);
 	if (cisnan(dwellMs) || dwellMs < 0) {
 		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 		return;
@@ -197,7 +197,7 @@ static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, void *arg)
 		warning(OBD_Camshaft_Position_Sensor_Circuit_Range_Performance, "noisy trigger");
 		return;
 	}
-	if (rpm > engineConfiguration->rpmHardLimit) {
+	if (rpm > mainTriggerCallback.engineConfiguration->rpmHardLimit) {
 		warning(OBD_PCM_Processor_Fault, "skipping stroke due to rpm=%d", rpm);
 		return;
 	}
@@ -208,7 +208,7 @@ static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, void *arg)
 
 	if (eventIndex == 0) {
 		if (localVersion.isOld())
-			prepareOutputSignals(engineConfiguration, engineConfiguration2);
+			prepareOutputSignals(mainTriggerCallback.engineConfiguration, engineConfiguration2);
 
 		/**
 		 * TODO: warning. there is a bit of a hack here, todo: improve.
@@ -222,16 +222,16 @@ static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, void *arg)
 		 * Within one engine cycle all cylinders are fired with same timing advance.
 		 * todo: one day we can control cylinders individually
 		 */
-		float dwellMs = getSparkDwellMs(rpm);
+		float dwellMs = getSparkDwellMsT(mainTriggerCallback.engineConfiguration, rpm);
 		if (cisnan(dwellMs) || dwellMs < 0) {
 			firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 			return;
 		}
-		float advance = getAdvance(rpm, getEngineLoad());
+		float advance = getAdvance(rpm, getEngineLoadT(mainTriggerCallback.engineConfiguration));
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
-		initializeIgnitionActions(advance - dwellAngle, engineConfiguration, engineConfiguration2, &engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
+		initializeIgnitionActions(advance - dwellAngle, mainTriggerCallback.engineConfiguration, engineConfiguration2, &engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
 	}
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
@@ -252,12 +252,20 @@ static void showTriggerHistogram(void) {
 
 static void showMainInfo(void) {
 	int rpm = getRpm();
-	float el = getEngineLoad();
+	float el = getEngineLoadT(mainTriggerCallback.engineConfiguration);
 	scheduleMsg(&logger, "rpm %d engine_load %f", rpm, el);
 	scheduleMsg(&logger, "fuel %fms timing %f", getFuelMs(rpm), getAdvance(rpm, el));
 }
 
-void initMainEventListener() {
+void MainTriggerCallback::init(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+	this->engineConfiguration = engineConfiguration;
+	this->engineConfiguration2 = engineConfiguration2;
+}
+
+void initMainEventListener(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+	mainTriggerCallback.init(engineConfiguration, engineConfiguration2);
+
+
 	addConsoleAction("performanceinfo", showTriggerHistogram);
 	addConsoleAction("maininfo", showMainInfo);
 
