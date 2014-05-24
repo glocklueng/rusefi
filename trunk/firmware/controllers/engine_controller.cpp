@@ -286,7 +286,7 @@ void initEngineContoller(void) {
 	/**
 	 * This method initialized the main listener which actually runs injectors & ignition
 	 */
-	initMainEventListener();
+	initMainEventListener(engineConfiguration, engineConfiguration2);
 #endif /* EFI_ENGINE_CONTROL */
 
 #if EFI_IDLE_CONTROL
