@@ -104,6 +104,7 @@ CPPSRC = $(UTILSRC_CPP) \
 	$(TEST_SRC_CPP) \
 	$(PROJECT_DIR)/controllers/trigger/trigger_central.cpp \
 	$(PROJECT_DIR)/controllers/trigger/rpm_calculator.cpp \
+	$(PROJECT_DIR)/controllers/trigger/main_trigger_callback.cpp \
 	$(PROJECT_DIR)/controllers/system/event_queue.cpp \
 	main.cpp
 

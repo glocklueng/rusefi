@@ -17,6 +17,7 @@
 #include "rpm_calculator.h"
 
 #include "trigger_central.h"
+#include "main_trigger_callback.h"
 
 extern int timeNow;
 
@@ -299,6 +300,13 @@ static void testRpmCalculator(void) {
 		triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
 	}
 	assertEqualsM("RPM", 3000, rpmState.rpm);
+
+	MainTriggerCallback triggerCallbackInstance;
+	triggerCallbackInstance.init(ec, &ec2);
+	triggerCentral.addEventListener((ShaftPositionListener)&onTriggerEvent, "main loop", &triggerCallbackInstance);
+	timeNow += 5000; // 5ms
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
+
 }
 
 void testTriggerDecoder(void) {
