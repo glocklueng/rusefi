@@ -23,6 +23,7 @@ public:
 	TriggerCentral();
 	void addEventListener(ShaftPositionListener handler, const char *name, void *arg);
 	void handleShaftSignal(configuration_s *configuration, ShaftEvents signal, uint64_t nowUs);
+	TriggerState triggerState;
 private:
 	IntListenerArray triggerListeneres;
 	int hwEventCounters[HW_EVENT_TYPES];

@@ -31,14 +31,12 @@ TriggerCentral triggerCentral;
 
 static Logging logging;
 
-static TriggerState triggerState;
-
 uint64_t getCrankEventCounter() {
-	return triggerState.getTotalEventCounter();
+	return triggerCentral.triggerState.getTotalEventCounter();
 }
 
 uint64_t getStartOfRevolutionIndex() {
-	return triggerState.getStartOfRevolutionIndex();
+	return triggerCentral.triggerState.getStartOfRevolutionIndex();
 }
 
 void TriggerCentral::addEventListener(ShaftPositionListener listener, const char *name, void *arg) {
