@@ -15,6 +15,7 @@
 #include "ford_1995_inline_6.h"
 #include "mazda_323.h"
 #include "rpm_calculator.h"
+#include "event_queue.h"
 
 #include "trigger_central.h"
 #include "main_trigger_callback.h"
@@ -270,6 +271,8 @@ void testGY6_139QMB(void) {
 	assertEquals(1, state.getCurrentIndex());
 }
 
+extern EventQueue schedulingQueue;
+
 static void testRpmCalculator(void) {
 	printf("*************************************************** testRpmCalculator\r\n");
 
@@ -307,9 +310,21 @@ static void testRpmCalculator(void) {
 	MainTriggerCallback triggerCallbackInstance;
 	triggerCallbackInstance.init(ec, &ec2);
 	triggerCentral.addEventListener((ShaftPositionListener)&onTriggerEvent, "main loop", &triggerCallbackInstance);
+
 	timeNow += 5000; // 5ms
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
 	assertEqualsM("index #2", 0, triggerCentral.triggerState.getCurrentIndex());
+	assertEquals(0, schedulingQueue.size());
+
+	timeNow += 5000;
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
+	assertEqualsM("index #3", 1, triggerCentral.triggerState.getCurrentIndex());
+	assertEquals(0, schedulingQueue.size());
+
+	timeNow += 5000; // 5ms
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
+	assertEqualsM("index #4", 2, triggerCentral.triggerState.getCurrentIndex());
+	assertEquals(0, schedulingQueue.size());
 
 
 }
