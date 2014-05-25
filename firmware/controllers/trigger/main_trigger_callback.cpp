@@ -28,11 +28,10 @@
 #include "main_trigger_callback.h"
 #include "ec2.h"
 
-extern "C" {
+#include "engine_math.h"
 #include "trigger_central.h"
 #include "rpm_calculator.h"
 #include "signal_executor.h"
-#include "engine_math.h"
 #include "engine_configuration.h"
 #include "interpolation.h"
 #include "advance_map.h"
@@ -41,7 +40,9 @@ extern "C" {
 #include "histogram.h"
 #include "fuel_math.h"
 #include "histogram.h"
+#if EFI_PROD_CODE
 #include "rfiutil.h"
+#endif /* EFI_HISTOGRAMS */
 #include "LocalVersionHolder.h"
 #include "event_queue.h"
 
@@ -57,11 +58,6 @@ static MainTriggerCallback mainTriggerCallbackInstance;
  */
 static EventQueue triggerEventsQueue;
 
-int isInjectionEnabled(void);
-}
-
-extern engine_configuration2_s *engineConfiguration2;
-
 static cyclic_buffer ignitionErrorDetection;
 
 static Logging logger;
@@ -75,7 +71,9 @@ static ActuatorEventList events;
 static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, ActuatorEvent *event, int rpm) {
 	float fuelMs = getFuelMs(rpm) * mainTriggerCallback->engineConfiguration->globalFuelCorrection;
 	if (fuelMs < 0) {
+#if EFI_PROD_CODE
 		scheduleMsg(&logger, "ERROR: negative injectionPeriod %f", fuelMs);
+#endif
 		return;
 	}
 
@@ -88,7 +86,7 @@ static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, A
 }
 
 static void handleFuel(MainTriggerCallback *mainTriggerCallback, int eventIndex, int rpm) {
-	if (!isInjectionEnabled())
+	if (!isInjectionEnabled(mainTriggerCallback->engineConfiguration2))
 		return;
 	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 
@@ -122,7 +120,9 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, ActuatorE
 	int isIgnitionError = sparkDelay < 0;
 	ignitionErrorDetection.add(isIgnitionError);
 	if (isIgnitionError) {
+#if EFI_PROD_CODE
 		scheduleMsg(&logger, "Negative spark delay=%f", sparkDelay);
+#endif
 		sparkDelay = 0;
 		return;
 	}
@@ -176,7 +176,9 @@ static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex
 static histogram_s mainLoopHisto;
 
 void showMainHistogram(void) {
+#if EFI_PROD_CODE
 	printHistogram(&logger, &mainLoopHisto);
+#endif
 }
 
 /**
@@ -184,7 +186,7 @@ void showMainHistogram(void) {
  * Both injection and ignition are controlled from this method.
  */
 void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallback *mainTriggerCallback) {
-	efiAssertVoid(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
+	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 
 	int rpm = getRpm();
 	if (rpm == 0) {
@@ -201,7 +203,9 @@ void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallba
 		return;
 	}
 
+#if EFI_PROD_CODE
 	int beforeCallback = hal_lld_get_counter_value();
+#endif
 
 	int revolutionIndex = getRevolutionCounter() % 2;
 
@@ -230,14 +234,14 @@ void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallba
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
-		initializeIgnitionActions(advance - dwellAngle, mainTriggerCallback->engineConfiguration, engineConfiguration2, &engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
+		initializeIgnitionActions(advance - dwellAngle, mainTriggerCallback->engineConfiguration, mainTriggerCallback->engineConfiguration2, &mainTriggerCallback->engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
 	}
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
 
 	handleFuel(mainTriggerCallback, eventIndex, rpm);
-	handleSpark(mainTriggerCallback, eventIndex, rpm, &engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
-#if EFI_HISTOGRAMS
+	handleSpark(mainTriggerCallback, eventIndex, rpm, &mainTriggerCallback->engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
+#if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
 		hsAdd(&mainLoopHisto, diff);
@@ -252,8 +256,10 @@ static void showTriggerHistogram(void) {
 static void showMainInfo(void) {
 	int rpm = getRpm();
 	float el = getEngineLoadT(mainTriggerCallbackInstance.engineConfiguration);
+#if EFI_PROD_CODE
 	scheduleMsg(&logger, "rpm %d engine_load %f", rpm, el);
 	scheduleMsg(&logger, "fuel %fms timing %f", getFuelMs(rpm), getAdvance(rpm, el));
+#endif
 }
 
 void MainTriggerCallback::init(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
@@ -264,18 +270,19 @@ void MainTriggerCallback::init(engine_configuration_s *engineConfiguration, engi
 void initMainEventListener(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 	mainTriggerCallbackInstance.init(engineConfiguration, engineConfiguration2);
 
-
+#if EFI_PROD_CODE
 	addConsoleAction("performanceinfo", showTriggerHistogram);
 	addConsoleAction("maininfo", showMainInfo);
 
 	initLogging(&logger, "main event handler");
 	printMsg(&logger, "initMainLoop: %d", currentTimeMillis());
+	if (!isInjectionEnabled(mainTriggerCallbackInstance.engineConfiguration2))
+		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
+#endif
+
 #if EFI_HISTOGRAMS
 	initHistogram(&mainLoopHisto, "main callback");
 #endif /* EFI_HISTOGRAMS */
-
-	if (!isInjectionEnabled())
-		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
 
 	addTriggerEventListener((ShaftPositionListener)&onTriggerEvent, "main loop", &mainTriggerCallbackInstance);
 }
