@@ -19,7 +19,6 @@ extern "C"
 #endif /* __cplusplus */
 
 void initInjectorCentral(void);
-int isInjectionEnabled(void);
 int isInjectorEnabled(int cylinderId);
 void assertCylinderId(int cylinderId, char *msg);
 

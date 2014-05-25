@@ -345,3 +345,7 @@ void setTimingRpmBin(engine_configuration_s *engineConfiguration, float l, float
 void setTimingLoadBin(engine_configuration_s *engineConfiguration, float l, float r) {
 	setTableBin(engineConfiguration->ignitionLoadBins, IGN_LOAD_COUNT, l, r);
 }
+
+int isInjectionEnabled(engine_configuration2_s const *engineConfiguration2) {
+	return engineConfiguration2->isInjectionEnabledFlag;
+}

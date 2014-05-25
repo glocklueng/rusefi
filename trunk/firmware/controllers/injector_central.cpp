@@ -38,10 +38,6 @@ extern board_configuration_s *boardConfiguration;
 
 static int is_injector_enabled[MAX_INJECTOR_COUNT];
 
-int isInjectionEnabled(void) {
-	return engineConfiguration2->isInjectionEnabledFlag;
-}
-
 void assertCylinderId(int cylinderId, char *msg) {
 	int isValid = cylinderId >= 1 && cylinderId <= engineConfiguration->cylindersCount;
 	if (!isValid) {

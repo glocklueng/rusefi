@@ -28,6 +28,7 @@ public:
 
 };
 void initMainEventListener(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
+void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallback *mainTriggerCallback);
 #endif
 
 #ifdef __cplusplus
