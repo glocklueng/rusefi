@@ -32,7 +32,6 @@ extern "C" {
 #include "trigger_central.h"
 #include "rpm_calculator.h"
 #include "signal_executor.h"
-#include "eficonsole.h"
 #include "engine_math.h"
 #include "engine_configuration.h"
 #include "interpolation.h"
@@ -184,7 +183,7 @@ void showMainHistogram(void) {
  * This is the main trigger event handler.
  * Both injection and ignition are controlled from this method.
  */
-static void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallback *mainTriggerCallback) {
+void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallback *mainTriggerCallback) {
 	efiAssertVoid(eventIndex < engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
 
 	int rpm = getRpm();
