@@ -293,13 +293,16 @@ static void testRpmCalculator(void) {
 	assertEquals(0, rpmState.rpm);
 	triggerCentral.addEventListener((ShaftPositionListener) &shaftPositionCallback, "rpm reporter", &rpmState);
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 13; i++) {
 		timeNow += 5000; // 5ms
 		triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
 		timeNow += 5000;
 		triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
 	}
 	assertEqualsM("RPM", 3000, rpmState.rpm);
+
+	assertEquals(1, triggerCentral.triggerState.getCurrentIndex());
+
 
 	MainTriggerCallback triggerCallbackInstance;
 	triggerCallbackInstance.init(ec, &ec2);
