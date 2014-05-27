@@ -4,20 +4,19 @@ LIBS:device
 LIBS:conn
 LIBS:linear
 LIBS:special
-LIBS:analog_switches
 LIBS:stm32
 LIBS:logo_flipped
 LIBS:art-electro-conn
 LIBS:art-electro-conn_2
 LIBS:art-electro-ic
 LIBS:stm32f407_board-cache
-EELAYER 24 0
+EELAYER 27 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "25 Фев 2014"
+Date "27 may 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -1354,7 +1353,6 @@ F 3 "" H 12500 5300 60  0000 C CNN
 	1    12500 5300
 	0    -1   -1   0   
 $EndComp
-NoConn ~ 12500 5200
 Text Label 13075 4900 0    60   ~ 0
 5Vi
 Text Label 13875 4275 2    60   ~ 0
@@ -1947,7 +1945,7 @@ Wire Wire Line
 Wire Wire Line
 	12500 4050 12500 3850
 Wire Wire Line
-	12575 4900 12575 4700
+	12575 4500 12575 4900
 Connection ~ 12500 4050
 Connection ~ 12575 4900
 Wire Wire Line
@@ -2338,4 +2336,10 @@ F 3 "" H 12000 9450 60  0000 C CNN
 $EndComp
 Text Notes 13150 6150 0    60   ~ 0
 diodes schottky 20V 1A SD0805S020S1R0
+Text Label 12600 5200 0    60   ~ 0
+PA10
+Wire Wire Line
+	12500 5200 12600 5200
+Text Label 12575 4500 0    60   ~ 0
+PA9
 $EndSCHEMATC

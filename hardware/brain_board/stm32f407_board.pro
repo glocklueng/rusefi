@@ -1,6 +1,6 @@
-update=Втр 25 Фев 2014 18:37:07
+update=Пт 14 мар 2014 13:17:05
 version=1
-last_client=cvpcb
+last_client=eeschema
 [general]
 version=1
 [pcbnew]
@@ -37,6 +37,11 @@ LibName11=logo_flipped
 LibName12=art-electro-conn
 LibName13=art-electro-conn_2
 LibDir=../rusefi_lib
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [eeschema]
 version=1
 LibDir=../rusefi_lib
@@ -51,14 +56,8 @@ LibName2=device
 LibName3=conn
 LibName4=linear
 LibName5=special
-LibName6=analog_switches
-LibName7=stm32
-LibName8=logo_flipped
-LibName9=art-electro-conn
-LibName10=art-electro-conn_2
-LibName11=art-electro-ic
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+LibName6=stm32
+LibName7=logo_flipped
+LibName8=art-electro-conn
+LibName9=art-electro-conn_2
+LibName10=art-electro-ic
