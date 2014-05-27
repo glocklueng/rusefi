@@ -21,6 +21,7 @@
 #include "engine_math.h"
 #if EFI_PROD_CODE
 #include "rfiutil.h"
+#include "engine.h"
 #endif
 
 #if EFI_ANALOG_CHART

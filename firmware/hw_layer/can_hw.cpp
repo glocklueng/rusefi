@@ -1,5 +1,5 @@
 /**
- * @file	can_hw.c
+ * @file	can_hw.cpp
  * @brief	CAN bus low level code
  *
  * todo: this file should be split into two - one for CAN transport level ONLY and
