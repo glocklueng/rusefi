@@ -45,6 +45,7 @@ extern board_configuration_s *boardConfiguration;
 static volatile int idleSwitchState;
 
 static Logging logger;
+extern Engine engine;
 
 static float _switchTimes[PWM_PHASE_MAX_COUNT];
 

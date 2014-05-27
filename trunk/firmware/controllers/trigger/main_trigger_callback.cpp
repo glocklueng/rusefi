@@ -48,6 +48,8 @@
 
 static LocalVersionHolder localVersion;
 
+extern Engine engine;
+
 static MainTriggerCallback mainTriggerCallbackInstance;
 
 /**
