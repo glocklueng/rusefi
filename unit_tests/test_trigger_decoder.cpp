@@ -19,6 +19,9 @@
 
 #include "trigger_central.h"
 #include "main_trigger_callback.h"
+#include "engine.h"
+
+Engine engine;
 
 extern int timeNow;
 
