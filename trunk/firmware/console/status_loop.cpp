@@ -38,6 +38,7 @@
 #include "io_pins.h"
 #include "mmc_card.h"
 #include "console_io.h"
+#include "malfunction_central.h"
 
 #define PRINT_FIRMWARE_ONCE TRUE
 
@@ -360,12 +361,30 @@ static void lcdThread(void *arg) {
 
 static WORKING_AREA(tsThreadStack, UTILITY_THREAD_STACK_SIZE);
 
+#if EFI_TUNER_STUDIO
+extern TunerStudioOutputChannels tsOutputChannels;
+
+void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
+	tsOutputChannels->rpm = getRpm();
+	tsOutputChannels->coolant_temperature = getCoolantTemperature();
+	tsOutputChannels->intake_air_temperature = getIntakeAirTemperature();
+	tsOutputChannels->throttle_positon = getTPS();
+	tsOutputChannels->mass_air_flow = getMaf();
+	tsOutputChannels->air_fuel_ratio = getAfr();
+	tsOutputChannels->v_batt = getVBatt();
+	tsOutputChannels->tpsADC = getTPS10bitAdc();
+	tsOutputChannels->atmospherePressure = getBaroPressure();
+	tsOutputChannels->manifold_air_pressure = getMap();
+	tsOutputChannels->checkEngine = hasErrorCodes();
+}
+#endif /* EFI_TUNER_STUDIO */
+
 static void tsStatusThread(void *arg) {
 	chRegSetThreadName("tuner s");
 	while (true) {
 #if EFI_TUNER_STUDIO
 		// sensor state for EFI Analytics Tuner Studio
-		updateTunerStudioState();
+		updateTunerStudioState(&tsOutputChannels);
 #endif /* EFI_TUNER_STUDIO */
 		chThdSleepMilliseconds(50);
 	}
