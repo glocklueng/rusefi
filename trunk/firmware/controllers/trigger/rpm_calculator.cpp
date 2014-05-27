@@ -176,6 +176,7 @@ static scheduling_s tdcScheduler[2];
 
 static char rpmBuffer[10];
 
+#if EFI_PROD_CODE || EFI_SIMULATOR
 static void onTdcCallback(void) {
 	itoa10(rpmBuffer, getRpm());
 	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, (char*) rpmBuffer, "");
@@ -187,6 +188,7 @@ static void tdcMarkCallback(ShaftEvents ckpSignalType, int index, void *arg) {
 		scheduleByAngle(&tdcScheduler[index], engineConfiguration->globalTriggerAngleOffset, (schfunc_t) onTdcCallback, NULL);
 	}
 }
+#endif
 
 void initRpmCalculator(void) {
 #if EFI_PROD_CODE
