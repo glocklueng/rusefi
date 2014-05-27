@@ -43,7 +43,6 @@
 static Logging logger;
 
 extern engine_configuration_s *engineConfiguration;
-extern board_configuration_s *boardConfiguration;
 extern persistent_config_s configWorkingCopy;
 extern persistent_config_container_s persistentState;
 
@@ -69,8 +68,6 @@ static short pageId;
 static TunerStudioWriteRequest writeRequest;
 
 extern TunerStudioOutputChannels tsOutputChannels;
-
-//char *constantsAsPtr = (char *) &configWorkingCopy;
 
 extern TunerStudioState tsState;
 
@@ -233,8 +230,6 @@ static msg_t tsThreadEntryPoint(void *arg) {
 #endif
 }
 
-extern engine_configuration_s *engineConfiguration;
-
 void syncTunerStudioCopy(void) {
 	memcpy(&configWorkingCopy, &persistentState.persistentConfiguration, sizeof(persistent_config_s));
 }
@@ -257,20 +252,6 @@ void startTunerStudioConnectivity(void) {
 	addConsoleAction("tsinfo", printStats);
 
 	chThdCreateStatic(TS_WORKING_AREA, sizeof(TS_WORKING_AREA), NORMALPRIO, tsThreadEntryPoint, NULL);
-}
-
-void updateTunerStudioState() {
-	tsOutputChannels.rpm = getRpm();
-	tsOutputChannels.coolant_temperature = getCoolantTemperature();
-	tsOutputChannels.intake_air_temperature = getIntakeAirTemperature();
-	tsOutputChannels.throttle_positon = getTPS();
-	tsOutputChannels.mass_air_flow = getMaf();
-	tsOutputChannels.air_fuel_ratio = getAfr();
-	tsOutputChannels.v_batt = getVBatt();
-	tsOutputChannels.tpsADC = getTPS10bitAdc();
-	tsOutputChannels.atmospherePressure = getBaroPressure();
-	tsOutputChannels.manifold_air_pressure = getMap();
-	tsOutputChannels.checkEngine = hasErrorCodes();
 }
 
 #endif /* EFI_TUNER_STUDIO */

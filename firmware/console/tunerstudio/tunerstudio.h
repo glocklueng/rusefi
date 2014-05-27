@@ -8,6 +8,8 @@
 #ifndef TUNERSTUDIO_H_
 #define TUNERSTUDIO_H_
 
+#include "tunerstudio_configuration.h"
+
 #if EFI_TUNER_STUDIO_OVER_USB
 #define TS_SERIAL_DEVICE (&SDU1)
 #else
@@ -28,16 +30,15 @@ typedef struct
 		} TunerStudioWriteRequest;
 
 #ifdef __cplusplus
-extern "C"
-{
+		extern "C" {
 #endif /* __cplusplus */
 
 		void startTunerStudioConnectivity(void);
 		void syncTunerStudioCopy(void);
-		void updateTunerStudioState(void);
+		void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels);
 
 #ifdef __cplusplus
-}
+		}
 #endif /* __cplusplus */
 
 #endif /* TUNERSTUDIO_H_ */
