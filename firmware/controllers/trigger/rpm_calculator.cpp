@@ -196,15 +196,15 @@ void initRpmCalculator(void) {
 #if EFI_PROD_CODE
 	initLogging(&logger, "rpm calc");
 	engine.rpmCalculator = &rpmState;
-#endif
 
 	tdcScheduler[0].name = "tdc0";
 	tdcScheduler[1].name = "tdc1";
+	addTriggerEventListener(&tdcMarkCallback, "chart TDC mark", NULL);
+#endif
 
 	strcpy((char*) shaft_signal_msg_index, "_");
 
 	addTriggerEventListener((ShaftPositionListener)&shaftPositionCallback, "rpm reporter", &rpmState);
-	addTriggerEventListener(&tdcMarkCallback, "chart TDC mark", NULL);
 }
 
 /**
