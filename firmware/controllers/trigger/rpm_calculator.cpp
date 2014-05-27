@@ -41,7 +41,10 @@ static RpmCalculator rpmState;
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
+#if EFI_PROD_CODE
 static Logging logger;
+extern Engine engine;
+#endif
 
 RpmCalculator::RpmCalculator() {
 	rpm = 0;
@@ -187,6 +190,7 @@ static void tdcMarkCallback(ShaftEvents ckpSignalType, int index, void *arg) {
 void initRpmCalculator(void) {
 #if EFI_PROD_CODE
 	initLogging(&logger, "rpm calc");
+	engine.rpmCalculator = &rpmState;
 #endif
 
 	tdcScheduler[0].name = "tdc0";
