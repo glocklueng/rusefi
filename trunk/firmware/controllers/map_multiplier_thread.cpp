@@ -2,7 +2,7 @@
  * @brief dead code
  *
  *
- * map_multiplier.c
+ * map_multiplier.cpp
  *
  * @date Jul 23, 2013
  * @author Andrey Belomutskiy, (c) 2012-2014

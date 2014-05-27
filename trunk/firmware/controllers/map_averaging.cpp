@@ -1,5 +1,5 @@
 /**
- * @file	map_averaging.c
+ * @file	map_averaging.cpp
  *
  * @date Dec 11, 2013
  * @author Andrey Belomutskiy, (c) 2012-2014
