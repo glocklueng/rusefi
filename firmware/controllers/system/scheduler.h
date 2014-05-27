@@ -21,7 +21,7 @@ struct scheduling_struct {
 	schfunc_t callback;
 	void *param;
 	scheduling_s *next;
-	char *name;
+	const char *name;
 };
 
 #ifdef __cplusplus
