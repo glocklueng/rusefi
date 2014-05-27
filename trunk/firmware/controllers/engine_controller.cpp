@@ -50,6 +50,7 @@
 #include "efilib2.h"
 #include "ec2.h"
 #include "PwmTester.h"
+#include "engine.h"
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
@@ -78,6 +79,8 @@ engine_configuration2_s * engineConfiguration2 = &ec2;
 static configuration_s cfg = {&persistentState.persistentConfiguration.engineConfiguration, &ec2};
 
 configuration_s * configuration = &cfg;
+
+Engine engine;
 
 static msg_t csThread(void) {
 	chRegSetThreadName("status");
