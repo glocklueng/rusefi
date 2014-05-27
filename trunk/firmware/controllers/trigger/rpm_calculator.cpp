@@ -19,7 +19,7 @@
 #include "engine_configuration.h"
 #include "ec2.h"
 #include "engine_math.h"
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 #include "rfiutil.h"
 #include "engine.h"
 #endif
@@ -42,7 +42,7 @@ static RpmCalculator rpmState;
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 static Logging logger;
 extern Engine engine;
 #endif
@@ -193,7 +193,7 @@ static void tdcMarkCallback(ShaftEvents ckpSignalType, int index, void *arg) {
 #endif
 
 void initRpmCalculator(void) {
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	initLogging(&logger, "rpm calc");
 	engine.rpmCalculator = &rpmState;
 
