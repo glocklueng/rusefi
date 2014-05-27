@@ -58,6 +58,7 @@ static bool_t firmwareErrorReported = FALSE;
 #include "engine_configuration.h"
 #include "rfiutil.h"
 #include "svnversion.h"
+#include "engine.h"
 
 #if EFI_PROD_CODE
 // todo: move this logic to algo folder!

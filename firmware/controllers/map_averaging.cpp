@@ -30,6 +30,7 @@
 #include "engine_configuration.h"
 #include "interpolation.h"
 #include "signal_executor.h"
+#include "engine.h"
 
 #if EFI_ANALOG_CHART
 #include "analog_chart.h"

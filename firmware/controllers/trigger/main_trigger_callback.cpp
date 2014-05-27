@@ -45,6 +45,7 @@
 #endif /* EFI_HISTOGRAMS */
 #include "LocalVersionHolder.h"
 #include "event_queue.h"
+#include "engine.h"
 
 static LocalVersionHolder localVersion;
 

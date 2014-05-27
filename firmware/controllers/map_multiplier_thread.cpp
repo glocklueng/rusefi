@@ -16,6 +16,7 @@
 #include "wave_math.h"
 #include "allsensors.h"
 #include "engine_math.h"
+#include "engine.h"
 
 extern engine_configuration_s *engineConfiguration;
 
