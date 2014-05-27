@@ -154,3 +154,7 @@ int warning(const char *fmt, ...) {
 	 printf(fmt);
 	 exit(-1);
 }
+
+bool_t isCranking(void) {
+	return 0;
+}
