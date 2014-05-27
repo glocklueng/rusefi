@@ -26,6 +26,9 @@
 #include "allsensors.h"
 #include "analog_chart.h"
 #include "injector_central.h"
+#include "engine.h"
+
+Engine engine;
 
 extern WaveChart waveChart;
 
