@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include "fuel_math.h"
 #include "interpolation.h"
-#include "engines.h"
 #include "engine_configuration.h"
 #include "main.h"
 #include "idle_controller.h"
