@@ -70,10 +70,12 @@ uint64_t getLastRpmEventTime(void) {
 	return rpmState.lastRpmEventTimeUs;
 }
 
+#if EFI_PROD_CODE || EFI_SIMULATOR
 bool_t isCranking(void) {
 	int rpm = getRpm();
 	return isCrankingR(rpm);
 }
+#endif
 
 /**
  * @return -1 in case of isNoisySignal(), current RPM otherwise
