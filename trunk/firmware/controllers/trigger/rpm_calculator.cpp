@@ -19,7 +19,7 @@
 #include "engine_configuration.h"
 #include "ec2.h"
 #include "engine_math.h"
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if EFI_PROD_CODE
 #include "rfiutil.h"
 #include "engine.h"
 #endif
@@ -42,7 +42,7 @@ static RpmCalculator rpmState;
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if EFI_PROD_CODE
 static Logging logger;
 extern Engine engine;
 #endif
@@ -80,7 +80,7 @@ bool_t isCranking(void) {
 /**
  * @return -1 in case of isNoisySignal(), current RPM otherwise
  */
-int getRpmE(Engine *engine) {
+int getRpm() {
 	if (!rpmState.isRunning())
 		return 0;
 	return rpmState.rpm;
@@ -193,7 +193,7 @@ static void tdcMarkCallback(ShaftEvents ckpSignalType, int index, void *arg) {
 #endif
 
 void initRpmCalculator(void) {
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if EFI_PROD_CODE
 	initLogging(&logger, "rpm calc");
 	engine.rpmCalculator = &rpmState;
 
@@ -207,7 +207,6 @@ void initRpmCalculator(void) {
 	addTriggerEventListener((ShaftPositionListener)&shaftPositionCallback, "rpm reporter", &rpmState);
 }
 
-#if EFI_PROD_CODE || EFI_SIMULATOR || defined(__DOXYGEN__)
 /**
  * Schedules a callback 'angle' degree of crankshaft from now.
  * The callback would be executed once after the duration of time which
@@ -227,5 +226,5 @@ void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void 
 	}
 	scheduleTask(timer, (int)MS2US(delayMs), callback, param);
 }
-#endif
+
 #endif /* EFI_SHAFT_POSITION_INPUT */
