@@ -66,6 +66,8 @@ static bool_t firmwareErrorReported = FALSE;
 #include "rusefi.h"
 #endif
 
+extern Engine engine;
+
 // this 'true' value is needed for simulator
 static volatile int fullLog = TRUE;
 int warningEnabled = TRUE;
