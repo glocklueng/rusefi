@@ -31,6 +31,7 @@
 #include "idle_thread.h"
 #include "pin_repository.h"
 #include "engine_configuration.h"
+#include "engine.h"
 
 #define IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY 200
 
