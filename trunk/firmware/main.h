@@ -24,7 +24,8 @@ extern "C"
 
 #include "efifeatures.h"
 #include "efitime.h"
-#include "engines.h"
+#include "boards.h"
+#include "rusefi_enums.h"
 
 #include "datalogging.h"
 #include "chprintf.h"
