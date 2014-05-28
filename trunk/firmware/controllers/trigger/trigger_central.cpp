@@ -18,7 +18,7 @@
 #include "rfiutil.h"
 #endif
 
-#if defined __GNUC__
+#if EFI_USE_CCM && defined __GNUC__
 static histogram_s triggerCallback __attribute__((section(".ccm")));
 #else
 static histogram_s triggerCallback;

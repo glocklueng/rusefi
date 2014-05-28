@@ -10,11 +10,12 @@
 #ifndef EFIFEATURES_H_
 #define EFIFEATURES_H_
 
+#define EFI_USE_CCM TRUE
+
 /**
  * Build-in logic analyzer support. Logic analyzer viewer is one of the java console panes.
  */
 #define EFI_WAVE_ANALYZER TRUE
-
 
 #define EFI_WAVE_CHART TRUE
 #define EFI_ANALOG_CHART TRUE
