@@ -153,12 +153,13 @@ static WORKING_AREA(waThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static msg_t waThread(void *arg) {
 	chRegSetThreadName("Wave Analyzer");
-
+#if EFI_WAVE_CHART
 	while (TRUE) {
 		chThdSleepSeconds(CHART_RESET_DELAY);
 
 		publishChartIfFull(&waveChart);
 	}
+#endif /* EFI_WAVE_CHART */
 #if defined __GNUC__
 	return -1;
 #endif
