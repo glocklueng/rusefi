@@ -93,9 +93,11 @@ void mapAveragingCallback(adcsample_t value) {
 	float voltage = adcToVoltsDivided(value);
 	float currentPressure = getMapByVoltage(voltage);
 
+#if EFI_ANALOG_CHART
 	if (engineConfiguration->analogChartMode == AC_MAP)
 		if (perRevolutionCounter % FAST_MAP_CHART_SKIP_FACTOR == 0)
 			acAddData(getCrankshaftAngle(getTimeNowUs()), currentPressure);
+#endif /* EFI_ANALOG_CHART */
 
 	currentMaxPressure = maxF(currentMaxPressure, currentPressure);
 
