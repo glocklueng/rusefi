@@ -54,7 +54,7 @@
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
-#if defined __GNUC__
+#if EFI_USE_CCM && defined __GNUC__
 persistent_config_container_s persistentState __attribute__((section(".ccm")));
 #else
 persistent_config_container_s persistentState;
