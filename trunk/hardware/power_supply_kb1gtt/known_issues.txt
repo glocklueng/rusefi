@@ -1,1 +1,4 @@
-this board design is not complete, it's a draft and has not been mfg'ed as of 12/30/12
+1) silkscreen on the back is messed up
+2) as is, this board is not solderable with a soldering iron: need a gap between the tant capacitors
+3) as is, this board is not solderable with a soldering iron: need a gap between the inductors
+4) maybe enlarge the pad for the regulator to simplify soldering with an iron?
