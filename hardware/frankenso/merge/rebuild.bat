@@ -1,7 +1,7 @@
 
 cd ..
 
-rem Let's wipe out all local libraries. Frankenstein does not have it's own libraries!
+rem Let's wipe out all local libraries. Frankenso does not have it's own libraries!
 mkdir lib
 rm lib/*.*
 mkdir lib/3d
@@ -28,7 +28,7 @@ rem Hi-Low driver
 
 cp -r ../hi-lo_driver/hi-lo.sch .
 
-cp ../frankenstein_foundation/frankenstein_foundation.sch .
+rem CAN module
 
 cp ../can_board/lib/* lib/
 cp ../can_board/lib/3d/* lib/3d
@@ -36,7 +36,7 @@ cp ../can_board/can_brd_1.sch .
 
 
 rem Now let's merge all compoennt mappings automatically. Magic!
-java -jar ../../java_tools/pcb_sync.jar cmp_merge frankenstein.cmp ../hi-lo_driver/hi-lo.cmp ../can_board/can_brd_1.cmp ../1A_injector_12-channels/inj_12ch.cmp ../adc_amp_divider.vertical12/adc_amp_divider.cmp ../usb_mmc_spi/mmc_usb_1.cmp ../frankenstein_foundation/frankenstein_foundation.cmp ../knock_VR_Art_ELectro/cps_vrs_io_1.cmp
+java -jar ../../java_tools/pcb_sync.jar cmp_merge frankenso.cmp ../hi-lo_driver/hi-lo.cmp ../can_board/can_brd_1.cmp ../1A_injector_12-channels/inj_12ch.cmp ../adc_amp_divider.vertical12/adc_amp_divider.cmp ../usb_mmc_spi/mmc_usb_1.cmp ../knock_VR_Art_ELectro/cps_vrs_io_1.cmp
 
 
 
@@ -48,8 +48,9 @@ java -jar ../../java_tools/pcb_sync.jar pcb_merge ../knock_VR_Art_ELectro/cps_vr
 mkdir temp
 
 
-rem Let's merge these PCBs into the Frankenstein!
-java -jar ../../java_tools/pcb_sync.jar pcb_merge ../frankenstein_foundation/frankenstein_foundation.kicad_pcb frankenstein.kicad_pcb merge/pcb_merge_changes.txt
+rem Let's merge these PCBs into the frankenso!
+java -jar ../../java_tools/pcb_sync.jar pcb_merge  merge/pcb_merge_changes.txt
+java -jar ../../java_tools/pcb_sync.jar pcb_merge ../frankenstein_foundation/frankenstein_foundation.kicad_pcb frankenso.kicad_pcb merge/pcb_merge_changes.txt
 
 
 java -jar ../../java_tools/pcb_sync.jar bom_builder frankenstein.cmp digikey_parts.csv
