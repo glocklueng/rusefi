@@ -32,7 +32,7 @@ LIBS:valves
 LIBS:quartz
 LIBS:7805-sot89
 LIBS:logo_flipped
-LIBS:DD HIP9011-cache
+LIBS:DD_HIP9011-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
@@ -558,7 +558,7 @@ $EndComp
 Text Label 2200 4050 0    60   ~ 0
 +12V
 Text Notes 1600 1700 0    118  ~ 0
-DD HIP9011 ver.2\nRusEfi.com
+DD_HIP9011 ver.2\nRusEfi.com
 $Comp
 L R R175
 U 1 1 52A2E159
