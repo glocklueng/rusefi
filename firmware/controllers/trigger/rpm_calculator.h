@@ -13,7 +13,10 @@
 
 #define NOISY_RPM -1
 
+
 #ifdef __cplusplus
+#include "engine.h"
+
 class RpmCalculator {
 public:
 	RpmCalculator();
@@ -27,6 +30,12 @@ public:
 	bool_t isRunning(void);
 };
 
+#define getRpm() getRpmE(&engine)
+
+/**
+ * @brief   Current RPM
+ */
+int getRpmE(Engine *engine);
 void shaftPositionCallback(ShaftEvents ckpSignalType, int index, RpmCalculator *rpmState);
 #endif
 
@@ -39,10 +48,6 @@ extern "C"
  * @brief   Initialize RPM calculator
  */
 void initRpmCalculator(void);
-/**
- * @brief   Current RPM
- */
-int getRpm(void);
 bool_t isCranking(void);
 uint64_t getLastRpmEventTime(void);
 
@@ -51,6 +56,7 @@ float getCrankshaftAngle(uint64_t timeUs);
 bool_t isRunning(void);
 bool_t isValidRpm(int rpm);
 void addWaveChartEvent(const char *name, const char *msg, const char *msg2);
+
 
 #ifdef __cplusplus
 }

@@ -20,6 +20,7 @@
 #include "trigger_central.h"
 #include "main_trigger_callback.h"
 #include "engine.h"
+#include "advance_map.h"
 
 Engine engine;
 
@@ -310,24 +311,27 @@ static void testRpmCalculator(void) {
 	assertEqualsM("index #1", 7, triggerCentral.triggerState.getCurrentIndex());
 
 
-	MainTriggerCallback triggerCallbackInstance;
+	static MainTriggerCallback triggerCallbackInstance;
 	triggerCallbackInstance.init(ec, &ec2);
 	triggerCentral.addEventListener((ShaftPositionListener)&onTriggerEvent, "main loop", &triggerCallbackInstance);
+
+	engine.rpmCalculator = &rpmState;
+	prepareTimingMap();
 
 	timeNow += 5000; // 5ms
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
 	assertEqualsM("index #2", 0, triggerCentral.triggerState.getCurrentIndex());
-	assertEquals(0, schedulingQueue.size());
+	assertEqualsM("queue size", 2, schedulingQueue.size());
 
 	timeNow += 5000;
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
 	assertEqualsM("index #3", 1, triggerCentral.triggerState.getCurrentIndex());
-	assertEquals(0, schedulingQueue.size());
+	assertEqualsM("queue size", 6, schedulingQueue.size());
 
 	timeNow += 5000; // 5ms
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
 	assertEqualsM("index #4", 2, triggerCentral.triggerState.getCurrentIndex());
-	assertEquals(0, schedulingQueue.size());
+	assertEqualsM("queue size", 10, schedulingQueue.size());
 
 
 }
