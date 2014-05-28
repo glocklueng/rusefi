@@ -8,6 +8,7 @@
 #define ENGINE_H_
 
 #include "main.h"
+#include "engine_configuration.h"
 
 class RpmCalculator;
 
