@@ -108,7 +108,7 @@ void initBoardTest(void) {
 	int pinsCount = sizeof(BLINK_PINS) / sizeof(brain_pin_e);
 
 	while (currentIndex < slowAdc.size()) {
-		int hwIndex = getAdcHardwareIndexByInternalIndex(currentIndex);
+		int hwIndex = slowAdc.getAdcHardwareIndexByInternalIndex(currentIndex);
 		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
 		int pin = getAdcChannelPin(hwIndex);
 
