@@ -24,14 +24,13 @@ LIBS:cypress
 LIBS:siliconi
 LIBS:contrib
 LIBS:project_specific_libs
-LIBS:PWR_buck_12V_switcher-cache
 EELAYER 27 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
 Sheet 1 1
 Title "PWR buck 12V switcher regulator"
-Date "18 may 2014"
+Date "29 may 2014"
 Rev "0.2"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""
@@ -213,7 +212,7 @@ Connection ~ 9650 6450
 Text Label 6800 6400 0    60   ~ 0
 VBAT
 Text Label 9650 6450 0    60   ~ 0
-5V-REG
+5V
 Text Label 8200 6300 0    60   ~ 0
 FB
 Text Label 8200 6450 0    60   ~ 0
