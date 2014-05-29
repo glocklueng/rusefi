@@ -49,8 +49,8 @@ mkdir temp
 
 
 rem Let's merge these PCBs into the frankenso!
-java -jar ../../java_tools/pcb_sync.jar pcb_merge  merge/pcb_merge_changes.txt
-java -jar ../../java_tools/pcb_sync.jar pcb_merge ../frankenstein_foundation/frankenstein_foundation.kicad_pcb frankenso.kicad_pcb merge/pcb_merge_changes.txt
+rem all the pre-processed PCBs would be added by pcb_merge_changes.txt script
+java -jar ../../java_tools/pcb_sync.jar pcb_merge ../frankenso_foundation/frankenso_foundation.kicad_pcb frankenso.kicad_pcb merge/pcb_merge_changes.txt
 
 
 java -jar ../../java_tools/pcb_sync.jar bom_builder frankenstein.cmp digikey_parts.csv
