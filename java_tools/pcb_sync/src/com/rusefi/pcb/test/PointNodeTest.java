@@ -22,7 +22,7 @@ public class PointNodeTest {
 
         PointNode angle180 = new PointNode(0, 0, 180);
         Assert.assertEquals("180 x", angle180.translate(x10y50).x, -10.0, EPS);
-        Assert.assertEquals(angle180.translate(x10y50).y, -50.0, EPS);
+        Assert.assertEquals("180 y", angle180.translate(x10y50).y, -50.0, EPS);
 
         PointNode angle90 = new PointNode(0, 0, 90);
         Assert.assertEquals(angle90.translate(x10y50).x, -50.0, EPS);
