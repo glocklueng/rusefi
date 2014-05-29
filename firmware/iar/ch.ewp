@@ -2394,13 +2394,13 @@
       <name>$PROJ_DIR$\..\controllers\malfunction_indicator.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\controllers\map_averaging.c</name>
+      <name>$PROJ_DIR$\..\controllers\map_averaging.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\map_averaging.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\controllers\map_multiplier_thread.c</name>
+      <name>$PROJ_DIR$\..\controllers\map_multiplier_thread.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\controllers\map_multiplier_thread.h</name>
@@ -2529,7 +2529,7 @@
       <name>$PROJ_DIR$\..\hw_layer\board_test.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\hw_layer\can_hw.c</name>
+      <name>$PROJ_DIR$\..\hw_layer\can_hw.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\can_hw.h</name>
