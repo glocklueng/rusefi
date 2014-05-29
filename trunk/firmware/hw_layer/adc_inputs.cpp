@@ -121,7 +121,7 @@ ADC_TwoSamplingDelay_20Cycles,   // cr1
 // Conversion group sequence 1...6
 		};
 
-static AdcConfiguration slowAdc(&adcgrpcfgSlow);
+AdcConfiguration slowAdc(&adcgrpcfgSlow);
 
 static ADCConversionGroup adcgrpcfg_fast = { FALSE, 0 /* num_channels */, adc_callback_fast, NULL,
 /* HW dependent part.*/
