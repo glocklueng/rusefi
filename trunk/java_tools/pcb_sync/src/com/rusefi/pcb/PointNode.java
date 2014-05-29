@@ -62,15 +62,12 @@ public class PointNode extends PcbNode {
     public PointNode translate(PointNode at) {
         double nx = at.x - x;
         double ny = at.y - y;
-        if (angle == 0)
-            return new PointNode(nx, ny);
-        if (angle == 270)
-            return new PointNode(ny, -nx);
-        if (angle == 90)
-            return new PointNode(-ny, nx);
-        if (angle == 180)
-            return new PointNode(-nx, -ny);
-        throw new IllegalStateException("Angle not supported: " + angle + " for x:y " + x + ":" + y);
+
+        double radian = angle / 180 * Math.PI;
+        double rx = Math.cos(radian) * nx - Math.sin(radian) * ny;
+        double ry = Math.sin(radian) * nx + Math.cos(radian) * ny;
+
+        return new PointNode(rx, ry);
     }
 
     public void setLocation(double x, double y) {
