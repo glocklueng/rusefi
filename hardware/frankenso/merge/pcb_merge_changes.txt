@@ -3,18 +3,38 @@ remove P_VOID1
 remove P_VOID2
 
 
+# brain board ===================================================
+
+add ../brain_board/stm32f407_board.kicad_pcb 35.56 33.48736
+
 # VR module 100 range ==============================================
 
-add temp/cps_vrs_io_1.kicad_pcb -84 120.5
+add temp/cps_vrs_io_1.kicad_pcb -84 180.5
 
 
 # move_module R113 1 11
 
-# power supply 150 range
+# power supply 150-160 range
+add ../power_supply_kb1gtt/PWR_buck_12V_switcher.kicad_pcb 50 -60
+remove P131
+remove P132
+remove P133
 
+# HIP 160-180 range
+
+add ../hip9011/DD_HIP9011.kicad_pcb
+remove D162
+
+remove R165
+remove R169
+remove C161
+remove P163
+
+# not so sure is this has to be removed?
+remove R164
 
 # analog input 200-350 range =======================================
-add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb 
+add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb 0 -60
 
 # analog input board LED
 remove LD200
@@ -47,13 +67,15 @@ remove P354
 # injector driver 400 range ========================================
 add ../1A_injector_12-channels/inj_12ch.kicad_pcb
 
+remove P402
+
 
 
 # CAN module - 470 range ===========================================
 copy ../can_board/can_brd_1.kicad_pcb temp/can_brd_1.kicad_pcb
 optimize temp/can_brd_1.kicad_pcb temp/can_brd_1.kicad_pcb
 
-add temp/can_brd_1.kicad_pcb -10 -1
+add temp/can_brd_1.kicad_pcb -70 -1
 
 # CAN module connector
 remove P471
