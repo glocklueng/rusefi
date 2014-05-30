@@ -28,7 +28,7 @@ extern "C"
 //float getDefaultVE(int rpm);
 
 float getDefaultFuel(int rpm, float map);
-//float getTCharge(int rpm, int tps, float coolantTemp, float airTemp);
+float getTCharge(int rpm, int tps, float coolantTemp, float airTemp);
 
 float getOneDegreeTimeMs(int rpm);
 float getCrankshaftRevolutionTimeMs(int rpm);
