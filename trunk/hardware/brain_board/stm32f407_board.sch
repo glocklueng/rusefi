@@ -16,10 +16,10 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "27 may 2014"
+Date "30 may 2014"
 Rev ""
 Comp ""
-Comment1 ""
+Comment1 "v1.3"
 Comment2 "Art_Electro"
 Comment3 "Art_Electro"
 Comment4 "Art_Electro"
@@ -209,8 +209,6 @@ Text Label 13250 1875 0    60   ~ 0
 PC4
 Text Label 13250 1975 0    60   ~ 0
 PB0
-Text Label 13250 2075 0    60   ~ 0
-PB2
 Text Label 12100 2175 2    60   ~ 0
 PE7
 Text Label 12100 2275 2    60   ~ 0
@@ -285,8 +283,6 @@ Text Label 14200 2775 2    60   ~ 0
 PC10
 Text Label 14200 2875 2    60   ~ 0
 PA14
-Text Label 14200 2975 2    60   ~ 0
-PA10
 Text Label 14200 3075 2    60   ~ 0
 PA8
 Text Label 14200 3175 2    60   ~ 0
@@ -325,8 +321,6 @@ Text Label 15300 2875 0    60   ~ 0
 PA15
 Text Label 15300 2975 0    60   ~ 0
 PA13
-Text Label 15300 3075 0    60   ~ 0
-PA9
 Text Label 15300 3175 0    60   ~ 0
 PC9
 Text Label 15300 3275 0    60   ~ 0
@@ -371,8 +365,6 @@ Text Label 1250 5550 2    60   ~ 0
 PB0
 Text Label 1250 5650 2    60   ~ 0
 PB1
-Text Label 1250 5750 2    60   ~ 0
-PB2
 Text Label 1250 5850 2    60   ~ 0
 PB3
 Text Label 1250 5950 2    60   ~ 0
@@ -1575,8 +1567,6 @@ Wire Wire Line
 Wire Wire Line
 	13050 1975 13250 1975
 Wire Wire Line
-	13050 2075 13250 2075
-Wire Wire Line
 	12100 2275 12250 2275
 Wire Wire Line
 	12100 2375 12250 2375
@@ -1647,8 +1637,6 @@ Wire Wire Line
 Wire Wire Line
 	14350 2875 14200 2875
 Wire Wire Line
-	14350 2975 14200 2975
-Wire Wire Line
 	14350 3075 14200 3075
 Wire Wire Line
 	14350 3175 14200 3175
@@ -1686,8 +1674,6 @@ Wire Wire Line
 	15300 2875 15150 2875
 Wire Wire Line
 	15300 2975 15150 2975
-Wire Wire Line
-	15300 3075 15150 3075
 Wire Wire Line
 	15300 3175 15150 3175
 Wire Wire Line
@@ -1732,8 +1718,6 @@ Wire Wire Line
 	1300 5550 1250 5550
 Wire Wire Line
 	1300 5650 1250 5650
-Wire Wire Line
-	1300 5750 1250 5750
 Wire Wire Line
 	1300 5850 1250 5850
 Wire Wire Line
@@ -1941,7 +1925,7 @@ Wire Wire Line
 Wire Wire Line
 	15700 4250 15800 4250
 Wire Wire Line
-	14175 4275 13875 4275
+	13875 4275 14175 4275
 Wire Wire Line
 	12500 4050 12500 3850
 Wire Wire Line
@@ -2342,4 +2326,54 @@ Wire Wire Line
 	12500 5200 12600 5200
 Text Label 12575 4500 0    60   ~ 0
 PA9
+Text Notes 600  5750 0    60   ~ 0
+BOOT1
+Text Notes 13250 2075 0    60   ~ 0
+(pb2)
+NoConn ~ 13050 2075
+Text Notes 15300 3075 0    60   ~ 0
+(pa9)
+NoConn ~ 15150 3075
+Text Notes 13925 2975 0    60   ~ 0
+(pa10)
+NoConn ~ 14350 2975
+$Comp
+L GND #PWR058
+U 1 1 53887A02
+P 1000 5750
+F 0 "#PWR058" H 1000 5750 30  0001 C CNN
+F 1 "GND" H 1000 5680 30  0001 C CNN
+F 2 "" H 1000 5750 60  0000 C CNN
+F 3 "" H 1000 5750 60  0000 C CNN
+	1    1000 5750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1300 5750 1000 5750
+$Comp
+L CONN_1 P5
+U 1 1 53887FDF
+P 15250 6450
+F 0 "P5" H 15330 6450 40  0000 L CNN
+F 1 "CONN_1" H 15250 6505 30  0001 C CNN
+F 2 "~" H 15250 6450 60  0000 C CNN
+F 3 "~" H 15250 6450 60  0000 C CNN
+	1    15250 6450
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR059
+U 1 1 53887FEC
+P 14800 6450
+F 0 "#PWR059" H 14800 6450 30  0001 C CNN
+F 1 "GND" H 14800 6380 30  0001 C CNN
+F 2 "" H 14800 6450 60  0001 C CNN
+F 3 "" H 14800 6450 60  0001 C CNN
+	1    14800 6450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	15100 6450 14800 6450
+Text Notes 15450 6450 0    60   ~ 0
+GND test
 $EndSCHEMATC
