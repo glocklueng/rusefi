@@ -2203,6 +2203,12 @@
       <file>
         <name>$PROJ_DIR$\..\controllers\math\engine_math.h</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\math\speed_density.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\math\speed_density.h</name>
+      </file>
     </group>
     <group>
       <name>sensors</name>

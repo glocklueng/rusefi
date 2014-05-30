@@ -19,8 +19,8 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "engine_math.h"
 #include "main.h"
+#include "engine_math.h"
 #include "engine_configuration.h"
 #include "interpolation.h"
 #include "allsensors.h"

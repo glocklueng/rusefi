@@ -7,7 +7,9 @@
 #ifndef SPEED_DENSITY_H_
 #define SPEED_DENSITY_H_
 
-float getTCharge(int rpm, int tps, float coolantTemp, float airTemp);
+#include "engine_configuration.h"
 
+float getTCharge(int rpm, int tps, float coolantTemp, float airTemp);
+void setDetaultVETable(engine_configuration_s *engineConfiguration);
 
 #endif /* SPEED_DENSITY_H_ */
