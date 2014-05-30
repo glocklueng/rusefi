@@ -1,14 +1,4 @@
-EESchema-DOCLIB  Version 2.0  Date: Чтв 13 Фев 2014 20:22:09
-#
-$CMP LM2937
-D Voltage Regulators 3.3v SOT 223/263
-K LM 2937
-$ENDCMP
-#
-$CMP LM3940
-D Voltage Regulators 3.3v SOT 223/263
-K LM 3940
-$ENDCMP
+EESchema-DOCLIB  Version 2.0  Date: Пт 14 мар 2014 20:58:50
 #
 $CMP MCP2551
 D Can transceiver
