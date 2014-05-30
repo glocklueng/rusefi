@@ -10,6 +10,7 @@
 #include "interpolation.h"
 #include "engine.h"
 #include "rpm_calculator.h"
+#include "engine_math.h"
 
 #define K_AT_MIN_RPM_MIN_TPS 0.25
 #define K_AT_MIN_RPM_MAX_TPS 0.25
@@ -53,4 +54,9 @@ float getSpeedDensityFuel(Engine *engine) {
 	return (Vol * VE * MAP) / (AFR * injectorFlowRate * GAS_R * tCharge);
 
 }
+
+void setDetaultVETable(engine_configuration_s *engineConfiguration) {
+	setTableBin(engineConfiguration->veRpmBins, FUEL_RPM_COUNT, 800, 7000);
+}
+
 
