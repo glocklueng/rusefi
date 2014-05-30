@@ -48,7 +48,7 @@ extern Engine engine;
 #endif
 
 RpmCalculator::RpmCalculator() {
-	rpm = 0;
+	rpmValue = 0;
 
 	// we need this initial to have not_running at first invocation
 	lastRpmEventTimeUs = (uint64_t) -10 * US_PER_SECOND;
@@ -60,6 +60,12 @@ RpmCalculator::RpmCalculator() {
 bool_t RpmCalculator::isRunning(void) {
 	uint64_t nowUs = getTimeNowUs();
 	return nowUs - lastRpmEventTimeUs < US_PER_SECOND;
+}
+
+int RpmCalculator::rpm(void) {
+	if (!this->isRunning())
+		return 0;
+	return rpmValue;
 }
 
 bool_t isValidRpm(int rpm) {
@@ -82,9 +88,7 @@ bool_t isCranking(void) {
  */
 int getRpmE(Engine *engine) {
 	efiAssert(engine->rpmCalculator!=NULL, "rpmCalculator not assigned", -1);
-	if (!engine->rpmCalculator->isRunning())
-		return 0;
-	return engine->rpmCalculator->rpm;
+	return engine->rpmCalculator->rpm();
 }
 
 /**
@@ -93,7 +97,7 @@ int getRpmE(Engine *engine) {
 float getCrankshaftAngle(uint64_t timeUs) {
 	uint64_t timeSinceZeroAngle = timeUs - rpmState.lastRpmEventTimeUs;
 
-	float cRevolutionTimeMs = getCrankshaftRevolutionTimeMs(rpmState.rpm);
+	float cRevolutionTimeMs = getCrankshaftRevolutionTimeMs(rpmState.rpm());
 
 	return 360.0 * timeSinceZeroAngle / cRevolutionTimeMs / 1000;
 }
@@ -156,7 +160,7 @@ void shaftPositionCallback(ShaftEvents ckpSignalType, int index, RpmCalculator *
 	if (hadRpmRecently) {
 		if (isNoisySignal(rpmState, nowUs)) {
 			// unexpected state. Noise?
-			rpmState->rpm = NOISY_RPM;
+			rpmState->rpmValue = NOISY_RPM;
 		} else {
 			uint64_t diff = nowUs - rpmState->lastRpmEventTimeUs;
 			// 60000 because per minute
@@ -165,7 +169,7 @@ void shaftPositionCallback(ShaftEvents ckpSignalType, int index, RpmCalculator *
 			// need to measure time from the previous non-skipped event
 
 			int rpm = (int) (60 * US_PER_SECOND / engineConfiguration->rpmMultiplier / diff);
-			rpmState->rpm = rpm > UNREALISTIC_RPM ? NOISY_RPM : rpm;
+			rpmState->rpmValue = rpm > UNREALISTIC_RPM ? NOISY_RPM : rpm;
 		}
 	}
 	rpmState->lastRpmEventTimeUs = nowUs;

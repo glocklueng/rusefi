@@ -297,7 +297,7 @@ static void testRpmCalculator(void) {
 	timeNow = 0;
 
 	RpmCalculator rpmState;
-	assertEquals(0, rpmState.rpm);
+	assertEquals(0, rpmState.rpm());
 	triggerCentral.addEventListener((ShaftPositionListener) &shaftPositionCallback, "rpm reporter", &rpmState);
 
 	for (int i = 0; i < 12; i++) {
@@ -306,7 +306,7 @@ static void testRpmCalculator(void) {
 		timeNow += 5000;
 		triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
 	}
-	assertEqualsM("RPM", 3000, rpmState.rpm);
+	assertEqualsM("RPM", 3000, rpmState.rpm());
 
 	assertEqualsM("index #1", 7, triggerCentral.triggerState.getCurrentIndex());
 

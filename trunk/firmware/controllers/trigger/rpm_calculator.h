@@ -20,7 +20,8 @@
 class RpmCalculator {
 public:
 	RpmCalculator();
-	volatile int rpm;
+	int rpm(void);
+	volatile int rpmValue;
 	volatile uint64_t lastRpmEventTimeUs;
 	/**
 	 * This counter is incremented with each revolution of one of the shafts. Could be
