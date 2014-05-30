@@ -143,7 +143,7 @@ void initBoardTest(void) {
 		uint32_t hwPin = getHwPin(currentPin);
 
 		print("currentIndex=%d\r\n", currentIndex);
-		print("Let's test %s%d\r\n", portname(hwPort), hwPin);
+		print("Let's blink %s%d\r\n", portname(hwPort), hwPin);
 		mySetPadMode("test", hwPort, hwPin, PAL_STM32_MODE_OUTPUT);
 
 		currentIndex++;
