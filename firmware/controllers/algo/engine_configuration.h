@@ -41,6 +41,9 @@ typedef struct {
 #define FUEL_RPM_COUNT 16
 #define FUEL_LOAD_COUNT 16
 
+#define VE_RPM_COUNT 16
+#define VE_LOAD_COUNT 16
+
 #define CLT_CURVE_SIZE 16
 #define IAT_CURVE_SIZE 16
 #define VBAT_INJECTOR_CURVE_SIZE 8
@@ -271,6 +274,12 @@ typedef struct {
 	float diffLoadEnrichmentCoef;
 
 	air_pressure_sensor_config_s baroSensor;
+
+	float veTable[VE_LOAD_COUNT][VE_RPM_COUNT]; // size 1024
+	float veLoadBins[VE_LOAD_COUNT]; //
+	// RPM is float and not integer in order to use unified methods for interpolation
+	float veRpmBins[VE_RPM_COUNT]; //
+
 } engine_configuration_s;
 
 #define HW_MAX_ADC_INDEX 16
