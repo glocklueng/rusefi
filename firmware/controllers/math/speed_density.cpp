@@ -5,8 +5,11 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
+#include "main.h"
 #include "speed_density.h"
 #include "interpolation.h"
+#include "engine.h"
+#include "rpm_calculator.h"
 
 #define K_AT_MIN_RPM_MIN_TPS 0.25
 #define K_AT_MIN_RPM_MAX_TPS 0.25
@@ -31,3 +34,23 @@ float getTCharge(int rpm, int tps, float coolantTemp, float airTemp) {
 
 	return Tcharge;
 }
+
+#define GAS_R 287.05
+
+float getSpeedDensityFuel(Engine *engine) {
+	int rpm = engine->rpmCalculator->rpm();
+
+	float Vol = engine->engineConfiguration->displacement / engine->engineConfiguration->cylindersCount;
+	float tps = 0;
+	float coolant = 0;
+	float intake = 0;
+	float tCharge = getTCharge(rpm, tps, coolant, intake);
+	float VE = 0.8;
+	float MAP = 0;
+	float AFR = 14.7;
+	float injectorFlowRate = engine->engineConfiguration->injectorFlow;
+
+	return (Vol * VE * MAP) / (AFR * injectorFlowRate * GAS_R * tCharge);
+
+}
+

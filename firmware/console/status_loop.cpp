@@ -39,6 +39,7 @@
 #include "mmc_card.h"
 #include "console_io.h"
 #include "malfunction_central.h"
+#include "speed_density.h"
 
 #define PRINT_FIRMWARE_ONCE TRUE
 
@@ -368,10 +369,15 @@ static WORKING_AREA(tsThreadStack, UTILITY_THREAD_STACK_SIZE);
 extern TunerStudioOutputChannels tsOutputChannels;
 
 void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
-	tsOutputChannels->rpm = getRpm();
-	tsOutputChannels->coolant_temperature = getCoolantTemperature();
-	tsOutputChannels->intake_air_temperature = getIntakeAirTemperature();
-	tsOutputChannels->throttle_positon = getTPS();
+	int rpm = getRpm();
+	float tps = getTPS();
+	float coolant = getCoolantTemperature();
+	float intake = getIntakeAirTemperature();
+
+	tsOutputChannels->rpm = rpm;
+	tsOutputChannels->coolant_temperature = coolant;
+	tsOutputChannels->intake_air_temperature = intake;
+	tsOutputChannels->throttle_positon = tps;
 	tsOutputChannels->mass_air_flow = getMaf();
 	tsOutputChannels->air_fuel_ratio = getAfr();
 	tsOutputChannels->v_batt = getVBatt();
@@ -379,6 +385,7 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
 	tsOutputChannels->atmospherePressure = getBaroPressure();
 	tsOutputChannels->manifold_air_pressure = getMap();
 	tsOutputChannels->checkEngine = hasErrorCodes();
+	tsOutputChannels->tCharge = getTCharge(rpm, tps, coolant, intake);
 }
 #endif /* EFI_TUNER_STUDIO */
 
