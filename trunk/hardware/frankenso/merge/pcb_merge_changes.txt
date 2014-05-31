@@ -34,6 +34,22 @@ remove P163
 remove R164
 
 # analog input 200-350 range =======================================
+
+merge_net /OUT1 /PA1
+merge_net /OUT2 /PA3
+merge_net /OUT3 /PC3
+merge_net /OUT4 /PC1
+merge_net /OUT5 /PA0
+merge_net /OUT6 /PC2
+
+merge_net /OUT7 /PA4
+merge_net /OUT8 /PA2
+merge_net /OUT9 /PA6
+merge_net /OUT10 /PA7
+merge_net /OUT11 /PC4
+merge_net /OUT12 /PC5
+
+
 add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb 0 -60
 
 # analog input board LED
@@ -67,6 +83,23 @@ remove P354
 
 
 # injector driver 400 range ========================================
+
+merge_net /INJ-11_5V /PB8
+merge_net /INJ-12_5V /PB9
+
+merge_net /INJ-09_5V /PE0
+merge_net /INJ-10_5V /PE1
+
+merge_net /INJ-07_5V /PE2
+merge_net /INJ-08_5V /PE3
+
+merge_net /INJ-05_5V /PE4
+merge_net /INJ-06_5V /PE5
+
+merge_net /INJ-03_5V /PE6
+merge_net /INJ-04_5V /PC13
+
+
 add ../1A_injector_12-channels/inj_12ch.kicad_pcb 20 -20
 
 remove P402
