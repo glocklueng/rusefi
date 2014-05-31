@@ -76,7 +76,13 @@ public class PcbMergeTool {
     }
 
     private static void mergePcb(PcbNode destNode, PcbNode source) throws IOException {
+        /**
+         * original net name > new net name in combined PCB
+         */
         Map<String, String> netNameMapping = new HashMap<String, String>();
+        /**
+         * new net name > new net ID
+         */
         Map<String, Integer> netIdMapping = new HashMap<String, Integer>();
 
         for (PcbNode net : source.iterate("net")) {
