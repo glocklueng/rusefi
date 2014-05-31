@@ -16,7 +16,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "30 may 2014"
+Date "31 may 2014"
 Rev ""
 Comp ""
 Comment1 "v1.3"
@@ -1492,11 +1492,11 @@ $EndComp
 Text Label 15100 4925 2    60   ~ 0
 VDD
 Text Label 15700 4925 0    60   ~ 0
-3V
+3.3V
 Text Label 14200 1175 2    60   ~ 0
-3V
+3.3V
 Text Label 15300 1175 0    60   ~ 0
-3V
+3.3V
 $Comp
 L GND #PWR050
 U 1 1 52DFC224
