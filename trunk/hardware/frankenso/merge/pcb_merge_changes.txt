@@ -62,6 +62,14 @@ remove P201
 
 
 # SD & TTL module 350 range ========================================
+
+merge_net /USART_TX /PC10
+merge_net /USART_RX /PC11
+merge_net /SPI_MISO /PB4
+merge_net /SPI_MOSI /PB5
+merge_net /SPI_SCK /PB3
+merge_net /CS_SD_MODULE /PD4
+
 add temp/mmc_usb_1.kicad_pcb 20 33
 move_module P353 50 0
 
@@ -79,7 +87,8 @@ remove P355
 # SD/TTL right 10x2
 remove P354
 
-
+# SD/TTL left 10x2
+remove P353
 
 
 # injector driver 400 range ========================================
@@ -112,7 +121,13 @@ remove P405
 copy ../can_board/can_brd_1.kicad_pcb temp/can_brd_1.kicad_pcb
 optimize temp/can_brd_1.kicad_pcb temp/can_brd_1.kicad_pcb
 
+merge_net /CAN_TX /PB6
+merge_net /CAN_RX /PB12
+
 add temp/can_brd_1.kicad_pcb -70 -1
+
+# CAN TX connector
+remove P356
 
 # CAN module connector
 remove P471
@@ -126,6 +141,13 @@ move_module M470 6 -10
 # hi-low driver 600 range ==========================================
 copy ../hi-lo_driver/hi-lo.kicad_pcb temp/hi-lo.kicad_pcb
 optimize temp/hi-lo.kicad_pcb temp/hi-lo.kicad_pcb
+
+merge_net /H_IN1 /PE8
+merge_net /H_IN2 /PE10
+merge_net /H_IN3 /PE12
+merge_net /H_IN4 /PE14
+merge_net /H_IN5 /PC9
+merge_net /H_IN6 /PC7
 
 add temp/hi-lo.kicad_pcb 40 0
 
