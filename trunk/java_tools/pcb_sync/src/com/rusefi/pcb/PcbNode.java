@@ -76,6 +76,8 @@ public class PcbNode {
             return PadNode.parse(nodeName, index + 1, children);
         } else if ("net".equals(nodeName)) {
             return new NetNode(nodeName, index + 1, children);
+        } else if ("add_net".equals(nodeName)) {
+            return new AddNetNode(nodeName, index + 1, children);
         } else if ("gr_line".equals(nodeName)) {
             return new GrLineNode(nodeName, index + 1, children);
         } else if ("layer".equals(nodeName)) {
