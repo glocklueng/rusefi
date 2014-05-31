@@ -152,6 +152,8 @@ public class PcbNode {
                 continue;
             }
             PcbNode p = (PcbNode) child;
+            if (p == null)
+                throw new NullPointerException("Null child node");
             sb.append("\r\n");
             p.pack(sb, prefix + " ");
         }
