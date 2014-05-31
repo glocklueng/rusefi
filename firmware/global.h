@@ -23,9 +23,7 @@
 #define VAR_NAME_VALUE(var) #var "="  VALUE(var)
 
 // project-wide default thread stack size
-// todo: adjust
-// #define PORT_INT_REQUIRED_STACK        128
-// todo: and decrease this size accordingly
-#define UTILITY_THREAD_STACK_SIZE 384
+// see also PORT_INT_REQUIRED_STACK
+#define UTILITY_THREAD_STACK_SIZE 128
 
 #endif /* GLOBAL_H_ */
