@@ -91,7 +91,8 @@ static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, A
 static void handleFuel(MainTriggerCallback *mainTriggerCallback, int eventIndex, int rpm) {
 	if (!isInjectionEnabled(mainTriggerCallback->engineConfiguration2))
 		return;
-	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
+	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
+			"event index");
 
 	/**
 	 * Ignition events are defined by addFuelEvents() according to selected
@@ -148,12 +149,12 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, ActuatorE
 	/**
 	 * The start of charge is always within the current trigger event range, so just plain time-based scheduling
 	 */
-	scheduleTask(sUp, (int)MS2US(sparkDelay), (schfunc_t) &turnPinHigh, (void *) signal);
+	scheduleTask(sUp, (int) MS2US(sparkDelay), (schfunc_t) &turnPinHigh, (void *) signal);
 	/**
 	 * Spark event is often happening during a later trigger event timeframe
 	 * TODO: improve precision
 	 */
-	scheduleTask(sDown, (int)MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
+	scheduleTask(sDown, (int) MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
 }
 
 static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex, int rpm, ActuatorEventList *list) {
@@ -189,7 +190,8 @@ void showMainHistogram(void) {
  * Both injection and ignition are controlled from this method.
  */
 void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallback *mainTriggerCallback) {
-	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount, "event index");
+	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
+			"event index");
 
 	int rpm = getRpm();
 	if (rpm == 0) {
@@ -237,17 +239,20 @@ void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallba
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
-		initializeIgnitionActions(advance - dwellAngle, mainTriggerCallback->engineConfiguration, mainTriggerCallback->engineConfiguration2, &mainTriggerCallback->engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
+		initializeIgnitionActions(advance - dwellAngle, mainTriggerCallback->engineConfiguration,
+				mainTriggerCallback->engineConfiguration2,
+				&mainTriggerCallback->engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
 	}
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
 
 	handleFuel(mainTriggerCallback, eventIndex, rpm);
-	handleSpark(mainTriggerCallback, eventIndex, rpm, &mainTriggerCallback->engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
+	handleSpark(mainTriggerCallback, eventIndex, rpm,
+			&mainTriggerCallback->engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
-		hsAdd(&mainLoopHisto, diff);
+	hsAdd(&mainLoopHisto, diff);
 #endif /* EFI_HISTOGRAMS */
 }
 
@@ -265,7 +270,8 @@ static void showMainInfo(void) {
 #endif
 }
 
-void MainTriggerCallback::init(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+void MainTriggerCallback::init(engine_configuration_s *engineConfiguration,
+		engine_configuration2_s *engineConfiguration2) {
 	this->engineConfiguration = engineConfiguration;
 	this->engineConfiguration2 = engineConfiguration2;
 }
@@ -287,7 +293,7 @@ void initMainEventListener(engine_configuration_s *engineConfiguration, engine_c
 	initHistogram(&mainLoopHisto, "main callback");
 #endif /* EFI_HISTOGRAMS */
 
-	addTriggerEventListener((ShaftPositionListener)&onTriggerEvent, "main loop", &mainTriggerCallbackInstance);
+	addTriggerEventListener((ShaftPositionListener) &onTriggerEvent, "main loop", &mainTriggerCallbackInstance);
 }
 
 int isIgnitionTimingError(void) {
