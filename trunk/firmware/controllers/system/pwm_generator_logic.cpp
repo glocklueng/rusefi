@@ -25,6 +25,10 @@ static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
 	scheduleMsg(&logger, "iteration=%d switchTime=%f period=%f", iteration, switchTime, period);
 #endif
 
+	/**
+	 * todo: once 'iteration' gets relatively high, we might lose calculation precision here
+	 * todo: double-check this spot
+	 */
 	uint64_t timeToSwitchUs = (iteration + switchTime) * periodMs * 1000;
 
 #if DEBUG_PWM
