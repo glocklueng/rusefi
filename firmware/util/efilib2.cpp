@@ -23,11 +23,18 @@ Overflow64Counter::Overflow64Counter() {
 }
 
 uint64_t Overflow64Counter::get(uint32_t value, int isPrimaryThread) {
-	if (value < currentValue) {
+	// this method is lock-free, only one thread is allowed to commit state
+	// these are local copies for thread-safery
+	int localValue = currentValue;
+	uint64_t localBase = currentBase;
+	if (value < localValue) {
 		// new value less than previous value means there was an overflow in that 32 bit counter
-		currentBase += 0x100000000LL;
+		localBase += 0x100000000LL;
 	}
-	currentValue = value;
+	if (isPrimaryThread) {
+		currentValue = value;
+		currentBase = localBase;
+	}
 
-	return currentBase + currentValue;
+	return localBase + value;
 }
