@@ -11,6 +11,12 @@
 #include "main.h"
 #include "pwm_generator_logic.h"
 
+/**
+ * We need to limit the number of iterations in order to avoid precision loss while calculating
+ * next toggle time
+ */
+#define ITERATION_LIMIT 100000
+
 PwmConfig::PwmConfig(float *st, single_wave_s *waves) :
 		multiWave(st, waves) {
 	scheduling.name = "PwmConfig";
@@ -56,7 +62,7 @@ static uint64_t togglePwmState(PwmConfig *state) {
 		if (state->cycleCallback != NULL)
 			state->cycleCallback(state);
 		efiAssert(state->periodMs != 0, "period not initialized", 0);
-		if (state->safe.periodMs != state->periodMs) {
+		if (state->safe.periodMs != state->periodMs || state->safe.iteration == ITERATION_LIMIT) {
 			/**
 			 * period length has changed - we need to reset internal state
 			 */
