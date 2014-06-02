@@ -1,10 +1,12 @@
-PCBNEW-LibModule-V1  15.05.2014 12:41:06
+PCBNEW-LibModule-V1  02.06.2014 9:33:04
 # encoding utf-8
 Units mm
 $INDEX
 19dpad
 1pin(m)
 8dpad
+PIN_ARRAY_22x1
+PIN_ARRAY_9x1
 $EndINDEX
 $MODULE 19dpad
 Po 0 0 0 15 53746E8F 00000000 ~~
@@ -436,4 +438,247 @@ Ne 0 ""
 Po 8.89 -1.27
 $EndPAD
 $EndMODULE 8dpad
+$MODULE PIN_ARRAY_22x1
+Po 0 0 0 15 538C1A9C 00000000 ~~
+Li PIN_ARRAY_22x1
+Sc 0
+AR 
+Op 0 0 0
+T0 -1.27 -2.54 1 1 0 0.15 N V 21 N "PIN_ARRAY_22x1"
+T1 0 2.54 1 1 0 0.15 N V 21 N "VAL**"
+DS 26.67 -1.27 -29.21 -1.27 0.15 21
+DS -29.21 -1.27 -29.21 1.27 0.15 21
+DS -29.21 1.27 26.67 1.27 0.15 21
+DS 26.67 1.27 26.67 -1.27 0.15 21
+$PAD
+Sh "1" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -27.94 0
+$EndPAD
+$PAD
+Sh "2" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -25.4 0
+$EndPAD
+$PAD
+Sh "3" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -22.86 0
+$EndPAD
+$PAD
+Sh "4" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -20.32 0
+$EndPAD
+$PAD
+Sh "5" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -17.78 0
+$EndPAD
+$PAD
+Sh "6" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -15.24 0
+$EndPAD
+$PAD
+Sh "7" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -12.7 0
+$EndPAD
+$PAD
+Sh "8" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -10.16 0
+$EndPAD
+$PAD
+Sh "9" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -7.62 0
+$EndPAD
+$PAD
+Sh "10" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -5.08 0
+$EndPAD
+$PAD
+Sh "11" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -2.54 0
+$EndPAD
+$PAD
+Sh "12" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$PAD
+Sh "13" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 2.54 0
+$EndPAD
+$PAD
+Sh "14" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 5.08 0
+$EndPAD
+$PAD
+Sh "15" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 7.62 0
+$EndPAD
+$PAD
+Sh "16" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 10.16 0
+$EndPAD
+$PAD
+Sh "17" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 12.7 0
+$EndPAD
+$PAD
+Sh "18" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 15.24 0
+$EndPAD
+$PAD
+Sh "19" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 17.78 0
+$EndPAD
+$PAD
+Sh "20" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 20.32 0
+$EndPAD
+$PAD
+Sh "21" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 22.86 0
+$EndPAD
+$PAD
+Sh "22" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 25.4 0
+$EndPAD
+$EndMODULE PIN_ARRAY_22x1
+$MODULE PIN_ARRAY_9x1
+Po 0 0 0 15 538C1A37 00000000 ~~
+Li PIN_ARRAY_9x1
+Sc 0
+AR 
+Op 0 0 0
+T0 0 -2.54 1 1 0 0.15 N V 21 N "PIN_ARRAY_9x1"
+T1 0 2.54 1 1 0 0.15 N V 21 N "VAL**"
+DS -13.97 -1.27 8.89 -1.27 0.15 21
+DS 8.89 -1.27 8.89 1.27 0.15 21
+DS 8.89 1.27 -13.97 1.27 0.15 21
+DS -13.97 1.27 -13.97 -1.27 0.15 21
+$PAD
+Sh "1" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -12.7 0
+$EndPAD
+$PAD
+Sh "2" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -10.16 0
+$EndPAD
+$PAD
+Sh "3" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -7.62 0
+$EndPAD
+$PAD
+Sh "4" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -5.08 0
+$EndPAD
+$PAD
+Sh "5" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -2.54 0
+$EndPAD
+$PAD
+Sh "6" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$PAD
+Sh "7" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 2.54 0
+$EndPAD
+$PAD
+Sh "8" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 5.08 0
+$EndPAD
+$PAD
+Sh "9" C 1.5 1.5 0 0 0
+Dr 1 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 7.62 0
+$EndPAD
+$EndMODULE PIN_ARRAY_9x1
 $EndLIBRARY

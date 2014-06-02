@@ -1,13 +1,6 @@
-update=28.05.2014 12:02:49
+update=02.06.2014 12:20:52
 version=1
-last_client=pcbnew
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
-[general]
-version=1
+last_client=kicad
 [eeschema]
 version=1
 LibDir=
@@ -49,6 +42,11 @@ LibName29=contrib
 LibName30=valves
 LibName31=symbols/284617-1
 LibName32=D:/Semenkov/work/my/rusefi/con_test/368255-2-connector/symbols/368255-2
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [pcbnew]
 version=1
 LastNetListRead=
@@ -87,3 +85,6 @@ LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
 LibName17=modules/284617-1
+LibName18=modules/kt819a_mod
+[general]
+version=1
