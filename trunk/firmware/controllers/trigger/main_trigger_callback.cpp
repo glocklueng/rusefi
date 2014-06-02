@@ -65,12 +65,6 @@ static cyclic_buffer ignitionErrorDetection;
 
 static Logging logger;
 
-/**
- * this field is accessed only from shaft sensor event handler.
- * This is not a method variable just to save us from stack overflow.
- */
-static ActuatorEventList events;
-
 static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, ActuatorEvent *event, int rpm) {
 	float fuelMs = getFuelMs(rpm) * mainTriggerCallback->engineConfiguration->globalFuelCorrection;
 	if (fuelMs < 0) {
@@ -102,13 +96,11 @@ static void handleFuel(MainTriggerCallback *mainTriggerCallback, int eventIndex,
 			isCranking() ?
 					&mainTriggerCallback->engineConfiguration2->engineEventConfiguration.crankingInjectionEvents :
 					&mainTriggerCallback->engineConfiguration2->engineEventConfiguration.injectionEvents;
-	findEvents(eventIndex, source, &events);
 
-	if (events.size == 0)
-		return;
-
-	for (int i = 0; i < events.size; i++) {
-		ActuatorEvent *event = &events.events[i];
+	for (int i = 0; i < source->size; i++) {
+		ActuatorEvent *event = &source->events[i];
+		if (event->position.eventIndex != eventIndex)
+			continue;
 		handleFuelInjectionEvent(mainTriggerCallback, event, rpm);
 	}
 }
@@ -165,14 +157,12 @@ static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex
 	 * Ignition schedule is defined once per revolution
 	 * See initializeIgnitionActions()
 	 */
-	findEvents(eventIndex, list, &events);
-	if (events.size == 0)
-		return;
 
 //	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
-
-	for (int i = 0; i < events.size; i++) {
-		ActuatorEvent *event = &events.events[i];
+	for (int i = 0; i < list->size; i++) {
+		ActuatorEvent *event = &list->events[i];
+		if (event->position.eventIndex != eventIndex)
+			continue;
 		handleSparkEvent(mainTriggerCallback, event, rpm);
 	}
 }
