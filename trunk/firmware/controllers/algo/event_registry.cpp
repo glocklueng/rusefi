@@ -1,5 +1,5 @@
 /**
- * @file	event_registry.c
+ * @file	event_registry.cpp
  * @brief	This data structure knows when to do what
  *
  * @date Nov 27, 2013
