@@ -16,7 +16,7 @@ class Overflow64Counter
   public:
 	Overflow64Counter();
 
-	uint64_t get(uint32_t value);
+	uint64_t get(uint32_t value, int isPrimaryThread);
 
   private:
 	uint64_t currentBase;
