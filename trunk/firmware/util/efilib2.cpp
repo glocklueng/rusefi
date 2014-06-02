@@ -22,7 +22,7 @@ Overflow64Counter::Overflow64Counter() {
 	currentValue = 0;
 }
 
-uint64_t Overflow64Counter::get(uint32_t value) {
+uint64_t Overflow64Counter::get(uint32_t value, int isPrimaryThread) {
 	if (value < currentValue) {
 		// new value less than previous value means there was an overflow in that 32 bit counter
 		currentBase += 0x100000000LL;
