@@ -24,17 +24,8 @@
 #include "main.h"
 #include "engine_math.h"
 
-extern engine_configuration_s *engineConfiguration;
-//extern engine_configuration2_s *engineConfiguration2;
-
 void resetEventList(ActuatorEventList *list) {
 	list->size = 0;
-}
-
-static void copyActuatorEvent(ActuatorEvent *source, ActuatorEvent*target) {
-	target->position.eventIndex = source->position.eventIndex;
-	target->actuator = source->actuator;
-	target->position.angleOffset = source->position.angleOffset;
 }
 
 ActuatorEvent * getNextActuatorEvent(ActuatorEventList *list) {
@@ -49,16 +40,4 @@ void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal
 	e->position.eventIndex = eventIndex;
 	e->actuator = actuator;
 	e->position.angleOffset = angleOffset;
-}
-
-void findEvents(int eventIndex, ActuatorEventList *source, ActuatorEventList *target) {
-	resetEventList(target);
-	// todo: implement something faster
-	for (int i = 0; i < source->size; i++) {
-		ActuatorEvent *s = &source->events[i];
-		if (s->position.eventIndex != eventIndex)
-			continue;
-		// todo: migrate to pointers instead of copying an object?
-		copyActuatorEvent(s, &target->events[target->size++]);
-	}
 }

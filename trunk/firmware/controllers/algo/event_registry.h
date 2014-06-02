@@ -56,7 +56,6 @@ void resetEventList(ActuatorEventList *list);
  */
 void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset);
 ActuatorEvent * getNextActuatorEvent(ActuatorEventList *list);
-void findEvents(int eventIndex, ActuatorEventList *source, ActuatorEventList *target);
 
 #ifdef __cplusplus
 }
