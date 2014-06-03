@@ -2117,7 +2117,7 @@
         <name>$PROJ_DIR$\..\controllers\algo\error_handling.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\event_registry.c</name>
+        <name>$PROJ_DIR$\..\controllers\algo\event_registry.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\event_registry.h</name>
