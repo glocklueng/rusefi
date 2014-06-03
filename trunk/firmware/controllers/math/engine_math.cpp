@@ -109,19 +109,19 @@ OutputSignalList ignitionSignals;
 OutputSignalList injectonSignals;
 
 static void registerSparkEvent(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
-		IgnitionEventList *list, OutputSignal *actuator, float chargeAngle) {
+		IgnitionEventList *list, OutputSignal *actuator, float localAdvance, float dwell) {
 
 	InjectionEvent *event = list->getNextActuatorEvent();
 	if (event == NULL)
 		return; // error already reported
 
-	registerActuatorEventExt(engineConfiguration, s, &event->actuator, actuator, chargeAngle);
+	event->advance = localAdvance;
+
+	registerActuatorEventExt(engineConfiguration, s, &event->actuator, actuator, localAdvance - dwell);
 }
 
 void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2, IgnitionEventList *list) {
-
-	float chargeAngle = advance - dwellAngle;
 
 	efiAssertVoid(engineConfiguration->cylindersCount > 0, "cylindersCount");
 	ignitionSignals.clear();
@@ -132,15 +132,15 @@ void initializeIgnitionActions(float advance, float dwellAngle, engine_configura
 	case IM_ONE_COIL:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 			// todo: extract method
-			float angle = chargeAngle + 720.0 * i / engineConfiguration->cylindersCount;
+			float localAdvance = advance + 720.0 * i / engineConfiguration->cylindersCount;
 
 			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list,
-					ignitionSignals.add(SPARKOUT_1_OUTPUT), angle);
+					ignitionSignals.add(SPARKOUT_1_OUTPUT), localAdvance, dwellAngle);
 		}
 		break;
 	case IM_WASTED_SPARK:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-			float angle = chargeAngle + 720.0 * i / engineConfiguration->cylindersCount;
+			float localAdvance = advance + 720.0 * i / engineConfiguration->cylindersCount;
 
 			int wastedIndex = i % (engineConfiguration->cylindersCount / 2);
 
@@ -148,18 +148,18 @@ void initializeIgnitionActions(float advance, float dwellAngle, engine_configura
 			io_pin_e ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
 
 			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list,
-					ignitionSignals.add(ioPin), angle);
+					ignitionSignals.add(ioPin), localAdvance, dwellAngle);
 
 		}
 
 		break;
 	case IM_INDIVIDUAL_COILS:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-			float angle = chargeAngle + 720.0 * i / engineConfiguration->cylindersCount;
+			float localAdvance = advance + 720.0 * i / engineConfiguration->cylindersCount;
 
 			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
 			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list, ignitionSignals.add(pin),
-					angle);
+					localAdvance, dwellAngle);
 		}
 		break;
 
