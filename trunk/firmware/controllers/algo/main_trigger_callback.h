@@ -18,6 +18,7 @@
 #ifdef __cplusplus
 #include "engine_configuration.h"
 #include "ec2.h"
+#include "event_registry.h"
 class MainTriggerCallback {
 public:
 //	MainTriggerCallback();
@@ -31,12 +32,12 @@ void initMainEventListener(engine_configuration_s *engineConfiguration, engine_c
 void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallback *mainTriggerCallback);
 #endif
 
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif /* __cplusplus */
 
-#include "event_registry.h"
 
 
 void showMainHistogram(void);
