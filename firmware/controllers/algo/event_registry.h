@@ -39,11 +39,18 @@ public:
 	int size;
 	Type events[Dimention];
 	void resetEventList(void);
+	Type *getNextActuatorEvent(void);
 };
 
 template <class Type, int Dimention>
 void ArrayList< Type, Dimention>::resetEventList(void) {
 	size = 0;
+}
+
+template <class Type, int Dimention>
+Type * ArrayList< Type, Dimention>::getNextActuatorEvent(void) {
+	efiAssert(size < Dimention, "registerActuatorEvent() too many events", NULL);
+	return &events[size++];
 }
 
 typedef ArrayList<ActuatorEvent, MAX_EVENT_COUNT> ActuatorEventList;
@@ -57,6 +64,5 @@ typedef ArrayList<ActuatorEvent, MAX_EVENT_COUNT> ActuatorEventList;
  * @param	actuator injector or coil OutputSignal
  */
 void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset);
-ActuatorEvent * getNextActuatorEvent(ActuatorEventList *list);
 
 #endif /* EVENT_REGISTRY_H_ */
