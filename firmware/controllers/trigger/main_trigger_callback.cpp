@@ -229,7 +229,7 @@ void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallba
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
-		initializeIgnitionActions(advance - dwellAngle, mainTriggerCallback->engineConfiguration,
+		initializeIgnitionActions(advance, dwellAngle, mainTriggerCallback->engineConfiguration,
 				mainTriggerCallback->engineConfiguration2,
 				&mainTriggerCallback->engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
 	}

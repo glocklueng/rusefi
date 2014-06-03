@@ -112,11 +112,14 @@ OutputSignalList injectonSignals;
 static void registerSparkEvent(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		ActuatorEventList *list, OutputSignal *actuator, float chargeAngle) {
 
-	registerActuatorEventExt(engineConfiguration, s, list, actuator, chargeAngle);
+	registerActuatorEventExt(engineConfiguration, s, list->getNextActuatorEvent(), actuator, chargeAngle);
 }
 
-void initializeIgnitionActions(float chargeAngle, engine_configuration_s *engineConfiguration,
+void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2, ActuatorEventList *list) {
+
+	float chargeAngle = advance - dwellAngle;
+
 	efiAssertVoid(engineConfiguration->cylindersCount > 0, "cylindersCount");
 	ignitionSignals.clear();
 
@@ -175,7 +178,7 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 		for (int i = 0; i < e->cylindersCount; i++) {
 			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1);
 			float angle = baseAngle + i * 720.0 / e->cylindersCount;
-			registerActuatorEventExt(e, s, list, injectonSignals.add(pin), angle);
+			registerActuatorEventExt(e, s, list->getNextActuatorEvent(), injectonSignals.add(pin), angle);
 		}
 		break;
 	case IM_SIMULTANEOUS:
@@ -184,7 +187,7 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 
 			for (int j = 0; j < e->cylindersCount; j++) {
 				io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + j);
-				registerActuatorEventExt(e, s, list, injectonSignals.add(pin), angle);
+				registerActuatorEventExt(e, s, list->getNextActuatorEvent(), injectonSignals.add(pin), angle);
 			}
 		}
 		break;
@@ -192,7 +195,7 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 		for (int i = 0; i < e->cylindersCount; i++) {
 			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + (i % 2));
 			float angle = baseAngle + i * 720.0 / e->cylindersCount;
-			registerActuatorEventExt(e, s, list, injectonSignals.add(pin), angle);
+			registerActuatorEventExt(e, s, list->getNextActuatorEvent(), injectonSignals.add(pin), angle);
 		}
 		break;
 	default:
@@ -249,10 +252,9 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 }
 
 void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
-		ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
+		ActuatorEvent *e, OutputSignal *actuator, float angleOffset) {
 	efiAssertVoid(s->getSize() > 0, "uninitialized trigger_shape_s");
 
-	ActuatorEvent *e = list->getNextActuatorEvent();
 	if (e == NULL)
 		return; // error already reported
 	e->actuator = actuator;
