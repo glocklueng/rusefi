@@ -18,6 +18,7 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "main.h"
 #include "advance_map.h"
 #include "interpolation.h"
 // that's for 'max' function

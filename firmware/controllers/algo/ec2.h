@@ -13,7 +13,18 @@
 #define EC2_H_
 
 #include "engine_configuration.h"
+#include "event_registry.h"
 #include "trigger_structure.h"
+
+/**
+ * @brief Here we store information about which injector or spark should be fired when.
+ */
+typedef struct {
+	ActuatorEventList crankingInjectionEvents;
+	ActuatorEventList injectionEvents;
+	ActuatorEventList ignitionEvents[2];
+} EventHandlerConfiguration;
+
 
 #ifdef __cplusplus
 extern "C"

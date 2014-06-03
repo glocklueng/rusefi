@@ -13,7 +13,6 @@
 #include "crc.h"
 #include "sensor_types.h"
 #include "can_header.h"
-#include "event_registry.h"
 #include "rusefi_enums.h"
 
 typedef struct {
@@ -28,15 +27,6 @@ typedef struct {
 	 */
 	short int crankingRpm;
 } cranking_parameters_s;
-
-/**
- * @brief Here we store information about which injector or spark should be fired when.
- */
-typedef struct {
-	ActuatorEventList crankingInjectionEvents;
-	ActuatorEventList injectionEvents;
-	ActuatorEventList ignitionEvents[2];
-} EventHandlerConfiguration;
 
 #define FUEL_RPM_COUNT 16
 #define FUEL_LOAD_COUNT 16
