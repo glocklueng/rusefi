@@ -17,9 +17,23 @@
  */
 #define ITERATION_LIMIT 100000
 
-PwmConfig::PwmConfig(float *st, single_wave_s *waves) :
-		multiWave(st, waves) {
+SimplePwm::SimplePwm() {
+	wave.init(pinStates);
+	sr[0] = wave;
+	init(_switchTimes, sr);
+}
+
+PwmConfig::PwmConfig() {
 	scheduling.name = "PwmConfig";
+}
+
+PwmConfig::PwmConfig(float *st, single_wave_s *waves) {
+	multiWave.init(st, waves);
+	scheduling.name = "PwmConfig";
+}
+
+void PwmConfig::init(float *st, single_wave_s *waves) {
+	multiWave.init(st, waves);
 }
 
 static uint64_t getNextSwitchTimeUs(PwmConfig *state) {

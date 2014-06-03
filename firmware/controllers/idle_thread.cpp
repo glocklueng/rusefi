@@ -48,14 +48,7 @@ static volatile int idleSwitchState;
 static Logging logger;
 extern Engine engine;
 
-static float _switchTimes[PWM_PHASE_MAX_COUNT];
-
-// todo: extract helper for simple PWM?
-static int pinStates[2];
-static single_wave_s wave(pinStates);
-static single_wave_s sr[1] = {wave};
-
-static PwmConfig idleValve(_switchTimes, sr);
+static SimplePwm idleValve;
 
 /**
  * Idle level calculation algorithm lives in idle_controller.c
