@@ -63,10 +63,10 @@ typedef struct {
 void prepareOutputSignals(engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2);
 
-void initializeIgnitionActions(float chargeAngle, engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, ActuatorEventList *list);
+void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, ActuatorEventList *list);
 void addFuelEvents(engine_configuration_s const *e,  engine_configuration2_s *engineConfiguration2, ActuatorEventList *list, injection_mode_e mode);
 
-void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEventList *list, OutputSignal *actuator, float angleOffset);
+void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEvent *e, OutputSignal *actuator, float angleOffset);
 
 void resetConfigurationExt(Logging * logger, engine_type_e engineType,
 		engine_configuration_s *engineConfiguration,
