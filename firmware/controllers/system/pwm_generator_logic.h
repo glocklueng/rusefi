@@ -71,6 +71,7 @@ public:
 class SimplePwm : public PwmConfig {
 public:
 	SimplePwm();
+	void setSimplePwmDutyCycle(float dutyCycle);
 	int pinStates[2];
 	single_wave_s wave;
 	single_wave_s sr[1];

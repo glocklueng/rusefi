@@ -4,7 +4,10 @@
  * This class combines the powers of a 1MHz hardware timer from microsecond_timer.c
  * and pending events queue event_queue.cpp
  *
- * todo: add thread safety
+ * As of version 2.6.x, ChibiOS tick-based kernel is not capable of scheduling events
+ * with the level of precision we need, and realistically it should not.
+ *
+ * http://sourceforge.net/p/rusefi/tickets/24/
  *
  * @date: Apr 18, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014

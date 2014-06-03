@@ -78,7 +78,7 @@ static void setIdleValvePwm(int value) {
 	 * currently idle level is an integer per mil (0-1000 range), and PWM takes a float in the 0..1 range
 	 * todo: unify?
 	 */
-	setSimplePwmDutyCycle(&idleValve, 0.001 * value);
+	idleValve.setSimplePwmDutyCycle(0.001 * value);
 }
 
 static msg_t ivThread(int param) {
