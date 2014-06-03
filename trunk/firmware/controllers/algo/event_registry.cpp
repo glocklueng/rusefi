@@ -24,13 +24,8 @@
 #include "main.h"
 #include "engine_math.h"
 
-ActuatorEvent * getNextActuatorEvent(ActuatorEventList *list) {
-	efiAssert(list->size < MAX_EVENT_COUNT, "registerActuatorEvent() too many events", NULL);
-	return &list->events[list->size++];
-}
-
 void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset) {
-	ActuatorEvent *e = getNextActuatorEvent(list);
+	ActuatorEvent *e = list->getNextActuatorEvent();
 	if (e == NULL)
 		return; // error already reported
 	e->position.eventIndex = eventIndex;

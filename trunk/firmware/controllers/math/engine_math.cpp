@@ -252,7 +252,7 @@ void registerActuatorEventExt(engine_configuration_s const *engineConfiguration,
 		ActuatorEventList *list, OutputSignal *actuator, float angleOffset) {
 	efiAssertVoid(s->getSize() > 0, "uninitialized trigger_shape_s");
 
-	ActuatorEvent *e = getNextActuatorEvent(list);
+	ActuatorEvent *e = list->getNextActuatorEvent();
 	if (e == NULL)
 		return; // error already reported
 	e->actuator = actuator;
