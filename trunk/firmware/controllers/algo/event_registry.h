@@ -33,18 +33,20 @@ typedef struct {
 	scheduling_s signalTimer;
 } ActuatorEvent;
 
-typedef struct {
+template <class Type, int Dimention>
+class ArrayList {
+public:
 	int size;
-	ActuatorEvent events[MAX_EVENT_COUNT];
-} ActuatorEventList;
+	Type events[Dimention];
+	void resetEventList(void);
+};
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
+template <class Type, int Dimention>
+void ArrayList< Type, Dimention>::resetEventList(void) {
+	size = 0;
+}
 
-
-void resetEventList(ActuatorEventList *list);
+typedef ArrayList<ActuatorEvent, MAX_EVENT_COUNT> ActuatorEventList;
 
 /**
  * this is an intermediate implementation of flexible event handling.
@@ -56,10 +58,5 @@ void resetEventList(ActuatorEventList *list);
  */
 void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset);
 ActuatorEvent * getNextActuatorEvent(ActuatorEventList *list);
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
 
 #endif /* EVENT_REGISTRY_H_ */

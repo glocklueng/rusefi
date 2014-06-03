@@ -120,7 +120,7 @@ void initializeIgnitionActions(float chargeAngle, engine_configuration_s *engine
 	efiAssertVoid(engineConfiguration->cylindersCount > 0, "cylindersCount");
 	ignitionSignals.clear();
 
-	resetEventList(list);
+	list->resetEventList();
 
 	switch (engineConfiguration->ignitionMode) {
 	case IM_ONE_COIL:
@@ -164,7 +164,7 @@ void initializeIgnitionActions(float chargeAngle, engine_configuration_s *engine
 
 void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *engineConfiguration2,
 		ActuatorEventList *list, injection_mode_e mode) {
-	resetEventList(list);
+	list->resetEventList();
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 
