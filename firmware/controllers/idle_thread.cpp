@@ -75,7 +75,7 @@ static void setIdleValvePwm(int value) {
 		return;
 	scheduleMsg(&logger, "setting idle valve PWM %d", value);
 	/**
-	 * currently IDEL level is an integer per mil (0-1000 range), and PWM takes a fioat in the 0..1 range
+	 * currently idle level is an integer per mil (0-1000 range), and PWM takes a float in the 0..1 range
 	 * todo: unify?
 	 */
 	setSimplePwmDutyCycle(&idleValve, 0.001 * value);
@@ -117,12 +117,11 @@ static void setIdleRpmAction(int value) {
 void startIdleThread() {
 	initLogging(&logger, "Idle Valve Control");
 
-	startSimplePwm(&idleValve, "Idle Valve",
+	startSimplePwmExt(&idleValve, "Idle Valve",
 			boardConfiguration->idleValvePin,
 			IDLE_VALVE,
-			0.5,
 			IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY,
-			TRUE);
+			0.5);
 
 	idleInit(&idle);
 	scheduleMsg(&logger, "initial idle %d", idle.value);
