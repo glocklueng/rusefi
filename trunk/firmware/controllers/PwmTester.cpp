@@ -15,18 +15,7 @@
 
 static Logging logger;
 
-static float _switchTimes[2];
-
-// todo: extract helper for simple PWM?
-static int pinStates[2];
-static single_wave_s wave(pinStates);
-static single_wave_s sr[1] = { wave };
-
-static PwmConfig pwmTest[5] = { PwmConfig(_switchTimes, sr),
-		PwmConfig(_switchTimes, sr),
-		PwmConfig(_switchTimes, sr),
-		PwmConfig(_switchTimes, sr),
-		PwmConfig(_switchTimes, sr)};
+static SimplePwm pwmTest[5];
 
 extern board_configuration_s *boardConfiguration;
 
