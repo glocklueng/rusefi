@@ -149,7 +149,7 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, ActuatorE
 	scheduleTask(sDown, (int) MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
 }
 
-static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex, int rpm, ActuatorEventList *list) {
+static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex, int rpm, InjectionEventList *list) {
 	if (!isValidRpm(rpm))
 		return; // this might happen for instance in case of a single trigger event after a pause
 

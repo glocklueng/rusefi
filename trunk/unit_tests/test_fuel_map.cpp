@@ -15,7 +15,6 @@
 #include "OutputSignalList.h"
 #include "ec2.h"
 
-
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
@@ -129,7 +128,7 @@ void testAngleResolver(void) {
 
 	ae.resetEventList();
 	printf("*************************************************** testAngleResolver 0\r\n");
-	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &ae, list.add(INJECTOR_1_OUTPUT), 53 - 175);
+	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, ae.getNextActuatorEvent(), list.add(INJECTOR_1_OUTPUT), 53 - 175);
 	assertEqualsM("size", 1, ae.size);
 	assertEquals(1, list.getSize());
 	assertEquals(0, ae.events[0].position.eventIndex);
@@ -137,7 +136,7 @@ void testAngleResolver(void) {
 
 	printf("*************************************************** testAngleResolver 2\r\n");
 	ae.resetEventList();
-	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &ae, list.add(INJECTOR_1_OUTPUT), 51 + 180 - 175);
+	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, ae.getNextActuatorEvent(), list.add(INJECTOR_1_OUTPUT), 51 + 180 - 175);
 	assertEquals(2, ae.events[0].position.eventIndex);
 	assertEquals(51.9870, ae.events[0].position.angleOffset);
 }
