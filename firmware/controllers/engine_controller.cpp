@@ -99,6 +99,7 @@ static msg_t csThread(void) {
 			chThdSleepMilliseconds(100);
 		}
 	}
+	return -1;
 }
 
 static void updateErrorCodes(void) {
