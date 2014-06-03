@@ -20,7 +20,14 @@ void single_wave_s::init(int *pinStates) {
 	this->pinStates = pinStates;
 }
 
+multi_wave_s::multi_wave_s() {
+}
+
 multi_wave_s::multi_wave_s(float *switchTimes, single_wave_s *waves) {
+	init(switchTimes, waves);
+}
+
+void multi_wave_s::init(float *switchTimes, single_wave_s *waves) {
 	this->switchTimes = switchTimes;
 	this->waves = waves;
 }

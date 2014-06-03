@@ -23,7 +23,9 @@ public:
 
 class multi_wave_s {
 public:
+	multi_wave_s();
 	multi_wave_s(float *st, single_wave_s *waves);
+	void init(float *st, single_wave_s *waves);
 	void reset(void);
 	float getSwitchTime(int phaseIndex) const;
 	void setSwitchTime(int phaseIndex, float value);
