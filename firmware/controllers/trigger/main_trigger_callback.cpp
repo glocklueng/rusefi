@@ -105,8 +105,11 @@ static void handleFuel(MainTriggerCallback *mainTriggerCallback, int eventIndex,
 	}
 }
 
-static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, InjectionEvent *iEvent, int rpm) {
-	float dwellMs = getSparkDwellMsT(mainTriggerCallback->engineConfiguration, rpm);
+static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, int eventIndex, InjectionEvent *iEvent, int rpm) {
+	engine_configuration_s *engineConfiguration = mainTriggerCallback->engineConfiguration;
+	engine_configuration2_s *engineConfiguration2 = mainTriggerCallback->engineConfiguration2;
+
+	float dwellMs = getSparkDwellMsT(engineConfiguration, rpm);
 	if (cisnan(dwellMs) || dwellMs < 0) {
 		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 		return;
@@ -147,7 +150,15 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, Injection
 	 * Spark event is often happening during a later trigger event timeframe
 	 * TODO: improve precision
 	 */
-	scheduleTask(sDown, (int) MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
+
+	event_trigger_position_s position;
+	findTriggerPosition(engineConfiguration, &engineConfiguration2->triggerShape, &position, iEvent->advance);
+
+	if (position.eventIndex == eventIndex) {
+		scheduleTask(sDown, (int) MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
+	} else {
+		scheduleTask(sDown, (int) MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
+	}
 }
 
 static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex, int rpm, IgnitionEventList *list) {
@@ -164,7 +175,7 @@ static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex
 		InjectionEvent *event = &list->events[i];
 		if (event->actuator.position.eventIndex != eventIndex)
 			continue;
-		handleSparkEvent(mainTriggerCallback, event, rpm);
+		handleSparkEvent(mainTriggerCallback, eventIndex, event, rpm);
 	}
 }
 
