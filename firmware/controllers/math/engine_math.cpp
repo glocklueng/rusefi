@@ -110,13 +110,13 @@ OutputSignalList ignitionSignals;
 OutputSignalList injectonSignals;
 
 static void registerSparkEvent(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
-		InjectionEventList *list, OutputSignal *actuator, float chargeAngle) {
+		IgnitionEventList *list, OutputSignal *actuator, float chargeAngle) {
 
 	registerActuatorEventExt(engineConfiguration, s, list->getNextActuatorEvent(), actuator, chargeAngle);
 }
 
 void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2, InjectionEventList *list) {
+		engine_configuration2_s *engineConfiguration2, IgnitionEventList *list) {
 
 	float chargeAngle = advance - dwellAngle;
 
