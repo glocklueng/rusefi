@@ -10,14 +10,14 @@
 
 #include <time.h>
 
+#include "trigger_structure.h"
+#include "engine_configuration.h"
+#include "ec2.h"
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-
-#include "trigger_structure.h"
-#include "engine_configuration.h"
-#include "ec2.h"
 
 int isTriggerDecoderError(void);
 void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount, int skippedCount);

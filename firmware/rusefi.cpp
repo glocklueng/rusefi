@@ -80,17 +80,18 @@
  *
  */
 
+#include "main.h"
+#include "trigger_structure.h"
+#include "ec2.h"
+
 extern "C" {
 
 #include "global.h"
 
-#include "main.h"
 #include "rusefi.h"
 #include "eficonsole.h"
 #include "hardware.h"
 #include "engine_controller.h"
-#include "ec2.h"
-#include "trigger_structure.h"
 #include "status_loop.h"
 #include "pin_repository.h"
 
