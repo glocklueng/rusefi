@@ -24,10 +24,6 @@
 #include "main.h"
 #include "engine_math.h"
 
-void resetEventList(ActuatorEventList *list) {
-	list->size = 0;
-}
-
 ActuatorEvent * getNextActuatorEvent(ActuatorEventList *list) {
 	efiAssert(list->size < MAX_EVENT_COUNT, "registerActuatorEvent() too many events", NULL);
 	return &list->events[list->size++];

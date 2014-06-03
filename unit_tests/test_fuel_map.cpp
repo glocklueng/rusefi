@@ -127,7 +127,7 @@ void testAngleResolver(void) {
 
 	OutputSignalList list;
 
-	resetEventList(&ae);
+	ae.resetEventList();
 	printf("*************************************************** testAngleResolver 0\r\n");
 	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &ae, list.add(INJECTOR_1_OUTPUT), 53 - 175);
 	assertEqualsM("size", 1, ae.size);
@@ -136,7 +136,7 @@ void testAngleResolver(void) {
 	assertEquals(53, ae.events[0].position.angleOffset);
 
 	printf("*************************************************** testAngleResolver 2\r\n");
-	resetEventList(&ae);
+	ae.resetEventList();
 	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, &ae, list.add(INJECTOR_1_OUTPUT), 51 + 180 - 175);
 	assertEquals(2, ae.events[0].position.eventIndex);
 	assertEquals(51.9870, ae.events[0].position.angleOffset);
