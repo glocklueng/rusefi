@@ -36,6 +36,13 @@ void PwmConfig::init(float *st, single_wave_s *waves) {
 	multiWave.init(st, waves);
 }
 
+/**
+ * @param dutyCycle value between 0 and 1
+ */
+void SimplePwm::setSimplePwmDutyCycle(float dutyCycle) {
+	multiWave.setSwitchTime(0, dutyCycle);
+}
+
 static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
 	efiAssert(state->safe.phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", 0);
 	int iteration = state->safe.iteration;

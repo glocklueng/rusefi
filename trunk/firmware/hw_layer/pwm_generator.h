@@ -22,8 +22,6 @@ extern "C"
 
 void applyPinState(PwmConfig *state, int stateIndex);
 
-void setSimplePwmDutyCycle(PwmConfig *state, float dutyCycle);
-
 void startSimplePwm(PwmConfig *state, const char *msg, io_pin_e ioPin,
 		float dutyCycle, float frequency);
 
