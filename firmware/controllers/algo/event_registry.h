@@ -35,6 +35,7 @@ typedef struct {
 
 typedef struct {
 	ActuatorEvent actuator;
+	float advance;
 } InjectionEvent;
 
 template <class Type, int Dimention>
