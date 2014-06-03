@@ -55,7 +55,7 @@ Type * ArrayList< Type, Dimention>::getNextActuatorEvent(void) {
 
 typedef ArrayList<ActuatorEvent, MAX_EVENT_COUNT> ActuatorEventList;
 
-typedef ArrayList<ActuatorEvent, MAX_EVENT_COUNT + 1> InjectionEventList;
+typedef ArrayList<ActuatorEvent, MAX_EVENT_COUNT + 1> IgnitionEventList;
 
 /**
  * this is an intermediate implementation of flexible event handling.
