@@ -33,6 +33,10 @@ typedef struct {
 	scheduling_s signalTimer;
 } ActuatorEvent;
 
+typedef struct {
+	ActuatorEvent actuator;
+} InjectionEvent;
+
 template <class Type, int Dimention>
 class ArrayList {
 public:
@@ -55,7 +59,7 @@ Type * ArrayList< Type, Dimention>::getNextActuatorEvent(void) {
 
 typedef ArrayList<ActuatorEvent, MAX_EVENT_COUNT> ActuatorEventList;
 
-typedef ArrayList<ActuatorEvent, MAX_EVENT_COUNT + 1> IgnitionEventList;
+typedef ArrayList<InjectionEvent, MAX_EVENT_COUNT> IgnitionEventList;
 
 /**
  * this is an intermediate implementation of flexible event handling.

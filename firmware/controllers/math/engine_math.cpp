@@ -37,7 +37,6 @@
 //		return interpolate(5000, 1.1, 8000, 1, rpm);
 //	return interpolate(500, 0.5, 5000, 1.1, rpm);
 //}
-
 /**
  * @return time needed to rotate crankshaft by one degree, in milliseconds.
  */
@@ -112,7 +111,11 @@ OutputSignalList injectonSignals;
 static void registerSparkEvent(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		IgnitionEventList *list, OutputSignal *actuator, float chargeAngle) {
 
-	registerActuatorEventExt(engineConfiguration, s, list->getNextActuatorEvent(), actuator, chargeAngle);
+	InjectionEvent *event = list->getNextActuatorEvent();
+	if (event == NULL)
+		return; // error already reported
+
+	registerActuatorEventExt(engineConfiguration, s, &event->actuator, actuator, chargeAngle);
 }
 
 void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration_s *engineConfiguration,
@@ -251,8 +254,8 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 	position->angleOffset = angleOffset - angle;
 }
 
-void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
-		ActuatorEvent *e, OutputSignal *actuator, float angleOffset) {
+void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEvent *e,
+		OutputSignal *actuator, float angleOffset) {
 	efiAssertVoid(s->getSize() > 0, "uninitialized trigger_shape_s");
 
 	if (e == NULL)

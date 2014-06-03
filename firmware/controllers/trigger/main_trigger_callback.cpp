@@ -105,13 +105,14 @@ static void handleFuel(MainTriggerCallback *mainTriggerCallback, int eventIndex,
 	}
 }
 
-static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, ActuatorEvent *event, int rpm) {
+static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, InjectionEvent *iEvent, int rpm) {
 	float dwellMs = getSparkDwellMsT(mainTriggerCallback->engineConfiguration, rpm);
 	if (cisnan(dwellMs) || dwellMs < 0) {
 		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 		return;
 	}
 
+	ActuatorEvent *event = &iEvent->actuator;
 	float sparkDelay = getOneDegreeTimeMs(rpm) * event->position.angleOffset;
 	int isIgnitionError = sparkDelay < 0;
 	ignitionErrorDetection.add(isIgnitionError);
@@ -160,8 +161,8 @@ static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex
 
 //	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
 	for (int i = 0; i < list->size; i++) {
-		ActuatorEvent *event = &list->events[i];
-		if (event->position.eventIndex != eventIndex)
+		InjectionEvent *event = &list->events[i];
+		if (event->actuator.position.eventIndex != eventIndex)
 			continue;
 		handleSparkEvent(mainTriggerCallback, event, rpm);
 	}
