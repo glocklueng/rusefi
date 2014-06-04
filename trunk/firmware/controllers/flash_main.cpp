@@ -1,5 +1,5 @@
 /**
- * @file    flash_main.c
+ * @file    flash_main.cpp
  * @brief	Higher-level logic of saving data into internal flash memory
  *
  *
