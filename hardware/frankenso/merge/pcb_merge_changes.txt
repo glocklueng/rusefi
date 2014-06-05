@@ -2,14 +2,16 @@
 remove P_VOID1
 remove P_VOID2
 
+# need an option to allod cut layer (which i believe is turned off by default)
+# add ../rusefi_lib/outlines/denso079721_outline.kicad_pcb
 
 # brain board ===================================================
 
-add ../brain_board/stm32f407_board.kicad_pcb 35.56 33.48736
+add ../brain_board/stm32f407_board.kicad_pcb 35.56 84.28736
 
 # VR module 100 range ==============================================
 
-add temp/cps_vrs_io_1.kicad_pcb -84 180.5
+add temp/cps_vrs_io_1.kicad_pcb -84 230.5
 
 
 # move_module R113 1 11
