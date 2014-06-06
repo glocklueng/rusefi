@@ -1,10 +1,38 @@
-Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 31/05/2014 10:12:56
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 06/06/2014 11:40:14
 
 BeginCmp
 TimeStamp = /5389F085;
 Reference = P99;
 ValeurCmp = 0176122-06;
 IdModule  = 176122-6;
+EndCmp
+
+BeginCmp
+TimeStamp = /5391EE9B;
+Reference = P_VOID3;
+ValeurCmp = CONN_8;
+IdModule  = pin_array_8x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5391DCE5;
+Reference = W1;
+ValeurCmp = TEST;
+IdModule  = SM0805_jumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5391DCFC;
+Reference = W2;
+ValeurCmp = TEST;
+IdModule  = SM0805_jumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5391DD02;
+Reference = W3;
+ValeurCmp = TEST;
+IdModule  = SM0805_jumper;
 EndCmp
 
 EndListe
