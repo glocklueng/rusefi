@@ -1,6 +1,7 @@
 # frankenso changes ============================================
 remove P_VOID1
 remove P_VOID2
+remove P_VOID3
 
 # need an option to allod cut layer (which i believe is turned off by default)
 # add ../rusefi_lib/outlines/denso079721_outline.kicad_pcb
@@ -111,7 +112,7 @@ merge_net /INJ-03_5V /PE6
 merge_net /INJ-04_5V /PC13
 
 
-add ../1A_injector_12-channels/inj_12ch.kicad_pcb 20 -20
+add ../1A_injector_12-channels/inj_12ch.kicad_pcb 70 -20
 
 remove P402
 remove P404
