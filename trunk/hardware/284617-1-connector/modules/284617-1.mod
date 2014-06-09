@@ -1,4 +1,4 @@
-PCBNEW-LibModule-V1  28.05.2014 14:56:17
+PCBNEW-LibModule-V1  09.06.2014 15:46:23
 # encoding utf-8
 Units mm
 $INDEX
@@ -1134,5 +1134,11 @@ At STD N 00E0FFFF
 Ne 0 ""
 Po 139.8 9
 $EndPAD
+$SHAPE3D
+Na "modules/c-284617-1-c-3d.wrl"
+Sc 10 10 10
+Of 0 0 -0.24
+Ro -90 0 0
+$EndSHAPE3D
 $EndMODULE 284617-1
 $EndLIBRARY
