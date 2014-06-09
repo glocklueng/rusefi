@@ -1,5 +1,5 @@
 /**
- * @file settings.c
+ * @file settings.cpp
  * @brief This file is about configuring engine via the human-readable protocol
  *
  * @date Dec 30, 2012
@@ -97,6 +97,25 @@ const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 	}
 }
 
+static const char * pinModeToString(pin_output_mode_e mode) {
+	switch (mode) {
+	case OM_DEFAULT:
+		return "default";
+	case OM_INVERTED:
+		return "inverted";
+	case OM_OPENDRAIN:
+		return "open drain";
+	case OM_OPENDRAIN_INVERTED:
+		return "open drain inverted";
+	default:
+		return "unexpected";
+	}
+}
+
+static const char * boolToString(bool_t value) {
+	return value ? "Yes" : "No";
+}
+
 /**
  * @brief	Prints current engine configuration to human-readable console.
  */
@@ -148,15 +167,15 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 
 //	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->crankingSettings.crankingRpm);
 
-	scheduleMsg(&logger, "idlePinMode: %d", boardConfiguration->idleValvePinMode);
-	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %d", boardConfiguration->malfunctionIndicatorPinMode);
+	scheduleMsg(&logger, "idlePinMode: %s", pinModeToString(boardConfiguration->idleValvePinMode));
+	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %s", pinModeToString(boardConfiguration->malfunctionIndicatorPinMode));
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
-	scheduleMsg(&logger, "needSecondTriggerInput: %d", engineConfiguration->needSecondTriggerInput);
+	scheduleMsg(&logger, "needSecondTriggerInput: %s", boolToString(engineConfiguration->needSecondTriggerInput));
 
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "idleValvePin: %s", hwPortname(boardConfiguration->idleValvePin));
-	scheduleMsg(&logger, "fuelPumpPin: mode %d @ %s", boardConfiguration->fuelPumpPinMode,
+	scheduleMsg(&logger, "fuelPumpPin: mode %s @ %s", pinModeToString(boardConfiguration->fuelPumpPinMode),
 			hwPortname(boardConfiguration->fuelPumpPin));
 
 	scheduleMsg(&logger, "injectionPins: mode %d", boardConfiguration->injectionPinMode);
@@ -166,26 +185,23 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 		scheduleMsg(&logger, "injection %d @ %s", i, hwPortname(brainPin));
 	}
 
-	scheduleMsg(&logger, "ignitionPins: mode %d", boardConfiguration->ignitionPinMode);
+	scheduleMsg(&logger, "ignitionPins: mode %s", pinModeToString(boardConfiguration->ignitionPinMode));
 	// todo: calculate coils count based on ignition mode
 	for (int i = 0; i < 4; i++) {
 		brain_pin_e brainPin = boardConfiguration->ignitionPins[i];
 		scheduleMsg(&logger, "ignition %d @ %s", i, hwPortname(brainPin));
 	}
 
-	scheduleMsg(&logger, "primary trigger simulator: %s %d", hwPortname(boardConfiguration->triggerSimulatorPins[0]),
-			boardConfiguration->triggerSimulatorPinModes[0]);
-	scheduleMsg(&logger, "secondary trigger simulator: %s %d", hwPortname(boardConfiguration->triggerSimulatorPins[1]),
-			boardConfiguration->triggerSimulatorPinModes[1]);
+	scheduleMsg(&logger, "primary trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[0]),
+			pinModeToString(boardConfiguration->triggerSimulatorPinModes[0]));
+	scheduleMsg(&logger, "secondary trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[1]),
+			pinModeToString(boardConfiguration->triggerSimulatorPinModes[1]));
 
 	scheduleMsg(&logger, "primary trigger input: %s", hwPortname(boardConfiguration->primaryTriggerInputPin));
 
-
-
-
 #endif /* EFI_PROD_CODE */
 
-	scheduleMsg(&logger, "isInjectionEnabledFlag %d", engineConfiguration2->isInjectionEnabledFlag);
+	scheduleMsg(&logger, "isInjectionEnabledFlag %s", boolToString(engineConfiguration2->isInjectionEnabledFlag));
 
 	//	appendPrintf(&logger, DELIMETER);
 //	scheduleLogging(&logger);
@@ -269,7 +285,7 @@ static void setRpmMultiplier(int value) {
 
 static char pinNameBuffer[16];
 
-static void printThermistor(char *msg, Thermistor *thermistor) {
+static void printThermistor(const char *msg, Thermistor *thermistor) {
 	int adcChannel = thermistor->channel;
 	float voltage = getVoltageDivided(adcChannel);
 	float r = getResistance(thermistor);
