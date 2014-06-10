@@ -1,5 +1,5 @@
 /**
- * @file	dodge_neon.c
+ * @file	dodge_neon.cpp
  *
  * DODGE_NEON_1995 = 2
  *

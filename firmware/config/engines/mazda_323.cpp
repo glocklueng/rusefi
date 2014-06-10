@@ -1,5 +1,5 @@
 /**
- * @file	mazda_323.c
+ * @file	mazda_323.cpp
  *
  * @date Mar 8, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014

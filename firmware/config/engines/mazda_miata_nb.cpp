@@ -1,5 +1,5 @@
 /**
- * @file	mazda_miata_nb.c
+ * @file	mazda_miata_nb.cpp
  *
  * MAZDA_MIATA_NB = 9
  *

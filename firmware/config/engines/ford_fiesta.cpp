@@ -1,5 +1,5 @@
 /**
- * @file	ford_fiesta.c
+ * @file	ford_fiesta.cpp
  * @brief	European 1990 Ford Fiesta
  *
  * FORD_FIESTA = 4
