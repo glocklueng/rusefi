@@ -148,7 +148,7 @@ void print(const char *format, ...) {
 		return;
 	va_list ap;
 	va_start(ap, format);
-	chvprintf((BaseSequentialStream *)CONSOLE_CHANNEL, format, ap);
+	chvprintf(getConsoleChannel(), format, ap);
 	va_end(ap);
 }
 

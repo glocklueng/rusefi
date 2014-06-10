@@ -22,6 +22,8 @@
 #include "console_io.h"
 
 #if EFI_PROD_CODE
+extern SerialUSBDriver SDU1;
+#include "usbcfg.h"
 #include "usbconsole.h"
 #endif
 #include "rfiutil.h"
@@ -84,13 +86,22 @@ static char consoleInput[] = "                                                  
 
 void (*console_line_callback)(char *);
 
+BaseSequentialStream * getConsoleChannel(void) {
+#if EFI_SERIAL_OVER_USB
+ return (BaseSequentialStream *)&SDU1;
+#else
+ return (BaseSequentialStream *)EFI_CONSOLE_UART_DEVICE;
+#endif
+
+}
+
 static WORKING_AREA(consoleThreadStack, 2 * UTILITY_THREAD_STACK_SIZE);
 static msg_t consoleThreadThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("console thread");
 
 	while (TRUE) {
-		bool_t end = getConsoleLine((BaseSequentialStream *) CONSOLE_CHANNEL, consoleInput, sizeof(consoleInput));
+		bool_t end = getConsoleLine(getConsoleChannel(), consoleInput, sizeof(consoleInput));
 		if (end) {
 			// firmware simulator is the only case when this happens
 			continue;
@@ -117,11 +128,11 @@ int isConsoleReady(void) {
 #endif
 
 void consolePutChar(int x) {
-	chSequentialStreamPut(CONSOLE_CHANNEL, (uint8_t )(x));
+	chSequentialStreamPut(getConsoleChannel(), (uint8_t )(x));
 }
 
 void consoleOutputBuffer(const int8_t *buf, int size) {
-	chSequentialStreamWrite(CONSOLE_CHANNEL, buf, size);
+	chSequentialStreamWrite(getConsoleChannel(), buf, size);
 }
 
 void startConsole(void (*console_line_callback_p)(char *)) {
