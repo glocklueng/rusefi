@@ -1,5 +1,5 @@
 /**
- * @file    injector_central.c
+ * @file    injector_central.cpp
  * @brief	Utility methods related to fuel injection.
  *
  *
