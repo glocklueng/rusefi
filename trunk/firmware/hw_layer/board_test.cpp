@@ -1,5 +1,5 @@
 /**
- * @file	board_test.c
+ * @file	board_test.cpp
  * @brief	This is a simple board testing utility
  *
  * @date Mar 12, 2014
