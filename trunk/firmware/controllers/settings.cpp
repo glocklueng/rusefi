@@ -178,7 +178,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "fuelPumpPin: mode %s @ %s", pinModeToString(boardConfiguration->fuelPumpPinMode),
 			hwPortname(boardConfiguration->fuelPumpPin));
 
-	scheduleMsg(&logger, "injectionPins: mode %d", boardConfiguration->injectionPinMode);
+	scheduleMsg(&logger, "injectionPins: mode %s", pinModeToString(boardConfiguration->injectionPinMode));
 	for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 		brain_pin_e brainPin = boardConfiguration->injectionPins[i];
 
