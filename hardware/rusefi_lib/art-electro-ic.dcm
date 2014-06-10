@@ -1,4 +1,9 @@
-EESchema-DOCLIB  Version 2.0  Date: Пт 14 мар 2014 20:58:50
+EESchema-DOCLIB  Version 2.0  Date: Сб 31 май 2014 08:28:47
+#
+$CMP HIP9011
+D HIP9011
+K HIP9011
+$ENDCMP
 #
 $CMP MCP2551
 D Can transceiver
