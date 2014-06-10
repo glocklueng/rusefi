@@ -23,7 +23,7 @@ static void startPwmTest(int freq) {
 	scheduleMsg(&logger, "running pwm test @%d", freq);
 
 	// PD13, GPIO_NONE because pin is initialized elsewhere already
-	startSimplePwm(&pwmTest[0], "tester", LED_CRANKING, 10, 0.5);
+	startSimplePwm(&pwmTest[0], "tester", LED_WARNING, 10, 0.5);
 	// currently this is PB9 by default - see boardConfiguration->injectionPins
 	startSimplePwm(&pwmTest[1], "tester", INJECTOR_1_OUTPUT, freq / 1.3333333333, 0.5);
 	// currently this is PB8 by default
