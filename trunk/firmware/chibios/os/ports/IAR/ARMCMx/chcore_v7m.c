@@ -39,6 +39,10 @@
 /* Port interrupt handlers.                                                  */
 /*===========================================================================*/
 
+int getRemainingStack(Thread *otp) {
+  return (stkalign_t *)(__get_SP() - sizeof(struct intctx)) - otp->p_stklimit;
+}
+
 /**
  * @brief   System Timer vector.
  * @details This interrupt is used as system tick.
