@@ -194,6 +194,7 @@ void showMainHistogram(void) {
 void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallback *mainTriggerCallback) {
 	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
 			"event index");
+	efiAssertVoid(getRemainingStack(chThdSelf()) > 200, "stack#2");
 
 	int rpm = getRpm();
 	if (rpm == 0) {
