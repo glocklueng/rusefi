@@ -25,6 +25,7 @@
 
 #if EFI_ENGINE_CONTROL
 
+struct Thread;
 int getRemainingStack(Thread *otp);
 
 #include "main_trigger_callback.h"
