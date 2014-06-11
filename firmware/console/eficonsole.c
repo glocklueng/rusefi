@@ -95,13 +95,6 @@ static void sayHello(void) {
 	printMsg(&logger, "EFI_SIGNAL_EXECUTOR_HW_TIMER=%d", EFI_SIGNAL_EXECUTOR_HW_TIMER);
 #endif
 
-
-
-#ifdef EFI_TUNER_STUDIO_OVER_USB
-	printMsg(&logger, "EFI_TUNER_STUDIO_OVER_USB=%d", EFI_TUNER_STUDIO_OVER_USB);
-#else
-	printMsg(&logger, "EFI_TUNER_STUDIO_OVER_USB=%d", 0);
-#endif
 #ifdef EFI_SHAFT_POSITION_INPUT
 	printMsg(&logger, "EFI_SHAFT_POSITION_INPUT=%d", EFI_SHAFT_POSITION_INPUT);
 #endif
