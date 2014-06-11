@@ -30,7 +30,11 @@ int warning(obd_code_e code, const char *fmt, ...);
 void firmwareError(const char *fmt, ...);
 bool_t hasFirmwareError(void);
 
-bool_t hasFatalError(void);
+/**
+ * declared inline so that this function does not use stack
+ * so that it would not crash the error handler in case of stack issues
+ */
+inline bool_t hasFatalError(void);
 //void fatal3(char *msg, char *file, int line);
 
 void chDbgPanic3(const char *msg, const char * file, int line);
