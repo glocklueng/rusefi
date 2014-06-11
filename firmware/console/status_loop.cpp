@@ -206,10 +206,10 @@ static void printStatus(void) {
 //	return getTCharge(getCurrentRpm(), tps, cltK, iatK);
 //}
 
-#if EFI_CUSTOM_PANIC_METHOD
-extern char *dbg_panic_file;
-extern int dbg_panic_line;
-#endif
+//#if EFI_CUSTOM_PANIC_METHOD
+//extern char *dbg_panic_file;
+//extern int dbg_panic_line;
+//#endif
 
 //static void checkIfShouldHalt(void) {
 //#if CH_DBG_ENABLED
