@@ -211,10 +211,6 @@ extern char *dbg_panic_file;
 extern int dbg_panic_line;
 #endif
 
-inline bool_t hasFatalError(void) {
-	return dbg_panic_msg != NULL;
-}
-
 //static void checkIfShouldHalt(void) {
 //#if CH_DBG_ENABLED
 //	if (hasFatalError()) {
