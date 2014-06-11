@@ -211,14 +211,17 @@ extern char *dbg_panic_file;
 extern int dbg_panic_line;
 #endif
 
-bool_t hasFatalError(void) {
+inline bool_t hasFatalError(void) {
 	return dbg_panic_msg != NULL;
 }
 
 static void checkIfShouldHalt(void) {
 #if CH_DBG_ENABLED
 	if (hasFatalError()) {
-		setOutputPinValue(LED_ERROR, 1);
+		/**
+		 * low-level function is used here to reduce stack usage
+		 */
+		palWritePad(LED_ERROR_PORT, LED_ERROR_PIN, 1);
 #if EFI_CUSTOM_PANIC_METHOD
 		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg, dbg_panic_file, dbg_panic_line);
 #else
