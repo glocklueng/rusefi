@@ -23,21 +23,14 @@
 
 #include "main.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
+#if !EFI_PROD_CODE
 
-#include "ch.h"
+#define chThdSelf() 0
+#define getRemainingStack(x) (999999)
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+#endif
 
 #if EFI_ENGINE_CONTROL
-
-struct Thread;
-int getRemainingStack(Thread *otp);
 
 #include "main_trigger_callback.h"
 #include "ec2.h"
