@@ -73,6 +73,9 @@ static void sayHello(void) {
 	printMsg(&logger, "STM32_PCLK2=%d", STM32_PCLK2);
 #endif
 
+
+	printMsg(&logger, "PORT_IDLE_THREAD_STACK_SIZE=%d", PORT_IDLE_THREAD_STACK_SIZE);
+
 	printMsg(&logger, "CH_DBG_ENABLE_ASSERTS=%d", CH_DBG_ENABLE_ASSERTS);
 	printMsg(&logger, "CH_DBG_ENABLED=%d", CH_DBG_ENABLED);
 	printMsg(&logger, "CH_DBG_SYSTEM_STATE_CHECK=%d", CH_DBG_SYSTEM_STATE_CHECK);
