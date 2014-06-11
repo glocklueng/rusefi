@@ -215,26 +215,26 @@ inline bool_t hasFatalError(void) {
 	return dbg_panic_msg != NULL;
 }
 
-static void checkIfShouldHalt(void) {
-#if CH_DBG_ENABLED
-	if (hasFatalError()) {
-		/**
-		 * low-level function is used here to reduce stack usage
-		 */
-		palWritePad(LED_ERROR_PORT, LED_ERROR_PIN, 1);
-#if EFI_CUSTOM_PANIC_METHOD
-		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg, dbg_panic_file, dbg_panic_line);
-#else
-		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg);
-#endif
-		chThdSleepSeconds(1);
-		// todo: figure out how we halt exactly
-		while (TRUE) {
-		}
-		chSysHalt();
-	}
-#endif
-}
+//static void checkIfShouldHalt(void) {
+//#if CH_DBG_ENABLED
+//	if (hasFatalError()) {
+//		/**
+//		 * low-level function is used here to reduce stack usage
+//		 */
+//		palWritePad(LED_ERROR_PORT, LED_ERROR_PIN, 1);
+//#if EFI_CUSTOM_PANIC_METHOD
+//		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg, dbg_panic_file, dbg_panic_line);
+//#else
+//		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg);
+//#endif
+//		chThdSleepSeconds(1);
+//		// todo: figure out how we halt exactly
+//		while (TRUE) {
+//		}
+//		chSysHalt();
+//	}
+//#endif
+//}
 
 /**
  * Time when the firmware version was reported last time, in seconds
@@ -261,7 +261,8 @@ extern char errorMessageBuffer[200];
 void updateDevConsoleState(void) {
 	if (!isConsoleReady())
 		return;
-	checkIfShouldHalt();
+// looks like this is not needed anymore
+//	checkIfShouldHalt();
 	printPending();
 
 	if (hasFirmwareError()) {
