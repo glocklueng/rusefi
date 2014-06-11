@@ -45,9 +45,9 @@
 }
 
 
-#define PORT_IDLE_THREAD_STACK_SIZE     128
+#define PORT_IDLE_THREAD_STACK_SIZE     1024
 
-#define PORT_INT_REQUIRED_STACK 		256
+#define PORT_INT_REQUIRED_STACK 		768
 
 #define CHPRINTF_USE_FLOAT          	TRUE
 
@@ -480,6 +480,7 @@
  */
 #if !defined(THREAD_EXT_FIELDS) || defined(__DOXYGEN__)
 #define THREAD_EXT_FIELDS                                                   \
+  int remainingStack;                                                       \
   /* Add threads custom fields here.*/
 #endif
 
