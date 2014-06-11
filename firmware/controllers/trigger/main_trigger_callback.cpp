@@ -25,6 +25,7 @@
 
 #if EFI_ENGINE_CONTROL
 
+#include "chcore.h"
 #include "main_trigger_callback.h"
 #include "ec2.h"
 
