@@ -25,7 +25,8 @@
 
 #if EFI_ENGINE_CONTROL
 
-#include "chcore.h"
+int getRemainingStack(Thread *otp);
+
 #include "main_trigger_callback.h"
 #include "ec2.h"
 

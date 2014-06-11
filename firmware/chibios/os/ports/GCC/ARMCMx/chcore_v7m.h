@@ -490,7 +490,7 @@ struct context {
 
 void chDbgStackOverflowPanic(Thread *otp);
 
-inline int getRemainingStack(Thread *otp);
+int getRemainingStack(Thread *otp);
 
 /**
  * @brief   Performs a context switch between two threads.
