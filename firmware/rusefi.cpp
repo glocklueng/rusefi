@@ -157,7 +157,7 @@ void runRusEfi(void) {
 	 * control is around main_trigger_callback
 	 */
 	while (TRUE) {
-		efiAssertVoid(getRemainingStack(chThdSelf()) > 200, "stack#1");
+		efiAssertVoid(getRemainingStack(chThdSelf()) > 100, "stack#1");
 
 #if EFI_CLI_SUPPORT
 		// sensor state + all pending messages for our own dev console
