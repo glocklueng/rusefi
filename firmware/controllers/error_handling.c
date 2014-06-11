@@ -22,6 +22,10 @@ extern int main_loop_started;
 const char *dbg_panic_file;
 int dbg_panic_line;
 
+inline bool_t hasFatalError(void) {
+	return dbg_panic_msg != NULL;
+}
+
 void chDbgPanic3(const char *msg, const char * file, int line) {
 	if (hasFatalError())
 		return;
