@@ -37,7 +37,9 @@
 
 int getRemainingStack(Thread *otp) {
 	register struct intctx *r13 asm ("r13");
-	return (stkalign_t *)(r13 - 1) - otp->p_stklimit;
+	int rs = (stkalign_t *)(r13 - 1) - otp->p_stklimit;
+	otp->remainingStack = rs;
+	return rs;
 }
 
 /*===========================================================================*/
