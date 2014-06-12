@@ -92,6 +92,7 @@ static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, A
 static void handleFuel(MainTriggerCallback *mainTriggerCallback, int eventIndex, int rpm) {
 	if (!isInjectionEnabled(mainTriggerCallback->engineConfiguration2))
 		return;
+	efiAssertVoid(getRemainingStack(chThdSelf()) > 16, "stack#3");
 	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
 			"event index");
 
@@ -201,7 +202,7 @@ void showMainHistogram(void) {
 void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallback *mainTriggerCallback) {
 	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
 			"event index");
-	efiAssertVoid(getRemainingStack(chThdSelf()) > 200, "stack#2");
+	efiAssertVoid(getRemainingStack(chThdSelf()) > 16, "stack#3");
 
 	int rpm = getRpm();
 	if (rpm == 0) {
