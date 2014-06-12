@@ -29,8 +29,6 @@
  */
 #define EFI_TUNER_STUDIO TRUE
 
-#define EFI_SERIAL_OVER_UART FALSE
-
 /**
  * TunerStudio debug output
  */

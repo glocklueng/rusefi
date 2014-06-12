@@ -47,7 +47,7 @@
 extern SerialUSBDriver SDU1;
 
 BaseSequentialStream * getTsSerialDevice(void) {
-	if (isSerialOverUsb()) {
+	if (isSerialOverUart()) {
 		// if console uses UART then TS uses USB
 		return (BaseSequentialStream *) &SDU1;
 	} else {
@@ -67,7 +67,7 @@ extern SerialUSBDriver SDU1;
 static efitimems_t previousWriteReportMs = 0;
 
 static int ts_serail_ready(void) {
-	if (isSerialOverUsb()) {
+	if (isSerialOverUart()) {
 		// TS uses USB when console uses serial
 		return is_usb_serial_ready();
 	} else {
@@ -92,7 +92,7 @@ extern TunerStudioOutputChannels tsOutputChannels;
 extern TunerStudioState tsState;
 
 static void printStats(void) {
-	if (!isSerialOverUsb()) {
+	if (!isSerialOverUart()) {
 		scheduleMsg(&logger, "TS RX on %s%d", portname(TS_SERIAL_RX_PORT), TS_SERIAL_RX_PIN);
 		scheduleMsg(&logger, "TS TX on %s%d", portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN);
 	}
@@ -254,7 +254,7 @@ void syncTunerStudioCopy(void) {
 
 void startTunerStudioConnectivity(void) {
 	initLogging(&logger, "tuner studio");
-	if (isSerialOverUsb()) {
+	if (isSerialOverUart()) {
 		print("TunerStudio over USB serial");
 		usb_serial_start();
 	} else {
