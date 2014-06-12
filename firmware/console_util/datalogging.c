@@ -102,6 +102,7 @@ static void vappendPrintfI(Logging *logging, const char *fmt, va_list arg) {
 }
 
 void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
+	efiAssertVoid(getRemainingStack(chThdSelf()) > 16, "stack#5b");
 	if (!intermediateLoggingBufferInited) {
 		firmwareError("intermediateLoggingBufferInited not inited!");
 		return;
@@ -128,6 +129,7 @@ void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
 }
 
 void appendPrintf(Logging *logging, const char *fmt, ...) {
+	efiAssertVoid(getRemainingStack(chThdSelf()) > 16, "stack#4");
 	va_list ap;
 	va_start(ap, fmt);
 	vappendPrintf(logging, fmt, ap);
