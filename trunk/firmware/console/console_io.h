@@ -32,7 +32,7 @@ void consolePutChar(int x);
 void consoleOutputBuffer(const int8_t *buf, int size);
 void startConsole(void (*console_line_callback_p)(char *));
 int isConsoleReady(void);
-bool_t isSerialOverUsb(void);
+bool_t isSerialOverUart(void);
 
 #ifdef __cplusplus
 }
