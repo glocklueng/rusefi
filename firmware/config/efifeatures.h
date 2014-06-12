@@ -29,9 +29,7 @@
  */
 #define EFI_TUNER_STUDIO TRUE
 
-#define EFI_SERIAL_OVER_USB TRUE
 #define EFI_SERIAL_OVER_UART FALSE
-//#define EFI_TUNER_STUDIO_OVER_USB TRUE
 
 /**
  * TunerStudio debug output
@@ -82,19 +80,6 @@
 
 #define EFI_ENGINE_EMULATOR TRUE
 #define EFI_EMULATE_POSITION_SENSORS TRUE
-
-#if EFI_TUNER_STUDIO
-#if EFI_SERIAL_OVER_USB
-#if EFI_TUNER_STUDIO_OVER_USB
-  #pragma "Cannot be EFI_SERIAL_OVER_USB and EFI_TUNER_STUDIO_OVER_USB at the same time"
-#endif
-#else
-#if EFI_TUNER_STUDIO_OVER_USB
-#else
-  #pragma "Cannot be serial over USART and TUNER_STUDIO over USART at the same time"
-#endif
-#endif /* EFI_TUNER_STUDIO */
-#endif /* EFI_SERIAL_OVER_USB */
 
 /**
  * This macros is used to hide pieces of the code from unit tests, so it only makes sense in folders exposed to the tests project.

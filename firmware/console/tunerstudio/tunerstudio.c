@@ -40,6 +40,21 @@
 
 #if EFI_TUNER_STUDIO
 
+#define TS_SERIAL_UART_DEVICE &SD3
+#define TS_SERIAL_SPEED 115200
+
+extern SerialUSBDriver SDU1;
+
+BaseSequentialStream * getTsSerialDevice(void) {
+	if (EFI_SERIAL_OVER_UART) {
+		// if console uses UART then TS uses USB
+		return (BaseSequentialStream *)&SDU1;
+	} else {
+		return (BaseSequentialStream *)TS_SERIAL_UART_DEVICE;
+	}
+}
+
+
 static Logging logger;
 
 extern engine_configuration_s *engineConfiguration;
@@ -51,12 +66,17 @@ extern SerialUSBDriver SDU1;
 
 static efitimems_t previousWriteReportMs = 0;
 
-#if EFI_TUNER_STUDIO_OVER_USB
-#define ts_serail_ready() is_usb_serial_ready()
-#else
-#define ts_serail_ready() TRUE
+static int ts_serail_ready(void) {
+	if (EFI_SERIAL_OVER_UART) {
+		// TS uses USB when console uses serial
+		return is_usb_serial_ready();
+	} else {
+		// TS uses serial when console uses USB
+		return TRUE;
+	}
+}
+
 static SerialConfig tsSerialConfig = { TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
-#endif /* EFI_TUNER_STUDIO_OVER_USB */
 
 static WORKING_AREA(TS_WORKING_AREA, UTILITY_THREAD_STACK_SIZE);
 
@@ -72,11 +92,10 @@ extern TunerStudioOutputChannels tsOutputChannels;
 extern TunerStudioState tsState;
 
 static void printStats(void) {
-#if EFI_TUNER_STUDIO_OVER_USB
-#else
-	scheduleMsg(&logger, "TS RX on %s%d", portname(TS_SERIAL_RX_PORT), TS_SERIAL_RX_PIN);
-	scheduleMsg(&logger, "TS TX on %s%d", portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN);
-#endif /* EFI_TUNER_STUDIO_OVER_USB */
+	if (!EFI_SERIAL_OVER_UART) {
+		scheduleMsg(&logger, "TS RX on %s%d", portname(TS_SERIAL_RX_PORT), TS_SERIAL_RX_PIN);
+		scheduleMsg(&logger, "TS TX on %s%d", portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN);
+	}
 	scheduleMsg(&logger, "TunerStudio total/error counter=%d/%d", tsCounter, tsState.errorCounter);
 	scheduleMsg(&logger, "TunerStudio H counter=%d", tsState.queryCommandCounter);
 	scheduleMsg(&logger, "TunerStudio O counter=%d size=%d", tsState.outputChannelsCommandCounter,
@@ -89,7 +108,7 @@ static void printStats(void) {
 }
 
 void tunerStudioWriteData(const uint8_t * buffer, int size) {
-	chSequentialStreamWrite(TS_SERIAL_DEVICE, buffer, size);
+	chSequentialStreamWrite(getTsSerialDevice(), buffer, size);
 }
 
 void tunerStudioDebug(char *msg) {
@@ -128,7 +147,7 @@ void handleValueWriteCommand(void) {
 
 	//tunerStudioDebug("got W (Write)"); // we can get a lot of these
 
-	int recieved = chSequentialStreamRead(TS_SERIAL_DEVICE, (uint8_t *)&pageId, 2);
+	int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&pageId, 2);
 	if (recieved != 2) {
 		tsState.errorCounter++;
 		return;
@@ -140,7 +159,7 @@ void handleValueWriteCommand(void) {
 	int size = sizeof(TunerStudioWriteRequest);
 //	scheduleMsg(&logger, "Reading %d\r\n", size);
 
-	recieved = chSequentialStreamRead(TS_SERIAL_DEVICE, (uint8_t *)&writeRequest, size);
+	recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&writeRequest, size);
 //	scheduleMsg(&logger, "got %d", recieved);
 
 //	unsigned char offset = writeBuffer[0];
@@ -161,7 +180,7 @@ void handleValueWriteCommand(void) {
 void handlePageReadCommand(void) {
 	tsState.readPageCommandsCounter++;
 	tunerStudioDebug("got C (Constants)");
-	int recieved = chSequentialStreamRead(TS_SERIAL_DEVICE, (uint8_t *)&pageId, 2);
+	int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&pageId, 2);
 	if (recieved != 2) {
 		tsState.errorCounter++;
 		return;
@@ -173,7 +192,6 @@ void handlePageReadCommand(void) {
 	tunerStudioWriteData((const uint8_t *) getWorkingPageAddr(pageId), getTunerStudioPageSize(pageId));
 }
 
-
 /**
  * 'Burn' command is a command to commit the changes
  */
@@ -182,7 +200,7 @@ void handleBurnCommand(void) {
 
 	tunerStudioDebug("got B (Burn)");
 
-	int recieved = chSequentialStreamRead(TS_SERIAL_DEVICE, (uint8_t *)&pageId, 2);
+	int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&pageId, 2);
 	if (recieved != 2) {
 		tsState.errorCounter++;
 		return;
@@ -218,7 +236,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 //			scheduleSimpleMsg(&logger, "ts channel is now ready ", hTimeNow());
 		}
 
-		short command = (short) chSequentialStreamGet(TS_SERIAL_DEVICE);
+		short command = (short) chSequentialStreamGet(getTsSerialDevice());
 		int success = tunerStudioHandleCommand(command);
 		if (!success && command != 0)
 			print("got unexpected TunerStudio command %c:%d\r\n", command, command);
@@ -236,16 +254,17 @@ void syncTunerStudioCopy(void) {
 
 void startTunerStudioConnectivity(void) {
 	initLogging(&logger, "tuner studio");
-#if EFI_TUNER_STUDIO_OVER_USB
+	if(EFI_SERIAL_OVER_UART) {
 	print("TunerStudio over USB serial");
 	usb_serial_start();
-#else
+	} else {
+
 	print("TunerStudio over USART");
 	mySetPadMode("tunerstudio rx", TS_SERIAL_RX_PORT, TS_SERIAL_RX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
 	mySetPadMode("tunerstudio tx", TS_SERIAL_TX_PORT, TS_SERIAL_TX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
 
-	sdStart(TS_SERIAL_DEVICE, &tsSerialConfig);
-#endif
+	sdStart(TS_SERIAL_UART_DEVICE, &tsSerialConfig);
+	}
 
 	syncTunerStudioCopy();
 
