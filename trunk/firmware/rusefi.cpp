@@ -168,10 +168,6 @@ void runRusEfi(void) {
 	}
 }
 
-int systicks2ms(int systicks) {
-	return systicks / TICKS_IN_MS;
-}
-
 static VirtualTimer resetTimer;
 
 static void rebootNow(void) {
