@@ -23,7 +23,7 @@
 
 #include "main.h"
 
-#if !EFI_PROD_CODE
+#if !EFI_PROD_CODE && !EFI_SIMULATOR
 
 #define chThdSelf() 0
 #define getRemainingStack(x) (999999)

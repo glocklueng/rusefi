@@ -92,14 +92,6 @@ bool_t isSerialOverUart(void) {
 	return is_serial_over_uart;
 }
 
-BaseSequentialStream * getConsoleChannel(void) {
-	if (isSerialOverUart()) {
-		return (BaseSequentialStream *) EFI_CONSOLE_UART_DEVICE;
-	} else {
-		return (BaseSequentialStream *) &SDU1;
-	}
-}
-
 static WORKING_AREA(consoleThreadStack, 2 * UTILITY_THREAD_STACK_SIZE);
 static msg_t consoleThreadThreadEntryPoint(void *arg) {
 	(void) arg;
@@ -119,9 +111,18 @@ static msg_t consoleThreadThreadEntryPoint(void *arg) {
 #endif        
 }
 
+#if EFI_PROD_CODE
+
 static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 
-#if EFI_PROD_CODE
+BaseSequentialStream * getConsoleChannel(void) {
+	if (isSerialOverUart()) {
+		return (BaseSequentialStream *) EFI_CONSOLE_UART_DEVICE;
+	} else {
+		return (BaseSequentialStream *) &SDU1;
+	}
+}
+
 int isConsoleReady(void) {
 	if (isSerialOverUart()) {
 		return isSerialConsoleStarted;
@@ -143,6 +144,7 @@ void consoleOutputBuffer(const int8_t *buf, int size) {
 void startConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
 
+#if EFI_PROD_CODE
 	is_serial_over_uart = palReadPad(GPIOA, GPIOA_BUTTON) != 0;
 
 	if (isSerialOverUart()) {
@@ -160,6 +162,7 @@ void startConsole(void (*console_line_callback_p)(char *)) {
 	} else {
 		usb_serial_start();
 	}
+#endif /* EFI_PROD_CODE */
 	chThdCreateStatic(consoleThreadStack, sizeof(consoleThreadStack), NORMALPRIO, consoleThreadThreadEntryPoint, NULL);
 }
 
