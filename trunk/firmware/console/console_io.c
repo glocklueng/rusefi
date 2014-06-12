@@ -86,8 +86,12 @@ static char consoleInput[] = "                                                  
 
 void (*console_line_callback)(char *);
 
+bool_t isSerialOverUsb(void) {
+	return EFI_SERIAL_OVER_UART;
+}
+
 BaseSequentialStream * getConsoleChannel(void) {
-	if (EFI_SERIAL_OVER_UART) {
+	if (isSerialOverUsb()) {
 		return (BaseSequentialStream *) EFI_CONSOLE_UART_DEVICE;
 	} else {
 		return (BaseSequentialStream *) &SDU1;
@@ -117,7 +121,7 @@ static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USA
 
 #if EFI_PROD_CODE
 int isConsoleReady(void) {
-	if (EFI_SERIAL_OVER_UART) {
+	if (isSerialOverUsb()) {
 		return isSerialConsoleStarted;
 	} else {
 		return is_usb_serial_ready();
@@ -136,7 +140,7 @@ void consoleOutputBuffer(const int8_t *buf, int size) {
 
 void startConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
-	if (EFI_SERIAL_OVER_UART) {
+	if (isSerialOverUsb()) {
 		/*
 		 * Activates the serial using the driver default configuration (that's 38400)
 		 * it is important to set 'NONE' as flow control! in terminal application on the PC
