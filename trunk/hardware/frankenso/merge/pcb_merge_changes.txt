@@ -8,7 +8,7 @@ remove P_VOID3
 
 # brain board ===================================================
 
-add ../brain_board/stm32f407_board.kicad_pcb 35.56 84.28736
+add ../brain_board/stm32f407_board.kicad_pcb 35.56 33.48736
 
 # VR module 100 range ==============================================
 
@@ -18,15 +18,26 @@ add temp/cps_vrs_io_1.kicad_pcb -84 230.5
 # move_module R113 1 11
 
 # power supply 150-160 range
-add ../power_supply_kb1gtt/PWR_buck_12V_switcher.kicad_pcb 50 -80
+add ../power_supply_kb1gtt/PWR_buck_12V_switcher.kicad_pcb 50 -130
 remove P131
 remove P132
 remove P133
 
 # HIP 160-180 range
 
-add ../hip9011/DD_HIP9011.kicad_pcb
+merge_net /SCK /PB13
+merge_net /SO /PB14
+merge_net /SI /PB15
+merge_net /CS /PE15
+merge_net /INT/HLD /PE13 
+
+add ../hip9011/DD_HIP9011.kicad_pcb -20 220
 remove D162
+
+# 8 pin connector
+remove P164
+# hold/test connector
+remove P165
 
 remove R165
 remove R169
@@ -53,7 +64,7 @@ merge_net /OUT11 /PC4
 merge_net /OUT12 /PC5
 
 
-add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb 0 -60
+add ../adc_amp_divider.vertical12/adc_amp_divider.kicad_pcb 0 -160
 
 # analog input board LED
 remove LD200
@@ -73,7 +84,7 @@ merge_net /SPI_MOSI /PB5
 merge_net /SPI_SCK /PB3
 merge_net /CS_SD_MODULE /PD4
 
-add temp/mmc_usb_1.kicad_pcb 20 33
+add temp/mmc_usb_1.kicad_pcb 20 80
 move_module P353 50 0
 
 # SD/TTL module 3.3v LED
@@ -112,7 +123,7 @@ merge_net /INJ-03_5V /PE6
 merge_net /INJ-04_5V /PC13
 
 
-add ../1A_injector_12-channels/inj_12ch.kicad_pcb 70 -20
+add ../1A_injector_12-channels/inj_12ch.kicad_pcb 110 -20
 
 remove P402
 remove P404
@@ -127,7 +138,7 @@ optimize temp/can_brd_1.kicad_pcb temp/can_brd_1.kicad_pcb
 merge_net /CAN_TX /PB6
 merge_net /CAN_RX /PB12
 
-add temp/can_brd_1.kicad_pcb -70 -1
+add temp/can_brd_1.kicad_pcb -70 -20
 
 # CAN TX connector
 remove P356
@@ -152,7 +163,7 @@ merge_net /H_IN4 /PE14
 merge_net /H_IN5 /PC9
 merge_net /H_IN6 /PC7
 
-add temp/hi-lo.kicad_pcb 40 0
+add temp/hi-lo.kicad_pcb 120 0
 
 remove M601
 remove P601
