@@ -87,12 +87,11 @@ static char consoleInput[] = "                                                  
 void (*console_line_callback)(char *);
 
 BaseSequentialStream * getConsoleChannel(void) {
-#if EFI_SERIAL_OVER_USB
- return (BaseSequentialStream *)&SDU1;
-#else
- return (BaseSequentialStream *)EFI_CONSOLE_UART_DEVICE;
-#endif
-
+	if (EFI_SERIAL_OVER_UART) {
+		return (BaseSequentialStream *) EFI_CONSOLE_UART_DEVICE;
+	} else {
+		return (BaseSequentialStream *) &SDU1;
+	}
 }
 
 static WORKING_AREA(consoleThreadStack, 2 * UTILITY_THREAD_STACK_SIZE);
@@ -114,18 +113,18 @@ static msg_t consoleThreadThreadEntryPoint(void *arg) {
 #endif        
 }
 
-#if EFI_SERIAL_OVER_USB
-#else
-#if EFI_SERIAL_OVER_UART
-static SerialConfig serialConfig = {SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0};
-#endif /* EFI_SERIAL_OVER_UART */
-#endif /* EFI_SERIAL_OVER_USB */
+static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 
-#if ! EFI_SERIAL_OVER_USB && ! EFI_SIMULATOR
+#if EFI_PROD_CODE
 int isConsoleReady(void) {
-	return isSerialConsoleStarted;
+	if (EFI_SERIAL_OVER_UART) {
+		return isSerialConsoleStarted;
+	} else {
+		return is_usb_serial_ready();
+	}
 }
-#endif
+
+#endif /* EFI_PROD_CODE */
 
 void consolePutChar(int x) {
 	chSequentialStreamPut(getConsoleChannel(), (uint8_t )(x));
@@ -137,24 +136,21 @@ void consoleOutputBuffer(const int8_t *buf, int size) {
 
 void startConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
-#if EFI_SERIAL_OVER_USB
-	usb_serial_start();
+	if (EFI_SERIAL_OVER_UART) {
+		/*
+		 * Activates the serial using the driver default configuration (that's 38400)
+		 * it is important to set 'NONE' as flow control! in terminal application on the PC
+		 */
+		sdStart(EFI_CONSOLE_UART_DEVICE, &serialConfig);
 
-#else
-#if EFI_SERIAL_OVER_UART
-	/*
-	 * Activates the serial using the driver default configuration (that's 38400)
-	 * it is important to set 'NONE' as flow control! in terminal application on the PC
-	 */
-	sdStart(CONSOLE_CHANNEL, &serialConfig);
+// cannot use pin repository here because pin repository prints to console
+		palSetPadMode(EFI_CONSOLE_RX_PORT, EFI_CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
+		palSetPadMode(EFI_CONSOLE_TX_PORT, EFI_CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
 
-	// cannot use pin repository here because pin repository prints to console
-	palSetPadMode(EFI_CONSOLE_RX_PORT, EFI_CONSOLE_RX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
-	palSetPadMode(EFI_CONSOLE_TX_PORT, EFI_CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
-
-	isSerialConsoleStarted = TRUE;
-#endif /* EFI_SERIAL_OVER_UART */
-#endif /* EFI_SERIAL_OVER_USB */
+		isSerialConsoleStarted = TRUE;
+	} else {
+		usb_serial_start();
+	}
 	chThdCreateStatic(consoleThreadStack, sizeof(consoleThreadStack), NORMALPRIO, consoleThreadThreadEntryPoint, NULL);
 }
 

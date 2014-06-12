@@ -10,14 +10,6 @@
 
 #include "tunerstudio_configuration.h"
 
-#if EFI_TUNER_STUDIO_OVER_USB
-#define TS_SERIAL_DEVICE (&SDU1)
-#else
-#define TS_SERIAL_DEVICE &SD3
-#define TS_SERIAL_SPEED 115200
-
-#endif /* EFI_TUNER_STUDIO_OVER_USB */
-
 #if defined __GNUC__
 typedef struct
 	__attribute__((packed)) {
