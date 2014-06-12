@@ -40,7 +40,9 @@
 /*===========================================================================*/
 
 int getRemainingStack(Thread *otp) {
-  return (stkalign_t *)(__get_SP() - sizeof(struct intctx)) - otp->p_stklimit;
+  int remainingStack = (stkalign_t *)(__get_SP() - sizeof(struct intctx)) - otp->p_stklimit;
+  otp->remainingStack = remainingStack;
+  return remainingStack;
 }
 
 /**
