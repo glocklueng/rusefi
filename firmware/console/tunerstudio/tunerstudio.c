@@ -37,6 +37,7 @@
 #include "tunerstudio_configuration.h"
 #include "malfunction_central.h"
 #include "wave_math.h"
+#include "console_io.h"
 
 #if EFI_TUNER_STUDIO
 
@@ -46,14 +47,13 @@
 extern SerialUSBDriver SDU1;
 
 BaseSequentialStream * getTsSerialDevice(void) {
-	if (EFI_SERIAL_OVER_UART) {
+	if (isSerialOverUsb()) {
 		// if console uses UART then TS uses USB
-		return (BaseSequentialStream *)&SDU1;
+		return (BaseSequentialStream *) &SDU1;
 	} else {
-		return (BaseSequentialStream *)TS_SERIAL_UART_DEVICE;
+		return (BaseSequentialStream *) TS_SERIAL_UART_DEVICE;
 	}
 }
-
 
 static Logging logger;
 
@@ -67,7 +67,7 @@ extern SerialUSBDriver SDU1;
 static efitimems_t previousWriteReportMs = 0;
 
 static int ts_serail_ready(void) {
-	if (EFI_SERIAL_OVER_UART) {
+	if (isSerialOverUsb()) {
 		// TS uses USB when console uses serial
 		return is_usb_serial_ready();
 	} else {
@@ -92,7 +92,7 @@ extern TunerStudioOutputChannels tsOutputChannels;
 extern TunerStudioState tsState;
 
 static void printStats(void) {
-	if (!EFI_SERIAL_OVER_UART) {
+	if (!isSerialOverUsb()) {
 		scheduleMsg(&logger, "TS RX on %s%d", portname(TS_SERIAL_RX_PORT), TS_SERIAL_RX_PIN);
 		scheduleMsg(&logger, "TS TX on %s%d", portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN);
 	}
@@ -254,16 +254,16 @@ void syncTunerStudioCopy(void) {
 
 void startTunerStudioConnectivity(void) {
 	initLogging(&logger, "tuner studio");
-	if(EFI_SERIAL_OVER_UART) {
-	print("TunerStudio over USB serial");
-	usb_serial_start();
+	if (isSerialOverUsb()) {
+		print("TunerStudio over USB serial");
+		usb_serial_start();
 	} else {
 
-	print("TunerStudio over USART");
-	mySetPadMode("tunerstudio rx", TS_SERIAL_RX_PORT, TS_SERIAL_RX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
-	mySetPadMode("tunerstudio tx", TS_SERIAL_TX_PORT, TS_SERIAL_TX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
+		print("TunerStudio over USART");
+		mySetPadMode("tunerstudio rx", TS_SERIAL_RX_PORT, TS_SERIAL_RX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
+		mySetPadMode("tunerstudio tx", TS_SERIAL_TX_PORT, TS_SERIAL_TX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
 
-	sdStart(TS_SERIAL_UART_DEVICE, &tsSerialConfig);
+		sdStart(TS_SERIAL_UART_DEVICE, &tsSerialConfig);
 	}
 
 	syncTunerStudioCopy();
