@@ -185,7 +185,3 @@ int main(void) {
 	chEvtUnregister(chnGetEventSource(&SD2), &sd2fel);
 	return 0;
 }
-
-int systicks2ms(int systicks) {
-	return systicks / TICKS_IN_MS;
-}

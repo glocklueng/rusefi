@@ -50,6 +50,7 @@ extern "C"
 
 void printToWin32Console(char *p);
 int systicks2ms(int systicks);
+int getRemainingStack(Thread *otp);
 
 // todo: move somewhere else?
 bool_t lockAnyContext(void);

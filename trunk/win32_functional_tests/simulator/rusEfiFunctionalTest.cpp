@@ -61,6 +61,10 @@ extern "C" {
 void idleDebug(char *msg, int value);
 }
 
+int getRemainingStack(Thread *otp) {
+	return 99999;
+}
+
 void idleDebug(char *msg, int value) {
 
 }
@@ -177,8 +181,12 @@ void firmwareError(const char *fmt, ...) {
 	exit(-1);
 }
 
-bool_t hasFatalError(void) {
-	return false;
+//bool_t hasFatalError(void) {
+//	return false;
+//}
+
+BaseSequentialStream * getConsoleChannel(void) {
+	return (BaseSequentialStream *)EFI_CONSOLE_UART_DEVICE;
 }
 
 void chDbgPanic3(const char *msg, const char * file, int line) {
