@@ -480,6 +480,7 @@
  */
 #if !defined(THREAD_EXT_FIELDS) || defined(__DOXYGEN__)
 #define THREAD_EXT_FIELDS                                                   \
+  void *activeStack;    \
   int remainingStack;                                                       \
   /* Add threads custom fields here.*/
 #endif

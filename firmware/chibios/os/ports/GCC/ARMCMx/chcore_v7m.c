@@ -35,9 +35,20 @@
 
 #include "ch.h"
 
+extern stkalign_t __main_stack_base__;
+
 int getRemainingStack(Thread *otp) {
 	register struct intctx *r13 asm ("r13");
-	int rs = (stkalign_t *)(r13 - 1) - otp->p_stklimit;
+	otp->activeStack = r13;
+
+	int rs;
+	if(dbg_isr_cnt > 0) {
+		// ISR context
+		rs = (stkalign_t *)(r13 - 1) - &__main_stack_base__;
+	} else {
+
+	rs = (stkalign_t *)(r13 - 1) - otp->p_stklimit;
+	}
 	otp->remainingStack = rs;
 	return rs;
 }
