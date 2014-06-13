@@ -286,7 +286,7 @@ static void testRpmCalculator(void) {
 
 	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
 
-	ec->triggerConfig.totalToothCount = 4;
+	ec->triggerConfig.totalToothCount = 8;
 	initializeTriggerShape(NULL, ec, &ec2);
 	incrementGlobalConfigurationVersion();
 
@@ -300,15 +300,15 @@ static void testRpmCalculator(void) {
 	assertEquals(0, rpmState.rpm());
 	triggerCentral.addEventListener((ShaftPositionListener) &shaftPositionCallback, "rpm reporter", &rpmState);
 
-	for (int i = 0; i < 12; i++) {
+	for (int i = 0; i < 24; i++) {
 		timeNow += 5000; // 5ms
 		triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
 		timeNow += 5000;
 		triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
 	}
-	assertEqualsM("RPM", 3000, rpmState.rpm());
+	assertEqualsM("RPM", 1500, rpmState.rpm());
 
-	assertEqualsM("index #1", 7, triggerCentral.triggerState.getCurrentIndex());
+	assertEqualsM("index #1", 15, triggerCentral.triggerState.getCurrentIndex());
 
 
 	static MainTriggerCallback triggerCallbackInstance;
@@ -322,25 +322,56 @@ static void testRpmCalculator(void) {
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
 	assertEqualsM("index #2", 0, triggerCentral.triggerState.getCurrentIndex());
 	assertEqualsM("queue size", 2, schedulingQueue.size());
-	assertEquals(140000, schedulingQueue.getForUnitText(0)->momentUs);
-	assertEquals(125000, schedulingQueue.getForUnitText(1)->momentUs);
+	assertEquals(260000, schedulingQueue.getForUnitText(0)->momentUs);
+	assertEquals(245000, schedulingQueue.getForUnitText(1)->momentUs);
 	schedulingQueue.clear();
 
 	timeNow += 5000;
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
-	assertEqualsM("index #3", 1, triggerCentral.triggerState.getCurrentIndex());
-	assertEqualsM("queue size", 4, schedulingQueue.size());
-	assertEquals(131666, schedulingQueue.getForUnitText(0)->momentUs);
-	assertEquals(131166, schedulingQueue.getForUnitText(1)->momentUs);
-	assertEquals(146666, schedulingQueue.getForUnitText(2)->momentUs);
-	assertEqualsM("3/3", 131666, schedulingQueue.getForUnitText(3)->momentUs);
+	timeNow += 5000; // 5ms
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
+	timeNow += 5000;
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
+	assertEqualsM("index #3", 3, triggerCentral.triggerState.getCurrentIndex());
+	assertEqualsM("queue size 3", 4, schedulingQueue.size());
+	assertEquals(258333, schedulingQueue.getForUnitText(0)->momentUs);
+	assertEquals(257833, schedulingQueue.getForUnitText(1)->momentUs);
+	assertEquals(273333, schedulingQueue.getForUnitText(2)->momentUs);
+	assertEqualsM("3/3", 258333, schedulingQueue.getForUnitText(3)->momentUs);
+	schedulingQueue.clear();
+
+	timeNow += 5000;
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
+	timeNow += 5000; // 5ms
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
+	timeNow += 5000; // 5ms
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
+	assertEqualsM("index #4", 6, triggerCentral.triggerState.getCurrentIndex());
+	assertEqualsM("queue size 4", 4, schedulingQueue.size());
+	assertEqualsM("4/0", 271666, schedulingQueue.getForUnitText(0)->momentUs);
+	schedulingQueue.clear();
+
+	timeNow += 5000;
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
+	assertEqualsM("queue size 5", 2, schedulingQueue.size());
+	assertEqualsM("5/0", 285000, schedulingQueue.getForUnitText(0)->momentUs);
+	assertEqualsM("5/1", 284500, schedulingQueue.getForUnitText(1)->momentUs);
 	schedulingQueue.clear();
 
 	timeNow += 5000; // 5ms
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
-	assertEqualsM("index #4", 2, triggerCentral.triggerState.getCurrentIndex());
-	assertEqualsM("queue size", 4, schedulingQueue.size());
-	assertEqualsM("4/0", 138333, schedulingQueue.getForUnitText(0)->momentUs);
+	assertEqualsM("queue size 6", 2, schedulingQueue.size());
+	schedulingQueue.clear();
+
+	timeNow += 5000;
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
+	timeNow += 5000; // 5ms
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
+
+	timeNow += 5000;
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
+	timeNow += 5000; // 5ms
+	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
 
 
 }
