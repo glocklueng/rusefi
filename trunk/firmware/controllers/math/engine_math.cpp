@@ -111,7 +111,7 @@ OutputSignalList injectonSignals;
 static void registerSparkEvent(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		IgnitionEventList *list, OutputSignal *actuator, float localAdvance, float dwell) {
 
-	InjectionEvent *event = list->getNextActuatorEvent();
+	IgnitionEvent *event = list->getNextActuatorEvent();
 	if (event == NULL)
 		return; // error already reported
 
