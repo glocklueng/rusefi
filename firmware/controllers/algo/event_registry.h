@@ -36,7 +36,7 @@ typedef struct {
 typedef struct {
 	ActuatorEvent actuator;
 	float advance;
-} InjectionEvent;
+} IgnitionEvent;
 
 template <class Type, int Dimention>
 class ArrayList {
@@ -60,7 +60,7 @@ Type * ArrayList< Type, Dimention>::getNextActuatorEvent(void) {
 
 typedef ArrayList<ActuatorEvent, MAX_EVENT_COUNT> ActuatorEventList;
 
-typedef ArrayList<InjectionEvent, MAX_EVENT_COUNT> IgnitionEventList;
+typedef ArrayList<IgnitionEvent, MAX_EVENT_COUNT> IgnitionEventList;
 
 /**
  * this is an intermediate implementation of flexible event handling.
