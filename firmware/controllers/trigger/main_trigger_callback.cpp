@@ -163,7 +163,9 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, int event
 	findTriggerPosition(engineConfiguration, &engineConfiguration2->triggerShape, &position, iEvent->advance);
 
 	if (position.eventIndex == eventIndex) {
-		scheduleTask(sDown, (int) MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
+		float timeTillIgnition = getOneDegreeTimeMs(rpm) * position.angleOffset;
+
+		scheduleTask(sDown, (int) MS2US(timeTillIgnition), (schfunc_t) &turnPinLow, (void*) signal);
 	} else {
 		scheduleTask(sDown, (int) MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
 	}
