@@ -39,9 +39,17 @@
 //}
 /**
  * @return time needed to rotate crankshaft by one degree, in milliseconds.
+ * @deprecated
  */
 float getOneDegreeTimeMs(int rpm) {
 	return 1000.0 * 60 / 360 / rpm;
+}
+
+/**
+ * @return time needed to rotate crankshaft by one degree, in microseconds.
+ */
+float getOneDegreeTimeUs(int rpm) {
+	return 1000000.0 * 60 / 360 / rpm;
 }
 
 /**
