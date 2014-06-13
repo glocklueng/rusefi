@@ -121,7 +121,7 @@ int main(void) {
 	testAccelEnrichment();
 
 	//	resizeMap();
-	printf("Success 20130601\r\n");
+	printf("Success 20130612\r\n");
 	return EXIT_SUCCESS;
 }
 
