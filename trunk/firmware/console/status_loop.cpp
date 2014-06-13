@@ -102,7 +102,7 @@ static void reportSensorF(const char *caption, float value, int precision) {
 #endif /* EFI_FILE_LOGGING */
 }
 
-static void reportSensorI(char *caption, int value) {
+static void reportSensorI(const char *caption, int value) {
 #if EFI_PROD_CODE || EFI_SIMULATOR
 	debugInt(&logger, caption, value);
 #endif /* EFI_PROD_CODE || EFI_SIMULATOR */

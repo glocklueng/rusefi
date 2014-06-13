@@ -37,7 +37,7 @@ extern board_configuration_s *boardConfiguration;
 
 static int is_injector_enabled[MAX_INJECTOR_COUNT];
 
-void assertCylinderId(int cylinderId, char *msg) {
+void assertCylinderId(int cylinderId, const char *msg) {
 	int isValid = cylinderId >= 1 && cylinderId <= engineConfiguration->cylindersCount;
 	if (!isValid) {
 		// we are here only in case of a fatal issue - at this point it is fine to make some blocking i-o
