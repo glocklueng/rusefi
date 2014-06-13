@@ -326,7 +326,7 @@ void scheduleMsg(Logging *logging, const char *fmt, ...) {
 }
 
 // todo: remove this method, replace with 'scheduleMsg'
-void scheduleIntValue(Logging *logging, char *msg, int value) {
+void scheduleIntValue(Logging *logging, const char *msg, int value) {
 	resetLogging(logging);
 
 	append(logging, msg);

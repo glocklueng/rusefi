@@ -213,7 +213,7 @@ PWM_OUTPUT_DISABLED, NULL }, { PWM_OUTPUT_DISABLED, NULL } },
 /* HW dependent part.*/
 0 };
 
-static void initAdcPin(ioportid_t port, int pin, char *msg) {
+static void initAdcPin(ioportid_t port, int pin, const char *msg) {
 	print("adc %s\r\n", msg);
 	mySetPadMode("adc input", port, pin, PAL_MODE_INPUT_ANALOG);
 }
