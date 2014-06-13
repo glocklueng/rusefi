@@ -39,7 +39,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "Franenso"
-Date "12 jun 2014"
+Date "13 jun 2014"
 Rev ".01"
 Comp "DAECU for rusEFI"
 Comment1 ""
@@ -1040,4 +1040,118 @@ Text Label 11900 1600 3    60   ~ 0
 IDL-SPEED-SOL
 Text Label 12000 1500 3    60   ~ 0
 PURGE-SOL
+$Comp
+L DISPLAY_BL S1
+U 1 1 539A66AE
+P 9100 8100
+F 0 "S1" H 8050 8850 60  0000 C CNN
+F 1 "DISPLAY_BL" H 9350 7350 60  0000 C CNN
+F 2 "DISPLAY_4x20_BL" H 9100 8100 60  0001 C CNN
+F 3 "~" H 9100 8100 60  0000 C CNN
+	1    9100 8100
+	1    0    0    -1  
+$EndComp
+NoConn ~ 12300 4100
+NoConn ~ 12400 4100
+NoConn ~ 12500 4100
+NoConn ~ 12600 4100
+Wire Wire Line
+	11700 1600 11700 4100
+Wire Wire Line
+	11800 4100 11800 1500
+Wire Wire Line
+	11900 4100 11900 1600
+Text Label 11500 4050 1    60   ~ 0
+INJ-02
+Text Label 11600 4050 1    60   ~ 0
+INJ-03
+Text Label 11700 4050 1    60   ~ 0
+INJ-04
+Wire Wire Line
+	10700 1600 10700 4100
+Wire Wire Line
+	11300 1600 11300 4100
+Text Label 10700 4050 1    60   ~ 0
+5V
+Wire Wire Line
+	11500 1600 11500 4100
+Wire Wire Line
+	11600 1500 11600 4100
+Text Label 11800 4050 1    60   ~ 0
+INJ-05
+Text Label 11900 4050 1    60   ~ 0
+INJ-06
+Connection ~ 12000 1500
+Wire Wire Line
+	12000 1500 12000 4100
+Wire Wire Line
+	12100 1600 12100 4100
+Wire Wire Line
+	12200 1500 12200 4100
+Text Label 12000 4050 1    60   ~ 0
+INJ-07
+Text Label 12100 4050 1    60   ~ 0
+INJ-08
+Text Label 12200 4050 1    60   ~ 0
+INJ-09
+Wire Wire Line
+	11100 1600 11100 4100
+Text Label 11100 4050 1    60   ~ 0
+INP1
+Wire Wire Line
+	10800 1500 10800 4100
+Text Label 10800 4050 1    60   ~ 0
+INP2
+Wire Wire Line
+	10900 1600 10900 4100
+Wire Wire Line
+	11000 1500 11000 4100
+Text Label 11300 4050 1    60   ~ 0
+INP4
+Wire Wire Line
+	11200 1500 11200 4100
+Text Label 11200 4050 1    60   ~ 0
+INP3
+Wire Wire Line
+	4950 1600 4950 3400
+Wire Wire Line
+	5050 1500 5050 3400
+Text Label 5050 3350 1    60   ~ 0
+12V
+Wire Wire Line
+	7050 1500 7050 3400
+NoConn ~ 7150 3400
+NoConn ~ 7250 3400
+NoConn ~ 7350 3400
+Wire Wire Line
+	7300 8450 6150 8450
+Wire Wire Line
+	6150 8550 7300 8550
+Wire Wire Line
+	7300 8650 6150 8650
+Wire Wire Line
+	6150 8750 7300 8750
+NoConn ~ 7300 8350
+NoConn ~ 7300 8250
+NoConn ~ 7300 8150
+NoConn ~ 7300 8050
+Wire Wire Line
+	7300 7450 6150 7450
+Text Label 6700 7450 0    60   ~ 0
+GND
+Wire Wire Line
+	7300 7850 6150 7850
+Text Label 6700 7850 0    60   ~ 0
+GND
+$Comp
+L CONN_10 P_VOID3
+U 1 1 539B561C
+P 11750 4450
+F 0 "P_VOID3" V 11700 4450 60  0000 C CNN
+F 1 "CONN_10" V 11800 4450 60  0000 C CNN
+F 2 "" H 11750 4450 60  0000 C CNN
+F 3 "" H 11750 4450 60  0000 C CNN
+	1    11750 4450
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
