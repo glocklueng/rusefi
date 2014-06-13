@@ -1,8 +1,12 @@
-EESchema-DOCLIB  Version 2.0  Date: Сб 31 май 2014 08:28:47
+EESchema-DOCLIB  Version 2.0  Date: Пт 13 июн 2014 13:25:26
 #
 $CMP HIP9011
 D HIP9011
 K HIP9011
+$ENDCMP
+#
+$CMP LMV324IDR
+D Quad comparator.
 $ENDCMP
 #
 $CMP MCP2551
