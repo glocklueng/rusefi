@@ -24,6 +24,7 @@ public:
 	uint64_t getNextEventTime(uint64_t nowUs);
 	void clear(void);
 	int size(void);
+	scheduling_s *getForUnitText(int index);
 private:
 	bool_t checkIfPending(scheduling_s *scheduling);
 	scheduling_s *head;

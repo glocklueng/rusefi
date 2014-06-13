@@ -119,6 +119,18 @@ int EventQueue::size(void) {
 	return result;
 }
 
+scheduling_s *EventQueue::getForUnitText(int index) {
+	scheduling_s * current;
+
+	LL_FOREACH(head, current)
+	{
+		if (index == 0)
+			return current;
+		index--;
+	}
+	return NULL;
+}
+
 void EventQueue::clear(void) {
 	head = NULL;
 }
