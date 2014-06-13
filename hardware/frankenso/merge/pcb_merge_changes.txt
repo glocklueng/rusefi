@@ -2,6 +2,9 @@
 remove P_VOID1
 remove P_VOID2
 remove P_VOID3
+remove P_VOID4
+remove P_VOID5
+remove P_VOID6
 
 # need an option to allod cut layer (which i believe is turned off by default)
 # add ../rusefi_lib/outlines/denso079721_outline.kicad_pcb
