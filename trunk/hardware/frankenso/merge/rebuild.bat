@@ -9,7 +9,6 @@ rm lib/3d/*.*
 
 
 rem Let's copy Analog Input libraries & schematic 
-cp ../adc_amp_divider/lib/* lib/
 cp ../adc_amp_divider.vertical12/adc_amp_divider.sch .
 
 rem Same thing for 6 channel board
