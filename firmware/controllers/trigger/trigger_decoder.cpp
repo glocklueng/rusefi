@@ -209,6 +209,12 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 	}
 }
 
+/**
+ * Trigger shape is defined in a way which is convenient for trigger shape definition
+ * On the other hand, trigger decoder indexing begins from synchronization event.
+ *
+ * This function finds the index of synchronization event within trigger_shape_s
+ */
 int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*triggerConfig) {
 
 	TriggerState state;

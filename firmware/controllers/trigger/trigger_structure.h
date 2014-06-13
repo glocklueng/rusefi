@@ -84,6 +84,10 @@ public:
 	// tood: maybe even automate this flag calculation?
 	int initialState[PWM_PHASE_MAX_WAVE_PER_PWM];
 
+	/**
+	 * index of synchronization event within trigger_shape_s
+	 * See findTriggerZeroEventIndex()
+	 */
 	int triggerShapeSynchPointIndex;
 private:
 	float switchTimes[PWM_PHASE_MAX_COUNT];
