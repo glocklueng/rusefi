@@ -20,7 +20,7 @@ extern "C"
 
 void initInjectorCentral(void);
 int isInjectorEnabled(int cylinderId);
-void assertCylinderId(int cylinderId, char *msg);
+void assertCylinderId(int cylinderId, const char *msg);
 
 #ifdef __cplusplus
 }
