@@ -1,4 +1,4 @@
-update=6/10/2014 6:01:42 AM
+update=6/12/2014 10:34:49 PM
 version=1
 last_client=pcbnew
 [general]
@@ -89,3 +89,4 @@ LibName15=pga_sockets
 LibName16=valves
 LibName17=176122-6
 LibName18=SM0805-Jumper
+LibName19=DISPLAY_4x20
