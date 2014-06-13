@@ -30,6 +30,7 @@ extern "C"
 float getDefaultFuel(int rpm, float map);
 
 float getOneDegreeTimeMs(int rpm);
+float getOneDegreeTimeUs(int rpm);
 float getCrankshaftRevolutionTimeMs(int rpm);
 
 int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm);
