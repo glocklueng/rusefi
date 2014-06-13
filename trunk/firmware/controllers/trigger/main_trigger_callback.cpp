@@ -219,7 +219,7 @@ void onTriggerEvent(ShaftEvents ckpSignalType, int eventIndex, MainTriggerCallba
 		return;
 	}
 
-#if EFI_PROD_CODE
+#if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int beforeCallback = hal_lld_get_counter_value();
 #endif
 
