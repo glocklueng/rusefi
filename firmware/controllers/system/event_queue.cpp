@@ -13,30 +13,13 @@
 
 #include "event_queue.h"
 #include "efitime.h"
-#include "utlist.h"
-
-#define QUEUE_LENGTH_LIMIT 1000
 
 EventQueue::EventQueue() {
 	head = NULL;
 }
 
 bool_t EventQueue::checkIfPending(scheduling_s *scheduling) {
-	// this code is just to validate state, no functional load
-	scheduling_s * current;
-	int counter = 0;
-	LL_FOREACH(head, current)
-	{
-		if (++counter > QUEUE_LENGTH_LIMIT) {
-			firmwareError("Looped queue?");
-			return FALSE;
-		}
-		if (current == scheduling) {
-			warning(OBD_PCM_Processor_Fault, "re-adding element into event_queue: [%s]", scheduling->name);
-			return TRUE;
-		}
-	}
-	return FALSE;
+	return assertNotInList<scheduling_s>(head, scheduling);
 }
 
 void EventQueue::insertTask(scheduling_s *scheduling, uint64_t nowUs, int delayUs, schfunc_t callback, void *param) {
