@@ -61,6 +61,11 @@ extern Engine engine;
 static MainTriggerCallback mainTriggerCallbackInstance;
 
 /**
+ * That's the list of pending spark firing events
+ */
+static IgnitionEvent *iHead = NULL;
+
+/**
  * In order to archive higher event precision, we are using a hybrid approach
  * where we are scheduling events based on the closest trigger event with a time offset.
  *
@@ -159,15 +164,27 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, int event
 	 * TODO: improve precision
 	 */
 
-	event_trigger_position_s position;
-	findTriggerPosition(engineConfiguration, &engineConfiguration2->triggerShape, &position, iEvent->advance);
+	findTriggerPosition(engineConfiguration, &engineConfiguration2->triggerShape, &iEvent->sparkPosition,
+			iEvent->advance);
 
-	if (position.eventIndex == eventIndex) {
-		float timeTillIgnitionUs = getOneDegreeTimeUs(rpm) * position.angleOffset;
+	if (iEvent->sparkPosition.eventIndex == eventIndex) {
+		/**
+		 * Spark should be fired before the next trigger event - time-based delay is best precision possible
+		 */
+		float timeTillIgnitionUs = getOneDegreeTimeUs(rpm) * iEvent->sparkPosition.angleOffset;
 
 		scheduleTask(sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, (void*) signal);
 	} else {
-		scheduleTask(sDown, (int) MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
+		/**
+		 * Spark should be scheduled in relation to some future trigger event, this way we get better firing precision
+		 */
+		bool_t isPending = assertNotInList<IgnitionEvent>(iHead, iEvent);
+		if (isPending)
+			return;
+
+		LL_APPEND(iHead, iEvent);
+
+		//scheduleTask(sDown, (int) MS2US(sparkDelay + dwellMs), (schfunc_t) &turnPinLow, (void*) signal);
 	}
 }
 
@@ -179,6 +196,23 @@ static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex
 	 * Ignition schedule is defined once per revolution
 	 * See initializeIgnitionActions()
 	 */
+
+	IgnitionEvent *current, *tmp;
+
+	LL_FOREACH_SAFE(iHead, current, tmp)
+	{
+		if (current->sparkPosition.eventIndex == eventIndex) {
+			// time to fire a spark which was scheduled previously
+			LL_DELETE(iHead, current);
+
+			ActuatorEvent *event = &current->actuator;
+			OutputSignal *signal = event->actuator;
+			scheduling_s * sDown = &signal->signalTimerDown[0];
+
+			float timeTillIgnitionUs = getOneDegreeTimeUs(rpm) * current->sparkPosition.angleOffset;
+			scheduleTask(sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, (void*) signal);
+		}
+	}
 
 //	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
 	for (int i = 0; i < list->size; i++) {
@@ -299,7 +333,7 @@ void initMainEventListener(engine_configuration_s *engineConfiguration, engine_c
 	initLogging(&logger, "main event handler");
 	printMsg(&logger, "initMainLoop: %d", currentTimeMillis());
 	if (!isInjectionEnabled(mainTriggerCallbackInstance.engineConfiguration2))
-		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
+	printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
 #endif
 
 #if EFI_HISTOGRAMS
