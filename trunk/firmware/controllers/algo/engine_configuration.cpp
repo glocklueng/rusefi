@@ -197,6 +197,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	 */
 	engineConfiguration->rpmMultiplier = 0.5;
 	engineConfiguration->cylindersCount = 4;
+	engineConfiguration->displacement = 2;
 
 	engineConfiguration->displayMode = DM_HD44780;
 
