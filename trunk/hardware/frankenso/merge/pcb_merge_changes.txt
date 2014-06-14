@@ -132,6 +132,9 @@ remove P402
 remove P404
 remove P405
 
+# the output connector
+remove P403
+
 
 
 # CAN module - 470 range ===========================================
