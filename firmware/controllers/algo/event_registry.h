@@ -34,10 +34,15 @@ typedef struct {
 	scheduling_s signalTimer;
 } ActuatorEvent;
 
-typedef struct {
+typedef struct IgnitionEvent_struct IgnitionEvent;
+
+struct IgnitionEvent_struct {
 	ActuatorEvent actuator;
 	float advance;
-} IgnitionEvent;
+	event_trigger_position_s sparkPosition;
+	IgnitionEvent *next;
+	char *name;
+};
 
 template <class Type, int Dimention>
 class ArrayList {
