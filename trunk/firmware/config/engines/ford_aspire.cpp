@@ -103,6 +103,8 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 
 	engineConfiguration->cylindersCount = 4;
 	engineConfiguration->displacement = 1.3;
+	// Denso 195500-2110
+	engineConfiguration->injectorFlow = 119.8;
 
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 	engineConfiguration->globalTriggerAngleOffset = 175;

@@ -108,6 +108,9 @@ typedef struct {
  */
 typedef struct {
 	float injectorLag;	// size 4, offset 0
+	/**
+	 * cc/min, cubic centimeter per minute
+	 */
 	float injectorFlow; // size 4, offset 4
 	float battInjectorLagCorrBins[VBAT_INJECTOR_CURVE_SIZE]; // size 32, offset 8
 	float battInjectorLagCorr[VBAT_INJECTOR_CURVE_SIZE]; // size 32, offset 40
