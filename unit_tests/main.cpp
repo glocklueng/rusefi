@@ -31,9 +31,9 @@ extern "C"
 #include "test_signal_executor.h"
 #include "test_util.h"
 #include "engine_configuration.h"
-#include "engine_math.h"
 }
 
+#include "engine_math.h"
 #include "test_engine_math.h"
 #include "test_trigger_decoder.h"
 
