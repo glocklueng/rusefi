@@ -52,7 +52,7 @@ float convertKelvinToC(float tempK) {
 	return tempK - KELV;
 }
 
-float convertCelciustoKelvin(float tempC) {
+float convertCelciusToKelvin(float tempC) {
 	return tempC + KELV;
 }
 
