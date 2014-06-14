@@ -11,6 +11,7 @@
 #include "engine.h"
 #include "rpm_calculator.h"
 #include "engine_math.h"
+#include "engine_state.h"
 
 #define K_AT_MIN_RPM_MIN_TPS 0.25
 #define K_AT_MIN_RPM_MAX_TPS 0.25
@@ -42,16 +43,16 @@ float getSpeedDensityFuel(Engine *engine) {
 	int rpm = engine->rpmCalculator->rpm();
 
 	float Vol = engine->engineConfiguration->displacement / engine->engineConfiguration->cylindersCount;
-	float tps = 0;
-	float coolant = 0;
-	float intake = 0;
-	float tCharge = getTCharge(rpm, tps, coolant, intake);
+	float tps = getTPS();
+	float coolantC = getCoolantTemperature();
+	float intakeC = getIntakeAirTemperature();
+	float tChargeK = convertCelciustoKelvin(getTCharge(rpm, tps, coolantC, intakeC));
 	float VE = 0.8;
-	float MAP = 0;
+	float MAP = getMap();
 	float AFR = 14.7;
 	float injectorFlowRate = engine->engineConfiguration->injectorFlow;
 
-	return (Vol * VE * MAP) / (AFR * injectorFlowRate * GAS_R * tCharge);
+	return (Vol * VE * MAP) / (AFR * injectorFlowRate * GAS_R * tChargeK);
 
 }
 
