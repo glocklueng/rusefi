@@ -30,16 +30,13 @@
 extern engine_configuration_s *engineConfiguration;
 //extern engine_configuration2_s *engineConfiguration2;
 
-static float *timing_ptrs[AD_LOAD_COUNT];
-static int initialized = FALSE;
+static Map3D1616 advanceMap;
 
 float getBaseAdvance(int rpm, float engineLoad) {
-	chDbgAssert(initialized, "fuel map initialized", NULL);
 	efiAssert(!cisnan(engineLoad), "invalid el", NAN);
 	efiAssert(!cisnan(engineLoad), "invalid rpm", NAN);
-	return interpolate3d(engineLoad, engineConfiguration->ignitionLoadBins, AD_LOAD_COUNT, rpm,
-			engineConfiguration->ignitionRpmBins,
-			AD_RPM_COUNT, timing_ptrs);
+	return advanceMap.getValue(engineLoad, engineConfiguration->ignitionLoadBins, rpm,
+			engineConfiguration->ignitionRpmBins);
 }
 
 float getAdvance(int rpm, float engineLoad) {
@@ -53,7 +50,5 @@ float getAdvance(int rpm, float engineLoad) {
 }
 
 void prepareTimingMap(void) {
-	for (int k = 0; k < AD_LOAD_COUNT; k++)
-		timing_ptrs[k] = engineConfiguration->ignitionTable[k];
-	initialized = TRUE;
+	advanceMap.init(engineConfiguration->ignitionTable);
 }

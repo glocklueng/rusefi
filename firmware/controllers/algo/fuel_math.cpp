@@ -40,9 +40,9 @@
 #include "accel_enrichment.h"
 #endif /* EFI_ACCEL_ENRICHMENT */
 
-static float *fuel_ptrs[FUEL_LOAD_COUNT];
-static int initialized = FALSE;
 extern engine_configuration_s *engineConfiguration;
+
+static Map3D1616 fuelMap;
 
 /**
  * @brief	Initialize fuel map data structure
@@ -50,9 +50,7 @@ extern engine_configuration_s *engineConfiguration;
  * is to prepare the fuel map data structure for 3d interpolation
  */
 void prepareFuelMap(void) {
-	for (int k = 0; k < FUEL_LOAD_COUNT; k++)
-		fuel_ptrs[k] = engineConfiguration->fuelTable[k];
-	initialized = TRUE;
+	fuelMap.init(engineConfiguration->fuelTable);
 }
 
 /**
@@ -86,10 +84,9 @@ float getInjectorLag(float vBatt) {
 }
 
 float getBaseFuel(int rpm, float engineLoad) {
-	efiAssert(initialized, "fuel map initialized", NAN);
 	efiAssert(!cisnan(engineLoad), "invalid el", NAN);
-	return interpolate3d(engineLoad, engineConfiguration->fuelLoadBins, FUEL_LOAD_COUNT, rpm,
-			engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT, fuel_ptrs);
+	return fuelMap.getValue(engineLoad, engineConfiguration->fuelLoadBins, rpm,
+			engineConfiguration->fuelRpmBins);
 }
 
 float getCrankingFuel(void) {
