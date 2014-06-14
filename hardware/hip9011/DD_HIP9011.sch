@@ -1,37 +1,11 @@
 EESchema Schematic File Version 2
 LIBS:power
 LIBS:device
-LIBS:transistors
 LIBS:conn
-LIBS:linear
 LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:special
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:quartz
 LIBS:7805-sot89
 LIBS:logo_flipped
+LIBS:art-electro-ic
 LIBS:DD_HIP9011-cache
 EELAYER 27 0
 EELAYER END
@@ -39,12 +13,12 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "noname.sch"
-Date "16 dec 2013"
+Date "31 may 2014"
 Rev ""
 Comp ""
 Comment1 ""
 Comment2 ""
-Comment3 ""
+Comment3 "Art_Electro (remake)"
 Comment4 ""
 $EndDescr
 $Comp
@@ -292,7 +266,7 @@ F 3 "~" H 3300 3700 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 4050 4050 0    60   ~ 0
-+5V
+5V
 Text Label 2200 4450 0    60   ~ 0
 GND
 Text Label 2300 3650 0    60   ~ 0
@@ -518,7 +492,7 @@ Wire Wire Line
 Wire Wire Line
 	7950 3850 7950 4200
 Text Label 7350 3100 0    60   ~ 0
-+5V
+5V
 Text Label 7350 3900 0    60   ~ 0
 INT/HLD
 Text Label 7500 3950 0    60   ~ 0
@@ -533,17 +507,6 @@ Wire Wire Line
 	5700 5800 5650 5800
 Text Label 5700 5500 0    60   ~ 0
 GND
-$Comp
-L QUARTZ X161
-U 1 1 52A25AB6
-P 5000 5500
-F 0 "X161" H 5000 5650 60  0000 C CNN
-F 1 "QUARTZ" H 5000 5350 60  0000 C CNN
-F 2 "~" H 5000 5500 60  0000 C CNN
-F 3 "~" H 5000 5500 60  0000 C CNN
-	1    5000 5500
-	0    1    1    0   
-$EndComp
 $Comp
 L 7805-SOT89 U131
 U 1 1 52A25C32
@@ -651,5 +614,16 @@ F 2 "" H 3950 2700 60  0000 C CNN
 F 3 "" H 3950 2700 60  0000 C CNN
 	1    3950 2700
 	1    0    0    -1  
+$EndComp
+$Comp
+L CRYSTAL X161
+U 1 1 538954BF
+P 5000 5500
+F 0 "X161" H 5000 5650 60  0000 C CNN
+F 1 "CRYSTAL" H 5000 5350 60  0000 C CNN
+F 2 "~" H 5000 5500 60  0000 C CNN
+F 3 "~" H 5000 5500 60  0000 C CNN
+	1    5000 5500
+	0    -1   -1   0   
 $EndComp
 $EndSCHEMATC
