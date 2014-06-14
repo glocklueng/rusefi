@@ -21,6 +21,8 @@
 #define rpmMin 500
 #define rpmMax 8000
 
+static Map3D1616 veMap;
+
 #define tpMin 0
 #define tpMax 100
 //  http://rusefi.com/math/t_charge.html
@@ -47,17 +49,18 @@ float getSpeedDensityFuel(Engine *engine) {
 	float coolantC = getCoolantTemperature();
 	float intakeC = getIntakeAirTemperature();
 	float tChargeK = convertCelciustoKelvin(getTCharge(rpm, tps, coolantC, intakeC));
-	float VE = 0.8;
 	float MAP = getMap();
+	float VE = 0.8;//veMap.getValue(rpm)
 	float AFR = 14.7;
 	float injectorFlowRate = engine->engineConfiguration->injectorFlow;
 
 	return (Vol * VE * MAP) / (AFR * injectorFlowRate * GAS_R * tChargeK);
-
 }
 
 void setDetaultVETable(engine_configuration_s *engineConfiguration) {
 	setTableBin(engineConfiguration->veRpmBins, FUEL_RPM_COUNT, 800, 7000);
 }
 
-
+void initSpeedDensity(void) {
+	veMap.init(engineConfiguration->veTable);
+}
