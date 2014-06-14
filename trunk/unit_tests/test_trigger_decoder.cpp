@@ -361,17 +361,33 @@ static void testRpmCalculator(void) {
 	timeNow += 5000; // 5ms
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
 	assertEqualsM("queue size 6", 2, schedulingQueue.size());
+	assertEqualsM("6/0", 300000, schedulingQueue.getForUnitText(0)->momentUs);
+	assertEqualsM("6/1", 285000, schedulingQueue.getForUnitText(1)->momentUs);
 	schedulingQueue.clear();
 
 	timeNow += 5000;
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
+	assertEqualsM("queue size 7", 0, schedulingQueue.size());
+	schedulingQueue.clear();
+
 	timeNow += 5000; // 5ms
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
+	assertEqualsM("queue size 8", 4, schedulingQueue.size());
+	assertEqualsM("8/0", 298333, schedulingQueue.getForUnitText(0)->momentUs);
+	assertEqualsM("8/1", 297833, schedulingQueue.getForUnitText(1)->momentUs);
+	assertEqualsM("8/2", 313333, schedulingQueue.getForUnitText(2)->momentUs);
+	assertEqualsM("8/3", 298333, schedulingQueue.getForUnitText(3)->momentUs);
+	schedulingQueue.clear();
 
 	timeNow += 5000;
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
+	assertEqualsM("queue size 9", 0, schedulingQueue.size());
+	schedulingQueue.clear();
+
 	timeNow += 5000; // 5ms
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
+	assertEqualsM("queue size 10", 0, schedulingQueue.size());
+	schedulingQueue.clear();
 
 
 }
