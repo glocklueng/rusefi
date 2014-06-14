@@ -93,7 +93,7 @@ static float getPrimatyRawTPS(void) {
 /*
  * In case of dual TPS this function would return logical TPS position
  *
- * @return Current TPS position. 0 means idle and 100 means Wide Open Throttle
+ * @return Current TPS position, percent of WOT. 0 means idle and 100 means Wide Open Throttle
  */
 float getTPS(void) {
 	// todo: if (config->isDualTps)

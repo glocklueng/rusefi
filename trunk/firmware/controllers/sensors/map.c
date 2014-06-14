@@ -47,6 +47,9 @@ float getMapByVoltage(float voltage) {
 	return decodePressure(voltage, config);
 }
 
+/**
+ * @return Manifold Absolute Pressure, in kPa
+ */
 float getRawMap(void) {
 	float voltage = getVoltageDivided(engineConfiguration->map.sensor.hwChannel);
 	return getMapByVoltage(voltage);

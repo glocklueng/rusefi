@@ -158,11 +158,12 @@ float getMapVoltage(void) {
 }
 
 /**
- * because of MAP window averaging, MAP is only available while engine is spinning
+ * Because of MAP window averaging, MAP is only available while engine is spinning
+ * @return Manifold Absolute Pressure, in kPa
  */
 float getMap(void) {
 	if (getRpm() == 0)
-		return getRawMap(); // maybe return NaN and have a
+		return getRawMap(); // maybe return NaN in case of stopped engine?
 	return getMapByVoltage(v_averagedMapValue);
 }
 
