@@ -48,7 +48,7 @@ float getSpeedDensityFuel(Engine *engine) {
 	float tps = getTPS();
 	float coolantC = getCoolantTemperature();
 	float intakeC = getIntakeAirTemperature();
-	float tChargeK = convertCelciustoKelvin(getTCharge(rpm, tps, coolantC, intakeC));
+	float tChargeK = convertCelciusToKelvin(getTCharge(rpm, tps, coolantC, intakeC));
 	float MAP = getMap();
 	float VE = 0.8;//veMap.getValue(rpm)
 	float AFR = 14.7;
@@ -62,5 +62,5 @@ void setDetaultVETable(engine_configuration_s *engineConfiguration) {
 }
 
 void initSpeedDensity(void) {
-	veMap.init(engineConfiguration->veTable);
+//	veMap.init(engineConfiguration->veTable);
 }

@@ -2087,7 +2087,7 @@
         <name>$PROJ_DIR$\..\controllers\algo\accel_enrichment.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\algo\advance_map.c</name>
+        <name>$PROJ_DIR$\..\controllers\algo\advance_map.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\advance_map.h</name>
