@@ -168,6 +168,9 @@ typedef struct {
 	// RPM is float and not integer in order to use unified methods for interpolation
 	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
 
+	/**
+	 * Engine displacement, in liters
+	 */
 	float displacement;
 	int unused[2];
 

@@ -102,6 +102,8 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 //	engineConfiguration->ignitionPinMode = OM_INVERTED;
 
 	engineConfiguration->cylindersCount = 4;
+	engineConfiguration->displacement = 1.3;
+
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 	engineConfiguration->globalTriggerAngleOffset = 175;
 	engineConfiguration->ignitionOffset = 98 - 11;
