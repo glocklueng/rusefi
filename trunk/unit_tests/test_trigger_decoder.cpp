@@ -353,16 +353,16 @@ static void testRpmCalculator(void) {
 
 	timeNow += 5000;
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
-	assertEqualsM("queue size 5", 2, schedulingQueue.size());
-	assertEqualsM("5/0", 285000, schedulingQueue.getForUnitText(0)->momentUs);
-	assertEqualsM("5/1", 284500, schedulingQueue.getForUnitText(1)->momentUs);
+	assertEqualsM("queue size 5", 1, schedulingQueue.size());
+	assertEqualsM("5/1", 284500, schedulingQueue.getForUnitText(0)->momentUs);
 	schedulingQueue.clear();
 
 	timeNow += 5000; // 5ms
 	triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
-	assertEqualsM("queue size 6", 2, schedulingQueue.size());
-	assertEqualsM("6/0", 300000, schedulingQueue.getForUnitText(0)->momentUs);
-	assertEqualsM("6/1", 285000, schedulingQueue.getForUnitText(1)->momentUs);
+	assertEqualsM("queue size 6", 3, schedulingQueue.size());
+	assertEqualsM("6/0", 285000, schedulingQueue.getForUnitText(0)->momentUs);
+	assertEqualsM("6/1", 300000, schedulingQueue.getForUnitText(1)->momentUs);
+	assertEqualsM("6/0", 285000, schedulingQueue.getForUnitText(2)->momentUs);
 	schedulingQueue.clear();
 
 	timeNow += 5000;
