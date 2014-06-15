@@ -29,17 +29,27 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:176122-6
+LIBS:art-electro-conn
+LIBS:art-electro-conn_2
+LIBS:art-electro-ic
+LIBS:art-electro-max
+LIBS:art-electro-power
+LIBS:LMV324IDR
 LIBS:logo
 LIBS:logo_flipped
+LIBS:MAX9926-9927
+LIBS:max9939
+LIBS:max31855
 LIBS:tc4427
-LIBS:hi-lo-cache
+LIBS:frankenso-cache
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
-Sheet 1 1
+Sheet 1 8
 Title "High or Low side driver board for RUSEFI.com"
-Date "9 mar 2014"
+Date "15 jun 2014"
 Rev "A-.02"
 Comp "RUSEFI.com"
 Comment1 ""
