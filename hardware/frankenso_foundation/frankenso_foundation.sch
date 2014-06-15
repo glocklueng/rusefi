@@ -328,30 +328,20 @@ Text Label 5250 1500 3    60   ~ 0
 DIAG
 Text Label 4950 1600 3    60   ~ 0
 12V-CONST
-Text Label 5050 1500 3    60   ~ 0
+Text Label 5050 4050 3    60   ~ 0
 12V-SW
-Text Label 5550 1600 3    60   ~ 0
+Text Label 5550 4100 3    60   ~ 0
 IGN
-Text Label 5650 1500 3    60   ~ 0
-1H
 Text Label 5350 1600 3    60   ~ 0
 MUL
-Text Label 5450 1500 3    60   ~ 0
-1F
 Text Label 5950 1600 3    60   ~ 0
 DIAG-1K
-Text Label 6050 1500 3    60   ~ 0
-1L
-Text Label 5750 1600 3    60   ~ 0
-1I
 Text Label 5850 1500 3    60   ~ 0
 AC-RELAY
 Text Label 6350 1600 3    60   ~ 0
 STOP-LIGHT
 Text Label 6450 1500 3    60   ~ 0
 STEERING-SW
-Text Label 6150 1600 3    60   ~ 0
-1M
 Text Label 6250 1500 3    60   ~ 0
 TPS-IDL-SW
 Text Label 6550 1600 3    60   ~ 0
@@ -546,34 +536,20 @@ Text Label 7900 1600 3    60   ~ 0
 2C
 Text Label 8000 1500 3    60   ~ 0
 2D
-Text Label 7700 1600 3    60   ~ 0
-2A
-Text Label 7800 1500 3    60   ~ 0
-2B
 Text Label 8300 1600 3    60   ~ 0
 2G
 Text Label 8400 1500 3    60   ~ 0
 2H
-Text Label 8100 1600 3    60   ~ 0
-2E
-Text Label 8200 1500 3    60   ~ 0
-2F
 Text Label 8700 1600 3    60   ~ 0
 2K
-Text Label 8800 1500 3    60   ~ 0
-2L
 Text Label 8500 1600 3    60   ~ 0
 2I
 Text Label 8600 1500 3    60   ~ 0
 2J
 Text Label 9100 1600 3    60   ~ 0
 2O
-Text Label 9200 1500 3    60   ~ 0
-2P
 Text Label 8900 1600 3    60   ~ 0
 2M
-Text Label 9000 1500 3    60   ~ 0
-2N
 $Comp
 L TEST W39
 U 1 1 5398DDFA
@@ -820,45 +796,35 @@ Text Label 9900 1600 3    60   ~ 0
 CPU-GND
 Text Label 10000 1500 3    60   ~ 0
 INPUT-GND
-Text Label 9700 1600 3    60   ~ 0
-INJ-GND
 Text Label 9800 1500 3    60   ~ 0
 OUTPUT-GND
-Text Label 10300 1600 3    60   ~ 0
+Text Label 10300 3550 3    60   ~ 0
 CID
 Text Label 10400 1500 3    60   ~ 0
 3H
-Text Label 10100 1600 3    60   ~ 0
+Text Label 10100 3550 3    60   ~ 0
 CKP
 Text Label 10200 1500 3    60   ~ 0
 3F
-Text Label 10700 1600 3    60   ~ 0
+Text Label 10700 3450 3    60   ~ 0
 MAF+5V
-Text Label 10800 1500 3    60   ~ 0
+Text Label 10800 3450 3    60   ~ 0
 TPS-PWR-SW
-Text Label 10500 1600 3    60   ~ 0
-3I
-Text Label 10600 1500 3    60   ~ 0
-3J
-Text Label 11100 1600 3    60   ~ 0
+Text Label 11100 3600 3    60   ~ 0
 MAF-SIG
-Text Label 11200 1500 3    60   ~ 0
+Text Label 11200 3600 3    60   ~ 0
 IAT
-Text Label 10900 1600 3    60   ~ 0
-3M
-Text Label 11000 1500 3    60   ~ 0
+Text Label 11000 3600 3    60   ~ 0
 O2-SIG
-Text Label 11300 1600 3    60   ~ 0
+Text Label 11300 3600 3    60   ~ 0
 CLT
-Text Label 11400 1500 3    60   ~ 0
-3R
-Text Label 11700 1600 3    60   ~ 0
+Text Label 11700 3600 3    60   ~ 0
 INJ_1-3
-Text Label 11800 1500 3    60   ~ 0
+Text Label 11800 3600 3    60   ~ 0
 INJ_2-4
-Text Label 11500 1600 3    60   ~ 0
+Text Label 11500 3600 3    60   ~ 0
 VICS-SOL
-Text Label 11600 1500 3    60   ~ 0
+Text Label 11600 3600 3    60   ~ 0
 PRES-REG-SOL
 $Comp
 L TEST W61
@@ -904,13 +870,9 @@ F 3 "" H 12200 1300 60  0000 C CNN
 	1    12200 1300
 	0    -1   -1   0   
 $EndComp
-Text Label 12100 1600 3    60   ~ 0
-3Y
-Text Label 12200 1500 3    60   ~ 0
-3Z
-Text Label 11900 1600 3    60   ~ 0
+Text Label 11900 3600 3    60   ~ 0
 IDL-SPEED-SOL
-Text Label 12000 1500 3    60   ~ 0
+Text Label 12000 3600 3    60   ~ 0
 PURGE-SOL
 $Comp
 L DISPLAY_BL S1
@@ -923,35 +885,35 @@ F 3 "~" H 9100 8100 60  0000 C CNN
 	1    9100 8100
 	1    0    0    -1  
 $EndComp
-NoConn ~ 12300 4100
-NoConn ~ 12400 4100
-NoConn ~ 12500 4100
-NoConn ~ 12600 4100
-Text Label 11500 4050 1    60   ~ 0
+NoConn ~ 12300 2850
+NoConn ~ 12400 2850
+NoConn ~ 12500 2850
+NoConn ~ 12600 2850
+Text Label 11500 2800 1    60   ~ 0
 INJ-02
-Text Label 11600 4050 1    60   ~ 0
+Text Label 11600 2800 1    60   ~ 0
 INJ-03
-Text Label 11700 4050 1    60   ~ 0
+Text Label 11700 2800 1    60   ~ 0
 INJ-04
-Text Label 10700 4050 1    60   ~ 0
+Text Label 10700 2800 1    60   ~ 0
 5V
-Text Label 11800 4050 1    60   ~ 0
+Text Label 11800 2800 1    60   ~ 0
 INJ-05
-Text Label 11900 4050 1    60   ~ 0
+Text Label 11900 2800 1    60   ~ 0
 INJ-06
-Text Label 12000 4050 1    60   ~ 0
+Text Label 12000 2800 1    60   ~ 0
 INJ-07
-Text Label 12100 4050 1    60   ~ 0
+Text Label 12100 2800 1    60   ~ 0
 INJ-08
-Text Label 12200 4050 1    60   ~ 0
+Text Label 12200 2800 1    60   ~ 0
 INJ-09
-Text Label 11100 4050 1    60   ~ 0
+Text Label 11100 2800 1    60   ~ 0
 INP1
-Text Label 10800 4050 1    60   ~ 0
+Text Label 10800 2800 1    60   ~ 0
 INP2
-Text Label 11300 4050 1    60   ~ 0
+Text Label 11300 2800 1    60   ~ 0
 INP4
-Text Label 11200 4050 1    60   ~ 0
+Text Label 11200 2800 1    60   ~ 0
 INP3
 Text Label 5050 3350 1    60   ~ 0
 12V
@@ -969,12 +931,12 @@ GND
 $Comp
 L CONN_30 P_VOID3
 U 1 1 539B829D
-P 11150 4450
-F 0 "P_VOID3" V 11101 4450 60  0000 C CNN
-F 1 "CONN_30" V 11200 4450 60  0000 C CNN
-F 2 "PIN_ARRAY_20X2" H 11150 4450 60  0001 C CNN
-F 3 "" H 11150 4450 60  0000 C CNN
-	1    11150 4450
+P 11150 3200
+F 0 "P_VOID3" V 11101 3200 60  0000 C CNN
+F 1 "CONN_30" V 11200 3200 60  0000 C CNN
+F 2 "PIN_ARRAY_20X2" H 11150 3200 60  0001 C CNN
+F 3 "" H 11150 3200 60  0000 C CNN
+	1    11150 3200
 	0    -1   1    0   
 $EndComp
 $Comp
@@ -1188,36 +1150,36 @@ Wire Wire Line
 Wire Wire Line
 	12200 900  12200 1100
 Wire Wire Line
-	11700 1600 11700 4100
+	11700 350  11700 2850
 Wire Wire Line
-	11800 4100 11800 1500
+	11800 2850 11800 250 
 Wire Wire Line
-	11900 4100 11900 1600
+	11900 2850 11900 350 
 Wire Wire Line
-	10700 1600 10700 4100
+	10700 350  10700 2850
 Wire Wire Line
-	11300 1600 11300 4100
+	11300 350  11300 2850
 Wire Wire Line
-	11500 1600 11500 4100
+	11500 350  11500 2850
 Wire Wire Line
-	11600 1500 11600 4100
+	11600 250  11600 2850
 Connection ~ 12000 1500
 Wire Wire Line
-	12000 1500 12000 4100
+	12000 250  12000 2850
 Wire Wire Line
-	12100 1600 12100 4100
+	12100 350  12100 2850
 Wire Wire Line
-	12200 1500 12200 4100
+	12200 250  12200 2850
 Wire Wire Line
-	11100 1600 11100 4100
+	11100 350  11100 2850
 Wire Wire Line
-	10800 1500 10800 4100
+	10800 250  10800 2850
 Wire Wire Line
-	10900 1600 10900 4100
+	10900 350  10900 2850
 Wire Wire Line
-	11000 1500 11000 4100
+	11000 250  11000 2850
 Wire Wire Line
-	11200 1500 11200 4100
+	11200 250  11200 2850
 Wire Wire Line
 	4950 1600 4950 3400
 Wire Wire Line
@@ -1237,7 +1199,7 @@ Wire Wire Line
 Wire Wire Line
 	7300 7850 5550 7850
 Wire Wire Line
-	9700 4100 9700 1600
+	9700 2850 9700 350 
 Wire Wire Line
 	7300 7950 5550 7950
 Wire Wire Line
@@ -1287,75 +1249,75 @@ Wire Wire Line
 Wire Wire Line
 	6550 3400 6550 1600
 Wire Wire Line
-	9800 1500 9800 4100
+	9800 250  9800 2850
 Wire Wire Line
-	9900 4100 9900 1600
+	9900 2850 9900 350 
 Wire Wire Line
-	10000 1500 10000 4100
-Text Label 9700 4050 1    60   ~ 0
+	10000 250  10000 2850
+Text Label 9700 2800 1    60   ~ 0
 GND
 Wire Wire Line
-	10100 4100 10100 1600
+	10100 2850 10100 350 
 Wire Wire Line
-	10200 1500 10200 4100
-Text Label 10000 4050 1    60   ~ 0
+	10200 250  10200 2850
+Text Label 10100 2800 1    60   ~ 0
 INP11
 Wire Wire Line
-	10300 1600 10300 4100
+	10300 350  10300 2850
 Wire Wire Line
-	10400 4100 10400 1500
+	10400 2850 10400 250 
 Wire Wire Line
-	10500 1600 10500 4100
+	10500 350  10500 2850
 Wire Wire Line
-	10600 1500 10600 4100
-Text Label 10200 4050 1    60   ~ 0
+	10600 250  10600 2850
+Text Label 10300 2800 1    60   ~ 0
 INP12
 Wire Wire Line
-	11400 4100 11400 1500
+	11400 2850 11400 250 
 $Comp
 L CONN_17 P_VOID2
 U 1 1 539C881C
-P 8500 2400
-F 0 "P_VOID2" V 8460 2400 60  0000 C CNN
-F 1 "CONN_17" V 8580 2400 60  0000 C CNN
-F 2 "PIN_ARRAY_20X2" H 8500 2400 60  0001 C CNN
-F 3 "" H 8500 2400 60  0000 C CNN
-	1    8500 2400
+P 8500 3200
+F 0 "P_VOID2" V 8460 3200 60  0000 C CNN
+F 1 "CONN_17" V 8580 3200 60  0000 C CNN
+F 2 "PIN_ARRAY_20X2" H 8500 3200 60  0001 C CNN
+F 3 "" H 8500 3200 60  0000 C CNN
+	1    8500 3200
 	0    -1   1    0   
 $EndComp
 Wire Wire Line
-	7700 1600 7700 2050
+	7700 1600 7700 2850
 Wire Wire Line
-	7800 2050 7800 1500
+	7800 2850 7800 1500
 Wire Wire Line
-	7900 1600 7900 2050
+	7900 1600 7900 2850
 Wire Wire Line
-	8000 2050 8000 1500
+	8000 2850 8000 1500
 Wire Wire Line
-	8100 1600 8100 2050
+	8100 1600 8100 2850
 Wire Wire Line
-	8200 2050 8200 1500
+	8200 2850 8200 1500
 Wire Wire Line
-	8300 1600 8300 2050
+	8300 1600 8300 2850
 Wire Wire Line
-	8400 2050 8400 1500
+	8400 2850 8400 1500
 Wire Wire Line
-	8500 1600 8500 2050
+	8500 1600 8500 2850
 Wire Wire Line
-	8600 2050 8600 1500
+	8600 2850 8600 1500
 Wire Wire Line
-	8700 1600 8700 2050
+	8700 1600 8700 2850
 Wire Wire Line
-	8800 2050 8800 1500
+	8800 2850 8800 1500
 Wire Wire Line
-	8900 1600 8900 2050
+	8900 1600 8900 2850
 Wire Wire Line
-	9000 1500 9000 2050
+	9000 1500 9000 2850
 Wire Wire Line
-	9100 1600 9100 2050
+	9100 1600 9100 2850
 Wire Wire Line
-	9200 2050 9200 1500
-NoConn ~ 9300 2050
+	9200 2850 9200 1500
+NoConn ~ 9300 2850
 Text Label 6600 5650 0    60   ~ 0
 GND
 Text Label 6600 5500 0    60   ~ 0
@@ -1414,4 +1376,30 @@ Text Label 6050 3350 1    60   ~ 0
 HL5
 Text Label 6150 3350 1    60   ~ 0
 HL6
+Text Label 11400 2800 1    60   ~ 0
+INJ-01_2
+Text Label 11000 2800 1    60   ~ 0
+INP6
+Text Label 10900 2800 1    60   ~ 0
+INP7
+Text Label 10600 2800 1    60   ~ 0
+INP9
+Text Label 10500 2800 1    60   ~ 0
+INP10
+Text Label 9200 2750 1    60   ~ 0
+INJ-10
+Text Label 9000 2750 1    60   ~ 0
+INJ-11
+Text Label 8800 2750 1    60   ~ 0
+INJ-12
+Text Label 7700 2700 1    60   ~ 0
+CANH
+Text Label 7800 2700 1    60   ~ 0
+CANL
+Text Label 9700 3500 3    60   ~ 0
+INJ-GND
+Text Label 8100 2700 1    60   ~ 0
+KNOCK1
+Text Label 8200 2700 1    60   ~ 0
+KNOCK2
 $EndSCHEMATC
