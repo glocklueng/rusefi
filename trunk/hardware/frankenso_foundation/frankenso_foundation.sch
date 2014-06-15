@@ -536,16 +536,8 @@ Text Label 7900 1600 3    60   ~ 0
 2C
 Text Label 8000 1500 3    60   ~ 0
 2D
-Text Label 8300 1600 3    60   ~ 0
-2G
-Text Label 8400 1500 3    60   ~ 0
-2H
 Text Label 8700 1600 3    60   ~ 0
 2K
-Text Label 8500 1600 3    60   ~ 0
-2I
-Text Label 8600 1500 3    60   ~ 0
-2J
 Text Label 9100 1600 3    60   ~ 0
 2O
 Text Label 8900 1600 3    60   ~ 0
@@ -917,8 +909,6 @@ Text Label 11200 2800 1    60   ~ 0
 INP3
 Text Label 5050 3350 1    60   ~ 0
 12V
-NoConn ~ 7150 3400
-NoConn ~ 7250 3400
 NoConn ~ 7350 3400
 NoConn ~ 7300 8350
 NoConn ~ 7300 8250
@@ -1402,4 +1392,37 @@ Text Label 8100 2700 1    60   ~ 0
 KNOCK1
 Text Label 8200 2700 1    60   ~ 0
 KNOCK2
+$Comp
+L TEST TEST2
+U 1 1 539DA1B1
+P 8250 6150
+F 0 "TEST2" V 8250 6150 40  0000 C CNN
+F 1 "TEST" H 8250 6080 40  0001 C CNN
+F 2 "SIL-2" H 8250 6150 60  0001 C CNN
+F 3 "" H 8250 6150 60  0000 C CNN
+	1    8250 6150
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7700 6150 8050 6150
+Wire Wire Line
+	8950 6150 8450 6150
+Text Label 7700 6150 0    60   ~ 0
+CRANK
+Text Label 8600 6150 0    60   ~ 0
+CAM
+Text Label 8300 2700 1    60   ~ 0
+CAM+
+Text Label 8400 2700 1    60   ~ 0
+CAM-
+Text Label 8600 2700 1    60   ~ 0
+CRK2-
+Text Label 8500 2700 1    60   ~ 0
+CRK2+
+Text Label 7150 3400 1    60   ~ 0
+CRANK
+Text Label 7250 3400 1    60   ~ 0
+CAM
+Text Notes 7850 5800 0    60   ~ 0
+That's alternative signal OUTPUT - these traces should be routable to PC6 and PA5 via jumpers. \nAleternative to W212 and W212 routung of op-amps ch 11 and ch 12
 $EndSCHEMATC
