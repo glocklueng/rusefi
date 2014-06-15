@@ -20,11 +20,9 @@ cp ../1A_injector_12-channels/lib/* lib/
 cp ../1A_injector_12-channels/inj_12ch.sch .
 
 rem MMC/TTL module
-cp -r ../usb_mmc_spi/lib/* lib/
 cp ../usb_mmc_spi/mmc_usb_1.sch .
 
 rem VR input
-cp -r ../knock_VR_Art_ELectro/lib/* lib/
 cp -r ../knock_VR_Art_ELectro/cps_vrs_io_1.sch .
 
 rem Hi-Low driver
@@ -33,8 +31,6 @@ cp -r ../hi-lo_driver/hi-lo.sch .
 
 rem CAN module
 
-cp ../can_board/lib/* lib/
-cp ../can_board/lib/3d/* lib/3d
 cp ../can_board/can_brd_1.sch .
 
 

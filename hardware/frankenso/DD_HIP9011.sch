@@ -13,7 +13,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "noname.sch"
-Date "31 may 2014"
+Date "15 jun 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -626,4 +626,8 @@ F 3 "~" H 5000 5500 60  0000 C CNN
 	1    5000 5500
 	0    -1   -1   0   
 $EndComp
+Text Label 2100 2400 0    60   ~ 0
+KNOCK1
+Text Label 2100 3150 0    60   ~ 0
+KNOCK2
 $EndSCHEMATC
