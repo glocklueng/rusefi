@@ -39,6 +39,13 @@ public class PcbMergeTool {
 
         PcbNode destNode = PcbNode.readFromFile(sourcePcb);
 
+
+        for (PcbNode net : destNode.iterate("net")) {
+            String netName = net.getChild(1); // todo: nicer method?
+            if (!Networks.isLocalNetwork(netName))
+                networks.registerNetworkIfPcbSpecific(netName);
+        }
+
         log("Running ADD commands");
         for (NameAndOffset addRequest : ChangesModel.getInstance().ADD_REQUESTS) {
             PcbNode node = PcbMoveTool.readAndMove(addRequest.getName(), addRequest.x, addRequest.y);
@@ -87,7 +94,7 @@ public class PcbMergeTool {
 
         for (PcbNode net : source.iterate("net")) {
             String netId = net.getChild(0);
-            String netName = net.getChild(1);
+            String netName = net.getChild(1); // todo: nicer method?
             String newName = networks.registerNetworkIfPcbSpecific(netName);
             netNameMapping.put(netName, newName);
             netIdMapping.put(netId, networks.getId(newName));
@@ -193,7 +200,7 @@ public class PcbMergeTool {
             log("Will merge " + globalName + " into " + newName + ". ID was " + currentNetId);
             currentNetId = networks.networks.get(newName);
             if (currentNetId == null)
-                throw new NullPointerException("Net merging error: " + newName);
+                throw new NullPointerException("Cannot find net: " + newName);
             log("New ID: " + currentNetId);
             globalName = newName;
         }
@@ -210,7 +217,7 @@ public class PcbMergeTool {
         private Map<Integer, String> nameById = new HashMap<>();
 
         public String registerNetworkIfPcbSpecific(String name) {
-            if (name.startsWith("N-00")) {
+            if (isLocalNetwork(name)) {
                 String newName = "F-0000" + networks.size();
                 log("Board-specific net: " + name + " would be " + newName);
 
@@ -228,6 +235,10 @@ public class PcbMergeTool {
                 registerNet(name);
                 return name;
             }
+        }
+
+        private static boolean isLocalNetwork(String name) {
+            return name.startsWith("N-00");
         }
 
         private void registerNet(String name) {
