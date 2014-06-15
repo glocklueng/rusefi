@@ -58,7 +58,7 @@ float getSpeedDensityFuel(Engine *engine) {
 }
 
 void setDetaultVETable(engine_configuration_s *engineConfiguration) {
-	setTableBin(engineConfiguration->veRpmBins, FUEL_RPM_COUNT, 800, 7000);
+//	setTableBin(engineConfiguration->veRpmBins, FUEL_RPM_COUNT, 800, 7000);
 }
 
 void initSpeedDensity(void) {
