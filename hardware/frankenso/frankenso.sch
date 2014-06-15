@@ -29,13 +29,27 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:176122-6
+LIBS:art-electro-conn
+LIBS:art-electro-conn_2
+LIBS:art-electro-ic
+LIBS:art-electro-max
+LIBS:art-electro-power
+LIBS:LMV324IDR
+LIBS:logo
+LIBS:logo_flipped
+LIBS:MAX9926-9927
+LIBS:max9939
+LIBS:max31855
+LIBS:tc4427
+LIBS:frankenso-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 1
+Sheet 1 8
 Title ""
-Date "28 may 2014"
+Date "15 jun 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -81,4 +95,16 @@ F1 "can_brd_1.sch" 50
 $EndSheet
 Text Notes 2650 2100 0    600  ~ 0
 rusEfi
+$Sheet
+S 3150 5500 1400 350 
+U 539DA233
+F0 "DD_HIP9011" 50
+F1 "DD_HIP9011.sch" 50
+$EndSheet
+$Sheet
+S 3250 6350 1500 500 
+U 539DA32A
+F0 "PWR_buck_12V_switcher" 50
+F1 "PWR_buck_12V_switcher.sch" 50
+$EndSheet
 $EndSCHEMATC
