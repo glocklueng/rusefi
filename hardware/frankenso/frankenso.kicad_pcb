@@ -59054,7 +59054,7 @@
 )
 
  (module SM2512
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 539C281D)
 
@@ -59185,7 +59185,7 @@
 
    (size 1.99898 2.99974)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 140 /FB)
 )
@@ -59195,7 +59195,7 @@
 
    (size 1.99898 2.99974)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 86 GND)
 )
@@ -59216,7 +59216,7 @@
 )
 
  (module SM2512
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 539C27E3)
 
@@ -59347,7 +59347,7 @@
 
    (size 1.99898 2.99974)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 139 /5V-REG)
 )
@@ -59357,7 +59357,7 @@
 
    (size 1.99898 2.99974)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 86 GND)
 )
@@ -59378,7 +59378,7 @@
 )
 
  (module SM100uH
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 533B6F22)
 
@@ -59461,7 +59461,7 @@
 
    (size 3.85064 5.4991)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 141 /OUT)
 )
@@ -59471,7 +59471,7 @@
 
    (size 3.85064 5.4991)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 140 /FB)
 )
@@ -59492,7 +59492,7 @@
 )
 
  (module SM100uH
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 533B6F1E)
 
@@ -59575,7 +59575,7 @@
 
    (size 3.85064 5.4991)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 140 /FB)
 )
@@ -59585,7 +59585,7 @@
 
    (size 3.85064 5.4991)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 139 /5V-REG)
 )
@@ -59606,7 +59606,7 @@
 )
 
  (module SM0805
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 533B6FA0)
 
@@ -59721,7 +59721,7 @@
 
    (size 0.889 1.397)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 140 /FB)
 )
@@ -59731,7 +59731,7 @@
 
    (size 0.889 1.397)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 146 F-0000146)
 )
@@ -59752,7 +59752,7 @@
 )
 
  (module LED-0805
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 539C2871)
 
@@ -60335,7 +60335,7 @@
 
    (size 1.19888 1.19888)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 146 F-0000146)
 )
@@ -60345,14 +60345,14 @@
 
    (size 1.19888 1.19888)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 86 GND)
 )
 )
 
  (module DPAK5
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 533B6F57)
 
@@ -60597,7 +60597,7 @@
 
    (size 1.0668 2.286)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 142 /VBAT)
 )
@@ -60607,7 +60607,7 @@
 
    (size 10.668 8.89)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 86 GND)
 )
@@ -60617,7 +60617,7 @@
 
    (size 1.0668 2.286)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 86 GND)
 )
@@ -60627,7 +60627,7 @@
 
    (size 1.0668 2.286)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 141 /OUT)
 )
@@ -60637,7 +60637,7 @@
 
    (size 1.0668 2.286)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 140 /FB)
 )
@@ -60647,7 +60647,7 @@
 
    (size 1.0668 2.286)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 86 GND)
 )
@@ -60668,7 +60668,7 @@
 )
 
  (module DPAK2
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 533B7023)
 
@@ -60827,7 +60827,7 @@
 
    (size 1.651 3.048)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 86 GND)
 )
@@ -60837,7 +60837,7 @@
 
    (size 6.096 6.096)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 141 /OUT)
 )
@@ -60847,7 +60847,7 @@
 
    (size 1.651 3.048)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 86 GND)
 )
@@ -60868,7 +60868,7 @@
 )
 
  (module SMDSVP10
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 533B6F35)
 
@@ -61017,7 +61017,7 @@
 
    (size 4.39928 1.89992)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 142 /VBAT)
 )
@@ -61027,7 +61027,7 @@
 
    (size 4.39928 1.89992)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 86 GND)
 )
@@ -61048,7 +61048,7 @@
 )
 
  (module SM0805
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 533B6F99)
 
@@ -61163,7 +61163,7 @@
 
    (size 0.889 1.397)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 145 F-0000145)
 )
@@ -61173,7 +61173,7 @@
 
    (size 0.889 1.397)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 86 GND)
 )
@@ -61194,7 +61194,7 @@
 )
 
  (module SIL-1
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 533B6F3D)
 
@@ -61290,7 +61290,7 @@
 )
 
  (module SM1206
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 42806E24)
 
@@ -61395,7 +61395,7 @@
 
    (size 1.524 2.032)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 145 F-0000145)
 )
@@ -61405,7 +61405,7 @@
 
    (size 1.524 2.032)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 142 /VBAT)
 )
@@ -61426,7 +61426,7 @@
 )
 
  (module SOT23
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 533B6FCD)
 
@@ -61521,7 +61521,7 @@
 
    (size 0.8001 1.00076)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 143 /Vf)
 )
@@ -61531,7 +61531,7 @@
 
    (size 0.8001 1.00076)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 142 /VBAT)
 )
@@ -61541,7 +61541,7 @@
 
    (size 0.8001 1.00076)
 
-   (layers Front-ext F.Paste F.Mask)
+   (layers F.Cu F.Paste F.Mask)
 
    (net 145 F-0000145)
 )
@@ -61562,7 +61562,7 @@
 )
 
  (module D4
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 200000)
 
@@ -61724,7 +61724,7 @@
 )
 
  (module AK300-2
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 539C6042)
 
@@ -62620,7 +62620,7 @@
 )
 
  (module AK300-2
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 539C6030)
 
@@ -63516,7 +63516,7 @@
 )
 
  (module D3
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 200000)
 
@@ -63698,7 +63698,7 @@
 )
 
  (module D3
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 200000)
 
@@ -63880,7 +63880,7 @@
 )
 
  (module SIL-2
-  (layer Front-ext)
+  (layer F.Cu)
 
   (tedit 5341B91B)
 
@@ -63994,7 +63994,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 139)
 )
@@ -64006,7 +64006,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 139)
 
@@ -64020,7 +64020,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 139)
 )
@@ -64032,7 +64032,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 139)
 
@@ -64046,7 +64046,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 140)
 )
@@ -64058,7 +64058,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 140)
 
@@ -64072,7 +64072,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 140)
 
@@ -64086,7 +64086,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 140)
 )
@@ -64098,7 +64098,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 140)
 
@@ -64112,7 +64112,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 140)
 )
@@ -64124,7 +64124,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 140)
 
@@ -64138,7 +64138,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 140)
 )
@@ -64150,7 +64150,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 140)
 
@@ -64164,7 +64164,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 141)
 )
@@ -64176,7 +64176,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 141)
 
@@ -64190,7 +64190,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 141)
 )
@@ -64202,7 +64202,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 141)
 
@@ -64216,7 +64216,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 141)
 
@@ -64230,7 +64230,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 141)
 
@@ -64244,7 +64244,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 141)
 
@@ -64258,7 +64258,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 141)
 )
@@ -64270,7 +64270,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 141)
 
@@ -64284,7 +64284,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 141)
 )
@@ -64296,7 +64296,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 141)
 
@@ -64310,7 +64310,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 )
@@ -64322,7 +64322,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 
@@ -64336,7 +64336,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 
@@ -64350,7 +64350,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 )
@@ -64362,7 +64362,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 
@@ -64376,7 +64376,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 )
@@ -64388,7 +64388,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 
@@ -64402,7 +64402,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 )
@@ -64414,7 +64414,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 
@@ -64428,7 +64428,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 
@@ -64442,7 +64442,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 )
@@ -64454,7 +64454,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 142)
 
@@ -64468,7 +64468,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 143)
 )
@@ -64480,7 +64480,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 143)
 
@@ -64494,7 +64494,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 143)
 
@@ -64508,7 +64508,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 143)
 
@@ -64522,7 +64522,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 143)
 
@@ -64536,7 +64536,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 144)
 )
@@ -64548,7 +64548,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 144)
 
@@ -64562,7 +64562,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 )
@@ -64574,7 +64574,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64588,7 +64588,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64602,7 +64602,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 )
@@ -64614,7 +64614,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64628,7 +64628,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 )
@@ -64640,7 +64640,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64654,7 +64654,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 )
@@ -64666,7 +64666,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64680,7 +64680,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 )
@@ -64692,7 +64692,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 )
@@ -64704,7 +64704,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64718,7 +64718,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 )
@@ -64730,7 +64730,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64744,7 +64744,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 )
@@ -64756,7 +64756,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64770,7 +64770,7 @@
 
   (width 1.38176)
 
-  (layer Back-ext)
+  (layer B.Cu)
 
   (net 86)
 
@@ -64784,7 +64784,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64798,7 +64798,7 @@
 
   (width 1.38176)
 
-  (layer Back-ext)
+  (layer B.Cu)
 
   (net 86)
 
@@ -64812,7 +64812,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64826,7 +64826,7 @@
 
   (width 1.38176)
 
-  (layer Back-ext)
+  (layer B.Cu)
 
   (net 86)
 
@@ -64840,7 +64840,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64854,7 +64854,7 @@
 
   (width 1.38176)
 
-  (layer Back-ext)
+  (layer B.Cu)
 
   (net 86)
 
@@ -64868,7 +64868,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64882,7 +64882,7 @@
 
   (width 1.38176)
 
-  (layer Back-ext)
+  (layer B.Cu)
 
   (net 86)
 
@@ -64896,7 +64896,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64910,7 +64910,7 @@
 
   (width 1.38176)
 
-  (layer Back-ext)
+  (layer B.Cu)
 
   (net 86)
 
@@ -64924,7 +64924,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64938,7 +64938,7 @@
 
   (width 1.38176)
 
-  (layer Back-ext)
+  (layer B.Cu)
 
   (net 86)
 
@@ -64952,7 +64952,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64966,7 +64966,7 @@
 
   (width 1.38176)
 
-  (layer Back-ext)
+  (layer B.Cu)
 
   (net 86)
 
@@ -64980,7 +64980,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -64994,7 +64994,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 )
@@ -65006,7 +65006,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -65020,7 +65020,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 )
@@ -65032,7 +65032,7 @@
 
   (width 1.38176)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 86)
 
@@ -65046,7 +65046,7 @@
 
   (width 0.2032)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 145)
 )
@@ -65058,7 +65058,7 @@
 
   (width 0.2032)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 145)
 
@@ -65072,7 +65072,7 @@
 
   (width 0.2032)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 145)
 )
@@ -65084,7 +65084,7 @@
 
   (width 0.2032)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 145)
 
@@ -65098,7 +65098,7 @@
 
   (width 0.2032)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 145)
 
@@ -65112,7 +65112,7 @@
 
   (width 0.2032)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 145)
 
@@ -65126,7 +65126,7 @@
 
   (width 0.2032)
 
-  (layer Front-ext)
+  (layer F.Cu)
 
   (net 146)
 )
@@ -65136,7 +65136,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65146,7 +65146,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65156,7 +65156,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65166,7 +65166,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65176,7 +65176,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65186,7 +65186,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65196,7 +65196,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65206,7 +65206,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65216,7 +65216,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65226,7 +65226,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65236,7 +65236,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65246,7 +65246,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65256,7 +65256,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65266,7 +65266,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65276,7 +65276,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65286,7 +65286,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65296,7 +65296,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65306,7 +65306,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65316,7 +65316,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65326,7 +65326,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
@@ -65336,7 +65336,7 @@
 
   (size 1.651)
 
-  (layers Front-ext Back-ext)
+  (layers F.Cu B.Cu)
 
   (net 86)
 )
