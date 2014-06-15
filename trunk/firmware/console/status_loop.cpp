@@ -41,10 +41,6 @@
 #include "malfunction_central.h"
 #include "speed_density.h"
 
-#define PRINT_FIRMWARE_ONCE TRUE
-
-static bool_t firmwareErrorReported = FALSE;
-
 #include "advance_map.h"
 #if EFI_TUNER_STUDIO
 #include "tunerstudio.h"
@@ -262,10 +258,9 @@ void updateDevConsoleState(void) {
 	printPending();
 
 	if (hasFirmwareError()) {
-		if (!firmwareErrorReported || !PRINT_FIRMWARE_ONCE)
-			printMsg(&logger, "firmware error: %s", errorMessageBuffer);
-		firmwareErrorReported = TRUE;
+		printMsg(&logger, "firmware error: %s", errorMessageBuffer);
 		warningEnabled = FALSE;
+		chThdSleepMilliseconds(200);
 		return;
 	}
 

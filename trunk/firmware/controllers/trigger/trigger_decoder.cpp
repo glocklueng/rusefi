@@ -139,6 +139,8 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 
 void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount,
 		int skippedCount) {
+      efiAssertVoid(totalTeethCount > 0, "totalTeethCount is zero");
+                  
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount);
 
