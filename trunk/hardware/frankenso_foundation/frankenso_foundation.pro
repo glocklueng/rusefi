@@ -1,4 +1,4 @@
-update=6/14/2014 6:26:45 AM
+update=15/06/2014 09:03:08
 version=1
 last_client=pcbnew
 [general]
@@ -54,10 +54,10 @@ LibName33=logo_flipped
 version=1
 LastNetListRead=frankenso_foundation.net
 UseCmpFile=0
-PadDrill=1.016000000000
-PadDrillOvalY=1.016000000000
-PadSizeH=1.651000000000
-PadSizeV=2.159000000000
+PadDrill=0.812800000000
+PadDrillOvalY=0.812800000000
+PadSizeH=1.397000000000
+PadSizeV=1.397000000000
 PcbTextSizeV=2.032000000000
 PcbTextSizeH=1.524000000000
 PcbTextThickness=0.304800000000
