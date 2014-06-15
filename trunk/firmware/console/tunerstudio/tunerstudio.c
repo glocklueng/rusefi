@@ -147,6 +147,7 @@ void handleValueWriteCommand(void) {
 
 	//tunerStudioDebug("got W (Write)"); // we can get a lot of these
 
+
 	int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&pageId, 2);
 	if (recieved != 2) {
 		tsState.errorCounter++;
@@ -189,7 +190,11 @@ void handlePageReadCommand(void) {
 	scheduleMsg(&logger, "Page number %d", pageId);
 #endif
 
-	tunerStudioWriteData((const uint8_t *) getWorkingPageAddr(pageId), getTunerStudioPageSize(pageId));
+	int size = getTunerStudioPageSize(pageId);
+	tunerStudioWriteData((const uint8_t *) getWorkingPageAddr(pageId), size);
+#if EFI_TUNER_STUDIO_VERBOSE
+	scheduleMsg(&logger, "Page size %d done", size);
+#endif
 }
 
 /**

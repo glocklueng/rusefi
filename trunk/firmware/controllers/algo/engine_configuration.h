@@ -271,10 +271,10 @@ typedef struct {
 
 	air_pressure_sensor_config_s baroSensor;
 
-	float veTable[VE_LOAD_COUNT][VE_RPM_COUNT]; // size 1024
-	float veLoadBins[VE_LOAD_COUNT]; //
-	// RPM is float and not integer in order to use unified methods for interpolation
-	float veRpmBins[VE_RPM_COUNT]; //
+//	float veTable[VE_LOAD_COUNT][VE_RPM_COUNT]; // size 1024
+//	float veLoadBins[VE_LOAD_COUNT]; //
+//	// RPM is float and not integer in order to use unified methods for interpolation
+//	float veRpmBins[VE_RPM_COUNT]; //
 
 } engine_configuration_s;
 

@@ -78,11 +78,11 @@ void initBpsxD1Sensor(afr_sensor_s *sensor) {
 }
 
 void setWholeVEMap(engine_configuration_s *engineConfiguration, float value) {
-	for (int l = 0; l < VE_LOAD_COUNT; l++) {
-		for (int r = 0; r < VE_RPM_COUNT; r++) {
-			engineConfiguration->veTable[l][r] = value;
-		}
-	}
+//	for (int l = 0; l < VE_LOAD_COUNT; l++) {
+//		for (int r = 0; r < VE_RPM_COUNT; r++) {
+//			engineConfiguration->veTable[l][r] = value;
+//		}
+//	}
 }
 
 void setWholeFuelMap(engine_configuration_s *engineConfiguration, float value) {
