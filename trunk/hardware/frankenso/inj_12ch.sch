@@ -1,7 +1,7 @@
 EESchema Schematic File Version 2
+LIBS:project_specific_libs
 LIBS:power
 LIBS:device
-LIBS:transistors
 LIBS:conn
 LIBS:linear
 LIBS:regul
@@ -12,11 +12,9 @@ LIBS:memory
 LIBS:xilinx
 LIBS:special
 LIBS:microcontrollers
-LIBS:dsp
 LIBS:microchip
 LIBS:analog_switches
 LIBS:motorola
-LIBS:texas
 LIBS:intel
 LIBS:audio
 LIBS:interface
@@ -25,31 +23,15 @@ LIBS:philips
 LIBS:display
 LIBS:cypress
 LIBS:siliconi
-LIBS:opto
-LIBS:atmel
 LIBS:contrib
-LIBS:valves
-LIBS:176122-6
-LIBS:art-electro-conn
-LIBS:art-electro-conn_2
-LIBS:art-electro-ic
-LIBS:art-electro-max
-LIBS:art-electro-power
-LIBS:LMV324IDR
-LIBS:logo
-LIBS:logo_flipped
-LIBS:MAX9926-9927
-LIBS:max9939
-LIBS:max31855
-LIBS:tc4427
-LIBS:frankenso-cache
+LIBS:inj_12ch-cache
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
-Sheet 1 8
+Sheet 1 1
 Title "12 Channel Injector"
-Date "15 jun 2014"
+Date "8 feb 2014"
 Rev "A-1"
 Comp "http://code.google.com/p/daecu/"
 Comment1 ""
