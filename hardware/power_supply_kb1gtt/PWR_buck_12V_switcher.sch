@@ -23,8 +23,8 @@ LIBS:display
 LIBS:cypress
 LIBS:siliconi
 LIBS:contrib
-LIBS:project_specific_libs
-LIBS:PWR_buck_12V_switcher-cache
+LIBS:lm2596
+LIBS:mos_p_numbered-pins
 EELAYER 27 0
 EELAYER END
 $Descr A 11000 8500
