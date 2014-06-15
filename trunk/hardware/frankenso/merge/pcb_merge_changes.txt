@@ -11,12 +11,19 @@ remove P_VOID6
 
 # brain board ===================================================
 
+merge_net /PC10 /HD44780_CS
+merge_net /PC12 /HD44780_RS
+merge_net /PA10 /HD44780_D4
+merge_net /PC11 /HD44780_D5
+merge_net /PE9 /HD44780_D6
+merge_net /PE11 /HD44780_D7
+
 add ../brain_board/stm32f407_board.kicad_pcb 35.56 33.48736
 
 # VR module 100 range ==============================================
 
 add temp/cps_vrs_io_1.kicad_pcb -84 230.5
-
+remove P104
 
 # move_module R113 1 11
 
@@ -37,8 +44,13 @@ merge_net /INT/HLD /PE13
 add ../hip9011/DD_HIP9011.kicad_pcb -20 220
 remove D162
 
+remove P161
+remove P162
+
 # 8 pin connector
 remove P164
+remove C164
+remove R165
 # hold/test connector
 remove P165
 
@@ -154,6 +166,8 @@ remove P471
 # CAN module power LED
 remove R471
 remove D471
+
+remove P473
 
 move_module M470 6 -10
 
