@@ -18,8 +18,9 @@ typedef struct {
 	int readPageCommandsCounter;
 	int burnCommandCounter;
 	int pageCommandCounter;
+	int writeValueCommandCounter;
+	int writeChunkCommandCounter;
 	int errorCounter;
-	int writeCounter;
 	// this field is in the end to simply aligning situation
 	short currentPageId;
 } TunerStudioState;
@@ -32,7 +33,8 @@ void handleOutputChannelsCommand(void);
 
 char *getWorkingPageAddr(int pageIndex);
 int getTunerStudioPageSize(int pageIndex);
-void handleValueWriteCommand(void);
+void handleWriteValueCommand(void);
+void handleWriteChunkCommand(void);
 void handlePageSelectCommand(void);
 void handlePageReadCommand(void);
 void handleBurnCommand(void);

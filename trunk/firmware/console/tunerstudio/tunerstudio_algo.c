@@ -68,13 +68,15 @@ int tunerStudioHandleCommand(short command) {
 		handleQueryCommand();
 	} else if (command == 'O') {
 		handleOutputChannelsCommand();
-	} else if (command == 'W') {
-		handleValueWriteCommand();
 	} else if (command == 'P') {
 		handlePageSelectCommand();
+	} else if (command == 'C') {
+		handleWriteChunkCommand();
+	} else if (command == 'W') {
+		handleWriteValueCommand();
 	} else if (command == 'B') {
 		handleBurnCommand();
-	} else if (command == 'C') {
+	} else if (command == 'R') {
 		handlePageReadCommand();
 	} else if (command == 't' || command == 'T') {
 		handleTestCommand();
