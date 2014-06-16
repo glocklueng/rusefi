@@ -1,22 +1,15 @@
 
 cd ..
 
-rem Let's wipe out all local libraries. Frankenso does not have it's own libraries!
-mkdir lib
-rm lib/*.*
-mkdir lib/3d
-rm lib/3d/*.*
-
 cp ../power_supply_kb1gtt/PWR_buck_12V_switcher.sch .
 
 cp ../hip9011/DD_HIP9011.sch .
 
 
-rem Let's copy Analog Input libraries & schematic 
+rem Let's copy Analog Input schematic 
 cp ../adc_amp_divider.vertical12/adc_amp_divider.sch .
 
 rem Same thing for 6 channel board
-cp ../1A_injector_12-channels/lib/* lib/
 cp ../1A_injector_12-channels/inj_12ch.sch .
 
 rem MMC/TTL module
