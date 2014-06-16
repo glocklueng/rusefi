@@ -70,6 +70,8 @@ int tunerStudioHandleCommand(short command) {
 		handleOutputChannelsCommand();
 	} else if (command == 'W') {
 		handleValueWriteCommand();
+	} else if (command == 'P') {
+		handlePageSelectCommand();
 	} else if (command == 'B') {
 		handleBurnCommand();
 	} else if (command == 'C') {
