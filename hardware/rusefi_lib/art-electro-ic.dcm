@@ -1,4 +1,8 @@
-EESchema-DOCLIB  Version 2.0  Date: Пт 13 июн 2014 13:25:26
+EESchema-DOCLIB  Version 2.0  Date: Пн 16 июн 2014 11:47:13
+#
+$CMP FDS2734
+D 250V N-Channel MOSFET
+$ENDCMP
 #
 $CMP HIP9011
 D HIP9011
