@@ -41,6 +41,8 @@
 
 #if EFI_TUNER_STUDIO
 
+#define MAX_PAGE_ID 1
+
 #define TS_SERIAL_UART_DEVICE &SD3
 #define TS_SERIAL_SPEED 115200
 
@@ -82,7 +84,8 @@ static WORKING_AREA(TS_WORKING_AREA, UTILITY_THREAD_STACK_SIZE);
 
 static int tsCounter = 0;
 
-static TunerStudioWriteRequest writeRequest;
+static TunerStudioWriteValueRequest writeValueRequest;
+static TunerStudioWriteChunkRequest writeChunkRequest;
 
 extern TunerStudioOutputChannels tsOutputChannels;
 
@@ -97,9 +100,10 @@ static void printStats(void) {
 	scheduleMsg(&logger, "TunerStudio H counter=%d", tsState.queryCommandCounter);
 	scheduleMsg(&logger, "TunerStudio O counter=%d size=%d", tsState.outputChannelsCommandCounter,
 			sizeof(tsOutputChannels));
-	scheduleMsg(&logger, "TunerStudio C counter=%d", tsState.readPageCommandsCounter);
+	scheduleMsg(&logger, "TunerStudio P counter=%d", tsState.readPageCommandsCounter);
 	scheduleMsg(&logger, "TunerStudio B counter=%d", tsState.burnCommandCounter);
-	scheduleMsg(&logger, "TunerStudio W counter=%d", tsState.writeCounter);
+	scheduleMsg(&logger, "TunerStudio W counter=%d", tsState.writeValueCommandCounter);
+	scheduleMsg(&logger, "TunerStudio C counter=%d", tsState.writeChunkCommandCounter);
 	scheduleMsg(&logger, "TunerStudio P counter=%d current page %d", tsState.pageCommandCounter, -1);
 	scheduleMsg(&logger, "page 0 size=%d", getTunerStudioPageSize(0));
 	scheduleMsg(&logger, "page 1 size=%d", getTunerStudioPageSize(1));
@@ -134,7 +138,6 @@ int getTunerStudioPageSize(int pageIndex) {
 		return sizeof(configWorkingCopy.boardConfiguration);
 	}
 	return 0;
-
 }
 
 void handlePageSelectCommand(void) {
@@ -151,13 +154,51 @@ void handlePageSelectCommand(void) {
 }
 
 /**
- * 'Write' command receives a single value at a given offset
+ * This command is needed to make the whole transfer a bit faster
+ * @note See also handleWriteValueCommand
  */
-void handleValueWriteCommand(void) {
-	tsState.writeCounter++;
+void handleWriteChunkCommand(void) {
+	tsState.writeChunkCommandCounter++;
 
-	//tunerStudioDebug("got W (Write)"); // we can get a lot of these
+	int size = sizeof(TunerStudioWriteChunkRequest);
+	int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&writeChunkRequest, size);
+	if (recieved != size) {
+		tsState.errorCounter++;
+		return;
+	}
 
+	scheduleMsg(&logger, "page %d chunk offset %d size %d", tsState.currentPageId, writeChunkRequest.offset,
+			writeChunkRequest.count);
+
+	if (writeChunkRequest.offset > getTunerStudioPageSize(tsState.currentPageId)) {
+		scheduleMsg(&logger, "ERROR offset %d", writeChunkRequest.offset);
+		// out of range
+		tsState.errorCounter++;
+		writeChunkRequest.offset = 0;
+	}
+
+	if (writeChunkRequest.count > getTunerStudioPageSize(tsState.currentPageId)) {
+		scheduleMsg(&logger, "ERROR count %d", writeChunkRequest.count);
+		// out of range
+		tsState.errorCounter++;
+		writeChunkRequest.count = 0;
+	}
+
+	uint8_t * addr = (uint8_t *) (getWorkingPageAddr(tsState.currentPageId) + writeChunkRequest.offset);
+	recieved = chSequentialStreamRead(getTsSerialDevice(), addr, writeChunkRequest.count);
+
+	scheduleMsg(&logger, "recieved chunk %d", recieved);
+
+}
+
+/**
+ * 'Write' command receives a single value at a given offset
+ * @note Writing values one by one is pretty slow
+ */
+void handleWriteValueCommand(void) {
+	tsState.writeValueCommandCounter++;
+
+//tunerStudioDebug("got W (Write)"); // we can get a lot of these
 
 	uint64_t now = hal_lld_get_counter_value();
 	int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&tsState.currentPageId, 2);
@@ -167,16 +208,16 @@ void handleValueWriteCommand(void) {
 	}
 	int time2b = hal_lld_get_counter_value() - now;
 
-
 #if EFI_TUNER_STUDIO_VERBOSE
 //	scheduleMsg(&logger, "Page number %d\r\n", pageId); // we can get a lot of these
 #endif
 
-	int size = sizeof(TunerStudioWriteRequest);
+	int size = sizeof(TunerStudioWriteValueRequest);
 //	scheduleMsg(&logger, "Reading %d\r\n", size);
 
 	now = hal_lld_get_counter_value();
-	recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&writeRequest, size);
+	recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&writeValueRequest, size);
+// todo: check if recieved is expected?
 	int time3b = hal_lld_get_counter_value() - now;
 //	scheduleMsg(&logger, "got %d", recieved);
 
@@ -184,13 +225,21 @@ void handleValueWriteCommand(void) {
 //	unsigned char value = writeBuffer[1];
 //
 
+	if (writeValueRequest.offset > getTunerStudioPageSize(tsState.currentPageId)) {
+		scheduleMsg(&logger, "ERROR offset %d", writeValueRequest.offset);
+		// out of range
+		tsState.errorCounter++;
+		writeValueRequest.offset = 0;
+	}
+
 	efitimems_t nowMs = currentTimeMillis();
 	if (nowMs - previousWriteReportMs > 5) {
 		previousWriteReportMs = nowMs;
-		scheduleMsg(&logger, "page %d offset %d: value=%d 2=%d 3=%d", tsState.currentPageId, writeRequest.offset, writeRequest.value, time2b, time3b);
+		scheduleMsg(&logger, "page %d offset %d: value=%d 2=%d 3=%d", tsState.currentPageId, writeValueRequest.offset,
+				writeValueRequest.value, time2b, time3b);
 	}
 
-	getWorkingPageAddr(tsState.currentPageId)[writeRequest.offset] = writeRequest.value;
+	getWorkingPageAddr(tsState.currentPageId)[writeValueRequest.offset] = writeValueRequest.value;
 
 //	scheduleMsg(&logger, "va=%d", configWorkingCopy.boardConfiguration.idleValvePin);
 }
@@ -198,15 +247,23 @@ void handleValueWriteCommand(void) {
 void handlePageReadCommand(void) {
 	tsState.readPageCommandsCounter++;
 	tunerStudioDebug("got C (Constants)");
-	// todo: extract method?
+// todo: extract method?
 	int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&tsState.currentPageId, 2);
 	if (recieved != 2) {
 		tsState.errorCounter++;
 		return;
 	}
+
 #if EFI_TUNER_STUDIO_VERBOSE
 	scheduleMsg(&logger, "Page number %d", tsState.currentPageId);
 #endif
+
+	if (tsState.currentPageId > MAX_PAGE_ID) {
+		// something is not right here
+		tsState.currentPageId = 0;
+		tsState.errorCounter++;
+
+	}
 
 	int size = getTunerStudioPageSize(tsState.currentPageId);
 	tunerStudioWriteData((const uint8_t *) getWorkingPageAddr(tsState.currentPageId), size);
@@ -232,7 +289,7 @@ void handleBurnCommand(void) {
 	scheduleMsg(&logger, "Page number %d\r\n", tsState.currentPageId);
 #endif
 
-	// todo: how about some multi-threading?
+// todo: how about some multi-threading?
 	memcpy(&persistentState.persistentConfiguration, &configWorkingCopy, sizeof(persistent_config_s));
 
 	scheduleMsg(&logger, "va1=%d", configWorkingCopy.boardConfiguration.idleValvePin);

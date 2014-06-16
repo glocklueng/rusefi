@@ -16,10 +16,21 @@ typedef struct
 #else
 		typedef __packed struct {
 #endif
+			short int offset;
+			short int count;
+
+		} TunerStudioWriteChunkRequest;
+
+#if defined __GNUC__
+typedef struct
+	__attribute__((packed)) {
+#else
+		typedef __packed struct {
+#endif
 
 			short int offset;
 			unsigned char value;
-		} TunerStudioWriteRequest;
+		} TunerStudioWriteValueRequest;
 
 #ifdef __cplusplus
 		extern "C" {
