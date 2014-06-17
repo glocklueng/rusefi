@@ -93,7 +93,12 @@ void setWholeFuelMap(engine_configuration_s *engineConfiguration, float value) {
 	}
 }
 
+void setTriggerSynchronizationGap(engine_configuration_s *engineConfiguration, float synchGap) {
+	engineConfiguration->triggerConfig.isSynchronizationNeeded = TRUE;
 
+	engineConfiguration->triggerConfig.syncRatioFrom = synchGap * 0.75;
+	engineConfiguration->triggerConfig.syncRatioTo = synchGap * 1.25;
+}
 
 /**
  * @brief	Global default engine configuration
@@ -218,9 +223,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->logFormat = LF_NATIVE;
 
 	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL;
-	engineConfiguration->triggerConfig.syncRatioFrom = 1.5;
-	engineConfiguration->triggerConfig.syncRatioTo = 3;
-	engineConfiguration->triggerConfig.isSynchronizationNeeded = TRUE;
+	setTriggerSynchronizationGap(engineConfiguration, 2);
 	engineConfiguration->triggerConfig.useRiseEdge = TRUE;
 
 	engineConfiguration->HD44780width = 16;
