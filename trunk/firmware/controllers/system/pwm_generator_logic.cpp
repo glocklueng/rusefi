@@ -1,5 +1,5 @@
 /**
- * @file    pwm_generator_logic.c
+ * @file    pwm_generator_logic.cpp
  *
  * This PWM implementation keep track of when it would be the next time to toggle the signal.
  * It constantly sets timer to that next toggle time, then sets the timer again from the callback, and so on.
