@@ -17,9 +17,20 @@
 
 #include "nmea.h"
 #include "efilib2.h"
+#include "crc.h"
+
+void testCrc(void) {
+	print("*************************************** testCrc\r\n");
+
+	const char * A = "A";
+
+	assertEqualsM("crc8", 168, calc_crc((const crc_t *)A, 1));
+	int c = crc32(A, 1);
+	printf("crc32(A)=%x\r\n", c);
+	assertEqualsM("crc32", 0xd3d99e8b, crc32(A, 1));
+}
 
 static cyclic_buffer sb;
-
 
 void testOverflow64Counter(void) {
 	print("*************************************** testOverflow64Counter\r\n");
