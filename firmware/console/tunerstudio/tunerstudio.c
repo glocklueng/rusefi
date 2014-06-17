@@ -104,7 +104,7 @@ static void printStats(void) {
 	scheduleMsg(&logger, "TunerStudio B counter=%d", tsState.burnCommandCounter);
 	scheduleMsg(&logger, "TunerStudio W counter=%d", tsState.writeValueCommandCounter);
 	scheduleMsg(&logger, "TunerStudio C counter=%d", tsState.writeChunkCommandCounter);
-	scheduleMsg(&logger, "TunerStudio P counter=%d current page %d", tsState.pageCommandCounter, -1);
+	scheduleMsg(&logger, "TunerStudio P counter=%d current page %d", tsState.pageCommandCounter, tsState.currentPageId);
 	scheduleMsg(&logger, "page 0 size=%d", getTunerStudioPageSize(0));
 	scheduleMsg(&logger, "page 1 size=%d", getTunerStudioPageSize(1));
 }
@@ -187,7 +187,7 @@ void handleWriteChunkCommand(void) {
 	uint8_t * addr = (uint8_t *) (getWorkingPageAddr(tsState.currentPageId) + writeChunkRequest.offset);
 	recieved = chSequentialStreamRead(getTsSerialDevice(), addr, writeChunkRequest.count);
 
-	scheduleMsg(&logger, "recieved chunk %d", recieved);
+	scheduleMsg(&logger, "received chunk %d", recieved);
 
 }
 
