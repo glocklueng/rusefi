@@ -42,12 +42,12 @@ int getRemainingStack(Thread *otp) {
 	otp->activeStack = r13;
 
 	int rs;
-	if(dbg_isr_cnt > 0) {
+	if (dbg_isr_cnt > 0) {
 		// ISR context
-		rs = (stkalign_t *)(r13 - 1) - &__main_stack_base__;
+		rs = (stkalign_t *) (r13 - 1) - &__main_stack_base__;
 	} else {
 
-	rs = (stkalign_t *)(r13 - 1) - otp->p_stklimit;
+		rs = (stkalign_t *) (r13 - 1) - otp->p_stklimit;
 	}
 	otp->remainingStack = rs;
 	return rs;
