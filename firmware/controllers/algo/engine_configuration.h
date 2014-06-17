@@ -278,6 +278,10 @@ typedef struct {
 
 } engine_configuration_s;
 
+typedef struct {
+	int temp;
+} engine_configuration_page2_s;
+
 #define HW_MAX_ADC_INDEX 16
 
 typedef struct {
@@ -337,6 +341,7 @@ typedef struct {
 typedef struct {
 	engine_configuration_s engineConfiguration;
 	board_configuration_s boardConfiguration;
+	engine_configuration_page2_s engineConfigurationPage2;
 } persistent_config_s;
 
 typedef struct {
