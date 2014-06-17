@@ -102,6 +102,7 @@ int main(void) {
 	testEventRegistry();
 	testSensors();
 	testCyclicBuffer();
+	testCrc();
 
 	testSignalExecutor();
 
@@ -121,7 +122,7 @@ int main(void) {
 	testAccelEnrichment();
 
 	//	resizeMap();
-	printf("Success 20130613\r\n");
+	printf("Success 20130617\r\n");
 	return EXIT_SUCCESS;
 }
 

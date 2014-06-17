@@ -13,15 +13,13 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-
-
+void testCrc(void);
 void testCyclicBuffer(void);
 void testOverflow64Counter(void);
 void testHistogram(void);
 void testMalfunctionCentral(void);
 void testConsoleLogic(void);
 void testGpsParser(void);
-
 
 #ifdef __cplusplus
 }
