@@ -1,5 +1,5 @@
 /**
- * @file	engine_controller.cpp
+ * @file	engine_configuration.cpp
  * @brief	Utility method related to the engine configuration data structure.
  *
  * @date Nov 22, 2013
