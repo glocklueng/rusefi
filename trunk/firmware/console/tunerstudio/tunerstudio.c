@@ -38,22 +38,27 @@
 #include "malfunction_central.h"
 #include "wave_math.h"
 #include "console_io.h"
+#include "crc.h"
 
 #if EFI_TUNER_STUDIO
+
+// in MS, that's 10 seconds
+#define TS_READ_TIMEOUT 10000
 
 #define MAX_PAGE_ID 1
 
 #define TS_SERIAL_UART_DEVICE &SD3
-#define TS_SERIAL_SPEED 115200
+//#define TS_SERIAL_SPEED 115200
+#define TS_SERIAL_SPEED 38400
 
 extern SerialUSBDriver SDU1;
 
-BaseSequentialStream * getTsSerialDevice(void) {
+BaseChannel * getTsSerialDevice(void) {
 	if (isSerialOverUart()) {
 		// if console uses UART then TS uses USB
-		return (BaseSequentialStream *) &SDU1;
+		return (BaseChannel *) &SDU1;
 	} else {
-		return (BaseSequentialStream *) TS_SERIAL_UART_DEVICE;
+		return (BaseChannel *) TS_SERIAL_UART_DEVICE;
 	}
 }
 
@@ -140,17 +145,12 @@ int getTunerStudioPageSize(int pageIndex) {
 	return 0;
 }
 
-void handlePageSelectCommand(void) {
+void handlePageSelectCommand(short *pageId) {
 	tsState.pageCommandCounter++;
 
-	int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&tsState.currentPageId, 2);
-	if (recieved != 2) {
-		tsState.errorCounter++;
-		return;
-	}
+	tsState.currentPageId = *pageId;
 
 	scheduleMsg(&logger, "page %d selected", tsState.currentPageId);
-
 }
 
 /**
@@ -244,15 +244,10 @@ void handleWriteValueCommand(void) {
 //	scheduleMsg(&logger, "va=%d", configWorkingCopy.boardConfiguration.idleValvePin);
 }
 
-void handlePageReadCommand(void) {
+void handlePageReadCommand(short *pageId) {
 	tsState.readPageCommandsCounter++;
-	tunerStudioDebug("got C (Constants)");
-// todo: extract method?
-	int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&tsState.currentPageId, 2);
-	if (recieved != 2) {
-		tsState.errorCounter++;
-		return;
-	}
+	tunerStudioDebug("got R (Read page)");
+	tsState.currentPageId = *pageId;
 
 #if EFI_TUNER_STUDIO_VERBOSE
 	scheduleMsg(&logger, "Page number %d", tsState.currentPageId);
@@ -262,13 +257,12 @@ void handlePageReadCommand(void) {
 		// something is not right here
 		tsState.currentPageId = 0;
 		tsState.errorCounter++;
-
 	}
 
 	int size = getTunerStudioPageSize(tsState.currentPageId);
-	tunerStudioWriteData((const uint8_t *) getWorkingPageAddr(tsState.currentPageId), size);
+	tunerStudioWriteCrcPacket(TS_RESPONSE_OK, (const uint8_t *) getWorkingPageAddr(tsState.currentPageId), size);
 #if EFI_TUNER_STUDIO_VERBOSE
-	scheduleMsg(&logger, "Page size %d done", size);
+	scheduleMsg(&logger, "Page write %d done", size);
 #endif
 }
 
@@ -299,6 +293,12 @@ void handleBurnCommand(void) {
 	incrementGlobalConfigurationVersion();
 }
 
+static uint8_t firstByte;
+static uint8_t secondByte;
+
+// todo: reduce TS page size so that we can reduce buffer size
+static char crcIoBuffer[4096];
+
 static msg_t tsThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("tunerstudio thread");
@@ -311,17 +311,84 @@ static msg_t tsThreadEntryPoint(void *arg) {
 			wasReady = FALSE;
 			continue;
 		}
+
 		if (!wasReady) {
 			wasReady = TRUE;
 //			scheduleSimpleMsg(&logger, "ts channel is now ready ", hTimeNow());
 		}
 
-		short command = (short) chSequentialStreamGet(getTsSerialDevice());
-		int success = tunerStudioHandleCommand(command);
-		if (!success && command != 0)
-			print("got unexpected TunerStudio command %c:%d\r\n", command, command);
-
 		tsCounter++;
+
+		int recieved = chSequentialStreamRead(getTsSerialDevice(), &firstByte, 1);
+		if (recieved != 1) {
+			tsState.errorCounter++;
+			continue;
+		}
+		scheduleMsg(&logger, "Got first=%x=[%c]", firstByte, firstByte);
+		if (firstByte == 'H') {
+			scheduleMsg(&logger, "Got naked Query command");
+			handleQueryCommand(FALSE);
+			continue;
+		} else if (firstByte == 't' || firstByte == 'T') {
+			handleTestCommand();
+			continue;
+		} else if (firstByte == 'R') {
+			scheduleMsg(&logger, "Got naked READ PAGE");
+//			handlePageReadCommand();
+			continue;
+		} else if (firstByte == 'O') {
+			scheduleMsg(&logger, "Got naked Channels");
+//			handleOutputChannelsCommand();
+			continue;
+		} else if (firstByte == 'F') {
+			tunerStudioDebug("ignoring F");
+			continue;
+		}
+
+		recieved = chSequentialStreamRead(getTsSerialDevice(), &secondByte, 1);
+		if (recieved != 1) {
+			tsState.errorCounter++;
+			continue;
+		}
+		scheduleMsg(&logger, "Got secondByte=%x=[%c]", secondByte, secondByte);
+
+		int incomingPacketSize = firstByte * 256 + secondByte;
+
+		if (incomingPacketSize == 0 || incomingPacketSize > sizeof(crcIoBuffer)) {
+			scheduleMsg(&logger, "TunerStudio: invalid size: %d", incomingPacketSize);
+			tsState.errorCounter++;
+			continue;
+		}
+		scheduleMsg(&logger, "TunerStudio: reading %d+4 bytes(s)", incomingPacketSize);
+
+		recieved = chnReadTimeout(getTsSerialDevice(), crcIoBuffer, incomingPacketSize + 4, MS2ST(TS_READ_TIMEOUT));
+		if (recieved != incomingPacketSize + 4) {
+			scheduleMsg(&logger, "got ONLY %d", recieved);
+			tsState.errorCounter++;
+			continue;
+		}
+
+		uint32_t expectedCrc = *(uint32_t*) (crcIoBuffer + incomingPacketSize);
+
+		scheduleMsg(&logger, "TunerStudio: %x %x %x %x", crcIoBuffer[1], crcIoBuffer[2], crcIoBuffer[3],
+				crcIoBuffer[4]);
+
+		expectedCrc = SWAP_UINT32(expectedCrc);
+
+		int actualCrc = crc32(crcIoBuffer, incomingPacketSize);
+		if (actualCrc != expectedCrc) {
+			scheduleMsg(&logger, "TunerStudio: command %c actual CRC %x/expected %x", crcIoBuffer[0], actualCrc,
+					expectedCrc);
+			tsState.errorCounter++;
+			continue;
+
+		}
+
+		char command = crcIoBuffer[0];
+		int success = tunerStudioHandleCommand(crcIoBuffer, incomingPacketSize);
+		if (!success)
+			print("got unexpected TunerStudio command %x:%c\r\n", command, command);
+
 	}
 #if defined __GNUC__
 	return 0;
@@ -352,6 +419,23 @@ void startTunerStudioConnectivity(void) {
 	addConsoleAction("tsinfo", printStats);
 
 	chThdCreateStatic(TS_WORKING_AREA, sizeof(TS_WORKING_AREA), NORMALPRIO, tsThreadEntryPoint, NULL);
+}
+
+/**
+ * Adds size to the beginning of a packet and a crc32 at the end. Then send the packet.
+ */
+void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uint16_t size) {
+	// todo: max size validation
+	*(uint16_t *) crcIoBuffer = SWAP_UINT16(size + 1);   // packet size including command
+	*(uint8_t *) (crcIoBuffer + 2) = command;
+	memcpy(crcIoBuffer + 3, buf, size);
+	// CRC on whole packet
+	uint32_t crc = crc32((void *) (crcIoBuffer + 2), (uint32_t) (size + 1));
+	*(uint32_t *) (crcIoBuffer + 2 + 1 + size) = SWAP_UINT32(crc);
+
+	scheduleMsg(&logger, "TunerStudio: responding %d size %d", command, size);
+
+	tunerStudioWriteData(crcIoBuffer, size + 2 + 1 + 4);      // with size, command and CRC
 }
 
 #endif /* EFI_TUNER_STUDIO */

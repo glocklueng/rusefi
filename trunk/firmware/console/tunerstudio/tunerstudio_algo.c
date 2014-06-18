@@ -63,13 +63,16 @@ TunerStudioOutputChannels tsOutputChannels;
  */
 persistent_config_s configWorkingCopy;
 
-int tunerStudioHandleCommand(short command) {
+int tunerStudioHandleCommand(char *data, int incomingPacketSize) {
+	char command = data[0];
+	data++;
 	if (command == 'H') {
-		handleQueryCommand();
+		tunerStudioDebug("got CRC Query");
+		handleQueryCommand(TRUE);
 	} else if (command == 'O') {
 		handleOutputChannelsCommand();
 	} else if (command == 'P') {
-		handlePageSelectCommand();
+		handlePageSelectCommand((short*) data);
 	} else if (command == 'C') {
 		handleWriteChunkCommand();
 	} else if (command == 'W') {
@@ -77,7 +80,7 @@ int tunerStudioHandleCommand(short command) {
 	} else if (command == 'B') {
 		handleBurnCommand();
 	} else if (command == 'R') {
-		handlePageReadCommand();
+		handlePageReadCommand((short*) data);
 	} else if (command == 't' || command == 'T') {
 		handleTestCommand();
 	} else if (command == 'F') {
@@ -90,16 +93,23 @@ int tunerStudioHandleCommand(short command) {
 		 * Currently on some firmware versions the F command is not used and is just ignored by the firmware as a unknown command."
 		 */
 	} else {
+		tunerStudioDebug("ignoring unexpected");
 		tsState.errorCounter++;
 		return FALSE;
 	}
 	return TRUE;
 }
 
-void handleQueryCommand(void) {
+void handleQueryCommand(int needCrc) {
 	tsState.queryCommandCounter++;
 	tunerStudioDebug("got H (queryCommand)");
-	tunerStudioWriteData((const uint8_t *) TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
+	if (needCrc) {
+		// Query with CRC takes place while re-establishing connection
+		tunerStudioWriteCrcPacket(TS_RESPONSE_OK, (const uint8_t *) TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
+	} else {
+		// Query without CRC takes place on TunerStudio startup
+		tunerStudioWriteData((const uint8_t *) TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
+	}
 }
 
 /**
@@ -108,7 +118,7 @@ void handleQueryCommand(void) {
 void handleOutputChannelsCommand(void) {
 	tsState.outputChannelsCommandCounter++;
 	// this method is invoked too often to print any debug information
-	tunerStudioWriteData((const uint8_t *) &tsOutputChannels, sizeof(TunerStudioOutputChannels));
+	tunerStudioWriteCrcPacket(TS_RESPONSE_OK, (const uint8_t *) &tsOutputChannels, sizeof(TunerStudioOutputChannels));
 }
 
 void handleTestCommand(void) {
@@ -116,6 +126,6 @@ void handleTestCommand(void) {
 	 * this is NOT a standard TunerStudio command, this is my own
 	 * extension of the protocol to simplify troubleshooting
 	 */
-	tunerStudioDebug("got T (Test)\r\n");
+	tunerStudioDebug("got T (Test)");
 	tunerStudioWriteData((const uint8_t *) "alive\r\n", 7);
 }
