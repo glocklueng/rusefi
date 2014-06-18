@@ -299,6 +299,10 @@ static uint8_t secondByte;
 // todo: reduce TS page size so that we can reduce buffer size
 static char crcIoBuffer[4096];
 
+static void sendErrorCode() {
+	tunerStudioWriteCrcPacket(TS_RESPONSE_CRC_FAILURE, NULL, 0);
+}
+
 static msg_t tsThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("tunerstudio thread");
@@ -357,12 +361,29 @@ static msg_t tsThreadEntryPoint(void *arg) {
 		if (incomingPacketSize == 0 || incomingPacketSize > sizeof(crcIoBuffer)) {
 			scheduleMsg(&logger, "TunerStudio: invalid size: %d", incomingPacketSize);
 			tsState.errorCounter++;
+			sendErrorCode();
 			continue;
 		}
+
+		recieved = chnReadTimeout(getTsSerialDevice(), crcIoBuffer, 1, MS2ST(TS_READ_TIMEOUT));
+		if (recieved != 1) {
+			scheduleMsg(&logger, "did not receive command");
+			tsState.errorCounter++;
+			continue;
+		}
+
+		char command = crcIoBuffer[0];
+		if (command != 'R' && command != 'O') {
+			scheduleMsg(&logger, "unexpected command %x", command);
+			sendErrorCode();
+			continue;
+		}
+
 		scheduleMsg(&logger, "TunerStudio: reading %d+4 bytes(s)", incomingPacketSize);
 
-		recieved = chnReadTimeout(getTsSerialDevice(), crcIoBuffer, incomingPacketSize + 4, MS2ST(TS_READ_TIMEOUT));
-		if (recieved != incomingPacketSize + 4) {
+		recieved = chnReadTimeout(getTsSerialDevice(), (void * ) (crcIoBuffer + 1), incomingPacketSize + 4 - 1,
+				MS2ST(TS_READ_TIMEOUT));
+		if (recieved != incomingPacketSize + 4 - 1) {
 			scheduleMsg(&logger, "got ONLY %d", recieved);
 			tsState.errorCounter++;
 			continue;
@@ -370,8 +391,8 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 		uint32_t expectedCrc = *(uint32_t*) (crcIoBuffer + incomingPacketSize);
 
-		scheduleMsg(&logger, "TunerStudio: %x %x %x %x", crcIoBuffer[1], crcIoBuffer[2], crcIoBuffer[3],
-				crcIoBuffer[4]);
+//		scheduleMsg(&logger, "TunerStudio: %x %x %x %x", crcIoBuffer[1], crcIoBuffer[2], crcIoBuffer[3],
+//				crcIoBuffer[4]);
 
 		expectedCrc = SWAP_UINT32(expectedCrc);
 
@@ -384,7 +405,6 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 		}
 
-		char command = crcIoBuffer[0];
 		int success = tunerStudioHandleCommand(crcIoBuffer, incomingPacketSize);
 		if (!success)
 			print("got unexpected TunerStudio command %x:%c\r\n", command, command);
@@ -428,7 +448,8 @@ void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uin
 	// todo: max size validation
 	*(uint16_t *) crcIoBuffer = SWAP_UINT16(size + 1);   // packet size including command
 	*(uint8_t *) (crcIoBuffer + 2) = command;
-	memcpy(crcIoBuffer + 3, buf, size);
+	if (size != 0)
+		memcpy(crcIoBuffer + 3, buf, size);
 	// CRC on whole packet
 	uint32_t crc = crc32((void *) (crcIoBuffer + 2), (uint32_t) (size + 1));
 	*(uint32_t *) (crcIoBuffer + 2 + 1 + size) = SWAP_UINT32(crc);
