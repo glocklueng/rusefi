@@ -39,6 +39,7 @@ typedef struct
 		void startTunerStudioConnectivity(void);
 		void syncTunerStudioCopy(void);
 		void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels);
+		void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uint16_t size);
 
 #ifdef __cplusplus
 		}

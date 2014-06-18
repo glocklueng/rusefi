@@ -12,6 +12,16 @@
 
 #include <stdint.h>
 
+// http://en.wikipedia.org/wiki/Endianness
+
+#define SWAP_UINT16(x) ((x) << 8) | ((x) >> 8)
+
+#define SWAP_UINT32(x) (((x) >> 24) & 0xff) | (((x) << 8) & 0xff0000) | (((x) >> 8) & 0xff00) | (((x) << 24) & 0xff000000)
+
+// response codes
+
+#define TS_RESPONSE_OK 0x00
+
 typedef struct {
 	int queryCommandCounter;
 	int outputChannelsCommandCounter;
@@ -25,18 +35,18 @@ typedef struct {
 	short currentPageId;
 } TunerStudioState;
 
-int tunerStudioHandleCommand(short command);
+int tunerStudioHandleCommand(char *data, int incomingPacketSize);
 
 void handleTestCommand(void);
-void handleQueryCommand(void);
+void handleQueryCommand(int needCrc);
 void handleOutputChannelsCommand(void);
 
 char *getWorkingPageAddr(int pageIndex);
 int getTunerStudioPageSize(int pageIndex);
 void handleWriteValueCommand(void);
 void handleWriteChunkCommand(void);
-void handlePageSelectCommand(void);
-void handlePageReadCommand(void);
+void handlePageSelectCommand(short *pageId);
+void handlePageReadCommand(short *pageId);
 void handleBurnCommand(void);
 
 void tunerStudioWriteData(const uint8_t * buffer, int size);
