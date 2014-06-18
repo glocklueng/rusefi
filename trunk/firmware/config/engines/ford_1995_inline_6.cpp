@@ -1,5 +1,5 @@
 /**
- * @file ford_1995_inline_6.c
+ * @file ford_1995_inline_6.cpp
  * @brief Default engine configuration for a 1995 Ford inline 6 engine
  *
  * http://rusefi.com/forum/viewtopic.php?f=3&t=469
