@@ -28,6 +28,9 @@ extern SerialUSBDriver SDU1;
 #endif
 #include "rfiutil.h"
 
+int lastWriteSize;
+int lastWriteActual;
+
 static bool_t isSerialConsoleStarted = FALSE;
 
 /**
@@ -98,7 +101,7 @@ static msg_t consoleThreadThreadEntryPoint(void *arg) {
 	chRegSetThreadName("console thread");
 
 	while (TRUE) {
-		bool_t end = getConsoleLine(getConsoleChannel(), consoleInput, sizeof(consoleInput));
+		bool_t end = getConsoleLine((BaseSequentialStream*) getConsoleChannel(), consoleInput, sizeof(consoleInput));
 		if (end) {
 			// firmware simulator is the only case when this happens
 			continue;
@@ -115,11 +118,11 @@ static msg_t consoleThreadThreadEntryPoint(void *arg) {
 
 static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 
-BaseSequentialStream * getConsoleChannel(void) {
+SerialDriver * getConsoleChannel(void) {
 	if (isSerialOverUart()) {
-		return (BaseSequentialStream *) EFI_CONSOLE_UART_DEVICE;
+		return (SerialDriver *) EFI_CONSOLE_UART_DEVICE;
 	} else {
-		return (BaseSequentialStream *) &SDU1;
+		return (SerialDriver *) &SDU1;
 	}
 }
 
@@ -137,8 +140,14 @@ void consolePutChar(int x) {
 	chSequentialStreamPut(getConsoleChannel(), (uint8_t )(x));
 }
 
+// 10 seconds
+#define CONSOLE_WRITE_TIMEOUT 10000
+
 void consoleOutputBuffer(const int8_t *buf, int size) {
-	chSequentialStreamWrite(getConsoleChannel(), buf, size);
+	lastWriteSize = size;
+	lastWriteActual = chnWriteTimeout(getConsoleChannel(), buf, size, CONSOLE_WRITE_TIMEOUT);
+//	if (r != size)
+//		firmwareError("Partial console write");
 }
 
 void startConsole(void (*console_line_callback_p)(char *)) {
@@ -163,7 +172,7 @@ void startConsole(void (*console_line_callback_p)(char *)) {
 		usb_serial_start();
 	}
 #endif /* EFI_PROD_CODE */
-	chThdCreateStatic(consoleThreadStack, sizeof(consoleThreadStack), NORMALPRIO, consoleThreadThreadEntryPoint, NULL);
+	chThdCreateStatic(consoleThreadStack, sizeof(consoleThreadStack), NORMALPRIO, consoleThreadThreadEntryPoint, NULL );
 }
 
 extern cnt_t dbg_isr_cnt;
