@@ -26,7 +26,7 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-BaseSequentialStream * getConsoleChannel(void);
+SerialDriver * getConsoleChannel(void);
 
 void consolePutChar(int x);
 void consoleOutputBuffer(const int8_t *buf, int size);
