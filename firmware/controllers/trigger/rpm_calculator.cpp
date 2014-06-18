@@ -114,7 +114,11 @@ int getRevolutionCounter(void) {
  */
 static int isNoisySignal(RpmCalculator * rpmState, uint64_t nowUs) {
 	uint64_t diff = nowUs - rpmState->lastRpmEventTimeUs;
-	return diff < 1000; // that's 1ms
+	/**
+	 * 60/2 wheel at 8000 rpm
+	 * 60000000us / 8000 / 120 = 62us
+	 */
+	return diff < 40; // that's 40us
 }
 
 static char shaft_signal_msg_index[15];
