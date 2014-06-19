@@ -244,16 +244,18 @@ void handleWriteValueCommand(void) {
 //	scheduleMsg(&logger, "va=%d", configWorkingCopy.boardConfiguration.idleValvePin);
 }
 
-void handlePageReadCommand(short *pageId) {
+void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count) {
 	tsState.readPageCommandsCounter++;
 	tunerStudioDebug("got R (Read page)");
-	tsState.currentPageId = *pageId;
+	tsState.currentPageId = pageId;
 
 #if EFI_TUNER_STUDIO_VERBOSE
-	scheduleMsg(&logger, "Page number %d", tsState.currentPageId);
+	scheduleMsg(&logger, "Page number %d offset=%d count=%d", tsState.currentPageId, offset, count);
 #endif
 
 	if (tsState.currentPageId > MAX_PAGE_ID) {
+		scheduleMsg(&logger, "invalid Page number %x", tsState.currentPageId);
+
 		// something is not right here
 		tsState.currentPageId = 0;
 		tsState.errorCounter++;
@@ -391,8 +393,9 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 		uint32_t expectedCrc = *(uint32_t*) (crcIoBuffer + incomingPacketSize);
 
-//		scheduleMsg(&logger, "TunerStudio: %x %x %x %x", crcIoBuffer[1], crcIoBuffer[2], crcIoBuffer[3],
-//				crcIoBuffer[4]);
+		scheduleMsg(&logger, "TunerStudio: CRC %x %x %x %x", crcIoBuffer[incomingPacketSize + 0],
+				crcIoBuffer[incomingPacketSize + 1], crcIoBuffer[incomingPacketSize + 2],
+				crcIoBuffer[incomingPacketSize + 3]);
 
 		expectedCrc = SWAP_UINT32(expectedCrc);
 
@@ -404,6 +407,13 @@ static msg_t tsThreadEntryPoint(void *arg) {
 			continue;
 
 		}
+
+		scheduleMsg(&logger, "TunerStudio: P00-07 %x %x %x %x %x %x %x %x", crcIoBuffer[0],
+				crcIoBuffer[1], crcIoBuffer[2],
+				crcIoBuffer[3], crcIoBuffer[4],
+				crcIoBuffer[5], crcIoBuffer[6],
+				crcIoBuffer[7]);
+
 
 		int success = tunerStudioHandleCommand(crcIoBuffer, incomingPacketSize);
 		if (!success)
