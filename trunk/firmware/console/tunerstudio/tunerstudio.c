@@ -89,7 +89,7 @@ static WORKING_AREA(TS_WORKING_AREA, UTILITY_THREAD_STACK_SIZE);
 
 static int tsCounter = 0;
 
-static TunerStudioWriteValueRequest writeValueRequest;
+//static TunerStudioWriteValueRequest writeValueRequest;
 static TunerStudioWriteChunkRequest writeChunkRequest;
 
 extern TunerStudioOutputChannels tsOutputChannels;
@@ -145,11 +145,10 @@ int getTunerStudioPageSize(int pageIndex) {
 	return 0;
 }
 
-void handlePageSelectCommand(short *pageId) {
+void handlePageSelectCommand(uint16_t pageId) {
 	tsState.pageCommandCounter++;
 
-	tsState.currentPageId = *pageId;
-
+	tsState.currentPageId = pageId;
 	scheduleMsg(&logger, "page %d selected", tsState.currentPageId);
 }
 
@@ -195,18 +194,12 @@ void handleWriteChunkCommand(void) {
  * 'Write' command receives a single value at a given offset
  * @note Writing values one by one is pretty slow
  */
-void handleWriteValueCommand(void) {
+void handleWriteValueCommand(uint16_t page, uint16_t offset, uint8_t value) {
 	tsState.writeValueCommandCounter++;
 
-//tunerStudioDebug("got W (Write)"); // we can get a lot of these
+	tsState.currentPageId = page;
 
-	uint64_t now = hal_lld_get_counter_value();
-	int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&tsState.currentPageId, 2);
-	if (recieved != 2) {
-		tsState.errorCounter++;
-		return;
-	}
-	int time2b = hal_lld_get_counter_value() - now;
+//tunerStudioDebug("got W (Write)"); // we can get a lot of these
 
 #if EFI_TUNER_STUDIO_VERBOSE
 //	scheduleMsg(&logger, "Page number %d\r\n", pageId); // we can get a lot of these
@@ -215,33 +208,27 @@ void handleWriteValueCommand(void) {
 	int size = sizeof(TunerStudioWriteValueRequest);
 //	scheduleMsg(&logger, "Reading %d\r\n", size);
 
-	now = hal_lld_get_counter_value();
-	recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&writeValueRequest, size);
-// todo: check if recieved is expected?
-	int time3b = hal_lld_get_counter_value() - now;
-//	scheduleMsg(&logger, "got %d", recieved);
-
-//	unsigned char offset = writeBuffer[0];
-//	unsigned char value = writeBuffer[1];
-//
-
-	if (writeValueRequest.offset > getTunerStudioPageSize(tsState.currentPageId)) {
-		scheduleMsg(&logger, "ERROR offset %d", writeValueRequest.offset);
+	if (offset > getTunerStudioPageSize(tsState.currentPageId)) {
+		scheduleMsg(&logger, "ERROR offset %d", offset);
 		// out of range
 		tsState.errorCounter++;
-		writeValueRequest.offset = 0;
+		offset = 0;
+		return;
 	}
 
 	efitimems_t nowMs = currentTimeMillis();
 	if (nowMs - previousWriteReportMs > 5) {
 		previousWriteReportMs = nowMs;
-		scheduleMsg(&logger, "page %d offset %d: value=%d 2=%d 3=%d", tsState.currentPageId, writeValueRequest.offset,
-				writeValueRequest.value, time2b, time3b);
+		scheduleMsg(&logger, "page %d offset %d: value=%d", tsState.currentPageId, offset, value);
 	}
 
-	getWorkingPageAddr(tsState.currentPageId)[writeValueRequest.offset] = writeValueRequest.value;
+	getWorkingPageAddr(tsState.currentPageId)[offset] = value;
 
 //	scheduleMsg(&logger, "va=%d", configWorkingCopy.boardConfiguration.idleValvePin);
+}
+
+static void sendErrorCode(void) {
+	tunerStudioWriteCrcPacket(TS_RESPONSE_CRC_FAILURE, NULL, 0);
 }
 
 void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count) {
@@ -250,7 +237,7 @@ void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count) {
 	tsState.currentPageId = pageId;
 
 #if EFI_TUNER_STUDIO_VERBOSE
-	scheduleMsg(&logger, "Page number %d offset=%d count=%d", tsState.currentPageId, offset, count);
+	scheduleMsg(&logger, "Page requested: page %d offset=%d count=%d", tsState.currentPageId, offset, count);
 #endif
 
 	if (tsState.currentPageId > MAX_PAGE_ID) {
@@ -259,10 +246,19 @@ void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count) {
 		// something is not right here
 		tsState.currentPageId = 0;
 		tsState.errorCounter++;
+		return;
 	}
 
 	int size = getTunerStudioPageSize(tsState.currentPageId);
-	tunerStudioWriteCrcPacket(TS_RESPONSE_OK, (const uint8_t *) getWorkingPageAddr(tsState.currentPageId), size);
+
+	if (size < offset + count) {
+		scheduleMsg(&logger, "invalid offset/count %d/%d", offset, count);
+		sendErrorCode();
+		return;
+	}
+
+	const uint8_t *addr = (const uint8_t *) (getWorkingPageAddr(tsState.currentPageId) + offset);
+	tunerStudioWriteCrcPacket(TS_RESPONSE_OK, addr, count);
 #if EFI_TUNER_STUDIO_VERBOSE
 	scheduleMsg(&logger, "Page write %d done", size);
 #endif
@@ -271,16 +267,13 @@ void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count) {
 /**
  * 'Burn' command is a command to commit the changes
  */
-void handleBurnCommand(void) {
+void handleBurnCommand(uint16_t page) {
 	tsState.burnCommandCounter++;
 
 	tunerStudioDebug("got B (Burn)");
 
-	int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&tsState.currentPageId, 2);
-	if (recieved != 2) {
-		tsState.errorCounter++;
-		return;
-	}
+	tsState.currentPageId = page;
+
 #if EFI_TUNER_STUDIO_VERBOSE
 	scheduleMsg(&logger, "Page number %d\r\n", tsState.currentPageId);
 #endif
@@ -300,10 +293,6 @@ static uint8_t secondByte;
 
 // todo: reduce TS page size so that we can reduce buffer size
 static char crcIoBuffer[4096];
-
-static void sendErrorCode(void) {
-	tunerStudioWriteCrcPacket(TS_RESPONSE_CRC_FAILURE, NULL, 0);
-}
 
 static msg_t tsThreadEntryPoint(void *arg) {
 	(void) arg;
@@ -375,7 +364,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 		}
 
 		char command = crcIoBuffer[0];
-		if (command != 'R' && command != 'O') {
+		if (command != 'R' && command != 'O' && command != 'P' && command != 'B' && command != 'W') {
 			scheduleMsg(&logger, "unexpected command %x", command);
 			sendErrorCode();
 			continue;
@@ -408,12 +397,8 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 		}
 
-		scheduleMsg(&logger, "TunerStudio: P00-07 %x %x %x %x %x %x %x %x", crcIoBuffer[0],
-				crcIoBuffer[1], crcIoBuffer[2],
-				crcIoBuffer[3], crcIoBuffer[4],
-				crcIoBuffer[5], crcIoBuffer[6],
-				crcIoBuffer[7]);
-
+		scheduleMsg(&logger, "TunerStudio: P00-07 %x %x %x %x %x %x %x %x", crcIoBuffer[0], crcIoBuffer[1],
+				crcIoBuffer[2], crcIoBuffer[3], crcIoBuffer[4], crcIoBuffer[5], crcIoBuffer[6], crcIoBuffer[7]);
 
 		int success = tunerStudioHandleCommand(crcIoBuffer, incomingPacketSize);
 		if (!success)
