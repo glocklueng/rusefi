@@ -299,7 +299,7 @@ static uint8_t secondByte;
 // todo: reduce TS page size so that we can reduce buffer size
 static char crcIoBuffer[4096];
 
-static void sendErrorCode() {
+static void sendErrorCode(void) {
 	tunerStudioWriteCrcPacket(TS_RESPONSE_CRC_FAILURE, NULL, 0);
 }
 
