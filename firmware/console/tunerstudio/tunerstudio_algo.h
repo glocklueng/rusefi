@@ -44,11 +44,11 @@ void handleOutputChannelsCommand(void);
 
 char *getWorkingPageAddr(int pageIndex);
 int getTunerStudioPageSize(int pageIndex);
-void handleWriteValueCommand(void);
+void handleWriteValueCommand(uint16_t page, uint16_t offset, uint8_t value);
 void handleWriteChunkCommand(void);
-void handlePageSelectCommand(short *pageId);
+void handlePageSelectCommand(uint16_t pageId);
 void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count);
-void handleBurnCommand(void);
+void handleBurnCommand(uint16_t page);
 
 void tunerStudioWriteData(const uint8_t * buffer, int size);
 void tunerStudioDebug(char *msg);

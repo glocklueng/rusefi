@@ -72,13 +72,18 @@ int tunerStudioHandleCommand(char *data, int incomingPacketSize) {
 	} else if (command == 'O') {
 		handleOutputChannelsCommand();
 	} else if (command == 'P') {
-		handlePageSelectCommand((short*) data);
+		uint16_t page = *(uint16_t *) data;
+		handlePageSelectCommand(page);
 	} else if (command == 'C') {
 		handleWriteChunkCommand();
 	} else if (command == 'W') {
-		handleWriteValueCommand();
+		uint16_t page = *(uint16_t *) data;
+		uint16_t offset = *(uint16_t *) (data + 2);
+		uint8_t value = data[4];
+		handleWriteValueCommand(page, offset, value);
 	} else if (command == 'B') {
-		handleBurnCommand();
+		uint16_t page = *(uint16_t *) data;
+		handleBurnCommand(page);
 	} else if (command == 'R') {
 		uint16_t page = *(uint16_t *) data;
 		uint16_t offset = *(uint16_t *) (data + 2);
