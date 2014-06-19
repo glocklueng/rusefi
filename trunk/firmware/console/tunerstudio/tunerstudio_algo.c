@@ -80,7 +80,10 @@ int tunerStudioHandleCommand(char *data, int incomingPacketSize) {
 	} else if (command == 'B') {
 		handleBurnCommand();
 	} else if (command == 'R') {
-		handlePageReadCommand((short*) data);
+		uint16_t page = *(uint16_t *) data;
+		uint16_t offset = *(uint16_t *) (data + 2);
+		uint16_t count = *(uint16_t *) (data + 4);
+		handlePageReadCommand(page, offset, count);
 	} else if (command == 't' || command == 'T') {
 		handleTestCommand();
 	} else if (command == 'F') {

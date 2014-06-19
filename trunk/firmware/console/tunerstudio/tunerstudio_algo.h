@@ -47,7 +47,7 @@ int getTunerStudioPageSize(int pageIndex);
 void handleWriteValueCommand(void);
 void handleWriteChunkCommand(void);
 void handlePageSelectCommand(short *pageId);
-void handlePageReadCommand(short *pageId);
+void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count);
 void handleBurnCommand(void);
 
 void tunerStudioWriteData(const uint8_t * buffer, int size);
