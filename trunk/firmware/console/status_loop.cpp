@@ -364,7 +364,12 @@ static WORKING_AREA(tsThreadStack, UTILITY_THREAD_STACK_SIZE);
 extern TunerStudioOutputChannels tsOutputChannels;
 
 void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
+#if EFI_SHAFT_POSITION_INPUT
 	int rpm = getRpm();
+#else
+	int rpm = 0;
+#endif
+
 	float tps = getTPS();
 	float coolant = getCoolantTemperature();
 	float intake = getIntakeAirTemperature();
