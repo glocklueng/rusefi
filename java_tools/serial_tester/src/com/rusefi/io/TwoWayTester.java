@@ -7,7 +7,8 @@ import jssc.SerialPortException;
 public class TwoWayTester {
 
     private static final int BAUD_RATE = 38400;
-    public static final String TEST_LINE = "hello1231234";
+    //private static final int BAUD_RATE = 115200;
+    public static final String TEST_LINE = "hello1231234dklfjasldfjalsdfkjladkfjladksjfladfkjg;adlfkjg;dlfkjg;ladfkjg;ldkfjg;ldkfjg;ladfkjg;ldfkjg;ldkfjg;ladfkjg;ldfkjg";
 
     public static void main(String[] args) throws SerialPortException, InterruptedException {
         String port1 = "COM24";
@@ -21,20 +22,26 @@ public class TwoWayTester {
         });
         DataListener listener = new DataListener() {
 
+            int counter;
             StringBuffer sb = new StringBuffer();
 
             @Override
             public void onStringArrived(String string) {
                 sb.append(string);
                 if (sb.length() >= TEST_LINE.length()) {
-                    String l = TEST_LINE.substring(0, TEST_LINE.length());
+                    String l = sb.substring(0, TEST_LINE.length());
 
                     if (!l.equalsIgnoreCase(TEST_LINE)) {
                         logLine("WOW   " + l);
+                    } else {
+                        logLine("Ok " + counter++);
                     }
 
                     sb.delete(0, TEST_LINE.length());
+                } else {
+                   logLine("Partial");
                 }
+
             }
         };
         SerialPort in = open(port2, listener);
