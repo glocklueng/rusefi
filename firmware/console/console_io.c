@@ -46,6 +46,12 @@ static bool_t isSerialConsoleStarted = FALSE;
 static bool_t getConsoleLine(BaseSequentialStream *chp, char *line, unsigned size) {
 	char *p = line;
 
+	EventListener el1;
+
+	if (isSerialOverUart()) {
+		chEvtRegisterMask((EventSource *) chnGetEventSource(EFI_CONSOLE_UART_DEVICE), &el1, 1);
+	}
+
 	while (TRUE) {
 		if (!isConsoleReady()) {
 			// we better do not read from USB serial before it is ready
@@ -54,6 +60,21 @@ static bool_t getConsoleLine(BaseSequentialStream *chp, char *line, unsigned siz
 		}
 
 		short c = (short) chSequentialStreamGet(chp);
+
+		if (isSerialOverUart()) {
+			uint32_t flags;
+			chSysLock()
+			;
+
+			flags = chEvtGetAndClearFlagsI(&el1);
+			chSysUnlock()
+			;
+
+			if (flags & SD_OVERRUN_ERROR) {
+//				firmwareError("serial overrun");
+			}
+
+		}
 
 #if EFI_UART_ECHO_TEST_MODE
 		/**
@@ -183,7 +204,7 @@ void startConsole(void (*console_line_callback_p)(char *)) {
 		usb_serial_start();
 	}
 #endif /* EFI_PROD_CODE */
-	chThdCreateStatic(consoleThreadStack, sizeof(consoleThreadStack), NORMALPRIO, consoleThreadThreadEntryPoint, NULL );
+	chThdCreateStatic(consoleThreadStack, sizeof(consoleThreadStack), NORMALPRIO, consoleThreadThreadEntryPoint, NULL);
 }
 
 extern cnt_t dbg_isr_cnt;
