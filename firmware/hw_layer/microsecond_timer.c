@@ -108,7 +108,9 @@ void initMicrosecondTimer(void) {
 	gptStart(&GPTDEVICE, &gpt5cfg);
 
 	lastSetTimerTime = getTimeNowUs();
+#if EFI_ENGINE_EMULATOR
 	chThdCreateStatic(mwThreadStack, sizeof(mwThreadStack), NORMALPRIO, (tfunc_t) mwThread, NULL);
+#endif /* EFI_ENGINE_EMULATOR */
 
 //	// test code
 //	chSysLock()
