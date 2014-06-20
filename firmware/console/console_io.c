@@ -54,6 +54,15 @@ static bool_t getConsoleLine(BaseSequentialStream *chp, char *line, unsigned siz
 		}
 
 		short c = (short) chSequentialStreamGet(chp);
+
+#if EFI_UART_ECHO_TEST_MODE
+		/**
+		 * That's test code - let's test connectivity
+		 */
+		consolePutChar((uint8_t) c);
+		continue;
+#endif
+
 		if (c < 0)
 			return TRUE;
 		if (c == 4) {
@@ -145,9 +154,11 @@ void consolePutChar(int x) {
 
 void consoleOutputBuffer(const int8_t *buf, int size) {
 	lastWriteSize = size;
+#if !EFI_UART_ECHO_TEST_MODE
 	lastWriteActual = chnWriteTimeout(getConsoleChannel(), buf, size, CONSOLE_WRITE_TIMEOUT);
 //	if (r != size)
 //		firmwareError("Partial console write");
+#endif /* EFI_UART_ECHO_TEST_MODE */
 }
 
 void startConsole(void (*console_line_callback_p)(char *)) {
