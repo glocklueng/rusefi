@@ -20,12 +20,13 @@
 
 #include "main.h"
 
+#include "map.h"
+
 #if EFI_MAP_AVERAGING
 
 #include "map_averaging.h"
 #include "trigger_central.h"
 #include "adc_inputs.h"
-#include "map.h"
 #include "engine_state.h"
 #include "engine_configuration.h"
 #include "interpolation.h"

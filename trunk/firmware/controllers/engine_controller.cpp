@@ -84,6 +84,7 @@ Engine engine;
 
 static msg_t csThread(void) {
 	chRegSetThreadName("status");
+#if EFI_SHAFT_POSITION_INPUT
 	while (TRUE) {
 		int is_cranking = isCranking();
 		int is_running = getRpm() > 0 && !is_cranking;
@@ -99,6 +100,7 @@ static msg_t csThread(void) {
 			chThdSleepMilliseconds(100);
 		}
 	}
+#endif /* EFI_SHAFT_POSITION_INPUT */
 	return -1;
 }
 
@@ -252,11 +254,13 @@ void initEngineContoller(void) {
 	initWaveAnalyzer();
 #endif /* EFI_WAVE_ANALYZER */
 
+#if EFI_SHAFT_POSITION_INPUT
 	/**
 	 * there is an implicit dependency on the fact that 'tachometer' listener is the 1st listener - this case
 	 * other listeners can access current RPM value
 	 */
 	initRpmCalculator();
+#endif /* EFI_SHAFT_POSITION_INPUT */
 
 #if EFI_TUNER_STUDIO
 	startTunerStudioConnectivity();
