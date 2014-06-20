@@ -12,6 +12,8 @@
 
 #define EFI_USE_CCM TRUE
 
+//#define EFI_UART_ECHO_TEST_MODE TRUE
+
 /**
  * Build-in logic analyzer support. Logic analyzer viewer is one of the java console panes.
  */
