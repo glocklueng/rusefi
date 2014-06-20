@@ -13,7 +13,6 @@
 
 #define NOISY_RPM -1
 
-
 #ifdef __cplusplus
 #include "engine.h"
 
@@ -57,7 +56,6 @@ float getCrankshaftAngle(uint64_t timeUs);
 bool_t isRunning(void);
 bool_t isValidRpm(int rpm);
 void addWaveChartEvent(const char *name, const char *msg, const char *msg2);
-
 
 #ifdef __cplusplus
 }

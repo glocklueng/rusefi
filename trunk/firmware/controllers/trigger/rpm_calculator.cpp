@@ -12,9 +12,15 @@
 
 #include "main.h"
 
+#include "rpm_calculator.h"
+
+#if EFI_WAVE_CHART
+#include "wave_chart.h"
+extern WaveChart waveChart;
+#endif /* EFI_WAVE_CHART */
+
 #if EFI_SHAFT_POSITION_INPUT
 
-#include "rpm_calculator.h"
 #include "trigger_central.h"
 #include "engine_configuration.h"
 #include "ec2.h"
@@ -27,11 +33,6 @@
 #if EFI_ANALOG_CHART
 #include "analog_chart.h"
 #endif /* EFI_PROD_CODE */
-
-#if EFI_WAVE_CHART
-#include "wave_chart.h"
-extern WaveChart waveChart;
-#endif /* EFI_WAVE_CHART */
 
 static RpmCalculator rpmState;
 
@@ -122,12 +123,6 @@ static int isNoisySignal(RpmCalculator * rpmState, uint64_t nowUs) {
 }
 
 static char shaft_signal_msg_index[15];
-
-void addWaveChartEvent(const char *name, const char * msg, const char *msg2) {
-#if EFI_WAVE_CHART
-	addWaveChartEvent3(&waveChart, name, msg, msg2);
-#endif /* EFI_WAVE_CHART */
-}
 
 /**
  * @brief Shaft position callback used by RPM calculation logic.
@@ -239,3 +234,9 @@ void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void 
 #endif
 
 #endif /* EFI_SHAFT_POSITION_INPUT */
+
+void addWaveChartEvent(const char *name, const char * msg, const char *msg2) {
+#if EFI_WAVE_CHART
+	addWaveChartEvent3(&waveChart, name, msg, msg2);
+#endif /* EFI_WAVE_CHART */
+}
