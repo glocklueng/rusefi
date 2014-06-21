@@ -52,8 +52,6 @@
 #include "PwmTester.h"
 #include "engine.h"
 
-#define _10_MILLISECONDS (10 * TICKS_IN_MS)
-
 extern board_configuration_s *boardConfiguration;
 
 #if EFI_USE_CCM && defined __GNUC__
@@ -156,7 +154,7 @@ int getTimeNowSeconds(void) {
 	return chTimeNow() / CH_FREQUENCY;
 }
 
-static void onEveny10Milliseconds(void *arg) {
+static void onEvenyGeneralMilliseconds(void *arg) {
 	/**
 	 * We need to push current value into the 64 bit counter often enough so that we do not miss an overflow
 	 */
@@ -167,12 +165,12 @@ static void onEveny10Milliseconds(void *arg) {
 	fanRelayControl();
 
 	// schedule next invocation
-	chVTSetAny(&everyMsTimer, _10_MILLISECONDS, &onEveny10Milliseconds, 0);
+	chVTSetAny(&everyMsTimer, boardConfiguration->generalPeriodicThreadPeriod * TICKS_IN_MS, &onEvenyGeneralMilliseconds, 0);
 }
 
 static void initPeriodicEvents(void) {
 	// schedule first invocation
-	chVTSetAny(&everyMsTimer, _10_MILLISECONDS, &onEveny10Milliseconds, 0);
+	chVTSetAny(&everyMsTimer, boardConfiguration->generalPeriodicThreadPeriod * TICKS_IN_MS, &onEvenyGeneralMilliseconds, 0);
 }
 
 static void fuelPumpOff(void *arg) {
