@@ -54,11 +54,7 @@
 
 extern board_configuration_s *boardConfiguration;
 
-#if EFI_USE_CCM && defined __GNUC__
-persistent_config_container_s persistentState __attribute__((section(".ccm")));
-#else
-persistent_config_container_s persistentState;
-#endif
+persistent_config_container_s persistentState CCM_OPTIONAL;
 
 engine_configuration_s *engineConfiguration = &persistentState.persistentConfiguration.engineConfiguration;
 board_configuration_s *boardConfiguration = &persistentState.persistentConfiguration.boardConfiguration;
@@ -73,7 +69,7 @@ static VirtualTimer fuelPumpTimer;
 
 static Logging logger;
 
-static engine_configuration2_s ec2;
+static engine_configuration2_s ec2 CCM_OPTIONAL;
 engine_configuration2_s * engineConfiguration2 = &ec2;
 
 static configuration_s cfg = {&persistentState.persistentConfiguration.engineConfiguration, &ec2};
