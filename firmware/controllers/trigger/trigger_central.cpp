@@ -1,5 +1,5 @@
 /*
- * @file	trigger_central.c
+ * @file	trigger_central.cpp
  *
  * @date Feb 23, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
@@ -18,7 +18,7 @@
 #include "rfiutil.h"
 #endif
 
-static histogram_s triggerCallback CCM_OPTIONAL;
+static histogram_s triggerCallback;
 
 // we need this initial to have not_running at first invocation
 static volatile uint64_t previousShaftEventTime = (efitimems_t) -10 * US_PER_SECOND;
