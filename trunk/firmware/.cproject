@@ -60,7 +60,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/russianefi/adc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/config/system}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/splib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/boards/ST_STM32F4_DISCOVERY}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/TIMv1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/I2Cv1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32}&quot;"/>
@@ -68,14 +71,11 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/OTGv1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/GPIOv2}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32F4xx}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/kernel/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/SPIv1}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/USARTv1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/ports/GCC/ARMCMx}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/ports/GCC/ARMCMx/STM32F4xx}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/ports/common/ARMCMx}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/SPIv1}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/USARTv1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/ports/common/ARMCMx/CMSIS/include}&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.other.otherflags.720321025" name="Other flags" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.other.otherflags" value="-fgnu89-inline -c -fmessage-length=0 -Werror=type-limits -Werror-implicit-function-declaration -Werror -Wno-error=pointer-sign -Wno-error=unused-function -Wno-error=unused-variable" valueType="string"/>
@@ -121,7 +121,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/russianefi/adc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/config/system}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/splib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/boards/ST_STM32F4_DISCOVERY}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/TIMv1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/I2Cv1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32}&quot;"/>
@@ -129,14 +132,11 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/OTGv1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/GPIOv2}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32F4xx}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/kernel/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/ports/GCC/ARMCMx}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/ports/GCC/ARMCMx/STM32F4xx}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/ports/common/ARMCMx}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/SPIv1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/USARTv1}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/ports/GCC/ARMCMx/STM32F4xx}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/ports/GCC/ARMCMx}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/ports/common/ARMCMx}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/ports/common/ARMCMx/CMSIS/include}&quot;"/>
 								</option>
 								<option id="org.eclipse.cdt.cross.arm.gnu.cpp.compiler.option.other.otherflags.1439013659" name="Other flags" superClass="org.eclipse.cdt.cross.arm.gnu.cpp.compiler.option.other.otherflags" value="-c -fmessage-length=0 -std=c++11 -Werror=write-strings" valueType="string"/>
@@ -218,13 +218,14 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/russianefi/adc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/splib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/boards/ST_STM32F4_DISCOVERY}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/various}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/OTGv1}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/I2Cv1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/GPIOv2}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32F4xx}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/SPIv1}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/chibios/os/hal/platforms/STM32/TIMv1}&quot;"/>

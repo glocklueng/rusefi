@@ -332,6 +332,7 @@
           <state>$PROJ_DIR$\..\console\tunerstudio</state>
           <state>$PROJ_DIR$\..\console_util</state>
           <state>$PROJ_DIR$\..\emulation</state>
+          <state>$PROJ_DIR$\..\emulation\test</state>
           <state>$PROJ_DIR$\..\emulation\hw_layer</state>
           <state>$PROJ_DIR$\..\hw_layer\algo</state>
           <state>$PROJ_DIR$\..\hw_layer\lcd</state>
@@ -2431,6 +2432,21 @@
     <name>emulation</name>
     <group>
       <name>hw_layer</name>
+    </group>
+    <group>
+      <name>test</name>
+      <file>
+        <name>$PROJ_DIR$\..\emulation\test\test.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\emulation\test\test.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\emulation\test\testbmk.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\emulation\test\testbmk.h</name>
+      </file>
     </group>
     <file>
       <name>$PROJ_DIR$\..\emulation\analog_chart.c</name>
