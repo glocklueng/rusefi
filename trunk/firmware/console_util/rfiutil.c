@@ -67,6 +67,10 @@ void chVTSetAny(VirtualTimer *vtp, systime_t time, vtfunc_t vtfunc, void *par) {
 		chSysLockFromIsr()
 		;
 
+		/**
+		 * todo: this could be simplified once we migrate to ChibiOS 3.0
+		 * See http://www.chibios.org/dokuwiki/doku.php?id=chibios:howtos:porting_from_2_to_3
+		 */
 		if (chVTIsArmedI(vtp))
 			chVTResetI(vtp);
 
