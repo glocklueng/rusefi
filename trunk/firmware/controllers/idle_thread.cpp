@@ -86,7 +86,7 @@ static msg_t ivThread(int param) {
 
 	int currentIdleValve = -1;
 	while (TRUE) {
-		chThdSleepMilliseconds(100);
+		chThdSleepMilliseconds(boardConfiguration->idleThreadPeriod);
 
 		// this value is not used yet
 		idleSwitchState = palReadPad(getHwPort(boardConfiguration->idleSwitchPin), getHwPin(boardConfiguration->idleSwitchPin));

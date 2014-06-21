@@ -114,6 +114,7 @@ int main_loop_started = FALSE;
 static MemoryStream errorMessageStream;
 uint8_t errorMessageBuffer[200];
 static bool hasFirmwareErrorFlag = FALSE;
+extern board_configuration_s *boardConfiguration;
 
 void runRusEfi(void) {
 	msObjectInit(&errorMessageStream, errorMessageBuffer, sizeof(errorMessageBuffer), 0);
@@ -164,7 +165,7 @@ void runRusEfi(void) {
 		updateDevConsoleState();
 #endif /* EFI_CLI_SUPPORT */
 
-		chThdSleepMilliseconds(5);
+		chThdSleepMilliseconds(boardConfiguration->consoleLoopPeriod);
 	}
 }
 

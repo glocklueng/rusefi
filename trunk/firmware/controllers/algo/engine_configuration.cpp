@@ -309,6 +309,11 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->primaryLogicAnalyzerPin = GPIOA_8;
 	boardConfiguration->secondaryLogicAnalyzerPin = GPIOE_7;
 
+	boardConfiguration->idleThreadPeriod = 100;
+	boardConfiguration->consoleLoopPeriod = 200;
+	boardConfiguration->lcdThreadPeriod = 300;
+	boardConfiguration->tunerStudioThreadPeriod = 300;
+	boardConfiguration->generalPeriodicThreadPeriod = 200;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {

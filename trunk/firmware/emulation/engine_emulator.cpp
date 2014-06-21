@@ -62,7 +62,7 @@ static msg_t eeThread(void *arg) {
 
 	while (TRUE) {
 		while (!flag)
-			chThdSleepMilliseconds(10);
+			chThdSleepMilliseconds(200);
 		flag = FALSE;
 		emulate();
 	}
