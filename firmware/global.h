@@ -13,6 +13,7 @@
 #include <time.h>
 #include <string.h>
 
+#include "efifeatures.h"
 #include "rusefi_enums.h"
 #include "obd_error_codes.h"
 #include "error_handling.h"
@@ -25,5 +26,11 @@
 // project-wide default thread stack size
 // see also PORT_INT_REQUIRED_STACK
 #define UTILITY_THREAD_STACK_SIZE 128
+
+#if EFI_USE_CCM && defined __GNUC__
+#define CCM_OPTIONAL __attribute__((section(".ccm")));
+#else
+#define CCM_OPTIONAL
+#endif
 
 #endif /* GLOBAL_H_ */

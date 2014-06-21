@@ -18,11 +18,7 @@
 #include "rfiutil.h"
 #endif
 
-#if EFI_USE_CCM && defined __GNUC__
-static histogram_s triggerCallback __attribute__((section(".ccm")));
-#else
-static histogram_s triggerCallback;
-#endif
+static histogram_s triggerCallback CCM_OPTIONAL;
 
 // we need this initial to have not_running at first invocation
 static volatile uint64_t previousShaftEventTime = (efitimems_t) -10 * US_PER_SECOND;

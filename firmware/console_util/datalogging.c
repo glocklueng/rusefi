@@ -47,13 +47,6 @@
 // we use this magic constant to make sure it's not just a random non-zero int in memory
 #define MAGIC_LOGGING_FLAG 45234441
 
-#if EFI_USE_CCM && defined __GNUC__
-#define CCM_OPTIONAL __attribute__((section(".ccm")));
-#else
-#define CCM_OPTIONAL
-#endif
-
-
 /**
  * This is the buffer into which all the data providers write
  */
