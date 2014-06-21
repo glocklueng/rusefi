@@ -342,6 +342,8 @@ typedef struct {
 	int tunerStudioThreadPeriod;
 	int generalPeriodicThreadPeriod;
 
+	int tunerStudioSerialSpeed;
+
 } board_configuration_s;
 
 typedef struct {

@@ -314,6 +314,8 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->lcdThreadPeriod = 300;
 	boardConfiguration->tunerStudioThreadPeriod = 300;
 	boardConfiguration->generalPeriodicThreadPeriod = 200;
+
+	boardConfiguration->tunerStudioSerialSpeed = 38400;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
