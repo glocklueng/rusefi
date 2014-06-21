@@ -41,7 +41,7 @@ static void waitForKey(void) {
 	print("Please hit N<ENTER> to continue\r\n");
 	int copy = stepCoutner;
 	while (!isTimeForNextStep(copy))
-		chThdSleepMilliseconds(10);
+		chThdSleepMilliseconds(200);
 }
 
 static void nextStep(void) {

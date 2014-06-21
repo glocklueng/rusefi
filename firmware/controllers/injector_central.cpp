@@ -123,7 +123,7 @@ static msg_t benchThread(int param) {
 
 	while (TRUE) {
 		while (!needToRunBench) {
-			chThdSleepMilliseconds(50);
+			chThdSleepMilliseconds(200);
 		}
 		needToRunBench = FALSE;
 		runBench(brainPin, pin, onTime, offTime, count);

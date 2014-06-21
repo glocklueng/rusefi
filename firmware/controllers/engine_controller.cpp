@@ -54,6 +54,8 @@
 
 #define _10_MILLISECONDS (10 * TICKS_IN_MS)
 
+extern board_configuration_s *boardConfiguration;
+
 #if EFI_USE_CCM && defined __GNUC__
 persistent_config_container_s persistentState __attribute__((section(".ccm")));
 #else

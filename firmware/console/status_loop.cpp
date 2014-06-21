@@ -73,6 +73,7 @@ int warningEnabled = TRUE;
 
 extern engine_configuration_s * engineConfiguration;
 extern engine_configuration2_s * engineConfiguration2;
+extern board_configuration_s *boardConfiguration;
 #define FULL_LOGGING_KEY "fl"
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
@@ -354,7 +355,7 @@ static void lcdThread(void *arg) {
 #if EFI_HD44780_LCD
 		updateHD44780lcd();
 #endif
-		chThdSleepMilliseconds(50);
+		chThdSleepMilliseconds(boardConfiguration->lcdThreadPeriod);
 	}
 }
 
@@ -396,7 +397,7 @@ static void tsStatusThread(void *arg) {
 		// sensor state for EFI Analytics Tuner Studio
 		updateTunerStudioState(&tsOutputChannels);
 #endif /* EFI_TUNER_STUDIO */
-		chThdSleepMilliseconds(50);
+		chThdSleepMilliseconds(boardConfiguration->tunerStudioThreadPeriod);
 	}
 }
 

@@ -336,6 +336,12 @@ typedef struct {
 	brain_pin_e primaryLogicAnalyzerPin;
 	brain_pin_e secondaryLogicAnalyzerPin;
 
+	int idleThreadPeriod;
+	int consoleLoopPeriod;
+	int lcdThreadPeriod;
+	int tunerStudioThreadPeriod;
+	int generalPeriodicThreadPeriod;
+
 } board_configuration_s;
 
 typedef struct {
