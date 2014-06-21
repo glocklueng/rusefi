@@ -1,5 +1,5 @@
 /**
- * @file rdi_perftest.c
+ * @file rfi_perftest.cpp
  *
  * @date Nov 30, 2012
  * @author Andrey Belomutskiy, (c) 2012-2014
@@ -9,12 +9,13 @@
 #include "rfi_perftest.h"
 #include "fuel_math.h"
 
-//#include "rfirtc.h"
+#include "test.h"
 #include "eficonsole.h"
 #include "time.h"
 #include "engine_math.h"
 #include "gpio_helper.h"
 #include "efilib2.h"
+#include "console_io.h"
 
 //#define TEST_PORT GPIOB
 //#define TEST_PIN 6
@@ -209,6 +210,12 @@ static void timeInfo(void) {
 #endif
 }
 
+static void runChibioTest(void) {
+	print("EFI_ANALOG_INPUTS=%d\r\n", EFI_ANALOG_INPUTS);
+	print("EFI_INTERNAL_ADC=%d\r\n", EFI_INTERNAL_ADC);
+	TestThread(getConsoleChannel());
+}
+
 void initTimePerfActions() {
 #if EFI_RTC
 	rtcStartTime = rtcGetTimeUnixSec(&RTCD1);
@@ -220,4 +227,5 @@ void initTimePerfActions() {
 	addConsoleActionI("perftest", runTests);
 
 	addConsoleAction("timeinfo", timeInfo);
+	addConsoleAction("chtest", runChibioTest);
 }

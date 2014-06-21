@@ -196,8 +196,9 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	hw_layer/serial_over_usb \
 	hw_layer/algo \
 	hw_layer/lcd \
-	emulation/hw_layer \
 	emulation \
+	emulation/hw_layer \
+	emulation/test \
 	controllers \
 	controllers/sensors \
 	controllers/system \
