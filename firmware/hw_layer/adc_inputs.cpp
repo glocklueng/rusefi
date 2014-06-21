@@ -21,6 +21,7 @@
 AdcConfiguration::AdcConfiguration(ADCConversionGroup* hwConfig) {
 	this->hwConfig = hwConfig;
 	channelCount = 0;
+	conversionCount = 0;
 
 	hwConfig->sqr1 = 0;
 	hwConfig->sqr2 = 0;
@@ -161,6 +162,7 @@ static void pwmpcb_slow(PWMDriver *pwmp) {
 	adcStartConversionI(&ADC_SLOW_DEVICE, &adcgrpcfgSlow, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW);
 	chSysUnlockFromIsr()
 	;
+	slowAdc.conversionCount++;
 #endif
 }
 
@@ -186,6 +188,7 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 	adcStartConversionI(&ADC_FAST_DEVICE, &adcgrpcfg_fast, samples_fast, ADC_GRP1_BUF_DEPTH_FAST);
 	chSysUnlockFromIsr()
 	;
+	fastAdc.conversionCount++;
 #endif
 }
 
@@ -344,6 +347,7 @@ int AdcConfiguration::getAdcHardwareIndexByInternalIndex(int index) {
 }
 
 static void printFullAdcReport(void) {
+	scheduleMsg(&logger, "fast %d slow %d", fastAdc.conversionCount, slowAdc.conversionCount);
 
 	for (int index = 0; index < slowAdc.size(); index++) {
 		appendMsgPrefix(&logger);
