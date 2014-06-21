@@ -47,21 +47,25 @@
 // we use this magic constant to make sure it's not just a random non-zero int in memory
 #define MAGIC_LOGGING_FLAG 45234441
 
+#if EFI_USE_CCM && defined __GNUC__
+#define CCM_OPTIONAL __attribute__((section(".ccm")));
+#else
+#define CCM_OPTIONAL
+#endif
+
+
 /**
  * This is the buffer into which all the data providers write
  */
-#if EFI_USE_CCM && defined __GNUC__
-static char pendingBuffer[OUTPUT_BUFFER] __attribute__((section(".ccm")));
-#else
-static char pendingBuffer[OUTPUT_BUFFER];
-#endif
+static char pendingBuffer[OUTPUT_BUFFER] CCM_OPTIONAL;
+
 /**
  * We copy all the pending data into this buffer once we are ready to push it out
  */
 static char outputBuffer[OUTPUT_BUFFER];
 
 static MemoryStream intermediateLoggingBuffer;
-static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE]; //todo define max-printf-buffer
+static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE] CCM_OPTIONAL; //todo define max-printf-buffer
 static bool intermediateLoggingBufferInited = FALSE;
 
 static int validateBuffer(Logging *logging, int extraLen, const char *text) {
