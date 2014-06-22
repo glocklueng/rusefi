@@ -12,11 +12,16 @@
 static ThermistorConf tc;
 
 static void testMapDecoding(void) {
-	assertEqualsM("denso 0 volts", -6.64, getMAPValueHonda_Denso183(0));
-	assertEquals(31.244, getMAPValueHonda_Denso183(1));
 
-	assertEqualsM("MPX_4250 0 volts", 8, getMAPValueMPX_4250(0));
-	assertEquals(58.4, getMAPValueMPX_4250(1));
+	air_pressure_sensor_config_s s;
+	s.sensorType = MT_DENSO183;
+
+	assertEqualsM("denso 0 volts", -6.64, decodePressure(0, &s));
+	assertEquals(31.244, decodePressure(1, &s));
+
+	s.sensorType = MT_MPX4250;
+	assertEqualsM("MPX_4250 0 volts", 8, decodePressure(0, &s));
+	assertEquals(58.4, decodePressure(1, &s));
 }
 
 void testTpsRateOfChange(void) {
