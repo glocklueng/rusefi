@@ -8,7 +8,8 @@
 #ifndef ADC_MATH_H_
 #define ADC_MATH_H_
 
-#define ADC_VCC 3.0
+// it is important that this constant is a float, not double literal
+#define ADC_VCC 3.0f
 #define ADC_MAX_VALUE 4095
 
 #define adcToVolts(adc) (((ADC_VCC) * (adc) / ADC_MAX_VALUE))
