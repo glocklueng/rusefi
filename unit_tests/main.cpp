@@ -122,7 +122,7 @@ int main(void) {
 	testAccelEnrichment();
 
 	//	resizeMap();
-	printf("Success 20130617\r\n");
+	printf("Success 20130622\r\n");
 	return EXIT_SUCCESS;
 }
 
@@ -130,7 +130,7 @@ int warning(obd_code_e code, const char *fmt, ...) {
 	printf("Warning: %s\r\n", fmt);
 }
 
-bool_t hasFirmwareError(void) {
+bool hasFirmwareError(void) {
 	return FALSE;
 }
 
