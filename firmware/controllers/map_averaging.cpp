@@ -60,8 +60,6 @@ static volatile float v_mapAccumulator = 0;
  */
 static volatile int mapMeasurementsCounter = 0;
 
-static float currentMaxPressure;
-
 /**
  * v_ for Voltage
  */
@@ -102,8 +100,6 @@ void mapAveragingCallback(adcsample_t value) {
 			acAddData(getCrankshaftAngle(getTimeNowUs()), currentPressure);
 #endif /* EFI_ANALOG_CHART */
 
-	currentMaxPressure = maxF(currentMaxPressure, currentPressure);
-
 	chSysLockFromIsr()
 	;
 	// with locking we would have a consistent state
@@ -138,8 +134,6 @@ static void shaftPositionCallback(ShaftEvents ckpEventType, int index, void *arg
 
 	perRevolution = perRevolutionCounter;
 	perRevolutionCounter = 0;
-
-	currentMaxPressure = 0;
 
 	MAP_sensor_config_s * config = &engineConfiguration->map;
 
