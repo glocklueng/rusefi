@@ -17,10 +17,12 @@ extern engine_configuration_s * engineConfiguration;
  * @returns kPa value
  */
 float getMAPValueHonda_Denso183(float voltage) {
+	// todo: introduce a macro for interpolation with magic constants
 	return interpolate(0, -6.64, 5, 182.78, voltage);
 }
 
 float getMAPValueMPX_4250(float voltage) {
+	// todo: introduce a macro for interpolation with magic constants
 	return interpolate(0, 8, 5, 260, voltage);
 }
 
