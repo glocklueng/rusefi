@@ -211,8 +211,15 @@ static void timeInfo(void) {
 }
 
 static void runChibioTest(void) {
+	print("EFI_SHAFT_POSITION_INPUT=%d\r\n", EFI_SHAFT_POSITION_INPUT);
+	print("EFI_EMULATE_POSITION_SENSORS=%d\r\n", EFI_EMULATE_POSITION_SENSORS);
 	print("EFI_ANALOG_INPUTS=%d\r\n", EFI_ANALOG_INPUTS);
 	print("EFI_INTERNAL_ADC=%d\r\n", EFI_INTERNAL_ADC);
+	print("CH_DBG_SYSTEM_STATE_CHECK=%d\r\n", CH_DBG_SYSTEM_STATE_CHECK);
+	print("CH_DBG_ENABLE_CHECKS=%d\r\n", CH_DBG_ENABLE_CHECKS);
+	print("CH_DBG_ENABLE_ASSERTS=%d\r\n", CH_DBG_ENABLE_ASSERTS);
+	print("CH_DBG_ENABLE_STACK_CHECK=%d\r\n", CH_DBG_ENABLE_STACK_CHECK);
+	print("CH_DBG_THREADS_PROFILING=%d\r\n", CH_DBG_THREADS_PROFILING);
 	TestThread(getConsoleChannel());
 }
 
