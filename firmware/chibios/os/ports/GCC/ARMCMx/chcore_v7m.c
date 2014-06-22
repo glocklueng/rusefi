@@ -38,6 +38,7 @@
 extern stkalign_t __main_stack_base__;
 
 int getRemainingStack(Thread *otp) {
+#if CH_DBG_ENABLE_STACK_CHECK
 	register struct intctx *r13 asm ("r13");
 	otp->activeStack = r13;
 
@@ -51,6 +52,9 @@ int getRemainingStack(Thread *otp) {
 	}
 	otp->remainingStack = rs;
 	return rs;
+#else
+	return 99999;
+#endif /* CH_DBG_ENABLE_STACK_CHECK */
 }
 
 /*===========================================================================*/
