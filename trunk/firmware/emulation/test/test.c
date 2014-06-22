@@ -22,8 +22,9 @@
  * @{
  */
 
-#include "ch.h"
-#include "hal.h"
+#include "main.h"
+
+#if EFI_PERF_METRICS
 
 #include "test.h"
 #include "testbmk.h"
@@ -368,3 +369,4 @@ msg_t TestThread(void *p) {
 }
 
 /** @} */
+#endif /* EFI_PERF_METRICS */
