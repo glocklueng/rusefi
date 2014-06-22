@@ -1,20 +1,62 @@
 EESchema Schematic File Version 2
 LIBS:power
 LIBS:device
+LIBS:transistors
 LIBS:conn
-LIBS:logo_flipped
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:176122-6
 LIBS:art-electro-conn
+LIBS:art-electro-conn_2
 LIBS:art-electro-ic
-LIBS:inj_12ch-cache
+LIBS:art-electro-max
+LIBS:art-electro-power
+LIBS:LMV324IDR
+LIBS:logo
+LIBS:logo_flipped
+LIBS:MAX9926-9927
+LIBS:max9939
+LIBS:max31855
+LIBS:stm32
+LIBS:tc4427
+LIBS:lm2596
+LIBS:mos_p_numbered-pins
+LIBS:project_specific_libs
+LIBS:hip9011
+LIBS:frankenso-cache
 EELAYER 27 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
-Sheet 1 1
-Title "12 Channel Injector"
-Date "16 jun 2014"
-Rev "A-1"
-Comp "http://code.google.com/p/daecu/"
+Sheet 6 10
+Title "Frankenso"
+Date "22 jun 2014"
+Rev ".01"
+Comp "rusEFI.com"
 Comment1 ""
 Comment2 ""
 Comment3 "Art_Electro"
@@ -27,10 +69,10 @@ INJECTOR
 Text Notes 11075 4975 0    60   ~ 0
 RELAY
 $Comp
-L GND #PWR01
+L GND #PWR075
 U 1 1 50D4F374
 P 7725 6875
-F 0 "#PWR01" H 7725 6875 30  0001 C CNN
+F 0 "#PWR075" H 7725 6875 30  0001 C CNN
 F 1 "GND" H 7725 6805 30  0001 C CNN
 F 2 "" H 7725 6875 60  0001 C CNN
 F 3 "" H 7725 6875 60  0001 C CNN
@@ -99,10 +141,6 @@ F 5 "digi,CRCW0805100KFKEA" V 3805 3100 60  0001 C CNN "vend1,vend1#"
 	1    6875 5475
 	0    1    1    0   
 $EndComp
-Text Label 7575 6175 0    60   ~ 0
-INJ-08
-Text Label 7550 5075 0    60   ~ 0
-INJ-07
 $Comp
 L FDS2734 Q409
 U 1 1 50D3B0FD
@@ -142,8 +180,6 @@ F 5 "digi,CRCW0805100KFKEA" V 3805 6300 60  0001 C CNN "vend1,vend1#"
 	1    6875 7075
 	0    1    -1   0   
 $EndComp
-Text Label 7575 6825 0    60   ~ 0
-iGND1
 Text Label 6125 7175 2    60   ~ 0
 INJ-10_5V
 Text Label 6075 6675 2    60   ~ 0
@@ -161,14 +197,6 @@ F 5 "digi,CRCW0805100KFKEA" V 3805 5600 60  0001 C CNN "vend1,vend1#"
 	1    6875 6725
 	0    1    1    0   
 $EndComp
-Text Label 7550 7425 0    60   ~ 0
-INJ-10
-Text Label 7550 6325 0    60   ~ 0
-INJ-09
-Text Label 7550 7575 0    60   ~ 0
-INJ-11
-Text Label 7575 8675 0    60   ~ 0
-INJ-12
 $Comp
 L R R424
 U 1 1 50D3AF9A
@@ -229,43 +257,6 @@ F 5 "digi,497-11123-1-ND" V 3805 7800 60  0001 C CNN "vend1,vend1#"
 	1    7325 7825
 	1    0    0    -1  
 $EndComp
-$Comp
-L CONN_10X2 P402
-U 1 1 527CB514
-P 3925 4825
-F 0 "P402" H 3925 5375 60  0000 C CNN
-F 1 "CONN_10X2" V 3925 4725 50  0000 C CNN
-F 2 "pin_array_10x2" H 3925 4825 60  0001 C CNN
-F 3 "" H 3925 4825 60  0000 C CNN
-F 4 "TE,1-215307-0" H 3925 4825 60  0001 C CNN "mfg,mfg#"
-F 5 "digi,A106616-ND" H 3925 4825 60  0001 C CNN "vend1,vend1#"
-	1    3925 4825
-	1    0    0    -1  
-$EndComp
-Text Label 4325 4375 0    60   ~ 0
-iGND1
-Text Label 2700 4775 0    60   ~ 0
-INJ-01_5V
-Text Label 5150 4775 2    60   ~ 0
-INJ-02_5V
-Text Label 2700 4875 0    60   ~ 0
-INJ-03_5V
-Text Label 5150 4875 2    60   ~ 0
-INJ-04_5V
-Text Label 2700 4975 0    60   ~ 0
-INJ-05_5V
-Text Label 5150 4975 2    60   ~ 0
-INJ-06_5V
-Text Label 3525 4375 2    60   ~ 0
-iGND1
-Text Label 3525 4475 2    60   ~ 0
-5V
-Text Label 3525 4575 2    60   ~ 0
-3.3V
-Text Label 4325 4475 0    60   ~ 0
-5V
-Text Label 4325 4575 0    60   ~ 0
-3.3V
 Text Label 3525 4775 2    60   ~ 0
 PC14
 Text Label 3525 4875 2    60   ~ 0
@@ -290,23 +281,6 @@ Text Label 4325 5175 0    60   ~ 0
 PE1
 Text Label 4325 5275 0    60   ~ 0
 PB9
-Text Label 3525 4675 2    60   ~ 0
-PH0
-Text Label 4325 4675 0    60   ~ 0
-PH1
-$Comp
-L CONN_3 P401
-U 1 1 527E234B
-P 2850 4475
-F 0 "P401" V 2800 4475 50  0000 C CNN
-F 1 "CONN_3" V 2900 4475 40  0000 C CNN
-F 2 "bornier3" H 2850 4475 60  0001 C CNN
-F 3 "" H 2850 4475 60  0000 C CNN
-F 4 "Weidmuller,1760500000" V 2850 4475 60  0001 C CNN "mfg,mfg#"
-F 5 "digi,281-2882-ND" V 2850 4475 60  0001 C CNN "vend1,vend1#"
-	1    2850 4475
-	-1   0    0    -1  
-$EndComp
 $Comp
 L DIODE D413
 U 1 1 527FB789
@@ -334,74 +308,6 @@ F 5 "digi,CRCW0805100KFKEA" V 4755 -1650 60  0001 C CNN "vend1,vend1#"
 	0    1    -1   0   
 $EndComp
 $Comp
-L DIODE D407
-U 1 1 527FF3F6
-P 15175 1350
-F 0 "D407" H 15075 1400 40  0000 C CNN
-F 1 "DIODE" H 15175 1250 40  0001 C CNN
-F 2 "SIL-2" H 15175 1350 60  0001 C CNN
-F 3 "~" H 15175 1350 60  0000 C CNN
-	1    15175 1350
-	-1   0    0    1   
-$EndComp
-$Comp
-L DIODE D408
-U 1 1 527FF563
-P 15500 1450
-F 0 "D408" H 15400 1500 40  0000 C CNN
-F 1 "DIODE" H 15500 1350 40  0001 C CNN
-F 2 "SIL-2" H 15500 1450 60  0001 C CNN
-F 3 "~" H 15500 1450 60  0000 C CNN
-	1    15500 1450
-	-1   0    0    1   
-$EndComp
-$Comp
-L DIODE D409
-U 1 1 527FF56A
-P 15175 1550
-F 0 "D409" H 15075 1600 40  0000 C CNN
-F 1 "DIODE" H 15175 1450 40  0001 C CNN
-F 2 "SIL-2" H 15175 1550 60  0001 C CNN
-F 3 "~" H 15175 1550 60  0000 C CNN
-	1    15175 1550
-	-1   0    0    1   
-$EndComp
-$Comp
-L DIODE D410
-U 1 1 527FF571
-P 15500 1650
-F 0 "D410" H 15400 1700 40  0000 C CNN
-F 1 "DIODE" H 15500 1550 40  0001 C CNN
-F 2 "SIL-2" H 15500 1650 60  0001 C CNN
-F 3 "~" H 15500 1650 60  0000 C CNN
-	1    15500 1650
-	-1   0    0    1   
-$EndComp
-$Comp
-L DIODE D411
-U 1 1 527FF578
-P 15175 1750
-F 0 "D411" H 15075 1800 40  0000 C CNN
-F 1 "DIODE" H 15175 1650 40  0001 C CNN
-F 2 "SIL-2" H 15175 1750 60  0001 C CNN
-F 3 "~" H 15175 1750 60  0000 C CNN
-	1    15175 1750
-	-1   0    0    1   
-$EndComp
-$Comp
-L DIODE D412
-U 1 1 527FF57F
-P 15500 1850
-F 0 "D412" H 15400 1900 40  0000 C CNN
-F 1 "DIODE" H 15500 1750 40  0001 C CNN
-F 2 "SIL-2" H 15500 1850 60  0001 C CNN
-F 3 "~" H 15500 1850 60  0000 C CNN
-	1    15500 1850
-	-1   0    0    1   
-$EndComp
-Text Notes 15075 2050 0    60   ~ 0
-OPTIONAL SNUBBER DIODES
-$Comp
 L R R401
 U 1 1 527FFC06
 P 8075 975
@@ -427,20 +333,6 @@ Text Label 8075 725  0    60   ~ 0
 5V
 Text Notes 8625 875  0    60   ~ 0
 OPTION FOR IGNITION DRIVER\n75 OHM   1/2 WATT\n\n\n\n\n100 OHM    1 WATT
-Text Label 14975 1750 2    60   ~ 0
-INJ-11
-Text Label 14975 1850 2    60   ~ 0
-INJ-12
-Text Label 14975 1550 2    60   ~ 0
-INJ-09
-Text Label 14975 1650 2    60   ~ 0
-INJ-10
-Text Label 14975 1350 2    60   ~ 0
-INJ-07
-Text Label 14975 1450 2    60   ~ 0
-INJ-08
-Text Label 8075 1725 3    60   ~ 0
-INJ-01_2
 $Comp
 L R R415
 U 1 1 529A8640
@@ -520,10 +412,10 @@ F 5 "digi,ERJ-6ENF20R0V" V 3305 6050 60  0001 C CNN "vend1,vend1#"
 	0    1    1    0   
 $EndComp
 $Comp
-L GND #PWR02
+L GND #PWR076
 U 1 1 52AC74CB
 P 7725 3025
-F 0 "#PWR02" H 7725 3025 30  0001 C CNN
+F 0 "#PWR076" H 7725 3025 30  0001 C CNN
 F 1 "GND" H 7725 2955 30  0001 C CNN
 F 2 "" H 7725 3025 60  0001 C CNN
 F 3 "" H 7725 3025 60  0001 C CNN
@@ -588,8 +480,6 @@ F 5 "digi,CRCW0805100KFKEA" V 3805 -750 60  0001 C CNN "vend1,vend1#"
 	1    6875 1625
 	0    1    1    0   
 $EndComp
-Text Label 7575 2325 0    60   ~ 0
-INJ-02
 Text Label 7550 1225 0    60   ~ 0
 INJ-01
 $Comp
@@ -650,14 +540,6 @@ F 5 "digi,CRCW0805100KFKEA" V 3805 1750 60  0001 C CNN "vend1,vend1#"
 	1    6875 2875
 	0    1    1    0   
 $EndComp
-Text Label 7550 3575 0    60   ~ 0
-INJ-04
-Text Label 7550 2475 0    60   ~ 0
-INJ-03
-Text Label 7550 3725 0    60   ~ 0
-INJ-05
-Text Label 7575 4825 0    60   ~ 0
-INJ-06
 $Comp
 L R R412
 U 1 1 52AC7520
@@ -675,8 +557,6 @@ Text Label 6075 4075 2    60   ~ 0
 INJ-05_5V
 Text Label 6125 4575 2    60   ~ 0
 INJ-06_5V
-Text Label 7550 4225 0    60   ~ 0
-iGND2
 $Comp
 L R R413
 U 1 1 52AC752B
@@ -794,98 +674,6 @@ F 5 "digi,ERJ-6ENF20R0V" V 3305 2200 60  0001 C CNN "vend1,vend1#"
 	1    6375 4575
 	0    1    1    0   
 $EndComp
-Text Label 2700 5075 0    60   ~ 0
-INJ-07_5V
-Text Label 5150 5075 2    60   ~ 0
-INJ-08_5V
-Text Label 2700 5175 0    60   ~ 0
-INJ-09_5V
-Text Label 5150 5175 2    60   ~ 0
-INJ-10_5V
-Text Label 2700 5275 0    60   ~ 0
-INJ-11_5V
-Text Label 5150 5275 2    60   ~ 0
-INJ-12_5V
-$Comp
-L DIODE D401
-U 1 1 52B57A92
-P 15175 750
-F 0 "D401" H 15075 800 40  0000 C CNN
-F 1 "DIODE" H 15175 650 40  0001 C CNN
-F 2 "SIL-2" H 15175 750 60  0001 C CNN
-F 3 "~" H 15175 750 60  0000 C CNN
-	1    15175 750 
-	-1   0    0    1   
-$EndComp
-$Comp
-L DIODE D402
-U 1 1 52B57A99
-P 15500 850
-F 0 "D402" H 15400 900 40  0000 C CNN
-F 1 "DIODE" H 15500 750 40  0001 C CNN
-F 2 "SIL-2" H 15500 850 60  0001 C CNN
-F 3 "~" H 15500 850 60  0000 C CNN
-	1    15500 850 
-	-1   0    0    1   
-$EndComp
-$Comp
-L DIODE D403
-U 1 1 52B57AA0
-P 15175 950
-F 0 "D403" H 15075 1000 40  0000 C CNN
-F 1 "DIODE" H 15175 850 40  0001 C CNN
-F 2 "SIL-2" H 15175 950 60  0001 C CNN
-F 3 "~" H 15175 950 60  0000 C CNN
-	1    15175 950 
-	-1   0    0    1   
-$EndComp
-$Comp
-L DIODE D404
-U 1 1 52B57AA7
-P 15500 1050
-F 0 "D404" H 15400 1100 40  0000 C CNN
-F 1 "DIODE" H 15500 950 40  0001 C CNN
-F 2 "SIL-2" H 15500 1050 60  0001 C CNN
-F 3 "~" H 15500 1050 60  0000 C CNN
-	1    15500 1050
-	-1   0    0    1   
-$EndComp
-$Comp
-L DIODE D405
-U 1 1 52B57AAE
-P 15175 1150
-F 0 "D405" H 15075 1200 40  0000 C CNN
-F 1 "DIODE" H 15175 1050 40  0001 C CNN
-F 2 "SIL-2" H 15175 1150 60  0001 C CNN
-F 3 "~" H 15175 1150 60  0000 C CNN
-	1    15175 1150
-	-1   0    0    1   
-$EndComp
-$Comp
-L DIODE D406
-U 1 1 52B57AB5
-P 15500 1250
-F 0 "D406" H 15400 1300 40  0000 C CNN
-F 1 "DIODE" H 15500 1150 40  0001 C CNN
-F 2 "SIL-2" H 15500 1250 60  0001 C CNN
-F 3 "~" H 15500 1250 60  0000 C CNN
-	1    15500 1250
-	-1   0    0    1   
-$EndComp
-Text Label 15375 750  0    60   ~ 0
-iGND1
-Text Label 14975 1150 2    60   ~ 0
-INJ-05
-Text Label 14975 1250 2    60   ~ 0
-INJ-06
-Text Label 14975 950  2    60   ~ 0
-INJ-03
-Text Label 14975 1050 2    60   ~ 0
-INJ-04
-Text Label 14975 750  2    60   ~ 0
-INJ-01_2
-Text Label 14975 850  2    60   ~ 0
-INJ-02
 Text Label 8925 5025 2    60   ~ 0
 INJ-11
 Text Label 8925 5125 2    60   ~ 0
@@ -914,41 +702,6 @@ Text Label 8925 4225 2    60   ~ 0
 iGND1
 Text Label 8925 4725 2    60   ~ 0
 iGND1
-$Comp
-L CONN_1 P404
-U 1 1 52DD03E5
-P 3275 4675
-F 0 "P404" H 3355 4675 40  0000 L CNN
-F 1 "CONN_1" H 3275 4730 30  0001 C CNN
-F 2 "PINTST" H 3275 4675 60  0001 C CNN
-F 3 "" H 3275 4675 60  0000 C CNN
-	1    3275 4675
-	-1   0    0    1   
-$EndComp
-$Comp
-L CONN_1 P405
-U 1 1 52DD0408
-P 4575 4675
-F 0 "P405" H 4655 4675 40  0000 L CNN
-F 1 "CONN_1" H 4575 4730 30  0001 C CNN
-F 2 "PINTST" H 4575 4675 60  0001 C CNN
-F 3 "" H 4575 4675 60  0000 C CNN
-	1    4575 4675
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_16 P403
-U 1 1 52E42B17
-P 9275 4475
-F 0 "P403" H 9275 5425 70  0000 C CNN
-F 1 "CONN_16" V 9275 4475 50  0000 C CNN
-F 2 "SIL-16_3.5MM" H 9275 4475 60  0001 C CNN
-F 3 "~" H 9275 4475 60  0000 C CNN
-F 4 "on shore,OSTTE160104" H 9275 4475 60  0001 C CNN "mfg,mfg#"
-F 5 "digi,ED2739-ND" H 9275 4475 60  0001 C CNN "vend1,vend1#"
-	1    9275 4475
-	1    0    0    -1  
-$EndComp
 Text Label 8925 5225 2    60   ~ 0
 iGND1
 Text Label 8925 3725 2    60   ~ 0
@@ -1150,12 +903,6 @@ Wire Notes Line
 	10875 4775 10875 5125
 Connection ~ 7725 6825
 Wire Wire Line
-	3325 4575 3525 4575
-Wire Wire Line
-	3525 4475 3325 4475
-Wire Wire Line
-	3200 4375 3525 4375
-Wire Wire Line
 	4325 4775 5150 4775
 Wire Wire Line
 	4325 4875 5150 4875
@@ -1166,25 +913,7 @@ Wire Wire Line
 Wire Wire Line
 	4325 5275 5150 5275
 Wire Wire Line
-	15700 750  15700 1850
-Wire Wire Line
-	15700 1350 15375 1350
-Wire Wire Line
-	15375 1550 15700 1550
-Connection ~ 15700 1550
-Wire Wire Line
-	15375 1750 15700 1750
-Connection ~ 15700 1750
-Wire Wire Line
 	5150 5075 4325 5075
-Connection ~ 15700 1450
-Connection ~ 15700 1650
-Wire Notes Line
-	16375 2125 15025 2125
-Wire Notes Line
-	15025 2125 15025 600 
-Wire Notes Line
-	16375 600  16375 2125
 Connection ~ 8075 1225
 Wire Notes Line
 	8200 950  8575 850 
@@ -1198,12 +927,6 @@ Wire Notes Line
 	10075 1450 10075 775 
 Wire Notes Line
 	10075 775  8575 775 
-Wire Wire Line
-	15300 1450 14975 1450
-Wire Wire Line
-	15300 1650 14975 1650
-Wire Wire Line
-	15300 1850 14975 1850
 Wire Wire Line
 	6575 5325 7125 5325
 Wire Wire Line
@@ -1292,26 +1015,6 @@ Wire Wire Line
 Wire Wire Line
 	2700 5075 3525 5075
 Wire Wire Line
-	15700 750  15375 750 
-Wire Wire Line
-	15375 950  15700 950 
-Connection ~ 15700 950 
-Wire Wire Line
-	15375 1150 15700 1150
-Connection ~ 15700 1150
-Connection ~ 15700 850 
-Connection ~ 15700 1050
-Wire Wire Line
-	15300 850  14975 850 
-Wire Wire Line
-	15300 1050 14975 1050
-Wire Wire Line
-	15300 1250 14975 1250
-Connection ~ 15700 1350
-Connection ~ 15700 1250
-Wire Notes Line
-	15025 600  16375 600 
-Wire Wire Line
 	8075 2175 8075 1725
 Wire Notes Line
 	12350 5600 12975 5600
@@ -1322,10 +1025,6 @@ Wire Wire Line
 	7525 1225 7525 1125
 Wire Wire Line
 	7525 1125 7175 1125
-Wire Wire Line
-	3425 4675 3525 4675
-Wire Wire Line
-	4325 4675 4425 4675
 Wire Wire Line
 	8925 4425 8075 4425
 Wire Wire Line
@@ -1377,10 +1076,10 @@ Wire Wire Line
 Wire Wire Line
 	7125 2975 7725 2975
 $Comp
-L GND #PWR03
+L GND #PWR077
 U 1 1 52E4981F
 P 7950 4275
-F 0 "#PWR03" H 7950 4275 30  0001 C CNN
+F 0 "#PWR077" H 7950 4275 30  0001 C CNN
 F 1 "GND" H 7950 4205 30  0001 C CNN
 F 2 "" H 7950 4275 60  0001 C CNN
 F 3 "" H 7950 4275 60  0001 C CNN
@@ -1404,24 +1103,6 @@ Wire Notes Line
 	10325 4875 10775 4875
 Wire Notes Line
 	10775 4875 10775 4775
-Wire Wire Line
-	3200 4475 3325 4575
-Wire Wire Line
-	3325 4475 3200 4575
-$Comp
-L CONN_1 M401
-U 1 1 52F0ACEB
-P 15850 2300
-F 0 "M401" H 15930 2300 40  0000 L CNN
-F 1 "CONN_1" H 15850 2355 30  0001 C CNN
-F 2 "1pin" H 15850 2300 60  0001 C CNN
-F 3 "" H 15850 2300 60  0000 C CNN
-	1    15850 2300
-	1    0    0    -1  
-$EndComp
-Text Notes 15550 2500 0    60   ~ 0
-SCREW VIA
-NoConn ~ 15700 2300
 Text Notes 9400 6650 0    160  ~ 0
 12 channel injector driver\nalso suitable for fuel pump relay, IAC solenoid etc
 $Comp
@@ -1441,9 +1122,61 @@ U 1 1 539EA6FA
 P 7375 725
 F 0 "D414" H 7375 825 50  0000 C CNN
 F 1 "LED_0805" H 7375 625 50  0000 C CNN
-F 2 "~" H 7375 725 60  0000 C CNN
+F 2 "LED-0805_A" H 7375 725 60  0001 C CNN
 F 3 "~" H 7375 725 60  0000 C CNN
 	1    7375 725 
 	-1   0    0    1   
 $EndComp
+Text HLabel 7600 6175 1    60   Input ~ 0
+INJ-08
+Text HLabel 2700 4775 0    60   Input ~ 0
+INJ-01_5V
+Text HLabel 2700 4875 0    60   Input ~ 0
+INJ-03_5V
+Text HLabel 2700 4975 0    60   Input ~ 0
+INJ-05_5V
+Text HLabel 2700 5075 0    60   Input ~ 0
+INJ-07_5V
+Text HLabel 2700 5175 0    60   Input ~ 0
+INJ-09_5V
+Text HLabel 2700 5275 0    60   Input ~ 0
+INJ-11_5V
+Text HLabel 5150 4775 2    60   Input ~ 0
+INJ-02_5V
+Text HLabel 5150 4875 2    60   Input ~ 0
+INJ-04_5V
+Text HLabel 5150 4975 2    60   Input ~ 0
+INJ-06_5V
+Text HLabel 5150 5075 2    60   Input ~ 0
+INJ-08_5V
+Text HLabel 5150 5175 2    60   Input ~ 0
+INJ-10_5V
+Text HLabel 5150 5275 2    60   Input ~ 0
+INJ-12_5V
+Text HLabel 7950 4225 1    60   Input ~ 0
+iGND2
+Text HLabel 7600 4825 1    60   Input ~ 0
+INJ-06
+Text HLabel 7600 5075 3    60   Input ~ 0
+INJ-07
+Text HLabel 7600 6325 3    60   Input ~ 0
+INJ-09
+Text HLabel 7600 7425 1    60   Input ~ 0
+INJ-10
+Text HLabel 7600 3725 3    60   Input ~ 0
+INJ-05
+Text HLabel 7625 8675 1    60   Input ~ 0
+INJ-12
+Text HLabel 7600 7575 3    60   Input ~ 0
+INJ-11
+Text HLabel 7600 3575 1    60   Input ~ 0
+INJ-04
+Text HLabel 7600 2475 3    60   Input ~ 0
+INJ-03
+Text HLabel 7600 2325 1    60   Input ~ 0
+INJ-02
+Text HLabel 8075 1725 2    60   Input ~ 0
+INJ-01_2
+Text HLabel 7725 6825 1    60   Input ~ 0
+iGND1
 $EndSCHEMATC
