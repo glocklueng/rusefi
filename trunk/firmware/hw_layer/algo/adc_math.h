@@ -12,9 +12,9 @@
 #define ADC_VCC 3.0f
 #define ADC_MAX_VALUE 4095
 
-#define adcToVolts(adc) (((ADC_VCC) * (adc) / ADC_MAX_VALUE))
+#define adcToVolts(adc) (ADC_VCC / ADC_MAX_VALUE * (adc))
 
-#define voltsToAdc(volts) (((volts) / ADC_VCC) * ADC_MAX_VALUE)
+#define voltsToAdc(volts) ((volts) * (ADC_MAX_VALUE / ADC_VCC))
 
 #define getVoltage(hwChannel) (adcToVolts(getAdcValue(hwChannel)))
 
