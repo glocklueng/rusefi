@@ -2181,16 +2181,28 @@
     <group>
       <name>core</name>
       <file>
+        <name>$PROJ_DIR$\..\controllers\core\avg_values.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\avg_values.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\core\EfiWave.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\core\EfiWave.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\core\interpolation.c</name>
+        <name>$PROJ_DIR$\..\controllers\core\interpolation.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\core\interpolation.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\signal_filtering.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\signal_filtering.h</name>
       </file>
     </group>
     <group>
@@ -2220,7 +2232,7 @@
         <name>$PROJ_DIR$\..\controllers\sensors\allsensors.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\sensors\ego.c</name>
+        <name>$PROJ_DIR$\..\controllers\sensors\ego.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\sensors\ego.h</name>
@@ -2232,7 +2244,7 @@
         <name>$PROJ_DIR$\..\controllers\sensors\maf.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\sensors\map.c</name>
+        <name>$PROJ_DIR$\..\controllers\sensors\map.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\sensors\map.h</name>
@@ -2247,7 +2259,7 @@
         <name>$PROJ_DIR$\..\controllers\sensors\thermistors.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\controllers\sensors\tps.c</name>
+        <name>$PROJ_DIR$\..\controllers\sensors\tps.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\sensors\tps.h</name>
