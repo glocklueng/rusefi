@@ -27,7 +27,7 @@ public:
 	 * crankshaft could be camshaft.
 	 */
 	volatile int revolutionCounter;
-	bool_t isRunning(void);
+	bool isRunning(void);
 };
 
 #define getRpm() getRpmE(&engine)
