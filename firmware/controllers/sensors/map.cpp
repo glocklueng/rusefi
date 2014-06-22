@@ -16,24 +16,19 @@ extern engine_configuration_s * engineConfiguration;
  *
  * @returns kPa value
  */
-float getMAPValueHonda_Denso183(float voltage) {
-	// todo: introduce a macro for interpolation with magic constants
-	return interpolate(0, -6.64, 5, 182.78, voltage);
-}
+static FastInterpolation denso183(0, -6.64, 5, 182.78);
 
-float getMAPValueMPX_4250(float voltage) {
-	// todo: introduce a macro for interpolation with magic constants
-	return interpolate(0, 8, 5, 260, voltage);
-}
+static FastInterpolation mpx4250(0, 8, 5, 260);
 
 float decodePressure(float voltage, air_pressure_sensor_config_s * config) {
 	switch (config->sensorType) {
 	case MT_CUSTOM:
+		// todo: introduce 'FastInterpolation customMap'
 		return interpolate(0, config->Min, 5, config->Max, voltage);
 	case MT_DENSO183:
-		return getMAPValueHonda_Denso183(voltage);
+		return denso183.getValue(voltage);
 	case MT_MPX4250:
-		return getMAPValueMPX_4250(voltage);
+		return mpx4250.getValue(voltage);
 	default:
 		firmwareError("Unknown MAP type: %d", config->sensorType);
 		return NAN;
