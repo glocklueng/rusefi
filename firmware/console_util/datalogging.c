@@ -203,7 +203,11 @@ void debugInt(Logging *logging, const char *caption, int value) {
 }
 
 void appendFloat(Logging *logging, float value, int precision) {
-	// todo: this implementation is less than perfect
+	/**
+	 * todo: #1 this implementation is less than perfect
+	 * todo: #2 The only way to avoid double promotion would probably be using *float instead of float
+	 * See also http://stackoverflow.com/questions/5522051/printing-a-float-in-c-while-avoiding-variadic-parameter-promotion-to-double
+	 */
 	switch (precision) {
 	case 1:
 		appendPrintf(logging, "%..10f", value);
