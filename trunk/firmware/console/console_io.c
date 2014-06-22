@@ -186,7 +186,7 @@ void startConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
 
 #if EFI_PROD_CODE
-	is_serial_over_uart = palReadPad(GPIOA, GPIOA_BUTTON) != 0;
+	is_serial_over_uart = palReadPad(GPIOA, GPIOA_BUTTON) != EFI_USE_UART_FOR_CONSOLE;
 
 	if (isSerialOverUart()) {
 		/*
