@@ -58,7 +58,7 @@ RpmCalculator::RpmCalculator() {
 /**
  * @return true if there was a full shaft revolution within the last second
  */
-bool_t RpmCalculator::isRunning(void) {
+bool RpmCalculator::isRunning(void) {
 	uint64_t nowUs = getTimeNowUs();
 	return nowUs - lastRpmEventTimeUs < US_PER_SECOND;
 }
@@ -69,7 +69,7 @@ int RpmCalculator::rpm(void) {
 	return rpmValue;
 }
 
-bool_t isValidRpm(int rpm) {
+bool isValidRpm(int rpm) {
 	return rpm > 0 && rpm < UNREALISTIC_RPM;
 }
 
@@ -78,7 +78,7 @@ uint64_t getLastRpmEventTime(void) {
 }
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
-bool_t isCranking(void) {
+bool isCranking(void) {
 	int rpm = getRpm();
 	return isCrankingR(rpm);
 }

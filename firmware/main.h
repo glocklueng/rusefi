@@ -52,7 +52,7 @@ extern "C"
 void updateHD44780lcd(void);
 int systicks2ms(int systicks);
 
-bool_t lockAnyContext(void);
+bool lockAnyContext(void);
 void unlockAnyContext(void);
 
 #ifdef __cplusplus

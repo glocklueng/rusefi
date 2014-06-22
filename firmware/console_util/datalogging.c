@@ -342,7 +342,7 @@ void scheduleLogging(Logging *logging) {
 	// this could be done without locking
 	int newLength = strlen(logging->buffer);
 
-	bool_t alreadyLocked = lockOutputBuffer();
+	bool alreadyLocked = lockOutputBuffer();
 	// I hope this is fast enough to operate under sys lock
 	int curLength = strlen(pendingBuffer);
 	if (curLength + newLength >= OUTPUT_BUFFER) {

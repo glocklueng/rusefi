@@ -178,7 +178,7 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, int event
 		/**
 		 * Spark should be scheduled in relation to some future trigger event, this way we get better firing precision
 		 */
-		bool_t isPending = assertNotInList<IgnitionEvent>(iHead, iEvent);
+		bool isPending = assertNotInList<IgnitionEvent>(iHead, iEvent);
 		if (isPending)
 			return;
 

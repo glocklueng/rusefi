@@ -43,7 +43,7 @@ static bool_t isSerialConsoleStarted = FALSE;
  * @retval TRUE         the channel was reset or CTRL-D pressed.
  * @retval FALSE        operation successful.
  */
-static bool_t getConsoleLine(BaseSequentialStream *chp, char *line, unsigned size) {
+static bool getConsoleLine(BaseSequentialStream *chp, char *line, unsigned size) {
 	char *p = line;
 
 	EventListener el1;
@@ -119,9 +119,9 @@ static char consoleInput[] = "                                                  
 
 void (*console_line_callback)(char *);
 
-static bool_t is_serial_over_uart;
+static bool is_serial_over_uart;
 
-bool_t isSerialOverUart(void) {
+bool isSerialOverUart(void) {
 	return is_serial_over_uart;
 }
 
@@ -131,7 +131,7 @@ static msg_t consoleThreadThreadEntryPoint(void *arg) {
 	chRegSetThreadName("console thread");
 
 	while (TRUE) {
-		bool_t end = getConsoleLine((BaseSequentialStream*) getConsoleChannel(), consoleInput, sizeof(consoleInput));
+		bool end = getConsoleLine((BaseSequentialStream*) getConsoleChannel(), consoleInput, sizeof(consoleInput));
 		if (end) {
 			// firmware simulator is the only case when this happens
 			continue;
@@ -212,7 +212,7 @@ extern cnt_t dbg_isr_cnt;
 /**
  * @return TRUE if already in locked context
  */
-bool_t lockAnyContext(void) {
+bool lockAnyContext(void) {
 	int alreadyLocked = isLocked();
 	if (alreadyLocked)
 		return TRUE;
