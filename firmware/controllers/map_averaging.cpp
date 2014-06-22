@@ -85,7 +85,9 @@ static void startAveraging(void*arg) {
 }
 
 /**
- * This method is invoked from ADC callback
+ * This method is invoked from ADC callback.
+ * @note This method is invoked OFTEN, this method is a potential bottle-next - the implementation should be
+ * as fast as possible
  */
 void mapAveragingCallback(adcsample_t value) {
 	/* Calculates the average values from the ADC samples.*/
