@@ -1,5 +1,5 @@
 /**
- * @file    interpolation.c
+ * @file    interpolation.cpp
  * @brief	Linear interpolation algorithms
  *
  * @date Oct 17, 2013
@@ -18,6 +18,25 @@
 #define INTERPOLATION_A(x1, y1, x2, y2) ((y1 - y2) / (x1 - x2))
 
 int needInterpolationLogging = TRUE;
+
+
+FastInterpolation::FastInterpolation(float x1, float y1, float x2, float y2) {
+	init(x1, y1, x2, y2);
+}
+
+void FastInterpolation::init(float x1, float y1, float x2, float y2) {
+	if (x1 == x2) {
+		firmwareError("Same x1 and x2 in interpolate: %f/%f", x1, x2);
+		return;
+	}
+	a = INTERPOLATION_A(x1, y1, x2, y2);
+	b = y1 - a * x1;
+}
+
+float FastInterpolation::getValue(float x) {
+	return a * x + b;
+}
+
 
 /** @brief	Linear interpolation by two points
  *
