@@ -119,6 +119,7 @@ static void sayHello(void) {
  * This methods prints all threads and their total times
  */
 static void cmd_threads(void) {
+#if CH_DBG_THREADS_PROFILING || defined(__DOXYGEN__)
 	static const char *states[] = { THD_STATE_NAMES };
 	Thread *tp;
 
@@ -130,6 +131,7 @@ static void cmd_threads(void) {
 				states[tp->p_state], (uint32_t) tp->p_time, tp->p_name);
 		tp = chRegNextThread(tp);
 	} while (tp != NULL );
+#endif
 }
 
 void sendOutConfirmation(char *value, int i) {

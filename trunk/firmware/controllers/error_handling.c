@@ -27,7 +27,9 @@ void chDbgPanic3(const char *msg, const char * file, int line) {
 		return;
 	dbg_panic_file = file;
 	dbg_panic_line = line;
+#if CH_DBG_SYSTEM_STATE_CHECK
 	dbg_panic_msg = msg;
+#endif /* CH_DBG_SYSTEM_STATE_CHECK */
 
 	/**
 	 * low-level function is used here to reduce stack usage
