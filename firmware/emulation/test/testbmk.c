@@ -14,7 +14,9 @@
     limitations under the License.
 */
 
-#include "ch.h"
+#include "main.h"
+
+#if EFI_PERF_METRICS
 #include "test.h"
 
 /**
@@ -718,3 +720,5 @@ ROMCONST struct testcase * ROMCONST patternbmk[] = {
 #endif
   NULL
 };
+
+#endif /* EFI_PERF_METRICS */

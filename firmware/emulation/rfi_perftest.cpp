@@ -17,12 +17,9 @@
 #include "efilib2.h"
 #include "console_io.h"
 
-//#define TEST_PORT GPIOB
-//#define TEST_PIN 6
+#if EFI_PERF_METRICS
 
-//static OutputPin testOutput;
-
-Logging logger;
+static Logging logger;
 
 static void testSystemCalls(const int count) {
 	time_t start, time;
@@ -236,3 +233,5 @@ void initTimePerfActions() {
 	addConsoleAction("timeinfo", timeInfo);
 	addConsoleAction("chtest", runChibioTest);
 }
+
+#endif /* EFI_PERF_METRICS */
