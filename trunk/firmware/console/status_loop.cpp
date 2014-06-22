@@ -156,6 +156,7 @@ void printSensors(void) {
 }
 
 void printState(int currentCkpEventCounter) {
+#if EFI_SHAFT_POSITION_INPUT
 	printSensors();
 
 	int rpm = getRpm();
@@ -179,6 +180,7 @@ void printState(int currentCkpEventCounter) {
 //		float fuel = getDefaultFuel(rpm, map);
 //		debugFloat(&logger, "d_fuel", fuel, 2);
 
+#endif /* EFI_SHAFT_POSITION_INPUT */
 }
 
 #define INITIAL_FULL_LOG TRUE
