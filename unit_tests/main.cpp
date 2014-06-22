@@ -16,18 +16,17 @@
 #include "error_handling.h"
 #include "ec2.h"
 #include "test_accel_enrichment.h"
-
+#include "test_interpolation_3d.h"
+#include "test_find_index.h"
+#include "test_sensors.h"
 
 extern "C"
 {
 
 #include "map_resize.h"
 #include "test_idle_controller.h"
-#include "test_interpolation_3d.h"
-#include "test_find_index.h"
 #include "test_fuel_map.h"
 #include "test_event_registry.h"
-#include "test_sensors.h"
 #include "test_signal_executor.h"
 #include "test_util.h"
 #include "engine_configuration.h"
