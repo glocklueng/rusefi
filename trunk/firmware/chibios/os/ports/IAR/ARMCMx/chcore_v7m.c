@@ -40,6 +40,7 @@
 /*===========================================================================*/
 
 int getRemainingStack(Thread *otp) {
+#if CH_DBG_ENABLE_STACK_CHECK || defined(__DOXYGEN__)
   int remainingStack;
   if (dbg_isr_cnt > 0) {
     remainingStack = 999; // todo
@@ -48,6 +49,9 @@ int getRemainingStack(Thread *otp) {
   }
   otp->remainingStack = remainingStack;
   return remainingStack;
+#else
+  return 999999;
+#endif  
 }
 
 /**
