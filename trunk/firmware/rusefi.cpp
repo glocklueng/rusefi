@@ -231,7 +231,7 @@ void chDbgStackOverflowPanic(Thread *otp) {
 	chDbgPanic3(panicMessage, __FILE__, __LINE__);
 }
 
-bool_t hasFirmwareError(void) {
+bool hasFirmwareError(void) {
 	return hasFirmwareErrorFlag;
 }
 
@@ -250,5 +250,5 @@ void firmwareError(const char *fmt, ...) {
 }
 
 int getRusEfiVersion(void) {
-	return 20140621;
+	return 20140622;
 }

@@ -48,13 +48,13 @@ extern "C"
  * @brief   Initialize RPM calculator
  */
 void initRpmCalculator(void);
-bool_t isCranking(void);
+bool isCranking(void);
 uint64_t getLastRpmEventTime(void);
 
 int getRevolutionCounter(void);
 float getCrankshaftAngle(uint64_t timeUs);
-bool_t isRunning(void);
-bool_t isValidRpm(int rpm);
+bool isRunning(void);
+bool isValidRpm(int rpm);
 void addWaveChartEvent(const char *name, const char *msg, const char *msg2);
 
 #ifdef __cplusplus

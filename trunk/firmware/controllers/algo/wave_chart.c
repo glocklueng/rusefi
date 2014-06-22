@@ -115,7 +115,7 @@ void addWaveChartEvent3(WaveChart *chart, const char *name, const char * msg, co
 #endif
 	if (isWaveChartFull(chart))
 		return;
-	bool_t alreadyLocked = lockOutputBuffer(); // we have multiple threads writing to the same output buffer
+	bool alreadyLocked = lockOutputBuffer(); // we have multiple threads writing to the same output buffer
 	appendPrintf(&chart->logging, "%s%s%s%s", name, CHART_DELIMETER, msg, CHART_DELIMETER);
 	int time100 = getTimeNowUs() / 10;
 	appendPrintf(&chart->logging, "%d%s%s", time100, msg2, CHART_DELIMETER);
