@@ -72,7 +72,7 @@ static WORKING_AREA(mwThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static const char * msg;
 
-static char buff[12];
+static char buff[32];
 
 static msg_t mwThread(int param) {
 	chRegSetThreadName("timer watchdog");
@@ -81,9 +81,8 @@ static msg_t mwThread(int param) {
 		chThdSleepMilliseconds(1000); // once a second is enough
 
 		if (getTimeNowUs() >= lastSetTimerTime + 2 * US_PER_SECOND) {
-			buff[0] = 'c';
-			buff[1] = 'l';
-			itoa10(&buff[2], lastSetTimerValue);
+			strcpy(buff, "no_event");
+			itoa10(&buff[8], lastSetTimerValue);
 			firmwareError(buff);
 			return -1;
 		}
@@ -108,7 +107,7 @@ void initMicrosecondTimer(void) {
 	gptStart(&GPTDEVICE, &gpt5cfg);
 
 	lastSetTimerTime = getTimeNowUs();
-#if EFI_ENGINE_EMULATOR
+#if EFI_EMULATE_POSITION_SENSORS
 	chThdCreateStatic(mwThreadStack, sizeof(mwThreadStack), NORMALPRIO, (tfunc_t) mwThread, NULL);
 #endif /* EFI_ENGINE_EMULATOR */
 
