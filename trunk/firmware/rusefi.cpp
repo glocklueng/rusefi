@@ -87,6 +87,7 @@
 extern "C" {
 
 #include "global.h"
+#include "rfi_perftest.h"
 
 #include "rusefi.h"
 #include "eficonsole.h"
@@ -145,6 +146,10 @@ void runRusEfi(void) {
 	 * todo: should we initialize some? most? controllers before hardware?
 	 */
 	initEngineContoller();
+
+#if EFI_PERF_METRICS
+	initTimePerfActions();
+#endif
 
 #if EFI_ENGINE_EMULATOR
 	initEngineEmulator();
