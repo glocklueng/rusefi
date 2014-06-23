@@ -416,7 +416,7 @@ void initAdcInputs() {
 
 	addConsoleActionI(ADC_DEBUG_KEY, &setAdcDebugReporting);
 
-#ifdef EFI_INTERNAL_ADC
+#if EFI_INTERNAL_ADC
 	/*
 	 * Initializes the ADC driver.
 	 */
@@ -463,7 +463,7 @@ void initAdcInputs() {
 	addConsoleActionI("adc", printAdcValue);
 	addConsoleAction("fadc", printFullAdcReport);
 #else
-	printSimpleMsg(&logger, "ADC disabled", 0);
+	printMsg(&logger, "ADC disabled");
 #endif
 }
 
