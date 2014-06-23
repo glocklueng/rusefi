@@ -33,6 +33,8 @@ int lastWriteActual;
 
 static bool_t isSerialConsoleStarted = FALSE;
 
+static EventListener consoleEventListener;
+
 /**
  * @brief   Reads a whole line from the input channel.
  *
@@ -45,12 +47,6 @@ static bool_t isSerialConsoleStarted = FALSE;
  */
 static bool getConsoleLine(BaseSequentialStream *chp, char *line, unsigned size) {
 	char *p = line;
-
-	EventListener el1;
-
-	if (isSerialOverUart()) {
-		chEvtRegisterMask((EventSource *) chnGetEventSource(EFI_CONSOLE_UART_DEVICE), &el1, 1);
-	}
 
 	while (TRUE) {
 		if (!isConsoleReady()) {
@@ -66,7 +62,7 @@ static bool getConsoleLine(BaseSequentialStream *chp, char *line, unsigned size)
 			chSysLock()
 			;
 
-			flags = chEvtGetAndClearFlagsI(&el1);
+			flags = chEvtGetAndClearFlagsI(&consoleEventListener);
 			chSysUnlock()
 			;
 
@@ -200,6 +196,8 @@ void startConsole(void (*console_line_callback_p)(char *)) {
 		palSetPadMode(EFI_CONSOLE_TX_PORT, EFI_CONSOLE_TX_PIN, PAL_MODE_ALTERNATE(EFI_CONSOLE_AF));
 
 		isSerialConsoleStarted = TRUE;
+
+		chEvtRegisterMask((EventSource *) chnGetEventSource(EFI_CONSOLE_UART_DEVICE), &consoleEventListener, 1);
 	} else {
 		usb_serial_start();
 	}
