@@ -143,7 +143,7 @@ ADC_TwoSamplingDelay_5Cycles,   // cr1
 static AdcConfiguration fastAdc(&adcgrpcfg_fast);
 
 static void pwmpcb_slow(PWMDriver *pwmp) {
-#ifdef EFI_INTERNAL_ADC
+#if EFI_INTERNAL_ADC
 	(void) pwmp;
 
 	/* Starts an asynchronous ADC conversion operation, the conversion
@@ -167,7 +167,7 @@ static void pwmpcb_slow(PWMDriver *pwmp) {
 }
 
 static void pwmpcb_fast(PWMDriver *pwmp) {
-#ifdef EFI_INTERNAL_ADC
+#if EFI_INTERNAL_ADC
 	(void) pwmp;
 
 	/*

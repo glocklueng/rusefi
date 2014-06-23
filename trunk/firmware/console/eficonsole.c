@@ -98,12 +98,8 @@ static void sayHello(void) {
 	printMsg(&logger, "EFI_SIGNAL_EXECUTOR_HW_TIMER=%d", EFI_SIGNAL_EXECUTOR_HW_TIMER);
 #endif
 
-#ifdef EFI_SHAFT_POSITION_INPUT
 	printMsg(&logger, "EFI_SHAFT_POSITION_INPUT=%d", EFI_SHAFT_POSITION_INPUT);
-#endif
-#ifdef EFI_INTERNAL_ADC
 	printMsg(&logger, "EFI_INTERNAL_ADC=%d", EFI_INTERNAL_ADC);
-#endif
 
 //	printSimpleMsg(&logger, "", );
 //	printSimpleMsg(&logger, "", );
