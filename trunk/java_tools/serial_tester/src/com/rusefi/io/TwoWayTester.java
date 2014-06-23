@@ -6,10 +6,10 @@ import jssc.SerialPortException;
 
 public class TwoWayTester {
 
-    //private static final int BAUD_RATE = 38400;
+//    private static final int BAUD_RATE = 38400;
     private static final int BAUD_RATE = 115200;
-//    public static final String TEST_LINE = "a0123456789b0123456789c0123456789d0123456789e0123456789f0123456789g0123456789h0123456789d0123456789";
-    public static final String TEST_LINE = "a0123456789b0123456789";
+    public static final String TEST_LINE = "a0123456789b0123456789c0123456789d0123456789e0123456789f0123456789g0123456789h0123456789d0123456789";
+//    public static final String TEST_LINE = "a0123456789b0123456789";
     public static final DataListener VOID = new DataListener() {
         @Override
         public void onStringArrived(String string) {
@@ -46,7 +46,7 @@ public class TwoWayTester {
                     logLine("WOW   " + l);
                     logLine("not   " + TEST_LINE);
 
-                    int index = sb.indexOf(TEST_LINE.charAt(0) + "");
+                    int index = sb.indexOf(TEST_LINE.charAt(0) + "", 1);
                     if (index != -1)
                         sb.delete(0, index);
 
