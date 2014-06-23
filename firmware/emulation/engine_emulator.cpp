@@ -17,7 +17,6 @@ extern "C" {
 #include "fuel_math.h"
 #include "pin_repository.h"
 #include "poten.h"
-#include "rfi_perftest.h"
 }
 #include "trigger_emulator.h"
 
@@ -96,9 +95,6 @@ static void initECUstimulator(void) {
 void initEngineEmulator(void) {
 	if (hasFirmwareError())
 		return;
-#if EFI_PERF_METRICS
-	initTimePerfActions();
-#endif
 
 #if EFI_POTENTIOMETER
 	initPotentiometers();
