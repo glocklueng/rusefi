@@ -36,9 +36,13 @@ AdcConfiguration::AdcConfiguration(ADCConversionGroup* hwConfig) {
 #define PWM_FREQ_SLOW 5000   /* PWM clock frequency. I wonder what does this setting mean?  */
 #define PWM_PERIOD_SLOW 500  /* PWM period (in PWM ticks).    */
 
+/**
+ * 8000 RPM is 133Hz
+ * If we want to sample MAP once per 5 degrees we need 133Hz * (360 / 5) = 9576Hz of fast ADC
+ */
 // todo: migrate to continues ADC mode?
-#define PWM_FREQ_FAST 1500000   /* PWM clock frequency. I wonder what does this setting mean?  */
-#define PWM_PERIOD_FAST 50  /* PWM period (in PWM ticks).    */
+#define PWM_FREQ_FAST 100000   /* PWM clock frequency. I wonder what does this setting mean?  */
+#define PWM_PERIOD_FAST 10  /* PWM period (in PWM ticks).    */
 
 #define ADC_SLOW_DEVICE ADCD1
 
