@@ -66,25 +66,25 @@ persistent_config_s configWorkingCopy;
 int tunerStudioHandleCommand(char *data, int incomingPacketSize) {
 	char command = data[0];
 	data++;
-	if (command == 'H') {
+	if (command == TS_HELLO_COMMAND) {
 		tunerStudioDebug("got CRC Query");
 		handleQueryCommand(TRUE);
-	} else if (command == 'O') {
+	} else if (command == TS_OUTPUT_COMMAND) {
 		handleOutputChannelsCommand();
-	} else if (command == 'P') {
+	} else if (command == TS_PAGE_COMMAND) {
 		uint16_t page = *(uint16_t *) data;
 		handlePageSelectCommand(page);
 	} else if (command == 'C') {
 		handleWriteChunkCommand();
-	} else if (command == 'W') {
+	} else if (command == TS_WRITE_COMMAND) {
 		uint16_t page = *(uint16_t *) data;
 		uint16_t offset = *(uint16_t *) (data + 2);
 		uint8_t value = data[4];
 		handleWriteValueCommand(page, offset, value);
-	} else if (command == 'B') {
+	} else if (command == TS_BURN_COMMAND) {
 		uint16_t page = *(uint16_t *) data;
 		handleBurnCommand(page);
-	} else if (command == 'R') {
+	} else if (command == TS_READ_COMMAND) {
 		uint16_t page = *(uint16_t *) data;
 		uint16_t offset = *(uint16_t *) (data + 2);
 		uint16_t count = *(uint16_t *) (data + 4);
