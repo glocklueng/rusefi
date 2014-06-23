@@ -53,4 +53,11 @@ void handleBurnCommand(uint16_t page);
 void tunerStudioWriteData(const uint8_t * buffer, int size);
 void tunerStudioDebug(char *msg);
 
+#define TS_HELLO_COMMAND 'H'
+#define TS_OUTPUT_COMMAND 'O'
+#define TS_READ_COMMAND 'R'
+#define TS_PAGE_COMMAND 'P'
+#define TS_BURN_COMMAND 'B'
+#define TS_WRITE_COMMAND 'W'
+
 #endif /* TUNERSTUDIO_ALGO_H_ */

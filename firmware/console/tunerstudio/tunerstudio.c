@@ -323,18 +323,18 @@ static msg_t tsThreadEntryPoint(void *arg) {
 			continue;
 		}
 		scheduleMsg(&logger, "Got first=%x=[%c]", firstByte, firstByte);
-		if (firstByte == 'H') {
+		if (firstByte == TS_HELLO_COMMAND) {
 			scheduleMsg(&logger, "Got naked Query command");
 			handleQueryCommand(FALSE);
 			continue;
 		} else if (firstByte == 't' || firstByte == 'T') {
 			handleTestCommand();
 			continue;
-		} else if (firstByte == 'R') {
+		} else if (firstByte == TS_READ_COMMAND) {
 			scheduleMsg(&logger, "Got naked READ PAGE");
 //			handlePageReadCommand();
 			continue;
-		} else if (firstByte == 'O') {
+		} else if (firstByte == TS_OUTPUT_COMMAND) {
 			scheduleMsg(&logger, "Got naked Channels");
 //			handleOutputChannelsCommand();
 			continue;
@@ -368,7 +368,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 		}
 
 		char command = crcIoBuffer[0];
-		if (command != 'H' && command != 'R' && command != 'O' && command != 'P' && command != 'B' && command != 'W') {
+		if (command != TS_HELLO_COMMAND && command != TS_READ_COMMAND && command != TS_OUTPUT_COMMAND && command != TS_PAGE_COMMAND && command != TS_BURN_COMMAND && command != TS_WRITE_COMMAND) {
 			scheduleMsg(&logger, "unexpected command %x", command);
 			sendErrorCode();
 			continue;
