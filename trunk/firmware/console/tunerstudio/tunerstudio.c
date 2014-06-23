@@ -152,6 +152,7 @@ void handlePageSelectCommand(uint16_t pageId) {
 
 	tsState.currentPageId = pageId;
 	scheduleMsg(&logger, "page %d selected", tsState.currentPageId);
+	tunerStudioWriteCrcPacket(TS_RESPONSE_OK, NULL, 0);
 }
 
 /**
