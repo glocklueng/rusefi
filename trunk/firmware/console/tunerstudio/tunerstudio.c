@@ -51,6 +51,8 @@
 //#define TS_SERIAL_SPEED 115200
 #define TS_SERIAL_SPEED 38400
 
+#define PROTOCOL  "001"
+
 extern SerialUSBDriver SDU1;
 
 BaseChannel * getTsSerialDevice(void) {
@@ -336,7 +338,8 @@ static msg_t tsThreadEntryPoint(void *arg) {
 //			handleOutputChannelsCommand();
 			continue;
 		} else if (firstByte == 'F') {
-			tunerStudioDebug("ignoring F");
+			tunerStudioDebug("not ignoring F");
+			tunerStudioWriteData((const uint8_t *) PROTOCOL, strlen(PROTOCOL));
 			continue;
 		}
 
@@ -364,7 +367,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 		}
 
 		char command = crcIoBuffer[0];
-		if (command != 'R' && command != 'O' && command != 'P' && command != 'B' && command != 'W') {
+		if (command != 'H' && command != 'R' && command != 'O' && command != 'P' && command != 'B' && command != 'W') {
 			scheduleMsg(&logger, "unexpected command %x", command);
 			sendErrorCode();
 			continue;
