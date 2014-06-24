@@ -134,6 +134,23 @@ static size_t wt_reads(void *ip, uint8_t *bp, size_t n) {
 	return DELEGATE->vmt->read(DELEGATE, bp, n);
 }
 
+static msg_t wt_putt(void *instance, uint8_t b, systime_t time) {
+	return DELEGATE->vmt->putt(DELEGATE, b, time);
+}
+
+static msg_t wt_gett(void *instance, systime_t time) {
+	return DELEGATE->vmt->gett(DELEGATE, time);
+}
+
+static size_t wt_writet(void *instance, const uint8_t *bp,
+                size_t n, systime_t time) {
+	return DELEGATE->vmt->writet(DELEGATE, bp, n, time);
+}
+
+static size_t wt_readt(void *instance, uint8_t *bp, size_t n, systime_t time) {
+	return DELEGATE->vmt->readt(DELEGATE, bp, n, time);
+}
+
 static char putMessageBuffer[2];
 
 static msg_t wt_put(void *ip, uint8_t b) {
@@ -150,7 +167,7 @@ static msg_t wt_get(void *ip) {
 	return DELEGATE->vmt->get(DELEGATE);
 }
 
-static const struct Win32TestStreamVMT vmt = { wt_writes, wt_reads, wt_put, wt_get };
+static const struct Win32TestStreamVMT vmt = { wt_writes, wt_reads, wt_put, wt_get, wt_putt, wt_gett, wt_writet, wt_readt };
 
 void initTestStream(TestStream *ts) {
 	ts->vmt = &vmt;
