@@ -14,7 +14,7 @@
 
 //#define EFI_UART_ECHO_TEST_MODE TRUE
 
-#define EFI_USE_UART_FOR_CONSOLE TRUE
+#define EFI_USE_UART_FOR_CONSOLE FALSE
 
 /**
  * Build-in logic analyzer support. Logic analyzer viewer is one of the java console panes.
