@@ -32,7 +32,7 @@
  * @brief   @p Win32TestStream virtual methods table.
  */
 struct Win32TestStreamVMT {
-  _base_sequential_stream_methods
+	_base_channel_methods
 };
 
 typedef struct {
