@@ -181,12 +181,8 @@ void firmwareError(const char *fmt, ...) {
 	exit(-1);
 }
 
-//bool_t hasFatalError(void) {
-//	return false;
-//}
-
-BaseSequentialStream * getConsoleChannel(void) {
-	return (BaseSequentialStream *)EFI_CONSOLE_UART_DEVICE;
+SerialDriver * getConsoleChannel(void) {
+	return (SerialDriver *)EFI_CONSOLE_UART_DEVICE;
 }
 
 void chDbgPanic3(const char *msg, const char * file, int line) {
@@ -194,7 +190,6 @@ void chDbgPanic3(const char *msg, const char * file, int line) {
 }
 
 uint64_t getTimeNowUs(void) {
-
 	return chTimeNow() * (1000000 / CH_FREQUENCY);
 }
 

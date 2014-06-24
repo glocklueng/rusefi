@@ -18,6 +18,8 @@
 #ifndef GLOBAL_FT_H_
 #define GLOBAL_FT_H_
 
+#define CCM_OPTIONAL
+
 #include "cli_registry.h"
 #include "rusefi_enums.h"
 
