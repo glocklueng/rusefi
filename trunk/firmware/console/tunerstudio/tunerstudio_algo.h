@@ -21,6 +21,7 @@
 // response codes
 
 #define TS_RESPONSE_OK 0x00
+#define TS_RESPONSE_BURN_OK 0x04
 #define TS_RESPONSE_CRC_FAILURE 0x82
 
 typedef struct {
@@ -45,7 +46,7 @@ void handleOutputChannelsCommand(void);
 char *getWorkingPageAddr(int pageIndex);
 int getTunerStudioPageSize(int pageIndex);
 void handleWriteValueCommand(uint16_t page, uint16_t offset, uint8_t value);
-void handleWriteChunkCommand(void);
+void handleWriteChunkCommand(short offset, short count, void *content);
 void handlePageSelectCommand(uint16_t pageId);
 void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count);
 void handleBurnCommand(uint16_t page);
@@ -57,7 +58,9 @@ void tunerStudioDebug(char *msg);
 #define TS_OUTPUT_COMMAND 'O'
 #define TS_READ_COMMAND 'R'
 #define TS_PAGE_COMMAND 'P'
+
+#define TS_SINGLE_WRITE_COMMAND 'W'
+#define TS_CHUNK_WRITE_COMMAND 'C'
 #define TS_BURN_COMMAND 'B'
-#define TS_WRITE_COMMAND 'W'
 
 #endif /* TUNERSTUDIO_ALGO_H_ */

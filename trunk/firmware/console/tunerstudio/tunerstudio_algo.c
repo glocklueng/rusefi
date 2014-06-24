@@ -74,9 +74,11 @@ int tunerStudioHandleCommand(char *data, int incomingPacketSize) {
 	} else if (command == TS_PAGE_COMMAND) {
 		uint16_t page = *(uint16_t *) data;
 		handlePageSelectCommand(page);
-	} else if (command == 'C') {
-		handleWriteChunkCommand();
-	} else if (command == TS_WRITE_COMMAND) {
+	} else if (command == TS_CHUNK_WRITE_COMMAND) {
+		uint16_t offset = *(uint16_t *) data;
+		uint16_t count = *(uint16_t *) (data + 2);
+		handleWriteChunkCommand(offset, count, data + 4);
+	} else if (command == TS_SINGLE_WRITE_COMMAND) {
 		uint16_t page = *(uint16_t *) data;
 		uint16_t offset = *(uint16_t *) (data + 2);
 		uint8_t value = data[4];
