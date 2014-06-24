@@ -1,5 +1,5 @@
 /**
- * @file	rusEfiFunctionalTest.c
+ * @file	rusEfiFunctionalTest.cpp
  *
  * @date Mar 1, 2014
  * @author Andrey Belomutskiy, (c) 2012-2013
@@ -50,11 +50,6 @@ int isInjectionEnabled(void) {
 	return TRUE;
 }
 
-
-//void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
-//
-//}
-
 // todo: move this to "idle_controller.h"
 
 extern "C" {
@@ -66,7 +61,6 @@ int getRemainingStack(Thread *otp) {
 }
 
 void idleDebug(char *msg, int value) {
-
 }
 
 float getMap(void) {
