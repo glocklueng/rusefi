@@ -24,6 +24,11 @@ int minI(int i1, int i2) {
 	return i1 < i2 ? i1 : i2;
 }
 
+float efiRound(float value, float precision) {
+	int a = value / precision;
+	return a * precision;
+}
+
 float absF(float value) {
 	return value > 0 ? value : -value;
 }

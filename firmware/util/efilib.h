@@ -34,6 +34,7 @@ int cisnan(float f);
 
 int absI(int32_t value);
 float absF(float value);
+float efiRound(float value, float precision);
 int maxI(int i1, int i2);
 int minI(int i1, int i2);
 float maxF(float i1, float i2);
