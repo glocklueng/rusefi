@@ -53,9 +53,13 @@ public class AutoTest {
     }
 
     private static void testFordFiesta() {
-//        WaveChart chart;
-//        changeRpm(2000);
-//        chart = nextChart();
+        WaveChart chart;
+        IoUtil.changeRpm(2000);
+        chart = nextChart();
+
+        String msg = "Fiesta";
+        double x = 156.96;
+//        assertWave(msg, chart, WaveChart.SPARK_1, 0.077999, x, x+ 180);
     }
 
     private static void testFord6() {
