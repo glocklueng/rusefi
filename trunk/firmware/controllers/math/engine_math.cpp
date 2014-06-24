@@ -311,8 +311,13 @@ void prepareOutputSignals(engine_configuration_s *engineConfiguration, engine_co
 }
 
 void setTableBin(float array[], int size, float l, float r) {
-	for (int i = 0; i < size; i++)
-		array[i] = interpolate(0, l, size - 1, r, i);
+	for (int i = 0; i < size; i++) {
+		float value = interpolate(0, l, size - 1, r, i);
+		/**
+		 * rounded values look nicer, also we want to avoid precision mismatch with Tuner Studio
+		 */
+		array[i] = efiRound(value, 0.01);
+	}
 }
 
 void setFuelRpmBin(engine_configuration_s *engineConfiguration, float l, float r) {
