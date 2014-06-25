@@ -1,5 +1,5 @@
 /**
- * @file	trigger_structure.c
+ * @file	trigger_structure.cpp
  *
  * @date Jan 20, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
@@ -76,6 +76,10 @@ void TriggerState::nextRevolution(int triggerEventCount) {
 	current_index = 0;
 	totalRevolutionCounter ++;
 	totalEventCountBase += triggerEventCount;
+}
+
+int TriggerState::getTotalRevolutionCounter() {
+	return totalRevolutionCounter;
 }
 
 void TriggerState::nextTriggerEvent() {
