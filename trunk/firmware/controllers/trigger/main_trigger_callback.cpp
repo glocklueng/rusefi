@@ -98,7 +98,7 @@ static void handleFuel(MainTriggerCallback *mainTriggerCallback, int eventIndex,
 	if (!isInjectionEnabled(mainTriggerCallback->engineConfiguration2))
 		return;
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 16, "stack#3");
-	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
+	efiAssertVoid(eventIndex < 2 * mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
 			"event index");
 
 	/**
@@ -236,7 +236,7 @@ void showMainHistogram(void) {
  * Both injection and ignition are controlled from this method.
  */
 void onTriggerEvent(trigger_event_e ckpSignalType, int eventIndex, MainTriggerCallback *mainTriggerCallback) {
-	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
+	efiAssertVoid(eventIndex < 2 * mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
 			"event index");
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 16, "stack#3");
 
