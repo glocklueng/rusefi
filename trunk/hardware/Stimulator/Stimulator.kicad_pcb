@@ -57,7 +57,7 @@
     (visible_elements 7FFFFFFF)
     (pcbplotparams
       (layerselection 301760513)
-      (usegerberextensions false)
+      (usegerberextensions true)
       (excludeedgelayer true)
       (linewidth 0.100000)
       (plotframeref false)
@@ -80,7 +80,7 @@
       (mirror false)
       (drillshape 0)
       (scaleselection 1)
-      (outputdirectory gerber/))
+      (outputdirectory stimulator_gerber))
   )
 
   (net 0 "")
