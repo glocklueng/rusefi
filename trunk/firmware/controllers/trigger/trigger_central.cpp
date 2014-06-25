@@ -53,7 +53,7 @@ void addTriggerEventListener(ShaftPositionListener listener, const char *name, v
 #if EFI_PROD_CODE || EFI_SIMULATOR
 extern configuration_s *configuration;
 
-void hwHandleShaftSignal(ShaftEvents signal) {
+void hwHandleShaftSignal(trigger_event_e signal) {
 	triggerCentral.handleShaftSignal(configuration, signal, getTimeNowUs());
 }
 #endif /* EFI_PROD_CODE */
@@ -63,7 +63,7 @@ TriggerCentral::TriggerCentral() {
 	clearCallbacks(&triggerListeneres);
 }
 
-void TriggerCentral::handleShaftSignal(configuration_s *configuration, ShaftEvents signal, uint64_t nowUs) {
+void TriggerCentral::handleShaftSignal(configuration_s *configuration, trigger_event_e signal, uint64_t nowUs) {
 	efiAssertVoid(configuration!=NULL, "configuration");
 
 	efiAssertVoid(configuration->engineConfiguration!=NULL, "engineConfiguration");

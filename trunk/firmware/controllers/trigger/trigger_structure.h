@@ -24,7 +24,7 @@ public:
 	uint64_t getStartOfRevolutionIndex();
 	void nextRevolution(int triggerEventCount);
 	void nextTriggerEvent();
-	void processTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, ShaftEvents signal, uint64_t nowUs);
+	void processTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, trigger_event_e signal, uint64_t nowUs);
 
 
 	/**

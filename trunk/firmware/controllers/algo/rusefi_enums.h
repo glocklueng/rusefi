@@ -97,7 +97,7 @@ typedef enum {
 	SHAFT_PRIMARY_DOWN = 1,
 	SHAFT_SECONDARY_UP = 2,
 	SHAFT_SECONDARY_DOWN = 3,
-} ShaftEvents;
+} trigger_event_e;
 
 /**
  * This enum is used to select your desired Engine Load calculation algorithm
