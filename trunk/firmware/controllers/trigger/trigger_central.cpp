@@ -104,6 +104,11 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, trigger_e
 #endif
 		}
 	} else {
+		/**
+		 * If we only have a crank position sensor, here we are extending crank revolutions with a 360 degree
+		 * cycle into a four stroke, 720 degrees cycle. TODO
+		 */
+
 
 		/**
 		 * Here we invoke all the listeners - the main engine control logic is inside these listeners
