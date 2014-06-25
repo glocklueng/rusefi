@@ -433,7 +433,7 @@ void setOperationMode(engine_configuration_s *engineConfiguration, operation_mod
 	}
 }
 
-operation_mode_e getOperationMode(engine_configuration_s *engineConfiguration) {
+operation_mode_e getOperationMode( engine_configuration_s const *engineConfiguration) {
 	if(engineConfiguration->rpmMultiplier == 1)
 		return FOUR_STROKE_CRANK_SENSOR;
 	return FOUR_STROKE_CAM_SENSOR;
