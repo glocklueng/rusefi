@@ -18,7 +18,7 @@ void setGy6139qmbDefaultEngineConfiguration(engine_configuration_s *engineConfig
 	engineConfiguration->globalTriggerAngleOffset = 15;
 	engineConfiguration->analogChartMode = AC_MAP;
 	engineConfiguration->cylindersCount = 1;
-	engineConfiguration->rpmMultiplier = 1;
+	setOperationMode(engineConfiguration, FOUR_STROKE_CRANK_SENSOR);
 
 	engineConfiguration->firingOrder = FO_ONE_CYLINDER;
 

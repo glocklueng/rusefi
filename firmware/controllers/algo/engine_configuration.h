@@ -278,6 +278,8 @@ typedef struct {
 
 } engine_configuration_s;
 
+void setOperationMode(engine_configuration_s *engineConfiguration, operation_mode_e mode);
+
 typedef struct {
 	int temp;
 } engine_configuration_page2_s;

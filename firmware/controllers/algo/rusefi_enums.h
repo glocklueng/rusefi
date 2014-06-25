@@ -179,6 +179,14 @@ typedef enum {
 	Internal_ForceMyEnumIntSize_firing_order = ENUM_SIZE_HACK,
 } firing_order_e;
 
+// todo: better enum name
+typedef enum {
+	FOUR_STROKE_CRANK_SENSOR = 0,
+	FOUR_STROKE_CAM_SENSOR = 1,
+
+	Internal_ForceMyEnumIntSize_operation_mode_e = ENUM_SIZE_HACK,
+} operation_mode_e;
+
 /**
  * @brief Ignition Mode
  */
