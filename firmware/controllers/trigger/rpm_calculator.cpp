@@ -131,7 +131,7 @@ static char shaft_signal_msg_index[15];
  * updated here.
  * This callback is invoked on interrupt thread.
  */
-void shaftPositionCallback(ShaftEvents ckpSignalType, int index, RpmCalculator *rpmState) {
+void shaftPositionCallback(trigger_event_e ckpSignalType, int index, RpmCalculator *rpmState) {
 	itoa10(&shaft_signal_msg_index[1], index);
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
 		addWaveChartEvent("crank", "up", (char*) shaft_signal_msg_index);
@@ -188,7 +188,7 @@ static void onTdcCallback(void) {
 	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, (char*) rpmBuffer, "");
 }
 
-static void tdcMarkCallback(ShaftEvents ckpSignalType, int index, void *arg) {
+static void tdcMarkCallback(trigger_event_e ckpSignalType, int index, void *arg) {
 	if (index == 0) {
 		int index = getRevolutionCounter() % 2;
 		scheduleByAngle(&tdcScheduler[index], engineConfiguration->globalTriggerAngleOffset, (schfunc_t) onTdcCallback, NULL);

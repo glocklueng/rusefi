@@ -36,7 +36,7 @@ public:
  * @brief   Current RPM
  */
 int getRpmE(Engine *engine);
-void shaftPositionCallback(ShaftEvents ckpSignalType, int index, RpmCalculator *rpmState);
+void shaftPositionCallback(trigger_event_e ckpSignalType, int index, RpmCalculator *rpmState);
 #endif
 
 #ifdef __cplusplus

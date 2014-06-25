@@ -139,7 +139,7 @@ static void initWave(char *name, int index, ICUDriver *driver, ioportid_t port, 
 //	return ckpPeriod;
 //}
 
-static void onWaveShaftSignal(ShaftEvents ckpSignalType, int index, void *arg) {
+static void onWaveShaftSignal(trigger_event_e ckpSignalType, int index, void *arg) {
 	if (index != 0)
 		return;
 	uint64_t nowUs = getTimeNowUs();
