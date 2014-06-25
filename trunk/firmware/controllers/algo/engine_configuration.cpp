@@ -432,3 +432,10 @@ void setOperationMode(engine_configuration_s *engineConfiguration, operation_mod
 		engineConfiguration->rpmMultiplier = 1;
 	}
 }
+
+operation_mode_e getOperationMode(engine_configuration_s *engineConfiguration) {
+	if(engineConfiguration->rpmMultiplier == 1)
+		return FOUR_STROKE_CRANK_SENSOR;
+	return FOUR_STROKE_CAM_SENSOR;
+
+}
