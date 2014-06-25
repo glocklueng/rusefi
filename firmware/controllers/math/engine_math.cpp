@@ -234,22 +234,27 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
 
 	// todo: migrate to crankAngleRange?
-	float firstAngle = s->wave.getAngle(s->triggerShapeSynchPointIndex);
+	float firstAngle = s->wave.getAngle(s->triggerShapeSynchPointIndex, engineConfiguration);
 
 	// let's find the last trigger angle which is less or equal to the desired angle
 	int i;
 	for (i = 0; i < s->getSize() - 1; i++) {
 		// todo: we need binary search here
 		float angle = fixAngle(
-				s->wave.getAngle((s->triggerShapeSynchPointIndex + i + 1) % s->getSize()) - firstAngle);
+				s->wave.getAngle((s->triggerShapeSynchPointIndex + i + 1) % s->getSize(), engineConfiguration)
+						- firstAngle);
 		if (angle > angleOffset)
 			break;
 	}
 	// explicit check for zero to avoid issues where logical zero is not exactly zero due to float nature
-	float eventAngle =
-			i == 0 ?
-					0 :
-					fixAngle(s->wave.getAngle((s->triggerShapeSynchPointIndex + i) % s->getSize()) - firstAngle);
+	float eventAngle;
+	if (i == 0) {
+		eventAngle = 0;
+	} else {
+		eventAngle = fixAngle(
+				s->wave.getAngle((s->triggerShapeSynchPointIndex + i) % s->getSize(), engineConfiguration)
+						- firstAngle);
+	}
 
 	if (angleOffset < eventAngle) {
 		firmwareError("angle constraint violation in registerActuatorEventExt(): %f/%f", angleOffset, eventAngle);

@@ -7,6 +7,8 @@
 #ifndef EFI_WAVE_H_
 #define EFI_WAVE_H_
 
+#include "engine_configuration.h"
+
 #define PWM_PHASE_MAX_COUNT 250
 #define PWM_PHASE_MAX_WAVE_PER_PWM 2
 
@@ -28,7 +30,7 @@ public:
 	void init(float *st, single_wave_s *waves);
 	void reset(void);
 	float getSwitchTime(int phaseIndex) const;
-	float getAngle(int phaseIndex) const;
+	float getAngle(int phaseIndex, engine_configuration_s const *engineConfiguration) const;
 	void setSwitchTime(int phaseIndex, float value);
 	void checkSwitchTimes(int size);
 	int getChannelState(int channelIndex, int phaseIndex) const;

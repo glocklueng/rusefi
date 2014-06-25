@@ -37,7 +37,8 @@ void multi_wave_s::reset(void) {
 	waveCount = 0;
 }
 
-float multi_wave_s::getAngle(int index) const {
+float multi_wave_s::getAngle(int index, engine_configuration_s const *engineConfiguration) const {
+
 	return getSwitchTime(index) * 720.0;
 }
 
