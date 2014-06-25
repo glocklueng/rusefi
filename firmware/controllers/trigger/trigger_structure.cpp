@@ -74,6 +74,7 @@ uint64_t TriggerState::getTotalEventCounter() {
 
 void TriggerState::nextRevolution(int triggerEventCount) {
 	current_index = 0;
+	totalRevolutionCounter ++;
 	totalEventCountBase += triggerEventCount;
 }
 
@@ -86,6 +87,7 @@ void TriggerState::clear() {
 	toothed_previous_time = 0;
 	toothed_previous_duration = 0;
 	current_index = 0;
+	totalRevolutionCounter = 0;
 }
 
 void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
