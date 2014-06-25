@@ -41,7 +41,8 @@ float multi_wave_s::getAngle(int index, engine_configuration_s const *engineConf
 	if (getOperationMode(engineConfiguration) == FOUR_STROKE_CAM_SENSOR)
 		return getSwitchTime(index) * 720.0;
 	/**
-	 * FOUR_STROKE_CRANK_SENSOR magic
+	 * FOUR_STROKE_CRANK_SENSOR magic:
+	 * We have two crank shaft revolutions for each engine cycle
 	 * See also trigger_central.cpp
 	 */
 
