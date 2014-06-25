@@ -54,8 +54,8 @@ static inline int isSynchronizationGap(TriggerState const *shaftPositionState, t
 			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioTo;
 }
 
-static inline int noSynchronizationResetNeeded(TriggerState *shaftPositionState,
-		trigger_shape_s const *triggerShape, trigger_config_s const*triggerConfig) {
+static inline int noSynchronizationResetNeeded(TriggerState *shaftPositionState, trigger_shape_s const *triggerShape,
+		trigger_config_s const*triggerConfig) {
 	if (triggerConfig->isSynchronizationNeeded)
 		return FALSE;
 	if (!shaftPositionState->shaft_is_synchronized)
@@ -69,8 +69,8 @@ static inline int noSynchronizationResetNeeded(TriggerState *shaftPositionState,
 /**
  * @brief This method changes the state of trigger_state_s data structure according to the trigger event
  */
-void TriggerState::processTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, trigger_event_e signal, uint64_t nowUs) {
-
+void TriggerState::processTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig,
+		trigger_event_e signal, uint64_t nowUs) {
 
 	int isLessImportant = (triggerConfig->useRiseEdge && signal != SHAFT_PRIMARY_UP)
 			|| (!triggerConfig->useRiseEdge && signal != SHAFT_PRIMARY_DOWN);
@@ -139,8 +139,8 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 
 void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount,
 		int skippedCount) {
-      efiAssertVoid(totalTeethCount > 0, "totalTeethCount is zero");
-                  
+	efiAssertVoid(totalTeethCount > 0, "totalTeethCount is zero");
+
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount);
 
@@ -209,6 +209,8 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 		firmwareError("initializeTriggerShape() not implemented: %d", tt->triggerType);
 		;
 	}
+	if (engineConfiguration2->triggerShape.shaftPositionEventCount != engineConfiguration2->triggerShape.getSize())
+		firmwareError("trigger size or shaftPositionEventCount?");
 }
 
 /**
@@ -231,7 +233,7 @@ int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*tr
 
 		int loopIndex = i / shape->getSize();
 
-		int time = (int)(10000 * (loopIndex + shape->wave.getSwitchTime(stateIndex)));
+		int time = (int) (10000 * (loopIndex + shape->wave.getSwitchTime(stateIndex)));
 
 		int newPrimaryWheelState = shape->wave.getChannelState(0, stateIndex);
 		int newSecondaryWheelState = shape->wave.getChannelState(1, stateIndex);
