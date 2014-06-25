@@ -38,8 +38,18 @@ void multi_wave_s::reset(void) {
 }
 
 float multi_wave_s::getAngle(int index, engine_configuration_s const *engineConfiguration) const {
+	if (getOperationMode(engineConfiguration) == FOUR_STROKE_CAM_SENSOR)
+		return getSwitchTime(index) * 720.0;
+	/**
+	 * FOUR_STROKE_CRANK_SENSOR magic
+	 * See also trigger_central.cpp
+	 */
 
-	return getSwitchTime(index) * 720.0;
+	if (index < phaseCount) {
+		return getSwitchTime(index) * 360.0;
+	} else {
+		return 360 + getSwitchTime(index - phaseCount) * 360.0;
+	}
 }
 
 float multi_wave_s::getSwitchTime(int index) const {
