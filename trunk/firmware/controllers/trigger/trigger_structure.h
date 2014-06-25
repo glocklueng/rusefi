@@ -20,6 +20,7 @@ class TriggerState {
 public:
 	TriggerState();
 	int getCurrentIndex();
+	int getTotalRevolutionCounter();
 	uint64_t getTotalEventCounter();
 	uint64_t getStartOfRevolutionIndex();
 	void nextRevolution(int triggerEventCount);
