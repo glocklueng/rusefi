@@ -37,6 +37,10 @@ void multi_wave_s::reset(void) {
 	waveCount = 0;
 }
 
+float multi_wave_s::getAngle(int index) const {
+	return getSwitchTime(index) * 720.0;
+}
+
 float multi_wave_s::getSwitchTime(int index) const {
 	return switchTimes[index];
 }
