@@ -164,10 +164,12 @@ void shaftPositionCallback(trigger_event_e ckpSignalType, int index, RpmCalculat
 			uint64_t diff = nowUs - rpmState->lastRpmEventTimeUs;
 			// 60000 because per minute
 			// * 2 because each revolution of crankshaft consists of two camshaft revolutions
-			// / 4 because each cylinder sends a signal
 			// need to measure time from the previous non-skipped event
+			/**
+			 * Four stroke cycle is two crankshaft revolutions
+			 */
 
-			int rpm = (int) (60 * US_PER_SECOND / engineConfiguration->rpmMultiplier / diff);
+			int rpm = (int) (60 * US_PER_SECOND * 2 / diff);
 			rpmState->rpmValue = rpm > UNREALISTIC_RPM ? NOISY_RPM : rpm;
 		}
 	}

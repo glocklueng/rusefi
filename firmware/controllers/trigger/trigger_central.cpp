@@ -85,11 +85,12 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, trigger_e
 	}
 	previousShaftEventTime = nowUs;
 
+	trigger_shape_s * triggerShape = &configuration->engineConfiguration2->triggerShape;
+
 	/**
 	 * This invocation changes the state of
 	 */
-	triggerState.processTriggerEvent(&configuration->engineConfiguration2->triggerShape,
-			&configuration->engineConfiguration->triggerConfig, signal, nowUs);
+	triggerState.processTriggerEvent(triggerShape, &configuration->engineConfiguration->triggerConfig, signal, nowUs);
 
 	if (!triggerState.shaft_is_synchronized)
 		return; // we should not propagate event if we do not know where we are
@@ -108,12 +109,21 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, trigger_e
 		 * If we only have a crank position sensor, here we are extending crank revolutions with a 360 degree
 		 * cycle into a four stroke, 720 degrees cycle. TODO
 		 */
+		int triggerIndexForListeners;
+		if( getOperationMode(configuration->engineConfiguration) == FOUR_STROKE_CAM_SENSOR) {
+			// That's easy - trigger cycle matches engine cycle
+			triggerIndexForListeners = triggerState.getCurrentIndex();
+		} else {
+			bool isEven = (triggerState.getTotalRevolutionCounter() & 1) == 0;
+
+			triggerIndexForListeners = triggerState.getCurrentIndex() + (isEven ? 0 : triggerShape->getSize());
+		}
 
 
 		/**
 		 * Here we invoke all the listeners - the main engine control logic is inside these listeners
 		 */
-		invokeIntIntVoidCallbacks(&triggerListeneres, signal, triggerState.getCurrentIndex());
+		invokeIntIntVoidCallbacks(&triggerListeneres, signal, triggerIndexForListeners);
 	}
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int afterCallback = hal_lld_get_counter_value();
