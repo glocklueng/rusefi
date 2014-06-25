@@ -207,10 +207,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->canReadEnabled = TRUE;
 	engineConfiguration->canWriteEnabled = FALSE;
 
-	/**
-	 * 0.5 means primary position sensor is on a camshaft
-	 */
-	engineConfiguration->rpmMultiplier = 0.5;
+	setOperationMode(engineConfiguration, FOUR_STROKE_CAM_SENSOR);
 	engineConfiguration->cylindersCount = 4;
 	engineConfiguration->displacement = 2;
 	/**
@@ -423,6 +420,15 @@ void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *e
 
 	prepareOutputSignals(engineConfiguration, engineConfiguration2);
 	// todo: looks like this is here only for unit tests. todo: remove
-	initializeIgnitionActions(0, 0, engineConfiguration, engineConfiguration2, &engineConfiguration2->engineEventConfiguration.ignitionEvents[0]);
+	initializeIgnitionActions(0, 0, engineConfiguration, engineConfiguration2,
+			&engineConfiguration2->engineEventConfiguration.ignitionEvents[0]);
 
+}
+
+void setOperationMode(engine_configuration_s *engineConfiguration, operation_mode_e mode) {
+	if (mode == FOUR_STROKE_CAM_SENSOR) {
+		engineConfiguration->rpmMultiplier = 0.5;
+	} else if (mode == FOUR_STROKE_CRANK_SENSOR) {
+		engineConfiguration->rpmMultiplier = 1;
+	}
 }

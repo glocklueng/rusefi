@@ -23,10 +23,7 @@
 void setFordInline6(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 	engineConfiguration->cylindersCount = 6;
 
-	/**
-	 * 0.5 means primary position sensor is on a camshaft
-	 */
-	engineConfiguration->rpmMultiplier = 0.5;
+	setOperationMode(engineConfiguration, FOUR_STROKE_CAM_SENSOR);
 
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
 	engineConfiguration->firingOrder = FO_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4;
