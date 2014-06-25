@@ -279,6 +279,7 @@ typedef struct {
 } engine_configuration_s;
 
 void setOperationMode(engine_configuration_s *engineConfiguration, operation_mode_e mode);
+operation_mode_e getOperationMode(engine_configuration_s *engineConfiguration);
 
 typedef struct {
 	int temp;
