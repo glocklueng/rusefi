@@ -58,8 +58,9 @@ public class AutoTest {
         chart = nextChart();
 
         String msg = "Fiesta";
-        double x = 156.96;
-//        assertWave(msg, chart, WaveChart.SPARK_1, 0.077999, x, x+ 180);
+        double x = 312;
+        assertWave(msg, chart, WaveChart.SPARK_1, 0.1333333, x, x + 360);
+        assertWave(msg, chart, WaveChart.SPARK_3, 0.1333333, x + 180, x + 540);
     }
 
     private static void testFord6() {
