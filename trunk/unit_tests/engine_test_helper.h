@@ -9,6 +9,8 @@
 
 #include "engine_configuration.h"
 #include "ec2.h"
+#include "trigger_central.h"
+#include "rpm_calculator.h"
 
 class EngineTestHelper {
 public:
@@ -17,6 +19,10 @@ public:
 	engine_configuration2_s ec2;
 
 	engine_configuration_s *ec;
+
+	TriggerCentral triggerCentral;
+	RpmCalculator rpmState;
+
 };
 
 #endif /* ENGINE_TEST_HELPER_H_ */
