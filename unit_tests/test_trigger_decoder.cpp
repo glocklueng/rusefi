@@ -22,6 +22,7 @@
 #include "engine.h"
 #include "advance_map.h"
 #include "engine_test_helper.h"
+#include "speed_density.h"
 
 Engine engine;
 
@@ -288,6 +289,14 @@ static void testSpeedDensity(void) {
 	eth.fireTriggerEvents();
 	assertEqualsM("RPM", 1500, eth.rpmState.rpm());
 
+	// 427 cubic inches, that's a LOT of engine
+	eth.ec->displacement = 6.99728;
+	eth.ec->cylindersCount = 8;
+
+	eth.ec->injectorFlow = gramm_second_to_cc_minute(5.303);
+
+	// 0.01414 sec or 14.14 ms
+	assertEquals(0.01414, sdMath(eth.ec, 0.92, 98, 12.5, 293.16));
 }
 
 static void testRpmCalculator(void) {
