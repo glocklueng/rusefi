@@ -19,13 +19,14 @@
 #include "test_interpolation_3d.h"
 #include "test_find_index.h"
 #include "test_sensors.h"
+#include "test_speed_density.h"
+
+#include "test_fuel_map.h"
 
 extern "C"
 {
-
 #include "map_resize.h"
 #include "test_idle_controller.h"
-#include "test_fuel_map.h"
 #include "test_event_registry.h"
 #include "test_signal_executor.h"
 #include "test_util.h"
@@ -119,6 +120,8 @@ int main(void) {
 	testSetTableValue();
 
 	testAccelEnrichment();
+
+	testSpeedDensity();
 
 	//	resizeMap();
 	printf("Success 20130626\r\n");
