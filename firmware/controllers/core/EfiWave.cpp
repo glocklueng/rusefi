@@ -34,7 +34,6 @@ void multi_wave_s::init(float *switchTimes, single_wave_s *waves) {
 }
 
 void multi_wave_s::reset(void) {
-	phaseCount = 0;
 	waveCount = 0;
 }
 

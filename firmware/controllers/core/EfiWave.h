@@ -37,10 +37,6 @@ public:
 	void checkSwitchTimes(int size);
 	int getChannelState(int channelIndex, int phaseIndex) const;
 	/**
-	 * Number of events in the cycle
-	 */
-	int phaseCount;
-	/**
 	 * Number of signal wires
 	 */
 	int waveCount;

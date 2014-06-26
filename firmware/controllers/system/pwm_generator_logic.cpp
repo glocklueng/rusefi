@@ -97,7 +97,7 @@ static uint64_t togglePwmState(PwmConfig *state) {
 	}
 
 	state->stateChangeCallback(state,
-			state->safe.phaseIndex == 0 ? state->multiWave.phaseCount - 1 : state->safe.phaseIndex - 1);
+			state->safe.phaseIndex == 0 ? state->phaseCount - 1 : state->safe.phaseIndex - 1);
 
 	uint64_t nextSwitchTimeUs = getNextSwitchTimeUs(state);
 #if DEBUG_PWM
@@ -111,7 +111,7 @@ static uint64_t togglePwmState(PwmConfig *state) {
 	}
 
 	state->safe.phaseIndex++;
-	if (state->safe.phaseIndex == state->multiWave.phaseCount) {
+	if (state->safe.phaseIndex == state->phaseCount) {
 		state->safe.phaseIndex = 0; // restart
 		state->safe.iteration++;
 	}
@@ -128,7 +128,7 @@ static void timerCallback(PwmConfig *state) {
  * into our own permanent storage, right?
  */
 void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes, int waveCount, int **pinStates) {
-	state->multiWave.phaseCount = phaseCount;
+	state->phaseCount = phaseCount;
 
 	for (int phaseIndex = 0; phaseIndex < phaseCount; phaseIndex++) {
 		state->multiWave.switchTimes[phaseIndex] = switchTimes[phaseIndex];
