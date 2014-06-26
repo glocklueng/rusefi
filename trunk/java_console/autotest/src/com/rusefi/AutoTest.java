@@ -87,7 +87,7 @@ public class AutoTest {
         IoUtil.changeRpm(600);
         chart = nextChart();
         x = 76;
-        assertWave("aspire default runnint ", chart, WaveChart.SPARK_1, 0.04, x, x + 180, x + 360, x + 540);
+        assertWave("aspire default running ", chart, WaveChart.SPARK_1, 0.04, x, x + 180, x + 360, x + 540);
 
         IoUtil.changeRpm(200);
 
