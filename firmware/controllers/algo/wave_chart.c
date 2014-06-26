@@ -40,9 +40,11 @@
  */
 #if EFI_PROD_CODE
 static volatile int chartSize = 100;
+#define WAVE_LOGGING_SIZE 5000
 #else
 // need more events for automated test
-static volatile int chartSize = 200;
+static volatile int chartSize = 400;
+#define WAVE_LOGGING_SIZE 35000
 #endif
 
 static int isChartActive = TRUE;
@@ -65,7 +67,7 @@ void resetWaveChart(WaveChart *chart) {
 	appendPrintf(&chart->logging, "wave_chart%s", DELIMETER);
 }
 
-static char WAVE_LOGGING_BUFFER[5000] CCM_OPTIONAL;
+static char WAVE_LOGGING_BUFFER[WAVE_LOGGING_SIZE] CCM_OPTIONAL;
 
 static void printStatus(void) {
 	scheduleIntValue(&logger, "chart", isChartActive);
