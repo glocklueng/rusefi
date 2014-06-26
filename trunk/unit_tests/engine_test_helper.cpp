@@ -7,11 +7,32 @@
 
 #include "engine_test_helper.h"
 #include "stddef.h"
+#include "trigger_decoder.h"
+
+extern int timeNow;
 
 EngineTestHelper::EngineTestHelper(engine_type_e engineType) {
 	ec = &persistentConfig.engineConfiguration;
 
-	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
+	configuration.engineConfiguration = ec;
+	configuration.engineConfiguration2 = &ec2;
 
+	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
 }
 
+void EngineTestHelper::fireTriggerEvents() {
+	for (int i = 0; i < 24; i++) {
+		timeNow += 5000; // 5ms
+		triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
+		timeNow += 5000;
+		triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
+	}
+}
+
+void EngineTestHelper::initTriggerShapeAndRpmCalculator() {
+	initializeTriggerShape(NULL, ec, &ec2);
+	incrementGlobalConfigurationVersion();
+
+	triggerCentral.addEventListener((ShaftPositionListener) &shaftPositionCallback, "rpm reporter", &rpmState);
+
+}
