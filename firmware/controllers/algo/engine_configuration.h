@@ -146,9 +146,8 @@ typedef struct {
 	float sparkDwellBins[DWELL_COUNT]; // offset 580
 	float sparkDwell[DWELL_COUNT];
 
-	float ignitionTable[IGN_LOAD_COUNT][IGN_RPM_COUNT];
-	float ignitionLoadBins[IGN_LOAD_COUNT]; // offset 3450
-	float ignitionRpmBins[IGN_RPM_COUNT]; // offset 3542
+	float ignitionLoadBins[IGN_LOAD_COUNT];
+	float ignitionRpmBins[IGN_RPM_COUNT];
 
 	/**
 	 * this value could be used to offset the whole ignition timing table by a constant
@@ -171,10 +170,9 @@ typedef struct {
 	// WARNING: by default, our small enums are ONE BYTE. but if the are surrounded by non-enums - alignments do the trick
 	engine_type_e engineType;
 
-	float fuelTable[FUEL_LOAD_COUNT][FUEL_RPM_COUNT]; // size 1024, offset 1816
-	float fuelLoadBins[FUEL_LOAD_COUNT]; // offset 2840
+	float fuelLoadBins[FUEL_LOAD_COUNT]; //
 	// RPM is float and not integer in order to use unified methods for interpolation
-	float fuelRpmBins[FUEL_RPM_COUNT]; // offset 3542
+	float fuelRpmBins[FUEL_RPM_COUNT]; //
 
 	/**
 	 * Engine displacement, in liters
@@ -276,6 +274,12 @@ typedef struct {
 	float diffLoadEnrichmentCoef;
 
 	air_pressure_sensor_config_s baroSensor;
+
+
+	// the large tables are always in the end - that's related to TunerStudio paging implementation
+	float fuelTable[FUEL_LOAD_COUNT][FUEL_RPM_COUNT]; // size 1024
+	float ignitionTable[IGN_LOAD_COUNT][IGN_RPM_COUNT]; // size 1024
+
 
 //	float veTable[VE_LOAD_COUNT][VE_RPM_COUNT]; // size 1024
 //	float veLoadBins[VE_LOAD_COUNT]; //
