@@ -39,12 +39,20 @@ float getTCharge(int rpm, int tps, float coolantTemp, float airTemp) {
 	return Tcharge;
 }
 
-#define GAS_R 287.05
+/**
+ * is J/g*K
+ */
+#define GAS_R 0.28705
+
+float sdMath(engine_configuration_s *engineConfiguration, float VE, float MAP, float AFR, float temp) {
+	float injectorFlowRate = cc_minute_to_gramm_second(engineConfiguration->injectorFlow);
+	float Vol = engineConfiguration->displacement / engineConfiguration->cylindersCount;
+	return (Vol * VE * MAP) / (AFR * injectorFlowRate * GAS_R * temp);
+}
 
 float getSpeedDensityFuel(Engine *engine) {
 	int rpm = engine->rpmCalculator->rpm();
 
-	float Vol = engine->engineConfiguration->displacement / engine->engineConfiguration->cylindersCount;
 	float tps = getTPS();
 	float coolantC = getCoolantTemperature();
 	float intakeC = getIntakeAirTemperature();
@@ -52,9 +60,9 @@ float getSpeedDensityFuel(Engine *engine) {
 	float MAP = getMap();
 	float VE = 0.8;//veMap.getValue(rpm)
 	float AFR = 14.7;
-	float injectorFlowRate = engine->engineConfiguration->injectorFlow;
 
-	return (Vol * VE * MAP) / (AFR * injectorFlowRate * GAS_R * tChargeK);
+	return sdMath(engine->engineConfiguration, VE, MAP, AFR, tChargeK);
+
 }
 
 void setDetaultVETable(engine_configuration_s *engineConfiguration) {
