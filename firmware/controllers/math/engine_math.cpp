@@ -228,20 +228,30 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
 	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
 }
 
+/**
+ * Trigger event count equals engine cycle event count if we have a cam sensor.
+ * Two trigger cycles make one engine cycle in case of a four stroke engine If we only have a cranksensor.
+ */
+int getEngineCycleEventCount(engine_configuration_s const *engineConfiguration, trigger_shape_s * s) {
+	return getOperationMode(engineConfiguration) == FOUR_STROKE_CAM_SENSOR ? s->getSize() : 2 * s->getSize();
+}
+
 void findTriggerPosition(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		event_trigger_position_s *position, float angleOffset) {
 
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
 
 	// todo: migrate to crankAngleRange?
-	float firstAngle = s->wave.getAngle(s->triggerShapeSynchPointIndex, engineConfiguration);
+	float firstAngle = s->wave.getAngle(s->triggerShapeSynchPointIndex, engineConfiguration, s);
+
+	int engineCycleEventCount = getEngineCycleEventCount(engineConfiguration, s);
 
 	// let's find the last trigger angle which is less or equal to the desired angle
 	int i;
-	for (i = 0; i < s->getSize() - 1; i++) {
+	for (i = 0; i < engineCycleEventCount - 1; i++) {
 		// todo: we need binary search here
 		float angle = fixAngle(
-				s->wave.getAngle((s->triggerShapeSynchPointIndex + i + 1) % s->getSize(), engineConfiguration)
+				s->wave.getAngle((s->triggerShapeSynchPointIndex + i + 1) % engineCycleEventCount, engineConfiguration, s)
 						- firstAngle);
 		if (angle > angleOffset)
 			break;
@@ -252,7 +262,7 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 		eventAngle = 0;
 	} else {
 		eventAngle = fixAngle(
-				s->wave.getAngle((s->triggerShapeSynchPointIndex + i) % s->getSize(), engineConfiguration)
+				s->wave.getAngle((s->triggerShapeSynchPointIndex + i) % engineCycleEventCount, engineConfiguration, s)
 						- firstAngle);
 	}
 
