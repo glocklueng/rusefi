@@ -21,6 +21,7 @@
 #include "main_trigger_callback.h"
 #include "engine.h"
 #include "advance_map.h"
+#include "engine_test_helper.h"
 
 Engine engine;
 
@@ -277,20 +278,21 @@ void testGY6_139QMB(void) {
 
 extern EventQueue schedulingQueue;
 
+
 static void testRpmCalculator(void) {
 	printf("*************************************************** testRpmCalculator\r\n");
 
-	persistent_config_s persistentConfig;
-	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
-	engine_configuration2_s ec2;
+	EngineTestHelper eth(FORD_INLINE_6_1995);
 
-	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
+	engine_configuration_s *ec = &eth.persistentConfig.engineConfiguration;
+
+	engine_configuration2_s *ec2 = &eth.ec2;
 
 	ec->triggerConfig.totalToothCount = 8;
-	initializeTriggerShape(NULL, ec, &ec2);
+	initializeTriggerShape(NULL, ec, ec2);
 	incrementGlobalConfigurationVersion();
 
-	configuration_s configuration = { ec, &ec2 };
+	configuration_s configuration = { ec, ec2 };
 
 	TriggerCentral triggerCentral;
 
@@ -312,7 +314,7 @@ static void testRpmCalculator(void) {
 
 
 	static MainTriggerCallback triggerCallbackInstance;
-	triggerCallbackInstance.init(ec, &ec2);
+	triggerCallbackInstance.init(ec, ec2);
 	triggerCentral.addEventListener((ShaftPositionListener)&onTriggerEvent, "main loop", &triggerCallbackInstance);
 
 	engine.rpmCalculator = &rpmState;
