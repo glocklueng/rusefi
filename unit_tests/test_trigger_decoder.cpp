@@ -278,6 +278,17 @@ void testGY6_139QMB(void) {
 
 extern EventQueue schedulingQueue;
 
+static void testSpeedDensity(void) {
+	printf("*************************************************** testSpeedDensity\r\n");
+	EngineTestHelper eth(FORD_INLINE_6_1995);
+
+	eth.ec->triggerConfig.totalToothCount = 8;
+	eth.initTriggerShapeAndRpmCalculator();
+
+	eth.fireTriggerEvents();
+	assertEqualsM("RPM", 1500, eth.rpmState.rpm());
+
+}
 
 static void testRpmCalculator(void) {
 	printf("*************************************************** testRpmCalculator\r\n");
@@ -289,22 +300,13 @@ static void testRpmCalculator(void) {
 	engine_configuration2_s *ec2 = &eth.ec2;
 
 	ec->triggerConfig.totalToothCount = 8;
-	initializeTriggerShape(NULL, ec, ec2);
-	incrementGlobalConfigurationVersion();
+	eth.initTriggerShapeAndRpmCalculator();
 
 	configuration_s configuration = { ec, ec2 };
-
 	timeNow = 0;
-
 	assertEquals(0, eth.rpmState.rpm());
-	eth.triggerCentral.addEventListener((ShaftPositionListener) &shaftPositionCallback, "rpm reporter", &eth.rpmState);
 
-	for (int i = 0; i < 24; i++) {
-		timeNow += 5000; // 5ms
-		eth.triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_UP, timeNow);
-		timeNow += 5000;
-		eth.triggerCentral.handleShaftSignal(&configuration, SHAFT_PRIMARY_DOWN, timeNow);
-	}
+	eth.fireTriggerEvents();
 	assertEqualsM("RPM", 1500, eth.rpmState.rpm());
 
 	assertEqualsM("index #1", 15, eth.triggerCentral.triggerState.getCurrentIndex());
@@ -414,5 +416,6 @@ void testTriggerDecoder(void) {
 //	testMazda323();
 
 	testRpmCalculator();
+	testSpeedDensity();
 }
 
