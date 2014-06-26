@@ -55,6 +55,10 @@ public:
 	scheduling_s scheduling;
 
 	pwm_config_safe_state_s safe;
+	/**
+	 * Number of events in the cycle
+	 */
+	int phaseCount;
 
 	/**
 	 * this callback is invoked before each wave generation cycle
