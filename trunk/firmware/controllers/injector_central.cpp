@@ -116,7 +116,7 @@ static void sparkbench(char * onStr, char *offStr, char *countStr) {
 	needToRunBench = TRUE;
 }
 
-static WORKING_AREA(benchThreadStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(benchThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static msg_t benchThread(int param) {
 	chRegSetThreadName("BenchThread");

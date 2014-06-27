@@ -35,7 +35,7 @@
 
 #define IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY 200
 
-static WORKING_AREA(ivThreadStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(ivThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static volatile int isIdleControlActive = EFI_IDLE_CONTROL;
 extern board_configuration_s *boardConfiguration;
