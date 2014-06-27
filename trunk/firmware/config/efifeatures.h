@@ -22,7 +22,6 @@
 #define EFI_WAVE_ANALYZER TRUE
 
 #define EFI_WAVE_CHART TRUE
-#define EFI_ANALOG_CHART TRUE
 
 //#define SERIAL_SPEED (8 * 115200)
 //#define SERIAL_SPEED (2 * 115200)
@@ -108,7 +107,14 @@
 #define EFI_SUPPORT_NISSAN_PRIMERA TRUE
 #define EFI_SUPPORT_1995_FORD_INLINE_6 TRUE
 
+#if defined __GNUC__
 #define EFI_PERF_METRICS TRUE
+#define EFI_ANALOG_CHART TRUE
+#else
+// todo: CCM usage for IAR?
+#define EFI_PERF_METRICS FALSE
+#define EFI_ANALOG_CHART FALSE
+#endif
 
 /**
  * Do we need GPS logic?
