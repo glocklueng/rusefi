@@ -41,7 +41,7 @@ float getAccelEnrichment(void) {
 }
 
 #if EFI_PROD_CODE
-static WORKING_AREA(aeThreadStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(aeThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static msg_t DiffEnrichmentThread(int param) {
 	chRegSetThreadName("Diff Enrichment");
