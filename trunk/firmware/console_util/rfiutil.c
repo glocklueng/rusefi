@@ -22,6 +22,8 @@
 #include <string.h>
 #include "rfiutil.h"
 
+/*
+not used, not sure if we still need it. I guess we will remove it in 2015
 int mylog10(int param) {
 	if (param < 10)
 		return 0;
@@ -39,8 +41,10 @@ int mylog10(int param) {
 		return 6;
 	if (param < 100000000)
 		return 7;
+	#warning This would be better without recursion
 	return mylog10(param / 10) + 1;
 }
+*/
 
 char hexChar(int v) {
 	v = v & 0xF;
@@ -62,7 +66,7 @@ int isLocked(void) {
 	return dbg_lock_cnt > 0;
 }
 
-void chVTSetAny(VirtualTimer *vtp, systime_t time, vtfunc_t vtfunc, void *par) {
+void chVTSetAny(virtual_timer_t *vtp, systime_t time, vtfunc_t vtfunc, void *par) {
 	if (isIsrContext()) {
 		chSysLockFromIsr()
 		;
