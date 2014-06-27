@@ -69,3 +69,8 @@ void unlockAnyContext(void);
 #define TICKS_IN_MS  (CH_FREQUENCY / 1000)
 
 #define hal_lld_get_counter_value() 0
+
+// this stuff is about ChibiOS 2.6 > Migration
+typedef VirtualTimer virtual_timer_t;
+typedef EventListener event_listener_t;
+#define THD_WORKING_AREA WORKING_AREA
