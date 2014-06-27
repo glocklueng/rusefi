@@ -22,6 +22,7 @@
 #define rpmMax 8000
 
 static Map3D1616 veMap;
+static Map3D1616 afrMap;
 
 #define tpMin 0
 #define tpMax 100
@@ -66,9 +67,12 @@ float getSpeedDensityFuel(Engine *engine) {
 }
 
 void setDetaultVETable(engine_configuration_s *engineConfiguration) {
-//	setTableBin(engineConfiguration->veRpmBins, FUEL_RPM_COUNT, 800, 7000);
+	setTableBin(engineConfiguration->veRpmBins, FUEL_RPM_COUNT, 800, 7000);
+
+	veMap.setAll(0.8);
 }
 
-void initSpeedDensity(void) {
-//	veMap.init(engineConfiguration->veTable);
+void initSpeedDensity(configuration_s *config) {
+	veMap.init(config->engineConfiguration->veTable);
+	afrMap.init(config->engineConfiguration->afrTable);
 }

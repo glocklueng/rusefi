@@ -26,6 +26,7 @@ class Map3D {
 public:
 	void init(float table[RPM_BIN_SIZE][LOAD_BIN_SIZE]);
 	float getValue(float x, float xBin[], float y, float yBin[]);
+	void setAll(float value);
 private:
 	float *pointers[LOAD_BIN_SIZE];
 	int initialized;
@@ -44,6 +45,14 @@ float Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::getValue(float x, float xBin[], float 
 	return interpolate3d(x, xBin, LOAD_BIN_SIZE, y, yBin, RPM_BIN_SIZE, pointers);
 }
 
+template<int RPM_BIN_SIZE, int LOAD_BIN_SIZE>
+void Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::setAll(float value) {
+	for (int l = 0; l < LOAD_BIN_SIZE; l++) {
+		for (int r = 0; r < RPM_BIN_SIZE; r++) {
+			pointers[l][r] = value;
+		}
+	}
+}
 
 typedef Map3D<16, 16> Map3D1616;
 
