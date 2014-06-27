@@ -24,7 +24,7 @@ static Logging logger;
 
 extern Engine engine;
 
-static WORKING_AREA(maThreadStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(maThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static void mapCallback(int rpm, float key, float value) {
 	Logging *logging = &logger;

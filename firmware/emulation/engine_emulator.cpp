@@ -21,7 +21,7 @@ extern "C" {
 #include "trigger_emulator.h"
 
 
-static WORKING_AREA(eeThreadStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(eeThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 #define DIAG_PORT GPIOD
 #define DIAG_PIN 0

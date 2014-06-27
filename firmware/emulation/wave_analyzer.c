@@ -147,7 +147,7 @@ static void onWaveShaftSignal(trigger_event_e ckpSignalType, int index, void *ar
 	previousCrankSignalStart = nowUs;
 }
 
-static WORKING_AREA(waThreadStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(waThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 //static Logging logger;
 

@@ -21,7 +21,7 @@
 
 static int canReadCounter = 0;
 static Logging logger;
-static WORKING_AREA(canTreadStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(canTreadStack, UTILITY_THREAD_STACK_SIZE);
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
