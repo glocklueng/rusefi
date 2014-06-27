@@ -174,7 +174,7 @@ void runRusEfi(void) {
 	}
 }
 
-static VirtualTimer resetTimer;
+static virtual_timer_t resetTimer;
 
 static void rebootNow(void) {
 	NVIC_SystemReset();
@@ -255,5 +255,5 @@ void firmwareError(const char *fmt, ...) {
 }
 
 int getRusEfiVersion(void) {
-	return 20140625;
+	return 20140627;
 }
