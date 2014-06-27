@@ -8,6 +8,7 @@
 #define SPEED_DENSITY_H_
 
 #include "engine_configuration.h"
+#include "ec2.h"
 
 float getTCharge(int rpm, int tps, float coolantTemp, float airTemp);
 void setDetaultVETable(engine_configuration_s *engineConfiguration);
@@ -16,5 +17,7 @@ float sdMath(engine_configuration_s *engineConfiguration, float VE, float MAP, f
 #define gramm_second_to_cc_minute(gs) ((gs) / 0.0119997981)
 
 #define cc_minute_to_gramm_second(ccm) ((ccm) * 0.0119997981)
+
+void initSpeedDensity(configuration_s *config);
 
 #endif /* SPEED_DENSITY_H_ */
