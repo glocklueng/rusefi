@@ -46,6 +46,7 @@
 #include "MiniCooperR50.h"
 #include "ford_escort_gt.h"
 #include "citroenBerlingoTU3JP.h"
+#include "rover_v8.h"
 
 static volatile int globalConfigurationVersion = 0;
 
@@ -385,6 +386,10 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType, engine_co
 	case CITROEN_TU3JP:
 		setCitroenBerlingoTU3JPConfiguration(engineConfiguration, boardConfiguration);
 		break;
+	case ROVER_V8:
+		setRoverv8(engineConfiguration, boardConfiguration);
+		break;
+
 	default:
 		firmwareError("Unexpected engine type: %d", engineType);
 
