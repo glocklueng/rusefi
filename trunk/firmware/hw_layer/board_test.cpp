@@ -74,7 +74,7 @@ static brain_pin_e BLINK_PINS[] = { GPIOE_8, // HIGH DRIVER 1
 		GPIOB_9, // OUT12
 		};
 
-static WORKING_AREA(btThreadStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(btThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static msg_t ivThread(int param) {
 	chRegSetThreadName("board test blinking");
