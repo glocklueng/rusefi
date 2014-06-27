@@ -288,16 +288,10 @@ typedef struct {
 	float veTable[VE_LOAD_COUNT][VE_RPM_COUNT]; // size 1024
 	float afrTable[AFR_LOAD_COUNT][AFR_RPM_COUNT]; // size 1024
 
-
-
 } engine_configuration_s;
 
 void setOperationMode(engine_configuration_s *engineConfiguration, operation_mode_e mode);
 operation_mode_e getOperationMode(engine_configuration_s const *engineConfiguration);
-
-typedef struct {
-	int temp;
-} engine_configuration_page2_s;
 
 #define HW_MAX_ADC_INDEX 16
 
@@ -366,7 +360,6 @@ typedef struct {
 typedef struct {
 	engine_configuration_s engineConfiguration;
 	board_configuration_s boardConfiguration;
-	engine_configuration_page2_s engineConfigurationPage2;
 } persistent_config_s;
 
 typedef struct {
