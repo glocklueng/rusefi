@@ -121,7 +121,7 @@ bool isSerialOverUart(void) {
 	return is_serial_over_uart;
 }
 
-static WORKING_AREA(consoleThreadStack, 2 * UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(consoleThreadStack, 2 * UTILITY_THREAD_STACK_SIZE);
 static msg_t consoleThreadThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("console thread");

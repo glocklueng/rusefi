@@ -349,7 +349,7 @@ void updateHD44780lcd(void) {
 }
 #endif /* EFI_PROD_CODE */
 
-static WORKING_AREA(lcdThreadStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(lcdThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static void lcdThread(void *arg) {
 	chRegSetThreadName("lcd");
@@ -361,7 +361,7 @@ static void lcdThread(void *arg) {
 	}
 }
 
-static WORKING_AREA(tsThreadStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(tsThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 #if EFI_TUNER_STUDIO
 extern TunerStudioOutputChannels tsOutputChannels;
