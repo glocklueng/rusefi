@@ -30,9 +30,10 @@ typedef struct {
 
 #define FUEL_RPM_COUNT 16
 #define FUEL_LOAD_COUNT 16
-
 #define VE_RPM_COUNT 16
 #define VE_LOAD_COUNT 16
+#define AFR_RPM_COUNT 16
+#define AFR_LOAD_COUNT 16
 
 #define CLT_CURVE_SIZE 16
 #define IAT_CURVE_SIZE 16
@@ -275,16 +276,19 @@ typedef struct {
 
 	air_pressure_sensor_config_s baroSensor;
 
+	float veLoadBins[VE_LOAD_COUNT];
+	float veRpmBins[VE_RPM_COUNT];
+	float afrLoadBins[AFR_LOAD_COUNT];
+	float afrRpmBins[AFR_RPM_COUNT];
 
 	// the large tables are always in the end - that's related to TunerStudio paging implementation
 	float fuelTable[FUEL_LOAD_COUNT][FUEL_RPM_COUNT]; // size 1024
 	float ignitionTable[IGN_LOAD_COUNT][IGN_RPM_COUNT]; // size 1024
 
+	float veTable[VE_LOAD_COUNT][VE_RPM_COUNT]; // size 1024
+	float afrTable[AFR_LOAD_COUNT][AFR_RPM_COUNT]; // size 1024
 
-//	float veTable[VE_LOAD_COUNT][VE_RPM_COUNT]; // size 1024
-//	float veLoadBins[VE_LOAD_COUNT]; //
-//	// RPM is float and not integer in order to use unified methods for interpolation
-//	float veRpmBins[VE_RPM_COUNT]; //
+
 
 } engine_configuration_s;
 
