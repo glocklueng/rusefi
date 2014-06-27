@@ -42,10 +42,11 @@
 
 #if EFI_TUNER_STUDIO
 
+#define MAX_PAGE_ID 5
+#define PAGE_0_SIZE 1356
+
 // in MS, that's 10 seconds
 #define TS_READ_TIMEOUT 10000
-
-#define MAX_PAGE_ID 3
 
 #define TS_SERIAL_UART_DEVICE &SD3
 //#define TS_SERIAL_SPEED 115200
@@ -133,10 +134,11 @@ char *getWorkingPageAddr(int pageIndex) {
 		return (char*) &configWorkingCopy.engineConfiguration;
 	case 1:
 		return (char*) &configWorkingCopy.boardConfiguration;
-	case 2:
-		return (char*) &configWorkingCopy.engineConfiguration + 1100;
-	case 3:
-		return (char*) &configWorkingCopy.engineConfiguration + 1100 + 1024;
+	case 2: // fuelTable
+	case 3: // ignitionTable
+	case 4: // veTable
+	case 5: // afrTable
+		return (char*) &configWorkingCopy.engineConfiguration + PAGE_0_SIZE + (pageIndex - 2) * 1024;
 	}
 	return NULL;
 }
@@ -144,11 +146,12 @@ char *getWorkingPageAddr(int pageIndex) {
 int getTunerStudioPageSize(int pageIndex) {
 	switch (pageIndex) {
 	case 0:
-		return 1100;
+		return PAGE_0_SIZE;
 	case 1:
 		return sizeof(configWorkingCopy.boardConfiguration);
 	case 2:
 	case 3:
+	case 4:
 		return 1024;
 	}
 	return 0;
@@ -367,7 +370,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 		char command = crcIoBuffer[0];
 		if (command != TS_HELLO_COMMAND && command != TS_READ_COMMAND && command != TS_OUTPUT_COMMAND
 				&& command != TS_PAGE_COMMAND && command != TS_BURN_COMMAND && command != TS_SINGLE_WRITE_COMMAND
-				 && command != TS_CHUNK_WRITE_COMMAND) {
+				&& command != TS_CHUNK_WRITE_COMMAND) {
 			scheduleMsg(&logger, "unexpected command %x", command);
 			sendErrorCode();
 			continue;
