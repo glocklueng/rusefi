@@ -45,7 +45,7 @@
 // in MS, that's 10 seconds
 #define TS_READ_TIMEOUT 10000
 
-#define MAX_PAGE_ID 1
+#define MAX_PAGE_ID 3
 
 #define TS_SERIAL_UART_DEVICE &SD3
 //#define TS_SERIAL_SPEED 115200
@@ -133,6 +133,10 @@ char *getWorkingPageAddr(int pageIndex) {
 		return (char*) &configWorkingCopy.engineConfiguration;
 	case 1:
 		return (char*) &configWorkingCopy.boardConfiguration;
+	case 2:
+		return (char*) &configWorkingCopy.engineConfiguration + 1100;
+	case 3:
+		return (char*) &configWorkingCopy.engineConfiguration + 1100 + 1024;
 	}
 	return NULL;
 }
@@ -140,9 +144,12 @@ char *getWorkingPageAddr(int pageIndex) {
 int getTunerStudioPageSize(int pageIndex) {
 	switch (pageIndex) {
 	case 0:
-		return sizeof(configWorkingCopy.engineConfiguration);
+		return 1100;
 	case 1:
 		return sizeof(configWorkingCopy.boardConfiguration);
+	case 2:
+	case 3:
+		return 1024;
 	}
 	return 0;
 }
@@ -179,7 +186,7 @@ void handleWriteChunkCommand(short offset, short count, void *content) {
 	}
 
 	uint8_t * addr = (uint8_t *) (getWorkingPageAddr(tsState.currentPageId) + offset);
-	memcpy(addr, content, count);
+//	memcpy(addr, content, count);
 
 	tunerStudioWriteCrcPacket(TS_RESPONSE_OK, NULL, 0);
 }
@@ -314,7 +321,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 			tsState.errorCounter++;
 			continue;
 		}
-		scheduleMsg(&logger, "Got first=%x=[%c]", firstByte, firstByte);
+//		scheduleMsg(&logger, "Got first=%x=[%c]", firstByte, firstByte);
 		if (firstByte == TS_HELLO_COMMAND) {
 			scheduleMsg(&logger, "Got naked Query command");
 			handleQueryCommand(FALSE);
@@ -339,7 +346,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 			tsState.errorCounter++;
 			continue;
 		}
-		scheduleMsg(&logger, "Got secondByte=%x=[%c]", secondByte, secondByte);
+//		scheduleMsg(&logger, "Got secondByte=%x=[%c]", secondByte, secondByte);
 
 		int incomingPacketSize = firstByte * 256 + secondByte;
 
@@ -366,7 +373,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 			continue;
 		}
 
-		scheduleMsg(&logger, "TunerStudio: reading %d+4 bytes(s)", incomingPacketSize);
+//		scheduleMsg(&logger, "TunerStudio: reading %d+4 bytes(s)", incomingPacketSize);
 
 		recieved = chnReadTimeout(getTsSerialDevice(), (void * ) (crcIoBuffer + 1), incomingPacketSize + 4 - 1,
 				MS2ST(TS_READ_TIMEOUT));
@@ -392,8 +399,8 @@ static msg_t tsThreadEntryPoint(void *arg) {
 			continue;
 		}
 
-		scheduleMsg(&logger, "TunerStudio: P00-07 %x %x %x %x %x %x %x %x", crcIoBuffer[0], crcIoBuffer[1],
-				crcIoBuffer[2], crcIoBuffer[3], crcIoBuffer[4], crcIoBuffer[5], crcIoBuffer[6], crcIoBuffer[7]);
+//		scheduleMsg(&logger, "TunerStudio: P00-07 %x %x %x %x %x %x %x %x", crcIoBuffer[0], crcIoBuffer[1],
+//				crcIoBuffer[2], crcIoBuffer[3], crcIoBuffer[4], crcIoBuffer[5], crcIoBuffer[6], crcIoBuffer[7]);
 
 		int success = tunerStudioHandleCommand(crcIoBuffer, incomingPacketSize);
 		if (!success)
@@ -444,7 +451,7 @@ void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uin
 	uint32_t crc = crc32((void *) (crcIoBuffer + 2), (uint32_t) (size + 1));
 	*(uint32_t *) (crcIoBuffer + 2 + 1 + size) = SWAP_UINT32(crc);
 
-	scheduleMsg(&logger, "TunerStudio: CRC command %x size %d", command, size);
+//	scheduleMsg(&logger, "TunerStudio: CRC command %x size %d", command, size);
 
 	tunerStudioWriteData(crcIoBuffer, size + 2 + 1 + 4);      // with size, command and CRC
 }
