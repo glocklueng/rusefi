@@ -68,7 +68,7 @@ static void callback(GPTDriver *gptp) {
 	globalTimerCallback(NULL);
 }
 
-static WORKING_AREA(mwThreadStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(mwThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static const char * msg;
 

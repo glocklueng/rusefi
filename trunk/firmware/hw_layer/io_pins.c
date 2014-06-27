@@ -34,12 +34,12 @@ static pin_output_mode_e DEFAULT_OUTPUT = OM_DEFAULT;
 /**
  * blinking thread to show that we are alive
  */
-static WORKING_AREA(comBlinkingStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(comBlinkingStack, UTILITY_THREAD_STACK_SIZE);
 
 /**
  * error thread to show error condition (blinking LED means non-fatal error)
  */
-static WORKING_AREA(errBlinkingStack, UTILITY_THREAD_STACK_SIZE);
+static THD_WORKING_AREA(errBlinkingStack, UTILITY_THREAD_STACK_SIZE);
 
 void turnOutputPinOn(io_pin_e pin) {
 	setOutputPinValue(pin, TRUE);
