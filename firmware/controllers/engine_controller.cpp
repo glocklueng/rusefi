@@ -229,7 +229,7 @@ static void printAnalogInfo(void) {
 			getVBatt());
 }
 
-static WORKING_AREA(csThreadStack, UTILITY_THREAD_STACK_SIZE);// declare thread stack
+static THD_WORKING_AREA(csThreadStack, UTILITY_THREAD_STACK_SIZE);// declare thread stack
 
 void initEngineContoller(void) {
 	if (hasFirmwareError())
