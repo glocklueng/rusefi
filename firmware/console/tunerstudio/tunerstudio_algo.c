@@ -2,6 +2,8 @@
  * @file	tunerstudio_algo.c
  * @brief	Tuner Studio plain protocol implementation
  *
+ * This implementation would not happen without the documentation
+ * provided by Jon Zeeff (jon@zeeff.com)
  *
  * Tuner Studio has a really simple protocol, a minimal implementation
  * capable of displaying current engine state on the gauges would
