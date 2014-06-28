@@ -38,7 +38,6 @@
 #include "memstreams.h"
 #include "console_io.h"
 
-#define OUTPUT_BUFFER 9000
 /**
  * This is the size of the MemoryStream used by chvprintf
  */
@@ -50,12 +49,12 @@
 /**
  * This is the buffer into which all the data providers write
  */
-static char pendingBuffer[OUTPUT_BUFFER] CCM_OPTIONAL;
+static char pendingBuffer[DL_OUTPUT_BUFFER] CCM_OPTIONAL;
 
 /**
  * We copy all the pending data into this buffer once we are ready to push it out
  */
-static char outputBuffer[OUTPUT_BUFFER];
+static char outputBuffer[DL_OUTPUT_BUFFER];
 
 static MemoryStream intermediateLoggingBuffer;
 static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE] CCM_OPTIONAL; //todo define max-printf-buffer
@@ -345,7 +344,7 @@ void scheduleLogging(Logging *logging) {
 	bool alreadyLocked = lockOutputBuffer();
 	// I hope this is fast enough to operate under sys lock
 	int curLength = strlen(pendingBuffer);
-	if (curLength + newLength >= OUTPUT_BUFFER) {
+	if (curLength + newLength >= DL_OUTPUT_BUFFER) {
 		/**
 		 * if no one is consuming the data we have to drop it
 		 * this happens in case of serial-over-USB, todo: find a better solution
