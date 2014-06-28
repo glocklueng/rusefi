@@ -113,8 +113,8 @@ int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm) {
 	return rpm > 0 && rpm < engineConfiguration->crankingSettings.crankingRpm;
 }
 
-OutputSignalList ignitionSignals;
-OutputSignalList injectonSignals;
+OutputSignalList ignitionSignals CCM_OPTIONAL;
+OutputSignalList injectonSignals CCM_OPTIONAL;
 
 static void registerSparkEvent(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		IgnitionEventList *list, OutputSignal *actuator, float localAdvance, float dwell) {
