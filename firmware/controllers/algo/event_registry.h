@@ -39,7 +39,7 @@ struct IgnitionEvent_struct {
 	io_pin_e io_pin;
 	scheduling_s signalTimerUp;
 	scheduling_s signalTimerDown;
-	ActuatorEvent actuator;
+	event_trigger_position_s dwellPosition;
 	float advance;
 	event_trigger_position_s sparkPosition;
 	IgnitionEvent *next;
