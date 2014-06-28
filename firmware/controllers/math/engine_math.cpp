@@ -126,7 +126,7 @@ static void registerSparkEvent(engine_configuration_s const *engineConfiguration
 
 	event->advance = localAdvance;
 
-	registerActuatorEventExt(engineConfiguration, s, &event->actuator, NULL, localAdvance - dwell);
+	findTriggerPosition(engineConfiguration, s, &event->actuator.position, localAdvance - dwell);
 }
 
 void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration_s *engineConfiguration,
