@@ -56,7 +56,6 @@ void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 }
 
 void initOutputSignalBase(OutputSignal *signal) {
-	signal->initialized = TRUE;
 }
 
 void turnPinHigh(OutputSignal *signal) {
@@ -118,8 +117,6 @@ void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs) {
 		return;
 	}
 
-	scheduleOutputBase(signal, delayMs, durationMs);
-
 	int index = getRevolutionCounter() % 2;
 	scheduling_s * sUp = &signal->signalTimerUp[index];
 	scheduling_s * sDown = &signal->signalTimerDown[index];
@@ -128,16 +125,6 @@ void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs) {
 	scheduleTask(sDown, (int)MS2US(delayMs + durationMs), (schfunc_t) &turnPinLow, (void*) signal);
 
 //	signal->last_scheduling_time = now;
-}
-
-void scheduleOutputBase(OutputSignal *signal, float delayMs, float durationMs) {
-	/**
-	 * it's better to check for the exact 'TRUE' value since otherwise
-	 * we would accept any memory garbage
-	 */
-	efiAssertVoid(signal->initialized == TRUE, "Signal not initialized");
-//	signal->offset = offset;
-//	signal->duration = duration;
 }
 
 char *getPinName(io_pin_e io_pin) {
