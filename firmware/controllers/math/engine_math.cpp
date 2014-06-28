@@ -113,13 +113,10 @@ int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm) {
 	return rpm > 0 && rpm < engineConfiguration->crankingSettings.crankingRpm;
 }
 
-OutputSignalList ignitionSignals CCM_OPTIONAL;
 OutputSignalList injectonSignals CCM_OPTIONAL;
 
 static void registerSparkEvent(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		IgnitionEventList *list, io_pin_e pin, float localAdvance, float dwell) {
-
-	OutputSignal *actuator = ignitionSignals.add(pin);
 
 	IgnitionEvent *event = list->getNextActuatorEvent();
 	if (event == NULL)
@@ -129,14 +126,13 @@ static void registerSparkEvent(engine_configuration_s const *engineConfiguration
 
 	event->advance = localAdvance;
 
-	registerActuatorEventExt(engineConfiguration, s, &event->actuator, actuator, localAdvance - dwell);
+	registerActuatorEventExt(engineConfiguration, s, &event->actuator, NULL, localAdvance - dwell);
 }
 
 void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2, IgnitionEventList *list) {
 
 	efiAssertVoid(engineConfiguration->cylindersCount > 0, "cylindersCount");
-	ignitionSignals.clear();
 
 	list->resetEventList();
 
