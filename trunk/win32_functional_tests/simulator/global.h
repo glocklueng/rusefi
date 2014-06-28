@@ -14,9 +14,10 @@
 #include "datalogging.h"
 #include "efitime.h"
 
-
 #ifndef GLOBAL_FT_H_
 #define GLOBAL_FT_H_
+
+#define DL_OUTPUT_BUFFER 9000
 
 #define CCM_OPTIONAL
 
