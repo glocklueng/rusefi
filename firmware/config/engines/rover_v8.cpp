@@ -34,7 +34,7 @@ void setRoverv8(engine_configuration_s *engineConfiguration,
 
 
       	// set_cranking_injection_mode 0
-	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
+	engineConfiguration->crankingInjectionMode = IM_SEQUENTIAL;
 	// set_injection_mode 1
 	engineConfiguration->injectionMode = IM_SEQUENTIAL;
 
