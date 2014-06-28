@@ -15,6 +15,10 @@
 void setRoverv8(engine_configuration_s *engineConfiguration,
 		board_configuration_s *boardConfiguration) {
 
+	setOperationMode(engineConfiguration, FOUR_STROKE_CRANK_SENSOR);
+	engineConfiguration->triggerConfig.totalToothCount = 36;
+	engineConfiguration->triggerConfig.skippedToothCount = 1;
+
 	// todo: displacement? 4 liters?
 	engineConfiguration->displacement = 4;
 	engineConfiguration->cylindersCount = 8;
@@ -29,6 +33,14 @@ void setRoverv8(engine_configuration_s *engineConfiguration,
 	setWholeFuelMap(engineConfiguration, 3);
 
 
+      	// set_cranking_injection_mode 0
+	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
+	// set_injection_mode 1
+	engineConfiguration->injectionMode = IM_SEQUENTIAL;
+
+	// set_ignition_mode 2
+	engineConfiguration->ignitionMode = IM_WASTED_SPARK;
+        
 
 	// Frankenstein: low side - inj #1: PC14
 	// Frankenstein: low side - inj #2: PC15

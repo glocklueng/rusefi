@@ -1995,6 +1995,12 @@
         <name>$PROJ_DIR$\..\config\engines\nissan_primera.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\config\engines\rover_v8.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\rover_v8.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\config\engines\saturn_ion.cpp</name>
       </file>
       <file>
