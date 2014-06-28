@@ -53,11 +53,10 @@ void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 	signal->io_pin = ioPin;
 }
 
-void turnPinHigh(OutputSignal *signal) {
+void turnPinHigh(io_pin_e pin) {
 #if EFI_DEFAILED_LOGGING
 //	signal->hi_time = hTimeNow();
 #endif /* EFI_DEFAILED_LOGGING */
-	io_pin_e pin = signal->io_pin;
 	// turn the output level ACTIVE
 	// todo: this XOR should go inside the setOutputPinValue method
 	setOutputPinValue(pin, TRUE);
@@ -73,14 +72,14 @@ void turnPinHigh(OutputSignal *signal) {
 #endif
 
 #if EFI_WAVE_CHART
-	addWaveChartEvent(getPinName(signal->io_pin), "up", "");
+	addWaveChartEvent(getPinName(pin), "up", "");
 #endif /* EFI_WAVE_ANALYZER */
 }
 
-void turnPinLow(OutputSignal *signal) {
+void turnPinLow(io_pin_e pin) {
 	// turn off the output
 	// todo: this XOR should go inside the setOutputPinValue method
-	setOutputPinValue(signal->io_pin, FALSE);
+	setOutputPinValue(pin, FALSE);
 
 #if EFI_DEFAILED_LOGGING
 	systime_t after = hTimeNow();
@@ -89,7 +88,7 @@ void turnPinLow(OutputSignal *signal) {
 #endif /* EFI_DEFAILED_LOGGING */
 
 #if EFI_WAVE_CHART
-	addWaveChartEvent(getPinName(signal->io_pin), "down", "");
+	addWaveChartEvent(getPinName(pin), "down", "");
 #endif /* EFI_WAVE_ANALYZER */
 }
 
@@ -116,10 +115,8 @@ void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs) {
 	scheduling_s * sUp = &signal->signalTimerUp[index];
 	scheduling_s * sDown = &signal->signalTimerDown[index];
 
-	scheduleTask(sUp, (int)MS2US(delayMs), (schfunc_t) &turnPinHigh, (void *) signal);
-	scheduleTask(sDown, (int)MS2US(delayMs + durationMs), (schfunc_t) &turnPinLow, (void*) signal);
-
-//	signal->last_scheduling_time = now;
+	scheduleTask(sUp, (int)MS2US(delayMs), (schfunc_t) &turnPinHigh, (void *) signal->io_pin);
+	scheduleTask(sDown, (int)MS2US(delayMs + durationMs), (schfunc_t) &turnPinLow, (void*) signal->io_pin);
 }
 
 const char *getPinName(io_pin_e io_pin) {
