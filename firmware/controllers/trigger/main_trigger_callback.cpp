@@ -152,8 +152,8 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, int event
 	 * We are alternating two event lists in order to avoid a potential issue around revolution boundary
 	 * when an event is scheduled within the next revolution.
 	 */
-	scheduling_s * sUp = &signal->signalTimerUp[0];
-	scheduling_s * sDown = &signal->signalTimerDown[0];
+	scheduling_s * sUp = &iEvent->signalTimerUp;
+	scheduling_s * sDown = &iEvent->signalTimerDown;
 
 	/**
 	 * The start of charge is always within the current trigger event range, so just plain time-based scheduling
