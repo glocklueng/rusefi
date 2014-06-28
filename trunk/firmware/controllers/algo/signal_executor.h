@@ -28,10 +28,6 @@
  */
 typedef struct OutputSignal_struct OutputSignal;
 struct OutputSignal_struct {
-	/**
-	 * name of this signal
-	 */
-	char *name;
 	io_pin_e io_pin;
 
 	/**

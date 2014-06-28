@@ -51,11 +51,6 @@ void initSignalExecutor(void) {
 
 void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
 	signal->io_pin = ioPin;
-	signal->name = getPinName(ioPin);
-	initOutputSignalBase(signal);
-}
-
-void initOutputSignalBase(OutputSignal *signal) {
 }
 
 void turnPinHigh(OutputSignal *signal) {
@@ -78,7 +73,7 @@ void turnPinHigh(OutputSignal *signal) {
 #endif
 
 #if EFI_WAVE_CHART
-	addWaveChartEvent(signal->name, "up", "");
+	addWaveChartEvent(getPinName(signal->io_pin), "up", "");
 #endif /* EFI_WAVE_ANALYZER */
 }
 
@@ -94,7 +89,7 @@ void turnPinLow(OutputSignal *signal) {
 #endif /* EFI_DEFAILED_LOGGING */
 
 #if EFI_WAVE_CHART
-	addWaveChartEvent(signal->name, "down", "");
+	addWaveChartEvent(getPinName(signal->io_pin), "down", "");
 #endif /* EFI_WAVE_ANALYZER */
 }
 
@@ -127,7 +122,7 @@ void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs) {
 //	signal->last_scheduling_time = now;
 }
 
-char *getPinName(io_pin_e io_pin) {
+const char *getPinName(io_pin_e io_pin) {
 	switch (io_pin) {
 	case SPARKOUT_1_OUTPUT:
 		return "Spark 1";
