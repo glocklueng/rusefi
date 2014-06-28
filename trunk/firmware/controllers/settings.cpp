@@ -92,6 +92,8 @@ const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 		return "Ford Escort GT";
 	case CITROEN_TU3JP:
 		return "Citroen TU3JP";
+	case ROVER_V8:
+		return "Rover v8";
 	default:
 		return NULL;
 	}
