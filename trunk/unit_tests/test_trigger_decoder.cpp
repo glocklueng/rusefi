@@ -229,7 +229,15 @@ void testMazdaMianaNbDecoder(void) {
 
 	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 720);
 	assertTrueM("1f shaft_is_synchronized", state.shaft_is_synchronized);
+}
 
+static void testRoverV8(void) {
+	printf("*************************************************** testRoverV8\r\n");
+
+	persistent_config_s persistentConfig;
+	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
+	engine_configuration2_s ec2;
+	resetConfigurationExt(NULL, ROVER_V8, ec, &ec2, &persistentConfig.boardConfiguration);
 }
 
 static void testMiniCooper(void) {
@@ -399,6 +407,7 @@ void testTriggerDecoder(void) {
 	testGY6_139QMB();
 	testFordEscortGt();
 	testMiniCooper();
+	testRoverV8();
 
 //	testMazda323();
 
