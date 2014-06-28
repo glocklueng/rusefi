@@ -176,6 +176,16 @@ void initializeIgnitionActions(float advance, float dwellAngle, engine_configura
 	}
 }
 
+static void registerInjectionEvent(engine_configuration_s const *e,
+		trigger_shape_s *s,
+		ActuatorEventList *list,
+		io_pin_e pin,
+		float angle
+		) {
+	registerActuatorEventExt(e, s, list->getNextActuatorEvent(), injectonSignals.add(pin), angle);
+
+}
+
 void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *engineConfiguration2,
 		ActuatorEventList *list, injection_mode_e mode) {
 	list->resetEventList();
@@ -189,7 +199,7 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 		for (int i = 0; i < e->cylindersCount; i++) {
 			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + getCylinderId(e->firingOrder, i) - 1);
 			float angle = baseAngle + i * 720.0 / e->cylindersCount;
-			registerActuatorEventExt(e, s, list->getNextActuatorEvent(), injectonSignals.add(pin), angle);
+			registerInjectionEvent(e, s, list, pin, angle);
 		}
 		break;
 	case IM_SIMULTANEOUS:
@@ -198,7 +208,7 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 
 			for (int j = 0; j < e->cylindersCount; j++) {
 				io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + j);
-				registerActuatorEventExt(e, s, list->getNextActuatorEvent(), injectonSignals.add(pin), angle);
+				registerInjectionEvent(e, s, list, pin, angle);
 			}
 		}
 		break;
@@ -206,7 +216,7 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 		for (int i = 0; i < e->cylindersCount; i++) {
 			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + (i % 2));
 			float angle = baseAngle + i * 720.0 / e->cylindersCount;
-			registerActuatorEventExt(e, s, list->getNextActuatorEvent(), injectonSignals.add(pin), angle);
+			registerInjectionEvent(e, s, list, pin, angle);
 		}
 		break;
 	default:
