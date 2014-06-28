@@ -68,14 +68,14 @@ typedef ArrayList<ActuatorEvent, MAX_EVENT_COUNT> ActuatorEventList;
 
 typedef ArrayList<IgnitionEvent, MAX_EVENT_COUNT> IgnitionEventList;
 
-/**
- * this is an intermediate implementation of flexible event handling.
- *
- * In the future implementation we will drop the 'eventIndex' parameter and everything will be
- * angle-driven. But that's just a plan for next iteration.
- *
- * @param	actuator injector or coil OutputSignal
- */
-void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset);
+///**
+// * this is an intermediate implementation of flexible event handling.
+// *
+// * In the future implementation we will drop the 'eventIndex' parameter and everything will be
+// * angle-driven. But that's just a plan for next iteration.
+// *
+// * @param	actuator injector or coil OutputSignal
+// */
+//void registerActuatorEvent(ActuatorEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset);
 
 #endif /* EVENT_REGISTRY_H_ */
