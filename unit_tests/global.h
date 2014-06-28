@@ -20,4 +20,6 @@ typedef void * Logging;
 #define TRUE 1
 #define FALSE 0
 
+#define CCM_OPTIONAL
+
 #endif /* GLOBAL_H_ */
