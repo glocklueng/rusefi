@@ -41,9 +41,6 @@ struct OutputSignal_struct {
 	 */
 	scheduling_s signalTimerUp[2];
 	scheduling_s signalTimerDown[2];
-
-	scheduling_s triggerEvent;
-	float angleOffsetParam;
 };
 
 #ifdef __cplusplus
