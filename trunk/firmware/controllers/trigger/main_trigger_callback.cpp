@@ -128,8 +128,7 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, int event
 		return;
 	}
 
-	ActuatorEvent *event = &iEvent->actuator;
-	float sparkDelay = getOneDegreeTimeMs(rpm) * event->position.angleOffset;
+	float sparkDelay = getOneDegreeTimeMs(rpm) * iEvent->dwellPosition.angleOffset;
 	int isIgnitionError = sparkDelay < 0;
 	ignitionErrorDetection.add(isIgnitionError);
 	if (isIgnitionError) {
@@ -210,7 +209,7 @@ static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex
 //	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
 	for (int i = 0; i < list->size; i++) {
 		IgnitionEvent *event = &list->events[i];
-		if (event->actuator.position.eventIndex != eventIndex)
+		if (event->dwellPosition.eventIndex != eventIndex)
 			continue;
 		handleSparkEvent(mainTriggerCallback, eventIndex, event, rpm);
 	}
