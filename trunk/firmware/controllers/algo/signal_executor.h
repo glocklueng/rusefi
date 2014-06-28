@@ -33,7 +33,6 @@ struct OutputSignal_struct {
 	 */
 	char *name;
 	io_pin_e io_pin;
-	int initialized;
 
 	/**
 	 * We are alternating instances so that events which extend into next revolution are not reused while
