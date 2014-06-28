@@ -31,7 +31,6 @@ typedef struct {
 typedef struct {
 	event_trigger_position_s position;
 	OutputSignal *actuator;
-	scheduling_s signalTimer;
 } ActuatorEvent;
 
 typedef struct IgnitionEvent_struct IgnitionEvent;
