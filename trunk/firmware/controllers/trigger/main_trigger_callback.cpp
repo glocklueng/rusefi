@@ -200,12 +200,10 @@ static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex
 			// time to fire a spark which was scheduled previously
 			LL_DELETE(iHead, current);
 
-			ActuatorEvent *event = &current->actuator;
-			OutputSignal *signal = event->actuator;
-			scheduling_s * sDown = &signal->signalTimerDown[0];
+			scheduling_s * sDown = &current->signalTimerDown;
 
 			float timeTillIgnitionUs = getOneDegreeTimeUs(rpm) * current->sparkPosition.angleOffset;
-			scheduleTask(sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, (void*) signal->io_pin);
+			scheduleTask(sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, (void*) current->io_pin);
 		}
 	}
 
