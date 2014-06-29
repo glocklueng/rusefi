@@ -154,7 +154,7 @@ void shaftPositionCallback(trigger_event_e ckpSignalType, int index, RpmCalculat
 
 	uint64_t nowUs = getTimeNowUs();
 
-	bool_t hadRpmRecently = rpmState->isRunning();
+	bool hadRpmRecently = rpmState->isRunning();
 
 	if (hadRpmRecently) {
 		if (isNoisySignal(rpmState, nowUs)) {

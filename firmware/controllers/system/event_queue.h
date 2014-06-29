@@ -48,7 +48,7 @@ public:
 	int size(void);
 	scheduling_s *getForUnitText(int index);
 private:
-	bool_t checkIfPending(scheduling_s *scheduling);
+	bool checkIfPending(scheduling_s *scheduling);
 	scheduling_s *head;
 };
 
