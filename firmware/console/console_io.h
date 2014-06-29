@@ -21,6 +21,8 @@
 #include "efifeatures.h"
 #include "boards.h"
 
+#define GET_BUTTON_VALUE() palReadPad(GPIOA, GPIOA_BUTTON)
+
 #ifdef __cplusplus
 extern "C"
 {
