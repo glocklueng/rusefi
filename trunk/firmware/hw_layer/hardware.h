@@ -10,7 +10,7 @@
 
 #include "main.h"
 
-#define GET_BOARD_TEST_MODE_VALUE() palReadPad(getHwPort(boardConfiguration->boardTestModeJumperPin), getHwPin(boardConfiguration->boardTestModeJumperPin))
+#define GET_BOARD_TEST_MODE_VALUE() (!palReadPad(getHwPort(boardConfiguration->boardTestModeJumperPin), getHwPin(boardConfiguration->boardTestModeJumperPin)))
 
 void initHardware(Logging *logging);
 
