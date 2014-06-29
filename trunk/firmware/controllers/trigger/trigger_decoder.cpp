@@ -67,9 +67,10 @@ static inline int noSynchronizationResetNeeded(TriggerState *shaftPositionState,
 }
 
 /**
- * @brief This method changes the state of trigger_state_s data structure according to the trigger event
+ * @brief Trigger decoding happends here
+ * This method changes the state of trigger_state_s data structure according to the trigger event
  */
-void TriggerState::processTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig,
+void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig,
 		trigger_event_e signal, uint64_t nowUs) {
 
 	int isLessImportant = (triggerConfig->useRiseEdge && signal != SHAFT_PRIMARY_UP)
@@ -241,13 +242,13 @@ int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*tr
 		if (primaryWheelState != newPrimaryWheelState) {
 			primaryWheelState = newPrimaryWheelState;
 			trigger_event_e s = primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN;
-			state.processTriggerEvent(shape, triggerConfig, s, time);
+			state.decodeTriggerEvent(shape, triggerConfig, s, time);
 		}
 
 		if (secondaryWheelState != newSecondaryWheelState) {
 			secondaryWheelState = newSecondaryWheelState;
 			trigger_event_e s = secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN;
-			state.processTriggerEvent(shape, triggerConfig, s, time);
+			state.decodeTriggerEvent(shape, triggerConfig, s, time);
 		}
 
 		if (state.shaft_is_synchronized)
