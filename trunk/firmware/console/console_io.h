@@ -21,6 +21,7 @@
 #include "efifeatures.h"
 #include "boards.h"
 
+// warning: PA0 is also ADC_CHANNEL_IN0
 #define GET_BUTTON_VALUE() palReadPad(GPIOA, GPIOA_BUTTON)
 
 #ifdef __cplusplus
