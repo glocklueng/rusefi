@@ -18,8 +18,11 @@
 #include "cli_registry.h"
 #include "efilib.h"
 
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if EFI_PROD_CODE
 #include "board_test.h"
+#endif
+
+#if EFI_PROD_CODE || EFI_SIMULATOR
 #include "eficonsole.h"
 static Logging logging;
 #endif /* EFI_PROD_CODE */
@@ -78,11 +81,14 @@ void addConsoleActionF(const char *token, VoidFloat callback) {
  * @brief This function prints out a list of all available commands
  */
 void helpCommand(void) {
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if EFI_PROD_CODE
 	if (isBoardTestMode()) {
 		printBoardTestState();
 		return;
 	}
+#endif /* EFI_PROD_CODE */
+
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	scheduleMsg(&logging, "%d actions available", consoleActionCount);
 	for (int i = 0; i < consoleActionCount; i++) {
 		TokenCallback *current = &consoleActions[i];
