@@ -223,7 +223,7 @@ static char confirmation[200];
 
 void sendOutConfirmation(char *value, int i);
 
-static bool_t handleConsoleLineInternal(char *line, int lineLength) {
+static bool handleConsoleLineInternal(char *line, int lineLength) {
 	int firstTokenLength = tokenLength(line);
 
 //	print("processing [%s] with %d actions\r\n", line, consoleActionCount);
@@ -274,7 +274,7 @@ void handleConsoleLine(char *line) {
 	strcat(confirmation, line);
 	strcat(confirmation, ":");
 
-	bool_t isKnownComman = handleConsoleLineInternal(line, lineLength);
+	bool isKnownComman = handleConsoleLineInternal(line, lineLength);
 
 	// confirmation happens after the command to avoid conflict with command own output
 	sendOutConfirmation(confirmation, lineLength);
