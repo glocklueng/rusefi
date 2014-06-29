@@ -34,7 +34,7 @@ public class WavePanelTest {
         names.add(name);
 
 
-        assertEquals(-1, WavePanel.getInsertIndex("spa1", names));
+        assertEquals(1, WavePanel.getInsertIndex("spa1", names));
 
     }
 }
