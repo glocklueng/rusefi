@@ -117,7 +117,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 	assertEqualsM("event index", 0, ecl->events[0].dwellPosition.eventIndex);
 	assertEquals(0, ecl->events[0].dwellPosition.angleOffset);
 
-	assertEqualsM("event index", 10, ecl->events[5].actuator.position.eventIndex);
+	assertEqualsM("event index", 10, ecl->events[5].dwellPosition.eventIndex);
 	assertEquals(0, ecl->events[5].dwellPosition.angleOffset);
 
 	TriggerState state;
