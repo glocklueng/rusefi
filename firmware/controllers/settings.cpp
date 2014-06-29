@@ -24,6 +24,7 @@
 #if EFI_PROD_CODE
 #include "rusefi.h"
 #include "pin_repository.h"
+#include "hardware.h"
 #endif /* EFI_PROD_CODE */
 
 #if EFI_INTERNAL_FLASH
@@ -202,10 +203,10 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 
 	scheduleMsg(&logger, "primary trigger input: %s", hwPortname(boardConfiguration->primaryTriggerInputPin));
 
+	scheduleMsg(&logger, "boardTestModeJumperPin: %s", hwPortname(boardConfiguration->boardTestModeJumperPin));
 #endif /* EFI_PROD_CODE */
 
 	scheduleMsg(&logger, "isInjectionEnabledFlag %s", boolToString(engineConfiguration2->isInjectionEnabledFlag));
-	scheduleMsg(&logger, "boardTestModeJumperPin: %s", hwPortname(boardConfiguration->boardTestModeJumperPin));
 
 	//	appendPrintf(&logger, DELIMETER);
 //	scheduleLogging(&logger);
@@ -497,7 +498,10 @@ static void printAllInfo(void) {
 #if EFI_WAVE_CHART
 	scheduleMsg(&logger, "waveChartUsedSize=%d", waveChartUsedSize);
 #endif
+#if EFI_PROD_CODE
 	scheduleMsg(&logger, "console mode jumper: %s", boolToString(!GET_CONSOLE_MODE_VALUE()));
+	scheduleMsg(&logger, "board test mode jumper: %s", boolToString(!GET_BOARD_TEST_MODE_VALUE()));
+#endif
 }
 
 void initSettings(void) {
