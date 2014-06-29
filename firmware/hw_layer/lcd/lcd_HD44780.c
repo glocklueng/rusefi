@@ -154,15 +154,9 @@ void lcd_HD44780_print_string(char* string) {
 }
 //getHwPin(boardConfiguration->HD44780_db7)
 static void lcdInfo(void) {
-	scheduleMsg(&logger, "HD44780 RS=%s%d E=%s%d", portname(getHwPort(boardConfiguration->HD44780_rs)),
-			getHwPin(boardConfiguration->HD44780_rs), portname(getHwPort(boardConfiguration->HD44780_e)),
-			getHwPin(boardConfiguration->HD44780_e));
-	scheduleMsg(&logger, "HD44780 D4=%s%d D5=%s%d", portname(getHwPort(boardConfiguration->HD44780_db4)),
-			getHwPin(boardConfiguration->HD44780_db4), portname(getHwPort(boardConfiguration->HD44780_db5)),
-			getHwPin(boardConfiguration->HD44780_db5));
-	scheduleMsg(&logger, "HD44780 D6=%s%d D7=%s%d", portname(getHwPort(boardConfiguration->HD44780_db6)),
-			getHwPin(boardConfiguration->HD44780_db6), portname(getHwPort(boardConfiguration->HD44780_db7)),
-			getHwPin(boardConfiguration->HD44780_db7));
+	scheduleMsg(&logger, "HD44780 RS=%s E=%s", hwPortname(boardConfiguration->HD44780_rs), hwPortname(boardConfiguration->HD44780_e));
+	scheduleMsg(&logger, "HD44780 D4=%s D5=%s", hwPortname(boardConfiguration->HD44780_db4), hwPortname(boardConfiguration->HD44780_db5));
+	scheduleMsg(&logger, "HD44780 D6=%s D7=%s", hwPortname(boardConfiguration->HD44780_db6), hwPortname(boardConfiguration->HD44780_db7));
 }
 
 void lcd_HD44780_init(void) {
