@@ -129,6 +129,14 @@ const char *getPinName(io_pin_e io_pin) {
 		return "spa3";
 	case SPARKOUT_4_OUTPUT:
 		return "spa4";
+	case SPARKOUT_5_OUTPUT:
+		return "spa5";
+	case SPARKOUT_6_OUTPUT:
+		return "spa6";
+	case SPARKOUT_7_OUTPUT:
+		return "spa7";
+	case SPARKOUT_8_OUTPUT:
+		return "spa8";
 
 	case INJECTOR_1_OUTPUT:
 		return "inj1";
