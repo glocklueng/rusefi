@@ -25,6 +25,8 @@ static Logging logging;
 static int consoleActionCount = 0;
 static TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
 
+#define SECURE_LINE_PREFIX "sec!"
+
 void resetConsoleActions(void) {
 	consoleActionCount = 0;
 }
@@ -189,10 +191,14 @@ void initConsoleLogic() {
 	addConsoleActionI("echo", echo);
 }
 
+/**
+ * @return NULL if input line validation failed, reference to line payload if validation succeeded.
+ * @see sendOutConfirmation() for command confirmation processing.
+ */
 char *validateSecureLine(char *line) {
 	if (line == NULL)
 		return NULL;
-	if (strncmp("sec!", line, 4) == 0) {
+	if (strncmp(SECURE_LINE_PREFIX, line, 4) == 0) {
 		// COM protocol looses bytes, this is a super-naive error detection
 
 //		print("Got secure mode request header [%s]\r\n", line);
