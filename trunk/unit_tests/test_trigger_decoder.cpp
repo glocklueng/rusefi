@@ -237,8 +237,11 @@ static void testCitroen(void) {
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
+	assertEquals(0, ec2.triggerShape.triggerShapeSynchPointIndex);
+
 	resetConfigurationExt(NULL, CITROEN_TU3JP, ec, &ec2, &persistentConfig.boardConfiguration);
 
+	assertEquals(0, ec2.triggerShape.triggerShapeSynchPointIndex);
 }
 
 static void testRoverV8(void) {
@@ -248,6 +251,8 @@ static void testRoverV8(void) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 	resetConfigurationExt(NULL, ROVER_V8, ec, &ec2, &persistentConfig.boardConfiguration);
+
+	assertEquals(0, ec2.triggerShape.triggerShapeSynchPointIndex);
 }
 
 static void testMiniCooper(void) {
