@@ -15,6 +15,7 @@ void setCitroenBerlingoTU3JPConfiguration(engine_configuration_s *engineConfigur
 	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL;
 	engineConfiguration->triggerConfig.totalToothCount = 60;
 	engineConfiguration->triggerConfig.skippedToothCount = 2;
+	setTriggerSynchronizationGap(engineConfiguration, 2.5);
 
 
 	// set_cranking_injection_mode 0
