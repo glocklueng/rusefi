@@ -215,6 +215,34 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 		firmwareError("trigger size or shaftPositionEventCount?");
 }
 
+TriggerStimulatorHelper::TriggerStimulatorHelper() {
+	primaryWheelState = false;
+	secondaryWheelState = false;
+}
+
+void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * shape, int i, trigger_config_s const*triggerConfig) {
+	int stateIndex = i % shape->getSize();
+
+	int loopIndex = i / shape->getSize();
+
+	int time = (int) (10000 * (loopIndex + shape->wave.getSwitchTime(stateIndex)));
+
+	bool newPrimaryWheelState = shape->wave.getChannelState(0, stateIndex);
+	bool newSecondaryWheelState = shape->wave.getChannelState(1, stateIndex);
+
+	if (primaryWheelState != newPrimaryWheelState) {
+		primaryWheelState = newPrimaryWheelState;
+		trigger_event_e s = primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN;
+		state->decodeTriggerEvent(shape, triggerConfig, s, time);
+	}
+
+	if (secondaryWheelState != newSecondaryWheelState) {
+		secondaryWheelState = newSecondaryWheelState;
+		trigger_event_e s = secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN;
+		state->decodeTriggerEvent(shape, triggerConfig, s, time);
+	}
+}
+
 /**
  * Trigger shape is defined in a way which is convenient for trigger shape definition
  * On the other hand, trigger decoder indexing begins from synchronization event.
@@ -226,34 +254,13 @@ int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*tr
 	TriggerState state;
 	errorDetection.clear();
 
-	int primaryWheelState = FALSE;
-	int secondaryWheelState = FALSE;
+	TriggerStimulatorHelper helper;
 
 	for (int i = 0; i < 4 * PWM_PHASE_MAX_COUNT; i++) {
-
-		int stateIndex = i % shape->getSize();
-
-		int loopIndex = i / shape->getSize();
-
-		int time = (int) (10000 * (loopIndex + shape->wave.getSwitchTime(stateIndex)));
-
-		int newPrimaryWheelState = shape->wave.getChannelState(0, stateIndex);
-		int newSecondaryWheelState = shape->wave.getChannelState(1, stateIndex);
-
-		if (primaryWheelState != newPrimaryWheelState) {
-			primaryWheelState = newPrimaryWheelState;
-			trigger_event_e s = primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN;
-			state.decodeTriggerEvent(shape, triggerConfig, s, time);
-		}
-
-		if (secondaryWheelState != newSecondaryWheelState) {
-			secondaryWheelState = newSecondaryWheelState;
-			trigger_event_e s = secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN;
-			state.decodeTriggerEvent(shape, triggerConfig, s, time);
-		}
+		helper.nextStep(&state, shape, i, triggerConfig);
 
 		if (state.shaft_is_synchronized)
-			return stateIndex;
+			return i % shape->getSize();;
 	}
 	firmwareError("findTriggerZeroEventIndex() failed");
 	return -1;
