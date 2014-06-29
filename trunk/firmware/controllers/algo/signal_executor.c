@@ -72,7 +72,7 @@ void turnPinHigh(io_pin_e pin) {
 #endif
 
 #if EFI_WAVE_CHART
-	addWaveChartEvent(getPinName(pin), "up", "");
+	addWaveChartEvent(getPinName(pin), WC_UP, "");
 #endif /* EFI_WAVE_ANALYZER */
 }
 
@@ -88,7 +88,7 @@ void turnPinLow(io_pin_e pin) {
 #endif /* EFI_DEFAILED_LOGGING */
 
 #if EFI_WAVE_CHART
-	addWaveChartEvent(getPinName(pin), "down", "");
+	addWaveChartEvent(getPinName(pin), WC_DOWN, "");
 #endif /* EFI_WAVE_ANALYZER */
 }
 
