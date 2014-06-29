@@ -14,13 +14,14 @@
 #include "engine_configuration.h"
 #include "ec2.h"
 
+void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount, int skippedCount);
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
 int isTriggerDecoderError(void);
-void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount, int skippedCount);
 void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*triggerConfig);
 

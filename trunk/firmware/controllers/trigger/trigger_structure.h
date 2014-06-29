@@ -97,15 +97,6 @@ private:
 	float previousAngle;
 };
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
-
 void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, trigger_value_e state);
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
 
 #endif /* TRIGGER_STRUCTURE_H_ */
