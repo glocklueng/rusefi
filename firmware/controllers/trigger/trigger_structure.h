@@ -43,6 +43,7 @@ private:
 	int current_index;
 	uint64_t totalEventCountBase;
 	int totalRevolutionCounter;
+	bool isFirstEvent;
 };
 
 typedef enum {

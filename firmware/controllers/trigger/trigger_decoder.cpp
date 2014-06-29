@@ -84,7 +84,8 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 		return;
 	}
 
-	int64_t currentDuration = nowUs - toothed_previous_time;
+	int64_t currentDuration = isFirstEvent ? 0 : nowUs - toothed_previous_time;
+	isFirstEvent = false;
 	efiAssertVoid(currentDuration >= 0, "negative duration?");
 
 // todo: skip a number of signal from the beginning
