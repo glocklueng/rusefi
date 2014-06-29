@@ -484,6 +484,20 @@ static void disableInjection(void) {
 	scheduleMsg(&logger, "injection disabled");
 }
 
+#if EFI_WAVE_CHART
+extern int waveChartUsedSize;
+#endif
+
+static void printAllInfo(void) {
+	printTemperatureInfo();
+	printTPSInfo();
+	printMAPInfo();
+#if EFI_WAVE_CHART
+	scheduleMsg(&logger, "waveChartUsedSize=%d", waveChartUsedSize);
+#endif
+
+}
+
 void initSettings(void) {
 	initLoggingExt(&logger, "settings control", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 
@@ -491,6 +505,7 @@ void initSettings(void) {
 	addConsoleAction("tempinfo", printTemperatureInfo);
 	addConsoleAction("tpsinfo", printTPSInfo);
 	addConsoleAction("mapinfo", printMAPInfo);
+	addConsoleAction("info", printAllInfo);
 
 	addConsoleActionI("set_ignition_offset", setIgnitionOffset);
 	addConsoleActionI("set_injection_offset", setInjectionOffset);
