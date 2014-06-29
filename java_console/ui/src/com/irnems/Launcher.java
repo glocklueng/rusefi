@@ -28,6 +28,8 @@ public class Launcher extends FrameHelper {
 
         LinkManager.start(port);
 
+        FileLog.MAIN.logLine("Console " + CONSOLE_VERSION);
+
         JTabbedPane tabbedPane = new JTabbedPane();
 
         RpmPanel rpmPanel = new RpmPanel();
