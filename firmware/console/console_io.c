@@ -182,7 +182,10 @@ void startConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
 
 #if EFI_PROD_CODE
-	is_serial_over_uart = GET_BUTTON_VALUE() != EFI_USE_UART_FOR_CONSOLE;
+
+	palSetPadMode(CONSOLE_MODE_SWITCH_PORT, CONSOLE_MODE_SWITCH_PIN, PAL_MODE_INPUT_PULLUP);
+
+	is_serial_over_uart = GET_CONSOLE_MODE_VALUE() == EFI_USE_UART_FOR_CONSOLE;
 
 	if (isSerialOverUart()) {
 		/*

@@ -19,6 +19,7 @@
 #include "ec2.h"
 #include "map.h"
 #include "trigger_decoder.h"
+#include "console_io.h"
 
 #if EFI_PROD_CODE
 #include "rusefi.h"
@@ -114,7 +115,7 @@ static const char * pinModeToString(pin_output_mode_e mode) {
 	}
 }
 
-static const char * boolToString(bool_t value) {
+static const char * boolToString(bool value) {
 	return value ? "Yes" : "No";
 }
 
@@ -204,6 +205,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 #endif /* EFI_PROD_CODE */
 
 	scheduleMsg(&logger, "isInjectionEnabledFlag %s", boolToString(engineConfiguration2->isInjectionEnabledFlag));
+	scheduleMsg(&logger, "boardTestModeJumperPin: %s", hwPortname(boardConfiguration->boardTestModeJumperPin));
 
 	//	appendPrintf(&logger, DELIMETER);
 //	scheduleLogging(&logger);
@@ -495,7 +497,7 @@ static void printAllInfo(void) {
 #if EFI_WAVE_CHART
 	scheduleMsg(&logger, "waveChartUsedSize=%d", waveChartUsedSize);
 #endif
-
+	scheduleMsg(&logger, "console mode jumper: %s", boolToString(!GET_CONSOLE_MODE_VALUE()));
 }
 
 void initSettings(void) {

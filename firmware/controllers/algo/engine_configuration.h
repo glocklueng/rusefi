@@ -355,6 +355,7 @@ typedef struct {
 
 	int tunerStudioSerialSpeed;
 
+	brain_pin_e boardTestModeJumperPin;
 } board_configuration_s;
 
 typedef struct {
