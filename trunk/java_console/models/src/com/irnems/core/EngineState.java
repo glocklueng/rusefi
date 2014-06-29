@@ -201,7 +201,7 @@ public class EngineState {
     public static String unpackString(String message) {
         String prefix = "line" + PACKING_DELIMITER;
         if (!message.startsWith(prefix)) {
-            FileLog.MAIN.logLine("EngineState: unexpected header: " + message);
+            FileLog.MAIN.logLine("EngineState: unexpected header: " + message + " while looking for " + prefix);
             return null;
         }
         message = message.substring(prefix.length());
