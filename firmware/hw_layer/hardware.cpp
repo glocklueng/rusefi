@@ -55,10 +55,10 @@ void initSpiModules(void) {
 #if STM32_SPI_USE_SPI2
 //	scheduleMsg(&logging, "Turning on SPI2 pins");
 	initSpiModule(&SPID2,
-	EFI_SPI2_SCK_PORT, EFI_SPI2_SCK_PIN,
-	EFI_SPI2_MISO_PORT, EFI_SPI2_MISO_PIN,
-	EFI_SPI2_MOSI_PORT, EFI_SPI2_MOSI_PIN,
-	EFI_SPI2_AF);
+			EFI_SPI2_SCK_PORT, EFI_SPI2_SCK_PIN,
+			EFI_SPI2_MISO_PORT, EFI_SPI2_MISO_PIN,
+			EFI_SPI2_MOSI_PORT, EFI_SPI2_MOSI_PIN,
+			EFI_SPI2_AF);
 #endif
 #if STM32_SPI_USE_SPI3
 //	scheduleMsg(&logging, "Turning on SPI3 pins");
@@ -78,9 +78,9 @@ void initI2Cmodule(void) {
 	i2cStart(&I2CD1, &i2cfg);
 
 	mySetPadMode("I2C clock", EFI_I2C_SCL_PORT, EFI_I2C_SCL_PIN,
-			PAL_MODE_ALTERNATE(EFI_I2C_AF) | PAL_STM32_OTYPE_OPENDRAIN);
+	PAL_MODE_ALTERNATE(EFI_I2C_AF) | PAL_STM32_OTYPE_OPENDRAIN);
 	mySetPadMode("I2C data", EFI_I2C_SDA_PORT, EFI_I2C_SDA_PIN,
-			PAL_MODE_ALTERNATE(EFI_I2C_AF) | PAL_STM32_OTYPE_OPENDRAIN);
+	PAL_MODE_ALTERNATE(EFI_I2C_AF) | PAL_STM32_OTYPE_OPENDRAIN);
 }
 
 //static char txbuf[1];
@@ -105,7 +105,6 @@ void initHardware(Logging *logger) {
 	initHistogramsModule();
 #endif /* EFI_HISTOGRAMS */
 
-
 	/**
 	 * We need the LED_ERROR pin even before we read configuration
 	 */
@@ -128,9 +127,12 @@ void initHardware(Logging *logger) {
 	if (hasFirmwareError())
 		return;
 
-	mySetPadMode("board test", getHwPort(boardConfiguration->boardTestModeJumperPin), getHwPin(boardConfiguration->boardTestModeJumperPin), PAL_MODE_INPUT_PULLUP);
-
-
+	mySetPadMode("board test", getHwPort(boardConfiguration->boardTestModeJumperPin),
+			getHwPin(boardConfiguration->boardTestModeJumperPin), PAL_MODE_INPUT_PULLUP);
+	if (GET_BOARD_TEST_MODE_VALUE()) {
+		initBoardTest();
+		efiAssertVoid(FALSE, "board test done");
+	}
 
 	initRtc();
 
@@ -147,7 +149,6 @@ void initHardware(Logging *logger) {
 
 //	init_adc_mcp3208(&adcState, &SPID2);
 //	requestAdcValue(&adcState, 0);
-
 
 	// todo: figure out better startup logic
 	initTriggerCentral();
@@ -199,6 +200,5 @@ void initHardware(Logging *logger) {
 //		}
 //	}
 
-	initBoardTest();
 	printMsg(logger, "initHardware() OK!");
 }

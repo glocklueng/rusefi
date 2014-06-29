@@ -17,6 +17,8 @@
 #include "main.h"
 #include "cli_registry.h"
 #include "efilib.h"
+#include "board_test.h"
+
 #if EFI_PROD_CODE || EFI_SIMULATOR
 #include "eficonsole.h"
 static Logging logging;
@@ -77,6 +79,10 @@ void addConsoleActionF(const char *token, VoidFloat callback) {
  */
 void helpCommand(void) {
 #if EFI_PROD_CODE || EFI_SIMULATOR
+	if (isBoardTestMode()) {
+		printBoardTestState();
+		return;
+	}
 	scheduleMsg(&logging, "%d actions available", consoleActionCount);
 	for (int i = 0; i < consoleActionCount; i++) {
 		TokenCallback *current = &consoleActions[i];
