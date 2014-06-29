@@ -11,7 +11,7 @@
 #include "global.h"
 #include "signal_executor.h"
 
-#define MAX_EVENT_COUNT 40
+#define MAX_EVENT_COUNT 80
 
 /**
  * This structure defines an angle position within the trigger

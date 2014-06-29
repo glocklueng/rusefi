@@ -19,8 +19,7 @@ void setRoverv8(engine_configuration_s *engineConfiguration,
 	engineConfiguration->triggerConfig.totalToothCount = 36;
 	engineConfiguration->triggerConfig.skippedToothCount = 1;
 
-	// todo: displacement? 4 liters?
-	engineConfiguration->displacement = 4;
+	engineConfiguration->displacement = 3.528;
 	engineConfiguration->cylindersCount = 8;
 	engineConfiguration->firingOrder = FO_1_8_4_3_6_5_7_2;
 
@@ -33,8 +32,8 @@ void setRoverv8(engine_configuration_s *engineConfiguration,
 	setWholeFuelMap(engineConfiguration, 3);
 
 
-      	// set_cranking_injection_mode 0
-	engineConfiguration->crankingInjectionMode = IM_SEQUENTIAL;
+    // set_cranking_injection_mode 0
+	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
 	// set_injection_mode 1
 	engineConfiguration->injectionMode = IM_SEQUENTIAL;
 
