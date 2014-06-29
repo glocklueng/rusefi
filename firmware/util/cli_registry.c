@@ -17,9 +17,9 @@
 #include "main.h"
 #include "cli_registry.h"
 #include "efilib.h"
-#include "board_test.h"
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
+#include "board_test.h"
 #include "eficonsole.h"
 static Logging logging;
 #endif /* EFI_PROD_CODE */
