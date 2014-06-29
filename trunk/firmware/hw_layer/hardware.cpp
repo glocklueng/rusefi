@@ -128,6 +128,10 @@ void initHardware(Logging *logger) {
 	if (hasFirmwareError())
 		return;
 
+	mySetPadMode("board test", getHwPort(boardConfiguration->boardTestModeJumperPin), getHwPin(boardConfiguration->boardTestModeJumperPin), PAL_MODE_INPUT_PULLUP);
+
+
+
 	initRtc();
 
 	initOutputPins();

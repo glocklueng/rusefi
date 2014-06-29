@@ -83,6 +83,8 @@
 #include "main.h"
 #include "trigger_structure.h"
 #include "ec2.h"
+#include "hardware.h"
+#include "engine_controller.h"
 
 extern "C" {
 
@@ -91,8 +93,6 @@ extern "C" {
 
 #include "rusefi.h"
 #include "eficonsole.h"
-#include "hardware.h"
-#include "engine_controller.h"
 #include "status_loop.h"
 #include "pin_repository.h"
 
