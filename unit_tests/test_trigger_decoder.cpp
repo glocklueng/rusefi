@@ -140,13 +140,13 @@ static void test1995FordInline6TriggerDecoder(void) {
 		assertEqualsM("odd", i++, state.getCurrentIndex());
 	}
 
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r++);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r++);
 	assertEquals(10, state.getCurrentIndex());
 
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
 	assertEquals(11, state.getCurrentIndex());
 
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r++);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r++);
 	assertEquals(0, state.getCurrentIndex()); // new revolution
 
 	assertEqualsM("running dwell", 0.5, getSparkDwellMsT(ec, 2000));
@@ -196,38 +196,38 @@ void testMazdaMianaNbDecoder(void) {
 	trigger_shape_s * shape = &ec2.triggerShape;
 
 	int a = 0;
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 20);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 20);
 	assertFalseM("0a shaft_is_synchronized", state.shaft_is_synchronized);
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 340);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 340);
 	assertFalseM("0b shaft_is_synchronized", state.shaft_is_synchronized);
 
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 360);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 360);
 	assertFalseM("0c shaft_is_synchronized", state.shaft_is_synchronized);
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 380);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 380);
 	assertFalseM("0d shaft_is_synchronized", state.shaft_is_synchronized);
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 400);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 400);
 	assertTrueM("0e shaft_is_synchronized", state.shaft_is_synchronized);
 
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 720);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 720);
 	assertTrueM("0f shaft_is_synchronized", state.shaft_is_synchronized);
 
 	a = 720;
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 20);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 20);
 	assertTrueM("1a shaft_is_synchronized", state.shaft_is_synchronized);
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 340);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 340);
 	assertTrueM("1b shaft_is_synchronized", state.shaft_is_synchronized);
 
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 360);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 360);
 	assertTrueM("1c shaft_is_synchronized", state.shaft_is_synchronized);
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 380);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 380);
 	assertTrueM("1d shaft_is_synchronized", state.shaft_is_synchronized);
 	assertEquals(5, state.getCurrentIndex());
 
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 400);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 400);
 	assertTrueM("1e shaft_is_synchronized", state.shaft_is_synchronized);
 	assertEquals(0, state.getCurrentIndex());
 
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 720);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 720);
 	assertTrueM("1f shaft_is_synchronized", state.shaft_is_synchronized);
 }
 
@@ -286,11 +286,11 @@ void testGY6_139QMB(void) {
 	assertEquals(0, state.getCurrentIndex());
 
 	int now = 0;
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, now++);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, now++);
 	assertTrueM("shaft_is_synchronized", state.shaft_is_synchronized);
 	assertEquals(0, state.getCurrentIndex());
 
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, now++);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, now++);
 	assertTrueM("shaft_is_synchronized", state.shaft_is_synchronized);
 	assertEquals(1, state.getCurrentIndex());
 }
