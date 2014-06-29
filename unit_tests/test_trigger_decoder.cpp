@@ -125,18 +125,18 @@ static void test1995FordInline6TriggerDecoder(void) {
 	trigger_shape_s * shape = &ec2.triggerShape;
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
 	int r = 10;
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r);
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, ++r);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, ++r);
 	assertTrue(state.shaft_is_synchronized); // first signal rise synchronize
 	assertEquals(0, state.getCurrentIndex());
-	state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
+	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
 	assertEquals(1, state.getCurrentIndex());
 
 	for (int i = 2; i < 10;) {
-		state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r++);
+		state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r++);
 		assertEqualsM("even", i++, state.getCurrentIndex());
-		state.processTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
+		state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
 		assertEqualsM("odd", i++, state.getCurrentIndex());
 	}
 
