@@ -55,7 +55,7 @@ void writeToFlash(void) {
 #if EFI_INTERNAL_FLASH
 	persistentState.size = PERSISTENT_SIZE;
 	persistentState.version = FLASH_DATA_VERSION;
-	scheduleMsg(&logger, "FLASH_DATA_VERSION=%d", persistentState.version);
+	scheduleMsg(&logger, "flash compatible with %d", persistentState.version);
 	crc_t result = flashStateCrc(&persistentState);
 	persistentState.value = result;
 	scheduleMsg(&logger, "Reseting flash, size=%d", PERSISTENT_SIZE);
