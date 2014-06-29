@@ -18,9 +18,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Digital Sniffer control consists of a set of {@link UpDownImage}
@@ -34,8 +33,9 @@ import java.util.Map;
 public class WavePanel extends JPanel {
     private static final int EFI_DEFAULT_CHART_SIZE = 180;
     public static final String CRANK1 = "c1";
+    public static final Comparator<String> INSTANCE = new ImageOrderComparator();
 
-    private final Map<String, UpDownImage> images = new LinkedHashMap<String, UpDownImage>();
+    private final Map<String, UpDownImage> images = new TreeMap<String, UpDownImage>(INSTANCE);
     private final JPanel imagePanel = new JPanel();
     private final ZoomControl zoomControl = new ZoomControl();
     private final ChartStatusPanel statusPanel = new ChartStatusPanel(zoomControl);
@@ -110,19 +110,19 @@ public class WavePanel extends JPanel {
 
         crank.setZoomProvider(zoomControl);
         resetImagePanel();
-        createSecondaryImage("c2");
-        createSecondaryImage("input1 A8");
-        createSecondaryImage("input2 E5");
-
-        createSecondaryImage(WaveChart.SPARK_1);
-        createSecondaryImage(WaveChart.SPARK_2);
-        createSecondaryImage(WaveChart.SPARK_3);
-        createSecondaryImage(WaveChart.SPARK_4);
-
-        createSecondaryImage(WaveChart.INJECTOR_1);
-        createSecondaryImage(WaveChart.INJECTOR_2);
-        createSecondaryImage(WaveChart.INJECTOR_3);
-        createSecondaryImage(WaveChart.INJECTOR_4);
+//        createSecondaryImage("c2");
+//        createSecondaryImage("input1 A8");
+//        createSecondaryImage("input2 E5");
+//
+//        createSecondaryImage(WaveChart.SPARK_1);
+//        createSecondaryImage(WaveChart.SPARK_2);
+//        createSecondaryImage(WaveChart.SPARK_3);
+//        createSecondaryImage(WaveChart.SPARK_4);
+//
+//        createSecondaryImage(WaveChart.INJECTOR_1);
+//        createSecondaryImage(WaveChart.INJECTOR_2);
+//        createSecondaryImage(WaveChart.INJECTOR_3);
+//        createSecondaryImage(WaveChart.INJECTOR_4);
 
         LinkManager.engineState.registerStringValueAction(WaveReport.WAVE_CHART, new EngineState.ValueCallback<String>() {
             @Override
@@ -157,6 +157,8 @@ public class WavePanel extends JPanel {
             String imageName = e.getKey();
             String report = e.getValue().toString();
 
+            createSecondaryImage(imageName);
+
             UpDownImage image = images.get(imageName);
             if (image == null)
                 continue;
@@ -172,10 +174,32 @@ public class WavePanel extends JPanel {
     }
 
     private void createSecondaryImage(String name) {
+        if (images.containsKey(name) || RevolutionLog.TOP_DEAD_CENTER_MESSAGE.equalsIgnoreCase(name))
+            return;
+
+        int index = getInsertIndex(name, images.keySet());
+
         UpDownImage image = register(name).setTranslator(crank.createTranslator());
         image.setZoomProvider(zoomControl);
-        imagePanel.add(image);
+//        try {
+        imagePanel.add(image, index);
+//        } catch (Throwable e) {
+//            System.out.println(e);
+//        }
         imagePanel.setLayout(new GridLayout(images.size(), 1));
+    }
+
+    public static int getInsertIndex(String name, Set<String> strings) {
+        String[] mapKeys = new String[strings.size()];
+        int pos = 0;
+        for (String key : strings)
+            mapKeys[pos++] = key;
+
+//        int index = -Arrays.binarySearch(mapKeys, name) - 1;
+        int index = -Arrays.binarySearch(mapKeys, 0, mapKeys.length, name, INSTANCE) - 1;
+        if (index >= strings.size())
+            index = -1;
+        return index;
     }
 
     private void saveImage() {
@@ -200,5 +224,21 @@ public class WavePanel extends JPanel {
     public void reloadFile() {
         displayChart(ChartRepository.getInstance().getChart(0));
         scrollControl.reset();
+    }
+
+    /**
+     * The job of this comparator is to place Spark charts before Injection charts
+     */
+    private static class ImageOrderComparator implements Comparator<String> {
+        @Override
+        public int compare(String o1, String o2) {
+            return fixSpark(o1).compareTo(fixSpark(o2));
+        }
+
+        String fixSpark(String s) {
+            if (s.toLowerCase().startsWith("spa"))
+                return "d" + s;
+            return s;
+        }
     }
 }
