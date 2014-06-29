@@ -58,6 +58,7 @@ void multi_wave_s::setSwitchTime(int index, float value) {
 TriggerState::TriggerState() {
 	clear();
 	totalEventCountBase = 0;
+	isFirstEvent = true;
 }
 
 int TriggerState::getCurrentIndex() {
