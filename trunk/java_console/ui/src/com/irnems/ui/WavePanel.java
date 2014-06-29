@@ -6,6 +6,7 @@ import com.irnems.core.EngineState;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
 import com.irnems.ui.widgets.AnyCommand;
+import com.irnems.ui.widgets.URLLabel;
 import com.irnems.ui.widgets.UpDownImage;
 import com.rusefi.io.LinkManager;
 import com.rusefi.ui.ChartScrollControl;
@@ -34,6 +35,8 @@ public class WavePanel extends JPanel {
     private static final int EFI_DEFAULT_CHART_SIZE = 180;
     public static final String CRANK1 = "c1";
     public static final Comparator<String> INSTANCE = new ImageOrderComparator();
+    private static final String HELP_URL = "http://rusefi.com/wiki/index.php?title=Manual:DevConsole#Digital_Chart";
+    public static final String HELP_TEXT = "Click here for online help";
 
     private final Map<String, UpDownImage> images = new TreeMap<String, UpDownImage>(INSTANCE);
     private final JPanel imagePanel = new JPanel();
@@ -96,6 +99,8 @@ public class WavePanel extends JPanel {
             }
         });
         buttonPanel.add(scrollControl.getContent());
+
+        buttonPanel.add(new URLLabel(HELP_TEXT, HELP_URL));
 
         add(buttonPanel, BorderLayout.NORTH);
         add(imagePanel, BorderLayout.CENTER);

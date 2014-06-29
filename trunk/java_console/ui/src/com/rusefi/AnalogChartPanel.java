@@ -4,6 +4,8 @@ import com.irnems.FileLog;
 import com.irnems.core.EngineState;
 import com.irnems.ui.RpmModel;
 import com.irnems.ui.UiUtils;
+import com.irnems.ui.WavePanel;
+import com.irnems.ui.widgets.URLLabel;
 import com.irnems.ui.widgets.UpDownImage;
 import com.rusefi.io.LinkManager;
 
@@ -20,6 +22,7 @@ import java.util.List;
  */
 public class AnalogChartPanel extends JPanel {
     private static final String KEY = "analog_chart";
+    private static final String HELP_URL = "http://rusefi.com/wiki/index.php?title=Manual:DevConsole#Analog_Chart";
 
     private final TreeMap<Double, Double> values = new TreeMap<Double, Double>();
     private final AnalogChart analogChart = new AnalogChart();
@@ -67,6 +70,8 @@ public class AnalogChartPanel extends JPanel {
 
         final JButton pauseButton = new JButton("Pause");
         upperPanel.add(pauseButton);
+
+        upperPanel.add(new URLLabel(WavePanel.HELP_TEXT, HELP_URL));
         pauseButton.addActionListener(new
 
                                               ActionListener() {
