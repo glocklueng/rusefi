@@ -11,6 +11,11 @@
 
 #include <time.h>
 
+#define WC_DOWN "d"
+#define WC_UP "u"
+#define WC_CRANK1 "c1"
+#define WC_CRANK2 "c2"
+
 #define NOISY_RPM -1
 
 #ifdef __cplusplus

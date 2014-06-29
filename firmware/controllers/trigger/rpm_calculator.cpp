@@ -134,13 +134,13 @@ static char shaft_signal_msg_index[15];
 void shaftPositionCallback(trigger_event_e ckpSignalType, int index, RpmCalculator *rpmState) {
 	itoa10(&shaft_signal_msg_index[1], index);
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
-		addWaveChartEvent("crank", "up", (char*) shaft_signal_msg_index);
+		addWaveChartEvent(WC_CRANK1, WC_UP, (char*) shaft_signal_msg_index);
 	} else if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
-		addWaveChartEvent("crank", "down", (char*) shaft_signal_msg_index);
+		addWaveChartEvent(WC_CRANK1, WC_DOWN, (char*) shaft_signal_msg_index);
 	} else if (ckpSignalType == SHAFT_SECONDARY_UP) {
-		addWaveChartEvent("crank2", "up", (char*) shaft_signal_msg_index);
+		addWaveChartEvent(WC_CRANK2, WC_UP, (char*) shaft_signal_msg_index);
 	} else if (ckpSignalType == SHAFT_SECONDARY_DOWN) {
-		addWaveChartEvent("crank2", "down", (char*) shaft_signal_msg_index);
+		addWaveChartEvent(WC_CRANK2, WC_DOWN, (char*) shaft_signal_msg_index);
 	}
 
 	if (index != 0) {

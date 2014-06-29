@@ -39,7 +39,8 @@
  * on the 'digital sniffer' pane
  */
 #if EFI_PROD_CODE
-static volatile int chartSize = 100;
+// todo: does it really need to be a variable? maybe a constant should be enough?
+static volatile int chartSize = 200;
 #define WAVE_LOGGING_SIZE 5000
 #else
 // need more events for automated test

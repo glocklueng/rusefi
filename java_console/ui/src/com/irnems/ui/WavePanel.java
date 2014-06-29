@@ -38,7 +38,7 @@ public class WavePanel extends JPanel {
     private final JPanel imagePanel = new JPanel();
     private final ZoomControl zoomControl = new ZoomControl();
     private final ChartStatusPanel statusPanel = new ChartStatusPanel(zoomControl);
-    private final UpDownImage crank = register("crank");
+    private final UpDownImage crank = register("c1");
     private ChartScrollControl scrollControl;
 
     private boolean isPaused;
@@ -109,7 +109,7 @@ public class WavePanel extends JPanel {
 
         crank.setZoomProvider(zoomControl);
         imagePanel.add(crank);
-        createSecondaryImage("crank2");
+        createSecondaryImage("c2");
         createSecondaryImage("input1 A8");
         createSecondaryImage("input2 E5");
 
