@@ -37,7 +37,7 @@ public class AnyCommand extends JPanel {
                 if (!isValidInput(text))
                     return;
                 int timeout = isSlowCommand(cmd) ? 5000 : 300;
-                CommandQueue.getInstance().write(cmd, timeout);
+                CommandQueue.getInstance().write(cmd.toLowerCase(), timeout);
             }
         });
         text.getDocument().addDocumentListener(new DocumentListener() {
