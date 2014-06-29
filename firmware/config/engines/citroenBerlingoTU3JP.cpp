@@ -3,6 +3,9 @@
  *
  * CITROEN_TU3JP: engine_type 15
  *
+ * This config overrides some values of the default configuration which is set by setDefaultConfiguration() method
+ *
+ *
  * @date Apr 15, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
