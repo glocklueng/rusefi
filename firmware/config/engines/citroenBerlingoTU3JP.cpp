@@ -1,7 +1,7 @@
 /**
  * @file	citroenBerlingoTU3JP.cpp
  *
- * CITROEN_TU3JP 15
+ * CITROEN_TU3JP: engine_type 15
  *
  * @date Apr 15, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
