@@ -231,6 +231,16 @@ void testMazdaMianaNbDecoder(void) {
 	assertTrueM("1f shaft_is_synchronized", state.shaft_is_synchronized);
 }
 
+static void testCitroen(void) {
+	printf("*************************************************** testCitroen\r\n");
+
+	persistent_config_s persistentConfig;
+	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
+	engine_configuration2_s ec2;
+	resetConfigurationExt(NULL, CITROEN_TU3JP, ec, &ec2, &persistentConfig.boardConfiguration);
+
+}
+
 static void testRoverV8(void) {
 	printf("*************************************************** testRoverV8\r\n");
 
@@ -408,6 +418,7 @@ void testTriggerDecoder(void) {
 	testFordEscortGt();
 	testMiniCooper();
 	testRoverV8();
+	testCitroen();
 
 //	testMazda323();
 
