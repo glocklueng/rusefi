@@ -140,7 +140,13 @@ const char *getPinName(io_pin_e io_pin) {
 		return "inj4";
 	case INJECTOR_5_OUTPUT:
 		return "inj5";
+	case INJECTOR_6_OUTPUT:
+		return "inj6";
+	case INJECTOR_7_OUTPUT:
+		return "inj7";
+	case INJECTOR_8_OUTPUT:
+		return "inj8";
 	default:
-		return "No name";
+		return "Pin needs name";
 	}
 }
