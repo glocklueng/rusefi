@@ -40,7 +40,7 @@
  */
 #if EFI_PROD_CODE
 // todo: does it really need to be a variable? maybe a constant should be enough?
-static volatile int chartSize = 200;
+static volatile int chartSize = 300;
 #define WAVE_LOGGING_SIZE 5000
 #else
 // need more events for automated test

@@ -122,24 +122,24 @@ void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs) {
 const char *getPinName(io_pin_e io_pin) {
 	switch (io_pin) {
 	case SPARKOUT_1_OUTPUT:
-		return "Spark 1";
+		return "spa1";
 	case SPARKOUT_2_OUTPUT:
-		return "Spark 2";
+		return "spa2";
 	case SPARKOUT_3_OUTPUT:
-		return "Spark 3";
+		return "spa3";
 	case SPARKOUT_4_OUTPUT:
-		return "Spark 4";
+		return "spa4";
 
 	case INJECTOR_1_OUTPUT:
-		return "Injector 1";
+		return "inj1";
 	case INJECTOR_2_OUTPUT:
-		return "Injector 2";
+		return "inj2";
 	case INJECTOR_3_OUTPUT:
-		return "Injector 3";
+		return "inj3";
 	case INJECTOR_4_OUTPUT:
-		return "Injector 4";
+		return "inj4";
 	case INJECTOR_5_OUTPUT:
-		return "Injector 5";
+		return "inj5";
 	default:
 		return "No name";
 	}
