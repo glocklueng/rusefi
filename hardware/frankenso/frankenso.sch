@@ -54,7 +54,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 10
 Title "Frankenso"
-Date "22 jun 2014"
+Date "27 jun 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -1013,18 +1013,18 @@ $EndComp
 Text Label 9300 8100 2    60   ~ 0
 GND
 Text Label 5550 1600 3    60   ~ 0
-HL2
+HL3
 Text Label 5450 1600 3    60   ~ 0
 HL1
 Text Label 5650 1600 3    60   ~ 0
-HL3
-Text Label 5750 1600 3    60   ~ 0
-HL4
-Text Label 6050 1600 3    60   ~ 0
-HL5
+HL2
 Text Label 6150 1600 3    60   ~ 0
+HL4
+Text Label 5750 1600 3    60   ~ 0
+HL5
+Text Label 6050 1600 3    60   ~ 0
 HL6
-Text Label 9200 1600 3    60   ~ 0
+Text Label 9000 1600 3    60   ~ 0
 INJ-03
 Text Label 11000 1600 3    60   ~ 0
 AN4-HARN
@@ -1034,11 +1034,11 @@ Text Label 10600 1600 3    60   ~ 0
 AN8-HARN
 Text Label 10500 1600 3    60   ~ 0
 AN7-HARN
-Text Label 9100 1600 3    60   ~ 0
-INJ-04
 Text Label 8900 1600 3    60   ~ 0
+INJ-04
+Text Label 9100 1600 3    60   ~ 0
 INJ-02
-Text Label 9000 1600 3    60   ~ 0
+Text Label 9200 1600 3    60   ~ 0
 INJ-01_2
 Text Label 8700 1600 3    60   ~ 0
 CANH
@@ -1061,13 +1061,13 @@ Text Label 650  10400 0    60   ~ 0
 CRANK
 Text Label 1550 10400 0    60   ~ 0
 CAM
-Text Label 7900 1600 3    60   ~ 0
-CAM+
 Text Label 8000 1600 3    60   ~ 0
+CAM+
+Text Label 7900 1600 3    60   ~ 0
 CAM-
-Text Label 7800 1600 3    60   ~ 0
-CRK2-
 Text Label 7700 1600 3    60   ~ 0
+CRK2-
+Text Label 7800 1600 3    60   ~ 0
 CRK2+
 Text Notes 800  10050 0    60   ~ 0
 That's alternative signal OUTPUT - these traces should be routable to PC6 and PA5 via jumpers. \nAleternative to W212 and W212 routung of op-amps ch 11 and ch 12
