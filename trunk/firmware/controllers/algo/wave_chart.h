@@ -23,6 +23,7 @@ typedef struct {
 	Logging logging;
 #endif /* EFI_WAVE_CHART */
 	int counter;
+	int startTime;
 	volatile int isInitialized;
 } WaveChart;
 

@@ -70,7 +70,8 @@ void resetWaveChart(WaveChart *chart) {
 	appendPrintf(&chart->logging, "wave_chart%s", DELIMETER);
 }
 
-static char WAVE_LOGGING_BUFFER[WAVE_LOGGING_SIZE] CCM_OPTIONAL;
+static char WAVE_LOGGING_BUFFER[WAVE_LOGGING_SIZE] CCM_OPTIONAL
+;
 
 int isWaveChartFull(WaveChart *chart) {
 	return chart->counter >= chartSize;
@@ -124,6 +125,12 @@ void addWaveChartEvent3(WaveChart *chart, const char *name, const char * msg, co
 	bool alreadyLocked = lockOutputBuffer(); // we have multiple threads writing to the same output buffer
 	appendPrintf(&chart->logging, "%s%s%s%s", name, CHART_DELIMETER, msg, CHART_DELIMETER);
 	int time100 = getTimeNowUs() / 10;
+	if (chart->counter == 0)
+		chart->startTime = time100;
+	/**
+	 * We want smaller times within a chart in order to reduce packet size.
+	 */
+	time100 -= chart->startTime;
 	appendPrintf(&chart->logging, "%d%s%s", time100, msg2, CHART_DELIMETER);
 	chart->counter++;
 	if (!alreadyLocked)
