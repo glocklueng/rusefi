@@ -36,7 +36,7 @@ void publishChart(WaveChart *chart);
 void initWaveChart(WaveChart *chart);
 void resetWaveChart(WaveChart *chart);
 void setChartSize(int newSize);
-int isWaveChartFull(WaveChart *chart);
+//int isWaveChartFull(WaveChart *chart);
 void publishChartIfFull(WaveChart *chart);
 
 #ifdef __cplusplus

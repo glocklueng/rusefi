@@ -47,6 +47,8 @@ static volatile int chartSize = 400;
 #define WAVE_LOGGING_SIZE 35000
 #endif
 
+int waveChartUsedSize;
+
 static int isChartActive = TRUE;
 //static int isChartActive = FALSE;
 
@@ -68,6 +70,10 @@ void resetWaveChart(WaveChart *chart) {
 }
 
 static char WAVE_LOGGING_BUFFER[WAVE_LOGGING_SIZE] CCM_OPTIONAL;
+
+int isWaveChartFull(WaveChart *chart) {
+	return chart->counter >= chartSize;
+}
 
 static void printStatus(void) {
 	scheduleIntValue(&logger, "chart", isChartActive);
@@ -93,12 +99,9 @@ void publishChartIfFull(WaveChart *chart) {
 	}
 }
 
-int isWaveChartFull(WaveChart *chart) {
-	return chart->counter >= chartSize;
-}
-
 void publishChart(WaveChart *chart) {
 	appendPrintf(&chart->logging, DELIMETER);
+	waveChartUsedSize = loggingSize(&chart->logging);
 #if DEBUG_WAVE
 	Logging *l = &chart->logging;
 	scheduleSimpleMsg(&debugLogging, "IT'S TIME", strlen(l->buffer));
