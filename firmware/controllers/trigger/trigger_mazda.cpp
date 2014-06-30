@@ -100,5 +100,5 @@ void configureMazdaProtegeLx(engine_configuration_s *engineConfiguration,
 
 //	s->shaftPositionEventCount = 2 + 8;
 	s->shaftPositionEventCount = 8;
-	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
+	engineConfiguration->triggerConfig.isSynchronizationNeeded = false;
 }

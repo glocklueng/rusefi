@@ -79,7 +79,7 @@ void turnPinHigh(io_pin_e pin) {
 void turnPinLow(io_pin_e pin) {
 	// turn off the output
 	// todo: this XOR should go inside the setOutputPinValue method
-	setOutputPinValue(pin, FALSE);
+	setOutputPinValue(pin, false);
 
 #if EFI_DEFAILED_LOGGING
 	systime_t after = hTimeNow();

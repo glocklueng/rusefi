@@ -314,12 +314,12 @@ static msg_t tsThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("tunerstudio thread");
 
-	int wasReady = FALSE;
+	int wasReady = false;
 	while (true) {
 		int isReady = ts_serail_ready();
 		if (!isReady) {
 			chThdSleepMilliseconds(10);
-			wasReady = FALSE;
+			wasReady = false;
 			continue;
 		}
 
