@@ -48,7 +48,7 @@ int isTriggerDecoderError(void) {
 static inline int isSynchronizationGap(TriggerState const *shaftPositionState, trigger_shape_s const *triggerShape,
 		trigger_config_s const *triggerConfig, const int currentDuration) {
 	if (!triggerConfig->isSynchronizationNeeded)
-		return FALSE;
+		return false;
 
 	return currentDuration > shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioFrom
 			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerConfig->syncRatioTo;
@@ -57,7 +57,7 @@ static inline int isSynchronizationGap(TriggerState const *shaftPositionState, t
 static inline int noSynchronizationResetNeeded(TriggerState *shaftPositionState, trigger_shape_s const *triggerShape,
 		trigger_config_s const*triggerConfig) {
 	if (triggerConfig->isSynchronizationNeeded)
-		return FALSE;
+		return false;
 	if (!shaftPositionState->shaft_is_synchronized)
 		return TRUE;
 	/**

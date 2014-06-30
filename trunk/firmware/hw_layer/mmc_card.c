@@ -183,7 +183,7 @@ static void MMCumount(void) {
 	mmcStop(&MMCD1);							// Disables the MMC peripheral.
 	f_mount(0, NULL);							// FATFS: Unregister work area prior to discard it
 	memset(&FDLogFile, 0, sizeof(FIL));			// clear FDLogFile
-	fs_ready = FALSE;							// status = false
+	fs_ready = false;							// status = false
 	print("MMC/SD card removed.\r\n");
 }
 

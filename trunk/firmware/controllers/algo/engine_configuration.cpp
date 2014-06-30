@@ -214,7 +214,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->can_nbc_type = CAN_BUS_NBC_BMW;
 	engineConfiguration->can_sleep_period = 50;
 	engineConfiguration->canReadEnabled = TRUE;
-	engineConfiguration->canWriteEnabled = FALSE;
+	engineConfiguration->canWriteEnabled = false;
 
 	setOperationMode(engineConfiguration, FOUR_STROKE_CAM_SENSOR);
 	engineConfiguration->cylindersCount = 4;
