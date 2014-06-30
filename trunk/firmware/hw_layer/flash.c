@@ -141,13 +141,13 @@ bool flashIsErased(flashaddr_t address, size_t size) {
 	 * then, fallback to byte per byte comparison. */
 	while (size >= sizeof(flashdata_t)) {
 		if (*(volatile flashdata_t*) address != (flashdata_t) (-1)) // flashdata_t being unsigned, -1 is 0xFF..FF
-			return FALSE;
+			return false;
 		address += sizeof(flashdata_t);
 		size -= sizeof(flashdata_t);
 	}
 	while (size > 0) {
 		if (*(char*) address != 0xff)
-			return FALSE;
+			return false;
 		++address;
 		--size;
 	}
