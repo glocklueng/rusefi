@@ -46,7 +46,7 @@ public class WaveChartParserTest {
 
         RevolutionLog rl = RevolutionLog.parseRevolutions(revolutions);
 
-        StringBuilder inj1 = result.get(WaveChart.INJECTOR_1);
+        StringBuilder inj1 = result.get("Injector 1");
         WaveReport wr = new WaveReport(inj1.toString());
 
         for (WaveReport.UpDown ud : wr.getList()) {
