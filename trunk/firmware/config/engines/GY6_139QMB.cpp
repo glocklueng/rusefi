@@ -27,6 +27,6 @@ void setGy6139qmbDefaultEngineConfiguration(engine_configuration_s *engineConfig
 	 */
 	engineConfiguration->triggerConfig.totalToothCount = 1;
 	engineConfiguration->triggerConfig.skippedToothCount = 0;
-	engineConfiguration->triggerConfig.isSynchronizationNeeded = FALSE;
-	engineConfiguration->needSecondTriggerInput = FALSE;
+	engineConfiguration->triggerConfig.isSynchronizationNeeded = false;
+	engineConfiguration->needSecondTriggerInput = false;
 }
