@@ -18,8 +18,7 @@ void setRoverv8(engine_configuration_s *engineConfiguration,
 		board_configuration_s *boardConfiguration) {
 
 	setOperationMode(engineConfiguration, FOUR_STROKE_CRANK_SENSOR);
-	engineConfiguration->triggerConfig.totalToothCount = 36;
-	engineConfiguration->triggerConfig.skippedToothCount = 1;
+	setToothedWheelConfiguration(engineConfiguration, 36, 1);
 
 	engineConfiguration->displacement = 3.528;
 	engineConfiguration->cylindersCount = 8;
