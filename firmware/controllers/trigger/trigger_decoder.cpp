@@ -130,13 +130,13 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 	for (int i = 0; i < totalTeethCount - skippedCount - 1; i++) {
 		float angleDown = 720.0 / totalTeethCount * (i + toothWidth);
 		float angleUp = 720.0 / totalTeethCount * (i + 1);
-		triggerAddEvent(s, angleDown, T_PRIMARY, TV_HIGH);
-		triggerAddEvent(s, angleUp, T_PRIMARY, TV_LOW);
+		s->addEvent(angleDown, T_PRIMARY, TV_HIGH);
+		s->addEvent(angleUp, T_PRIMARY, TV_LOW);
 	}
 
 	float angleDown = 720.0 / totalTeethCount * (totalTeethCount - skippedCount - 1 + toothWidth);
-	triggerAddEvent(s, angleDown, T_PRIMARY, TV_HIGH);
-	triggerAddEvent(s, 720, T_PRIMARY, TV_LOW);
+	s->addEvent(angleDown, T_PRIMARY, TV_HIGH);
+	s->addEvent(720, T_PRIMARY, TV_LOW);
 }
 
 void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount,
@@ -155,17 +155,17 @@ static void configureFordAspireTriggerShape(trigger_shape_s * s) {
 
 	s->shaftPositionEventCount = 10;
 
-	triggerAddEvent(s, 53.747, T_SECONDARY, TV_HIGH);
-	triggerAddEvent(s, 121.90, T_SECONDARY, TV_LOW); // delta = 68.153
-	triggerAddEvent(s, 232.76, T_SECONDARY, TV_HIGH); // delta = 110.86
-	triggerAddEvent(s, 300.54, T_SECONDARY, TV_LOW); // delta = 67.78
-	triggerAddEvent(s, 360, T_PRIMARY, TV_HIGH);
+	s->addEvent(53.747, T_SECONDARY, TV_HIGH);
+	s->addEvent(121.90, T_SECONDARY, TV_LOW); // delta = 68.153
+	s->addEvent(232.76, T_SECONDARY, TV_HIGH); // delta = 110.86
+	s->addEvent(300.54, T_SECONDARY, TV_LOW); // delta = 67.78
+	s->addEvent(360, T_PRIMARY, TV_HIGH);
 
-	triggerAddEvent(s, 409.8412, T_SECONDARY, TV_HIGH); // delta = 49.8412
-	triggerAddEvent(s, 478.6505, T_SECONDARY, TV_LOW); // delta = 68.8093
-	triggerAddEvent(s, 588.045, T_SECONDARY, TV_HIGH); // delta = 109.3945
-	triggerAddEvent(s, 657.03, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, 720, T_PRIMARY, TV_LOW);
+	s->addEvent(409.8412, T_SECONDARY, TV_HIGH); // delta = 49.8412
+	s->addEvent(478.6505, T_SECONDARY, TV_LOW); // delta = 68.8093
+	s->addEvent(588.045, T_SECONDARY, TV_HIGH); // delta = 109.3945
+	s->addEvent(657.03, T_SECONDARY, TV_LOW);
+	s->addEvent(720, T_PRIMARY, TV_LOW);
 }
 
 /**
