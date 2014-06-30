@@ -127,7 +127,7 @@ typedef struct {
 	float iatFuelCorrBins[IAT_CURVE_SIZE]; // size 64, offset 200
 	float iatFuelCorr[IAT_CURVE_SIZE]; // size 64, offset 264
 
-	short int rpmHardLimit; // size 2, offset 328
+	short int unused2; // size 2, offset 328
 
 	// todo: extract these two fields into a structure
 	// todo: we need two sets of TPS parameters - modern ETBs have to sensors
@@ -180,7 +180,7 @@ typedef struct {
 	 * see also cylindersCount
 	 */
 	float displacement;
-	int unused[2];
+	int rpmHardLimit;
 
 	injection_mode_e crankingInjectionMode;
 	injection_mode_e injectionMode;
@@ -252,7 +252,6 @@ typedef struct {
 	int tpsAdcChannel;
 	int overrideCrankingIgnition;
 	int analogChartFrequency;
-	int unused5[10];
 
 	trigger_config_s triggerConfig;
 
