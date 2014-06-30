@@ -99,17 +99,17 @@ void testFuelMap(void) {
 static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
 	s->reset();
 
-	triggerAddEvent(s, 53.747, T_SECONDARY, TV_HIGH);
-	triggerAddEvent(s, 121.90, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, 232.76, T_SECONDARY, TV_HIGH);
-	triggerAddEvent(s, 300.54, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, 360, T_PRIMARY, TV_HIGH);
+	s->addEvent(53.747, T_SECONDARY, TV_HIGH);
+	s->addEvent(121.90, T_SECONDARY, TV_LOW);
+	s->addEvent(232.76, T_SECONDARY, TV_HIGH);
+	s->addEvent(300.54, T_SECONDARY, TV_LOW);
+	s->addEvent(360, T_PRIMARY, TV_HIGH);
 
-	triggerAddEvent(s, 409.8412, T_SECONDARY, TV_HIGH);
-	triggerAddEvent(s, 478.6505, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, 588.045, T_SECONDARY, TV_HIGH);
-	triggerAddEvent(s, 657.03, T_SECONDARY, TV_LOW);
-	triggerAddEvent(s, 720, T_PRIMARY, TV_LOW);
+	s->addEvent(409.8412, T_SECONDARY, TV_HIGH);
+	s->addEvent(478.6505, T_SECONDARY, TV_LOW);
+	s->addEvent(588.045, T_SECONDARY, TV_HIGH);
+	s->addEvent(657.03, T_SECONDARY, TV_LOW);
+	s->addEvent(720, T_PRIMARY, TV_LOW);
 }
 
 
