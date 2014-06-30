@@ -96,7 +96,7 @@ void setWholeFuelMap(engine_configuration_s *engineConfiguration, float value) {
 
 void setToothedWheelConfiguration(engine_configuration_s *engineConfiguration, int total, int skipped) {
 	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL;
-	engineConfiguration->triggerConfig.isSynchronizationNeeded = (skipped == 0);
+	engineConfiguration->triggerConfig.isSynchronizationNeeded = (skipped != 0);
 
 	engineConfiguration->triggerConfig.totalToothCount = total;
 	engineConfiguration->triggerConfig.skippedToothCount = skipped;
