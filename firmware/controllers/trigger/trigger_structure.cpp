@@ -134,11 +134,6 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_v
 	wave.waves[waveIndex].pinStates[index] = state;
 }
 
-void triggerAddEvent(trigger_shape_s *trigger, float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
-	// todo: inline this method
-	trigger->addEvent(angle, waveIndex, state);
-}
-
 void multi_wave_s::checkSwitchTimes(int size) {
 	checkSwitchTimes2(size, switchTimes);
 }
