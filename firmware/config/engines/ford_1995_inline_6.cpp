@@ -42,7 +42,7 @@ void setFordInline6(engine_configuration_s *engineConfiguration, board_configura
 	 */
 	setToothedWheelConfiguration(engineConfiguration, 6, 0);
 	engineConfiguration->triggerConfig.useRiseEdge = TRUE;
-	engineConfiguration->needSecondTriggerInput = FALSE;
+	engineConfiguration->needSecondTriggerInput = false;
 
 	engineConfiguration->globalTriggerAngleOffset = 0;
 	engineConfiguration->ignitionOffset = 13;

@@ -44,8 +44,8 @@ void setDodgeNeonEngineConfiguration(engine_configuration_s *engineConfiguration
 
 	setTriggerSynchronizationGap(engineConfiguration, 0.72);
 
-	engineConfiguration->triggerConfig.useRiseEdge = FALSE;
-	engineConfiguration->needSecondTriggerInput = TRUE;
+	engineConfiguration->triggerConfig.useRiseEdge = false;
+	engineConfiguration->needSecondTriggerInput = true;
 
 	// set_cranking_injection_mode 0
 	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
