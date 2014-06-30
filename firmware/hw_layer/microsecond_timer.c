@@ -54,7 +54,7 @@ static void callback(GPTDriver *gptp) {
 		firmwareError("NULL globalTimerCallback");
 		return;
 	}
-	isTimerPending = FALSE;
+	isTimerPending = false;
 
 //	// test code
 //	setOutputPinValue(LED_CRANKING, timerCallbackCounter % 2);

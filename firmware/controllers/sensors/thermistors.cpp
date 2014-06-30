@@ -20,7 +20,7 @@
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
-static bool_t initialized = FALSE;
+static bool_t initialized = false;
 
 /**
  * http://en.wikipedia.org/wiki/Voltage_divider
