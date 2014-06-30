@@ -96,6 +96,10 @@ void TriggerState::clear() {
 }
 
 void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
+	/**
+	 * While '720' value works perfectly it has not much sense for crank sensor-only scenario.
+	 * todo: accept angle as a value in the 0..1 range?
+	 */
 	angle /= 720;
 	efiAssertVoid(angle > previousAngle, "invalid angle order");
 	previousAngle = angle;
