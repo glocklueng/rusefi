@@ -381,6 +381,7 @@ void setConstantDwell(engine_configuration_s *engineConfiguration, float dwellMs
 void printFloatArray(const char *prefix, float array[], int size);
 
 void setTriggerSynchronizationGap(engine_configuration_s *engineConfiguration, float synchGap);
+void setToothedWheelConfiguration(engine_configuration_s *engineConfiguration, int total, int skipped);
 
 void incrementGlobalConfigurationVersion(void);
 int getGlobalConfigurationVersion(void);
