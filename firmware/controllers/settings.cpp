@@ -415,8 +415,8 @@ static void setIgnitionMode(int value) {
 	doPrintConfiguration();
 }
 
-static void setTotalToothCount(int value) {
-	engineConfiguration->triggerConfig.totalToothCount = value;
+static void setToothedWheel(int total, int skipped) {
+	setToothedWheelConfiguration(engineConfiguration, total, skipped);
 	initializeTriggerShape(&logger, engineConfiguration, engineConfiguration2);
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
@@ -552,6 +552,6 @@ void initSettings(void) {
 
 	addConsoleAction("enable_injection", enableInjection);
 	addConsoleAction("disable_injection", disableInjection);
-	addConsoleActionI("set_total_tooth_count", setTotalToothCount);
+	addConsoleActionII("set_toothed_wheel", setToothedWheel);
 }
 
