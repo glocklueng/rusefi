@@ -43,7 +43,7 @@
 #if EFI_TUNER_STUDIO
 
 #define MAX_PAGE_ID 5
-#define PAGE_0_SIZE 1356
+#define PAGE_0_SIZE 1380
 
 // in MS, that's 10 seconds
 #define TS_READ_TIMEOUT 10000
@@ -113,8 +113,19 @@ static void printStats(void) {
 	scheduleMsg(&logger, "TunerStudio W counter=%d", tsState.writeValueCommandCounter);
 	scheduleMsg(&logger, "TunerStudio C counter=%d", tsState.writeChunkCommandCounter);
 	scheduleMsg(&logger, "TunerStudio P counter=%d current page %d", tsState.pageCommandCounter, tsState.currentPageId);
+	scheduleMsg(&logger, "pages total size=%d", sizeof(engine_configuration_s));
 	scheduleMsg(&logger, "page 0 size=%d", getTunerStudioPageSize(0));
 	scheduleMsg(&logger, "page 1 size=%d", getTunerStudioPageSize(1));
+
+//	scheduleMsg(&logger, "timingMode %d", (int)(&engineConfiguration->timingMode) - (int)engineConfiguration);
+//	scheduleMsg(&logger, "cylindersCount %d", (int)(&engineConfiguration->cylindersCount) - (int)engineConfiguration);
+	scheduleMsg(&logger, "analogChartFrequency %d",
+			(int) (&engineConfiguration->analogChartFrequency) - (int) engineConfiguration);
+
+	int fuelMapOffset = (int) (&engineConfiguration->fuelTable) - (int) engineConfiguration;
+	scheduleMsg(&logger, "fuelTable %d", fuelMapOffset);
+	if (fuelMapOffset != getTunerStudioPageSize(0))
+		firmwareError("TS page size mismatch");
 }
 
 void tunerStudioWriteData(const uint8_t * buffer, int size) {
