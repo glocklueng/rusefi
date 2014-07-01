@@ -240,9 +240,6 @@ void testMazdaMianaNbDecoder(void) {
 
 	event_trigger_position_s position;
 	assertEqualsM("globalTriggerAngleOffset", 276, ec->globalTriggerAngleOffset);
-	findTriggerPosition(ec, shape, &position, 276);
-	assertTriggerPosition(&position, 15, 72);
-
 	findTriggerPosition(ec, shape, &position, 0);
 	assertTriggerPosition(&position, 7, 46);
 
@@ -255,6 +252,9 @@ void testMazdaMianaNbDecoder(void) {
 	// interesting: I would expect 0@0 here?
 	findTriggerPosition(ec, shape, &position, 444);
 	assertTriggerPosition(&position, 21, 20);
+
+	findTriggerPosition(ec, shape, &position, 444.1);
+	assertTriggerPosition(&position, 0, 0.1);
 
 	findTriggerPosition(ec, shape, &position, 445);
 	assertTriggerPosition(&position, 0, 1);
@@ -273,6 +273,8 @@ void testMazdaMianaNbDecoder(void) {
 	findTriggerPosition(ec, shape, &position, 0);
 	assertTriggerPosition(&position, 0, 10);
 
+	findTriggerPosition(ec, shape, &position, -10);
+	assertTriggerPosition(&position, 0, 0);
 }
 
 static void testCitroen(void) {
