@@ -98,7 +98,7 @@ void TriggerState::clear() {
 
 float trigger_shape_s::getAngle(int index) const {
 	if (operationMode == FOUR_STROKE_CAM_SENSOR)
-		return wave.getSwitchTime(index) * 720.0;
+		return switchAngles[index];
 	/**
 	 * FOUR_STROKE_CRANK_SENSOR magic:
 	 * We have two crank shaft revolutions for each engine cycle
@@ -108,9 +108,9 @@ float trigger_shape_s::getAngle(int index) const {
 	int triggerEventCounter = size;
 
 	if (index < triggerEventCounter) {
-		return wave.getSwitchTime(index) * 360.0;
+		return switchAngles[index];
 	} else {
-		return 360 + wave.getSwitchTime(index - triggerEventCounter) * 360.0;
+		return 360 + switchAngles[index - triggerEventCounter];
 	}
 }
 
@@ -139,7 +139,7 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_v
 			wave->pinStates[0] = initialState[i];
 		}
 
-		wave.setSwitchTime(0, angle);
+		setSwitchTime(0, angle);
 		wave.waves[waveIndex].pinStates[0] = state;
 		return;
 	}
@@ -150,8 +150,14 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_v
 
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++)
 		wave.waves[i].pinStates[index] = wave.getChannelState(i, index - 1);
-	wave.setSwitchTime(index, angle);
+	setSwitchTime(index, angle);
 	wave.waves[waveIndex].pinStates[index] = state;
+}
+
+void trigger_shape_s::setSwitchTime(int index, float angle) {
+	int cycleDuration = (operationMode == FOUR_STROKE_CAM_SENSOR) ? 720 : 360;
+	switchAngles[index] = cycleDuration * angle;
+	wave.setSwitchTime(index, angle);
 }
 
 void multi_wave_s::checkSwitchTimes(int size) {

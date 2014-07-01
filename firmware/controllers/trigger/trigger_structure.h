@@ -67,6 +67,7 @@ public:
 
 class trigger_shape_s {
 private:
+	void setSwitchTime(int index, float angle);
 	trigger_shape_helper h;
 	int size;
 public:
@@ -100,7 +101,7 @@ private:
 	float switchTimes[PWM_PHASE_MAX_COUNT];
 	/**
 	 * These are the same values as in switchTimes, but these are angles in the 0..360 or 0..720 range.
-	 * This should save as one multiplication in a critical spot
+	 * That's a performance optimization - this should save as one multiplication in a critical spot
 	 */
 	float switchAngles[PWM_PHASE_MAX_COUNT];
 	float previousAngle;
