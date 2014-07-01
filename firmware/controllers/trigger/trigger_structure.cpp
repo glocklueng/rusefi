@@ -56,7 +56,7 @@ void multi_wave_s::setSwitchTime(int index, float value) {
 }
 
 TriggerState::TriggerState() {
-	clear();
+	init(OM_NONE);
 	totalEventCountBase = 0;
 	isFirstEvent = true;
 }
@@ -87,12 +87,13 @@ void TriggerState::nextTriggerEvent() {
 	current_index++;
 }
 
-void TriggerState::clear() {
+void TriggerState::init(operation_mode_e operationMode) {
 	shaft_is_synchronized = FALSE;
 	toothed_previous_time = 0;
 	toothed_previous_duration = 0;
 	current_index = 0;
 	totalRevolutionCounter = 0;
+	this->operationMode = operationMode;
 }
 
 float trigger_shape_s::getAngle(int index, engine_configuration_s const *engineConfiguration, trigger_shape_s * s) const {
@@ -114,6 +115,7 @@ float trigger_shape_s::getAngle(int index, engine_configuration_s const *engineC
 }
 
 void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
+	efiAssertVoid(operationMode!=OM_NONE, "operationMode not set");
 	/**
 	 * While '720' value works perfectly it has not much sense for crank sensor-only scenario.
 	 * todo: accept angle as a value in the 0..1 range?

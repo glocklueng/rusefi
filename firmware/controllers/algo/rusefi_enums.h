@@ -181,8 +181,9 @@ typedef enum {
 
 // todo: better enum name
 typedef enum {
-	FOUR_STROKE_CRANK_SENSOR = 0,
-	FOUR_STROKE_CAM_SENSOR = 1,
+	OM_NONE = 0,
+	FOUR_STROKE_CRANK_SENSOR = 1,
+	FOUR_STROKE_CAM_SENSOR = 2,
 
 	Internal_ForceMyEnumIntSize_operation_mode_e = ENUM_SIZE_HACK,
 } operation_mode_e;
