@@ -186,6 +186,11 @@ void testMazda323(void) {
 	assertEquals(0, ec2.triggerShape.triggerShapeSynchPointIndex);
 }
 
+static void assertTriggerPosition(event_trigger_position_s *position, int eventIndex, float angleOffset) {
+	assertEqualsM("eventIndex", eventIndex, position->eventIndex);
+	assertEqualsM("angleOffset", angleOffset, position->angleOffset);
+}
+
 void testMazdaMianaNbDecoder(void) {
 	printf("*************************************************** testMazdaMianaNbDecoder\r\n");
 
@@ -232,6 +237,29 @@ void testMazdaMianaNbDecoder(void) {
 
 	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, a + 720);
 	assertTrueM("1f shaft_is_synchronized", state.shaft_is_synchronized);
+
+	event_trigger_position_s position;
+	findTriggerPosition(ec, shape, &position, 0);
+	assertTriggerPosition(&position, 7, 46);
+
+	findTriggerPosition(ec, shape, &position, 180);
+	assertTriggerPosition(&position, 13, 46);
+
+	findTriggerPosition(ec, shape, &position, 360);
+	assertTriggerPosition(&position, 17, 46);
+
+	// interesting: I would expect 0@0 here?
+	findTriggerPosition(ec, shape, &position, 444);
+	assertTriggerPosition(&position, 21, 20);
+
+	findTriggerPosition(ec, shape, &position, 445);
+	assertTriggerPosition(&position, 0, 1);
+
+	findTriggerPosition(ec, shape, &position, 494);
+	assertTriggerPosition(&position, 3, 0);
+
+	findTriggerPosition(ec, shape, &position, 719);
+	assertTriggerPosition(&position, 7, 45);
 }
 
 static void testCitroen(void) {
