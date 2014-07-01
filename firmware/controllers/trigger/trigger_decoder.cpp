@@ -121,9 +121,9 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 	toothed_previous_time = nowUs;
 }
 
-static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeethCount, int skippedCount) {
+static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeethCount, int skippedCount, operation_mode_e operationMode) {
 	efiAssertVoid(s != NULL, "trigger_shape_s is NULL");
-	s->reset();
+	s->reset(operationMode);
 
 	float toothWidth = 0.5;
 
@@ -140,18 +140,18 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 }
 
 void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfiguration2, int totalTeethCount,
-		int skippedCount) {
+		int skippedCount, operation_mode_e operationMode) {
 	efiAssertVoid(totalTeethCount > 0, "totalTeethCount is zero");
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
-	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount);
+	initializeSkippedToothTriggerShape(s, totalTeethCount, skippedCount, operationMode);
 
 	s->shaftPositionEventCount = ((totalTeethCount - skippedCount) * 2);
 	s->wave.checkSwitchTimes(s->getSize());
 }
 
 static void configureFordAspireTriggerShape(trigger_shape_s * s) {
-	s->reset();
+	s->reset(FOUR_STROKE_CAM_SENSOR);
 
 	s->shaftPositionEventCount = 10;
 
@@ -180,7 +180,8 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 	switch (tt->triggerType) {
 
 	case TT_TOOTHED_WHEEL:
-		initializeSkippedToothTriggerShapeExt(engineConfiguration2, tt->totalToothCount, tt->skippedToothCount);
+		initializeSkippedToothTriggerShapeExt(engineConfiguration2, tt->totalToothCount, tt->skippedToothCount,
+				getOperationMode(engineConfiguration));
 		return;
 
 	case TT_MAZDA_MIATA_NB:

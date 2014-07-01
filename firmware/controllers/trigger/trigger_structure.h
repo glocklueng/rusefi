@@ -26,7 +26,6 @@ public:
 	void nextRevolution(int triggerEventCount);
 	void nextTriggerEvent();
 	void decodeTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, trigger_event_e signal, uint64_t nowUs);
-	void init(operation_mode_e operationMode);
 
 
 	/**
@@ -37,6 +36,7 @@ public:
 	uint64_t toothed_previous_duration;
 	uint64_t toothed_previous_time;
 private:
+	void clear();
 	/**
 	 * index within trigger revolution, from 0 to trigger event count
 	 */
@@ -44,10 +44,6 @@ private:
 	uint64_t totalEventCountBase;
 	int totalRevolutionCounter;
 	bool isFirstEvent;
-	/**
-	 * this is part of performance optimization
-	 */
-	operation_mode_e operationMode;
 };
 
 typedef enum {
@@ -77,7 +73,7 @@ public:
 	trigger_shape_s();
 	void addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state);
 	float getAngle(int phaseIndex, engine_configuration_s const *engineConfiguration, trigger_shape_s * s) const;
-	void reset();
+	void reset(operation_mode_e operationMode);
 	int getSize();
 	multi_wave_s wave;
 
@@ -98,8 +94,20 @@ public:
 	 */
 	int triggerShapeSynchPointIndex;
 private:
+	/**
+	 * Values are in the 0..1 range
+	 */
 	float switchTimes[PWM_PHASE_MAX_COUNT];
+	/**
+	 * These are the same values as in switchTimes, but these are angles in the 0..360 or 0..720 range.
+	 * This should save as one multiplication in a critical spot
+	 */
+	float switchAngles[PWM_PHASE_MAX_COUNT];
 	float previousAngle;
+	/**
+	 * this is part of performance optimization
+	 */
+	operation_mode_e operationMode;
 };
 
 #endif /* TRIGGER_STRUCTURE_H_ */

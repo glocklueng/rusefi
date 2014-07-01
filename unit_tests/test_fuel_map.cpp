@@ -97,7 +97,7 @@ void testFuelMap(void) {
 }
 
 static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
-	s->reset();
+	s->reset(FOUR_STROKE_CAM_SENSOR);
 
 	s->addEvent(53.747, T_SECONDARY, TV_HIGH);
 	s->addEvent(121.90, T_SECONDARY, TV_LOW);

@@ -408,7 +408,7 @@ void testTriggerDecoder(void) {
 
 	engine_configuration2_s ec2;
 
-	initializeSkippedToothTriggerShapeExt(&ec2, 2, 0);
+	initializeSkippedToothTriggerShapeExt(&ec2, 2, 0, FOUR_STROKE_CAM_SENSOR);
 	assertEqualsM("shape size", ec2.triggerShape.getSize(), 4);
 	assertEquals(ec2.triggerShape.wave.switchTimes[0], 0.25);
 	assertEquals(ec2.triggerShape.wave.switchTimes[1], 0.5);

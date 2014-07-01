@@ -1,5 +1,5 @@
 /**
- * @file	trigger_mazda.c
+ * @file	trigger_mazda.cpp
  *
  * @date Feb 18, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
@@ -21,7 +21,7 @@
 #include "trigger_mazda.h"
 
 void initializeMazdaMiataNbShape(trigger_shape_s *s) {
-	s->reset();
+	s->reset(FOUR_STROKE_CAM_SENSOR);
 
 	/**
 	 * cam sensor is primary, crank sensor is secondary
@@ -62,7 +62,7 @@ void configureMazdaProtegeLx(engine_configuration_s *engineConfiguration,
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 
-	s->reset();
+	s->reset(FOUR_STROKE_CAM_SENSOR);
 //	s->initialState[0] = 1;
 
 	float w = 720 / 4 * 0.215;
