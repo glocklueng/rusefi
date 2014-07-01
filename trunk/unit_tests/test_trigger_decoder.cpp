@@ -58,16 +58,17 @@ static void testDodgeNeonDecoder(void) {
 	engine_configuration2_s ec2;
 
 	resetConfigurationExt(NULL, DODGE_NEON_1995, ec, &ec2, &persistentConfig.boardConfiguration);
+	assertEquals(8, ec2.triggerShape.triggerShapeSynchPointIndex);
 
 	trigger_shape_s * shape = &ec2.triggerShape;
 	TriggerState state;
-//
-//	assertFalseM("1 shaft_is_synchronized", state.shaft_is_synchronized);
-//
-//	int r = 0;
+
+	assertFalseM("1 shaft_is_synchronized", state.shaft_is_synchronized);
+
+	int r = 0;
 //	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r + 60);
 //	assertFalseM("2 shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
-//
+
 //	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 210);
 //	assertFalseM("3 shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
 //
@@ -161,6 +162,7 @@ void testFordAspire(void) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 	resetConfigurationExt(NULL, FORD_ASPIRE_1996, ec, &ec2, &persistentConfig.boardConfiguration);
+	assertEquals(4, ec2.triggerShape.triggerShapeSynchPointIndex);
 
 	assertEquals(800, ec->fuelRpmBins[0]);
 	assertEquals(7000, ec->fuelRpmBins[15]);
@@ -181,7 +183,7 @@ void testMazda323(void) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 	resetConfigurationExt(NULL, MAZDA_323, ec, &ec2, &persistentConfig.boardConfiguration);
-
+	assertEquals(0, ec2.triggerShape.triggerShapeSynchPointIndex);
 }
 
 void testMazdaMianaNbDecoder(void) {
@@ -191,6 +193,7 @@ void testMazdaMianaNbDecoder(void) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 	resetConfigurationExt(NULL, MAZDA_MIATA_NB, ec, &ec2, &persistentConfig.boardConfiguration);
+	assertEquals(11, ec2.triggerShape.triggerShapeSynchPointIndex);
 
 	TriggerState state;
 	trigger_shape_s * shape = &ec2.triggerShape;
@@ -425,7 +428,7 @@ void testTriggerDecoder(void) {
 	testRoverV8();
 	testCitroen();
 
-//	testMazda323();
+	testMazda323();
 
 	testRpmCalculator();
 }
