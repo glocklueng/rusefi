@@ -96,7 +96,7 @@ void TriggerState::clear() {
 	totalRevolutionCounter = 0;
 }
 
-float trigger_shape_s::getAngle(int index, trigger_shape_s * s) const {
+float trigger_shape_s::getAngle(int index) const {
 	if (operationMode == FOUR_STROKE_CAM_SENSOR)
 		return wave.getSwitchTime(index) * 720.0;
 	/**
