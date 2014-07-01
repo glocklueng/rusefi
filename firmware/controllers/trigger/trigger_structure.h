@@ -72,6 +72,7 @@ private:
 public:
 	trigger_shape_s();
 	void addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state);
+	float getAngle(int phaseIndex, engine_configuration_s const *engineConfiguration, trigger_shape_s * s) const;
 	void reset();
 	int getSize();
 	multi_wave_s wave;
