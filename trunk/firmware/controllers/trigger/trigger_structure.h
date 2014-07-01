@@ -26,6 +26,7 @@ public:
 	void nextRevolution(int triggerEventCount);
 	void nextTriggerEvent();
 	void decodeTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, trigger_event_e signal, uint64_t nowUs);
+	void init(operation_mode_e operationMode);
 
 
 	/**
@@ -36,7 +37,6 @@ public:
 	uint64_t toothed_previous_duration;
 	uint64_t toothed_previous_time;
 private:
-	void clear();
 	/**
 	 * index within trigger revolution, from 0 to trigger event count
 	 */
@@ -44,6 +44,10 @@ private:
 	uint64_t totalEventCountBase;
 	int totalRevolutionCounter;
 	bool isFirstEvent;
+	/**
+	 * this is part of performance optimization
+	 */
+	operation_mode_e operationMode;
 };
 
 typedef enum {
