@@ -239,6 +239,10 @@ void testMazdaMianaNbDecoder(void) {
 	assertTrueM("1f shaft_is_synchronized", state.shaft_is_synchronized);
 
 	event_trigger_position_s position;
+	assertEqualsM("globalTriggerAngleOffset", 276, ec->globalTriggerAngleOffset);
+	findTriggerPosition(ec, shape, &position, 276);
+	assertTriggerPosition(&position, 15, 72);
+
 	findTriggerPosition(ec, shape, &position, 0);
 	assertTriggerPosition(&position, 7, 46);
 
@@ -260,6 +264,15 @@ void testMazdaMianaNbDecoder(void) {
 
 	findTriggerPosition(ec, shape, &position, 719);
 	assertTriggerPosition(&position, 7, 45);
+
+	ec->globalTriggerAngleOffset = 0;
+	findTriggerPosition(ec, shape, &position, 0);
+	assertTriggerPosition(&position, 0, 0);
+
+	ec->globalTriggerAngleOffset = 10;
+	findTriggerPosition(ec, shape, &position, 0);
+	assertTriggerPosition(&position, 0, 10);
+
 }
 
 static void testCitroen(void) {
