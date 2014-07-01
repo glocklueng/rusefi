@@ -29,7 +29,7 @@ trigger_shape_helper::trigger_shape_helper() {
 
 trigger_shape_s::trigger_shape_s() :
 		wave(switchTimes, NULL) {
-	reset();
+	reset(OM_NONE);
 	wave.waves = h.waves;
 }
 
@@ -37,7 +37,8 @@ int trigger_shape_s::getSize() {
 	return size;
 }
 
-void trigger_shape_s::reset() {
+void trigger_shape_s::reset(operation_mode_e operationMode) {
+	this->operationMode = operationMode;
 	size = 0;
 	shaftPositionEventCount = 0;
 	triggerShapeSynchPointIndex = 0;
@@ -56,7 +57,7 @@ void multi_wave_s::setSwitchTime(int index, float value) {
 }
 
 TriggerState::TriggerState() {
-	init(OM_NONE);
+	clear();
 	totalEventCountBase = 0;
 	isFirstEvent = true;
 }
@@ -87,13 +88,12 @@ void TriggerState::nextTriggerEvent() {
 	current_index++;
 }
 
-void TriggerState::init(operation_mode_e operationMode) {
+void TriggerState::clear() {
 	shaft_is_synchronized = FALSE;
 	toothed_previous_time = 0;
 	toothed_previous_duration = 0;
 	current_index = 0;
 	totalRevolutionCounter = 0;
-	this->operationMode = operationMode;
 }
 
 float trigger_shape_s::getAngle(int index, engine_configuration_s const *engineConfiguration, trigger_shape_s * s) const {
