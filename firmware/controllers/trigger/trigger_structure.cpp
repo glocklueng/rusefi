@@ -96,8 +96,8 @@ void TriggerState::clear() {
 	totalRevolutionCounter = 0;
 }
 
-float trigger_shape_s::getAngle(int index, engine_configuration_s const *engineConfiguration, trigger_shape_s * s) const {
-	if (getOperationMode(engineConfiguration) == FOUR_STROKE_CAM_SENSOR)
+float trigger_shape_s::getAngle(int index, trigger_shape_s * s) const {
+	if (operationMode == FOUR_STROKE_CAM_SENSOR)
 		return wave.getSwitchTime(index) * 720.0;
 	/**
 	 * FOUR_STROKE_CRANK_SENSOR magic:
@@ -105,7 +105,7 @@ float trigger_shape_s::getAngle(int index, engine_configuration_s const *engineC
 	 * See also trigger_central.cpp
 	 * See also getEngineCycleEventCount()
 	 */
-	int triggerEventCounter = s->getSize();
+	int triggerEventCounter = size;
 
 	if (index < triggerEventCounter) {
 		return wave.getSwitchTime(index) * 360.0;
