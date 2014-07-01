@@ -252,7 +252,7 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
 
 	// todo: migrate to crankAngleRange?
-	float firstAngle = s->getAngle(s->triggerShapeSynchPointIndex, s);
+	float firstAngle = s->getAngle(s->triggerShapeSynchPointIndex);
 
 	int engineCycleEventCount = getEngineCycleEventCount(engineConfiguration, s);
 
@@ -261,7 +261,7 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 	for (i = 0; i < engineCycleEventCount - 1; i++) {
 		// todo: we need binary search here
 		float angle = fixAngle(
-				s->getAngle((s->triggerShapeSynchPointIndex + i + 1) % engineCycleEventCount, s)
+				s->getAngle((s->triggerShapeSynchPointIndex + i + 1) % engineCycleEventCount)
 						- firstAngle);
 		if (angle > angleOffset)
 			break;
@@ -272,7 +272,7 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 		eventAngle = 0;
 	} else {
 		eventAngle = fixAngle(
-				s->getAngle((s->triggerShapeSynchPointIndex + i) % engineCycleEventCount, s)
+				s->getAngle((s->triggerShapeSynchPointIndex + i) % engineCycleEventCount)
 						- firstAngle);
 	}
 
