@@ -41,8 +41,20 @@ int trigger_shape_s::getTriggerShapeSynchPointIndex() {
 	return triggerShapeSynchPointIndex;
 }
 
+// todo: clean-up!
+int getEngineCycleEventCount2(operation_mode_e mode, trigger_shape_s * s);
+float fixAngle(float angle);
+
 void trigger_shape_s::setTriggerShapeSynchPointIndex(int triggerShapeSynchPointIndex) {
 	this->triggerShapeSynchPointIndex = triggerShapeSynchPointIndex;
+
+	int engineCycleEventCount = getEngineCycleEventCount2(operationMode, this);
+
+	float firstAngle = getAngle(triggerShapeSynchPointIndex);
+
+	for (int i = 0; i < engineCycleEventCount; i++) {
+		eventAngles[i] = fixAngle(getAngle((triggerShapeSynchPointIndex + i) % engineCycleEventCount) - firstAngle);
+	}
 }
 
 void trigger_shape_s::reset(operation_mode_e operationMode) {
@@ -84,7 +96,7 @@ uint64_t TriggerState::getTotalEventCounter() {
 
 void TriggerState::nextRevolution(int triggerEventCount) {
 	current_index = 0;
-	totalRevolutionCounter ++;
+	totalRevolutionCounter++;
 	totalEventCountBase += triggerEventCount;
 }
 
@@ -123,7 +135,7 @@ float trigger_shape_s::getAngle(int index) const {
 }
 
 void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
-	efiAssertVoid(operationMode!=OM_NONE, "operationMode not set");
+	efiAssertVoid(operationMode != OM_NONE, "operationMode not set");
 	/**
 	 * While '720' value works perfectly it has not much sense for crank sensor-only scenario.
 	 * todo: accept angle as a value in the 0..1 range?
