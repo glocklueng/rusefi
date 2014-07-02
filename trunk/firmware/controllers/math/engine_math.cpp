@@ -246,6 +246,8 @@ int getEngineCycleEventCount(engine_configuration_s const *engineConfiguration, 
 	return getOperationMode(engineConfiguration) == FOUR_STROKE_CAM_SENSOR ? s->getSize() : 2 * s->getSize();
 }
 
+#define GET_ANGLE_FOR_INDEX(index) fixAngle(s->getAngle((s->triggerShapeSynchPointIndex + (index)) % engineCycleEventCount) - firstAngle)
+
 void findTriggerPosition(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		event_trigger_position_s *position, float angleOffset) {
 
@@ -260,9 +262,8 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 	int i;
 	for (i = 0; i < engineCycleEventCount - 1; i++) {
 		// todo: we need binary search here
-		float angle = fixAngle(
-				s->getAngle((s->triggerShapeSynchPointIndex + i + 1) % engineCycleEventCount)
-						- firstAngle);
+		float angle = GET_ANGLE_FOR_INDEX(i + 1);
+
 		if (angle > angleOffset)
 			break;
 	}
