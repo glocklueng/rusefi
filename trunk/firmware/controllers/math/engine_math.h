@@ -56,6 +56,8 @@ void Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::setAll(float value) {
 
 typedef Map3D<16, 16> Map3D1616;
 
+float fixAngle(float angle);
+
 #endif
 
 #ifdef __cplusplus
@@ -74,7 +76,6 @@ float getCrankshaftRevolutionTimeMs(int rpm);
 int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm);
 #define isCrankingR(rpm) isCrankingRT(engineConfiguration, rpm)
 
-float fixAngle(float angle);
 float getTriggerEventAngle(int triggerEventIndex);
 
 float getEngineLoadT(engine_configuration_s *engineConfiguration);
