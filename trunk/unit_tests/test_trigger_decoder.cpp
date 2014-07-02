@@ -100,6 +100,11 @@ static void testDodgeNeonDecoder(void) {
 //	processTriggerEvent(&state, shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r + 630);
 }
 
+static void assertTriggerPosition(event_trigger_position_s *position, int eventIndex, float angleOffset) {
+	assertEqualsM("eventIndex", eventIndex, position->eventIndex);
+	assertEqualsM("angleOffset", angleOffset, position->angleOffset);
+}
+
 static void test1995FordInline6TriggerDecoder(void) {
 	printf("*************************************************** test1995FordInline6TriggerDecoder\r\n");
 
@@ -112,6 +117,20 @@ static void test1995FordInline6TriggerDecoder(void) {
 	engine_configuration2_s ec2;
 
 	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
+	assertEqualsM("triggerShapeSynchPointIndex", 0, ec2.triggerShape.triggerShapeSynchPointIndex);
+
+	trigger_shape_s * shape = &ec2.triggerShape;
+	event_trigger_position_s position;
+	assertEqualsM("globalTriggerAngleOffset", 0, ec->globalTriggerAngleOffset);
+	findTriggerPosition(ec, shape, &position, 0);
+	assertTriggerPosition(&position, 0, 0);
+
+	findTriggerPosition(ec, shape, &position, 200);
+	assertTriggerPosition(&position, 3, 20);
+
+	findTriggerPosition(ec, shape, &position, 360);
+	assertTriggerPosition(&position, 6, 0);
+
 
 	IgnitionEventList *ecl = &ec2.engineEventConfiguration.ignitionEvents[0];
 	assertEqualsM("ignition events size", 6, ecl->size);
@@ -123,7 +142,6 @@ static void test1995FordInline6TriggerDecoder(void) {
 
 	TriggerState state;
 
-	trigger_shape_s * shape = &ec2.triggerShape;
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
 	int r = 10;
 	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r);
@@ -184,11 +202,6 @@ void testMazda323(void) {
 	engine_configuration2_s ec2;
 	resetConfigurationExt(NULL, MAZDA_323, ec, &ec2, &persistentConfig.boardConfiguration);
 	assertEquals(0, ec2.triggerShape.triggerShapeSynchPointIndex);
-}
-
-static void assertTriggerPosition(event_trigger_position_s *position, int eventIndex, float angleOffset) {
-	assertEqualsM("eventIndex", eventIndex, position->eventIndex);
-	assertEqualsM("angleOffset", angleOffset, position->angleOffset);
 }
 
 void testMazdaMianaNbDecoder(void) {
