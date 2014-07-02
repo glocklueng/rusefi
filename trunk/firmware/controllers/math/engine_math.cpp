@@ -258,15 +258,38 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 
 	int engineCycleEventCount = getEngineCycleEventCount(engineConfiguration, s);
 
-	// let's find the last trigger angle which is less or equal to the desired angle
-	int i;
-	for (i = 0; i < engineCycleEventCount - 1; i++) {
-		// todo: we need binary search here
-		float angle = GET_ANGLE_FOR_INDEX(i + 1);
+	int middle;
 
-		if (angle > angleOffset)
+	int left = 0;
+	int right = engineCycleEventCount - 1;
+
+	// todo: extract binary search as template method?
+	while (true) {
+		middle = (left + right) / 2;
+
+		if (middle == left)
 			break;
+
+		if (angleOffset < GET_ANGLE_FOR_INDEX(middle)) {
+			right = middle;
+		} else if (angleOffset > GET_ANGLE_FOR_INDEX(middle)) {
+			left = middle;
+		} else {
+			break;
+		}
+
 	}
+
+	// let's find the last trigger angle which is less or equal to the desired angle
+//	int i;
+//	for (i = 0; i < engineCycleEventCount - 1; i++) {
+//		// todo: we need binary search here
+//		float angle = GET_ANGLE_FOR_INDEX(i + 1);
+//
+//		if (angle > angleOffset)
+//			break;
+//	}
+	int i = middle;
 	// explicit check for zero to avoid issues where logical zero is not exactly zero due to float nature
 	float eventAngle;
 	if (i == 0) {
