@@ -53,7 +53,12 @@ void trigger_shape_s::setTriggerShapeSynchPointIndex(int triggerShapeSynchPointI
 	float firstAngle = getAngle(triggerShapeSynchPointIndex);
 
 	for (int i = 0; i < engineCycleEventCount; i++) {
-		eventAngles[i] = fixAngle(getAngle((triggerShapeSynchPointIndex + i) % engineCycleEventCount) - firstAngle);
+		if (i == 0) {
+			// explicit check for zero to avoid issues where logical zero is not exactly zero due to float nature
+			eventAngles[i] = 0;
+		} else {
+			eventAngles[i] = fixAngle(getAngle((triggerShapeSynchPointIndex + i) % engineCycleEventCount) - firstAngle);
+		}
 	}
 }
 
