@@ -14,6 +14,7 @@
 #include "engine_math.h"
 #include "OutputSignalList.h"
 #include "ec2.h"
+#include "trigger_decoder.h"
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
@@ -122,6 +123,9 @@ void testAngleResolver(void) {
 	trigger_shape_s * ts = &engineConfiguration2->triggerShape;
 
 	confgiureFordAspireTriggerShape(ts);
+
+	ts->setTriggerShapeSynchPointIndex(0);
+
 	assertEqualsM("shape size", 10, ts->getSize());
 
 	OutputSignalList list;
