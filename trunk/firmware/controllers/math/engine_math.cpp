@@ -42,14 +42,14 @@
  * @deprecated
  */
 float getOneDegreeTimeMs(int rpm) {
-	return 1000.0 * 60 / 360 / rpm;
+	return 1000.0f * 60 / 360 / rpm;
 }
 
 /**
  * @return time needed to rotate crankshaft by one degree, in microseconds.
  */
 float getOneDegreeTimeUs(int rpm) {
-	return 1000000.0 * 60 / 360 / rpm;
+	return 1000000.0f * 60 / 360 / rpm;
 }
 
 /**
@@ -140,7 +140,7 @@ void initializeIgnitionActions(float advance, float dwellAngle, engine_configura
 	case IM_ONE_COIL:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 			// todo: extract method
-			float localAdvance = advance + 720.0 * i / engineConfiguration->cylindersCount;
+			float localAdvance = advance + 720.0f * i / engineConfiguration->cylindersCount;
 
 			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list,
 					SPARKOUT_1_OUTPUT, localAdvance, dwellAngle);
@@ -148,7 +148,7 @@ void initializeIgnitionActions(float advance, float dwellAngle, engine_configura
 		break;
 	case IM_WASTED_SPARK:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-			float localAdvance = advance + 720.0 * i / engineConfiguration->cylindersCount;
+			float localAdvance = advance + 720.0f * i / engineConfiguration->cylindersCount;
 
 			int wastedIndex = i % (engineConfiguration->cylindersCount / 2);
 
@@ -163,7 +163,7 @@ void initializeIgnitionActions(float advance, float dwellAngle, engine_configura
 		break;
 	case IM_INDIVIDUAL_COILS:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-			float localAdvance = advance + 720.0 * i / engineConfiguration->cylindersCount;
+			float localAdvance = advance + 720.0f * i / engineConfiguration->cylindersCount;
 
 			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
 			registerSparkEvent(engineConfiguration, &engineConfiguration2->triggerShape, list, pin,
