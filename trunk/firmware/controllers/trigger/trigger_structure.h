@@ -91,7 +91,13 @@ public:
 
 
 	int getTriggerShapeSynchPointIndex();
+
 	void setTriggerShapeSynchPointIndex(int triggerShapeSynchPointIndex);
+	/**
+	 * These angles are in event coordinates - with synchronization point located at angle zero.
+	 */
+	float eventAngles[PWM_PHASE_MAX_COUNT];
+
 private:
 	/**
 	 * index of synchronization event within trigger_shape_s
@@ -104,9 +110,12 @@ private:
 	float switchTimes[PWM_PHASE_MAX_COUNT];
 	/**
 	 * These are the same values as in switchTimes, but these are angles in the 0..360 or 0..720 range.
-	 * That's a performance optimization - this should save as one multiplication in a critical spot
+	 * That's a performance optimization - this should save as one multiplication in a critical spot.
+	 *
+	 * These angles are in trigger DESCRIPTION coordinates - i.e. the way you add events while declaring trigger shape
 	 */
 	float switchAngles[PWM_PHASE_MAX_COUNT];
+
 	float previousAngle;
 	/**
 	 * this is part of performance optimization
