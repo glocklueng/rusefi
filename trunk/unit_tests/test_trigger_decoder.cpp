@@ -58,7 +58,7 @@ static void testDodgeNeonDecoder(void) {
 	engine_configuration2_s ec2;
 
 	resetConfigurationExt(NULL, DODGE_NEON_1995, ec, &ec2, &persistentConfig.boardConfiguration);
-	assertEquals(8, ec2.triggerShape.triggerShapeSynchPointIndex);
+	assertEquals(8, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
 	trigger_shape_s * shape = &ec2.triggerShape;
 	TriggerState state;
@@ -117,7 +117,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 	engine_configuration2_s ec2;
 
 	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
-	assertEqualsM("triggerShapeSynchPointIndex", 0, ec2.triggerShape.triggerShapeSynchPointIndex);
+	assertEqualsM("triggerShapeSynchPointIndex", 0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
 	trigger_shape_s * shape = &ec2.triggerShape;
 	event_trigger_position_s position;
@@ -180,7 +180,7 @@ void testFordAspire(void) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 	resetConfigurationExt(NULL, FORD_ASPIRE_1996, ec, &ec2, &persistentConfig.boardConfiguration);
-	assertEquals(4, ec2.triggerShape.triggerShapeSynchPointIndex);
+	assertEquals(4, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
 	assertEquals(800, ec->fuelRpmBins[0]);
 	assertEquals(7000, ec->fuelRpmBins[15]);
@@ -201,7 +201,7 @@ void testMazda323(void) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 	resetConfigurationExt(NULL, MAZDA_323, ec, &ec2, &persistentConfig.boardConfiguration);
-	assertEquals(0, ec2.triggerShape.triggerShapeSynchPointIndex);
+	assertEquals(0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 }
 
 void testMazdaMianaNbDecoder(void) {
@@ -211,7 +211,7 @@ void testMazdaMianaNbDecoder(void) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 	resetConfigurationExt(NULL, MAZDA_MIATA_NB, ec, &ec2, &persistentConfig.boardConfiguration);
-	assertEquals(11, ec2.triggerShape.triggerShapeSynchPointIndex);
+	assertEquals(11, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
 	TriggerState state;
 	trigger_shape_s * shape = &ec2.triggerShape;
@@ -295,11 +295,11 @@ static void testCitroen(void) {
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
-	assertEquals(0, ec2.triggerShape.triggerShapeSynchPointIndex);
+	assertEquals(0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
 	resetConfigurationExt(NULL, CITROEN_TU3JP, ec, &ec2, &persistentConfig.boardConfiguration);
 
-	assertEquals(0, ec2.triggerShape.triggerShapeSynchPointIndex);
+	assertEquals(0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 }
 
 static void testRoverV8(void) {
@@ -310,7 +310,7 @@ static void testRoverV8(void) {
 	engine_configuration2_s ec2;
 	resetConfigurationExt(NULL, ROVER_V8, ec, &ec2, &persistentConfig.boardConfiguration);
 
-	assertEquals(0, ec2.triggerShape.triggerShapeSynchPointIndex);
+	assertEquals(0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 }
 
 static void testMiniCooper(void) {
