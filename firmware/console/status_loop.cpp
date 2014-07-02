@@ -161,7 +161,6 @@ void printState(int currentCkpEventCounter) {
 
 	int rpm = getRpm();
 	debugInt(&logger, "ckp_c", currentCkpEventCounter);
-	debugInt(&logger, "fuel_lag", getRevolutionCounter());
 
 //	debugInt(&logger, "idl", getIdleSwitch());
 
@@ -171,7 +170,7 @@ void printState(int currentCkpEventCounter) {
 	debugFloat(&logger, "fuel_base", getBaseFuel(rpm, engineLoad), 2);
 //	debugFloat(&logger, "fuel_iat", getIatCorrection(getIntakeAirTemperature()), 2);
 //	debugFloat(&logger, "fuel_clt", getCltCorrection(getCoolantTemperature()), 2);
-//	debugFloat(&logger, "fuel_lag", getInjectorLag(getVBatt()), 2);
+	debugFloat(&logger, "fuel_lag", getInjectorLag(getVBatt()), 2);
 	debugFloat(&logger, "fuel", getRunningFuel(rpm, engineLoad), 2);
 
 	debugFloat(&logger, "timing", getAdvance(rpm, engineLoad), 2);
