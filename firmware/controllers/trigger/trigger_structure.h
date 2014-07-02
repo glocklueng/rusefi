@@ -89,15 +89,15 @@ public:
 	// tood: maybe even automate this flag calculation?
 	int initialState[PWM_PHASE_MAX_WAVE_PER_PWM];
 
+
+	int getTriggerShapeSynchPointIndex();
+	void setTriggerShapeSynchPointIndex(int triggerShapeSynchPointIndex);
+private:
 	/**
 	 * index of synchronization event within trigger_shape_s
 	 * See findTriggerZeroEventIndex()
 	 */
 	int triggerShapeSynchPointIndex;
-
-	int getTriggerShapeSynchPointIndex();
-	void setTriggerShapeSynchPointIndex(int triggerShapeSynchPointIndex);
-private:
 	/**
 	 * Values are in the 0..1 range
 	 */
