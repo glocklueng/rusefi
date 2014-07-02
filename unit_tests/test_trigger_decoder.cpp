@@ -249,9 +249,8 @@ void testMazdaMianaNbDecoder(void) {
 	findTriggerPosition(ec, shape, &position, 360);
 	assertTriggerPosition(&position, 17, 46);
 
-	// interesting: I would expect 0@0 here?
 	findTriggerPosition(ec, shape, &position, 444);
-	assertTriggerPosition(&position, 21, 20);
+	assertTriggerPosition(&position, 0, 0);
 
 	findTriggerPosition(ec, shape, &position, 444.1);
 	assertTriggerPosition(&position, 0, 0.1);

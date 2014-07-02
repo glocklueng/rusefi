@@ -67,7 +67,7 @@ float fixAngle(float angle) {
 	// I guess this implementation would be faster than 'angle % 720'
 	while (angle < 0)
 		angle += 720;
-	while (angle > 720)
+	while (angle >= 720)
 		angle -= 720;
 	return angle;
 }
