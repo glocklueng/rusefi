@@ -1,3 +1,4 @@
+current binaries are always available at http://rusefi.com/build_server/
 
 
 *****************************************************************************
