@@ -37,6 +37,14 @@ int trigger_shape_s::getSize() {
 	return size;
 }
 
+int trigger_shape_s::getTriggerShapeSynchPointIndex() {
+	return triggerShapeSynchPointIndex;
+}
+
+void trigger_shape_s::setTriggerShapeSynchPointIndex(int triggerShapeSynchPointIndex) {
+	this->triggerShapeSynchPointIndex = triggerShapeSynchPointIndex;
+}
+
 void trigger_shape_s::reset(operation_mode_e operationMode) {
 	this->operationMode = operationMode;
 	size = 0;

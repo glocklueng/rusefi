@@ -94,6 +94,9 @@ public:
 	 * See findTriggerZeroEventIndex()
 	 */
 	int triggerShapeSynchPointIndex;
+
+	int getTriggerShapeSynchPointIndex();
+	void setTriggerShapeSynchPointIndex(int triggerShapeSynchPointIndex);
 private:
 	/**
 	 * Values are in the 0..1 range

@@ -246,7 +246,7 @@ int getEngineCycleEventCount(engine_configuration_s const *engineConfiguration, 
 	return getOperationMode(engineConfiguration) == FOUR_STROKE_CAM_SENSOR ? s->getSize() : 2 * s->getSize();
 }
 
-#define GET_ANGLE_FOR_INDEX(index) fixAngle(s->getAngle((s->triggerShapeSynchPointIndex + (index)) % engineCycleEventCount) - firstAngle)
+#define GET_ANGLE_FOR_INDEX(index) fixAngle(s->getAngle((s->getTriggerShapeSynchPointIndex() + (index)) % engineCycleEventCount) - firstAngle)
 
 void findTriggerPosition(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		event_trigger_position_s *position, float angleOffset) {
@@ -254,7 +254,7 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
 
 	// todo: migrate to crankAngleRange?
-	float firstAngle = s->getAngle(s->triggerShapeSynchPointIndex);
+	float firstAngle = s->getAngle(s->getTriggerShapeSynchPointIndex());
 
 	int engineCycleEventCount = getEngineCycleEventCount(engineConfiguration, s);
 
@@ -296,7 +296,7 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 		eventAngle = 0;
 	} else {
 		eventAngle = fixAngle(
-				s->getAngle((s->triggerShapeSynchPointIndex + i) % engineCycleEventCount)
+				s->getAngle((s->getTriggerShapeSynchPointIndex() + i) % engineCycleEventCount)
 						- firstAngle);
 	}
 
