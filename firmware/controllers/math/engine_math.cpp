@@ -250,20 +250,14 @@ int getEngineCycleEventCount(engine_configuration_s const *engineConfiguration, 
 	return getEngineCycleEventCount2(getOperationMode(engineConfiguration), s);
 }
 
-#define GET_ANGLE_FOR_INDEX(index) fixAngle(s->getAngle((s->getTriggerShapeSynchPointIndex() + (index)) % engineCycleEventCount) - firstAngle)
-
 void findTriggerPosition(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
 		event_trigger_position_s *position, float angleOffset) {
 
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset);
 
-	// todo: migrate to crankAngleRange?
-	float firstAngle = s->getAngle(s->getTriggerShapeSynchPointIndex());
-
 	int engineCycleEventCount = getEngineCycleEventCount(engineConfiguration, s);
 
 	int middle;
-
 	int left = 0;
 	int right = engineCycleEventCount - 1;
 
@@ -287,15 +281,7 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 
 	}
 
-	// explicit check for zero to avoid issues where logical zero is not exactly zero due to float nature
-	float eventAngle;
-	if (middle == 0) {
-		eventAngle = 0;
-	} else {
-		eventAngle = fixAngle(
-				s->getAngle((s->getTriggerShapeSynchPointIndex() + middle) % engineCycleEventCount)
-						- firstAngle);
-	}
+	float eventAngle = s->eventAngles[middle];
 
 	if (angleOffset < eventAngle) {
 		firmwareError("angle constraint violation in registerActuatorEventExt(): %f/%f", angleOffset, eventAngle);
