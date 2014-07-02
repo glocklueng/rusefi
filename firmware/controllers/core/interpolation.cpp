@@ -82,7 +82,7 @@ int findIndex(float array[], int size, float value) {
 	int left = 0;
 	int right = size;
 
-	while (1) {
+	while (true) {
 #if 0
 		// that's an assertion to make sure we do not loop here
 		size--;
