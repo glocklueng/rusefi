@@ -1,5 +1,5 @@
 /**
- * @file	trigger_decoder.c
+ * @file	trigger_decoder.cpp
  *
  * @date Dec 24, 2013
  * @author Andrey Belomutskiy, (c) 2012-2014
