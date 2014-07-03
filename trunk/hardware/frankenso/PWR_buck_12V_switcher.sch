@@ -54,7 +54,7 @@ $Descr A 11000 8500
 encoding utf-8
 Sheet 10 10
 Title "Frankenso"
-Date "27 jun 2014"
+Date "3 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -214,10 +214,10 @@ FB
 Text Label 8200 6450 0    60   ~ 0
 OUT
 $Comp
-L GND #PWR0156
+L GND #PWR099
 U 1 1 52C4D1EB
 P 7450 6900
-F 0 "#PWR0156" H 7450 6900 30  0001 C CNN
+F 0 "#PWR099" H 7450 6900 30  0001 C CNN
 F 1 "GND" H 7450 6830 30  0001 C CNN
 F 2 "" H 7450 6900 60  0000 C CNN
 F 3 "" H 7450 6900 60  0000 C CNN
