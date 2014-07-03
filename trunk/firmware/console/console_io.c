@@ -227,7 +227,7 @@ bool lockAnyContext(void) {
 	return false;
 }
 
-bool_t lockOutputBuffer(void) {
+bool lockOutputBuffer(void) {
 	return lockAnyContext();
 }
 
