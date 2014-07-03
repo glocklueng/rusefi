@@ -43,7 +43,7 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-bool_t lockOutputBuffer(void);
+bool lockOutputBuffer(void);
 void unlockOutputBuffer(void);
 
 void initIntermediateLoggingBuffer(void);

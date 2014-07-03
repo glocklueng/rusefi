@@ -16,7 +16,7 @@
 #define QUEUE_LENGTH_LIMIT 1000
 
 template<typename T>
-bool_t assertNotInList(T *head, T*element) {
+bool assertNotInList(T *head, T*element) {
 	// this code is just to validate state, no functional load
 	T * current;
 	int counter = 0;
