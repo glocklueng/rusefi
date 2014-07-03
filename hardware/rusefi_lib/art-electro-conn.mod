@@ -1,4 +1,4 @@
-PCBNEW-LibModule-V1  Вт 24 июн 2014 22:54:56
+PCBNEW-LibModule-V1  Ср 02 июл 2014 20:36:09
 # encoding utf-8
 Units mm
 $INDEX
@@ -175,7 +175,7 @@ Ne 0 ""
 Po 1.04902 0
 $EndPAD
 $SHAPE3D
-Na "../rusefi_lib/3d/LED_0805.wrl"
+Na "3d/LED_0805.wrl"
 Sc 1 1 1
 Of 0 0 0
 Ro 0 0 0
@@ -343,7 +343,7 @@ Ne 0 ""
 Po 3.407 -3.114
 $EndPAD
 $SHAPE3D
-Na "../rusefi_lib/3d/9P-SMD-W-RING.wrl"
+Na "3d/9P-SMD-W-RING.wrl"
 Sc 10 10 10
 Of -0.323 -0.33 -0.025
 Ro 0 0 0
@@ -445,7 +445,7 @@ Ne 0 ""
 Po 2.159 -1.397
 $EndPAD
 $SHAPE3D
-Na "../rusefi_lib/3d/usb-2.wrl"
+Na "3d/usb-2.wrl"
 Sc 1 1 1
 Of 0 0 0
 Ro -90 0 -90
@@ -676,7 +676,7 @@ Ne 0 ""
 Po 11.38936 -1.27
 $EndPAD
 $SHAPE3D
-Na "../rusefi_lib/3d/header_10x2.wrl"
+Na "3d/header_10x2.wrl"
 Sc 1 1 1
 Of 0 0 0
 Ro -90 0 0
@@ -835,7 +835,7 @@ Ne 0 ""
 Po 11.38936 -1.27
 $EndPAD
 $SHAPE3D
-Na "../rusefi_lib/3d/M_header_10x2.wrl"
+Na "3d/M_header_10x2.wrl"
 Sc 1 1 1
 Of 0 0 0
 Ro -90 0 0
@@ -1369,7 +1369,7 @@ Ne 0 ""
 Po 5.08 -1.27
 $EndPAD
 $SHAPE3D
-Na "../rusefi_lib/3d/M_header_5x2.wrl"
+Na "3d/M_header_5x2.wrl"
 Sc 1 1 1
 Of 0 0 0
 Ro -90 0 180
@@ -1974,7 +1974,7 @@ Ne 0 ""
 Po -3.25 2.25
 $EndPAD
 $SHAPE3D
-Na "../rusefi_lib/3d/pcb_push.wrl"
+Na "3d/pcb_push.wrl"
 Sc 1 1 1
 Of 0 0 0
 Ro 0 0 90
