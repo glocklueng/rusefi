@@ -65,6 +65,11 @@ TunerStudioOutputChannels tsOutputChannels;
  */
 persistent_config_s configWorkingCopy;
 
+void tunerStudioError(const char *msg) {
+	tunerStudioDebug(msg);
+	tsState.errorCounter++;
+}
+
 int tunerStudioHandleCommand(char *data, int incomingPacketSize) {
 	char command = data[0];
 	data++;
@@ -105,8 +110,7 @@ int tunerStudioHandleCommand(char *data, int incomingPacketSize) {
 		 * Currently on some firmware versions the F command is not used and is just ignored by the firmware as a unknown command."
 		 */
 	} else {
-		tunerStudioDebug("ignoring unexpected");
-		tsState.errorCounter++;
+		tunerStudioError("ERROR: ignoring unexpected command");
 		return FALSE;
 	}
 	return TRUE;
