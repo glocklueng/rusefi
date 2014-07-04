@@ -1082,17 +1082,6 @@ Wire Notes Line
 Text Notes 9400 6650 0    160  ~ 0
 12 channel injector driver\nalso suitable for fuel pump relay, IAC solenoid etc
 $Comp
-L LOGO #G1
-U 1 1 539EA0C7
-P 9300 6000
-F 0 "#G1" H 9300 5897 60  0001 C CNN
-F 1 "LOGO" H 9300 6103 60  0001 C CNN
-F 2 "" H 9300 6000 60  0000 C CNN
-F 3 "" H 9300 6000 60  0000 C CNN
-	1    9300 6000
-	1    0    0    -1  
-$EndComp
-$Comp
 L LED_0805 D414
 U 1 1 539EA6FA
 P 7375 725
