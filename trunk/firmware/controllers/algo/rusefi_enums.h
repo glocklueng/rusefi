@@ -170,12 +170,12 @@ typedef enum {
 } pin_input_mode_e;
 
 typedef enum {
-	FO_ONE_CYLINDER = 1,
-	FO_1_THEN_3_THEN_4_THEN2 = 2,
-	FO_1_THEN_2_THEN_4_THEN3 = 3,
-	FO_1_THEN_3_THEN_2_THEN4 = 4,
-	FO_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4 = 5,
-	FO_1_8_4_3_6_5_7_2 = 6,
+	FO_ONE_CYLINDER = 0,
+	FO_1_THEN_3_THEN_4_THEN2 = 1,
+	FO_1_THEN_2_THEN_4_THEN3 = 2,
+	FO_1_THEN_3_THEN_2_THEN4 = 3,
+	FO_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4 = 4,
+	FO_1_8_4_3_6_5_7_2 = 5,
 	Internal_ForceMyEnumIntSize_firing_order = ENUM_SIZE_HACK,
 } firing_order_e;
 
