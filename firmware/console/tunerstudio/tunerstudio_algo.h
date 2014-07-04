@@ -52,7 +52,9 @@ void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count);
 void handleBurnCommand(uint16_t page);
 
 void tunerStudioWriteData(const uint8_t * buffer, int size);
-void tunerStudioDebug(char *msg);
+void tunerStudioDebug(const char *msg);
+
+void tunerStudioError(const char *msg);
 
 #define TS_HELLO_COMMAND 'H'
 #define TS_OUTPUT_COMMAND 'O'
