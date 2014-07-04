@@ -127,9 +127,15 @@ void initHardware(Logging *logger) {
 	if (hasFirmwareError())
 		return;
 
+
+
 	mySetPadMode("board test", getHwPort(boardConfiguration->boardTestModeJumperPin),
 			getHwPin(boardConfiguration->boardTestModeJumperPin), PAL_MODE_INPUT_PULLUP);
-	if (GET_BOARD_TEST_MODE_VALUE()) {
+	bool isBoardTestMode = GET_BOARD_TEST_MODE_VALUE();
+
+	initAdcInputs(isBoardTestMode);
+
+	if (isBoardTestMode) {
 		initBoardTest();
 		efiAssertVoid(FALSE, "board test done");
 	}
@@ -137,7 +143,6 @@ void initHardware(Logging *logger) {
 	initRtc();
 
 	initOutputPins();
-	initAdcInputs();
 
 #if EFI_HIP_9011
 	initHip9011();
