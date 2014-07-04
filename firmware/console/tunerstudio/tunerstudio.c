@@ -275,7 +275,7 @@ void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count) {
 	const uint8_t *addr = (const uint8_t *) (getWorkingPageAddr(tsState.currentPageId) + offset);
 	tunerStudioWriteCrcPacket(TS_RESPONSE_OK, addr, count);
 #if EFI_TUNER_STUDIO_VERBOSE
-	scheduleMsg(&logger, "Sending %d done", size);
+	scheduleMsg(&logger, "Sending %d done", count);
 #endif
 }
 
