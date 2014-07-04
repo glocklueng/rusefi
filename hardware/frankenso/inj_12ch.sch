@@ -54,7 +54,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 6 10
 Title "Frankenso"
-Date "3 jul 2014"
+Date "4 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -257,30 +257,6 @@ F 5 "digi,497-11123-1-ND" V 3805 7800 60  0001 C CNN "vend1,vend1#"
 	1    7325 7825
 	1    0    0    -1  
 $EndComp
-Text Label 3525 4775 2    60   ~ 0
-PC14
-Text Label 3525 4875 2    60   ~ 0
-PE6
-Text Label 3525 4975 2    60   ~ 0
-PE4
-Text Label 3525 5075 2    60   ~ 0
-PE2
-Text Label 3525 5175 2    60   ~ 0
-PE0
-Text Label 3525 5275 2    60   ~ 0
-PB8
-Text Label 4325 4775 0    60   ~ 0
-PC15
-Text Label 4325 4875 0    60   ~ 0
-PC13
-Text Label 4325 4975 0    60   ~ 0
-PE5
-Text Label 4325 5075 0    60   ~ 0
-PE3
-Text Label 4325 5175 0    60   ~ 0
-PE1
-Text Label 4325 5275 0    60   ~ 0
-PB9
 $Comp
 L DIODE D413
 U 1 1 527FB789
