@@ -25,8 +25,6 @@
 //#define SERIAL_SPEED (2 * 115200)
 #define SERIAL_SPEED 115200
 
-#define EFI_HISTOGRAMS TRUE
-
 /**
  * TunerStudio support.
  */
@@ -113,11 +111,13 @@
 #define EFI_PERF_METRICS TRUE
 #define EFI_ANALOG_CHART TRUE
 #define DL_OUTPUT_BUFFER 9000
+#define EFI_HISTOGRAMS TRUE
 #else
 // todo: CCM usage for IAR?
 #define EFI_PERF_METRICS FALSE
 #define EFI_ANALOG_CHART FALSE
 #define DL_OUTPUT_BUFFER 6000
+#define EFI_HISTOGRAMS FALSE
 #endif
 
 /**
