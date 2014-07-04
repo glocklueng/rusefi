@@ -66,8 +66,7 @@ static int validateBuffer(Logging *logging, int extraLen, const char *text) {
 		return TRUE;
 	}
 
-	int currentLen = loggingSize(logging);
-	if (currentLen + extraLen > logging->bufferSize - 1) {
+	if (remainingSize(logging) < extraLen + 1) {
 		strcpy(logging->SMALL_BUFFER, "Logging buffer overflow: ");
 		strcat(logging->SMALL_BUFFER, logging->name);
 		strcat(logging->SMALL_BUFFER, "/");
@@ -365,8 +364,8 @@ void scheduleLogging(Logging *logging) {
 	resetLogging(logging);
 }
 
-uint32_t loggingSize(Logging *logging) {
-	return (int) logging->linePointer - (int) (logging->buffer);
+uint32_t remainingSize(Logging *logging) {
+	return logging->bufferSize - loggingSize(logging);
 }
 
 /**
