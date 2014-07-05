@@ -80,11 +80,11 @@ static void testRusefiMethods(const int count) {
 
 	start = currentTimeMillis();
 
-//	for (int i = 0; i < count; i++)
-//		tempi += getDefaultFuel(4020, 2.21111);
-//	time = currentTimeMillis() - start;
-//	if (tempi == 0)
-//		rint("Finished %d iterations of getDefaultFuel in %dms\r\n", count, time);
+	for (int i = 0; i < count; i++)
+		tempi += getFuelMs(1200);
+	time = currentTimeMillis() - start;
+	if (tempi == 0)
+		scheduleMsg(&logger, "Finished %d iterations of getDefaultFuel in %dms", count, time);
 }
 
 static void testMath(const int count) {
@@ -166,6 +166,14 @@ static void testMath(const int count) {
 	}
 
 	start = currentTimeMillis();
+	tempf = 1;
+	for (int i = 0; i < count; i++)
+		tempf += logf(tempf);
+	time = currentTimeMillis() - start;
+	if (tempf != 0)
+		scheduleMsg(&logger, "Finished %d iterations of float log in %dms", count, time);
+
+	start = currentTimeMillis();
 	double tempd = 1;
 	for (int i = 0; i < count; i++)
 		tempd += tempd / 2;
@@ -181,6 +189,13 @@ static void testMath(const int count) {
 	if (tempd != 0)
 		scheduleMsg(&logger, "Finished %d iterations of double division in %dms", count, time);
 
+	start = currentTimeMillis();
+	tempd = 1;
+	for (int i = 0; i < count; i++)
+		tempd += log(tempd);
+	time = currentTimeMillis() - start;
+	if (tempd != 0)
+		scheduleMsg(&logger, "Finished %d iterations of double log in %dms", count, time);
 }
 
 static void runTests(const int count) {
