@@ -76,6 +76,7 @@ char* getCaption(LoggingPoints loggingPoint);
 void appendPrintf(Logging *logging, const char *fmt, ...);
 void vappendPrintf(Logging *logging, const char *fmt, va_list arg);
 void append(Logging *logging, const char *text);
+void appendFast(Logging *logging, const char *text);
 /**
  * this method copies the line into the intermediate buffer for later output by
  * the main thread
