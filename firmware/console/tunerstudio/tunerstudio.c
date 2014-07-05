@@ -335,7 +335,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 //		scheduleMsg(&logger, "Got first=%x=[%c]", firstByte, firstByte);
 		if (firstByte == TS_HELLO_COMMAND) {
 			scheduleMsg(&logger, "Got naked Query command");
-			handleQueryCommand(FALSE);
+			handleQueryCommand(TS_PLAIN);
 			continue;
 		} else if (firstByte == 't' || firstByte == 'T') {
 			handleTestCommand();
