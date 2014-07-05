@@ -147,19 +147,19 @@ void addWaveChartEvent3(WaveChart *chart, const char *name, const char * msg, co
 		/**
 		 * printf is a heavy method, append is used here as a performance optimization
 		 */
-		append(&chart->logging, name);
-		append(&chart->logging, CHART_DELIMETER);
-		append(&chart->logging, msg);
-		append(&chart->logging, CHART_DELIMETER);
+		appendFast(&chart->logging, name);
+		appendFast(&chart->logging, CHART_DELIMETER);
+		appendFast(&chart->logging, msg);
+		appendFast(&chart->logging, CHART_DELIMETER);
 		/**
 		 * We want smaller times within a chart in order to reduce packet size.
 		 */
 		time100 -= chart->startTime;
 
 		itoa10(timeBuffer, time100);
-		append(&chart->logging, timeBuffer);
-		append(&chart->logging, msg2);
-		append(&chart->logging, CHART_DELIMETER);
+		appendFast(&chart->logging, timeBuffer);
+		appendFast(&chart->logging, msg2);
+		appendFast(&chart->logging, CHART_DELIMETER);
 	}
 	if (!alreadyLocked)
 		unlockOutputBuffer();
