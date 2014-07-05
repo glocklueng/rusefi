@@ -118,6 +118,8 @@ void publishChart(WaveChart *chart) {
 		scheduleLogging(&chart->logging);
 }
 
+static char timeBuffer[10];
+
 /**
  * @brief	Register an event for digital sniffer
  */
@@ -142,12 +144,22 @@ void addWaveChartEvent3(WaveChart *chart, const char *name, const char * msg, co
 		chart->startTime = time100;
 	chart->counter++;
 	if (remainingSize(&chart->logging) > 30) {
-		appendPrintf(&chart->logging, "%s%s%s%s", name, CHART_DELIMETER, msg, CHART_DELIMETER);
+		/**
+		 * printf is a heavy method, append is used here as a performance optimization
+		 */
+		append(&chart->logging, name);
+		append(&chart->logging, CHART_DELIMETER);
+		append(&chart->logging, msg);
+		append(&chart->logging, CHART_DELIMETER);
 		/**
 		 * We want smaller times within a chart in order to reduce packet size.
 		 */
 		time100 -= chart->startTime;
-		appendPrintf(&chart->logging, "%d%s%s", time100, msg2, CHART_DELIMETER);
+
+		itoa10(timeBuffer, time100);
+		append(&chart->logging, timeBuffer);
+		append(&chart->logging, msg2);
+		append(&chart->logging, CHART_DELIMETER);
 	}
 	if (!alreadyLocked)
 		unlockOutputBuffer();
