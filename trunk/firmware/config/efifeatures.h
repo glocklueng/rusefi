@@ -107,17 +107,15 @@
 
 #define EFI_WAVE_CHART TRUE
 
+#define EFI_HISTOGRAMS TRUE
+#define EFI_ANALOG_CHART TRUE
+
 #if defined __GNUC__
 #define EFI_PERF_METRICS TRUE
-#define EFI_ANALOG_CHART TRUE
 #define DL_OUTPUT_BUFFER 9000
-#define EFI_HISTOGRAMS TRUE
 #else
-// todo: CCM usage for IAR?
 #define EFI_PERF_METRICS FALSE
-#define EFI_ANALOG_CHART FALSE
-#define DL_OUTPUT_BUFFER 6000
-#define EFI_HISTOGRAMS FALSE
+#define DL_OUTPUT_BUFFER 9000
 #endif
 
 /**
