@@ -184,6 +184,7 @@ static void testMath(const int count) {
 }
 
 static void runTests(const int count) {
+	scheduleMsg(&logger, "Running tests: %d", count);
 	testRusefiMethods(count / 10);
 	testSystemCalls(count);
 	testMath(count);
