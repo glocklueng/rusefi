@@ -24,6 +24,11 @@
 #define TS_RESPONSE_BURN_OK 0x04
 #define TS_RESPONSE_CRC_FAILURE 0x82
 
+typedef enum {
+	TS_PLAIN = 0,
+	TS_CRC = 1
+} ts_response_format_e;
+
 typedef struct {
 	int queryCommandCounter;
 	int outputChannelsCommandCounter;
@@ -40,7 +45,7 @@ typedef struct {
 int tunerStudioHandleCommand(char *data, int incomingPacketSize);
 
 void handleTestCommand(void);
-void handleQueryCommand(int needCrc);
+void handleQueryCommand(ts_response_format_e mode);
 void handleOutputChannelsCommand(void);
 
 char *getWorkingPageAddr(int pageIndex);

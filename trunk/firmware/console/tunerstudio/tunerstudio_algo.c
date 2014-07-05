@@ -75,7 +75,7 @@ int tunerStudioHandleCommand(char *data, int incomingPacketSize) {
 	data++;
 	if (command == TS_HELLO_COMMAND) {
 		tunerStudioDebug("got CRC Query");
-		handleQueryCommand(TRUE);
+		handleQueryCommand(TS_CRC);
 	} else if (command == TS_OUTPUT_COMMAND) {
 		handleOutputChannelsCommand();
 	} else if (command == TS_PAGE_COMMAND) {
@@ -116,16 +116,22 @@ int tunerStudioHandleCommand(char *data, int incomingPacketSize) {
 	return TRUE;
 }
 
-void handleQueryCommand(int needCrc) {
+void sendResponse(ts_response_format_e mode, const uint8_t * buffer, int size) {
+	if (mode == TS_CRC) {
+		tunerStudioWriteCrcPacket(TS_RESPONSE_OK, buffer, size);
+	} else {
+		tunerStudioWriteData(buffer, size);
+	}
+}
+
+/**
+ * Query with CRC takes place while re-establishing connection
+ * Query without CRC takes place on TunerStudio startup
+ */
+void handleQueryCommand(ts_response_format_e mode) {
 	tsState.queryCommandCounter++;
 	tunerStudioDebug("got H (queryCommand)");
-	if (needCrc) {
-		// Query with CRC takes place while re-establishing connection
-		tunerStudioWriteCrcPacket(TS_RESPONSE_OK, (const uint8_t *) TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
-	} else {
-		// Query without CRC takes place on TunerStudio startup
-		tunerStudioWriteData((const uint8_t *) TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
-	}
+	sendResponse(mode, (const uint8_t *) TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
 }
 
 /**
