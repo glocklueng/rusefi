@@ -35,6 +35,7 @@ extern "C"
 void addWaveChartEvent3(WaveChart *chart, const char *name, const char *msg, const char *msg2);
 void publishChart(WaveChart *chart);
 void initWaveChart(WaveChart *chart);
+void showWaveChartHistogram(void);
 void resetWaveChart(WaveChart *chart);
 void setChartSize(int newSize);
 //int isWaveChartFull(WaveChart *chart);
