@@ -297,9 +297,14 @@ void onTriggerEvent(trigger_event_e ckpSignalType, int eventIndex, MainTriggerCa
 #endif /* EFI_HISTOGRAMS */
 }
 
+#include "wave_chart.h"
+
 static void showTriggerHistogram(void) {
 	printAllCallbacksHistogram();
 	showMainHistogram();
+#if EFI_PROD_CODE
+	showWaveChartHistogram();
+#endif
 }
 
 static void showMainInfo(void) {

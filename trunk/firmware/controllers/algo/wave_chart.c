@@ -34,6 +34,12 @@
 
 #define CHART_DELIMETER	"!"
 
+#if EFI_PROD_CODE
+#include "rfiutil.h"
+#include "histogram.h"
+static histogram_s waveChartHisto;
+#endif
+
 /**
  * This is the number of events in the digital chart which would be displayed
  * on the 'digital sniffer' pane
@@ -113,7 +119,7 @@ void publishChart(WaveChart *chart) {
 }
 
 /**
- * @brief	Register a change in sniffed signal
+ * @brief	Register an event for digital sniffer
  */
 void addWaveChartEvent3(WaveChart *chart, const char *name, const char * msg, const char * msg2) {
 	efiAssertVoid(chart->isInitialized, "chart not initialized");
@@ -122,6 +128,12 @@ void addWaveChartEvent3(WaveChart *chart, const char *name, const char * msg, co
 #endif
 	if (isWaveChartFull(chart))
 		return;
+
+#if EFI_HISTOGRAMS && EFI_PROD_CODE
+	int beforeCallback = hal_lld_get_counter_value();
+#endif
+
+
 	int time100 = getTimeNowUs() / 10;
 
 	bool alreadyLocked = lockOutputBuffer(); // we have multiple threads writing to the same output buffer
@@ -139,6 +151,19 @@ void addWaveChartEvent3(WaveChart *chart, const char *name, const char * msg, co
 	}
 	if (!alreadyLocked)
 		unlockOutputBuffer();
+
+#if EFI_HISTOGRAMS && EFI_PROD_CODE
+	int diff = hal_lld_get_counter_value() - beforeCallback;
+	if (diff > 0)
+	hsAdd(&waveChartHisto, diff);
+#endif /* EFI_HISTOGRAMS */
+
+}
+
+void showWaveChartHistogram(void) {
+#if EFI_PROD_CODE
+	printHistogram(&logger, &waveChartHisto);
+#endif
 }
 
 void initWaveChart(WaveChart *chart) {
@@ -154,6 +179,10 @@ void initWaveChart(WaveChart *chart) {
 #if DEBUG_WAVE
 	initLoggingExt(&debugLogging, "wave chart debug", &debugLogging.DEFAULT_BUFFER, sizeof(debugLogging.DEFAULT_BUFFER));
 #endif
+
+#if EFI_HISTOGRAMS
+	initHistogram(&waveChartHisto, "wave chart");
+#endif /* EFI_HISTOGRAMS */
 
 	resetWaveChart(chart);
 	addConsoleActionI("chartsize", setChartSize);
