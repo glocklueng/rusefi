@@ -93,7 +93,7 @@ void append(Logging *logging, const char *text) {
  * @note This method if fast because it does not validate much, be sure what you are doing
  */
 void appendFast(Logging *logging, const char *text) {
-//  todo: fix this implementation?
+//  todo: fix this implementation? this would be a one-pass implementation instead of a two-pass
 //	char c;
 //	char *s = (char *) text;
 //	do {
