@@ -33,6 +33,6 @@ void EngineTestHelper::initTriggerShapeAndRpmCalculator() {
 	initializeTriggerShape(NULL, ec, &ec2);
 	incrementGlobalConfigurationVersion();
 
-	triggerCentral.addEventListener((ShaftPositionListener) &shaftPositionCallback, "rpm reporter", &rpmState);
+	triggerCentral.addEventListener((ShaftPositionListener) &rpmShaftPositionCallback, "rpm reporter", &rpmState);
 
 }

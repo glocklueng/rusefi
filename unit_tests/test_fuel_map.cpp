@@ -54,7 +54,7 @@ void testFuelMap(void) {
 
 	// because all the correction tables are zero
 	printf("*************************************************** getRunningFuel\r\n");
-	assertEquals(1005.5, getRunningFuel(5, 5));
+	assertEqualsM("value", 0.5, getRunningFuel(5, 5));
 
 	printf("*************************************************** setting IAT table\r\n");
 	for (int i = 0; i < IAT_CURVE_SIZE; i++) {
@@ -81,7 +81,7 @@ void testFuelMap(void) {
 
 	// 1005 * 2 for IAT correction
 	printf("*************************************************** getRunningFuel\r\n");
-	assertEquals(1005, getRunningFuel(5, 5));
+	assertEqualsM("v1", 30150, getRunningFuel(5, 5));
 
 	engineConfiguration->crankingSettings.coolantTempMaxC = 65; // 8ms at 65C
 	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 8;

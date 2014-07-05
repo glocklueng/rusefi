@@ -131,7 +131,7 @@ static char shaft_signal_msg_index[15];
  * updated here.
  * This callback is invoked on interrupt thread.
  */
-void shaftPositionCallback(trigger_event_e ckpSignalType, int index, RpmCalculator *rpmState) {
+void rpmShaftPositionCallback(trigger_event_e ckpSignalType, int index, RpmCalculator *rpmState) {
 	itoa10(&shaft_signal_msg_index[1], index);
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
 		addWaveChartEvent(WC_CRANK1, WC_UP, (char*) shaft_signal_msg_index);
@@ -210,7 +210,7 @@ void initRpmCalculator(void) {
 
 	strcpy((char*) shaft_signal_msg_index, "_");
 
-	addTriggerEventListener((ShaftPositionListener)&shaftPositionCallback, "rpm reporter", &rpmState);
+	addTriggerEventListener((ShaftPositionListener)&rpmShaftPositionCallback, "rpm reporter", &rpmState);
 }
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
