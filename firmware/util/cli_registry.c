@@ -6,6 +6,7 @@
  * command line interface action names & callback. This logic is invoked in
  * user context by the console thread - see consoleThreadThreadEntryPoint
  *
+ * TODO: there is too much copy-paste here, this class needs some refactoring :)
  *
  * @date Nov 15, 2012
  * @author Andrey Belomutskiy, (c) 2012-2014
@@ -75,6 +76,10 @@ void addConsoleActionSSS(const char *token, VoidCharPtrCharPtrCharPtr callback) 
 
 void addConsoleActionF(const char *token, VoidFloat callback) {
 	doAddAction(token, FLOAT_PARAMETER, (Void) callback);
+}
+
+void addConsoleActionFF(const char *token, VoidFloatFloat callback) {
+	doAddAction(token, FLOAT_FLOAT_PARAMETER, (Void) callback);
 }
 
 /**
@@ -152,6 +157,19 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 
 		// invoke callback function by reference
 		(*callbackF)(value);
+		return;
+	}
+
+	if (current->parameterType == FLOAT_FLOAT_PARAMETER) {
+		int spaceIndex = indexOf(parameter, ' ');
+		if (spaceIndex == -1)
+			return;
+		parameter[spaceIndex] = 0;
+		float value1 = atoff(parameter);
+		parameter += spaceIndex + 1;
+		float value2 = atoff(parameter);
+		VoidFloatFloat callbackS = (VoidFloatFloat) current->callback;
+		(*callbackS)(value1, value2);
 		return;
 	}
 
