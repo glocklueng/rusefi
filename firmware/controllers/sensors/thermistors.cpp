@@ -48,7 +48,7 @@ float convertResistanceToKelvinTemperature(float resistance, ThermistorConf *the
 		//warning("Invalid resistance in convertResistanceToKelvinTemperature=", resistance);
 		return 0;
 	}
-	float logR = log(resistance);
+	float logR = logf(resistance);
 	return 1 / (thermistor->s_h_a + thermistor->s_h_b * logR + thermistor->s_h_c * logR * logR * logR);
 }
 
@@ -132,9 +132,9 @@ void prepareThermistorCurve(ThermistorConf * config) {
 	float T2 = config->tempC_2 + KELV;
 	float T3 = config->tempC_3 + KELV;
 
-	float L1 = log(config->resistance_1);
-	float L2 = log(config->resistance_2);
-	float L3 = log(config->resistance_3);
+	float L1 = logf(config->resistance_1);
+	float L2 = logf(config->resistance_2);
+	float L3 = logf(config->resistance_3);
 
 	float Y1 = 1 / T1;
 	float Y2 = 1 / T2;
