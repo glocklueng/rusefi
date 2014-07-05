@@ -89,6 +89,15 @@ void append(Logging *logging, const char *text) {
 	logging->linePointer += extraLen;
 }
 
+/**
+ * @note This method if fast because it does not validate much, be sure what you are doing
+ */
+void appendFast(Logging *logging, const char *text) {
+	int extraLen = strlen(text);
+	strcpy(logging->linePointer, text);
+	logging->linePointer += extraLen;
+}
+
 static void vappendPrintfI(Logging *logging, const char *fmt, va_list arg) {
 	intermediateLoggingBuffer.eos = 0; // reset
 	chvprintf((BaseSequentialStream *) &intermediateLoggingBuffer, fmt, arg);
