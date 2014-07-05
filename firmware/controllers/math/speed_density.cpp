@@ -57,7 +57,7 @@ float getSpeedDensityFuel(Engine *engine) {
 	float tps = getTPS();
 	float coolantC = getCoolantTemperature();
 	float intakeC = getIntakeAirTemperature();
-	float tChargeK = convertCelciusToKelvin(getTCharge(rpm, tps, coolantC, intakeC));
+	float tChargeK = convertCelsiusToKelvin(getTCharge(rpm, tps, coolantC, intakeC));
 	float MAP = getMap();
 	float VE = 0.8;//veMap.getValue(rpm)
 	float AFR = 14.7;
