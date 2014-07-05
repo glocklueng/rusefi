@@ -93,6 +93,13 @@ void append(Logging *logging, const char *text) {
  * @note This method if fast because it does not validate much, be sure what you are doing
  */
 void appendFast(Logging *logging, const char *text) {
+//  todo: fix this implementation?
+//	char c;
+//	char *s = (char *) text;
+//	do {
+//		c = *s++;
+//		*logging->linePointer++ = c;
+//	} while (c != '\0');
 	int extraLen = strlen(text);
 	strcpy(logging->linePointer, text);
 	logging->linePointer += extraLen;
