@@ -16,6 +16,7 @@
 #include "gpio_helper.h"
 #include "efilib2.h"
 #include "console_io.h"
+#include "engine.h"
 
 #if EFI_PERF_METRICS
 
@@ -66,6 +67,8 @@ static void testSystemCalls(const int count) {
 		scheduleMsg(&logger, "Finished %d iterations of 'currentTimeMillis' in %dms", count, time);
 }
 
+static Engine testEngine;
+
 static void testRusefiMethods(const int count) {
 	time_t start, time;
 	int tempi = 1;
@@ -79,12 +82,20 @@ static void testRusefiMethods(const int count) {
 		scheduleMsg(&logger, "Finished %d iterations of getBaseFuel in %dms", count, time);
 
 	start = currentTimeMillis();
-
 	for (int i = 0; i < count; i++)
 		tempi += getFuelMs(1200);
 	time = currentTimeMillis() - start;
-	if (tempi == 0)
-		scheduleMsg(&logger, "Finished %d iterations of getDefaultFuel in %dms", count, time);
+	if (tempi != 0)
+		scheduleMsg(&logger, "Finished %d iterations of getFuelMs in %dms", count, time);
+
+	start = currentTimeMillis();
+	for (int i = 0; i < count; i++) {
+		testEngine.updateSlowSensors();
+		tempi += testEngine.clt;
+	}
+	time = currentTimeMillis() - start;
+	if (tempi != 0)
+		scheduleMsg(&logger, "Finished %d iterations of updateSlowSensors in %dms", count, time);
 }
 
 static void testMath(const int count) {
