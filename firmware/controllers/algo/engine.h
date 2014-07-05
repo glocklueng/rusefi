@@ -16,6 +16,14 @@ class Engine {
 public:
 	RpmCalculator *rpmCalculator;
 	engine_configuration_s *engineConfiguration;
+
+	/**
+	 * Access to these two fields is not synchronized in any way - that should work since float read/write are atomic.
+	 */
+	float iat;
+	float clt;
+
+	void updateSlowSensors();
 };
 
 #endif /* ENGINE_H_ */
