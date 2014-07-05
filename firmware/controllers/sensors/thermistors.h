@@ -28,8 +28,8 @@ float getTempK(float resistance);
 /**
  * converts Kelvin temperature into Celsius temperature
  */
-float convertKelvinToCelcius(float tempK);
-float convertCelsiusToKelvin(float tempC);
+#define convertKelvinToCelcius(tempK) ((tempK) - KELV)
+#define convertCelsiusToKelvin(tempC) ((tempC) + KELV)
 
 float convertCelciustoF(float tempC);
 float convertFtoCelcius(float tempF);

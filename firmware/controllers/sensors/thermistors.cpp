@@ -52,14 +52,6 @@ float convertResistanceToKelvinTemperature(float resistance, ThermistorConf *the
 	return 1 / (thermistor->s_h_a + thermistor->s_h_b * logR + thermistor->s_h_c * logR * logR * logR);
 }
 
-float convertKelvinToC(float tempK) {
-	return tempK - KELV;
-}
-
-float convertCelsiusToKelvin(float tempC) {
-	return tempC + KELV;
-}
-
 float convertCelsiustoF(float tempC) {
 	return tempC * 9 / 5 + 32;
 }
@@ -69,7 +61,7 @@ float convertFtoCelsius(float tempF) {
 }
 
 float convertKelvinToFahrenheit(float kelvin) {
-	float tempC = convertKelvinToC(kelvin);
+	float tempC = convertKelvinToCelcius(kelvin);
 	return convertCelsiustoF(tempC);
 }
 
@@ -98,7 +90,7 @@ float getTemperatureC(Thermistor *thermistor) {
 	float resistance = getResistance(thermistor);
 
 	float kelvinTemperature = getKelvinTemperature(resistance, thermistor->config);
-	return convertKelvinToC(kelvinTemperature);
+	return convertKelvinToCelcius(kelvinTemperature);
 }
 
 int isValidCoolantTemperature(float temperature) {
