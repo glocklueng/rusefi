@@ -79,10 +79,12 @@ static Logging logger;
 
 static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, ActuatorEvent *event, int rpm) {
 	float fuelMs = getFuelMs(rpm) * mainTriggerCallback->engineConfiguration->globalFuelCorrection;
+	if (cisnan(fuelMs)) {
+		warning(OBD_PCM_Processor_Fault, "NaN injection pulse");
+		return;
+	}
 	if (fuelMs < 0) {
-#if EFI_PROD_CODE
-		scheduleMsg(&logger, "ERROR: negative injectionPeriod %f", fuelMs);
-#endif
+		warning(OBD_PCM_Processor_Fault, "Negative injection pulse %f", fuelMs);
 		return;
 	}
 
