@@ -47,6 +47,8 @@ LIBS:lm2596
 LIBS:mos_p_numbered-pins
 LIBS:hip9011
 LIBS:rn-41
+LIBS:skqucaa010_joystick
+LIBS:w_rtx
 LIBS:frankenso-cache
 EELAYER 27 0
 EELAYER END
@@ -54,7 +56,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 10 10
 Title "Frankenso"
-Date "5 jul 2014"
+Date "6 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
