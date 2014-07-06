@@ -34,7 +34,7 @@
 
 #define CHART_DELIMETER	"!"
 
-#if EFI_PROD_CODE
+#if EFI_HISTOGRAMS
 #include "rfiutil.h"
 #include "histogram.h"
 static histogram_s waveChartHisto;

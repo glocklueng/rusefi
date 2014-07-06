@@ -36,7 +36,7 @@ static persistent_config_s config;
 static engine_configuration2_s ec2;
 
 engine_configuration_s * engineConfiguration = &config.engineConfiguration;
-board_configuration_s *boardConfiguration = &config.boardConfiguration;
+board_configuration_s *boardConfiguration = &config.engineConfiguration.bc;
 engine_configuration2_s *engineConfiguration2 = &ec2;
 
 static configuration_s cfg = {engineConfiguration, engineConfiguration2};
