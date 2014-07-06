@@ -84,12 +84,12 @@ int tunerStudioHandleCrcCommand(char *data, int incomingPacketSize) {
 	} else if (command == TS_CHUNK_WRITE_COMMAND) {
 		uint16_t offset = *(uint16_t *) data;
 		uint16_t count = *(uint16_t *) (data + 2);
-		handleWriteChunkCommand(offset, count, data + 4);
+		handleWriteChunkCommand(TS_CRC, offset, count, data + 4);
 	} else if (command == TS_SINGLE_WRITE_COMMAND) {
 		uint16_t page = *(uint16_t *) data;
 		uint16_t offset = *(uint16_t *) (data + 2);
 		uint8_t value = data[4];
-		handleWriteValueCommand(page, offset, value);
+		handleWriteValueCommand(TS_CRC, page, offset, value);
 	} else if (command == TS_BURN_COMMAND) {
 		uint16_t page = *(uint16_t *) data;
 		handleBurnCommand(TS_CRC, page);
