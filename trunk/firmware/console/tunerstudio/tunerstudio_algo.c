@@ -77,10 +77,10 @@ int tunerStudioHandleCrcCommand(char *data, int incomingPacketSize) {
 		tunerStudioDebug("got CRC Query");
 		handleQueryCommand(TS_CRC);
 	} else if (command == TS_OUTPUT_COMMAND) {
-		handleOutputChannelsCommand();
+		handleOutputChannelsCommand(TS_CRC);
 	} else if (command == TS_PAGE_COMMAND) {
 		uint16_t page = *(uint16_t *) data;
-		handlePageSelectCommand(page);
+		handlePageSelectCommand(TS_CRC, page);
 	} else if (command == TS_CHUNK_WRITE_COMMAND) {
 		uint16_t offset = *(uint16_t *) data;
 		uint16_t count = *(uint16_t *) (data + 2);
@@ -92,12 +92,12 @@ int tunerStudioHandleCrcCommand(char *data, int incomingPacketSize) {
 		handleWriteValueCommand(page, offset, value);
 	} else if (command == TS_BURN_COMMAND) {
 		uint16_t page = *(uint16_t *) data;
-		handleBurnCommand(page);
+		handleBurnCommand(TS_CRC, page);
 	} else if (command == TS_READ_COMMAND) {
 		uint16_t page = *(uint16_t *) data;
 		uint16_t offset = *(uint16_t *) (data + 2);
 		uint16_t count = *(uint16_t *) (data + 4);
-		handlePageReadCommand(page, offset, count);
+		handlePageReadCommand(TS_CRC, page, offset, count);
 	} else if (command == 't' || command == 'T') {
 		handleTestCommand();
 	} else if (command == 'F') {
@@ -116,11 +116,12 @@ int tunerStudioHandleCrcCommand(char *data, int incomingPacketSize) {
 	return TRUE;
 }
 
-void sendResponse(ts_response_format_e mode, const uint8_t * buffer, int size) {
+void tsSendResponse(ts_response_format_e mode, const uint8_t * buffer, int size) {
 	if (mode == TS_CRC) {
 		tunerStudioWriteCrcPacket(TS_RESPONSE_OK, buffer, size);
 	} else {
-		tunerStudioWriteData(buffer, size);
+		if (size > 0)
+			tunerStudioWriteData(buffer, size);
 	}
 }
 
@@ -131,16 +132,16 @@ void sendResponse(ts_response_format_e mode, const uint8_t * buffer, int size) {
 void handleQueryCommand(ts_response_format_e mode) {
 	tsState.queryCommandCounter++;
 	tunerStudioDebug("got H (queryCommand)");
-	sendResponse(mode, (const uint8_t *) TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
+	tsSendResponse(mode, (const uint8_t *) TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
 }
 
 /**
  * @brief 'Output' command sends out a snapshot of current values
  */
-void handleOutputChannelsCommand(void) {
+void handleOutputChannelsCommand(ts_response_format_e mode) {
 	tsState.outputChannelsCommandCounter++;
 	// this method is invoked too often to print any debug information
-	tunerStudioWriteCrcPacket(TS_RESPONSE_OK, (const uint8_t *) &tsOutputChannels, sizeof(TunerStudioOutputChannels));
+	tsSendResponse(mode, (const uint8_t *) &tsOutputChannels, sizeof(TunerStudioOutputChannels));
 }
 
 void handleTestCommand(void) {
