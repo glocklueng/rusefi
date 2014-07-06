@@ -45,8 +45,8 @@ LIBS:stm32
 LIBS:tc4427
 LIBS:lm2596
 LIBS:mos_p_numbered-pins
-LIBS:project_specific_libs
 LIBS:hip9011
+LIBS:rn-41
 LIBS:frankenso-cache
 EELAYER 27 0
 EELAYER END
@@ -54,12 +54,12 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 5 10
 Title "Frankenso"
-Date "4 jul 2014"
+Date "5 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
 Comment2 ""
-Comment3 "Art_Electro (remake)"
+Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp

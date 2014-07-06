@@ -45,8 +45,8 @@ LIBS:stm32
 LIBS:tc4427
 LIBS:lm2596
 LIBS:mos_p_numbered-pins
-LIBS:project_specific_libs
 LIBS:hip9011
+LIBS:rn-41
 LIBS:frankenso-cache
 EELAYER 27 0
 EELAYER END
@@ -54,7 +54,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 10
 Title "Frankenso"
-Date "4 jul 2014"
+Date "5 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -1742,4 +1742,59 @@ F 3 "" H 12150 10300 60  0000 C CNN
 	1    12150 10300
 	1    0    0    -1  
 $EndComp
+$Comp
+L RN-41 U4
+U 1 1 53B82A29
+P 6350 7850
+F 0 "U4" H 6950 6900 50  0000 C CNN
+F 1 "RN-41" H 6350 8800 50  0000 C CNN
+F 2 "RN-41" H 6350 7850 60  0001 C CNN
+F 3 "~" H 6350 7850 60  0000 C CNN
+	1    6350 7850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6950 8300 7600 8300
+Wire Wire Line
+	7600 8300 7600 6500
+Connection ~ 7600 6500
+Wire Wire Line
+	6950 8400 7650 8400
+Wire Wire Line
+	7650 8400 7650 6400
+Connection ~ 7650 6400
+Text Label 5750 7300 2    60   ~ 0
+GND
+Text Label 5750 8300 2    60   ~ 0
+5V
+Text Label 5750 8400 2    60   ~ 0
+GND
+Text Label 6100 8850 3    60   ~ 0
+GND
+Text Label 6600 8850 3    60   ~ 0
+GND
+NoConn ~ 6950 8200
+NoConn ~ 6950 8100
+NoConn ~ 6950 8000
+NoConn ~ 6950 7900
+NoConn ~ 6950 7800
+NoConn ~ 6950 7700
+NoConn ~ 6950 7600
+NoConn ~ 6950 7500
+NoConn ~ 6950 7400
+NoConn ~ 6950 7300
+NoConn ~ 5750 7400
+NoConn ~ 5750 7500
+NoConn ~ 5750 7600
+NoConn ~ 5750 7700
+NoConn ~ 5750 7800
+NoConn ~ 5750 7900
+NoConn ~ 5750 8000
+NoConn ~ 5750 8100
+NoConn ~ 6000 8850
+NoConn ~ 6200 8850
+NoConn ~ 6300 8850
+NoConn ~ 6400 8850
+NoConn ~ 6500 8850
+NoConn ~ 6700 8850
 $EndSCHEMATC

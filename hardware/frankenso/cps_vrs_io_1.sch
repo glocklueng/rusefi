@@ -45,8 +45,8 @@ LIBS:stm32
 LIBS:tc4427
 LIBS:lm2596
 LIBS:mos_p_numbered-pins
-LIBS:project_specific_libs
 LIBS:hip9011
+LIBS:rn-41
 LIBS:frankenso-cache
 EELAYER 27 0
 EELAYER END
@@ -54,24 +54,16 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 8 10
 Title "Frankenso"
-Date "4 jul 2014"
+Date "5 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
-Comment1 "cps_vrs_io_1"
-Comment2 "Art_Electro"
-Comment3 "Art_Electro"
-Comment4 "Art_Electro"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
 $EndDescr
 Connection ~ 14800 2225
 Connection ~ 14800 2125
-Wire Wire Line
-	10275 3425 10275 1925
-Wire Wire Line
-	10275 3425 9750 3425
-Wire Wire Line
-	10475 3225 10475 2925
-Wire Wire Line
-	10475 3225 9750 3225
 Wire Wire Line
 	14800 2225 14800 2500
 Wire Wire Line
@@ -80,10 +72,6 @@ Wire Wire Line
 	14800 2000 14800 2125
 Wire Wire Line
 	14250 1425 14775 1425
-Wire Wire Line
-	11000 1425 10175 1425
-Wire Wire Line
-	11000 2425 10375 2425
 Wire Wire Line
 	14250 1825 14775 1825
 Connection ~ 12250 2425
@@ -132,39 +120,11 @@ Wire Wire Line
 	12100 2925 12750 2925
 Connection ~ 12600 2925
 Wire Wire Line
-	4450 1325 4325 1325
-Wire Wire Line
-	2700 1325 3175 1325
-Wire Wire Line
-	2700 1425 3175 1425
-Wire Wire Line
-	4450 1625 4325 1625
-Wire Wire Line
-	4450 1725 4325 1725
-Wire Wire Line
-	4450 1525 4325 1525
-Wire Wire Line
-	4450 1425 4325 1425
-Wire Wire Line
 	14250 1825 14250 1850
-Wire Wire Line
-	10475 2925 11000 2925
-Wire Wire Line
-	10275 1925 11000 1925
 Wire Wire Line
 	15300 2125 15300 2225
 Wire Wire Line
 	14800 2500 15500 2500
-Wire Bus Line
-	15600 850  15600 2400
-Wire Wire Line
-	9750 3325 10375 3325
-Wire Wire Line
-	10375 3325 10375 2425
-Wire Wire Line
-	9750 3525 10175 3525
-Wire Wire Line
-	10175 3525 10175 1425
 $Comp
 L C C104
 U 1 1 50D6291F
@@ -178,40 +138,12 @@ F 5 "DIGI,478-1395-1-ND" V 880 2900 60  0001 C CNN "vend1,vend1#"
 	1    14775 1625
 	-1   0    0    -1  
 $EndComp
-Text Notes 2700 1125 0    60   ~ 0
-FIRMWARE PINOUT
-Text Label 15500 2500 2    60   ~ 0
-CAM
-Text Label 15500 2000 2    60   ~ 0
-CRANK
-Entry Wire Line
-	15500 2500 15600 2400
-Entry Wire Line
-	15500 2000 15600 1900
 Text Label 15300 2125 0    60   ~ 0
-5V
-Text Label 14575 1425 2    60   ~ 0
 5V
 Text Label 12750 2025 2    60   ~ 0
 5V
-Entry Wire Line
-	4450 1425 4550 1525
-Entry Wire Line
-	4450 1525 4550 1625
-Entry Wire Line
-	4450 1725 4550 1825
-Entry Wire Line
-	4450 1625 4550 1725
-Entry Wire Line
-	2600 1625 2700 1525
-Entry Wire Line
-	2600 1525 2700 1425
-Entry Wire Line
-	4450 1325 4550 1425
-Entry Wire Line
-	2600 1425 2700 1325
-Text Notes 12825 2725 0    60   ~ 0
-W2,W3 are for hall's that need a pull up. Check your hall sensors, many \nwill want closer to 470 ohm. The 1k is a generic value.\nhttp://www.cherrycorp.com/english/sensors/pdf/connection.pdf\n\nThe resistors across pins 9,10 and 15,16 are not typically installed, they \nare only used on really hot VR signals, to dampen the signal.\n\n
+Text Notes 12800 2725 0    60   ~ 0
+W1002,W1003 are for hall's that need a pull up. Check your hall sensors, many \nwill want closer to 470 ohm. The 1k is a generic value.\nhttp://www.cherrycorp.com/english/sensors/pdf/connection.pdf\n\nThe resistors across pins 9,10 and 15,16 are not typically installed, they \nare only used on really hot VR signals, to dampen the signal.\n\n
 NoConn ~ 14250 2425
 NoConn ~ 14250 1925
 $Comp
@@ -476,57 +408,86 @@ F 5 "digi,CR0805-FX-1002ELFCT-ND" V 880 2900 60  0001 C CNN "vend1,vend1#"
 	1    15050 2125
 	0    1    -1   0   
 $EndComp
-Wire Bus Line
-	2950 850  15600 850 
 Wire Wire Line
 	14250 2325 14350 2325
 Wire Wire Line
 	14350 2325 14350 1825
 Connection ~ 14350 1825
+Text HLabel 11000 2925 0    60   Input ~ 0
+CAM+
+Text HLabel 11000 2425 0    60   Input ~ 0
+CAM-
+Text HLabel 11000 1925 0    60   Input ~ 0
+CRK2-
+Text HLabel 11000 1425 0    60   Input ~ 0
+CRK2+
+Text HLabel 14250 2525 2    60   Input ~ 0
+GND
+Text HLabel 14575 1425 1    60   Input ~ 0
+5V
+Text HLabel 15500 2000 2    60   Input ~ 0
+CRANK
+Text HLabel 15500 2500 2    60   Input ~ 0
+CAM
+Connection ~ -4675 3450
+Wire Wire Line
+	11400 2725 11425 2725
+Wire Wire Line
+	11425 1225 11400 1225
+Wire Wire Line
+	11000 2925 11000 2725
+Text Label 11925 1225 0    60   ~ 0
+5V
+Text Label 11925 2725 0    60   ~ 0
+5V
 $Comp
-L GND #PWR099
-U 1 1 5289002F
-P 3125 1625
-F 0 "#PWR099" H 3125 1625 30  0001 C CNN
-F 1 "GND" H 3125 1555 30  0001 C CNN
-F 2 "" H 3125 1625 60  0001 C CNN
-F 3 "" H 3125 1625 60  0001 C CNN
-	1    3125 1625
+L TEST W1003
+U 1 1 50CE3E18
+P 11200 2725
+F 0 "W1003" H 11200 2785 40  0000 C CNN
+F 1 "JMP" H 11200 2655 40  0000 C CNN
+F 2 "SIL-2" H 11200 2725 60  0001 C CNN
+F 3 "" H 11200 2725 60  0001 C CNN
+	1    11200 2725
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST W1002
+U 1 1 50CE3DD7
+P 11200 1225
+F 0 "W1002" H 11200 1285 40  0000 C CNN
+F 1 "JMP" H 11200 1155 40  0000 C CNN
+F 2 "SIL-2" H 11200 1225 60  0001 C CNN
+F 3 "" H 11200 1225 60  0001 C CNN
+	1    11200 1225
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R137
+U 1 1 4E39E3AF
+P 11675 1225
+F 0 "R137" V 11755 1225 50  0000 C CNN
+F 1 "1K" V 11675 1225 50  0000 C CNN
+F 2 "SM0805" V 1305 2900 60  0001 C CNN
+F 3 "" H 11675 1225 60  0001 C CNN
+F 4 "VISHAY,CRCW0805100KFKEA" V 1305 2900 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,CRCW0805100KFKEA" V 1305 2900 60  0001 C CNN "vend1,vend1#"
+	1    11675 1225
 	0    1    1    0   
 $EndComp
-Entry Wire Line
-	2600 1825 2700 1725
+$Comp
+L R R141
+U 1 1 4E39E399
+P 11675 2725
+F 0 "R141" V 11755 2725 50  0000 C CNN
+F 1 "1K" V 11675 2725 50  0000 C CNN
+F 2 "SM0805" V 1305 2900 60  0001 C CNN
+F 3 "" H 11675 2725 60  0001 C CNN
+F 4 "VISHAY,CRCW0805100KFKEA" V 1305 2900 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,CRCW0805100KFKEA" V 1305 2900 60  0001 C CNN "vend1,vend1#"
+	1    11675 2725
+	0    1    1    0   
+$EndComp
 Wire Wire Line
-	2700 1725 3175 1725
-Wire Wire Line
-	2700 1525 3175 1525
-Entry Wire Line
-	14150 850  14250 950 
-Wire Wire Line
-	14250 950  14250 1425
-Wire Wire Line
-	3175 1625 3125 1625
-Connection ~ 14250 1150
-Wire Bus Line
-	4550 850  4550 1825
-Wire Bus Line
-	2600 850  2600 1825
-Wire Bus Line
-	2600 850  2975 850 
-Text HLabel 10950 2925 1    60   Input ~ 0
-CAM+
-Text HLabel 10950 2425 1    60   Input ~ 0
-CAM-
-Text HLabel 10950 1925 1    60   Input ~ 0
-CRK2-
-Text HLabel 10950 1425 1    60   Input ~ 0
-CRK2+
-Text HLabel 3175 1325 2    60   Input ~ 0
-CAM
-Text HLabel 3175 1425 2    60   Input ~ 0
-CRANK
-Text HLabel 3175 1625 2    60   Input ~ 0
-GND
-Text HLabel 4325 1325 0    60   Input ~ 0
-5V
+	11000 1425 11000 1225
 $EndSCHEMATC
