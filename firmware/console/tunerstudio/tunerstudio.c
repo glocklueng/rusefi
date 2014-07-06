@@ -42,8 +42,8 @@
 
 #if EFI_TUNER_STUDIO
 
-#define MAX_PAGE_ID 5
-#define PAGE_0_SIZE 1380
+#define MAX_PAGE_ID 2
+#define PAGE_0_SIZE 5476
 
 // in MS, that's 10 seconds
 #define TS_READ_TIMEOUT 10000
@@ -124,8 +124,8 @@ static void printStats(void) {
 
 	int fuelMapOffset = (int) (&engineConfiguration->fuelTable) - (int) engineConfiguration;
 	scheduleMsg(&logger, "fuelTable %d", fuelMapOffset);
-	if (fuelMapOffset != getTunerStudioPageSize(0))
-		firmwareError("TS page size mismatch");
+//	if (fuelMapOffset != getTunerStudioPageSize(0))
+//		firmwareError("TS page size mismatch");
 }
 
 void tunerStudioWriteData(const uint8_t * buffer, int size) {
@@ -145,11 +145,11 @@ char *getWorkingPageAddr(int pageIndex) {
 		return (char*) &configWorkingCopy.engineConfiguration;
 	case 1:
 		return (char*) &configWorkingCopy.boardConfiguration;
-	case 2: // fuelTable
-	case 3: // ignitionTable
-	case 4: // veTable
-	case 5: // afrTable
-		return (char*) &configWorkingCopy.engineConfiguration + PAGE_0_SIZE + (pageIndex - 2) * 1024;
+//	case 2: // fuelTable
+//	case 3: // ignitionTable
+//	case 4: // veTable
+//	case 5: // afrTable
+//		return (char*) &configWorkingCopy.engineConfiguration + PAGE_0_SIZE + (pageIndex - 2) * 1024;
 	}
 	return NULL;
 }
@@ -160,10 +160,10 @@ int getTunerStudioPageSize(int pageIndex) {
 		return PAGE_0_SIZE;
 	case 1:
 		return sizeof(configWorkingCopy.boardConfiguration);
-	case 2:
-	case 3:
-	case 4:
-		return 1024;
+//	case 2:
+//	case 3:
+//	case 4:
+//		return 1024;
 	}
 	return 0;
 }
