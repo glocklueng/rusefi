@@ -301,6 +301,9 @@ void handleBurnCommand(ts_response_format_e mode, uint16_t page) {
 	tunerStudioWriteCrcPacket(TS_RESPONSE_BURN_OK, NULL, 0);
 }
 
+static TunerStudioReadRequest readRequest;
+static short int pageIn;
+
 static bool handlePlainCommand(uint8_t command) {
 	if (command == TS_HELLO_COMMAND) {
 		scheduleMsg(&logger, "Got naked Query command");
@@ -309,18 +312,30 @@ static bool handlePlainCommand(uint8_t command) {
 	} else if (command == 't' || command == 'T') {
 		handleTestCommand();
 		return true;
+	} else if (command == TS_PAGE_COMMAND) {
+		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t *)&pageIn, sizeof(pageIn));
+		handlePageSelectCommand(TS_PLAIN, pageIn);
+		return true;
 	} else if (command == TS_READ_COMMAND) {
-		scheduleMsg(&logger, "Got naked READ PAGE???");
+		//scheduleMsg(&logger, "Got naked READ PAGE???");
+		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t *)&readRequest, sizeof(readRequest));
+		if (recieved != sizeof(readRequest)) {
+			// todo: handler error
+			return true;
+		}
+		handlePageReadCommand(TS_PLAIN, readRequest.page, readRequest.offset, readRequest.count);
 		return true;
 	} else if (command == TS_OUTPUT_COMMAND) {
-		scheduleMsg(&logger, "Got naked Channels???");
+		//scheduleMsg(&logger, "Got naked Channels???");
+		handleOutputChannelsCommand(TS_PLAIN);
 		return true;
 	} else if (command == 'F') {
 		tunerStudioDebug("not ignoring F");
 		tunerStudioWriteData((const uint8_t *) PROTOCOL, strlen(PROTOCOL));
 		return true;
+	} else {
+		return false;
 	}
-	return false;
 }
 
 static bool isKnownCommand(char command) {
@@ -360,7 +375,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 			tunerStudioError("ERROR: no command");
 			continue;
 		}
-		//		scheduleMsg(&logger, "Got first=%x=[%c]", firstByte, firstByte);
+		scheduleMsg(&logger, "Got first=%x=[%c]", firstByte, firstByte);
 		if (handlePlainCommand(firstByte))
 			continue;
 
