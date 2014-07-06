@@ -10,6 +10,19 @@
 
 #include "tunerstudio_configuration.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+void startTunerStudioConnectivity(void);
+void syncTunerStudioCopy(void);
+void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels);
+void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uint16_t size);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 #if defined __GNUC__
 // GCC
 #define pre_packed
@@ -28,21 +41,15 @@ typedef pre_packed struct
 
 	typedef pre_packed struct
 		post_packed {
+			short int page;
 			short int offset;
-			unsigned char value;
-		} TunerStudioWriteValueRequest;
+			short int count;
+		} TunerStudioReadRequest;
 
-#ifdef __cplusplus
-		extern "C" {
-#endif /* __cplusplus */
-
-		void startTunerStudioConnectivity(void);
-		void syncTunerStudioCopy(void);
-		void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels);
-		void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uint16_t size);
-
-#ifdef __cplusplus
-		}
-#endif /* __cplusplus */
+		typedef pre_packed struct
+			post_packed {
+				short int offset;
+				unsigned char value;
+			} TunerStudioWriteValueRequest;
 
 #endif /* TUNERSTUDIO_H_ */
