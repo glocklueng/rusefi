@@ -413,7 +413,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 //		scheduleMsg(&logger, "TunerStudio: P00-07 %x %x %x %x %x %x %x %x", crcIoBuffer[0], crcIoBuffer[1],
 //				crcIoBuffer[2], crcIoBuffer[3], crcIoBuffer[4], crcIoBuffer[5], crcIoBuffer[6], crcIoBuffer[7]);
 
-		int success = tunerStudioHandleCommand(crcIoBuffer, incomingPacketSize);
+		int success = tunerStudioHandleCrcCommand(crcIoBuffer, incomingPacketSize);
 		if (!success)
 			print("got unexpected TunerStudio command %x:%c\r\n", command, command);
 
