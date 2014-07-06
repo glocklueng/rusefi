@@ -15,7 +15,6 @@
 #include "flash.h"
 #include "rusefi.h"
 
-//#include "tunerstudio.h"
 #include "engine_controller.h"
 
 #include "datalogging.h"
@@ -85,7 +84,7 @@ static void doResetConfiguration(void) {
 			boardConfiguration);
 }
 
-static void readFromFlash(void) {
+void readFromFlash(void) {
 	printMsg(&logger, "readFromFlash()");
 
 	flashRead(FLASH_ADDR, (char *) &persistentState, PERSISTENT_SIZE);
@@ -112,6 +111,4 @@ void initFlash(void) {
 	addConsoleAction("readconfig", readFromFlash);
 	addConsoleAction("writeconfig", writeToFlash);
 	addConsoleAction("resetconfig", doResetConfiguration);
-
-	readFromFlash();
 }

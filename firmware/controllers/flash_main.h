@@ -18,6 +18,7 @@ extern "C"
 {
 #endif /* __cplusplus */
 
+void readFromFlash(void);
 void initFlash(void);
 void writeToFlash(void);
 

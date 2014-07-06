@@ -1,5 +1,5 @@
 /**
- * @file    hardware.c
+ * @file    hardware.cpp
  * @brief   Hardware package entry point
  *
  * @date May 27, 2013
@@ -12,6 +12,7 @@
 #include "io_pins.h"
 #include "rtc_helper.h"
 #include "rfiutil.h"
+#include "console_io.h"
 
 #include "adc_inputs.h"
 
@@ -117,11 +118,22 @@ void initHardware(Logging *logger) {
 	initDataStructures(engineConfiguration);
 
 #if EFI_INTERNAL_FLASH
+
+	palSetPadMode(CONFIG_RESET_SWITCH_PORT, CONFIG_RESET_SWITCH_PIN, PAL_MODE_INPUT_PULLUP);
+
+	initFlash();
 	/**
 	 * this call reads configuration from flash memory or sets default configuration
 	 * if flash state does not look right.
 	 */
-	initFlash();
+	if (SHOULD_INGORE_FLASH()) {
+		engineConfiguration->engineType = FORD_ASPIRE_1996;
+		resetConfigurationExt(logger, engineConfiguration->engineType, engineConfiguration, engineConfiguration2,
+				boardConfiguration);
+		writeToFlash();
+	} else {
+		readFromFlash();
+	}
 #else
 	engineConfiguration->engineType = FORD_ASPIRE_1996;
 	resetConfigurationExt(logger, engineConfiguration->engineType, engineConfiguration, engineConfiguration2, boardConfiguration);
@@ -129,8 +141,6 @@ void initHardware(Logging *logger) {
 
 	if (hasFirmwareError())
 		return;
-
-
 
 	mySetPadMode("board test", getHwPort(boardConfiguration->boardTestModeJumperPin),
 			getHwPin(boardConfiguration->boardTestModeJumperPin), PAL_MODE_INPUT_PULLUP);
