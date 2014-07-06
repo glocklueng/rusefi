@@ -47,6 +47,8 @@ LIBS:lm2596
 LIBS:mos_p_numbered-pins
 LIBS:hip9011
 LIBS:rn-41
+LIBS:skqucaa010_joystick
+LIBS:w_rtx
 LIBS:frankenso-cache
 EELAYER 27 0
 EELAYER END
@@ -54,7 +56,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 2 10
 Title "Frankenso"
-Date "5 jul 2014"
+Date "6 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -68,7 +70,7 @@ Wire Wire Line
 	8550 6650 9250 6650
 $Comp
 L C C603
-U 1 1 524F7FBD
+U 1 1 53B976EE
 P 7450 7550
 F 0 "C603" V 7500 7600 40  0000 L CNN
 F 1 "0.1uF" V 7500 7300 40  0000 L CNN

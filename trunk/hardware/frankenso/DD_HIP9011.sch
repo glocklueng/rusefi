@@ -47,6 +47,8 @@ LIBS:lm2596
 LIBS:mos_p_numbered-pins
 LIBS:hip9011
 LIBS:rn-41
+LIBS:skqucaa010_joystick
+LIBS:w_rtx
 LIBS:frankenso-cache
 EELAYER 27 0
 EELAYER END
@@ -54,7 +56,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 5 10
 Title "Frankenso"
-Date "5 jul 2014"
+Date "6 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -305,8 +307,6 @@ Wire Wire Line
 	4650 4650 4200 4650
 Wire Wire Line
 	4650 4750 4200 4750
-Text Label 4200 4650 0    60   ~ 0
-INT/HLD
 Wire Wire Line
 	5850 4650 6200 4650
 Wire Wire Line
@@ -338,7 +338,7 @@ U 1 1 52A255D0
 P 7500 3600
 F 0 "R171" V 7580 3600 40  0000 C CNN
 F 1 "1K" V 7507 3601 40  0000 C CNN
-F 2 "SM1206" V 7430 3600 30  0001 C CNN
+F 2 "SM0805_jumper" V 7430 3600 30  0001 C CNN
 F 3 "~" H 7500 3600 30  0000 C CNN
 	1    7500 3600
 	1    0    0    -1  
@@ -492,4 +492,6 @@ Text HLabel 6200 4950 2    60   Input ~ 0
 SO
 Text HLabel 4200 4750 0    60   Input ~ 0
 CS
+Text HLabel 4200 4650 0    60   Input ~ 0
+INT/HLD
 $EndSCHEMATC
