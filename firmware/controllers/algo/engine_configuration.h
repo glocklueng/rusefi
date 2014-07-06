@@ -97,6 +97,73 @@ typedef struct {
 } trigger_config_s;
 
 
+#define HW_MAX_ADC_INDEX 16
+
+typedef struct {
+	// WARNING: by default, our small enums are ONE BYTE. this one is made 4-byte with the 'ENUM_SIZE_HACK' hack
+	brain_pin_e idleValvePin;
+	pin_output_mode_e idleValvePinMode;
+
+	brain_pin_e fuelPumpPin;
+	pin_output_mode_e fuelPumpPinMode;
+
+	brain_pin_e injectionPins[12];
+	pin_output_mode_e injectionPinMode;
+
+	brain_pin_e ignitionPins[12];
+	pin_output_mode_e ignitionPinMode;
+
+	brain_pin_e malfunctionIndicatorPin;
+	pin_output_mode_e malfunctionIndicatorPinMode;
+
+	brain_pin_e fanPin;
+	pin_output_mode_e fanPinMode;
+
+	brain_pin_e electronicThrottlePin1;
+	pin_output_mode_e electronicThrottlePin1Mode;
+
+	brain_pin_e idleSwitchPin;
+	pin_input_mode_e idleSwitchPinMode;
+
+	brain_pin_e alternatorControlPin;
+	pin_output_mode_e alternatorControlPinMode;
+
+	brain_pin_e HD44780_rs;
+	brain_pin_e HD44780_e;
+	brain_pin_e HD44780_db4;
+	brain_pin_e HD44780_db5;
+	brain_pin_e HD44780_db6;
+	brain_pin_e HD44780_db7;
+
+	brain_pin_e triggerSimulatorPins[2];
+	pin_output_mode_e triggerSimulatorPinModes[2];
+
+	/**
+	 * Digital Potentiometer is used by stock ECU stimulation code
+	 */
+	spi_device_e digitalPotentiometerSpiDevice;
+	brain_pin_e digitalPotentiometerChipSelect[4];
+
+	adc_channel_mode_e adcHwChannelEnabled[HW_MAX_ADC_INDEX];
+
+	brain_pin_e primaryTriggerInputPin;
+	brain_pin_e secondaryTriggerInputPin;
+	brain_pin_e primaryLogicAnalyzerPin;
+	brain_pin_e secondaryLogicAnalyzerPin;
+
+	int idleThreadPeriod;
+	int consoleLoopPeriod;
+	int lcdThreadPeriod;
+	int tunerStudioThreadPeriod;
+	int generalPeriodicThreadPeriod;
+
+	int tunerStudioSerialSpeed;
+
+	brain_pin_e boardTestModeJumperPin;
+} board_configuration_s;
+
+
+
 /**
  * @brief	Engine configuration.
  * 		Values in this data structure are adjustable and persisted in on-board flash RAM.
@@ -287,79 +354,16 @@ typedef struct {
 	float veTable[VE_LOAD_COUNT][VE_RPM_COUNT]; // size 1024
 	float afrTable[AFR_LOAD_COUNT][AFR_RPM_COUNT]; // size 1024
 
+
+	board_configuration_s bc;
+
 } engine_configuration_s;
 
 void setOperationMode(engine_configuration_s *engineConfiguration, operation_mode_e mode);
 operation_mode_e getOperationMode(engine_configuration_s const *engineConfiguration);
 
-#define HW_MAX_ADC_INDEX 16
-
-typedef struct {
-	// WARNING: by default, our small enums are ONE BYTE. this one is made 4-byte with the 'ENUM_SIZE_HACK' hack
-	brain_pin_e idleValvePin;
-	pin_output_mode_e idleValvePinMode;
-
-	brain_pin_e fuelPumpPin;
-	pin_output_mode_e fuelPumpPinMode;
-
-	brain_pin_e injectionPins[12];
-	pin_output_mode_e injectionPinMode;
-
-	brain_pin_e ignitionPins[12];
-	pin_output_mode_e ignitionPinMode;
-
-	brain_pin_e malfunctionIndicatorPin;
-	pin_output_mode_e malfunctionIndicatorPinMode;
-
-	brain_pin_e fanPin;
-	pin_output_mode_e fanPinMode;
-
-	brain_pin_e electronicThrottlePin1;
-	pin_output_mode_e electronicThrottlePin1Mode;
-
-	brain_pin_e idleSwitchPin;
-	pin_input_mode_e idleSwitchPinMode;
-
-	brain_pin_e alternatorControlPin;
-	pin_output_mode_e alternatorControlPinMode;
-
-	brain_pin_e HD44780_rs;
-	brain_pin_e HD44780_e;
-	brain_pin_e HD44780_db4;
-	brain_pin_e HD44780_db5;
-	brain_pin_e HD44780_db6;
-	brain_pin_e HD44780_db7;
-
-	brain_pin_e triggerSimulatorPins[2];
-	pin_output_mode_e triggerSimulatorPinModes[2];
-
-	/**
-	 * Digital Potentiometer is used by stock ECU stimulation code
-	 */
-	spi_device_e digitalPotentiometerSpiDevice;
-	brain_pin_e digitalPotentiometerChipSelect[4];
-
-	adc_channel_mode_e adcHwChannelEnabled[HW_MAX_ADC_INDEX];
-
-	brain_pin_e primaryTriggerInputPin;
-	brain_pin_e secondaryTriggerInputPin;
-	brain_pin_e primaryLogicAnalyzerPin;
-	brain_pin_e secondaryLogicAnalyzerPin;
-
-	int idleThreadPeriod;
-	int consoleLoopPeriod;
-	int lcdThreadPeriod;
-	int tunerStudioThreadPeriod;
-	int generalPeriodicThreadPeriod;
-
-	int tunerStudioSerialSpeed;
-
-	brain_pin_e boardTestModeJumperPin;
-} board_configuration_s;
-
 typedef struct {
 	engine_configuration_s engineConfiguration;
-	board_configuration_s boardConfiguration;
 } persistent_config_s;
 
 typedef struct {
