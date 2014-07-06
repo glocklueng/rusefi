@@ -41,12 +41,13 @@ void Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::init(float table[RPM_BIN_SIZE][LOAD_BIN
 
 template<int RPM_BIN_SIZE, int LOAD_BIN_SIZE>
 float Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::getValue(float x, float xBin[], float y, float yBin[]) {
-	efiAssert(initialized == MAGIC_TRUE_VALUE, "fuel map initialized", NAN);
+	efiAssert(initialized == MAGIC_TRUE_VALUE, "map initialized", NAN);
 	return interpolate3d(x, xBin, LOAD_BIN_SIZE, y, yBin, RPM_BIN_SIZE, pointers);
 }
 
 template<int RPM_BIN_SIZE, int LOAD_BIN_SIZE>
 void Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::setAll(float value) {
+	efiAssertVoid(initialized == MAGIC_TRUE_VALUE, "map initialized");
 	for (int l = 0; l < LOAD_BIN_SIZE; l++) {
 		for (int r = 0; r < RPM_BIN_SIZE; r++) {
 			pointers[l][r] = value;
@@ -88,6 +89,7 @@ int getCylinderId(firing_order_e firingOrder, int index);
 
 void setTableBin(float array[], int size, float l, float r);
 void setTableBin2(float array[], int size, float l, float r, float precision);
+void setRpmTableBin(float array[], int size);
 void setFuelRpmBin(engine_configuration_s *engineConfiguration, float l, float r);
 void setFuelLoadBin(engine_configuration_s *engineConfiguration, float l, float r);
 void setTimingRpmBin(engine_configuration_s *engineConfiguration, float l, float r);
