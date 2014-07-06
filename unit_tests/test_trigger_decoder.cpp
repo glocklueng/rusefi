@@ -16,6 +16,7 @@
 #include "mazda_323.h"
 #include "rpm_calculator.h"
 #include "event_queue.h"
+#include "algo.h"
 
 #include "trigger_central.h"
 #include "main_trigger_callback.h"
@@ -41,6 +42,7 @@ int getTheAngle(engine_type_e engineType) {
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 
+	initDataStructures(ec);
 	resetConfigurationExt(NULL, engineType, ec, &ec2, &persistentConfig.engineConfiguration.bc);
 
 	trigger_shape_s * shape = &ec2.triggerShape;
