@@ -12,6 +12,7 @@ public class Version2Header {
     private static final String HEADER_TAG = "SVN_VERSION";
 
     public static void main(String[] args) throws IOException {
+        System.out.println("Hi, it's " + new Date());
         Process simulatorProcess = null;
         try {
             simulatorProcess = Runtime.getRuntime().exec(COMMAND);
@@ -30,6 +31,9 @@ public class Version2Header {
                     writeFile(version);
                 }
             }
+        } catch (Throwable e) {
+            System.err.println("Ops: " + e);
+            e.printStackTrace();
         } finally {
             if (simulatorProcess != null)
                 simulatorProcess.destroy();
