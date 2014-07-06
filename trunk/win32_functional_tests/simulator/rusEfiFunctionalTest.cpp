@@ -93,6 +93,7 @@ void rusEfiFunctionalTest(void) {
 	initFakeBoard();
 
 	initStatusLoop();
+	initDataStructures(engineConfiguration);
 
 	resetConfigurationExt(NULL, FORD_ASPIRE_1996, engineConfiguration, engineConfiguration2, boardConfiguration);
 
