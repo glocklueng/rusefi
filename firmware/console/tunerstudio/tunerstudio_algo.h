@@ -42,7 +42,7 @@ typedef struct {
 	short currentPageId;
 } TunerStudioState;
 
-int tunerStudioHandleCommand(char *data, int incomingPacketSize);
+int tunerStudioHandleCrcCommand(char *data, int incomingPacketSize);
 
 void handleTestCommand(void);
 void handleQueryCommand(ts_response_format_e mode);

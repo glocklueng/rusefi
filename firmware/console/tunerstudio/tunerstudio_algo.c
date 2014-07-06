@@ -70,7 +70,7 @@ void tunerStudioError(const char *msg) {
 	tsState.errorCounter++;
 }
 
-int tunerStudioHandleCommand(char *data, int incomingPacketSize) {
+int tunerStudioHandleCrcCommand(char *data, int incomingPacketSize) {
 	char command = data[0];
 	data++;
 	if (command == TS_HELLO_COMMAND) {
