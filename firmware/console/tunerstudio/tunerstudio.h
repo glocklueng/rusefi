@@ -11,23 +11,23 @@
 #include "tunerstudio_configuration.h"
 
 #if defined __GNUC__
-typedef struct
-	__attribute__((packed)) {
+// GCC
+#define pre_packed
+#define post_packed __attribute__((packed))
 #else
-		typedef __packed struct {
-#endif
-			short int offset;
-			short int count;
-
-		} TunerStudioWriteChunkRequest;
-
-#if defined __GNUC__
-typedef struct
-	__attribute__((packed)) {
-#else
-		typedef __packed struct {
+// IAR
+#define pre_packed __packed
+#define post_packed
 #endif
 
+typedef pre_packed struct
+	post_packed {
+		short int offset;
+		short int count;
+	} TunerStudioWriteChunkRequest;
+
+	typedef pre_packed struct
+		post_packed {
 			short int offset;
 			unsigned char value;
 		} TunerStudioWriteValueRequest;
