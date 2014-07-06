@@ -301,6 +301,34 @@ void handleBurnCommand(uint16_t page) {
 	tunerStudioWriteCrcPacket(TS_RESPONSE_BURN_OK, NULL, 0);
 }
 
+static bool handlePlainCommand(uint8_t command) {
+	if (command == TS_HELLO_COMMAND) {
+		scheduleMsg(&logger, "Got naked Query command");
+		handleQueryCommand(TS_PLAIN);
+		return true;
+	} else if (command == 't' || command == 'T') {
+		handleTestCommand();
+		return true;
+	} else if (command == TS_READ_COMMAND) {
+		scheduleMsg(&logger, "Got naked READ PAGE???");
+		return true;
+	} else if (command == TS_OUTPUT_COMMAND) {
+		scheduleMsg(&logger, "Got naked Channels???");
+		return true;
+	} else if (command == 'F') {
+		tunerStudioDebug("not ignoring F");
+		tunerStudioWriteData((const uint8_t *) PROTOCOL, strlen(PROTOCOL));
+		return true;
+	}
+	return false;
+}
+
+static bool isKnownCommand(char command) {
+	return command == TS_HELLO_COMMAND || command == TS_READ_COMMAND || command == TS_OUTPUT_COMMAND
+			|| command == TS_PAGE_COMMAND || command == TS_BURN_COMMAND || command == TS_SINGLE_WRITE_COMMAND
+			|| command == TS_CHUNK_WRITE_COMMAND;
+}
+
 static uint8_t firstByte;
 static uint8_t secondByte;
 
@@ -332,25 +360,9 @@ static msg_t tsThreadEntryPoint(void *arg) {
 			tunerStudioError("ERROR: no command");
 			continue;
 		}
-//		scheduleMsg(&logger, "Got first=%x=[%c]", firstByte, firstByte);
-		if (firstByte == TS_HELLO_COMMAND) {
-			scheduleMsg(&logger, "Got naked Query command");
-			handleQueryCommand(TS_PLAIN);
+		//		scheduleMsg(&logger, "Got first=%x=[%c]", firstByte, firstByte);
+		if (handlePlainCommand(firstByte))
 			continue;
-		} else if (firstByte == 't' || firstByte == 'T') {
-			handleTestCommand();
-			continue;
-		} else if (firstByte == TS_READ_COMMAND) {
-			scheduleMsg(&logger, "Got naked READ PAGE???");
-			continue;
-		} else if (firstByte == TS_OUTPUT_COMMAND) {
-			scheduleMsg(&logger, "Got naked Channels???");
-			continue;
-		} else if (firstByte == 'F') {
-			tunerStudioDebug("not ignoring F");
-			tunerStudioWriteData((const uint8_t *) PROTOCOL, strlen(PROTOCOL));
-			continue;
-		}
 
 		recieved = chSequentialStreamRead(getTsSerialDevice(), &secondByte, 1);
 		if (recieved != 1) {
@@ -375,9 +387,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 		}
 
 		char command = crcIoBuffer[0];
-		if (command != TS_HELLO_COMMAND && command != TS_READ_COMMAND && command != TS_OUTPUT_COMMAND
-				&& command != TS_PAGE_COMMAND && command != TS_BURN_COMMAND && command != TS_SINGLE_WRITE_COMMAND
-				&& command != TS_CHUNK_WRITE_COMMAND) {
+		if (!isKnownCommand(command)) {
 			scheduleMsg(&logger, "unexpected command %x", command);
 			sendErrorCode();
 			continue;
@@ -389,7 +399,8 @@ static msg_t tsThreadEntryPoint(void *arg) {
 				MS2ST(TS_READ_TIMEOUT));
 		int expectedSize = incomingPacketSize + 4 - 1;
 		if (recieved != expectedSize) {
-			scheduleMsg(&logger, "got ONLY %d for packet size %d/%d for command %c", recieved, incomingPacketSize, expectedSize, command);
+			scheduleMsg(&logger, "got ONLY %d for packet size %d/%d for command %c", recieved, incomingPacketSize,
+					expectedSize, command);
 			tunerStudioError("ERROR: not enough");
 			continue;
 		}
