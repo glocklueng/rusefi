@@ -192,7 +192,13 @@ typedef enum {
  * @brief Ignition Mode
  */
 typedef enum {
+	/**
+	 * in this mode only SPARKOUT_1_OUTPUT is used
+	 */
 	IM_ONE_COIL = 0,
+	/**
+	 * in this mode we use as many coils as we have cylinders
+	 */
 	IM_INDIVIDUAL_COILS = 1,
 	IM_WASTED_SPARK = 2,
 
