@@ -206,7 +206,7 @@ void handleWriteChunkCommand(ts_response_format_e mode, short offset, short coun
 	}
 
 	uint8_t * addr = (uint8_t *) (getWorkingPageAddr(tsState.currentPageId) + offset);
-//	memcpy(addr, content, count);
+	memcpy(addr, content, count);
 
 	tsSendResponse(mode, NULL, 0);
 }
