@@ -17,7 +17,7 @@ EngineTestHelper::EngineTestHelper(engine_type_e engineType) {
 	configuration.engineConfiguration = ec;
 	configuration.engineConfiguration2 = &ec2;
 
-	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.boardConfiguration);
+	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.engineConfiguration.bc);
 }
 
 void EngineTestHelper::fireTriggerEvents() {

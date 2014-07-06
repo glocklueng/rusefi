@@ -124,7 +124,7 @@ int main(void) {
 	testSpeedDensity();
 
 	//	resizeMap();
-	printf("Success 20130704\r\n");
+	printf("Success 20130706\r\n");
 	return EXIT_SUCCESS;
 }
 
