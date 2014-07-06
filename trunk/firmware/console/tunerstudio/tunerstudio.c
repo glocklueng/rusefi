@@ -42,8 +42,8 @@
 
 #if EFI_TUNER_STUDIO
 
-#define MAX_PAGE_ID 2
-#define PAGE_0_SIZE 5476
+#define MAX_PAGE_ID 0
+#define PAGE_0_SIZE 5804
 
 // in MS, that's 10 seconds
 #define TS_READ_TIMEOUT 10000
@@ -124,8 +124,16 @@ static void printStats(void) {
 
 	int fuelMapOffset = (int) (&engineConfiguration->fuelTable) - (int) engineConfiguration;
 	scheduleMsg(&logger, "fuelTable %d", fuelMapOffset);
-//	if (fuelMapOffset != getTunerStudioPageSize(0))
-//		firmwareError("TS page size mismatch");
+
+	int offset = (int) (&engineConfiguration->bc.injectionPinMode) - (int) engineConfiguration;
+	scheduleMsg(&logger, "injectionPinMode %d", offset);
+
+	offset = (int) (&engineConfiguration->bc.idleThreadPeriod) - (int) engineConfiguration;
+	scheduleMsg(&logger, "idleThreadPeriod %d", offset);
+
+
+	if (sizeof(engine_configuration_s) != getTunerStudioPageSize(0))
+		firmwareError("TS page size mismatch");
 }
 
 void tunerStudioWriteData(const uint8_t * buffer, int size) {
@@ -143,8 +151,8 @@ char *getWorkingPageAddr(int pageIndex) {
 	switch (pageIndex) {
 	case 0:
 		return (char*) &configWorkingCopy.engineConfiguration;
-	case 1:
-		return (char*) &configWorkingCopy.boardConfiguration;
+//	case 1:
+//		return (char*) &configWorkingCopy.boardConfiguration;
 //	case 2: // fuelTable
 //	case 3: // ignitionTable
 //	case 4: // veTable
@@ -158,8 +166,8 @@ int getTunerStudioPageSize(int pageIndex) {
 	switch (pageIndex) {
 	case 0:
 		return PAGE_0_SIZE;
-	case 1:
-		return sizeof(configWorkingCopy.boardConfiguration);
+//	case 1:
+//		return sizeof(configWorkingCopy.boardConfiguration);
 //	case 2:
 //	case 3:
 //	case 4:
@@ -293,8 +301,8 @@ void handleBurnCommand(ts_response_format_e mode, uint16_t page) {
 // todo: how about some multi-threading?
 	memcpy(&persistentState.persistentConfiguration, &configWorkingCopy, sizeof(persistent_config_s));
 
-	scheduleMsg(&logger, "va1=%d", configWorkingCopy.boardConfiguration.idleValvePin);
-	scheduleMsg(&logger, "va2=%d", persistentState.persistentConfiguration.boardConfiguration.idleValvePin);
+	scheduleMsg(&logger, "va1=%d", configWorkingCopy.engineConfiguration.bc.idleValvePin);
+	scheduleMsg(&logger, "va2=%d", persistentState.persistentConfiguration.engineConfiguration.bc.idleValvePin);
 
 	writeToFlash();
 	incrementGlobalConfigurationVersion();
@@ -375,7 +383,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 			tunerStudioError("ERROR: no command");
 			continue;
 		}
-		scheduleMsg(&logger, "Got first=%x=[%c]", firstByte, firstByte);
+//		scheduleMsg(&logger, "Got first=%x=[%c]", firstByte, firstByte);
 		if (handlePlainCommand(firstByte))
 			continue;
 
