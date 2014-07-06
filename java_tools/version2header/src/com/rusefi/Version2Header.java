@@ -15,14 +15,19 @@ public class Version2Header {
         System.out.println("Hi, it's " + new Date());
         Process simulatorProcess = null;
         try {
+            System.out.println("Executing [" + COMMAND + "]");
             simulatorProcess = Runtime.getRuntime().exec(COMMAND);
 
-            BufferedReader input =
+            BufferedReader stdout =
                     new BufferedReader(new InputStreamReader(simulatorProcess.getInputStream()));
+            BufferedReader stderr =
+                    new BufferedReader(new InputStreamReader(simulatorProcess.getErrorStream()));
 
+            int counter = 0;
             String line;
-            while ((line = input.readLine()) != null) {
+            while ((line = stdout.readLine()) != null) {
                 System.out.println("from " + COMMAND + ": " + line);
+                counter++;
 
                 if (line.startsWith(VERSION_MARKER)) {
                     String ver = line.substring(VERSION_MARKER.length());
@@ -30,6 +35,11 @@ public class Version2Header {
                     int version = Integer.parseInt(ver);
                     writeFile(version);
                 }
+            }
+            System.out.println("Got " + counter + " lines of stdout");
+
+            while ((line = stdout.readLine()) != null) {
+                System.out.println("Stderr: " + line);
             }
         } catch (Throwable e) {
             System.err.println("Ops: " + e);
