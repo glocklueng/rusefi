@@ -360,6 +360,10 @@ void setTableBin(float array[], int size, float l, float r) {
 	setTableBin2(array, size, l, r, 0.01);
 }
 
+void setRpmTableBin(float array[], int size) {
+	setTableBin2(array, size, 800, 7000, 1);
+}
+
 void setFuelRpmBin(engine_configuration_s *engineConfiguration, float l, float r) {
 	setTableBin(engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT, l, r);
 }
