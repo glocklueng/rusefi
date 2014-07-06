@@ -273,7 +273,7 @@ typedef struct {
 	/**
 	 * This setting controls which algorithm is used for ENGINE LOAD
 	 */
-	engine_load_mode_e engineLoadMode;
+	engine_load_mode_e algorithm;
 
 	/**
 	 * see

@@ -77,7 +77,7 @@ float fixAngle(float angle) {
  *
  */
 float getEngineLoadT(engine_configuration_s *engineConfiguration) {
-	switch (engineConfiguration->engineLoadMode) {
+	switch (engineConfiguration->algorithm) {
 	case LM_MAF:
 		return getMaf();
 	case LM_MAP:
@@ -88,7 +88,7 @@ float getEngineLoadT(engine_configuration_s *engineConfiguration) {
 		// TODO: real implementation
 		return getMap();
 	default:
-		firmwareError("Unexpected engine load parameter: %d", engineConfiguration->engineLoadMode);
+		firmwareError("Unexpected engine load parameter: %d", engineConfiguration->algorithm);
 		return -1;
 	}
 }
