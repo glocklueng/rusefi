@@ -168,19 +168,19 @@ int getTunerStudioPageSize(int pageIndex) {
 	return 0;
 }
 
-void handlePageSelectCommand(uint16_t pageId) {
+void handlePageSelectCommand(ts_response_format_e mode, uint16_t pageId) {
 	tsState.pageCommandCounter++;
 
 	tsState.currentPageId = pageId;
 	scheduleMsg(&logger, "page %d selected", tsState.currentPageId);
-	tunerStudioWriteCrcPacket(TS_RESPONSE_OK, NULL, 0);
+	tsSendResponse(mode, NULL, 0);
 }
 
 /**
  * This command is needed to make the whole transfer a bit faster
  * @note See also handleWriteValueCommand
  */
-void handleWriteChunkCommand(short offset, short count, void *content) {
+void handleWriteChunkCommand(ts_response_format_e mode, short offset, short count, void *content) {
 	tsState.writeChunkCommandCounter++;
 
 	scheduleMsg(&logger, "receiving page %d chunk offset %d size %d", tsState.currentPageId, offset, count);
@@ -200,14 +200,14 @@ void handleWriteChunkCommand(short offset, short count, void *content) {
 	uint8_t * addr = (uint8_t *) (getWorkingPageAddr(tsState.currentPageId) + offset);
 //	memcpy(addr, content, count);
 
-	tunerStudioWriteCrcPacket(TS_RESPONSE_OK, NULL, 0);
+	tsSendResponse(mode, NULL, 0);
 }
 
 /**
  * 'Write' command receives a single value at a given offset
  * @note Writing values one by one is pretty slow
  */
-void handleWriteValueCommand(uint16_t page, uint16_t offset, uint8_t value) {
+void handleWriteValueCommand(ts_response_format_e mode, uint16_t page, uint16_t offset, uint8_t value) {
 	tsState.writeValueCommandCounter++;
 
 	tsState.currentPageId = page;
@@ -243,7 +243,7 @@ static void sendErrorCode(void) {
 	tunerStudioWriteCrcPacket(TS_RESPONSE_CRC_FAILURE, NULL, 0);
 }
 
-void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count) {
+void handlePageReadCommand(ts_response_format_e mode, uint16_t pageId, uint16_t offset, uint16_t count) {
 	tsState.readPageCommandsCounter++;
 	tunerStudioDebug("got R (Read page)");
 	tsState.currentPageId = pageId;
@@ -270,7 +270,7 @@ void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count) {
 	}
 
 	const uint8_t *addr = (const uint8_t *) (getWorkingPageAddr(tsState.currentPageId) + offset);
-	tunerStudioWriteCrcPacket(TS_RESPONSE_OK, addr, count);
+	tsSendResponse(mode, addr, count);
 #if EFI_TUNER_STUDIO_VERBOSE
 	scheduleMsg(&logger, "Sending %d done", count);
 #endif
@@ -279,7 +279,7 @@ void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count) {
 /**
  * 'Burn' command is a command to commit the changes
  */
-void handleBurnCommand(uint16_t page) {
+void handleBurnCommand(ts_response_format_e mode, uint16_t page) {
 	tsState.burnCommandCounter++;
 
 	tunerStudioDebug("got B (Burn)");

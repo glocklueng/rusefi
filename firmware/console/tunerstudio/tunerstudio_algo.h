@@ -46,15 +46,16 @@ int tunerStudioHandleCrcCommand(char *data, int incomingPacketSize);
 
 void handleTestCommand(void);
 void handleQueryCommand(ts_response_format_e mode);
-void handleOutputChannelsCommand(void);
+void tsSendResponse(ts_response_format_e mode, const uint8_t * buffer, int size);
+void handleOutputChannelsCommand(ts_response_format_e mode);
 
 char *getWorkingPageAddr(int pageIndex);
 int getTunerStudioPageSize(int pageIndex);
-void handleWriteValueCommand(uint16_t page, uint16_t offset, uint8_t value);
-void handleWriteChunkCommand(short offset, short count, void *content);
-void handlePageSelectCommand(uint16_t pageId);
-void handlePageReadCommand(uint16_t pageId, uint16_t offset, uint16_t count);
-void handleBurnCommand(uint16_t page);
+void handleWriteValueCommand(ts_response_format_e mode, uint16_t page, uint16_t offset, uint8_t value);
+void handleWriteChunkCommand(ts_response_format_e mode, short offset, short count, void *content);
+void handlePageSelectCommand(ts_response_format_e mode, uint16_t pageId);
+void handlePageReadCommand(ts_response_format_e mode, uint16_t pageId, uint16_t offset, uint16_t count);
+void handleBurnCommand(ts_response_format_e mode, uint16_t page);
 
 void tunerStudioWriteData(const uint8_t * buffer, int size);
 void tunerStudioDebug(const char *msg);
