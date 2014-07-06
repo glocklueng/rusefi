@@ -45,8 +45,8 @@ LIBS:stm32
 LIBS:tc4427
 LIBS:lm2596
 LIBS:mos_p_numbered-pins
-LIBS:project_specific_libs
 LIBS:hip9011
+LIBS:rn-41
 LIBS:frankenso-cache
 EELAYER 27 0
 EELAYER END
@@ -54,7 +54,7 @@ $Descr A 11000 8500
 encoding utf-8
 Sheet 10 10
 Title "Frankenso"
-Date "4 jul 2014"
+Date "5 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -214,10 +214,10 @@ FB
 Text Label 8200 6450 0    60   ~ 0
 OUT
 $Comp
-L GND #PWR0100
+L GND #PWR099
 U 1 1 52C4D1EB
 P 7450 6900
-F 0 "#PWR0100" H 7450 6900 30  0001 C CNN
+F 0 "#PWR099" H 7450 6900 30  0001 C CNN
 F 1 "GND" H 7450 6830 30  0001 C CNN
 F 2 "" H 7450 6900 60  0000 C CNN
 F 3 "" H 7450 6900 60  0000 C CNN
