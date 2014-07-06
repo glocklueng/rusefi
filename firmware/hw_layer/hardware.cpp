@@ -27,6 +27,7 @@
 #include "neo6m.h"
 #include "lcd_HD44780.h"
 #include "settings.h"
+#include "algo.h"
 
 #if EFI_INTERNAL_FLASH
 #include "flash_main.h"
@@ -112,6 +113,8 @@ void initHardware(Logging *logger) {
 
 	if (hasFirmwareError())
 		return;
+
+	initDataStructures(engineConfiguration);
 
 #if EFI_INTERNAL_FLASH
 	/**

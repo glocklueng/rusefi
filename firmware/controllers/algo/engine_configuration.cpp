@@ -26,6 +26,7 @@
 #include "interpolation.h"
 #include "trigger_decoder.h"
 #include "engine_math.h"
+#include "speed_density.h"
 
 #if EFI_PROD_CODE
 #include "tunerstudio.h"
@@ -117,6 +118,8 @@ void setTriggerSynchronizationGap(engine_configuration_s *engineConfiguration, f
 void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 	memset(engineConfiguration, 0, sizeof(engine_configuration_s));
 	memset(boardConfiguration, 0, sizeof(board_configuration_s));
+
+	setDetaultVETable(engineConfiguration);
 
 	engineConfiguration->injectorLag = 0.0;
 
@@ -448,8 +451,8 @@ void setOperationMode(engine_configuration_s *engineConfiguration, operation_mod
 	}
 }
 
-operation_mode_e getOperationMode( engine_configuration_s const *engineConfiguration) {
-	if(engineConfiguration->rpmMultiplier == 1)
+operation_mode_e getOperationMode(engine_configuration_s const *engineConfiguration) {
+	if (engineConfiguration->rpmMultiplier == 1)
 		return FOUR_STROKE_CRANK_SENSOR;
 	return FOUR_STROKE_CAM_SENSOR;
 

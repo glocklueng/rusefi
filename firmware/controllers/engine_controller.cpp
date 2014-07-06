@@ -244,7 +244,7 @@ void initEngineContoller(void) {
 	initAnalogChart();
 #endif /* EFI_ANALOG_CHART */
 
-	initAlgo();
+	initAlgo(engineConfiguration);
 
 #if EFI_WAVE_ANALYZER
 	initWaveAnalyzer();
