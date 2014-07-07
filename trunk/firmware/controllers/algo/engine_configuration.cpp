@@ -28,7 +28,7 @@
 #include "engine_math.h"
 #include "speed_density.h"
 
-#if EFI_PROD_CODE
+#if EFI_TUNER_STUDIO
 #include "tunerstudio.h"
 #endif
 
