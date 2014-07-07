@@ -110,6 +110,7 @@ void rusEfiFunctionalTest(void) {
 
 	initTriggerCentral();
 
+	startStatusThreads();
 	startTunerStudioConnectivity();
 
 }
