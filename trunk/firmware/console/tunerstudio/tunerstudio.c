@@ -315,7 +315,9 @@ void handleBurnCommand(ts_response_format_e mode, uint16_t page) {
 	scheduleMsg(&logger, "va1=%d", configWorkingCopy.engineConfiguration.bc.idleValvePin);
 	scheduleMsg(&logger, "va2=%d", persistentState.persistentConfiguration.engineConfiguration.bc.idleValvePin);
 
+#if EFI_INTERNAL_FLASH
 	writeToFlash();
+#endif
 	incrementGlobalConfigurationVersion();
 	tunerStudioWriteCrcPacket(TS_RESPONSE_BURN_OK, NULL, 0);
 }
