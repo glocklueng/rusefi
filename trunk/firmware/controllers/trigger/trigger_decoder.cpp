@@ -176,28 +176,29 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 #if EFI_PROD_CODE
 	printMsg(logger, "initializeTriggerShape()");
 #endif
-	trigger_config_s *tt = &engineConfiguration->triggerConfig;
-	switch (tt->triggerType) {
+	trigger_config_s *triggerConfig = &engineConfiguration->triggerConfig;
+	trigger_shape_s *triggerShape = &engineConfiguration2->triggerShape;
+	switch (triggerConfig->triggerType) {
 
 	case TT_TOOTHED_WHEEL:
-		initializeSkippedToothTriggerShapeExt(engineConfiguration2, tt->totalToothCount, tt->skippedToothCount,
+		initializeSkippedToothTriggerShapeExt(engineConfiguration2, triggerConfig->totalToothCount, triggerConfig->skippedToothCount,
 				getOperationMode(engineConfiguration));
 		return;
 
 	case TT_MAZDA_MIATA_NB:
-		initializeMazdaMiataNbShape(&engineConfiguration2->triggerShape);
+		initializeMazdaMiataNbShape(triggerShape);
 		return;
 
 	case TT_DODGE_NEON:
-		configureNeonTriggerShape(&engineConfiguration2->triggerShape);
+		configureNeonTriggerShape(triggerShape);
 		return;
 
 	case TT_FORD_ASPIRE:
-		configureFordAspireTriggerShape(&engineConfiguration2->triggerShape);
+		configureFordAspireTriggerShape(triggerShape);
 		return;
 
 	case TT_GM_7X:
-		configureGmTriggerShape(&engineConfiguration2->triggerShape);
+		configureGmTriggerShape(triggerShape);
 		return;
 
 	case TT_FORD_ESCORT_GT:
@@ -205,11 +206,11 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 		return;
 
 	case TT_MINI_COOPER_R50:
-		configureMiniCooperTriggerShape(engineConfiguration, engineConfiguration2);
+		configureMiniCooperTriggerShape(triggerConfig, triggerShape);
 		return;
 
 	default:
-		firmwareError("initializeTriggerShape() not implemented: %d", tt->triggerType);
+		firmwareError("initializeTriggerShape() not implemented: %d", triggerConfig->triggerType);
 		;
 	}
 	if (engineConfiguration2->triggerShape.shaftPositionEventCount != engineConfiguration2->triggerShape.getSize())

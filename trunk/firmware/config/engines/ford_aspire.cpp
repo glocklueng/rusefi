@@ -121,7 +121,6 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	engineConfiguration->triggerConfig.triggerType = TT_FORD_ASPIRE;
 	engineConfiguration->triggerConfig.isSynchronizationNeeded = false;
 
-
 	boardConfiguration->injectionPins[4] = GPIO_NONE;
 	boardConfiguration->injectionPins[5] = GPIO_NONE;
 
