@@ -12,8 +12,12 @@
 #define ADC_LOGIC_INTAKE_AIR 0
 #define ADC_LOGIC_COOLANT 0
 
-#define DELEGATE (&SD1)
+#define CONSOLE_PORT (&SD1)
+#define TS_SIMULATOR_PORT (&SD2)
 
+/**
+ * This implementation writes to both windows console and console port
+ */
 #define EFI_CONSOLE_UART_DEVICE (&testStream)
 
 #ifdef __cplusplus
