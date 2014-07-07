@@ -46,9 +46,6 @@ float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm);
 
 int getCylinderId(firing_order_e firingOrder, int index);
 
-void setTableBin(float array[], int size, float l, float r);
-void setTableBin2(float array[], int size, float l, float r, float precision);
-void setRpmTableBin(float array[], int size);
 void setFuelRpmBin(engine_configuration_s *engineConfiguration, float l, float r);
 void setFuelLoadBin(engine_configuration_s *engineConfiguration, float l, float r);
 void setTimingRpmBin(engine_configuration_s *engineConfiguration, float l, float r);
