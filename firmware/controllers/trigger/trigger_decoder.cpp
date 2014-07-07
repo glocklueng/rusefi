@@ -150,7 +150,7 @@ void initializeSkippedToothTriggerShapeExt(engine_configuration2_s *engineConfig
 	s->wave.checkSwitchTimes(s->getSize());
 }
 
-static void configureFordAspireTriggerShape(trigger_shape_s * s) {
+static void configureFordAspireTriggerShape(trigger_config_s *triggerConfig, trigger_shape_s * s) {
 	s->reset(FOUR_STROKE_CAM_SENSOR);
 
 	s->shaftPositionEventCount = 10;
@@ -186,23 +186,23 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 		return;
 
 	case TT_MAZDA_MIATA_NB:
-		initializeMazdaMiataNbShape(triggerShape);
+		initializeMazdaMiataNbShape(triggerConfig, triggerShape);
 		return;
 
 	case TT_DODGE_NEON:
-		configureNeonTriggerShape(triggerShape);
+		configureNeonTriggerShape(triggerConfig, triggerShape);
 		return;
 
 	case TT_FORD_ASPIRE:
-		configureFordAspireTriggerShape(triggerShape);
+		configureFordAspireTriggerShape(triggerConfig, triggerShape);
 		return;
 
 	case TT_GM_7X:
-		configureGmTriggerShape(triggerShape);
+		configureGmTriggerShape(triggerConfig, triggerShape);
 		return;
 
 	case TT_FORD_ESCORT_GT:
-		configureMazdaProtegeLx(engineConfiguration, engineConfiguration2);
+		configureMazdaProtegeLx(triggerConfig, triggerShape);
 		return;
 
 	case TT_MINI_COOPER_R50:
