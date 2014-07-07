@@ -49,4 +49,8 @@ void Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::setAll(float value) {
 
 typedef Map3D<16, 16> Map3D1616;
 
+void setTableBin(float array[], int size, float l, float r);
+void setTableBin2(float array[], int size, float l, float r, float precision);
+void setRpmTableBin(float array[], int size);
+
 #endif /* TABLE_HELPER_H_ */

@@ -346,24 +346,6 @@ void prepareOutputSignals(engine_configuration_s *engineConfiguration, engine_co
 			engineConfiguration->injectionMode);
 }
 
-void setTableBin2(float array[], int size, float l, float r, float precision) {
-	for (int i = 0; i < size; i++) {
-		float value = interpolate(0, l, size - 1, r, i);
-		/**
-		 * rounded values look nicer, also we want to avoid precision mismatch with Tuner Studio
-		 */
-		array[i] = efiRound(value, precision);
-	}
-}
-
-void setTableBin(float array[], int size, float l, float r) {
-	setTableBin2(array, size, l, r, 0.01);
-}
-
-void setRpmTableBin(float array[], int size) {
-	setTableBin2(array, size, 800, 7000, 1);
-}
-
 void setFuelRpmBin(engine_configuration_s *engineConfiguration, float l, float r) {
 	setTableBin(engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT, l, r);
 }
