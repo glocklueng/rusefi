@@ -26,12 +26,9 @@
 
 #include "engine_state.h"
 #include "tunerstudio.h"
-#include "pin_repository.h"
 
 #include "main_trigger_callback.h"
 #include "flash_main.h"
-#include "usbconsole.h"
-#include "map_averaging.h"
 
 #include "tunerstudio_algo.h"
 #include "tunerstudio_configuration.h"
@@ -42,27 +39,40 @@
 
 #if EFI_TUNER_STUDIO
 
+#if EFI_PROD_CODE
+#include "pin_repository.h"
+#include "usbconsole.h"
+#include "map_averaging.h"
+extern SerialUSBDriver SDU1;
+#define CONSOLE_DEVICE &SDU1
+
+#define TS_SERIAL_UART_DEVICE &SD3
+//#define TS_SERIAL_SPEED 115200
+#define TS_SERIAL_SPEED 38400
+
+static SerialConfig tsSerialConfig = { TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
+#endif /* EFI_PROD_CODE */
+
 #define MAX_PAGE_ID 0
 #define PAGE_0_SIZE 5804
 
 // in MS, that's 10 seconds
 #define TS_READ_TIMEOUT 10000
 
-#define TS_SERIAL_UART_DEVICE &SD3
-//#define TS_SERIAL_SPEED 115200
-#define TS_SERIAL_SPEED 38400
-
 #define PROTOCOL  "001"
 
-extern SerialUSBDriver SDU1;
 
 BaseChannel * getTsSerialDevice(void) {
+#if EFI_PROD_CODE
 	if (isSerialOverUart()) {
 		// if console uses UART then TS uses USB
 		return (BaseChannel *) &SDU1;
 	} else {
 		return (BaseChannel *) TS_SERIAL_UART_DEVICE;
 	}
+#else
+	return (BaseChannel *) TS_SIMULATOR_PORT;
+#endif
 }
 
 static Logging logger;
@@ -71,12 +81,10 @@ extern engine_configuration_s *engineConfiguration;
 extern persistent_config_s configWorkingCopy;
 extern persistent_config_container_s persistentState;
 
-extern SerialUSBDriver SDU1;
-#define CONSOLE_DEVICE &SDU1
-
 static efitimems_t previousWriteReportMs = 0;
 
 static int ts_serail_ready(void) {
+#if EFI_PROD_CODE
 	if (isSerialOverUart()) {
 		// TS uses USB when console uses serial
 		return is_usb_serial_ready();
@@ -84,9 +92,10 @@ static int ts_serail_ready(void) {
 		// TS uses serial when console uses USB
 		return TRUE;
 	}
+#else
+	return TRUE;
+#endif
 }
-
-static SerialConfig tsSerialConfig = { TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 
 static THD_WORKING_AREA(TS_WORKING_AREA, UTILITY_THREAD_STACK_SIZE);
 
@@ -100,10 +109,12 @@ extern TunerStudioOutputChannels tsOutputChannels;
 extern TunerStudioState tsState;
 
 static void printStats(void) {
+#if EFI_PROD_CODE
 	if (!isSerialOverUart()) {
 		scheduleMsg(&logger, "TS RX on %s%d", portname(TS_SERIAL_RX_PORT), TS_SERIAL_RX_PIN);
 		scheduleMsg(&logger, "TS TX on %s%d", portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN);
 	}
+#endif /* EFI_PROD_CODE */
 	scheduleMsg(&logger, "TunerStudio total/error counter=%d/%d", tsCounter, tsState.errorCounter);
 	scheduleMsg(&logger, "TunerStudio H counter=%d", tsState.queryCommandCounter);
 	scheduleMsg(&logger, "TunerStudio O counter=%d size=%d", tsState.outputChannelsCommandCounter,
@@ -464,6 +475,7 @@ void syncTunerStudioCopy(void) {
 void startTunerStudioConnectivity(void) {
 	initLogging(&logger, "tuner studio");
 	memset(&tsState, 0, sizeof(tsState));
+#if EFI_PROD_CODE
 	if (isSerialOverUart()) {
 		print("TunerStudio over USB serial");
 		usb_serial_start();
@@ -475,7 +487,7 @@ void startTunerStudioConnectivity(void) {
 
 		sdStart(TS_SERIAL_UART_DEVICE, &tsSerialConfig);
 	}
-
+#endif /* EFI_PROD_CODE */
 	syncTunerStudioCopy();
 
 	addConsoleAction("tsinfo", printStats);
