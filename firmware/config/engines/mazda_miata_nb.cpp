@@ -17,7 +17,7 @@ void setMazdaMiataNbEngineConfiguration(engine_configuration_s *engineConfigurat
 
 	engineConfiguration->triggerConfig.triggerType = TT_MAZDA_MIATA_NB;
 
-	setTriggerSynchronizationGap(engineConfiguration, 0.11);
+	setTriggerSynchronizationGap(&engineConfiguration->triggerConfig, 0.11);
 	engineConfiguration->triggerConfig.useRiseEdge = false;
 	engineConfiguration->globalTriggerAngleOffset = 276;
 

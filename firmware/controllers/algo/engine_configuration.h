@@ -383,7 +383,7 @@ void setWholeFuelMap(engine_configuration_s *engineConfiguration, float value);
 void setConstantDwell(engine_configuration_s *engineConfiguration, float dwellMs);
 void printFloatArray(const char *prefix, float array[], int size);
 
-void setTriggerSynchronizationGap(engine_configuration_s *engineConfiguration, float synchGap);
+void setTriggerSynchronizationGap(trigger_config_s *triggerConfig, float synchGap);
 void setToothedWheelConfiguration(engine_configuration_s *engineConfiguration, int total, int skipped);
 
 void incrementGlobalConfigurationVersion(void);
