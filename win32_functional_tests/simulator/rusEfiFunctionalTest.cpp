@@ -183,9 +183,15 @@ void onFatalError(const char *msg, const char * file, int line) {
 	exit(-1);
 }
 
+static time_t timeOfPreviousWarning = -10;
+
+// todo: re-use primary firmware implementation?
 int warning(obd_code_e code, const char *fmt, ...) {
+	int now = currentTimeMillis() / 1000;
+	if (absI(now - timeOfPreviousWarning) < 10)
+		return TRUE; // we just had another warning, let's not spam
 	printf("Warning: %s\r\n", fmt);
-	return 0;
+	return FALSE;
 }
 
 void firmwareError(const char *fmt, ...) {
@@ -206,7 +212,7 @@ uint64_t getTimeNowUs(void) {
 }
 
 efitimems_t currentTimeMillis(void) {
-	return getTimeNowUs() * 1000;
+	return getTimeNowUs() / 1000;
 }
 
 int getRusEfiVersion(void) {
