@@ -27,6 +27,7 @@
 #include "analog_chart.h"
 #include "injector_central.h"
 #include "engine.h"
+#include "tunerstudio.h"
 
 Engine engine;
 
@@ -108,6 +109,8 @@ void rusEfiFunctionalTest(void) {
 	initMainEventListener(engineConfiguration, engineConfiguration2);
 
 	initTriggerCentral();
+
+	startTunerStudioConnectivity();
 
 }
 
