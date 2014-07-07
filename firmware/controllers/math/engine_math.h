@@ -66,8 +66,6 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-//float getDefaultVE(int rpm);
-
 float getDefaultFuel(int rpm, float map);
 
 float getOneDegreeTimeMs(int rpm);
@@ -76,8 +74,6 @@ float getCrankshaftRevolutionTimeMs(int rpm);
 
 int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm);
 #define isCrankingR(rpm) isCrankingRT(engineConfiguration, rpm)
-
-float getTriggerEventAngle(int triggerEventIndex);
 
 float getEngineLoadT(engine_configuration_s *engineConfiguration);
 #define getEngineLoad() getEngineLoadT(engineConfiguration)
