@@ -28,4 +28,6 @@
 #define EFI_ANALOG_CHART TRUE
 #define EFI_HISTOGRAMS TRUE
 
+#define EFI_TUNER_STUDIO TRUE
+
 #endif /* EFIFEATURES_H_ */

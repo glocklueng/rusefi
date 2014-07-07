@@ -32,11 +32,11 @@ Engine engine;
 
 extern WaveChart waveChart;
 
-static persistent_config_s config;
+persistent_config_container_s persistentState;
 static engine_configuration2_s ec2;
 
-engine_configuration_s * engineConfiguration = &config.engineConfiguration;
-board_configuration_s *boardConfiguration = &config.engineConfiguration.bc;
+engine_configuration_s * engineConfiguration = &persistentState.persistentConfiguration.engineConfiguration;
+board_configuration_s *boardConfiguration = &persistentState.persistentConfiguration.engineConfiguration.bc;
 engine_configuration2_s *engineConfiguration2 = &ec2;
 
 static configuration_s cfg = {engineConfiguration, engineConfiguration2};
@@ -122,28 +122,28 @@ void printPendingMessages(void) {
 
 static size_t wt_writes(void *ip, const uint8_t *bp, size_t n) {
 	printToWin32Console((char*)bp);
-	return DELEGATE->vmt->write(DELEGATE, bp, n);
+	return CONSOLE_PORT->vmt->write(CONSOLE_PORT, bp, n);
 }
 
 static size_t wt_reads(void *ip, uint8_t *bp, size_t n) {
-	return DELEGATE->vmt->read(DELEGATE, bp, n);
+	return CONSOLE_PORT->vmt->read(CONSOLE_PORT, bp, n);
 }
 
 static msg_t wt_putt(void *instance, uint8_t b, systime_t time) {
-	return DELEGATE->vmt->putt(DELEGATE, b, time);
+	return CONSOLE_PORT->vmt->putt(CONSOLE_PORT, b, time);
 }
 
 static msg_t wt_gett(void *instance, systime_t time) {
-	return DELEGATE->vmt->gett(DELEGATE, time);
+	return CONSOLE_PORT->vmt->gett(CONSOLE_PORT, time);
 }
 
 static size_t wt_writet(void *instance, const uint8_t *bp,
                 size_t n, systime_t time) {
-	return DELEGATE->vmt->writet(DELEGATE, bp, n, time);
+	return CONSOLE_PORT->vmt->writet(CONSOLE_PORT, bp, n, time);
 }
 
 static size_t wt_readt(void *instance, uint8_t *bp, size_t n, systime_t time) {
-	return DELEGATE->vmt->readt(DELEGATE, bp, n, time);
+	return CONSOLE_PORT->vmt->readt(CONSOLE_PORT, bp, n, time);
 }
 
 static char putMessageBuffer[2];
@@ -153,13 +153,13 @@ static msg_t wt_put(void *ip, uint8_t b) {
 	putMessageBuffer[1] = 0;
 	printToWin32Console((char*)putMessageBuffer);
 //	cputs("wt_put");
-	return DELEGATE->vmt->put(DELEGATE, b);
+	return CONSOLE_PORT->vmt->put(CONSOLE_PORT, b);
 }
 
 static msg_t wt_get(void *ip) {
 //	cputs("wt_get");
 	//return 0;
-	return DELEGATE->vmt->get(DELEGATE);
+	return CONSOLE_PORT->vmt->get(CONSOLE_PORT);
 }
 
 static const struct Win32TestStreamVMT vmt = { wt_writes, wt_reads, wt_put, wt_get, wt_putt, wt_gett, wt_writet, wt_readt };
