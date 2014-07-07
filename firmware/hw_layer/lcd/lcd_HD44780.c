@@ -10,6 +10,8 @@
 
 #include "main.h"
 
+#if EFI_HD44780_LCD
+
 #include "lcd_HD44780.h"
 #include "pin_repository.h"
 #include "string.h"
@@ -228,3 +230,5 @@ void lcdShowFatalMessage(char *message) {
 	lcd_HD44780_print_string("fatal\n");
 	lcd_HD44780_print_string(message);
 }
+
+#endif /* EFI_HD44780_LCD */
