@@ -103,11 +103,10 @@ void setToothedWheelConfiguration(engine_configuration_s *engineConfiguration, i
 	engineConfiguration->triggerConfig.skippedToothCount = skipped;
 }
 
-void setTriggerSynchronizationGap(engine_configuration_s *engineConfiguration, float synchGap) {
-	engineConfiguration->triggerConfig.isSynchronizationNeeded = TRUE;
-
-	engineConfiguration->triggerConfig.syncRatioFrom = synchGap * 0.75;
-	engineConfiguration->triggerConfig.syncRatioTo = synchGap * 1.25;
+void setTriggerSynchronizationGap(trigger_config_s *triggerConfig, float synchGap) {
+	triggerConfig->isSynchronizationNeeded = TRUE;
+	triggerConfig->syncRatioFrom = synchGap * 0.75;
+	triggerConfig->syncRatioTo = synchGap * 1.25;
 }
 
 /**
@@ -232,7 +231,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->logFormat = LF_NATIVE;
 
 	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL;
-	setTriggerSynchronizationGap(engineConfiguration, 2);
+	setTriggerSynchronizationGap(&engineConfiguration->triggerConfig, 2);
 	engineConfiguration->triggerConfig.useRiseEdge = TRUE;
 
 	engineConfiguration->HD44780width = 16;

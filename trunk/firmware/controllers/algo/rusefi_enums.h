@@ -80,6 +80,7 @@ typedef enum {
 	TT_GM_7X = 5,
 	TT_MINI_COOPER_R50 = 6,
 	TT_FORD_ESCORT_GT = 7,
+	TT_TT_TOOTHED_WHEEL_60_2 = 8,
 
 	Internal_ForceMyEnumIntSize_trigger_type = ENUM_SIZE_HACK,
 } trigger_type_e;
