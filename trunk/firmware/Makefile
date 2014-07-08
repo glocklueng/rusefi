@@ -36,8 +36,6 @@ ifeq ($(USE_VERBOSE_COMPILE),)
   USE_VERBOSE_COMPILE = no
 endif
 
-USE_VERBOSE_COMPILE = yes
-
 #
 # Build global options
 ##############################################################################
