@@ -91,7 +91,7 @@ static void testRusefiMethods(const int count) {
 	start = currentTimeMillis();
 	for (int i = 0; i < count; i++) {
 		testEngine.updateSlowSensors();
-		tempi += testEngine.clt;
+		tempi += testEngine.engineState.clt;
 	}
 	time = currentTimeMillis() - start;
 	if (tempi != 0)
