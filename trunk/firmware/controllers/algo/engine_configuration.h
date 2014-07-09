@@ -68,6 +68,14 @@ typedef enum {
 	Internal_ForceMyEnumIntSize_timing_mode = ENUM_SIZE_HACK,
 } timing_mode_e;
 
+typedef enum {
+	CD_OFF = 0,
+	CD_USE_CAN1 = 1,
+	CD_USE_CAN2 = 2,
+
+	Internal_ForceMyEnumIntSize_can_device_mode = ENUM_SIZE_HACK,
+} can_device_mode_e;
+
 typedef struct {
 	int afrAdcChannel;
 	float v1;
@@ -160,6 +168,11 @@ typedef struct {
 	int tunerStudioSerialSpeed;
 
 	brain_pin_e boardTestModeJumperPin;
+
+	can_device_mode_e canDeviceMode;
+	brain_pin_e canTxPin;
+	brain_pin_e canRxPin;
+
 } board_configuration_s;
 
 
