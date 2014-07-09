@@ -17,7 +17,7 @@
  * We are executing these heavy (logarithm) methods from outside the trigger callbacks for performance reasons.
  */
 void Engine::updateSlowSensors() {
-	iat = getIntakeAirTemperature();
-	clt = getCoolantTemperature();
+	engineState.iat = getIntakeAirTemperature();
+	engineState.clt = getCoolantTemperature();
 }
 
