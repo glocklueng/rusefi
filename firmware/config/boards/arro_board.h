@@ -64,11 +64,7 @@
 #define EFI_CAN_TX_AF 9
 
 //#define EFI_CAN_DEVICE CAND1
-//#define EFI_CAN_RX_PORT GPIOB
-//#define EFI_CAN_RX_PIN 8
 //#define EFI_CAN_RX_AF 9
-//#define EFI_CAN_TX_PORT GPIOB
-//#define EFI_CAN_TX_PIN 9
 //#define EFI_CAN_TX_AF 9
 
 /**
