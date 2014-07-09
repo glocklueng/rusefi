@@ -270,12 +270,26 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->injectionPins[3] = GPIOE_5;
 	boardConfiguration->injectionPins[4] = GPIOE_6;
 	boardConfiguration->injectionPins[5] = GPIOC_12;
+	boardConfiguration->injectionPins[6] = GPIO_NONE;
+	boardConfiguration->injectionPins[7] = GPIO_NONE;
+	boardConfiguration->injectionPins[8] = GPIO_NONE;
+	boardConfiguration->injectionPins[9] = GPIO_NONE;
+	boardConfiguration->injectionPins[10] = GPIO_NONE;
+	boardConfiguration->injectionPins[11] = GPIO_NONE;
 	boardConfiguration->injectionPinMode = OM_DEFAULT;
 
 	boardConfiguration->ignitionPins[0] = GPIOC_7;
 	boardConfiguration->ignitionPins[1] = GPIOE_4; // todo: update this value
 	boardConfiguration->ignitionPins[2] = GPIOE_0; // todo: update this value
 	boardConfiguration->ignitionPins[3] = GPIOE_1; // todo: update this value
+	boardConfiguration->ignitionPins[4] = GPIO_NONE;
+	boardConfiguration->ignitionPins[5] = GPIO_NONE;
+	boardConfiguration->ignitionPins[6] = GPIO_NONE;
+	boardConfiguration->ignitionPins[7] = GPIO_NONE;
+	boardConfiguration->ignitionPins[8] = GPIO_NONE;
+	boardConfiguration->ignitionPins[9] = GPIO_NONE;
+	boardConfiguration->ignitionPins[10] = GPIO_NONE;
+	boardConfiguration->ignitionPins[11] = GPIO_NONE;
 	boardConfiguration->ignitionPinMode = OM_DEFAULT;
 
 	boardConfiguration->malfunctionIndicatorPin = GPIOC_9;
