@@ -340,6 +340,10 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->tunerStudioSerialSpeed = 38400;
 
 	boardConfiguration->boardTestModeJumperPin = GPIOB_0;
+
+	boardConfiguration->canDeviceMode = CD_USE_CAN2;
+	boardConfiguration->canTxPin = GPIOB_0;
+	boardConfiguration->canRxPin = GPIOB_12;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
