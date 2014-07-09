@@ -1,10 +1,8 @@
-/*
- ============================================================================
- Name        : main.c
- Author      : Andrey Belomutskiy 
- Copyright   : (c) 2012-2013
- Description : First step towards unit-testing rusEfi algorithms on win32
- ============================================================================
+/**
+ * @file main.cpp
+ * @file First step towards unit-testing rusEfi algorithms
+ *
+ * @author Andrey Belomutskiy (c) 2012-2014
  */
 
 #include <stdio.h>
@@ -122,6 +120,8 @@ int main(void) {
 	testAccelEnrichment();
 
 	testSpeedDensity();
+
+	testFLStack();
 
 	//	resizeMap();
 	printf("Success 20130706\r\n");

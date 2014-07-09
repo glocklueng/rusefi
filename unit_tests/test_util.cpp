@@ -18,6 +18,7 @@
 #include "nmea.h"
 #include "efilib2.h"
 #include "crc.h"
+#include "fl_stack.h"
 
 void testCrc(void) {
 	assertEquals(4, efiRound(4.4, 1));
@@ -304,3 +305,11 @@ void testConsoleLogic(void) {
 	//addConsoleActionSSS("GPS", testGpsParser);
 }
 
+void testFLStack(void) {
+	print("******************************************* testFLStack\r\n");
+
+	FLStack<int, 4> stack;
+	assertEquals(0, stack.size());
+
+
+}
