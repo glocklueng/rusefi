@@ -1,7 +1,7 @@
 package com.irnems.ui.test;
 
-import com.irnems.ui.FrameHelper;
-import com.irnems.ui.WavePanel;
+import com.rusefi.ui.FrameHelper;
+import com.rusefi.ui.WavePanel;
 import org.junit.Test;
 
 import javax.swing.*;

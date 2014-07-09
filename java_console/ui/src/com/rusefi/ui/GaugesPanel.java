@@ -1,4 +1,4 @@
-package com.irnems.ui;
+package com.rusefi.ui;
 
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
@@ -15,11 +15,11 @@ import java.awt.*;
  * Date: 2/5/13
  * (c) Andrey Belomutskiy
  */
-public class GaugePanel extends JComponent {
+public class GaugesPanel extends JComponent {
     private static final int ADC_MAX_VALUE = 255; // mazda ECU
 //    private static final int ADC_MAX_VALUE = 4095; // discovery board
 
-    public GaugePanel() {
+    public GaugesPanel() {
         setLayout(new GridLayout(1, 3));
 
 

@@ -2,9 +2,9 @@ package com.rusefi;
 
 import com.irnems.FileLog;
 import com.irnems.core.EngineState;
-import com.irnems.ui.RpmModel;
-import com.irnems.ui.UiUtils;
-import com.irnems.ui.WavePanel;
+import com.rusefi.ui.RpmModel;
+import com.rusefi.ui.UiUtils;
+import com.rusefi.ui.WavePanel;
 import com.irnems.ui.widgets.URLLabel;
 import com.irnems.ui.widgets.UpDownImage;
 import com.rusefi.io.LinkManager;
