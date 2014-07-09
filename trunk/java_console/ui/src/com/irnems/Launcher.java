@@ -2,10 +2,10 @@ package com.irnems;
 
 import com.irnems.core.EngineState;
 import com.irnems.core.MessagesCentral;
-import com.irnems.ui.*;
 import com.rusefi.AnalogChartPanel;
 import com.rusefi.PortLookupFrame;
 import com.rusefi.io.LinkManager;
+import com.rusefi.ui.*;
 import jssc.SerialPortList;
 
 import javax.swing.*;
@@ -34,7 +34,7 @@ public class Launcher extends FrameHelper {
 
         RpmPanel rpmPanel = new RpmPanel();
         tabbedPane.addTab("Main", rpmPanel.createRpmPanel());
-        tabbedPane.addTab("Gauges", new GaugePanel());
+        tabbedPane.addTab("Gauges", new GaugesPanel());
         tabbedPane.addTab("Digital Sniffer", WavePanel.getInstance());
         tabbedPane.addTab("Analog Sniffer", new AnalogChartPanel());
 

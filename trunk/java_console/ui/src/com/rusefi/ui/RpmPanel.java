@@ -1,4 +1,4 @@
-package com.irnems.ui;
+package com.rusefi.ui;
 
 import com.irnems.EcuStimulator;
 import com.irnems.Launcher;
@@ -46,17 +46,17 @@ public class RpmPanel {
 
         JPanel gauges = new JPanel(new GridLayout(2, 3));
         gauges.setBorder(BorderFactory.createLineBorder(Color.black));
-//        gauges.add(GaugePanel.createCoolantGauge());
-        gauges.add(GaugePanel.createGauge(Sensor.DWELL0));
-        gauges.add(GaugePanel.createGauge(Sensor.DUTY0));
-        gauges.add(GaugePanel.createGauge(Sensor.FUEL));
-        //gauges.add(GaugePanel.createGauge(Sensor.ADVANCE0));
+//        gauges.add(GaugesPanel.createCoolantGauge());
+        gauges.add(GaugesPanel.createGauge(Sensor.DWELL0));
+        gauges.add(GaugesPanel.createGauge(Sensor.DUTY0));
+        gauges.add(GaugesPanel.createGauge(Sensor.FUEL));
+        //gauges.add(GaugesPanel.createGauge(Sensor.ADVANCE0));
 
-        gauges.add(GaugePanel.createGauge(Sensor.VREF, PotCommand.VOLTAGE_CORRECTION));
-        gauges.add(GaugePanel.createGauge(Sensor.MAF));
-        gauges.add(GaugePanel.createGauge(Sensor.DWELL1));
-//        gauges.add(GaugePanel.createGauge(Sensor.ADVANCE1));
-//        gauges.add(GaugePanel.createGauge(Sensor.MAF));
+        gauges.add(GaugesPanel.createGauge(Sensor.VREF, PotCommand.VOLTAGE_CORRECTION));
+        gauges.add(GaugesPanel.createGauge(Sensor.MAF));
+        gauges.add(GaugesPanel.createGauge(Sensor.DWELL1));
+//        gauges.add(GaugesPanel.createGauge(Sensor.ADVANCE1));
+//        gauges.add(GaugesPanel.createGauge(Sensor.MAF));
 
 
         final Timer reconnectTimer = new Timer(10000, new ActionListener() {
