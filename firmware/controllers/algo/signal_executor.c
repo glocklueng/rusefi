@@ -121,6 +121,7 @@ void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs) {
 
 const char *getPinName(io_pin_e io_pin) {
 	switch (io_pin) {
+	// todo: refactor this hell - introduce arrays & checks?
 	case SPARKOUT_1_OUTPUT:
 		return "spa1";
 	case SPARKOUT_2_OUTPUT:
@@ -137,6 +138,14 @@ const char *getPinName(io_pin_e io_pin) {
 		return "spa7";
 	case SPARKOUT_8_OUTPUT:
 		return "spa8";
+	case SPARKOUT_9_OUTPUT:
+		return "spa9";
+	case SPARKOUT_10_OUTPUT:
+		return "spa10";
+	case SPARKOUT_11_OUTPUT:
+		return "spa11";
+	case SPARKOUT_12_OUTPUT:
+		return "spa12";
 
 	case INJECTOR_1_OUTPUT:
 		return "inj1";
@@ -154,6 +163,14 @@ const char *getPinName(io_pin_e io_pin) {
 		return "inj7";
 	case INJECTOR_8_OUTPUT:
 		return "inj8";
+	case INJECTOR_9_OUTPUT:
+		return "inj9";
+	case INJECTOR_10_OUTPUT:
+		return "inj10";
+	case INJECTOR_11_OUTPUT:
+		return "inj11";
+	case INJECTOR_12_OUTPUT:
+		return "inj12";
 	default:
 		return "Pin needs name";
 	}
