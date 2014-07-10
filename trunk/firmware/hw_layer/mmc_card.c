@@ -204,7 +204,7 @@ static void MMCmount(void) {
 
 	// Performs the initialization procedure on the inserted card.
 	if (mmcConnect(&MMCD1) != CH_SUCCESS) {
-		scheduleMsg(&logger, "Can't connect or mount MMC/SD");
+		warning(OBD_PCM_Processor_Fault, "Can't connect or mount MMC/SD");
 		return;
 
 	}
