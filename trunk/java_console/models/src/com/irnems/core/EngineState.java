@@ -64,16 +64,16 @@ public class EngineState {
         );
 
 
-        SensorStats.start(Sensor.COOLANT, Sensor.COOLANT_WIDTH);
-        SensorStats.start(Sensor.INTAKE_AIR, Sensor.INTAKE_AIR_WIDTH);
+//        SensorStats.start(Sensor.CLT, Sensor.COOLANT_WIDTH);
+//        SensorStats.start(Sensor.IAT, Sensor.INTAKE_AIR_WIDTH);
         SensorStats.start(Sensor.VREF, Sensor.VREF_WIDTH);
 
         addDoubleSensor(RPM_KEY, Sensor.RPM);
-        addDoubleSensor("mat", Sensor.INTAKE_AIR);
+        addDoubleSensor("mat", Sensor.IAT);
         addDoubleSensor("map", Sensor.MAP);
         addDoubleSensor("map_r", Sensor.MAP_RAW);
         addDoubleSensor("baro", Sensor.BARO);
-        addDoubleSensor("clt", Sensor.COOLANT);
+        addDoubleSensor("clt", Sensor.CLT);
         addDoubleSensor("tp", Sensor.THROTTLE);
         addDoubleSensor("dwell0", Sensor.DWELL0);
         addDoubleSensor("dwell1", Sensor.DWELL1);
