@@ -194,6 +194,7 @@ int warning(obd_code_e code, const char *fmt, ...) {
 	int now = currentTimeMillis() / 1000;
 	if (absI(now - timeOfPreviousWarning) < 10)
 		return TRUE; // we just had another warning, let's not spam
+	timeOfPreviousWarning = now;
 	printf("Warning: %s\r\n", fmt);
 	return FALSE;
 }
