@@ -133,8 +133,8 @@ public class AutoTest {
         sendCommand("set_fuel_map 2000 4 15.66");
         sendCommand("set_fuel_map 2200 4.2 15.66");
         sendCommand("set_fuel_map 2000 4.2 15.66");
-        // fake 2 means 4 on the gauge because of the divider. should we simplify this?
-        sendCommand("set_fake_maf_voltage 2");
+        // mock 2 means 4 on the gauge because of the divider. should we simplify this?
+        sendCommand("set_mock_maf_voltage 2");
         sendCommand("set_global_trigger_offset_angle 175");
         chart = nextChart();
 
