@@ -74,7 +74,7 @@ public class EngineState {
         addDoubleSensor("map_r", Sensor.MAP_RAW);
         addDoubleSensor("baro", Sensor.BARO);
         addDoubleSensor("clt", Sensor.CLT);
-        addDoubleSensor("tp", Sensor.THROTTLE);
+        addDoubleSensor("tp", Sensor.TPS);
         addDoubleSensor("dwell0", Sensor.DWELL0);
         addDoubleSensor("dwell1", Sensor.DWELL1);
         addDoubleSensor("tch", Sensor.T_CHARGE);

@@ -12,7 +12,6 @@ public enum Sensor {
     MAP_RAW("MAP_RAW"),
     BARO("Baro"),
     TIMING("Timing"),
-    THROTTLE("throttle", "%", 100),
 
     /**
      * Please note that these enum names are used to make 'set_mock_XXX_voltage' commands
@@ -21,6 +20,7 @@ public enum Sensor {
     IAT("Intake Air", "temperature, C", 150),
     AFR("A/F ratio", "", 0, 20),
     MAF("MAF", "Volts", 4),
+    TPS("throttle", "%", 100),
 
 //    COOLANT_WIDTH("c w", "", 30),
 //    INTAKE_AIR_WIDTH("air w", "", 30),
