@@ -1,12 +1,10 @@
 package com.rusefi.ui;
 
 import com.irnems.core.Sensor;
-import com.irnems.core.SensorCentral;
 import com.irnems.ui.widgets.MafCommand;
-import com.irnems.ui.widgets.PotCommand;
 import com.irnems.ui.widgets.RpmCommand;
+import com.rusefi.ui.widgets.SensorGauge;
 import eu.hansolo.steelseries.gauges.Radial;
-import eu.hansolo.steelseries.tools.ColorDef;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,32 +27,32 @@ public class GaugesPanel extends JComponent {
 
 
         box2.add(createControls());
-        box2.add(createGauge(Sensor.T_CHARGE));
-        box2.add(createGauge(Sensor.DWELL1));
-        box2.add(createGauge(Sensor.DWELL0));
-        box2.add(createGauge(Sensor.DUTY0));
-        box2.add(createGauge(Sensor.ADVANCE0));
-        box2.add(createGauge(Sensor.MAF));
-        box2.add(createGauge(Sensor.FUEL));
-        box2.add(createGauge(Sensor.BARO));
+        box2.add(SensorGauge.createGauge(Sensor.T_CHARGE));
+        box2.add(SensorGauge.createGauge(Sensor.DWELL1));
+        box2.add(SensorGauge.createGauge(Sensor.DWELL0));
+        box2.add(SensorGauge.createGauge(Sensor.DUTY0));
+        box2.add(SensorGauge.createGauge(Sensor.ADVANCE0));
+        box2.add(SensorGauge.createGauge(Sensor.MAF));
+        box2.add(SensorGauge.createGauge(Sensor.FUEL));
+        box2.add(SensorGauge.createGauge(Sensor.BARO));
         //box2.add(createGauge(Sensor.FUEL_BASE));
-        box2.add(createGauge(Sensor.FUEL_CLT));
-        box2.add(createGauge(Sensor.FUEL_IAT));
-        box2.add(createGauge(Sensor.FUEL_LAG));
+        box2.add(SensorGauge.createGauge(Sensor.FUEL_CLT));
+        box2.add(SensorGauge.createGauge(Sensor.FUEL_IAT));
+        box2.add(SensorGauge.createGauge(Sensor.FUEL_LAG));
 
 //        box2.add(createGauge(Sensor.TABLE_SPARK));
 
 
 //        box2.add(createGauge(Sensor.DUTY1));
 //        box2.add(createGauge(Sensor.ADVANCE1));
-        box2.add(createGauge(Sensor.INTAKE_AIR));
+        box2.add(SensorGauge.createGauge(Sensor.IAT));
         //box2.add(createGauge(Sensor.INTAKE_AIR_WIDTH));
-        box2.add(createGauge(Sensor.COOLANT));
+        box2.add(SensorGauge.createGauge(Sensor.CLT));
 //        box2.add(createGauge(Sensor.COOLANT_WIDTH));
 
-        box2.add(createGauge(Sensor.MAP));
-        box2.add(createGauge(Sensor.MAP_RAW));
-        box2.add(createGauge(Sensor.THROTTLE));
+        box2.add(SensorGauge.createGauge(Sensor.MAP));
+        box2.add(SensorGauge.createGauge(Sensor.MAP_RAW));
+        box2.add(SensorGauge.createGauge(Sensor.THROTTLE));
 //        box2.add(createGauge(Sensor.VREF, PotCommand.VOLTAGE_CORRECTION));
 //        box2.add(createGauge(Sensor.VREF_WIDTH));
 
@@ -62,10 +60,10 @@ public class GaugesPanel extends JComponent {
 //        box2.add(createGauge(Sensor.ADC_FAST_AVG));
 
 
-        box2.add(createGauge(Sensor.AFR));
-        box2.add(createGauge(Sensor.DEFAULT_FUEL));
+        box2.add(SensorGauge.createGauge(Sensor.AFR));
+        box2.add(SensorGauge.createGauge(Sensor.DEFAULT_FUEL));
 
-        box2.add(createGauge(Sensor.TIMING));
+        box2.add(SensorGauge.createGauge(Sensor.TIMING));
 
         box2.add(createRpmGauge());
 
@@ -82,7 +80,7 @@ public class GaugesPanel extends JComponent {
     }
 
     private Radial createRpmGauge() {
-        final Radial rpmGauge = createRadial("RPM", "", 8000, 0);
+        final Radial rpmGauge = SensorGauge.createRadial("RPM", "", 8000, 0);
         RpmModel.getInstance().addListener(new RpmModel.RpmListener() {
             public void onRpmChange(RpmModel rpm) {
                 rpmGauge.setValue(rpm.getValue());
@@ -90,45 +88,5 @@ public class GaugesPanel extends JComponent {
         });
         rpmGauge.setMaxMeasuredValueVisible(true);
         return rpmGauge;
-    }
-
-    public static Component createGauge(final Sensor sensor) {
-        return createGauge(sensor, 1);
-    }
-
-    public static Component createGauge(final Sensor sensor, final double correction) {
-        final Radial gauge = createRadial(sensor.getName(), sensor.getUnits(), sensor.getMaxValue(), sensor.getMinValue());
-
-        gauge.setBackgroundColor(sensor.getColor());
-
-        SensorCentral.getInstance().addListener(sensor, new SensorCentral.AdcListener() {
-            public void onAdcUpdate(SensorCentral model, double value) {
-                gauge.setValue(value * correction);
-            }
-        });
-        gauge.setLcdDecimals(2);
-        return gauge;
-    }
-
-    private static Radial createRadial(String title, String units, double maxValue, double minValue) {
-//        final Section[] SECTIONS =
-//                {
-//                        new Section(0, to, Color.red)
-//                };
-
-        Radial radial1 = new Radial();
-//        radial1.setSections(SECTIONS);
-        radial1.setTitle(title);
-        radial1.setUnitString(units);
-
-        //radial1.setTrackStop(to);
-
-        radial1.setMinValue(minValue);
-        radial1.setMaxValue(maxValue);
-        radial1.setThresholdVisible(false);
-        radial1.setPointerColor(ColorDef.RED);
-
-        radial1.setValue(0);
-        return radial1;
     }
 }

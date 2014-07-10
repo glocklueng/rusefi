@@ -6,6 +6,7 @@ import com.irnems.core.EngineTimeListener;
 import com.irnems.core.Sensor;
 import com.irnems.ui.widgets.*;
 import com.rusefi.io.LinkManager;
+import com.rusefi.ui.widgets.SensorGauge;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -47,14 +48,14 @@ public class RpmPanel {
         JPanel gauges = new JPanel(new GridLayout(2, 3));
         gauges.setBorder(BorderFactory.createLineBorder(Color.black));
 //        gauges.add(GaugesPanel.createCoolantGauge());
-        gauges.add(GaugesPanel.createGauge(Sensor.DWELL0));
-        gauges.add(GaugesPanel.createGauge(Sensor.DUTY0));
-        gauges.add(GaugesPanel.createGauge(Sensor.FUEL));
+        gauges.add(SensorGauge.createGauge(Sensor.DWELL0));
+        gauges.add(SensorGauge.createGauge(Sensor.DUTY0));
+        gauges.add(SensorGauge.createGauge(Sensor.FUEL));
         //gauges.add(GaugesPanel.createGauge(Sensor.ADVANCE0));
 
-        gauges.add(GaugesPanel.createGauge(Sensor.VREF, PotCommand.VOLTAGE_CORRECTION));
-        gauges.add(GaugesPanel.createGauge(Sensor.MAF));
-        gauges.add(GaugesPanel.createGauge(Sensor.DWELL1));
+        gauges.add(SensorGauge.createGauge(Sensor.VREF, PotCommand.VOLTAGE_CORRECTION));
+        gauges.add(SensorGauge.createGauge(Sensor.MAF));
+        gauges.add(SensorGauge.createGauge(Sensor.DWELL1));
 //        gauges.add(GaugesPanel.createGauge(Sensor.ADVANCE1));
 //        gauges.add(GaugesPanel.createGauge(Sensor.MAF));
 
