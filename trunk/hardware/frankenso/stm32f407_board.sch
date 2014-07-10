@@ -53,9 +53,9 @@ EELAYER 27 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 10 10
+Sheet 10 11
 Title "Frankenso"
-Date "9 jul 2014"
+Date "10 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
