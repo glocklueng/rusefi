@@ -2,16 +2,21 @@ package com.rusefi.ui.widgets;
 
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
+import com.rusefi.io.CommandQueue;
 import eu.hansolo.steelseries.gauges.Radial;
 import eu.hansolo.steelseries.tools.ColorDef;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Hashtable;
 
 /**
  * Date: 7/9/14
@@ -19,7 +24,12 @@ import java.util.Collection;
  */
 
 public class SensorGauge {
-    public static final Collection<Sensor> MOCKABLE = Arrays.asList(Sensor.CLT, Sensor.AFR, Sensor.IAT);
+    private static final Collection<Sensor> MOCKABLE = Arrays.asList(Sensor.CLT, Sensor.AFR, Sensor.IAT, Sensor.MAF,
+            Sensor.TPS);
+    /**
+     * We need to trick the JSlider into displaying float values
+     */
+    private static final int _5_VOLTS_WITH_DECIMAL = 50;
 
     public static Component createGauge(final Sensor sensor) {
         return createGauge(sensor, 1);
@@ -50,6 +60,9 @@ public class SensorGauge {
 
                     content.add(createGauge(sensor, correction), BorderLayout.CENTER);
 
+                    if (isMockable)
+                        content.add(createMockVoltageSlider(sensor), BorderLayout.SOUTH);
+
                     n.setSize(size, h);
                     n.setAlwaysOnTop(true);
                     n.add(content);
@@ -60,6 +73,39 @@ public class SensorGauge {
         });
 
         return gauge;
+    }
+
+    private final static Hashtable<Integer, JComponent> SLIDER_LABELS = new Hashtable<Integer, JComponent>();
+
+    static {
+        Format f = new DecimalFormat("0.0");
+        for (int i = 0; i <= 50; i += 5) {
+            JLabel label = new JLabel(f.format(i * 0.1));
+            label.setFont(label.getFont().deriveFont(Font.PLAIN));
+            SLIDER_LABELS.put(i, label);
+        }
+    }
+
+
+    private static Component createMockVoltageSlider(final Sensor sensor) {
+        /**
+         */
+        final JSlider slider = new JSlider(0, _5_VOLTS_WITH_DECIMAL);
+        slider.setLabelTable(SLIDER_LABELS);
+        slider.setPaintLabels(true);
+        slider.setPaintTicks(true);
+        slider.setMajorTickSpacing(10);
+        slider.setMinorTickSpacing(5);
+
+        slider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                double value = slider.getValue() / 10.0;
+                CommandQueue.getInstance().write("set_mock_" + sensor.name().toLowerCase() + "_voltage " + value);
+            }
+        });
+
+        return slider;
     }
 
     public static Radial createRadial(String title, String units, double maxValue, double minValue) {
