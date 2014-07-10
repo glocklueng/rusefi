@@ -2,7 +2,6 @@
 #ifndef BOARDS_FT_H_
 #define BOARDS_FT_H_
 
-
 #define ADC_LOGIC_TPS 0
 #define ADC_LOGIC_AFR 0
 #define ADC_LOGIC_MAF 0
@@ -25,7 +24,6 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-//float getVoltageDivided(int);
 int getAdcValue(int channel);
 void initFakeBoard(void);
 
