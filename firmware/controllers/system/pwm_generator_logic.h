@@ -43,6 +43,10 @@ public:
 	PwmConfig();
 	PwmConfig(float *switchTimes, single_wave_s *waves);
 	void init(float *switchTimes, single_wave_s *waves);
+
+	void handleCycleStart();
+
+
 	io_pin_e outputPins[PWM_PHASE_MAX_WAVE_PER_PWM];
 	multi_wave_s multiWave;
 	const char *name;

@@ -64,6 +64,25 @@ static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
 	return state->safe.startUs + timeToSwitchUs;
 }
 
+void PwmConfig::handleCycleStart() {
+	if (safe.phaseIndex == 0) {
+		if (cycleCallback != NULL)
+			cycleCallback(this);
+		efiAssertVoid(periodMs != 0, "period not initialized");
+		if (safe.periodMs != periodMs || safe.iteration == ITERATION_LIMIT) {
+			/**
+			 * period length has changed - we need to reset internal state
+			 */
+			safe.startUs = getTimeNowUs();
+			safe.iteration = 0;
+			safe.periodMs = periodMs;
+#if DEBUG_PWM
+			scheduleMsg(&logger, "state reset start=%d iteration=%d", state->safe.start, state->safe.iteration);
+#endif
+		}
+	}
+}
+
 /**
  * @return Next time for signal toggle
  */
@@ -80,22 +99,7 @@ static uint64_t togglePwmState(PwmConfig *state) {
 		return 1;
 	}
 
-	if (state->safe.phaseIndex == 0) {
-		if (state->cycleCallback != NULL)
-			state->cycleCallback(state);
-		efiAssert(state->periodMs != 0, "period not initialized", 0);
-		if (state->safe.periodMs != state->periodMs || state->safe.iteration == ITERATION_LIMIT) {
-			/**
-			 * period length has changed - we need to reset internal state
-			 */
-			state->safe.startUs = getTimeNowUs();
-			state->safe.iteration = 0;
-			state->safe.periodMs = state->periodMs;
-#if DEBUG_PWM
-			scheduleMsg(&logger, "state reset start=%d iteration=%d", state->safe.start, state->safe.iteration);
-#endif
-		}
-	}
+	state->handleCycleStart();
 
 	/**
 	 * Here is where the 'business logic' - the actual pin state change is happening
