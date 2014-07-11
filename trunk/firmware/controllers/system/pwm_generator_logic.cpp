@@ -117,9 +117,11 @@ static uint64_t togglePwmState(PwmConfig *state) {
 	if (timeToSwitch < 1) {
 		/**
 		 * We are here if we are late for a state transition.
+		 * At 12000RPM=200Hz with a 60 toothed wheel we need to change state every
+		 * 1000000 / 200 / 120 = ~41 uS. We are kind of OK.
 		 */
-//todo: introduce error and test this error handling		warning(OBD_PCM_Processor_Fault, "PWM: negative switch time");
-		timeToSwitch = 1000;
+		//todo: introduce error and test this error handling		warning(OBD_PCM_Processor_Fault, "PWM: negative switch time");
+		timeToSwitch = 10;
 	}
 
 	state->safe.phaseIndex++;
