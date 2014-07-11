@@ -53,9 +53,9 @@ EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 11
+Sheet 5 14
 Title "Frankenso"
-Date "10 jul 2014"
+Date "11 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -424,8 +424,6 @@ F 3 "~" H 8400 3950 30  0000 C CNN
 $EndComp
 Text Label 8400 4200 0    60   ~ 0
 GND
-Text Label 8400 3700 0    60   ~ 0
-OUT
 Text Label 8400 3200 0    60   ~ 0
 INTOUT
 $Comp
@@ -493,4 +491,6 @@ Text HLabel 4200 4750 0    60   Input ~ 0
 CS
 Text HLabel 4200 4650 0    60   Input ~ 0
 INT/HLD
+Text HLabel 8400 3700 0    60   Input ~ 0
+OUT
 $EndSCHEMATC
