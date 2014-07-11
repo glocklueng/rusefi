@@ -47,7 +47,7 @@ static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
 	efiAssert(state->safe.phaseIndex < PWM_PHASE_MAX_COUNT, "phaseIndex range", 0);
 	int iteration = state->safe.iteration;
 	float switchTime = state->multiWave.getSwitchTime(state->safe.phaseIndex);
-	float periodMs = state->safe.periodMs;
+	float periodUs = state->safe.periodUs;
 #if DEBUG_PWM
 	scheduleMsg(&logger, "iteration=%d switchTime=%f period=%f", iteration, switchTime, period);
 #endif
@@ -56,7 +56,7 @@ static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
 	 * todo: once 'iteration' gets relatively high, we might lose calculation precision here
 	 * todo: double-check this spot
 	 */
-	uint64_t timeToSwitchUs = (iteration + switchTime) * periodMs * 1000;
+	uint64_t timeToSwitchUs = (iteration + switchTime) * periodUs;
 
 #if DEBUG_PWM
 	scheduleMsg(&logger, "start=%d timeToSwitch=%d", state->safe.start, timeToSwitch);
@@ -68,14 +68,14 @@ void PwmConfig::handleCycleStart() {
 	if (safe.phaseIndex == 0) {
 		if (cycleCallback != NULL)
 			cycleCallback(this);
-		efiAssertVoid(periodMs != 0, "period not initialized");
-		if (safe.periodMs != periodMs || safe.iteration == ITERATION_LIMIT) {
+		efiAssertVoid(periodUs != 0, "period not initialized");
+		if (safe.periodUs != periodUs || safe.iteration == ITERATION_LIMIT) {
 			/**
 			 * period length has changed - we need to reset internal state
 			 */
 			safe.startUs = getTimeNowUs();
 			safe.iteration = 0;
-			safe.periodMs = periodMs;
+			safe.periodUs = periodUs;
 #if DEBUG_PWM
 			scheduleMsg(&logger, "state reset start=%d iteration=%d", state->safe.start, state->safe.iteration);
 #endif
@@ -92,7 +92,7 @@ static uint64_t togglePwmState(PwmConfig *state) {
 	scheduleMsg(&logger, "state->period=%f state->safe.period=%f", state->period, state->safe.period);
 #endif
 
-	if (cisnan(state->periodMs)) {
+	if (cisnan(state->periodUs)) {
 		/**
 		 * zero period means PWM is paused
 		 */
@@ -159,7 +159,7 @@ void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes, int
 void weComplexInit(const char *msg, PwmConfig *state, int phaseCount, float *switchTimes, int waveCount,
 		int **pinStates, pwm_cycle_callback *cycleCallback, pwm_gen_callback *stateChangeCallback) {
 
-	efiAssertVoid(state->periodMs != 0, "period is not initialized");
+	efiAssertVoid(state->periodUs != 0, "period is not initialized");
 	if (phaseCount == 0) {
 		firmwareError("signal length cannot be zero");
 		return;
@@ -183,7 +183,7 @@ void weComplexInit(const char *msg, PwmConfig *state, int phaseCount, float *swi
 	state->stateChangeCallback = stateChangeCallback;
 
 	state->safe.phaseIndex = 0;
-	state->safe.periodMs = -1;
+	state->safe.periodUs = -1;
 	state->safe.iteration = -1;
 	state->name = msg;
 

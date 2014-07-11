@@ -18,7 +18,7 @@ typedef struct {
 	 * a copy so that all phases are executed on the same period, even if another thread
 	 * would be adjusting PWM parameters
 	 */
-	float periodMs;
+	float periodUs;
 	/**
 	 * Iteration counter
 	 */
@@ -54,7 +54,7 @@ public:
 	 * float value of PWM period
 	 * PWM generation is not happening while this value is zero
 	 */
-	float periodMs;
+	float periodUs;
 
 	scheduling_s scheduling;
 
