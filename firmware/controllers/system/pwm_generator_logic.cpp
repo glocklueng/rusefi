@@ -96,8 +96,12 @@ static uint64_t togglePwmState(PwmConfig *state) {
 		}
 	}
 
-	state->stateChangeCallback(state,
-			state->safe.phaseIndex == 0 ? state->phaseCount - 1 : state->safe.phaseIndex - 1);
+	/**
+	 * Here is where the 'business logic' - the actual pin state change is happening
+	 */
+	// callback state index is offset by one. todo: why? can we simplify this?
+	int cbStateIndex = state->safe.phaseIndex == 0 ? state->phaseCount - 1 : state->safe.phaseIndex - 1;
+	state->stateChangeCallback(state, cbStateIndex);
 
 	uint64_t nextSwitchTimeUs = getNextSwitchTimeUs(state);
 #if DEBUG_PWM
