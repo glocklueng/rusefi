@@ -73,13 +73,14 @@ static uint64_t togglePwmState(PwmConfig *state) {
 	scheduleMsg(&logger, "state->period=%f state->safe.period=%f", state->period, state->safe.period);
 #endif
 
+	if (cisnan(state->periodMs)) {
+		/**
+		 * zero period means PWM is paused
+		 */
+		return 1;
+	}
+
 	if (state->safe.phaseIndex == 0) {
-		if (cisnan(state->periodMs)) {
-			/**
-			 * zero period means PWM is paused
-			 */
-			return 1;
-		}
 		if (state->cycleCallback != NULL)
 			state->cycleCallback(state);
 		efiAssert(state->periodMs != 0, "period not initialized", 0);
