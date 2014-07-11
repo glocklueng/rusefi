@@ -118,6 +118,9 @@ static uint64_t togglePwmState(PwmConfig *state) {
 	return timeToSwitch;
 }
 
+/**
+ * Main PWM loop: toggle pin & schedule next invocation
+ */
 static void timerCallback(PwmConfig *state) {
 	time_t timeToSleepUs = togglePwmState(state);
 	scheduleTask(&state->scheduling, timeToSleepUs, (schfunc_t) timerCallback, state);
@@ -172,5 +175,6 @@ void weComplexInit(const char *msg, PwmConfig *state, int phaseCount, float *swi
 	state->safe.iteration = -1;
 	state->name = msg;
 
+	// let's start the indefinite callback loop of PWM generation
 	timerCallback(state);
 }
