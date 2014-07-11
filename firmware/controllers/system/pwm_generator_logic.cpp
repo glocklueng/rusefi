@@ -115,6 +115,9 @@ static uint64_t togglePwmState(PwmConfig *state) {
 	// signed value is needed here
 	int64_t timeToSwitch = nextSwitchTimeUs - getTimeNowUs();
 	if (timeToSwitch < 1) {
+		/**
+		 * We are here if we are late for a state transition.
+		 */
 //todo: introduce error and test this error handling		warning(OBD_PCM_Processor_Fault, "PWM: negative switch time");
 		timeToSwitch = 1000;
 	}
