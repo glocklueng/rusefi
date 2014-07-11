@@ -53,8 +53,8 @@ static uint64_t getNextSwitchTimeUs(PwmConfig *state) {
 #endif
 
 	/**
-	 * todo: once 'iteration' gets relatively high, we might lose calculation precision here
-	 * todo: double-check this spot
+	 * Once 'iteration' gets relatively high, we might lose calculation precision here.
+	 * This is addressed by ITERATION_LIMIT
 	 */
 	uint64_t timeToSwitchUs = (iteration + switchTime) * periodUs;
 
