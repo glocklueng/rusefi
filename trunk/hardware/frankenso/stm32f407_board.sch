@@ -53,9 +53,9 @@ EELAYER 27 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 10 11
+Sheet 10 14
 Title "Frankenso"
-Date "10 jul 2014"
+Date "11 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -2058,17 +2058,6 @@ Wire Wire Line
 Text Notes 850  2700 0    60   ~ 0
 8MHz
 $Comp
-L CRYSTAL(MC306) X2
-U 1 1 52F266A3
-P 12000 7500
-F 0 "X2" H 12000 7650 60  0000 C CNN
-F 1 "CRYSTAL(MC306)" H 12000 7350 60  0000 C CNN
-F 2 "" H 12000 7500 60  0000 C CNN
-F 3 "" H 12000 7500 60  0000 C CNN
-	1    12000 7500
-	0    1    1    0   
-$EndComp
-$Comp
 L C C21
 U 1 1 52F266B6
 P 12450 7200
@@ -2472,4 +2461,15 @@ Text Label 12500 5400 0    60   ~ 0
 shield
 Text Label 13650 6900 0    60   ~ 0
 shield
+$Comp
+L CRYSTAL X2
+U 1 1 53BF6CBE
+P 12000 7500
+F 0 "X2" H 12000 7650 60  0000 C CNN
+F 1 "CRYSTAL" H 12000 7350 60  0000 C CNN
+F 2 "MC-306" H 12000 7500 60  0001 C CNN
+F 3 "~" H 12000 7500 60  0000 C CNN
+	1    12000 7500
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC
