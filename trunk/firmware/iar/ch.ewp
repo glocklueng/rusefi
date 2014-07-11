@@ -2210,6 +2210,12 @@
       <file>
         <name>$PROJ_DIR$\..\controllers\core\signal_filtering.h</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\table_helper.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\core\table_helper.h</name>
+      </file>
     </group>
     <group>
       <name>math</name>
