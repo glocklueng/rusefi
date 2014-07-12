@@ -344,6 +344,12 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->canDeviceMode = CD_USE_CAN2;
 	boardConfiguration->canTxPin = GPIOB_0;
 	boardConfiguration->canRxPin = GPIOB_12;
+
+	boardConfiguration->digitalPotentiometerSpiDevice = SPI_NONE;
+	boardConfiguration->digitalPotentiometerChipSelect[0] = GPIOD_7;
+	boardConfiguration->digitalPotentiometerChipSelect[1] = GPIO_NONE;
+	boardConfiguration->digitalPotentiometerChipSelect[2] = GPIOD_5;
+	boardConfiguration->digitalPotentiometerChipSelect[3] = GPIO_NONE;
 }
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
