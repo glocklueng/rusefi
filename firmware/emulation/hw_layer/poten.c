@@ -11,6 +11,7 @@
 #include "eficonsole.h"
 #include "pin_repository.h"
 #include "engine_configuration.h"
+#include "hardware.h"
 
 /**
  * MCP42010 digital potentiometer driver
@@ -34,8 +35,6 @@
  * d = 256 - (Rwa - 52) * 256 / 10000
  *
  */
-
-#define DIGIPOT_COUNT 4
 
 SPIDriver * getDigiralPotDevice(spi_device_e spiDevice) {
 #if STM32_SPI_USE_SPI1 || defined(__DOXYGEN__)
@@ -76,12 +75,14 @@ static int getPotStep(int resistanceWA) {
 }
 
 static void sendToPot(Mcp42010Driver *driver, int channel, int value) {
+	lockSpi(SPI_NONE);
 	spiStart(driver->spi, &driver->spiConfig);
 	spiSelect(driver->spi);
 	int word = (17 + channel) * 256 + value;
 	spiSend(driver->spi, 1, &word);
 	spiUnselect(driver->spi);
 	spiStop(driver->spi);
+	unlockSpi();
 }
 
 void setPotResistance(Mcp42010Driver *driver, int channel, int resistance) {
@@ -121,8 +122,8 @@ void initPotentiometers(board_configuration_s *boardConfiguration) {
 	if (boardConfiguration->digitalPotentiometerSpiDevice == SPI_NONE) {
 		scheduleMsg(&logger, "digiPot spi disabled");
 		return;
-
 	}
+	turnOnSpi(boardConfiguration->digitalPotentiometerSpiDevice);
 
 	for (int i = 0; i < DIGIPOT_COUNT; i++) {
 		brain_pin_e csPin = boardConfiguration->digitalPotentiometerChipSelect[i];
