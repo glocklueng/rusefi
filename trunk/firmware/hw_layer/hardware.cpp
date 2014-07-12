@@ -57,7 +57,11 @@ static void initSpiModule(SPIDriver *driver, ioportid_t sckPort, ioportmask_t sc
 
 static Mutex spiMtx;
 
+/**
+ * Only one consumer can use SPI bus at a given time
+ */
 void lockSpi(spi_device_e device) {
+	// todo: different locks for different SPI devices!
 	chMtxLock(&spiMtx);
 }
 
