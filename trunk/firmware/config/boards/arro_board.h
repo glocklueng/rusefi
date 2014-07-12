@@ -80,6 +80,16 @@
 //#define SPI_CS4_PIN 10
 //#define SPI_SD_MODULE_PORT GPIOD
 //#define SPI_SD_MODULE_PIN 11
+
+#define EFI_SPI1_SCK_PORT GPIOB
+#define EFI_SPI1_SCK_PIN 3
+#define EFI_SPI1_MISO_PORT GPIOB
+#define EFI_SPI1_MISO_PIN 4
+#define EFI_SPI1_MOSI_PORT GPIOB
+#define EFI_SPI1_MOSI_PIN 5
+#define EFI_SPI1_AF 5
+
+
 #define EFI_SPI2_SCK_PORT GPIOB
 #define EFI_SPI2_SCK_PIN 13
 #define EFI_SPI2_MISO_PORT GPIOB
@@ -87,6 +97,7 @@
 #define EFI_SPI2_MOSI_PORT GPIOB
 #define EFI_SPI2_MOSI_PIN 15
 #define EFI_SPI2_AF 5
+
 
 /**
  * This section is for right-side center SPI
