@@ -228,6 +228,8 @@ typedef enum {
 	SPI_NONE = 0,
 	SPI_DEVICE_1 = 1,
 	SPI_DEVICE_2 = 2,
+	SPI_DEVICE_3 = 3,
+	SPI_DEVICE_4 = 4,
 
 	Internal_ForceMyEnumIntSize_spi_device = ENUM_SIZE_HACK,
 } spi_device_e;
