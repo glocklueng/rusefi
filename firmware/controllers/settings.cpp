@@ -205,18 +205,15 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "primary trigger input: %s", hwPortname(boardConfiguration->primaryTriggerInputPin));
 
 	scheduleMsg(&logger, "boardTestModeJumperPin: %s", hwPortname(boardConfiguration->boardTestModeJumperPin));
-#endif /* EFI_PROD_CODE */
-
-	scheduleMsg(&logger, "isInjectionEnabledFlag %s", boolToString(engineConfiguration2->isInjectionEnabledFlag));
 
 	scheduleMsg(&logger, "digitalPotentiometerSpiDevice %d", boardConfiguration->digitalPotentiometerSpiDevice);
 
 	for (int i = 0; i < DIGIPOT_COUNT; i++) {
 		scheduleMsg(&logger, "digitalPotentiometer CS%d %s", i, hwPortname(boardConfiguration->digitalPotentiometerChipSelect[i]));
 	}
+#endif /* EFI_PROD_CODE */
 
-	//	appendPrintf(&logger, DELIMETER);
-//	scheduleLogging(&logger);
+	scheduleMsg(&logger, "isInjectionEnabledFlag %s", boolToString(engineConfiguration2->isInjectionEnabledFlag));
 }
 
 static void setFixedModeTiming(int value) {
