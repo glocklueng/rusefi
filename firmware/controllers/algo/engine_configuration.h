@@ -150,7 +150,7 @@ typedef struct {
 	 * Digital Potentiometer is used by stock ECU stimulation code
 	 */
 	spi_device_e digitalPotentiometerSpiDevice;
-	brain_pin_e digitalPotentiometerChipSelect[4];
+	brain_pin_e digitalPotentiometerChipSelect[DIGIPOT_COUNT];
 
 	adc_channel_mode_e adcHwChannelEnabled[HW_MAX_ADC_INDEX];
 
