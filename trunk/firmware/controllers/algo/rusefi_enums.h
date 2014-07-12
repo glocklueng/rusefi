@@ -17,6 +17,8 @@
 // this is about offsets and sizes in TunerStudio
 #define ENUM_SIZE_HACK 2000000000
 
+#define DIGIPOT_COUNT 4
+
 typedef enum {
 	AUDI_AAN = 1,
 #if EFI_SUPPORT_DODGE_NEON
