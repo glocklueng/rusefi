@@ -1,0 +1,2 @@
+1) silkscreen font is really small
+2) TODO: add breakout holes to the left of the left connector and to the right of the right connector to simplify CS routing
