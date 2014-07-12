@@ -102,14 +102,10 @@
 /**
  * This section is for right-side center SPI
  */
-#define SPI_CS1_PORT GPIOD
-#define SPI_CS1_PIN 7
 // this is pointing into the sky for now - conflict with I2C
 #define SPI_CS2_PORT GPIOH
 // this is pointing into the sky for now - conflict with I2C
 #define SPI_CS2_PIN 0
-#define SPI_CS3_PORT GPIOD
-#define SPI_CS3_PIN 5
 #define SPI_CS4_PORT GPIOD
 #define SPI_CS4_PIN 3
 #define SPI_SD_MODULE_PORT GPIOD
