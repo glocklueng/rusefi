@@ -2456,6 +2456,12 @@
     <name>emulation</name>
     <group>
       <name>hw_layer</name>
+      <file>
+        <name>$PROJ_DIR$\..\emulation\hw_layer\poten.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\emulation\hw_layer\poten.h</name>
+      </file>
     </group>
     <group>
       <name>test</name>
