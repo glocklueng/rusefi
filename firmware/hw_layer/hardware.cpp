@@ -45,6 +45,8 @@ extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s * engineConfiguration2;
 extern board_configuration_s *boardConfiguration;
 
+static bool isSpiInitialized[5] = { false, false, false, false, false };
+
 static void initSpiModule(SPIDriver *driver, ioportid_t sckPort, ioportmask_t sckPin, ioportid_t misoPort,
 		ioportmask_t misoPin, ioportid_t mosiPort, ioportmask_t mosiPin, int af) {
 	mySetPadMode("SPI clock", sckPort, sckPin, PAL_MODE_ALTERNATE(af));
@@ -53,23 +55,55 @@ static void initSpiModule(SPIDriver *driver, ioportid_t sckPort, ioportmask_t sc
 	mySetPadMode("SPI master in ", misoPort, misoPin, PAL_MODE_ALTERNATE(af));
 }
 
-void initSpiModules(void) {
+static Mutex spiMtx;
+
+void lockSpi(spi_device_e device) {
+	chMtxLock(&spiMtx);
+}
+
+void unlockSpi(void) {
+	chMtxUnlock();
+}
+
+void turnOnSpi(spi_device_e device) {
+	if (isSpiInitialized[device])
+		return; // already initialized
+	isSpiInitialized[device] = true;
+	if (device == SPI_DEVICE_1) {
+#if STM32_SPI_USE_SPI1
+//	scheduleMsg(&logging, "Turning on SPI1 pins");
+		initSpiModule(&SPID1,
+		EFI_SPI1_SCK_PORT, EFI_SPI1_SCK_PIN,
+		EFI_SPI1_MISO_PORT, EFI_SPI1_MISO_PIN,
+		EFI_SPI1_MOSI_PORT, EFI_SPI1_MOSI_PIN,
+		EFI_SPI1_AF);
+#endif
+	}
+	if (device == SPI_DEVICE_2) {
 #if STM32_SPI_USE_SPI2
 //	scheduleMsg(&logging, "Turning on SPI2 pins");
-	initSpiModule(&SPID2,
-			EFI_SPI2_SCK_PORT, EFI_SPI2_SCK_PIN,
-			EFI_SPI2_MISO_PORT, EFI_SPI2_MISO_PIN,
-			EFI_SPI2_MOSI_PORT, EFI_SPI2_MOSI_PIN,
-			EFI_SPI2_AF);
+		initSpiModule(&SPID2,
+				EFI_SPI2_SCK_PORT, EFI_SPI2_SCK_PIN,
+				EFI_SPI2_MISO_PORT, EFI_SPI2_MISO_PIN,
+				EFI_SPI2_MOSI_PORT, EFI_SPI2_MOSI_PIN,
+				EFI_SPI2_AF);
 #endif
+	}
+	if (device == SPI_DEVICE_3) {
 #if STM32_SPI_USE_SPI3
 //	scheduleMsg(&logging, "Turning on SPI3 pins");
-	initSpiModule(&SPID3,
-	EFI_SPI3_SCK_PORT, EFI_SPI3_SCK_PIN,
-	EFI_SPI3_MISO_PORT, EFI_SPI3_MISO_PIN,
-	EFI_SPI3_MOSI_PORT, EFI_SPI3_MOSI_PIN,
-	EFI_SPI3_AF);
+		initSpiModule(&SPID3,
+		EFI_SPI3_SCK_PORT, EFI_SPI3_SCK_PIN,
+		EFI_SPI3_MISO_PORT, EFI_SPI3_MISO_PIN,
+		EFI_SPI3_MOSI_PORT, EFI_SPI3_MOSI_PIN,
+		EFI_SPI3_AF);
 #endif
+	}
+}
+
+void initSpiModules(void) {
+	turnOnSpi(SPI_DEVICE_2);
+	turnOnSpi(SPI_DEVICE_3);
 }
 
 static I2CConfig i2cfg = { OPMODE_I2C, 100000, STD_DUTY_CYCLE, };
@@ -99,6 +133,9 @@ void initHardware(Logging *logger) {
 	// todo: enable protection. it's disabled because it takes
 	// 10 extra seconds to re-flash the chip
 	//flashProtect();
+
+	chMtxInit(&spiMtx);
+
 
 #if EFI_HISTOGRAMS
 	/**
