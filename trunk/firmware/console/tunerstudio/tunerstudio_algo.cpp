@@ -1,5 +1,5 @@
 /**
- * @file	tunerstudio_algo.c
+ * @file	tunerstudio_algo.cpp
  * @brief	Tuner Studio plain protocol implementation
  *
  * This implementation would not happen without the documentation
@@ -70,7 +70,7 @@ void tunerStudioError(const char *msg) {
 	tsState.errorCounter++;
 }
 
-int tunerStudioHandleCrcCommand(char *data, int incomingPacketSize) {
+int tunerStudioHandleCrcCommand(uint8_t *data, int incomingPacketSize) {
 	char command = data[0];
 	data++;
 	if (command == TS_HELLO_COMMAND) {
