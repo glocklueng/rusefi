@@ -24,8 +24,9 @@
 class MainTriggerCallback {
 public:
 //	MainTriggerCallback();
-	void init(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
+	void init(Engine *engine, engine_configuration2_s *engineConfiguration2);
 
+	Engine *engine;
 	engine_configuration_s *engineConfiguration;
 	engine_configuration2_s *engineConfiguration2;
 
