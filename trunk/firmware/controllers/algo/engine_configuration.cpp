@@ -158,7 +158,9 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	setTimingRpmBin(engineConfiguration, 800, 7000);
 
 	setTableBin2(engineConfiguration->map.samplingAngleBins, MAP_ANGLE_SIZE, 800, 7000, 1);
+	setTableBin2(engineConfiguration->map.samplingAngle, MAP_ANGLE_SIZE, 100, 130, 1);
 	setTableBin2(engineConfiguration->map.samplingWindowBins, MAP_ANGLE_SIZE, 800, 7000, 1);
+	setTableBin2(engineConfiguration->map.samplingWindow, MAP_ANGLE_SIZE, 50, 50, 1);
 
 	// set_whole_timing_map 3
 	setWholeFuelMap(engineConfiguration, 3);
