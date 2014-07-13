@@ -40,6 +40,7 @@
 #include "accel_enrichment.h"
 #endif /* EFI_ACCEL_ENRICHMENT */
 
+extern Engine engine;
 extern engine_configuration_s *engineConfiguration;
 
 static Map3D1616 fuelMap;
