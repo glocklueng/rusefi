@@ -82,7 +82,7 @@ float getEngineLoadT(Engine *engine) {
 	efiAssert(engineConfiguration!=NULL, "engineConfiguration 2NULL", NAN);
 	switch (engineConfiguration->algorithm) {
 	case LM_MAF:
-		return getMaf();
+		return getMafT(engineConfiguration);
 	case LM_MAP:
 		return getMap();
 	case LM_TPS:
