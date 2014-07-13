@@ -8,7 +8,6 @@
 #include "main.h"
 #include "speed_density.h"
 #include "interpolation.h"
-#include "engine.h"
 #include "rpm_calculator.h"
 #include "engine_math.h"
 #include "engine_state.h"
@@ -57,8 +56,8 @@ float sdMath(engine_configuration_s *engineConfiguration, float VE, float MAP, f
 /**
  * @return value in Milliseconds
  */
-float getSpeedDensityFuel(Engine *engine) {
-	int rpm = engine->rpmCalculator->rpm();
+float getSpeedDensityFuel(Engine *engine, int rpm) {
+	//int rpm = engine->rpmCalculator->rpm();
 
 	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 

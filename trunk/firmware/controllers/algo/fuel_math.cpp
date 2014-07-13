@@ -36,6 +36,7 @@
 #include "allsensors.h"
 #include "engine_math.h"
 #include "rpm_calculator.h"
+#include "speed_density.h"
 #if EFI_ACCEL_ENRICHMENT
 #include "accel_enrichment.h"
 #endif /* EFI_ACCEL_ENRICHMENT */
@@ -82,6 +83,16 @@ float getInjectorLag(float vBatt) {
 	float vBattCorrection = interpolate2d(vBatt, engineConfiguration->battInjectorLagCorrBins,
 			engineConfiguration->battInjectorLagCorr, VBAT_INJECTOR_CURVE_SIZE);
 	return engineConfiguration->injectorLag + vBattCorrection;
+}
+
+float getBaseFuel(Engine *engine, int rpm) {
+	if(engine->engineConfiguration->algorithm==LM_SPEED_DENSITY) {
+		return getSpeedDensityFuel(engine, rpm);
+	} else {
+		float engineLoad = getEngineLoadT(engine);
+		return getBaseTableFuel(rpm, engineLoad);
+	}
+
 }
 
 float getBaseTableFuel(int rpm, float engineLoad) {
