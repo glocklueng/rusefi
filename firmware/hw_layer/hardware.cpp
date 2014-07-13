@@ -39,8 +39,6 @@
 #include "engine_configuration.h"
 #include "ec2.h"
 
-McpAdcState adcState;
-
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s * engineConfiguration2;
 extern board_configuration_s *boardConfiguration;
