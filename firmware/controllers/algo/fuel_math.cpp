@@ -86,7 +86,7 @@ float getInjectorLag(float vBatt) {
 }
 
 float getBaseFuel(Engine *engine, int rpm) {
-	if(engine->engineConfiguration->algorithm==LM_SPEED_DENSITY) {
+	if (engine->engineConfiguration->algorithm == LM_SPEED_DENSITY) {
 		return getSpeedDensityFuel(engine, rpm);
 	} else {
 		float engineLoad = getEngineLoadT(engine);
