@@ -13,6 +13,8 @@ extern "C"
 {
 #endif /* __cplusplus */
 
+#include "engine.h"
+
 void prepareFuelMap(void);
 
 float getBaseFuel(int rpm, float engineLoad);
@@ -21,7 +23,7 @@ float getInjectorLag(float vBatt);
 float getCltCorrection(float clt);
 float getRunningFuel(int rpm, float engineLoad);
 float getStartingFuel(float coolantTemperature);
-float getFuelMs(int rpm);
+float getFuelMs(int rpm, Engine *engine);
 
 #ifdef __cplusplus
 }
