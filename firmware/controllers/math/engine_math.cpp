@@ -83,12 +83,12 @@ float getEngineLoadT(Engine *engine) {
 	switch (engineConfiguration->algorithm) {
 	case LM_MAF:
 		return getMafT(engineConfiguration);
+	case LM_SPEED_DENSITY:
+		// SD engine load is used for timing lookup but not for fuel calculation
 	case LM_MAP:
 		return getMap();
 	case LM_TPS:
 		return getTPS();
-	case LM_SPEED_DENSITY:
-		//return getSpeedDensityFuel();
 	default:
 		firmwareError("Unexpected engine load parameter: %d", engineConfiguration->algorithm);
 		return -1;
