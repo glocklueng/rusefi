@@ -101,17 +101,18 @@ float getFuelMs(int rpm, Engine *engine) {
 	if (isCranking()) {
 		return getCrankingFuel();
 	} else {
-		float fuel = getRunningFuel(engine, rpm, getEngineLoadT(engine));
+		float engineLoad = getEngineLoadT(engine);
+		float baseFuel = getBaseFuel(rpm, engineLoad);
+		float fuel = getRunningFuel(baseFuel, engine, rpm, engineLoad);
 		return fuel;
 	}
 }
 
-float getRunningFuel(Engine *engine, int rpm, float engineLoad) {
+float getRunningFuel(float baseFuel, Engine *engine, int rpm, float engineLoad) {
 	if (cisnan(engineLoad)) {
 		// the warning message should be already produced by the sensor decoder
 		return NAN;
 	}
-	float baseFuel = getBaseFuel(rpm, engineLoad);
 
 	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
 	float cltCorrection = getCltCorrection(getCoolantTemperature());
