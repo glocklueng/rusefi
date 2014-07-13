@@ -39,7 +39,7 @@ float Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::getValue(float x, float xBin[], float 
 
 template<int RPM_BIN_SIZE, int LOAD_BIN_SIZE>
 void Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::setAll(float value) {
-	efiAssertVoid(initialized == MAGIC_TRUE_VALUE, "map initialized");
+	efiAssertVoid(initialized == MAGIC_TRUE_VALUE, "map not initialized");
 	for (int l = 0; l < LOAD_BIN_SIZE; l++) {
 		for (int r = 0; r < RPM_BIN_SIZE; r++) {
 			pointers[l][r] = value;
