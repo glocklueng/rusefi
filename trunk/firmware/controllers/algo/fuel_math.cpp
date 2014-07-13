@@ -92,7 +92,6 @@ float getBaseFuel(Engine *engine, int rpm) {
 		float engineLoad = getEngineLoadT(engine);
 		return getBaseTableFuel(rpm, engineLoad);
 	}
-
 }
 
 float getBaseTableFuel(int rpm, float engineLoad) {
@@ -112,8 +111,7 @@ float getFuelMs(int rpm, Engine *engine) {
 	if (isCranking()) {
 		return getCrankingFuel();
 	} else {
-		float engineLoad = getEngineLoadT(engine);
-		float baseFuel = getBaseTableFuel(rpm, engineLoad);
+		float baseFuel = getBaseFuel(engine, rpm);
 		float fuel = getRunningFuel(baseFuel, engine, rpm);
 		return fuel;
 	}
