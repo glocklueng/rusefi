@@ -14,6 +14,8 @@ extern int timeNow;
 EngineTestHelper::EngineTestHelper(engine_type_e engineType) {
 	ec = &persistentConfig.engineConfiguration;
 
+	engine.engineConfiguration = ec;
+
 	configuration.engineConfiguration = ec;
 	configuration.engineConfiguration2 = &ec2;
 
