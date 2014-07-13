@@ -84,7 +84,7 @@ float getInjectorLag(float vBatt) {
 	return engineConfiguration->injectorLag + vBattCorrection;
 }
 
-float getBaseFuel(int rpm, float engineLoad) {
+float getBaseTableFuel(int rpm, float engineLoad) {
 	efiAssert(!cisnan(engineLoad), "invalid el", NAN);
 	return fuelMap.getValue(engineLoad, engineConfiguration->fuelLoadBins, rpm,
 			engineConfiguration->fuelRpmBins);
@@ -102,7 +102,7 @@ float getFuelMs(int rpm, Engine *engine) {
 		return getCrankingFuel();
 	} else {
 		float engineLoad = getEngineLoadT(engine);
-		float baseFuel = getBaseFuel(rpm, engineLoad);
+		float baseFuel = getBaseTableFuel(rpm, engineLoad);
 		float fuel = getRunningFuel(baseFuel, engine, rpm);
 		return fuel;
 	}

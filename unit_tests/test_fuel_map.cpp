@@ -47,7 +47,7 @@ void testFuelMap(void) {
 
 	printf("*************************************************** prepareFuelMap\r\n");
 	prepareFuelMap();
-	assertEquals(1005, getBaseFuel(5, 5));
+	assertEquals(1005, getBaseTableFuel(5, 5));
 
 	engineConfiguration->injectorLag = 0.5;
 
@@ -60,7 +60,7 @@ void testFuelMap(void) {
 
 	// because all the correction tables are zero
 	printf("*************************************************** getRunningFuel\r\n");
-	float baseFuel = getBaseFuel(5, getEngineLoadT(&eth.engine));
+	float baseFuel = getBaseTableFuel(5, getEngineLoadT(&eth.engine));
 	assertEqualsM("value", 0.5, getRunningFuel(baseFuel, &eth.engine, 5));
 
 	printf("*************************************************** setting IAT table\r\n");
@@ -89,7 +89,7 @@ void testFuelMap(void) {
 
 	// 1005 * 2 for IAT correction
 	printf("*************************************************** getRunningFuel\r\n");
-	 baseFuel = getBaseFuel(5, getEngineLoadT(&eth.engine));
+	 baseFuel = getBaseTableFuel(5, getEngineLoadT(&eth.engine));
 	assertEqualsM("v1", 30150, getRunningFuel(baseFuel, &eth.engine, 5));
 
 	testMafValue = 0;
