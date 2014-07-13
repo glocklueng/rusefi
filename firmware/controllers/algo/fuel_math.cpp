@@ -101,12 +101,12 @@ float getFuelMs(int rpm, Engine *engine) {
 	if (isCranking()) {
 		return getCrankingFuel();
 	} else {
-		float fuel = getRunningFuel(rpm, getEngineLoadT(engine));
+		float fuel = getRunningFuel(engine, rpm, getEngineLoadT(engine));
 		return fuel;
 	}
 }
 
-float getRunningFuel(int rpm, float engineLoad) {
+float getRunningFuel(Engine *engine, int rpm, float engineLoad) {
 	if (cisnan(engineLoad)) {
 		// the warning message should be already produced by the sensor decoder
 		return NAN;

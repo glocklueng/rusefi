@@ -21,7 +21,7 @@ float getBaseFuel(int rpm, float engineLoad);
 float getIatCorrection(float iat);
 float getInjectorLag(float vBatt);
 float getCltCorrection(float clt);
-float getRunningFuel(int rpm, float engineLoad);
+float getRunningFuel(Engine *engine, int rpm, float engineLoad);
 float getStartingFuel(float coolantTemperature);
 float getFuelMs(int rpm, Engine *engine);
 
