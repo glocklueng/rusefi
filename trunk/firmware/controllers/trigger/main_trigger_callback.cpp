@@ -156,7 +156,7 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, int event
 	/**
 	 * The start of charge is always within the current trigger event range, so just plain time-based scheduling
 	 */
-	scheduleTask(sUp, (int) MS2US(sparkDelay), (schfunc_t) &turnPinHigh, (void *) iEvent->io_pin);
+	scheduleTask("spark up", sUp, (int) MS2US(sparkDelay), (schfunc_t) &turnPinHigh, (void *) iEvent->io_pin);
 	/**
 	 * Spark event is often happening during a later trigger event timeframe
 	 * TODO: improve precision
@@ -171,7 +171,7 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, int event
 		 */
 		float timeTillIgnitionUs = getOneDegreeTimeUs(rpm) * iEvent->sparkPosition.angleOffset;
 
-		scheduleTask(sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, (void*) iEvent->io_pin);
+		scheduleTask("spark 1down", sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, (void*) iEvent->io_pin);
 	} else {
 		/**
 		 * Spark should be scheduled in relation to some future trigger event, this way we get better firing precision
@@ -204,7 +204,7 @@ static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex
 			scheduling_s * sDown = &current->signalTimerDown;
 
 			float timeTillIgnitionUs = getOneDegreeTimeUs(rpm) * current->sparkPosition.angleOffset;
-			scheduleTask(sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, (void*) current->io_pin);
+			scheduleTask("spark 2down", sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, (void*) current->io_pin);
 		}
 	}
 

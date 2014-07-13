@@ -137,7 +137,7 @@ static uint64_t togglePwmState(PwmConfig *state) {
  */
 static void timerCallback(PwmConfig *state) {
 	time_t timeToSleepUs = togglePwmState(state);
-	scheduleTask(&state->scheduling, timeToSleepUs, (schfunc_t) timerCallback, state);
+	scheduleTask("pwm", &state->scheduling, timeToSleepUs, (schfunc_t) timerCallback, state);
 }
 
 /**

@@ -373,6 +373,11 @@ static void setCrankingRpm(int value) {
 	doPrintConfiguration();
 }
 
+static void setAlgorithm(int value) {
+	engineConfiguration->algorithm = (engine_load_mode_e) value;
+	doPrintConfiguration();
+}
+
 static void setFiringOrder(int value) {
 	engineConfiguration->firingOrder = (firing_order_e) value;
 	doPrintConfiguration();
@@ -553,6 +558,7 @@ void initSettings(void) {
 
 	addConsoleActionI("set_rpm_hard_limit", setRpmHardLimit);
 	addConsoleActionI("set_firing_order", setFiringOrder);
+	addConsoleActionI("set_algorithm", setAlgorithm);
 
 	addConsoleAction("enable_injection", enableInjection);
 	addConsoleAction("disable_injection", disableInjection);
