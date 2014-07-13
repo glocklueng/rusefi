@@ -97,11 +97,11 @@ float getCrankingFuel(void) {
 /**
  * @returns	Length of fuel injection, in milliseconds
  */
-float getFuelMs(int rpm) {
+float getFuelMs(int rpm, Engine *engine) {
 	if (isCranking()) {
 		return getCrankingFuel();
 	} else {
-		float fuel = getRunningFuel(rpm, getEngineLoad());
+		float fuel = getRunningFuel(rpm, getEngineLoadT(engine));
 		return fuel;
 	}
 }

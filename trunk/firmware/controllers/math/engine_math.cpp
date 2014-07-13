@@ -88,9 +88,7 @@ float getEngineLoadT(Engine *engine) {
 	case LM_TPS:
 		return getTPS();
 	case LM_SPEED_DENSITY:
-		// TODO: real implementation
-		//getSpeedDensityFuel
-		return getMap();
+		//return getSpeedDensityFuel();
 	default:
 		firmwareError("Unexpected engine load parameter: %d", engineConfiguration->algorithm);
 		return -1;

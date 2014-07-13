@@ -78,7 +78,7 @@ static cyclic_buffer ignitionErrorDetection;
 static Logging logger;
 
 static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, ActuatorEvent *event, int rpm) {
-	float fuelMs = getFuelMs(rpm) * mainTriggerCallback->engineConfiguration->globalFuelCorrection;
+	float fuelMs = getFuelMs(rpm, mainTriggerCallback->engine) * mainTriggerCallback->engineConfiguration->globalFuelCorrection;
 	if (cisnan(fuelMs)) {
 		warning(OBD_PCM_Processor_Fault, "NaN injection pulse");
 		return;
@@ -312,7 +312,7 @@ static void showMainInfo(void) {
 	float el = getEngineLoadT(mainTriggerCallbackInstance.engine);
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "rpm %d engine_load %f", rpm, el);
-	scheduleMsg(&logger, "fuel %fms timing %f", getFuelMs(rpm), getAdvance(rpm, el));
+	scheduleMsg(&logger, "fuel %fms timing %f", getFuelMs(rpm, mainTriggerCallbackInstance.engine), getAdvance(rpm, el));
 #endif
 }
 
