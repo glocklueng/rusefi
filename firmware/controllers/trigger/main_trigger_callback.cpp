@@ -316,10 +316,11 @@ static void showMainInfo(void) {
 #endif
 }
 
-void MainTriggerCallback::init(engine_configuration_s *engineConfiguration,
+void MainTriggerCallback::init(Engine *engine,
 		engine_configuration2_s *engineConfiguration2) {
+	efiAssertVoid(engine!=NULL, "engine NULL");
+	this->engineConfiguration = engine->engineConfiguration;
 	efiAssertVoid(engineConfiguration!=NULL, "engineConfiguration NULL");
-	this->engineConfiguration = engineConfiguration;
 	this->engineConfiguration2 = engineConfiguration2;
 }
 
@@ -327,7 +328,7 @@ void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfig
 	efiAssertVoid(engine!=NULL, "null engine");
 	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 
-	mainTriggerCallbackInstance.init(engineConfiguration, engineConfiguration2);
+	mainTriggerCallbackInstance.init(engine, engineConfiguration2);
 
 #if EFI_PROD_CODE
 	addConsoleAction("performanceinfo", showTriggerHistogram);
