@@ -96,6 +96,9 @@ void rusEfiFunctionalTest(void) {
 	initStatusLoop();
 	initDataStructures(engineConfiguration);
 
+	engine.engineConfiguration = engineConfiguration;
+
+
 	resetConfigurationExt(NULL, FORD_ASPIRE_1996, engineConfiguration, engineConfiguration2, boardConfiguration);
 
 	initThermistors();
@@ -106,7 +109,7 @@ void rusEfiFunctionalTest(void) {
 
 	initTriggerEmulatorLogic(triggerEmulatorCallback);
 
-	initMainEventListener(engineConfiguration, engineConfiguration2);
+	initMainEventListener(&engine, engineConfiguration2);
 
 	initTriggerCentral();
 

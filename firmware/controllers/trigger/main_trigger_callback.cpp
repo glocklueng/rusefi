@@ -318,11 +318,15 @@ static void showMainInfo(void) {
 
 void MainTriggerCallback::init(engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2) {
+	efiAssertVoid(engineConfiguration!=NULL, "engineConfiguration NULL");
 	this->engineConfiguration = engineConfiguration;
 	this->engineConfiguration2 = engineConfiguration2;
 }
 
-void initMainEventListener(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
+void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfiguration2) {
+	efiAssertVoid(engine!=NULL, "null engine");
+	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
+
 	mainTriggerCallbackInstance.init(engineConfiguration, engineConfiguration2);
 
 #if EFI_PROD_CODE
