@@ -172,7 +172,7 @@ void printState(int currentCkpEventCounter) {
 //	debugFloat(&logger, "fuel_iat", getIatCorrection(getIntakeAirTemperature()), 2);
 //	debugFloat(&logger, "fuel_clt", getCltCorrection(getCoolantTemperature()), 2);
 	debugFloat(&logger, "fuel_lag", getInjectorLag(getVBatt()), 2);
-	debugFloat(&logger, "fuel", getRunningFuel(baseFuel, &engine, rpm, engineLoad), 2);
+	debugFloat(&logger, "fuel", getRunningFuel(baseFuel, &engine, rpm), 2);
 
 	debugFloat(&logger, "timing", getAdvance(rpm, engineLoad), 2);
 
@@ -310,7 +310,7 @@ static void showFuelMap2(float rpm, float engineLoad) {
 	scheduleMsg(&logger2, "iatCorrection=%f cltCorrection=%f injectorLag=%f", iatCorrection, cltCorrection,
 			injectorLag);
 
-	float value = getRunningFuel(baseFuel, &engine, rpm, engineLoad);
+	float value = getRunningFuel(baseFuel, &engine, rpm);
 	scheduleMsg(&logger2, "injection pulse width: %f", value);
 }
 
