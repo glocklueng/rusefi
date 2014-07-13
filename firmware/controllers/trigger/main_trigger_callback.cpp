@@ -276,7 +276,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, int eventIndex, MainTriggerCa
 			firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 			return;
 		}
-		float advance = getAdvance(rpm, getEngineLoadT(mainTriggerCallback->engineConfiguration));
+		float advance = getAdvance(rpm, getEngineLoadT(mainTriggerCallback->engine));
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
@@ -293,7 +293,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, int eventIndex, MainTriggerCa
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
-	hsAdd(&mainLoopHisto, diff);
+		hsAdd(&mainLoopHisto, diff);
 #endif /* EFI_HISTOGRAMS */
 }
 
@@ -309,16 +309,16 @@ static void showTriggerHistogram(void) {
 
 static void showMainInfo(void) {
 	int rpm = getRpm();
-	float el = getEngineLoadT(mainTriggerCallbackInstance.engineConfiguration);
+	float el = getEngineLoadT(mainTriggerCallbackInstance.engine);
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "rpm %d engine_load %f", rpm, el);
 	scheduleMsg(&logger, "fuel %fms timing %f", getFuelMs(rpm), getAdvance(rpm, el));
 #endif
 }
 
-void MainTriggerCallback::init(Engine *engine,
-		engine_configuration2_s *engineConfiguration2) {
+void MainTriggerCallback::init(Engine *engine, engine_configuration2_s *engineConfiguration2) {
 	efiAssertVoid(engine!=NULL, "engine NULL");
+        this->engine = engine;
 	this->engineConfiguration = engine->engineConfiguration;
 	efiAssertVoid(engineConfiguration!=NULL, "engineConfiguration NULL");
 	this->engineConfiguration2 = engineConfiguration2;
@@ -337,7 +337,7 @@ void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfig
 	initLogging(&logger, "main event handler");
 	printMsg(&logger, "initMainLoop: %d", currentTimeMillis());
 	if (!isInjectionEnabled(mainTriggerCallbackInstance.engineConfiguration2))
-	printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
+		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
 #endif
 
 #if EFI_HISTOGRAMS

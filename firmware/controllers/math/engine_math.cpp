@@ -76,7 +76,10 @@ float fixAngle(float angle) {
  * @brief Returns engine load according to selected engine_load_mode
  *
  */
-float getEngineLoadT(engine_configuration_s *engineConfiguration) {
+float getEngineLoadT(Engine *engine) {
+	efiAssert(engine!=NULL, "engine 2NULL", NAN);
+	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
+	efiAssert(engineConfiguration!=NULL, "engineConfiguration 2NULL", NAN);
 	switch (engineConfiguration->algorithm) {
 	case LM_MAF:
 		return getMaf();
