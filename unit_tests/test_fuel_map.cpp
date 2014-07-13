@@ -1,5 +1,5 @@
 /**
- * @file	test_fuel_map.c
+ * @file	test_fuel_map.cpp
  *
  *  Created on: Nov 6, 2013
  *      Author: Andrey Belomutskiy, (c) 2012-2013
@@ -15,6 +15,10 @@
 #include "OutputSignalList.h"
 #include "ec2.h"
 #include "trigger_decoder.h"
+#include "engine_test_helper.h"
+
+extern float testMafValue;
+
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
@@ -52,9 +56,12 @@ void testFuelMap(void) {
 		engineConfiguration->battInjectorLagCorr[i] = 2 * i;
 	}
 
+	EngineTestHelper eth(FORD_ASPIRE_1996);
+
 	// because all the correction tables are zero
 	printf("*************************************************** getRunningFuel\r\n");
-	assertEqualsM("value", 0.5, getRunningFuel(5, 5));
+	//getMap()
+	assertEqualsM("value", 0.5, getRunningFuel(5, getEngineLoadT(&eth.engine)));
 
 	printf("*************************************************** setting IAT table\r\n");
 	for (int i = 0; i < IAT_CURVE_SIZE; i++) {
@@ -78,10 +85,13 @@ void testFuelMap(void) {
 	float injectorLag = getInjectorLag(getVBatt());
 	assertEquals(0, injectorLag);
 
+	testMafValue = 5;
 
 	// 1005 * 2 for IAT correction
 	printf("*************************************************** getRunningFuel\r\n");
-	assertEqualsM("v1", 30150, getRunningFuel(5, 5));
+	assertEqualsM("v1", 30150, getRunningFuel(5, getEngineLoadT(&eth.engine)));
+
+	testMafValue = 0;
 
 	engineConfiguration->crankingSettings.coolantTempMaxC = 65; // 8ms at 65C
 	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 8;
