@@ -1,5 +1,5 @@
 /**
- * @file	tunerstudio.c
+ * @file	tunerstudio.cpp
  * @brief Integration with EFI Analytics Tuner Studio software
  *
  * todo: merge this file with tunerstudio_algo.c?
@@ -369,7 +369,7 @@ static uint8_t firstByte;
 static uint8_t secondByte;
 
 // todo: reduce TS page size so that we can reduce buffer size
-static char crcIoBuffer[4096];
+static uint8_t crcIoBuffer[4096];
 
 static msg_t tsThreadEntryPoint(void *arg) {
 	(void) arg;
@@ -431,7 +431,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 //		scheduleMsg(&logger, "TunerStudio: reading %d+4 bytes(s)", incomingPacketSize);
 
-		recieved = chnReadTimeout(getTsSerialDevice(), (void * ) (crcIoBuffer + 1), incomingPacketSize + 4 - 1,
+		recieved = chnReadTimeout(getTsSerialDevice(), (uint8_t * ) (crcIoBuffer + 1), incomingPacketSize + 4 - 1,
 				MS2ST(TS_READ_TIMEOUT));
 		int expectedSize = incomingPacketSize + 4 - 1;
 		if (recieved != expectedSize) {
