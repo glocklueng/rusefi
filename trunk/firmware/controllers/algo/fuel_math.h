@@ -17,7 +17,7 @@ extern "C"
 
 void prepareFuelMap(void);
 
-float getBaseFuel(int rpm, float engineLoad);
+float getBaseTableFuel(int rpm, float engineLoad);
 float getIatCorrection(float iat);
 float getInjectorLag(float vBatt);
 float getCltCorrection(float clt);

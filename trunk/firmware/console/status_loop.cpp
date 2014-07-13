@@ -167,7 +167,7 @@ void printState(int currentCkpEventCounter) {
 //	debugFloat(&logger, "table_spark", getAdvance(rpm, getMaf()), 2);
 
 	float engineLoad = getEngineLoad();
-	float baseFuel = getBaseFuel(rpm, engineLoad);
+	float baseFuel = getBaseTableFuel(rpm, engineLoad);
 	debugFloat(&logger, "fuel_base", baseFuel, 2);
 //	debugFloat(&logger, "fuel_iat", getIatCorrection(getIntakeAirTemperature()), 2);
 //	debugFloat(&logger, "fuel_clt", getCltCorrection(getCoolantTemperature()), 2);
@@ -299,7 +299,7 @@ void updateDevConsoleState(void) {
  */
 
 static void showFuelMap2(float rpm, float engineLoad) {
-	float baseFuel = getBaseFuel(rpm, engineLoad);
+	float baseFuel = getBaseTableFuel(rpm, engineLoad);
 
 	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
 	float cltCorrection = getCltCorrection(getCoolantTemperature());
