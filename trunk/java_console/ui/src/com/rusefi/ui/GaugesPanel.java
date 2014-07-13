@@ -25,14 +25,22 @@ public class GaugesPanel extends JComponent {
 
         JPanel box2 = new JPanel(new GridLayout(3, 5));
 
-
         box2.add(createControls());
+        box2.add(createRpmGauge());
+        box2.add(SensorGauge.createGauge(Sensor.MAF));
+        box2.add(SensorGauge.createGauge(Sensor.CLT));
+        box2.add(SensorGauge.createGauge(Sensor.IAT));
+        box2.add(SensorGauge.createGauge(Sensor.TPS));
+        box2.add(SensorGauge.createGauge(Sensor.MAP));
+        box2.add(SensorGauge.createGauge(Sensor.MAP_RAW));
+
         box2.add(SensorGauge.createGauge(Sensor.T_CHARGE));
+
+
         box2.add(SensorGauge.createGauge(Sensor.DWELL1));
         box2.add(SensorGauge.createGauge(Sensor.DWELL0));
         box2.add(SensorGauge.createGauge(Sensor.DUTY0));
         box2.add(SensorGauge.createGauge(Sensor.ADVANCE0));
-        box2.add(SensorGauge.createGauge(Sensor.MAF));
         box2.add(SensorGauge.createGauge(Sensor.FUEL));
         box2.add(SensorGauge.createGauge(Sensor.BARO));
         //box2.add(createGauge(Sensor.FUEL_BASE));
@@ -45,14 +53,9 @@ public class GaugesPanel extends JComponent {
 
 //        box2.add(createGauge(Sensor.DUTY1));
 //        box2.add(createGauge(Sensor.ADVANCE1));
-        box2.add(SensorGauge.createGauge(Sensor.IAT));
         //box2.add(createGauge(Sensor.INTAKE_AIR_WIDTH));
-        box2.add(SensorGauge.createGauge(Sensor.CLT));
 //        box2.add(createGauge(Sensor.COOLANT_WIDTH));
 
-        box2.add(SensorGauge.createGauge(Sensor.MAP));
-        box2.add(SensorGauge.createGauge(Sensor.MAP_RAW));
-        box2.add(SensorGauge.createGauge(Sensor.TPS));
 //        box2.add(createGauge(Sensor.VREF, PotCommand.VOLTAGE_CORRECTION));
 //        box2.add(createGauge(Sensor.VREF_WIDTH));
 
@@ -65,7 +68,6 @@ public class GaugesPanel extends JComponent {
 
         box2.add(SensorGauge.createGauge(Sensor.TIMING));
 
-        box2.add(createRpmGauge());
 
         //add(rpmGauge);
         add(box2);
