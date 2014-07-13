@@ -19,7 +19,8 @@
 #include "ego.h"
 #include "voltage.h"
 #include "thermistors.h"
-
+#include "adc_math.h"
+#include "adc_inputs.h"
 
 #ifdef __cplusplus
 extern "C"
