@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class PortLookupFrame {
     public static void chooseSerialPort() {
-        List<String> ports = new ArrayList<String>();
+        List<String> ports = new ArrayList<>();
         ports.addAll(Arrays.asList(SerialPortList.getPortNames()));
         ports.addAll(TcpConnector.getAvailablePorts());
 
@@ -47,10 +47,7 @@ public class PortLookupFrame {
         upperPanel.add(buttonLogViewer);
 
         JPanel lowerPanel = new JPanel(new FlowLayout());
-        if (SimulatorHelper.isBinaryHere()) {
-        } else {
-            lowerPanel.add(new JLabel(SimulatorHelper.BINARY + " not found"));
-        }
+        lowerPanel.add(SimulatorHelper.createSimulatorComponent(frame));
 
 
         content.add(upperPanel, BorderLayout.NORTH);
@@ -63,7 +60,7 @@ public class PortLookupFrame {
     }
 
     private static void addPortSelection(List<String> ports, final JFrame frame, JPanel panel) {
-        final JComboBox<String> comboPorts = new JComboBox<String>();
+        final JComboBox<String> comboPorts = new JComboBox<>();
         for (final String port : ports)
             comboPorts.addItem(port);
         panel.add(comboPorts);

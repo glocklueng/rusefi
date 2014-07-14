@@ -4,9 +4,11 @@ import com.irnems.core.EngineState;
 import com.irnems.core.MessagesCentral;
 import com.rusefi.AnalogChartPanel;
 import com.rusefi.PortLookupFrame;
+import com.rusefi.SimulatorHelper;
 import com.rusefi.io.LinkManager;
 import com.rusefi.ui.*;
 import jssc.SerialPortList;
+import org.apache.batik.svggen.SimpleImageHandler;
 
 import javax.swing.*;
 
@@ -80,6 +82,7 @@ public class Launcher extends FrameHelper {
         /**
          * looks like reconnectTimer in {@link RpmPanel} keeps AWT alive. Simplest solution would be to 'exit'
          */
+        SimulatorHelper.onWindowClosed();
         System.exit(0);
     }
 
