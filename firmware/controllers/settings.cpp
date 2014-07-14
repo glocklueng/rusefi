@@ -445,6 +445,7 @@ static void setGlobalFuelCorrection(float value) {
 }
 
 static void setWholeTimingMap(float value) {
+	// todo: table helper?
 	scheduleMsg(&logger, "Setting whole timing map to %f", value);
 	for (int l = 0; l < IGN_LOAD_COUNT; l++) {
 		for (int r = 0; r < IGN_RPM_COUNT; r++) {
