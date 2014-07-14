@@ -177,6 +177,8 @@ public class AutoTest {
         sendCommand("set_algorithm 3");
         chart = nextChart();
         x = 8.88;
+        assertWave(msg, chart, WaveChart.INJECTOR_1, 0.296666, x + 180);
+        assertWave(msg, chart, WaveChart.INJECTOR_2, 0.296666, x);
         assertWave(msg, chart, WaveChart.INJECTOR_4, 0.296666, x + 540);
     }
 
