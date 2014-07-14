@@ -96,14 +96,18 @@ public class TcpConnector implements LinkConnector {
         }
     }
 
-    public static Collection<? extends String> getAvailablePorts() {
+    public static Collection<String> getAvailablePorts() {
+        return isTcpPortOpened() ? Collections.singletonList("" + DEFAULT_PORT) : Collections.<String>emptyList();
+    }
+
+    public static boolean isTcpPortOpened() {
         try {
             Socket s = new Socket(LOCALHOST, DEFAULT_PORT);
             s.close();
-            return Collections.singletonList("" + DEFAULT_PORT);
+            return true;
         } catch (IOException e) {
             System.out.println("Connection refused in getAvailablePorts(): simulator not running");
-            return Collections.emptyList();
+            return false;
         }
     }
 }
