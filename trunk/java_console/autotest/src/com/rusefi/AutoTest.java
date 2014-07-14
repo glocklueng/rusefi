@@ -21,7 +21,6 @@ public class AutoTest {
     private static void mainTestBody() {
         testFordAspire();
 
-        sendCommand("set_engine_type 2");
         testDodgeNeon();
 
         sendCommand("set_engine_type 7");
@@ -32,6 +31,7 @@ public class AutoTest {
     }
 
     private static void testDodgeNeon() {
+        sendCommand("set_engine_type 2");
         WaveChart chart;
         IoUtil.changeRpm(2000);
         sendCommand("set_ignition_mode 1");
@@ -49,6 +49,13 @@ public class AutoTest {
         assertWave(msg, chart, WaveChart.SPARK_2, 0.13333, x);
         assertWave(msg, chart, WaveChart.SPARK_1, 0.13333, x + 180);
         assertWave(msg, chart, WaveChart.SPARK_3, 0.13333, x + 360);
+
+        // switching to Speed Density
+        sendCommand("set_mock_map_voltage 1");
+        sendCommand("set_algorithm 3");
+        chart = nextChart();
+        x = 110;
+        assertWave(msg, chart, WaveChart.INJECTOR_4, 0.42966, x + 540);
     }
 
     private static void testFordFiesta() {
