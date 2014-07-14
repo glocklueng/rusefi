@@ -80,12 +80,13 @@ public class AutoTest {
     }
 
     private static void testFordAspire() {
+        String msg = "Aspire";
         WaveChart chart;
         // todo: interesting changeRpm(100);
         sendCommand("set_cranking_rpm 500");
         IoUtil.changeRpm(200);
 
-        float x;
+        double x;
         chart = nextChart();
         x = 55;
         assertWave("aspire default cranking ", chart, WaveChart.SPARK_1, 0.1944, x, x + 180, x + 360, x + 540);
@@ -169,6 +170,14 @@ public class AutoTest {
         chart = nextChart();
         x = 59;
         assertWave(chart, WaveChart.SPARK_2, 0.133, x);
+
+
+        // switching to Speed Density
+        sendCommand("set_mock_map_voltage 1");
+        sendCommand("set_algorithm 3");
+        chart = nextChart();
+        x = 8.88;
+        assertWave(msg, chart, WaveChart.INJECTOR_4, 0.296666, x + 540);
     }
 
     public static void main(String[] args) throws InterruptedException {
