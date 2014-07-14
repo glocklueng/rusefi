@@ -8,7 +8,6 @@ import com.rusefi.SimulatorHelper;
 import com.rusefi.io.LinkManager;
 import com.rusefi.ui.*;
 import jssc.SerialPortList;
-import org.apache.batik.svggen.SimpleImageHandler;
 
 import javax.swing.*;
 
