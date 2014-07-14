@@ -65,7 +65,7 @@ void idleDebug(char *msg, int value) {
 }
 
 float getMap(void) {
-	return 0;
+	return getRawMap();
 }
 
 static int primaryWheelState = FALSE;
