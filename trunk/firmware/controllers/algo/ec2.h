@@ -42,13 +42,11 @@ extern "C"
 class engine_configuration2_s {
 public:
 	engine_configuration2_s();
-	int hasMapSensor;
-	int hasCltSensor;
 
 	Thermistor iat;
 	Thermistor clt;
 
-	int crankAngleRange;
+//	int crankAngleRange;
 
 	trigger_shape_s triggerShape;
 

@@ -260,6 +260,10 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 
 	engineConfiguration->diffLoadEnrichmentCoef = 1;
 
+	engineConfiguration->hasMapSensor = TRUE;
+	engineConfiguration->hasCltSensor = TRUE;
+
+
 	boardConfiguration->idleValvePin = GPIOE_2;
 	boardConfiguration->idleValvePinMode = OM_DEFAULT;
 	boardConfiguration->fuelPumpPin = GPIOC_13;
@@ -358,10 +362,8 @@ void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfigu
 	/**
 	 * 720 is the range for four stroke
 	 */
-	engineConfiguration2->crankAngleRange = 720;
+//	engineConfiguration2->crankAngleRange = 720;
 
-	engineConfiguration2->hasMapSensor = TRUE;
-	engineConfiguration2->hasCltSensor = TRUE;
 }
 
 void resetConfigurationExt(Logging * logger, engine_type_e engineType, engine_configuration_s *engineConfiguration,

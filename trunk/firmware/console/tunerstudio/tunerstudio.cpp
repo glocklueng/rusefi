@@ -54,7 +54,7 @@ static SerialConfig tsSerialConfig = { TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS 
 #endif /* EFI_PROD_CODE */
 
 #define MAX_PAGE_ID 0
-#define PAGE_0_SIZE 5816
+#define PAGE_0_SIZE 5824
 
 // in MS, that's 10 seconds
 #define TS_READ_TIMEOUT 10000

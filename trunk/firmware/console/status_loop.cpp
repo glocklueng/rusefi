@@ -129,7 +129,7 @@ void printSensors(void) {
 	reportSensorI("rpm", getRpm());
 	reportSensorF("maf", getMaf(), 2);
 
-	if (engineConfiguration2->hasMapSensor) {
+	if (engineConfiguration->hasMapSensor) {
 		reportSensorF(getCaption(LP_MAP), getMap(), 2);
 		reportSensorF("map_r", getRawMap(), 2);
 	}
@@ -141,7 +141,7 @@ void printSensors(void) {
 
 	reportSensorF(getCaption(LP_THROTTLE), getTPS(), 2);
 
-	if (engineConfiguration2->hasCltSensor) {
+	if (engineConfiguration->hasCltSensor) {
 		reportSensorF(getCaption(LP_ECT), getCoolantTemperature(), 2);
 	}
 

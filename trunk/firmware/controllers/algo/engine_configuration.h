@@ -370,6 +370,10 @@ typedef struct {
 
 	board_configuration_s bc;
 
+	int hasMapSensor;
+	int hasCltSensor;
+
+
 } engine_configuration_s;
 
 void setOperationMode(engine_configuration_s *engineConfiguration, operation_mode_e mode);
