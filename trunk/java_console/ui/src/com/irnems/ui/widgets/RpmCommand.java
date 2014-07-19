@@ -38,6 +38,9 @@ public class RpmCommand extends JPanel {
     }
 
     public static void requestRpmChange(int rpm) {
+        /**
+         * @see
+         */
         CommandQueue.getInstance().write("rpm " + rpm);
     }
 }
