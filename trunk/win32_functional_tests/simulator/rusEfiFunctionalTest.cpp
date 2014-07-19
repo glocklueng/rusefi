@@ -223,6 +223,10 @@ efitimems_t currentTimeMillis(void) {
 	return getTimeNowUs() / 1000;
 }
 
+int getTimeNowSeconds(void) {
+	return chTimeNow() / CH_FREQUENCY;
+}
+
 int getRusEfiVersion(void) {
 	return 239;
 }
