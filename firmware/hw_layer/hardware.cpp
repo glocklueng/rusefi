@@ -238,9 +238,7 @@ void initHardware(Logging *logger) {
 	if (hasFirmwareError())
 		return;
 
-	char buffer[16];
-	itoa10(buffer, SVN_VERSION);
-	lcd_HD44780_print_string(buffer);
+	lcd_HD44780_print_string(VCS_VERSION);
 
 #endif /* EFI_HD44780_LCD */
 
