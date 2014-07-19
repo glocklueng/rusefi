@@ -188,8 +188,6 @@ void printState(int currentCkpEventCounter) {
 
 static char LOGGING_BUFFER[500];
 
-#if EFI_PROD_CODE
-
 volatile int needToReportStatus = FALSE;
 static int prevCkpEventCounter = -1;
 
@@ -198,38 +196,6 @@ static Logging logger2;
 static void printStatus(void) {
 	needToReportStatus = TRUE;
 }
-
-//float getTCharge1(float tps) {
-//	float cltK = tempCtoKelvin(getCoolantTemperature());
-//	float iatK = tempCtoKelvin(getIntakeAirTemperature());
-//	return getTCharge(getCurrentRpm(), tps, cltK, iatK);
-//}
-
-//#if EFI_CUSTOM_PANIC_METHOD
-//extern char *dbg_panic_file;
-//extern int dbg_panic_line;
-//#endif
-
-//static void checkIfShouldHalt(void) {
-//#if CH_DBG_ENABLED
-//	if (hasFatalError()) {
-//		/**
-//		 * low-level function is used here to reduce stack usage
-//		 */
-//		palWritePad(LED_ERROR_PORT, LED_ERROR_PIN, 1);
-//#if EFI_CUSTOM_PANIC_METHOD
-//		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg, dbg_panic_file, dbg_panic_line);
-//#else
-//		print("my FATAL [%s] at %s:%d\r\n", dbg_panic_msg);
-//#endif
-//		chThdSleepSeconds(1);
-//		// todo: figure out how we halt exactly
-//		while (TRUE) {
-//		}
-//		chSysHalt();
-//	}
-//#endif
-//}
 
 /**
  * Time when the firmware version was reported last time, in seconds
@@ -260,14 +226,19 @@ void updateDevConsoleState(void) {
 //	checkIfShouldHalt();
 	printPending();
 
+#if EFI_PROD_CODE
+	// todo: unify with simulator!
 	if (hasFirmwareError()) {
 		printMsg(&logger, "firmware error: %s", errorMessageBuffer);
 		warningEnabled = FALSE;
 		chThdSleepMilliseconds(200);
 		return;
 	}
+#endif
 
+#if EFI_PROD_CODE
 	pokeAdcInputs();
+#endif
 
 	if (!fullLog)
 		return;
@@ -291,6 +262,8 @@ void updateDevConsoleState(void) {
 
 	finishStatusLine();
 }
+
+#if EFI_PROD_CODE
 
 /*
  * command example:
