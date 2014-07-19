@@ -207,7 +207,7 @@ static void printVersion(systime_t nowSeconds) {
 	if (overflowDiff(nowSeconds, timeOfPreviousPrintVersion) < 4)
 		return;
 	timeOfPreviousPrintVersion = nowSeconds;
-	appendPrintf(&logger, "rusEfiVersion%s%d@%d %s%s", DELIMETER, getRusEfiVersion(), SVN_VERSION,
+	appendPrintf(&logger, "rusEfiVersion%s%d@%s %s%s", DELIMETER, getRusEfiVersion(), VCS_VERSION,
 			getConfigurationName(engineConfiguration),
 			DELIMETER);
 }
