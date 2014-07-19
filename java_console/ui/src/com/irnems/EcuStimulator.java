@@ -10,8 +10,8 @@ import com.irnems.models.Range;
 import com.irnems.models.XYData;
 import com.rusefi.ui.ChartHelper;
 import com.rusefi.ui.RpmModel;
-import com.irnems.ui.widgets.PotCommand;
-import com.irnems.ui.widgets.RpmCommand;
+import com.rusefi.ui.widgets.PotCommand;
+import com.rusefi.ui.widgets.RpmCommand;
 import com.rusefi.io.LinkManager;
 import net.ericaro.surfaceplotter.DefaultSurfaceModel;
 

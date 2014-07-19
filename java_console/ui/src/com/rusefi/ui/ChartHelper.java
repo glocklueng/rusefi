@@ -3,7 +3,7 @@ package com.rusefi.ui;
 import com.irnems.FileLog;
 import com.irnems.models.Range;
 import com.irnems.models.XYData;
-import com.irnems.ui.widgets.JTextFieldWithWidth;
+import com.rusefi.ui.widgets.JTextFieldWithWidth;
 import net.ericaro.surfaceplotter.DefaultSurfaceModel;
 import net.ericaro.surfaceplotter.JSurfacePanel;
 import net.ericaro.surfaceplotter.Mapper;

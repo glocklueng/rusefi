@@ -1,4 +1,4 @@
-package com.irnems.ui.widgets;
+package com.rusefi.ui.widgets;
 
 import com.irnems.waves.TimeAxisTranslator;
 import com.rusefi.waves.WaveReport;
