@@ -1,8 +1,8 @@
 package com.rusefi.ui;
 
 import com.irnems.core.Sensor;
-import com.irnems.ui.widgets.MafCommand;
-import com.irnems.ui.widgets.RpmCommand;
+import com.rusefi.ui.widgets.MafCommand;
+import com.rusefi.ui.widgets.RpmCommand;
 import com.rusefi.ui.widgets.SensorGauge;
 import eu.hansolo.steelseries.gauges.Radial;
 

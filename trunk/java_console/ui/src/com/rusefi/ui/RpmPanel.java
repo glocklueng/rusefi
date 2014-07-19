@@ -4,7 +4,7 @@ import com.irnems.EcuStimulator;
 import com.irnems.Launcher;
 import com.irnems.core.EngineTimeListener;
 import com.irnems.core.Sensor;
-import com.irnems.ui.widgets.*;
+import com.rusefi.ui.widgets.*;
 import com.rusefi.io.LinkManager;
 import com.rusefi.ui.widgets.SensorGauge;
 import net.miginfocom.swing.MigLayout;

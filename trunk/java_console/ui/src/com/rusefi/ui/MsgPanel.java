@@ -1,8 +1,8 @@
 package com.rusefi.ui;
 
 import com.irnems.core.MessagesCentral;
-import com.irnems.ui.widgets.AnyCommand;
-import com.irnems.ui.widgets.IdleLabel;
+import com.rusefi.ui.widgets.AnyCommand;
+import com.rusefi.ui.widgets.IdleLabel;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
