@@ -2,6 +2,7 @@ package com.rusefi.waves;
 
 import com.irnems.waves.TimeAxisTranslator;
 import com.irnems.waves.ZoomProvider;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * Date: 6/23/13
  * (c) Andrey Belomutskiy
+ *
  * @see com.rusefi.AnalogChartPanel.AnalogChart
  */
 public class WaveReport implements TimeAxisTranslator {
@@ -35,11 +37,11 @@ public class WaveReport implements TimeAxisTranslator {
     }
 
     public WaveReport(List<UpDown> list) {
-        if (list.isEmpty())
-            throw new IllegalStateException("empty");
         this.list = list;
-        minTime = list.get(0).upTime;
-        maxTime = list.get(list.size() - 1).downTime;
+        if (!list.isEmpty()) {
+            minTime = list.get(0).upTime;
+            maxTime = list.get(list.size() - 1).downTime;
+        }
     }
 
     public static boolean isCloseEnough(double v1, double v2) {
@@ -63,6 +65,7 @@ public class WaveReport implements TimeAxisTranslator {
         return minTime;
     }
 
+    @NotNull
     public static List<UpDown> parse(String report) {
         String[] array = report.split("!");
 //        if (array.length % 4 != 0)
