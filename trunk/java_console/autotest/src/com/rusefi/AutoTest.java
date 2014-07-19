@@ -180,6 +180,11 @@ public class AutoTest {
         assertWave(msg, chart, WaveChart.INJECTOR_1, 0.296666, x + 180);
         assertWave(msg, chart, WaveChart.INJECTOR_2, 0.296666, x);
         assertWave(msg, chart, WaveChart.INJECTOR_4, 0.296666, x + 540);
+
+        // above hard limit
+        IoUtil.changeRpm(10000);
+        chart = nextChart();
+        assertNull("hard limit check", chart.get(WaveChart.INJECTOR_1));
     }
 
     public static void main(String[] args) throws InterruptedException {
