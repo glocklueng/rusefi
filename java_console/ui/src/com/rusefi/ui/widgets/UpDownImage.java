@@ -41,7 +41,7 @@ public class UpDownImage extends JPanel {
         trueRepaint(this);
     }
 
-    public static void trueRepaint(JComponent control) {
+    public static void trueRepaint(Container control) {
         control.invalidate();
         control.repaint();
     }

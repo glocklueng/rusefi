@@ -5,11 +5,11 @@ import com.irnems.FileLog;
 import com.irnems.core.EngineState;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
+import com.irnems.models.Utils;
 import com.rusefi.ui.widgets.AnyCommand;
 import com.rusefi.ui.widgets.URLLabel;
 import com.rusefi.ui.widgets.UpDownImage;
 import com.rusefi.io.LinkManager;
-import com.rusefi.ui.ChartScrollControl;
 import com.rusefi.waves.RevolutionLog;
 import com.rusefi.waves.WaveChart;
 import com.rusefi.waves.WaveChartParser;
@@ -38,7 +38,10 @@ public class WavePanel extends JPanel {
     private static final String HELP_URL = "http://rusefi.com/wiki/index.php?title=Manual:DevConsole#Digital_Chart";
     public static final String HELP_TEXT = "Click here for online help";
 
-    private final Map<String, UpDownImage> images = new TreeMap<String, UpDownImage>(INSTANCE);
+    /**
+     * imageName -> UpDownImage
+     */
+    private final Map<String, UpDownImage> images = new TreeMap<>(INSTANCE);
     private final JPanel imagePanel = new JPanel();
     private final ZoomControl zoomControl = new ZoomControl();
     private final ChartStatusPanel statusPanel = new ChartStatusPanel(zoomControl);
@@ -158,24 +161,31 @@ public class WavePanel extends JPanel {
 
         statusPanel.setRevolutions(revolutions);
 
-        for (Map.Entry<String, StringBuilder> e : map.map.entrySet()) {
-            String imageName = e.getKey();
-            String report = e.getValue().toString();
 
+        /**
+         * First let's create images for new keys
+         */
+        for (String imageName : map.map.keySet())
             createSecondaryImage(imageName);
 
+
+        for (String imageName : images.keySet()) {
             UpDownImage image = images.get(imageName);
             if (image == null)
-                continue;
+                throw new IllegalStateException("image not found for " + imageName);
+
+            StringBuilder sb = map.map.get(imageName);
+            String report = sb == null ? "" : sb.toString();
+
             image.setRevolutions(revolutions);
             List<WaveReport.UpDown> list = WaveReport.parse(report);
-            if (list.isEmpty()) {
-                image.onUpdate(); // this would reset empty image
-                continue;
-            }
             WaveReport wr = new WaveReport(list);
             image.setWaveReport(wr, revolutions);
         }
+        /**
+         * this is to fix the UI glitch when images tab shows a tiny square
+         */
+        UpDownImage.trueRepaint(getParent());
     }
 
     private void createSecondaryImage(String name) {
