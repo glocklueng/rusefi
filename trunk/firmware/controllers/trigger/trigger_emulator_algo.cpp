@@ -48,6 +48,9 @@ static void updateTriggerShapeIfNeeded(PwmConfig *state) {
 	if (localVersion.isOld()) {
 		scheduleMsg(&logger, "Stimulator: updating trigger shape: %d/%d %d", localVersion.getVersion(), getGlobalConfigurationVersion(), currentTimeMillis());
 
+
+		applyNonPersistentConfiguration(&logger, engineConfiguration, engineConfiguration2);
+
 		trigger_shape_s *s = &engineConfiguration2->triggerShape;
 		int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
 		copyPwmParameters(state, s->getSize(), s->wave.switchTimes, 2, pinStates);

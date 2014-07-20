@@ -176,7 +176,7 @@ static void configureFordAspireTriggerShape(trigger_config_s *triggerConfig, tri
 void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2) {
 #if EFI_PROD_CODE
-	printMsg(logger, "initializeTriggerShape()");
+	scheduleMsg(logger, "initializeTriggerShape()");
 #endif
 	trigger_config_s *triggerConfig = &engineConfiguration->triggerConfig;
 	trigger_shape_s *triggerShape = &engineConfiguration2->triggerShape;
