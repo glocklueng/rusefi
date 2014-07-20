@@ -15,7 +15,8 @@
 
 void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->engineType = HONDA_ACCORD;
-//	engineConfiguration->triggerConfig.totalToothCount = 24;
-//	engineConfiguration->triggerConfig.skippedToothCount = 2;
+
+	engineConfiguration->map.sensor.sensorType = MT_HONDA3BAR;
+
 }
 

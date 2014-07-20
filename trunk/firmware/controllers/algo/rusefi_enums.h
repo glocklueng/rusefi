@@ -342,6 +342,7 @@ typedef enum {
 	MT_CUSTOM = 0,
 	MT_DENSO183 = 1,
 	MT_MPX4250 = 2,
+	MT_HONDA3BAR = 3,
 
 	Internal_ForceMyEnumIntSize_cranking_map_type = ENUM_SIZE_HACK,
 } air_pressure_sensor_type_e;
