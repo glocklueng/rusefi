@@ -92,15 +92,15 @@ typedef struct {
 typedef struct {
 	trigger_type_e triggerType;
 
-	int isSynchronizationNeeded;
+	int customIsSynchronizationNeeded;
 
-	int totalToothCount;
-	int skippedToothCount;
+	int customTotalToothCount;
+	int customSkippedToothCount;
 
-	float syncRatioFrom;
-	float syncRatioTo;
+	float customSyncRatioFrom;
+	float customSyncRatioTo;
 
-	int useRiseEdge;
+	int customUseRiseEdge;
 
 } trigger_config_s;
 
@@ -335,7 +335,7 @@ typedef struct {
 
 	trigger_config_s triggerConfig;
 
-	int needSecondTriggerInput;
+	int space;
 	int vBattAdcChannel;
 
 	float globalFuelCorrection;
@@ -399,9 +399,6 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 void setWholeFuelMap(engine_configuration_s *engineConfiguration, float value);
 void setConstantDwell(engine_configuration_s *engineConfiguration, float dwellMs);
 void printFloatArray(const char *prefix, float array[], int size);
-
-void setTriggerSynchronizationGap(trigger_config_s *triggerConfig, float synchGap);
-void setToothedWheelConfiguration(engine_configuration_s *engineConfiguration, int total, int skipped);
 
 void incrementGlobalConfigurationVersion(void);
 int getGlobalConfigurationVersion(void);

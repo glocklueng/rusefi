@@ -97,20 +97,6 @@ void setWholeFuelMap(engine_configuration_s *engineConfiguration, float value) {
 	}
 }
 
-void setToothedWheelConfiguration(engine_configuration_s *engineConfiguration, int total, int skipped) {
-	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL;
-	engineConfiguration->triggerConfig.isSynchronizationNeeded = (skipped != 0);
-
-	engineConfiguration->triggerConfig.totalToothCount = total;
-	engineConfiguration->triggerConfig.skippedToothCount = skipped;
-}
-
-void setTriggerSynchronizationGap(trigger_config_s *triggerConfig, float synchGap) {
-	triggerConfig->isSynchronizationNeeded = TRUE;
-	triggerConfig->syncRatioFrom = synchGap * 0.75;
-	triggerConfig->syncRatioTo = synchGap * 1.25;
-}
-
 /**
  * @brief	Global default engine configuration
  * This method sets the default global engine configuration. These values are later overridden by engine-specific defaults
@@ -234,9 +220,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 
 	engineConfiguration->logFormat = LF_NATIVE;
 
-	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL;
-	setTriggerSynchronizationGap(&engineConfiguration->triggerConfig, 2);
-	engineConfiguration->triggerConfig.useRiseEdge = TRUE;
+	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL_60_2;
 
 	engineConfiguration->HD44780width = 16;
 	engineConfiguration->HD44780height = 2;
@@ -251,8 +235,6 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	initBpsxD1Sensor(&engineConfiguration->afrSensor);
 
 	engineConfiguration->globalFuelCorrection = 1;
-
-	engineConfiguration->needSecondTriggerInput = TRUE;
 
 	engineConfiguration->map.sensor.sensorType = MT_MPX4250;
 
@@ -457,7 +439,7 @@ void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *e
 
 	initializeTriggerShape(logger, engineConfiguration, engineConfiguration2);
 	if (engineConfiguration2->triggerShape.getSize() == 0) {
-		firmwareError("size is zero");
+		firmwareError("triggerShape size is zero");
 		return;
 	}
 	if (engineConfiguration2->triggerShape.shaftPositionEventCount == 0) {
