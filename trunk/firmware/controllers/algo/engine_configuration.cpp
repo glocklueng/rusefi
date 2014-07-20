@@ -433,7 +433,7 @@ void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *e
 // todo: this would require 'initThermistors() to re-establish a reference, todo: fix
 //	memset(engineConfiguration2, 0, sizeof(engine_configuration2_s));
 #if EFI_PROD_CODE
-	printMsg(logger, "applyNonPersistentConfiguration()");
+	scheduleMsg(logger, "applyNonPersistentConfiguration()");
 #endif
 	engineConfiguration2->isInjectionEnabledFlag = TRUE;
 
