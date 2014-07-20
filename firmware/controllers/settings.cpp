@@ -424,9 +424,15 @@ static void setIgnitionMode(int value) {
 	doPrintConfiguration();
 }
 
+static void setTriggerType(int value) {
+	engineConfiguration->triggerConfig.triggerType = (trigger_type_e)value;
+	incrementGlobalConfigurationVersion();
+	doPrintConfiguration();
+}
+
 static void setToothedWheel(int total, int skipped) {
 	setToothedWheelConfiguration(&engineConfiguration2->triggerShape, total, skipped, engineConfiguration);
-	initializeTriggerShape(&logger, engineConfiguration, engineConfiguration2);
+//	initializeTriggerShape(&logger, engineConfiguration, engineConfiguration2);
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
 }
@@ -564,5 +570,6 @@ void initSettings(void) {
 	addConsoleAction("enable_injection", enableInjection);
 	addConsoleAction("disable_injection", disableInjection);
 	addConsoleActionII("set_toothed_wheel", setToothedWheel);
+	addConsoleActionI("set_trigger_type", setTriggerType);
 }
 
