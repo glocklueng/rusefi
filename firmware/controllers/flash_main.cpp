@@ -97,8 +97,7 @@ void readFromFlash(void) {
 				boardConfiguration);
 	} else {
 		printMsg(&logger, "Got valid configuration from flash!");
-		applyNonPersistentConfiguration(&logger, engineConfiguration, engineConfiguration2,
-				engineConfiguration->engineType);
+		applyNonPersistentConfiguration(&logger, engineConfiguration, engineConfiguration2);
 	}
 	// we can only change the state after the CRC check
 	engineConfiguration->firmwareVersion = getRusEfiVersion();
