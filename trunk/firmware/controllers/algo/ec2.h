@@ -81,7 +81,7 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType,
 		engine_configuration2_s *engineConfiguration2,
 		board_configuration_s *boardConfiguration);
 void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2, engine_type_e engineType);
+		engine_configuration2_s *engineConfiguration2);
 
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2);
