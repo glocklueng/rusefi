@@ -7,6 +7,7 @@ import com.rusefi.waves.WaveChart;
 import static com.rusefi.IoUtil.nextChart;
 import static com.rusefi.IoUtil.sendCommand;
 import static com.rusefi.TestingUtils.assertNull;
+import static com.rusefi.TestingUtils.assertTrue;
 import static com.rusefi.TestingUtils.assertWave;
 
 /**
@@ -74,8 +75,15 @@ public class AutoTest {
         IoUtil.changeRpm(2000);
         chart = nextChart();
 
+        String msg = "ford 6";
+
         int x = 7;
-        assertWave("ford 6", chart, WaveChart.SPARK_1, 0.01666, x, x + 120, x + 240, x + 360, x + 480, x + 600);
+        assertWave(msg, chart, WaveChart.SPARK_1, 0.01666, x, x + 120, x + 240, x + 360, x + 480, x + 600);
+
+        assertNull(msg, chart.get(WaveChart.TRIGGER_2));
+        sendCommand("set_trigger_type 1"); // TT_FORD_ASPIRE
+        chart = nextChart();
+        assertTrue(msg, chart.get(WaveChart.TRIGGER_2) != null);
 
     }
 
