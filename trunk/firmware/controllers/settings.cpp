@@ -176,7 +176,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 			pinModeToString(boardConfiguration->malfunctionIndicatorPinMode));
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
-	scheduleMsg(&logger, "needSecondTriggerInput: %s", boolToString(engineConfiguration->needSecondTriggerInput));
+	scheduleMsg(&logger, "needSecondTriggerInput: %s", boolToString(engineConfiguration2->triggerShape.needSecondTriggerInput));
 
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "idleValvePin: %s", hwPortname(boardConfiguration->idleValvePin));
@@ -425,7 +425,7 @@ static void setIgnitionMode(int value) {
 }
 
 static void setToothedWheel(int total, int skipped) {
-	setToothedWheelConfiguration(engineConfiguration, total, skipped);
+	setToothedWheelConfiguration(&engineConfiguration2->triggerShape, total, skipped);
 	initializeTriggerShape(&logger, engineConfiguration, engineConfiguration2);
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
