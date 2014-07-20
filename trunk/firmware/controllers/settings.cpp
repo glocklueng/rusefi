@@ -125,7 +125,7 @@ static const char * boolToString(bool value) {
  */
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 
-	scheduleMsg(&logger, getConfigurationName(engineConfiguration));
+	scheduleMsg(&logger, "Template %s trigger %d", getConfigurationName(engineConfiguration), engineConfiguration->triggerConfig.triggerType);
 
 	scheduleMsg(&logger, "configurationVersion=%d", getGlobalConfigurationVersion());
 
