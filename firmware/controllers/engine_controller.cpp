@@ -156,6 +156,8 @@ static void onEvenyGeneralMilliseconds(void *arg) {
 	 */
 	halTime.get(hal_lld_get_counter_value(), true);
 
+	engine.updateSlowSensors();
+
 	updateErrorCodes();
 
 	fanRelayControl();
