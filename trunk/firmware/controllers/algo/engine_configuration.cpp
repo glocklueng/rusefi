@@ -325,7 +325,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->consoleLoopPeriod = 200;
 	boardConfiguration->lcdThreadPeriod = 300;
 	boardConfiguration->tunerStudioThreadPeriod = 300;
-	boardConfiguration->generalPeriodicThreadPeriod = 200;
+	boardConfiguration->generalPeriodicThreadPeriod = 50;
 
 	boardConfiguration->tunerStudioSerialSpeed = 38400;
 
