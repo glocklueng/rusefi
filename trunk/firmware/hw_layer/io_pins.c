@@ -188,7 +188,9 @@ void initOutputPins(void) {
 	/**
 	 * want to make sure it's all zeros so that we can compare in initOutputPinExt() method
 	 */
-	memset(&outputs, 0, sizeof(outputs));
+// todo: it's too late to clear now? this breaks default status LEDs
+// todo: fix this?
+//	memset(&outputs, 0, sizeof(outputs));
 
 //	outputPinRegister("ext led 1", LED_EXT_1, EXTRA_LED_1_PORT, EXTRA_LED_1_PIN);
 //	outputPinRegister("ext led 2", LED_EXT_2, EXTRA_LED_2_PORT, EXTRA_LED_2_PIN);
