@@ -2112,6 +2112,12 @@
         <name>$PROJ_DIR$\..\controllers\algo\ec2.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\controllers\algo\engine.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\engine.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\controllers\algo\engine_configuration.cpp</name>
       </file>
       <file>
@@ -2152,6 +2158,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\malfunction_central.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\map_adjuster.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\algo\map_adjuster.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\algo\nmea.c</name>
