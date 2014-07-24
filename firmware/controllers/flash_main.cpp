@@ -19,16 +19,6 @@
 
 #include "datalogging.h"
 
-#include "audi_aan.h"
-#include "dodge_neon.h"
-#include "ford_aspire.h"
-#include "ford_fiesta.h"
-#include "ford_1995_inline_6.h"
-#include "snow_blower.h"
-#include "nissan_primera.h"
-#include "honda_accord.h"
-#include "GY6_139QMB.h"
-
 #include "ec2.h"
 
 static engine_type_e defaultEngineType = FORD_ASPIRE_1996;
