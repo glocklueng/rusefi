@@ -161,11 +161,13 @@ static void pwmpcb_slow(PWMDriver *pwmp) {
 	if (ADC_FAST_DEVICE.state != ADC_READY &&
 	ADC_FAST_DEVICE.state != ADC_COMPLETE &&
 	ADC_FAST_DEVICE.state != ADC_ERROR) {
-		firmwareError("ADC slow not ready?");
+		// todo: why and when does this happen? firmwareError("ADC slow not ready?");
+		slowAdc.errorsCount++;
 		chSysUnlockFromIsr()
 		;
 		return;
 	}
+	slowAdc.errorsCount++;
 	adcStartConversionI(&ADC_SLOW_DEVICE, &adcgrpcfgSlow, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW);
 	chSysUnlockFromIsr()
 	;
@@ -187,7 +189,8 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 	if (ADC_FAST_DEVICE.state != ADC_READY &&
 	ADC_FAST_DEVICE.state != ADC_COMPLETE &&
 	ADC_FAST_DEVICE.state != ADC_ERROR) {
-		firmwareError("ADC fast not ready?");
+		fastAdc.errorsCount++;
+		// todo: when? why? firmwareError("ADC fast not ready?");
 		chSysUnlockFromIsr()
 		;
 		return;
