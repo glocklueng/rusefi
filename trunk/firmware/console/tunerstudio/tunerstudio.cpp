@@ -118,9 +118,8 @@ static void printStats(void) {
 	scheduleMsg(&logger, "TunerStudio total/error counter=%d/%d H=%d", tsCounter, tsState.errorCounter, tsState.queryCommandCounter);
 	scheduleMsg(&logger, "TunerStudio O counter=%d size=%d / P=%d / B=%d", tsState.outputChannelsCommandCounter,
 			sizeof(tsOutputChannels), tsState.readPageCommandsCounter, tsState.burnCommandCounter);
-	scheduleMsg(&logger, "TunerStudio W counter=%d", tsState.writeValueCommandCounter);
-	scheduleMsg(&logger, "TunerStudio C counter=%d", tsState.writeChunkCommandCounter);
-	scheduleMsg(&logger, "TunerStudio P counter=%d current page %d", tsState.pageCommandCounter, tsState.currentPageId);
+	scheduleMsg(&logger, "TunerStudio W counter=%d / C = %d / P = %d / current page %d", tsState.writeValueCommandCounter, tsState.writeChunkCommandCounter,
+			tsState.pageCommandCounter, tsState.currentPageId);
 	scheduleMsg(&logger, "page size=%d", sizeof(engine_configuration_s));
 
 //	scheduleMsg(&logger, "analogChartFrequency %d",
