@@ -111,37 +111,29 @@ extern TunerStudioState tsState;
 static void printStats(void) {
 #if EFI_PROD_CODE
 	if (!isSerialOverUart()) {
-		scheduleMsg(&logger, "TS RX on %s%d", portname(TS_SERIAL_RX_PORT), TS_SERIAL_RX_PIN);
-		scheduleMsg(&logger, "TS TX on %s%d", portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN);
+		scheduleMsg(&logger, "TS RX on %s%d/TX on %s%d", portname(TS_SERIAL_RX_PORT), TS_SERIAL_RX_PIN,
+				portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN);
 	}
 #endif /* EFI_PROD_CODE */
-	scheduleMsg(&logger, "TunerStudio total/error counter=%d/%d", tsCounter, tsState.errorCounter);
-	scheduleMsg(&logger, "TunerStudio H counter=%d", tsState.queryCommandCounter);
-	scheduleMsg(&logger, "TunerStudio O counter=%d size=%d", tsState.outputChannelsCommandCounter,
-			sizeof(tsOutputChannels));
-	scheduleMsg(&logger, "TunerStudio P counter=%d", tsState.readPageCommandsCounter);
-	scheduleMsg(&logger, "TunerStudio B counter=%d", tsState.burnCommandCounter);
+	scheduleMsg(&logger, "TunerStudio total/error counter=%d/%d H=%d", tsCounter, tsState.errorCounter, tsState.queryCommandCounter);
+	scheduleMsg(&logger, "TunerStudio O counter=%d size=%d / P=%d / B=%d", tsState.outputChannelsCommandCounter,
+			sizeof(tsOutputChannels), tsState.readPageCommandsCounter, tsState.burnCommandCounter);
 	scheduleMsg(&logger, "TunerStudio W counter=%d", tsState.writeValueCommandCounter);
 	scheduleMsg(&logger, "TunerStudio C counter=%d", tsState.writeChunkCommandCounter);
 	scheduleMsg(&logger, "TunerStudio P counter=%d current page %d", tsState.pageCommandCounter, tsState.currentPageId);
-	scheduleMsg(&logger, "pages total size=%d", sizeof(engine_configuration_s));
-	scheduleMsg(&logger, "page 0 size=%d", getTunerStudioPageSize(0));
-	scheduleMsg(&logger, "page 1 size=%d", getTunerStudioPageSize(1));
+	scheduleMsg(&logger, "page size=%d", sizeof(engine_configuration_s));
 
-//	scheduleMsg(&logger, "timingMode %d", (int)(&engineConfiguration->timingMode) - (int)engineConfiguration);
-//	scheduleMsg(&logger, "cylindersCount %d", (int)(&engineConfiguration->cylindersCount) - (int)engineConfiguration);
-	scheduleMsg(&logger, "analogChartFrequency %d",
-			(int) (&engineConfiguration->analogChartFrequency) - (int) engineConfiguration);
-
-	int fuelMapOffset = (int) (&engineConfiguration->fuelTable) - (int) engineConfiguration;
-	scheduleMsg(&logger, "fuelTable %d", fuelMapOffset);
-
-	int offset = (int) (&engineConfiguration->bc.injectionPinMode) - (int) engineConfiguration;
-	scheduleMsg(&logger, "injectionPinMode %d", offset);
-
-	offset = (int) (&engineConfiguration->bc.idleThreadPeriod) - (int) engineConfiguration;
-	scheduleMsg(&logger, "idleThreadPeriod %d", offset);
-
+//	scheduleMsg(&logger, "analogChartFrequency %d",
+//			(int) (&engineConfiguration->analogChartFrequency) - (int) engineConfiguration);
+//
+//	int fuelMapOffset = (int) (&engineConfiguration->fuelTable) - (int) engineConfiguration;
+//	scheduleMsg(&logger, "fuelTable %d", fuelMapOffset);
+//
+//	int offset = (int) (&engineConfiguration->bc.injectionPinMode) - (int) engineConfiguration;
+//	scheduleMsg(&logger, "injectionPinMode %d", offset);
+//
+//	offset = (int) (&engineConfiguration->bc.idleThreadPeriod) - (int) engineConfiguration;
+//	scheduleMsg(&logger, "idleThreadPeriod %d", offset);
 
 	if (sizeof(engine_configuration_s) != getTunerStudioPageSize(0))
 		firmwareError("TS page size mismatch");
