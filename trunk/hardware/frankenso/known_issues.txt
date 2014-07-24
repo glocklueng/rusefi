@@ -3,3 +3,5 @@
 3) usability issue: GND test pad is under discovery
 4) add larger +5 test pad?
 5) add +12 test point?
+6) Thermocouple needs a via to allow a zip tie to go fully around the connector.
+7) op-amp reference & part # silkscreen is upside down in relation to the labeling of the actual chips
