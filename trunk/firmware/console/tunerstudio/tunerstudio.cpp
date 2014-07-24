@@ -289,6 +289,7 @@ void handlePageReadCommand(ts_response_format_e mode, uint16_t pageId, uint16_t 
  * 'Burn' command is a command to commit the changes
  */
 void handleBurnCommand(ts_response_format_e mode, uint16_t page) {
+	efitimems_t nowMs = currentTimeMillis();
 	tsState.burnCommandCounter++;
 
 	tunerStudioDebug("got B (Burn)");
@@ -296,20 +297,19 @@ void handleBurnCommand(ts_response_format_e mode, uint16_t page) {
 	tsState.currentPageId = page;
 
 #if EFI_TUNER_STUDIO_VERBOSE
-	scheduleMsg(&logger, "Page number %d", tsState.currentPageId);
+	// pointless since we only have one page now
+//	scheduleMsg(&logger, "Page number %d", tsState.currentPageId);
 #endif
 
 // todo: how about some multi-threading?
 	memcpy(&persistentState.persistentConfiguration, &configWorkingCopy, sizeof(persistent_config_s));
-
-	scheduleMsg(&logger, "va1=%d", configWorkingCopy.engineConfiguration.bc.idleValvePin);
-	scheduleMsg(&logger, "va2=%d", persistentState.persistentConfiguration.engineConfiguration.bc.idleValvePin);
 
 #if EFI_INTERNAL_FLASH
 	writeToFlash();
 #endif
 	incrementGlobalConfigurationVersion();
 	tunerStudioWriteCrcPacket(TS_RESPONSE_BURN_OK, NULL, 0);
+	scheduleMsg(&logger, "burned in (ms): %d", currentTimeMillis() - nowMs);
 }
 
 static TunerStudioReadRequest readRequest;
