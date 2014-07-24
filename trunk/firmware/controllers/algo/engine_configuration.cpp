@@ -382,7 +382,7 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType, engine_co
 		break;
 #endif
 	case HONDA_ACCORD:
-		setHondaAccordConfiguration(engineConfiguration);
+		setHondaAccordConfiguration(engineConfiguration, boardConfiguration);
 		break;
 #if EFI_SUPPORT_1995_FORD_INLINE_6 || defined(__DOXYGEN__)
 	case FORD_INLINE_6_1995:
