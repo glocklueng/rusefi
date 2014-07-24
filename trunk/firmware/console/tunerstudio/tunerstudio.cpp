@@ -115,8 +115,7 @@ static void printStats(void) {
 				portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN);
 	}
 #endif /* EFI_PROD_CODE */
-	scheduleMsg(&logger, "TunerStudio total/error counter=%d/%d H=%d", tsCounter, tsState.errorCounter, tsState.queryCommandCounter);
-	scheduleMsg(&logger, "TunerStudio O counter=%d size=%d / P=%d / B=%d", tsState.outputChannelsCommandCounter,
+	scheduleMsg(&logger, "TunerStudio total/error counter=%d/%d H=%d / O counter=%d size=%d / P=%d / B=%d", tsCounter, tsState.errorCounter, tsState.queryCommandCounter, tsState.outputChannelsCommandCounter,
 			sizeof(tsOutputChannels), tsState.readPageCommandsCounter, tsState.burnCommandCounter);
 	scheduleMsg(&logger, "TunerStudio W counter=%d / C = %d / P = %d / current page %d", tsState.writeValueCommandCounter, tsState.writeChunkCommandCounter,
 			tsState.pageCommandCounter, tsState.currentPageId);
@@ -297,7 +296,7 @@ void handleBurnCommand(ts_response_format_e mode, uint16_t page) {
 	tsState.currentPageId = page;
 
 #if EFI_TUNER_STUDIO_VERBOSE
-	scheduleMsg(&logger, "Page number %d\r\n", tsState.currentPageId);
+	scheduleMsg(&logger, "Page number %d", tsState.currentPageId);
 #endif
 
 // todo: how about some multi-threading?
