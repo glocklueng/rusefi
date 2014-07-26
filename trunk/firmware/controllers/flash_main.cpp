@@ -23,6 +23,8 @@
 
 static engine_type_e defaultEngineType = FORD_ASPIRE_1996;
 
+static bool needToWriteConfiguration = false;
+
 static Logging logger;
 
 extern persistent_config_container_s persistentState;
@@ -38,6 +40,24 @@ extern engine_configuration2_s * engineConfiguration2;
 
 crc_t flashStateCrc(persistent_config_container_s *state) {
 	return calc_crc((const crc_t*) &state->persistentConfiguration, sizeof(persistent_config_s));
+}
+
+void setNeedToWriteConfiguration(void) {
+	scheduleMsg(&logger, "Scheduling configuration write");
+	needToWriteConfiguration = true;
+}
+
+bool getNeedToWriteConfiguration(void) {
+	return needToWriteConfiguration;
+}
+
+void writeToFlashIfPending() {
+	if(!getNeedToWriteConfiguration())
+		return;
+	// todo: technically we need a lock here, realistically we should be fine.
+	needToWriteConfiguration = false;
+	scheduleMsg(&logger, "Writing pending configuration");
+	writeToFlash();
 }
 
 void writeToFlash(void) {
@@ -94,7 +114,6 @@ void readFromFlash(void) {
 }
 
 void initFlash(void) {
-	print("initFlash()\r\n");
 	initLogging(&logger, "Flash memory");
 
 	addConsoleAction("readconfig", readFromFlash);
