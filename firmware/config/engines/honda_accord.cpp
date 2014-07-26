@@ -14,6 +14,7 @@
 #include "main.h"
 #include "engine_configuration.h"
 #include "trigger_decoder.h"
+#include "thermistors.h"
 
 void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 	engineConfiguration->engineType = HONDA_ACCORD;
@@ -54,6 +55,11 @@ void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, bo
 	engineConfiguration->map.sensor.sensorType = MT_MPX4250;
 	engineConfiguration->map.sensor.hwChannel = 0;
 
+	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, -20, 18000, 23.8889, 2100, 120, 100);
+	engineConfiguration->cltThermistorConf.bias_resistor = 1500; // same as OEM ECU
+
+	setThermistorConfiguration(&engineConfiguration->iatThermistorConf, -20, 18000, 23.8889, 2100, 120, 100);
+	engineConfiguration->iatThermistorConf.bias_resistor = 1500; // same as OEM ECU
 
 }
 
