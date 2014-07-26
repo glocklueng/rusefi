@@ -305,7 +305,7 @@ void handleBurnCommand(ts_response_format_e mode, uint16_t page) {
 	memcpy(&persistentState.persistentConfiguration, &configWorkingCopy, sizeof(persistent_config_s));
 
 #if EFI_INTERNAL_FLASH
-	writeToFlash();
+	setNeedToWriteConfiguration();
 #endif
 	incrementGlobalConfigurationVersion();
 	tunerStudioWriteCrcPacket(TS_RESPONSE_BURN_OK, NULL, 0);
