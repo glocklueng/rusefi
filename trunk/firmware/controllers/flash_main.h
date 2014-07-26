@@ -32,7 +32,7 @@ void setNeedToWriteConfiguration(void);
  * @return true if an flash write is pending
  */
 bool getNeedToWriteConfiguration(void);
-void writeToFlashIfPending();
+void writeToFlashIfPending(void);
 
 #ifdef __cplusplus
 }
