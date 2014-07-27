@@ -231,6 +231,10 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 		setToothedWheelConfiguration(triggerShape, 36, 1, engineConfiguration);
 		return;
 
+	case TT_HONDA_ACCORD_CD:
+		configureHondaAccordCD(triggerShape);
+		return;
+
 	default:
 		firmwareError("initializeTriggerShape() not implemented: %d", triggerConfig->triggerType);
 		;
