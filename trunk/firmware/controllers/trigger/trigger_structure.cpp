@@ -147,6 +147,7 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_v
 	 * todo: accept angle as a value in the 0..1 range?
 	 */
 	angle /= 720;
+	efiAssertVoid(angle > 0, "angle should be positive");
 	efiAssertVoid(angle > previousAngle, "invalid angle order");
 	previousAngle = angle;
 	if (size == 0) {
@@ -190,7 +191,22 @@ void multi_wave_s::checkSwitchTimes(int size) {
 	checkSwitchTimes2(size, switchTimes);
 }
 
-void setToothedWheelConfiguration(trigger_shape_s *s, int total, int skipped, engine_configuration_s const *engineConfiguration) {
+void configureHondaAccordCD(trigger_shape_s *s) {
+	s->reset(FOUR_STROKE_CAM_SENSOR);
+
+	float tdcWidth = 0.1854;
+
+	s->isSynchronizationNeeded = FALSE;
+	for (int i = 1; i <= 4; i++) {
+		s->addEvent(i * 180 - tdcWidth, T_PRIMARY, TV_HIGH);
+		s->addEvent(i * 180, T_PRIMARY, TV_LOW);
+	}
+
+	s->shaftPositionEventCount = s->getSize();
+}
+
+void setToothedWheelConfiguration(trigger_shape_s *s, int total, int skipped,
+		engine_configuration_s const *engineConfiguration) {
 	s->isSynchronizationNeeded = (skipped != 0);
 
 	s->totalToothCount = total;
@@ -198,8 +214,7 @@ void setToothedWheelConfiguration(trigger_shape_s *s, int total, int skipped, en
 	s->needSecondTriggerInput = false;
 	s->useRiseEdge = TRUE;
 
-	initializeSkippedToothTriggerShapeExt(s, s->totalToothCount,
-			s->skippedToothCount,
+	initializeSkippedToothTriggerShapeExt(s, s->totalToothCount, s->skippedToothCount,
 			getOperationMode(engineConfiguration));
 }
 
