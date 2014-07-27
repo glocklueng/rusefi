@@ -7,7 +7,6 @@
 #include "main.h"
 #include "trigger_emulator_algo.h"
 #include "engine_configuration.h"
-#include "wave_math.h"
 #include "LocalVersionHolder.h"
 #include "ec2.h"
 

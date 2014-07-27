@@ -27,10 +27,7 @@
 #include "trigger_gm.h"
 #include "trigger_bmw.h"
 
-extern "C" {
 #include "trigger_structure.h"
-#include "wave_math.h"
-}
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
 static Logging logger;

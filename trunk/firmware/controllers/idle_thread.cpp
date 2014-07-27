@@ -27,7 +27,6 @@
 #include "idle_controller.h"
 #include "rpm_calculator.h"
 #include "pwm_generator.h"
-#include "wave_math.h"
 #include "idle_thread.h"
 #include "pin_repository.h"
 #include "engine_configuration.h"
