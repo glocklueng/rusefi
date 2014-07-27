@@ -291,47 +291,28 @@ void testMazdaMianaNbDecoder(void) {
 	assertTriggerPosition(&position, 0, 0);
 }
 
-static void testCitroen(void) {
-	printf("*************************************************** testCitroen\r\n");
+static void testTriggerDecoder(const char *msg, engine_type_e type, int synchPointIndex) {
+	printf("*************************************************** %s\r\n", msg);
 
 	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
 	engine_configuration2_s ec2;
 	assertEquals(0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
-	resetConfigurationExt(NULL, CITROEN_TU3JP, ec, &ec2, &persistentConfig.engineConfiguration.bc);
+	resetConfigurationExt(NULL, type, ec, &ec2, &persistentConfig.engineConfiguration.bc);
 
-	assertEquals(0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
+	assertEquals(synchPointIndex, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 }
 
 static void testRoverV8(void) {
-	printf("*************************************************** testRoverV8\r\n");
-
-	persistent_config_s persistentConfig;
-	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
-	engine_configuration2_s ec2;
-	resetConfigurationExt(NULL, ROVER_V8, ec, &ec2, &persistentConfig.engineConfiguration.bc);
-
-	assertEquals(0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
+	testTriggerDecoder("testRoverV8", ROVER_V8, 0);
 }
 
 static void testMiniCooper(void) {
-	printf("*************************************************** testMiniCooper\r\n");
-
-	persistent_config_s persistentConfig;
-	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
-	engine_configuration2_s ec2;
-	resetConfigurationExt(NULL, MINI_COOPER_R50, ec, &ec2, &persistentConfig.engineConfiguration.bc);
-
+	testTriggerDecoder("testMiniCooper", MINI_COOPER_R50, 121);
 }
 
 static void testFordEscortGt(void) {
-	printf("*************************************************** testFordEscortGt\r\n");
-
-	persistent_config_s persistentConfig;
-	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
-	engine_configuration2_s ec2;
-	resetConfigurationExt(NULL, FORD_ESCORT_GT, ec, &ec2, &persistentConfig.engineConfiguration.bc);
 }
 
 void testGY6_139QMB(void) {
@@ -480,10 +461,12 @@ void testTriggerDecoder(void) {
 	test1995FordInline6TriggerDecoder();
 	testMazdaMianaNbDecoder();
 	testGY6_139QMB();
-	testFordEscortGt();
+	testTriggerDecoder("testFordEscortGt", FORD_ESCORT_GT, 0);
 	testMiniCooper();
 	testRoverV8();
-	testCitroen();
+	testTriggerDecoder("testCitroen", CITROEN_TU3JP, 0);
+	testTriggerDecoder("testFordEscortGt", FORD_ESCORT_GT, 0);
+	testTriggerDecoder("testAccordCd", HONDA_ACCORD_CD, 0);
 
 	testMazda323();
 
