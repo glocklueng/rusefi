@@ -17,7 +17,8 @@
 #include "thermistors.h"
 
 void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
-	engineConfiguration->engineType = HONDA_ACCORD;
+	engineConfiguration->engineType = HONDA_ACCORD_CD;
+	engineConfiguration->triggerConfig.triggerType = TT_HONDA_ACCORD_CD;
 
 	engineConfiguration->map.sensor.sensorType = MT_HONDA3BAR;
 
