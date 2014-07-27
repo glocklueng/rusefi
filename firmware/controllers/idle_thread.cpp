@@ -48,7 +48,7 @@ static volatile int idleSwitchState;
 static Logging logger;
 extern Engine engine;
 
-static SimplePwm idleValve;
+static SimplePwm idleValvePwm;
 
 /**
  * Idle level calculation algorithm lives in idle_controller.c
@@ -78,7 +78,7 @@ static void setIdleValvePwm(int value) {
 	 * currently idle level is an integer per mil (0-1000 range), and PWM takes a float in the 0..1 range
 	 * todo: unify?
 	 */
-	idleValve.setSimplePwmDutyCycle(0.001 * value);
+	idleValvePwm.setSimplePwmDutyCycle(0.001 * value);
 }
 
 static msg_t ivThread(int param) {
@@ -117,7 +117,10 @@ static void setIdleRpmAction(int value) {
 void startIdleThread() {
 	initLogging(&logger, "Idle Valve Control");
 
-	startSimplePwmExt(&idleValve, "Idle Valve",
+	/**
+	 * Start PWM for IDLE_VALVE logical / idleValvePin physical
+	 */
+	startSimplePwmExt(&idleValvePwm, "Idle Valve",
 			boardConfiguration->idleValvePin,
 			IDLE_VALVE,
 			IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY,
