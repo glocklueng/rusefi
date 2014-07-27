@@ -4,7 +4,6 @@
 #include "engine_configuration.h"
 #include "interpolation.h"
 #include "adc_inputs.h"
-#include "wave_math.h"
 
 extern engine_configuration_s *engineConfiguration;
 

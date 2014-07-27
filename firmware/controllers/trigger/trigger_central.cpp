@@ -11,7 +11,6 @@
 #include "main_trigger_callback.h"
 #include "engine_configuration.h"
 #include "listener_array.h"
-#include "wave_math.h"
 #include "data_buffer.h"
 #include "histogram.h"
 #if EFI_PROD_CODE

@@ -33,7 +33,6 @@
 #include "tunerstudio_algo.h"
 #include "tunerstudio_configuration.h"
 #include "malfunction_central.h"
-#include "wave_math.h"
 #include "console_io.h"
 #include "crc.h"
 

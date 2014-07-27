@@ -10,7 +10,6 @@
 #define DIST_EMULATOR_H_
 
 #include "main.h"
-#include "wave_math.h"
 
 #include "trigger_structure.h"
 #include "engine_configuration.h"
