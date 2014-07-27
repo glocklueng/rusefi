@@ -12,6 +12,9 @@
 
 #define GPIO_NULL NULL
 
+/**
+ * Logical pins. See brain_pin_e for physical pins.
+ */
 typedef enum {
 	LED_WARNING, // Orange on-board LED
 	LED_RUNNING, // Green on-board LED
@@ -23,6 +26,9 @@ typedef enum {
 	LED_DEBUG,
 	LED_EMULATOR,
 
+	/**
+	 * see board_configuration_s->idleValvePin
+	 */
 	IDLE_VALVE,
 	TRIGGER_EMULATOR_PRIMARY,
 	TRIGGER_EMULATOR_SECONDARY,
