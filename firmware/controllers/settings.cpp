@@ -76,7 +76,7 @@ const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 	case NISSAN_PRIMERA:
 		return "Nissan Primera";
 #endif /* EFI_SUPPORT_NISSAN_PRIMERA */
-	case HONDA_ACCORD:
+	case HONDA_ACCORD_CD:
 		return "Honda Accord";
 	case FORD_INLINE_6_1995:
 		return "Ford 1995 inline 6";

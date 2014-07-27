@@ -381,7 +381,7 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType, engine_co
 		setNissanPrimeraEngineConfiguration(engineConfiguration);
 		break;
 #endif
-	case HONDA_ACCORD:
+	case HONDA_ACCORD_CD:
 		setHondaAccordConfiguration(engineConfiguration, boardConfiguration);
 		break;
 #if EFI_SUPPORT_1995_FORD_INLINE_6 || defined(__DOXYGEN__)

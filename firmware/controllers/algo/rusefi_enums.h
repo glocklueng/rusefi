@@ -46,7 +46,7 @@ typedef enum {
 	NISSAN_PRIMERA = 5,
 #endif /* EFI_SUPPORT_NISSAN_PRIMERA */
 
-	HONDA_ACCORD = 6,
+	HONDA_ACCORD_CD = 6,
 
 	FORD_INLINE_6_1995 = 7,
 /**
@@ -84,6 +84,8 @@ typedef enum {
 	TT_FORD_ESCORT_GT = 7,
 	TT_TOOTHED_WHEEL_60_2 = 8,
 	TT_TOOTHED_WHEEL_36_1 = 9,
+
+	TT_HONDA_ACCORD_CD = 10,
 
 	Internal_ForceMyEnumIntSize_trigger_type = ENUM_SIZE_HACK,
 } trigger_type_e;
