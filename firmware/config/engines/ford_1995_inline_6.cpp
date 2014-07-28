@@ -48,10 +48,10 @@ void setFordInline6(engine_configuration_s *engineConfiguration, board_configura
 	engineConfiguration->globalTriggerAngleOffset = 0;
 	engineConfiguration->ignitionOffset = 13;
 
-	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, -10, 160310, 60, 7700, 120.00, 1180);
+	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, -10.0, 160310.0, 60.0, 7700.0, 120.0, 1180.0);
 	engineConfiguration->cltThermistorConf.bias_resistor = 2700;
 
-	setThermistorConfiguration(&engineConfiguration->iatThermistorConf, -10, 160310, 60, 7700, 120.00, 1180);
+	setThermistorConfiguration(&engineConfiguration->iatThermistorConf, -10.0, 160310.0, 60.0, 7700.0, 120.0, 1180.0);
 	engineConfiguration->iatThermistorConf.bias_resistor = 2700;
 
 	// 12ch analog board pinout:

@@ -194,7 +194,7 @@ void multi_wave_s::checkSwitchTimes(int size) {
 void configureHondaAccordCD(trigger_shape_s *s) {
 	s->reset(FOUR_STROKE_CAM_SENSOR);
 
-	float tdcWidth = 0.1854;
+	float tdcWidth = 0.1854 * 720 / 4;
 
 	s->isSynchronizationNeeded = FALSE;
 	for (int i = 1; i <= 4; i++) {

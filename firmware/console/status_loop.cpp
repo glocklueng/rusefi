@@ -65,7 +65,7 @@
 extern Engine engine;
 
 // this 'true' value is needed for simulator
-static volatile int fullLog = TRUE;
+static volatile bool fullLog = true;
 int warningEnabled = TRUE;
 //int warningEnabled = FALSE;
 
@@ -411,6 +411,6 @@ void setFullLog(int value) {
 	fullLog = value;
 }
 
-int getFullLog(void) {
+bool getFullLog(void) {
 	return fullLog;
 }

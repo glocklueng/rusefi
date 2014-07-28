@@ -368,15 +368,17 @@ void scheduleLogging(Logging *logging) {
 //		strcpy(fatalMessage, "datalogging.c: output buffer overflow: ");
 //		strcat(fatalMessage, logging->name);
 //		fatal(fatalMessage);
-		if (!alreadyLocked)
+          if (!alreadyLocked) {
 			unlockOutputBuffer();
+          }
 		resetLogging(logging);
 		return;
 	}
 
 	strcat(pendingBuffer, logging->buffer);
-	if (!alreadyLocked)
+	if (!alreadyLocked) {
 		unlockOutputBuffer();
+        }
 	resetLogging(logging);
 }
 
@@ -387,7 +389,7 @@ uint32_t remainingSize(Logging *logging) {
 /**
  * This method actually sends all the pending data to the communication layer
  */
-void printPending() {
+void printPending(void) {
 	lockOutputBuffer();
 	// we cannot output under syslock, so another buffer
 	strcpy(outputBuffer, pendingBuffer);
