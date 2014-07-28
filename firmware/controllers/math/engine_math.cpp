@@ -270,8 +270,9 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 	while (true) {
 		middle = (left + right) / 2;
 
-		if (middle == left)
+		if (middle == left) {
 			break;
+                }
 
 		if (angleOffset < s->eventAngles[middle]) {
 			right = middle;
@@ -299,8 +300,10 @@ void registerActuatorEventExt(engine_configuration_s const *engineConfiguration,
 		OutputSignal *actuator, float angleOffset) {
 	efiAssertVoid(s->getSize() > 0, "uninitialized trigger_shape_s");
 
-	if (e == NULL)
-		return; // error already reported
+	if (e == NULL) {
+           // error already reported
+		return;
+        }
 	e->actuator = actuator;
 
 	findTriggerPosition(engineConfiguration, s, &e->position, angleOffset);

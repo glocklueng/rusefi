@@ -34,8 +34,9 @@ float getR1InVoltageDividor(float Vout, float Vin, float r2) {
 }
 
 float getR2InVoltageDividor(float Vout, float Vin, float r1) {
-	if (Vout == 0)
+  if (Vout == 0) {
 		return NAN;
+  }
 	return r1 / (Vin / Vout - 1);
 }
 
@@ -46,7 +47,7 @@ float getVoutInVoltageDividor(float Vin, float r1, float r2) {
 float convertResistanceToKelvinTemperature(float resistance, ThermistorConf *thermistor) {
 	if (resistance <= 0) {
 		//warning("Invalid resistance in convertResistanceToKelvinTemperature=", resistance);
-		return 0;
+		return 0.0f;
 	}
 	float logR = logf(resistance);
 	return 1 / (thermistor->s_h_a + thermistor->s_h_b * logR + thermistor->s_h_c * logR * logR * logR);
@@ -93,12 +94,12 @@ float getTemperatureC(Thermistor *thermistor) {
 	return convertKelvinToCelcius(kelvinTemperature);
 }
 
-int isValidCoolantTemperature(float temperature) {
+bool isValidCoolantTemperature(float temperature) {
 	// I hope magic constants are appropriate here
 	return !cisnan(temperature) && temperature > -50 && temperature < 250;
 }
 
-int isValidIntakeAirTemperature(float temperature) {
+bool isValidIntakeAirTemperature(float temperature) {
 	// I hope magic constants are appropriate here
 	return !cisnan(temperature) && temperature > -50 && temperature < 100;
 }
