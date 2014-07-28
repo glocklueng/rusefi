@@ -69,11 +69,8 @@ public:
 };
 
 class trigger_shape_s {
-private:
-	void setSwitchTime(int index, float angle);
-	trigger_shape_helper h;
-	int size;
 public:
+	trigger_shape_s();
 	int isSynchronizationNeeded;
 
 	int totalToothCount;
@@ -85,9 +82,6 @@ public:
 	int useRiseEdge;
 
 	bool needSecondTriggerInput;
-
-
-	trigger_shape_s();
 	void addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state);
 	float getAngle(int phaseIndex) const;
 	void reset(operation_mode_e operationMode);
@@ -114,6 +108,8 @@ public:
 	float eventAngles[PWM_PHASE_MAX_COUNT];
 
 private:
+	trigger_shape_helper h;
+	int size;
 	/**
 	 * index of synchronization event within trigger_shape_s
 	 * See findTriggerZeroEventIndex()
@@ -136,6 +132,8 @@ private:
 	 * this is part of performance optimization
 	 */
 	operation_mode_e operationMode;
+
+	void setSwitchTime(int index, float angle);
 };
 
 void setTriggerSynchronizationGap(trigger_shape_s *s, float synchGap);
