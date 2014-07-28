@@ -7,9 +7,9 @@
  *      http://rusefi.com/
  */
 
-#include "global.h"
 #include "main.h"
 #include "rusefi.h"
+#include "mpu_util.h"
 
 int main(void) {
 	/*
@@ -18,8 +18,7 @@ int main(void) {
 	halInit();
 	chSysInit();
 
-	// looks like this holds a random value on start? Let's set a nice clean zero
-	DWT_CYCCNT = 0;
+	baseHardwareInit();
 
 	runRusEfi();
 	return 0;

@@ -9,6 +9,11 @@
 #include "mpu_util.h"
 #include "error_handling.h"
 
+void baseHardwareInit(void) {
+	// looks like this holds a random value on start? Let's set a nice clean zero
+	DWT_CYCCNT = 0;
+}
+
 void DebugMonitorVector(void) {
 
 	chDbgPanic3("DebugMonitorVector", __FILE__, __LINE__);
