@@ -10,8 +10,14 @@
 
 #include <ch.h>
 #include <hal.h>
-#include <sys/types.h>
 #include <string.h>
+
+// this is about MISRA not liking 'time.h'. todo: figure out something
+#if defined __GNUC__
+#include <sys/types.h>
+#else
+typedef unsigned int time_t;
+#endif
 
 #include "efifeatures.h"
 #include "rusefi_enums.h"

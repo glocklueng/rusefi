@@ -140,8 +140,9 @@ static void initWave(char *name, int index, ICUDriver *driver, ioportid_t port, 
 //}
 
 static void onWaveShaftSignal(trigger_event_e ckpSignalType, int index, void *arg) {
-	if (index != 0)
+  if (index != 0) {
 		return;
+  }
 	uint64_t nowUs = getTimeNowUs();
 	ckpPeriodUs = nowUs - previousCrankSignalStart;
 	previousCrankSignalStart = nowUs;
@@ -175,8 +176,8 @@ float getWaveHighWidthMs(int index) {
 	WaveReader *reader = &readers[index];
 	ensureInitialized(reader);
 	if (getTimeNowUs() - reader->lastActivityTimeUs > 4 * US_PER_SECOND)
-		return 0; // dwell time has expired
-	return reader->last_wave_high_widthUs / 1000.0;
+		return 0.0f; // dwell time has expired
+	return reader->last_wave_high_widthUs / 1000.0f;
 }
 
 uint64_t getWaveOffset(int index) {
@@ -188,7 +189,7 @@ uint64_t getWaveOffset(int index) {
 float getSignalPeriodMs(int index) {
 	WaveReader *reader = &readers[index];
 	ensureInitialized(reader);
-	return reader->signalPeriodUs / 1000.0;
+	return reader->signalPeriodUs / 1000.0f;
 }
 
 int getWidthEventTime(int index) {
