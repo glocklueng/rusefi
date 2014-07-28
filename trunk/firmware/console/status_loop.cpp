@@ -297,7 +297,7 @@ static void showFuelMap2(float rpm, float engineLoad) {
 	scheduleMsg(&logger2, "iatCorrection=%f cltCorrection=%f injectorLag=%f", iatCorrection, cltCorrection,
 			injectorLag);
 
-	float value = getRunningFuel(baseFuel, &engine, rpm);
+	float value = getRunningFuel(baseFuel, &engine, (float)rpm);
 	scheduleMsg(&logger2, "injection pulse width: %f", value);
 }
 
