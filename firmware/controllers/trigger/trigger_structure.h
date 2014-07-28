@@ -105,7 +105,6 @@ public:
 	// tood: maybe even automate this flag calculation?
 	int initialState[PWM_PHASE_MAX_WAVE_PER_PWM];
 
-
 	int getTriggerShapeSynchPointIndex();
 
 	void setTriggerShapeSynchPointIndex(int triggerShapeSynchPointIndex);
