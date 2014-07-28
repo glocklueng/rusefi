@@ -61,8 +61,7 @@ typedef enum {
 #define TRIGGER_CHANNEL_COUNT 3
 
 class trigger_shape_helper {
-	int pinStates0[PWM_PHASE_MAX_COUNT];
-	int pinStates1[PWM_PHASE_MAX_COUNT];
+	int pinStates[TRIGGER_CHANNEL_COUNT][PWM_PHASE_MAX_COUNT];
 public:
 	trigger_shape_helper();
 

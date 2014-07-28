@@ -24,8 +24,8 @@
 #include "trigger_decoder.h"
 
 trigger_shape_helper::trigger_shape_helper() {
-	waves[0].init(pinStates0);
-	waves[1].init(pinStates1);
+	waves[0].init(pinStates[0]);
+	waves[1].init(pinStates[1]);
 }
 
 trigger_shape_s::trigger_shape_s() :
