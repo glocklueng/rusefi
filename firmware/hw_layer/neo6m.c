@@ -12,6 +12,8 @@
  */
 
 #include <string.h>
+// todo: MISRA does not like time.h
+#include <time.h>
 #include "main.h"
 
 #if EFI_UART_GPS
