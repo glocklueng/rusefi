@@ -91,16 +91,19 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, trigger_e
 	 */
 	triggerState.decodeTriggerEvent(triggerShape, &configuration->engineConfiguration->triggerConfig, signal, nowUs);
 
-	if (!triggerState.shaft_is_synchronized)
-		return; // we should not propagate event if we do not know where we are
+	if (!triggerState.shaft_is_synchronized) {
+          // we should not propagate event if we do not know where we are
+		return; 
+        }
 
 	if (triggerState.getCurrentIndex() >= configuration->engineConfiguration2->triggerShape.shaftPositionEventCount) {
 		int f = warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.getCurrentIndex());
 		if (!f) {
 #if EFI_PROD_CODE
 			// this temporary code is about trigger noise debugging
-			for (int i = 0; i < HW_EVENT_TYPES; i++)
+                  for (int i = 0; i < HW_EVENT_TYPES; i++) {
 				scheduleMsg(&logging, "event type: %d count=%d", i, hwEventCounters[i]);
+                  }
 #endif
 		}
 	} else {

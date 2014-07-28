@@ -48,14 +48,16 @@ float getTpsRateOfChange(void) {
  *
  * */
 float getTpsValue(int adc) {
-	if (adc < engineConfiguration->tpsMin)
-		return 0;
-	if (adc > engineConfiguration->tpsMax)
-		return 100;
+  if (adc < engineConfiguration->tpsMin) {
+		return 0.0f;
+  }
+	if (adc > engineConfiguration->tpsMax) {
+		return 100.0f;
+        }
 	// todo: double comparison using EPS
 	if (engineConfiguration->tpsMin == engineConfiguration->tpsMax) {
 		firmwareError("Invalid TPS configuration: same value");
-		return 0;
+		return 0.0f;
 	}
 	return interpolate(engineConfiguration->tpsMin, 0, engineConfiguration->tpsMax, 100, adc);
 }

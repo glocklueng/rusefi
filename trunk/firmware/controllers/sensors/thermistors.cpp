@@ -18,8 +18,8 @@
 #include "ec2.h"
 
 // Celsius
-#define LIMPING_MODE_IAT_TEMPERATURE 30
-#define LIMPING_MODE_CLT_TEMPERATURE 70
+#define LIMPING_MODE_IAT_TEMPERATURE 30.0f
+#define LIMPING_MODE_CLT_TEMPERATURE 70.0f
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
