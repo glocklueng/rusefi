@@ -118,8 +118,9 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 
 	if (current->parameterType == STRING3_PARAMETER) {
 		int spaceIndex = indexOf(parameter, ' ');
-		if (spaceIndex == -1)
+		if (spaceIndex == -1) {
 			return;
+        }
 		parameter[spaceIndex] = 0;
 		char * firstParam = parameter;
 
@@ -193,8 +194,9 @@ int tokenLength(char *msgp) {
 	int result = 0;
 	while (*msgp) {
 		char ch = *msgp++;
-		if (ch == ' ')
+		if (ch == ' ') {
 			break;
+                }
 		result++;
 	}
 	return result;
@@ -204,8 +206,9 @@ int strEqual(const char *str1, const char *str2) {
 	// todo: there must be a standard function?!
 	int len1 = strlen(str1);
 	int len2 = strlen(str2);
-	if (len1 != len2)
+	if (len1 != len2) {
 		return false;
+	}
 	for (int i = 0; i < len1; i++)
 		if (str1[i] != str2[i])
 			return false;
