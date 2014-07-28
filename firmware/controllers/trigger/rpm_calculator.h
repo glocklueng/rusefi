@@ -9,7 +9,7 @@
 #ifndef RPM_REPORTER_H_
 #define RPM_REPORTER_H_
 
-#include <time.h>
+#include <global.h>
 
 #define WC_DOWN "d"
 #define WC_UP "u"

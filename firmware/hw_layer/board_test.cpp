@@ -33,15 +33,16 @@ static volatile int currentIndex = 0;
 
 extern AdcConfiguration slowAdc;
 
-static int isTimeForNextStep(int copy) {
+static bool isTimeForNextStep(int copy) {
 	return copy != stepCoutner;
 }
 
 static void waitForKey(void) {
 	print("Please hit N<ENTER> to continue\r\n");
 	int copy = stepCoutner;
-	while (!isTimeForNextStep(copy))
+	while (!isTimeForNextStep(copy)) {
 		chThdSleepMilliseconds(200);
+        }
 }
 
 static void nextStep(void) {

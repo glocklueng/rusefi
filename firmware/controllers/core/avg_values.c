@@ -34,8 +34,9 @@ void avgAddValue(AvgTable *table, int rpm, float key, float value) {
 
 float avgGetValueByIndexes(AvgTable *table, int i, int j) {
 	int count = table->counts[i][j];
-	if (count == 0)
+	if (count == 0) {
 		return NAN;
+        }
 	return table->values[i][j] / count;
 }
 
