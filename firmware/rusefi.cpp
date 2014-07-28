@@ -9,6 +9,10 @@
 /**
  * @mainpage
  *
+ * rusEfi is implemented based on the idea that with modern 100+ MHz microprocessors the relatively
+ * undemanding task of internal combustion engine control could be implemented in a high-level, processor-independent
+ * (to some extent) manner. Thus the key concepts of rusEfi: software-based PWM
+ *
  * @section sec_main Brief overview
  *
  * rusEfi runs on crankshaft or camshaft ('trigger') position sensor events.
@@ -186,38 +190,6 @@ void scheduleReset(void) {
 	lockAnyContext();
 	chVTSetI(&resetTimer, 5 * CH_FREQUENCY, (vtfunc_t) rebootNow, NULL);
 	unlockAnyContext();
-}
-
-void DebugMonitorVector(void) {
-
-	chDbgPanic3("DebugMonitorVector", __FILE__, __LINE__);
-
-	while (TRUE)
-		;
-}
-
-void UsageFaultVector(void) {
-
-	chDbgPanic3("UsageFaultVector", __FILE__, __LINE__);
-
-	while (TRUE)
-		;
-}
-
-void BusFaultVector(void) {
-
-	chDbgPanic3("BusFaultVector", __FILE__, __LINE__);
-
-	while (TRUE)
-		;
-}
-
-void HardFaultVector(void) {
-
-	chDbgPanic3("HardFaultVector", __FILE__, __LINE__);
-
-	while (TRUE)
-		;
 }
 
 extern int main_loop_started;

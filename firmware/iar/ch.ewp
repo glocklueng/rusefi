@@ -3159,12 +3159,6 @@
     <file>
       <name>$PROJ_DIR$\..\util\LocalVersionHolder.h</name>
     </file>
-    <file>
-      <name>$PROJ_DIR$\..\util\wave_math.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\util\wave_math.h</name>
-    </file>
   </group>
   <file>
     <name>$PROJ_DIR$\..\chconf.h</name>

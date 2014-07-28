@@ -7,16 +7,10 @@
  *      http://rusefi.com/
  */
 
-extern "C"
-{
 #include "global.h"
-}
 #include "main.h"
-
-extern "C"
-{
 #include "rusefi.h"
-}
+
 int main(void) {
 	/*
 	 * ChibiOS/RT initialization
