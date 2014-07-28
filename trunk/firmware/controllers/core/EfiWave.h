@@ -10,7 +10,7 @@
 #include "engine_configuration.h"
 
 #define PWM_PHASE_MAX_COUNT 250
-#define PWM_PHASE_MAX_WAVE_PER_PWM 2
+#define PWM_PHASE_MAX_WAVE_PER_PWM 3
 
 /**
  * @brief   PWM configuration for the specific output pin
