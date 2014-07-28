@@ -79,7 +79,7 @@ void resetWaveChart(WaveChart *chart) {
 static char WAVE_LOGGING_BUFFER[WAVE_LOGGING_SIZE] CCM_OPTIONAL
 ;
 
-int isWaveChartFull(WaveChart *chart) {
+static int isWaveChartFull(WaveChart *chart) {
 	return chart->counter >= chartSize;
 }
 

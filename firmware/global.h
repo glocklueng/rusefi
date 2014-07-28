@@ -33,6 +33,8 @@ typedef unsigned int time_t;
 // see also PORT_INT_REQUIRED_STACK
 #define UTILITY_THREAD_STACK_SIZE 128
 
+#define EFI_ERROR_CODE 0xffffffff
+
 #if EFI_USE_CCM && defined __GNUC__
 #define CCM_OPTIONAL __attribute__((section(".ccm")));
 #else
