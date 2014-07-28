@@ -10,6 +10,7 @@
 
 #include <ch.h>
 #include <hal.h>
+#include <sys/types.h>
 #include <string.h>
 
 #include "efifeatures.h"
