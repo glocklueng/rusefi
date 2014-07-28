@@ -147,12 +147,12 @@ GPIO_TypeDef * getHwPort(brain_pin_e brainPin) {
 	return PORTS[brainPin / 16];
 }
 
-int getHwPin(brain_pin_e brainPin) {
+ioportmask_t getHwPin(brain_pin_e brainPin) {
 	if (brainPin == GPIO_NONE)
-		return -1;
+		return EFI_ERROR_CODE;
 	if (brainPin > GPIO_NONE) {
 		firmwareError("Invalid brain_pin_e: %d", brainPin);
-		return -1;
+		return EFI_ERROR_CODE;
 	}
 	return brainPin % 16;
 }
