@@ -1,5 +1,5 @@
 /**
- * @file	status_loop.c
+ * @file	status_loop.cpp
  * @brief Human-readable protocol status messages
  *
  * http://rusefi.com/forum/viewtopic.php?t=263 Dev console overview
@@ -108,10 +108,6 @@ static void reportSensorI(const char *caption, int value) {
 
 static const char* boolean2string(int value) {
 	return value ? "YES" : "NO";
-}
-
-void finishStatusLine(void) {
-	printLine(&logger);
 }
 
 void printSensors(void) {
@@ -258,7 +254,7 @@ void updateDevConsoleState(void) {
 //	printWave(&logger);
 #endif
 
-	finishStatusLine();
+	printLine(&logger);
 }
 
 #if EFI_PROD_CODE
