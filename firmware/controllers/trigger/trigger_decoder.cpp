@@ -42,21 +42,24 @@ int isTriggerDecoderError(void) {
 	return errorDetection.sum(6) > 4;
 }
 
-static inline int isSynchronizationGap(TriggerState const *shaftPositionState, trigger_shape_s const *triggerShape,
+static inline bool isSynchronizationGap(TriggerState const *shaftPositionState, trigger_shape_s const *triggerShape,
 		trigger_config_s const *triggerConfig, const int currentDuration) {
-	if (!triggerShape->isSynchronizationNeeded)
+                  if (!triggerShape->isSynchronizationNeeded) {
 		return false;
+                  }
 
 	return currentDuration > shaftPositionState->toothed_previous_duration * triggerShape->syncRatioFrom
 			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerShape->syncRatioTo;
 }
 
-static inline int noSynchronizationResetNeeded(TriggerState *shaftPositionState, trigger_shape_s const *triggerShape,
+static inline bool noSynchronizationResetNeeded(TriggerState *shaftPositionState, trigger_shape_s const *triggerShape,
 		trigger_config_s const*triggerConfig) {
-	if (triggerShape->isSynchronizationNeeded)
+                  if (triggerShape->isSynchronizationNeeded) {
 		return false;
-	if (!shaftPositionState->shaft_is_synchronized)
+                  }
+	if (!shaftPositionState->shaft_is_synchronized) {
 		return TRUE;
+        }
 	/**
 	 * in case of noise the counter could be above the expected number of events
 	 */
@@ -105,8 +108,9 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 		int isDecodingError = getCurrentIndex() != triggerShape->shaftPositionEventCount - 1;
 		errorDetection.add(isDecodingError);
 
-		if (isTriggerDecoderError())
+		if (isTriggerDecoderError()) {
 			warning(OBD_PCM_Processor_Fault, "trigger decoding issue");
+                }
 
 		shaft_is_synchronized = TRUE;
 		nextRevolution(triggerShape->shaftPositionEventCount);
