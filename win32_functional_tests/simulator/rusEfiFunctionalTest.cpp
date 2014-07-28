@@ -172,7 +172,7 @@ void initTestStream(TestStream *ts) {
 
 int isSerialOverTcpReady;
 
-int isConsoleReady(void) {
+bool isConsoleReady(void) {
 	return isSerialOverTcpReady;
 }
 
