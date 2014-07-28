@@ -202,8 +202,9 @@ static void printInfo(systime_t nowSeconds) {
 	 * we report the version every 4 seconds - this way the console does not need to
 	 * request it and we will display it pretty soon
 	 */
-	if (overflowDiff(nowSeconds, timeOfPreviousPrintVersion) < 4)
+  if (overflowDiff(nowSeconds, timeOfPreviousPrintVersion) < 4) {
 		return;
+  }
 	timeOfPreviousPrintVersion = nowSeconds;
 	appendPrintf(&logger, "rusEfiVersion%s%d@%s %s%s", DELIMETER, getRusEfiVersion(), VCS_VERSION,
 			getConfigurationName(engineConfiguration),
@@ -234,8 +235,9 @@ extern char errorMessageBuffer[200];
  * @brief Sends all pending data to dev console
  */
 void updateDevConsoleState(void) {
-	if (!isConsoleReady())
+  if (!isConsoleReady()) {
 		return;
+  }
 // looks like this is not needed anymore
 //	checkIfShouldHalt();
 	printPending();
@@ -254,15 +256,17 @@ void updateDevConsoleState(void) {
 	pokeAdcInputs();
 #endif
 
-	if (!fullLog)
+	if (!fullLog) {
 		return;
+        }
 
 	systime_t nowSeconds = getTimeNowSeconds();
 	printInfo(nowSeconds);
 
 	int currentCkpEventCounter = getCrankEventCounter();
-	if (prevCkpEventCounter == currentCkpEventCounter && timeOfPreviousReport == nowSeconds)
+	if (prevCkpEventCounter == currentCkpEventCounter && timeOfPreviousReport == nowSeconds) {
 		return;
+        }
 
 	timeOfPreviousReport = nowSeconds;
 
@@ -286,7 +290,7 @@ void updateDevConsoleState(void) {
  */
 
 static void showFuelMap2(float rpm, float engineLoad) {
-	float baseFuel = getBaseTableFuel(rpm, engineLoad);
+	float baseFuel = getBaseTableFuel((int)rpm, engineLoad);
 
 	float iatCorrection = getIatCorrection(getIntakeAirTemperature());
 	float cltCorrection = getCltCorrection(getCoolantTemperature());
@@ -297,12 +301,12 @@ static void showFuelMap2(float rpm, float engineLoad) {
 	scheduleMsg(&logger2, "iatCorrection=%f cltCorrection=%f injectorLag=%f", iatCorrection, cltCorrection,
 			injectorLag);
 
-	float value = getRunningFuel(baseFuel, &engine, (float)rpm);
+	float value = getRunningFuel(baseFuel, &engine, (int)rpm);
 	scheduleMsg(&logger2, "injection pulse width: %f", value);
 }
 
 static void showFuelMap(void) {
-	showFuelMap2(getRpm(), getEngineLoad());
+	showFuelMap2((float)getRpm(), getEngineLoad());
 }
 
 static char buffer[10];
@@ -317,15 +321,16 @@ void updateHD44780lcd(void) {
 	char * ptr = itoa10(buffer, getRpm());
 	ptr[0] = 0;
 	int len = ptr - buffer;
-	for (int i = 0; i < 6 - len; i++)
+	for (int i = 0; i < 6 - len; i++) {
 		lcd_HD44780_print_char(' ');
+        }
 
 	lcd_HD44780_print_string(buffer);
 
 	lcd_HD44780_set_position(2, 0);
 	lcd_HD44780_print_char('C');
 
-	ftoa(buffer, getCoolantTemperature(), 100);
+	ftoa(buffer, getCoolantTemperature(), 100.0f);
 	lcd_HD44780_print_string(buffer);
 
 #if EFI_PROD_CODE
@@ -351,7 +356,6 @@ static void lcdThread(void *arg) {
 static THD_WORKING_AREA(tsThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 #if EFI_TUNER_STUDIO
-extern TunerStudioOutputChannels tsOutputChannels;
 
 void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
 #if EFI_SHAFT_POSITION_INPUT
@@ -377,6 +381,8 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
 	tsOutputChannels->checkEngine = hasErrorCodes();
 	tsOutputChannels->tCharge = getTCharge(rpm, tps, coolant, intake);
 }
+
+extern TunerStudioOutputChannels tsOutputChannels;
 #endif /* EFI_TUNER_STUDIO */
 
 static void tsStatusThread(void *arg) {
@@ -416,8 +422,8 @@ void initStatusLoop(void) {
 
 void startStatusThreads(void) {
 	// todo: refactoring needed, this file should probably be split into pieces
-	chThdCreateStatic(lcdThreadStack, sizeof(lcdThreadStack), NORMALPRIO, (tfunc_t) lcdThread, NULL);
-	chThdCreateStatic(tsThreadStack, sizeof(tsThreadStack), NORMALPRIO, (tfunc_t) tsStatusThread, NULL);
+	chThdCreateStatic(lcdThreadStack, sizeof(lcdThreadStack), NORMALPRIO, (tfunc_t) lcdThread, (void*)NULL);
+	chThdCreateStatic(tsThreadStack, sizeof(tsThreadStack), NORMALPRIO, (tfunc_t) tsStatusThread, (void*)NULL);
 }
 
 void setFullLog(int value) {
