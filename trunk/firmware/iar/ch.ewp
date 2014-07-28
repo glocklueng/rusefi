@@ -91,7 +91,7 @@
         </option>
         <option>
           <name>GeneralEnableMisra</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GeneralMisraVerbose</name>
@@ -120,11 +120,11 @@
         <option>
           <name>GeneralMisraRules98</name>
           <version>0</version>
-          <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
+          <state>0000111110010001101110011100111100101110011001000101000111101101100001111111111100110001111001100111001111110101011111111111111</state>
         </option>
         <option>
           <name>GeneralMisraVer</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GeneralMisraRules04</name>

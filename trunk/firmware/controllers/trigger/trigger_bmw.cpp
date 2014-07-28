@@ -43,8 +43,9 @@ void configureMiniCooperTriggerShape(trigger_shape_s *s) {
 
 	s->addEvent(376, T_PRIMARY, TV_HIGH);
 
-	for (int i = 0; i < 21; i++)
+	for (int i = 0; i < 21; i++) {
 		a = addPair(s, a, w);
+        }
 	a += 3 * w;
 
 	efiAssertVoid(absF(firstGapAngle + 360 - a) < 0.1, "shape constraint");
@@ -60,7 +61,7 @@ void configureMiniCooperTriggerShape(trigger_shape_s *s) {
 	efiAssertVoid(absF(720 - w / 2 - a) < 0.1, "shape constraint");
 	s->addEvent(a, T_SECONDARY, TV_HIGH);
 
-	s->addEvent(720, T_PRIMARY, TV_LOW);
+	s->addEvent(720.0, T_PRIMARY, TV_LOW);
 
 	s->shaftPositionEventCount = s->getSize();
 	/**
