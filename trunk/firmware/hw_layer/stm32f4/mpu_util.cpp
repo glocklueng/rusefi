@@ -34,16 +34,16 @@ void BusFaultVector(void) {
 
 	chDbgPanic3("BusFaultVector", __FILE__, __LINE__);
 
-	while (TRUE)
-		;
+	while (TRUE) {
+        }
 }
 
 void HardFaultVector(void) {
 
 	chDbgPanic3("HardFaultVector", __FILE__, __LINE__);
 
-	while (TRUE)
-		;
+	while (TRUE) {
+        }
 }
 
 
