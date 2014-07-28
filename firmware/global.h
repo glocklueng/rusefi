@@ -10,7 +10,6 @@
 
 #include <ch.h>
 #include <hal.h>
-#include <time.h>
 #include <string.h>
 
 #include "efifeatures.h"
