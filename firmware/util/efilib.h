@@ -9,8 +9,7 @@
 #define EFILIB_H_
 
 #include <stdint.h>
-#include <ch.h>
-#include <hal.h>
+#include "global.h"
 
 // number of milliseconds in one period of given frequency (per second)
 #define frequency2periodMs(freq) ((1000.0f) / (freq))
