@@ -29,33 +29,33 @@ void initializeMazdaMiataNbShape(trigger_shape_s *s) {
 	/**
 	 * cam sensor is primary, crank sensor is secondary
 	 */
-	s->addEvent(20, T_PRIMARY, TV_HIGH);
+	s->addEvent(20.0f, T_PRIMARY, TV_HIGH);
 
-	s->addEvent(66, T_SECONDARY, TV_LOW);
-	s->addEvent(70, T_SECONDARY, TV_HIGH);
-	s->addEvent(136, T_SECONDARY, TV_LOW);
-	s->addEvent(140, T_SECONDARY, TV_HIGH);
-	s->addEvent(246, T_SECONDARY, TV_LOW);
-	s->addEvent(250, T_SECONDARY, TV_HIGH);
-	s->addEvent(316, T_SECONDARY, TV_LOW);
-	s->addEvent(320, T_SECONDARY, TV_HIGH);
+	s->addEvent(66.0f, T_SECONDARY, TV_LOW);
+	s->addEvent(70.0f, T_SECONDARY, TV_HIGH);
+	s->addEvent(136.0f, T_SECONDARY, TV_LOW);
+	s->addEvent(140.0f, T_SECONDARY, TV_HIGH);
+	s->addEvent(246.0f, T_SECONDARY, TV_LOW);
+	s->addEvent(250.0f, T_SECONDARY, TV_HIGH);
+	s->addEvent(316.0f, T_SECONDARY, TV_LOW);
+	s->addEvent(320.0f, T_SECONDARY, TV_HIGH);
 
-	s->addEvent(340, T_PRIMARY, TV_LOW);
-	s->addEvent(360, T_PRIMARY, TV_HIGH);
+	s->addEvent(340.0f, T_PRIMARY, TV_LOW);
+	s->addEvent(360.0f, T_PRIMARY, TV_HIGH);
 
-	s->addEvent(380, T_PRIMARY, TV_LOW);
-	s->addEvent(400, T_PRIMARY, TV_HIGH);
+	s->addEvent(380.0f, T_PRIMARY, TV_LOW);
+	s->addEvent(400.0f, T_PRIMARY, TV_HIGH);
 
-	s->addEvent(426, T_SECONDARY, TV_LOW);
-	s->addEvent(430, T_SECONDARY, TV_HIGH);
-	s->addEvent(496, T_SECONDARY, TV_LOW);
-	s->addEvent(500, T_SECONDARY, TV_HIGH);
-	s->addEvent(606, T_SECONDARY, TV_LOW);
-	s->addEvent(610, T_SECONDARY, TV_HIGH);
-	s->addEvent(676, T_SECONDARY, TV_LOW);
-	s->addEvent(680, T_SECONDARY, TV_HIGH);
+	s->addEvent(426.0f, T_SECONDARY, TV_LOW);
+	s->addEvent(430.0f, T_SECONDARY, TV_HIGH);
+	s->addEvent(496.0f, T_SECONDARY, TV_LOW);
+	s->addEvent(500.0f, T_SECONDARY, TV_HIGH);
+	s->addEvent(606.0f, T_SECONDARY, TV_LOW);
+	s->addEvent(610.0f, T_SECONDARY, TV_HIGH);
+	s->addEvent(676.0f, T_SECONDARY, TV_LOW);
+	s->addEvent(680.0f, T_SECONDARY, TV_HIGH);
 
-	s->addEvent(720, T_PRIMARY, TV_LOW);
+	s->addEvent(720.0f, T_PRIMARY, TV_LOW);
 
 	s->shaftPositionEventCount = 6 + 16;
 }

@@ -257,7 +257,7 @@ void handlePageReadCommand(ts_response_format_e mode, uint16_t pageId, uint16_t 
 	tsState.currentPageId = pageId;
 
 #if EFI_TUNER_STUDIO_VERBOSE
-	scheduleMsg(&logger, "Page requested: page %d offset=%d count=%d", tsState.currentPageId, offset, count);
+	scheduleMsg(&logger, "Page requested: page %d offset=%d count=%d", (int)tsState.currentPageId, offset, count);
 #endif
 
 	if (tsState.currentPageId > MAX_PAGE_ID) {
