@@ -14,7 +14,6 @@
 #include "ec2.h"
 #include "rusefi_enums.h"
 #include "pwm_generator_logic.h"
-#include "wave_math.h"
 #include "trigger_central.h"
 #include "datalogging.h"
 #include "algo.h"
