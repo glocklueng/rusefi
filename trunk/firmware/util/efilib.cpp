@@ -16,7 +16,7 @@
 /**
  * there is some BS related to isnan in MinGW, so let's have all the issues in one place
  */
-int cisnan(float f) {
+bool cisnan(float f) {
 	return *(((int*) (&f))) == 0x7FC00000;
 }
 
