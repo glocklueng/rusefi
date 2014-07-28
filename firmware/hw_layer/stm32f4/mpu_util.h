@@ -7,6 +7,8 @@
 #ifndef MPU_UTIL_H_
 #define MPU_UTIL_H_
 
+void baseHardwareInit(void);
+
 #ifdef __cplusplus
 extern "C"
 {
