@@ -83,7 +83,6 @@ public:
 
 	bool needSecondTriggerInput;
 	void addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state);
-	float getAngle(int phaseIndex) const;
 	void reset(operation_mode_e operationMode);
 	int getSize();
 	multi_wave_s wave;
@@ -104,6 +103,7 @@ public:
 	void setTriggerShapeSynchPointIndex(int triggerShapeSynchPointIndex);
 	/**
 	 * These angles are in event coordinates - with synchronization point located at angle zero.
+	 * These values are pre-calculated for performance reasons.
 	 */
 	float eventAngles[PWM_PHASE_MAX_COUNT];
 
@@ -118,7 +118,7 @@ private:
 	/**
 	 * Values are in the 0..1 range
 	 */
-	float switchTimes[PWM_PHASE_MAX_COUNT];
+	float switchTimesBuffer[PWM_PHASE_MAX_COUNT];
 	/**
 	 * These are the same values as in switchTimes, but these are angles in the 0..360 or 0..720 range.
 	 * That's a performance optimization - this should save as one multiplication in a critical spot.
@@ -132,6 +132,12 @@ private:
 	 * this is part of performance optimization
 	 */
 	operation_mode_e operationMode;
+
+	/**
+	 * This private method should only be used to prepare the array of pre-calculated values
+	 * See eventAngles array
+	 */
+	float getAngle(int phaseIndex) const;
 
 	void setSwitchTime(int index, float angle);
 };

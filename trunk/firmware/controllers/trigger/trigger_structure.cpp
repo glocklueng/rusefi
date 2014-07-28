@@ -30,7 +30,7 @@ trigger_shape_helper::trigger_shape_helper() {
 }
 
 trigger_shape_s::trigger_shape_s() :
-		wave(switchTimes, NULL) {
+		wave(switchTimesBuffer, NULL) {
 	reset(OM_NONE);
 	wave.waves = h.waves;
 }
@@ -70,7 +70,7 @@ void trigger_shape_s::reset(operation_mode_e operationMode) {
 	shaftPositionEventCount = 0;
 	triggerShapeSynchPointIndex = 0;
 	memset(initialState, 0, sizeof(initialState));
-	memset(switchTimes, 0, sizeof(switchTimes));
+	memset(switchTimesBuffer, 0, sizeof(switchTimesBuffer));
 	wave.reset();
 	previousAngle = 0;
 }
