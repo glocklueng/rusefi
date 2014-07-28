@@ -24,9 +24,11 @@ static int registeredIcuCount = 0;
 static WaveReaderHw* registeredIcus[8];
 
 static WaveReaderHw * findWaveReaderHw(ICUDriver *driver) {
-	for (int i = 0; i < registeredIcuCount; i++)
-		if (registeredIcus[i]->driver == driver)
+  for (int i = 0; i < registeredIcuCount; i++) {
+          if (registeredIcus[i]->driver == driver) {
 			return registeredIcus[i];
+          }
+  }
 	firmwareError("reader not found");
 	return NULL;
 }
@@ -57,24 +59,29 @@ static int getAlternateFunctions(ICUDriver *driver) {
 		return -1;
 	}
 #if STM32_ICU_USE_TIM1
-	if (driver == &ICUD1)
+	if (driver == &ICUD1) {
 		return GPIO_AF_TIM1;
+        }
 #endif
 #if STM32_ICU_USE_TIM2
-	if (driver == &ICUD2)
+	if (driver == &ICUD2) {
 		return GPIO_AF_TIM2;
+        }
 #endif
 #if STM32_ICU_USE_TIM3
-	if (driver == &ICUD3)
+	if (driver == &ICUD3) {
 		return GPIO_AF_TIM3;
+        }
 #endif
 #if STM32_ICU_USE_TIM4
-	if (driver == &ICUD4)
+	if (driver == &ICUD4) {
 	return GPIO_AF_TIM4;
+        }
 #endif
 #if STM32_ICU_USE_TIM9
-	if (driver == &ICUD9)
+	if (driver == &ICUD9) {
 		return GPIO_AF_TIM9;
+        }
 #endif
 	firmwareError("No such driver");
 	return -1;
@@ -82,20 +89,24 @@ static int getAlternateFunctions(ICUDriver *driver) {
 
 ICUDriver * getInputCaptureDriver(brain_pin_e hwPin) {
 #if STM32_ICU_USE_TIM1
-	if (hwPin == GPIOA_8)
+  if (hwPin == GPIOA_8) {
 		return &ICUD1;
+  }
 #endif
 #if STM32_ICU_USE_TIM2
-	if (hwPin == GPIOA_5)
+	if (hwPin == GPIOA_5) {
 		return &ICUD2;
+        }
 #endif
 #if STM32_ICU_USE_TIM3
-	if (hwPin == GPIOC_6)
+	if (hwPin == GPIOC_6) {
 		return &ICUD3;
+        }
 #endif
 #if STM32_ICU_USE_TIM9
-	if (hwPin == GPIOE_7)
+	if (hwPin == GPIOE_7) {
 		return &ICUD9;
+        }
 #endif
 
 	return NULL;

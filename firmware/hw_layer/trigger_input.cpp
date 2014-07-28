@@ -40,8 +40,9 @@ static inline ICUDriver *getSecondaryInputCaptureDriver(void) {
  */
 static void shaft_icu_width_callback(ICUDriver *icup) {
 	int isPrimary = icup == getPrimaryInputCaptureDriver();
-	if (!isPrimary && !engineConfiguration2->triggerShape.needSecondTriggerInput)
+	if (!isPrimary && !engineConfiguration2->triggerShape.needSecondTriggerInput) {
 		return;
+        }
 	//	icucnt_t last_width = icuGetWidth(icup); so far we are fine with system time
 	trigger_event_e signal = isPrimary ? SHAFT_PRIMARY_UP : SHAFT_SECONDARY_UP;
 
@@ -50,8 +51,9 @@ static void shaft_icu_width_callback(ICUDriver *icup) {
 
 static void shaft_icu_period_callback(ICUDriver *icup) {
 	int isPrimary = icup == getPrimaryInputCaptureDriver();
-	if (!isPrimary && !engineConfiguration2->triggerShape.needSecondTriggerInput)
+	if (!isPrimary && !engineConfiguration2->triggerShape.needSecondTriggerInput) {
 		return;
+        }
 
 	//	icucnt_t last_period = icuGetPeriod(icup); so far we are fine with system time
 	trigger_event_e	signal = isPrimary ? SHAFT_PRIMARY_DOWN : SHAFT_SECONDARY_DOWN;
