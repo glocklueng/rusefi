@@ -139,8 +139,9 @@ void sendOutConfirmation(char *value, int i) {
  */
 void print(const char *format, ...) {
 #if !EFI_UART_ECHO_TEST_MODE
-	if (!isConsoleReady())
+  if (!isConsoleReady()) {
 		return;
+  }
 	va_list ap;
 	va_start(ap, format);
 	chvprintf((BaseSequentialStream*)getConsoleChannel(), format, ap);
@@ -148,7 +149,7 @@ void print(const char *format, ...) {
 #endif /* EFI_UART_ECHO_TEST_MODE */
 }
 
-void initializeConsole() {
+void initializeConsole(void) {
 	initIntermediateLoggingBuffer();
 	initConsoleLogic();
 
