@@ -21,7 +21,7 @@
 #include "trigger_mazda.h"
 
 void initializeMazdaMiataNbShape(trigger_shape_s *s) {
-	setTriggerSynchronizationGap(s, 0.11);
+	setTriggerSynchronizationGap(s, 0.11f);
 	s->useRiseEdge = false;
 
 	s->reset(FOUR_STROKE_CAM_SENSOR);
