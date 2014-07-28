@@ -197,15 +197,35 @@ static void printStatus(void) {
  */
 static systime_t timeOfPreviousPrintVersion = (systime_t) -1;
 
-static void printVersion(systime_t nowSeconds) {
+static void printInfo(systime_t nowSeconds) {
+	/**
+	 * we report the version every 4 seconds - this way the console does not need to
+	 * request it and we will display it pretty soon
+	 */
 	if (overflowDiff(nowSeconds, timeOfPreviousPrintVersion) < 4)
 		return;
 	timeOfPreviousPrintVersion = nowSeconds;
 	appendPrintf(&logger, "rusEfiVersion%s%d@%s %s%s", DELIMETER, getRusEfiVersion(), VCS_VERSION,
 			getConfigurationName(engineConfiguration),
 			DELIMETER);
-}
 
+	for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
+		// todo: extract method?
+		io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + i);
+
+//	appendPrintf(&logger, "outpin%s%s%s%s", DELIMETER, getPinName(pin),
+//			hwPortname(boardConfiguration->ignitionPins[i]),
+//					DELIMETER);
+
+//		pin = (io_pin_e)((int)INJECTOR_1_OUTPUT + i);
+//	appendPrintf(&logger, "outpin%s%s%s%s", DELIMETER, getPinName(pin),
+//			hwPortname(boardConfiguration->injectionPins[i],
+//					DELIMETER);
+
+	}
+
+	printLine(&logger);
+}
 static systime_t timeOfPreviousReport = (systime_t) -1;
 
 extern char errorMessageBuffer[200];
@@ -238,7 +258,7 @@ void updateDevConsoleState(void) {
 		return;
 
 	systime_t nowSeconds = getTimeNowSeconds();
-	printVersion(nowSeconds);
+	printInfo(nowSeconds);
 
 	int currentCkpEventCounter = getCrankEventCounter();
 	if (prevCkpEventCounter == currentCkpEventCounter && timeOfPreviousReport == nowSeconds)
@@ -284,7 +304,6 @@ static void showFuelMap2(float rpm, float engineLoad) {
 static void showFuelMap(void) {
 	showFuelMap2(getRpm(), getEngineLoad());
 }
-
 
 static char buffer[10];
 static char dateBuffer[30];
