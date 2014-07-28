@@ -135,6 +135,11 @@ void testAngleResolver(void) {
 
 	confgiureFordAspireTriggerShape(ts);
 
+	assertEqualsM("index 2", 232.76, ts->getAngle(2));
+	assertEqualsM("time 2", 0.3233, ts->wave.getSwitchTime(2));
+	assertEqualsM("index 5", 409.8412, ts->getAngle(5));
+	assertEqualsM("time 5", 0.5692, ts->wave.getSwitchTime(5));
+
 	ts->setTriggerShapeSynchPointIndex(0);
 
 	assertEqualsM("shape size", 10, ts->getSize());
