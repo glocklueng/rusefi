@@ -396,8 +396,9 @@ void printPending(void) {
 	pendingBuffer[0] = 0; // reset pending buffer
 	unlockOutputBuffer();
 
-	if (strlen(outputBuffer) > 0)
+	if (strlen(outputBuffer) > 0) {
 		printWithLength(outputBuffer);
+        }
 }
 
 void initIntermediateLoggingBuffer(void) {
