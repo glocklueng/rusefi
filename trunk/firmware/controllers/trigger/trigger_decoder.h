@@ -8,8 +8,6 @@
 #ifndef TRIGGER_DECODER_H_
 #define TRIGGER_DECODER_H_
 
-#include <time.h>
-
 #include "trigger_structure.h"
 #include "engine_configuration.h"
 #include "ec2.h"
