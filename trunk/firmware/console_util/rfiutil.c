@@ -49,7 +49,7 @@ int mylog10(int param) {
 char hexChar(int v) {
 	v = v & 0xF;
 	if (v < 10)
-		return '0' + v;
+		return (char)('0' + v);
 	return 'A' - 10 + v;
 }
 

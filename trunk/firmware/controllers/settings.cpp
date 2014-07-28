@@ -44,16 +44,18 @@ static void doPrintConfiguration(void) {
 }
 
 static void printIntArray(int array[], int size) {
-	for (int j = 0; j < size; j++)
+  for (int j = 0; j < size; j++) {
 		print("%d ", array[j]);
+  }
 	print("\r\n");
 }
 
 void printFloatArray(const char *prefix, float array[], int size) {
 	appendMsgPrefix(&logger);
 	appendPrintf(&logger, prefix);
-	for (int j = 0; j < size; j++)
+	for (int j = 0; j < size; j++) {
 		appendPrintf(&logger, "%f ", array[j]);
+        }
 	appendMsgPostfix(&logger);
 	scheduleLogging(&logger);
 }
@@ -161,7 +163,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "timingMode: %d", engineConfiguration->timingMode);
 	scheduleMsg(&logger, "fixedModeTiming: %d", (int) engineConfiguration->fixedModeTiming);
 	scheduleMsg(&logger, "ignitionOffset=%f", engineConfiguration->ignitionOffset);
-	scheduleMsg(&logger, "injectionOffset=%f", engineConfiguration->injectionOffset);
+	scheduleMsg(&logger, "injectionOffset=%f", (double)engineConfiguration->injectionOffset);
 
 	scheduleMsg(&logger, "crankingChargeAngle=%f", engineConfiguration->crankingChargeAngle);
 	scheduleMsg(&logger, "crankingTimingAngle=%f", engineConfiguration->crankingTimingAngle);
