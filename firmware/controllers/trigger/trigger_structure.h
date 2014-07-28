@@ -53,8 +53,12 @@ typedef enum {
 
 typedef enum {
 	T_PRIMARY = 0,
-	T_SECONDARY = 1
+	T_SECONDARY = 1,
+	// todo: I really do not want to call this 'tertiary'. maybe we should rename all of these?
+	T_CHANNEL_3 = 2
 } trigger_wheel_e;
+
+#define TRIGGER_CHANNEL_COUNT 3
 
 class trigger_shape_helper {
 	int pinStates0[PWM_PHASE_MAX_COUNT];
@@ -62,7 +66,7 @@ class trigger_shape_helper {
 public:
 	trigger_shape_helper();
 
-	single_wave_s waves[2];
+	single_wave_s waves[TRIGGER_CHANNEL_COUNT];
 };
 
 class trigger_shape_s {
