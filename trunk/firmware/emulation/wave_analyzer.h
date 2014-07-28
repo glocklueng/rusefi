@@ -24,10 +24,10 @@ typedef struct {
 	volatile uint64_t periodEventTimeUs; // time of signal fall in microseconds
 	volatile uint64_t widthEventTimeUs; // time of signal rise in microseconds
 
-	volatile uint64_t signalPeriodUs; // period between two signal rises in microseconds
+	volatile uint32_t signalPeriodUs; // period between two signal rises in microseconds
 
 	volatile uint64_t waveOffsetUs; // offset from CKP signal in systimer ticks
-	volatile uint64_t last_wave_low_widthUs; // time period in systimer ticks
+	volatile uint32_t last_wave_low_widthUs; // time period in systimer ticks
 	volatile uint64_t last_wave_high_widthUs; // time period in systimer ticks
 } WaveReader;
 
@@ -39,7 +39,7 @@ extern "C"
 void initWaveAnalyzer(void);
 void pokeWaveInfo(void);
 void reportWaveInfo(void);
-int getWaveLowWidth(int index);
+uint32_t getWaveLowWidth(int index);
 float getWaveHighWidthMs(int index);
 uint64_t getWaveOffset(int index);
 
@@ -48,7 +48,7 @@ int getWaveMode(int index);
 int getEventCounter(int index);
 
 float getSignalPeriodMs(int index);
-int getWidthEventTime(int index);
+uint64_t getWidthEventTime(int index);
 uint64_t getPeriodEventTime(int index);
 
 //int getCrankStart();

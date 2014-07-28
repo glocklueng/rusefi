@@ -51,7 +51,7 @@ static void waAnaWidthCallback(WaveReader *reader) {
 	reader->lastActivityTimeUs = nowUs;
 	addWaveChartEvent(reader->name, WC_UP, "");
 
-	uint64_t width = nowUs - reader->periodEventTimeUs;
+	uint32_t width = nowUs - reader->periodEventTimeUs;
 	reader->last_wave_low_widthUs = width;
 
 	reader->signalPeriodUs = nowUs - reader->widthEventTimeUs;
@@ -95,10 +95,10 @@ static void setWaveModeSilent(int index, int mode) {
 	setWaveReaderMode(&reader->hw, mode);
 }
 
-void setWaveMode(int index, int mode) {
-	setWaveModeSilent(index, mode);
-	print("wavemode%d:%d\r\n", index, mode);
-}
+//void setWaveMode(int index, int mode) {
+//	setWaveModeSilent(index, mode);
+//	print("wavemode%d:%d\r\n", index, mode);
+//}
 
 int getWaveMode(int index) {
 	WaveReader *reader = &readers[index];
@@ -112,7 +112,7 @@ int getEventCounter(int index) {
 	return reader->eventCounter;
 }
 
-static void initWave(char *name, int index, ICUDriver *driver, ioportid_t port, int pin, int mode) {
+static void initWave(char *name, int index, ICUDriver *driver, ioportid_t port, ioportmask_t pin, int mode) {
 	waveReaderCount++;
 	efiAssertVoid(index < MAX_ICU_COUNT, "too many ICUs");
 	WaveReader *reader = &readers[index];
@@ -120,9 +120,9 @@ static void initWave(char *name, int index, ICUDriver *driver, ioportid_t port, 
 
 	reader->name = name;
 
-	registerCallback(&hw->widthListeners, (IntListener) waAnaWidthCallback, reader);
+	registerCallback(&hw->widthListeners, (IntListener) waAnaWidthCallback, (void*)reader);
 
-	registerCallback(&hw->periodListeners, (IntListener) waIcuPeriodCallback, reader);
+	registerCallback(&hw->periodListeners, (IntListener) waIcuPeriodCallback, (void*)reader);
 
 	initWaveAnalyzerDriver(hw, driver, port, pin);
 
@@ -166,7 +166,7 @@ static msg_t waThread(void *arg) {
 #endif
 }
 
-int getWaveLowWidth(int index) {
+uint32_t getWaveLowWidth(int index) {
 	WaveReader *reader = &readers[index];
 	ensureInitialized(reader);
 	return reader->last_wave_low_widthUs;
@@ -175,8 +175,9 @@ int getWaveLowWidth(int index) {
 float getWaveHighWidthMs(int index) {
 	WaveReader *reader = &readers[index];
 	ensureInitialized(reader);
-	if (getTimeNowUs() - reader->lastActivityTimeUs > 4 * US_PER_SECOND)
+	if (getTimeNowUs() - reader->lastActivityTimeUs > 4 * US_PER_SECOND) {
 		return 0.0f; // dwell time has expired
+        }
 	return reader->last_wave_high_widthUs / 1000.0f;
 }
 
@@ -192,7 +193,7 @@ float getSignalPeriodMs(int index) {
 	return reader->signalPeriodUs / 1000.0f;
 }
 
-int getWidthEventTime(int index) {
+uint64_t getWidthEventTime(int index) {
 	WaveReader *reader = &readers[index];
 	ensureInitialized(reader);
 	return reader->widthEventTimeUs;
@@ -214,7 +215,7 @@ static void reportWave(Logging *logging, int index) {
 	float periodMs = getSignalPeriodMs(index);
 
 	appendPrintf(logging, "duty%d%s", index, DELIMETER);
-	appendFloat(logging, 100.0 * dwellMs / periodMs, 2);
+	appendFloat(logging, 100.0f * dwellMs / periodMs, 2);
 	appendPrintf(logging, "%s", DELIMETER);
 
 	appendPrintf(logging, "dwell%d%s", index, DELIMETER);
@@ -245,11 +246,11 @@ void initWaveAnalyzer(void) {
 	initWave("input2 E5", 1, getInputCaptureDriver(boardConfiguration->secondaryLogicAnalyzerPin), getHwPort(boardConfiguration->secondaryLogicAnalyzerPin), getHwPin(boardConfiguration->secondaryLogicAnalyzerPin), 1);
 	//	initWave("input0 C6", 2, &WAVE_TIMER, WAVE_INPUT_PORT, WAVE_INPUT_PIN, 0);
 
-	addTriggerEventListener(&onWaveShaftSignal, "wave analyzer", NULL);
+	addTriggerEventListener(&onWaveShaftSignal, "wave analyzer", (void*)NULL);
 
 	addConsoleActionII("wm", setWaveModeSilent);
 
-	chThdCreateStatic(waThreadStack, sizeof(waThreadStack), NORMALPRIO, waThread, NULL);
+	chThdCreateStatic(waThreadStack, sizeof(waThreadStack), NORMALPRIO, waThread, (void*)NULL);
 
 #else
 	print("wave disabled\r\n");
