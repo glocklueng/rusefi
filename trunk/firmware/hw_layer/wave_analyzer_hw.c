@@ -101,7 +101,7 @@ ICUDriver * getInputCaptureDriver(brain_pin_e hwPin) {
 	return NULL;
 }
 
-void initWaveAnalyzerDriver(WaveReaderHw *hw, ICUDriver *driver, ioportid_t port, int pin) {
+void initWaveAnalyzerDriver(WaveReaderHw *hw, ICUDriver *driver, ioportid_t port, ioportmask_t pin) {
 	hw->driver = driver;
 	hw->port = port;
 	hw->pin = pin;
