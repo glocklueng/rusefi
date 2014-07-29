@@ -174,7 +174,7 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_v
 			wave->pinStates[0] = initialState[i];
 		}
 
-		setSwitchTime(0, angle);
+		wave.setSwitchTime(0, angle);
 		wave.waves[waveIndex].pinStates[0] = state;
 		return;
 	}
@@ -184,7 +184,7 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_v
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
 		wave.waves[i].pinStates[index] = wave.getChannelState(i, index - 1);
 	}
-	setSwitchTime(index, angle);
+	wave.setSwitchTime(index, angle);
 	wave.waves[waveIndex].pinStates[index] = state;
 }
 
@@ -194,10 +194,6 @@ int trigger_shape_s::getCycleDuration() const {
 
 float trigger_shape_s::getSwitchAngle(int index) const {
 	return getCycleDuration() * wave.getSwitchTime(index);
-}
-
-void trigger_shape_s::setSwitchTime(int index, float angle) {
-	wave.setSwitchTime(index, angle);
 }
 
 void multi_wave_s::checkSwitchTimes(int size) {

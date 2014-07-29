@@ -138,7 +138,6 @@ private:
 	 */
 	float getAngle(int phaseIndex) const;
 
-	void setSwitchTime(int index, float angle);
 	int getCycleDuration() const;
 };
 
