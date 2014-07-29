@@ -188,9 +188,12 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_v
 	wave.waves[waveIndex].pinStates[index] = state;
 }
 
+int trigger_shape_s::getCycleDuration() {
+	return (operationMode == FOUR_STROKE_CAM_SENSOR) ? 720 : 360;
+}
+
 void trigger_shape_s::setSwitchTime(int index, float angle) {
-	int cycleDuration = (operationMode == FOUR_STROKE_CAM_SENSOR) ? 720 : 360;
-	switchAngles[index] = cycleDuration * angle;
+	switchAngles[index] = getCycleDuration() * angle;
 	wave.setSwitchTime(index, angle);
 }
 
