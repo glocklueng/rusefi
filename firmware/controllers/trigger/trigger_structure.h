@@ -100,6 +100,8 @@ public:
 
 	int getTriggerShapeSynchPointIndex();
 
+	void calculateTriggerSynchPoint(trigger_config_s const*triggerConfig);
+
 	void setTriggerShapeSynchPointIndex(int triggerShapeSynchPointIndex);
 	/**
 	 * These angles are in event coordinates - with synchronization point located at angle zero.
