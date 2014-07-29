@@ -122,13 +122,8 @@ private:
 	 */
 	float switchTimesBuffer[PWM_PHASE_MAX_COUNT];
 	/**
-	 * These are the same values as in switchTimes, but these are angles in the 0..360 or 0..720 range.
-	 * That's a performance optimization - this should save as one multiplication in a critical spot.
-	 *
 	 * These angles are in trigger DESCRIPTION coordinates - i.e. the way you add events while declaring trigger shape
 	 */
-	float switchAngles[PWM_PHASE_MAX_COUNT];
-
 	float getSwitchAngle(int index) const;
 
 	float previousAngle;
@@ -144,7 +139,7 @@ private:
 	float getAngle(int phaseIndex) const;
 
 	void setSwitchTime(int index, float angle);
-	int getCycleDuration();
+	int getCycleDuration() const;
 };
 
 void setTriggerSynchronizationGap(trigger_shape_s *s, float synchGap);
