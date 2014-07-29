@@ -55,7 +55,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 4 14
 Title "Frankenso"
-Date "17 jul 2014"
+Date "27 jul 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -214,6 +214,8 @@ F 0 "U471" H 4400 2400 60  0000 C CNN
 F 1 "SN65HVD230" H 4500 1400 50  0000 C CNN
 F 2 "SO8E" H 4800 1850 60  0001 C CNN
 F 3 "" H 4800 1850 60  0000 C CNN
+F 4 "TI,SN65HVD230QD" H 4800 1850 60  0001 C CNN "mfg,mfg#"
+F 5 "digi,296-13123-5-ND" H 4800 1850 60  0001 C CNN "vend1,vend1#"
 	1    4800 1850
 	1    0    0    -1  
 $EndComp
