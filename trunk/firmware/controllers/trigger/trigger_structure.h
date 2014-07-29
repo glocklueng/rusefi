@@ -142,6 +142,7 @@ private:
 	float getAngle(int phaseIndex) const;
 
 	void setSwitchTime(int index, float angle);
+	int getCycleDuration();
 };
 
 void setTriggerSynchronizationGap(trigger_shape_s *s, float synchGap);
