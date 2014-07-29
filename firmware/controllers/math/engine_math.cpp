@@ -340,8 +340,7 @@ int getCylinderId(firing_order_e firingOrder, int index) {
 void prepareOutputSignals(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 
 	// todo: move this reset into decoder
-	engineConfiguration2->triggerShape.setTriggerShapeSynchPointIndex(findTriggerZeroEventIndex(
-			&engineConfiguration2->triggerShape, &engineConfiguration->triggerConfig));
+	engineConfiguration2->triggerShape.calculateTriggerSynchPoint(&engineConfiguration->triggerConfig);
 
 	injectonSignals.clear();
 	EventHandlerConfiguration *config = &engineConfiguration2->engineEventConfiguration;
