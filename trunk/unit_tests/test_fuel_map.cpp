@@ -142,7 +142,7 @@ void testAngleResolver(void) {
 	assertEqualsM("index 5", 409.8412, ts->eventAngles[6]);
 	assertEqualsM("time 5", 0.5692, ts->wave.getSwitchTime(5));
 
-	ts->setTriggerShapeSynchPointIndex(0);
+	assertEquals(9, ts->getTriggerShapeSynchPointIndex());
 
 	assertEqualsM("shape size", 10, ts->getSize());
 
@@ -160,7 +160,7 @@ void testAngleResolver(void) {
 	ae.resetEventList();
 	registerActuatorEventExt(engineConfiguration, &engineConfiguration2->triggerShape, ae.getNextActuatorEvent(), list.add(INJECTOR_1_OUTPUT), 51 + 180 - 175);
 	assertEquals(2, ae.events[0].position.eventIndex);
-	assertEquals(51.9870, ae.events[0].position.angleOffset);
+	assertEquals(109.1, ae.events[0].position.angleOffset);
 }
 
 void testPinHelper(void) {
