@@ -35,7 +35,7 @@ trigger_shape_s::trigger_shape_s() :
 	wave.waves = h.waves;
 }
 
-int trigger_shape_s::getSize() {
+int trigger_shape_s::getSize() const {
 	return size;
 }
 
@@ -129,7 +129,7 @@ void TriggerState::clear() {
 
 float trigger_shape_s::getAngle(int index) const {
 	if (operationMode == FOUR_STROKE_CAM_SENSOR) {
-		return switchAngles[index];
+		return getSwitchAngle(index);
 	}
 	/**
 	 * FOUR_STROKE_CRANK_SENSOR magic:
@@ -140,9 +140,9 @@ float trigger_shape_s::getAngle(int index) const {
 	int triggerEventCounter = size;
 
 	if (index < triggerEventCounter) {
-		return switchAngles[index];
+		return getSwitchAngle(index);
 	} else {
-		return 360 + switchAngles[index - triggerEventCounter];
+		return 360 + getSwitchAngle(index - triggerEventCounter);
 	}
 }
 
@@ -190,6 +190,11 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_v
 
 int trigger_shape_s::getCycleDuration() {
 	return (operationMode == FOUR_STROKE_CAM_SENSOR) ? 720 : 360;
+}
+
+float trigger_shape_s::getSwitchAngle(int index) const {
+	return switchAngles[index];
+	//return getCycleDuration() * wave.getSwitchTime(index);
 }
 
 void trigger_shape_s::setSwitchTime(int index, float angle) {
