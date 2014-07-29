@@ -47,6 +47,10 @@ int trigger_shape_s::getTriggerShapeSynchPointIndex() {
 int getEngineCycleEventCount2(operation_mode_e mode, trigger_shape_s * s);
 float fixAngle(float angle);
 
+void trigger_shape_s::calculateTriggerSynchPoint(trigger_config_s const*triggerConfig) {
+	setTriggerShapeSynchPointIndex(findTriggerZeroEventIndex(this, triggerConfig));
+}
+
 void trigger_shape_s::setTriggerShapeSynchPointIndex(int triggerShapeSynchPointIndex) {
 	this->triggerShapeSynchPointIndex = triggerShapeSynchPointIndex;
 
