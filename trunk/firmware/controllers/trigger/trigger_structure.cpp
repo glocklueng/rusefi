@@ -146,7 +146,7 @@ float trigger_shape_s::getAngle(int index) const {
 	}
 }
 
-void trigger_shape_s::addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state) {
+void trigger_shape_s::addEvent(float angle, trigger_wheel_e const waveIndex, trigger_value_e const state) {
 	efiAssertVoid(operationMode != OM_NONE, "operationMode not set");
 	/**
 	 * While '720' value works perfectly it has not much sense for crank sensor-only scenario.
