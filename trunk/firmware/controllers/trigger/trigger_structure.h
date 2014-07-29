@@ -84,7 +84,7 @@ public:
 	bool needSecondTriggerInput;
 	void addEvent(float angle, trigger_wheel_e waveIndex, trigger_value_e state);
 	void reset(operation_mode_e operationMode);
-	int getSize();
+	int getSize() const;
 	multi_wave_s wave;
 
 	/**
@@ -128,6 +128,8 @@ private:
 	 * These angles are in trigger DESCRIPTION coordinates - i.e. the way you add events while declaring trigger shape
 	 */
 	float switchAngles[PWM_PHASE_MAX_COUNT];
+
+	float getSwitchAngle(int index) const;
 
 	float previousAngle;
 	/**
