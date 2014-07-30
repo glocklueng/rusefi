@@ -28,9 +28,15 @@ public class UpDownImage extends JPanel {
     private final String name;
     private TimeAxisTranslator translator;
     private RevolutionLog time2rpm = RevolutionLog.parseRevolutions(null);
+    private String pin = "";
 
     public UpDownImage(final String name) {
         this(WaveReport.MOCK, name);
+        setToolTip();
+    }
+
+    public void setToolTip() {
+        setToolTipText("<html>Channel " + name + "<br>Physical pin: " + pin + "</html>");
     }
 
     public void setZoomProvider(ZoomProvider zoomProvider) {
@@ -190,5 +196,10 @@ public class UpDownImage extends JPanel {
 
     public void setRevolutions(StringBuilder revolutions) {
         time2rpm = RevolutionLog.parseRevolutions(revolutions);
+    }
+
+    public void setPhysicalPin(String pin) {
+        this.pin = pin;
+        setToolTip();
     }
 }
