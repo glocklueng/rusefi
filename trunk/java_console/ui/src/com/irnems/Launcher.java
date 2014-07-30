@@ -21,7 +21,7 @@ import javax.swing.*;
  * @see WavePanel
  */
 public class Launcher extends FrameHelper {
-    private static final Object CONSOLE_VERSION = "20140719";
+    private static final Object CONSOLE_VERSION = "20140730";
     public static final boolean SHOW_STIMULATOR = false;
 
     public Launcher(String port) {

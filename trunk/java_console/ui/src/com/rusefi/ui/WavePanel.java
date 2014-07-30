@@ -5,11 +5,10 @@ import com.irnems.FileLog;
 import com.irnems.core.EngineState;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
-import com.irnems.models.Utils;
+import com.rusefi.io.LinkManager;
 import com.rusefi.ui.widgets.AnyCommand;
 import com.rusefi.ui.widgets.URLLabel;
 import com.rusefi.ui.widgets.UpDownImage;
-import com.rusefi.io.LinkManager;
 import com.rusefi.waves.RevolutionLog;
 import com.rusefi.waves.WaveChart;
 import com.rusefi.waves.WaveChartParser;
@@ -54,6 +53,22 @@ public class WavePanel extends JPanel {
 
     private WavePanel() {
         setLayout(new BorderLayout());
+
+
+        LinkManager.engineState.registerStringValueAction("outpin", new EngineState.ValueCallback<String>() {
+            @Override
+            public void onUpdate(String value) {
+                String pinInfo[] = value.split("@");
+                if (pinInfo.length != 2)
+                    return;
+                String channel = pinInfo[0];
+                String pin = pinInfo[1];
+                UpDownImage image = images.get(channel);
+                if (image != null)
+                    image.setPhysicalPin(pin);
+            }
+        });
+
 
         statusPanel.setWaveReport(crank.createTranslator());
 
