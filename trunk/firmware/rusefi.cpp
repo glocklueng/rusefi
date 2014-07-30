@@ -9,6 +9,8 @@
 /**
  * @mainpage
  *
+ * @section sec_into
+ *
  * rusEfi is implemented based on the idea that with modern 100+ MHz microprocessors the relatively
  * undemanding task of internal combustion engine control could be implemented in a high-level, processor-independent
  * (to some extent) manner. Thus the key concepts of rusEfi: dependency on high-level hardware abstraction layer, software-based PWM etc.
@@ -80,7 +82,7 @@
  *
  * <BR>See main_trigger_callback.cpp for main trigger event handler
  * <BR>See fuel_math.cpp for details on fuel amount logic
- * <BR>See rpm_calculator.c for details on how getRpm() is calculated
+ * <BR>See rpm_calculator.cpp for details on how getRpm() is calculated
  *
  */
 
