@@ -83,6 +83,14 @@ int multi_wave_s::getChannelState(int channelIndex, int phaseIndex) const {
 	return waves[channelIndex].pinStates[phaseIndex];
 }
 
+int multi_wave_s::findAngleMatch(float angle, int size) const {
+	for (int i = 0; i < size; i++) {
+		if (isSameF(switchTimes[i], angle))
+			return i;
+	}
+	return EFI_ERROR_CODE;
+}
+
 void multi_wave_s::setSwitchTime(int index, float value) {
 	switchTimes[index] = value;
 }
@@ -179,7 +187,9 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e const waveIndex, tri
 		return;
 	}
 
-	int index = size++;
+	size++;
+
+	int index = size - 1;
 
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
 		wave.waves[i].pinStates[index] = wave.getChannelState(i, index - 1);

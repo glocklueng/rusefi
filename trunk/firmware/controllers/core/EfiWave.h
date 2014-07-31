@@ -35,6 +35,9 @@ public:
 	void setSwitchTime(int phaseIndex, float value);
 	void checkSwitchTimes(int size);
 	int getChannelState(int channelIndex, int phaseIndex) const;
+
+	int findAngleMatch(float angle, int size) const;
+
 	/**
 	 * Number of signal wires
 	 */
