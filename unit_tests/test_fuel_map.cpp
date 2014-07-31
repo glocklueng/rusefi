@@ -123,6 +123,10 @@ static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
 	s->addEvent(657.03, T_SECONDARY, TV_LOW);
 	s->addEvent(720, T_PRIMARY, TV_LOW);
 
+	assertEquals(53.747 / 720, s->wave.getSwitchTime(0));
+	assertEquals(121.90 / 720, s->wave.getSwitchTime(1));
+	assertEquals(657.03 / 720, s->wave.getSwitchTime(8));
+
 	assertEqualsM("expecting 0", 0, s->wave.findAngleMatch(53.747 / 720.0, s->getSize()));
 	assertEqualsM("expecting not found", -1, s->wave.findAngleMatch(53 / 720.0, s->getSize()));
 	assertEquals(7, s->wave.findAngleMatch(588.045 / 720.0, s->getSize()));
