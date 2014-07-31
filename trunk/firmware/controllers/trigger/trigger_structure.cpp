@@ -83,6 +83,14 @@ int multi_wave_s::getChannelState(int channelIndex, int phaseIndex) const {
 	return waves[channelIndex].pinStates[phaseIndex];
 }
 
+int multi_wave_s::waveIndertionAngle(float angle, int size) const {
+	for (int i = size - 1; i >= 0; i--) {
+		if (angle > switchTimes[i])
+			return i + 1;
+	}
+	return 0;
+}
+
 int multi_wave_s::findAngleMatch(float angle, int size) const {
 	for (int i = 0; i < size; i++) {
 		if (isSameF(switchTimes[i], angle))
@@ -184,6 +192,12 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e const waveIndex, tri
 
 		wave.setSwitchTime(0, angle);
 		wave.waves[waveIndex].pinStates[0] = state;
+		return;
+	}
+
+	int exactMatch = wave.findAngleMatch(angle, size);
+	if (exactMatch != EFI_ERROR_CODE) {
+		firmwareError("same angle: not supported");
 		return;
 	}
 
