@@ -124,6 +124,12 @@ char* itoa10(char *p, int num) {
 	return itoa_signed(p, num, 10);
 }
 
+#define EPS 0.0001
+
+bool isSameF(float v1, float v2) {
+	return absF(v1 - v2) < EPS;
+}
+
 // string to float
 float atoff(const char *param) {
 	int totallen = strlen(param);
