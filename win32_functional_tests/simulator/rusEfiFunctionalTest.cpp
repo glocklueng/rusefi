@@ -88,7 +88,7 @@ static void triggerEmulatorCallback(PwmConfig *state, int stateIndex) {
 
 	if (thirdWheelState != new3rdWheelState) {
 		thirdWheelState = new3rdWheelState;
-//		hwHandleShaftSignal(secondaryWheelState ? SHAFT_3RD_UP : SHAFT_3RD_DOWN);
+		hwHandleShaftSignal(secondaryWheelState ? SHAFT_3RD_UP : SHAFT_3RD_DOWN);
 	}
 
 	//	print("hello %d\r\n", chTimeNow());
