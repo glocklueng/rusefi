@@ -143,8 +143,8 @@ typedef struct {
 	brain_pin_e HD44780_db6;
 	brain_pin_e HD44780_db7;
 
-	brain_pin_e triggerSimulatorPins[2];
-	pin_output_mode_e triggerSimulatorPinModes[2];
+	int unused[4];
+
 
 	/**
 	 * Digital Potentiometer is used by stock ECU stimulation code
@@ -172,6 +172,10 @@ typedef struct {
 	can_device_mode_e canDeviceMode;
 	brain_pin_e canTxPin;
 	brain_pin_e canRxPin;
+
+	brain_pin_e triggerSimulatorPins[3];
+	pin_output_mode_e triggerSimulatorPinModes[3];
+
 
 } board_configuration_s;
 

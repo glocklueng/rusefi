@@ -292,9 +292,11 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 
 	boardConfiguration->triggerSimulatorPins[0] = GPIOD_1;
 	boardConfiguration->triggerSimulatorPins[1] = GPIOD_2;
+	boardConfiguration->triggerSimulatorPins[2] = GPIOD_3;
 
 	boardConfiguration->triggerSimulatorPinModes[0] = OM_DEFAULT;
 	boardConfiguration->triggerSimulatorPinModes[1] = OM_DEFAULT;
+	boardConfiguration->triggerSimulatorPinModes[2] = OM_DEFAULT;
 
 	boardConfiguration->HD44780_rs = GPIOE_9;
 	boardConfiguration->HD44780_e = GPIOE_11;
