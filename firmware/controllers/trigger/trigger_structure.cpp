@@ -76,7 +76,6 @@ void trigger_shape_s::reset(operation_mode_e operationMode) {
 	memset(initialState, 0, sizeof(initialState));
 	memset(switchTimesBuffer, 0, sizeof(switchTimesBuffer));
 	wave.reset();
-	previousAngle = 0;
 }
 
 int multi_wave_s::getChannelState(int channelIndex, int phaseIndex) const {
@@ -170,10 +169,6 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e const waveIndex, tri
 	 */
 	angle /= 720;
 	efiAssertVoid(angle > 0, "angle should be positive");
-	if (size > 0) {
-		efiAssertVoid(angle > previousAngle, "invalid angle order");
-	}
-	previousAngle = angle;
 	if (size == 0) {
 		size = 1;
 		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
@@ -201,9 +196,18 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e const waveIndex, tri
 		return;
 	}
 
-	size++;
+	int index = wave.waveIndertionAngle(angle, size);
 
-	int index = size - 1;
+	// shifting existing data
+	for (int i = size - 1; i >= index; i--) {
+		for (int j = 0; j < PWM_PHASE_MAX_WAVE_PER_PWM; j++) {
+			wave.waves[j].pinStates[i + 1] = wave.getChannelState(j, index);
+		}
+		wave.setSwitchTime(i + 1, wave.getSwitchTime(i));
+	}
+
+//	int index = size;
+	size++;
 
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
 		wave.waves[i].pinStates[index] = wave.getChannelState(i, index - 1);
