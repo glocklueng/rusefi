@@ -52,8 +52,8 @@ static void updateTriggerShapeIfNeeded(PwmConfig *state) {
 		applyNonPersistentConfiguration(&logger, engineConfiguration, engineConfiguration2);
 
 		trigger_shape_s *s = &engineConfiguration2->triggerShape;
-		int *pinStates[2] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
-		copyPwmParameters(state, s->getSize(), s->wave.switchTimes, 2, pinStates);
+		int *pinStates[PWM_PHASE_MAX_WAVE_PER_PWM] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates, s->wave.waves[2].pinStates};
+		copyPwmParameters(state, s->getSize(), s->wave.switchTimes, PWM_PHASE_MAX_WAVE_PER_PWM, pinStates);
 		state->safe.periodUs = -1; // this would cause loop re-initialization
 	}
 }
