@@ -30,6 +30,7 @@ void initTriggerEmulator(void) {
 
 	triggerSignal.outputPins[0] = TRIGGER_EMULATOR_PRIMARY;
 	triggerSignal.outputPins[1] = TRIGGER_EMULATOR_SECONDARY;
+	triggerSignal.outputPins[2] = TRIGGER_EMULATOR_3RD;
 
 	// todo: refactor, make this a loop
 	outputPinRegisterExt2("distributor ch1", triggerSignal.outputPins[0], boardConfiguration->triggerSimulatorPins[0],
