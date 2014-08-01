@@ -126,6 +126,7 @@ private:
 	 */
 	float getSwitchAngle(int index) const;
 
+	float previousAngle;
 	/**
 	 * this is part of performance optimization
 	 */
