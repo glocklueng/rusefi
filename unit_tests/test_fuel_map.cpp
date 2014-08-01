@@ -124,6 +124,10 @@ static void confgiureFordAspireTriggerShape(trigger_shape_s * s) {
 	s->addEvent(720, T_PRIMARY, TV_LOW);
 
 	assertEquals(53.747 / 720, s->wave.getSwitchTime(0));
+	assertEquals(0, s->wave.getChannelState(0, 0));
+	assertEquals(0, s->wave.getChannelState(0, 1));
+	assertEquals(0, s->wave.getChannelState(0, 2));
+	assertEquals(1, s->wave.getChannelState(0, 8));
 	assertEquals(121.90 / 720, s->wave.getSwitchTime(1));
 	assertEquals(657.03 / 720, s->wave.getSwitchTime(8));
 
