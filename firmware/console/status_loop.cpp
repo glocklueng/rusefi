@@ -198,6 +198,11 @@ static void printStatus(void) {
  */
 static systime_t timeOfPreviousPrintVersion = (systime_t) -1;
 
+static void printOutPin(const char *pinName, brain_pin_e hwPin) {
+	appendPrintf(&logger, "outpin%s%s@%s%s", DELIMETER, pinName,
+			hwPortname(hwPin), DELIMETER);
+}
+
 static void printInfo(systime_t nowSeconds) {
 	/**
 	 * we report the version every 4 seconds - this way the console does not need to
@@ -215,15 +220,10 @@ static void printInfo(systime_t nowSeconds) {
 		// todo: extract method?
 		io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + i);
 
-		appendPrintf(&logger, "outpin%s%s@%s%s", DELIMETER, getPinName(pin),
-				hwPortname(boardConfiguration->ignitionPins[i]),
-				DELIMETER);
+		printOutPin(getPinName(pin), boardConfiguration->ignitionPins[i]);
 
 		pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + i);
-		appendPrintf(&logger, "outpin%s%s@%s%s", DELIMETER, getPinName(pin),
-				hwPortname(boardConfiguration->injectionPins[i]),
-				DELIMETER);
-
+		printOutPin(getPinName(pin), boardConfiguration->injectionPins[i]);
 	}
 #endif
 
