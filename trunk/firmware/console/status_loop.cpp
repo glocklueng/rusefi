@@ -198,10 +198,12 @@ static void printStatus(void) {
  */
 static systime_t timeOfPreviousPrintVersion = (systime_t) -1;
 
+#if EFI_PROD_CODE
 static void printOutPin(const char *pinName, brain_pin_e hwPin) {
 	appendPrintf(&logger, "outpin%s%s@%s%s", DELIMETER, pinName,
 			hwPortname(hwPin), DELIMETER);
 }
+#endif /* EFI_PROD_CODE */
 
 static void printInfo(systime_t nowSeconds) {
 	/**
