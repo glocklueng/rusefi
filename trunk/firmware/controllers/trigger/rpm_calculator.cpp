@@ -141,6 +141,10 @@ void rpmShaftPositionCallback(trigger_event_e ckpSignalType, int index, RpmCalcu
 		addWaveChartEvent(WC_CRANK2, WC_UP, (char*) shaft_signal_msg_index);
 	} else if (ckpSignalType == SHAFT_SECONDARY_DOWN) {
 		addWaveChartEvent(WC_CRANK2, WC_DOWN, (char*) shaft_signal_msg_index);
+	} else if (ckpSignalType == SHAFT_3RD_UP) {
+		addWaveChartEvent(WC_CRANK3, WC_UP, (char*) shaft_signal_msg_index);
+	} else if (ckpSignalType == SHAFT_3RD_DOWN) {
+		addWaveChartEvent(WC_CRANK3, WC_DOWN, (char*) shaft_signal_msg_index);
 	}
 
 	if (index != 0) {

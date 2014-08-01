@@ -15,6 +15,7 @@
 #define WC_UP "u"
 #define WC_CRANK1 "c1"
 #define WC_CRANK2 "c2"
+#define WC_CRANK3 "c3"
 
 #define NOISY_RPM -1
 
