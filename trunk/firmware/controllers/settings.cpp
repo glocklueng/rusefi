@@ -203,6 +203,8 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[0]));
 	scheduleMsg(&logger, "secondary trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[1]),
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[1]));
+	scheduleMsg(&logger, "3rd trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[2]),
+			pinModeToString(boardConfiguration->triggerSimulatorPinModes[2]));
 
 	scheduleMsg(&logger, "primary trigger input: %s", hwPortname(boardConfiguration->primaryTriggerInputPin));
 
