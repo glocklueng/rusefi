@@ -16,7 +16,7 @@ typedef void (*ShaftPositionListener)(trigger_event_e signal, int index, void *a
 #ifdef __cplusplus
 #include "ec2.h"
 
-#define HW_EVENT_TYPES 4
+#define HW_EVENT_TYPES 6
 
 class TriggerCentral {
 public:
