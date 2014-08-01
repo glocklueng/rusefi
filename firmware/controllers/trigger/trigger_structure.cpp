@@ -233,20 +233,6 @@ void multi_wave_s::checkSwitchTimes(int size) {
 	checkSwitchTimes2(size, switchTimes);
 }
 
-void configureHondaAccordCD(trigger_shape_s *s) {
-	s->reset(FOUR_STROKE_CAM_SENSOR);
-
-	float tdcWidth = 0.1854 * 720 / 4;
-
-	s->isSynchronizationNeeded = FALSE;
-	for (int i = 1; i <= 4; i++) {
-		s->addEvent(i * 180.0f - tdcWidth, T_PRIMARY, TV_HIGH);
-		s->addEvent(i * 180.0f, T_PRIMARY, TV_LOW);
-	}
-
-	s->shaftPositionEventCount = s->getSize();
-}
-
 void setToothedWheelConfiguration(trigger_shape_s *s, int total, int skipped,
 		engine_configuration_s const *engineConfiguration) {
 	s->isSynchronizationNeeded = (skipped != 0);
@@ -264,4 +250,60 @@ void setTriggerSynchronizationGap(trigger_shape_s *s, float synchGap) {
 	s->isSynchronizationNeeded = TRUE;
 	s->syncRatioFrom = synchGap * 0.75;
 	s->syncRatioTo = synchGap * 1.25;
+}
+
+#define S24 (720.0f / 24 / 2)
+
+static float addAccordPair(trigger_shape_s *s, float sb) {
+	s->addEvent(sb, T_SECONDARY, TV_HIGH);
+	sb += S24;
+	s->addEvent(sb, T_SECONDARY, TV_LOW);
+	sb += S24;
+
+	return sb;
+}
+
+
+void configureHondaAccordCD(trigger_shape_s *s) {
+	s->reset(FOUR_STROKE_CAM_SENSOR);
+
+	float sb = 5.0f;
+
+	float tdcWidth = 0.1854 * 720 / 4;
+
+	s->isSynchronizationNeeded = FALSE;
+
+	sb = addAccordPair(s, sb);
+	sb = addAccordPair(s, sb);
+	sb = addAccordPair(s, sb);
+	sb = addAccordPair(s, sb);
+	sb = addAccordPair(s, sb);
+	s->addEvent(1 * 180.0f - tdcWidth, T_PRIMARY, TV_HIGH);
+	sb = addAccordPair(s, sb);
+	s->addEvent(1 * 180.0f, T_PRIMARY, TV_LOW);
+
+	sb = addAccordPair(s, sb);
+	sb = addAccordPair(s, sb);
+	sb = addAccordPair(s, sb);
+	sb = addAccordPair(s, sb);
+	sb = addAccordPair(s, sb);
+
+	s->addEvent(2 * 180.0f - tdcWidth, T_PRIMARY, TV_HIGH);
+	sb = addAccordPair(s, sb);
+	s->addEvent(2 * 180.0f, T_PRIMARY, TV_LOW);
+
+
+	for (int i = 3; i <= 4; i++) {
+		sb = addAccordPair(s, sb);
+		sb = addAccordPair(s, sb);
+		sb = addAccordPair(s, sb);
+		sb = addAccordPair(s, sb);
+		sb = addAccordPair(s, sb);
+
+		s->addEvent(i * 180.0f - tdcWidth, T_PRIMARY, TV_HIGH);
+		sb = addAccordPair(s, sb);
+		s->addEvent(i * 180.0f, T_PRIMARY, TV_LOW);
+	}
+
+	s->shaftPositionEventCount = s->getSize();
 }
