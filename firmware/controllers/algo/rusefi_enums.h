@@ -103,6 +103,8 @@ typedef enum {
 	SHAFT_PRIMARY_DOWN = 1,
 	SHAFT_SECONDARY_UP = 2,
 	SHAFT_SECONDARY_DOWN = 3,
+	SHAFT_3RD_UP = 4,
+	SHAFT_3RD_DOWN = 5,
 } trigger_event_e;
 
 /**
