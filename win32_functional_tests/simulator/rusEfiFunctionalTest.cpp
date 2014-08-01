@@ -68,11 +68,13 @@ float getMap(void) {
 }
 
 static int primaryWheelState = FALSE;
-static int secondaryWheelState = FALSE;
+static int secondaryWheelState = false;
+static int thirdWheelState = false;
 
 static void triggerEmulatorCallback(PwmConfig *state, int stateIndex) {
 	int newPrimaryWheelState = state->multiWave.waves[0].pinStates[stateIndex];
 	int newSecondaryWheelState = state->multiWave.waves[1].pinStates[stateIndex];
+	int new3rdWheelState = state->multiWave.waves[2].pinStates[stateIndex];
 
 	if (primaryWheelState != newPrimaryWheelState) {
 		primaryWheelState = newPrimaryWheelState;
@@ -84,7 +86,12 @@ static void triggerEmulatorCallback(PwmConfig *state, int stateIndex) {
 		hwHandleShaftSignal(secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN);
 	}
 
-//	print("hello %d\r\n", chTimeNow());
+	if (thirdWheelState != new3rdWheelState) {
+		thirdWheelState = new3rdWheelState;
+//		hwHandleShaftSignal(secondaryWheelState ? SHAFT_3RD_UP : SHAFT_3RD_DOWN);
+	}
+
+	//	print("hello %d\r\n", chTimeNow());
 }
 
 void rusEfiFunctionalTest(void) {
