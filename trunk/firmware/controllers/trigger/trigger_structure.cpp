@@ -274,8 +274,13 @@ void configureHondaAccordCD(trigger_shape_s *s) {
 	s->isSynchronizationNeeded = FALSE;
 
 	sb = addAccordPair(s, sb);
+
+	s->addEvent(sb - S24 / 2, T_CHANNEL_3, TV_HIGH);
+
+
 	sb = addAccordPair(s, sb);
 	sb = addAccordPair(s, sb);
+	s->addEvent(sb - S24 / 2, T_CHANNEL_3, TV_LOW);
 	sb = addAccordPair(s, sb);
 	sb = addAccordPair(s, sb);
 	s->addEvent(1 * 180.0f - tdcWidth, T_PRIMARY, TV_HIGH);
