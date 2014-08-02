@@ -44,9 +44,9 @@ int isTriggerDecoderError(void) {
 
 static inline bool isSynchronizationGap(TriggerState const *shaftPositionState, trigger_shape_s const *triggerShape,
 		trigger_config_s const *triggerConfig, const int currentDuration) {
-                  if (!triggerShape->isSynchronizationNeeded) {
+	if (!triggerShape->isSynchronizationNeeded) {
 		return false;
-                  }
+	}
 
 	return currentDuration > shaftPositionState->toothed_previous_duration * triggerShape->syncRatioFrom
 			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerShape->syncRatioTo;
@@ -54,12 +54,12 @@ static inline bool isSynchronizationGap(TriggerState const *shaftPositionState, 
 
 static inline bool noSynchronizationResetNeeded(TriggerState *shaftPositionState, trigger_shape_s const *triggerShape,
 		trigger_config_s const*triggerConfig) {
-                  if (triggerShape->isSynchronizationNeeded) {
+	if (triggerShape->isSynchronizationNeeded) {
 		return false;
-                  }
+	}
 	if (!shaftPositionState->shaft_is_synchronized) {
 		return TRUE;
-        }
+	}
 	/**
 	 * in case of noise the counter could be above the expected number of events
 	 */
@@ -110,7 +110,7 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 
 		if (isTriggerDecoderError()) {
 			warning(OBD_PCM_Processor_Fault, "trigger decoding issue");
-                }
+		}
 
 		shaft_is_synchronized = TRUE;
 		nextRevolution(triggerShape->shaftPositionEventCount);
@@ -122,7 +122,8 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 	toothed_previous_time = nowUs;
 }
 
-static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeethCount, int skippedCount, operation_mode_e operationMode) {
+static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeethCount, int skippedCount,
+		operation_mode_e operationMode) {
 	efiAssertVoid(s != NULL, "trigger_shape_s is NULL");
 	s->reset(operationMode);
 
@@ -140,8 +141,8 @@ static void initializeSkippedToothTriggerShape(trigger_shape_s *s, int totalTeet
 	s->addEvent(720, T_PRIMARY, TV_LOW);
 }
 
-void initializeSkippedToothTriggerShapeExt(trigger_shape_s *s, int totalTeethCount,
-		int skippedCount, operation_mode_e operationMode) {
+void initializeSkippedToothTriggerShapeExt(trigger_shape_s *s, int totalTeethCount, int skippedCount,
+		operation_mode_e operationMode) {
 	efiAssertVoid(totalTeethCount > 0, "totalTeethCount is zero");
 
 	s->totalToothCount = totalTeethCount;
@@ -186,17 +187,16 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 	triggerShape->useRiseEdge = TRUE;
 	triggerShape->needSecondTriggerInput = TRUE;
 
-
 	switch (triggerConfig->triggerType) {
 
 	case TT_TOOTHED_WHEEL:
 		engineConfiguration2->triggerShape.needSecondTriggerInput = false;
 
-		engineConfiguration2->triggerShape.isSynchronizationNeeded = engineConfiguration->triggerConfig.customIsSynchronizationNeeded;
+		engineConfiguration2->triggerShape.isSynchronizationNeeded =
+				engineConfiguration->triggerConfig.customIsSynchronizationNeeded;
 
 		initializeSkippedToothTriggerShapeExt(triggerShape, triggerConfig->customTotalToothCount,
-				triggerConfig->customSkippedToothCount,
-				getOperationMode(engineConfiguration));
+				triggerConfig->customSkippedToothCount, getOperationMode(engineConfiguration));
 		return;
 
 	case TT_MAZDA_MIATA_NB:
@@ -249,7 +249,8 @@ TriggerStimulatorHelper::TriggerStimulatorHelper() {
 	secondaryWheelState = false;
 }
 
-void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * shape, int i, trigger_config_s const*triggerConfig) {
+void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * shape, int i,
+		trigger_config_s const*triggerConfig) {
 	int stateIndex = i % shape->getSize();
 
 	int loopIndex = i / shape->getSize();
