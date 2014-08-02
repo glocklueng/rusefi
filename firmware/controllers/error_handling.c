@@ -16,6 +16,8 @@
 static time_t timeOfPreviousWarning = -10;
 static Logging logger;
 
+#define WARNING_PREFIX "WARNING: "
+
 extern int warningEnabled;
 extern int main_loop_started;
 
@@ -58,6 +60,7 @@ int warning(obd_code_e code, const char *fmt, ...) {
 	appendMsgPrefix(&logger);
 	va_list ap;
 	va_start(ap, fmt);
+	append(&logger, WARNING_PREFIX);
 	vappendPrintf(&logger, fmt, ap);
 	va_end(ap);
 	append(&logger, DELIMETER);

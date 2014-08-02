@@ -75,6 +75,7 @@ void trigger_shape_s::reset(operation_mode_e operationMode) {
 	triggerShapeSynchPointIndex = 0;
 	memset(initialState, 0, sizeof(initialState));
 	memset(switchTimesBuffer, 0, sizeof(switchTimesBuffer));
+	memset(expectedEventCount, 0, sizeof(expectedEventCount));
 	wave.reset();
 	previousAngle = 0;
 }
@@ -123,6 +124,7 @@ uint64_t TriggerState::getTotalEventCounter() {
 
 void TriggerState::nextRevolution(int triggerEventCount) {
 	current_index = 0;
+	memset(eventCount, 0, sizeof(eventCount));
 	totalRevolutionCounter++;
 	totalEventCountBase += triggerEventCount;
 }
@@ -169,6 +171,9 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e const waveIndex, tri
 	 * todo: accept angle as a value in the 0..1 range?
 	 */
 	angle /= 720;
+
+	expectedEventCount[waveIndex]++;
+
 	efiAssertVoid(angle > 0, "angle should be positive");
 	if (size > 0) {
 		efiAssertVoid(angle > previousAngle, "invalid angle order");
