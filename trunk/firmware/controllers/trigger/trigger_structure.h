@@ -25,7 +25,7 @@ public:
 	uint64_t getStartOfRevolutionIndex();
 	void nextRevolution(int triggerEventCount);
 	void nextTriggerEvent();
-	void decodeTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, trigger_event_e signal, uint64_t nowUs);
+	void decodeTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, trigger_event_e const signal, uint64_t nowUs);
 
 
 	/**
@@ -41,6 +41,10 @@ private:
 	 * index within trigger revolution, from 0 to trigger event count
 	 */
 	int current_index;
+	/**
+	 * see trigger_shape_s
+	 */
+	int eventCount[PWM_PHASE_MAX_WAVE_PER_PWM];
 	uint64_t totalEventCountBase;
 	int totalRevolutionCounter;
 	bool isFirstEvent;
@@ -80,6 +84,11 @@ public:
 	float syncRatioTo;
 
 	int useRiseEdge;
+
+	/**
+	 * This is used for signal validation
+	 */
+	int expectedEventCount[PWM_PHASE_MAX_WAVE_PER_PWM];
 
 	bool needSecondTriggerInput;
 	void addEvent(float angle, trigger_wheel_e const waveIndex, trigger_value_e const state);

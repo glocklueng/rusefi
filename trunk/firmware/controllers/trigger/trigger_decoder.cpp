@@ -29,7 +29,7 @@
 
 #include "trigger_structure.h"
 
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 static Logging logger;
 #endif
 
@@ -66,12 +66,17 @@ static inline bool noSynchronizationResetNeeded(TriggerState *shaftPositionState
 	return shaftPositionState->getCurrentIndex() >= triggerShape->shaftPositionEventCount - 1;
 }
 
+static int eventIndex[6] = {0, 0, 1, 1, 2, 2};
+
 /**
- * @brief Trigger decoding happends here
+ * @brief Trigger decoding happens here
  * This method changes the state of trigger_state_s data structure according to the trigger event
  */
 void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig,
-		trigger_event_e signal, uint64_t nowUs) {
+		trigger_event_e const signal, uint64_t nowUs) {
+	efiAssertVoid(signal >= 0 && signal <= SHAFT_3RD_DOWN, "unexpected signal");
+
+	eventCount[eventIndex[signal]]++;
 
 	int isLessImportant = (triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_UP)
 			|| (!triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_DOWN);
@@ -105,11 +110,16 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 		/**
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
 		 */
-		int isDecodingError = getCurrentIndex() != triggerShape->shaftPositionEventCount - 1;
+		bool isDecodingError = eventCount[0] != triggerShape->expectedEventCount[0] ||
+				eventCount[1] != triggerShape->expectedEventCount[1] ||
+				eventCount[2] != triggerShape->expectedEventCount[2];
+
 		errorDetection.add(isDecodingError);
 
 		if (isTriggerDecoderError()) {
-			warning(OBD_PCM_Processor_Fault, "trigger decoding issue");
+			warning(OBD_PCM_Processor_Fault, "trigger decoding issue. expected %d/%d/%d got %d/%d/%d",
+					triggerShape->expectedEventCount[0], triggerShape->expectedEventCount[1], triggerShape->expectedEventCount[2],
+					eventCount[0], eventCount[1], eventCount[2]);
 		}
 
 		shaft_is_synchronized = TRUE;
