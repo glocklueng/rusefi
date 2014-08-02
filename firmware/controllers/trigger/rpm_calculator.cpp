@@ -189,14 +189,23 @@ static scheduling_s tdcScheduler[2];
 static char rpmBuffer[10];
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
+/**
+ * This callback has nothing to do with actual engine control, it just sends a Top Dead Center mark to the dev console
+ * digital sniffer.
+ */
 static void onTdcCallback(void) {
 	itoa10(rpmBuffer, getRpm());
 	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, (char*) rpmBuffer, "");
 }
 
+/**
+ * This trigger callback schedules the actual physical TDC callback in relation to trigger synchronization point.
+ */
 static void tdcMarkCallback(trigger_event_e ckpSignalType, int index, void *arg) {
-	if (index == 0) {
+	bool isTriggerSynchronizationPoint = index == 0;
+	if (isTriggerSynchronizationPoint) {
 		int index = getRevolutionCounter() % 2;
+		// todo: use event-based scheduling, not just time-based scheduling
 		scheduleByAngle(&tdcScheduler[index], engineConfiguration->globalTriggerAngleOffset, (schfunc_t) onTdcCallback, NULL);
 	}
 }
