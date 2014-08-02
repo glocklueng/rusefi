@@ -30,7 +30,7 @@
 
 #endif
 
-#if EFI_ENGINE_CONTROL
+#if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 
 #include "main_trigger_callback.h"
 #include "ec2.h"
@@ -330,7 +330,7 @@ void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfig
 
 	mainTriggerCallbackInstance.init(engine, engineConfiguration2);
 
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 	addConsoleAction("performanceinfo", showTriggerHistogram);
 	addConsoleAction("maininfo", showMainInfo);
 
