@@ -64,10 +64,9 @@ void initTriggerEmulatorLogic(pwm_gen_callback *stateChangeCallback) {
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	setTriggerEmulatorRPM(DEFAULT_EMULATION_RPM);
-	int *pinStates[2] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates};
-	weComplexInit("position sensor", &triggerSignal, s->getSize(), s->wave.switchTimes, 2, pinStates,
-			updateTriggerShapeIfNeeded,
-			stateChangeCallback);
+	int *pinStates[PWM_PHASE_MAX_WAVE_PER_PWM] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates, s->wave.waves[2].pinStates};
+	weComplexInit("position sensor", &triggerSignal, s->getSize(), s->wave.switchTimes, PWM_PHASE_MAX_WAVE_PER_PWM, pinStates,
+			updateTriggerShapeIfNeeded, stateChangeCallback);
 
 	addConsoleActionI("rpm", &setTriggerEmulatorRPM);
 
