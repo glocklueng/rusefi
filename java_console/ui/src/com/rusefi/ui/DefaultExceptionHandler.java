@@ -1,7 +1,11 @@
 package com.rusefi.ui;
 
+import com.irnems.FileLog;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static javax.swing.JOptionPane.OK_OPTION;
 
@@ -18,6 +22,10 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
         // Here you should have a more robust, permanent record of problems
         JOptionPane.showMessageDialog(findActiveFrame(), e.toString(), "Exception Occurred", OK_OPTION);
         e.printStackTrace();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        e.printStackTrace(ps);
+        FileLog.MAIN.logLine("handleException: " + ps.toString());
     }
 
     private static Frame findActiveFrame() {
