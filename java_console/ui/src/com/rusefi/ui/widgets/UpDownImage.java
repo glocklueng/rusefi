@@ -47,6 +47,15 @@ public class UpDownImage extends JPanel {
         trueRepaint(this);
     }
 
+    /**
+     * This does not make any sense :( That's an attempt
+     * to hack http://rusefi.com/forum/viewtopic.php?f=2&t=631&p=10083#p10081
+     */
+    public static void trueRepaint(JComponent control) {
+        control.invalidate();
+        control.repaint();
+    }
+
     public static void trueRepaint(Container control) {
         control.invalidate();
         control.repaint();
