@@ -7,6 +7,7 @@ import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static com.irnems.Launcher.*;
 import static javax.swing.JOptionPane.OK_OPTION;
 
 /**
@@ -20,7 +21,7 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
 
     public static void handleException(Throwable e) {
         // Here you should have a more robust, permanent record of problems
-        JOptionPane.showMessageDialog(findActiveFrame(), e.toString(), "Exception Occurred", OK_OPTION);
+        JOptionPane.showMessageDialog(findActiveFrame(), e.toString(), CONSOLE_VERSION + ": Exception Occurred", OK_OPTION);
         e.printStackTrace();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(baos);
