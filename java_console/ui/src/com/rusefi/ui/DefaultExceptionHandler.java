@@ -25,7 +25,7 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(baos);
         e.printStackTrace(ps);
-        FileLog.MAIN.logLine("handleException: " + ps.toString());
+        FileLog.MAIN.logLine("handleException: " + baos.toString());
     }
 
     private static Frame findActiveFrame() {
