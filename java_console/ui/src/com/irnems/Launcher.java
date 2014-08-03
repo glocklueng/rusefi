@@ -35,8 +35,8 @@ public class Launcher extends FrameHelper {
 
         RpmPanel rpmPanel = new RpmPanel();
         tabbedPane.addTab("Main", rpmPanel.createRpmPanel());
-        tabbedPane.addTab("Gauges", new GaugesPanel());
-        tabbedPane.addTab("Digital Sniffer", WavePanel.getInstance());
+        tabbedPane.addTab("Gauges", new GaugesPanel().getContent());
+        tabbedPane.addTab("Digital Sniffer", WavePanel.getInstance().getPanel());
         tabbedPane.addTab("Analog Sniffer", new AnalogChartPanel());
 
 //        tabbedPane.addTab("ADC", new AdcPanel(new BooleanInputsModel()).createAdcPanel());

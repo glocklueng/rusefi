@@ -13,14 +13,13 @@ import java.awt.*;
  * Date: 2/5/13
  * (c) Andrey Belomutskiy
  */
-public class GaugesPanel extends JComponent {
+public class GaugesPanel  {
     private static final int ADC_MAX_VALUE = 255; // mazda ECU
 //    private static final int ADC_MAX_VALUE = 4095; // discovery board
 
+    private final JPanel content = new JPanel(new BorderLayout());
+
     public GaugesPanel() {
-        setLayout(new GridLayout(1, 3));
-
-
 //        Radial radial2 = createRadial("title");
 
         JPanel box2 = new JPanel(new GridLayout(3, 5));
@@ -70,8 +69,13 @@ public class GaugesPanel extends JComponent {
 
 
         //add(rpmGauge);
-        add(box2);
+        content.add(box2, BorderLayout.CENTER);
+        content.add(new WarningPanel().getPanel(), BorderLayout.SOUTH);
 //        add(new JLabel("fd"), BorderLayout.EAST);
+    }
+
+    public JComponent getContent() {
+        return content;
     }
 
     private Component createControls() {
