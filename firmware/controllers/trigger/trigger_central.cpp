@@ -62,6 +62,11 @@ TriggerCentral::TriggerCentral() {
 	clearCallbacks(&triggerListeneres);
 }
 
+int TriggerCentral::getHwEventCounter(int index) {
+	return hwEventCounters[index];
+}
+
+
 void TriggerCentral::handleShaftSignal(configuration_s *configuration, trigger_event_e signal, uint64_t nowUs) {
 	efiAssertVoid(configuration!=NULL, "configuration");
 
@@ -142,6 +147,17 @@ void printAllCallbacksHistogram(void) {
 #endif
 }
 
+static void triggerInfo() {
+#if EFI_PROD_CODE
+	scheduleMsg(&logging, "trigger %d/%d/%d/%d",
+			triggerCentral.getHwEventCounter(0),
+			triggerCentral.getHwEventCounter(1),
+			triggerCentral.getHwEventCounter(2),
+			triggerCentral.getHwEventCounter(3)
+			);
+#endif
+}
+
 void initTriggerCentral(void) {
 #if EFI_PROD_CODE
 	initLogging(&logging, "ShaftPosition");
@@ -151,4 +167,5 @@ void initTriggerCentral(void) {
 	initHistogram(&triggerCallback, "all callbacks");
 #endif /* EFI_HISTOGRAMS */
 	initTriggerDecoder();
+	addConsoleAction("triggerinfo", triggerInfo);
 }

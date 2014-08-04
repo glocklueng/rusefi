@@ -24,6 +24,7 @@ public:
 	void addEventListener(ShaftPositionListener handler, const char *name, void *arg);
 	void handleShaftSignal(configuration_s *configuration, trigger_event_e signal, uint64_t nowUs);
 	TriggerState triggerState;
+	int getHwEventCounter(int index);
 private:
 	IntListenerArray triggerListeneres;
 	int hwEventCounters[HW_EVENT_TYPES];
