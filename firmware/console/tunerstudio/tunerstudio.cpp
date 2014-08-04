@@ -53,7 +53,7 @@ static SerialConfig tsSerialConfig = { TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS 
 #endif /* EFI_PROD_CODE */
 
 #define MAX_PAGE_ID 0
-#define PAGE_0_SIZE 5824
+#define PAGE_0_SIZE 5848
 
 // in MS, that's 10 seconds
 #define TS_READ_TIMEOUT 10000
@@ -131,9 +131,6 @@ static void printStats(void) {
 //
 //	offset = (int) (&engineConfiguration->bc.idleThreadPeriod) - (int) engineConfiguration;
 //	scheduleMsg(&logger, "idleThreadPeriod %d", offset);
-
-	if (sizeof(engine_configuration_s) != getTunerStudioPageSize(0))
-		firmwareError("TS page size mismatch");
 }
 
 void tunerStudioWriteData(const uint8_t * buffer, int size) {
@@ -465,6 +462,10 @@ void syncTunerStudioCopy(void) {
 
 void startTunerStudioConnectivity(void) {
 	initLogging(&logger, "tuner studio");
+
+	if (sizeof(engine_configuration_s) != getTunerStudioPageSize(0))
+		firmwareError("TS page size mismatch: %d/%d", sizeof(engine_configuration_s), getTunerStudioPageSize(0));
+
 	memset(&tsState, 0, sizeof(tsState));
 #if EFI_PROD_CODE
 	if (isSerialOverUart()) {
