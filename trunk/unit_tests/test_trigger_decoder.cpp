@@ -466,7 +466,7 @@ void testTriggerDecoder(void) {
 	testRoverV8();
 	testTriggerDecoder("testCitroen", CITROEN_TU3JP, 0);
 	testTriggerDecoder("testFordEscortGt", FORD_ESCORT_GT, 0);
-	testTriggerDecoder("testAccordCd", HONDA_ACCORD_CD, 12);
+	testTriggerDecoder("testAccordCd", HONDA_ACCORD_CD, 10);
 
 	testMazda323();
 
