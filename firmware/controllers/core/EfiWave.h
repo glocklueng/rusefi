@@ -53,6 +53,6 @@ public:
 };
 
 void checkSwitchTimes2(int size, float *switchTimes);
-void configureHondaAccordCD(trigger_shape_s *s);
+void configureHondaAccordCD(trigger_shape_s *s, bool with3rdSignal);
 
 #endif /* EFI_WAVE_H_ */
