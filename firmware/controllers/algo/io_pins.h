@@ -64,6 +64,12 @@ typedef enum {
 	ELECTRONIC_THROTTLE_CONTROL_2,
 	ELECTRONIC_THROTTLE_CONTROL_3,
 
+	/**
+	 * these seven segment display pins are related to unused external tachometer code
+	 * I still have the hardware so maybe one day I will fix it, but for now it's just dead code
+	 * See https://www.youtube.com/watch?v=YYiHoN6MBqE
+	 * todo: this should be re-implemented in a smarter way with some sort of multiplexing anyway
+	 */
 	/* digit 1 */
 	LED_HUGE_0, // B2
 	LED_HUGE_1,
