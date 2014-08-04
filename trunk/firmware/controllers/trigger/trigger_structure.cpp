@@ -268,8 +268,7 @@ static float addAccordPair(trigger_shape_s *s, float sb) {
 	return sb;
 }
 
-
-void configureHondaAccordCD(trigger_shape_s *s) {
+void configureHondaAccordCD(trigger_shape_s *s, bool with3rdSignal) {
 	s->reset(FOUR_STROKE_CAM_SENSOR);
 
 	float sb = 5.0f;
@@ -280,12 +279,13 @@ void configureHondaAccordCD(trigger_shape_s *s) {
 
 	sb = addAccordPair(s, sb);
 
-	s->addEvent(sb - S24 / 2, T_CHANNEL_3, TV_HIGH);
-
+	if (with3rdSignal)
+		s->addEvent(sb - S24 / 2, T_CHANNEL_3, TV_HIGH);
 
 	sb = addAccordPair(s, sb);
 	sb = addAccordPair(s, sb);
-	s->addEvent(sb - S24 / 2, T_CHANNEL_3, TV_LOW);
+	if (with3rdSignal)
+		s->addEvent(sb - S24 / 2, T_CHANNEL_3, TV_LOW);
 	sb = addAccordPair(s, sb);
 	sb = addAccordPair(s, sb);
 	s->addEvent(1 * 180.0f - tdcWidth, T_PRIMARY, TV_HIGH);
@@ -301,7 +301,6 @@ void configureHondaAccordCD(trigger_shape_s *s) {
 	s->addEvent(2 * 180.0f - tdcWidth, T_PRIMARY, TV_HIGH);
 	sb = addAccordPair(s, sb);
 	s->addEvent(2 * 180.0f, T_PRIMARY, TV_LOW);
-
 
 	for (int i = 3; i <= 4; i++) {
 		sb = addAccordPair(s, sb);

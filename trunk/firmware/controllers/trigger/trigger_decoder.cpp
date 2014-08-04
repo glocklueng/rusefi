@@ -243,7 +243,7 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 		return;
 
 	case TT_HONDA_ACCORD_CD:
-		configureHondaAccordCD(triggerShape);
+		configureHondaAccordCD(triggerShape, false);
 		return;
 
 	default:
