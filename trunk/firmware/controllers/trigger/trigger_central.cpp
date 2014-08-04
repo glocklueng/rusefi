@@ -161,11 +161,11 @@ static void triggerInfo() {
 void initTriggerCentral(void) {
 #if EFI_PROD_CODE
 	initLogging(&logging, "ShaftPosition");
+	addConsoleAction("triggerinfo", triggerInfo);
 #endif
 
 #if EFI_HISTOGRAMS
 	initHistogram(&triggerCallback, "all callbacks");
 #endif /* EFI_HISTOGRAMS */
 	initTriggerDecoder();
-	addConsoleAction("triggerinfo", triggerInfo);
 }
