@@ -55,7 +55,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 10 14
 Title "Frankenso"
-Date "27 jul 2014"
+Date "4 aug 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -1595,8 +1595,6 @@ Wire Wire Line
 Wire Wire Line
 	15300 1875 15150 1875
 Wire Wire Line
-	15300 1975 15150 1975
-Wire Wire Line
 	15300 2075 15150 2075
 Wire Wire Line
 	15300 2175 15150 2175
@@ -2610,4 +2608,21 @@ F 5 "DIGI,490-5533-1-ND" V 1130 2000 60  0001 C CNN "vend1,vend1#"
 	1    1100 2350
 	0    1    1    0   
 $EndComp
+NoConn ~ 15300 1975
+NoConn ~ 15150 1975
+$Comp
+L CONN_1 P1001
+U 1 1 53DF3D39
+P 15250 6625
+F 0 "P1001" H 15330 6625 40  0000 L CNN
+F 1 "CONN_1" H 15250 6680 30  0001 C CNN
+F 2 "1PIN_SMD" V 1130 2775 60  0001 C CNN
+F 3 "" H 15250 6625 60  0001 C CNN
+F 4 "DO NOT POPULATE,DNP" V 1130 2775 60  0001 C CNN "mfg,mfg#"
+F 5 "DO NOT POPULATE,DNP" V 1130 2775 60  0001 C CNN "vend1,vend1#"
+	1    15250 6625
+	1    0    0    -1  
+$EndComp
+Text Label 15100 6625 0    60   ~ 0
+5V
 $EndSCHEMATC

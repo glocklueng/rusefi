@@ -55,7 +55,7 @@ $Descr A 11000 8500
 encoding utf-8
 Sheet 9 14
 Title "Frankenso"
-Date "27 jul 2014"
+Date "4 aug 2014"
 Rev ".01"
 Comp "rusEFI.com"
 Comment1 ""
@@ -390,4 +390,28 @@ F 6 "sky-macau.com,8262743708" H 6350 6600 60  0001 C CNN "vend2,vend2#"
 	1    6350 6600
 	0    -1   -1   0   
 $EndComp
+$Comp
+L CONN_1 P901
+U 1 1 53DF5B0B
+P 4000 6250
+F 0 "P901" H 4080 6250 40  0000 L CNN
+F 1 "CONN_1" H 4000 6305 30  0001 C CNN
+F 2 "SIL-1" H 4000 6250 60  0001 C CNN
+F 3 "" H 4000 6250 60  0000 C CNN
+	1    4000 6250
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_1 P902
+U 1 1 53DF5B1A
+P 5250 6250
+F 0 "P902" H 5330 6250 40  0000 L CNN
+F 1 "CONN_1" H 5250 6305 30  0001 C CNN
+F 2 "SIL-1" H 5250 6250 60  0001 C CNN
+F 3 "" H 5250 6250 60  0000 C CNN
+	1    5250 6250
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4150 6400 4150 6250
 $EndSCHEMATC
