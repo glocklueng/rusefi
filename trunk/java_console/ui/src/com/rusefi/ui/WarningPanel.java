@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 
 public class WarningPanel {
 
+    private static final String WARNING = "WARNING";
+    private static final String ERROR = "firmware error";
     private final JPanel panel = new JPanel(new BorderLayout());
 
     private final JLabel label = new JLabel();
@@ -17,6 +19,9 @@ public class WarningPanel {
     public WarningPanel() {
         label.setForeground(Color.red);
         panel.add(label, BorderLayout.WEST);
+
+        Font currentFont = label.getFont();
+        label.setFont(currentFont.deriveFont((float) (currentFont.getSize() * 1.5)));
 
         clear();
 
@@ -30,10 +35,10 @@ public class WarningPanel {
         MessagesCentral.getInstance().addListener(new MessagesCentral.MessageListener() {
             @Override
             public void onMessage(Class clazz, String message) {
-                if (!message.startsWith("WARNING"))
-                    return;
-                label.setText(message);
-                reset.setEnabled(true);
+                if (message.startsWith(WARNING) || message.startsWith(ERROR)) {
+                    label.setText(message);
+                    reset.setEnabled(true);
+                }
             }
         });
         panel.add(reset, BorderLayout.EAST);
