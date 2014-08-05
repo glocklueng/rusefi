@@ -70,6 +70,8 @@ typedef enum {
 
 	CITROEN_TU3JP = 15,
 
+	MITSU_4G93 = 16,
+
 	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;
 
@@ -86,6 +88,8 @@ typedef enum {
 	TT_TOOTHED_WHEEL_36_1 = 9,
 
 	TT_HONDA_ACCORD_CD = 10,
+
+	TT_MITSU = 11,
 
 	Internal_ForceMyEnumIntSize_trigger_type = ENUM_SIZE_HACK,
 } trigger_type_e;
