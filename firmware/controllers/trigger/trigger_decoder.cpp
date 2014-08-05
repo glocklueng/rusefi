@@ -59,7 +59,7 @@ static inline bool noSynchronizationResetNeeded(TriggerState *shaftPositionState
 		return false;
 	}
 	if (!shaftPositionState->shaft_is_synchronized) {
-		return TRUE;
+		return true;
 	}
 	/**
 	 * in case of noise the counter could be above the expected number of events
