@@ -62,5 +62,24 @@ void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, bo
 	setThermistorConfiguration(&engineConfiguration->iatThermistorConf, -20.0, 18000.0, 23.8889, 2100.0, 120.0, 100.0);
 	engineConfiguration->iatThermistorConf.bias_resistor = 1500; // same as OEM ECU
 
+	// set_cranking_charge_angle 35
+	engineConfiguration->crankingChargeAngle = 35;
+	// set_cranking_timing_angle 0
+	engineConfiguration->crankingTimingAngle = 0;
+
+	// set_global_trigger_offset_angle 34
+	engineConfiguration->globalTriggerAngleOffset = 34;
+
+	// set_rpm_hard_limit 4000
+	engineConfiguration->rpmHardLimit = 4000; // yes, 4k. let's play it safe for now
+	// set_cranking_rpm 2000
+	engineConfiguration->crankingSettings.crankingRpm = 2000;
+
+
+	// set_ignition_offset 350
+//	engineConfiguration->ignitionOffset = 350;
+	 // set_injection_offset 510
+//	engineConfiguration->injectionOffset = 510;
+
 }
 
