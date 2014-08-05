@@ -98,6 +98,8 @@ const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 		return "Citroen TU3JP";
 	case ROVER_V8:
 		return "Rover v8";
+	case MITSU_4G93:
+		return "Mitsu 4G93";
 	default:
 		return NULL;
 	}
