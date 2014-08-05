@@ -1990,6 +1990,12 @@
         <name>$PROJ_DIR$\..\config\engines\MiniCooperR50.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\config\engines\mitsubishi.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\config\engines\mitsubishi.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\config\engines\nissan_primera.cpp</name>
       </file>
       <file>
@@ -2378,6 +2384,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\trigger\trigger_mazda.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_mitsubishi.cpp</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\controllers\trigger\trigger_mitsubishi.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\controllers\trigger\trigger_structure.cpp</name>
