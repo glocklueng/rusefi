@@ -26,6 +26,7 @@
 #include "trigger_chrysler.h"
 #include "trigger_gm.h"
 #include "trigger_bmw.h"
+#include "trigger_mitsubishi.h"
 
 #include "trigger_structure.h"
 
@@ -244,6 +245,10 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 
 	case TT_HONDA_ACCORD_CD:
 		configureHondaAccordCD(triggerShape, false);
+		return;
+
+	case TT_MITSU:
+		initializeMitsubishi4g18(triggerShape);
 		return;
 
 	default:

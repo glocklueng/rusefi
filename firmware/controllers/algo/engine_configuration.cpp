@@ -48,6 +48,7 @@
 #include "ford_escort_gt.h"
 #include "citroenBerlingoTU3JP.h"
 #include "rover_v8.h"
+#include "mitsubishi.h"
 
 static volatile int globalConfigurationVersion = 0;
 
@@ -385,6 +386,9 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType, engine_co
 #endif
 	case HONDA_ACCORD_CD:
 		setHondaAccordConfiguration(engineConfiguration, boardConfiguration);
+		break;
+	case MITSU_4G93:
+		setMitsubishiConfiguration(engineConfiguration, boardConfiguration);
 		break;
 #if EFI_SUPPORT_1995_FORD_INLINE_6 || defined(__DOXYGEN__)
 	case FORD_INLINE_6_1995:
