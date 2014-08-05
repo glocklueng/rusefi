@@ -468,6 +468,8 @@ void testTriggerDecoder(void) {
 	testTriggerDecoder("testFordEscortGt", FORD_ESCORT_GT, 0);
 	testTriggerDecoder("testAccordCd", HONDA_ACCORD_CD, 10);
 
+	testTriggerDecoder("testMitsu", MITSU_4G93, 3);
+
 	testMazda323();
 
 	testRpmCalculator();
