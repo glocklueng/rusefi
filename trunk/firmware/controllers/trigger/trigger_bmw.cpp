@@ -28,7 +28,7 @@ void configureMiniCooperTriggerShape(trigger_shape_s *s) {
 
 	for (int i = 0; i <= 22; i++) {
 		a = addPair(s, a, w);
-        }
+	}
 
 	a += 3 * w;
 
@@ -41,13 +41,13 @@ void configureMiniCooperTriggerShape(trigger_shape_s *s) {
 
 	for (int i = 0; i < 36; i++) {
 		a = addPair(s, a, w);
-        }
+	}
 
 	s->addEvent(376, T_PRIMARY, TV_HIGH);
 
 	for (int i = 0; i < 21; i++) {
 		a = addPair(s, a, w);
-        }
+	}
 	a += 3 * w;
 
 	efiAssertVoid(absF(firstGapAngle + 360 - a) < 0.1, "shape constraint");
@@ -59,7 +59,7 @@ void configureMiniCooperTriggerShape(trigger_shape_s *s) {
 
 	for (int i = 0; i < 33; i++) {
 		a = addPair(s, a, w);
-        }
+	}
 
 	efiAssertVoid(absF(720 - w / 2 - a) < 0.1, "shape constraint");
 	s->addEvent(a, T_SECONDARY, TV_HIGH);
