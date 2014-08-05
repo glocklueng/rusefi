@@ -245,14 +245,14 @@ void setToothedWheelConfiguration(trigger_shape_s *s, int total, int skipped,
 	s->totalToothCount = total;
 	s->skippedToothCount = skipped;
 	s->needSecondTriggerInput = false;
-	s->useRiseEdge = TRUE;
+	s->useRiseEdge = true;
 
 	initializeSkippedToothTriggerShapeExt(s, s->totalToothCount, s->skippedToothCount,
 			getOperationMode(engineConfiguration));
 }
 
 void setTriggerSynchronizationGap(trigger_shape_s *s, float synchGap) {
-	s->isSynchronizationNeeded = TRUE;
+	s->isSynchronizationNeeded = true;
 	s->syncRatioFrom = synchGap * 0.75;
 	s->syncRatioTo = synchGap * 1.25;
 }
@@ -275,7 +275,7 @@ void configureHondaAccordCD(trigger_shape_s *s, bool with3rdSignal) {
 
 	float tdcWidth = 0.1854 * 720 / 4;
 
-	s->isSynchronizationNeeded = FALSE;
+	s->isSynchronizationNeeded = false;
 
 	sb = addAccordPair(s, sb);
 
