@@ -74,6 +74,10 @@ void addConsoleActionSSS(const char *token, VoidCharPtrCharPtrCharPtr callback) 
 	doAddAction(token, STRING3_PARAMETER, (Void) callback);
 }
 
+void addConsoleActionSSSSS(const char *token, VoidCharPtrCharPtrCharPtrCharPtrCharPtr callback) {
+	doAddAction(token, STRING5_PARAMETER, (Void) callback);
+}
+
 void addConsoleActionF(const char *token, VoidFloat callback) {
 	doAddAction(token, FLOAT_PARAMETER, (Void) callback);
 }
@@ -116,25 +120,65 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 		return;
 	}
 
+	// todo: refactor this hell!
 	if (current->parameterType == STRING3_PARAMETER) {
 		int spaceIndex = indexOf(parameter, ' ');
 		if (spaceIndex == -1) {
 			return;
         }
 		parameter[spaceIndex] = 0;
-		char * firstParam = parameter;
+		char * param0 = parameter;
 
 		parameter += spaceIndex + 1;
 		spaceIndex = indexOf(parameter, ' ');
 		if (spaceIndex == -1)
 			return;
 		parameter[spaceIndex] = 0;
-		char * secondParam = parameter;
+		char * param1 = parameter;
 		parameter += spaceIndex + 1;
-		char * thirdParam = parameter;
+		char * param2 = parameter;
 
 		VoidCharPtrCharPtrCharPtr callbackS = (VoidCharPtrCharPtrCharPtr) current->callback;
-		(*callbackS)(firstParam, secondParam, thirdParam);
+		(*callbackS)(param0, param1, param2);
+		return;
+
+	}
+
+	// todo: refactor this hell!
+	if (current->parameterType == STRING5_PARAMETER) {
+		int spaceIndex = indexOf(parameter, ' ');
+		if (spaceIndex == -1) {
+			return;
+        }
+		parameter[spaceIndex] = 0;
+		char * param0 = parameter;
+
+		parameter += spaceIndex + 1;
+		spaceIndex = indexOf(parameter, ' ');
+		if (spaceIndex == -1)
+			return;
+		parameter[spaceIndex] = 0;
+		char * param1 = parameter;
+
+		parameter += spaceIndex + 1;
+		spaceIndex = indexOf(parameter, ' ');
+		if (spaceIndex == -1)
+			return;
+		parameter[spaceIndex] = 0;
+		char * param2 = parameter;
+
+		parameter += spaceIndex + 1;
+		spaceIndex = indexOf(parameter, ' ');
+		if (spaceIndex == -1)
+			return;
+		parameter[spaceIndex] = 0;
+		char * param3 = parameter;
+
+		parameter += spaceIndex + 1;
+		char * param4 = parameter;
+
+		VoidCharPtrCharPtrCharPtrCharPtrCharPtr callbackS = (VoidCharPtrCharPtrCharPtrCharPtrCharPtr) current->callback;
+		(*callbackS)(param0, param1, param2, param3, param4);
 		return;
 
 	}

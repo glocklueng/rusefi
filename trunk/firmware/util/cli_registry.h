@@ -22,6 +22,7 @@ typedef enum {
 	FLOAT_PARAMETER,
 	STRING_PARAMETER,
 	STRING3_PARAMETER,
+	STRING5_PARAMETER,
 	TWO_INTS_PARAMETER,
 	FLOAT_FLOAT_PARAMETER
 } ACTION_PARAMETER_TYPE;
@@ -42,7 +43,8 @@ typedef void (*VoidFloat)(float);
 typedef void (*VoidFloatFloat)(float, float);
 typedef void (*VoidIntInt)(int, int);
 typedef void (*VoidCharPtr)(char *);
-typedef void (*VoidCharPtrCharPtrCharPtr)(char *, char *, char *);
+typedef void (*VoidCharPtrCharPtrCharPtr)(const char *, const char *, const char *);
+typedef void (*VoidCharPtrCharPtrCharPtrCharPtrCharPtr)(const char *, const char *, const char *, const char *, const char *);
 
 char *validateSecureLine(char *line);
 int strEqual(const char *str1, const char *str2);
@@ -57,6 +59,7 @@ void addConsoleActionF(const char *token, VoidFloat callback);
 void addConsoleActionFF(const char *token, VoidFloatFloat callback);
 void addConsoleActionS(const char *token, VoidCharPtr callback);
 void addConsoleActionSSS(const char *token, VoidCharPtrCharPtrCharPtr callback);
+void addConsoleActionSSSSS(const char *token, VoidCharPtrCharPtrCharPtrCharPtrCharPtr callback);
 
 #ifdef __cplusplus
 }

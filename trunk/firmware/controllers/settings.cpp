@@ -472,7 +472,7 @@ static void setWholeFuelMapCmd(float value) {
 	setWholeFuelMap(engineConfiguration, value);
 }
 
-static void setTimingMap(char * rpmStr, char *loadStr, char *valueStr) {
+static void setTimingMap(const char * rpmStr, const char *loadStr, const char *valueStr) {
 	float rpm = atoff(rpmStr);
 	float engineLoad = atoff(loadStr);
 	float value = atoff(valueStr);
@@ -486,7 +486,7 @@ static void setTimingMap(char * rpmStr, char *loadStr, char *valueStr) {
 	scheduleMsg(&logger, "Setting timing map entry %d:%d to %f", rpmIndex, loadIndex, value);
 }
 
-static void setFuelMap(char * rpmStr, char *loadStr, char *valueStr) {
+static void setFuelMap(const char * rpmStr, const char *loadStr, const char *valueStr) {
 	float rpm = atoff(rpmStr);
 	float engineLoad = atoff(loadStr);
 	float value = atoff(valueStr);
