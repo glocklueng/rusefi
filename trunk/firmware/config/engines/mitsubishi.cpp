@@ -1,6 +1,8 @@
 /**
  * @file	mitsubishi.cpp
  *
+ * MITSU_4G93 16
+ *
  * @date Aug 5, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
@@ -18,6 +20,29 @@ void setMitsubishiConfiguration(engine_configuration_s *engineConfiguration, boa
 
 	engineConfiguration->ignitionMode = IM_INDIVIDUAL_COILS;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
+
+	// set_global_trigger_offset_angle 671
+	engineConfiguration->globalTriggerAngleOffset = 671;
+
+	// set_cranking_rpm 550
+	engineConfiguration->crankingSettings.crankingRpm = 550;
+	// set_cranking_charge_angle 70
+	engineConfiguration->crankingChargeAngle = 70;
+	// set_cranking_timing_angle 715
+	engineConfiguration->crankingTimingAngle = 715;
+
+	// set_whole_fuel_map 3
+	setWholeFuelMap(engineConfiguration, 3);
+
+	// since CLT is not wired up yet let's just use same value for min and max
+	// set_cranking_fuel_max 6 40
+	engineConfiguration->crankingSettings.coolantTempMaxC = 37.7; // 6ms at 37.7C
+	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 6;
+
+	// set_cranking_fuel_min 6 -40
+	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 6ms at -40C
+	engineConfiguration->crankingSettings.fuelAtMinTempMs = 6;
+
 
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, -20, 18000, 23.8889, 2100, 48.8889, 1000);
 	engineConfiguration->cltThermistorConf.bias_resistor = 2700;
