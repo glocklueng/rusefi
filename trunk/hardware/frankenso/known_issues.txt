@@ -7,4 +7,5 @@
 7) RESOLVED IN R0.2 op-amp reference & part # silkscreen is upside down in relation to the labeling of the actual chips
 8)                  Make R163 ect into 0805 for common parts
 9) RESOLVED IN R0.2 VDD on STM discovery should be 3V not 5V. 
+10)                 LCD mounting holes need to be a bit larger to fit M3 stand-offs
 
