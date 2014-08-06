@@ -162,6 +162,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "tpsMin: %d", engineConfiguration->tpsMin);
 	scheduleMsg(&logger, "tpsMax: %d", engineConfiguration->tpsMax);
 
+	scheduleMsg(&logger, "ignitionMode: %d", engineConfiguration->ignitionMode);
 	scheduleMsg(&logger, "timingMode: %d", engineConfiguration->timingMode);
 	scheduleMsg(&logger, "fixedModeTiming: %d", (int) engineConfiguration->fixedModeTiming);
 	scheduleMsg(&logger, "ignitionOffset=%f", engineConfiguration->ignitionOffset);

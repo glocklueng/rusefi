@@ -18,7 +18,8 @@ void setMitsubishiConfiguration(engine_configuration_s *engineConfiguration, boa
 	engineConfiguration->cylindersCount = 4;
 	engineConfiguration->displacement = 1.800;
 
-	engineConfiguration->ignitionMode = IM_INDIVIDUAL_COILS;
+	// set_ignition_mode 2
+	engineConfiguration->ignitionMode = IM_WASTED_SPARK;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 
 	// set_global_trigger_offset_angle 671
@@ -72,6 +73,7 @@ void setMitsubishiConfiguration(engine_configuration_s *engineConfiguration, boa
 	boardConfiguration->ignitionPins[0] = GPIOE_8; // Frankenstein: high side #1
 	boardConfiguration->ignitionPins[1] = GPIO_NONE;
 	boardConfiguration->ignitionPins[2] = GPIOE_10; // // Frankenstein: high side #2
+	boardConfiguration->ignitionPins[3] = GPIO_NONE;
 
 }
 
