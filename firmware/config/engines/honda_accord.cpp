@@ -81,5 +81,33 @@ void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, bo
 	 // set_injection_offset 510
 //	engineConfiguration->injectionOffset = 510;
 
+
+	// Frankenso low out #:
+	// Frankenso low out #:
+	// Frankenso low out #:
+	// Frankenso low out #:
+	// Frankenso low out #5: PE3
+	// Frankenso low out #:
+	// Frankenso low out #7: PE1 (do not use with discovery!)
+	// Frankenso low out #:
+	// Frankenso low out #9: PB9
+	// Frankenso low out #10: PE0 (do not use with discovery!)
+	// Frankenso low out #11: PB8
+	// Frankenso low out #12: PB7
+
+
+	boardConfiguration->idleValvePin = GPIO_NONE;
+
+	boardConfiguration->injectionPins[0] = GPIOB_8;
+	boardConfiguration->injectionPins[1] = GPIOB_9;
+	boardConfiguration->injectionPins[2] = GPIOE_2;
+	boardConfiguration->injectionPins[3] = GPIOB_7;
+
+	boardConfiguration->fuelPumpPin = GPIOE_3;
+	boardConfiguration->fuelPumpPinMode = OM_DEFAULT;
+
+	boardConfiguration->gps_rx_pin = GPIO_NONE;
+	boardConfiguration->gps_tx_pin = GPIO_NONE;
+
 }
 
