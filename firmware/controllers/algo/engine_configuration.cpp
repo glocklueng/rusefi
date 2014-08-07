@@ -306,6 +306,9 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->HD44780_db6 = GPIOB_11;
 	boardConfiguration->HD44780_db7 = GPIOB_13;
 
+	boardConfiguration->can_rx_pin = GPIOB_7;
+	boardConfiguration->can_tx_pin = GPIOB_6;
+
 	memset(boardConfiguration->adcHwChannelEnabled, 0, sizeof(boardConfiguration->adcHwChannelEnabled));
 	boardConfiguration->adcHwChannelEnabled[0] = ADC_SLOW;
 	boardConfiguration->adcHwChannelEnabled[1] = ADC_SLOW;
