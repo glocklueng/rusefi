@@ -12,7 +12,7 @@
 
 #include "main.h"
 
-#if EFI_FILE_LOGGING
+#if EFI_FILE_LOGGING || defined(__DOXYGEN__)
 
 #include <stdio.h>
 #include <string.h>

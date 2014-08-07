@@ -143,7 +143,10 @@ typedef struct {
 	brain_pin_e HD44780_db6;
 	brain_pin_e HD44780_db7;
 
-	int unused[4];
+	brain_pin_e can_rx_pin;
+	brain_pin_e can_tx_pin;
+
+	int unused[2];
 
 
 	/**
