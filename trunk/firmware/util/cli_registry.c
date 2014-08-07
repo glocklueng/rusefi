@@ -97,7 +97,7 @@ void helpCommand(void) {
 	}
 #endif /* EFI_PROD_CODE */
 
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 	scheduleMsg(&logging, "%d actions available", consoleActionCount);
 	for (int i = 0; i < consoleActionCount; i++) {
 		TokenCallback *current = &consoleActions[i];
@@ -190,13 +190,17 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 		parameter[spaceIndex] = 0;
 		int value1 = atoi(parameter);
 		if (absI(value1) == absI(ERROR_CODE)) {
+#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 			scheduleMsg(&logging, "not an integer [%s]", parameter);
+#endif
 			return;
 		}
 		parameter += spaceIndex + 1;
 		int value2 = atoi(parameter);
 		if (absI(value2) == absI(ERROR_CODE)) {
+#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 			scheduleMsg(&logging, "not an integer [%s]", parameter);
+#endif
 			return;
 		}
 		VoidIntInt callbackS = (VoidIntInt) current->callback;
