@@ -89,8 +89,8 @@ static void runBench(brain_pin_e brainPin, io_pin_e pin, float delayMs, float on
 		chThdSleep((int) (onTimeMs * CH_FREQUENCY / 1000));
 		setOutputPinValue(pin, FALSE);
 		int offTimeSt = (int) (offTimeMs * CH_FREQUENCY / 1000);
-		if(offTimeSt>0) {
-		chThdSleep(offTimeSt);
+		if (offTimeSt > 0) {
+			chThdSleep(offTimeSt);
 		}
 	}
 	scheduleMsg(&logger, "Done!");
