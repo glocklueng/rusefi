@@ -88,7 +88,10 @@ static void runBench(brain_pin_e brainPin, io_pin_e pin, float delayMs, float on
 		setOutputPinValue(pin, TRUE);
 		chThdSleep((int) (onTimeMs * CH_FREQUENCY / 1000));
 		setOutputPinValue(pin, FALSE);
-		chThdSleep((int) (offTimeMs * CH_FREQUENCY / 1000));
+		int offTimeSt = (int) (offTimeMs * CH_FREQUENCY / 1000);
+		if(offTimeSt>0) {
+		chThdSleep(offTimeSt);
+		}
 	}
 	scheduleMsg(&logger, "Done!");
 }
@@ -97,9 +100,9 @@ static volatile int needToRunBench = FALSE;
 static float onTime;
 static float offTime;
 static float delayMs;
-int count;
-brain_pin_e brainPin;
-io_pin_e pin;
+static int count;
+static brain_pin_e brainPin;
+static io_pin_e pin;
 
 static void pinbench(const char *delayStr, const char *onTimeStr, const char *offTimeStr, const char *countStr,
 		io_pin_e pinParam, brain_pin_e brainPinParam) {
@@ -119,6 +122,18 @@ static void fuelbench2(const char *delayStr, const char *indexStr, const char * 
 	brain_pin_e b = boardConfiguration->injectionPins[index - 1];
 	io_pin_e p = (io_pin_e) ((int) INJECTOR_1_OUTPUT - 1 + index);
 	pinbench(delayStr, onTimeStr, offTimeStr, countStr, p, b);
+}
+
+static void fuelpumpbench(int delayParam, int onTimeParam) {
+	brainPin = boardConfiguration->fuelPumpPin;
+	pin = FUEL_PUMP_RELAY;
+
+	delayMs = delayParam;
+	onTime = onTimeParam;
+	offTime = 0;
+	count = 1;
+
+	needToRunBench = TRUE;
 }
 
 static void fuelbench(const char * onTimeStr, const char *offTimeStr, const char *countStr) {
@@ -171,6 +186,8 @@ void initInjectorCentral(void) {
 
 	printStatus();
 	addConsoleActionII("injector", setInjectorEnabled);
+
+	addConsoleActionII("fuelpumpbench", &fuelpumpbench);
 
 	addConsoleActionSSS("fuelbench", &fuelbench);
 	addConsoleActionSSS("sparkbench", &sparkbench);
