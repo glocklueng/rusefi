@@ -49,9 +49,9 @@ int indexOf(const char *string, char ch) {
 	// todo: there should be a standard function for this
 	int len = strlen(string);
 	for (int i = 0; i < len; i++) {
-          if (string[i] == ch) {
+		if (string[i] == ch) {
 			return i;
-          }
+		}
 	}
 	return -1;
 }
@@ -62,10 +62,10 @@ int atoi(const char *string) {
 	int len = strlen(string);
 	if (len == 0) {
 		return -ERROR_CODE;
-        }
+	}
 	if (string[0] == '-') {
 		return -atoi(string + 1);
-        }
+	}
 	int result = 0;
 
 	for (int i = 0; i < len; i++) {
@@ -98,8 +98,7 @@ static char *ltoa_internal(char *p, long num, unsigned radix) {
 	i = (int) (p + _MAX_FILLER - q);
 	do {
 		*p++ = *q++;
-        }
-	while (--i);
+	} while (--i);
 
 	return p;
 }
@@ -156,6 +155,6 @@ float atoff(const char *param) {
 	// todo: reuse 'pow10' function which we have anyway
 	for (int i = 0; i < decimalLen; i++) {
 		divider = divider * 10.0;
-        }
+	}
 	return integerPart + decimal / divider;
 }

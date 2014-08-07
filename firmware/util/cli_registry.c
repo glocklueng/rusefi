@@ -125,7 +125,7 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 		int spaceIndex = indexOf(parameter, ' ');
 		if (spaceIndex == -1) {
 			return;
-        }
+		}
 		parameter[spaceIndex] = 0;
 		char * param0 = parameter;
 
@@ -149,7 +149,7 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 		int spaceIndex = indexOf(parameter, ' ');
 		if (spaceIndex == -1) {
 			return;
-        }
+		}
 		parameter[spaceIndex] = 0;
 		char * param0 = parameter;
 
@@ -189,8 +189,16 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 			return;
 		parameter[spaceIndex] = 0;
 		int value1 = atoi(parameter);
+		if (absI(value1) == absI(ERROR_CODE)) {
+			scheduleMsg(&logging, "not an integer [%s]", parameter);
+			return;
+		}
 		parameter += spaceIndex + 1;
 		int value2 = atoi(parameter);
+		if (absI(value2) == absI(ERROR_CODE)) {
+			scheduleMsg(&logging, "not an integer [%s]", parameter);
+			return;
+		}
 		VoidIntInt callbackS = (VoidIntInt) current->callback;
 		(*callbackS)(value1, value2);
 		return;
@@ -240,7 +248,7 @@ int tokenLength(char *msgp) {
 		char ch = *msgp++;
 		if (ch == ' ') {
 			break;
-                }
+		}
 		result++;
 	}
 	return result;
