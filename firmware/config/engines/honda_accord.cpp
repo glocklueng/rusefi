@@ -87,7 +87,7 @@ void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, bo
 	// Frankenso low out #:
 	// Frankenso low out #:
 	// Frankenso low out #5: PE3
-	// Frankenso low out #:
+	// Frankenso low out #6: PE4
 	// Frankenso low out #7: PE1 (do not use with discovery!)
 	// Frankenso low out #:
 	// Frankenso low out #9: PB9
@@ -100,8 +100,13 @@ void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, bo
 
 	boardConfiguration->injectionPins[0] = GPIOB_8;
 	boardConfiguration->injectionPins[1] = GPIOB_9;
-	boardConfiguration->injectionPins[2] = GPIOE_2;
+	boardConfiguration->injectionPins[2] = GPIOE_1;
 	boardConfiguration->injectionPins[3] = GPIOB_7;
+
+	boardConfiguration->ignitionPins[0] = GPIOE_4;
+	boardConfiguration->ignitionPins[1] = GPIO_NONE;
+	boardConfiguration->ignitionPins[2] = GPIO_NONE;
+	boardConfiguration->ignitionPins[3] = GPIO_NONE;
 
 	boardConfiguration->fuelPumpPin = GPIOE_3;
 	boardConfiguration->fuelPumpPinMode = OM_DEFAULT;
