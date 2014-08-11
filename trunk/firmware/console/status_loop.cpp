@@ -61,6 +61,7 @@
 #include "lcd_HD44780.h"
 #include "rusefi.h"
 #include "pin_repository.h"
+#include "flash_main.h"
 #endif
 
 extern Engine engine;
@@ -375,6 +376,9 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
 	float coolant = getCoolantTemperature();
 	float intake = getIntakeAirTemperature();
 
+	float engineLoad = getEngineLoad();
+	float baseFuel = getBaseTableFuel((int) rpm, engineLoad);
+
 	tsOutputChannels->rpm = rpm;
 	tsOutputChannels->coolant_temperature = coolant;
 	tsOutputChannels->intake_air_temperature = intake;
@@ -386,7 +390,12 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
 	tsOutputChannels->atmospherePressure = getBaroPressure();
 	tsOutputChannels->manifold_air_pressure = getMap();
 	tsOutputChannels->checkEngine = hasErrorCodes();
+#if EFI_PROD_CODE
+	tsOutputChannels->needBurn = getNeedToWriteConfiguration();
+#endif
 	tsOutputChannels->tCharge = getTCharge(rpm, tps, coolant, intake);
+	tsOutputChannels->sparkDwell = getSparkDwellMs(rpm);
+	tsOutputChannels->pulseWidth = getRunningFuel(baseFuel, &engine, rpm);
 }
 
 extern TunerStudioOutputChannels tsOutputChannels;

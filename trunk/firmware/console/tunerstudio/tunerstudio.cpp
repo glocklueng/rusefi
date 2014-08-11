@@ -54,6 +54,7 @@ static SerialConfig tsSerialConfig = { TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS 
 
 #define MAX_PAGE_ID 0
 #define PAGE_0_SIZE 5848
+#define TS_OUTPUT_SIZE 72
 
 // in MS, that's 10 seconds
 #define TS_READ_TIMEOUT 10000
@@ -463,6 +464,9 @@ void startTunerStudioConnectivity(void) {
 
 	if (sizeof(engine_configuration_s) != getTunerStudioPageSize(0))
 		firmwareError("TS page size mismatch: %d/%d", sizeof(engine_configuration_s), getTunerStudioPageSize(0));
+
+	if (sizeof(TunerStudioOutputChannels) != TS_OUTPUT_SIZE)
+		firmwareError("TS outputs size mismatch: %d/%d", sizeof(TunerStudioOutputChannels), TS_OUTPUT_SIZE);
 
 	memset(&tsState, 0, sizeof(tsState));
 #if EFI_PROD_CODE
