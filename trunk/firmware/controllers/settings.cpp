@@ -44,9 +44,9 @@ static void doPrintConfiguration(void) {
 }
 
 static void printIntArray(int array[], int size) {
-  for (int j = 0; j < size; j++) {
+	for (int j = 0; j < size; j++) {
 		print("%d ", array[j]);
-  }
+	}
 	print("\r\n");
 }
 
@@ -55,7 +55,7 @@ void printFloatArray(const char *prefix, float array[], int size) {
 	appendPrintf(&logger, prefix);
 	for (int j = 0; j < size; j++) {
 		appendPrintf(&logger, "%f ", array[j]);
-        }
+	}
 	appendMsgPostfix(&logger);
 	scheduleLogging(&logger);
 }
@@ -130,7 +130,8 @@ static const char * boolToString(bool value) {
  */
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 
-	scheduleMsg(&logger, "Template %s/%d trigger %d", getConfigurationName(engineConfiguration), engineConfiguration->engineType, engineConfiguration->triggerConfig.triggerType);
+	scheduleMsg(&logger, "Template %s/%d trigger %d", getConfigurationName(engineConfiguration),
+			engineConfiguration->engineType, engineConfiguration->triggerConfig.triggerType);
 
 	scheduleMsg(&logger, "configurationVersion=%d", getGlobalConfigurationVersion());
 
@@ -167,7 +168,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "timingMode: %d", engineConfiguration->timingMode);
 	scheduleMsg(&logger, "fixedModeTiming: %d", (int) engineConfiguration->fixedModeTiming);
 	scheduleMsg(&logger, "ignitionOffset=%f", engineConfiguration->ignitionOffset);
-	scheduleMsg(&logger, "injectionOffset=%f", (double)engineConfiguration->injectionOffset);
+	scheduleMsg(&logger, "injectionOffset=%f", (double) engineConfiguration->injectionOffset);
 
 	scheduleMsg(&logger, "crankingChargeAngle=%f", engineConfiguration->crankingChargeAngle);
 	scheduleMsg(&logger, "crankingTimingAngle=%f", engineConfiguration->crankingTimingAngle);
@@ -182,7 +183,8 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 			pinModeToString(boardConfiguration->malfunctionIndicatorPinMode));
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
-	scheduleMsg(&logger, "needSecondTriggerInput: %s", boolToString(engineConfiguration2->triggerShape.needSecondTriggerInput));
+	scheduleMsg(&logger, "needSecondTriggerInput: %s",
+			boolToString(engineConfiguration2->triggerShape.needSecondTriggerInput));
 
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "idleValvePin: %s", hwPortname(boardConfiguration->idleValvePin));
@@ -217,7 +219,8 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "digitalPotentiometerSpiDevice %d", boardConfiguration->digitalPotentiometerSpiDevice);
 
 	for (int i = 0; i < DIGIPOT_COUNT; i++) {
-		scheduleMsg(&logger, "digitalPotentiometer CS%d %s", i, hwPortname(boardConfiguration->digitalPotentiometerChipSelect[i]));
+		scheduleMsg(&logger, "digitalPotentiometer CS%d %s", i,
+				hwPortname(boardConfiguration->digitalPotentiometerChipSelect[i]));
 	}
 #endif /* EFI_PROD_CODE */
 
@@ -345,7 +348,13 @@ static void printTPSInfo(void) {
 
 static void printTemperatureInfo(void) {
 	printThermistor("CLT", &engineConfiguration2->clt);
+	if (!isValidCoolantTemperature(getCoolantTemperature())) {
+		scheduleMsg(&logger, "CLT sensing error");
+	}
 	printThermistor("IAT", &engineConfiguration2->iat);
+	if (!isValidIntakeAirTemperature(getIntakeAirTemperature())) {
+		scheduleMsg(&logger, "IAT sensing error");
+	}
 
 	float rClt = getResistance(&engineConfiguration2->clt);
 	float rIat = getResistance(&engineConfiguration2->iat);
@@ -433,7 +442,7 @@ static void setIgnitionMode(int value) {
 }
 
 static void setTriggerType(int value) {
-	engineConfiguration->triggerConfig.triggerType = (trigger_type_e)value;
+	engineConfiguration->triggerConfig.triggerType = (trigger_type_e) value;
 	incrementGlobalConfigurationVersion();
 	doPrintConfiguration();
 }
