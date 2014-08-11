@@ -45,11 +45,11 @@ void setMitsubishiConfiguration(engine_configuration_s *engineConfiguration, boa
 	engineConfiguration->crankingSettings.fuelAtMinTempMs = 6;
 
 	/**
-	 * 18K Ohm @ -20C
-	 * 2.1K Ohm @ 24C
-	 * 1K Ohm @ 49C
+	 * 29150 Ohm @ 40C
+	 * 10160 Ohm @ 70C
+	 * 1270 Ohm @ 150C
 	 */
-	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, -20, 18000, 23.8889, 2100, 48.8889, 1000);
+	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 40, 29150, 70, 10160, 150, 1270);
 	engineConfiguration->cltThermistorConf.bias_resistor = 2700;
 
 	// Frankenstein: low side - inj #1: PC14
