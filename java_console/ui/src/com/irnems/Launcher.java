@@ -5,6 +5,7 @@ import com.irnems.core.MessagesCentral;
 import com.rusefi.AnalogChartPanel;
 import com.rusefi.PortLookupFrame;
 import com.rusefi.SimulatorHelper;
+import com.rusefi.VersionChecker;
 import com.rusefi.io.LinkManager;
 import com.rusefi.ui.*;
 import jssc.SerialPortList;
@@ -21,7 +22,7 @@ import javax.swing.*;
  * @see WavePanel
  */
 public class Launcher extends FrameHelper {
-    public static final Object CONSOLE_VERSION = "20140805";
+    public static final int CONSOLE_VERSION = 20140810;
     public static final boolean SHOW_STIMULATOR = false;
 
     public Launcher(String port) {
@@ -87,6 +88,7 @@ public class Launcher extends FrameHelper {
 
     public static void main(final String[] args) throws Exception {
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler());
+        VersionChecker.start();
         SwingUtilities.invokeAndWait(new Runnable() {
             public void run() {
                 awtCode(args);
