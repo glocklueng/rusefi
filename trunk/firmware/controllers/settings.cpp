@@ -101,6 +101,7 @@ const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 	case MITSU_4G93:
 		return "Mitsu 4G93";
 	default:
+//todo?		firmwareError("Unexpected: engineType %d", engineConfiguration->engineType);
 		return NULL;
 	}
 }
