@@ -56,6 +56,11 @@ void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, bo
 	engineConfiguration->map.sensor.sensorType = MT_MPX4250;
 	engineConfiguration->map.sensor.hwChannel = 0;
 
+	/**
+	 * 18K Ohm @ -20C
+	 * 2.1K Ohm @ 24C
+	 * 100 Ohm @ 120C
+	 */
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, -20.0, 18000.0, 23.8889, 2100.0, 120.0, 100.0);
 	engineConfiguration->cltThermistorConf.bias_resistor = 1500; // same as OEM ECU
 
