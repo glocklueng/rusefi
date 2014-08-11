@@ -22,7 +22,7 @@ import javax.swing.*;
  * @see WavePanel
  */
 public class Launcher extends FrameHelper {
-    public static final int CONSOLE_VERSION = 20140810;
+    public static final int CONSOLE_VERSION = 20140811;
     public static final boolean SHOW_STIMULATOR = false;
 
     public Launcher(String port) {
@@ -66,8 +66,9 @@ public class Launcher extends FrameHelper {
 
         LinkManager.engineState.registerStringValueAction("rusEfiVersion", new EngineState.ValueCallback<String>() {
             @Override
-            public void onUpdate(String value) {
-                setTitle(value);
+            public void onUpdate(String firmwareVersion) {
+                setTitle(firmwareVersion);
+                VersionChecker.getInstance().onFirmwareVersion(firmwareVersion);
             }
         });
     }
