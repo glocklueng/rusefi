@@ -4,6 +4,7 @@ import com.irnems.Launcher;
 import com.rusefi.io.LinkManager;
 import com.rusefi.io.tcp.TcpConnector;
 import com.rusefi.ui.UiUtils;
+import com.rusefi.ui.widgets.URLLabel;
 import jssc.SerialPortList;
 
 import javax.swing.*;
@@ -46,12 +47,16 @@ public class PortLookupFrame {
 
         upperPanel.add(buttonLogViewer);
 
+        JPanel centerPanel = new JPanel(new FlowLayout());
+        centerPanel.add(SimulatorHelper.createSimulatorComponent(frame));
+
+
         JPanel lowerPanel = new JPanel(new FlowLayout());
-        lowerPanel.add(SimulatorHelper.createSimulatorComponent(frame));
-
-
+        lowerPanel.add(new URLLabel("rusEfi (c) 2012-2014", "http://rusefi.com/?java_console"));
         content.add(upperPanel, BorderLayout.NORTH);
+        content.add(centerPanel, BorderLayout.CENTER);
         content.add(lowerPanel, BorderLayout.SOUTH);
+
 
         frame.add(content);
         frame.pack();
