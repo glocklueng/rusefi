@@ -16,6 +16,7 @@
  * support 'float' (F32) type. You would need a beta version to handle floats
  */
 typedef struct {
+	// primary instrument cluster gauges
 	int rpm; // size 4, offset 0
 	float coolant_temperature; // size 4, offset 4
 	float intake_air_temperature; // size 4, offset 8
@@ -28,8 +29,13 @@ typedef struct {
 	short int alignment; // size 2, offset 34
 	float atmospherePressure; // size 4, offset 36
 	float manifold_air_pressure; // size 4, offset 40
-	int checkEngine; // size 4, offset 44
-	float tCharge;
+	int checkEngine; // size 4, offset 44 todo: reduce bits usage? MAYBE
+	int needBurn; // 48
+	float tCharge; // 52
+	float inj_adv; // 56
+	float sparkDwell; // 60
+	float pulseWidth; // 64
+	float warmUpEnrich;	// 68
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */
