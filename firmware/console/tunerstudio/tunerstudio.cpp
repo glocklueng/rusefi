@@ -60,7 +60,6 @@ static SerialConfig tsSerialConfig = { TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS 
 
 #define PROTOCOL  "001"
 
-
 BaseChannel * getTsSerialDevice(void) {
 #if EFI_PROD_CODE
 	if (isSerialOverUart()) {
@@ -76,7 +75,6 @@ BaseChannel * getTsSerialDevice(void) {
 
 static Logging logger;
 
-extern engine_configuration_s *engineConfiguration;
 extern persistent_config_s configWorkingCopy;
 extern persistent_config_container_s persistentState;
 
@@ -223,7 +221,7 @@ void handleWriteValueCommand(ts_response_format_e mode, uint16_t page, uint16_t 
 //	scheduleMsg(&logger, "Page number %d\r\n", pageId); // we can get a lot of these
 #endif
 
-	int size = sizeof(TunerStudioWriteValueRequest);
+//	int size = sizeof(TunerStudioWriteValueRequest);
 //	scheduleMsg(&logger, "Reading %d\r\n", size);
 
 	if (offset > getTunerStudioPageSize(tsState.currentPageId)) {

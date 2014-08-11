@@ -78,7 +78,7 @@ void setDefaultPinState(io_pin_e pin, pin_output_mode_e *outputMode) {
 }
 
 static void comBlinkingThread(void *arg) {
-	chRegSetThreadName("comm blinking");
+	chRegSetThreadName("communication blinking");
 	while (TRUE) {
 		int delay;
 		if (getNeedToWriteConfiguration()) {
