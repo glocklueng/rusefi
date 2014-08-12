@@ -68,8 +68,7 @@ int isLocked(void) {
 
 void chVTSetAny(virtual_timer_t *vtp, systime_t time, vtfunc_t vtfunc, void *par) {
 	if (isIsrContext()) {
-		chSysLockFromIsr()
-		;
+		bool wasLocked = lockAnyContext();
 
 		/**
 		 * todo: this could be simplified once we migrate to ChibiOS 3.0
@@ -79,7 +78,8 @@ void chVTSetAny(virtual_timer_t *vtp, systime_t time, vtfunc_t vtfunc, void *par
 			chVTResetI(vtp);
 
 		chVTSetI(vtp, time, vtfunc, par);
-		chSysUnlockFromIsr()
+		if (!wasLocked)
+                    chSysUnlockFromIsr()
 		;
 	} else {
 		chSysLock()
