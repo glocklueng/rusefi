@@ -349,6 +349,7 @@ typedef enum {
 	GPIOE_15 = 79,
 
 	GPIO_NONE = 80,
+	GPIO_INVALID = 81,
 
 	Internal_ForceMyEnumIntSize_cranking_brain_pin = ENUM_SIZE_HACK,
 } brain_pin_e;
