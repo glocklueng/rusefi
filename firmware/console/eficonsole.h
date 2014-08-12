@@ -16,7 +16,7 @@ extern "C"
 #endif /* __cplusplus */
 
 void initializeConsole(void);
-void sendOutConfirmation(char *value, int i);
+void sendOutConfirmation(const char *command, int length);
 void print(const char *fmt, ...);
 
 #ifdef __cplusplus
