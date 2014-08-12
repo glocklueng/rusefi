@@ -511,12 +511,12 @@ static void setFuelMap(const char * rpmStr, const char *loadStr, const char *val
 }
 
 static void enableInjection(void) {
-	engineConfiguration2->isInjectionEnabledFlag = TRUE;
+	engineConfiguration2->isInjectionEnabledFlag = true;
 	scheduleMsg(&logger, "injection enabled");
 }
 
 static void disableInjection(void) {
-	engineConfiguration2->isInjectionEnabledFlag = FALSE;
+	engineConfiguration2->isInjectionEnabledFlag = false;
 	scheduleMsg(&logger, "injection disabled");
 }
 
