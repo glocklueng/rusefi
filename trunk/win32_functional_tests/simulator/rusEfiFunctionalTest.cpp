@@ -27,6 +27,7 @@
 #include "injector_central.h"
 #include "engine.h"
 #include "tunerstudio.h"
+#include "trigger_emulator.h"
 
 Engine engine;
 
@@ -67,31 +68,10 @@ float getMap(void) {
 	return getRawMap();
 }
 
-static int primaryWheelState = FALSE;
-static int secondaryWheelState = false;
-static int thirdWheelState = false;
+static TriggerEmulatorHelper helper;
 
 static void triggerEmulatorCallback(PwmConfig *state, int stateIndex) {
-	int newPrimaryWheelState = state->multiWave.waves[0].pinStates[stateIndex];
-	int newSecondaryWheelState = state->multiWave.waves[1].pinStates[stateIndex];
-	int new3rdWheelState = state->multiWave.waves[2].pinStates[stateIndex];
-
-	if (primaryWheelState != newPrimaryWheelState) {
-		primaryWheelState = newPrimaryWheelState;
-		hwHandleShaftSignal(primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN);
-	}
-
-	if (secondaryWheelState != newSecondaryWheelState) {
-		secondaryWheelState = newSecondaryWheelState;
-		hwHandleShaftSignal(secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN);
-	}
-
-	if (thirdWheelState != new3rdWheelState) {
-		thirdWheelState = new3rdWheelState;
-		hwHandleShaftSignal(thirdWheelState ? SHAFT_3RD_UP : SHAFT_3RD_DOWN);
-	}
-
-	//	print("hello %d\r\n", chTimeNow());
+	helper.handleEmulatorCallback(state, stateIndex);
 }
 
 void rusEfiFunctionalTest(void) {
