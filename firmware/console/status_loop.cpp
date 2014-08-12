@@ -182,7 +182,7 @@ void printState(int currentCkpEventCounter) {
 #define INITIAL_FULL_LOG TRUE
 //#define INITIAL_FULL_LOG FALSE
 
-static char LOGGING_BUFFER[500];
+static char LOGGING_BUFFER[700];
 
 volatile int needToReportStatus = FALSE;
 static int prevCkpEventCounter = -1;
