@@ -24,6 +24,7 @@ import java.util.Date;
  */
 public class MsgPanel {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH_mm");
+    private static final int MAX_SIZE = 50000;
 
     private final JTextPane msg = new JTextPane();
     private boolean isPaused;
@@ -97,7 +98,7 @@ public class MsgPanel {
 
     private void append(String line) {
         Document d = msg.getDocument();
-        if (d.getLength() > 10000)
+        if (d.getLength() > MAX_SIZE)
             clearMessages(d);
         try {
             d.insertString(d.getLength(), line + "\r\n", null);
