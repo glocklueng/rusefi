@@ -347,6 +347,12 @@ static bool handleConsoleLineInternal(char *line, int lineLength) {
 	return false;
 }
 
+#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
+static void sendOutConfirmation(const char *command, int length) {
+	scheduleMsg(&logging, "%s%d", command, length);
+}
+#endif
+
 /**
  * @brief This function takes care of one command line once we have it
  */
