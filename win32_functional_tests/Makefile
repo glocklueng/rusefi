@@ -131,6 +131,7 @@ CPPSRC = $(UTILSRC_CPP) \
 	$(CONTROLLERS_MATH_SRC_CPP) \
 	$(ENGINES_SRC_CPP) \
 	$(PROJECT_DIR)/simulator/rusEfiFunctionalTest.cpp \
+	$(PROJECT_DIR)/emulation/trigger_emulator.cpp \
 	$(TEST_SRC_CPP)
 # C sources to be compiled in ARM mode regardless of the global setting.
 # NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
