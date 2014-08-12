@@ -130,10 +130,6 @@ static void cmd_threads(void) {
 #endif
 }
 
-void sendOutConfirmation(const char *command, int length) {
-	scheduleMsg(&logger, "%s%d", command, length);
-}
-
 /**
  * This methods prints the message to whatever is configured as our primary console
  */
