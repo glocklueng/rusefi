@@ -219,8 +219,8 @@ static void printInfo(systime_t nowSeconds) {
 			getConfigurationName(engineConfiguration),
 			DELIMETER);
 #if EFI_PROD_CODE
-	printOutPin(WC_CRANK1, boardConfiguration->primaryTriggerInputPin);
-	printOutPin(WC_CRANK2, boardConfiguration->secondaryTriggerInputPin);
+	printOutPin(WC_CRANK1, boardConfiguration->triggerInputPins[0]);
+	printOutPin(WC_CRANK2, boardConfiguration->triggerInputPins[1]);
 
 	for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 		// todo: extract method?

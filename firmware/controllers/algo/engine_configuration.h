@@ -157,10 +157,8 @@ typedef struct {
 
 	adc_channel_mode_e adcHwChannelEnabled[HW_MAX_ADC_INDEX];
 
-	brain_pin_e primaryTriggerInputPin;
-	brain_pin_e secondaryTriggerInputPin;
-	brain_pin_e primaryLogicAnalyzerPin;
-	brain_pin_e secondaryLogicAnalyzerPin;
+	brain_pin_e triggerInputPins[2];
+	brain_pin_e logicAnalyzerPins[2];
 
 	int idleThreadPeriod;
 	int consoleLoopPeriod;

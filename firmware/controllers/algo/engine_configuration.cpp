@@ -323,10 +323,10 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->adcHwChannelEnabled[12] = ADC_SLOW;
 	boardConfiguration->adcHwChannelEnabled[13] = ADC_SLOW;
 
-	boardConfiguration->primaryTriggerInputPin = GPIOC_6;
-	boardConfiguration->secondaryTriggerInputPin = GPIOA_5;
-	boardConfiguration->primaryLogicAnalyzerPin = GPIOA_8;
-	boardConfiguration->secondaryLogicAnalyzerPin = GPIOE_7;
+	boardConfiguration->triggerInputPins[0] = GPIOC_6;
+	boardConfiguration->triggerInputPins[1] = GPIOA_5;
+	boardConfiguration->logicAnalyzerPins[0] = GPIOA_8;
+	boardConfiguration->logicAnalyzerPins[1] = GPIOE_7;
 
 	boardConfiguration->idleThreadPeriod = 100;
 	boardConfiguration->consoleLoopPeriod = 200;
