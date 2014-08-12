@@ -220,6 +220,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->displayMode = DM_HD44780;
 
 	engineConfiguration->logFormat = LF_NATIVE;
+	engineConfiguration->directSelfStimulation = false;
 
 	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL_60_2;
 
@@ -444,7 +445,7 @@ void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *e
 #if EFI_PROD_CODE
 	scheduleMsg(logger, "applyNonPersistentConfiguration()");
 #endif
-	engineConfiguration2->isInjectionEnabledFlag = TRUE;
+	engineConfiguration2->isInjectionEnabledFlag = true;
 
 	initializeTriggerShape(logger, engineConfiguration, engineConfiguration2);
 	if (engineConfiguration2->triggerShape.getSize() == 0) {
