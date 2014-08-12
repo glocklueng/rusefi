@@ -373,12 +373,11 @@ void handleConsoleLine(char *line) {
 	strcat(confirmation, line);
 	strcat(confirmation, ":");
 
-	bool isKnownComman = handleConsoleLineInternal(line, lineLength);
-
 #if EFI_PROD_CODE || EFI_SIMULATOR
-	// confirmation happens after the command to avoid conflict with command own output
 	sendOutConfirmation(confirmation, lineLength);
 #endif
+
+	bool isKnownComman = handleConsoleLineInternal(line, lineLength);
 
 	if (!isKnownComman)
 		helpCommand();
