@@ -76,6 +76,24 @@ static void reportPins(void) {
 static MemoryStream portNameStream;
 static char portNameBuffer[20];
 
+brain_pin_e parseBrainPin(const char *str) {
+	if (strEqual(str, "none"))
+		return GPIO_NONE;
+	char port = str[0];
+	brain_pin_e basePin;
+	if (port >= 'a' && port <= 'z') {
+		basePin = (brain_pin_e) ((int) GPIOA_0 + 16 * (port - 'a'));
+	} else if (port >= 'A' && port <= 'Z') {
+		basePin = (brain_pin_e) ((int) GPIOA_0 + 16 * (port - 'A'));
+	} else {
+		// here that's an error. todo: maybe an error code?
+		return GPIO_NONE;
+	}
+	const char *pinStr = str + 1;
+	int pin = atoi(pinStr);
+	return basePin + pin;
+}
+
 char *hwPortname(brain_pin_e brainPin) {
 	GPIO_TypeDef *hwPort = getHwPort(brainPin);
 	if (hwPort == GPIO_NULL)
