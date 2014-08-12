@@ -146,12 +146,7 @@ typedef struct {
 	brain_pin_e gps_rx_pin;
 	brain_pin_e gps_tx_pin;
 
-	/**
-	 * Should the trigger emulator push data right into trigger input, eliminating the need for physical jumper wires?
-	 * PS: Funny name, right? :)
-	 */
-	int directSelfStimulation;
-	int unused;
+	int unused[2];
 
 
 	/**
@@ -219,7 +214,11 @@ typedef struct {
 	float iatFuelCorrBins[IAT_CURVE_SIZE]; // size 64, offset 200
 	float iatFuelCorr[IAT_CURVE_SIZE]; // size 64, offset 264
 
-	short int unused2; // size 2, offset 328
+	/**
+	 * Should the trigger emulator push data right into trigger input, eliminating the need for physical jumper wires?
+	 * PS: Funny name, right? :)
+	 */
+	short int directSelfStimulation; // size 2, offset 328
 
 	// todo: extract these two fields into a structure
 	// todo: we need two sets of TPS parameters - modern ETBs have to sensors
@@ -276,7 +275,6 @@ typedef struct {
 
 	injection_mode_e crankingInjectionMode;
 	injection_mode_e injectionMode;
-
 
 	/**
 	 * Inside rusEfi all the angles are handled in relation to the trigger synchronization event
@@ -378,7 +376,6 @@ typedef struct {
 
 	float veTable[VE_LOAD_COUNT][VE_RPM_COUNT]; // size 1024
 	float afrTable[AFR_LOAD_COUNT][AFR_RPM_COUNT]; // size 1024
-
 
 	board_configuration_s bc;
 
