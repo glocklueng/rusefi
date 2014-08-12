@@ -50,6 +50,16 @@ void TriggerEmulatorHelper::handleEmulatorCallback(PwmConfig *state, int stateIn
 	//	print("hello %d\r\n", chTimeNow());
 }
 
+static TriggerEmulatorHelper helper;
+
+void emulatorApplyPinState(PwmConfig *state, int stateIndex) {
+	if (engineConfiguration->directSelfStimulation) {
+//		helper.handleEmulatorCallback(state, stateIndex);
+	}
+
+	applyPinState(state, stateIndex);
+}
+
 void initTriggerEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
 	print("Emulating %s\r\n", getConfigurationName(engineConfiguration));
