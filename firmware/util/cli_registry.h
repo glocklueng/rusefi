@@ -21,6 +21,7 @@ typedef enum {
 	ONE_PARAMETER,
 	FLOAT_PARAMETER,
 	STRING_PARAMETER,
+	STRING2_PARAMETER,
 	STRING3_PARAMETER,
 	STRING5_PARAMETER,
 	TWO_INTS_PARAMETER,
@@ -43,6 +44,7 @@ typedef void (*VoidFloat)(float);
 typedef void (*VoidFloatFloat)(float, float);
 typedef void (*VoidIntInt)(int, int);
 typedef void (*VoidCharPtr)(char *);
+typedef void (*VoidCharPtrCharPtr)(const char *, const char *);
 typedef void (*VoidCharPtrCharPtrCharPtr)(const char *, const char *, const char *);
 typedef void (*VoidCharPtrCharPtrCharPtrCharPtrCharPtr)(const char *, const char *, const char *, const char *, const char *);
 
@@ -58,6 +60,7 @@ void addConsoleActionII(const char *token, VoidIntInt callback);
 void addConsoleActionF(const char *token, VoidFloat callback);
 void addConsoleActionFF(const char *token, VoidFloatFloat callback);
 void addConsoleActionS(const char *token, VoidCharPtr callback);
+void addConsoleActionSS(const char *token, VoidCharPtrCharPtr callback);
 void addConsoleActionSSS(const char *token, VoidCharPtrCharPtrCharPtr callback);
 void addConsoleActionSSSSS(const char *token, VoidCharPtrCharPtrCharPtrCharPtrCharPtr callback);
 

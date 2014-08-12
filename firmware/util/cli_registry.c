@@ -70,6 +70,10 @@ void addConsoleActionS(const char *token, VoidCharPtr callback) {
 	doAddAction(token, STRING_PARAMETER, (Void) callback);
 }
 
+void addConsoleActionSS(const char *token, VoidCharPtrCharPtr callback) {
+	doAddAction(token, STRING2_PARAMETER, (Void) callback);
+}
+
 void addConsoleActionSSS(const char *token, VoidCharPtrCharPtrCharPtr callback) {
 	doAddAction(token, STRING3_PARAMETER, (Void) callback);
 }
@@ -121,6 +125,23 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 	}
 
 	// todo: refactor this hell!
+	if (current->parameterType == STRING2_PARAMETER) {
+		int spaceIndex = indexOf(parameter, ' ');
+		if (spaceIndex == -1) {
+			return;
+		}
+		parameter[spaceIndex] = 0;
+		char * param0 = parameter;
+
+		parameter += spaceIndex + 1;
+		char * param1 = parameter;
+
+		VoidCharPtrCharPtr callbackS = (VoidCharPtrCharPtr) current->callback;
+		(*callbackS)(param0, param1);
+		return;
+
+	}
+
 	if (current->parameterType == STRING3_PARAMETER) {
 		int spaceIndex = indexOf(parameter, ' ');
 		if (spaceIndex == -1) {
