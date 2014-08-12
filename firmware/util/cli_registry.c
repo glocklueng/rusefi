@@ -246,7 +246,7 @@ void handleActionWithParameter(TokenCallback *current, char *parameter) {
 /**
  * @return Number of space-separated tokens in the string
  */
-int tokenLength(char *msgp) {
+int tokenLength(const char *msgp) {
 	int result = 0;
 	while (*msgp) {
 		char ch = *msgp++;
@@ -330,7 +330,7 @@ static bool handleConsoleLineInternal(char *line, int lineLength) {
 			if (strEqual(line, current->token)) {
 				// invoke callback function by reference
 				(*current->callback)();
-				return TRUE;
+				return true;
 			}
 		}
 	} else {

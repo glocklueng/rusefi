@@ -35,7 +35,7 @@ typedef struct {
 
 //void addDefaultConsoleActions(void);
 //void handleActionWithParameter(TokenCallback *current, char *parameter);
-int tokenLength(char *msgp);
+int tokenLength(const char *msgp);
 
 typedef void (*Void)(void);
 typedef void (*VoidInt)(int);
