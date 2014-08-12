@@ -146,7 +146,12 @@ typedef struct {
 	brain_pin_e gps_rx_pin;
 	brain_pin_e gps_tx_pin;
 
-	int unused[2];
+	/**
+	 * Should the trigger emulator push data right into trigger input, eliminating the need for physical jumper wires?
+	 * PS: Funny name, right? :)
+	 */
+	int directSelfStimulation;
+	int unused;
 
 
 	/**

@@ -72,6 +72,11 @@ typedef enum {
 
 	MITSU_4G93 = 16,
 
+	/**
+	 * a version of HONDA_ACCORD_CD which only uses two of three trigger input sensors
+	 */
+	HONDA_ACCORD_CD_TWO_WIRES = 17,
+
 	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;
 
@@ -90,6 +95,8 @@ typedef enum {
 	TT_HONDA_ACCORD_CD = 10,
 
 	TT_MITSU = 11,
+
+	TT_HONDA_ACCORD_CD_TWO_WIRES = 12,
 
 	Internal_ForceMyEnumIntSize_trigger_type = ENUM_SIZE_HACK,
 } trigger_type_e;
