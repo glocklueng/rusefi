@@ -130,8 +130,8 @@ static void cmd_threads(void) {
 #endif
 }
 
-void sendOutConfirmation(char *value, int i) {
-	scheduleMsg(&logger, "%s%d", value, i);
+void sendOutConfirmation(const char *command, int length) {
+	scheduleMsg(&logger, "%s%d", command, length);
 }
 
 /**

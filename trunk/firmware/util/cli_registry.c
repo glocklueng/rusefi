@@ -316,8 +316,6 @@ char *validateSecureLine(char *line) {
 
 static char confirmation[200];
 
-void sendOutConfirmation(char *value, int i);
-
 static bool handleConsoleLineInternal(char *line, int lineLength) {
 	int firstTokenLength = tokenLength(line);
 
@@ -371,8 +369,10 @@ void handleConsoleLine(char *line) {
 
 	bool isKnownComman = handleConsoleLineInternal(line, lineLength);
 
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	// confirmation happens after the command to avoid conflict with command own output
 	sendOutConfirmation(confirmation, lineLength);
+#endif
 
 	if (!isKnownComman)
 		helpCommand();
