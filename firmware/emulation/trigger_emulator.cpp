@@ -52,13 +52,16 @@ void TriggerEmulatorHelper::handleEmulatorCallback(PwmConfig *state, int stateIn
 
 static TriggerEmulatorHelper helper;
 
-void emulatorApplyPinState(PwmConfig *state, int stateIndex) {
+#if EFI_EMULATE_POSITION_SENSORS
+
+static void emulatorApplyPinState(PwmConfig *state, int stateIndex) {
 	if (engineConfiguration->directSelfStimulation) {
 //		helper.handleEmulatorCallback(state, stateIndex);
 	}
 
 	applyPinState(state, stateIndex);
 }
+#endif /* EFI_EMULATE_POSITION_SENSORS */
 
 void initTriggerEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
