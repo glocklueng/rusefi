@@ -40,13 +40,12 @@ extern "C"
  * these fields are not integrated with Tuner Studio. Step by step :)
  */
 class engine_configuration2_s {
+	// todo: move these fields into Engine class, eliminate this class
 public:
 	engine_configuration2_s();
 
 	Thermistor iat;
 	Thermistor clt;
-
-//	int crankAngleRange;
 
 	trigger_shape_s triggerShape;
 
@@ -58,7 +57,7 @@ public:
 
 	/**
 	 * This coefficient translates ADC value directly into voltage adjusted according to
-	 * voltage divider configuration.
+	 * voltage divider configuration. This is a future (?) performance optimization.
 	 */
 	float adcToVoltageInputDividerCoefficient;
 };
@@ -82,7 +81,6 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType,
 		board_configuration_s *boardConfiguration);
 void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2);
-
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2);
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
