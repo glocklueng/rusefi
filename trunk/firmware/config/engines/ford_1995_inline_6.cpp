@@ -105,10 +105,10 @@ void setFordInline6(engine_configuration_s *engineConfiguration, board_configura
 	//	engineConfiguration->vBattAdcChannel = 0; //
 //	engineConfiguration->mafAdcChannel = 1;
 
-	boardConfiguration->primaryTriggerInputPin = GPIOA_8;
-	boardConfiguration->secondaryTriggerInputPin = GPIOA_5;
-	boardConfiguration->primaryLogicAnalyzerPin = GPIOC_6;
-	boardConfiguration->secondaryLogicAnalyzerPin = GPIOE_7;
+	boardConfiguration->triggerInputPins[0] = GPIOA_8;
+	boardConfiguration->triggerInputPins[1] = GPIOA_5;
+	boardConfiguration->logicAnalyzerPins[0] = GPIOC_6;
+	boardConfiguration->logicAnalyzerPins[1] = GPIOE_7;
 
 
 }

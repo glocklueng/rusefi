@@ -242,8 +242,8 @@ void initWaveAnalyzer(void) {
 #ifdef EFI_WAVE_ANALYZER
 	initLogging(&logger, "wave");
 
-	initWave("input1 A8", 0, getInputCaptureDriver(boardConfiguration->primaryLogicAnalyzerPin), getHwPort(boardConfiguration->primaryLogicAnalyzerPin), getHwPin(boardConfiguration->primaryLogicAnalyzerPin), 1);
-	initWave("input2 E5", 1, getInputCaptureDriver(boardConfiguration->secondaryLogicAnalyzerPin), getHwPort(boardConfiguration->secondaryLogicAnalyzerPin), getHwPin(boardConfiguration->secondaryLogicAnalyzerPin), 1);
+	initWave("input1 A8", 0, getInputCaptureDriver(boardConfiguration->logicAnalyzerPins[0]), getHwPort(boardConfiguration->logicAnalyzerPins[0]), getHwPin(boardConfiguration->logicAnalyzerPins[0]), 1);
+	initWave("input2 E5", 1, getInputCaptureDriver(boardConfiguration->logicAnalyzerPins[1]), getHwPort(boardConfiguration->logicAnalyzerPins[1]), getHwPin(boardConfiguration->logicAnalyzerPins[1]), 1);
 	//	initWave("input0 C6", 2, &WAVE_TIMER, WAVE_INPUT_PORT, WAVE_INPUT_PIN, 0);
 
 	addTriggerEventListener(&onWaveShaftSignal, "wave analyzer", (void*)NULL);

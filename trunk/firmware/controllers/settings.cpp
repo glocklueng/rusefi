@@ -212,7 +212,10 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "3rd trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[2]),
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[2]));
 
-	scheduleMsg(&logger, "primary trigger input: %s", hwPortname(boardConfiguration->primaryTriggerInputPin));
+	scheduleMsg(&logger, "primary trigger input: %s", hwPortname(boardConfiguration->triggerInputPins[0]));
+	scheduleMsg(&logger, "secondary trigger input: %s", hwPortname(boardConfiguration->triggerInputPins[1]));
+	scheduleMsg(&logger, "primary logic input: %s", hwPortname(boardConfiguration->logicAnalyzerPins[0]));
+	scheduleMsg(&logger, "secondary logic input: %s", hwPortname(boardConfiguration->logicAnalyzerPins[1]));
 
 	scheduleMsg(&logger, "boardTestModeJumperPin: %s", hwPortname(boardConfiguration->boardTestModeJumperPin));
 
@@ -482,6 +485,28 @@ static void setWholeFuelMapCmd(float value) {
 	setWholeFuelMap(engineConfiguration, value);
 }
 
+static void setTriggerInputPin(const char *indexStr, const char *pinName) {
+#if EFI_PROD_CODE
+	int index = atoi(indexStr);
+	if (index < 0 || index > 2)
+		return;
+	brain_pin_e pin = parseBrainPin(pinName);
+	scheduleMsg(&logger, "setting trigger pin[%d] to %s please save&restart", index, hwPortname(pin));
+	boardConfiguration->triggerInputPins[index] = pin;
+#endif
+}
+
+static void setLogicInputPin(const char *indexStr, const char *pinName) {
+#if EFI_PROD_CODE
+	int index = atoi(indexStr);
+	if (index < 0 || index > 2)
+		return;
+	brain_pin_e pin = parseBrainPin(pinName);
+	scheduleMsg(&logger, "setting logic input pin[%d] to %s please save&restart", index, hwPortname(pin));
+	boardConfiguration->logicAnalyzerPins[index] = pin;
+#endif
+}
+
 static void setTimingMap(const char * rpmStr, const char *loadStr, const char *valueStr) {
 	float rpm = atoff(rpmStr);
 	float engineLoad = atoff(loadStr);
@@ -601,5 +626,7 @@ void initSettings(void) {
 
 	addConsoleAction("enable_self_stimulation", enableSelfStimulation);
 	addConsoleAction("disable_self_stimulation", disableSelfStimulation);
+	addConsoleActionSS("set_trigger_input_pin", setTriggerInputPin);
+	addConsoleActionSS("set_logic_input_pin", setLogicInputPin);
 }
 
