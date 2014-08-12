@@ -49,7 +49,8 @@
 /**
  * This is the buffer into which all the data providers write
  */
-static char pendingBuffer[DL_OUTPUT_BUFFER] CCM_OPTIONAL;
+static char pendingBuffer[DL_OUTPUT_BUFFER] CCM_OPTIONAL
+;
 
 /**
  * We copy all the pending data into this buffer once we are ready to push it out
@@ -57,7 +58,9 @@ static char pendingBuffer[DL_OUTPUT_BUFFER] CCM_OPTIONAL;
 static char outputBuffer[DL_OUTPUT_BUFFER];
 
 static MemoryStream intermediateLoggingBuffer;
-static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE] CCM_OPTIONAL; //todo define max-printf-buffer
+static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE] CCM_OPTIONAL
+;
+//todo define max-printf-buffer
 static bool intermediateLoggingBufferInited = FALSE;
 
 static int validateBuffer(Logging *logging, int extraLen, const char *text) {
@@ -368,9 +371,9 @@ void scheduleLogging(Logging *logging) {
 //		strcpy(fatalMessage, "datalogging.c: output buffer overflow: ");
 //		strcat(fatalMessage, logging->name);
 //		fatal(fatalMessage);
-          if (!alreadyLocked) {
+		if (!alreadyLocked) {
 			unlockOutputBuffer();
-          }
+		}
 		resetLogging(logging);
 		return;
 	}
@@ -378,7 +381,7 @@ void scheduleLogging(Logging *logging) {
 	strcat(pendingBuffer, logging->buffer);
 	if (!alreadyLocked) {
 		unlockOutputBuffer();
-        }
+	}
 	resetLogging(logging);
 }
 
@@ -398,7 +401,7 @@ void printPending(void) {
 
 	if (strlen(outputBuffer) > 0) {
 		printWithLength(outputBuffer);
-        }
+	}
 }
 
 void initIntermediateLoggingBuffer(void) {
