@@ -27,6 +27,12 @@ extern board_configuration_s *boardConfiguration;
 
 extern PwmConfig triggerSignal;
 
+TriggerEmulatorHelper::TriggerEmulatorHelper() {
+	primaryWheelState = false;
+	secondaryWheelState = false;
+	thirdWheelState = false;
+}
+
 void TriggerEmulatorHelper::handleEmulatorCallback(PwmConfig *state, int stateIndex) {
 	int newPrimaryWheelState = state->multiWave.waves[0].pinStates[stateIndex];
 	int newSecondaryWheelState = state->multiWave.waves[1].pinStates[stateIndex];
@@ -56,7 +62,7 @@ static TriggerEmulatorHelper helper;
 
 static void emulatorApplyPinState(PwmConfig *state, int stateIndex) {
 	if (engineConfiguration->directSelfStimulation) {
-//		helper.handleEmulatorCallback(state, stateIndex);
+		helper.handleEmulatorCallback(state, stateIndex);
 	}
 
 	applyPinState(state, stateIndex);
@@ -82,7 +88,7 @@ void initTriggerEmulator(void) {
 			&boardConfiguration->triggerSimulatorPinModes[2]);
 
 
-	initTriggerEmulatorLogic(applyPinState);
+	initTriggerEmulatorLogic(emulatorApplyPinState);
 #else
 	print("No position sensor(s) emulation\r\n");
 #endif /* EFI_EMULATE_POSITION_SENSORS */
