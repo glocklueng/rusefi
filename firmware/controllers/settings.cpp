@@ -520,6 +520,16 @@ static void disableInjection(void) {
 	scheduleMsg(&logger, "injection disabled");
 }
 
+static void enableSelfStimulation(void) {
+	engineConfiguration->directSelfStimulation = true;
+	scheduleMsg(&logger, "self stimulation enabled");
+}
+
+static void disableSelfStimulation(void) {
+	engineConfiguration->directSelfStimulation = false;
+	scheduleMsg(&logger, "self stimulation disabled");
+}
+
 #if EFI_WAVE_CHART
 extern int waveChartUsedSize;
 #endif
@@ -588,5 +598,8 @@ void initSettings(void) {
 	addConsoleAction("disable_injection", disableInjection);
 	addConsoleActionII("set_toothed_wheel", setToothedWheel);
 	addConsoleActionI("set_trigger_type", setTriggerType);
+
+	addConsoleAction("enable_self_stimulation", enableSelfStimulation);
+	addConsoleAction("disable_self_stimulation", disableSelfStimulation);
 }
 
