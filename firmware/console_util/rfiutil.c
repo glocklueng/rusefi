@@ -20,6 +20,7 @@
  */
 
 #include <string.h>
+#include "main.h"
 #include "rfiutil.h"
 
 /*
