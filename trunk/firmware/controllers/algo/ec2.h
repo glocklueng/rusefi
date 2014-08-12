@@ -49,8 +49,6 @@ public:
 
 	trigger_shape_s triggerShape;
 
-	cranking_ignition_mode_e crankingIgnitionMode;
-
 	EventHandlerConfiguration engineEventConfiguration;
 
 	int isInjectionEnabledFlag;
