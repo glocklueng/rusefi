@@ -1,5 +1,5 @@
 /**
- * @file    trigger_emulator.c
+ * @file    trigger_emulator.cpp
  * @brief   Position sensor(s) emulation code
  *
  * This file is mostly about initialization, the configuration is
@@ -14,15 +14,41 @@
 #include "main_trigger_callback.h"
 #include "datalogging.h"
 #include "engine_configuration.h"
+#if EFI_PROD_CODE
 #include "pwm_generator.h"
-#include "io_pins.h"
 #include "pin_repository.h"
+#endif
+#include "io_pins.h"
 #include "trigger_emulator_algo.h"
+#include "trigger_central.h"
 
 extern engine_configuration_s *engineConfiguration;
 extern board_configuration_s *boardConfiguration;
 
 extern PwmConfig triggerSignal;
+
+void TriggerEmulatorHelper::handleEmulatorCallback(PwmConfig *state, int stateIndex) {
+	int newPrimaryWheelState = state->multiWave.waves[0].pinStates[stateIndex];
+	int newSecondaryWheelState = state->multiWave.waves[1].pinStates[stateIndex];
+	int new3rdWheelState = state->multiWave.waves[2].pinStates[stateIndex];
+
+	if (primaryWheelState != newPrimaryWheelState) {
+		primaryWheelState = newPrimaryWheelState;
+		hwHandleShaftSignal(primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN);
+	}
+
+	if (secondaryWheelState != newSecondaryWheelState) {
+		secondaryWheelState = newSecondaryWheelState;
+		hwHandleShaftSignal(secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN);
+	}
+
+	if (thirdWheelState != new3rdWheelState) {
+		thirdWheelState = new3rdWheelState;
+		hwHandleShaftSignal(thirdWheelState ? SHAFT_3RD_UP : SHAFT_3RD_DOWN);
+	}
+
+	//	print("hello %d\r\n", chTimeNow());
+}
 
 void initTriggerEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS
