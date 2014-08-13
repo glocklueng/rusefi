@@ -243,8 +243,12 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 		setToothedWheelConfiguration(triggerShape, 36, 1, engineConfiguration);
 		return;
 
-	case TT_HONDA_ACCORD_CD:
+	case TT_HONDA_ACCORD_CD_TWO_WIRES:
 		configureHondaAccordCD(triggerShape, false);
+		return;
+
+	case TT_HONDA_ACCORD_CD:
+		configureHondaAccordCD(triggerShape, true);
 		return;
 
 	case TT_MITSU:

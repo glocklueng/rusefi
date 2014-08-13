@@ -12,14 +12,11 @@
  */
 
 #include "main.h"
-#include "engine_configuration.h"
 #include "trigger_decoder.h"
 #include "thermistors.h"
+#include "honda_accord.h"
 
-void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
-	engineConfiguration->engineType = HONDA_ACCORD_CD;
-	engineConfiguration->triggerConfig.triggerType = TT_HONDA_ACCORD_CD;
-
+static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 	engineConfiguration->map.sensor.sensorType = MT_HONDA3BAR;
 
 	engineConfiguration->cylindersCount = 4;
@@ -127,5 +124,17 @@ void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, bo
 	boardConfiguration->HD44780_db7 = GPIOB_10;
 
 	boardConfiguration->logicAnalyzerPins[1] = GPIO_NONE;
+}
+
+void setHondaAccordConfigurationTwoWires(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
+	engineConfiguration->engineType = HONDA_ACCORD_CD_TWO_WIRES;
+	engineConfiguration->triggerConfig.triggerType = TT_HONDA_ACCORD_CD_TWO_WIRES;
+	setHondaAccordConfigurationCommon(engineConfiguration, boardConfiguration);
+}
+
+void setHondaAccordConfigurationThreeWires(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
+	engineConfiguration->engineType = HONDA_ACCORD_CD;
+	engineConfiguration->triggerConfig.triggerType = TT_HONDA_ACCORD_CD;
+	setHondaAccordConfigurationCommon(engineConfiguration, boardConfiguration);
 }
 
