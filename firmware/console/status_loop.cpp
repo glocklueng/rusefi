@@ -392,12 +392,11 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
 	tsOutputChannels->checkEngine = hasErrorCodes();
 #if EFI_PROD_CODE
 	tsOutputChannels->needBurn = getNeedToWriteConfiguration();
+	tsOutputChannels->hasSdCard = isSdCardAlive();
 #endif
 	tsOutputChannels->tCharge = getTCharge(rpm, tps, coolant, intake);
 	tsOutputChannels->sparkDwell = getSparkDwellMs(rpm);
 	tsOutputChannels->pulseWidth = getRunningFuel(baseFuel, &engine, rpm);
-
-	tsOutputChannels->hasSdCard = isSdCardAlive();
 }
 
 extern TunerStudioOutputChannels tsOutputChannels;
