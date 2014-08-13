@@ -125,5 +125,7 @@ void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, bo
 	boardConfiguration->HD44780_db5 = GPIOE_13;
 	boardConfiguration->HD44780_db6 = GPIOE_15;
 	boardConfiguration->HD44780_db7 = GPIOB_10;
+
+	boardConfiguration->logicAnalyzerPins[1] = GPIO_NONE;
 }
 
