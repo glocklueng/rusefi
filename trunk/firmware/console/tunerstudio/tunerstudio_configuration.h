@@ -36,6 +36,8 @@ typedef struct {
 	float sparkDwell; // 60
 	float pulseWidth; // 64
 	float warmUpEnrich;	// 68
+	int hasSdCard;
+	int unused[5];
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */
