@@ -496,6 +496,17 @@ static void setTriggerInputPin(const char *indexStr, const char *pinName) {
 #endif
 }
 
+static void setTriggerSimulatorPin(const char *indexStr, const char *pinName) {
+#if EFI_PROD_CODE
+	int index = atoi(indexStr);
+	if (index < 0 || index > 2)
+		return;
+	brain_pin_e pin = parseBrainPin(pinName);
+	scheduleMsg(&logger, "setting trigger simulator pin[%d] to %s please save&restart", index, hwPortname(pin));
+	boardConfiguration->triggerSimulatorPins[index] = pin;
+#endif
+}
+
 static void setLogicInputPin(const char *indexStr, const char *pinName) {
 #if EFI_PROD_CODE
 	int index = atoi(indexStr);
@@ -628,5 +639,6 @@ void initSettings(void) {
 	addConsoleAction("disable_self_stimulation", disableSelfStimulation);
 	addConsoleActionSS("set_trigger_input_pin", setTriggerInputPin);
 	addConsoleActionSS("set_logic_input_pin", setLogicInputPin);
+	addConsoleActionSS("set_trigger_simulator_pin", setTriggerSimulatorPin);
 }
 
