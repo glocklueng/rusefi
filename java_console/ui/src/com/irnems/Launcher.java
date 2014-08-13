@@ -2,10 +2,7 @@ package com.irnems;
 
 import com.irnems.core.EngineState;
 import com.irnems.core.MessagesCentral;
-import com.rusefi.AnalogChartPanel;
-import com.rusefi.PortLookupFrame;
-import com.rusefi.SimulatorHelper;
-import com.rusefi.VersionChecker;
+import com.rusefi.*;
 import com.rusefi.io.LinkManager;
 import com.rusefi.ui.*;
 import jssc.SerialPortList;
@@ -22,8 +19,8 @@ import javax.swing.*;
  * @see WavePanel
  */
 public class Launcher extends FrameHelper {
-    public static final int CONSOLE_VERSION = 20140811;
-    public static final boolean SHOW_STIMULATOR = false;
+    public static final int CONSOLE_VERSION = 20140813;
+    public static final boolean SHOW_STIMULATOR = true;
 
     public Launcher(String port) {
         FileLog.MAIN.start();
@@ -42,7 +39,7 @@ public class Launcher extends FrameHelper {
 
 //        tabbedPane.addTab("ADC", new AdcPanel(new BooleanInputsModel()).createAdcPanel());
         if (SHOW_STIMULATOR)
-            tabbedPane.add("Emulation Map", EcuStimulator.panel);
+            tabbedPane.add("Emulation Map", EcuStimulator.getInstance().getPanel());
 //        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
         tabbedPane.add("MessagesCentral", new MsgPanel(true).getContent());
 

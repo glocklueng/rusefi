@@ -101,8 +101,7 @@ public class ChartHelper {
 
         sm.setXMin(xRange.getMin());
         sm.setXMax(xRange.getMax());
-        sm.setYMin(yRange.getMin());
-        sm.setYMax(yRange.getMax());
+        setYRange(yRange, sm);
 
         sm.setBoxed(true);
         sm.setDisplayXY(true);
@@ -130,5 +129,10 @@ public class ChartHelper {
         });
         sm.plot().execute();
         return sm;
+    }
+
+    public static void setYRange(Range yRange, DefaultSurfaceModel sm) {
+        sm.setYMin(yRange.getMin());
+        sm.setYMax(yRange.getMax());
     }
 }
