@@ -90,7 +90,6 @@ brain_pin_e parseBrainPin(const char *str) {
 	} else if (port >= 'A' && port <= 'Z') {
 		basePin = (brain_pin_e) ((int) GPIOA_0 + 16 * (port - 'A'));
 	} else {
-		// here that's an error. todo: maybe an error code?
 		return GPIO_INVALID;
 	}
 	const char *pinStr = str + 2;
