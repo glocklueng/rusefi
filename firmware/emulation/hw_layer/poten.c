@@ -105,12 +105,8 @@ void setPotResistance(Mcp42010Driver *driver, int channel, int resistance) {
 	sendToPot(driver, channel, value);
 }
 
-static void setPotResistance0(int value) {
-	setPotResistance(&config[0], 0, value);
-}
-
-static void setPotResistance1(int value) {
-	setPotResistance(&config[0], 1, value);
+static void setPotResistanceCommand(int index, int value) {
+	setPotResistance(&config[index / 2], index % 2, value);
 }
 
 static void setPotValue1(int value) {
@@ -138,13 +134,12 @@ void initPotentiometers(board_configuration_s *boardConfiguration) {
 				getHwPort(csPin), getHwPin(csPin));
 	}
 
-	addConsoleActionI("pot0", setPotResistance0);
-	addConsoleActionI("pot1", setPotResistance1);
+	addConsoleActionII("pot", setPotResistanceCommand);
 
 	addConsoleActionI("potd1", setPotValue1);
 
-	setPotResistance0(3000);
-	setPotResistance1(7000);
+	setPotResistance(&config[0], 0, 3000);
+	setPotResistance(&config[0], 1, 7000);
 #else
 	print("digiPot logic disabled\r\n");
 #endif
