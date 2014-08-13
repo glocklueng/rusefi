@@ -135,13 +135,13 @@ void setWaveReaderMode(WaveReaderHw *hw, int mode) {
 	}
 	ICUDriver *driver = hw->driver;
 
-        if (driver != NULL) {
-          if (hw->started) {
-		icuDisable(driver);
-                  icuStop(driver);
-          }
-          icuStart(driver, &wave_icucfg);
-          icuEnable(driver);
-        }
+	if (driver != NULL) {
+		if (hw->started) {
+			icuDisable(driver);
+			icuStop(driver);
+		}
+		icuStart(driver, &wave_icucfg);
+		icuEnable(driver);
+	}
 	hw->started = TRUE;
 }
