@@ -37,17 +37,17 @@ public class EcuStimulator {
     //    private static final String TITLE = "Spark Advance";
     private static final String TITLE = "Fuel Table";
 
-    private static final String D = ",";
+    private static final String DELIMITER = ",";
     private static final long SLEEP_TIME = 300;
 
-    private static final double MAF_INCREMENT = 0.1;
+    private static final double EL_INCREMENT = 0.1;
 
     private static final int RPM_MIN = 400;
     private static final int RPM_MAX = 6000;
     private static final int RPM_INCREMENT = 250;
     private static final Sensor DWELL_SENSOR = Sensor.DWELL0;
 
-    private static final String TABLE_FILE_NAME = "table" + RPM_INCREMENT + "_" + MAF_INCREMENT + ".csv";
+    private static final String CSV_FILE_NAME = "table" + RPM_INCREMENT + "_" + EL_INCREMENT + ".csv";
 
     private static final int MEASURES = 7;
     //    private static final String C_FILE_NAME = "advance_map.c";
@@ -55,11 +55,11 @@ public class EcuStimulator {
     private static final String C_FILE_NAME = "fuel_map.c";
     private static final String C_PREFIX = "fuel_";
 
-    public static Range RPM_RANGE = new Range(0, RPM_MAX); // x-coord
+    public Range RPM_RANGE = new Range(0, RPM_MAX); // x-coord
     private StimulationInputs inputs = new StimulationInputs(this);
     //
-    private static XYData data = new XYData();
-    private static DefaultSurfaceModel model = ChartHelper.createDefaultSurfaceModel(data, RPM_RANGE, new Range(1, 5));
+    private XYData data = new XYData();
+    private DefaultSurfaceModel model = ChartHelper.createDefaultSurfaceModel(data, RPM_RANGE, new Range(1, 5));
 
     private final JPanel content = new JPanel(new BorderLayout());
 
@@ -87,9 +87,9 @@ public class EcuStimulator {
 //        if (1 == 1)
 //            return;
 
-        final BufferedWriter bw;
+        final BufferedWriter csv;
         try {
-            bw = new BufferedWriter(new FileWriter(TABLE_FILE_NAME));
+            csv = new BufferedWriter(new FileWriter(CSV_FILE_NAME));
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -101,14 +101,14 @@ public class EcuStimulator {
                 model.plot().execute();
 
                 String msg = putValue("rpm", rpm) +
-                        putValue("maf", maf) +
+                        putValue("engine_load", maf) +
                         putValue("advance", advance) +
                         putValue("dwell", dwell);
                 MessagesCentral.getInstance().postMessage(EcuStimulator.class, msg);
 
                 try {
-                    bw.write(msg + "\r\n");
-                    bw.flush();
+                    csv.write(msg + "\r\n");
+                    csv.flush();
                 } catch (IOException e) {
                     throw new IllegalStateException(e);
                 }
@@ -117,10 +117,10 @@ public class EcuStimulator {
 
         ChartHelper.setYRange(new Range(inputs.getEngineLoadMin(), inputs.getEngineLoadMax()), model);
 
-        buildTable(bw, listener, DWELL_SENSOR);
+        buildTable(listener, DWELL_SENSOR);
 
         try {
-            bw.close();
+            csv.close();
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -128,45 +128,27 @@ public class EcuStimulator {
         TableGenerator.writeAsC(data, C_PREFIX, C_FILE_NAME);
     }
 
-    private void buildTable(BufferedWriter bw, ResultListener listener, Sensor dwellSensor) {
+    private void buildTable(ResultListener listener, Sensor dwellSensor) {
         for (int rpm = RPM_MIN; rpm <= RPM_MAX; rpm += RPM_INCREMENT)
             runSimulation(rpm, listener, dwellSensor);
     }
 
     private void runSimulation(int rpm, ResultListener resultListener, final Sensor dwellSensor) {
-        for (double engineLoad = inputs.getEngineLoadMin(); engineLoad <= inputs.getEngineLoadMax(); engineLoad += MAF_INCREMENT) {
+        for (double engineLoad = inputs.getEngineLoadMin(); engineLoad <= inputs.getEngineLoadMax(); engineLoad += EL_INCREMENT) {
             //setPotVoltage(maf, Sensor.MAF);
             setPotVoltage(engineLoad, null);
             setRpm(rpm);
+            /**
+             * Let's give the firmware some time to react
+             */
             sleepRuntime(SLEEP_TIME);
 
             /**
              * We are making a number of measurements and then we take the middle one
              */
-            final List<Double> dwells = new ArrayList<>(MEASURES);
-            final List<Double> advances = new ArrayList<>(MEASURES);
-
-            final CountDownLatch latch = new CountDownLatch(MEASURES);
-
-            EngineTimeListener listener = new EngineTimeListener() {
-                @Override
-                public void onTime(double time) {
-                    if (latch.getCount() == 0)
-                        return;
-                    double dwell = getValue(dwellSensor);
-                    double advance = 0;//getValue(Sensor.ADVANCE0);
-                    dwells.add(dwell);
-                    advances.add(advance);
-                    latch.countDown();
-                }
-            };
-            LinkManager.engineState.timeListeners.add(listener);
-            try {
-                latch.await();
-            } catch (InterruptedException e) {
-                throw new IllegalStateException(e);
-            }
-            LinkManager.engineState.timeListeners.remove(listener);
+            MultipleMeasurements r = waitForMultipleResults(dwellSensor);
+            List<Double> dwells = r.getDwells();
+            List<Double> advances = r.getAdvances();
 
             // sorting measurements, taking middle value
             Collections.sort(dwells);
@@ -179,9 +161,8 @@ public class EcuStimulator {
             double dwell = dwells.get(MEASURES / 2);
             double advance = advances.get(MEASURES / 2);
 
-            if (dwell > 40) {
-                throw new UnsupportedOperationException();
-            }
+            if (dwell > 40)
+                throw new IllegalStateException("Unexpected value, how comes? " + dwell);
 
             log("Stimulator result: " + rpm + "@" + engineLoad + ": " + dwell);
 
@@ -219,8 +200,8 @@ public class EcuStimulator {
         if (sensor != null)
             log("Current targetVoltage: " + getValue(sensor) + ", setting " + targetVoltage);
         int attempt = 0;
-        //double vRef = SensorCentral.getInstance().getValue(Sensor.VREF) * PotCommand.VOLTAGE_CORRECTION;
-        double vRef = 4.7;
+        double vRef = getVRef();
+
         int resistance = PotCommand.getPotResistance(targetVoltage, vRef);
         if (resistance <= 0) {
             log("Invalid resistance " + resistance + ". Invalid targetVoltage " + targetVoltage + "?");
@@ -243,17 +224,23 @@ public class EcuStimulator {
         }
     }
 
+    private static double getVRef() {
+        // todo: make this adjustable via the UI
+        //double vRef = SensorCentral.getInstance().getValue(Sensor.VREF) * PotCommand.VOLTAGE_CORRECTION;
+        return 4.7;
+    }
+
     private static void log(String message) {
         MessagesCentral.getInstance().postMessage(EcuStimulator.class, message);
         FileLog.MAIN.logLine(message);
     }
 
     private static String putValue(String msg, double value) {
-        return msg + D + value + D;
+        return msg + DELIMITER + value + DELIMITER;
     }
 
     private static String putValue(String msg, int value) {
-        return msg + D + value + D;
+        return msg + DELIMITER + value + DELIMITER;
     }
 
     public JButton createButton() {
@@ -284,6 +271,46 @@ public class EcuStimulator {
     }
 
     interface ResultListener {
-        void onResult(int rpm, double maf, float advance, double dwell);
+        void onResult(int rpm, double engineLoad, float advance, double dwell);
+    }
+
+    public MultipleMeasurements waitForMultipleResults(final Sensor dwellSensor) {
+        final MultipleMeasurements result = new MultipleMeasurements();
+
+        final CountDownLatch latch = new CountDownLatch(MEASURES);
+
+        EngineTimeListener listener = new EngineTimeListener() {
+            @Override
+            public void onTime(double time) {
+                if (latch.getCount() == 0)
+                    return;
+                double dwell = getValue(dwellSensor);
+                double advance = 0;//getValue(Sensor.ADVANCE0);
+                result.dwells.add(dwell);
+                result.advances.add(advance);
+                latch.countDown();
+            }
+        };
+        LinkManager.engineState.timeListeners.add(listener);
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e);
+        }
+        LinkManager.engineState.timeListeners.remove(listener);
+        return result;
+    }
+
+    private class MultipleMeasurements {
+        private List<Double> dwells = new ArrayList<>(MEASURES);
+        private List<Double> advances = new ArrayList<>(MEASURES);
+
+        public List<Double> getDwells() {
+            return dwells;
+        }
+
+        public List<Double> getAdvances() {
+            return advances;
+        }
     }
 }
