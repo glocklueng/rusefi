@@ -38,8 +38,10 @@ public class Launcher extends FrameHelper {
         tabbedPane.addTab("Analog Sniffer", new AnalogChartPanel());
 
 //        tabbedPane.addTab("ADC", new AdcPanel(new BooleanInputsModel()).createAdcPanel());
-        if (SHOW_STIMULATOR)
-            tabbedPane.add("Emulation Map", EcuStimulator.getInstance().getPanel());
+        if (SHOW_STIMULATOR) {
+            EcuStimulator stimulator = EcuStimulator.getInstance();
+            tabbedPane.add("Emulation Map", stimulator.getPanel());
+        }
 //        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
         tabbedPane.add("MessagesCentral", new MsgPanel(true).getContent());
 
