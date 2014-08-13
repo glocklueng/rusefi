@@ -58,7 +58,7 @@ void TriggerEmulatorHelper::handleEmulatorCallback(PwmConfig *state, int stateIn
 
 static TriggerEmulatorHelper helper;
 
-#if EFI_EMULATE_POSITION_SENSORS
+#if EFI_EMULATE_POSITION_SENSORS || defined(__DOXYGEN__)
 
 static void emulatorApplyPinState(PwmConfig *state, int stateIndex) {
 	if (engineConfiguration->directSelfStimulation) {
@@ -70,7 +70,7 @@ static void emulatorApplyPinState(PwmConfig *state, int stateIndex) {
 #endif /* EFI_EMULATE_POSITION_SENSORS */
 
 void initTriggerEmulator(void) {
-#if EFI_EMULATE_POSITION_SENSORS
+#if EFI_EMULATE_POSITION_SENSORS || defined(__DOXYGEN__)
 	print("Emulating %s\r\n", getConfigurationName(engineConfiguration));
 
 	triggerSignal.outputPins[0] = TRIGGER_EMULATOR_PRIMARY;

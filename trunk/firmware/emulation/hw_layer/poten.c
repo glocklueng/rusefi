@@ -61,7 +61,7 @@ SPIDriver * getDigiralPotDevice(spi_device_e spiDevice) {
 
 static Logging logger;
 
-#if EFI_POTENTIOMETER
+#if EFI_POTENTIOMETER || defined(__DOXYGEN__)
 Mcp42010Driver config[DIGIPOT_COUNT];
 
 void initPotentiometer(Mcp42010Driver *driver, SPIDriver *spi, ioportid_t port, ioportmask_t pin) {
