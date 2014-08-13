@@ -1,6 +1,6 @@
 package com.rusefi.ui;
 
-import com.irnems.EcuStimulator;
+import com.rusefi.EcuStimulator;
 import com.irnems.Launcher;
 import com.irnems.core.EngineTimeListener;
 import com.irnems.core.Sensor;
@@ -98,10 +98,6 @@ public class RpmPanel {
     private JPanel createControls() {
         JPanel controls = new JPanel(new MigLayout());
         controls.setBorder(BorderFactory.createLineBorder(Color.red));
-        JButton button = createButton();
-        if (Launcher.SHOW_STIMULATOR)
-            controls.add(button, "grow, wrap");
-
         controls.add(new RpmCommand(), "grow, wrap");
 //        controls.add(new PotCommand(0).panel, "grow, wrap");
 //        controls.add(new PotCommand(1).panel, "grow, wrap");
@@ -124,33 +120,6 @@ public class RpmPanel {
         controls.add(new LogModeWidget().getPanel(), "grow, wrap");
 
         return controls;
-    }
-
-    private JButton createButton() {
-        final JButton button = new JButton("stimulate stock ECU");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            EcuStimulator.buildTable();
-                        } catch (Throwable e) {
-                            e.printStackTrace();
-                            System.exit(-20);
-                        }
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                button.setText("Done");
-                            }
-                        });
-                    }
-                }, "Ecu Stimulator").start();
-            }
-        });
-        return button;
     }
 }
 

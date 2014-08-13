@@ -1,5 +1,6 @@
-package com.irnems;
+package com.rusefi;
 
+import com.irnems.FileLog;
 import com.irnems.core.MessagesCentral;
 import com.irnems.core.Sensor;
 import com.irnems.core.EngineTimeListener;
@@ -8,6 +9,7 @@ import com.irnems.file.TableGenerator;
 import com.irnems.models.Point3D;
 import com.irnems.models.Range;
 import com.irnems.models.XYData;
+import com.rusefi.test.EcuStimulatorSandbox;
 import com.rusefi.ui.ChartHelper;
 import com.rusefi.ui.RpmModel;
 import com.rusefi.ui.widgets.PotCommand;
@@ -16,6 +18,9 @@ import com.rusefi.io.LinkManager;
 import net.ericaro.surfaceplotter.DefaultSurfaceModel;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +30,8 @@ import java.util.concurrent.CountDownLatch;
 /**
  * Date: 3/24/13
  * (c) Andrey Belomutskiy
+ *
+ * @see EcuStimulatorSandbox
  */
 public class EcuStimulator {
     //    private static final String TITLE = "Spark Advance";
@@ -33,8 +40,6 @@ public class EcuStimulator {
     private static final String D = ",";
     private static final long SLEEP_TIME = 300;
 
-    private static final float MAF_MIN = 1.2f;
-    private static final float MAF_MAX = 4.5f;
     private static final double MAF_INCREMENT = 0.1;
 
     private static final int RPM_MIN = 400;
@@ -51,12 +56,31 @@ public class EcuStimulator {
     private static final String C_PREFIX = "fuel_";
 
     public static Range RPM_RANGE = new Range(0, RPM_MAX); // x-coord
-    static Range mafRange = new Range(MAF_MIN, MAF_MAX); // y-coord
+    private StimulationInputs inputs = new StimulationInputs(this);
+    //
     private static XYData data = new XYData();
-    private static DefaultSurfaceModel model = ChartHelper.createDefaultSurfaceModel(data, RPM_RANGE, mafRange);
-    public static JPanel panel = ChartHelper.create3DControl(data, model, TITLE);
+    private static DefaultSurfaceModel model = ChartHelper.createDefaultSurfaceModel(data, RPM_RANGE, new Range(1, 5));
 
-    public static void buildTable() {
+    private final JPanel content = new JPanel(new BorderLayout());
+
+    private JPanel panel = ChartHelper.create3DControl(data, model, TITLE);
+
+    private static EcuStimulator instance = new EcuStimulator();
+
+    private EcuStimulator() {
+        content.add(panel, BorderLayout.CENTER);
+        content.add(inputs.getContent(), BorderLayout.WEST);
+    }
+
+    public static EcuStimulator getInstance() {
+        return instance;
+    }
+
+    public JPanel getPanel() {
+        return content;
+    }
+
+    public void buildTable() {
         data.clear();
 
 //        setPotVoltage(2.2, Sensor.MAF);
@@ -91,12 +115,12 @@ public class EcuStimulator {
             }
         };
 
+        ChartHelper.setYRange(new Range(inputs.getEngineLoadMin(), inputs.getEngineLoadMax()), model);
+
         buildTable(bw, listener, DWELL_SENSOR);
 
         try {
             bw.close();
-        } catch (FileNotFoundException e) {
-            throw new IllegalStateException(e);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -104,23 +128,23 @@ public class EcuStimulator {
         TableGenerator.writeAsC(data, C_PREFIX, C_FILE_NAME);
     }
 
-    private static void buildTable(BufferedWriter bw, ResultListener listener, Sensor dwellSensor) {
+    private void buildTable(BufferedWriter bw, ResultListener listener, Sensor dwellSensor) {
         for (int rpm = RPM_MIN; rpm <= RPM_MAX; rpm += RPM_INCREMENT)
             runSimulation(rpm, listener, dwellSensor);
     }
 
-    private static void runSimulation(int rpm, ResultListener resultListener, final Sensor dwellSensor) {
-        for (double maf = MAF_MIN; maf <= MAF_MAX; maf += MAF_INCREMENT) {
+    private void runSimulation(int rpm, ResultListener resultListener, final Sensor dwellSensor) {
+        for (double engineLoad = inputs.getEngineLoadMin(); engineLoad <= inputs.getEngineLoadMax(); engineLoad += MAF_INCREMENT) {
             //setPotVoltage(maf, Sensor.MAF);
-            setPotVoltage(maf, null);
+            setPotVoltage(engineLoad, null);
             setRpm(rpm);
             sleepRuntime(SLEEP_TIME);
 
             /**
              * We are making a number of measurements and then we take the middle one
              */
-            final List<Double> dwells = new ArrayList<Double>(MEASURES);
-            final List<Double> advances = new ArrayList<Double>(MEASURES);
+            final List<Double> dwells = new ArrayList<>(MEASURES);
+            final List<Double> advances = new ArrayList<>(MEASURES);
 
             final CountDownLatch latch = new CountDownLatch(MEASURES);
 
@@ -159,12 +183,12 @@ public class EcuStimulator {
                 throw new UnsupportedOperationException();
             }
 
-            log("Stimulator result: " + rpm + "@" + maf + ": " + dwell);
+            log("Stimulator result: " + rpm + "@" + engineLoad + ": " + dwell);
 
 //            double dwell = Launcher.getAdcModel().getValue(Sensor.DWELL0);
 //            double advance = Launcher.getAdcModel().getValue(Sensor.ADVANCE);
 
-            resultListener.onResult(rpm, maf, (float) advance, dwell);
+            resultListener.onResult(rpm, engineLoad, (float) advance, dwell);
         }
     }
 
@@ -230,6 +254,33 @@ public class EcuStimulator {
 
     private static String putValue(String msg, int value) {
         return msg + D + value + D;
+    }
+
+    public JButton createButton() {
+        final JButton button = new JButton("stimulate stock ECU");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            buildTable();
+                        } catch (Throwable e) {
+                            e.printStackTrace();
+                            System.exit(-20);
+                        }
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                button.setText("Done");
+                            }
+                        });
+                    }
+                }, "Ecu Stimulator").start();
+            }
+        });
+        return button;
     }
 
     interface ResultListener {
