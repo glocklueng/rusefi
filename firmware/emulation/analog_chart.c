@@ -11,7 +11,7 @@
 #include "status_loop.h"
 #include "engine_configuration.h"
 
-#if EFI_ANALOG_CHART
+#if EFI_ANALOG_CHART || defined(__DOXYGEN__)
 
 static char LOGGING_BUFFER[5000];
 static Logging logging;

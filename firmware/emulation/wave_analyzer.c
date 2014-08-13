@@ -43,7 +43,7 @@ static void ensureInitialized(WaveReader *reader) {
 	efiAssertVoid(reader->hw.started, "wave analyzer NOT INITIALIZED");
 }
 
-#ifdef EFI_WAVE_ANALYZER
+#if EFI_WAVE_ANALYZER || defined(__DOXYGEN__)
 
 static void waAnaWidthCallback(WaveReader *reader) {
 	uint64_t nowUs = getTimeNowUs();
@@ -239,7 +239,7 @@ void printWave(Logging *logging) {
 }
 
 void initWaveAnalyzer(void) {
-#ifdef EFI_WAVE_ANALYZER
+#if EFI_WAVE_ANALYZER || defined(__DOXYGEN__)
 	initLogging(&logger, "wave");
 
 	initWave("input1 A8", 0, getInputCaptureDriver(boardConfiguration->logicAnalyzerPins[0]), getHwPort(boardConfiguration->logicAnalyzerPins[0]), getHwPin(boardConfiguration->logicAnalyzerPins[0]), 1);
