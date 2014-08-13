@@ -396,6 +396,8 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
 	tsOutputChannels->tCharge = getTCharge(rpm, tps, coolant, intake);
 	tsOutputChannels->sparkDwell = getSparkDwellMs(rpm);
 	tsOutputChannels->pulseWidth = getRunningFuel(baseFuel, &engine, rpm);
+
+	tsOutputChannels->hasSdCard = isSdCardAlive();
 }
 
 extern TunerStudioOutputChannels tsOutputChannels;
