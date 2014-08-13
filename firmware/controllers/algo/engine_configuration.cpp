@@ -389,7 +389,10 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType, engine_co
 		break;
 #endif
 	case HONDA_ACCORD_CD:
-		setHondaAccordConfiguration(engineConfiguration, boardConfiguration);
+		setHondaAccordConfigurationThreeWires(engineConfiguration, boardConfiguration);
+		break;
+	case HONDA_ACCORD_CD_TWO_WIRES:
+		setHondaAccordConfigurationTwoWires(engineConfiguration, boardConfiguration);
 		break;
 	case MITSU_4G93:
 		setMitsubishiConfiguration(engineConfiguration, boardConfiguration);

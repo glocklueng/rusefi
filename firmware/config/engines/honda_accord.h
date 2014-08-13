@@ -10,6 +10,7 @@
 
 #include "engine_configuration.h"
 
-void setHondaAccordConfiguration(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
+void setHondaAccordConfigurationTwoWires(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
+void setHondaAccordConfigurationThreeWires(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
 
 #endif /* HONDA_ACCORD_H_ */
