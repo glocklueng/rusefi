@@ -496,6 +496,20 @@ static void setTriggerInputPin(const char *indexStr, const char *pinName) {
 #endif
 }
 
+static void setTriggerSimulatorMode(const char *indexStr, const char *modeCode) {
+#if EFI_PROD_CODE
+	int index = atoi(indexStr);
+	if (index < 0 || index > 2 || absI(index) == ERROR_CODE) {
+		return;
+	}
+	int mode = atoi(modeCode);
+	if (absI(mode) == ERROR_CODE) {
+		return;
+	}
+	boardConfiguration->triggerSimulatorPinModes[index] = (pin_output_mode_e) mode;
+#endif
+}
+
 static void setTriggerSimulatorPin(const char *indexStr, const char *pinName) {
 #if EFI_PROD_CODE
 	int index = atoi(indexStr);
@@ -640,5 +654,6 @@ void initSettings(void) {
 	addConsoleActionSS("set_trigger_input_pin", setTriggerInputPin);
 	addConsoleActionSS("set_logic_input_pin", setLogicInputPin);
 	addConsoleActionSS("set_trigger_simulator_pin", setTriggerSimulatorPin);
+	addConsoleActionSS("set_trigger_simulator_mode", setTriggerSimulatorMode);
 }
 
