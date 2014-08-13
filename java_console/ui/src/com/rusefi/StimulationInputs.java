@@ -16,12 +16,17 @@ public class StimulationInputs {
     private final JSpinner loadEngineMin = new JSpinner(new SpinnerNumberModel(1.0, 0.0, 5.0, 0.1));
     private final JSpinner loadEngineMax = new JSpinner(new SpinnerNumberModel(4.0, 0.0, 5.0, 0.1));
 
+    private final JSpinner elResistance2 = new JSpinner(new SpinnerNumberModel(10000, 0, 100000, 1));
+
     public StimulationInputs(EcuStimulator ecuStimulator) {
         content.add(new JLabel("Engine load from"));
         content.add(wrap(loadEngineMin));
 
         content.add(new JLabel("Engine load to"));
         content.add(wrap(loadEngineMax));
+
+        content.add(new JLabel("EL resistance"));
+        content.add(wrap(elResistance2));
 
         JButton button = ecuStimulator.createButton();
         if (Launcher.SHOW_STIMULATOR)
@@ -44,6 +49,10 @@ public class StimulationInputs {
 
     public JPanel getContent() {
         return content;
+    }
+
+    public double getEngineLoadR2Resistance() {
+        return (double) elResistance2.getValue();
     }
 }
 

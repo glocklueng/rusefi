@@ -55,7 +55,7 @@ public class EcuStimulator {
     private static final String C_FILE_NAME = "fuel_map.c";
     private static final String C_PREFIX = "fuel_";
 
-    public Range RPM_RANGE = new Range(0, RPM_MAX); // x-coord
+    public static Range RPM_RANGE = new Range(0, RPM_MAX); // x-coord
     private StimulationInputs inputs = new StimulationInputs(this);
     //
     private XYData data = new XYData();
@@ -268,6 +268,10 @@ public class EcuStimulator {
             }
         });
         return button;
+    }
+
+    public StimulationInputs getInputs() {
+        return inputs;
     }
 
     interface ResultListener {
