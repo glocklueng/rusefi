@@ -17,7 +17,7 @@
 
 typedef struct {
 	WaveReaderHw hw;
-	char *name;
+	const char *name;
 	volatile int eventCounter;
 
 	volatile uint64_t lastActivityTimeUs; // timestamp in microseconds ticks
