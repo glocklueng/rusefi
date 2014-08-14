@@ -283,7 +283,7 @@ void updateDevConsoleState(void) {
 	printState(currentCkpEventCounter);
 
 #if EFI_WAVE_ANALYZER
-//	printWave(&logger);
+	printWave(&logger);
 #endif
 
 	printLine(&logger);
