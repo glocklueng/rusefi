@@ -23,7 +23,7 @@
 #include "engine_math.h"
 #include "engine.h"
 
-extern Engine *engine;
+extern Engine engine;
 
 #define CHART_RESET_DELAY 1
 
@@ -229,12 +229,12 @@ static void reportWave(Logging *logging, int index) {
 	appendFloat(logging, periodMs, 2);
 	appendPrintf(logging, "%s", DELIMETER);
 
-//	int offset = getWaveOffset(index);
-//	int crank = getOneDegreeTimeMs(getRpm()) * 360;
-//
-//	appendPrintf(logging, "advance%d%s", index, DELIMETER);
-//	appendFloat(logging, 90.0 * offset / crank, 3);
-//	appendPrintf(logging, "%s", DELIMETER);
+	int offset = getWaveOffset(index);
+	int crank = getOneDegreeTimeMs(getRpm()) * 360;
+
+	appendPrintf(logging, "advance%d%s", index, DELIMETER);
+	appendFloat(logging, 90.0 * offset / crank, 3);
+	appendPrintf(logging, "%s", DELIMETER);
 }
 
 void printWave(Logging *logging) {
