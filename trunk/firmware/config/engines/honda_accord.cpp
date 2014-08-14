@@ -6,6 +6,7 @@
  * http://rusefi.com/forum/viewtopic.php?f=3&t=621
  *
  * engine_type 6
+ * engine_type 17
  *
  * @date Jan 12, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
@@ -75,7 +76,7 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 	// set_rpm_hard_limit 4000
 	engineConfiguration->rpmHardLimit = 4000; // yes, 4k. let's play it safe for now
 	// set_cranking_rpm 2000
-	engineConfiguration->crankingSettings.crankingRpm = 2000;
+	engineConfiguration->crankingSettings.crankingRpm = 600;
 
 
 	// set_ignition_offset 350

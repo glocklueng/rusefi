@@ -79,7 +79,9 @@ const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 		return "Nissan Primera";
 #endif /* EFI_SUPPORT_NISSAN_PRIMERA */
 	case HONDA_ACCORD_CD:
-		return "Honda Accord";
+		return "Honda Accord 3w";
+	case HONDA_ACCORD_CD_TWO_WIRES:
+		return "Honda Accord 2w";
 	case FORD_INLINE_6_1995:
 		return "Ford 1995 inline 6";
 	case GY6_139QMB:
