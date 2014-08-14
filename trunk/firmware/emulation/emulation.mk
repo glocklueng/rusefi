@@ -6,6 +6,6 @@ EMULATIONSRC = emulation/hw_layer/poten.c \
 	
 EMULATIONSRC_CPP = emulation/trigger_emulator.cpp \
 	emulation/rfi_perftest.cpp \
-	emulation/engine_emulator.cpp \ 
+	emulation/engine_emulator.cpp \
 	emulation/wave_analyzer.cpp
 	
