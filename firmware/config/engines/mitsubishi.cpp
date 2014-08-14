@@ -44,12 +44,21 @@ void setMitsubishiConfiguration(engine_configuration_s *engineConfiguration, boa
 	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 6ms at -40C
 	engineConfiguration->crankingSettings.fuelAtMinTempMs = 6;
 
+//	/**
+//	 * 29150 Ohm @ 40C
+//	 * 10160 Ohm @ 70C
+//	 * 1270 Ohm @ 150C
+//	 */
+//	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 40, 29150, 70, 10160, 150, 1270);
+
 	/**
-	 * 29150 Ohm @ 40C
-	 * 10160 Ohm @ 70C
-	 * 1270 Ohm @ 150C
+	 * 18K Ohm @ -20C
+	 * 2.1K Ohm @ 24C
+	 * 294 Ohm @ 80C
+	 * http://www.rexbo.eu/hella/coolant-temperature-sensor-6pt009107121?c=100334&at=3130
 	 */
-	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, 40, 29150, 70, 10160, 150, 1270);
+	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, -20, 18000, 23.8889, 2100, 80, 294);
+
 	engineConfiguration->cltThermistorConf.bias_resistor = 2700;
 
 	// Frankenstein: low side - inj #1: PC14
