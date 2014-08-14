@@ -20,7 +20,10 @@
 #include "engine_configuration.h"
 #include "trigger_central.h"
 #include "rfiutil.h"
+//#include "engine_math.h"
+//#include "engine.h"
 
+//extern Engine *engine;
 
 #define CHART_RESET_DELAY 1
 
@@ -226,11 +229,12 @@ static void reportWave(Logging *logging, int index) {
 	appendFloat(logging, periodMs, 2);
 	appendPrintf(logging, "%s", DELIMETER);
 
-//	int crank = getCrankPeriod();
-
 //	int offset = getWaveOffset(index);
-//	debugFloat2(logging, "advance", index, 90.0 * offset / crank, 3);
-//	debugInt2(logging, "offset", index, offset);
+//	int crank = getOneDegreeTimeMs(getRpm()) * 360;
+//
+//	appendPrintf(logging, "advance%d%s", index, DELIMETER);
+//	appendFloat(logging, 90.0 * offset / crank, 3);
+//	appendPrintf(logging, "%s", DELIMETER);
 }
 
 void printWave(Logging *logging) {
