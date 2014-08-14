@@ -18,7 +18,7 @@
 #include "honda_accord.h"
 
 static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
-	engineConfiguration->map.sensor.sensorType = MT_HONDA3BAR;
+	engineConfiguration->map.sensor.sensorType = MT_DENSO183;
 
 	engineConfiguration->cylindersCount = 4;
 	engineConfiguration->displacement = 2.156;
@@ -26,33 +26,13 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 	// Keihin 06164-P0A-A00
 	engineConfiguration->injectorFlow = 248;
 
-
 	engineConfiguration->algorithm = LM_SPEED_DENSITY;
-
 
 	engineConfiguration->crankingSettings.coolantTempMaxC = 65; // 8ms at 65C
 	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 8;
 
 	engineConfiguration->crankingSettings.coolantTempMinC = 0; // 20ms at 0C
 	engineConfiguration->crankingSettings.fuelAtMinTempMs = 15;
-
-
-	memset(boardConfiguration->adcHwChannelEnabled, 0, sizeof(boardConfiguration->adcHwChannelEnabled));
-	boardConfiguration->adcHwChannelEnabled[0] = ADC_FAST; // ADC0 - PA0 - MAP
-	boardConfiguration->adcHwChannelEnabled[1] = ADC_SLOW;
-	boardConfiguration->adcHwChannelEnabled[2] = ADC_SLOW;
-	boardConfiguration->adcHwChannelEnabled[3] = ADC_SLOW;
-	boardConfiguration->adcHwChannelEnabled[4] = ADC_SLOW;
-
-	boardConfiguration->adcHwChannelEnabled[6] = ADC_SLOW;
-	boardConfiguration->adcHwChannelEnabled[7] = ADC_SLOW;
-	boardConfiguration->adcHwChannelEnabled[11] = ADC_SLOW;
-	boardConfiguration->adcHwChannelEnabled[12] = ADC_SLOW;
-	boardConfiguration->adcHwChannelEnabled[13] = ADC_SLOW;
-
-
-	engineConfiguration->map.sensor.sensorType = MT_MPX4250;
-	engineConfiguration->map.sensor.hwChannel = 0;
 
 	/**
 	 * 18K Ohm @ -20C
@@ -85,6 +65,61 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 //	engineConfiguration->injectionOffset = 510;
 
 
+	/**
+	 * ADC inputs:
+	 *
+	 * Inp1/ADC12 PC2: CLT
+	 * Inp2/ADC11 PC1: AIT/IAT
+	 * Inp3/ADC0 PA0: MAP
+	 * Inp6/ADC1 PA1: TPS
+	 * Inp12/ADC14 PC4: VBatt
+	 */
+	memset(boardConfiguration->adcHwChannelEnabled, 0, sizeof(boardConfiguration->adcHwChannelEnabled));
+	boardConfiguration->adcHwChannelEnabled[0] = ADC_FAST; // ADC0 - PA0 - MAP
+	boardConfiguration->adcHwChannelEnabled[1] = ADC_SLOW; // TPS
+	boardConfiguration->adcHwChannelEnabled[2] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[3] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[4] = ADC_SLOW;
+
+	boardConfiguration->adcHwChannelEnabled[6] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[7] = ADC_SLOW;
+	boardConfiguration->adcHwChannelEnabled[11] = ADC_SLOW; // IAT
+	boardConfiguration->adcHwChannelEnabled[12] = ADC_SLOW; // CLT
+	boardConfiguration->adcHwChannelEnabled[14] = ADC_SLOW; // VBatt
+
+	/**
+	 * VBatt
+	 */
+	engineConfiguration->vBattAdcChannel = 14;
+
+	//	todo engineConfiguration->afrSensor.afrAdcChannel = 14;
+
+
+	/**
+	 * MAP D17/W5
+	 */
+	engineConfiguration->map.sensor.hwChannel = 0;
+
+
+	/**
+	 * TPS D11/W11
+	 */
+	engineConfiguration->tpsAdcChannel = 1;
+
+	/**
+	 * IAT D15/W7
+	 */
+	engineConfiguration->iatAdcChannel = 11;
+
+	/**
+	 * CLT D13/W9
+	 */
+	engineConfiguration->cltAdcChannel = 12;
+
+
+	/**
+	 * Outputs
+	 */
 	// Frankenso low out #:
 	// Frankenso low out #:
 	// Frankenso low out #:
@@ -97,7 +132,6 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 	// Frankenso low out #10: PE0 (do not use with discovery!)
 	// Frankenso low out #11: PB8
 	// Frankenso low out #12: PB7
-
 
 	boardConfiguration->idleValvePin = GPIO_NONE;
 
