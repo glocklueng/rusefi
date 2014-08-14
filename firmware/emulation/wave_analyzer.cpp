@@ -1,5 +1,5 @@
 /**
- * @file	wave_analyzer.c
+ * @file	wave_analyzer.cpp
  * @brief	Initialization of Input Capture pins used for dev console sniffer
  *
  * This file is responsible for sniffing of external digital signals and registering
@@ -20,10 +20,10 @@
 #include "engine_configuration.h"
 #include "trigger_central.h"
 #include "rfiutil.h"
-//#include "engine_math.h"
-//#include "engine.h"
+#include "engine_math.h"
+#include "engine.h"
 
-//extern Engine *engine;
+extern Engine *engine;
 
 #define CHART_RESET_DELAY 1
 
