@@ -8,6 +8,6 @@
 #ifndef LCD_CONTROLLER_H_
 #define LCD_CONTROLLER_H_
 
-
+void updateHD44780lcd(void);
 
 #endif /* LCD_CONTROLLER_H_ */
