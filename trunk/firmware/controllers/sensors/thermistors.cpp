@@ -110,7 +110,7 @@ bool isValidIntakeAirTemperature(float temperature) {
 float getCoolantTemperature(void) {
 	float temperature = getTemperatureC(&engineConfiguration2->clt);
 	if (!isValidCoolantTemperature(temperature)) {
-		warning(OBD_PCM_Processor_Fault, "unrealistic coolant temperature %f", temperature);
+		warning(OBD_PCM_Processor_Fault, "unrealistic CLT %f", temperature);
 		return LIMPING_MODE_CLT_TEMPERATURE;
 	}
 	return temperature;
@@ -155,7 +155,7 @@ void prepareThermistorCurve(ThermistorConf * config) {
 float getIntakeAirTemperature(void) {
 	float temperature = getTemperatureC(&engineConfiguration2->iat);
 	if (!isValidIntakeAirTemperature(temperature)) {
-		warning(OBD_PCM_Processor_Fault, "unrealistic intake temperature %f", temperature);
+		warning(OBD_PCM_Processor_Fault, "unrealistic IAT %f", temperature);
 		return LIMPING_MODE_IAT_TEMPERATURE;
 	}
 	return temperature;
