@@ -472,6 +472,10 @@ static void setGlobalFuelCorrection(float value) {
 	engineConfiguration->globalFuelCorrection = value;
 }
 
+static void setVBattDivider(float value) {
+	engineConfiguration->vbattDividerCoeff = value;
+}
+
 static void setWholeTimingMap(float value) {
 	// todo: table helper?
 	scheduleMsg(&logger, "Setting whole timing map to %f", value);
@@ -657,5 +661,7 @@ void initSettings(void) {
 	addConsoleActionSS("set_logic_input_pin", setLogicInputPin);
 	addConsoleActionSS("set_trigger_simulator_pin", setTriggerSimulatorPin);
 	addConsoleActionSS("set_trigger_simulator_mode", setTriggerSimulatorMode);
+
+	addConsoleActionF("set_vbatt_divider", setVBattDivider);
 }
 
