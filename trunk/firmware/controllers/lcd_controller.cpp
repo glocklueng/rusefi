@@ -27,11 +27,21 @@ char * appendStr(char *ptr, const char *suffix) {
 	return ptr;
 }
 
+static void prepareVBattMapLine(char *buffer) {
+	char *ptr = buffer;
+	*ptr++ = 'V';
+	ptr = ftoa(ptr, getVBatt(), 10.0f);
+
+	ptr = appendStr(ptr, " M");
+	ptr = ftoa(ptr, getRawMap(), 10.0f);
+
+}
+
 static void prepareCltIatTpsLine(char *buffer) {
 	char *ptr = buffer;
 	*ptr++ = 'C';
-
 	ptr = ftoa(ptr, getCoolantTemperature(), 10.0f);
+
 	ptr = appendStr(ptr, " C");
 	ptr = ftoa(ptr, getIntakeAirTemperature(), 10.0f);
 
@@ -75,12 +85,15 @@ static char buffer[LCD_WIDTH + 4];
 static char dateBuffer[30];
 
 static void prepareCurrentSecondLine() {
-	switch (getTimeNowSeconds() % 2) {
+	switch (getTimeNowSeconds() % 3) {
 	case 0:
 		prepareCltIatTpsLine(buffer);
 		break;
 	case 1:
 		prepareInfoLine(buffer);
+		break;
+	case 2:
+		prepareVBattMapLine(buffer);
 		break;
 	}
 }
