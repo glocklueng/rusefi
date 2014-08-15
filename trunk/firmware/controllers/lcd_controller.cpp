@@ -13,6 +13,7 @@
 #include "allsensors.h"
 #include "engine.h"
 #include "rtc_helper.h"
+#include "io_pins.h"
 
 extern Engine engine;
 extern engine_configuration_s *engineConfiguration;
@@ -39,16 +40,34 @@ static void prepareCltIatTpsLine(char *buffer) {
 }
 
 static const char* algorithmStr[] = { "MAF", "TPS", "MAP", "SD" };
+static const char* ignitionModeStr[] = { "1C", "IND", "WS" };
+
+static const char *getPinShortName(io_pin_e pin) {
+	switch (pin) {
+	case ALTERNATOR_SWITCH:
+		return "AL";
+	case FUEL_PUMP_RELAY:
+		return "FP";
+	case FAN_RELAY:
+		return "FN";
+	}
+	firmwareError("No short name for %d", (int) pin);
+	return "";
+}
 
 static void prepareInfoLine(char *buffer) {
 	char *ptr = buffer;
 
-	ptr = appendStr(ptr, " ");
 	ptr = appendStr(ptr, algorithmStr[engineConfiguration->algorithm]);
 
 	ptr = appendStr(ptr, " ");
+	ptr = appendStr(ptr, ignitionModeStr[engineConfiguration->ignitionMode]);
 
 	ptr = appendStr(ptr, " ");
+}
+
+static void prepareStatusLine(char *buffer) {
+	char *ptr = buffer;
 
 }
 
