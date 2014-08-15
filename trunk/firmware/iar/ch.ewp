@@ -2444,6 +2444,12 @@
       <name>$PROJ_DIR$\..\controllers\injector_central.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\controllers\lcd_controller.cpp</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\lcd_controller.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\controllers\malfunction_indicator.c</name>
     </file>
     <file>
@@ -2528,7 +2534,7 @@
       <name>$PROJ_DIR$\..\emulation\trigger_emulator.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\emulation\wave_analyzer.c</name>
+      <name>$PROJ_DIR$\..\emulation\wave_analyzer.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\emulation\wave_analyzer.h</name>
