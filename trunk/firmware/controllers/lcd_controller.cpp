@@ -17,6 +17,8 @@
 extern Engine engine;
 extern engine_configuration_s *engineConfiguration;
 
+#define LCD_WIDTH 20
+
 char * appendStr(char *ptr, const char *suffix) {
 	for (uint32_t i = 0; i < strlen(suffix); i++) {
 		*ptr++ = suffix[i];
@@ -36,7 +38,7 @@ static void prepareCltIatTpsLine(char *buffer) {
 	ptr = itoa10(ptr, (int) getTPS());
 }
 
-static const char* algorithmStr[] = {"MAF", "TPS", "MAP", "SD"};
+static const char* algorithmStr[] = { "MAF", "TPS", "MAP", "SD" };
 
 static void prepareInfoLine(char *buffer) {
 	char *ptr = buffer;
@@ -50,7 +52,7 @@ static void prepareInfoLine(char *buffer) {
 
 }
 
-static char buffer[24];
+static char buffer[LCD_WIDTH + 4];
 static char dateBuffer[30];
 
 static void prepareCurrentSecondLine() {
@@ -78,10 +80,19 @@ void updateHD44780lcd(void) {
 	}
 	lcd_HD44780_print_string(buffer);
 
-	memset(buffer, ' ', 20);
+	lcd_HD44780_set_position(1, 0);
+	memset(buffer, ' ', LCD_WIDTH);
+	memcpy(buffer, getWarninig(), LCD_WIDTH);
+	buffer[LCD_WIDTH] = 0;
+	lcd_HD44780_print_string(buffer);
 
+	if (engineConfiguration->HD44780height < 3) {
+		return;
+	}
+
+	memset(buffer, ' ', LCD_WIDTH);
 	prepareCurrentSecondLine();
-	buffer[20] = 0;
+	buffer[LCD_WIDTH] = 0;
 
 	lcd_HD44780_set_position(2, 0);
 	lcd_HD44780_print_string(buffer);

@@ -20,6 +20,8 @@
 static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 	engineConfiguration->map.sensor.sensorType = MT_DENSO183;
 
+	engineConfiguration->HD44780height = 4;
+
 	engineConfiguration->cylindersCount = 4;
 	engineConfiguration->displacement = 2.156;
 
