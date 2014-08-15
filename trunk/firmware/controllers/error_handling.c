@@ -8,6 +8,7 @@
 #include "main.h"
 #include "error_handling.h"
 #include "io_pins.h"
+#include "memstreams.h"
 
 #if EFI_HD44780_LCD
 #include "lcd_HD44780.h"
@@ -47,6 +48,10 @@ void chDbgPanic3(const char *msg, const char * file, int line) {
 	}
 }
 
+#define WARNING_BUFFER_SIZE 80
+static char warningBuffer[WARNING_BUFFER_SIZE];
+static MemoryStream warningStream;
+
 /**
  * @returns TRUE in case there are too many warnings
  */
@@ -58,17 +63,27 @@ int warning(obd_code_e code, const char *fmt, ...) {
 
 	resetLogging(&logger); // todo: is 'reset' really needed here?
 	appendMsgPrefix(&logger);
+
 	va_list ap;
 	va_start(ap, fmt);
 	append(&logger, WARNING_PREFIX);
-	vappendPrintf(&logger, fmt, ap);
+	warningStream.eos = 0; // reset
+	chvprintf((BaseSequentialStream *) &warningStream, fmt, ap);
+	warningStream.buffer[warningStream.eos] = 0;
 	va_end(ap);
+
+	append(&logger, warningBuffer);
 	append(&logger, DELIMETER);
 	scheduleLogging(&logger);
 
 	return FALSE;
 }
 
+char *getWarninig(void) {
+	return warningBuffer;
+}
+
 void initErrorHandling(void) {
 	initLogging(&logger, "error handling");
+	msObjectInit(&warningStream, warningBuffer, WARNING_BUFFER_SIZE, 0);
 }

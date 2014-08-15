@@ -43,6 +43,7 @@ bool hasFirmwareError(void);
 void chDbgPanic3(const char *msg, const char * file, int line);
 
 void initErrorHandling(void);
+char *getWarninig(void);
 
 // todo: better place for this shared declaration?
 int getRusEfiVersion(void);
