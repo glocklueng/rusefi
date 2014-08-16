@@ -73,6 +73,7 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 	 * Inp1/ADC12 PC2: CLT
 	 * Inp2/ADC11 PC1: AIT/IAT
 	 * Inp3/ADC0 PA0: MAP
+	 * Inp4/ADC13 PC3: AFR
 	 * Inp6/ADC1 PA1: TPS
 	 * Inp12/ADC14 PC4: VBatt
 	 */
@@ -84,10 +85,15 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 	boardConfiguration->adcHwChannelEnabled[4] = ADC_SLOW;
 
 	boardConfiguration->adcHwChannelEnabled[6] = ADC_SLOW;
-	boardConfiguration->adcHwChannelEnabled[7] = ADC_SLOW;
 	boardConfiguration->adcHwChannelEnabled[11] = ADC_SLOW; // IAT
 	boardConfiguration->adcHwChannelEnabled[12] = ADC_SLOW; // CLT
+	boardConfiguration->adcHwChannelEnabled[13] = ADC_SLOW; // AFR
 	boardConfiguration->adcHwChannelEnabled[14] = ADC_SLOW; // VBatt
+
+	/**
+	 * D14/W10 O2 Sensor
+	 */
+	engineConfiguration->afrSensor.afrAdcChannel = 13;
 
 	/**
 	 * VBatt
