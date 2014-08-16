@@ -36,8 +36,12 @@ typedef struct {
 	float sparkDwell; // 60
 	float pulseWidth; // 64
 	float warmUpEnrich;	// 68
+	// todo: pack multiple indicators into same integer? yes, I think it's time to have some bit manipulation
 	int hasSdCard;
-	int unused[5];
+	int isFuelPumpOn;
+	int isFanOn;
+	int isO2HeaterOn;
+	int unused[2];
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */
