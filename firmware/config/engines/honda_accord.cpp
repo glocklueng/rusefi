@@ -168,6 +168,9 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 	boardConfiguration->HD44780_db7 = GPIOB_10;
 
 	boardConfiguration->logicAnalyzerPins[1] = GPIO_NONE;
+
+
+	boardConfiguration->idleSolenoidFrequency = 500;
 }
 
 void setHondaAccordConfigurationTwoWires(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
