@@ -19,6 +19,8 @@ extern Engine engine;
 extern engine_configuration_s *engineConfiguration;
 
 #define LCD_WIDTH 20
+// this value should be even
+#define NUMBER_OF_DIFFERENT_LINES 4
 
 char * appendStr(char *ptr, const char *suffix) {
 	for (uint32_t i = 0; i < strlen(suffix); i++) {
@@ -27,17 +29,17 @@ char * appendStr(char *ptr, const char *suffix) {
 	return ptr;
 }
 
-static void prepareVBattMapLine(char *buffer) {
+static char * prepareVBattMapLine(char *buffer) {
 	char *ptr = buffer;
 	*ptr++ = 'V';
 	ptr = ftoa(ptr, getVBatt(), 10.0f);
 
 	ptr = appendStr(ptr, " M");
 	ptr = ftoa(ptr, getRawMap(), 10.0f);
-
+	return ptr;
 }
 
-static void prepareCltIatTpsLine(char *buffer) {
+static char * prepareCltIatTpsLine(char *buffer) {
 	char *ptr = buffer;
 	*ptr++ = 'C';
 	ptr = ftoa(ptr, getCoolantTemperature(), 10.0f);
@@ -47,6 +49,7 @@ static void prepareCltIatTpsLine(char *buffer) {
 
 	ptr = appendStr(ptr, " TP");
 	ptr = itoa10(ptr, (int) getTPS());
+	return ptr;
 }
 
 static const char* algorithmStr[] = { "MAF", "TPS", "MAP", "SD" };
@@ -60,12 +63,25 @@ static const char *getPinShortName(io_pin_e pin) {
 		return "FP";
 	case FAN_RELAY:
 		return "FN";
+	case O2_HEATER:
+		return "O2H";
 	}
 	firmwareError("No short name for %d", (int) pin);
 	return "";
 }
 
-static void prepareInfoLine(char *buffer) {
+char * appendPinStatus(char *buffer, io_pin_e pin) {
+	char *ptr = appendStr(buffer, getPinShortName(pin));
+	int state = getOutputPinValue(pin);
+	// todo: should we handle INITIAL_PIN_STATE?
+	if (state) {
+		return appendStr(ptr, ":Y ");
+	} else {
+		return appendStr(ptr, ":n ");
+	}
+}
+
+static char * prepareInfoLine(char *buffer) {
 	char *ptr = buffer;
 
 	ptr = appendStr(ptr, algorithmStr[engineConfiguration->algorithm]);
@@ -74,28 +90,38 @@ static void prepareInfoLine(char *buffer) {
 	ptr = appendStr(ptr, ignitionModeStr[engineConfiguration->ignitionMode]);
 
 	ptr = appendStr(ptr, " ");
+	return ptr;
 }
 
-static void prepareStatusLine(char *buffer) {
+static char * prepareStatusLine(char *buffer) {
 	char *ptr = buffer;
 
+	ptr = appendPinStatus(ptr, FUEL_PUMP_RELAY);
+	ptr = appendPinStatus(ptr, FAN_RELAY);
+	return ptr;
 }
 
 static char buffer[LCD_WIDTH + 4];
 static char dateBuffer[30];
 
-static void prepareCurrentSecondLine() {
-	switch (getTimeNowSeconds() % 3) {
+static void prepareCurrentSecondLine(int index) {
+	memset(buffer, ' ', LCD_WIDTH);
+	char *ptr;
+	switch (index) {
 	case 0:
-		prepareCltIatTpsLine(buffer);
+		ptr = prepareCltIatTpsLine(buffer);
 		break;
 	case 1:
-		prepareInfoLine(buffer);
+		ptr = prepareInfoLine(buffer);
 		break;
 	case 2:
-		prepareVBattMapLine(buffer);
+		ptr = prepareVBattMapLine(buffer);
+		break;
+	case 3:
+		ptr = prepareStatusLine(buffer);
 		break;
 	}
+	*ptr = ' ';
 }
 
 void updateHD44780lcd(void) {
@@ -122,12 +148,19 @@ void updateHD44780lcd(void) {
 		return;
 	}
 
-	memset(buffer, ' ', LCD_WIDTH);
-	prepareCurrentSecondLine();
-	buffer[LCD_WIDTH] = 0;
 
+	int index = (getTimeNowSeconds() / 2) % (NUMBER_OF_DIFFERENT_LINES / 2);
+
+	prepareCurrentSecondLine(index);
+	buffer[LCD_WIDTH] = 0;
 	lcd_HD44780_set_position(2, 0);
 	lcd_HD44780_print_string(buffer);
+
+	prepareCurrentSecondLine(index + NUMBER_OF_DIFFERENT_LINES / 2);
+	buffer[LCD_WIDTH] = 0;
+	lcd_HD44780_set_position(3, 0);
+	lcd_HD44780_print_string(buffer);
+
 
 #if EFI_PROD_CODE
 	dateToString(dateBuffer);
