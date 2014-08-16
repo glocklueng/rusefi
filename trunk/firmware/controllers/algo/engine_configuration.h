@@ -146,7 +146,9 @@ typedef struct {
 	brain_pin_e gps_rx_pin;
 	brain_pin_e gps_tx_pin;
 
-	int unused[2];
+	int idleSolenoidFrequency;
+
+	int unused;
 
 
 	/**

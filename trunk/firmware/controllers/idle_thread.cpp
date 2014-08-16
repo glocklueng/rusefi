@@ -32,8 +32,6 @@
 #include "engine_configuration.h"
 #include "engine.h"
 
-#define IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY 200
-
 static THD_WORKING_AREA(ivThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 static volatile int isIdleControlActive = EFI_IDLE_CONTROL;
@@ -122,7 +120,7 @@ void startIdleThread() {
 	startSimplePwmExt(&idleValvePwm, "Idle Valve",
 			boardConfiguration->idleValvePin,
 			IDLE_VALVE,
-			IDLE_AIR_CONTROL_VALVE_PWM_FREQUENCY,
+			boardConfiguration->idleSolenoidFrequency,
 			0.5);
 
 	idleInit(&idle);
