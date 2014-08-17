@@ -37,7 +37,18 @@ public class ZoomControl extends JPanel implements ZoomProvider {
                 setValue(value * 1.1);
             }
         });
+        plus.setToolTipText("Zoom in");
         add(plus);
+
+        JButton resetZoom = new JButton("*");
+        resetZoom.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setValue(1);
+            }
+        });
+        resetZoom.setToolTipText("Reset zoom");
+        add(resetZoom);
 
         JButton minus = new JButton("-");
         minus.addActionListener(new ActionListener() {
@@ -46,6 +57,7 @@ public class ZoomControl extends JPanel implements ZoomProvider {
                 setValue(value / 1.1);
             }
         });
+        minus.setToolTipText("Zoom out");
         add(minus);
     }
 
