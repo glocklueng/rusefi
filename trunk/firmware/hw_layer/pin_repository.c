@@ -149,7 +149,7 @@ void mySetPadMode(const char *msg, ioportid_t port, ioportmask_t pin, iomode_t m
 	int index = portIndex * 16 + pin;
 
 	if (PIN_USED[index] != NULL) {
-		firmwareError("Pin %s%d requested by %s but already used by %s", portname(port), pin, msg, PIN_USED[index]);
+		firmwareError("%s%d req by %s used by %s", portname(port), pin, msg, PIN_USED[index]);
 		return;
 	}
 	markUsed(index, msg);
