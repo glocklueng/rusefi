@@ -23,6 +23,8 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
 	engineConfiguration->injectionMode = IM_BATCH;
 
+	engineConfiguration->idleMode = IM_MANUAL;
+
 	engineConfiguration->HD44780height = 4;
 
 	engineConfiguration->cylindersCount = 4;
@@ -31,7 +33,9 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 	// Keihin 06164-P0A-A00
 	engineConfiguration->injectorFlow = 248;
 
-	engineConfiguration->algorithm = LM_SPEED_DENSITY;
+//	engineConfiguration->algorithm = LM_SPEED_DENSITY;
+	// I want to start with a simple Alpha-N
+	engineConfiguration->algorithm = LM_TPS;
 
 	engineConfiguration->crankingSettings.coolantTempMaxC = 65; // 8ms at 65C
 	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 8;
