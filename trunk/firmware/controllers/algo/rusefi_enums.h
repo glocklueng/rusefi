@@ -164,6 +164,13 @@ typedef enum {
 	Internal_ForceMyEnumIntSize_log_format = ENUM_SIZE_HACK,
 } log_format_e;
 
+
+typedef enum {
+	IM_AUTO = 0,
+	IM_MANUAL = 1,
+	Internal_ForceMyEnumIntSize_idle_mode = ENUM_SIZE_HACK,
+} idle_mode_e;
+
 typedef enum {
 	/**
 	 * GND for logical OFF, VCC for logical ON
