@@ -47,7 +47,17 @@ public class WavePanel {
     /**
      * this is the panel which displays all {@link UpDownImage} using {@link GridLayout}
      */
-    private final JPanel imagePanel = new JPanel();
+    private final JPanel imagePanel = new JPanel() {
+        @Override
+        public Dimension getPreferredSize() {
+            Dimension d = chartPanel.getSize();
+            Dimension s = super.getPreferredSize();
+            return new Dimension((int) (d.width * zoomControl.getZoomValue()), s.height);
+        }
+    };
+
+    JScrollPane pane = new JScrollPane(imagePanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
     private final ZoomControl zoomControl = new ZoomControl();
     private final ChartStatusPanel statusPanel = new ChartStatusPanel(zoomControl);
     private final UpDownImage crank = createImage(CRANK1);
@@ -126,7 +136,7 @@ public class WavePanel {
         buttonPanel.add(new URLLabel(HELP_TEXT, HELP_URL));
 
         chartPanel.add(buttonPanel, BorderLayout.NORTH);
-        chartPanel.add(imagePanel, BorderLayout.CENTER);
+        chartPanel.add(pane, BorderLayout.CENTER);
         chartPanel.add(statusPanel.infoPanel, BorderLayout.SOUTH);
 
         zoomControl.listener = new ZoomControl.ZoomControlListener() {
