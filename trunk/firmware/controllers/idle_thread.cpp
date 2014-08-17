@@ -70,7 +70,8 @@ static void setIdleValvePwm(int value) {
 	// todo: change parameter type, maybe change parameter validation?
 	if (value < 1 || value > 999)
 		return;
-	scheduleMsg(&logger, "setting idle valve PWM %d", value);
+	scheduleMsg(&logger, "setting idle valve PWM %d @%d on %s", value, boardConfiguration->idleSolenoidFrequency,
+			hwPortname(boardConfiguration->idleValvePin));
 	/**
 	 * currently idle level is an integer per mil (0-1000 range), and PWM takes a float in the 0..1 range
 	 * todo: unify?
