@@ -116,13 +116,17 @@ static Logging logging;
 
 int main_loop_started = FALSE;
 
-static MemoryStream errorMessageStream;
+static MemoryStream firmwareErrorMessageStream;
 uint8_t errorMessageBuffer[200];
 static bool hasFirmwareErrorFlag = FALSE;
 extern board_configuration_s *boardConfiguration;
 
+char *getFirmwareError(void) {
+	return (char*)errorMessageBuffer;
+}
+
 void runRusEfi(void) {
-	msObjectInit(&errorMessageStream, errorMessageBuffer, sizeof(errorMessageBuffer), 0);
+	msObjectInit(&firmwareErrorMessageStream, errorMessageBuffer, sizeof(errorMessageBuffer), 0);
 
 	initErrorHandling();
 
@@ -196,8 +200,6 @@ void scheduleReset(void) {
 
 extern int main_loop_started;
 
-void onFatalError(const char *msg, char * file, int line);
-
 static char panicMessage[200];
 
 void chDbgStackOverflowPanic(Thread *otp) {
@@ -217,13 +219,13 @@ void firmwareError(const char *fmt, ...) {
 		return;
 	setOutputPinValue(LED_ERROR, 1);
 	hasFirmwareErrorFlag = TRUE;
-	errorMessageStream.eos = 0; // reset
+	firmwareErrorMessageStream.eos = 0; // reset
 	va_list ap;
 	va_start(ap, fmt);
-	chvprintf((BaseSequentialStream *) &errorMessageStream, fmt, ap);
+	chvprintf((BaseSequentialStream *) &firmwareErrorMessageStream, fmt, ap);
 	va_end(ap);
 
-	errorMessageStream.buffer[errorMessageStream.eos] = 0; // need to terminate explicitly
+	firmwareErrorMessageStream.buffer[firmwareErrorMessageStream.eos] = 0; // need to terminate explicitly
 }
 
 int getRusEfiVersion(void) {
