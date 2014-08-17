@@ -29,6 +29,7 @@ int warning(obd_code_e code, const char *fmt, ...);
  */
 void firmwareError(const char *fmt, ...);
 bool hasFirmwareError(void);
+char *getFirmwareError(void);
 
 /**
  * declared as a macro so that this code does not use stack
