@@ -41,7 +41,8 @@ typedef struct {
 	int isFuelPumpOn;
 	int isFanOn;
 	int isO2HeaterOn;
-	int unused[2];
+	float crankingFuel;
+	int unused[6];
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */

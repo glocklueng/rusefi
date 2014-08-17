@@ -55,6 +55,7 @@
 #include "svnversion.h"
 #include "engine.h"
 #include "lcd_controller.h"
+#include "fuel_math.h"
 
 #if EFI_PROD_CODE
 // todo: move this logic to algo folder!
@@ -364,10 +365,13 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
 #if EFI_PROD_CODE
 	tsOutputChannels->needBurn = getNeedToWriteConfiguration();
 	tsOutputChannels->hasSdCard = isSdCardAlive();
+	tsOutputChannels->isFuelPumpOn = getOutputPinValue(FUEL_PUMP_RELAY);
+	tsOutputChannels->isFanOn = getOutputPinValue(FAN_RELAY);
 #endif
 	tsOutputChannels->tCharge = getTCharge(rpm, tps, coolant, intake);
 	tsOutputChannels->sparkDwell = getSparkDwellMs(rpm);
 	tsOutputChannels->pulseWidth = getRunningFuel(baseFuel, &engine, rpm);
+	tsOutputChannels->crankingFuel = getCrankingFuel();
 }
 
 extern TunerStudioOutputChannels tsOutputChannels;

@@ -179,6 +179,11 @@ typedef struct {
 	brain_pin_e triggerSimulatorPins[3];
 	pin_output_mode_e triggerSimulatorPinModes[3];
 
+	brain_pin_e o2heaterPin;
+	pin_output_mode_e o2heaterPinModeTodO;
+
+	int unused2[8];
+
 
 } board_configuration_s;
 
