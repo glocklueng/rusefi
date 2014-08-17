@@ -198,6 +198,8 @@ float getFuelMultiplier(engine_configuration_s const *e, injection_mode_e mode) 
 	case IM_BATCH:
 		return 2.0 / e->cylindersCount;
 	}
+	firmwareError("Unexpected getFuelMultiplier %d", mode);
+	return NAN;
 }
 
 void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *engineConfiguration2,
