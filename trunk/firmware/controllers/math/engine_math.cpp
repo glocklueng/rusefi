@@ -188,6 +188,18 @@ static void registerInjectionEvent(engine_configuration_s const *e,
 
 }
 
+float getFuelMultiplier(engine_configuration_s const *e, injection_mode_e mode) {
+	switch(mode) {
+	case IM_SEQUENTIAL:
+		return 1;
+	case IM_SIMULTANEOUS:
+		// todo: pre-calculate and save into ec2?
+		return 1.0 / e->cylindersCount;
+	case IM_BATCH:
+		return 2.0 / e->cylindersCount;
+	}
+}
+
 void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *engineConfiguration2,
 		ActuatorEventList *list, injection_mode_e mode) {
 	list->resetEventList();
@@ -216,8 +228,15 @@ void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *eng
 		break;
 	case IM_BATCH:
 		for (int i = 0; i < e->cylindersCount; i++) {
-			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + (i % 2));
+			int index = i % (e->cylindersCount / 2);
+			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + index);
 			float angle = baseAngle + i * 720.0 / e->cylindersCount;
+			registerInjectionEvent(e, s, list, pin, angle);
+
+			/**
+			 * also fire the 2nd half of the injectors so that we can implement a batch mode on individual wires
+			 */
+			pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + index + (e->cylindersCount / 2));
 			registerInjectionEvent(e, s, list, pin, angle);
 		}
 		break;
