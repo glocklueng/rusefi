@@ -93,7 +93,6 @@ static char * prepareInfoLine(char *buffer) {
 	ptr = appendStr(ptr, " ");
 	ptr = appendStr(ptr, injectionModeStr[engineConfiguration->injectionMode]);
 
-
 	ptr = appendStr(ptr, " ");
 	return ptr;
 }
@@ -103,6 +102,7 @@ static char * prepareStatusLine(char *buffer) {
 
 	ptr = appendPinStatus(ptr, FUEL_PUMP_RELAY);
 	ptr = appendPinStatus(ptr, FAN_RELAY);
+	ptr = appendPinStatus(ptr, O2_HEATER);
 	return ptr;
 }
 
@@ -143,6 +143,14 @@ void updateHD44780lcd(void) {
 	}
 	lcd_HD44780_print_string(buffer);
 
+	if (hasFirmwareError()) {
+		memcpy(buffer, getFirmwareError(), LCD_WIDTH);
+		buffer[LCD_WIDTH] = 0;
+		lcd_HD44780_set_position(1, 0);
+		lcd_HD44780_print_string(buffer);
+		return;
+	}
+
 	lcd_HD44780_set_position(1, 0);
 	memset(buffer, ' ', LCD_WIDTH);
 	memcpy(buffer, getWarninig(), LCD_WIDTH);
@@ -152,7 +160,6 @@ void updateHD44780lcd(void) {
 	if (engineConfiguration->HD44780height < 3) {
 		return;
 	}
-
 
 	int index = (getTimeNowSeconds() / 2) % (NUMBER_OF_DIFFERENT_LINES / 2);
 
@@ -165,7 +172,6 @@ void updateHD44780lcd(void) {
 	buffer[LCD_WIDTH] = 0;
 	lcd_HD44780_set_position(3, 0);
 	lcd_HD44780_print_string(buffer);
-
 
 #if EFI_PROD_CODE
 	dateToString(dateBuffer);
