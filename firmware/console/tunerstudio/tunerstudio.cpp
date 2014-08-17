@@ -106,6 +106,10 @@ extern TunerStudioOutputChannels tsOutputChannels;
 
 extern TunerStudioState tsState;
 
+extern engine_configuration_s *engineConfiguration;
+extern board_configuration_s *boardConfiguration;
+
+
 static void printStats(void) {
 #if EFI_PROD_CODE
 	if (!isSerialOverUart()) {
@@ -125,11 +129,11 @@ static void printStats(void) {
 //	int fuelMapOffset = (int) (&engineConfiguration->fuelTable) - (int) engineConfiguration;
 //	scheduleMsg(&logger, "fuelTable %d", fuelMapOffset);
 //
-//	int offset = (int) (&engineConfiguration->bc.injectionPinMode) - (int) engineConfiguration;
-//	scheduleMsg(&logger, "injectionPinMode %d", offset);
+//	int offset = (int) (&boardConfiguration->o2heaterPin) - (int) engineConfiguration;
+//	scheduleMsg(&logger, "o2heaterPin %d", offset);
 //
-//	offset = (int) (&engineConfiguration->bc.idleThreadPeriod) - (int) engineConfiguration;
-//	scheduleMsg(&logger, "idleThreadPeriod %d", offset);
+//	offset = (int) (&boardConfiguration->idleSolenoidFrequency) - (int) engineConfiguration;
+//	scheduleMsg(&logger, "idleSolenoidFrequency %d", offset);
 }
 
 void tunerStudioWriteData(const uint8_t * buffer, int size) {
