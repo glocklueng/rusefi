@@ -34,8 +34,8 @@
 
 static THD_WORKING_AREA(ivThreadStack, UTILITY_THREAD_STACK_SIZE);
 
-static volatile int isIdleControlActive = EFI_IDLE_CONTROL;
 extern board_configuration_s *boardConfiguration;
+extern engine_configuration_s *engineConfiguration;
 
 /**
  * here we keep the value we got from IDLE SWITCH input
@@ -62,8 +62,8 @@ void idleDebug(char *msg, int value) {
 }
 
 static void setIdleControlEnabled(int value) {
-	isIdleControlActive = value;
-	scheduleMsg(&logger, "isIdleControlActive=%d", isIdleControlActive);
+	engineConfiguration->idleMode = value ? IM_MANUAL : IM_AUTO;
+	scheduleMsg(&logger, "isIdleControlActive=%d", engineConfiguration->idleMode);
 }
 
 static void setIdleValvePwm(int value) {
@@ -88,7 +88,7 @@ static msg_t ivThread(int param) {
 		// this value is not used yet
 		idleSwitchState = palReadPad(getHwPort(boardConfiguration->idleSwitchPin), getHwPin(boardConfiguration->idleSwitchPin));
 
-		if (!isIdleControlActive)
+		if (engineConfiguration->idleMode != IM_AUTO)
 			continue;
 
 		int nowSec = getTimeNowSeconds();

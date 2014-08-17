@@ -55,6 +55,7 @@ static char * prepareCltIatTpsLine(char *buffer) {
 static const char* algorithmStr[] = { "MAF", "TPS", "MAP", "SD" };
 static const char* ignitionModeStr[] = { "1C", "IND", "WS" };
 static const char* injectionModeStr[] = { "Sim", "Seq", "Bch" };
+static const char* idleModeStr[] = { "I:A", "I:M"};
 
 static const char *getPinShortName(io_pin_e pin) {
 	switch (pin) {
@@ -66,9 +67,10 @@ static const char *getPinShortName(io_pin_e pin) {
 		return "FN";
 	case O2_HEATER:
 		return "O2H";
+	default:
+		firmwareError("No short name for %d", (int) pin);
+		return "";
 	}
-	firmwareError("No short name for %d", (int) pin);
-	return "";
 }
 
 char * appendPinStatus(char *buffer, io_pin_e pin) {
@@ -92,6 +94,9 @@ static char * prepareInfoLine(char *buffer) {
 
 	ptr = appendStr(ptr, " ");
 	ptr = appendStr(ptr, injectionModeStr[engineConfiguration->injectionMode]);
+
+	ptr = appendStr(ptr, " ");
+	ptr = appendStr(ptr, idleModeStr[engineConfiguration->idleMode]);
 
 	ptr = appendStr(ptr, " ");
 	return ptr;
