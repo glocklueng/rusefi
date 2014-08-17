@@ -142,7 +142,8 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 	// Frankenso low out #11: PB8
 	// Frankenso low out #12: PB7
 
-	boardConfiguration->idleValvePin = GPIO_NONE;
+	boardConfiguration->idleValvePin = GPIOE_5;
+	boardConfiguration->o2heaterPin = GPIOC_13;
 
 	boardConfiguration->injectionPins[0] = GPIOB_8;
 	boardConfiguration->injectionPins[1] = GPIOB_9;
