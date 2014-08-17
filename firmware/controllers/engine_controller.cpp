@@ -164,6 +164,8 @@ static void onEvenyGeneralMilliseconds(void *arg) {
 
 	fanRelayControl();
 
+	setOutputPinValue(O2_HEATER, engine.rpmCalculator->isRunning());
+
 	// schedule next invocation
 	chVTSetAny(&everyMsTimer, boardConfiguration->generalPeriodicThreadPeriod * TICKS_IN_MS,
 			&onEvenyGeneralMilliseconds, 0);

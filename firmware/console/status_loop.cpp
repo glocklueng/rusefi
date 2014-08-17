@@ -367,6 +367,7 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
 	tsOutputChannels->hasSdCard = isSdCardAlive();
 	tsOutputChannels->isFuelPumpOn = getOutputPinValue(FUEL_PUMP_RELAY);
 	tsOutputChannels->isFanOn = getOutputPinValue(FAN_RELAY);
+	tsOutputChannels->isO2HeaterOn = getOutputPinValue(O2_HEATER);
 #endif
 	tsOutputChannels->tCharge = getTCharge(rpm, tps, coolant, intake);
 	tsOutputChannels->sparkDwell = getSparkDwellMs(rpm);

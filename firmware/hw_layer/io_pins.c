@@ -218,6 +218,9 @@ void initOutputPins(void) {
 	outputPinRegister("fan relay", FAN_RELAY, getHwPort(boardConfiguration->fanPin),
 			getHwPin(boardConfiguration->fanPin));
 
+	outputPinRegister("fan relay", O2_HEATER, getHwPort(boardConfiguration->o2heaterPin),
+			getHwPin(boardConfiguration->o2heaterPin));
+
 	initialLedsBlink();
 
 	// digit 1
