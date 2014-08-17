@@ -250,6 +250,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->hasCltSensor = TRUE;
 
 	boardConfiguration->idleSolenoidFrequency = 200;
+	engineConfiguration->idleMode = IM_AUTO;
 
 	boardConfiguration->idleValvePin = GPIOE_2;
 	boardConfiguration->idleValvePinMode = OM_DEFAULT;

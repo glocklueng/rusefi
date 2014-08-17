@@ -387,6 +387,8 @@ typedef struct {
 	int hasMapSensor;
 	int hasCltSensor;
 
+	idle_mode_e idleMode;
+	int unused3[9];
 
 } engine_configuration_s;
 
