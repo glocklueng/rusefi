@@ -13,13 +13,14 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 
 public class RecentCommands {
+    private final static int NUMBER_OF_COMMANDS = 12;
 
-    private final JPanel content = new JPanel(new GridLayout(8, 1));
+    private final JPanel content = new JPanel(new GridLayout(NUMBER_OF_COMMANDS, 1));
 
     private final LinkedHashMap<Entry, Object> entries = new LinkedHashMap<Entry, Object>() {
         @Override
         protected boolean removeEldestEntry(Map.Entry<Entry, Object> eldest) {
-            return size() > 8;
+            return size() > NUMBER_OF_COMMANDS;
         }
     };
 
@@ -37,6 +38,10 @@ public class RecentCommands {
 
         add("showconfig");
         add("writeconfig");
+        add("enable_injection");
+        add("disable_injection");
+        add("enable_ignition");
+        add("disable_ignition");
     }
 
     public void add(String command) {
