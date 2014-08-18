@@ -254,6 +254,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 
 	engineConfiguration->isInjectionEnabled = true;
 	engineConfiguration->isIgnitionEnabled = true;
+	engineConfiguration->isCylinderCleanupEnabled = true;
 
 	boardConfiguration->idleValvePin = GPIOE_2;
 	boardConfiguration->idleValvePinMode = OM_DEFAULT;
