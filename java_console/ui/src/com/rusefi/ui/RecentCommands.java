@@ -51,7 +51,8 @@ public class RecentCommands {
         for (Entry entry : entries.keySet()) {
             content.add(createButton(entry));
         }
-        UpDownImage.trueRepaint(content);
+        UpDownImage.trueRepaint(content.getParent());
+//        UpDownImage.trueLayout(content);
     }
 
     private JComponent createButton(final Entry entry) {
@@ -95,6 +96,13 @@ public class RecentCommands {
         @Override
         public int hashCode() {
             return command != null ? command.hashCode() : 0;
+        }
+
+        @Override
+        public String toString() {
+            return "{" +
+                    "command='" + command + '\'' +
+                    '}';
         }
     }
 

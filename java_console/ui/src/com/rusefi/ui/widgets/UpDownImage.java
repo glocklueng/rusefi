@@ -57,8 +57,15 @@ public class UpDownImage extends JPanel {
     }
 
     public static void trueRepaint(Container control) {
+        if (control == null)
+            return;
         control.invalidate();
         control.repaint();
+    }
+
+    public static void trueLayout(Component component) {
+        component.invalidate();
+        component.validate();
     }
 
     public UpDownImage(WaveReport wr, String name) {
