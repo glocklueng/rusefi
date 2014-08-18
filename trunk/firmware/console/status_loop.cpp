@@ -371,6 +371,7 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
 	tsOutputChannels->ignition_enabled = engineConfiguration->isIgnitionEnabled;
 	tsOutputChannels->injection_enabled = engineConfiguration->isInjectionEnabled;
 	tsOutputChannels->cylinder_cleanup_enabled = engineConfiguration->isCylinderCleanupEnabled;
+	tsOutputChannels->secondTriggerChannelEnabled = engineConfiguration->secondTriggerChannelEnabled;
 #endif
 	tsOutputChannels->tCharge = getTCharge(rpm, tps, coolant, intake);
 	tsOutputChannels->sparkDwell = getSparkDwellMs(rpm);
