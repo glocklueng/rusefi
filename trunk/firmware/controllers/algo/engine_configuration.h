@@ -392,6 +392,7 @@ typedef struct {
 	bool isInjectionEnabled : 1; // bit 0
 	bool isIgnitionEnabled : 1; // bit 1
 	bool isCylinderCleanupEnabled : 1; // bit 2
+	bool secondTriggerChannelEnabled : 1; // bit 3
 
 
 	int unused3[8];
