@@ -1,12 +1,15 @@
 package com.rusefi.io;
 
 import com.irnems.core.MessagesCentral;
+import com.rusefi.io.tcp.TcpConnector;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import static com.rusefi.io.tcp.TcpConnector.parseIntWithReason;
 
 /**
  * This class keeps re-sending a command till a proper confirmation is received
@@ -101,7 +104,7 @@ public class CommandQueue {
             mc.postMessage(CommandQueue.class, "Broken confirmation: " + confirmation);
             return;
         }
-        int length = Integer.parseInt(confirmation.substring(index + 1));
+        int length = parseIntWithReason(confirmation.substring(index + 1), "CQ confirmation");
         if (length != index) {
             mc.postMessage(CommandQueue.class, "Broken confirmation length: " + confirmation);
             return;

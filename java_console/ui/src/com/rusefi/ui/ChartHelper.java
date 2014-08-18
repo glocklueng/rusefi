@@ -14,6 +14,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static com.rusefi.io.tcp.TcpConnector.*;
+
 /**
  * Date: 1/22/13
  * (c) Andrey Belomutskiy
@@ -60,7 +62,7 @@ public class ChartHelper {
         ActionListener updateValue = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int rpm = Integer.parseInt(xField.getText());
+                int rpm = parseIntWithReason(xField.getText(), "CH xField");
 
                 double y = Double.parseDouble(yField.getText());
 
