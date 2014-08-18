@@ -41,7 +41,7 @@ public class StimulationInputs {
         return (Double) loadEngineMax.getValue();
     }
 
-    private static Component wrap(JComponent component) {
+    public static JComponent wrap(JComponent component) {
         JPanel result = new JPanel();
         result.add(component);
         return result;

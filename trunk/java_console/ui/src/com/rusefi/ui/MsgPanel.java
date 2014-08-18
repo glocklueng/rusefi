@@ -39,7 +39,14 @@ public class MsgPanel {
     public MsgPanel(boolean needsRpmControl) {
         content.setBorder(BorderFactory.createLineBorder(Color.green));
         JScrollPane pane = new JScrollPane(msg, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        content.add(pane, BorderLayout.CENTER);
+
+        JPanel middlePanel = new JPanel(new BorderLayout());
+        middlePanel.add(pane, BorderLayout.CENTER);
+        if (needsRpmControl)
+            middlePanel.add(new RecentCommands().getContent(), BorderLayout.EAST);
+
+
+        content.add(middlePanel, BorderLayout.CENTER);
         MessagesCentral.getInstance().addListener(new MessagesCentral.MessageListener() {
             @Override
             public void onMessage(Class clazz, String message) {
