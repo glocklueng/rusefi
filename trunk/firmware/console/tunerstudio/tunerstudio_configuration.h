@@ -29,23 +29,28 @@ typedef struct {
 	short int alignment; // size 2, offset 34
 	float atmospherePressure; // size 4, offset 36
 	float manifold_air_pressure; // size 4, offset 40
-	int checkEngine; // size 4, offset 44 todo: reduce bits usage? MAYBE
-	int needBurn; // 48
+	float crankingFuel;
+	int tpsVolrage;
 	float tCharge; // 52
 	float inj_adv; // 56
 	float sparkDwell; // 60
 	float pulseWidth; // 64
 	float warmUpEnrich;	// 68
-	// todo: pack multiple indicators into same integer? yes, I think it's time to have some bit manipulation
-	int hasSdCard;
-	int isFuelPumpOn;
-	int isFanOn;
-	int isO2HeaterOn;
-	float crankingFuel;
-	int ignition_enabled;
-	int injection_enabled;
-	int cylinder_cleanup;
-	int unused[3];
+	/**
+	 * Yes, I do not really enjoy packing bits into integers but we simply have too many boolean flags and I cannot
+	 * water 4 bytes per trafic - I want gauges to work as fast as possible
+	 */
+	unsigned int hasSdCard : 1; // bit 0
+	unsigned int ignition_enabled : 1; // bit 1
+	unsigned int injection_enabled : 1; // bit 2
+	unsigned int cylinder_cleanup_enabled : 1; // bit 3
+	unsigned int cylinder_cleanup : 1; // bit 4
+	unsigned int isFuelPumpOn : 1; // bit 5
+	unsigned int isFanOn : 1; // bit 6
+	unsigned int isO2HeaterOn : 1; // bit 7
+	unsigned int checkEngine : 1; // bit 8
+	unsigned int needBurn; // bit 9
+	int unused[9];
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */

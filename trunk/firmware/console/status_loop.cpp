@@ -368,6 +368,8 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels) {
 	tsOutputChannels->isFuelPumpOn = getOutputPinValue(FUEL_PUMP_RELAY);
 	tsOutputChannels->isFanOn = getOutputPinValue(FAN_RELAY);
 	tsOutputChannels->isO2HeaterOn = getOutputPinValue(O2_HEATER);
+	tsOutputChannels->ignition_enabled = engineConfiguration->isIgnitionEnabled;
+	tsOutputChannels->injection_enabled = engineConfiguration->isInjectionEnabled;
 #endif
 	tsOutputChannels->tCharge = getTCharge(rpm, tps, coolant, intake);
 	tsOutputChannels->sparkDwell = getSparkDwellMs(rpm);

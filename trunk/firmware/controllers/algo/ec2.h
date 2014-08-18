@@ -51,8 +51,6 @@ public:
 
 	EventHandlerConfiguration engineEventConfiguration;
 
-	int isInjectionEnabledFlag;
-
 	/**
 	 * This coefficient translates ADC value directly into voltage adjusted according to
 	 * voltage divider configuration. This is a future (?) performance optimization.
