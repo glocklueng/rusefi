@@ -389,10 +389,12 @@ typedef struct {
 
 	idle_mode_e idleMode;
 
-	int isInjectionEnabled;
-	int isIgnitionEnabled;
+	bool isInjectionEnabled : 1; // bit 0
+	bool isIgnitionEnabled : 1; // bit 1
+	bool isCylinderCleanupEnabled : 1; // bit 2
 
-	int unused3[7];
+
+	int unused3[8];
 
 } engine_configuration_s;
 
