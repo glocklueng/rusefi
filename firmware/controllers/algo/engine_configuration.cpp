@@ -250,11 +250,13 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->hasCltSensor = TRUE;
 
 	boardConfiguration->idleSolenoidFrequency = 200;
-	engineConfiguration->idleMode = IM_AUTO;
+//	engineConfiguration->idleMode = IM_AUTO;
+	engineConfiguration->idleMode = IM_MANUAL;
 
 	engineConfiguration->isInjectionEnabled = true;
 	engineConfiguration->isIgnitionEnabled = true;
 	engineConfiguration->isCylinderCleanupEnabled = true;
+	engineConfiguration->secondTriggerChannelEnabled = true;
 
 	boardConfiguration->idleValvePin = GPIOE_2;
 	boardConfiguration->idleValvePinMode = OM_DEFAULT;
