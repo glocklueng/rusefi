@@ -160,17 +160,16 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 
 //	appendMsgPrefix(&logger);
 
-	scheduleMsg(&logger, "rpmHardLimit: %d", engineConfiguration->rpmHardLimit);
+	scheduleMsg(&logger, "rpmHardLimit: %d, ", engineConfiguration->rpmHardLimit);
 	scheduleMsg(&logger, "rpmMultiplier=%f", engineConfiguration->rpmMultiplier);
 
-	scheduleMsg(&logger, "tpsMin: %d", engineConfiguration->tpsMin);
-	scheduleMsg(&logger, "tpsMax: %d", engineConfiguration->tpsMax);
+	scheduleMsg(&logger, "tpsMin: %d/tpsMax: %d", engineConfiguration->tpsMin, engineConfiguration->tpsMax);
 
-	scheduleMsg(&logger, "ignitionMode: %d", engineConfiguration->ignitionMode);
+	scheduleMsg(&logger, "ignitionMode: %d, enabled=%d", engineConfiguration->ignitionMode, engineConfiguration->isIgnitionEnabled);
 	scheduleMsg(&logger, "timingMode: %d", engineConfiguration->timingMode);
 	scheduleMsg(&logger, "fixedModeTiming: %d", (int) engineConfiguration->fixedModeTiming);
 	scheduleMsg(&logger, "ignitionOffset=%f", engineConfiguration->ignitionOffset);
-	scheduleMsg(&logger, "injectionOffset=%f", (double) engineConfiguration->injectionOffset);
+	scheduleMsg(&logger, "injectionOffset=%f, enabled=%d", (double) engineConfiguration->injectionOffset, engineConfiguration->isInjectionEnabled);
 
 	scheduleMsg(&logger, "crankingChargeAngle=%f", engineConfiguration->crankingChargeAngle);
 	scheduleMsg(&logger, "crankingTimingAngle=%f", engineConfiguration->crankingTimingAngle);
@@ -228,8 +227,6 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 				hwPortname(boardConfiguration->digitalPotentiometerChipSelect[i]));
 	}
 #endif /* EFI_PROD_CODE */
-
-	scheduleMsg(&logger, "isInjectionEnabledFlag %s", boolToString(engineConfiguration2->isInjectionEnabledFlag));
 }
 
 static void setFixedModeTiming(int value) {
@@ -567,13 +564,23 @@ static void setFuelMap(const char * rpmStr, const char *loadStr, const char *val
 }
 
 static void enableInjection(void) {
-	engineConfiguration2->isInjectionEnabledFlag = true;
+	engineConfiguration->isInjectionEnabled = true;
 	scheduleMsg(&logger, "injection enabled");
 }
 
 static void disableInjection(void) {
-	engineConfiguration2->isInjectionEnabledFlag = false;
+	engineConfiguration->isInjectionEnabled = false;
 	scheduleMsg(&logger, "injection disabled");
+}
+
+static void enableIgnition(void) {
+	engineConfiguration->isIgnitionEnabled = true;
+	scheduleMsg(&logger, "ignition enabled");
+}
+
+static void disableIgnition(void) {
+	engineConfiguration->isIgnitionEnabled = false;
+	scheduleMsg(&logger, "ignition disabled");
 }
 
 static void enableSelfStimulation(void) {
@@ -652,6 +659,8 @@ void initSettings(void) {
 
 	addConsoleAction("enable_injection", enableInjection);
 	addConsoleAction("disable_injection", disableInjection);
+	addConsoleAction("enable_ignition", enableIgnition);
+	addConsoleAction("disable_ignition", disableIgnition);
 	addConsoleActionII("set_toothed_wheel", setToothedWheel);
 	addConsoleActionI("set_trigger_type", setTriggerType);
 

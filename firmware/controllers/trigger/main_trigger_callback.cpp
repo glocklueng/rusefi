@@ -97,7 +97,7 @@ static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, A
 }
 
 static void handleFuel(MainTriggerCallback *mainTriggerCallback, int eventIndex, int rpm) {
-	if (!isInjectionEnabled(mainTriggerCallback->engineConfiguration2))
+	if (!isInjectionEnabled(mainTriggerCallback->engineConfiguration))
 		return;
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 16, "stack#3");
 	efiAssertVoid(eventIndex < 2 * mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
@@ -336,7 +336,7 @@ void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfig
 
 	initLogging(&logger, "main event handler");
 	printMsg(&logger, "initMainLoop: %d", currentTimeMillis());
-	if (!isInjectionEnabled(mainTriggerCallbackInstance.engineConfiguration2))
+	if (!isInjectionEnabled(mainTriggerCallbackInstance.engineConfiguration))
 		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
 #endif
 

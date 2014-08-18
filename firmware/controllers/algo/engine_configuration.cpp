@@ -252,6 +252,9 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->idleSolenoidFrequency = 200;
 	engineConfiguration->idleMode = IM_AUTO;
 
+	engineConfiguration->isInjectionEnabled = true;
+	engineConfiguration->isIgnitionEnabled = true;
+
 	boardConfiguration->idleValvePin = GPIOE_2;
 	boardConfiguration->idleValvePinMode = OM_DEFAULT;
 	boardConfiguration->fuelPumpPin = GPIOC_13;
@@ -451,8 +454,6 @@ void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *e
 #if EFI_PROD_CODE
 	scheduleMsg(logger, "applyNonPersistentConfiguration()");
 #endif
-	engineConfiguration2->isInjectionEnabledFlag = true;
-
 	initializeTriggerShape(logger, engineConfiguration, engineConfiguration2);
 	if (engineConfiguration2->triggerShape.getSize() == 0) {
 		firmwareError("triggerShape size is zero");
