@@ -21,20 +21,41 @@ public class TcpConnector implements LinkConnector {
     private boolean withError;
 
     public TcpConnector(String port) {
-        this.port = getTcpPort(port);
+        try {
+            this.port = getTcpPort(port);
+        } catch (InvalidTcpPort e) {
+            throw new IllegalStateException("Unexpected", e);
+        }
     }
 
     public static boolean isTcpPort(String port) {
         try {
             getTcpPort(port);
             return true;
-        } catch (NumberFormatException e) {
+        } catch (InvalidTcpPort e) {
             return false;
         }
     }
 
-    public static int getTcpPort(String port) {
-        return Integer.parseInt(port);
+    static class InvalidTcpPort extends Exception {
+
+    }
+
+
+    public static int getTcpPort(String port) throws InvalidTcpPort {
+        try {
+            return Integer.parseInt(port);
+        } catch (NumberFormatException e) {
+            throw new InvalidTcpPort();
+        }
+    }
+
+    public static int parseIntWithReason(String number, String reason) {
+        try {
+            return Integer.parseInt(number);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Unexpected [" + number + "] for " + reason, e);
+        }
     }
 
     /**

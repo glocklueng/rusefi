@@ -1,6 +1,7 @@
 package com.rusefi;
 
 import com.irnems.FileLog;
+import com.rusefi.io.tcp.TcpConnector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,12 +56,11 @@ public class VersionChecker {
 
         FileLog.MAIN.logLine("Reading from " + VERSIONS_URL);
 
-
         String line;
         while ((line = s.readLine()) != null) {
             String[] pair = line.split("=");
             if (pair.length == 2)
-                map.put(pair[0], Integer.parseInt(pair[1]));
+                map.put(pair[0], TcpConnector.parseIntWithReason(pair[1], "VC value"));
         }
 
 
