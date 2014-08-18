@@ -49,8 +49,9 @@ typedef struct {
 	unsigned int isFanOn : 1; // bit 6
 	unsigned int isO2HeaterOn : 1; // bit 7
 	unsigned int checkEngine : 1; // bit 8
-	unsigned int needBurn; // bit 9
-	int unused[9];
+	unsigned int needBurn : 1; // bit 9
+	unsigned int secondTriggerChannelEnabled : 1; // bit 10
+	int unused[10];
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */
