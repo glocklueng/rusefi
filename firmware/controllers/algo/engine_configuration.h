@@ -388,7 +388,11 @@ typedef struct {
 	int hasCltSensor;
 
 	idle_mode_e idleMode;
-	int unused3[9];
+
+	int isInjectionEnabled;
+	int isIgnitionEnabled;
+
+	int unused3[7];
 
 } engine_configuration_s;
 
