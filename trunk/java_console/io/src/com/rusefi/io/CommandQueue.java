@@ -3,6 +3,8 @@ package com.rusefi.io;
 import com.irnems.core.MessagesCentral;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -15,12 +17,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 @SuppressWarnings("FieldCanBeLocal")
 public class CommandQueue {
     private static final String CONFIRMATION_PREFIX = "confirmation_";
-    public static final int DEFAULT_TIMEOUT = 300;
+    private static final int DEFAULT_TIMEOUT = 300;
     private final Object lock = new Object();
     private String latestConfirmation;
 
     private static final CommandQueue instance = new CommandQueue();
     private final BlockingQueue<MethodInvocation> pendingCommands = new LinkedBlockingQueue<MethodInvocation>();
+    private final List<CommandQueueListener> commandListeners = new ArrayList<>();
 
     private final Runnable runnable = new Runnable() {
         @SuppressWarnings("InfiniteLoopStatement")
@@ -37,6 +40,10 @@ public class CommandQueue {
             }
         }
     };
+
+    public void addListener(CommandQueueListener listener) {
+        commandListeners.add(listener);
+    }
 
     /**
      * this method is always invoked on 'Commands Queue' thread {@link #runnable}
@@ -122,6 +129,10 @@ public class CommandQueue {
      * Non-blocking command request
      */
     public void write(String command, int timeout, InvocationConfirmationListener listener) {
+
+        for (CommandQueueListener cql : commandListeners)
+            cql.onCommand(command);
+
         pendingCommands.add(new MethodInvocation(command, timeout, listener));
     }
 
@@ -143,5 +154,9 @@ public class CommandQueue {
         public int getTimeout() {
             return timeout;
         }
+    }
+
+    public interface CommandQueueListener {
+        void onCommand(String command);
     }
 }
