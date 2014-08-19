@@ -389,5 +389,6 @@ void setTimingLoadBin(engine_configuration_s *engineConfiguration, float l, floa
 }
 
 int isInjectionEnabled(engine_configuration_s *engineConfiguration) {
+	// todo: is this worth a method? should this be inlined?
 	return engineConfiguration->isInjectionEnabled;
 }
