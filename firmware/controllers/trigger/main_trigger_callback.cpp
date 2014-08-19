@@ -185,7 +185,7 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, int event
 }
 
 static void handleSpark(MainTriggerCallback *mainTriggerCallback, int eventIndex, int rpm, IgnitionEventList *list) {
-	if (!isValidRpm(rpm))
+	if (!isValidRpm(rpm) || !mainTriggerCallback->engineConfiguration->isIgnitionEnabled)
 		return; // this might happen for instance in case of a single trigger event after a pause
 
 	/**
