@@ -186,7 +186,10 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e const waveIndex, tri
 
 	efiAssertVoid(angle > 0, "angle should be positive");
 	if (size > 0) {
-		efiAssertVoid(angle > previousAngle, "invalid angle order");
+		if (angle <= previousAngle) {
+			firmwareError("invalid angle order: %f and %f", angle, previousAngle);
+			return;
+		}
 	}
 	previousAngle = angle;
 	if (size == 0) {
@@ -278,20 +281,56 @@ static float addAccordPair(trigger_shape_s *s, float sb) {
 	return sb;
 }
 
+#define DIP 7.5f
+static float addAccordPair3(trigger_shape_s *s, float sb) {
+	sb += DIP;
+	s->addEvent(sb, T_CHANNEL_3, TV_HIGH);
+	sb += DIP;
+	s->addEvent(sb, T_CHANNEL_3, TV_LOW);
+	sb += 2 * DIP;
+	return sb;
+}
+
+/**
+ * Thank you Dip!
+ * http://forum.pgmfi.org/viewtopic.php?f=2&t=15570start=210#p139007
+ */
 void configureHondaAccordCDDip(trigger_shape_s *s) {
 	s->reset(FOUR_STROKE_CAM_SENSOR);
 
-	float sb = 7.5f;
+	s->initialState[T_SECONDARY] = TV_HIGH;
+	float sb = 0;
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
 
-	s->addEvent(360.0f - sb, T_PRIMARY, TV_HIGH);
+	s->addEvent(90, T_SECONDARY, TV_LOW);
+	sb = 90;
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
 
-	s->addEvent(720.0f - 12 * sb, T_SECONDARY, TV_HIGH);
-	s->addEvent(720.0f - sb, T_PRIMARY, TV_LOW);
+	s->addEvent(180, T_SECONDARY, TV_HIGH);
+	sb = 180;
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+
+	s->addEvent(270, T_SECONDARY, TV_LOW);
+
+	s->addEvent(360.0f - DIP, T_PRIMARY, TV_HIGH);
+	s->addEvent(360, T_SECONDARY, TV_HIGH);
+
+	s->addEvent(450, T_SECONDARY, TV_LOW);
+	s->addEvent(540, T_SECONDARY, TV_HIGH);
+
+	s->addEvent(630, T_SECONDARY, TV_LOW);
+	s->addEvent(720.0f - DIP, T_PRIMARY, TV_LOW);
 
 //	s->addEvent(720.0f - 12 * sb, T_SECONDARY, TV_LOW);
 //	s->addEvent(720.0f, T_SECONDARY, TV_LOW);
 
-	s->addEvent(720.0f, T_SECONDARY, TV_LOW);
+	s->addEvent(720.0f, T_SECONDARY, TV_HIGH);
 
 	s->isSynchronizationNeeded = false;
 
