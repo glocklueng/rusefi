@@ -257,6 +257,10 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 		configureHondaAccordCD(triggerShape, true);
 		return;
 
+	case TT_HONDA_ACCORD_CD_DIP:
+		configureHondaAccordCDDip(triggerShape);
+		return;
+
 	case TT_MITSU:
 		initializeMitsubishi4g18(triggerShape);
 		return;

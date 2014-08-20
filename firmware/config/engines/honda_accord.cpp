@@ -193,3 +193,8 @@ void setHondaAccordConfigurationThreeWires(engine_configuration_s *engineConfigu
 	setHondaAccordConfigurationCommon(engineConfiguration, boardConfiguration);
 }
 
+void setHondaAccordConfigurationDip(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
+	engineConfiguration->engineType = HONDA_ACCORD_CD_DIP;
+	engineConfiguration->triggerConfig.triggerType = TT_HONDA_ACCORD_CD_DIP;
+	setHondaAccordConfigurationCommon(engineConfiguration, boardConfiguration);
+}
