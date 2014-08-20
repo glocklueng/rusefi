@@ -125,12 +125,12 @@ typedef enum {
 
 // todo: better names?
 typedef enum {
-	SHAFT_PRIMARY_UP = 0,
-	SHAFT_PRIMARY_DOWN = 1,
-	SHAFT_SECONDARY_UP = 2,
-	SHAFT_SECONDARY_DOWN = 3,
-	SHAFT_3RD_UP = 4,
-	SHAFT_3RD_DOWN = 5,
+	SHAFT_PRIMARY_DOWN = 0,
+	SHAFT_PRIMARY_UP = 1,
+	SHAFT_SECONDARY_DOWN = 2,
+	SHAFT_SECONDARY_UP = 3,
+	SHAFT_3RD_DOWN = 4,
+	SHAFT_3RD_UP = 5,
 } trigger_event_e;
 
 /**
