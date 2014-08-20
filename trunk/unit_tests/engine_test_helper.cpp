@@ -24,7 +24,7 @@ EngineTestHelper::EngineTestHelper(engine_type_e engineType) {
 	initSpeedDensity(ec);
 
 	resetConfigurationExt(NULL, FORD_INLINE_6_1995, ec, &ec2, &persistentConfig.engineConfiguration.bc);
-	ec->mafAdcChannel = TEST_MAF_CHANNEL;
+	ec->mafAdcChannel = (adc_channel_e)TEST_MAF_CHANNEL;
 }
 
 void EngineTestHelper::fireTriggerEvents() {
