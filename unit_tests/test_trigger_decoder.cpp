@@ -468,7 +468,7 @@ void testTriggerDecoder(void) {
 	testTriggerDecoder("testFordEscortGt", FORD_ESCORT_GT, 0);
 	testTriggerDecoder("testAccordCd 3w", HONDA_ACCORD_CD, 12);
 	testTriggerDecoder("testAccordCd 2w", HONDA_ACCORD_CD_TWO_WIRES, 10);
-	testTriggerDecoder("testAccordCdDip", HONDA_ACCORD_CD_DIP, 0);
+	testTriggerDecoder("testAccordCdDip", HONDA_ACCORD_CD_DIP, 27);
 
 	testTriggerDecoder("testMitsu", MITSU_4G93, 3);
 
