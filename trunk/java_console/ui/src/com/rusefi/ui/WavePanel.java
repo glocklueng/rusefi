@@ -47,7 +47,7 @@ public class WavePanel {
     /**
      * this is the panel which displays all {@link UpDownImage} using {@link GridLayout}
      */
-    private final JPanel imagePanel = new JPanel() {
+    private final JPanel imagePanel = new JPanel(new GridLayout(1, 1)) {
         @Override
         public Dimension getPreferredSize() {
             Dimension d = chartPanel.getSize();
@@ -185,7 +185,6 @@ public class WavePanel {
 
         statusPanel.setRevolutions(revolutions);
 
-
         /**
          * First let's create images for new keys
          */
@@ -222,13 +221,13 @@ public class WavePanel {
 
         int index = getInsertIndex(name, images.keySet());
 
-        UpDownImage image = register(name).setTranslator(crank.createTranslator());
+        FileLog.MAIN.logLine("Registering " + name + "@" + index);
+
+        UpDownImage image = createImage(name);
+        images.put(name, image);
+        image.setTranslator(crank.createTranslator());
         image.setZoomProvider(zoomControl.getZoomProvider());
-//        try {
         imagePanel.add(image, index);
-//        } catch (Throwable e) {
-//            System.out.println(e);
-//        }
         imagePanel.setLayout(new GridLayout(images.size(), 1));
     }
 
@@ -250,12 +249,6 @@ public class WavePanel {
         double maf = SensorCentral.getInstance().getValue(Sensor.MAF);
         String fileName = FileLog.getDate() + "rpm_" + rpm + "_maf_" + maf + ".png";
         UiUtils.saveImage(fileName, imagePanel);
-    }
-
-    private UpDownImage register(String name) {
-        UpDownImage image = createImage(name);
-        images.put(name, image);
-        return image;
     }
 
     private UpDownImage createImage(String name) {
