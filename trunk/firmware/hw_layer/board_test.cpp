@@ -31,7 +31,6 @@
 
 static volatile int stepCoutner = 0;
 static volatile brain_pin_e currentPin = GPIO_NONE;
-static volatile int currentIndex = 0;
 
 extern AdcConfiguration slowAdc;
 extern AdcConfiguration fastAdc;
@@ -39,6 +38,30 @@ extern AdcConfiguration fastAdc;
 static bool isTimeForNextStep(int copy) {
 	return copy != stepCoutner;
 }
+
+static void processAdcPin(AdcConfiguration *adc, int index, const char *prefix) {
+	adc_channel_e hwIndex = adc->getAdcHardwareIndexByInternalIndex(index);
+	GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
+	int pin = getAdcChannelPin(hwIndex);
+
+	int copy = stepCoutner;
+
+	int c = 0;
+
+	while (!isTimeForNextStep(copy)) {
+		print("%s ch%d hwIndex=%d %s%d\r\n", prefix, index, hwIndex, portname(port), pin);
+		int adcValue = adc->getAdcValueByIndex(index);
+
+//		print("ADC%d val= %d%s", hwIndex, value, DELIMETER);
+		float volts = adcToVolts(adcValue) * 2;
+		print("v=%f  adc=%d  c=%d (hit 'n'<ENTER> for next step\r\n", volts, adcValue, c++);
+
+		chThdSleepMilliseconds(300);
+
+	}
+}
+
+static volatile int currentIndex = 0;
 
 static void waitForKey(void) {
 	print("Please hit N<ENTER> to continue\r\n");
@@ -110,28 +133,6 @@ void printBoardTestState(void) {
 
 	if (currentPin != GPIO_NONE) {
 		print("Blinking %s\r\n", hwPortname(currentPin));
-	}
-}
-
-static void processAdcPin(AdcConfiguration *adc, int index, const char *prefix) {
-	int hwIndex = adc->getAdcHardwareIndexByInternalIndex(currentIndex);
-	GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
-	int pin = getAdcChannelPin(hwIndex);
-
-	int copy = stepCoutner;
-
-	int c = 0;
-
-	while (!isTimeForNextStep(copy)) {
-		print("%s ch%d hwIndex=%d %s%d\r\n", prefix, currentIndex, hwIndex, portname(port), pin);
-		int adcValue = adc->getAdcValueByIndex(currentIndex);
-
-//		print("ADC%d val= %d%s", hwIndex, value, DELIMETER);
-		float volts = adcToVolts(adcValue) * 2;
-		print("v=%f  adc=%d  c=%d (hit 'n'<ENTER> for next step\r\n", volts, adcValue, c++);
-
-		chThdSleepMilliseconds(300);
-
 	}
 }
 
