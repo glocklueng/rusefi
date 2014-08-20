@@ -26,6 +26,7 @@ AdcConfiguration::AdcConfiguration(ADCConversionGroup* hwConfig) {
 	hwConfig->sqr1 = 0;
 	hwConfig->sqr2 = 0;
 	hwConfig->sqr3 = 0;
+	memset(internalAdcIndexByHardwareIndex, 0xFFFFFFFF, sizeof(internalAdcIndexByHardwareIndex));
 }
 
 #define ADC_GRP1_BUF_DEPTH_FAST      1
@@ -327,7 +328,16 @@ void AdcConfiguration::init(void) {
 	hwConfig->sqr1 += ADC_SQR1_NUM_CH(size());
 }
 
-void AdcConfiguration::addChannel(int hwChannel) {
+bool AdcConfiguration::isHwUsed(adc_channel_e hwChannelIndex) {
+	for (int i = 0; i < channelCount; i++) {
+		if (hardwareIndexByIndernalAdcIndex[i] == hwChannelIndex) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void AdcConfiguration::addChannel(adc_channel_e hwChannel) {
 	int logicChannel = channelCount++;
 
 	internalAdcIndexByHardwareIndex[hwChannel] = logicChannel;
@@ -348,7 +358,7 @@ static void printAdcValue(int channel) {
 	scheduleMsg(&logger, "adc voltage : %f", volts);
 }
 
-int AdcConfiguration::getAdcHardwareIndexByInternalIndex(int index) {
+adc_channel_e AdcConfiguration::getAdcHardwareIndexByInternalIndex(int index) {
 	return hardwareIndexByIndernalAdcIndex[index];
 }
 
@@ -436,9 +446,9 @@ void initAdcInputs(void) {
 		adc_channel_mode_e mode = boardConfiguration->adcHwChannelEnabled[adc];
 
 		if (mode == ADC_SLOW) {
-			slowAdc.addChannel(ADC_CHANNEL_IN0 + adc);
+			slowAdc.addChannel((adc_channel_e)(ADC_CHANNEL_IN0 + adc));
 		} else if (mode == ADC_FAST) {
-			fastAdc.addChannel(ADC_CHANNEL_IN0 + adc);
+			fastAdc.addChannel((adc_channel_e)(ADC_CHANNEL_IN0 + adc));
 		}
 	}
 
