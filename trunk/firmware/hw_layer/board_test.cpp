@@ -42,7 +42,7 @@ static void waitForKey(void) {
 	int copy = stepCoutner;
 	while (!isTimeForNextStep(copy)) {
 		chThdSleepMilliseconds(200);
-        }
+	}
 }
 
 static void nextStep(void) {
