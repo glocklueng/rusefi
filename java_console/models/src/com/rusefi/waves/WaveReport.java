@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * A model of a digital signal represented as a sequence of {@link UpDown}
+ *
  * Date: 6/23/13
  * (c) Andrey Belomutskiy
  *
@@ -25,7 +27,7 @@ public class WaveReport implements TimeAxisTranslator {
     private static final String WC_DOWN = "d";
     private static final String WC_UP = "u";
 
-    List<UpDown> list;
+    private final List<UpDown> list;
     private int maxTime;
     /**
      * min timestamp on this chart, in systicks

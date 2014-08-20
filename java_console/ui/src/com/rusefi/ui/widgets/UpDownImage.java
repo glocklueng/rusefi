@@ -1,6 +1,7 @@
 package com.rusefi.ui.widgets;
 
 import com.irnems.waves.TimeAxisTranslator;
+import com.rusefi.ui.WavePanel;
 import com.rusefi.waves.WaveReport;
 import com.irnems.waves.ZoomProvider;
 import com.rusefi.waves.RevolutionLog;
@@ -11,11 +12,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * This is a renderer of {@link WaveReport} - this makes a simple Logical Analyzer
+ * This is a renderer of an individual {@link WaveReport} - this makes a simple Logical Analyzer
  * <p/>
  * <p/>
  * Date: 6/23/13
  * (c) Andrey Belomutskiy
+ * @see WavePanel
  */
 public class UpDownImage extends JPanel {
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
