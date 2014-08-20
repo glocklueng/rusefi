@@ -2,6 +2,8 @@
  * @file	board_test.cpp
  * @brief	This is a simple board testing utility
  *
+ * By default this is enabled by grounding PB0
+ *
  * @date Mar 12, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
  *
@@ -32,6 +34,7 @@ static volatile brain_pin_e currentPin = GPIO_NONE;
 static volatile int currentIndex = 0;
 
 extern AdcConfiguration slowAdc;
+extern AdcConfiguration fastAdc;
 
 static bool isTimeForNextStep(int copy) {
 	return copy != stepCoutner;
@@ -103,12 +106,33 @@ bool isBoardTestMode(void) {
 void printBoardTestState(void) {
 	print("Current index=%d\r\n", currentIndex);
 	print("'n' for next step and 'set X' to return to step X\r\n");
-	print("ADC count: %d\r\n", slowAdc.size());
+	print("ADC count: slow %d/fast %d\r\n", slowAdc.size(), fastAdc.size());
 
 	if (currentPin != GPIO_NONE) {
 		print("Blinking %s\r\n", hwPortname(currentPin));
 	}
+}
 
+static void processAdcPin(AdcConfiguration *adc, int index, const char *prefix) {
+	int hwIndex = adc->getAdcHardwareIndexByInternalIndex(currentIndex);
+	GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
+	int pin = getAdcChannelPin(hwIndex);
+
+	int copy = stepCoutner;
+
+	int c = 0;
+
+	while (!isTimeForNextStep(copy)) {
+		print("%s ch%d hwIndex=%d %s%d\r\n", prefix, currentIndex, hwIndex, portname(port), pin);
+		int adcValue = adc->getAdcValueByIndex(currentIndex);
+
+//		print("ADC%d val= %d%s", hwIndex, value, DELIMETER);
+		float volts = adcToVolts(adcValue) * 2;
+		print("v=%f  adc=%d  c=%d (hit 'n'<ENTER> for next step\r\n", volts, adcValue, c++);
+
+		chThdSleepMilliseconds(300);
+
+	}
 }
 
 void initBoardTest(void) {
@@ -120,33 +144,15 @@ void initBoardTest(void) {
 
 	// this code is ugly as hell, I had no time to think. Todo: refactor
 
-	int pinsCount = sizeof(BLINK_PINS) / sizeof(brain_pin_e);
-
+	processAdcPin(&fastAdc, 0, "fast");
 	while (currentIndex < slowAdc.size()) {
-		int hwIndex = slowAdc.getAdcHardwareIndexByInternalIndex(currentIndex);
-		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
-		int pin = getAdcChannelPin(hwIndex);
-
-		int copy = stepCoutner;
-
-		int c = 0;
-
-		while (!isTimeForNextStep(copy)) {
-			print("ch%d hwIndex=%d %s%d\r\n", currentIndex, hwIndex, portname(port), pin);
-			int adcValue = slowAdc.getAdcValueByIndex(currentIndex);
-
-//		print("ADC%d val= %d%s", hwIndex, value, DELIMETER);
-			float volts = adcToVolts(adcValue) * 2;
-			print("v=%f  adc=%d  c=%d (hit 'n'<ENTER> for next step\r\n", volts, adcValue, c++);
-
-			chThdSleepMilliseconds(300);
-
-		}
+		processAdcPin(&slowAdc, currentIndex, "slow");
 		currentIndex++;
 	}
 
 	currentIndex = 0;
 
+	int pinsCount = sizeof(BLINK_PINS) / sizeof(brain_pin_e);
 	while (currentIndex < pinsCount) {
 		currentPin = BLINK_PINS[currentIndex];
 

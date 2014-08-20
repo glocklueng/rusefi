@@ -145,7 +145,7 @@ ADC_TwoSamplingDelay_5Cycles,   // cr1
 // Conversion group sequence 1...6
 		};
 
-static AdcConfiguration fastAdc(&adcgrpcfg_fast);
+AdcConfiguration fastAdc(&adcgrpcfg_fast);
 
 static void pwmpcb_slow(PWMDriver *pwmp) {
 #if EFI_INTERNAL_ADC
@@ -407,13 +407,16 @@ static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 //	 intermediate callback when the buffer is half full.*/
 	if (adcp->state == ADC_COMPLETE) {
 		fastAdcValue = getAvgAdcValue(0, samples_fast, ADC_GRP1_BUF_DEPTH_FAST, fastAdc.size());
+
+		fastAdc.values.adc_data[0] = fastAdcValue;
+
 #if EFI_MAP_AVERAGING
 		mapAveragingCallback(fastAdcValue);
 #endif /* EFI_MAP_AVERAGING */
 	}
 }
 
-void initAdcInputs(bool isBoardTestMode) {
+void initAdcInputs(void) {
 
 	initLoggingExt(&logger, "ADC", LOGGING_BUFFER, sizeof(LOGGING_BUFFER));
 	printMsg(&logger, "initAdcInputs()");
@@ -432,7 +435,7 @@ void initAdcInputs(bool isBoardTestMode) {
 	for (int adc = 0; adc < HW_MAX_ADC_INDEX; adc++) {
 		adc_channel_mode_e mode = boardConfiguration->adcHwChannelEnabled[adc];
 
-		if (mode == ADC_SLOW || (isBoardTestMode && mode == ADC_FAST)) {
+		if (mode == ADC_SLOW) {
 			slowAdc.addChannel(ADC_CHANNEL_IN0 + adc);
 		} else if (mode == ADC_FAST) {
 			fastAdc.addChannel(ADC_CHANNEL_IN0 + adc);
@@ -441,13 +444,11 @@ void initAdcInputs(bool isBoardTestMode) {
 
 	slowAdc.init();
 	pwmStart(EFI_INTERNAL_SLOW_ADC_PWM, &pwmcfg_slow);
-	if (!isBoardTestMode) {
-		fastAdc.init();
+	fastAdc.init();
 	/*
 	 * Initializes the PWM driver.
 	 */
 	pwmStart(EFI_INTERNAL_FAST_ADC_PWM, &pwmcfg_fast);
-        }
 
 	// ADC_CHANNEL_IN0 // PA0
 	// ADC_CHANNEL_IN1 // PA1
