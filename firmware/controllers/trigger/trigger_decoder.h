@@ -19,8 +19,8 @@ public:
 	int getTotalRevolutionCounter();
 	uint64_t getTotalEventCounter();
 	uint64_t getStartOfRevolutionIndex();
-	void nextRevolution(int triggerEventCount);
-	void nextTriggerEvent();
+	void nextRevolution(int triggerEventCount, uint64_t nowUs);
+	void nextTriggerEvent(trigger_wheel_e triggerWheel, uint64_t nowUs);
 	void decodeTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, trigger_event_e const signal, uint64_t nowUs);
 
 
@@ -38,9 +38,12 @@ private:
 	 */
 	int current_index;
 	/**
+	 * Number of actual events within current trigger cycle
 	 * see trigger_shape_s
 	 */
 	int eventCount[PWM_PHASE_MAX_WAVE_PER_PWM];
+	uint64_t timeOfPreviousEvent[PWM_PHASE_MAX_WAVE_PER_PWM];
+	int totalTime[PWM_PHASE_MAX_WAVE_PER_PWM];
 	uint64_t totalEventCountBase;
 	int totalRevolutionCounter;
 	bool isFirstEvent;

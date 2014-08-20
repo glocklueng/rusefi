@@ -122,9 +122,11 @@ uint64_t TriggerState::getTotalEventCounter() {
 	return totalEventCountBase + current_index;
 }
 
-void TriggerState::nextRevolution(int triggerEventCount) {
+void TriggerState::nextRevolution(int triggerEventCount, uint64_t nowUs) {
 	current_index = 0;
 	memset(eventCount, 0, sizeof(eventCount));
+	memset(timeOfPreviousEvent, 0, sizeof(timeOfPreviousEvent));
+	memset(totalTime, 0, sizeof(totalTime));
 	totalRevolutionCounter++;
 	totalEventCountBase += triggerEventCount;
 }
@@ -133,7 +135,15 @@ int TriggerState::getTotalRevolutionCounter() {
 	return totalRevolutionCounter;
 }
 
-void TriggerState::nextTriggerEvent() {
+void TriggerState::nextTriggerEvent(trigger_wheel_e triggerWheel, uint64_t nowUs) {
+	uint64_t prevTime = timeOfPreviousEvent[triggerWheel];
+	if (prevTime != 0) {
+		totalTime[triggerWheel] += (nowUs - prevTime);
+		timeOfPreviousEvent[triggerWheel] = 0;
+	} else {
+		timeOfPreviousEvent[triggerWheel] = nowUs;
+	}
+
 	current_index++;
 }
 
