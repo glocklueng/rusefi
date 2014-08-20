@@ -317,14 +317,37 @@ void configureHondaAccordCDDip(trigger_shape_s *s) {
 	sb = addAccordPair3(s, sb);
 
 	s->addEvent(270, T_SECONDARY, TV_LOW);
+	sb = 270;
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+
 
 	s->addEvent(360.0f - DIP, T_PRIMARY, TV_HIGH);
 	s->addEvent(360, T_SECONDARY, TV_HIGH);
+	sb = 360;
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
 
 	s->addEvent(450, T_SECONDARY, TV_LOW);
+	sb = 450;
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+
 	s->addEvent(540, T_SECONDARY, TV_HIGH);
+	sb = 540;
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
 
 	s->addEvent(630, T_SECONDARY, TV_LOW);
+	sb = 630;
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+	sb = addAccordPair3(s, sb);
+
 	s->addEvent(720.0f - DIP, T_PRIMARY, TV_LOW);
 
 //	s->addEvent(720.0f - 12 * sb, T_SECONDARY, TV_LOW);
