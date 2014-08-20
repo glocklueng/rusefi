@@ -17,6 +17,7 @@ public:
 	void init(void);
 	int conversionCount;
 	int errorsCount;
+	int getAdcValueByIndex(int internalIndex);
 
 	adc_state values;
 private:
