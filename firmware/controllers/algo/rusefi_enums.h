@@ -298,6 +298,8 @@ typedef enum {
 	EFI_ADC_13 = 13,
 	EFI_ADC_14 = 14,
 	EFI_ADC_15 = 15,
+
+	Internal_ForceMyEnumIntSize_cranking_adc_channel = ENUM_SIZE_HACK,
 } adc_channel_e;
 
 /**

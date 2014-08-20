@@ -100,12 +100,12 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 	/**
 	 * D14/W10 O2 Sensor
 	 */
-	engineConfiguration->afrSensor.afrAdcChannel = 13;
+	engineConfiguration->afrSensor.afrAdcChannel = EFI_ADC_13;
 
 	/**
 	 * VBatt
 	 */
-	engineConfiguration->vBattAdcChannel = 14;
+	engineConfiguration->vBattAdcChannel = EFI_ADC_14;
 	engineConfiguration->vbattDividerCoeff = ((float) (8.2 + 33)) / 8.2 * 2;
 
 	//	todo engineConfiguration->afrSensor.afrAdcChannel = 14;
@@ -114,23 +114,23 @@ static void setHondaAccordConfigurationCommon(engine_configuration_s *engineConf
 	/**
 	 * MAP D17/W5
 	 */
-	engineConfiguration->map.sensor.hwChannel = 0;
+	engineConfiguration->map.sensor.hwChannel = EFI_ADC_0;
 
 
 	/**
 	 * TPS D11/W11
 	 */
-	engineConfiguration->tpsAdcChannel = 1;
+	engineConfiguration->tpsAdcChannel = EFI_ADC_1;
 
 	/**
 	 * IAT D15/W7
 	 */
-	engineConfiguration->iatAdcChannel = 11;
+	engineConfiguration->iatAdcChannel = EFI_ADC_11;
 
 	/**
 	 * CLT D13/W9
 	 */
-	engineConfiguration->cltAdcChannel = 12;
+	engineConfiguration->cltAdcChannel = EFI_ADC_12;
 
 
 	/**

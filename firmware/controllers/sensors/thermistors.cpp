@@ -161,7 +161,7 @@ float getIntakeAirTemperature(void) {
 	return temperature;
 }
 
-static void initThermistorCurve(Thermistor * t, ThermistorConf *config, int channel) {
+static void initThermistorCurve(Thermistor * t, ThermistorConf *config, adc_channel_e channel) {
 	prepareThermistorCurve(config);
 	t->config = config;
 	t->channel = channel;

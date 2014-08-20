@@ -23,7 +23,7 @@ extern "C"
 
 int getAdcHardwareIndexByInternalIndex(int index);
 void pokeAdcInputs(void);
-int getInternalAdcValue(int index);
+int getInternalAdcValue(adc_channel_e index);
 
 #ifdef __cplusplus
 }

@@ -148,11 +148,11 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	// Frankenstein analog input #12: adc
 
 
-	engineConfiguration->tpsAdcChannel = 3;
-	engineConfiguration->vBattAdcChannel = 0;
-	engineConfiguration->map.sensor.hwChannel = 4;
-	engineConfiguration->mafAdcChannel = 1;
-	engineConfiguration->cltAdcChannel = 11;
+	engineConfiguration->tpsAdcChannel = EFI_ADC_3;
+	engineConfiguration->vBattAdcChannel = EFI_ADC_0;
+	engineConfiguration->map.sensor.hwChannel = EFI_ADC_4;
+	engineConfiguration->mafAdcChannel = EFI_ADC_1;
+	engineConfiguration->cltAdcChannel = EFI_ADC_11;
 //	engineConfiguration->iatAdcChannel =
 
 	engineConfiguration->map.sensor.sensorType = MT_DENSO183;

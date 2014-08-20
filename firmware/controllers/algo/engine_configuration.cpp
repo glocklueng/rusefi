@@ -180,8 +180,8 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 
 	engineConfiguration->analogChartMode = AC_TRIGGER;
 
-	engineConfiguration->map.sensor.hwChannel = 4;
-	engineConfiguration->baroSensor.hwChannel = 4;
+	engineConfiguration->map.sensor.hwChannel = EFI_ADC_4;
+	engineConfiguration->baroSensor.hwChannel = EFI_ADC_4;
 
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
@@ -227,12 +227,12 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->HD44780width = 16;
 	engineConfiguration->HD44780height = 2;
 
-	engineConfiguration->tpsAdcChannel = 3;
-	engineConfiguration->vBattAdcChannel = 5;
-	engineConfiguration->cltAdcChannel = 6;
-	engineConfiguration->iatAdcChannel = 7;
-	engineConfiguration->mafAdcChannel = 0;
-	engineConfiguration->afrSensor.afrAdcChannel = 14;
+	engineConfiguration->tpsAdcChannel = EFI_ADC_3;
+	engineConfiguration->vBattAdcChannel = EFI_ADC_5;
+	engineConfiguration->cltAdcChannel = EFI_ADC_6;
+	engineConfiguration->iatAdcChannel = EFI_ADC_7;
+	engineConfiguration->mafAdcChannel = EFI_ADC_0;
+	engineConfiguration->afrSensor.afrAdcChannel = EFI_ADC_14;
 
 	initBpsxD1Sensor(&engineConfiguration->afrSensor);
 
