@@ -16,18 +16,6 @@
 
 class trigger_shape_s;
 
-typedef enum {
-	TV_LOW = 0,
-	TV_HIGH = 1
-} trigger_value_e;
-
-typedef enum {
-	T_PRIMARY = 0,
-	T_SECONDARY = 1,
-	// todo: I really do not want to call this 'tertiary'. maybe we should rename all of these?
-	T_CHANNEL_3 = 2
-} trigger_wheel_e;
-
 #define TRIGGER_CHANNEL_COUNT 3
 
 class trigger_shape_helper {

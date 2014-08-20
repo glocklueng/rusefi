@@ -109,6 +109,21 @@ typedef enum {
 	Internal_ForceMyEnumIntSize_adc_channel_mode = ENUM_SIZE_HACK,
 } adc_channel_mode_e;
 
+// todo: better names?
+typedef enum {
+	TV_LOW = 0,
+	TV_HIGH = 1
+} trigger_value_e;
+
+// todo: better names?
+typedef enum {
+	T_PRIMARY = 0,
+	T_SECONDARY = 1,
+	// todo: I really do not want to call this 'tertiary'. maybe we should rename all of these?
+	T_CHANNEL_3 = 2
+} trigger_wheel_e;
+
+// todo: better names?
 typedef enum {
 	SHAFT_PRIMARY_UP = 0,
 	SHAFT_PRIMARY_DOWN = 1,
