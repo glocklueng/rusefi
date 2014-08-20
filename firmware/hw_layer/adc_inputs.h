@@ -13,7 +13,7 @@
 #include "adc_math.h"
 
 int getAdcChannelPin(int hwChannel);
-void initAdcInputs(bool isBoardTestMode);
+void initAdcInputs(void);
 GPIO_TypeDef* getAdcChannelPort(int hwChannel);
 
 #ifdef __cplusplus
