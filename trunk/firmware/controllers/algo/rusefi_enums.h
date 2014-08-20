@@ -281,6 +281,25 @@ typedef enum {
 	Internal_ForceMyEnumIntSize_cranking_internal_error = ENUM_SIZE_HACK,
 } internal_error_e;
 
+typedef enum {
+	EFI_ADC_0 = 0,
+	EFI_ADC_1 = 1,
+	EFI_ADC_2 = 2,
+	EFI_ADC_3 = 3,
+	EFI_ADC_4 = 4,
+	EFI_ADC_5 = 5,
+	EFI_ADC_6 = 6,
+	EFI_ADC_7 = 7,
+	EFI_ADC_8 = 8,
+	EFI_ADC_9 = 9,
+	EFI_ADC_10 = 10,
+	EFI_ADC_11 = 11,
+	EFI_ADC_12 = 12,
+	EFI_ADC_13 = 13,
+	EFI_ADC_14 = 14,
+	EFI_ADC_15 = 15,
+} adc_channel_e;
+
 /**
  * Hardware pin. This enum is platform-specific.
  */
