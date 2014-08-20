@@ -285,13 +285,15 @@ void configureHondaAccordCDDip(trigger_shape_s *s) {
 
 	s->addEvent(360.0f - sb, T_PRIMARY, TV_HIGH);
 
-	s->addEvent(720.0f - 12 * sb, T_SECONDARY, TV_LOW);
+	s->addEvent(720.0f - 12 * sb, T_SECONDARY, TV_HIGH);
 	s->addEvent(720.0f - sb, T_PRIMARY, TV_LOW);
 
 //	s->addEvent(720.0f - 12 * sb, T_SECONDARY, TV_LOW);
 //	s->addEvent(720.0f, T_SECONDARY, TV_LOW);
 
 	s->addEvent(720.0f, T_SECONDARY, TV_LOW);
+
+	s->isSynchronizationNeeded = false;
 
 	s->shaftPositionEventCount = s->getSize();
 }
