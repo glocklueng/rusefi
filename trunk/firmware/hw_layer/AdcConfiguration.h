@@ -17,6 +17,8 @@ public:
 	void init(void);
 	int conversionCount;
 	int errorsCount;
+
+	adc_state values;
 private:
 	ADCConversionGroup* hwConfig;
 	/**

@@ -80,8 +80,6 @@ static adcsample_t getAvgAdcValue(int index, adcsample_t *samples, int bufDepth,
 	return result / bufDepth;
 }
 
-static adc_state newState;
-
 static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n);
 static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n);
 
@@ -203,7 +201,7 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 }
 
 int getAdcValueByIndex(int internalIndex) {
-	return newState.adc_data[internalIndex];
+	return slowAdc.values.adc_data[internalIndex];
 }
 
 int getInternalAdcValue(int hwChannel) {
@@ -397,7 +395,7 @@ static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 //		newState.time = chimeNow();
 		for (int i = 0; i < slowAdc.size(); i++) {
 			int value = getAvgAdcValue(i, slowAdcState.samples, ADC_GRP1_BUF_DEPTH_SLOW, slowAdc.size());
-			newState.adc_data[i] = value;
+			slowAdc.values.adc_data[i] = value;
 		}
 	}
 }
