@@ -223,6 +223,8 @@ static void printInfo(systime_t nowSeconds) {
 #if EFI_PROD_CODE
 	printOutPin(WC_CRANK1, boardConfiguration->triggerInputPins[0]);
 	printOutPin(WC_CRANK2, boardConfiguration->triggerInputPins[1]);
+	printOutPin(WA_CHANNEL_1, boardConfiguration->logicAnalyzerPins[0]);
+	printOutPin(WA_CHANNEL_2, boardConfiguration->logicAnalyzerPins[1]);
 
 	for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 		// todo: extract method?

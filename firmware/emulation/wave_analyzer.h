@@ -15,6 +15,9 @@
 #include "wave_analyzer_hw.h"
 #include "wave_chart.h"
 
+#define WA_CHANNEL_1 "input1"
+#define WA_CHANNEL_2 "input2"
+
 typedef struct {
 	WaveReaderHw hw;
 	const char *name;
