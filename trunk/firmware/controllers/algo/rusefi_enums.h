@@ -77,6 +77,8 @@ typedef enum {
 	 */
 	HONDA_ACCORD_CD_TWO_WIRES = 17,
 
+	HONDA_ACCORD_CD_DIP = 18,
+
 	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;
 
@@ -97,6 +99,8 @@ typedef enum {
 	TT_MITSU = 11,
 
 	TT_HONDA_ACCORD_CD_TWO_WIRES = 12,
+
+	TT_HONDA_ACCORD_CD_DIP = 13,
 
 	Internal_ForceMyEnumIntSize_trigger_type = ENUM_SIZE_HACK,
 } trigger_type_e;
