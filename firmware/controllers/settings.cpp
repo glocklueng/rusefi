@@ -160,16 +160,15 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 
 //	appendMsgPrefix(&logger);
 
-	scheduleMsg(&logger, "rpmHardLimit: %d, ", engineConfiguration->rpmHardLimit);
-	scheduleMsg(&logger, "rpmMultiplier=%f", engineConfiguration->rpmMultiplier);
+	scheduleMsg(&logger, "rpmHardLimit: %d/rpmMultiplier=%f", engineConfiguration->rpmHardLimit, engineConfiguration->rpmMultiplier);
 
 	scheduleMsg(&logger, "tpsMin: %d/tpsMax: %d", engineConfiguration->tpsMin, engineConfiguration->tpsMax);
 
-	scheduleMsg(&logger, "ignitionMode: %d, enabled=%d", engineConfiguration->ignitionMode, engineConfiguration->isIgnitionEnabled);
+	scheduleMsg(&logger, "ignitionMode: %d/enabled=%s", engineConfiguration->ignitionMode, boolToString(engineConfiguration->isIgnitionEnabled));
 	scheduleMsg(&logger, "timingMode: %d", engineConfiguration->timingMode);
 	scheduleMsg(&logger, "fixedModeTiming: %d", (int) engineConfiguration->fixedModeTiming);
 	scheduleMsg(&logger, "ignitionOffset=%f", engineConfiguration->ignitionOffset);
-	scheduleMsg(&logger, "injectionOffset=%f, enabled=%d", (double) engineConfiguration->injectionOffset, engineConfiguration->isInjectionEnabled);
+	scheduleMsg(&logger, "injectionOffset=%f/enabled=%s", (double) engineConfiguration->injectionOffset, boolToString(engineConfiguration->isInjectionEnabled));
 
 	scheduleMsg(&logger, "crankingChargeAngle=%f", engineConfiguration->crankingChargeAngle);
 	scheduleMsg(&logger, "crankingTimingAngle=%f", engineConfiguration->crankingTimingAngle);
@@ -662,15 +661,18 @@ void initSettings(void) {
 	addConsoleActionI("set_firing_order", setFiringOrder);
 	addConsoleActionI("set_algorithm", setAlgorithm);
 
+	// todo: refactor this - looks like all boolean flags should be controlled with less code duplication
 	addConsoleAction("enable_injection", enableInjection);
 	addConsoleAction("disable_injection", disableInjection);
 	addConsoleAction("enable_ignition", enableIgnition);
 	addConsoleAction("disable_ignition", disableIgnition);
+	addConsoleAction("enable_self_stimulation", enableSelfStimulation);
+	addConsoleAction("disable_self_stimulation", disableSelfStimulation);
+
+
 	addConsoleActionII("set_toothed_wheel", setToothedWheel);
 	addConsoleActionI("set_trigger_type", setTriggerType);
 
-	addConsoleAction("enable_self_stimulation", enableSelfStimulation);
-	addConsoleAction("disable_self_stimulation", disableSelfStimulation);
 	addConsoleActionSS("set_trigger_input_pin", setTriggerInputPin);
 	addConsoleActionSS("set_logic_input_pin", setLogicInputPin);
 	addConsoleActionSS("set_trigger_simulator_pin", setTriggerSimulatorPin);
