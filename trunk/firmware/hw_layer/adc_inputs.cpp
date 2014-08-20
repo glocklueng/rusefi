@@ -200,16 +200,12 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 #endif
 }
 
-int getAdcValueByIndex(int internalIndex) {
-	return slowAdc.getAdcValueByIndex(internalIndex);
-}
-
 int getInternalAdcValue(int hwChannel) {
 	if (boardConfiguration->adcHwChannelEnabled[hwChannel] == ADC_FAST)
 		return fastAdcValue;
 
 	int internalIndex = slowAdc.internalAdcIndexByHardwareIndex[hwChannel];
-	return getAdcValueByIndex(internalIndex);
+	return slowAdc.getAdcValueByIndex(internalIndex);
 }
 
 static PWMConfig pwmcfg_slow = { PWM_FREQ_SLOW, PWM_PERIOD_SLOW, pwmpcb_slow, { {

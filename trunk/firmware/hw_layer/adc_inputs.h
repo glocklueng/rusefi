@@ -12,23 +12,22 @@
 #include "main.h"
 #include "adc_math.h"
 
+int getAdcChannelPin(int hwChannel);
+void initAdcInputs(bool isBoardTestMode);
+GPIO_TypeDef* getAdcChannelPort(int hwChannel);
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif /* __cplusplus */
 
-GPIO_TypeDef* getAdcChannelPort(int hwChannel);
-int getAdcChannelPin(int hwChannel);
-void initAdcInputs(bool isBoardTestMode);
 int getAdcHardwareIndexByInternalIndex(int index);
-int getAdcValueByIndex(int internalIndex);
 void pokeAdcInputs(void);
 int getInternalAdcValue(int index);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
-
 
 /* Depth of the conversion buffer, channels are sampled X times each.*/
 #define ADC_GRP1_BUF_DEPTH_SLOW      1
