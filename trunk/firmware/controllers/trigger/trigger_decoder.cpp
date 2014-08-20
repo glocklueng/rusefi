@@ -78,7 +78,9 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 		trigger_event_e const signal, uint64_t nowUs) {
 	efiAssertVoid(signal >= 0 && signal <= SHAFT_3RD_DOWN, "unexpected signal");
 
-	eventCount[eventIndex[signal]]++;
+	trigger_wheel_e triggerWheel = eventIndex[signal];
+
+	eventCount[triggerWheel]++;
 
 	int isLessImportant = (triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_UP)
 			|| (!triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_DOWN);
@@ -87,7 +89,7 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 		/**
 		 * For less important events we simply increment the index.
 		 */
-		nextTriggerEvent();
+		nextTriggerEvent(triggerWheel, nowUs);
 		return;
 	}
 
@@ -125,9 +127,12 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 		}
 
 		shaft_is_synchronized = TRUE;
-		nextRevolution(triggerShape->shaftPositionEventCount);
+		// this call would update duty cycle values
+//		nextTriggerEvent(triggerWheel, nowUs);
+
+		nextRevolution(triggerShape->shaftPositionEventCount, nowUs);
 	} else {
-		nextTriggerEvent();
+		nextTriggerEvent(triggerWheel, nowUs);
 	}
 
 	toothed_previous_duration = currentDuration;
