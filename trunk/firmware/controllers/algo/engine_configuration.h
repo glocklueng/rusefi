@@ -77,7 +77,7 @@ typedef enum {
 } can_device_mode_e;
 
 typedef struct {
-	int afrAdcChannel;
+	adc_channel_e afrAdcChannel;
 	float v1;
 	float value1;
 	float v2;
@@ -344,21 +344,21 @@ typedef struct {
 	int HD44780width;
 	int HD44780height;
 
-	int tpsAdcChannel;
+	adc_channel_e tpsAdcChannel;
 	int overrideCrankingIgnition;
 	int analogChartFrequency;
 
 	trigger_config_s triggerConfig;
 
 	int space;
-	int vBattAdcChannel;
+	adc_channel_e vBattAdcChannel;
 
 	float globalFuelCorrection;
 
 	// todo: merge with channel settings, use full-scale Thermistor!
-	int cltAdcChannel;
-	int iatAdcChannel;
-	int mafAdcChannel;
+	adc_channel_e cltAdcChannel;
+	adc_channel_e iatAdcChannel;
+	adc_channel_e mafAdcChannel;
 
 	afr_sensor_s afrSensor;
 

@@ -311,7 +311,7 @@ static void setRpmMultiplier(int value) {
 static char pinNameBuffer[16];
 
 static void printThermistor(const char *msg, Thermistor *thermistor) {
-	int adcChannel = thermistor->channel;
+	adc_channel_e adcChannel = thermistor->channel;
 	float voltage = getVoltageDivided(adcChannel);
 	float r = getResistance(thermistor);
 

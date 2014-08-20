@@ -201,7 +201,7 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 #endif
 }
 
-int getInternalAdcValue(int hwChannel) {
+int getInternalAdcValue(adc_channel_e hwChannel) {
 	if (boardConfiguration->adcHwChannelEnabled[hwChannel] == ADC_FAST)
 		return fastAdcValue;
 
@@ -352,7 +352,7 @@ void AdcConfiguration::addChannel(adc_channel_e hwChannel) {
 	initAdcHwChannel(hwChannel);
 }
 
-static void printAdcValue(int channel) {
+static void printAdcValue(adc_channel_e channel) {
 	int value = getAdcValue(channel);
 	float volts = adcToVoltsDivided(value);
 	scheduleMsg(&logger, "adc voltage : %f", volts);
@@ -368,7 +368,7 @@ static void printFullAdcReport(void) {
 	for (int index = 0; index < slowAdc.size(); index++) {
 		appendMsgPrefix(&logger);
 
-		int hwIndex = slowAdc.getAdcHardwareIndexByInternalIndex(index);
+		adc_channel_e hwIndex = slowAdc.getAdcHardwareIndexByInternalIndex(index);
 		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
 		int pin = getAdcChannelPin(hwIndex);
 
@@ -479,7 +479,7 @@ void initAdcInputs(void) {
 
 	//if(slowAdcChannelCount > ADC_MAX_SLOW_CHANNELS_COUNT) // todo: do we need this logic? do we need this check
 
-	addConsoleActionI("adc", printAdcValue);
+	addConsoleActionI("adc", (VoidInt)printAdcValue);
 	addConsoleAction("fadc", printFullAdcReport);
 #else
 	printMsg(&logger, "ADC disabled");
