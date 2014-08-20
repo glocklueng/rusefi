@@ -43,6 +43,7 @@ static void shaft_icu_width_callback(ICUDriver *icup) {
 		return;
 	}
 	//	icucnt_t last_width = icuGetWidth(icup); so far we are fine with system time
+	// todo: add support for 3rd channel
 	trigger_event_e signal = isPrimary ? SHAFT_PRIMARY_UP : SHAFT_SECONDARY_UP;
 
 	hwHandleShaftSignal(signal);
@@ -54,6 +55,7 @@ static void shaft_icu_period_callback(ICUDriver *icup) {
 		return;
 	}
 
+	// todo: add support for 3rd channel
 	//	icucnt_t last_period = icuGetPeriod(icup); so far we are fine with system time
 	trigger_event_e signal = isPrimary ? SHAFT_PRIMARY_DOWN : SHAFT_SECONDARY_DOWN;
 	hwHandleShaftSignal(signal);
