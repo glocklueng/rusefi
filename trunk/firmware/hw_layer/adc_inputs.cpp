@@ -201,7 +201,7 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 }
 
 int getAdcValueByIndex(int internalIndex) {
-	return slowAdc.values.adc_data[internalIndex];
+	return slowAdc.getAdcValueByIndex(internalIndex);
 }
 
 int getInternalAdcValue(int hwChannel) {
@@ -322,6 +322,10 @@ int AdcConfiguration::size() {
 	return channelCount;
 }
 
+int AdcConfiguration::getAdcValueByIndex(int internalIndex) {
+	return values.adc_data[internalIndex];
+}
+
 void AdcConfiguration::init(void) {
 	hwConfig->num_channels = size();
 	hwConfig->sqr1 += ADC_SQR1_NUM_CH(size());
@@ -362,7 +366,7 @@ static void printFullAdcReport(void) {
 		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
 		int pin = getAdcChannelPin(hwIndex);
 
-		int adcValue = getAdcValueByIndex(index);
+		int adcValue = slowAdc.getAdcValueByIndex(index);
 		appendPrintf(&logger, " ch%d %s%d", index, portname(port), pin);
 		appendPrintf(&logger, " ADC%d 12bit=%d", hwIndex, adcValue);
 		float volts = adcToVolts(adcValue);

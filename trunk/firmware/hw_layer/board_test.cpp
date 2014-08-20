@@ -127,17 +127,13 @@ void initBoardTest(void) {
 		GPIO_TypeDef* port = getAdcChannelPort(hwIndex);
 		int pin = getAdcChannelPin(hwIndex);
 
-		int value = getAdcValueByIndex(currentIndex);
-
 		int copy = stepCoutner;
 
 		int c = 0;
 
 		while (!isTimeForNextStep(copy)) {
-
 			print("ch%d hwIndex=%d %s%d\r\n", currentIndex, hwIndex, portname(port), pin);
-
-			int adcValue = getAdcValueByIndex(currentIndex);
+			int adcValue = slowAdc.getAdcValueByIndex(currentIndex);
 
 //		print("ADC%d val= %d%s", hwIndex, value, DELIMETER);
 			float volts = adcToVolts(adcValue) * 2;
