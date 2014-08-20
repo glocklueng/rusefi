@@ -82,6 +82,8 @@ const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 		return "Honda Accord 3w";
 	case HONDA_ACCORD_CD_TWO_WIRES:
 		return "Honda Accord 2w";
+	case HONDA_ACCORD_CD_DIP:
+		return "Honda Dip";
 	case FORD_INLINE_6_1995:
 		return "Ford 1995 inline 6";
 	case GY6_139QMB:
