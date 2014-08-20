@@ -52,14 +52,14 @@ public class WavePanel {
         public Dimension getPreferredSize() {
             Dimension d = chartPanel.getSize();
             Dimension s = super.getPreferredSize();
-            return new Dimension((int) (d.width * zoomControl.getZoomValue()), s.height);
+            return new Dimension((int) (d.width * zoomControl.getZoomProvider().getZoomValue()), s.height);
         }
     };
 
     JScrollPane pane = new JScrollPane(imagePanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
     private final ZoomControl zoomControl = new ZoomControl();
-    private final ChartStatusPanel statusPanel = new ChartStatusPanel(zoomControl);
+    private final ChartStatusPanel statusPanel = new ChartStatusPanel(zoomControl.getZoomProvider());
     private final UpDownImage crank = createImage(CRANK1);
     private ChartScrollControl scrollControl;
 
@@ -146,7 +146,7 @@ public class WavePanel {
             }
         };
 
-        crank.setZoomProvider(zoomControl);
+        crank.setZoomProvider(zoomControl.getZoomProvider());
         resetImagePanel();
 //        createSecondaryImage("c2");
 //        createSecondaryImage("input1 A8");
@@ -223,7 +223,7 @@ public class WavePanel {
         int index = getInsertIndex(name, images.keySet());
 
         UpDownImage image = register(name).setTranslator(crank.createTranslator());
-        image.setZoomProvider(zoomControl);
+        image.setZoomProvider(zoomControl.getZoomProvider());
 //        try {
         imagePanel.add(image, index);
 //        } catch (Throwable e) {
