@@ -203,7 +203,7 @@ static void initFuelPump(void) {
 	fuelPumpOn(SHAFT_PRIMARY_UP, 0, NULL);
 }
 
-char * getPinNameByAdcChannel(int hwChannel, char *buffer) {
+char * getPinNameByAdcChannel(adc_channel_e hwChannel, char *buffer) {
 	strcpy((char*) buffer, portname(getAdcChannelPort(hwChannel)));
 	itoa10(&buffer[2], getAdcChannelPin(hwChannel));
 	return (char*) buffer;

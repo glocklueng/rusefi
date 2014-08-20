@@ -12,9 +12,10 @@
 #include "main.h"
 #include "adc_math.h"
 
-int getAdcChannelPin(int hwChannel);
+const char * getAdcMode(adc_channel_e hwChannel);
+int getAdcChannelPin(adc_channel_e hwChannel);
 void initAdcInputs(void);
-GPIO_TypeDef* getAdcChannelPort(int hwChannel);
+GPIO_TypeDef* getAdcChannelPort(adc_channel_e hwChannel);
 
 #ifdef __cplusplus
 extern "C"

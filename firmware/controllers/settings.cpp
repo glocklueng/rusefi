@@ -365,10 +365,10 @@ static void printTemperatureInfo(void) {
 	float rIat = getResistance(&engineConfiguration2->iat);
 
 #if EFI_ANALOG_INPUTS
-	int cltChannel = engineConfiguration2->clt.channel;
+	adc_channel_e cltChannel = engineConfiguration2->clt.channel;
 	scheduleMsg(&logger, "CLT R=%f on channel %d@%s", rClt, cltChannel,
 			getPinNameByAdcChannel(cltChannel, pinNameBuffer));
-	int iatChannel = engineConfiguration2->iat.channel;
+	adc_channel_e iatChannel = engineConfiguration2->iat.channel;
 	scheduleMsg(&logger, "IAT R=%f on channel %d@%s", rIat, iatChannel,
 			getPinNameByAdcChannel(iatChannel, pinNameBuffer));
 

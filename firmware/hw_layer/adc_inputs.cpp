@@ -226,7 +226,7 @@ static void initAdcPin(ioportid_t port, int pin, const char *msg) {
 	mySetPadMode("adc input", port, pin, PAL_MODE_INPUT_ANALOG);
 }
 
-GPIO_TypeDef* getAdcChannelPort(int hwChannel) {
+GPIO_TypeDef* getAdcChannelPort(adc_channel_e hwChannel) {
 	// todo: replace this with an array :)
 	switch (hwChannel) {
 	case ADC_CHANNEL_IN0:
@@ -267,7 +267,17 @@ GPIO_TypeDef* getAdcChannelPort(int hwChannel) {
 	}
 }
 
-int getAdcChannelPin(int hwChannel) {
+const char * getAdcMode(adc_channel_e hwChannel) {
+	if (slowAdc.isHwUsed(hwChannel)) {
+		return "slow";
+	}
+	if (fastAdc.isHwUsed(hwChannel)) {
+		return "fast";
+	}
+	return "INACTIVE";
+}
+
+int getAdcChannelPin(adc_channel_e hwChannel) {
 	// todo: replace this with an array :)
 	switch (hwChannel) {
 	case ADC_CHANNEL_IN0:
@@ -308,7 +318,7 @@ int getAdcChannelPin(int hwChannel) {
 	}
 }
 
-static void initAdcHwChannel(int hwChannel) {
+static void initAdcHwChannel(adc_channel_e hwChannel) {
 	GPIO_TypeDef* port = getAdcChannelPort(hwChannel);
 	int pin = getAdcChannelPin(hwChannel);
 
@@ -446,9 +456,9 @@ void initAdcInputs(void) {
 		adc_channel_mode_e mode = boardConfiguration->adcHwChannelEnabled[adc];
 
 		if (mode == ADC_SLOW) {
-			slowAdc.addChannel((adc_channel_e)(ADC_CHANNEL_IN0 + adc));
+			slowAdc.addChannel((adc_channel_e) (ADC_CHANNEL_IN0 + adc));
 		} else if (mode == ADC_FAST) {
-			fastAdc.addChannel((adc_channel_e)(ADC_CHANNEL_IN0 + adc));
+			fastAdc.addChannel((adc_channel_e) (ADC_CHANNEL_IN0 + adc));
 		}
 	}
 
@@ -479,7 +489,7 @@ void initAdcInputs(void) {
 
 	//if(slowAdcChannelCount > ADC_MAX_SLOW_CHANNELS_COUNT) // todo: do we need this logic? do we need this check
 
-	addConsoleActionI("adc", (VoidInt)printAdcValue);
+	addConsoleActionI("adc", (VoidInt) printAdcValue);
 	addConsoleAction("fadc", printFullAdcReport);
 #else
 	printMsg(&logger, "ADC disabled");
