@@ -213,7 +213,8 @@ static char pinNameBuffer[16];
 
 static void printAnalogChannelInfoExt(const char *name, adc_channel_e hwChannel, float adcVoltage) {
 	float voltage = adcVoltage * engineConfiguration->analogInputDividerCoefficient;
-	scheduleMsg(&logger, "%s ADC%d %s rawValue=%f/divided=%fv", name, hwChannel,
+	scheduleMsg(&logger, "%s ADC%d %s %s rawValue=%f/divided=%fv", name, hwChannel,
+			getAdcMode(hwChannel),
 			getPinNameByAdcChannel(hwChannel, pinNameBuffer), adcVoltage, voltage);
 }
 
