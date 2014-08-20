@@ -292,6 +292,8 @@ void configureHondaAccordCDDip(trigger_shape_s *s) {
 //	s->addEvent(720.0f, T_SECONDARY, TV_LOW);
 
 	s->addEvent(720.0f, T_SECONDARY, TV_LOW);
+
+	s->shaftPositionEventCount = s->getSize();
 }
 
 void configureHondaAccordCD(trigger_shape_s *s, bool with3rdSignal) {
