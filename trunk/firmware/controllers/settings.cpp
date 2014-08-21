@@ -541,6 +541,15 @@ static void setAnalogInputPin(const char *sensorStr, const char *pinName) {
 	if (strEqual("map", sensorStr)) {
 		engineConfiguration->map.sensor.hwChannel = channel;
 		scheduleMsg(&logger, "setting MAP to %s/%d", pinName, channel);
+	} else if (strEqual("clt", sensorStr)) {
+		engineConfiguration->cltAdcChannel = channel;
+		scheduleMsg(&logger, "setting CLT to %s/%d", pinName, channel);
+	} else if (strEqual("iat", sensorStr)) {
+		engineConfiguration->iatAdcChannel = channel;
+		scheduleMsg(&logger, "setting IAT to %s/%d", pinName, channel);
+	} else if (strEqual("tps", sensorStr)) {
+		engineConfiguration->tpsAdcChannel = channel;
+		scheduleMsg(&logger, "setting TPS to %s/%d", pinName, channel);
 	}
 }
 
