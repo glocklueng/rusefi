@@ -68,7 +68,7 @@ void configureMazdaProtegeLx(trigger_shape_s *s) {
 	s->reset(FOUR_STROKE_CAM_SENSOR);
 //	s->initialState[0] = 1;
 
-	float w = 720 / 4 * 0.215;
+//	float w = 720 / 4 * 0.215;
 	float a = 5;
 //	s->addEvent(a, T_SECONDARY, TV_LOW);
 //	s->addEvent(a + w, T_SECONDARY, TV_HIGH);
