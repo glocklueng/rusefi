@@ -226,6 +226,45 @@ static void initAdcPin(ioportid_t port, int pin, const char *msg) {
 	mySetPadMode("adc input", port, pin, PAL_MODE_INPUT_ANALOG);
 }
 
+adc_channel_e getAdcChannel(brain_pin_e pin) {
+	switch(pin) {
+	case GPIOA_0:
+		return EFI_ADC_0;
+	case GPIOA_1:
+		return EFI_ADC_1;
+	case GPIOA_2:
+		return EFI_ADC_2;
+	case GPIOA_3:
+		return EFI_ADC_3;
+	case GPIOA_4:
+		return EFI_ADC_4;
+	case GPIOA_5:
+		return EFI_ADC_5;
+	case GPIOA_6:
+		return EFI_ADC_6;
+	case GPIOA_7:
+		return EFI_ADC_7;
+	case GPIOB_0:
+		return EFI_ADC_8;
+	case GPIOB_1:
+		return EFI_ADC_9;
+	case GPIOC_0:
+		return EFI_ADC_10;
+	case GPIOC_1:
+		return EFI_ADC_11;
+	case GPIOC_2:
+		return EFI_ADC_12;
+	case GPIOC_3:
+		return EFI_ADC_13;
+	case GPIOC_4:
+		return EFI_ADC_14;
+	case GPIOC_5:
+		return EFI_ADC_15;
+	default:
+		return EFI_ADC_ERROR;
+	}
+}
+
 GPIO_TypeDef* getAdcChannelPort(adc_channel_e hwChannel) {
 	// todo: replace this with an array :)
 	switch (hwChannel) {

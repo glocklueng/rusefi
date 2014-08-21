@@ -303,6 +303,8 @@ typedef enum {
 	EFI_ADC_14 = 14,
 	EFI_ADC_15 = 15,
 
+	EFI_ADC_ERROR = 999,
+
 	Internal_ForceMyEnumIntSize_cranking_adc_channel = ENUM_SIZE_HACK,
 } adc_channel_e;
 
