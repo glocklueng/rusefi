@@ -85,5 +85,5 @@ char *getWarninig(void) {
 
 void initErrorHandling(void) {
 	initLogging(&logger, "error handling");
-	msObjectInit(&warningStream, warningBuffer, WARNING_BUFFER_SIZE, 0);
+	msObjectInit(&warningStream, (uint8_t *)warningBuffer, WARNING_BUFFER_SIZE, 0);
 }

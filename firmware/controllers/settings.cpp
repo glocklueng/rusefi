@@ -43,12 +43,14 @@ static void doPrintConfiguration(void) {
 	printConfiguration(engineConfiguration, engineConfiguration2);
 }
 
+/*
 static void printIntArray(int array[], int size) {
 	for (int j = 0; j < size; j++) {
 		print("%d ", array[j]);
 	}
 	print("\r\n");
 }
+*/
 
 void printFloatArray(const char *prefix, float array[], int size) {
 	appendMsgPrefix(&logger);
