@@ -26,7 +26,7 @@ public class PortLookupFrame {
         ports.addAll(Arrays.asList(SerialPortList.getPortNames()));
         ports.addAll(TcpConnector.getAvailablePorts());
 
-        final JFrame frame = new JFrame("Serial port selection");
+        final JFrame frame = new JFrame(Launcher.CONSOLE_VERSION + ": Serial port selection");
 
         JPanel content = new JPanel(new BorderLayout());
 
