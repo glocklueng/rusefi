@@ -118,7 +118,7 @@ void initPinRepository(void) {
 	 */
 	initLogging(&logger, "pin repos");
 
-	msObjectInit(&portNameStream, portNameBuffer, sizeof(portNameBuffer), 0);
+	msObjectInit(&portNameStream, (uint8_t*)portNameBuffer, sizeof(portNameBuffer), 0);
 
 	for (int i = 0; i < PIN_REPO_SIZE; i++)
 		PIN_USED[i] = 0;
