@@ -174,6 +174,7 @@ char* getCaption(LoggingPoints loggingPoint) {
 	return NULL;
 }
 
+/*
 // todo: this method does not really belong to this file
 static char* get2ndCaption(int loggingPoint) {
 	switch (loggingPoint) {
@@ -195,6 +196,7 @@ static char* get2ndCaption(int loggingPoint) {
 	firmwareError("No such loggingPoint");
 	return NULL;
 }
+*/
 
 void initLoggingExt(Logging *logging, const char *name, char *buffer, int bufferSize) {
 	print("Init logging %s\r\n", name);

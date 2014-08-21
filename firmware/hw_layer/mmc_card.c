@@ -166,7 +166,7 @@ void appendToLog(char *line) {
 		errorReported = TRUE;
 		return;
 	}
-	int lineLength = strlen(line);
+	UINT lineLength = strlen(line);
 	totalLoggedBytes += lineLength;
 	lockSpi(SPI_NONE);
 	FRESULT err = f_write(&FDLogFile, line, lineLength, &bytesWrited);
