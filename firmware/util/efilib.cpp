@@ -131,7 +131,7 @@ bool isSameF(float v1, float v2) {
 
 // string to float
 float atoff(const char *param) {
-	int totallen = strlen(param);
+	uint32_t totallen = strlen(param);
 	if (totallen > sizeof(todofixthismesswithcopy) - 1)
 		return (float) NAN;
 	strcpy(todofixthismesswithcopy, param);
