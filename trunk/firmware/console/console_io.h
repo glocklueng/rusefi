@@ -32,7 +32,7 @@ extern "C"
 SerialDriver * getConsoleChannel(void);
 
 void consolePutChar(int x);
-void consoleOutputBuffer(const int8_t *buf, int size);
+void consoleOutputBuffer(const uint8_t *buf, int size);
 void startConsole(void (*console_line_callback_p)(char *));
 bool isConsoleReady(void);
 bool isSerialOverUart(void);

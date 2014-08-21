@@ -290,8 +290,8 @@ static void printWithLength(char *line) {
 
 	if (!isConsoleReady())
 		return;
-	consoleOutputBuffer((const int8_t *) header, strlen(header));
-	consoleOutputBuffer((const int8_t *) line, p - line);
+	consoleOutputBuffer((const uint8_t *) header, strlen(header));
+	consoleOutputBuffer((const uint8_t *) line, p - line);
 }
 
 void printLine(Logging *logging) {
