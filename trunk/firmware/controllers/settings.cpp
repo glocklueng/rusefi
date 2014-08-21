@@ -44,13 +44,13 @@ static void doPrintConfiguration(void) {
 }
 
 /*
-static void printIntArray(int array[], int size) {
-	for (int j = 0; j < size; j++) {
-		print("%d ", array[j]);
-	}
-	print("\r\n");
-}
-*/
+ static void printIntArray(int array[], int size) {
+ for (int j = 0; j < size; j++) {
+ print("%d ", array[j]);
+ }
+ print("\r\n");
+ }
+ */
 
 void printFloatArray(const char *prefix, float array[], int size) {
 	appendMsgPrefix(&logger);
@@ -164,15 +164,18 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 
 //	appendMsgPrefix(&logger);
 
-	scheduleMsg(&logger, "rpmHardLimit: %d/rpmMultiplier=%f", engineConfiguration->rpmHardLimit, engineConfiguration->rpmMultiplier);
+	scheduleMsg(&logger, "rpmHardLimit: %d/rpmMultiplier=%f", engineConfiguration->rpmHardLimit,
+			engineConfiguration->rpmMultiplier);
 
 	scheduleMsg(&logger, "tpsMin: %d/tpsMax: %d", engineConfiguration->tpsMin, engineConfiguration->tpsMax);
 
-	scheduleMsg(&logger, "ignitionMode: %d/enabled=%s", engineConfiguration->ignitionMode, boolToString(engineConfiguration->isIgnitionEnabled));
+	scheduleMsg(&logger, "ignitionMode: %d/enabled=%s", engineConfiguration->ignitionMode,
+			boolToString(engineConfiguration->isIgnitionEnabled));
 	scheduleMsg(&logger, "timingMode: %d", engineConfiguration->timingMode);
 	scheduleMsg(&logger, "fixedModeTiming: %d", (int) engineConfiguration->fixedModeTiming);
 	scheduleMsg(&logger, "ignitionOffset=%f", engineConfiguration->ignitionOffset);
-	scheduleMsg(&logger, "injectionOffset=%f/enabled=%s", (double) engineConfiguration->injectionOffset, boolToString(engineConfiguration->isInjectionEnabled));
+	scheduleMsg(&logger, "injectionOffset=%f/enabled=%s", (double) engineConfiguration->injectionOffset,
+			boolToString(engineConfiguration->isInjectionEnabled));
 
 	scheduleMsg(&logger, "crankingChargeAngle=%f", engineConfiguration->crankingChargeAngle);
 	scheduleMsg(&logger, "crankingTimingAngle=%f", engineConfiguration->crankingTimingAngle);
@@ -245,7 +248,7 @@ static void setTimingMode(int value) {
 }
 
 static void setIdleMode(int mode) {
-	engineConfiguration->idleMode = (idle_mode_e)mode;
+	engineConfiguration->idleMode = (idle_mode_e) mode;
 }
 
 void setEngineType(int value) {
@@ -531,6 +534,19 @@ static void setTriggerSimulatorPin(const char *indexStr, const char *pinName) {
 #endif
 }
 
+static void setAnalogInputPin(const char *sensorStr, const char *pinName) {
+	brain_pin_e pin = parseBrainPin(pinName);
+	adc_channel_e channel = getAdcChannel(pin);
+	if (channel == EFI_ADC_ERROR) {
+		scheduleMsg(&logger, "Error with [%s]", pinName);
+		return;
+	}
+	if (strEqual("map", sensorStr)) {
+		engineConfiguration->map.sensor.hwChannel = channel;
+		scheduleMsg(&logger, "setting MAP to %s/%d", pinName, channel);
+	}
+}
+
 static void setLogicInputPin(const char *indexStr, const char *pinName) {
 #if EFI_PROD_CODE
 	int index = atoi(indexStr);
@@ -673,7 +689,6 @@ void initSettings(void) {
 	addConsoleAction("enable_self_stimulation", enableSelfStimulation);
 	addConsoleAction("disable_self_stimulation", disableSelfStimulation);
 
-
 	addConsoleActionII("set_toothed_wheel", setToothedWheel);
 	addConsoleActionI("set_trigger_type", setTriggerType);
 
@@ -681,6 +696,8 @@ void initSettings(void) {
 	addConsoleActionSS("set_logic_input_pin", setLogicInputPin);
 	addConsoleActionSS("set_trigger_simulator_pin", setTriggerSimulatorPin);
 	addConsoleActionSS("set_trigger_simulator_mode", setTriggerSimulatorMode);
+
+	addConsoleActionSS("set_analog_input_pin", setAnalogInputPin);
 
 	addConsoleActionF("set_vbatt_divider", setVBattDivider);
 }
