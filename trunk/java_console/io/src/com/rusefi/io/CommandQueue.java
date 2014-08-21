@@ -20,7 +20,7 @@ import static com.rusefi.io.tcp.TcpConnector.parseIntWithReason;
 @SuppressWarnings("FieldCanBeLocal")
 public class CommandQueue {
     private static final String CONFIRMATION_PREFIX = "confirmation_";
-    private static final int DEFAULT_TIMEOUT = 300;
+    public static final int DEFAULT_TIMEOUT = 300;
     private final Object lock = new Object();
     private String latestConfirmation;
 
