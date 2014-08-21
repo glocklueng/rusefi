@@ -396,7 +396,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 		}
 //		scheduleMsg(&logger, "Got secondByte=%x=[%c]", secondByte, secondByte);
 
-		int incomingPacketSize = firstByte * 256 + secondByte;
+		uint32_t incomingPacketSize = firstByte * 256 + secondByte;
 
 		if (incomingPacketSize == 0 || incomingPacketSize > sizeof(crcIoBuffer)) {
 			scheduleMsg(&logger, "TunerStudio: invalid size: %d", incomingPacketSize);
@@ -434,7 +434,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 		expectedCrc = SWAP_UINT32(expectedCrc);
 
-		int actualCrc = crc32(crcIoBuffer, incomingPacketSize);
+		uint32_t actualCrc = crc32(crcIoBuffer, incomingPacketSize);
 		if (actualCrc != expectedCrc) {
 			scheduleMsg(&logger, "TunerStudio: CRC %x %x %x %x", crcIoBuffer[incomingPacketSize + 0],
 					crcIoBuffer[incomingPacketSize + 1], crcIoBuffer[incomingPacketSize + 2],
