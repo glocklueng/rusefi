@@ -358,13 +358,8 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->digitalPotentiometerChipSelect[3] = GPIO_NONE;
 }
 
-void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
-	/**
-	 * 720 is the range for four stroke
-	 */
-//	engineConfiguration2->crankAngleRange = 720;
-
-}
+//void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {
+//}
 
 void resetConfigurationExt(Logging * logger, engine_type_e engineType, engine_configuration_s *engineConfiguration,
 		engine_configuration2_s *engineConfiguration2, board_configuration_s *boardConfiguration) {

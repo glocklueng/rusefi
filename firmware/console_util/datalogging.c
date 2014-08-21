@@ -63,7 +63,7 @@ static uint8_t intermediateLoggingBufferData[INTERMEDIATE_LOGGING_BUFFER_SIZE] C
 //todo define max-printf-buffer
 static bool intermediateLoggingBufferInited = FALSE;
 
-static int validateBuffer(Logging *logging, int extraLen, const char *text) {
+static int validateBuffer(Logging *logging, uint32_t extraLen, const char *text) {
 	if (logging->buffer == NULL) {
 		firmwareError("Logging not initialized: %s", logging->name);
 		return TRUE;
@@ -84,10 +84,11 @@ static int validateBuffer(Logging *logging, int extraLen, const char *text) {
 
 void append(Logging *logging, const char *text) {
 	efiAssertVoid(text != NULL, "append NULL");
-	int extraLen = strlen(text);
+	uint32_t extraLen = strlen(text);
 	int errcode = validateBuffer(logging, extraLen, text);
-	if (errcode)
+	if (errcode) {
 		return;
+	}
 	strcpy(logging->linePointer, text);
 	logging->linePointer += extraLen;
 }

@@ -99,7 +99,7 @@ void readFromFlash(void) {
 
 	flashRead(FLASH_ADDR, (char *) &persistentState, PERSISTENT_SIZE);
 
-	setDefaultNonPersistentConfiguration(engineConfiguration2);
+	//setDefaultNonPersistentConfiguration(engineConfiguration2);
 
 	if (!isValidCrc(&persistentState) || persistentState.size != PERSISTENT_SIZE) {
 		printMsg(&logger, "Need to reset flash to default");
