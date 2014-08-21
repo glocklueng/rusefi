@@ -332,8 +332,8 @@ static void printThermistor(const char *msg, Thermistor *thermistor) {
 #endif
 }
 
-static void printMAPInfo(void) {
 #if EFI_PROD_CODE
+static void printMAPInfo(void) {
 	scheduleMsg(&logger, "map type=%d raw=%f MAP=%f", engineConfiguration->map.sensor.sensorType, getRawMap(),
 			getMap());
 	if (engineConfiguration->map.sensor.sensorType == MT_CUSTOM) {
@@ -344,8 +344,8 @@ static void printMAPInfo(void) {
 	if (engineConfiguration->baroSensor.sensorType == MT_CUSTOM) {
 		scheduleMsg(&logger, "min=%f max=%f", engineConfiguration->baroSensor.Min, engineConfiguration->baroSensor.Max);
 	}
-#endif
 }
+#endif
 
 static void printTPSInfo(void) {
 #if EFI_PROD_CODE
@@ -509,8 +509,8 @@ static void setTriggerInputPin(const char *indexStr, const char *pinName) {
 #endif
 }
 
-static void setTriggerSimulatorMode(const char *indexStr, const char *modeCode) {
 #if EFI_PROD_CODE
+static void setTriggerSimulatorMode(const char *indexStr, const char *modeCode) {
 	int index = atoi(indexStr);
 	if (index < 0 || index > 2 || absI(index) == ERROR_CODE) {
 		return;
@@ -520,18 +520,15 @@ static void setTriggerSimulatorMode(const char *indexStr, const char *modeCode) 
 		return;
 	}
 	boardConfiguration->triggerSimulatorPinModes[index] = (pin_output_mode_e) mode;
-#endif
 }
 
 static void setTriggerSimulatorPin(const char *indexStr, const char *pinName) {
-#if EFI_PROD_CODE
 	int index = atoi(indexStr);
 	if (index < 0 || index > 2)
 		return;
 	brain_pin_e pin = parseBrainPin(pinName);
 	scheduleMsg(&logger, "setting trigger simulator pin[%d] to %s please save&restart", index, hwPortname(pin));
 	boardConfiguration->triggerSimulatorPins[index] = pin;
-#endif
 }
 
 static void setAnalogInputPin(const char *sensorStr, const char *pinName) {
@@ -548,15 +545,14 @@ static void setAnalogInputPin(const char *sensorStr, const char *pinName) {
 }
 
 static void setLogicInputPin(const char *indexStr, const char *pinName) {
-#if EFI_PROD_CODE
 	int index = atoi(indexStr);
 	if (index < 0 || index > 2)
 		return;
 	brain_pin_e pin = parseBrainPin(pinName);
 	scheduleMsg(&logger, "setting logic input pin[%d] to %s please save&restart", index, hwPortname(pin));
 	boardConfiguration->logicAnalyzerPins[index] = pin;
-#endif
 }
+#endif /* EFI_PROD_CODE */
 
 static void setTimingMap(const char * rpmStr, const char *loadStr, const char *valueStr) {
 	float rpm = atoff(rpmStr);
@@ -623,11 +619,11 @@ extern int waveChartUsedSize;
 static void printAllInfo(void) {
 	printTemperatureInfo();
 	printTPSInfo();
-	printMAPInfo();
 #if EFI_WAVE_CHART
 	scheduleMsg(&logger, "waveChartUsedSize=%d", waveChartUsedSize);
 #endif
 #if EFI_PROD_CODE
+	printMAPInfo();
 	scheduleMsg(&logger, "console mode jumper: %s", boolToString(!GET_CONSOLE_MODE_VALUE()));
 	scheduleMsg(&logger, "board test mode jumper: %s", boolToString(GET_BOARD_TEST_MODE_VALUE()));
 #endif
@@ -639,7 +635,6 @@ void initSettings(void) {
 	addConsoleAction("showconfig", doPrintConfiguration);
 	addConsoleAction("tempinfo", printTemperatureInfo);
 	addConsoleAction("tpsinfo", printTPSInfo);
-	addConsoleAction("mapinfo", printMAPInfo);
 	addConsoleAction("info", printAllInfo);
 
 	addConsoleActionI("set_ignition_offset", setIgnitionOffset);
@@ -693,12 +688,16 @@ void initSettings(void) {
 	addConsoleActionI("set_trigger_type", setTriggerType);
 
 	addConsoleActionSS("set_trigger_input_pin", setTriggerInputPin);
-	addConsoleActionSS("set_logic_input_pin", setLogicInputPin);
+
+	addConsoleActionF("set_vbatt_divider", setVBattDivider);
+
+#if EFI_PROD_CODE
 	addConsoleActionSS("set_trigger_simulator_pin", setTriggerSimulatorPin);
 	addConsoleActionSS("set_trigger_simulator_mode", setTriggerSimulatorMode);
 
+	addConsoleAction("mapinfo", printMAPInfo);
 	addConsoleActionSS("set_analog_input_pin", setAnalogInputPin);
-
-	addConsoleActionF("set_vbatt_divider", setVBattDivider);
+	addConsoleActionSS("set_logic_input_pin", setLogicInputPin);
+#endif /* EFI_PROD_CODE */
 }
 
