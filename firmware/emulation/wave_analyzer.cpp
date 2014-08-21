@@ -76,9 +76,9 @@ static void waIcuPeriodCallback(WaveReader *reader) {
 
 //	dbAdd(&wavePeriodTime, now);
 
-	int period = ckpPeriodUs;  // local copy of volatile variable
+	uint32_t period = ckpPeriodUs;  // local copy of volatile variable
 
-	uint64_t offset = nowUs - previousCrankSignalStart;
+	uint32_t offset = nowUs - previousCrankSignalStart;
 
 	if (offset > period / 2) {
 		/**
