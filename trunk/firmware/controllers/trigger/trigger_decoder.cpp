@@ -44,7 +44,7 @@ int isTriggerDecoderError(void) {
 }
 
 static inline bool isSynchronizationGap(TriggerState const *shaftPositionState, trigger_shape_s const *triggerShape,
-		trigger_config_s const *triggerConfig, const int currentDuration) {
+		const int currentDuration) {
 	if (!triggerShape->isSynchronizationNeeded) {
 		return false;
 	}
@@ -53,8 +53,7 @@ static inline bool isSynchronizationGap(TriggerState const *shaftPositionState, 
 			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerShape->syncRatioTo;
 }
 
-static inline bool noSynchronizationResetNeeded(TriggerState *shaftPositionState, trigger_shape_s const *triggerShape,
-		trigger_config_s const*triggerConfig) {
+static inline bool noSynchronizationResetNeeded(TriggerState *shaftPositionState, trigger_shape_s const *triggerShape) {
 	if (triggerShape->isSynchronizationNeeded) {
 		return false;
 	}
@@ -109,8 +108,8 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 	}
 #endif
 
-	if (noSynchronizationResetNeeded(this, triggerShape, triggerConfig)
-			|| isSynchronizationGap(this, triggerShape, triggerConfig, currentDuration)) {
+	if (noSynchronizationResetNeeded(this, triggerShape)
+			|| isSynchronizationGap(this, triggerShape, currentDuration)) {
 		/**
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
 		 */
