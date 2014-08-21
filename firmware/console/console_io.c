@@ -168,7 +168,7 @@ void consolePutChar(int x) {
 // 10 seconds
 #define CONSOLE_WRITE_TIMEOUT 10000
 
-void consoleOutputBuffer(const int8_t *buf, int size) {
+void consoleOutputBuffer(const uint8_t *buf, int size) {
 	lastWriteSize = size;
 #if !EFI_UART_ECHO_TEST_MODE
 	lastWriteActual = chnWriteTimeout(getConsoleChannel(), buf, size, CONSOLE_WRITE_TIMEOUT);

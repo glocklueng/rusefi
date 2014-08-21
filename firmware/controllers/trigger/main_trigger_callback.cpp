@@ -326,7 +326,6 @@ void MainTriggerCallback::init(Engine *engine, engine_configuration2_s *engineCo
 
 void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfiguration2) {
 	efiAssertVoid(engine!=NULL, "null engine");
-	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 
 	mainTriggerCallbackInstance.init(engine, engineConfiguration2);
 
