@@ -325,7 +325,7 @@ static void showFuelMap(void) {
 
 static THD_WORKING_AREA(lcdThreadStack, UTILITY_THREAD_STACK_SIZE);
 
-static void lcdThread(void *arg) {
+static void lcdThread(void) {
 	chRegSetThreadName("lcd");
 	while (true) {
 #if EFI_HD44780_LCD
