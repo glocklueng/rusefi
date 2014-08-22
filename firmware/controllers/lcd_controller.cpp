@@ -137,6 +137,9 @@ static void prepareCurrentSecondLine(int index) {
 void updateHD44780lcd(void) {
 
 	lcd_HD44780_set_position(0, 9);
+	/**
+	 * this would blink so that we know the LCD is alive
+	 */
 	if (getTimeNowSeconds() % 2 == 0) {
 		lcd_HD44780_print_char('R');
 	} else {
