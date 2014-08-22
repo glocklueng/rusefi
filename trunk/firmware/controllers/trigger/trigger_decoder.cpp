@@ -305,6 +305,18 @@ static void onFindIndex(TriggerState *state) {
 
 }
 
+static int doFindTrigger(TriggerStimulatorHelper *helper, trigger_shape_s * shape, trigger_config_s const*triggerConfig,
+		TriggerState *state) {
+	for (int i = 0; i < 4 * PWM_PHASE_MAX_COUNT; i++) {
+		helper->nextStep(state, shape, i, triggerConfig);
+
+		if (state->shaft_is_synchronized)
+			return i % shape->getSize();;
+	}
+	firmwareError("findTriggerZeroEventIndex() failed");
+	return -1;
+}
+
 /**
  * Trigger shape is defined in a way which is convenient for trigger shape definition
  * On the other hand, trigger decoder indexing begins from synchronization event.
@@ -320,14 +332,11 @@ int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*tr
 
 	TriggerStimulatorHelper helper;
 
-	for (int i = 0; i < 4 * PWM_PHASE_MAX_COUNT; i++) {
-		helper.nextStep(&state, shape, i, triggerConfig);
 
-		if (state.shaft_is_synchronized)
-			return i % shape->getSize();;
-	}
-	firmwareError("findTriggerZeroEventIndex() failed");
-	return -1;
+	int index = doFindTrigger(&helper, shape, triggerConfig, &state);
+
+
+	return index;
 }
 
 void initTriggerDecoder(void) {
