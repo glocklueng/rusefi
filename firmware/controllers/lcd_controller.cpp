@@ -55,7 +55,7 @@ static char * prepareCltIatTpsLine(char *buffer) {
 static const char* algorithmStr[] = { "MAF", "TPS", "MAP", "SD" };
 static const char* ignitionModeStr[] = { "1C", "IND", "WS" };
 static const char* injectionModeStr[] = { "Sim", "Seq", "Bch" };
-static const char* idleModeStr[] = { "I:A", "I:M"};
+static const char* idleModeStr[] = { "I:A", "I:M" };
 
 static const char *getPinShortName(io_pin_e pin) {
 	switch (pin) {
@@ -137,7 +137,11 @@ static void prepareCurrentSecondLine(int index) {
 void updateHD44780lcd(void) {
 
 	lcd_HD44780_set_position(0, 9);
-	lcd_HD44780_print_char('R');
+	if (getTimeNowSeconds() % 2 == 0) {
+		lcd_HD44780_print_char('R');
+	} else {
+		lcd_HD44780_print_char(' ');
+	}
 	lcd_HD44780_set_position(0, 10);
 
 	char * ptr = itoa10(buffer, getRpm());
