@@ -66,8 +66,8 @@ static inline bool noSynchronizationResetNeeded(TriggerState *shaftPositionState
 	return shaftPositionState->getCurrentIndex() >= triggerShape->shaftPositionEventCount - 1;
 }
 
-static trigger_wheel_e eventIndex[6] = {T_PRIMARY, T_PRIMARY, T_SECONDARY, T_SECONDARY, T_CHANNEL_3, T_CHANNEL_3};
-static trigger_value_e eventType[6] = {TV_LOW, TV_HIGH, TV_LOW, TV_HIGH, TV_LOW, TV_HIGH};
+static trigger_wheel_e eventIndex[6] = { T_PRIMARY, T_PRIMARY, T_SECONDARY, T_SECONDARY, T_CHANNEL_3, T_CHANNEL_3 };
+static trigger_value_e eventType[6] = { TV_LOW, TV_HIGH, TV_LOW, TV_HIGH, TV_LOW, TV_HIGH };
 
 /**
  * @brief Trigger decoding happens here
@@ -108,21 +108,20 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 	}
 #endif
 
-	if (noSynchronizationResetNeeded(this, triggerShape)
-			|| isSynchronizationGap(this, triggerShape, currentDuration)) {
+	if (noSynchronizationResetNeeded(this, triggerShape) || isSynchronizationGap(this, triggerShape, currentDuration)) {
 		/**
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
 		 */
-		bool isDecodingError = eventCount[0] != triggerShape->expectedEventCount[0] ||
-				eventCount[1] != triggerShape->expectedEventCount[1] ||
-				eventCount[2] != triggerShape->expectedEventCount[2];
+		bool isDecodingError = eventCount[0] != triggerShape->expectedEventCount[0]
+				|| eventCount[1] != triggerShape->expectedEventCount[1]
+				|| eventCount[2] != triggerShape->expectedEventCount[2];
 
 		errorDetection.add(isDecodingError);
 
 		if (isTriggerDecoderError()) {
 			warning(OBD_PCM_Processor_Fault, "trigger decoding issue. expected %d/%d/%d got %d/%d/%d",
-					triggerShape->expectedEventCount[0], triggerShape->expectedEventCount[1], triggerShape->expectedEventCount[2],
-					eventCount[0], eventCount[1], eventCount[2]);
+					triggerShape->expectedEventCount[0], triggerShape->expectedEventCount[1],
+					triggerShape->expectedEventCount[2], eventCount[0], eventCount[1], eventCount[2]);
 		}
 
 		shaft_is_synchronized = true;
@@ -314,7 +313,7 @@ static int doFindTrigger(TriggerStimulatorHelper *helper, trigger_shape_s * shap
 			return i % shape->getSize();;
 	}
 	firmwareError("findTriggerZeroEventIndex() failed");
-	return -1;
+	return EFI_ERROR_CODE;
 }
 
 /**
@@ -328,12 +327,20 @@ int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*tr
 	TriggerState state;
 	errorDetection.clear();
 
-	state.cycleCallback = onFindIndex;
 
 	TriggerStimulatorHelper helper;
 
-
 	int index = doFindTrigger(&helper, shape, triggerConfig, &state);
+	if (index == EFI_ERROR_CODE) {
+		return index;
+	}
+	/**
+	 * Now that we have just located the synch point, we can simulate the whole cycle
+	 * in order to calculate expected duty cycle
+	 */
+
+
+	state.cycleCallback = onFindIndex;
 
 
 	return index;
