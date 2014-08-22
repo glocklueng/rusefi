@@ -105,6 +105,10 @@ void multi_wave_s::setSwitchTime(int index, float value) {
 }
 
 TriggerState::TriggerState() {
+	shaft_is_synchronized = FALSE;
+	toothed_previous_time = 0;
+	toothed_previous_duration = 0;
+	totalRevolutionCounter = 0;
 	clear();
 	totalEventCountBase = 0;
 	isFirstEvent = true;
@@ -123,10 +127,10 @@ uint64_t TriggerState::getTotalEventCounter() {
 }
 
 void TriggerState::nextRevolution(int triggerEventCount, uint64_t nowUs) {
-	current_index = 0;
-	memset(eventCount, 0, sizeof(eventCount));
-	memset(timeOfPreviousEvent, 0, sizeof(timeOfPreviousEvent));
-	memset(totalTime, 0, sizeof(totalTime));
+	if(cycleCallback!=NULL) {
+		cycleCallback(this);
+	}
+	clear();
 	totalRevolutionCounter++;
 	totalEventCountBase += triggerEventCount;
 }
@@ -148,11 +152,10 @@ void TriggerState::nextTriggerEvent(trigger_wheel_e triggerWheel, uint64_t nowUs
 }
 
 void TriggerState::clear() {
-	shaft_is_synchronized = FALSE;
-	toothed_previous_time = 0;
-	toothed_previous_duration = 0;
+	memset(eventCount, 0, sizeof(eventCount));
+	memset(timeOfPreviousEvent, 0, sizeof(timeOfPreviousEvent));
+	memset(totalTime, 0, sizeof(totalTime));
 	current_index = 0;
-	totalRevolutionCounter = 0;
 }
 
 float trigger_shape_s::getAngle(int index) const {
