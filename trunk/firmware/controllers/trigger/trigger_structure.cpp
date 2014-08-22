@@ -105,6 +105,7 @@ void multi_wave_s::setSwitchTime(int index, float value) {
 }
 
 TriggerState::TriggerState() {
+	cycleCallback = NULL;
 	shaft_is_synchronized = FALSE;
 	toothed_previous_time = 0;
 	toothed_previous_duration = 0;
@@ -127,7 +128,7 @@ uint64_t TriggerState::getTotalEventCounter() {
 }
 
 void TriggerState::nextRevolution(int triggerEventCount, uint64_t nowUs) {
-	if(cycleCallback!=NULL) {
+	if (cycleCallback != NULL) {
 		cycleCallback(this);
 	}
 	clear();
