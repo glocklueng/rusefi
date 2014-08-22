@@ -84,7 +84,7 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, trigger_e
 		 * We are here if there is a time gap between now and previous shaft event - that means the engine is not runnig.
 		 * That means we have lost synchronization since the engine is not running :)
 		 */
-		triggerState.shaft_is_synchronized = FALSE;
+		triggerState.shaft_is_synchronized = false;
 	}
 	previousShaftEventTime = nowUs;
 
