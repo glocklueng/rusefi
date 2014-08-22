@@ -125,7 +125,7 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 					eventCount[0], eventCount[1], eventCount[2]);
 		}
 
-		shaft_is_synchronized = TRUE;
+		shaft_is_synchronized = true;
 		// this call would update duty cycle values
 //		nextTriggerEvent(triggerWheel, nowUs);
 
@@ -301,6 +301,10 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * sh
 	}
 }
 
+static void onFindIndex(TriggerState *state) {
+
+}
+
 /**
  * Trigger shape is defined in a way which is convenient for trigger shape definition
  * On the other hand, trigger decoder indexing begins from synchronization event.
@@ -311,6 +315,8 @@ int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*tr
 
 	TriggerState state;
 	errorDetection.clear();
+
+	state.cycleCallback = onFindIndex;
 
 	TriggerStimulatorHelper helper;
 
