@@ -224,8 +224,8 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 
 	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL_60_2;
 
-	engineConfiguration->HD44780width = 16;
-	engineConfiguration->HD44780height = 2;
+	engineConfiguration->HD44780width = 20;
+	engineConfiguration->HD44780height = 4;
 
 	engineConfiguration->tpsAdcChannel = EFI_ADC_3;
 	engineConfiguration->vBattAdcChannel = EFI_ADC_5;
