@@ -88,6 +88,8 @@ void setMitsubishiConfiguration(engine_configuration_s *engineConfiguration, boa
 	boardConfiguration->ignitionPins[2] = GPIOE_10; // // Frankenstein: high side #2
 	boardConfiguration->ignitionPins[3] = GPIO_NONE;
 
+	engineConfiguration->HD44780width = 20;
+	engineConfiguration->HD44780height = 4;
 }
 
 
