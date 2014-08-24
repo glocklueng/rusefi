@@ -183,7 +183,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 
 //	scheduleMsg(&logger, "analogChartMode: %d", engineConfiguration->analogChartMode);
 
-//	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->crankingSettings.crankingRpm);
+	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->crankingSettings.crankingRpm);
 
 	scheduleMsg(&logger, "idlePinMode: %s", pinModeToString(boardConfiguration->idleValvePinMode));
 	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %s",
@@ -495,6 +495,9 @@ static void setWholeTimingMap(float value) {
 
 static void setWholeFuelMapCmd(float value) {
 	scheduleMsg(&logger, "Setting whole fuel map to %f", value);
+	if (engineConfiguration->algorithm == LM_SPEED_DENSITY) {
+		scheduleMsg(&logger, "WARNING: setting fuel map in SD mode is pointless");
+	}
 	setWholeFuelMap(engineConfiguration, value);
 }
 
