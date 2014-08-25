@@ -34,6 +34,8 @@ public:
 	int totalToothCount;
 	int skippedToothCount;
 
+	int expectedTotalTime[PWM_PHASE_MAX_WAVE_PER_PWM];
+
 	float syncRatioFrom;
 	float syncRatioTo;
 
