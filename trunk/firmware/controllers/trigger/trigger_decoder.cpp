@@ -200,12 +200,11 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 
 	setTriggerSynchronizationGap(triggerShape, 2);
 	triggerShape->useRiseEdge = TRUE;
-	triggerShape->needSecondTriggerInput = TRUE;
 
 	switch (triggerConfig->triggerType) {
 
 	case TT_TOOTHED_WHEEL:
-		engineConfiguration2->triggerShape.needSecondTriggerInput = false;
+		// todo: move to into configuration definition		engineConfiguration2->triggerShape.needSecondTriggerInput = false;
 
 		engineConfiguration2->triggerShape.isSynchronizationNeeded =
 				engineConfiguration->triggerConfig.customIsSynchronizationNeeded;
@@ -304,7 +303,7 @@ static void onFindIndex(TriggerState *state) {
 
 }
 
-static int doFindTrigger(TriggerStimulatorHelper *helper, trigger_shape_s * shape, trigger_config_s const*triggerConfig,
+static uint32_t doFindTrigger(TriggerStimulatorHelper *helper, trigger_shape_s * shape, trigger_config_s const*triggerConfig,
 		TriggerState *state) {
 	for (int i = 0; i < 4 * PWM_PHASE_MAX_COUNT; i++) {
 		helper->nextStep(state, shape, i, triggerConfig);
@@ -322,7 +321,7 @@ static int doFindTrigger(TriggerStimulatorHelper *helper, trigger_shape_s * shap
  *
  * This function finds the index of synchronization event within trigger_shape_s
  */
-int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*triggerConfig) {
+uint32_t findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*triggerConfig) {
 
 	TriggerState state;
 	errorDetection.clear();
@@ -330,7 +329,7 @@ int findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*tr
 
 	TriggerStimulatorHelper helper;
 
-	int index = doFindTrigger(&helper, shape, triggerConfig, &state);
+	uint32_t index = doFindTrigger(&helper, shape, triggerConfig, &state);
 	if (index == EFI_ERROR_CODE) {
 		return index;
 	}

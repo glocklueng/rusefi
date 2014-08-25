@@ -193,7 +193,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
 	scheduleMsg(&logger, "needSecondTriggerInput: %s",
-			boolToString(engineConfiguration2->triggerShape.needSecondTriggerInput));
+			boolToString(engineConfiguration->needSecondTriggerInput));
 
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "idleValvePin: %s", hwPortname(boardConfiguration->idleValvePin));

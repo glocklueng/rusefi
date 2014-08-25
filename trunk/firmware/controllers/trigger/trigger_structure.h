@@ -44,7 +44,6 @@ public:
 	 */
 	int expectedEventCount[PWM_PHASE_MAX_WAVE_PER_PWM];
 
-	bool needSecondTriggerInput;
 	void addEvent(float angle, trigger_wheel_e const waveIndex, trigger_value_e const state);
 	void reset(operation_mode_e operationMode);
 	int getSize() const;

@@ -62,7 +62,7 @@ void initializeMazdaMiataNbShape(trigger_shape_s *s) {
 
 void configureMazdaProtegeLx(trigger_shape_s *s) {
 
-	s->needSecondTriggerInput = FALSE;
+	// todo: move to into configuration definition s->needSecondTriggerInput = FALSE;
 
 
 	s->reset(FOUR_STROKE_CAM_SENSOR);

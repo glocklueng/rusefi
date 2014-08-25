@@ -261,7 +261,7 @@ void setToothedWheelConfiguration(trigger_shape_s *s, int total, int skipped,
 
 	s->totalToothCount = total;
 	s->skippedToothCount = skipped;
-	s->needSecondTriggerInput = false;
+	// todo: move to into configuration definition s->needSecondTriggerInput = false;
 	s->useRiseEdge = true;
 
 	initializeSkippedToothTriggerShapeExt(s, s->totalToothCount, s->skippedToothCount,
