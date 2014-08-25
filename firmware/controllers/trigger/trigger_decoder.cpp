@@ -334,6 +334,8 @@ uint32_t findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s con
 	if (index == EFI_ERROR_CODE) {
 		return index;
 	}
+	efiAssert(state.getTotalRevolutionCounter() == 1, "totalRevolutionCounter", EFI_ERROR_CODE);
+
 	/**
 	 * Now that we have just located the synch point, we can simulate the whole cycle
 	 * in order to calculate expected duty cycle
