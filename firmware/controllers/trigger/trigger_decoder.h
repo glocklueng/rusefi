@@ -36,6 +36,10 @@ public:
 
 	uint64_t toothed_previous_duration;
 	uint64_t toothed_previous_time;
+
+	int totalTime[PWM_PHASE_MAX_WAVE_PER_PWM];
+	int expectedTotalTime[PWM_PHASE_MAX_WAVE_PER_PWM];
+
 private:
 	void clear();
 	/**
@@ -48,7 +52,6 @@ private:
 	 */
 	int eventCount[PWM_PHASE_MAX_WAVE_PER_PWM];
 	uint64_t timeOfPreviousEvent[PWM_PHASE_MAX_WAVE_PER_PWM];
-	int totalTime[PWM_PHASE_MAX_WAVE_PER_PWM];
 	uint64_t totalEventCountBase;
 	int totalRevolutionCounter;
 	bool isFirstEvent;
