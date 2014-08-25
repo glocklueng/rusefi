@@ -143,9 +143,11 @@ int TriggerState::getTotalRevolutionCounter() {
 void TriggerState::nextTriggerEvent(trigger_wheel_e triggerWheel, uint64_t nowUs) {
 	uint64_t prevTime = timeOfPreviousEvent[triggerWheel];
 	if (prevTime != 0) {
+		// even event - apply the value
 		totalTime[triggerWheel] += (nowUs - prevTime);
 		timeOfPreviousEvent[triggerWheel] = 0;
 	} else {
+		// odd event - start accumulation
 		timeOfPreviousEvent[triggerWheel] = nowUs;
 	}
 
