@@ -106,7 +106,7 @@ void multi_wave_s::setSwitchTime(int index, float value) {
 
 TriggerState::TriggerState() {
 	cycleCallback = NULL;
-	shaft_is_synchronized = FALSE;
+	shaft_is_synchronized = false;
 	toothed_previous_time = 0;
 	toothed_previous_duration = 0;
 	totalRevolutionCounter = 0;
