@@ -111,6 +111,7 @@ TriggerState::TriggerState() {
 	toothed_previous_duration = 0;
 	totalRevolutionCounter = 0;
 	clear();
+	memset(expectedTotalTime, 0, sizeof(expectedTotalTime));
 	totalEventCountBase = 0;
 	isFirstEvent = true;
 }
