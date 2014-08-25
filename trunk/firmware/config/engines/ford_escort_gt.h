@@ -14,15 +14,7 @@
 
 #include "engine_configuration.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
-
 void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+void setMiata1990(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
 
 #endif /* FORD_ESCORT_GT_H_ */
