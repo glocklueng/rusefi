@@ -94,7 +94,7 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 
 	int64_t currentDuration = isFirstEvent ? 0 : nowUs - toothed_previous_time;
 	isFirstEvent = false;
-	efiAssertVoid(currentDuration >= 0, "negative duration?");
+	efiAssertVoid(currentDuration >= 0, "decode: negative duration?");
 
 // todo: skip a number of signal from the beginning
 
@@ -300,16 +300,18 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * sh
 }
 
 static void onFindIndex(TriggerState *state) {
-
+	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
+		state->expectedTotalTime[i] = state->totalTime[i];
+	}
 }
 
-static uint32_t doFindTrigger(TriggerStimulatorHelper *helper, trigger_shape_s * shape, trigger_config_s const*triggerConfig,
-		TriggerState *state) {
+static uint32_t doFindTrigger(TriggerStimulatorHelper *helper, trigger_shape_s * shape,
+		trigger_config_s const*triggerConfig, TriggerState *state) {
 	for (int i = 0; i < 4 * PWM_PHASE_MAX_COUNT; i++) {
 		helper->nextStep(state, shape, i, triggerConfig);
 
 		if (state->shaft_is_synchronized)
-			return i % shape->getSize();;
+			return i;
 	}
 	firmwareError("findTriggerZeroEventIndex() failed");
 	return EFI_ERROR_CODE;
@@ -326,7 +328,6 @@ uint32_t findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s con
 	TriggerState state;
 	errorDetection.clear();
 
-
 	TriggerStimulatorHelper helper;
 
 	uint32_t index = doFindTrigger(&helper, shape, triggerConfig, &state);
@@ -338,11 +339,14 @@ uint32_t findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s con
 	 * in order to calculate expected duty cycle
 	 */
 
-
 	state.cycleCallback = onFindIndex;
 
+	for (int i = index; i < index + shape->getLength(); i++) {
+		helper.nextStep(&state, shape, i, triggerConfig);
 
-	return index;
+	}
+
+	return index % shape->getSize();
 }
 
 void initTriggerDecoder(void) {
