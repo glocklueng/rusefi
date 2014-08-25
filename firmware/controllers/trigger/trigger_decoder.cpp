@@ -34,6 +34,9 @@
 static Logging logger;
 #endif
 
+// todo: better name for this constant
+#define HELPER_PERIOD 100000
+
 static cyclic_buffer errorDetection;
 
 /**
@@ -281,7 +284,7 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * sh
 
 	int loopIndex = i / shape->getSize();
 
-	int time = (int) (100000 * (loopIndex + shape->wave.getSwitchTime(stateIndex)));
+	int time = (int) (HELPER_PERIOD * (loopIndex + shape->wave.getSwitchTime(stateIndex)));
 
 	bool newPrimaryWheelState = shape->wave.getChannelState(0, stateIndex);
 	bool newSecondaryWheelState = shape->wave.getChannelState(1, stateIndex);
@@ -348,9 +351,8 @@ uint32_t findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s con
 	efiAssert(state.getTotalRevolutionCounter() > 1, "totalRevolutionCounter2", EFI_ERROR_CODE);
 
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
-		shape->expectedTotalTime[i] = state.expectedTotalTime[i];
+		shape->dutyCycle[i] = 1.0 * state.expectedTotalTime[i] / HELPER_PERIOD;
 	}
-
 
 	return index % shape->getSize();
 }
