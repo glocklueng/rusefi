@@ -145,6 +145,11 @@ void printAllCallbacksHistogram(void) {
 #endif
 }
 
+#if EFI_PROD_CODE
+// todo: eliminate this extern which is needed by 'triggerInfo'
+extern engine_configuration_s *engineConfiguration;
+#endif
+
 static void triggerInfo() {
 #if EFI_PROD_CODE
 	scheduleMsg(&logging, "trigger event counters %d/%d/%d/%d", triggerCentral.getHwEventCounter(0),
