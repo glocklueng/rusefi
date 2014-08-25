@@ -106,6 +106,8 @@ const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 		return "Rover v8";
 	case MITSU_4G93:
 		return "Mitsu 4G93";
+	case MIATA_1990:
+		return "Miata 1990";
 	default:
 		firmwareError("Unexpected: engineType %d", engineConfiguration->engineType);
 		return NULL;
