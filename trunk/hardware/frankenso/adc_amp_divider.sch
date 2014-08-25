@@ -55,8 +55,8 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 3 14
 Title "Frankenso"
-Date "12 aug 2014"
-Rev ".01"
+Date "24 aug 2014"
+Rev ".02"
 Comp "rusEFI.com"
 Comment1 ""
 Comment2 ""
@@ -2895,18 +2895,6 @@ Wire Notes Line
 Text Notes 1600 8150 0    60   ~ 0
 5V
 Wire Notes Line
-	2175 7175 1950 7175
-Wire Notes Line
-	1950 7175 1950 7525
-Wire Notes Line
-	1950 7525 2175 7525
-Wire Notes Line
-	2175 7525 2175 7175
-Wire Notes Line
-	2175 7175 1950 7525
-Wire Notes Line
-	2175 7525 1950 7175
-Wire Notes Line
 	1950 6675 1950 7025
 Wire Notes Line
 	1950 7025 2175 7025
@@ -2918,18 +2906,6 @@ Wire Notes Line
 	1950 6675 2175 7025
 Wire Notes Line
 	2175 6675 1950 7025
-Wire Notes Line
-	1950 8675 2175 8675
-Wire Notes Line
-	2175 8675 2175 9025
-Wire Notes Line
-	2175 9025 1950 9025
-Wire Notes Line
-	1950 9025 1950 8675
-Wire Notes Line
-	1950 8675 2175 9025
-Wire Notes Line
-	1950 9025 2175 8675
 Wire Notes Line
 	1950 8175 1950 8525
 Wire Notes Line

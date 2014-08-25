@@ -55,8 +55,8 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 14
 Title "Frankenso"
-Date "12 aug 2014"
-Rev ".01"
+Date "24 aug 2014"
+Rev ".02"
 Comp "rusEFI.com"
 Comment1 ""
 Comment2 ""
@@ -1200,16 +1200,16 @@ CRK2+
 Text Notes 800  9700 0    60   ~ 0
 That's alternative signal OUTPUT - these traces should be routable to PC6 and PA5 via jumpers. \nAleternative to W212 and W212 routung of op-amps ch 11 and ch 12
 $Sheet
-S 5700 5850 1450 750 
+S 5700 5850 1200 750 
 U 52C39F6D
 F0 "mmc_usb_1" 50
 F1 "mmc_usb_1.sch" 50
-F2 "SPI_MOSI" I R 7150 6200 60 
-F3 "SPI_SCK" I R 7150 6000 60 
-F4 "CS_SD_MODULE" I R 7150 5900 60 
-F5 "USART_RX" I R 7150 6400 60 
-F6 "USART_TX" I R 7150 6500 60 
-F7 "SPI_MISO" I R 7150 6100 60 
+F2 "SPI_MOSI" I R 6900 6200 60 
+F3 "SPI_SCK" I R 6900 6000 60 
+F4 "CS_SD_MODULE" I R 6900 5900 60 
+F5 "USART_RX" I R 6900 6400 60 
+F6 "USART_TX" I R 6900 6500 60 
+F7 "SPI_MISO" I R 6900 6100 60 
 F8 "5V" I L 5700 5900 60 
 F9 "3.3V" I L 5700 6000 60 
 F10 "GND" I L 5700 6100 60 
@@ -1302,18 +1302,18 @@ Text Label 7150 5550 0    60   ~ 0
 SI-2
 Text Label 7150 5450 0    60   ~ 0
 SO-2
-Text Label 7150 5900 0    60   ~ 0
+Text Label 6900 5900 0    60   ~ 0
 CS_SD
-Text Label 7150 6000 0    60   ~ 0
+Text Label 6900 6000 0    60   ~ 0
 SCK
-Text Label 7150 6200 0    60   ~ 0
+Text Label 6900 6200 0    60   ~ 0
 SI
-Text Label 7150 6100 0    60   ~ 0
+Text Label 6900 6100 0    60   ~ 0
 SO
-Text Label 7150 6400 0    60   ~ 0
-USART_RX
-Text Label 7150 6500 0    60   ~ 0
-USART_TX
+Text Label 6900 6400 0    60   ~ 0
+232-FROM-MCU
+Text Label 6900 6500 0    60   ~ 0
+232-TO-MCU
 Text Label 5700 5450 2    60   ~ 0
 KNOCK-INPUT-1
 Text Label 5700 5550 2    60   ~ 0
@@ -1659,17 +1659,17 @@ Wire Wire Line
 Wire Wire Line
 	7150 4850 7750 4850
 Wire Wire Line
-	7150 6400 7750 6400
+	6900 6400 7750 6400
 Wire Wire Line
-	7150 6500 7750 6500
+	6900 6500 7750 6500
 Wire Wire Line
-	7150 5900 7750 5900
+	6900 5900 7750 5900
 Wire Wire Line
-	7150 6000 7750 6000
+	6900 6000 7750 6000
 Wire Wire Line
-	7150 6100 7750 6100
+	6900 6100 7750 6100
 Wire Wire Line
-	7150 6200 7750 6200
+	6900 6200 7750 6200
 Wire Wire Line
 	9000 5700 9600 5700
 Wire Wire Line
@@ -1822,7 +1822,7 @@ F49 "PE0" I R 9000 4750 60
 F50 "PB8" I R 9000 4850 60 
 F51 "BOOT0" I L 7750 9900 60 
 F52 "PB6" I R 9000 7500 60 
-F53 "PB4" I L 7750 6200 60 
+F53 "PB4" I L 7750 6100 60 
 F54 "PD7" I R 9000 4050 60 
 F55 "PD5" I L 7750 9000 60 
 F56 "PD3" I L 7750 8900 60 
@@ -1839,7 +1839,7 @@ F66 "PE3" I R 9000 4250 60
 F67 "PE1" I R 9000 4450 60 
 F68 "PB9" I R 9000 4650 60 
 F69 "PB7" I R 9000 4950 60 
-F70 "PB5" I L 7750 6100 60 
+F70 "PB5" I L 7750 6200 60 
 F71 "PB3" I L 7750 6000 60 
 F72 "PD6" I L 7750 9100 60 
 F73 "PD4" I L 7750 5900 60 
