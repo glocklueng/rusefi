@@ -10,23 +10,17 @@
 #include "ford_escort_gt.h"
 #include "engine_math.h"
 
-void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
-	engineConfiguration->triggerConfig.triggerType = TT_FORD_ESCORT_GT;
+static void common079721_2351(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 
 	engineConfiguration->cylindersCount = 4;
 	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
-	// set_global_trigger_offset_angle 256
-	engineConfiguration->globalTriggerAngleOffset = 256;
-	// set_ignition_offset 170
-	engineConfiguration->ignitionOffset = 170;
-	// set_injection_offset 510
-	engineConfiguration->injectionOffset = 59;
 
-	setSingleCoilDwell(engineConfiguration);
-	engineConfiguration->ignitionMode = IM_ONE_COIL;
+	boardConfiguration->fuelPumpPin = GPIO_NONE; // fuel pump is not controlled by ECU on this engine
 
-	boardConfiguration->triggerSimulatorPinModes[0] = OM_OPENDRAIN;
-	boardConfiguration->triggerSimulatorPinModes[1] = OM_OPENDRAIN;
+	// set_cranking_injection_mode 0
+	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
+	// set_injection_mode 2
+	engineConfiguration->injectionMode = IM_BATCH;
 
 	// Frankenstein analog input #1: adc1
 	// Frankenstein analog input #2: adc3
@@ -43,7 +37,31 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	engineConfiguration->mafAdcChannel = EFI_ADC_1;
 	engineConfiguration->tpsAdcChannel = EFI_ADC_3;
 	engineConfiguration->cltAdcChannel = EFI_ADC_11;
+}
 
+void setMiata1990(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
+	engineConfiguration->triggerConfig.triggerType = TT_FORD_ESCORT_GT;
+
+	common079721_2351(engineConfiguration, boardConfiguration);
+}
+
+void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
+	engineConfiguration->triggerConfig.triggerType = TT_FORD_ESCORT_GT;
+
+	common079721_2351(engineConfiguration, boardConfiguration);
+
+	// set_global_trigger_offset_angle 256
+	engineConfiguration->globalTriggerAngleOffset = 256;
+	// set_ignition_offset 170
+	engineConfiguration->ignitionOffset = 170;
+	// set_injection_offset 510
+	engineConfiguration->injectionOffset = 59;
+
+	setSingleCoilDwell(engineConfiguration);
+	engineConfiguration->ignitionMode = IM_ONE_COIL;
+
+	boardConfiguration->triggerSimulatorPinModes[0] = OM_OPENDRAIN;
+	boardConfiguration->triggerSimulatorPinModes[1] = OM_OPENDRAIN;
 
 	// Frankenstein: high side #1 is PE8
 	// Frankenstein: high side #2 is PE10
@@ -91,13 +109,6 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	// set_cranking_fuel_min 6 -40
 	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 6ms at -40C
 	engineConfiguration->crankingSettings.fuelAtMinTempMs = 6;
-
-	boardConfiguration->fuelPumpPin = GPIO_NONE; // fuel pump is not controlled by ECU on this engine
-
-	// set_cranking_injection_mode 0
-	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
-	// set_injection_mode 2
-	engineConfiguration->injectionMode = IM_BATCH;
 
 }
 
