@@ -301,10 +301,10 @@ static void testTriggerDecoder2(const char *msg, engine_type_e type, int synchPo
 
 	resetConfigurationExt(NULL, type, ec, &ec2, &persistentConfig.engineConfiguration.bc);
 
-	assertEquals(synchPointIndex, ec2.triggerShape.getTriggerShapeSynchPointIndex());
+	assertEqualsM("synchPointIndex", synchPointIndex, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
-	assertEquals(channel1duty, ec2.triggerShape.dutyCycle[0]);
-	assertEquals(channel2duty, ec2.triggerShape.dutyCycle[1]);
+	assertEqualsM("channel1duty", channel1duty, ec2.triggerShape.dutyCycle[0]);
+	assertEqualsM("channel2duty", channel2duty, ec2.triggerShape.dutyCycle[1]);
 }
 
 static void testTriggerDecoder(const char *msg, engine_type_e type, int synchPointIndex) {
@@ -462,7 +462,12 @@ void testTriggerDecoder(void) {
 	assertEquals(ec2.triggerShape.wave.switchTimes[3], 1);
 
 	testDodgeNeonDecoder();
+	testTriggerDecoder2("dodge neon", DODGE_NEON_1995, 8, 0.2708, 0.2070);
+
 	testFordAspire();
+	// lame duty cycle implementation!
+	testTriggerDecoder2("ford aspire", FORD_ASPIRE_1996, 4, 0, 0.3802);
+
 	test1995FordInline6TriggerDecoder();
 	testMazdaMianaNbDecoder();
 	testGY6_139QMB();
@@ -470,9 +475,8 @@ void testTriggerDecoder(void) {
 	testTriggerDecoder("testMiniCooper", MINI_COOPER_R50, 121);
 	testTriggerDecoder("testRoverV8", ROVER_V8, 0);
 	testTriggerDecoder("testCitroen", CITROEN_TU3JP, 0);
-	testTriggerDecoder("testFordEscortGt", FORD_ESCORT_GT, 0);
 	testTriggerDecoder("testAccordCd 3w", HONDA_ACCORD_CD, 12);
-	testTriggerDecoder("testAccordCd 2w", HONDA_ACCORD_CD_TWO_WIRES, 10);
+	testTriggerDecoder2("testAccordCd 2w", HONDA_ACCORD_CD_TWO_WIRES, 10, 0.6109, 0.5);
 //todo?	testTriggerDecoder("testAccordCdDip", HONDA_ACCORD_CD_DIP, 27);
 
 	testTriggerDecoder("testMitsu", MITSU_4G93, 3);
