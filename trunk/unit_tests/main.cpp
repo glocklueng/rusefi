@@ -124,7 +124,7 @@ int main(void) {
 	testFLStack();
 
 	//	resizeMap();
-	printf("Success 20130820\r\n");
+	printf("Success 20130825\r\n");
 	return EXIT_SUCCESS;
 }
 
@@ -133,7 +133,7 @@ int warning(obd_code_e code, const char *fmt, ...) {
 }
 
 bool hasFirmwareError(void) {
-	return FALSE;
+	return false;
 }
 
 void firmwareError(const char *fmt, ...) {
