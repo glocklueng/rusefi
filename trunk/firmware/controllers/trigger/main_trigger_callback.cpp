@@ -100,7 +100,7 @@ static void handleFuel(MainTriggerCallback *mainTriggerCallback, int eventIndex,
 	if (!isInjectionEnabled(mainTriggerCallback->engineConfiguration))
 		return;
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 16, "stack#3");
-	efiAssertVoid(eventIndex < 2 * mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
+	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.getLength(),
 			"event index");
 
 	/**
