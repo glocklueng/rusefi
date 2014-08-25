@@ -147,9 +147,12 @@ void printAllCallbacksHistogram(void) {
 
 static void triggerInfo() {
 #if EFI_PROD_CODE
-	scheduleMsg(&logging, "trigger %d/%d/%d/%d", triggerCentral.getHwEventCounter(0),
+	scheduleMsg(&logging, "trigger event counters %d/%d/%d/%d", triggerCentral.getHwEventCounter(0),
 			triggerCentral.getHwEventCounter(1), triggerCentral.getHwEventCounter(2),
 			triggerCentral.getHwEventCounter(3));
+	scheduleMsg(&logging, "trigger type=%d/need2ndChannel=%d",
+			engineConfiguration->triggerConfig.triggerType,
+			engineConfiguration->needSecondTriggerInput);
 #endif
 }
 
