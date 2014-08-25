@@ -32,7 +32,7 @@ public:
 	/**
 	 * TRUE if we know where we are
 	 */
-	unsigned char shaft_is_synchronized;
+	bool shaft_is_synchronized;
 
 	uint64_t toothed_previous_duration;
 	uint64_t toothed_previous_time;
