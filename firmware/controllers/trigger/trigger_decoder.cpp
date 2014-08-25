@@ -281,7 +281,7 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * sh
 
 	int loopIndex = i / shape->getSize();
 
-	int time = (int) (10000 * (loopIndex + shape->wave.getSwitchTime(stateIndex)));
+	int time = (int) (100000 * (loopIndex + shape->wave.getSwitchTime(stateIndex)));
 
 	bool newPrimaryWheelState = shape->wave.getChannelState(0, stateIndex);
 	bool newSecondaryWheelState = shape->wave.getChannelState(1, stateIndex);
@@ -301,6 +301,7 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * sh
 
 static void onFindIndex(TriggerState *state) {
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
+		// todo: that's not the best place for this intermediate data storage, fix it!
 		state->expectedTotalTime[i] = state->totalTime[i];
 	}
 }
@@ -340,13 +341,16 @@ uint32_t findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s con
 	 * Now that we have just located the synch point, we can simulate the whole cycle
 	 * in order to calculate expected duty cycle
 	 */
-
 	state.cycleCallback = onFindIndex;
-
-	for (int i = index; i < index + shape->getLength(); i++) {
+	for (uint32_t i = index + 1; i <= index + 2 * shape->getSize(); i++) {
 		helper.nextStep(&state, shape, i, triggerConfig);
-
 	}
+	efiAssert(state.getTotalRevolutionCounter() > 1, "totalRevolutionCounter2", EFI_ERROR_CODE);
+
+	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
+		shape->expectedTotalTime[i] = state.expectedTotalTime[i];
+	}
+
 
 	return index % shape->getSize();
 }
