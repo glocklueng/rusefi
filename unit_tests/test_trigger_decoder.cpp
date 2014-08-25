@@ -303,7 +303,7 @@ static void testTriggerDecoder2(const char *msg, engine_type_e type, int synchPo
 
 	assertEquals(synchPointIndex, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
-	assertEquals(47099, ec2.triggerShape.expectedTotalTime[0]);
+	assertTrue(absI(47099 - ec2.triggerShape.expectedTotalTime[0]) < 2);
 	assertEquals(0, ec2.triggerShape.expectedTotalTime[1]);
 }
 
