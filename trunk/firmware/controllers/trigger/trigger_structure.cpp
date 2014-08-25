@@ -159,6 +159,10 @@ void TriggerState::clear() {
 	current_index = 0;
 }
 
+uint32_t trigger_shape_s::getLength() const {
+	return operationMode == FOUR_STROKE_CAM_SENSOR ? shaftPositionEventCount : 2 * shaftPositionEventCount;
+}
+
 float trigger_shape_s::getAngle(int index) const {
 	if (operationMode == FOUR_STROKE_CAM_SENSOR) {
 		return getSwitchAngle(index);
