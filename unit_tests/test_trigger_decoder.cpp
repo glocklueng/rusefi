@@ -309,20 +309,6 @@ static void testTriggerDecoder2(const char *msg, engine_type_e type, int synchPo
 	assertEqualsM("channel2duty", channel2duty, ec2.triggerShape.dutyCycle[1]);
 }
 
-static void testTriggerDecoder(const char *msg, engine_type_e type, int synchPointIndex) {
-	printf("*************************************************** %s\r\n", msg);
-
-	persistent_config_s persistentConfig;
-	engine_configuration_s *ec = &persistentConfig.engineConfiguration;
-	engine_configuration2_s ec2;
-	assertEquals(0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
-
-	initSpeedDensity(ec);
-	resetConfigurationExt(NULL, type, ec, &ec2, &persistentConfig.engineConfiguration.bc);
-
-	assertEquals(synchPointIndex, ec2.triggerShape.getTriggerShapeSynchPointIndex());
-}
-
 void testGY6_139QMB(void) {
 	printf("*************************************************** testGY6_139QMB\r\n");
 
@@ -477,14 +463,14 @@ void testTriggerDecoder(void) {
 	testMazdaMianaNbDecoder();
 	testGY6_139QMB();
 	testTriggerDecoder2("testFordEscortGt", FORD_ESCORT_GT, 0, 0.6280, 0);
-	testTriggerDecoder("testMiniCooper", MINI_COOPER_R50, 121);
-	testTriggerDecoder("testRoverV8", ROVER_V8, 0);
-	testTriggerDecoder("testCitroen", CITROEN_TU3JP, 0);
-	testTriggerDecoder("testAccordCd 3w", HONDA_ACCORD_CD, 12);
+	testTriggerDecoder2("testMiniCooper", MINI_COOPER_R50, 121, 0.5222, 0.4959);
+	testTriggerDecoder2("testRoverV8", ROVER_V8, 0, 0.4861, 0);
+	testTriggerDecoder2("testCitroen", CITROEN_TU3JP, 0, 0.4833, 0);
+	testTriggerDecoder2("testAccordCd 3w", HONDA_ACCORD_CD, 12, 0.8146, 0.5000);
 	testTriggerDecoder2("testAccordCd 2w", HONDA_ACCORD_CD_TWO_WIRES, 10, 0.8146, 0.5);
-//todo?	testTriggerDecoder("testAccordCdDip", HONDA_ACCORD_CD_DIP, 27);
+	testTriggerDecoder2("testAccordCdDip", HONDA_ACCORD_CD_DIP, 27, 0.5000, 0.5000);
 
-	testTriggerDecoder("testMitsu", MITSU_4G93, 3);
+	testTriggerDecoder2("testMitsu", MITSU_4G93, 3, 0.3750, 0.3889);
 
 	testMazda323();
 
