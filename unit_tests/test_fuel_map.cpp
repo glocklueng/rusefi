@@ -46,7 +46,6 @@ void testFuelMap(void) {
 		engineConfiguration->fuelRpmBins[i] = i;
 
 	printf("*************************************************** prepareFuelMap\r\n");
-	prepareFuelMap();
 	assertEquals(1005, getBaseTableFuel(5, 5));
 
 	engineConfiguration->injectorLag = 0.5;
