@@ -357,6 +357,10 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->digitalPotentiometerChipSelect[1] = GPIO_NONE;
 	boardConfiguration->digitalPotentiometerChipSelect[2] = GPIOD_5;
 	boardConfiguration->digitalPotentiometerChipSelect[3] = GPIO_NONE;
+
+	boardConfiguration->is_enabled_spi_1 = false;
+	boardConfiguration->is_enabled_spi_2 = true;
+	boardConfiguration->is_enabled_spi_3 = true;
 }
 
 //void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2) {

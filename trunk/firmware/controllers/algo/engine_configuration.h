@@ -182,7 +182,11 @@ typedef struct {
 	brain_pin_e o2heaterPin;
 	pin_output_mode_e o2heaterPinModeTodO;
 
-	int unused2[8];
+	unsigned int is_enabled_spi_1 : 1;
+	unsigned int is_enabled_spi_2 : 1;
+	unsigned int is_enabled_spi_3 : 1;
+
+	int unused2[7];
 
 
 } board_configuration_s;
