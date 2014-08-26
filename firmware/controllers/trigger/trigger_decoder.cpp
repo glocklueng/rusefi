@@ -129,7 +129,7 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 
 		shaft_is_synchronized = true;
 		// this call would update duty cycle values
-//		nextTriggerEvent(triggerWheel, nowUs);
+		nextTriggerEvent(triggerWheel, nowUs);
 
 		nextRevolution(triggerShape->shaftPositionEventCount, nowUs);
 	} else {

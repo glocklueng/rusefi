@@ -126,7 +126,7 @@ int main(void) {
 	testFLStack();
 
 	//	resizeMap();
-	printf("Success 20130825\r\n");
+	printf("Success 20130826\r\n");
 	return EXIT_SUCCESS;
 }
 
