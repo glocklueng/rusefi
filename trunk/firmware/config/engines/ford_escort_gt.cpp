@@ -43,6 +43,44 @@ void setMiata1990(engine_configuration_s *engineConfiguration, board_configurati
 	engineConfiguration->triggerConfig.triggerType = TT_FORD_ESCORT_GT;
 
 	common079721_2351(engineConfiguration, boardConfiguration);
+
+
+	// Frankenstein: high side #1 is PE8
+	// Frankenstein: high side #2 is PE10
+	// Frankenstein: high side #3 is PE12
+	// Frankenstein: high side #4 is PE14
+	// Frankenstein: high side #5 is PC9
+	// Frankenstein: high side #6 is PC7
+
+	boardConfiguration->ignitionPins[0] = GPIOE_12; // Frankenstein: high side #3
+	boardConfiguration->ignitionPins[1] = GPIOE_14; // Frankenstein: high side #4
+	boardConfiguration->ignitionPins[2] = GPIO_NONE;
+	boardConfiguration->ignitionPins[3] = GPIO_NONE;
+	boardConfiguration->ignitionPinMode = OM_DEFAULT;
+
+	// Frankenstein: low side - inj #1: PC14
+	// Frankenstein: low side - inj #2: PC15
+	// Frankenstein: low side - inj #3: PE6
+	// Frankenstein: low side - inj #4: PC13
+	// Frankenstein: low side - inj #5: PE4
+	// Frankenstein: low side - inj #6: PE5
+	// Frankenstein: low side - inj #7: PE2
+	// Frankenstein: low side - inj #8: PE3
+	// Frankenstein: low side - inj #9: PE0
+	// Frankenstein: low side - inj #10: PE1
+	// Frankenstein: low side - inj #11: PB8
+	// Frankenstein: low side - inj #12: PB9
+
+	boardConfiguration->injectionPins[0] = GPIOB_9; // Frankenstein: low side - inj #12
+	boardConfiguration->injectionPins[1] = GPIOB_8; // Frankenstein: low side - inj #11
+	boardConfiguration->injectionPins[2] = GPIO_NONE;
+	boardConfiguration->injectionPins[3] = GPIO_NONE;
+	boardConfiguration->injectionPins[4] = GPIO_NONE;
+	boardConfiguration->injectionPins[5] = GPIO_NONE;
+	boardConfiguration->injectionPinMode = OM_DEFAULT;
+
+
+// todo: idleValvePin
 }
 
 void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
@@ -75,28 +113,6 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	boardConfiguration->ignitionPins[2] = GPIO_NONE;
 	boardConfiguration->ignitionPins[3] = GPIO_NONE;
 	boardConfiguration->ignitionPinMode = OM_DEFAULT;
-
-
-	// Frankenstein: low side - inj #1: PC14
-	// Frankenstein: low side - inj #2: PC15
-	// Frankenstein: low side - inj #3: PE6
-	// Frankenstein: low side - inj #4: PC13
-	// Frankenstein: low side - inj #5: PE4
-	// Frankenstein: low side - inj #6: PE5
-	// Frankenstein: low side - inj #7: PE2
-	// Frankenstein: low side - inj #8: PE3
-	// Frankenstein: low side - inj #9: PE0
-	// Frankenstein: low side - inj #10: PE1
-	// Frankenstein: low side - inj #11: PB8
-	// Frankenstein: low side - inj #12: PB9
-
-	boardConfiguration->injectionPins[0] = GPIOB_9; // Frankenstein: low side - inj #12
-	boardConfiguration->injectionPins[1] = GPIOB_8; // Frankenstein: low side - inj #11
-	boardConfiguration->injectionPins[2] = GPIO_NONE;
-	boardConfiguration->injectionPins[3] = GPIO_NONE;
-	boardConfiguration->injectionPins[4] = GPIO_NONE;
-	boardConfiguration->injectionPins[5] = GPIO_NONE;
-	boardConfiguration->injectionPinMode = OM_DEFAULT;
 
 	// set_whole_fuel_map 3
 	setWholeFuelMap(engineConfiguration, 3);
