@@ -9,6 +9,7 @@
 #include "test_trigger_decoder.h"
 #include "trigger_decoder.h"
 #include "engine_math.h"
+#include "thermistors.h"
 
 #include "ford_aspire.h"
 #include "dodge_neon.h"
@@ -299,6 +300,7 @@ static void testTriggerDecoder2(const char *msg, engine_type_e type, int synchPo
 	engine_configuration2_s ec2;
 	assertEquals(0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
+	initSpeedDensity(ec);
 	resetConfigurationExt(NULL, type, ec, &ec2, &persistentConfig.engineConfiguration.bc);
 
 	assertEqualsM("synchPointIndex", synchPointIndex, ec2.triggerShape.getTriggerShapeSynchPointIndex());
@@ -315,6 +317,7 @@ static void testTriggerDecoder(const char *msg, engine_type_e type, int synchPoi
 	engine_configuration2_s ec2;
 	assertEquals(0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
+	initSpeedDensity(ec);
 	resetConfigurationExt(NULL, type, ec, &ec2, &persistentConfig.engineConfiguration.bc);
 
 	assertEquals(synchPointIndex, ec2.triggerShape.getTriggerShapeSynchPointIndex());
@@ -350,6 +353,8 @@ extern EventQueue schedulingQueue;
 
 static void testRpmCalculator(void) {
 	printf("*************************************************** testRpmCalculator\r\n");
+
+	initThermistors();
 
 	EngineTestHelper eth(FORD_INLINE_6_1995);
 
