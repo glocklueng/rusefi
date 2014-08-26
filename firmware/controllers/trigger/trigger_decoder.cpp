@@ -276,6 +276,7 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 TriggerStimulatorHelper::TriggerStimulatorHelper() {
 	primaryWheelState = false;
 	secondaryWheelState = false;
+	thirdWheelState = false;
 }
 
 void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * shape, int i,
@@ -288,6 +289,7 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * sh
 
 	bool newPrimaryWheelState = shape->wave.getChannelState(0, stateIndex);
 	bool newSecondaryWheelState = shape->wave.getChannelState(1, stateIndex);
+	bool new3rdWheelState = shape->wave.getChannelState(2, stateIndex);
 
 	if (primaryWheelState != newPrimaryWheelState) {
 		primaryWheelState = newPrimaryWheelState;
@@ -298,6 +300,12 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * sh
 	if (secondaryWheelState != newSecondaryWheelState) {
 		secondaryWheelState = newSecondaryWheelState;
 		trigger_event_e s = secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN;
+		state->decodeTriggerEvent(shape, triggerConfig, s, time);
+	}
+
+	if (thirdWheelState != new3rdWheelState) {
+		thirdWheelState = new3rdWheelState;
+		trigger_event_e s = thirdWheelState ? SHAFT_3RD_UP : SHAFT_3RD_DOWN;
 		state->decodeTriggerEvent(shape, triggerConfig, s, time);
 	}
 }
