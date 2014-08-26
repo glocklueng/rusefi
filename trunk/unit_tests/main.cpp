@@ -20,6 +20,7 @@
 #include "test_speed_density.h"
 
 #include "test_fuel_map.h"
+#include "fuel_math.h"
 
 extern "C"
 {
@@ -95,6 +96,7 @@ int main(void) {
 	testFindIndex();
 	testInterpolate2d();
 	testGpsParser();
+	prepareFuelMap();
 	testFuelMap();
 	testEngineMath();
 	testEventRegistry();
