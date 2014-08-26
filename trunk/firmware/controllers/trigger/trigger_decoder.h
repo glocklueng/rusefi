@@ -64,6 +64,7 @@ public:
 private:
 	bool primaryWheelState;
 	bool secondaryWheelState;
+	bool thirdWheelState;
 };
 
 void initializeSkippedToothTriggerShapeExt(trigger_shape_s *s, int totalTeethCount, int skippedCount, operation_mode_e operationMode);
