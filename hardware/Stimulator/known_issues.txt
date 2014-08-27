@@ -1,4 +1,5 @@
 1) silkscreen font is really small
 2) TODO: add breakout holes for all unused pins to simplify CS routing
-3) TODO: add 'Power' LED
+3) TODO: add 'Power' LED - for stimulator board power
 4) add two MAX232 chips (four VR stimulation channels)
+5) secondary power LED - this one would display the status of external +5 power source
