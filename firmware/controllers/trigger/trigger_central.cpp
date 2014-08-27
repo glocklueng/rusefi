@@ -148,6 +148,7 @@ void printAllCallbacksHistogram(void) {
 #if EFI_PROD_CODE
 // todo: eliminate this extern which is needed by 'triggerInfo'
 extern engine_configuration_s *engineConfiguration;
+extern engine_configuration2_s * engineConfiguration2;
 #endif
 
 static void triggerInfo() {
@@ -158,6 +159,8 @@ static void triggerInfo() {
 	scheduleMsg(&logging, "trigger type=%d/need2ndChannel=%d",
 			engineConfiguration->triggerConfig.triggerType,
 			engineConfiguration->needSecondTriggerInput);
+	scheduleMsg(&logging, "expected duty #0=%f/#1=%f", engineConfiguration2->triggerShape.dutyCycle[0],
+			engineConfiguration2->triggerShape.dutyCycle[1]);
 #endif
 }
 
