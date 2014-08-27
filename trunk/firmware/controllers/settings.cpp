@@ -108,6 +108,10 @@ const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 		return "Mitsu 4G93";
 	case MIATA_1990:
 		return "Miata 1990";
+	case MIATA_1994:
+		return "Miata 1994";
+	case MIATA_1996:
+		return "Miata 1996";
 	default:
 		firmwareError("Unexpected: engineType %d", engineConfiguration->engineType);
 		return NULL;

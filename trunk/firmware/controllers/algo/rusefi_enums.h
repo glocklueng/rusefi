@@ -80,6 +80,8 @@ typedef enum {
 	HONDA_ACCORD_CD_DIP = 18,
 
 	MIATA_1990 = 19,
+	MIATA_1994 = 20,
+	MIATA_1996 = 21,
 
 	Internal_ForceMyEnumIntSize_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;
