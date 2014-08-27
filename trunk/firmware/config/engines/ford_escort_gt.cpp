@@ -10,6 +10,19 @@
 #include "ford_escort_gt.h"
 #include "engine_math.h"
 
+static void setDefaultCrankingFuel(engine_configuration_s *engineConfiguration) {
+	// todo: set cranking parameters method based on injectors and displacement?
+
+	// since CLT is not wired up yet let's just use same value for min and max
+	// set_cranking_fuel_max 6 40
+	engineConfiguration->crankingSettings.coolantTempMaxC = 37.7; // 6ms at 37.7C
+	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 6;
+
+	// set_cranking_fuel_min 6 -40
+	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 6ms at -40C
+	engineConfiguration->crankingSettings.fuelAtMinTempMs = 6;
+}
+
 static void common079721_2351(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 
 	engineConfiguration->cylindersCount = 4;
@@ -117,16 +130,17 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	// set_whole_fuel_map 3
 	setWholeFuelMap(engineConfiguration, 3);
 
-	// since CLT is not wired up yet let's just use same value for min and max
-	// set_cranking_fuel_max 6 40
-	engineConfiguration->crankingSettings.coolantTempMaxC = 37.7; // 6ms at 37.7C
-	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 6;
-
-	// set_cranking_fuel_min 6 -40
-	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 6ms at -40C
-	engineConfiguration->crankingSettings.fuelAtMinTempMs = 6;
-
+	setDefaultCrankingFuel(engineConfiguration);
 }
 
+void setMiata1994(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
+	engineConfiguration->displacement = 1.839;
 
+	setDefaultCrankingFuel(engineConfiguration);
+}
+
+void setMiata1996(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
+
+	setDefaultCrankingFuel(engineConfiguration);
+}
 

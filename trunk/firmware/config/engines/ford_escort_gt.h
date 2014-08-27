@@ -15,6 +15,9 @@
 #include "engine_configuration.h"
 
 void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
+// todo: maybe it's time to rename this file to Miata NA? Miata? Mazda?
 void setMiata1990(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
+void setMiata1994(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
+void setMiata1996(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration);
 
 #endif /* FORD_ESCORT_GT_H_ */
