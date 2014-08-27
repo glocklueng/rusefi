@@ -234,6 +234,10 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 		scheduleMsg(&logger, "digitalPotentiometer CS%d %s", i,
 				hwPortname(boardConfiguration->digitalPotentiometerChipSelect[i]));
 	}
+
+	scheduleMsg(&logger, "spi 1=%s/2=%s/3=%s", boolToString(boardConfiguration->is_enabled_spi_1),
+			boolToString(boardConfiguration->is_enabled_spi_2), boolToString(boardConfiguration->is_enabled_spi_3));
+
 #endif /* EFI_PROD_CODE */
 }
 
@@ -596,6 +600,32 @@ static void setFuelMap(const char * rpmStr, const char *loadStr, const char *val
 	scheduleMsg(&logger, "Setting fuel map entry %d:%d to %f", rpmIndex, loadIndex, value);
 }
 
+static void setSpiMode(int index, bool mode) {
+	switch(index) {
+	case 1:
+		boardConfiguration->is_enabled_spi_1 = mode;
+		break;
+	case 2:
+		boardConfiguration->is_enabled_spi_2 = mode;
+		break;
+	case 3:
+		boardConfiguration->is_enabled_spi_3 = mode;
+		break;
+	default:
+		scheduleMsg(&logger, "invalid spi index %d", index);
+		return;
+	}
+	scheduleMsg(&logger, "spi %d mode: %s", index, boolToString(mode));
+}
+
+static void enableSpi(int index) {
+	setSpiMode(index, true);
+}
+
+static void disableSpi(int index) {
+	setSpiMode(index, false);
+}
+
 static void enableInjection(void) {
 	engineConfiguration->isInjectionEnabled = true;
 	scheduleMsg(&logger, "injection enabled");
@@ -697,6 +727,9 @@ void initSettings(void) {
 	addConsoleAction("disable_ignition", disableIgnition);
 	addConsoleAction("enable_self_stimulation", enableSelfStimulation);
 	addConsoleAction("disable_self_stimulation", disableSelfStimulation);
+
+	addConsoleActionI("enable_spi", enableSpi);
+	addConsoleActionI("disable_spi", disableSpi);
 
 	addConsoleActionII("set_toothed_wheel", setToothedWheel);
 	addConsoleActionI("set_trigger_type", setTriggerType);
