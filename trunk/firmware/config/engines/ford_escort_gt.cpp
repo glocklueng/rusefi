@@ -133,8 +133,25 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	setDefaultCrankingFuel(engineConfiguration);
 }
 
+/**
+ * set_engine_type 20
+ */
 void setMiata1994(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
+	engineConfiguration->triggerConfig.triggerType = TT_MITSU;
 	engineConfiguration->displacement = 1.839;
+
+	boardConfiguration->triggerSimulatorPins[0] = GPIOD_2; // 2G - YEL/BLU
+	boardConfiguration->triggerSimulatorPins[1] = GPIOB_3; // 2E - WHT - four times
+	boardConfiguration->triggerSimulatorPinModes[0] = OM_OPENDRAIN;
+	boardConfiguration->triggerSimulatorPinModes[1] = OM_OPENDRAIN;
+
+	boardConfiguration->triggerInputPins[0] = GPIO_NONE;
+	boardConfiguration->triggerInputPins[1] = GPIO_NONE;
+	boardConfiguration->triggerInputPins[2] = GPIO_NONE;
+
+	boardConfiguration->is_enabled_spi_1 = false;
+	boardConfiguration->is_enabled_spi_2 = false;
+	boardConfiguration->is_enabled_spi_3 = false;
 
 	setDefaultCrankingFuel(engineConfiguration);
 }
