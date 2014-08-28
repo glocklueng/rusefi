@@ -69,6 +69,12 @@ static inline bool noSynchronizationResetNeeded(TriggerState *shaftPositionState
 	return shaftPositionState->getCurrentIndex() >= triggerShape->shaftPositionEventCount - 1;
 }
 
+float TriggerState::getTriggerDutyCycle(int index) {
+	float time = prevTotalTime[index];
+
+	return time / prevCycleDuration;
+}
+
 static trigger_wheel_e eventIndex[6] = { T_PRIMARY, T_PRIMARY, T_SECONDARY, T_SECONDARY, T_CHANNEL_3, T_CHANNEL_3 };
 static trigger_value_e eventType[6] = { TV_LOW, TV_HIGH, TV_LOW, TV_HIGH, TV_LOW, TV_HIGH };
 

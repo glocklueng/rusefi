@@ -27,6 +27,7 @@ public:
 	void nextTriggerEvent(trigger_wheel_e triggerWheel, uint64_t nowUs);
 	void decodeTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig, trigger_event_e const signal, uint64_t nowUs);
 
+	float getTriggerDutyCycle(int index);
 	TriggerStateCallback cycleCallback;
 
 	/**
@@ -37,7 +38,14 @@ public:
 	uint64_t toothed_previous_duration;
 	uint64_t toothed_previous_time;
 
+	/**
+	 * Here we accumulate the amount of time this signal was ON within current trigger cycle
+	 */
 	int totalTime[PWM_PHASE_MAX_WAVE_PER_PWM];
+	/**
+	 * Total time result for previous trigger cycle
+	 */
+	int prevTotalTime[PWM_PHASE_MAX_WAVE_PER_PWM];
 	int expectedTotalTime[PWM_PHASE_MAX_WAVE_PER_PWM];
 
 private:
@@ -55,6 +63,8 @@ private:
 	uint64_t totalEventCountBase;
 	int totalRevolutionCounter;
 	bool isFirstEvent;
+	uint64_t prevCycleDuration;
+	uint64_t startOfCycle;
 };
 
 class TriggerStimulatorHelper {
