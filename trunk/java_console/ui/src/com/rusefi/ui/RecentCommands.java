@@ -36,6 +36,7 @@ public class RecentCommands {
             }
         });
 
+        add("help");
         add("showconfig");
         add("writeconfig");
         add("enable_injection");
