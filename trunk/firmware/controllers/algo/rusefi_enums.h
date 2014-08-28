@@ -312,6 +312,16 @@ typedef enum {
 	Internal_ForceMyEnumIntSize_cranking_adc_channel = ENUM_SIZE_HACK,
 } adc_channel_e;
 
+
+typedef struct {
+	ES_BPSX_D1 = 0,
+	ES_Innovate_MTX_L = 1,
+
+	Internal_ForceMyEnumIntSize_ego_sensor = ENUM_SIZE_HACK,
+} ego_sensor_e;
+
+
+
 /**
  * Hardware pin. This enum is platform-specific.
  */
