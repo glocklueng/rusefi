@@ -145,14 +145,14 @@ void printAllCallbacksHistogram(void) {
 #endif
 }
 
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 // todo: eliminate this extern which is needed by 'triggerInfo'
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s * engineConfiguration2;
 #endif
 
 static void triggerInfo() {
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	scheduleMsg(&logging, "trigger event counters %d/%d/%d/%d", triggerCentral.getHwEventCounter(0),
 			triggerCentral.getHwEventCounter(1), triggerCentral.getHwEventCounter(2),
 			triggerCentral.getHwEventCounter(3));
@@ -164,8 +164,12 @@ static void triggerInfo() {
 #endif
 }
 
+float getTriggerDutyCycle(int index) {
+	return triggerCentral.triggerState.getTriggerDutyCycle(index);
+}
+
 void initTriggerCentral(void) {
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	initLogging(&logging, "ShaftPosition");
 	addConsoleAction("triggerinfo", triggerInfo);
 #endif

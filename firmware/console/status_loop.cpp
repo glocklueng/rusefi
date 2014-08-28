@@ -137,6 +137,9 @@ void printSensors(void) {
 	reportSensorF("vref", getVRef(), 2);
 	reportSensorF("vbatt", getVBatt(), 2);
 
+	reportSensorF("TRG_0_DUTY", getTriggerDutyCycle(0), 2);
+	reportSensorF("TRG_1_DUTY", getTriggerDutyCycle(1), 2);
+
 	reportSensorF(getCaption(LP_THROTTLE), getTPS(), 2);
 
 	if (engineConfiguration->hasCltSensor) {

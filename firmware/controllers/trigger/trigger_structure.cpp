@@ -132,6 +132,9 @@ void TriggerState::nextRevolution(int triggerEventCount, uint64_t nowUs) {
 	if (cycleCallback != NULL) {
 		cycleCallback(this);
 	}
+	memcpy(prevTotalTime, totalTime, sizeof(prevTotalTime));
+	prevCycleDuration = nowUs - startOfCycle;
+	startOfCycle = nowUs;
 	clear();
 	totalRevolutionCounter++;
 	totalEventCountBase += triggerEventCount;
