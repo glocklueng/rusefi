@@ -435,6 +435,12 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType, engine_co
 	case MIATA_1990:
 		setMiata1990(engineConfiguration, boardConfiguration);
 		break;
+	case MIATA_1994:
+		setMiata1994(engineConfiguration, boardConfiguration);
+		break;
+	case MIATA_1996:
+		setMiata1996(engineConfiguration, boardConfiguration);
+		break;
 	case CITROEN_TU3JP:
 		setCitroenBerlingoTU3JPConfiguration(engineConfiguration, boardConfiguration);
 		break;
