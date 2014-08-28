@@ -55,7 +55,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 8 14
 Title "Frankenso"
-Date "24 aug 2014"
+Date "27 aug 2014"
 Rev ".02"
 Comp "rusEFI.com"
 Comment1 ""
@@ -83,13 +83,7 @@ Connection ~ 12600 1925
 Connection ~ 12250 2925
 Wire Wire Line
 	12250 2925 12250 2825
-Wire Wire Line
-	12750 2925 12750 2525
 Connection ~ 12600 1425
-Wire Wire Line
-	12100 1425 12750 1425
-Wire Wire Line
-	12750 1425 12750 1825
 Wire Wire Line
 	11600 2925 11500 2925
 Wire Wire Line
@@ -101,13 +95,9 @@ Connection ~ 12750 2325
 Connection ~ 12750 2225
 Wire Wire Line
 	12750 2125 12750 2350
-Wire Wire Line
-	12100 1925 12750 1925
 Connection ~ 12250 1925
 Wire Wire Line
 	14800 2125 14250 2125
-Wire Wire Line
-	12100 2425 12750 2425
 Wire Wire Line
 	14250 2025 14250 2050
 Wire Wire Line
@@ -117,8 +107,6 @@ Wire Wire Line
 Wire Wire Line
 	12250 1425 12250 1525
 Connection ~ 12250 1425
-Wire Wire Line
-	12100 2925 12750 2925
 Connection ~ 12600 2925
 Wire Wire Line
 	14250 1825 14250 1850
@@ -158,7 +146,7 @@ F 3 "" H 11850 1425 60  0001 C CNN
 F 4 "STACKPOLE,RNCP0805FTD4K99" V 880 2900 60  0001 C CNN "mfg,mfg#"
 F 5 "digi,RNCP0805FTD4K99CT-ND" V 880 2900 60  0001 C CNN "vend1,vend1#"
 	1    11850 1425
-	0    -1   1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L R R102
@@ -171,7 +159,7 @@ F 3 "" H 11250 1425 60  0001 C CNN
 F 4 "STACKPOLE,RNCP0805FTD4K99" V 880 2900 60  0001 C CNN "mfg,mfg#"
 F 5 "digi,RNCP0805FTD4K99CT-ND" V 880 2900 60  0001 C CNN "vend1,vend1#"
 	1    11250 1425
-	0    -1   1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L R R103
@@ -184,7 +172,7 @@ F 3 "" H 11250 1925 60  0001 C CNN
 F 4 "STACKPOLE,RNCP0805FTD4K99" V 880 2900 60  0001 C CNN "mfg,mfg#"
 F 5 "digi,RNCP0805FTD4K99CT-ND" V 880 2900 60  0001 C CNN "vend1,vend1#"
 	1    11250 1925
-	0    -1   1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L R R108
@@ -197,7 +185,7 @@ F 3 "" H 11850 1925 60  0001 C CNN
 F 4 "STACKPOLE,RNCP0805FTD4K99" V 880 2900 60  0001 C CNN "mfg,mfg#"
 F 5 "digi,RNCP0805FTD4K99CT-ND" V 880 2900 60  0001 C CNN "vend1,vend1#"
 	1    11850 1925
-	0    -1   1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L R R106
@@ -414,13 +402,13 @@ Wire Wire Line
 Wire Wire Line
 	14350 2325 14350 1825
 Connection ~ 14350 1825
-Text HLabel 11000 2925 0    60   Input ~ 0
-CAM+
 Text HLabel 11000 2425 0    60   Input ~ 0
+CAM+
+Text HLabel 11000 2925 0    60   Input ~ 0
 CAM-
-Text HLabel 11000 1925 0    60   Input ~ 0
-CRK2-
 Text HLabel 11000 1425 0    60   Input ~ 0
+CRK2-
+Text HLabel 11000 1925 0    60   Input ~ 0
 CRK2+
 Text HLabel 14250 2525 2    60   Input ~ 0
 GND
@@ -437,9 +425,9 @@ Wire Wire Line
 	11425 1225 11400 1225
 Wire Wire Line
 	11000 2925 11000 2725
-Text Label 11925 1225 0    60   ~ 0
+Text Label 11925 1225 3    60   ~ 0
 5V
-Text Label 11925 2725 0    60   ~ 0
+Text Label 11925 2725 3    60   ~ 0
 5V
 $Comp
 L TEST W1003
@@ -495,4 +483,80 @@ F 5 "DIGI,CRCW0805100KFKEA" V 1130 2600 60  0001 C CNN "vend1,vend1#"
 $EndComp
 Wire Wire Line
 	11000 1425 11000 1225
+$Comp
+L R R801
+U 1 1 53FD4D54
+P 11675 1125
+F 0 "R801" V 11755 1125 50  0000 C CNN
+F 1 "0R" V 11675 1125 50  0000 C CNN
+F 2 "SM0805" V 1130 2500 60  0001 C CNN
+F 3 "" H 11675 1125 60  0001 C CNN
+F 4 "-,-" V 1130 2500 60  0001 C CNN "mfg,mfg#"
+F 5 "-,-" V 1130 2500 60  0001 C CNN "vend1,vend1#"
+	1    11675 1125
+	0    1    -1   0   
+$EndComp
+$Comp
+L GND #PWR0100
+U 1 1 53FD4D89
+P 11925 1125
+F 0 "#PWR0100" H 11925 1125 30  0001 C CNN
+F 1 "GND" H 11925 1055 30  0001 C CNN
+F 2 "" H 11925 1125 60  0001 C CNN
+F 3 "" H 11925 1125 60  0001 C CNN
+	1    11925 1125
+	-1   0    0    -1  
+$EndComp
+$Comp
+L R R802
+U 1 1 53FD4DD7
+P 11675 2625
+F 0 "R802" V 11755 2625 50  0000 C CNN
+F 1 "0R" V 11675 2625 50  0000 C CNN
+F 2 "SM0805" V 1130 4000 60  0001 C CNN
+F 3 "" H 11675 2625 60  0001 C CNN
+F 4 "-,-" V 1130 4000 60  0001 C CNN "mfg,mfg#"
+F 5 "-,-" V 1130 4000 60  0001 C CNN "vend1,vend1#"
+	1    11675 2625
+	0    1    -1   0   
+$EndComp
+$Comp
+L GND #PWR0101
+U 1 1 53FD4DDD
+P 11925 2625
+F 0 "#PWR0101" H 11925 2625 30  0001 C CNN
+F 1 "GND" H 11925 2555 30  0001 C CNN
+F 2 "" H 11925 2625 60  0001 C CNN
+F 3 "" H 11925 2625 60  0001 C CNN
+	1    11925 2625
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	11425 2725 11425 2625
+Wire Wire Line
+	11425 1125 11425 1225
+Wire Wire Line
+	12100 1925 12675 1925
+Wire Wire Line
+	12750 1825 12675 1825
+Wire Wire Line
+	12675 1825 12675 1925
+Wire Wire Line
+	12750 1925 12725 1925
+Wire Wire Line
+	12725 1925 12725 1425
+Wire Wire Line
+	12725 1425 12100 1425
+Wire Wire Line
+	12100 2925 12725 2925
+Wire Wire Line
+	12100 2425 12675 2425
+Wire Wire Line
+	12750 2425 12725 2425
+Wire Wire Line
+	12725 2425 12725 2925
+Wire Wire Line
+	12750 2525 12675 2525
+Wire Wire Line
+	12675 2525 12675 2425
 $EndSCHEMATC
