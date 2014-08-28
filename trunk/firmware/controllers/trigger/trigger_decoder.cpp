@@ -72,7 +72,7 @@ static inline bool noSynchronizationResetNeeded(TriggerState *shaftPositionState
 float TriggerState::getTriggerDutyCycle(int index) {
 	float time = prevTotalTime[index];
 
-	return time / prevCycleDuration;
+	return 100 * time / prevCycleDuration;
 }
 
 static trigger_wheel_e eventIndex[6] = { T_PRIMARY, T_PRIMARY, T_SECONDARY, T_SECONDARY, T_CHANNEL_3, T_CHANNEL_3 };
