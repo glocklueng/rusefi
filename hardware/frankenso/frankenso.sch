@@ -55,7 +55,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 14
 Title "Frankenso"
-Date "24 aug 2014"
+Date "27 aug 2014"
 Rev ".02"
 Comp "rusEFI.com"
 Comment1 ""
@@ -1189,13 +1189,13 @@ Text Label 650  10050 0    60   ~ 0
 CRANK
 Text Label 1550 10050 0    60   ~ 0
 CAM
-Text Label 8000 1600 3    60   ~ 0
-CAM+
 Text Label 7900 1600 3    60   ~ 0
+CAM+
+Text Label 8000 1600 3    60   ~ 0
 CAM-
-Text Label 7700 1600 3    60   ~ 0
-CRK2-
 Text Label 7800 1600 3    60   ~ 0
+CRK2-
+Text Label 7700 1600 3    60   ~ 0
 CRK2+
 Text Notes 800  9700 0    60   ~ 0
 That's alternative signal OUTPUT - these traces should be routable to PC6 and PA5 via jumpers. \nAleternative to W212 and W212 routung of op-amps ch 11 and ch 12
