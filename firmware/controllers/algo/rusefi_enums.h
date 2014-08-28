@@ -313,7 +313,7 @@ typedef enum {
 } adc_channel_e;
 
 
-typedef struct {
+typedef enum {
 	ES_BPSX_D1 = 0,
 	ES_Innovate_MTX_L = 1,
 
