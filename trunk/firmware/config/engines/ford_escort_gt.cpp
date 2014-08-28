@@ -147,7 +147,6 @@ void setMiata1994(engine_configuration_s *engineConfiguration, board_configurati
 
 	boardConfiguration->triggerInputPins[0] = GPIO_NONE;
 	boardConfiguration->triggerInputPins[1] = GPIO_NONE;
-	boardConfiguration->triggerInputPins[2] = GPIO_NONE;
 
 	boardConfiguration->is_enabled_spi_1 = false;
 	boardConfiguration->is_enabled_spi_2 = false;
