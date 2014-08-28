@@ -70,16 +70,6 @@ void setConstantDwell(engine_configuration_s *engineConfiguration, float dwellMs
 	}
 }
 
-void initBpsxD1Sensor(afr_sensor_s *sensor) {
-	/**
-	 * This decodes BPSX D1 Wideband Controller analog signal
-	 */
-	sensor->v1 = 0;
-	sensor->value1 = 9;
-	sensor->v2 = 5;
-	sensor->value2 = 19;
-}
-
 void setWholeVEMap(engine_configuration_s *engineConfiguration, float value) {
 	// todo: table helper?
 //	for (int l = 0; l < VE_LOAD_COUNT; l++) {
@@ -235,7 +225,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->mafAdcChannel = EFI_ADC_0;
 	engineConfiguration->afrSensor.afrAdcChannel = EFI_ADC_14;
 
-	initBpsxD1Sensor(&engineConfiguration->afrSensor);
+	initEgoSensor(&engineConfiguration->afrSensor, ES_BPSX_D1);
 
 	engineConfiguration->globalFuelCorrection = 1;
 
