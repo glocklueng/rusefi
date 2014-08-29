@@ -218,6 +218,10 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s *engineConfi
 				triggerConfig->customSkippedToothCount, getOperationMode(engineConfiguration));
 		return;
 
+	case TT_MAZDA_MIATA_NA:
+		initializeMazdaMiataNaShape(triggerShape);
+		return;
+
 	case TT_MAZDA_MIATA_NB:
 		initializeMazdaMiataNbShape(triggerShape);
 		return;
