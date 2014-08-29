@@ -20,6 +20,25 @@
 
 #include "trigger_mazda.h"
 
+void initializeMazdaMiataNaShape(trigger_shape_s *s) {
+	s->reset(FOUR_STROKE_CAM_SENSOR);
+	setTriggerSynchronizationGap(s, 1.68f);
+	float z = 0.093;
+	s->useRiseEdge = false;
+
+	s->isSynchronizationNeeded = true;
+
+	s->addEvent(360.0f - 2 * z * 720, T_PRIMARY, TV_HIGH);
+	s->addEvent(360.0f - z * 720, T_PRIMARY, TV_LOW);
+
+
+	s->addEvent(720.0f - 2 * z * 720, T_PRIMARY, TV_HIGH);
+	s->addEvent(720.0f, T_PRIMARY, TV_LOW);
+
+	s->shaftPositionEventCount = s->getSize();
+
+}
+
 void initializeMazdaMiataNbShape(trigger_shape_s *s) {
 	setTriggerSynchronizationGap(s, 0.11f);
 	s->useRiseEdge = false;
