@@ -56,7 +56,6 @@
 
 static LocalVersionHolder localVersion;
 
-extern Engine engine;
 
 static MainTriggerCallback mainTriggerCallbackInstance;
 
@@ -96,7 +95,7 @@ static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, A
 	scheduleOutput(event->actuator, delay, fuelMs);
 }
 
-static void handleFuel(MainTriggerCallback *mainTriggerCallback, int eventIndex, int rpm) {
+static void handleFuel(Engine *engine, MainTriggerCallback *mainTriggerCallback, int eventIndex, int rpm) {
 	if (!isInjectionEnabled(mainTriggerCallback->engineConfiguration))
 		return;
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 16, "stack#3");
@@ -234,7 +233,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, int eventIndex, MainTriggerCa
 			"event index");
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 16, "stack#3");
 
-	int rpm = getRpm();
+	int rpm = getRpmE(mainTriggerCallback->engine);
 	if (rpm == 0) {
 		// this happens while we just start cranking
 		// todo: check for 'trigger->is_synchnonized?'
@@ -287,7 +286,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, int eventIndex, MainTriggerCa
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
 
-	handleFuel(mainTriggerCallback, eventIndex, rpm);
+	handleFuel(mainTriggerCallback->engine, mainTriggerCallback, eventIndex, rpm);
 	handleSpark(mainTriggerCallback, eventIndex, rpm,
 			&mainTriggerCallback->engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
@@ -307,6 +306,16 @@ static void showTriggerHistogram(void) {
 #endif
 }
 
+void MainTriggerCallback::init(Engine *engine, engine_configuration2_s *engineConfiguration2) {
+	efiAssertVoid(engine!=NULL, "engine NULL");
+        this->engine = engine;
+	this->engineConfiguration = engine->engineConfiguration;
+	efiAssertVoid(engineConfiguration!=NULL, "engineConfiguration NULL");
+	this->engineConfiguration2 = engineConfiguration2;
+}
+
+extern Engine engine;
+
 static void showMainInfo(void) {
 	int rpm = getRpm();
 	float el = getEngineLoadT(mainTriggerCallbackInstance.engine);
@@ -314,14 +323,6 @@ static void showMainInfo(void) {
 	scheduleMsg(&logger, "rpm %d engine_load %f", rpm, el);
 	scheduleMsg(&logger, "fuel %fms timing %f", getFuelMs(rpm, mainTriggerCallbackInstance.engine), getAdvance(rpm, el));
 #endif
-}
-
-void MainTriggerCallback::init(Engine *engine, engine_configuration2_s *engineConfiguration2) {
-	efiAssertVoid(engine!=NULL, "engine NULL");
-        this->engine = engine;
-	this->engineConfiguration = engine->engineConfiguration;
-	efiAssertVoid(engineConfiguration!=NULL, "engineConfiguration NULL");
-	this->engineConfiguration2 = engineConfiguration2;
 }
 
 void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfiguration2) {
@@ -349,5 +350,7 @@ void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfig
 int isIgnitionTimingError(void) {
 	return ignitionErrorDetection.sum(6) > 4;
 }
+
+
 
 #endif /* EFI_ENGINE_CONTROL */

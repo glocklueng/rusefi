@@ -35,14 +35,6 @@ static Logging logger;
 
 static char LOGGING_BUFFER[1000];
 
-extern engine_configuration_s *engineConfiguration;
-extern engine_configuration2_s *engineConfiguration2;
-extern board_configuration_s *boardConfiguration;
-
-static void doPrintConfiguration(void) {
-	printConfiguration(engineConfiguration, engineConfiguration2);
-}
-
 /*
  static void printIntArray(int array[], int size) {
  for (int j = 0; j < size; j++) {
@@ -136,6 +128,8 @@ static const char * pinModeToString(pin_output_mode_e mode) {
 static const char * boolToString(bool value) {
 	return value ? "Yes" : "No";
 }
+
+extern board_configuration_s *boardConfiguration;
 
 /**
  * @brief	Prints current engine configuration to human-readable console.
@@ -243,6 +237,13 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 			boolToString(boardConfiguration->is_enabled_spi_2), boolToString(boardConfiguration->is_enabled_spi_3));
 
 #endif /* EFI_PROD_CODE */
+}
+
+extern engine_configuration_s *engineConfiguration;
+extern engine_configuration2_s *engineConfiguration2;
+
+static void doPrintConfiguration(void) {
+	printConfiguration(engineConfiguration, engineConfiguration2);
 }
 
 static void setFixedModeTiming(int value) {
