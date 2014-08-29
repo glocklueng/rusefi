@@ -137,7 +137,7 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
  * set_engine_type 20
  */
 void setMiata1994(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
-	engineConfiguration->triggerConfig.triggerType = TT_MITSU;
+	engineConfiguration->triggerConfig.triggerType = TT_MAZDA_MIATA_NA;
 	engineConfiguration->displacement = 1.839;
 
 	boardConfiguration->triggerSimulatorPins[0] = GPIOD_2; // 2G - YEL/BLU
