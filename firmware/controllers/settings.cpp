@@ -512,18 +512,16 @@ static void setWholeFuelMapCmd(float value) {
 	setWholeFuelMap(engineConfiguration, value);
 }
 
-static void setTriggerInputPin(const char *indexStr, const char *pinName) {
 #if EFI_PROD_CODE
+static void setTriggerInputPin(const char *indexStr, const char *pinName) {
 	int index = atoi(indexStr);
 	if (index < 0 || index > 2)
 		return;
 	brain_pin_e pin = parseBrainPin(pinName);
 	scheduleMsg(&logger, "setting trigger pin[%d] to %s please save&restart", index, hwPortname(pin));
 	boardConfiguration->triggerInputPins[index] = pin;
-#endif
 }
 
-#if EFI_PROD_CODE
 static void setTriggerSimulatorMode(const char *indexStr, const char *modeCode) {
 	int index = atoi(indexStr);
 	if (index < 0 || index > 2 || absI(index) == ERROR_CODE) {
@@ -739,11 +737,11 @@ void initSettings(void) {
 	addConsoleActionII("set_toothed_wheel", setToothedWheel);
 	addConsoleActionI("set_trigger_type", setTriggerType);
 
-	addConsoleActionSS("set_trigger_input_pin", setTriggerInputPin);
 
 	addConsoleActionF("set_vbatt_divider", setVBattDivider);
 
 #if EFI_PROD_CODE
+	addConsoleActionSS("set_trigger_input_pin", setTriggerInputPin);
 	addConsoleActionSS("set_trigger_simulator_pin", setTriggerSimulatorPin);
 	addConsoleActionSS("set_trigger_simulator_mode", setTriggerSimulatorMode);
 
