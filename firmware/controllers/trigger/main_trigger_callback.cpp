@@ -224,6 +224,8 @@ void showMainHistogram(void) {
 #endif
 }
 
+extern Engine engine;
+
 /**
  * This is the main trigger event handler.
  * Both injection and ignition are controlled from this method.
@@ -233,7 +235,8 @@ void onTriggerEvent(trigger_event_e ckpSignalType, int eventIndex, MainTriggerCa
 			"event index");
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 16, "stack#3");
 
-	int rpm = getRpmE(mainTriggerCallback->engine);
+// todo	int rpm = getRpmE(mainTriggerCallback->engine);
+	int rpm = getRpmE(&engine);
 	if (rpm == 0) {
 		// this happens while we just start cranking
 		// todo: check for 'trigger->is_synchnonized?'
@@ -286,7 +289,8 @@ void onTriggerEvent(trigger_event_e ckpSignalType, int eventIndex, MainTriggerCa
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
 
-	handleFuel(mainTriggerCallback->engine, mainTriggerCallback, eventIndex, rpm);
+//todo	handleFuel(mainTriggerCallback->engine, mainTriggerCallback, eventIndex, rpm);
+	handleFuel(&engine, mainTriggerCallback, eventIndex, rpm);
 	handleSpark(mainTriggerCallback, eventIndex, rpm,
 			&mainTriggerCallback->engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
@@ -314,7 +318,6 @@ void MainTriggerCallback::init(Engine *engine, engine_configuration2_s *engineCo
 	this->engineConfiguration2 = engineConfiguration2;
 }
 
-extern Engine engine;
 
 static void showMainInfo(void) {
 	int rpm = getRpm();
