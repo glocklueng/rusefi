@@ -186,11 +186,11 @@ void initHardware(Logging *logger) {
 
 	mySetPadMode("board test", getHwPort(boardConfiguration->boardTestModeJumperPin),
 			getHwPin(boardConfiguration->boardTestModeJumperPin), PAL_MODE_INPUT_PULLUP);
-	bool isBoardTestMode = GET_BOARD_TEST_MODE_VALUE();
+	bool isBoardTestMode_b = GET_BOARD_TEST_MODE_VALUE();
 
 	initAdcInputs();
 
-	if (isBoardTestMode) {
+	if (isBoardTestMode_b) {
 		initBoardTest();
 		efiAssertVoid(FALSE, "board test done");
 	}
