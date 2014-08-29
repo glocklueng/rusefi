@@ -30,10 +30,6 @@
 
 #include "trigger_structure.h"
 
-#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
-static Logging logger;
-#endif
-
 // todo: better name for this constant
 #define HELPER_PERIOD 100000
 
@@ -371,9 +367,14 @@ uint32_t findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s con
 	return index % shape->getSize();
 }
 
+#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
+//static Logging logger;
+#endif
+
+
 void initTriggerDecoder(void) {
 #if EFI_PROD_CODE || EFI_SIMULATOR
-	initLogging(&logger, "trigger decoder");
+//	initLogging(&logger, "trigger decoder");
 #endif
 }
 
