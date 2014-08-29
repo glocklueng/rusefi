@@ -28,6 +28,9 @@ cp -r win32_functional_tests %RUSEFI_GIT_PATH%
 
 cd %RUSEFI_GIT_PATH%
 
+git config --global user.email "russianefi@gmail.com"
+git config --global user.name "rusEfi"
+
 git add *
 git commit -a -m "auto-sync"
 git push --repo https://rusefi:PASSWORD@github.com/rusefi/rusefi
