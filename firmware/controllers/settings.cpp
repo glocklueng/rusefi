@@ -125,10 +125,6 @@ static const char * pinModeToString(pin_output_mode_e mode) {
 	}
 }
 
-static const char * boolToString(bool value) {
-	return value ? "Yes" : "No";
-}
-
 extern board_configuration_s *boardConfiguration;
 
 /**
