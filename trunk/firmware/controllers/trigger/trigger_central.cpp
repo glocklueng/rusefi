@@ -156,9 +156,14 @@ static void triggerInfo() {
 	scheduleMsg(&logging, "trigger event counters %d/%d/%d/%d", triggerCentral.getHwEventCounter(0),
 			triggerCentral.getHwEventCounter(1), triggerCentral.getHwEventCounter(2),
 			triggerCentral.getHwEventCounter(3));
-	scheduleMsg(&logging, "trigger type=%d/need2ndChannel=%d",
+	scheduleMsg(&logging, "expected cycle events %d/%d/%d",
+	engineConfiguration2->triggerShape.expectedEventCount[0],
+	engineConfiguration2->triggerShape.expectedEventCount[1],
+	engineConfiguration2->triggerShape.expectedEventCount[2]);
+
+	scheduleMsg(&logging, "trigger type=%d/need2ndChannel=%s",
 			engineConfiguration->triggerConfig.triggerType,
-			engineConfiguration->needSecondTriggerInput);
+			boolToString(engineConfiguration->needSecondTriggerInput));
 	scheduleMsg(&logging, "expected duty #0=%f/#1=%f", engineConfiguration2->triggerShape.dutyCycle[0],
 			engineConfiguration2->triggerShape.dutyCycle[1]);
 #endif
