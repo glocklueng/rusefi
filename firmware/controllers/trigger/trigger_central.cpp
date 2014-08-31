@@ -102,15 +102,7 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, trigger_e
 	}
 
 	if (triggerState.getCurrentIndex() >= configuration->engineConfiguration2->triggerShape.shaftPositionEventCount) {
-		int f = warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.getCurrentIndex());
-		if (!f) {
-#if EFI_PROD_CODE
-			// this temporary code is about trigger noise debugging
-			for (int i = 0; i < HW_EVENT_TYPES; i++) {
-				scheduleMsg(&logger, "event type: %d count=%d", i, hwEventCounters[i]);
-			}
-#endif
-		}
+		warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.getCurrentIndex());
 	} else {
 		/**
 		 * If we only have a crank position sensor, here we are extending crank revolutions with a 360 degree
@@ -159,18 +151,14 @@ static void triggerInfo() {
 	scheduleMsg(&logger, "Template %s/%d trigger %d", getConfigurationName(engineConfiguration),
 			engineConfiguration->engineType, engineConfiguration->triggerConfig.triggerType);
 
-
-
 	scheduleMsg(&logger, "trigger event counters %d/%d/%d/%d", triggerCentral.getHwEventCounter(0),
 			triggerCentral.getHwEventCounter(1), triggerCentral.getHwEventCounter(2),
 			triggerCentral.getHwEventCounter(3));
-	scheduleMsg(&logger, "expected cycle events %d/%d/%d",
-	engineConfiguration2->triggerShape.expectedEventCount[0],
-	engineConfiguration2->triggerShape.expectedEventCount[1],
-	engineConfiguration2->triggerShape.expectedEventCount[2]);
+	scheduleMsg(&logger, "expected cycle events %d/%d/%d", engineConfiguration2->triggerShape.expectedEventCount[0],
+			engineConfiguration2->triggerShape.expectedEventCount[1],
+			engineConfiguration2->triggerShape.expectedEventCount[2]);
 
-	scheduleMsg(&logger, "trigger type=%d/need2ndChannel=%s",
-			engineConfiguration->triggerConfig.triggerType,
+	scheduleMsg(&logger, "trigger type=%d/need2ndChannel=%s", engineConfiguration->triggerConfig.triggerType,
 			boolToString(engineConfiguration->needSecondTriggerInput));
 	scheduleMsg(&logger, "expected duty #0=%f/#1=%f", engineConfiguration2->triggerShape.dutyCycle[0],
 			engineConfiguration2->triggerShape.dutyCycle[1]);
