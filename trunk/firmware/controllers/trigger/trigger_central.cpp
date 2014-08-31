@@ -135,8 +135,9 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, trigger_e
 	int afterCallback = hal_lld_get_counter_value();
 	int diff = afterCallback - beforeCallback;
 	// this counter is only 32 bits so it overflows every minute, let's ignore the value in case of the overflow for simplicity
-	if (diff > 0)
+	if (diff > 0) {
 		hsAdd(&triggerCallback, diff);
+	}
 #endif /* EFI_HISTOGRAMS */
 }
 
@@ -174,12 +175,14 @@ static void triggerInfo() {
 	scheduleMsg(&logger, "expected duty #0=%f/#1=%f", engineConfiguration2->triggerShape.dutyCycle[0],
 			engineConfiguration2->triggerShape.dutyCycle[1]);
 
+#if EFI_PROD_CODE
 	scheduleMsg(&logger, "primary trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[0]),
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[0]));
 	scheduleMsg(&logger, "secondary trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[1]),
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[1]));
 	scheduleMsg(&logger, "3rd trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[2]),
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[2]));
+#endif /* EFI_PROD_CODE */
 
 	scheduleMsg(&logger, "primary trigger input: %s", hwPortname(boardConfiguration->triggerInputPins[0]));
 	scheduleMsg(&logger, "secondary trigger input: %s", hwPortname(boardConfiguration->triggerInputPins[1]));
