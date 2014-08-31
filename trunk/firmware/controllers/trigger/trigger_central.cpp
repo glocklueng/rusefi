@@ -146,8 +146,8 @@ extern engine_configuration2_s * engineConfiguration2;
 extern board_configuration_s *boardConfiguration;
 #endif
 
-#if EFI_PROD_CODE || EFI_SIMULATOR
 static void triggerInfo() {
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	scheduleMsg(&logger, "Template %s/%d trigger %d", getConfigurationName(engineConfiguration),
 			engineConfiguration->engineType, engineConfiguration->triggerConfig.triggerType);
 
@@ -162,6 +162,7 @@ static void triggerInfo() {
 			boolToString(engineConfiguration->needSecondTriggerInput));
 	scheduleMsg(&logger, "expected duty #0=%f/#1=%f", engineConfiguration2->triggerShape.dutyCycle[0],
 			engineConfiguration2->triggerShape.dutyCycle[1]);
+#endif
 
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "primary trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[0]),
@@ -170,14 +171,14 @@ static void triggerInfo() {
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[1]));
 	scheduleMsg(&logger, "3rd trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[2]),
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[2]));
-#endif /* EFI_PROD_CODE */
 
 	scheduleMsg(&logger, "primary trigger input: %s", hwPortname(boardConfiguration->triggerInputPins[0]));
 	scheduleMsg(&logger, "secondary trigger input: %s", hwPortname(boardConfiguration->triggerInputPins[1]));
 	scheduleMsg(&logger, "primary logic input: %s", hwPortname(boardConfiguration->logicAnalyzerPins[0]));
 	scheduleMsg(&logger, "secondary logic input: %s", hwPortname(boardConfiguration->logicAnalyzerPins[1]));
+
+#endif /* EFI_PROD_CODE */
 }
-#endif
 
 float getTriggerDutyCycle(int index) {
 	return triggerCentral.triggerState.getTriggerDutyCycle(index);
