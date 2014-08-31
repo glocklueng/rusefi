@@ -12,10 +12,10 @@
 #include "engine_configuration.h"
 #include "listener_array.h"
 #include "data_buffer.h"
-#include "pin_repository.h"
 #include "histogram.h"
 #if EFI_PROD_CODE
 #include "rfiutil.h"
+#include "pin_repository.h"
 #endif
 
 static histogram_s triggerCallback;
@@ -153,8 +153,8 @@ extern engine_configuration2_s * engineConfiguration2;
 extern board_configuration_s *boardConfiguration;
 #endif
 
-static void triggerInfo() {
 #if EFI_PROD_CODE || EFI_SIMULATOR
+static void triggerInfo() {
 	scheduleMsg(&logger, "Template %s/%d trigger %d", getConfigurationName(engineConfiguration),
 			engineConfiguration->engineType, engineConfiguration->triggerConfig.triggerType);
 
@@ -185,8 +185,8 @@ static void triggerInfo() {
 	scheduleMsg(&logger, "secondary trigger input: %s", hwPortname(boardConfiguration->triggerInputPins[1]));
 	scheduleMsg(&logger, "primary logic input: %s", hwPortname(boardConfiguration->logicAnalyzerPins[0]));
 	scheduleMsg(&logger, "secondary logic input: %s", hwPortname(boardConfiguration->logicAnalyzerPins[1]));
-#endif
 }
+#endif
 
 float getTriggerDutyCycle(int index) {
 	return triggerCentral.triggerState.getTriggerDutyCycle(index);
