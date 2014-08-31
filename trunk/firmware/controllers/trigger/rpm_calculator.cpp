@@ -104,14 +104,7 @@ static int isNoisySignal(RpmCalculator * rpmState, uint64_t nowUs) {
 
 static char shaft_signal_msg_index[15];
 
-/**
- * @brief Shaft position callback used by RPM calculation logic.
- *
- * This callback should always be the first of trigger callbacks because other callbacks depend of values
- * updated here.
- * This callback is invoked on interrupt thread.
- */
-void rpmShaftPositionCallback(trigger_event_e ckpSignalType, int index, RpmCalculator *rpmState) {
+static void reportEventToWaveChart(trigger_event_e ckpSignalType, int index) {
 	itoa10(&shaft_signal_msg_index[1], index);
 	if (ckpSignalType == SHAFT_PRIMARY_UP) {
 		addWaveChartEvent(WC_CRANK1, WC_UP, (char*) shaft_signal_msg_index);
@@ -126,6 +119,17 @@ void rpmShaftPositionCallback(trigger_event_e ckpSignalType, int index, RpmCalcu
 	} else if (ckpSignalType == SHAFT_3RD_DOWN) {
 		addWaveChartEvent(WC_CRANK3, WC_DOWN, (char*) shaft_signal_msg_index);
 	}
+}
+
+/**
+ * @brief Shaft position callback used by RPM calculation logic.
+ *
+ * This callback should always be the first of trigger callbacks because other callbacks depend of values
+ * updated here.
+ * This callback is invoked on interrupt thread.
+ */
+void rpmShaftPositionCallback(trigger_event_e ckpSignalType, int index, RpmCalculator *rpmState) {
+	reportEventToWaveChart(ckpSignalType, index);
 
 	if (index != 0) {
 #if EFI_ANALOG_CHART || defined(__DOXYGEN__)
