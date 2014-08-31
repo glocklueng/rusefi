@@ -13,10 +13,15 @@
 #include "listener_array.h"
 #include "data_buffer.h"
 #include "histogram.h"
+#include "wave_chart.h"
+
+#include "rpm_calculator.h"
 #if EFI_PROD_CODE
 #include "rfiutil.h"
 #include "pin_repository.h"
 #endif
+
+WaveChart waveChart;
 
 static histogram_s triggerCallback;
 
@@ -67,6 +72,26 @@ int TriggerCentral::getHwEventCounter(int index) {
 	return hwEventCounters[index];
 }
 
+static char shaft_signal_msg_index[15];
+
+static void reportEventToWaveChart(trigger_event_e ckpSignalType, int index) {
+	itoa10(&shaft_signal_msg_index[1], index);
+	if (ckpSignalType == SHAFT_PRIMARY_UP) {
+		addWaveChartEvent(WC_CRANK1, WC_UP, (char*) shaft_signal_msg_index);
+	} else if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
+		addWaveChartEvent(WC_CRANK1, WC_DOWN, (char*) shaft_signal_msg_index);
+	} else if (ckpSignalType == SHAFT_SECONDARY_UP) {
+		addWaveChartEvent(WC_CRANK2, WC_UP, (char*) shaft_signal_msg_index);
+	} else if (ckpSignalType == SHAFT_SECONDARY_DOWN) {
+		addWaveChartEvent(WC_CRANK2, WC_DOWN, (char*) shaft_signal_msg_index);
+	} else if (ckpSignalType == SHAFT_3RD_UP) {
+		addWaveChartEvent(WC_CRANK3, WC_UP, (char*) shaft_signal_msg_index);
+	} else if (ckpSignalType == SHAFT_3RD_DOWN) {
+		addWaveChartEvent(WC_CRANK3, WC_DOWN, (char*) shaft_signal_msg_index);
+	}
+}
+
+
 void TriggerCentral::handleShaftSignal(configuration_s *configuration, trigger_event_e signal, uint64_t nowUs) {
 	efiAssertVoid(configuration!=NULL, "configuration");
 
@@ -101,22 +126,24 @@ void TriggerCentral::handleShaftSignal(configuration_s *configuration, trigger_e
 		return;
 	}
 
+	/**
+	 * If we only have a crank position sensor, here we are extending crank revolutions with a 360 degree
+	 * cycle into a four stroke, 720 degrees cycle. TODO
+	 */
+	int triggerIndexForListeners;
+	if (getOperationMode(configuration->engineConfiguration) == FOUR_STROKE_CAM_SENSOR) {
+		// That's easy - trigger cycle matches engine cycle
+		triggerIndexForListeners = triggerState.getCurrentIndex();
+	} else {
+		bool isEven = (triggerState.getTotalRevolutionCounter() & 1) == 0;
+
+		triggerIndexForListeners = triggerState.getCurrentIndex() + (isEven ? 0 : triggerShape->getSize());
+	}
+	reportEventToWaveChart(signal, triggerIndexForListeners);
+
 	if (triggerState.getCurrentIndex() >= configuration->engineConfiguration2->triggerShape.shaftPositionEventCount) {
 		warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.getCurrentIndex());
 	} else {
-		/**
-		 * If we only have a crank position sensor, here we are extending crank revolutions with a 360 degree
-		 * cycle into a four stroke, 720 degrees cycle. TODO
-		 */
-		int triggerIndexForListeners;
-		if (getOperationMode(configuration->engineConfiguration) == FOUR_STROKE_CAM_SENSOR) {
-			// That's easy - trigger cycle matches engine cycle
-			triggerIndexForListeners = triggerState.getCurrentIndex();
-		} else {
-			bool isEven = (triggerState.getTotalRevolutionCounter() & 1) == 0;
-
-			triggerIndexForListeners = triggerState.getCurrentIndex() + (isEven ? 0 : triggerShape->getSize());
-		}
 
 		/**
 		 * Here we invoke all the listeners - the main engine control logic is inside these listeners
@@ -185,6 +212,12 @@ float getTriggerDutyCycle(int index) {
 }
 
 void initTriggerCentral(void) {
+	strcpy((char*) shaft_signal_msg_index, "_");
+
+#if EFI_WAVE_CHART
+	initWaveChart(&waveChart);
+#endif
+
 #if EFI_PROD_CODE || EFI_SIMULATOR
 	initLogging(&logger, "ShaftPosition");
 	addConsoleAction("triggerinfo", triggerInfo);
