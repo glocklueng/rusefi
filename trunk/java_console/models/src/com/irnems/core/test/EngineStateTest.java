@@ -39,7 +39,7 @@ public class EngineStateTest {
             }
         });
         es.processNewData("line:7:");
-        es.processNewData(EngineState.RPM_KEY + SEPARATOR);
+        es.processNewData(SensorCentral.RPM_KEY + SEPARATOR);
         assertEquals(0, rpmResult.get());
         es.processNewData("600\r");
         assertEquals(600, rpmResult.get());
