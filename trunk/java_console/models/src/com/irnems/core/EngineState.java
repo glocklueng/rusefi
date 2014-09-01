@@ -340,7 +340,7 @@ public class EngineState {
         }
     }
 
-    public void append(String append) {
+    public void processNewData(String append) {
         buffer.append(append);
     }
 

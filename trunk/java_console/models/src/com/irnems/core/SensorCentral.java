@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
+ * This class keeps track of {@link com.irnems.core.Sensor} current values and {@link com.irnems.core.SensorCentral.AdcListener}
+ *
+ *
  * Date: 1/6/13
  * (c) Andrey Belomutskiy
  */
