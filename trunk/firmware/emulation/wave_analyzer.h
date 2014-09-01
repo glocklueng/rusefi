@@ -20,7 +20,6 @@
 #define WA_CHANNEL_3 "input3"
 #define WA_CHANNEL_4 "input4"
 
-#ifdef __cplusplus
 class WaveReader {
 public:
 	void onFallEvent();
@@ -52,20 +51,8 @@ public:
 	volatile uint64_t last_wave_high_widthUs; // time period in systimer ticks
 };
 
-#endif
-
 void initWaveAnalyzer(void);
 void printWave(Logging *logging);
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
-
-
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
 #endif /* WAVE_ANALYZER_H_ */
+
