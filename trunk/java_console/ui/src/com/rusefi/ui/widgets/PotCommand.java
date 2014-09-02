@@ -86,8 +86,8 @@ public class PotCommand {
         CommandQueue.getInstance().write("pot" + channel + " " + resistance);
     }
 
-    public static int getPotResistance(Double vout, double vRef) {
-        double r = getR1InVoltageDividor3(vout, vRef, EcuStimulator.getInstance().getInputs().getEngineLoadR2Resistance());
+    public static int getPotResistance(double vout, double vRef) {
+        double r = getR1InVoltageDivider3(vout, vRef, EcuStimulator.getInstance().getInputs().getEngineLoadR2Resistance());
         MessagesCentral.getInstance().postMessage(PotCommand.class, "VRef=" + vRef + ", needed resistance: " + r);
         // pot command accept resistance and does the conversion itself
         return (int) r;
@@ -101,8 +101,8 @@ public class PotCommand {
 //        return (int) (256 - (Rwa - 52) * 256 / 10000);
 //    }
 
-    private static double getR1InVoltageDividor3(double Vout, double Vin, double r2) {
-        return r2 * Vin / Vout - r2;
+    public static double getR1InVoltageDivider3(double Vout, double Vin, double r2) {
+        return r2 * Vout / Vin;
     }
 
 }
