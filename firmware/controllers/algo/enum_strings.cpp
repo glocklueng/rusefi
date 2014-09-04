@@ -67,3 +67,18 @@ const char* getConfigurationName(engine_type_e engineType) {
 		return NULL;
 	}
 }
+
+const char * pinModeToString(pin_output_mode_e mode) {
+	switch (mode) {
+	case OM_DEFAULT:
+		return "default";
+	case OM_INVERTED:
+		return "inverted";
+	case OM_OPENDRAIN:
+		return "open drain";
+	case OM_OPENDRAIN_INVERTED:
+		return "open drain inverted";
+	default:
+		return "unexpected";
+	}
+}

@@ -11,5 +11,6 @@
 #include "rusefi_enums.h"
 
 const char* getConfigurationName(engine_type_e engineType);
+const char * pinModeToString(pin_output_mode_e mode);
 
 #endif /* ENUM_STRINGS_H_ */
