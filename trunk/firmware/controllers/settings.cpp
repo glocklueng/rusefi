@@ -54,8 +54,8 @@ void printFloatArray(const char *prefix, float array[], int size) {
 	scheduleLogging(&logger);
 }
 
-const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
-	switch (engineConfiguration->engineType) {
+const char* getConfigurationName(engine_type_e engineType) {
+	switch (engineType) {
 #if EFI_SUPPORT_DODGE_NEON
 	case DODGE_NEON_1995:
 		return "Dodge Neon";
@@ -105,7 +105,7 @@ const char* getConfigurationName(engine_configuration_s *engineConfiguration) {
 	case MIATA_1996:
 		return "Miata 1996";
 	default:
-		firmwareError("Unexpected: engineType %d", engineConfiguration->engineType);
+		firmwareError("Unexpected: engineType %d", engineType);
 		return NULL;
 	}
 }
@@ -117,7 +117,7 @@ extern board_configuration_s *boardConfiguration;
  */
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2) {
 
-	scheduleMsg(&logger, "Template %s/%d trigger %d", getConfigurationName(engineConfiguration),
+	scheduleMsg(&logger, "Template %s/%d trigger %d", getConfigurationName(engineConfiguration->engineType),
 			engineConfiguration->engineType, engineConfiguration->triggerConfig.triggerType);
 
 	scheduleMsg(&logger, "configurationVersion=%d", getGlobalConfigurationVersion());
