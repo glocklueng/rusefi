@@ -10,6 +10,6 @@
 
 #include "rusefi_enums.h"
 
-
+const char* getConfigurationName(engine_type_e engineType);
 
 #endif /* ENUM_STRINGS_H_ */
