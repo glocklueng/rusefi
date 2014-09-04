@@ -2,7 +2,6 @@ package com.rusefi.io.serial;
 
 import com.irnems.FileLog;
 import com.irnems.core.EngineState;
-import com.rusefi.io.CommandQueue;
 import com.rusefi.io.DataListener;
 import jssc.SerialPort;
 import jssc.SerialPortException;
@@ -33,16 +32,11 @@ public class PortHolder {
     @Nullable
     private SerialPort serialPort;
 
-    void openPort(String port, final EngineState es) {
+    void openPort(String port, DataListener dataListener) {
         listener.onPortHolderMessage(SerialManager.class, "Opening port: " + port);
         if (port == null)
             return;
-        open(port, new DataListener() {
-            public void onStringArrived(String string) {
-                //                jTextAreaIn.append(string);
-                es.processNewData(string);
-            }
-        });
+        open(port, dataListener);
     }
 
     public boolean open(String port, DataListener listener) {
