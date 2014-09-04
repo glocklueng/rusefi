@@ -34,7 +34,7 @@ public class PortHolder {
     private SerialPort serialPort;
 
     void openPort(String port, final EngineState es) {
-        listener.postMessage(SerialManager.class, "Opening port: " + port);
+        listener.onPortHolderMessage(SerialManager.class, "Opening port: " + port);
         if (port == null)
             return;
         open(port, new DataListener() {
@@ -106,14 +106,14 @@ public class PortHolder {
      */
     public void packAndSend(String command) throws InterruptedException {
         FileLog.MAIN.logLine("Sending [" + command + "]");
-        listener.postMessage(PortHolder.class, "Sending [" + command + "]");
+        listener.onPortHolderMessage(PortHolder.class, "Sending [" + command + "]");
 
         long now = System.currentTimeMillis();
 
         synchronized (portLock) {
             while (serialPort == null) {
                 if (System.currentTimeMillis() - now > 3 * MINUTE)
-                    listener.postMessage(PortHolder.class, "Looks like connection is gone :(");
+                    listener.onPortHolderMessage(PortHolder.class, "Looks like connection is gone :(");
                 portLock.wait(MINUTE);
             }
             // we are here only when serialPort!=null, that means we have a connection
