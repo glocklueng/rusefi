@@ -2,7 +2,6 @@ package com.rusefi.io.serial;
 
 import com.irnems.FileLog;
 import com.irnems.core.EngineState;
-import com.irnems.core.MessagesCentral;
 import com.rusefi.io.CommandQueue;
 import com.rusefi.io.DataListener;
 import jssc.SerialPort;
@@ -26,6 +25,8 @@ class PortHolder {
 
     public static long startedAt = System.currentTimeMillis();
 
+    public PortHolderListener listener = PortHolderListener.VOID;
+
     private PortHolder() {
     }
 
@@ -33,7 +34,7 @@ class PortHolder {
     private SerialPort serialPort;
 
     void openPort(String port, final EngineState es) {
-        MessagesCentral.getInstance().postMessage(SerialManager.class, "Opening port: " + port);
+        PortHolderListener.postMessage(SerialManager.class, "Opening port: " + port);
         if (port == null)
             return;
         open(port, new DataListener() {
@@ -105,14 +106,14 @@ class PortHolder {
      */
     public void packAndSend(String command) throws InterruptedException {
         FileLog.MAIN.logLine("Sending [" + command + "]");
-        MessagesCentral.getInstance().postMessage(PortHolder.class, "Sending [" + command + "]");
+        PortHolderListener.postMessage(PortHolder.class, "Sending [" + command + "]");
 
         long now = System.currentTimeMillis();
 
         synchronized (portLock) {
             while (serialPort == null) {
                 if (System.currentTimeMillis() - now > 3 * MINUTE)
-                    MessagesCentral.getInstance().postMessage(PortHolder.class, "Looks like connection is gone :(");
+                    PortHolderListener.postMessage(PortHolder.class, "Looks like connection is gone :(");
                 portLock.wait(MINUTE);
             }
             // we are here only when serialPort!=null, that means we have a connection
