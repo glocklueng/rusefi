@@ -105,7 +105,7 @@ class PortHolder {
      */
     public void packAndSend(String command) throws InterruptedException {
         FileLog.MAIN.logLine("Sending [" + command + "]");
-        MessagesCentral.getInstance().postMessage(CommandQueue.class, "Sending [" + command + "]");
+        MessagesCentral.getInstance().postMessage(PortHolder.class, "Sending [" + command + "]");
 
         long now = System.currentTimeMillis();
 
