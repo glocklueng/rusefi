@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
  * 7/25/13
  * (c) Andrey Belomutskiy
  */
-class PortHolder {
+public class PortHolder {
     //    private static final int BAUD_RATE = 8 * 115200;// 921600;
 //    private static final int BAUD_RATE = 2 * 115200;
     private static final int BAUD_RATE = 115200;
