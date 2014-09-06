@@ -270,6 +270,10 @@ void setMiata1996(engine_configuration_s *engineConfiguration, board_configurati
 		}
 	}
 
+	// upside down
+	boardConfiguration->triggerInputPins[0] = GPIOA_5;
+	boardConfiguration->triggerInputPins[1] = GPIOC_6;
+
 
 	engineConfiguration->mafAdcChannel = EFI_ADC_1;
 	engineConfiguration->cltAdcChannel = EFI_ADC_3;
