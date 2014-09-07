@@ -355,6 +355,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->canTxPin = GPIOB_0;
 	boardConfiguration->canRxPin = GPIOB_12;
 
+	// set this to SPI_DEVICE_3 to enable stimulation
 	boardConfiguration->digitalPotentiometerSpiDevice = SPI_NONE;
 	boardConfiguration->digitalPotentiometerChipSelect[0] = GPIOD_7;
 	boardConfiguration->digitalPotentiometerChipSelect[1] = GPIO_NONE;
