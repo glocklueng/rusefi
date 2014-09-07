@@ -12,6 +12,7 @@
 
 #include "mazda_miata.h"
 #include "engine_math.h"
+#include "advance_map.h"
 
 // setFrankenso_01_LCD
 #include "honda_accord.h"
