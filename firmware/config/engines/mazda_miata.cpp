@@ -62,7 +62,7 @@ static void commonMiataNa(engine_configuration_s *engineConfiguration, board_con
 
 	boardConfiguration->idleSolenoidFrequency = 160;
 
-	engineConfiguration->globalTriggerAngleOffset = 114;
+	engineConfiguration->globalTriggerAngleOffset = 294;
 
 	// Frankenstein: high side #1 is PE8
 	// Frankenstein: high side #2 is PE10
