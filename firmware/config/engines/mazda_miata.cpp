@@ -51,6 +51,7 @@ static void setDefaultCrankingFuel(engine_configuration_s *engineConfiguration) 
 
 static void commonMiataNa(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 	engineConfiguration->triggerConfig.triggerType = TT_MAZDA_MIATA_NA;
+	engineConfiguration->digitalChartSize = 100;
 
 	engineConfiguration->ignitionMode = IM_WASTED_SPARK;
 	setFuelLoadBin(engineConfiguration, 1.2, 4.4);
