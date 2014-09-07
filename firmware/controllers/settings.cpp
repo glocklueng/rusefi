@@ -640,7 +640,6 @@ void initSettings(void) {
 	addConsoleActionI("set_engine_type", setEngineType);
 	addConsoleActionI("set_idle_mode", setIdleMode);
 
-	addConsoleActionSS("set_injection_pin", setInjectionPin);
 	addConsoleActionI("set_injection_pin_mode", setInjectionPinMode);
 	addConsoleActionI("set_ignition_pin_mode", setIgnitionPinMode);
 	addConsoleActionI("set_idle_pin", setIdlePin);
@@ -688,6 +687,7 @@ void initSettings(void) {
 	addConsoleActionF("set_vbatt_divider", setVBattDivider);
 
 #if EFI_PROD_CODE
+	addConsoleActionSS("set_injection_pin", setInjectionPin);
 	addConsoleActionSS("set_trigger_input_pin", setTriggerInputPin);
 	addConsoleActionSS("set_trigger_simulator_pin", setTriggerSimulatorPin);
 	addConsoleActionSS("set_trigger_simulator_mode", setTriggerSimulatorMode);

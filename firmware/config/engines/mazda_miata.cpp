@@ -260,7 +260,7 @@ void setMiata1994(engine_configuration_s *engineConfiguration, board_configurati
 
 	boardConfiguration->fuelPumpPin = GPIOE_4;
 
-	boardConfiguration->injectionPins[0] = GPIO_NONE;
+	boardConfiguration->injectionPins[0] = GPIOD_7;
 	boardConfiguration->injectionPins[1] = GPIOE_2;
 	boardConfiguration->injectionPins[2] = GPIOB_8;
 	boardConfiguration->injectionPins[3] = GPIOB_7;
