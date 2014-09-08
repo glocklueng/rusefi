@@ -134,7 +134,7 @@ static void sendI2Cbyte(int addr, int data) {
 //	i2cReleaseBus(&I2CD1);
 }
 
-void initHardware(Logging *logger) {
+void initHardware(Logging *logger, Engine *engine) {
 	printMsg(logger, "initHardware()");
 	// todo: enable protection. it's disabled because it takes
 	// 10 extra seconds to re-flash the chip
