@@ -72,11 +72,6 @@ public class SensorCentral {
     }
 
     public void initialize(EngineState es) {
-        addDoubleSensor("injector0", Sensor.INJECTOR_0_STATUS, true, es);
-        addDoubleSensor("injector1", Sensor.INJECTOR_1_STATUS, true, es);
-        addDoubleSensor("injector2", Sensor.INJECTOR_2_STATUS, true, es);
-        addDoubleSensor("injector3", Sensor.INJECTOR_3_STATUS, true, es);
-
         addDoubleSensor(RPM_KEY, Sensor.RPM, es);
         addDoubleSensor("mat", Sensor.IAT, es);
         addDoubleSensor("map", Sensor.MAP, es);
