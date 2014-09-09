@@ -155,8 +155,9 @@ void initHardware(Logging *logger, Engine *engine) {
 	 */
 	initPrimaryPins();
 
-	if (hasFirmwareError())
+	if (hasFirmwareError()) {
 		return;
+        }
 
 	initDataStructures(engineConfiguration);
 
@@ -182,8 +183,9 @@ void initHardware(Logging *logger, Engine *engine) {
 	resetConfigurationExt(logger, engineConfiguration->engineType, engineConfiguration, engineConfiguration2, boardConfiguration);
 #endif /* EFI_INTERNAL_FLASH */
 
-	if (hasFirmwareError())
+	if (hasFirmwareError()) {
 		return;
+        }
 
 	mySetPadMode("board test", getHwPort(boardConfiguration->boardTestModeJumperPin),
 			getHwPin(boardConfiguration->boardTestModeJumperPin), PAL_MODE_INPUT_PULLUP);
