@@ -114,7 +114,7 @@ public class SensorCentral {
         addDoubleSensor("period1", Sensor.PERIOD0, es);
         addDoubleSensor("duty0", Sensor.DUTY0, es);
         addDoubleSensor("duty1", Sensor.DUTY1, es);
-        addDoubleSensor("timing", Sensor.TIMING, es);
+        addDoubleSensor(Sensor.TIMING, es);
         addDoubleSensor(Sensor.TRG_0_DUTY, es);
         addDoubleSensor(Sensor.TRG_1_DUTY, es);
 
