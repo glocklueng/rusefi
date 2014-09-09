@@ -8,7 +8,6 @@ import static junit.framework.Assert.assertEquals;
 public class CyclicBufferTest {
     @Test
     public void test() {
-
         CyclicBuffer cb = new CyclicBuffer(3);
 
         cb.add(1);
