@@ -100,11 +100,17 @@ void setChartSize(int newSize) {
 	printStatus();
 }
 
-void publishChartIfFull(WaveChart *chart) {
-	if (chart->isWaveChartFull()) {
-		chart->publishChart();
-		chart->resetWaveChart();
+void WaveChart::publishChartIfFull() {
+	if (isWaveChartFull()) {
+		publishChart();
+		resetWaveChart();
 	}
+}
+
+WaveChart::WaveChart() {
+	initLoggingExt(&logging, "wave chart", WAVE_LOGGING_BUFFER, sizeof(WAVE_LOGGING_BUFFER));
+	isInitialized = TRUE;
+	resetWaveChart();
 }
 
 void WaveChart::publishChart() {
@@ -192,8 +198,6 @@ void initWaveChart(WaveChart *chart) {
 
 	printStatus();
 
-	initLoggingExt(&chart->logging, "wave chart", WAVE_LOGGING_BUFFER, sizeof(WAVE_LOGGING_BUFFER));
-	chart->isInitialized = TRUE;
 #if DEBUG_WAVE
 	initLoggingExt(&debugLogging, "wave chart debug", &debugLogging.DEFAULT_BUFFER, sizeof(debugLogging.DEFAULT_BUFFER));
 #endif
@@ -202,7 +206,6 @@ void initWaveChart(WaveChart *chart) {
 	initHistogram(&waveChartHisto, "wave chart");
 #endif /* EFI_HISTOGRAMS */
 
-	chart->resetWaveChart();
 	addConsoleActionI("chartsize", setChartSize);
 	addConsoleActionI("chart", setChartActive);
 }
