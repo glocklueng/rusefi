@@ -20,10 +20,13 @@
  */
 class WaveChart {
 public:
+	WaveChart();
 	void publishChart();
 	void resetWaveChart();
 	int isWaveChartFull();
+	void publishChartIfFull();
 	void addWaveChartEvent3(const char *name, const char *msg, const char *msg2);
+private:
 #if EFI_WAVE_CHART
 	Logging logging;
 #endif /* EFI_WAVE_CHART */
@@ -35,6 +38,5 @@ public:
 void initWaveChart(WaveChart *chart);
 void showWaveChartHistogram(void);
 void setChartSize(int newSize);
-void publishChartIfFull(WaveChart *chart);
 
 #endif /* WAVE_CHART_H_ */
