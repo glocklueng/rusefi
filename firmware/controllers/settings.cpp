@@ -600,6 +600,8 @@ static void enableOrDisable(const char *param, bool isEnabled) {
 		engineConfiguration->isIgnitionEnabled = isEnabled;
 	} else if (strEqualCaseInsensitive(param, "self_stimulation")) {
 		engineConfiguration->directSelfStimulation = isEnabled;
+	} else if (strEqualCaseInsensitive(param, "engine_control")) {
+		boardConfiguration->isEngineControlEnabled = isEnabled;
 	} else {
 		scheduleMsg(&logger, "unexpected [%s]", param);
 		return; // well, MISRA would not like this 'return' here :(
