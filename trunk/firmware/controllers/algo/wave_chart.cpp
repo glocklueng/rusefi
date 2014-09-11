@@ -62,14 +62,14 @@ static int isChartActive = TRUE;
 
 #if DEBUG_WAVE
 static Logging debugLogging;
-#endif
+#endif /* DEBUG_WAVE */
 
 static Logging logger;
 
 void WaveChart::resetWaveChart() {
 #if DEBUG_WAVE
 	scheduleSimpleMsg(&debugLogging, "reset while at ", counter);
-#endif
+#endif /* DEBUG_WAVE */
 	resetLogging(&logging);
 	counter = 0;
 	appendPrintf(&logging, "wave_chart%s", DELIMETER);
