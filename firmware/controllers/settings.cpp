@@ -120,11 +120,10 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
 #if EFI_PROD_CODE
-	scheduleMsg(&logger, "idlePinMode: %s", pinModeToString(boardConfiguration->idleValvePinMode));
+	scheduleMsg(&logger, "idlePin: mode %s @ %s", pinModeToString(boardConfiguration->idleValvePinMode), hwPortname(boardConfiguration->idleValvePin));
 	scheduleMsg(&logger, "malfunctionIndicatorPinMode: %s",
 			pinModeToString(boardConfiguration->malfunctionIndicatorPinMode));
 
-	scheduleMsg(&logger, "idleValvePin: %s", hwPortname(boardConfiguration->idleValvePin));
 	scheduleMsg(&logger, "fuelPumpPin: mode %s @ %s", pinModeToString(boardConfiguration->fuelPumpPinMode),
 			hwPortname(boardConfiguration->fuelPumpPin));
 
@@ -198,11 +197,6 @@ static void setInjectionPinMode(int value) {
 
 static void setIgnitionPinMode(int value) {
 	boardConfiguration->ignitionPinMode = (pin_output_mode_e) value;
-	doPrintConfiguration();
-}
-
-static void setIdlePin(int value) {
-	boardConfiguration->idleValvePin = (brain_pin_e) value;
 	doPrintConfiguration();
 }
 
@@ -458,6 +452,28 @@ static void setIgnitionPin(const char *indexStr, const char *pinName) {
 	boardConfiguration->ignitionPins[index] = pin;
 }
 
+static void setIdlePin(const char *pinName) {
+	brain_pin_e pin = parseBrainPin(pinName);
+	// todo: extract method - code duplication with other 'set_xxx_pin' methods?
+	if (pin == GPIO_INVALID) {
+		scheduleMsg(&logger, "invalid pin name [%s]", pinName);
+		return;
+	}
+	scheduleMsg(&logger, "setting idleValve pin to %s please save&restart", hwPortname(pin));
+	boardConfiguration->idleValvePin = pin;
+}
+
+static void setFuelPumpPin(const char *pinName) {
+	brain_pin_e pin = parseBrainPin(pinName);
+	// todo: extract method - code duplication with other 'set_xxx_pin' methods?
+	if (pin == GPIO_INVALID) {
+		scheduleMsg(&logger, "invalid pin name [%s]", pinName);
+		return;
+	}
+	scheduleMsg(&logger, "setting fuelPump pin to %s please save&restart", hwPortname(pin));
+	boardConfiguration->fuelPumpPin = pin;
+}
+
 static void setInjectionPin(const char *indexStr, const char *pinName) {
 	int index = atoi(indexStr);
 	if (index < 0 || index > INJECTION_PIN_COUNT)
@@ -710,7 +726,6 @@ void initSettings(void) {
 
 	addConsoleActionI("set_injection_pin_mode", setInjectionPinMode);
 	addConsoleActionI("set_ignition_pin_mode", setIgnitionPinMode);
-	addConsoleActionI("set_idle_pin", setIdlePin);
 	addConsoleActionI("set_idle_pin_mode", setIdlePinMode);
 	addConsoleActionI("set_fuel_pump_pin_mode", setFuelPumpPinMode);
 	addConsoleActionI("set_malfunction_indicator_pin_mode", setMalfunctionIndicatorPinMode);
@@ -766,6 +781,8 @@ void initSettings(void) {
 	addConsoleActionSS("set_trigger_input_pin", setTriggerInputPin);
 	addConsoleActionSS("set_trigger_simulator_pin", setTriggerSimulatorPin);
 	addConsoleActionSS("set_trigger_simulator_mode", setTriggerSimulatorMode);
+	addConsoleActionS("set_fuel_pump_pin", setFuelPumpPin);
+	addConsoleActionS("set_idle_pin", setIdlePin);
 
 	addConsoleAction("mapinfo", printMAPInfo);
 	addConsoleActionSS("set_analog_input_pin", setAnalogInputPin);
