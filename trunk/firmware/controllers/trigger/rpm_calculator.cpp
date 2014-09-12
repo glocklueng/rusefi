@@ -173,11 +173,11 @@ int getRevolutionCounter(void) {
  * @return Current crankshaft angle, 0 to 720 for four-stroke
  */
 float getCrankshaftAngle(uint64_t timeUs) {
-	uint64_t timeSinceZeroAngle = timeUs - rpmState.lastRpmEventTimeUs;
+	uint64_t timeSinceZeroAngleUs = timeUs - rpmState.lastRpmEventTimeUs;
 
-	float cRevolutionTimeMs = getCrankshaftRevolutionTimeMs(rpmState.rpm());
+	float cRevolutionTimeUs = 360 * getOneDegreeTimeUs(rpmState.rpm());
 
-	return 360.0 * timeSinceZeroAngle / cRevolutionTimeMs / 1000;
+	return 360.0 * timeSinceZeroAngleUs / cRevolutionTimeUs;
 }
 
 void initRpmCalculator(void) {
