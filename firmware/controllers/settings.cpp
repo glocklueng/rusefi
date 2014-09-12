@@ -609,6 +609,18 @@ static void enableOrDisable(const char *param, bool isEnabled) {
 		engineConfiguration->directSelfStimulation = isEnabled;
 	} else if (strEqualCaseInsensitive(param, "engine_control")) {
 		boardConfiguration->isEngineControlEnabled = isEnabled;
+	} else if (strEqualCaseInsensitive(param, "map_avg")) {
+		engineConfiguration->isMapAveragingEnabled = isEnabled;
+	} else if (strEqualCaseInsensitive(param, "mil")) {
+		engineConfiguration->isMilEnabled = isEnabled;
+	} else if (strEqualCaseInsensitive(param, "fuel_pump")) {
+		engineConfiguration->isFuelPumpEnabled = isEnabled;
+	} else if (strEqualCaseInsensitive(param, "tunerstudio")) {
+		engineConfiguration->isTunerStudioEnabled = isEnabled;
+	} else if (strEqualCaseInsensitive(param, "wave_analyzer")) {
+		engineConfiguration->isWaveAnalyzerEnabled = isEnabled;
+	} else if (strEqualCaseInsensitive(param, "idle_thread")) {
+		engineConfiguration->isIdleThreadEnabled = isEnabled;
 	} else {
 		scheduleMsg(&logger, "unexpected [%s]", param);
 		return; // well, MISRA would not like this 'return' here :(
