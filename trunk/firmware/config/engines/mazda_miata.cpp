@@ -318,6 +318,9 @@ void setMiata1996(engine_configuration_s *engineConfiguration, board_configurati
 	boardConfiguration->triggerInputPins[0] = GPIOA_5;
 	boardConfiguration->triggerInputPins[1] = GPIOC_6;
 
+	boardConfiguration->fuelPumpPin = GPIOE_4;
+	boardConfiguration->idleValvePin = GPIOE_5;
+
 
 	engineConfiguration->mafAdcChannel = EFI_ADC_1;
 	engineConfiguration->cltAdcChannel = EFI_ADC_11;
