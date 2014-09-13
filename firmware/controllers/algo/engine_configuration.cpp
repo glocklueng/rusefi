@@ -229,6 +229,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 
 	engineConfiguration->globalFuelCorrection = 1;
 
+	boardConfiguration->isFastAdcEnabled = false;
 	engineConfiguration->map.sensor.sensorType = MT_MPX4250;
 
 	engineConfiguration->baroSensor.sensorType = MT_CUSTOM;
