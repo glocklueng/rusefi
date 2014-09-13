@@ -198,7 +198,7 @@ void chDbgPanic3(const char *msg, const char * file, int line) {
 }
 
 uint64_t getTimeNowNt(void) {
-	return getTimeNowUs() * US_TO_NT_MULT;
+	return getTimeNowUs() * US_TO_NT_MULTIPLIER;
 }
 
 uint64_t getTimeNowUs(void) {
