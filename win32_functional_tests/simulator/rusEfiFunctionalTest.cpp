@@ -197,6 +197,10 @@ void chDbgPanic3(const char *msg, const char * file, int line) {
 	onFatalError(msg, file, line);
 }
 
+uint64_t getTimeNowNt(void) {
+	getTimeNowUs() * US_TO_NT_MULT;
+}
+
 uint64_t getTimeNowUs(void) {
 	return chTimeNow() * (1000000 / CH_FREQUENCY);
 }
