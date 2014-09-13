@@ -67,6 +67,7 @@ public class MsgPanel {
         });
 
         JButton resetButton = new JButton("clear");
+        resetButton.setMnemonic('c');
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -76,6 +77,7 @@ public class MsgPanel {
         });
 
         final JButton pauseButton = new JButton("pause");
+        pauseButton.setMnemonic('p');
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
