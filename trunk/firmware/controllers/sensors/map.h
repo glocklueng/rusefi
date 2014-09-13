@@ -19,6 +19,7 @@ float getBaroPressure(void);
 float getMap(void);
 float getMapVoltage(void);
 float getMapByVoltage(float voltage);
+float decodePressure(float voltage, air_pressure_sensor_config_s * config);
 
 #ifdef __cplusplus
 }
