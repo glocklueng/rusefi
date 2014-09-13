@@ -98,10 +98,10 @@ void readFromFlash(void) {
 
 	//setDefaultNonPersistentConfiguration(engineConfiguration2);
 
-	if (!isValidCrc(&persistentState) || persistentState.size != PERSISTENT_SIZE) {
+	if (!isValidCrc(&persistentState)) {
 		printMsg(&logger, "Need to reset flash to default due to CRC");
 		resetConfigurationExt(&logger, defaultEngineType, engineConfiguration, engineConfiguration2);
-	} else if (persistentState.version != FLASH_DATA_VERSION) {
+	} else if (persistentState.version != FLASH_DATA_VERSION || persistentState.size != PERSISTENT_SIZE) {
 		printMsg(&logger, "Need to reset flash to default due to version change");
 		resetConfigurationExt(&logger, defaultEngineType, engineConfiguration, engineConfiguration2);
 
