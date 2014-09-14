@@ -20,7 +20,7 @@ public:
 private:
 	EventQueue queue;
 	bool reentrantLock;
-	void doExecute(uint64_t nowUs);
+	void doExecute();
 	void lock(void);
 	void unlock(void);
 };
