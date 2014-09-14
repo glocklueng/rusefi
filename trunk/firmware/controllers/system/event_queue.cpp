@@ -61,7 +61,7 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
 			 * looks like we end up here after 'writeconfig' (which freezes the firmware) - we are late
 			 * for the next scheduled event
 			 */
-			uint64_t mock = nowUs + MS2US(10);
+			uint64_t mock = nowUs + 100;
 			if (mock < result)
 				result = mock;
 		} else {
