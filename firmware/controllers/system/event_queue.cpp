@@ -99,8 +99,9 @@ void EventQueue::executeAll(uint64_t now) {
 	 * we need safe iteration here because 'callback' might change change 'current->next'
 	 * while re-inserting it into the queue from within the callback
 	 */
-	LL_FOREACH_SAFE(executionList, current, tmp)
+	LL_FOREACH_SAFE(executionList, current, tmp) {
 		current->callback(current->param);
+	}
 }
 
 int EventQueue::size(void) {
