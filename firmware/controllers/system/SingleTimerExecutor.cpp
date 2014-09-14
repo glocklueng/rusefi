@@ -95,6 +95,9 @@ void Executor::doExecute() {
 	}
 	reentrantLock = false;
 	/**
+	 * 'executeAll' is potentially invoking heavy callbacks, let's grab fresh time value?
+	 */
+	/**
 	 * Let's set up the timer for the next execution
 	 */
 	uint64_t nextEventTime = queue.getNextEventTime(nowUs);
