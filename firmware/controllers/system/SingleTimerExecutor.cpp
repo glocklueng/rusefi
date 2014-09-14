@@ -58,7 +58,7 @@ void Executor::schedule2(const char *prefix, scheduling_s *scheduling, uint64_t 
 	}
 	queue.insertTask(scheduling, timeUs, callback, param);
 	if (!reentrantLock) {
-		doExecute(getTimeNowUs());
+		doExecute();
 		unlock();
 	}
 }
@@ -70,14 +70,14 @@ void Executor::schedule(const char *prefix, scheduling_s *scheduling, uint64_t n
 
 void Executor::onTimerCallback() {
 	lock();
-	doExecute(getTimeNowUs());
+	doExecute();
 	unlock();
 }
 
 /*
  * this private method is executed under lock
  */
-void Executor::doExecute(uint64_t nowUs) {
+void Executor::doExecute() {
 	/**
 	 * Let's execute actions we should execute at this point.
 	 * reentrantLock takes care of the use case where the actions we are executing are scheduling
@@ -87,6 +87,7 @@ void Executor::doExecute(uint64_t nowUs) {
 	/**
 	 * It's worth noting that that the actions might be adding new actions into the queue
 	 */
+	uint64_t nowUs = getTimeNowUs();
 	queue.executeAll(nowUs);
 	if (!isLocked()) {
 		firmwareError("Someone has stolen my lock");
