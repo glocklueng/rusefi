@@ -74,8 +74,9 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
 
 /**
  * Invoke all pending actions prior to specified timestamp
+ * @return true if at least one action was executed
  */
-void EventQueue::executeAll(uint64_t now) {
+bool EventQueue::executeAll(uint64_t now) {
 	scheduling_s * current, *tmp;
 
 	scheduling_s * executionList = NULL;
@@ -87,7 +88,7 @@ void EventQueue::executeAll(uint64_t now) {
 	{
 		if (++counter > QUEUE_LENGTH_LIMIT) {
 			firmwareError("Is this list looped?");
-			return;
+			return false;
 		}
 		if (current->momentUs <= now) {
 			LL_DELETE(head, current);
@@ -99,9 +100,12 @@ void EventQueue::executeAll(uint64_t now) {
 	 * we need safe iteration here because 'callback' might change change 'current->next'
 	 * while re-inserting it into the queue from within the callback
 	 */
-	LL_FOREACH_SAFE(executionList, current, tmp) {
+	bool result = (executionList != NULL);
+	LL_FOREACH_SAFE(executionList, current, tmp)
+	{
 		current->callback(current->param);
 	}
+	return result;
 }
 
 int EventQueue::size(void) {
