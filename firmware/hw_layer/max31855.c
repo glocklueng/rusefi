@@ -14,7 +14,7 @@
 
 static Logging logger;
 
-static void showEgtInfo() {
+static void showEgtInfo(void) {
 	for (int i = 0; i < MAX31855_CS_COUNT; i++) {
 //		if (boardConfiguration->max31855_cs[i] != GPIO_NONE) {
 //			scheduleMsg(&logger, "%d ETG @ %s", i, hwPortname(boardConfiguration->max31855_cs[i]));
