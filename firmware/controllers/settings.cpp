@@ -54,6 +54,11 @@ void printFloatArray(const char *prefix, float array[], int size) {
 	scheduleLogging(&logger);
 }
 
+void printSpiState(Logging *logger, board_configuration_s *boardConfiguration) {
+	scheduleMsg(logger, "spi 1=%s/2=%s/3=%s", boolToString(boardConfiguration->is_enabled_spi_1),
+			boolToString(boardConfiguration->is_enabled_spi_2), boolToString(boardConfiguration->is_enabled_spi_3));
+}
+
 extern board_configuration_s *boardConfiguration;
 
 /**
@@ -150,8 +155,8 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 				hwPortname(boardConfiguration->digitalPotentiometerChipSelect[i]));
 	}
 
-	scheduleMsg(&logger, "spi 1=%s/2=%s/3=%s", boolToString(boardConfiguration->is_enabled_spi_1),
-			boolToString(boardConfiguration->is_enabled_spi_2), boolToString(boardConfiguration->is_enabled_spi_3));
+	printSpiState(&logger, boardConfiguration);
+
 
 #endif /* EFI_PROD_CODE */
 }
