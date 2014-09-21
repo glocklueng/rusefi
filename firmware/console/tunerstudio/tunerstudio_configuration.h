@@ -14,7 +14,7 @@
 /**
  * this is used to confirm that firmware and TunerStudio are using the same rusefi.ini version
  */
-#define TS_FILE_VERSION 20140917
+#define TS_FILE_VERSION 20140920
 
 #define EGT_CHANNEL_COUNT 8
 
