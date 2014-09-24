@@ -252,9 +252,11 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 
 	int engineCycleEventCount = getEngineCycleEventCount(engineConfiguration, s);
 
-	int middle;
-	int left = 0;
-	int right = engineCycleEventCount - 1;
+	efiAssertVoid(engineCycleEventCount > 0, "engineCycleEventCount");
+
+	uint32_t middle;
+	uint32_t left = 0;
+	uint32_t right = engineCycleEventCount - 1;
 
 	/**
 	 * Let's find the last trigger angle which is less or equal to the desired angle
