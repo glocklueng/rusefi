@@ -129,7 +129,7 @@ extern "C"
 void initPrimaryPins(void);
 void initOutputPins(void);
 const char *getPinName(io_pin_e io_pin);
-io_pin_e getByPinName(const char *name);
+io_pin_e getPinByName(const char *name);
 void turnOutputPinOn(io_pin_e pin);
 void turnOutputPinOff(io_pin_e pin);
 void setOutputPinValue(io_pin_e pin, int logicValue);
