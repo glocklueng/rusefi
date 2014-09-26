@@ -68,16 +68,6 @@ float getMap(void) {
 	return getRawMap();
 }
 
-static TriggerEmulatorHelper helper;
-
-static void triggerEmulatorCallback(PwmConfig *state, int stateIndex) {
-	/**
-	 * this callback would invoke the input signal handlers directly - same
-	 * as 'directSelfStimulation' mode in real firmware
-	 */
-	helper.handleEmulatorCallback(state, stateIndex);
-}
-
 void rusEfiFunctionalTest(void) {
 	initializeConsole();
 
@@ -97,7 +87,7 @@ void rusEfiFunctionalTest(void) {
 
 	initAnalogChart();
 
-	initTriggerEmulatorLogic(triggerEmulatorCallback);
+	initTriggerEmulator();
 
 	initMainEventListener(&engine, engineConfiguration2);
 
