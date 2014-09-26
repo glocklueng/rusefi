@@ -27,23 +27,6 @@ extern board_configuration_s *boardConfiguration;
 
 extern PwmConfig triggerSignal;
 
-static TriggerEmulatorHelper helper;
-
-#if EFI_EMULATE_POSITION_SENSORS || defined(__DOXYGEN__)
-
-static void emulatorApplyPinState(PwmConfig *state, int stateIndex) {
-#if EFI_PROD_CODE
-	applyPinState(state, stateIndex);
-#endif /* EFI_PROD_CODE */
-	if (engineConfiguration->directSelfStimulation) {
-		/**
-		 * this callback would invoke the input signal handlers directly
-		 */
-		helper.handleEmulatorCallback(state, stateIndex);
-	}
-}
-#endif /* EFI_EMULATE_POSITION_SENSORS */
-
 void initTriggerEmulator(void) {
 #if EFI_EMULATE_POSITION_SENSORS || defined(__DOXYGEN__)
 	print("Emulating %s\r\n", getConfigurationName(engineConfiguration->engineType));
@@ -64,7 +47,7 @@ void initTriggerEmulator(void) {
 			&boardConfiguration->triggerSimulatorPinModes[2]);
 #endif /* EFI_PROD_CODE */
 
-	initTriggerEmulatorLogic(emulatorApplyPinState);
+	initTriggerEmulatorLogic();
 #else
 	print("No position sensor(s) emulation\r\n");
 #endif /* EFI_EMULATE_POSITION_SENSORS */
