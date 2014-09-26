@@ -44,7 +44,6 @@ void TriggerEmulatorHelper::handleEmulatorCallback(PwmConfig *state, int stateIn
 	//	print("hello %d\r\n", chTimeNow());
 }
 
-
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
 
@@ -55,12 +54,18 @@ extern engine_configuration2_s *engineConfiguration2;
 static int pinStates1[PWM_PHASE_MAX_COUNT];
 static int pinStates2[PWM_PHASE_MAX_COUNT];
 static int pinStates3[PWM_PHASE_MAX_COUNT];
-static single_wave_s waves[PWM_PHASE_MAX_WAVE_PER_PWM] = {single_wave_s(pinStates1), single_wave_s(pinStates2), single_wave_s(pinStates3)};
-static single_wave_s sr[PWM_PHASE_MAX_WAVE_PER_PWM] = {waves[0], waves[1], waves[2]};
+static single_wave_s waves[PWM_PHASE_MAX_WAVE_PER_PWM] = { single_wave_s(pinStates1), single_wave_s(pinStates2),
+		single_wave_s(pinStates3) };
+static single_wave_s sr[PWM_PHASE_MAX_WAVE_PER_PWM] = { waves[0], waves[1], waves[2] };
 
 static float swtchTms[PWM_PHASE_MAX_COUNT];
 
 PwmConfig triggerSignal(swtchTms, sr);
+
+#define DO_NOT_STOP 999999999
+
+static int stopEmulationAtIndex = DO_NOT_STOP;
+static bool isEmulating = true;
 
 static Logging logger;
 static LocalVersionHolder localVersion;
@@ -82,13 +87,14 @@ void setTriggerEmulatorRPM(int rpm) {
 
 static void updateTriggerShapeIfNeeded(PwmConfig *state) {
 	if (localVersion.isOld()) {
-		scheduleMsg(&logger, "Stimulator: updating trigger shape: %d/%d %d", localVersion.getVersion(), getGlobalConfigurationVersion(), currentTimeMillis());
-
+		scheduleMsg(&logger, "Stimulator: updating trigger shape: %d/%d %d", localVersion.getVersion(),
+				getGlobalConfigurationVersion(), currentTimeMillis());
 
 		applyNonPersistentConfiguration(&logger, engineConfiguration, engineConfiguration2);
 
 		trigger_shape_s *s = &engineConfiguration2->triggerShape;
-		int *pinStates[PWM_PHASE_MAX_WAVE_PER_PWM] = {s->wave.waves[0].pinStates, s->wave.waves[1].pinStates, s->wave.waves[2].pinStates};
+		int *pinStates[PWM_PHASE_MAX_WAVE_PER_PWM] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates,
+				s->wave.waves[2].pinStates };
 		copyPwmParameters(state, s->getSize(), s->wave.switchTimes, PWM_PHASE_MAX_WAVE_PER_PWM, pinStates);
 		state->safe.periodNt = -1; // this would cause loop re-initialization
 	}
@@ -99,6 +105,12 @@ static TriggerEmulatorHelper helper;
 #if EFI_EMULATE_POSITION_SENSORS || defined(__DOXYGEN__)
 
 static void emulatorApplyPinState(PwmConfig *state, int stateIndex) {
+	if (stopEmulationAtIndex == stateIndex) {
+		isEmulating = false;
+	}
+	if (!isEmulating) {
+		return;
+	}
 #if EFI_PROD_CODE
 	applyPinState(state, stateIndex);
 #endif /* EFI_PROD_CODE */
@@ -111,16 +123,27 @@ static void emulatorApplyPinState(PwmConfig *state, int stateIndex) {
 }
 #endif /* EFI_EMULATE_POSITION_SENSORS */
 
+static void setEmulatorAtIndex(int index) {
+	stopEmulationAtIndex = index;
+}
+
+static void resumeStimulator(void) {
+	isEmulating = true;
+	stopEmulationAtIndex = DO_NOT_STOP;
+}
 
 void initTriggerEmulatorLogic(void) {
 	initLogging(&logger, "position sensor(s) emulator");
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	setTriggerEmulatorRPM(engineConfiguration->bc.triggerSimulatorFrequency);
-	int *pinStates[PWM_PHASE_MAX_WAVE_PER_PWM] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates, s->wave.waves[2].pinStates};
-	weComplexInit("position sensor", &triggerSignal, s->getSize(), s->wave.switchTimes, PWM_PHASE_MAX_WAVE_PER_PWM, pinStates,
-			updateTriggerShapeIfNeeded, emulatorApplyPinState);
+	int *pinStates[PWM_PHASE_MAX_WAVE_PER_PWM] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates,
+			s->wave.waves[2].pinStates };
+	weComplexInit("position sensor", &triggerSignal, s->getSize(), s->wave.switchTimes, PWM_PHASE_MAX_WAVE_PER_PWM,
+			pinStates, updateTriggerShapeIfNeeded, emulatorApplyPinState);
 
 	addConsoleActionI("rpm", &setTriggerEmulatorRPM);
+	addConsoleActionI("stop_stimulator_at_index", setEmulatorAtIndex);
+	addConsoleAction("resume_stimulator", resumeStimulator);
 
 }
