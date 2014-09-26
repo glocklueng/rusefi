@@ -20,7 +20,6 @@ public:
 	void handleEmulatorCallback(PwmConfig *state, int stateIndex);
 };
 
-
-void initTriggerEmulatorLogic(pwm_gen_callback *callback);
+void initTriggerEmulatorLogic(void);
 
 #endif /* TRIGGER_EMULATOR_ALGO_H_ */

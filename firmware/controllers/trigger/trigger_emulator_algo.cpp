@@ -11,6 +11,10 @@
 #include "ec2.h"
 #include "trigger_central.h"
 
+#if EFI_PROD_CODE
+#include "pwm_generator.h"
+#endif
+
 TriggerEmulatorHelper::TriggerEmulatorHelper() {
 	primaryWheelState = false;
 	secondaryWheelState = false;
@@ -90,15 +94,32 @@ static void updateTriggerShapeIfNeeded(PwmConfig *state) {
 	}
 }
 
-void initTriggerEmulatorLogic(pwm_gen_callback *stateChangeCallback) {
-	initLogging(&logger, "position sensor(s) emulator");
+static TriggerEmulatorHelper helper;
 
+#if EFI_EMULATE_POSITION_SENSORS || defined(__DOXYGEN__)
+
+static void emulatorApplyPinState(PwmConfig *state, int stateIndex) {
+#if EFI_PROD_CODE
+	applyPinState(state, stateIndex);
+#endif /* EFI_PROD_CODE */
+	if (engineConfiguration->directSelfStimulation) {
+		/**
+		 * this callback would invoke the input signal handlers directly
+		 */
+		helper.handleEmulatorCallback(state, stateIndex);
+	}
+}
+#endif /* EFI_EMULATE_POSITION_SENSORS */
+
+
+void initTriggerEmulatorLogic(void) {
+	initLogging(&logger, "position sensor(s) emulator");
 
 	trigger_shape_s *s = &engineConfiguration2->triggerShape;
 	setTriggerEmulatorRPM(engineConfiguration->bc.triggerSimulatorFrequency);
 	int *pinStates[PWM_PHASE_MAX_WAVE_PER_PWM] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates, s->wave.waves[2].pinStates};
 	weComplexInit("position sensor", &triggerSignal, s->getSize(), s->wave.switchTimes, PWM_PHASE_MAX_WAVE_PER_PWM, pinStates,
-			updateTriggerShapeIfNeeded, stateChangeCallback);
+			updateTriggerShapeIfNeeded, emulatorApplyPinState);
 
 	addConsoleActionI("rpm", &setTriggerEmulatorRPM);
 
