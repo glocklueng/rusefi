@@ -311,12 +311,9 @@ void testFLStack(void) {
 
 	FLStack<int, 4> stack;
 	assertEquals(0, stack.size());
-
-
 }
 
 void testMisc(void) {
-
 	assertEquals(true, strEqual("spa3", getPinName(SPARKOUT_3_OUTPUT)));
-
+	assertEquals(SPARKOUT_12_OUTPUT, getPinByName("spa12"));
 }
