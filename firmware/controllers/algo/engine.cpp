@@ -13,7 +13,9 @@
 #include "engine.h"
 #include "engine_state.h"
 
+#if EFI_PROD_CODE || EFI_SIMULATOR
 static Logging logger;
+#endif
 
 /**
  * We are executing these heavy (logarithm) methods from outside the trigger callbacks for performance reasons.
@@ -29,8 +31,9 @@ void Engine::onTriggerEvent(uint64_t nowUs) {
 }
 
 void Engine::init() {
+#if EFI_PROD_CODE || EFI_SIMULATOR
 	initLogging(&logger, "engine");
-
+#endif
 }
 void Engine::watchdog() {
 	if (!isSpinning) {
