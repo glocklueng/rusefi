@@ -71,6 +71,10 @@ float getMap(void) {
 static TriggerEmulatorHelper helper;
 
 static void triggerEmulatorCallback(PwmConfig *state, int stateIndex) {
+	/**
+	 * this callback would invoke the input signal handlers directly - same
+	 * as 'directSelfStimulation' mode in real firmware
+	 */
 	helper.handleEmulatorCallback(state, stateIndex);
 }
 
