@@ -63,6 +63,9 @@ static TriggerEmulatorHelper helper;
 static void emulatorApplyPinState(PwmConfig *state, int stateIndex) {
 	applyPinState(state, stateIndex);
 	if (engineConfiguration->directSelfStimulation) {
+		/**
+		 * this callback would invoke the input signal handlers directly
+		 */
 		helper.handleEmulatorCallback(state, stateIndex);
 	}
 }
