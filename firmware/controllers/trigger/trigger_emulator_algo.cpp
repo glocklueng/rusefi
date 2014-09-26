@@ -9,6 +9,37 @@
 #include "engine_configuration.h"
 #include "LocalVersionHolder.h"
 #include "ec2.h"
+#include "trigger_central.h"
+
+TriggerEmulatorHelper::TriggerEmulatorHelper() {
+	primaryWheelState = false;
+	secondaryWheelState = false;
+	thirdWheelState = false;
+}
+
+void TriggerEmulatorHelper::handleEmulatorCallback(PwmConfig *state, int stateIndex) {
+	int newPrimaryWheelState = state->multiWave.waves[0].pinStates[stateIndex];
+	int newSecondaryWheelState = state->multiWave.waves[1].pinStates[stateIndex];
+	int new3rdWheelState = state->multiWave.waves[2].pinStates[stateIndex];
+
+	if (primaryWheelState != newPrimaryWheelState) {
+		primaryWheelState = newPrimaryWheelState;
+		hwHandleShaftSignal(primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN);
+	}
+
+	if (secondaryWheelState != newSecondaryWheelState) {
+		secondaryWheelState = newSecondaryWheelState;
+		hwHandleShaftSignal(secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN);
+	}
+
+	if (thirdWheelState != new3rdWheelState) {
+		thirdWheelState = new3rdWheelState;
+		hwHandleShaftSignal(thirdWheelState ? SHAFT_3RD_UP : SHAFT_3RD_DOWN);
+	}
+
+	//	print("hello %d\r\n", chTimeNow());
+}
+
 
 extern engine_configuration_s *engineConfiguration;
 extern engine_configuration2_s *engineConfiguration2;
