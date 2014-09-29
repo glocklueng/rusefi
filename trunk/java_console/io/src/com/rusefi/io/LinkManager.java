@@ -57,7 +57,7 @@ public class LinkManager {
     public static boolean isStimulationMode;
 
     public static void start(String port) {
-        if (isLauncherMode(port)) {
+        if (isLogViewerMode(port)) {
             connector = LinkManager.VOID;
         } else if (TcpConnector.isTcpPort(port)) {
             connector = new TcpConnector(port);
@@ -67,7 +67,7 @@ public class LinkManager {
         }
     }
 
-    public static boolean isLauncherMode(String port) {
+    public static boolean isLogViewerMode(String port) {
         return port.equals(LOG_VIEWER);
     }
 
