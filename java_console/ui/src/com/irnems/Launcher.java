@@ -33,7 +33,7 @@ public class Launcher extends FrameHelper {
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        if (LinkManager.isLauncherMode(port))
+        if (LinkManager.isLogViewerMode(port))
             tabbedPane.add("Log Viewer", new LogViewer());
 
         RpmPanel rpmPanel = new RpmPanel();
@@ -51,7 +51,7 @@ public class Launcher extends FrameHelper {
         tabbedPane.add("Messages", new MsgPanel(true).getContent());
 
 
-        if (!LinkManager.isLauncherMode(port))
+        if (!LinkManager.isLogViewerMode(port))
             tabbedPane.setSelectedIndex(2);
 
         showFrame(tabbedPane);
