@@ -155,9 +155,9 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->rpmHardLimit = 7000;
 	engineConfiguration->crankingSettings.crankingRpm = 550;
 
-	// set_cranking_fuel_max 24 40
-	engineConfiguration->crankingSettings.coolantTempMaxC = 40; // 6ms at 40C
-	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 24;
+	// set_cranking_fuel_max 8 80
+	engineConfiguration->crankingSettings.coolantTempMaxC = 80; // 8ms at 80C
+	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 8;
 
 	// set_cranking_fuel_min 24 -40
 	engineConfiguration->crankingSettings.coolantTempMinC = -40; // 6ms at -40C
