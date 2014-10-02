@@ -72,15 +72,17 @@ static int getNumberOfInjections(engine_configuration_s const *engineConfigurati
  * @returns	Length of fuel injection, in milliseconds
  */
 float getFuelMs(int rpm, Engine *engine) {
+	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 	float theoreticalInjectionLength;
 	if (isCranking()) {
-		theoreticalInjectionLength = getCrankingFuel(engine) / getNumberOfInjections(engine->engineConfiguration, engine->engineConfiguration->crankingInjectionMode);
+		theoreticalInjectionLength = getCrankingFuel(engine) / getNumberOfInjections(engineConfiguration, engineConfiguration->crankingInjectionMode);
 	} else {
 		float baseFuel = getBaseFuel(engine, rpm);
 		float fuelPerCycle = getRunningFuel(baseFuel, engine, rpm);
-		theoreticalInjectionLength = fuelPerCycle / getNumberOfInjections(engine->engineConfiguration, engine->engineConfiguration->injectionMode);
+		theoreticalInjectionLength = fuelPerCycle / getNumberOfInjections(engineConfiguration, engine->engineConfiguration->injectionMode);
 	}
-	return theoreticalInjectionLength;
+	float injectorLag = getInjectorLag(engineConfiguration, getVBatt());
+	return theoreticalInjectionLength + injectorLag;
 }
 
 // todo: start using 'engine' parameter and not 'extern'
@@ -88,14 +90,13 @@ float getRunningFuel(float baseFuel, Engine *engine, int rpm) {
 	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 	float iatCorrection = getIatCorrection(engineConfiguration, getIntakeAirTemperature(engine->engineConfiguration2));
 	float cltCorrection = getCltCorrection(engineConfiguration, getCoolantTemperature(engine->engineConfiguration2));
-	float injectorLag = getInjectorLag(engineConfiguration, getVBatt());
 
 #if EFI_ACCEL_ENRICHMENT
 	float accelEnrichment = getAccelEnrichment();
 	// todo: accelEnrichment
 #endif /* EFI_ACCEL_ENRICHMENT */
 
-	return baseFuel * cltCorrection * iatCorrection + injectorLag;
+	return baseFuel * cltCorrection * iatCorrection;
 }
 
 static Map3D1616 fuelMap;
