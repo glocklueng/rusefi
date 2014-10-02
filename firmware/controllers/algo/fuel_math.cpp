@@ -72,13 +72,15 @@ static int getNumberOfInjections(engine_configuration_s const *engineConfigurati
  * @returns	Length of fuel injection, in milliseconds
  */
 float getFuelMs(int rpm, Engine *engine) {
+	float theoreticalInjectionLength;
 	if (isCranking()) {
-		return getCrankingFuel(engine) / getNumberOfInjections(engine->engineConfiguration, engine->engineConfiguration->crankingInjectionMode);
+		theoreticalInjectionLength = getCrankingFuel(engine) / getNumberOfInjections(engine->engineConfiguration, engine->engineConfiguration->crankingInjectionMode);
 	} else {
 		float baseFuel = getBaseFuel(engine, rpm);
 		float fuelPerCycle = getRunningFuel(baseFuel, engine, rpm);
-		return fuelPerCycle / getNumberOfInjections(engine->engineConfiguration, engine->engineConfiguration->injectionMode);
+		theoreticalInjectionLength = fuelPerCycle / getNumberOfInjections(engine->engineConfiguration, engine->engineConfiguration->injectionMode);
 	}
+	return theoreticalInjectionLength;
 }
 
 // todo: start using 'engine' parameter and not 'extern'
@@ -95,9 +97,6 @@ float getRunningFuel(float baseFuel, Engine *engine, int rpm) {
 
 	return baseFuel * cltCorrection * iatCorrection + injectorLag;
 }
-
-extern Engine engine;
-extern engine_configuration_s *engineConfiguration;
 
 static Map3D1616 fuelMap;
 
