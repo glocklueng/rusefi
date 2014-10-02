@@ -96,6 +96,6 @@ void configureNeon1995TriggerShape(trigger_shape_s *s) {
 
 	s->addEvent(base + 560, T_PRIMARY, TV_HIGH); // width =
 
-	s->shaftPositionEventCount = 4 + 8 + 8 + 8 + 8;
+	s->assignSize();
 }
 

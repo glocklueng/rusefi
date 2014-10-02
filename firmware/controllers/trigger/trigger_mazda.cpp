@@ -83,7 +83,7 @@ void initializeMazdaMiataNbShape(trigger_shape_s *s) {
 
 	s->addEvent(720.0f, T_PRIMARY, TV_LOW);
 
-	s->shaftPositionEventCount = 6 + 16;
+	s->assignSize();
 }
 
 void configureMazdaProtegeLx(trigger_shape_s *s) {
