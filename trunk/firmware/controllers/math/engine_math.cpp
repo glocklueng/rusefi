@@ -113,6 +113,7 @@ static void registerSparkEvent(engine_configuration_s const *engineConfiguration
 		return; // error already reported
 
 	if (!isPinAssigned(pin)) {
+		// todo: extact method for this index math
 		warning(OBD_PCM_Processor_Fault, "pin not assigned for coil #%d", (int) pin - (int) SPARKOUT_1_OUTPUT + 1);
 	}
 	event->io_pin = pin;
@@ -173,6 +174,7 @@ static void registerInjectionEvent(engine_configuration_s const *e, trigger_shap
 		io_pin_e pin, float angle) {
 
 	if (!isPinAssigned(pin)) {
+		// todo: extact method for this index math
 		warning(OBD_PCM_Processor_Fault, "pin not assigned for injector #%d", (int) pin - (int) INJECTOR_1_OUTPUT + 1);
 	}
 
