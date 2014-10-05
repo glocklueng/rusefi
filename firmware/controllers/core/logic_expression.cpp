@@ -244,3 +244,9 @@ LEElement * parseExpression(LEElementPool *pool, const char * line) {
 	}
 	return first;
 }
+
+#if EFI_PROD_CODE || EFI_SIMULATOR
+float getLEValue(Engine *engine, le_action_e action) {
+	return NAN;
+}
+#endif
