@@ -2,7 +2,6 @@ package com.rusefi;
 
 import java.io.*;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -10,15 +9,21 @@ import java.util.Set;
  * <p/>
  * 10/6/14
  */
+@SuppressWarnings("StringConcatenationInsideStringBufferAppend")
 public class EnumToString {
+    private final static Set<String> currentValues = new HashSet<String>();
+
+    private final static StringBuilder result = new StringBuilder();
+    private final static StringBuilder header = new StringBuilder();
+
     public static void main(String[] args) throws IOException {
         header.append("#ifndef _A_H_HEADER_\r\n");
         header.append("#define _A_H_HEADER_\r\n");
 
         process("../../firmware/controllers/algo/io_pins.h");
+        process("../../firmware/controllers/algo/rusefi_enums.h");
 
         header.append("#endif /*_A_H_HEADER_ */\r\n");
-
 
         writeResult("auto_generated_enums");
     }
@@ -32,11 +37,6 @@ public class EnumToString {
         bw.write(header.toString());
         bw.close();
     }
-
-    private final static Set<String> currentValues = new HashSet<String>();
-
-    private final static StringBuilder result = new StringBuilder();
-    private final static StringBuilder header = new StringBuilder();
 
     private static void process(String inFileName) throws IOException {
         BufferedReader reader;
@@ -71,8 +71,11 @@ public class EnumToString {
             } else {
                 line = line.replaceAll("//.+", "");
                 if (isInsideEnum) {
-                    if (line.matches("[a-zA-Z_$][a-zA-Z\\d_$]*,?")) {
+                    if (line.matches("[a-zA-Z_$][a-zA-Z\\d_$]*[\\=a-zA-Z\\d_*]*,?")) {
                         line = line.replace(",", "");
+                        int index = line.indexOf('=');
+                        if (index != -1)
+                            line = line.substring(0, index);
                         System.out.println("Line " + line);
                         currentValues.add(line);
                     }
