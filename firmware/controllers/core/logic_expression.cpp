@@ -147,7 +147,7 @@ void LECalculator::doJob(Engine *engine, LEElement *element) {
 		firmwareError("Undefined not expected here");
 		break;
 	default:
-		stack.push(getLEValue(NULL, element->action));
+		stack.push(getLEValue(engine, element->action));
 	}
 }
 

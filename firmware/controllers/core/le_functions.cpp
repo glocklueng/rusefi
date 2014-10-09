@@ -27,7 +27,8 @@ static LENameOrdinalPair leTimeSinceBoot(LE_METHOD_TIME_SINCE_BOOT, "time_since_
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
 float getLEValue(Engine *engine, le_action_e action) {
-	switch(action) {
+	efiAssert(engine!=NULL, "getLEValue", NAN);
+	switch (action) {
 //	case LE_METHOD_FAN:
 	//	return ;
 	case LE_METHOD_COOLANT:
