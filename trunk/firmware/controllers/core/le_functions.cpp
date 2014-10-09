@@ -12,6 +12,10 @@
 
 extern LENameOrdinalPair * LE_FIRST;
 
+static LENameOrdinalPair leLess(LE_OPERATOR_LESS, "<");
+static LENameOrdinalPair leLessEquals(LE_OPERATOR_LESS_OR_EQUAL, "<=");
+static LENameOrdinalPair leMore(LE_OPERATOR_MORE, ">");
+static LENameOrdinalPair leMoreEquals(LE_OPERATOR_MORE_OR_EQUAL, ">=");
 static LENameOrdinalPair leRpm(LE_METHOD_RPM, "rpm");
 static LENameOrdinalPair leTps(LE_METHOD_TPS, "tps");
 static LENameOrdinalPair leMaf(LE_METHOD_MAF, "maf");
@@ -20,7 +24,6 @@ static LENameOrdinalPair leCoolant(LE_METHOD_COOLANT, "coolant");
 static LENameOrdinalPair leFanOnSetting(LE_METHOD_FAN_ON_SETTING, "fan_on_setting");
 static LENameOrdinalPair leFanOffSetting(LE_METHOD_FAN_OFF_SETTING, "fan_off_setting");
 static LENameOrdinalPair leTimeSinceBoot(LE_METHOD_TIME_SINCE_BOOT, "time_since_boot");
-
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
 float getLEValue(Engine *engine, le_action_e action) {
