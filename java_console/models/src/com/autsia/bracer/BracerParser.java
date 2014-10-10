@@ -37,8 +37,6 @@ public class BracerParser {
     private final String OPERATORS = "<>=+-*/&|!";
     /* separator of arguments */
     private final String SEPARATOR = ",";
-    /* variable token */
-    private final String VARIABLE = "var";
     /* temporary stack that holds operators, functions and brackets */
     private Stack<String> stackOperations = new Stack<>();
     /* stack for holding expression converted to reversed polish notation */
@@ -135,22 +133,6 @@ public class BracerParser {
      * @since 1.0
      */
     public String evaluate() throws ParseException {
-        if (!stackRPN.contains("var")) {
-            return evaluate(0);
-        }
-        throw new ParseException("Unrecognized token: var", 0);
-    }
-
-    /**
-     * Evaluates once parsed math expression with "var" variable included
-     *
-     * @param variableValue User-specified <code>Double</code> value
-     * @return <code>String</code> representation of the result
-     * @throws <code>ParseException</code> if the input expression is not
-     *                                     correct
-     * @since 3.0
-     */
-    public String evaluate(double variableValue) throws ParseException {
         /* check if is there something to evaluate */
         if (stackRPN.empty()) {
             return "";
@@ -162,10 +144,6 @@ public class BracerParser {
 		/* get the clone of the RPN stack for further evaluating */
         @SuppressWarnings("unchecked")
         Stack<String> stackRPN = (Stack<String>) this.stackRPN.clone();
-
-		/* enroll the variable value into expression */
-        Collections.replaceAll(stackRPN, VARIABLE,
-                Double.toString(variableValue));
 
 		/* evaluating the RPN expression */
         while (!stackRPN.empty()) {
@@ -287,8 +265,8 @@ public class BracerParser {
     private boolean isNumber(String token) {
         try {
             Double.parseDouble(token);
-        } catch (Exception e) {
-            return token.equals(VARIABLE);
+        } catch (NumberFormatException e) {
+            return false;
         }
         return true;
     }
