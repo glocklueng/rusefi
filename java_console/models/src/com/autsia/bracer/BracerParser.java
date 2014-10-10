@@ -111,7 +111,6 @@ public class BracerParser {
 		 * degree character
 		 */
         expression = expression.replace(" ", "")
-                .replace("°", "*" + Double.toString(Math.PI) + "/180")
                 .replace("(-", "(0-").replace(",-", ",0-").replace("(+", "(0+")
                 .replace(",+", ",0+").replace("true", "1").replace("false", "0")
                 .replace("or", "|").replace("and", "&");
