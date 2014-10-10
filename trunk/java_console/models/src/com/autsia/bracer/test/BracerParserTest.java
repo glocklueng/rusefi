@@ -18,7 +18,6 @@ package com.autsia.bracer.test;
 
 import java.util.Collection;
 
-import org.apache.commons.math3.complex.Complex;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,9 +31,8 @@ import com.autsia.bracer.BracerParser;
  * Time: 12:52
  */
 public class BracerParserTest {
-    private final String INPUT_NOVAR = "-sin(3+4I+cosh(6*I)/exp(10/pow(22,-1)))";
-    private final String INPUT_VAR = "-sin(3+var*I+cosh(10*I)/exp(10/pow(22,-1)))";
-    private final String OUTPUT = "-3.854 + 27.017I";
+    private final String INPUT_NOVAR = "-sin(3+4+cos(6)/exp(10/pow(22,-1)))";
+    private final String INPUT_VAR = "-sin(3+var+cos(10)/exp(10/pow(22,-1)))";
     private BracerParser bracerParser;
 
     @Before
@@ -56,30 +54,13 @@ public class BracerParserTest {
     @Test
     public void testEvaluateNoVar() throws Exception {
         bracerParser.parse(INPUT_NOVAR);
-        Assert.assertEquals(OUTPUT, bracerParser.evaluate());
+        Assert.assertEquals("-0.6570194619480038", bracerParser.evaluate());
     }
 
     @Test
     public void testEvaluateVar() throws Exception {
         bracerParser.parse(INPUT_VAR);
-        Assert.assertEquals(OUTPUT, bracerParser.evaluate(4));
-    }
-
-    @Test
-    public void testEvaluateComplexNoVar() throws Exception {
-        bracerParser.parse(INPUT_NOVAR);
-        Assert.assertEquals(new Complex(-3.854, 27.017), bracerParser.evaluateComplex());
-    }
-
-    @Test
-    public void testEvaluateComplexVar() throws Exception {
-        bracerParser.parse(INPUT_VAR);
-        Assert.assertEquals(new Complex(-3.854, 27.017), bracerParser.evaluateComplex(4));
-    }
-
-    @Test
-    public void testFormat() throws Exception {
-        Assert.assertEquals(OUTPUT, bracerParser.format(new Complex(-3.854, 27.017)));
+        Assert.assertEquals("-0.6569578792490918", bracerParser.evaluate(4));
     }
 
     @Test
