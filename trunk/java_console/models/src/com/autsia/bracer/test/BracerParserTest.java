@@ -76,8 +76,13 @@ public class BracerParserTest {
 
 
         bracerParser.parse("(time_since_boot <= 4) | (rpm > 0)");
-        Assert.assertEquals("[|, rpm, >, 0, time_since_boot, =, 4, <]", bracerParser.getStackRPN().toString());
+        Assert.assertEquals("[|, rpm, >, 0, time_since_boot, <=, 4]", bracerParser.getStackRPN().toString());
 
+        bracerParser.parse("(time_since_boot <= 4) | (rpm > 0)");
+        Assert.assertEquals("[|, rpm, >, 0, time_since_boot, <=, 4]", bracerParser.getStackRPN().toString());
+
+        bracerParser.parse("(time_since_boot <= 4) OR (rpm > 0)");
+        Assert.assertEquals("[OR, rpm, >, 0, time_since_boot, <=, 4]", bracerParser.getStackRPN().toString());
     }
 
     @Test
