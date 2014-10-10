@@ -80,9 +80,21 @@ public class BracerParser {
         StringTokenizer stringTokenizer = new StringTokenizer(expression,
                 OPERATORS + SEPARATOR + "()", true);
 
+        String pendingToken = null;
+
 		/* loop for handling each token - shunting-yard algorithm */
-        while (stringTokenizer.hasMoreTokens()) {
-            String token = stringTokenizer.nextToken();
+        while (pendingToken != null || stringTokenizer.hasMoreTokens()) {
+            String token;
+            if (pendingToken != null) {
+                token = pendingToken;
+                pendingToken = null;
+            } else {
+                token = stringTokenizer.nextToken();
+            }
+            if (stringTokenizer.hasMoreTokens()) {
+                pendingToken = stringTokenizer.nextToken();
+            }
+
             if (isSeparator(token)) {
                 while (!stackOperations.empty()
                         && !isOpenBracket(stackOperations.lastElement())) {
@@ -103,6 +115,12 @@ public class BracerParser {
             } else if (isNumber(token)) {
                 stackRPN.push(token);
             } else if (isOperator(token)) {
+
+                if ((token.equals("<") || token.equals(">")) && "=".equals(pendingToken)) {
+                    token = token + pendingToken;
+                    pendingToken = null;
+                }
+
                 while (!stackOperations.empty()
                         && isOperator(stackOperations.lastElement())
                         && getPrecedence(token) <= getPrecedence(stackOperations
