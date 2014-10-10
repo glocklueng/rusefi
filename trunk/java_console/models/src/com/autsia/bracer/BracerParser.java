@@ -19,11 +19,9 @@
 
 package com.autsia.bracer;
 
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Locale;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
@@ -35,10 +33,6 @@ import java.util.StringTokenizer;
  * @since 1.0
  */
 public class BracerParser {
-    /* list of available functions */
-    private final String[] FUNCTIONS = {"abs", "acos", "arg", "asin", "atan",
-            "conj", "cos", "cosh", "exp", "imag", "log", "neg", "pow", "real",
-            "sin", "time_since_boot", "sqrt", "tan", "rpm", "not"};
     /* list of available operators */
     private final String OPERATORS = "<>=+-*/&|!";
     /* separator of arguments */
@@ -307,12 +301,7 @@ public class BracerParser {
      * @since 1.0
      */
     private boolean isFunction(String token) {
-        for (String item : FUNCTIONS) {
-            if (item.equals(token)) {
-                return true;
-            }
-        }
-        return false;
+        return Character.isAlphabetic(token.charAt(0));
     }
 
     /**
