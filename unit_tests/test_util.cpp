@@ -278,6 +278,12 @@ void testConsoleLogic(void) {
 	char * cmd = "he ha";
 	assertEquals(2, findEndOfToken(cmd));
 
+	cmd = "\"hee\" ha";
+	assertEquals(5, findEndOfToken(cmd));
+
+	cmd = "\"h e\" ha";
+	assertEquals(2, findEndOfToken(cmd));
+
 
 	char *ptr = validateSecureLine(UNKNOWN_COMMAND);
 	assertEquals(0, strcmp(UNKNOWN_COMMAND, ptr));
