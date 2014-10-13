@@ -20,6 +20,7 @@
 #include "map.h"
 #include "trigger_decoder.h"
 #include "console_io.h"
+#include "engine.h"
 
 #if EFI_PROD_CODE
 #include "rusefi.h"
