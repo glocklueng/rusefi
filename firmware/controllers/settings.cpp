@@ -115,6 +115,10 @@ void printConfiguration(engine_configuration_s *engineConfiguration, engine_conf
 			boolToString(engineConfiguration->isWaveAnalyzerEnabled),
 			boolToString(engineConfiguration->isIdleThreadEnabled), boolToString(boardConfiguration->isFastAdcEnabled));
 
+	scheduleMsg(&logger, "isManualSpinningMode=%s/isCylinderCleanupEnabled=%s",
+			boolToString(engineConfiguration->isManualSpinningMode),
+			boolToString(engineConfiguration->isCylinderCleanupEnabled));
+
 	scheduleMsg(&logger, "crankingChargeAngle=%f", engineConfiguration->crankingChargeAngle);
 	scheduleMsg(&logger, "crankingTimingAngle=%f", engineConfiguration->crankingTimingAngle);
 	scheduleMsg(&logger, "globalTriggerAngleOffset=%f", engineConfiguration->globalTriggerAngleOffset);
@@ -668,6 +672,10 @@ static void enableOrDisable(const char *param, bool isEnabled) {
 		engineConfiguration->isWaveAnalyzerEnabled = isEnabled;
 	} else if (strEqualCaseInsensitive(param, "idle_thread")) {
 		engineConfiguration->isIdleThreadEnabled = isEnabled;
+	} else if (strEqualCaseInsensitive(param, "manual_spinning")) {
+		engineConfiguration->isManualSpinningMode = isEnabled;
+	} else if (strEqualCaseInsensitive(param, "cylinder_cleanup")) {
+		engineConfiguration->isCylinderCleanupEnabled = isEnabled;
 	} else {
 		scheduleMsg(&logger, "unexpected [%s]", param);
 		return; // well, MISRA would not like this 'return' here :(
