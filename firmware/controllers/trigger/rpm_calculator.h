@@ -19,10 +19,10 @@
 
 #define NOISY_RPM -1
 
+#include "allsensors.h"
+
 #ifdef __cplusplus
 #include "engine.h"
-
-#define MOCK_UNDEFINED -1
 
 class RpmCalculator {
 public:
