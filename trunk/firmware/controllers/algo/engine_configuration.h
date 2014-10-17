@@ -465,7 +465,9 @@ typedef struct {
 	short int tpsErrorLowValue;
 	short int tpsErrorHighValue;
 
-	int unused3[24];
+	float primingSquirtDurationMs;
+
+	int unused3[23];
 
 } engine_configuration_s;
 

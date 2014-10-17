@@ -87,25 +87,39 @@ StartupFuelPumping::StartupFuelPumping() {
 	pumpsCounter = 0;
 }
 
-void StartupFuelPumping::setPumpsCounter(int newValue) {
+void StartupFuelPumping::setPumpsCounter(engine_configuration_s *engineConfiguration, int newValue) {
 	if (pumpsCounter != newValue) {
 		pumpsCounter = newValue;
+
+		if(pumpsCounter==PUMPS_TO_PRIME) {
+#if EFI_PROD_CODE || EFI_SIMULATOR
+		scheduleMsg(&logger, "let's squirt prime pulse %f", pumpsCounter);
+#endif
+			pumpsCounter = 0;
+		} else {
+#if EFI_PROD_CODE || EFI_SIMULATOR
+		scheduleMsg(&logger, "setPumpsCounter %d", pumpsCounter);
+#endif
+
+		}
 	}
 }
 
 void StartupFuelPumping::update(Engine *engine) {
+	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 	if (engine->rpmCalculator->rpm() == 0) {
-		bool isTpsAbove50 = getTPS(engine->engineConfiguration) >= 50;
+		bool isTpsAbove50 = getTPS(engineConfiguration) >= 50;
 
 		if (this->isTpsAbove50 != isTpsAbove50) {
-			setPumpsCounter(pumpsCounter + 1);
+			setPumpsCounter(engineConfiguration, pumpsCounter + 1);
 		}
 
 	} else {
 		/**
 		 * Engine is not stopped - not priming pumping mode
 		 */
-		setPumpsCounter(0);
+		setPumpsCounter(engineConfiguration, 0);
+		isTpsAbove50 = false;
 	}
 }
 

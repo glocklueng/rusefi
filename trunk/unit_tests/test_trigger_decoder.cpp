@@ -368,6 +368,23 @@ static void testStartupFuelPumping(void) {
 
 	sf.update(engine);
 	assertEqualsM("pc#3", 1, sf.pumpsCounter);
+
+	engine->rpmCalculator->mockRpm = 10;
+	sf.update(engine);
+	assertEqualsM("pc#4", 0, sf.pumpsCounter);
+
+	mockTps = 7;
+	engine->rpmCalculator->mockRpm = 0;
+	sf.update(engine);
+	assertEqualsM("pc#5", 1, sf.pumpsCounter);
+
+	mockTps = 3;
+	sf.update(engine);
+	assertEqualsM("pc#6", 1, sf.pumpsCounter);
+
+	mockTps = 7;
+	sf.update(engine);
+	assertEqualsM("pc#7", 2, sf.pumpsCounter);
 }
 
 static void testRpmCalculator(void) {
