@@ -348,6 +348,12 @@ static void testStartupFuelPumping(void) {
 	StartupFuelPumping sf;
 
 	Engine * engine = &eth.engine;
+	RpmCalculator rc;
+	engine->rpmCalculator = &rc;
+
+	engine->rpmCalculator->mockRpm = 0;
+
+	sf.update(engine);
 
 }
 
