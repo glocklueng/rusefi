@@ -94,7 +94,7 @@ void StartupFuelPumping::setPumpsCounter(int newValue) {
 
 void StartupFuelPumping::update(Engine *engine) {
 	if (engine->rpmCalculator->rpm() == 0) {
-	//	bool isAbove50 = getTPS() >= 50;
+		bool isAbove50 = getTPS(engine->engineConfiguration) >= 50;
 
 	} else {
 		/**

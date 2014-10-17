@@ -96,7 +96,7 @@ static float getPrimatyRawTPS(void) {
  *
  * @return Current TPS position, percent of WOT. 0 means idle and 100 means Wide Open Throttle
  */
-float getTPS(void) {
+float getTPS(engine_configuration_s *engineConfiguration) {
 	// todo: if (config->isDualTps)
 	// todo: blah blah
 	// todo: if two TPS do not match - show OBD code via malfunction_central.c
