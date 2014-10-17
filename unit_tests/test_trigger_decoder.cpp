@@ -353,6 +353,9 @@ static void testStartupFuelPumping(void) {
 
 	engine->rpmCalculator->mockRpm = 0;
 
+	engine->engineConfiguration->tpsMin = 0;
+	engine->engineConfiguration->tpsMin = 5;
+
 	sf.update(engine);
 
 }
