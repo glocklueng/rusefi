@@ -83,7 +83,8 @@ void Engine::watchdog() {
 }
 
 StartupFuelPumping::StartupFuelPumping() {
-
+	isTpsAbove50 = false;
+	pumpsCounter = 0;
 }
 
 void StartupFuelPumping::setPumpsCounter(int newValue) {
@@ -94,7 +95,11 @@ void StartupFuelPumping::setPumpsCounter(int newValue) {
 
 void StartupFuelPumping::update(Engine *engine) {
 	if (engine->rpmCalculator->rpm() == 0) {
-		bool isAbove50 = getTPS(engine->engineConfiguration) >= 50;
+		bool isTpsAbove50 = getTPS(engine->engineConfiguration) >= 50;
+
+		if (this->isTpsAbove50 != isTpsAbove50) {
+			setPumpsCounter(pumpsCounter + 1);
+		}
 
 	} else {
 		/**
