@@ -21,8 +21,6 @@
 #include "thermistors.h"
 #include "adc_inputs.h"
 
-#define MOCK_UNDEFINED -1
-
 #if EFI_PROD_CODE || EFI_SIMULATOR
 #include "adc_math.h"
 #endif
