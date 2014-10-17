@@ -54,6 +54,8 @@ public:
 	void update(Engine *engine);
 	bool isTpsAbove50;
 	int pumpsCounter;
+private:
+	void setPumpsCounter(int newValue);
 };
 
 #endif /* ENGINE_H_ */
