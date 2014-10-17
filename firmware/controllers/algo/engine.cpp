@@ -81,3 +81,12 @@ void Engine::watchdog() {
 
 	stopPins();
 }
+
+StartupFuelPumping::StartupFuelPumping() {
+
+}
+
+void StartupFuelPumping::update(Engine *engine) {
+
+}
+
