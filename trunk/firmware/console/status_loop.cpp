@@ -68,8 +68,6 @@
 #include "max31855.h"
 #endif
 
-extern Engine engine;
-
 // this 'true' value is needed for simulator
 static volatile bool fullLog = true;
 int warningEnabled = TRUE;
