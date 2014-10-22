@@ -17,7 +17,9 @@
 #include "efilib.h"
 
 // todo: move this to "idle_controller.h"
+extern "C" {
 int isCranking(void);
+}
 
 static int lastGoodValue = DEFAULT_IDLE_DUTY;
 
@@ -35,7 +37,7 @@ void setIdleRpm(IdleValveState *idle, int targetRpm) {
 /**
  * @brief	sets new idle valve duty cycle: checks the bounds and reports new value
  */
-static int setNewValue(IdleValveState *idle, int currentRpm, int now, char * msg, int newValue) {
+static int setNewValue(IdleValveState *idle, int currentRpm, int now, const char * msg, int newValue) {
 	newValue = maxI(newValue, MIN_IDLE);
 	newValue = minI(newValue, MAX_IDLE);
 
@@ -48,7 +50,7 @@ static int setNewValue(IdleValveState *idle, int currentRpm, int now, char * msg
 	return newValue;
 }
 
-static int changeValue(IdleValveState *idle, int currentRpm, int now, char * msg, int delta) {
+static int changeValue(IdleValveState *idle, int currentRpm, int now, const char * msg, int delta) {
 	int newValue = idle->value + delta;
 	return setNewValue(idle, currentRpm, now, msg, newValue);
 }
