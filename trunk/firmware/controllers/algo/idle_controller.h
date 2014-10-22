@@ -41,7 +41,7 @@ void idleInit(IdleValveState *idle);
 int getIdle(IdleValveState *idle, int currentRpm, int time);
 void setIdleRpm(IdleValveState *idle, int targetRpm);
 
-void idleDebug(char *msg, int value);
+void idleDebug(const char *msg, int value);
 
 #ifdef __cplusplus
 }
