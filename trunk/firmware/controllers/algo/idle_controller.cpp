@@ -1,5 +1,5 @@
 /**
- * @file	idle_controller.c
+ * @file	idle_controller.cpp
  * @brief	Simple Idle Air Valve control algorithm
  *
  *			This algorithm is trying to get current RPM to the desired 'target' value
@@ -13,13 +13,10 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
+#include "main.h"
 #include "idle_controller.h"
 #include "efilib.h"
-
-// todo: move this to "idle_controller.h"
-extern "C" {
-int isCranking(void);
-}
+#include "rpm_calculator.h"
 
 static int lastGoodValue = DEFAULT_IDLE_DUTY;
 
