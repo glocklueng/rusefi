@@ -343,11 +343,13 @@ static THD_WORKING_AREA(comBlinkingStack, UTILITY_THREAD_STACK_SIZE);
  */
 static THD_WORKING_AREA(errBlinkingStack, UTILITY_THREAD_STACK_SIZE);
 
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 static void comBlinkingThread(void *arg) {
 	(void) arg;
 	chRegSetThreadName("communication blinking");
 	while (TRUE) {
 		int delay;
+
 		if (getNeedToWriteConfiguration()) {
 			delay = isConsoleReady() ? 200 : 66;
 		} else {
@@ -371,7 +373,7 @@ static void comBlinkingThread(void *arg) {
 static void errBlinkingThread(void *arg) {
 	(void) arg;
 	chRegSetThreadName("err blinking");
-#if EFI_ENGINE_CONTROL
+#if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 	while (TRUE) {
 		int delay = 33;
 		if (isTriggerDecoderError() || isIgnitionTimingError())
@@ -382,6 +384,8 @@ static void errBlinkingThread(void *arg) {
 	}
 #endif /* EFI_ENGINE_CONTROL */
 }
+#endif /* EFI_PROD_CODE */
+
 
 static void lcdThread(Engine *engine) {
 	chRegSetThreadName("lcd");
@@ -488,8 +492,10 @@ void startStatusThreads(Engine *engine) {
 	// todo: refactoring needed, this file should probably be split into pieces
 	chThdCreateStatic(lcdThreadStack, sizeof(lcdThreadStack), NORMALPRIO, (tfunc_t) lcdThread, engine);
 	chThdCreateStatic(tsThreadStack, sizeof(tsThreadStack), NORMALPRIO, (tfunc_t) tsStatusThread, engine);
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 	chThdCreateStatic(comBlinkingStack, sizeof(comBlinkingStack), NORMALPRIO, (tfunc_t) comBlinkingThread, NULL);
 	chThdCreateStatic(errBlinkingStack, sizeof(errBlinkingStack), NORMALPRIO, (tfunc_t) errBlinkingThread, NULL);
+#endif EFI_PROD_CODE
 }
 
 void setFullLog(int value) {
