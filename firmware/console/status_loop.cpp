@@ -495,7 +495,7 @@ void startStatusThreads(Engine *engine) {
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
 	chThdCreateStatic(comBlinkingStack, sizeof(comBlinkingStack), NORMALPRIO, (tfunc_t) comBlinkingThread, NULL);
 	chThdCreateStatic(errBlinkingStack, sizeof(errBlinkingStack), NORMALPRIO, (tfunc_t) errBlinkingThread, NULL);
-#endif EFI_PROD_CODE
+#endif /* EFI_PROD_CODE */
 }
 
 void setFullLog(int value) {
