@@ -39,7 +39,7 @@ public:
 	float syncRatioFrom;
 	float syncRatioTo;
 
-	int useRiseEdge;
+	bool_t useRiseEdge;
 
 	/**
 	 * This is used for signal validation
