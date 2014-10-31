@@ -14,7 +14,7 @@
 #include "sensor_types.h"
 #include "can_header.h"
 #include "rusefi_enums.h"
-#include "chtypes.h"
+#include "global.h"
 
 #define MOCK_UNDEFINED -1
 
