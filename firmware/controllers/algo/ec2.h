@@ -47,8 +47,6 @@ public:
 	// todo: this should go, too
 	engine_configuration_s *engineConfiguration;
 
-	Thermistor iat;
-	Thermistor clt;
 
 	trigger_shape_s triggerShape;
 
