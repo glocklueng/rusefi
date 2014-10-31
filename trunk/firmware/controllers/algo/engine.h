@@ -31,6 +31,9 @@ public:
 	engine_configuration_s *engineConfiguration;
 	engine_configuration2_s *engineConfiguration2;
 
+	Thermistor iat;
+	Thermistor clt;
+
 	void onTriggerEvent(uint64_t nowUs);
 	EngineState engineState;
 	uint64_t lastTriggerEventTimeUs;

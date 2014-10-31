@@ -107,7 +107,7 @@ bool isValidIntakeAirTemperature(float temperature) {
  * @return coolant temperature, in Celsius
  */
 float getCoolantTemperature(Engine * engine) {
-	float temperature = getTemperatureC(&engineConfiguration2->clt);
+	float temperature = getTemperatureC(&engine->clt);
 	if (!isValidCoolantTemperature(temperature)) {
 		efiAssert(engineConfiguration2->engineConfiguration!=NULL, "NULL engineConfiguration", NAN);
 		if (engineConfiguration2->engineConfiguration->hasCltSensor) {
@@ -155,7 +155,7 @@ void prepareThermistorCurve(ThermistorConf * config) {
  * @return Celsius value
  */
 float getIntakeAirTemperature(Engine * engine) {
-	float temperature = getTemperatureC(&engine->engineConfiguration2->iat);
+	float temperature = getTemperatureC(&engine->iat);
 	if (!isValidIntakeAirTemperature(temperature)) {
 		efiAssert(engine->engineConfiguration!=NULL, "NULL engineConfiguration", NAN);
 		if (engine->engineConfiguration->hasIatSensor) {
@@ -186,9 +186,9 @@ void setCommonNTCSensor(ThermistorConf *thermistorConf) {
 void initThermistors(Engine *engine) {
 	efiAssertVoid(engine!=NULL, "e NULL initThermistors");
 	efiAssertVoid(engine->engineConfiguration2!=NULL, "e2 NULL initThermistors");
-	initThermistorCurve(&engine->engineConfiguration2->clt, &engine->engineConfiguration->cltThermistorConf,
+	initThermistorCurve(&engine->clt, &engine->engineConfiguration->cltThermistorConf,
 			engine->engineConfiguration->cltAdcChannel);
-	initThermistorCurve(&engine->engineConfiguration2->iat, &engine->engineConfiguration->iatThermistorConf,
+	initThermistorCurve(&engine->iat, &engine->engineConfiguration->iatThermistorConf,
 			engine->engineConfiguration->iatAdcChannel);
 	initialized = TRUE;
 }
