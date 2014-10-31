@@ -182,8 +182,8 @@ static void cylinderCleanupControl(Engine *engine) {
 	} else {
 		newValue = false;
 	}
-	if (newValue != engineConfiguration2->isCylinderCleanupMode) {
-		engineConfiguration2->isCylinderCleanupMode = newValue;
+	if (newValue != engine->isCylinderCleanupMode) {
+		engine->isCylinderCleanupMode = newValue;
 		scheduleMsg(&logger, "isCylinderCleanupMode %s", boolToString(newValue));
 	}
 }

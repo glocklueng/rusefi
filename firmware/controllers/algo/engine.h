@@ -35,6 +35,19 @@ public:
 	EngineState engineState;
 	uint64_t lastTriggerEventTimeUs;
 
+	/**
+	 * This coefficient translates ADC value directly into voltage adjusted according to
+	 * voltage divider configuration. This is a future (?) performance optimization.
+	 */
+	float adcToVoltageInputDividerCoefficient;
+
+	/**
+	 * This field is true if we are in 'cylinder cleanup' state right now
+	 * see isCylinderCleanupEnabled
+	 */
+	bool isCylinderCleanupMode;
+
+
 	void updateSlowSensors();
 	void watchdog();
 private:
