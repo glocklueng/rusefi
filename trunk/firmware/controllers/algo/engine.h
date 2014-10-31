@@ -79,4 +79,7 @@ private:
 	void setPumpsCounter(engine_configuration_s *engineConfiguration, int newValue);
 };
 
+void resetConfigurationExt(Logging * logger, engine_type_e engineType,
+		Engine *engine);
+
 #endif /* ENGINE_H_ */
