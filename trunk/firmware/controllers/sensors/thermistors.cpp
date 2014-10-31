@@ -15,7 +15,6 @@
 #include "adc_inputs.h"
 #include "engine_configuration.h"
 #include "engine_math.h"
-#include "ec2.h"
 
 // Celsius
 #define LIMPING_MODE_IAT_TEMPERATURE 30.0f
@@ -107,7 +106,7 @@ bool isValidIntakeAirTemperature(float temperature) {
 /**
  * @return coolant temperature, in Celsius
  */
-float getCoolantTemperature(engine_configuration2_s * engineConfiguration2) {
+float getCoolantTemperature(Engine * engine) {
 	float temperature = getTemperatureC(&engineConfiguration2->clt);
 	if (!isValidCoolantTemperature(temperature)) {
 		efiAssert(engineConfiguration2->engineConfiguration!=NULL, "NULL engineConfiguration", NAN);
@@ -155,11 +154,11 @@ void prepareThermistorCurve(ThermistorConf * config) {
 /**
  * @return Celsius value
  */
-float getIntakeAirTemperature(engine_configuration2_s * engineConfiguration2) {
-	float temperature = getTemperatureC(&engineConfiguration2->iat);
+float getIntakeAirTemperature(Engine * engine) {
+	float temperature = getTemperatureC(&engine->engineConfiguration2->iat);
 	if (!isValidIntakeAirTemperature(temperature)) {
-		efiAssert(engineConfiguration2->engineConfiguration!=NULL, "NULL engineConfiguration", NAN);
-		if (engineConfiguration2->engineConfiguration->hasIatSensor) {
+		efiAssert(engine->engineConfiguration!=NULL, "NULL engineConfiguration", NAN);
+		if (engine->engineConfiguration->hasIatSensor) {
 			warning(OBD_PCM_Processor_Fault, "unrealistic IAT %f", temperature);
 		}
 		return LIMPING_MODE_IAT_TEMPERATURE;

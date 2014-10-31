@@ -127,9 +127,9 @@ static void updateErrorCodes(void) {
 	/**
 	 * technically we can set error codes right inside the getMethods, but I a bit on a fence about it
 	 */
-	setError(isValidIntakeAirTemperature(getIntakeAirTemperature(engineConfiguration2)),
+	setError(isValidIntakeAirTemperature(getIntakeAirTemperature(&engine)),
 			OBD_Intake_Air_Temperature_Circuit_Malfunction);
-	setError(isValidCoolantTemperature(getCoolantTemperature(engineConfiguration2)),
+	setError(isValidCoolantTemperature(getCoolantTemperature(&engine)),
 			OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
 }
 
@@ -141,9 +141,9 @@ static void fanRelayControl(void) {
 	int newValue;
 	if (isCurrentlyOn) {
 		// if the fan is already on, we keep it on till the 'fanOff' temperature
-		newValue = getCoolantTemperature(engineConfiguration2) > engineConfiguration->fanOffTemperature;
+		newValue = getCoolantTemperature(&engine) > engineConfiguration->fanOffTemperature;
 	} else {
-		newValue = getCoolantTemperature(engineConfiguration2) > engineConfiguration->fanOnTemperature;
+		newValue = getCoolantTemperature(&engine) > engineConfiguration->fanOnTemperature;
 	}
 
 	if (isCurrentlyOn != newValue) {
