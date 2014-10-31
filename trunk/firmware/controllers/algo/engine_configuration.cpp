@@ -533,7 +533,7 @@ void applyNonPersistentConfiguration(Logging * logger, Engine *engine) {
 		return;
 	}
 
-	prepareOutputSignals(engineConfiguration, engineConfiguration2);
+	prepareOutputSignals(engine);
 	// todo: looks like this is here only for unit tests. todo: remove
 	initializeIgnitionActions(0, 0, engineConfiguration, engineConfiguration2,
 			&engineConfiguration2->engineEventConfiguration.ignitionEvents[0]);

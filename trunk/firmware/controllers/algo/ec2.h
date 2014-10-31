@@ -59,9 +59,6 @@ typedef struct {
 	engine_configuration2_s *engineConfiguration2;
 } configuration_s;
 
-void prepareOutputSignals(engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2);
-
 void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2, IgnitionEventList *list);
 void addFuelEvents(engine_configuration_s const *e,  engine_configuration2_s *engineConfiguration2, ActuatorEventList *list, injection_mode_e mode);
 
