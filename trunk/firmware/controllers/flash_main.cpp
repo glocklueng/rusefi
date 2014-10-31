@@ -105,7 +105,7 @@ void readFromFlash(void) {
 		resetConfigurationExt(&logger, DEFAULT_ENGINE_TYPE, &engine);
 	} else if (persistentState.version == FLASH_DATA_VERSION && persistentState.size == PERSISTENT_SIZE) {
 		printMsg(&logger, "Got valid configuration from flash!");
-		applyNonPersistentConfiguration(&logger, engineConfiguration, engineConfiguration2);
+		applyNonPersistentConfiguration(&logger, &engine);
 	} else if (hasValidEngineType(engineConfiguration)) {
 		printMsg(&logger, "Resetting but saving engine type [%d]", engineConfiguration->engineType);
 		resetConfigurationExt(&logger, engineConfiguration->engineType, &engine);

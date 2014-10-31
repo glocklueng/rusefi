@@ -81,5 +81,6 @@ private:
 
 void resetConfigurationExt(Logging * logger, engine_type_e engineType,
 		Engine *engine);
+void applyNonPersistentConfiguration(Logging * logger, Engine *engine);
 
 #endif /* ENGINE_H_ */
