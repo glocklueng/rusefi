@@ -403,8 +403,9 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	boardConfiguration->isEngineControlEnabled = true;
 }
 
-void resetConfigurationExt(Logging * logger, engine_type_e engineType, engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2) {
+void resetConfigurationExt(Logging * logger, engine_type_e engineType, Engine *engine) {
+	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
+	engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
 	board_configuration_s *boardConfiguration = &engineConfiguration->bc;
 	/**
 	 * Let's apply global defaults first
