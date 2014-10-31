@@ -67,9 +67,6 @@ void addFuelEvents(engine_configuration_s const *e,  engine_configuration2_s *en
 
 void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEvent *e, OutputSignal *actuator, float angleOffset);
 
-void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2);
-
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2);
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 

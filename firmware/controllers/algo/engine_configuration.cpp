@@ -504,7 +504,7 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType, Engine *e
 		firmwareError("Unexpected engine type: %d", engineType);
 
 	}
-	applyNonPersistentConfiguration(logger, engineConfiguration, engineConfiguration2);
+	applyNonPersistentConfiguration(logger, engine);
 
 #if EFI_TUNER_STUDIO
 	syncTunerStudioCopy();
@@ -515,8 +515,9 @@ engine_configuration2_s::engine_configuration2_s() {
 	engineConfiguration = NULL;
 }
 
-void applyNonPersistentConfiguration(Logging * logger, engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2) {
+void applyNonPersistentConfiguration(Logging * logger, Engine *engine) {
+	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
+	engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
 // todo: this would require 'initThermistors() to re-establish a reference, todo: fix
 //	memset(engineConfiguration2, 0, sizeof(engine_configuration2_s));
 #if EFI_PROD_CODE
