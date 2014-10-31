@@ -13,6 +13,7 @@
 #include "engine.h"
 #include "engine_state.h"
 #include "efiGpio.h"
+#include "injector_central.h"
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
 static Logging logger;
@@ -61,7 +62,7 @@ bool Engine::stopPins() {
 
 void Engine::watchdog() {
 	if (!isSpinning) {
-		if (stopPins()) {
+		if (!isRunningBenchTest() && stopPins()) {
 			firmwareError("Some pins were turned off by 2nd pass watchdog");
 		}
 		return;
@@ -70,6 +71,9 @@ void Engine::watchdog() {
 	/**
 	 * Lowest possible cranking is about 240 RPM, that's 4 revolutions per second.
 	 * 0.25 second is 250000 uS
+	 *
+	 * todo: better watch dog implementation should be implemented - see
+	 * http://sourceforge.net/p/rusefi/tickets/96/
 	 */
 	if (nowUs - lastTriggerEventTimeUs < 250000) {
 		return;
