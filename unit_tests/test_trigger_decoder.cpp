@@ -120,14 +120,12 @@ static void test1995FordInline6TriggerDecoder(void) {
 
 	EngineTestHelper eth(FORD_INLINE_6_1995);
 
-	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = eth.ec;
-	engine_configuration2_s ec2;
 
 	resetConfigurationExt(NULL, FORD_INLINE_6_1995, &eth.engine);
-	assertEqualsM("triggerShapeSynchPointIndex", 0, ec2.triggerShape.getTriggerShapeSynchPointIndex());
+	assertEqualsM("triggerShapeSynchPointIndex", 0, eth.ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
-	trigger_shape_s * shape = &ec2.triggerShape;
+	trigger_shape_s * shape = &eth.ec2.triggerShape;
 	event_trigger_position_s position;
 	assertEqualsM("globalTriggerAngleOffset", 0, ec->globalTriggerAngleOffset);
 	findTriggerPosition(ec, shape, &position, 0);
@@ -140,7 +138,7 @@ static void test1995FordInline6TriggerDecoder(void) {
 	assertTriggerPosition(&position, 6, 0);
 
 
-	IgnitionEventList *ecl = &ec2.engineEventConfiguration.ignitionEvents[0];
+	IgnitionEventList *ecl = &eth.ec2.engineEventConfiguration.ignitionEvents[0];
 	assertEqualsM("ignition events size", 6, ecl->size);
 	assertEqualsM("event index", 0, ecl->events[0].dwellPosition.eventIndex);
 	assertEquals(0, ecl->events[0].dwellPosition.angleOffset);
@@ -186,11 +184,9 @@ void testFordAspire(void) {
 
 	EngineTestHelper eth(FORD_ASPIRE_1996);
 
-	persistent_config_s persistentConfig;
 	engine_configuration_s *ec = eth.ec;
-	engine_configuration2_s ec2;
 	resetConfigurationExt(NULL, FORD_ASPIRE_1996, &eth.engine);
-	assertEquals(4, ec2.triggerShape.getTriggerShapeSynchPointIndex());
+	assertEquals(4, eth.ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
 	assertEquals(800, ec->fuelRpmBins[0]);
 	assertEquals(7000, ec->fuelRpmBins[15]);
