@@ -14,11 +14,14 @@
 #include "engine_state.h"
 #include "efiGpio.h"
 
-#if EFI_PROD_CODE || EFI_SIMULATOR
-static Logging logger;
+#if EFI_PROD_CODE
 #include "injector_central.h"
 #else
 #define isRunningBenchTest() true
+#endif
+
+#if EFI_PROD_CODE || EFI_SIMULATOR
+static Logging logger;
 #endif
 
 /**
