@@ -110,6 +110,7 @@ bool isValidIntakeAirTemperature(float temperature) {
 float getCoolantTemperature(engine_configuration2_s * engineConfiguration2) {
 	float temperature = getTemperatureC(&engineConfiguration2->clt);
 	if (!isValidCoolantTemperature(temperature)) {
+		efiAssert(engineConfiguration2->engineConfiguration!=NULL, "NULL engineConfiguration", NAN);
 		if (engineConfiguration2->engineConfiguration->hasCltSensor) {
 			warning(OBD_PCM_Processor_Fault, "unrealistic CLT %f", temperature);
 		}
@@ -157,6 +158,7 @@ void prepareThermistorCurve(ThermistorConf * config) {
 float getIntakeAirTemperature(engine_configuration2_s * engineConfiguration2) {
 	float temperature = getTemperatureC(&engineConfiguration2->iat);
 	if (!isValidIntakeAirTemperature(temperature)) {
+		efiAssert(engineConfiguration2->engineConfiguration!=NULL, "NULL engineConfiguration", NAN);
 		if (engineConfiguration2->engineConfiguration->hasIatSensor) {
 			warning(OBD_PCM_Processor_Fault, "unrealistic IAT %f", temperature);
 		}

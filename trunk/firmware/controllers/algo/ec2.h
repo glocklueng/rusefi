@@ -44,6 +44,7 @@ class engine_configuration2_s {
 public:
 	engine_configuration2_s();
 
+	// todo: this should go, too
 	engine_configuration_s *engineConfiguration;
 
 	Thermistor iat;
@@ -66,6 +67,7 @@ public:
 	bool isCylinderCleanupMode;
 };
 
+// todo: eliminate this structure? we have Engine and engineConfiguration2 now references engineConfiguration
 typedef struct {
 	engine_configuration_s *engineConfiguration;
 	engine_configuration2_s *engineConfiguration2;
