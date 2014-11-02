@@ -128,5 +128,5 @@ void initFlash(Engine *engine) {
 	addConsoleAction("readconfig", readFromFlash);
 	addConsoleAction("writeconfig", writeToFlash);
 	addConsoleAction("resetconfig", doResetConfiguration);
-	addConsoleActionP("rewriteConfig", (VoidPtr)rewriteConfig, engine);
+	addConsoleActionP("rewriteconfig", (VoidPtr)rewriteConfig, engine);
 }
