@@ -10,6 +10,7 @@
 #define FLASH_MAIN_H_
 
 #include "engine_configuration.h"
+#include "engine.h"
 
 #define FLASH_DATA_VERSION 5014
 
@@ -19,7 +20,7 @@ extern "C"
 #endif /* __cplusplus */
 
 void readFromFlash(void);
-void initFlash(void);
+void initFlash(Engine *engine);
 /**
  * Because of hardware-related issues, stm32f4 chip is totally
  * frozen while we are writing to internal flash. Writing the configuration takes
