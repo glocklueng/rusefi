@@ -29,9 +29,9 @@ public:
 class trigger_shape_s {
 public:
 	trigger_shape_s();
-	bool_t isSynchronizationNeeded;
+	int isSynchronizationNeeded;
 
-	bool_t invertOnAdd;
+	int invertOnAdd;
 
 	int totalToothCount;
 	int skippedToothCount;
