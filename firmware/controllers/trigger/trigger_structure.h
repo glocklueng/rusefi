@@ -29,9 +29,11 @@ public:
 class trigger_shape_s {
 public:
 	trigger_shape_s();
+	/**
+	 * todo: something really weird - unit test fail on Linux build server
+	 * if I change this type to bool_t? WAT?
+	 */
 	int isSynchronizationNeeded;
-
-	int invertOnAdd;
 
 	int totalToothCount;
 	int skippedToothCount;
@@ -91,6 +93,8 @@ public:
 	float eventAngles[PWM_PHASE_MAX_COUNT];
 
 private:
+	int invertOnAdd;
+
 	trigger_shape_helper h;
 	int size;
 	/**
