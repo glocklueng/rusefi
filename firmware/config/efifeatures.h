@@ -123,7 +123,7 @@
 #define DL_OUTPUT_BUFFER 7000
 #else
 #define EFI_PERF_METRICS FALSE
-#define DL_OUTPUT_BUFFER 9000
+#define DL_OUTPUT_BUFFER 8000
 #endif
 
 /**
