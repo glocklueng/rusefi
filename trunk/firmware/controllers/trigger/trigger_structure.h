@@ -29,9 +29,7 @@ public:
 class trigger_shape_s {
 public:
 	trigger_shape_s();
-	bool_t isSynchronizationNeeded;
-
-	bool_t invertOnAdd;
+	int isSynchronizationNeeded;
 
 	int totalToothCount;
 	int skippedToothCount;
@@ -123,7 +121,6 @@ private:
 };
 
 void setTriggerSynchronizationGap(trigger_shape_s *s, float synchGap);
-void setTriggerSynchronizationGap2(trigger_shape_s *s, float syncGapFrom, float syncRatioTo);
 void setToothedWheelConfiguration(trigger_shape_s *s, int total, int skipped, engine_configuration_s const *engineConfiguration);
 
 #endif /* TRIGGER_STRUCTURE_H_ */
