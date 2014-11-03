@@ -90,11 +90,7 @@ void testFuelMap(void) {
 
 	testMafValue = 0;
 
-	engineConfiguration->crankingSettings.coolantTempMaxC = 65; // 8ms at 65C
-	engineConfiguration->crankingSettings.fuelAtMaxTempMs = 8;
-
-	engineConfiguration->crankingSettings.coolantTempMinC = 0; // 20ms at 0C
-	engineConfiguration->crankingSettings.fuelAtMinTempMs = 20;
+	engineConfiguration->crankingSettings.baseCrankingFuel = 4;
 
 	printf("*************************************************** getStartingFuel\r\n");
 	// NAN in case we have issues with the CLT sensor
