@@ -398,7 +398,6 @@ static void testRpmCalculator(void) {
 	engine_configuration_s *ec = &eth.persistentConfig.engineConfiguration;
 
 	engine_configuration2_s *ec2 = &eth.ec2;
-//	assertEqualsM("invert", 0, ec2->triggerShape.invertOnAdd);
 
 	ec->triggerConfig.customTotalToothCount = 8;
 	ec->globalFuelCorrection = 3;
@@ -532,7 +531,7 @@ void testTriggerDecoder(void) {
 	testTriggerDecoder2("citroen", CITROEN_TU3JP, 0, 0.4833, 0.0);
 
 	printGapRatio = true;
-//TODO	testTriggerDecoder2("neon NGC", DODGE_NEON_2003, 5, 0.4861, 0.0);
+	testTriggerDecoder2("neon NGC", DODGE_NEON_2003, 5, 0.4861, 0.0);
 	printGapRatio = false;
 
 	testMazda323();
