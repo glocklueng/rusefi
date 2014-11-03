@@ -13,7 +13,7 @@ void configureNeon2003TriggerShape(trigger_shape_s *s) {
 	// voodoo magic - we always need 720 at the end
 	int base = 10;
 	s->useRiseEdge = true;
-	s->invertOnAdd = true;
+//	s->invertOnAdd = true;
 
 	s->gapBothDirections = true;
 
