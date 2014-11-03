@@ -200,11 +200,11 @@ void trigger_shape_s::addEvent(float angle, trigger_wheel_e const waveIndex, tri
 	efiAssertVoid(operationMode != OM_NONE, "operationMode not set");
 
 	trigger_value_e state;
-	if (invertOnAdd) {
-		state = (stateParam == TV_LOW) ? TV_HIGH : TV_LOW;
-	} else {
+//	if (invertOnAdd) {
+//		state = (stateParam == TV_LOW) ? TV_HIGH : TV_LOW;
+//	} else {
 		state = stateParam;
-	}
+//	}
 
 	/**
 	 * While '720' value works perfectly it has not much sense for crank sensor-only scenario.
