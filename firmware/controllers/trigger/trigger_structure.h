@@ -92,8 +92,8 @@ public:
 	 */
 	float eventAngles[PWM_PHASE_MAX_COUNT];
 
-private:
 	bool_t invertOnAdd;
+private:
 
 	trigger_shape_helper h;
 	int size;
