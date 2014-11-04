@@ -100,7 +100,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 
 	setDetaultVETable(engineConfiguration);
 
-	engineConfiguration->injectorLag = 0.0;
+	engineConfiguration->injectorLag = 1.0;
 
 	for (int i = 0; i < IAT_CURVE_SIZE; i++) {
 		engineConfiguration->iatFuelCorrBins[i] = -40 + i * 10;
