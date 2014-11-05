@@ -26,11 +26,11 @@ void setBmwE43(engine_configuration_s *engineConfiguration) {
 
 	board_configuration_s *bc = &engineConfiguration->bc;
 
-//	bc->ignitionPins[0] = todo
-	bc->ignitionPins[1] = GPIO_NONE;
-	bc->ignitionPins[2] = GPIO_NONE;
-//	bc->ignitionPins[3] = GPIO;todo
-	bc->ignitionPins[4] = GPIO_NONE;
-//	bc->ignitionPins[5] = GPIO;todo
+	bc->ignitionPins[0] = GPIOC_7; // #1
+	bc->ignitionPins[1] = GPIO_NONE; // #2
+	bc->ignitionPins[2] = GPIOE_4; // #3
+	bc->ignitionPins[3] = GPIO_NONE; // #4
+	bc->ignitionPins[4] = GPIOC_9; // #5
+	bc->ignitionPins[5] = GPIO_NONE; // #6
 
 }
