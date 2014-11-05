@@ -21,7 +21,16 @@ void setBmwE43(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->triggerConfig.triggerType = TT_TOOTHED_WHEEL_60_2;
 	engineConfiguration->cylindersCount = 6;
 	engineConfiguration->firingOrder = FO_1_THEN_5_THEN_3_THEN_6_THEN_2_THEN_4;
-	engineConfiguration->injectionMode = IM_BATCH;
+	engineConfiguration->injectionMode = IM_SIMULTANEOUS;
 	engineConfiguration->ignitionMode = IM_WASTED_SPARK;
+
+	board_configuration_s *bc = &engineConfiguration->bc;
+
+//	bc->ignitionPins[0] = todo
+	bc->ignitionPins[1] = GPIO_NONE;
+	bc->ignitionPins[2] = GPIO_NONE;
+//	bc->ignitionPins[3] = GPIO;todo
+	bc->ignitionPins[4] = GPIO_NONE;
+//	bc->ignitionPins[5] = GPIO;todo
 
 }
