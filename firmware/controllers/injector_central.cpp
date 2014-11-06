@@ -179,7 +179,7 @@ static msg_t benchThread(int param) {
 #endif
 }
 
-void initInjectorCentral(void) {
+void initInjectorCentral(Engine *engine) {
 	initLogging(&logger, "InjectorCentral");
 	chThdCreateStatic(benchThreadStack, sizeof(benchThreadStack), NORMALPRIO, (tfunc_t) benchThread, NULL);
 
