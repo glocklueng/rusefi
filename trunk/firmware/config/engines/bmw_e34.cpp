@@ -29,8 +29,8 @@ void setBmwE43(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->globalTriggerAngleOffset = 84;
 
 
-	boardConfiguration->malfunctionIndicatorPin = GPIO_NONE;
 	board_configuration_s *bc = &engineConfiguration->bc;
+	bc->malfunctionIndicatorPin = GPIO_NONE;
 
 	bc->ignitionPins[0] = GPIOC_7; // #1
 	bc->ignitionPins[1] = GPIO_NONE; // #2
