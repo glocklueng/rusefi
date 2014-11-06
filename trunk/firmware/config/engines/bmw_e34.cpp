@@ -24,6 +24,12 @@ void setBmwE43(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->injectionMode = IM_SIMULTANEOUS;
 	engineConfiguration->ignitionMode = IM_WASTED_SPARK;
 
+	// todo: check the digital sniffer while simulating
+	// set_global_trigger_offset_angle 84
+	engineConfiguration->globalTriggerAngleOffset = 84;
+
+
+	boardConfiguration->malfunctionIndicatorPin = GPIO_NONE;
 	board_configuration_s *bc = &engineConfiguration->bc;
 
 	bc->ignitionPins[0] = GPIOC_7; // #1
