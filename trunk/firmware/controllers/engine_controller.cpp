@@ -371,7 +371,7 @@ void initEngineContoller(Engine *engine) {
 
 	chThdCreateStatic(csThreadStack, sizeof(csThreadStack), LOWPRIO, (tfunc_t) csThread, NULL);
 
-	initInjectorCentral();
+	initInjectorCentral(engine);
 	initPwmTester();
 	initIgnitionCentral();
 	initMalfunctionCentral();
