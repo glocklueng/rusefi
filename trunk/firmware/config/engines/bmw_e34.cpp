@@ -28,8 +28,8 @@ void setBmwE43(engine_configuration_s *engineConfiguration) {
 	// set_global_trigger_offset_angle 84
 	engineConfiguration->globalTriggerAngleOffset = 84;
 
-	setWholeFuelMap(6);
-	setWholeTimingTable(10);
+	setWholeFuelMap(engineConfiguration, 6);
+	setWholeTimingTable(engineConfiguration, 10);
 
 	board_configuration_s *bc = &engineConfiguration->bc;
 	bc->malfunctionIndicatorPin = GPIO_NONE;
