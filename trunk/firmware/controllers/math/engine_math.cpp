@@ -51,6 +51,7 @@ float getCrankshaftRevolutionTimeMs(int rpm) {
  * TODO: should be 'crankAngleRange' range?
  */
 float fixAngle(engine_configuration_s const *engineConfiguration, float angle) {
+// todo	efiAssert(engineConfiguration->engineCycle!=0, "engine cycle", NAN);
 	// I guess this implementation would be faster than 'angle % 720'
 	while (angle < 0)
 		angle += 720;
