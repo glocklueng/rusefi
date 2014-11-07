@@ -352,9 +352,9 @@ engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
 	engineConfiguration2->triggerShape.calculateTriggerSynchPoint(engineConfiguration, &engineConfiguration->triggerConfig);
 
 	injectonSignals.clear();
-	addFuelEvents(engineConfiguration, engineConfiguration2, &engineConfiguration2->crankingInjectionEvents,
+	addFuelEvents(engineConfiguration, engineConfiguration2, &engineConfiguration2->crankingInjectionEvents.events,
 			engineConfiguration->crankingInjectionMode);
-	addFuelEvents(engineConfiguration, engineConfiguration2, &engineConfiguration2->injectionEvents,
+	addFuelEvents(engineConfiguration, engineConfiguration2, &engineConfiguration2->injectionEvents.events,
 			engineConfiguration->injectionMode);
 }
 
