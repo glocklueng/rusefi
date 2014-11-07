@@ -76,6 +76,9 @@ static cyclic_buffer ignitionErrorDetection;
 static Logging logger;
 
 static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, ActuatorEvent *event, int rpm) {
+	/**
+	 * todo: we do not really need to calculate fuel for each individual cylinder
+	 */
 	float fuelMs = getFuelMs(rpm, mainTriggerCallback->engine)
 			* mainTriggerCallback->engineConfiguration->globalFuelCorrection;
 	if (cisnan(fuelMs)) {
