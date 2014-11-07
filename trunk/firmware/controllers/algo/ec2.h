@@ -16,19 +16,6 @@
 #include "event_registry.h"
 #include "trigger_structure.h"
 
-/**
- * @brief Here we store information about which injector or spark should be fired when.
- */
-typedef struct {
-	ActuatorEventList crankingInjectionEvents;
-	ActuatorEventList injectionEvents;
-	/**
-	 * We are alternating two event lists in order to avoid a potential issue around revolution boundary
-	 * when an event is scheduled within the next revolution.
-	 */
-	IgnitionEventList ignitionEvents[2];
-} EventHandlerConfiguration;
-
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -47,7 +34,14 @@ public:
 
 	trigger_shape_s triggerShape;
 
-	EventHandlerConfiguration engineEventConfiguration;
+	ActuatorEventList crankingInjectionEvents;
+	ActuatorEventList injectionEvents;
+
+	/**
+	 * We are alternating two event lists in order to avoid a potential issue around revolution boundary
+	 * when an event is scheduled within the next revolution.
+	 */
+	IgnitionEventList ignitionEvents[2];
 };
 
 void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration_s *engineConfiguration,
