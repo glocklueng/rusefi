@@ -72,7 +72,7 @@ void WaveChart::resetWaveChart() {
 #endif /* DEBUG_WAVE */
 	resetLogging(&logging);
 	counter = 0;
-	startTimeUs = 0;
+	startTimeNt = 0;
 	appendPrintf(&logging, "wave_chart%s", DELIMETER);
 }
 
@@ -86,8 +86,8 @@ int WaveChart::isWaveChartFull() {
 	 * digitalChartSize/20 is the longest meaningful chart.
 	 *
 	 */
-	uint64_t chartDurationNt = US2NT(getTimeNowUs() - startTimeUs);
-	bool startedTooLongAgo = startTimeUs!= 0 && NT2US(chartDurationNt) > engineConfiguration->digitalChartSize * 1000000 / 20;
+	uint64_t chartDurationNt = getTimeNowNt() - startTimeNt;
+	bool startedTooLongAgo = startTimeNt!= 0 && NT2US(chartDurationNt) > engineConfiguration->digitalChartSize * 1000000 / 20;
 	return startedTooLongAgo || counter >= engineConfiguration->digitalChartSize;
 }
 
@@ -168,7 +168,7 @@ void WaveChart::addWaveChartEvent3(const char *name, const char * msg, const cha
 
 	if (counter == 0) {
 		startTime100 = time100;
-		startTimeUs = nowUs;
+		startTimeNt = US2NT(nowUs);
 	}
 	counter++;
 	if (remainingSize(&logging) > 30) {
