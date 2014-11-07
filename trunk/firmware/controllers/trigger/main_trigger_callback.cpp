@@ -304,7 +304,6 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
 
-//todo	handleFuel(mainTriggerCallback->engine, mainTriggerCallback, eventIndex, rpm);
 	handleFuel(&engine, mainTriggerCallback, eventIndex, rpm);
 	handleSpark(mainTriggerCallback, eventIndex, rpm,
 			&mainTriggerCallback->engineConfiguration2->engineEventConfiguration.ignitionEvents[revolutionIndex]);
