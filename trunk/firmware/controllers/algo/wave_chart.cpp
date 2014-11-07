@@ -172,8 +172,11 @@ void WaveChart::addWaveChartEvent3(const char *name, const char * msg, const cha
 	/**
 	 * todo: migrate to binary fractions in order to eliminate
 	 * this division? I do not like division
+	 *
+	 * at least that's 32 bit division now
 	 */
-	uint64_t time100 = (nowNt - startTimeNt) / 10 / 168;
+	uint32_t diffNt = nowNt - startTimeNt;
+	uint32_t time100 = diffNt / 10 / 168;
 
 
 	if (remainingSize(&logging) > 30) {
