@@ -31,7 +31,6 @@ private:
 	Logging logging;
 #endif /* EFI_WAVE_CHART */
 	uint32_t counter;
-	uint64_t startTime100;
 	uint64_t startTimeNt;
 	volatile int isInitialized;
 };
