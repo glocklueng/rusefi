@@ -114,8 +114,8 @@ static void handleFuel(Engine *engine, MainTriggerCallback *mainTriggerCallback,
 	 */
 	ActuatorEventList *source =
 	isCrankingR(rpm) ?
-			&mainTriggerCallback->engineConfiguration2->crankingInjectionEvents :
-			&mainTriggerCallback->engineConfiguration2->injectionEvents;
+			&mainTriggerCallback->engineConfiguration2->crankingInjectionEvents.events :
+			&mainTriggerCallback->engineConfiguration2->injectionEvents.events;
 
 	for (int i = 0; i < source->size; i++) {
 		ActuatorEvent *event = &source->events[i];

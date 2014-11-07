@@ -16,9 +16,10 @@
 #include "event_registry.h"
 #include "trigger_structure.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+class FuelSchedule {
+public:
+	ActuatorEventList events;
+};
 
 /**
  * this part of the structure is separate just because so far
@@ -34,8 +35,8 @@ public:
 
 	trigger_shape_s triggerShape;
 
-	ActuatorEventList crankingInjectionEvents;
-	ActuatorEventList injectionEvents;
+	FuelSchedule crankingInjectionEvents;
+	FuelSchedule injectionEvents;
 
 	/**
 	 * We are alternating two event lists in order to avoid a potential issue around revolution boundary
@@ -49,14 +50,10 @@ void initializeIgnitionActions(float advance, float dwellAngle, engine_configura
 void addFuelEvents(engine_configuration_s const *e, engine_configuration2_s *engineConfiguration2,
 		ActuatorEventList *list, injection_mode_e mode);
 
-void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEvent *e,
-		OutputSignal *actuator, float angleOffset);
-
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2);
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEvent *e,
+		OutputSignal *actuator, float angleOffset);
 
 #endif /* EC2_H_ */
