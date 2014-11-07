@@ -34,6 +34,7 @@ public class AutoTest {
     private static void testDodgeNeon() {
         sendCommand("set_engine_type 2");
         WaveChart chart;
+        sendCommand("set_whole_fuel_map 3");
         IoUtil.changeRpm(2000);
         sendCommand("set_ignition_mode 1");
         chart = nextChart();
