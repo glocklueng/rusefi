@@ -86,8 +86,8 @@ int WaveChart::isWaveChartFull() {
 	 * digitalChartSize/20 is the longest meaningful chart.
 	 *
 	 */
-	uint64_t chartDurationInSeconds = (getTimeNowUs() - startTimeUs) / 1000000;
-	bool startedTooLongAgo = startTimeUs!= 0 && chartDurationInSeconds > engineConfiguration->digitalChartSize / 20;
+	uint64_t chartDurationNt = US2NT(getTimeNowUs() - startTimeUs);
+	bool startedTooLongAgo = startTimeUs!= 0 && NT2US(chartDurationNt) > engineConfiguration->digitalChartSize * 1000000 / 20;
 	return startedTooLongAgo || counter >= engineConfiguration->digitalChartSize;
 }
 
