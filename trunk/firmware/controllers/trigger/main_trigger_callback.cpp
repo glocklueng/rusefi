@@ -248,8 +248,8 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 			"event index");
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 128, "lowstck#2");
 
-// todo	int rpm = getRpmE(mainTriggerCallback->engine);
-	int rpm = getRpmE(&engine);
+	int rpm = getRpmE(mainTriggerCallback->engine);
+//	int rpm = getRpmE(&engine);
 	if (rpm == 0) {
 		// this happens while we just start cranking
 		// todo: check for 'trigger->is_synchnonized?'
@@ -291,7 +291,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 			firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 			return;
 		}
-		float advance = getAdvance(rpm, getEngineLoadT(mainTriggerCallback->engine));
+		float advance = getAdvance(mainTriggerCallback->engineConfiguration, rpm, getEngineLoadT(mainTriggerCallback->engine));
 		if (cisnan(advance)) {
 			// error should already be reported
 			return;
@@ -306,7 +306,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
 
-	handleFuel(&engine, mainTriggerCallback, eventIndex, rpm);
+	handleFuel(mainTriggerCallback->engine, mainTriggerCallback, eventIndex, rpm);
 	handleSpark(mainTriggerCallback, eventIndex, rpm,
 			&mainTriggerCallback->engineConfiguration2->ignitionEvents[revolutionIndex]);
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
@@ -340,7 +340,7 @@ static void showMainInfo(Engine *engine) {
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "rpm %d engine_load %f", rpm, el);
 	scheduleMsg(&logger, "fuel %fms timing %f", getFuelMs(rpm, mainTriggerCallbackInstance.engine),
-			getAdvance(rpm, el));
+			getAdvance(mainTriggerCallbackInstance.engine->engineConfiguration, rpm, el));
 #endif
 }
 

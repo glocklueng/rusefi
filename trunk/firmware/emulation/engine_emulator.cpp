@@ -77,10 +77,10 @@ void startEmulator(void) {
 	flag = TRUE;
 }
 
-static void printAdvance(int rpm, int maf100) {
-	float advance = getAdvance(rpm, maf100 / 100.0);
-	print("advance for %d rpm %d maf100: %f\r\n", rpm, maf100, advance);
-}
+//static void printAdvance(int rpm, int maf100) {
+//	float advance = getAdvance(rpm, maf100 / 100.0);
+//	print("advance for %d rpm %d maf100: %f\r\n", rpm, maf100, advance);
+//}
 
 static void initECUstimulator(void) {
 	mySetPadMode("TEN", DIAG_PORT, DIAG_PIN,
@@ -88,7 +88,7 @@ static void initECUstimulator(void) {
 
 	addConsoleActionI("diag", setDiag);
 	addConsoleAction("emu", startEmulator);
-	addConsoleActionII("ad", printAdvance);
+//	addConsoleActionII("ad", printAdvance);
 
 	setDiag(1);
 
