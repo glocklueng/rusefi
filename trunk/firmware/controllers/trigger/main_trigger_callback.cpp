@@ -103,7 +103,7 @@ static INLINE void handleFuelInjectionEvent(ActuatorEvent *event, int rpm DECLAT
 	scheduleOutput(event->actuator, delay, fuelMs);
 }
 
-static INLINE void handleFuel(Engine *engine, uint32_t eventIndex, int rpm) {
+static INLINE void handleFuel(uint32_t eventIndex, int rpm DECLATE_ENGINE_PARAMETER) {
 	if (!isInjectionEnabled(engine->engineConfiguration))
 		return;
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 64, "lowstck#3");
@@ -129,10 +129,10 @@ static INLINE void handleFuel(Engine *engine, uint32_t eventIndex, int rpm) {
 	}
 }
 
-static INLINE void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, uint32_t eventIndex, IgnitionEvent *iEvent,
-		int rpm) {
-	engine_configuration_s *engineConfiguration = mainTriggerCallback->engineConfiguration;
-	engine_configuration2_s *engineConfiguration2 = mainTriggerCallback->engineConfiguration2;
+static INLINE void handleSparkEvent(uint32_t eventIndex, IgnitionEvent *iEvent,
+		int rpm DECLATE_ENGINE_PARAMETER) {
+	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
+	engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
 
 	float dwellMs = getSparkDwellMsT(engineConfiguration, rpm);
 	if (cisnan(dwellMs) || dwellMs < 0) {
@@ -194,9 +194,9 @@ static INLINE void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, ui
 	}
 }
 
-static INLINE void handleSpark(MainTriggerCallback *mainTriggerCallback, uint32_t eventIndex, int rpm,
-		IgnitionEventList *list) {
-	if (!isValidRpm(rpm) || !mainTriggerCallback->engineConfiguration->isIgnitionEnabled)
+static INLINE void handleSpark(uint32_t eventIndex, int rpm,
+		IgnitionEventList *list DECLATE_ENGINE_PARAMETER) {
+	if (!isValidRpm(rpm) || !engine->engineConfiguration->isIgnitionEnabled)
 		return; // this might happen for instance in case of a single trigger event after a pause
 
 	/**
@@ -225,7 +225,7 @@ static INLINE void handleSpark(MainTriggerCallback *mainTriggerCallback, uint32_
 		IgnitionEvent *event = &list->events[i];
 		if (event->dwellPosition.eventIndex != eventIndex)
 			continue;
-		handleSparkEvent(mainTriggerCallback, eventIndex, event, rpm);
+		handleSparkEvent(eventIndex, event, rpm PASS_ENGINE_PARAMETER);
 	}
 }
 
@@ -305,9 +305,11 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
 
-	handleFuel(mainTriggerCallback->engine, eventIndex, rpm);
-	handleSpark(mainTriggerCallback, eventIndex, rpm,
-			&mainTriggerCallback->engineConfiguration2->ignitionEvents[revolutionIndex]);
+	Engine *engine = mainTriggerCallback->engine;
+
+	handleFuel(eventIndex, rpm PASS_ENGINE_PARAMETER);
+	handleSpark(eventIndex, rpm,
+			&mainTriggerCallback->engineConfiguration2->ignitionEvents[revolutionIndex] PASS_ENGINE_PARAMETER);
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
