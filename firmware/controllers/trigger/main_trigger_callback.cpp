@@ -235,9 +235,6 @@ void showMainHistogram(void) {
 #endif
 }
 
-// todo: eliminate this 'extern'
-extern Engine engine;
-
 /**
  * This is the main trigger event handler.
  * Both injection and ignition are controlled from this method.
@@ -246,7 +243,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 	(void) ckpSignalType;
 	efiAssertVoid(eventIndex < 2 * mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
 			"event index");
-	efiAssertVoid(getRemainingStack(chThdSelf()) > 128, "lowstck#2");
+	efiAssertVoid(getRemainingStack(chThdSelf()) > 64, "lowstck#2");
 
 	int rpm = getRpmE(mainTriggerCallback->engine);
 //	int rpm = getRpmE(&engine);
