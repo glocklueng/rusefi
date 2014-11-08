@@ -59,10 +59,12 @@ typedef Thread thread_t;
  * and this consumes a lot of valueable RAM. While forcing the comiler to inline helps to some degree,
  * it would be even better not to waste stack on passing the parameter.
  *
- * In the firmware we are using 'extern Engine'
+ * In the firmware we are using 'extern *Engine' - in the firmware Engine is a signleton
+ *
+ * On the other hand, in order to have a meaningful unit test we are passing Engine * engine as a parameter
  */
 
-#define EXTERN_ENGINE
+#define EXTERN_ENGINE extern Engine *engine;
 
 
 #endif /* GLOBAL_H_ */
