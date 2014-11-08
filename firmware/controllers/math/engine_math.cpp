@@ -30,6 +30,8 @@
 #include "event_registry.h"
 #include "efiGpio.h"
 
+EXTERN_ENGINE;
+
 /*
  * default Volumetric Efficiency
  */
@@ -242,7 +244,7 @@ void FuelSchedule::addFuelEvents(engine_configuration_s const *e, trigger_shape_
 /**
  * @return Spark dwell time, in milliseconds.
  */
-float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm) {
+float getSparkDwellMsT(int rpm DECLATE_ENGINE_PARAMETER) {
 	if (isCrankingR(rpm)) {
 		if(engineConfiguration->useConstantDwellDuringCranking) {
 			return engineConfiguration->ignitionDwellForCrankingMs;

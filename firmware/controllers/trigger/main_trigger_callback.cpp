@@ -81,8 +81,7 @@ static INLINE void handleFuelInjectionEvent(ActuatorEvent *event, int rpm DECLAT
 	/**
 	 * todo: we do not really need to calculate fuel for each individual cylinder
 	 */
-	float fuelMs = getFuelMs(rpm PASS_ENGINE_PARAMETER)
-			* engineConfiguration->globalFuelCorrection;
+	float fuelMs = getFuelMs(rpm PASS_ENGINE_PARAMETER) * engineConfiguration->globalFuelCorrection;
 	if (cisnan(fuelMs)) {
 		warning(OBD_PCM_Processor_Fault, "NaN injection pulse");
 		return;
@@ -132,7 +131,7 @@ static INLINE void handleSparkEvent(uint32_t eventIndex, IgnitionEvent *iEvent,
 		int rpm DECLATE_ENGINE_PARAMETER) {
 	engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
 
-	float dwellMs = getSparkDwellMsT(engineConfiguration, rpm);
+	float dwellMs = getSparkDwellMsT(rpm PASS_ENGINE_PARAMETER);
 	if (cisnan(dwellMs) || dwellMs < 0) {
 		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 		return;
@@ -246,6 +245,9 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 			"event index");
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 64, "lowstck#2");
 
+	// todo: remove these local variables soon?
+	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
+
 	int rpm = getRpmE(engine);
 	if (rpm == 0) {
 		// this happens while we just start cranking
@@ -283,7 +285,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 		 * Within one engine cycle all cylinders are fired with same timing advance.
 		 * todo: one day we can control cylinders individually
 		 */
-		float dwellMs = getSparkDwellMsT(engine->engineConfiguration, rpm);
+		float dwellMs = getSparkDwellMsT(rpm PASS_ENGINE_PARAMETER);
 		if (cisnan(dwellMs) || dwellMs < 0) {
 			firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 			return;
@@ -302,10 +304,6 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 	}
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
-
-	// todo: remove these local variables soon
-	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
-
 
 	handleFuel(eventIndex, rpm PASS_ENGINE_PARAMETER);
 	handleSpark(eventIndex, rpm,
