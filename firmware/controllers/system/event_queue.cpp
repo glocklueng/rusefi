@@ -47,7 +47,7 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t timeUs, schfunc_t
 uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
 	scheduling_s * current;
 	// this is a large value which is expected to be larger than any real time
-	uint64_t result = EMPTY_QUEUE;
+	uint64_t nextTimeUs = EMPTY_QUEUE;
 
 	int counter = 0;
 	LL_FOREACH(head, current)
@@ -62,14 +62,14 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowUs) {
 			 * for the next scheduled event
 			 */
 			uint64_t mock = nowUs + 100;
-			if (mock < result)
-				result = mock;
+			if (mock < nextTimeUs)
+				nextTimeUs = mock;
 		} else {
-			if (current->momentUs < result)
-				result = current->momentUs;
+			if (current->momentUs < nextTimeUs)
+				nextTimeUs = current->momentUs;
 		}
 	}
-	return result;
+	return nextTimeUs;
 }
 
 /**
