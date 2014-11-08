@@ -290,7 +290,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 			firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 			return;
 		}
-		float advance = getAdvance(engine->engineConfiguration, rpm, getEngineLoadT(engine));
+		float advance = getAdvance(rpm, getEngineLoadT(engine) PASS_ENGINE_PARAMETER);
 		if (cisnan(advance)) {
 			// error should already be reported
 			return;
@@ -336,7 +336,7 @@ static void showMainInfo(Engine *engine) {
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "rpm %d engine_load %f", rpm, el);
 	scheduleMsg(&logger, "fuel %fms timing %f", getFuelMs(rpm PASS_ENGINE_PARAMETER),
-			getAdvance(mainTriggerCallbackInstance.engine->engineConfiguration, rpm, el));
+			getAdvance(rpm, el PASS_ENGINE_PARAMETER));
 #endif
 }
 

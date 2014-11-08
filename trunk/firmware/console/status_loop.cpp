@@ -176,7 +176,7 @@ void printState(Engine *engine, int currentCkpEventCounter) {
 	debugFloat(&logger, "fuel_lag", getInjectorLag(engineConfiguration, getVBatt(engineConfiguration)), 2);
 	debugFloat(&logger, "fuel", getFuelMs(rpm PASS_ENGINE_PARAMETER), 2);
 
-	debugFloat(&logger, "timing", getAdvance(engineConfiguration, rpm, engineLoad), 2);
+	debugFloat(&logger, "timing", getAdvance(rpm, engineLoad PASS_ENGINE_PARAMETER), 2);
 
 //		float map = getMap();
 
