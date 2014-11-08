@@ -87,3 +87,6 @@ typedef EventListener event_listener_t;
 #define THD_WORKING_AREA WORKING_AREA
 
 #define EXTERN_ENGINE extern Engine *engine;
+
+#define DECLATE_ENGINE_PARAMETER
+#define PASS_ENGINE_PARAMETER
