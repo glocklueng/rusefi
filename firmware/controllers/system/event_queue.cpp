@@ -16,7 +16,7 @@
 
 EventQueue::EventQueue() {
 	head = NULL;
-	lateDelay = 100;
+	setLateDelay(100);
 }
 
 bool EventQueue::checkIfPending(scheduling_s *scheduling) {
@@ -63,7 +63,7 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowX) {
 			 * looks like we end up here after 'writeconfig' (which freezes the firmware) - we are late
 			 * for the next scheduled event
 			 */
-			uint64_t mock = nowX + 100;
+			uint64_t mock = nowX + lateDelay;
 			if (mock < nextTimeUs)
 				nextTimeUs = mock;
 		} else {
@@ -115,6 +115,10 @@ int EventQueue::size(void) {
 	int result;
 	LL_COUNT(head, tmp, result);
 	return result;
+}
+
+void EventQueue::setLateDelay(int value) {
+	lateDelay = value;
 }
 
 scheduling_s *EventQueue::getForUnitText(int index) {
