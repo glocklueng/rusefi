@@ -182,6 +182,9 @@ void FuelSchedule::registerInjectionEvent(engine_configuration_s const *e, trigg
 
 	ActuatorEvent *ev = list->getNextActuatorEvent();
 	OutputSignal *actuator = injectonSignals.add(pin);
+
+	efiAssertVoid(s->getSize() > 0, "uninitialized trigger_shape_s");
+
 	registerActuatorEventExt(e, s, ev, actuator, angle);
 }
 
@@ -308,7 +311,6 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 
 void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEvent *ev,
 		OutputSignal *actuator, float angleOffset) {
-	efiAssertVoid(s->getSize() > 0, "uninitialized trigger_shape_s");
 
 	if (ev == NULL) {
 		// error already reported
