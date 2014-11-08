@@ -118,21 +118,22 @@ static void test1995FordInline6TriggerDecoder(void) {
 
 	EngineTestHelper eth(FORD_INLINE_6_1995);
 
-	engine_configuration_s *ec = eth.ec;
+	engine_configuration_s *engineConfiguration = eth.engine.engineConfiguration;
+	Engine *engine = &eth.engine;
 
 	resetConfigurationExt(NULL, FORD_INLINE_6_1995, &eth.engine);
 	assertEqualsM("triggerShapeSynchPointIndex", 0, eth.ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
 	trigger_shape_s * shape = &eth.ec2.triggerShape;
 	event_trigger_position_s position;
-	assertEqualsM("globalTriggerAngleOffset", 0, ec->globalTriggerAngleOffset);
-	findTriggerPosition(ec, shape, &position, 0);
+	assertEqualsM("globalTriggerAngleOffset", 0, engineConfiguration->globalTriggerAngleOffset);
+	findTriggerPosition(engineConfiguration, shape, &position, 0);
 	assertTriggerPosition(&position, 0, 0);
 
-	findTriggerPosition(ec, shape, &position, 200);
+	findTriggerPosition(engineConfiguration, shape, &position, 200);
 	assertTriggerPosition(&position, 3, 20);
 
-	findTriggerPosition(ec, shape, &position, 360);
+	findTriggerPosition(engineConfiguration, shape, &position, 360);
 	assertTriggerPosition(&position, 6, 0);
 
 
@@ -148,31 +149,31 @@ static void test1995FordInline6TriggerDecoder(void) {
 
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized);
 	int r = 10;
-	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r);
+	state.decodeTriggerEvent(shape, &engineConfiguration->triggerConfig, SHAFT_PRIMARY_DOWN, r);
 	assertFalseM("shaft_is_synchronized", state.shaft_is_synchronized); // still no synchronization
-	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, ++r);
+	state.decodeTriggerEvent(shape, &engineConfiguration->triggerConfig, SHAFT_PRIMARY_UP, ++r);
 	assertTrue(state.shaft_is_synchronized); // first signal rise synchronize
 	assertEquals(0, state.getCurrentIndex());
-	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
+	state.decodeTriggerEvent(shape, &engineConfiguration->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
 	assertEquals(1, state.getCurrentIndex());
 
 	for (int i = 2; i < 10;) {
-		state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r++);
+		state.decodeTriggerEvent(shape, &engineConfiguration->triggerConfig, SHAFT_PRIMARY_UP, r++);
 		assertEqualsM("even", i++, state.getCurrentIndex());
-		state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
+		state.decodeTriggerEvent(shape, &engineConfiguration->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
 		assertEqualsM("odd", i++, state.getCurrentIndex());
 	}
 
-	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r++);
+	state.decodeTriggerEvent(shape, &engineConfiguration->triggerConfig, SHAFT_PRIMARY_UP, r++);
 	assertEquals(10, state.getCurrentIndex());
 
-	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
+	state.decodeTriggerEvent(shape, &engineConfiguration->triggerConfig, SHAFT_PRIMARY_DOWN, r++);
 	assertEquals(11, state.getCurrentIndex());
 
-	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_UP, r++);
+	state.decodeTriggerEvent(shape, &engineConfiguration->triggerConfig, SHAFT_PRIMARY_UP, r++);
 	assertEquals(0, state.getCurrentIndex()); // new revolution
 
-	assertEqualsM("running dwell", 0.5, getSparkDwellMsT(ec, 2000));
+	assertEqualsM("running dwell", 0.5, getSparkDwellMsT(2000 PASS_ENGINE_PARAMETER));
 }
 
 void testFordAspire(void) {
@@ -182,20 +183,21 @@ void testFordAspire(void) {
 
 	EngineTestHelper eth(FORD_ASPIRE_1996);
 
-	engine_configuration_s *ec = eth.ec;
-	resetConfigurationExt(NULL, FORD_ASPIRE_1996, &eth.engine);
+	Engine *engine = &eth.engine;
+	engine_configuration_s *engineConfiguration = eth.ec;
+	resetConfigurationExt(NULL, FORD_ASPIRE_1996, engine);
 	assertEquals(4, eth.ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
-	assertEquals(800, ec->fuelRpmBins[0]);
-	assertEquals(7000, ec->fuelRpmBins[15]);
+	assertEquals(800, engineConfiguration->fuelRpmBins[0]);
+	assertEquals(7000, engineConfiguration->fuelRpmBins[15]);
 
-	ec->crankingChargeAngle = 65;
-	ec->crankingTimingAngle = 31;
+	engineConfiguration->crankingChargeAngle = 65;
+	engineConfiguration->crankingTimingAngle = 31;
 
-	assertEqualsM("cranking dwell", 54.166670, getSparkDwellMsT(ec, 200));
-	assertEqualsM("running dwell", 4, getSparkDwellMsT(ec, 2000));
+	assertEqualsM("cranking dwell", 54.166670, getSparkDwellMsT(200 PASS_ENGINE_PARAMETER));
+	assertEqualsM("running dwell", 4, getSparkDwellMsT(2000 PASS_ENGINE_PARAMETER));
 
-	assertEqualsM("higher rpm dwell", 3.25, getSparkDwellMsT(ec, 6000));
+	assertEqualsM("higher rpm dwell", 3.25, getSparkDwellMsT(6000 PASS_ENGINE_PARAMETER));
 }
 
 void testMazda323(void) {

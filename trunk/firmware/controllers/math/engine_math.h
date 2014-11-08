@@ -56,7 +56,7 @@ int isCrankingRT(engine_configuration_s *engineConfiguration, int rpm);
 float getEngineLoadT(Engine *engine);
 #define getEngineLoad() getEngineLoadT(engine)
 
-float getSparkDwellMsT(engine_configuration_s *engineConfiguration, int rpm);
+float getSparkDwellMsT(int rpm DECLATE_ENGINE_PARAMETER);
 
 int getCylinderId(firing_order_e firingOrder, int index);
 

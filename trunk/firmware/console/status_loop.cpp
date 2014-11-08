@@ -452,7 +452,7 @@ void updateTunerStudioState(Engine *engine, TunerStudioOutputChannels *tsOutputC
 	tsOutputChannels->isIatError = !isValidIntakeAirTemperature(getIntakeAirTemperature(engine));
 #endif
 	tsOutputChannels->tCharge = getTCharge(rpm, tps, coolant, intake);
-	tsOutputChannels->sparkDwell = getSparkDwellMsT(engineConfiguration, rpm);
+	tsOutputChannels->sparkDwell = getSparkDwellMsT(rpm PASS_ENGINE_PARAMETER);
 	tsOutputChannels->pulseWidthMs = getRunningFuel(baseFuelMs, engine, rpm);
 	tsOutputChannels->crankingFuelMs = getCrankingFuel(engine);
 }
