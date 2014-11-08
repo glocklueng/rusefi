@@ -17,8 +17,8 @@
 #include "table_helper.h"
 #include "engine.h"
 
-void findTriggerPosition(engine_configuration_s const *engineConfiguration, trigger_shape_s * s,
-		event_trigger_position_s *position, float angleOffset);
+void findTriggerPosition(trigger_shape_s * s,
+		event_trigger_position_s *position, float angleOffset DECLATE_ENGINE_PARAMETER);
 
 int isInjectionEnabled(engine_configuration_s *engineConfiguration);
 

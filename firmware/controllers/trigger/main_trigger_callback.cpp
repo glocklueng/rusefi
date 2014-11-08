@@ -169,8 +169,8 @@ static INLINE void handleSparkEvent(uint32_t eventIndex, IgnitionEvent *iEvent,
 	 * TODO: improve precision
 	 */
 
-	findTriggerPosition(engineConfiguration, &engineConfiguration2->triggerShape, &iEvent->sparkPosition,
-			iEvent->advance);
+	findTriggerPosition(&engineConfiguration2->triggerShape, &iEvent->sparkPosition,
+			iEvent->advance PASS_ENGINE_PARAMETER);
 
 	if (iEvent->sparkPosition.eventIndex == eventIndex) {
 		/**

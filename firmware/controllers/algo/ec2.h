@@ -20,10 +20,10 @@ class FuelSchedule {
 public:
 	ActuatorEventList events;
 
-	void addFuelEvents(engine_configuration_s const *e, trigger_shape_s *s,
-			injection_mode_e mode);
-	void registerInjectionEvent(engine_configuration_s const *e, trigger_shape_s *s,
-			io_pin_e pin, float angle);
+	void addFuelEvents(trigger_shape_s *s,
+			injection_mode_e mode DECLATE_ENGINE_PARAMETER);
+	void registerInjectionEvent(trigger_shape_s *s,
+			io_pin_e pin, float angle DECLATE_ENGINE_PARAMETER);
 
 };
 
@@ -57,7 +57,7 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2);
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 
-void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEvent *e,
-		OutputSignal *actuator, float angleOffset);
+void registerActuatorEventExt(trigger_shape_s * s, ActuatorEvent *e,
+		OutputSignal *actuator, float angleOffset DECLATE_ENGINE_PARAMETER);
 
 #endif /* EC2_H_ */
