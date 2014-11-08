@@ -63,6 +63,7 @@ void writeToFlashIfPending() {
 
 void writeToFlash(void) {
 #if EFI_INTERNAL_FLASH
+	scheduleMsg(&logger, " !!!!!!!!!!!!!!!!!!!! BE SURE NOT WRITE WITH IGNITION ON !!!!!!!!!!!!!!!!!!!!");
 	persistentState.size = PERSISTENT_SIZE;
 	persistentState.version = FLASH_DATA_VERSION;
 	scheduleMsg(&logger, "flash compatible with %d", persistentState.version);
