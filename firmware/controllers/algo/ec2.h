@@ -51,8 +51,8 @@ public:
 	IgnitionEventList ignitionEvents[2];
 };
 
-void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2, IgnitionEventList *list);
+void initializeIgnitionActions(float advance, float dwellAngle,
+		engine_configuration2_s *engineConfiguration2, IgnitionEventList *list DECLATE_ENGINE_PARAMETER);
 
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2);
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);

@@ -298,9 +298,9 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
-		initializeIgnitionActions(advance, dwellAngle, engine->engineConfiguration,
+		initializeIgnitionActions(advance, dwellAngle,
 				engine->engineConfiguration2,
-				&engine->engineConfiguration2->ignitionEvents[revolutionIndex]);
+				&engine->engineConfiguration2->ignitionEvents[revolutionIndex] PASS_ENGINE_PARAMETER);
 	}
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
