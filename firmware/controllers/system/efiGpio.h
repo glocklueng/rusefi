@@ -25,12 +25,27 @@ typedef struct {
 	int currentLogicValue;
 } OutputPin;
 
+/**
+ * it's a macro to be sure that stack is not used
+ * @return 0 for OM_DEFAULT and OM_OPENDRAIN
+ */
+
+#define getElectricalValue0(mode) ((mode) == OM_INVERTED || (mode) == OM_OPENDRAIN_INVERTED)
+
+
+/**
+ * it's a macro to be sure that stack is not used
+ * @return 1 for OM_DEFAULT and OM_OPENDRAIN
+ */
+#define getElectricalValue1(mode) ((mode) == OM_DEFAULT || (mode) == OM_OPENDRAIN)
+
+#define getLogicPinValue(outputPin) ((outputPin)->currentLogicValue)
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif /* __cplusplus */
 
-int getLogicPinValue(OutputPin * outputPin);
 int getOutputPinValue(io_pin_e pin);
 int getElectricalValue(int logicalValue, pin_output_mode_e mode);
 void setOutputPinValue(io_pin_e pin, int logicValue);
