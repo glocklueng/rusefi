@@ -330,9 +330,6 @@ static void showTriggerHistogram(void) {
 void MainTriggerCallback::init(Engine *engine, engine_configuration2_s *engineConfiguration2) {
 	efiAssertVoid(engine!=NULL, "engine NULL");
 	this->engine = engine;
-	this->engineConfiguration = engine->engineConfiguration;
-	efiAssertVoid(engineConfiguration!=NULL, "engineConfiguration NULL");
-	this->engineConfiguration2 = engineConfiguration2;
 }
 
 static void showMainInfo(Engine *engine) {
@@ -356,7 +353,7 @@ void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfig
 
 	initLogging(&logger, "main event handler");
 	printMsg(&logger, "initMainLoop: %d", currentTimeMillis());
-	if (!isInjectionEnabled(mainTriggerCallbackInstance.engineConfiguration))
+	if (!isInjectionEnabled(mainTriggerCallbackInstance.engine->engineConfiguration))
 		printMsg(&logger, "!!!!!!!!!!!!!!!!!!! injection disabled");
 #endif
 
