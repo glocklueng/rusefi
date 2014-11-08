@@ -309,8 +309,8 @@ void findTriggerPosition(engine_configuration_s const *engineConfiguration, trig
 	position->angleOffset = angleOffset - eventAngle;
 }
 
-void registerActuatorEventExt(engine_configuration_s const *engineConfiguration, trigger_shape_s * s, ActuatorEvent *ev,
-		OutputSignal *actuator, float angleOffset) {
+void registerActuatorEventExt(engine_configuration_s const *e, trigger_shape_s * s, ActuatorEvent *ev,
+		OutputSignal *actuator, float angle) {
 
 	if (ev == NULL) {
 		// error already reported
@@ -318,7 +318,7 @@ void registerActuatorEventExt(engine_configuration_s const *engineConfiguration,
 	}
 	ev->actuator = actuator;
 
-	findTriggerPosition(engineConfiguration, s, &ev->position, angleOffset);
+	findTriggerPosition(e, s, &ev->position, angle);
 }
 
 static int order_1_THEN_3_THEN_4_THEN2[] = { 1, 3, 4, 2 };
