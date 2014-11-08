@@ -38,7 +38,7 @@ class EventQueue {
 public:
 	EventQueue();
 
-	void insertTask(scheduling_s *scheduling, uint64_t timeUs, schfunc_t callback, void *param);
+	void insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_t callback, void *param);
 
 	bool executeAll(uint64_t now);
 
@@ -49,6 +49,7 @@ public:
 private:
 	bool checkIfPending(scheduling_s *scheduling);
 	scheduling_s *head;
+	uint64_t lateDelay;
 };
 
 #endif /* EVENT_SCHEDULER_H_ */
