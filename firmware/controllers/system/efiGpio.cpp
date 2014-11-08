@@ -27,19 +27,6 @@ int getElectricalValue(int logicalValue, pin_output_mode_e mode) {
 }
 
 /**
- * Set's the value of the pin. On this layer the value is assigned as is, without any conversion.
- */
-void setPinValue(OutputPin * outputPin, int electricalValue, int logicValue) {
-	if (getLogicPinValue(outputPin) == logicValue)
-		return;
-
-#if EFI_PROD_CODE
-	palWritePad(outputPin->port, outputPin->pin, electricalValue);
-#endif
-	outputPin->currentLogicValue = logicValue;
-}
-
-/**
  * @brief Sets the value according to current electrical settings
  */
 void setOutputPinValue(io_pin_e pin, int logicValue) {
