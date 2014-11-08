@@ -9,6 +9,7 @@
 #include <board.h>
 #include "main.h"
 #include "io_pins.h"
+#include "efiGpio.h"
 
 #include "pin_repository.h"
 #include "gpio_helper.h"
