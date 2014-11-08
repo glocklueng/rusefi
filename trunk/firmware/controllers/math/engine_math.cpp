@@ -194,7 +194,7 @@ void FuelSchedule::registerInjectionEvent(trigger_shape_s *s,
 	ev->actuator = actuator;
 
 	findTriggerPosition(s, &ev->position, angle PASS_ENGINE_PARAMETER);
-//	hasEvents[ev->position.eventIndex] = true;
+	hasEvents[ev->position.eventIndex] = true;
 }
 
 FuelSchedule::FuelSchedule() {
@@ -202,7 +202,7 @@ FuelSchedule::FuelSchedule() {
 }
 
 void FuelSchedule::clear() {
-//	memset(hasEvents, 0, sizeof(hasEvents));
+	memset(hasEvents, 0, sizeof(hasEvents));
 }
 
 void FuelSchedule::addFuelEvents(trigger_shape_s *s,
