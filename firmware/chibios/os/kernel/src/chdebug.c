@@ -154,6 +154,8 @@ void dbg_check_unlock_from_isr(void) {
   dbg_leave_lock();
 }
 
+void firmwareError(const char *fmt, ...);
+
 /**
  * @brief   Guard code for @p CH_IRQ_PROLOGUE().
  *
