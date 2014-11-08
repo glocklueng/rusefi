@@ -173,7 +173,7 @@ void printState(Engine *engine, int currentCkpEventCounter) {
 	debugFloat(&logger, "fuel_base", baseFuel, 2);
 //	debugFloat(&logger, "fuel_iat", getIatCorrection(getIntakeAirTemperature()), 2);
 //	debugFloat(&logger, "fuel_clt", getCltCorrection(getCoolantTemperature()), 2);
-	debugFloat(&logger, "fuel_lag", getInjectorLag(engineConfiguration, getVBatt(engineConfiguration)), 2);
+	debugFloat(&logger, "fuel_lag", getInjectorLag(getVBatt(engineConfiguration) PASS_ENGINE_PARAMETER), 2);
 	debugFloat(&logger, "fuel", getFuelMs(rpm PASS_ENGINE_PARAMETER), 2);
 
 	debugFloat(&logger, "timing", getAdvance(rpm, engineLoad PASS_ENGINE_PARAMETER), 2);
@@ -317,16 +317,16 @@ static void showFuelInfo2(float rpm, float engineLoad, Engine *engine) {
 	scheduleMsg(&logger2, "cranking fuel: %f", getCrankingFuel(engine));
 
 	if (engine->rpmCalculator->isRunning()) {
-		float iatCorrection = getIatCorrection(engineConfiguration, getIntakeAirTemperature(engine));
-		float cltCorrection = getCltCorrection(engineConfiguration, getCoolantTemperature(engine));
-		float injectorLag = getInjectorLag(engineConfiguration, getVBatt(engineConfiguration));
+		float iatCorrection = getIatCorrection(getIntakeAirTemperature(engine) PASS_ENGINE_PARAMETER);
+		float cltCorrection = getCltCorrection(getCoolantTemperature(engine) PASS_ENGINE_PARAMETER);
+		float injectorLag = getInjectorLag(getVBatt(engineConfiguration) PASS_ENGINE_PARAMETER);
 		scheduleMsg(&logger2, "rpm=%f engineLoad=%f", rpm, engineLoad);
 		scheduleMsg(&logger2, "baseFuel=%f", baseFuelMs);
 
 		scheduleMsg(&logger2, "iatCorrection=%f cltCorrection=%f injectorLag=%f", iatCorrection, cltCorrection,
 				injectorLag);
 
-		float value = getRunningFuel(baseFuelMs, engine, (int) rpm);
+		float value = getRunningFuel(baseFuelMs, (int) rpm PASS_ENGINE_PARAMETER);
 		scheduleMsg(&logger2, "injection pulse width: %f", value);
 	}
 }
@@ -453,7 +453,7 @@ void updateTunerStudioState(Engine *engine, TunerStudioOutputChannels *tsOutputC
 #endif
 	tsOutputChannels->tCharge = getTCharge(rpm, tps, coolant, intake);
 	tsOutputChannels->sparkDwell = getSparkDwellMsT(rpm PASS_ENGINE_PARAMETER);
-	tsOutputChannels->pulseWidthMs = getRunningFuel(baseFuelMs, engine, rpm);
+	tsOutputChannels->pulseWidthMs = getRunningFuel(baseFuelMs, rpm PASS_ENGINE_PARAMETER);
 	tsOutputChannels->crankingFuelMs = getCrankingFuel(engine);
 }
 
