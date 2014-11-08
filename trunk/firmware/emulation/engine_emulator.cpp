@@ -22,7 +22,6 @@ extern "C" {
 }
 #include "trigger_emulator.h"
 
-
 static THD_WORKING_AREA(eeThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 #define DIAG_PORT GPIOD
@@ -35,7 +34,7 @@ void setDiag(int value) {
 
 #define PERIOD 3000
 
-void emulate(void) {
+void emulate(Engine *engine) {
 	print("Emulating...\r\n");
 	setDiag(1);
 	chThdSleep(1);
@@ -44,11 +43,11 @@ void emulate(void) {
 	for (int i = 400; i <= 1300; i++) {
 		if (i % 50 != 0)
 			continue;
-		setTriggerEmulatorRPM(i);
+		setTriggerEmulatorRPM(i, engine);
 		chThdSleepMilliseconds(PERIOD);
 	}
 
-	setTriggerEmulatorRPM(0);
+	setTriggerEmulatorRPM(0, engine);
 
 	setFullLog(0);
 	setDiag(0);
@@ -58,15 +57,14 @@ void emulate(void) {
 
 static int flag = FALSE;
 
-static msg_t eeThread(void *arg) {
-	(void)arg;
+static msg_t eeThread(Engine *engine) {
 	chRegSetThreadName("Engine");
 
 	while (TRUE) {
 		while (!flag)
 			chThdSleepMilliseconds(200);
 		flag = FALSE;
-		emulate();
+		emulate(engine);
 	}
 #if defined __GNUC__
 	return (msg_t)NULL;
@@ -82,7 +80,7 @@ void startEmulator(void) {
 //	print("advance for %d rpm %d maf100: %f\r\n", rpm, maf100, advance);
 //}
 
-static void initECUstimulator(void) {
+static void initECUstimulator(Engine *engine) {
 	mySetPadMode("TEN", DIAG_PORT, DIAG_PIN,
 	PAL_MODE_OUTPUT_PUSHPULL);
 
@@ -92,7 +90,7 @@ static void initECUstimulator(void) {
 
 	setDiag(1);
 
-	chThdCreateStatic(eeThreadStack, sizeof(eeThreadStack), NORMALPRIO, (tfunc_t) eeThread, NULL);
+	chThdCreateStatic(eeThreadStack, sizeof(eeThreadStack), NORMALPRIO, (tfunc_t) eeThread, engine);
 }
 
 void initEngineEmulator(Engine *engine) {
