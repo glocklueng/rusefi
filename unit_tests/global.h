@@ -32,4 +32,6 @@ typedef void * Logging;
 
 #define CCM_OPTIONAL
 
+#define EXTERN_ENGINE
+
 #endif /* GLOBAL_H_ */
