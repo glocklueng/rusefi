@@ -77,12 +77,12 @@ static cyclic_buffer ignitionErrorDetection;
 
 static Logging logger;
 
-static INLINE void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, ActuatorEvent *event, int rpm) {
+static INLINE void handleFuelInjectionEvent(Engine *engine, ActuatorEvent *event, int rpm) {
 	/**
 	 * todo: we do not really need to calculate fuel for each individual cylinder
 	 */
-	float fuelMs = getFuelMs(rpm, mainTriggerCallback->engine)
-			* mainTriggerCallback->engineConfiguration->globalFuelCorrection;
+	float fuelMs = getFuelMs(rpm, engine)
+			* engine->engineConfiguration->globalFuelCorrection;
 	if (cisnan(fuelMs)) {
 		warning(OBD_PCM_Processor_Fault, "NaN injection pulse");
 		return;
@@ -92,7 +92,7 @@ static INLINE void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCall
 		return;
 	}
 
-	if (mainTriggerCallback->engine->isCylinderCleanupMode)
+	if (engine->isCylinderCleanupMode)
 		return;
 
 	float delay = getOneDegreeTimeMs(rpm) * event->position.angleOffset;
@@ -103,11 +103,11 @@ static INLINE void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCall
 	scheduleOutput(event->actuator, delay, fuelMs);
 }
 
-static INLINE void handleFuel(Engine *engine, MainTriggerCallback *mainTriggerCallback, uint32_t eventIndex, int rpm) {
-	if (!isInjectionEnabled(mainTriggerCallback->engineConfiguration))
+static INLINE void handleFuel(Engine *engine, uint32_t eventIndex, int rpm) {
+	if (!isInjectionEnabled(engine->engineConfiguration))
 		return;
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 64, "lowstck#3");
-	efiAssertVoid(eventIndex < mainTriggerCallback->engineConfiguration2->triggerShape.getLength(), "event index");
+	efiAssertVoid(eventIndex < engine->engineConfiguration2->triggerShape.getLength(), "event index");
 
 	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 	/**
@@ -116,8 +116,8 @@ static INLINE void handleFuel(Engine *engine, MainTriggerCallback *mainTriggerCa
 	 */
 	FuelSchedule *fs =
 	isCrankingR(rpm) ?
-			&mainTriggerCallback->engineConfiguration2->crankingInjectionEvents :
-			&mainTriggerCallback->engineConfiguration2->injectionEvents;
+			&engine->engineConfiguration2->crankingInjectionEvents :
+			&engine->engineConfiguration2->injectionEvents;
 
 	ActuatorEventList *source = &fs->events;
 
@@ -125,7 +125,7 @@ static INLINE void handleFuel(Engine *engine, MainTriggerCallback *mainTriggerCa
 		ActuatorEvent *event = &source->events[i];
 		if (event->position.eventIndex != eventIndex)
 			continue;
-		handleFuelInjectionEvent(mainTriggerCallback, event, rpm);
+		handleFuelInjectionEvent(engine, event, rpm);
 	}
 }
 
@@ -305,7 +305,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
 
-	handleFuel(mainTriggerCallback->engine, mainTriggerCallback, eventIndex, rpm);
+	handleFuel(mainTriggerCallback->engine, eventIndex, rpm);
 	handleSpark(mainTriggerCallback, eventIndex, rpm,
 			&mainTriggerCallback->engineConfiguration2->ignitionEvents[revolutionIndex]);
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
