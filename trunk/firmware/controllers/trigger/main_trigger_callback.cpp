@@ -112,10 +112,12 @@ static void handleFuel(Engine *engine, MainTriggerCallback *mainTriggerCallback,
 	 * Ignition events are defined by addFuelEvents() according to selected
 	 * fueling strategy
 	 */
-	ActuatorEventList *source =
+	FuelSchedule *fs =
 	isCrankingR(rpm) ?
-			&mainTriggerCallback->engineConfiguration2->crankingInjectionEvents.events :
-			&mainTriggerCallback->engineConfiguration2->injectionEvents.events;
+			&mainTriggerCallback->engineConfiguration2->crankingInjectionEvents :
+			&mainTriggerCallback->engineConfiguration2->injectionEvents;
+
+	ActuatorEventList *source = &fs->events;
 
 	for (int i = 0; i < source->size; i++) {
 		ActuatorEvent *event = &source->events[i];
