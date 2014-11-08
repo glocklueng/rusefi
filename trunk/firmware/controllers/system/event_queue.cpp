@@ -27,6 +27,9 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t timeUs, schfunc_t
 		firmwareError("NULL callback");
 
 	int alreadyPending = checkIfPending(scheduling);
+	/**
+	 * TODO: should this 'hasFirmwareError' be here? What if this 'insertTask' is trying to turn some pin down?
+	 */
 	if (alreadyPending || hasFirmwareError())
 		return;
 
