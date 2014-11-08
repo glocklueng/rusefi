@@ -126,8 +126,8 @@ static void registerSparkEvent(engine_configuration_s const *engineConfiguration
 	findTriggerPosition(engineConfiguration, s, &event->dwellPosition, localAdvance - dwell);
 }
 
-void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration_s *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2, IgnitionEventList *list) {
+void initializeIgnitionActions(float advance, float dwellAngle,
+		engine_configuration2_s *engineConfiguration2, IgnitionEventList *list DECLATE_ENGINE_PARAMETER) {
 
 	efiAssertVoid(engineConfiguration->cylindersCount > 0, "cylindersCount");
 

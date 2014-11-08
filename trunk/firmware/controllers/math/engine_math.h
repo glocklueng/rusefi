@@ -11,6 +11,7 @@
 #include "engine_configuration.h"
 
 #ifdef __cplusplus
+
 #include "ec2.h"
 #include "trigger_structure.h"
 #include "table_helper.h"
