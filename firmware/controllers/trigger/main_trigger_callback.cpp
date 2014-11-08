@@ -109,7 +109,6 @@ static INLINE void handleFuel(uint32_t eventIndex, int rpm DECLATE_ENGINE_PARAME
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 64, "lowstck#3");
 	efiAssertVoid(eventIndex < engine->engineConfiguration2->triggerShape.getLength(), "event index");
 
-	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 	/**
 	 * Ignition events are defined by addFuelEvents() according to selected
 	 * fueling strategy
@@ -131,7 +130,6 @@ static INLINE void handleFuel(uint32_t eventIndex, int rpm DECLATE_ENGINE_PARAME
 
 static INLINE void handleSparkEvent(uint32_t eventIndex, IgnitionEvent *iEvent,
 		int rpm DECLATE_ENGINE_PARAMETER) {
-	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 	engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
 
 	float dwellMs = getSparkDwellMsT(engineConfiguration, rpm);
@@ -305,7 +303,10 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
 
+	// todo: remove these local variables soon
 	Engine *engine = mainTriggerCallback->engine;
+	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
+
 
 	handleFuel(eventIndex, rpm PASS_ENGINE_PARAMETER);
 	handleSpark(eventIndex, rpm,
