@@ -173,6 +173,14 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 	}
 }
 
+static void registerActuatorEventExt(trigger_shape_s * s, ActuatorEvent *ev,
+		OutputSignal *actuator, float angle DECLATE_ENGINE_PARAMETER) {
+
+
+	findTriggerPosition(s, &ev->position, angle PASS_ENGINE_PARAMETER);
+}
+
+
 void FuelSchedule::registerInjectionEvent(trigger_shape_s *s,
 		io_pin_e pin, float angle DECLATE_ENGINE_PARAMETER) {
 	ActuatorEventList *list = &events;
@@ -315,13 +323,6 @@ void findTriggerPosition(trigger_shape_s * s,
 	position->eventIndex = middle;
 	position->eventAngle = eventAngle;
 	position->angleOffset = angleOffset - eventAngle;
-}
-
-void registerActuatorEventExt(trigger_shape_s * s, ActuatorEvent *ev,
-		OutputSignal *actuator, float angle DECLATE_ENGINE_PARAMETER) {
-
-
-	findTriggerPosition(s, &ev->position, angle PASS_ENGINE_PARAMETER);
 }
 
 static int order_1_THEN_3_THEN_4_THEN2[] = { 1, 3, 4, 2 };

@@ -57,7 +57,4 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 void setDefaultNonPersistentConfiguration(engine_configuration2_s *engineConfiguration2);
 void printConfiguration(engine_configuration_s *engineConfiguration, engine_configuration2_s *engineConfiguration2);
 
-void registerActuatorEventExt(trigger_shape_s * s, ActuatorEvent *e,
-		OutputSignal *actuator, float angleOffset DECLATE_ENGINE_PARAMETER);
-
 #endif /* EC2_H_ */
