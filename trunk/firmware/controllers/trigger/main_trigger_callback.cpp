@@ -54,6 +54,8 @@
 #include "event_queue.h"
 #include "engine.h"
 
+EXTERN_ENGINE;
+
 static LocalVersionHolder localVersion;
 
 static MainTriggerCallback mainTriggerCallbackInstance;
@@ -75,7 +77,7 @@ static cyclic_buffer ignitionErrorDetection;
 
 static Logging logger;
 
-static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, ActuatorEvent *event, int rpm) {
+static INLINE void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, ActuatorEvent *event, int rpm) {
 	/**
 	 * todo: we do not really need to calculate fuel for each individual cylinder
 	 */
@@ -101,7 +103,7 @@ static void handleFuelInjectionEvent(MainTriggerCallback *mainTriggerCallback, A
 	scheduleOutput(event->actuator, delay, fuelMs);
 }
 
-static void handleFuel(Engine *engine, MainTriggerCallback *mainTriggerCallback, uint32_t eventIndex, int rpm) {
+static INLINE void handleFuel(Engine *engine, MainTriggerCallback *mainTriggerCallback, uint32_t eventIndex, int rpm) {
 	if (!isInjectionEnabled(mainTriggerCallback->engineConfiguration))
 		return;
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 64, "lowstck#3");
@@ -127,7 +129,7 @@ static void handleFuel(Engine *engine, MainTriggerCallback *mainTriggerCallback,
 	}
 }
 
-static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, uint32_t eventIndex, IgnitionEvent *iEvent,
+static INLINE void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, uint32_t eventIndex, IgnitionEvent *iEvent,
 		int rpm) {
 	engine_configuration_s *engineConfiguration = mainTriggerCallback->engineConfiguration;
 	engine_configuration2_s *engineConfiguration2 = mainTriggerCallback->engineConfiguration2;
@@ -192,7 +194,7 @@ static void handleSparkEvent(MainTriggerCallback *mainTriggerCallback, uint32_t 
 	}
 }
 
-static void handleSpark(MainTriggerCallback *mainTriggerCallback, uint32_t eventIndex, int rpm,
+static INLINE void handleSpark(MainTriggerCallback *mainTriggerCallback, uint32_t eventIndex, int rpm,
 		IgnitionEventList *list) {
 	if (!isValidRpm(rpm) || !mainTriggerCallback->engineConfiguration->isIgnitionEnabled)
 		return; // this might happen for instance in case of a single trigger event after a pause
