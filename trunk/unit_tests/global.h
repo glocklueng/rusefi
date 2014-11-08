@@ -34,4 +34,7 @@ typedef void * Logging;
 
 #define EXTERN_ENGINE
 
+#define DECLATE_ENGINE_PARAMETER , Engine *engine
+#define PASS_ENGINE_PARAMETER , engine
+
 #endif /* GLOBAL_H_ */
