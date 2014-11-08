@@ -86,4 +86,4 @@ typedef VirtualTimer virtual_timer_t;
 typedef EventListener event_listener_t;
 #define THD_WORKING_AREA WORKING_AREA
 
-#define EXTERN_ENGINE
+#define EXTERN_ENGINE extern Engine *engine;
