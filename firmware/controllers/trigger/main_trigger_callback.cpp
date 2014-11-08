@@ -81,8 +81,8 @@ static INLINE void handleFuelInjectionEvent(ActuatorEvent *event, int rpm DECLAT
 	/**
 	 * todo: we do not really need to calculate fuel for each individual cylinder
 	 */
-	float fuelMs = getFuelMs(rpm, engine)
-			* engine->engineConfiguration->globalFuelCorrection;
+	float fuelMs = getFuelMs(rpm PASS_ENGINE_PARAMETER)
+			* engineConfiguration->globalFuelCorrection;
 	if (cisnan(fuelMs)) {
 		warning(OBD_PCM_Processor_Fault, "NaN injection pulse");
 		return;
@@ -337,7 +337,7 @@ static void showMainInfo(Engine *engine) {
 	float el = getEngineLoadT(mainTriggerCallbackInstance.engine);
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "rpm %d engine_load %f", rpm, el);
-	scheduleMsg(&logger, "fuel %fms timing %f", getFuelMs(rpm, mainTriggerCallbackInstance.engine),
+	scheduleMsg(&logger, "fuel %fms timing %f", getFuelMs(rpm PASS_ENGINE_PARAMETER),
 			getAdvance(mainTriggerCallbackInstance.engine->engineConfiguration, rpm, el));
 #endif
 }
