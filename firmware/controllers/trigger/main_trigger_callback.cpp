@@ -239,6 +239,14 @@ void showMainHistogram(void) {
  * Both injection and ignition are controlled from this method.
  */
 void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTriggerCallback *mtc) {
+	if(hasFirmwareError()) {
+		/**
+		 * In case on a major error we should not process any more events.
+		 * TODO: add 'pin shutdown' invocation somewhere
+		 */
+		return;
+	}
+
 	Engine *engine = mtc->engine;
 	(void) ckpSignalType;
 	efiAssertVoid(eventIndex < 2 * engine->engineConfiguration2->triggerShape.shaftPositionEventCount,
