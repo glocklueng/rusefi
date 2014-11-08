@@ -41,6 +41,31 @@ typedef struct {
 
 #define getLogicPinValue(outputPin) ((outputPin)->currentLogicValue)
 
+/**
+ * Sets the value of the pin. On this layer the value is assigned as is, without any conversion.
+ */
+
+#if EFI_PROD_CODE                                                                  \
+
+#define setPinValue(outputPin, electricalValue, logicValue)                        \
+  {                                                                                \
+    if (getLogicPinValue(outputPin) != (logicValue)) {                             \
+	  palWritePad((outputPin)->port, (outputPin)->pin, (electricalValue));         \
+	  (outputPin)->currentLogicValue = (logicValue);                               \
+    }                                                                              \
+  }
+#else /* EFI_PROD_CODE */
+#define setPinValue(outputPin, electricalValue, (logicValue))                      \
+  {                                                                                \
+    if (getLogicPinValue(outputPin) != (logicValue)) {                             \
+	  (outputPin)->currentLogicValue = (logicValue);                               \
+    }                                                                              \
+  }
+#endif /* EFI_PROD_CODE */
+
+#define turnOutputPinOn(pin) setOutputPinValue((pin), true)
+#define turnOutputPinOff(pin) setOutputPinValue((pin), false)
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -50,7 +75,6 @@ int getOutputPinValue(io_pin_e pin);
 int getElectricalValue(int logicalValue, pin_output_mode_e mode);
 void setOutputPinValue(io_pin_e pin, int logicValue);
 bool isPinAssigned(io_pin_e pin);
-void setPinValue(OutputPin * outputPin, int electricalValue, int logicValue);
 
 #ifdef __cplusplus
 }

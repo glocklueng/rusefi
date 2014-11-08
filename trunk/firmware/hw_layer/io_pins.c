@@ -34,14 +34,6 @@ static GPIO_TypeDef *PORTS[] = { GPIOA, GPIOB, GPIOC, GPIOD, GPIOE, GPIOF, GPIOG
 
 static pin_output_mode_e DEFAULT_OUTPUT = OM_DEFAULT;
 
-void turnOutputPinOn(io_pin_e pin) {
-	setOutputPinValue(pin, TRUE);
-}
-
-void turnOutputPinOff(io_pin_e pin) {
-	setOutputPinValue(pin, FALSE);
-}
-
 inline static void assertOMode(pin_output_mode_e mode) {
 	// mode >= 0  is always true since that's an unsigned
 	efiAssertVoid(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e");
@@ -202,3 +194,12 @@ void initOutputPins(void) {
 
 	addConsoleActionS("get_pin_value", getPinValue);
 }
+
+/**
+ * This method is part of fatal error handling.
+ * Please note that worst case scenario the pins might get re-enabled by some other code :(
+ */
+void turnAllPinsOff(void) {
+}
+
+
