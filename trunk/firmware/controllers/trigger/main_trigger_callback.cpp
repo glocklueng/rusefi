@@ -239,14 +239,14 @@ void showMainHistogram(void) {
  * This is the main trigger event handler.
  * Both injection and ignition are controlled from this method.
  */
-void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTriggerCallback *mainTriggerCallback) {
+void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTriggerCallback *mtc) {
+	Engine *engine = mtc->engine;
 	(void) ckpSignalType;
-	efiAssertVoid(eventIndex < 2 * mainTriggerCallback->engineConfiguration2->triggerShape.shaftPositionEventCount,
+	efiAssertVoid(eventIndex < 2 * engine->engineConfiguration2->triggerShape.shaftPositionEventCount,
 			"event index");
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 64, "lowstck#2");
 
-	int rpm = getRpmE(mainTriggerCallback->engine);
-//	int rpm = getRpmE(&engine);
+	int rpm = getRpmE(engine);
 	if (rpm == 0) {
 		// this happens while we just start cranking
 		// todo: check for 'trigger->is_synchnonized?'
@@ -256,7 +256,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 		warning(OBD_Camshaft_Position_Sensor_Circuit_Range_Performance, "noisy trigger");
 		return;
 	}
-	if (rpm > mainTriggerCallback->engineConfiguration->rpmHardLimit) {
+	if (rpm > engine->engineConfiguration->rpmHardLimit) {
 		warning(OBD_PCM_Processor_Fault, "skipping stroke due to rpm=%d", rpm);
 		return;
 	}
@@ -269,7 +269,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 
 	if (eventIndex == 0) {
 		if (localVersion.isOld())
-			prepareOutputSignals(mainTriggerCallback->engine);
+			prepareOutputSignals(engine);
 
 		/**
 		 * TODO: warning. there is a bit of a hack here, todo: improve.
@@ -283,12 +283,12 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 		 * Within one engine cycle all cylinders are fired with same timing advance.
 		 * todo: one day we can control cylinders individually
 		 */
-		float dwellMs = getSparkDwellMsT(mainTriggerCallback->engineConfiguration, rpm);
+		float dwellMs = getSparkDwellMsT(engine->engineConfiguration, rpm);
 		if (cisnan(dwellMs) || dwellMs < 0) {
 			firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 			return;
 		}
-		float advance = getAdvance(mainTriggerCallback->engineConfiguration, rpm, getEngineLoadT(mainTriggerCallback->engine));
+		float advance = getAdvance(engine->engineConfiguration, rpm, getEngineLoadT(engine));
 		if (cisnan(advance)) {
 			// error should already be reported
 			return;
@@ -296,21 +296,20 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 
 		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
-		initializeIgnitionActions(advance, dwellAngle, mainTriggerCallback->engineConfiguration,
-				mainTriggerCallback->engineConfiguration2,
-				&mainTriggerCallback->engineConfiguration2->ignitionEvents[revolutionIndex]);
+		initializeIgnitionActions(advance, dwellAngle, engine->engineConfiguration,
+				engine->engineConfiguration2,
+				&engine->engineConfiguration2->ignitionEvents[revolutionIndex]);
 	}
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
 
 	// todo: remove these local variables soon
-	Engine *engine = mainTriggerCallback->engine;
 	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 
 
 	handleFuel(eventIndex, rpm PASS_ENGINE_PARAMETER);
 	handleSpark(eventIndex, rpm,
-			&mainTriggerCallback->engineConfiguration2->ignitionEvents[revolutionIndex] PASS_ENGINE_PARAMETER);
+			&engine->engineConfiguration2->ignitionEvents[revolutionIndex] PASS_ENGINE_PARAMETER);
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
