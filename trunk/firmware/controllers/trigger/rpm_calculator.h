@@ -64,7 +64,7 @@ extern "C" {
 /**
  * @brief   Initialize RPM calculator
  */
-void initRpmCalculator(void);
+void initRpmCalculator(Engine *engine);
 bool isCranking(void);
 uint64_t getLastRpmEventTime(void);
 
