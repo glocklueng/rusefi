@@ -55,7 +55,7 @@ typedef struct {
     }                                                                              \
   }
 #else /* EFI_PROD_CODE */
-#define setPinValue(outputPin, electricalValue, (logicValue))                      \
+#define setPinValue(outputPin, electricalValue, logicValue)                        \
   {                                                                                \
     if (getLogicPinValue(outputPin) != (logicValue)) {                             \
 	  (outputPin)->currentLogicValue = (logicValue);                               \
