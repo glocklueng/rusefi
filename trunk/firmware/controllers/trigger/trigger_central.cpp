@@ -14,6 +14,7 @@
 #include "data_buffer.h"
 #include "histogram.h"
 #include "wave_chart.h"
+#include "pwm_generator_logic.h"
 
 #include "rpm_calculator.h"
 #if EFI_PROD_CODE
@@ -188,6 +189,10 @@ static void triggerShapeInfo(Engine *engine) {
 #endif
 }
 
+#if EFI_PROD_CODE
+extern PwmConfig triggerSignal;
+#endif /* #if EFI_PROD_CODE */
+
 static void triggerInfo(Engine *engine) {
 #if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 
@@ -219,8 +224,10 @@ static void triggerInfo(Engine *engine) {
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[0]),
 			boardConfiguration->triggerSimulatorFrequency
 	);
-	scheduleMsg(&logger, "secondary trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[1]),
-			pinModeToString(boardConfiguration->triggerSimulatorPinModes[1]));
+	scheduleMsg(&logger, "secondary trigger simulator: %s %s phase=%d", hwPortname(boardConfiguration->triggerSimulatorPins[1]),
+			pinModeToString(boardConfiguration->triggerSimulatorPinModes[1]),
+			triggerSignal.safe.phaseIndex
+	);
 	scheduleMsg(&logger, "3rd trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[2]),
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[2]));
 
