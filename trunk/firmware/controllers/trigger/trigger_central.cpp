@@ -211,11 +211,14 @@ static void triggerInfo(Engine *engine) {
 			engineConfiguration2->triggerShape.dutyCycle[1]);
 
 	scheduleMsg(&logger, "isError %d", isTriggerDecoderError());
+
 #endif
 
 #if EFI_PROD_CODE
-	scheduleMsg(&logger, "primary trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[0]),
-			pinModeToString(boardConfiguration->triggerSimulatorPinModes[0]));
+	scheduleMsg(&logger, "primary trigger simulator: %s %s freq=%d", hwPortname(boardConfiguration->triggerSimulatorPins[0]),
+			pinModeToString(boardConfiguration->triggerSimulatorPinModes[0]),
+			boardConfiguration->triggerSimulatorFrequency
+	);
 	scheduleMsg(&logger, "secondary trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[1]),
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[1]));
 	scheduleMsg(&logger, "3rd trigger simulator: %s %s", hwPortname(boardConfiguration->triggerSimulatorPins[2]),
