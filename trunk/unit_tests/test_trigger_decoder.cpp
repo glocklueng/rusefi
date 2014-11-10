@@ -302,10 +302,7 @@ static void testTriggerDecoder2(const char *msg, engine_type_e type, int synchPo
 	EngineTestHelper eth(type);
 	engine_configuration_s *ec = eth.ec;
 
-	assertEquals(0, eth.ec2.triggerShape.getTriggerShapeSynchPointIndex());
-
 	initSpeedDensity(ec);
-	resetConfigurationExt(NULL, type, &eth.engine);
 
 	assertEqualsM("synchPointIndex", synchPointIndex, eth.ec2.triggerShape.getTriggerShapeSynchPointIndex());
 
