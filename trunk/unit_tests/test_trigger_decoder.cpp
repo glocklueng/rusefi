@@ -405,8 +405,6 @@ static void testRpmCalculator(void) {
 	triggerCallbackInstance.init(&eth.engine, ec2);
 	eth.triggerCentral.addEventListener((ShaftPositionListener)&onTriggerEvent, "main loop", &triggerCallbackInstance);
 
-	eth.engine.rpmCalculator = &eth.rpmState;
-
 //	engine.rpmCalculator = &eth.rpmState;
 	prepareTimingMap();
 

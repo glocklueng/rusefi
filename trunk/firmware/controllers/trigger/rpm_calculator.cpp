@@ -136,7 +136,9 @@ bool isCranking(void) {
  * updated here.
  * This callback is invoked on interrupt thread.
  */
-void rpmShaftPositionCallback(trigger_event_e ckpSignalType, uint32_t index, RpmCalculator *rpmState) {
+void rpmShaftPositionCallback(trigger_event_e ckpSignalType, uint32_t index, Engine *engine) {
+	RpmCalculator *rpmState = engine->rpmCalculator;
+	efiAssertVoid(rpmState!=NULL, "NULL rpmState");
 	uint64_t nowNt = getTimeNowNt();
 #if EFI_PROD_CODE
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 256, "lowstck#2z");
@@ -241,7 +243,7 @@ void initRpmCalculator(Engine *engine) {
 	addTriggerEventListener(&tdcMarkCallback, "chart TDC mark", NULL);
 #endif
 
-	addTriggerEventListener((ShaftPositionListener) &rpmShaftPositionCallback, "rpm reporter", &rpmState);
+	addTriggerEventListener((ShaftPositionListener) &rpmShaftPositionCallback, "rpm reporter", engine);
 }
 
 #if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
