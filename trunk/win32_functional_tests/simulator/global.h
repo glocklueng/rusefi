@@ -91,6 +91,7 @@ typedef EventListener event_listener_t;
 #define EXTERN_ENGINE extern Engine *engine; \
 		extern engine_configuration_s *engineConfiguration;
 
-#define DECLARE_ENGINE_PARAMETER
+#define DECLARE_ENGINE_PARAMETER_F void
+#define DECLARE_ENGINE_PARAMETER_S
 #define DECLATE_ENGINE_PARAMETER
 #define PASS_ENGINE_PARAMETER
