@@ -369,7 +369,7 @@ void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfig
 	initHistogram(&mainLoopHisto, "main callback");
 #endif /* EFI_HISTOGRAMS */
 
-	addTriggerEventListener((ShaftPositionListener) &mainTriggerCallback, "main loop", engine);
+	addTriggerEventListener(mainTriggerCallback, "main loop", engine);
 }
 
 int isIgnitionTimingError(void) {
