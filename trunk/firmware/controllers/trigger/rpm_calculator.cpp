@@ -48,11 +48,13 @@ int getRpmE(Engine *engine) {
 	return engine->rpmCalculator->rpm();
 }
 
-EXTERN_ENGINE;
+EXTERN_ENGINE
+;
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
 static Logging logger;
-EXTERN_ENGINE;
+EXTERN_ENGINE
+;
 #endif
 
 RpmCalculator::RpmCalculator() {
@@ -77,6 +79,11 @@ bool RpmCalculator::isRunning(void) {
 
 void RpmCalculator::setRpmValue(int value) {
 	rpmValue = value;
+	if (rpmValue <= 0) {
+		oneDegreeUs = NAN;
+	} else {
+		oneDegreeUs = getOneDegreeTimeUs(rpmValue);
+	}
 }
 
 void RpmCalculator::onNewEngineCycle() {
