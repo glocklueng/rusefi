@@ -32,6 +32,7 @@ public:
 	int rpm(void);
 	void onNewEngineCycle();
 	uint32_t getRevolutionCounter(void);
+	void setRpmValue(int value);
 	uint32_t getRevolutionCounterSinceStart(void);
 	volatile int rpmValue;
 	volatile uint64_t lastRpmEventTimeNt;
