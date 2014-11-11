@@ -196,7 +196,7 @@ static void onTdcCallback(void) {
 /**
  * This trigger callback schedules the actual physical TDC callback in relation to trigger synchronization point.
  */
-static void tdcMarkCallback(trigger_event_e ckpSignalType, uint32_t index0, void *arg) {
+static void tdcMarkCallback(trigger_event_e ckpSignalType, uint32_t index0, Engine *arg) {
 	(void) arg;
 	(void) ckpSignalType;
 	bool isTriggerSynchronizationPoint = index0 == 0;
