@@ -39,7 +39,7 @@ public:
 	/**
 	 * This is a performance optimization: let's pre-calulate this each time RPM changes
 	 */
-//	volatile float oneDegreeUs;
+	volatile float oneDegreeUs;
 	volatile uint64_t lastRpmEventTimeNt;
 private:
 	/**
