@@ -143,14 +143,14 @@ static INLINE void handleSparkEvent(uint32_t eventIndex, IgnitionEvent *iEvent, 
 		return;
 	}
 
-	float sparkDelay = getOneDegreeTimeMs(rpm) * iEvent->dwellPosition.angleOffset;
-	int isIgnitionError = sparkDelay < 0;
+	float sparkDelayUs = engine->rpmCalculator.oneDegreeUs * iEvent->dwellPosition.angleOffset;
+	int isIgnitionError = sparkDelayUs < 0;
 	ignitionErrorDetection.add(isIgnitionError);
 	if (isIgnitionError) {
 #if EFI_PROD_CODE
-		scheduleMsg(&logger, "Negative spark delay=%f", sparkDelay);
+		scheduleMsg(&logger, "Negative spark delay=%f", sparkDelayUs);
 #endif
-		sparkDelay = 0;
+		sparkDelayUs = 0;
 		return;
 	}
 
@@ -169,7 +169,7 @@ static INLINE void handleSparkEvent(uint32_t eventIndex, IgnitionEvent *iEvent, 
 	/**
 	 * The start of charge is always within the current trigger event range, so just plain time-based scheduling
 	 */
-	scheduleTask("spark up", sUp, (int) MS2US(sparkDelay), (schfunc_t) &turnPinHigh, (void *) iEvent->io_pin);
+	scheduleTask("spark up", sUp, sparkDelayUs, (schfunc_t) &turnPinHigh, (void *) iEvent->io_pin);
 	/**
 	 * Spark event is often happening during a later trigger event timeframe
 	 * TODO: improve precision
