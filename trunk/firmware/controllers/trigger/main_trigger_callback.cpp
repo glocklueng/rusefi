@@ -278,7 +278,7 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex, Eng
 	int beforeCallback = hal_lld_get_counter_value();
 #endif
 
-	int revolutionIndex = getRevolutionCounter() % 2;
+	int revolutionIndex = engine->rpmCalculator.getRevolutionCounter() % 2;
 
 	if (eventIndex == 0) {
 		if (localVersion.isOld())
@@ -341,7 +341,7 @@ void MainTriggerCallback::init(Engine *engine, engine_configuration2_s *engineCo
 }
 
 static void showMainInfo(Engine *engine) {
-	int rpm = engine->rpmCalculator->rpm();
+	int rpm = engine->rpmCalculator.rpm();
 	float el = getEngineLoadT(mainTriggerCallbackInstance.engine);
 #if EFI_PROD_CODE
 	scheduleMsg(&logger, "rpm %d engine_load %f", rpm, el);
