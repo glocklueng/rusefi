@@ -35,7 +35,10 @@ public:
 	void setRpmValue(int value);
 	uint32_t getRevolutionCounterSinceStart(void);
 	volatile int rpmValue;
-	volatile float oneDegreeUs;
+	/**
+	 * This is a performance optimization: let's pre-calulate this each time RPM changes
+	 */
+//	volatile float oneDegreeUs;
 	volatile uint64_t lastRpmEventTimeNt;
 private:
 	/**
