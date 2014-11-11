@@ -403,7 +403,7 @@ static void testRpmCalculator(void) {
 
 	static MainTriggerCallback triggerCallbackInstance;
 	triggerCallbackInstance.init(&eth.engine, ec2);
-	eth.triggerCentral.addEventListener((ShaftPositionListener)&mainTriggerCallback, "main loop", &triggerCallbackInstance);
+	eth.triggerCentral.addEventListener((ShaftPositionListener)&mainTriggerCallback, "main loop", &eth.engine);
 
 //	engine.rpmCalculator = &eth.rpmState;
 	prepareTimingMap();
