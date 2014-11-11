@@ -132,7 +132,7 @@ static void shaftPositionCallback(trigger_event_e ckpEventType, uint32_t index, 
 	if (index != 0)
 		return;
 
-	int rpm = getRpm();
+	int rpm = getRpmE(engine);
 	if (!isValidRpm(rpm))
 		return;
 
@@ -150,8 +150,8 @@ static void shaftPositionCallback(trigger_event_e ckpEventType, uint32_t index, 
 
 	int structIndex = getRevolutionCounter() % 2;
 	// todo: schedule this based on closest trigger event, same as ignition works
-	scheduleByAngle(&startTimer[structIndex], startAngle, startAveraging, NULL);
-	scheduleByAngle(&endTimer[structIndex], startAngle + windowAngle, endAveraging, NULL);
+	scheduleByAngle(rpm, &startTimer[structIndex], startAngle, startAveraging, NULL);
+	scheduleByAngle(rpm, &endTimer[structIndex], startAngle + windowAngle, endAveraging, NULL);
 }
 
 static void showMapStats(void) {

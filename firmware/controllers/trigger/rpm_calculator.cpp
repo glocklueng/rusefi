@@ -196,14 +196,14 @@ static void onTdcCallback(void) {
 /**
  * This trigger callback schedules the actual physical TDC callback in relation to trigger synchronization point.
  */
-static void tdcMarkCallback(trigger_event_e ckpSignalType, uint32_t index0, Engine *arg) {
-	(void) arg;
+static void tdcMarkCallback(trigger_event_e ckpSignalType, uint32_t index0, Engine *engine) {
 	(void) ckpSignalType;
 	bool isTriggerSynchronizationPoint = index0 == 0;
 	if (isTriggerSynchronizationPoint) {
 		int revIndex2 = getRevolutionCounter() % 2;
+		int rpm = getRpm();
 		// todo: use event-based scheduling, not just time-based scheduling
-		scheduleByAngle(&tdcScheduler[revIndex2], engineConfiguration->globalTriggerAngleOffset,
+		scheduleByAngle(rpm, &tdcScheduler[revIndex2], engineConfiguration->globalTriggerAngleOffset,
 				(schfunc_t) onTdcCallback, NULL);
 	}
 }
@@ -240,7 +240,7 @@ void initRpmCalculator(Engine *engine) {
 
 	tdcScheduler[0].name = "tdc0";
 	tdcScheduler[1].name = "tdc1";
-	addTriggerEventListener(&tdcMarkCallback, "chart TDC mark", NULL);
+	addTriggerEventListener(tdcMarkCallback, "chart TDC mark", engine);
 #endif
 
 	addTriggerEventListener((ShaftPositionListener) &rpmShaftPositionCallback, "rpm reporter", engine);
@@ -252,8 +252,7 @@ void initRpmCalculator(Engine *engine) {
  * The callback would be executed once after the duration of time which
  * it takes the crankshaft to rotate to the specified angle.
  */
-void scheduleByAngle(scheduling_s *timer, float angle, schfunc_t callback, void *param) {
-	int rpm = getRpm();
+void scheduleByAngle(int rpm, scheduling_s *timer, float angle, schfunc_t callback, void *param) {
 	if (!isValidRpm(rpm)) {
 		/**
 		 * this might happen in case of a single trigger event after a pause - this is normal, so no
