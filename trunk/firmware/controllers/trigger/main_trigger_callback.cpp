@@ -243,7 +243,7 @@ void showMainHistogram(void) {
  * This is the main trigger event handler.
  * Both injection and ignition are controlled from this method.
  */
-void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTriggerCallback *mtc) {
+void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTriggerCallback *mtc) {
 	if (hasFirmwareError()) {
 		/**
 		 * In case on a major error we should not process any more events.
@@ -370,7 +370,7 @@ void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfig
 	initHistogram(&mainLoopHisto, "main callback");
 #endif /* EFI_HISTOGRAMS */
 
-	addTriggerEventListener((ShaftPositionListener) &onTriggerEvent, "main loop", &mainTriggerCallbackInstance);
+	addTriggerEventListener((ShaftPositionListener) &mainTriggerCallback, "main loop", &mainTriggerCallbackInstance);
 }
 
 int isIgnitionTimingError(void) {
