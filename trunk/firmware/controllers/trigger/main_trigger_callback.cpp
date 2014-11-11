@@ -182,7 +182,7 @@ static INLINE void handleSparkEvent(uint32_t eventIndex, IgnitionEvent *iEvent, 
 		/**
 		 * Spark should be fired before the next trigger event - time-based delay is best precision possible
 		 */
-		float timeTillIgnitionUs = getOneDegreeTimeUs(rpm) * iEvent->sparkPosition.angleOffset;
+		float timeTillIgnitionUs = engine->rpmCalculator.oneDegreeUs * iEvent->sparkPosition.angleOffset;
 
 		scheduleTask("spark 1down", sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, (void*) iEvent->io_pin);
 	} else {
@@ -216,7 +216,7 @@ static INLINE void handleSpark(uint32_t eventIndex, int rpm, IgnitionEventList *
 
 			scheduling_s * sDown = &current->signalTimerDown;
 
-			float timeTillIgnitionUs = getOneDegreeTimeUs(rpm) * current->sparkPosition.angleOffset;
+			float timeTillIgnitionUs = engine->rpmCalculator.oneDegreeUs * current->sparkPosition.angleOffset;
 			scheduleTask("spark 2down", sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow,
 					(void*) current->io_pin);
 		}
