@@ -78,11 +78,11 @@ bool RpmCalculator::isRunning(void) {
 
 void RpmCalculator::setRpmValue(int value) {
 	rpmValue = value;
-//	if (rpmValue <= 0) {
-//		oneDegreeUs = NAN;
-//	} else {
-//		oneDegreeUs = getOneDegreeTimeUs(rpmValue);
-//	}
+	if (rpmValue <= 0) {
+		oneDegreeUs = NAN;
+	} else {
+		oneDegreeUs = getOneDegreeTimeUs(rpmValue);
+	}
 }
 
 void RpmCalculator::onNewEngineCycle() {
