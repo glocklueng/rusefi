@@ -260,6 +260,7 @@ void onTriggerEvent(trigger_event_e ckpSignalType, uint32_t eventIndex, MainTrig
 	// todo: remove these local variables soon?
 	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 
+	// todo: do we have current time already? potential to save on the heavy call?
 	int rpm = getRpmE(engine);
 	if (rpm == 0) {
 		// this happens while we just start cranking
