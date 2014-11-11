@@ -90,7 +90,7 @@ bool_t WaveChart::isStartedTooLongAgo() {
 	return startTimeNt!= 0 && NT2US(chartDurationNt) > engineConfiguration->digitalChartSize * 1000000 / 20;
 }
 
-int WaveChart::isWaveChartFull() {
+bool_t WaveChart::isWaveChartFull() {
 	return counter >= engineConfiguration->digitalChartSize;
 }
 
