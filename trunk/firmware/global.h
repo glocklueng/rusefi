@@ -14,9 +14,14 @@
 
 // this is about MISRA not liking 'time.h'. todo: figure out something
 #if defined __GNUC__
+// GCC
 #include <sys/types.h>
+#define ALWAYS_INLINE __attribute__((always_inline))
 #else
+// IAR
 typedef unsigned int time_t;
+// todo: what's the IAR option?
+#define ALWAYS_INLINE INLINE
 #endif
 
 #include "efifeatures.h"

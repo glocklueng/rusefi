@@ -134,7 +134,7 @@ static INLINE void handleFuel(uint32_t eventIndex, int rpm DECLATE_ENGINE_PARAME
 	}
 }
 
-static INLINE void handleSparkEvent(uint32_t eventIndex, IgnitionEvent *iEvent, int rpm DECLATE_ENGINE_PARAMETER) {
+static ALWAYS_INLINE void handleSparkEvent(uint32_t eventIndex, IgnitionEvent *iEvent, int rpm DECLATE_ENGINE_PARAMETER) {
 	engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
 
 	float dwellMs = getSparkDwellMsT(rpm PASS_ENGINE_PARAMETER);
