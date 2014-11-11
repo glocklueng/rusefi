@@ -64,6 +64,8 @@ RpmCalculator::RpmCalculator() {
 	lastRpmEventTimeNt = (uint64_t) -10 * US2NT(US_PER_SECOND_LL);
 	revolutionCounterSinceStart = 0;
 	revolutionCounterSinceBoot = 0;
+
+	lastRpmEventTimeNt = 0;
 }
 
 /**
