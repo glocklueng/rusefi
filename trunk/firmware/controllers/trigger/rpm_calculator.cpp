@@ -255,12 +255,12 @@ void scheduleByAngle(int rpm, scheduling_s *timer, float angle, schfunc_t callba
 		 */
 		return;
 	}
-	float delayMs = getOneDegreeTimeMs(rpm) * angle;
-	if (cisnan(delayMs)) {
+	float delayUs = getOneDegreeTimeUs(rpm) * angle;
+	if (cisnan(delayUs)) {
 		firmwareError("NaN delay?");
 		return;
 	}
-	scheduleTask("by angle", timer, (int) MS2US(delayMs), callback, param);
+	scheduleTask("by angle", timer, (int) delayUs, callback, param);
 }
 #endif
 
