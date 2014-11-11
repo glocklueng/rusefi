@@ -72,6 +72,7 @@ typedef Thread thread_t;
 #define EXTERN_ENGINE extern Engine *engine; \
 		extern engine_configuration_s *engineConfiguration;
 
+#define DECLARE_ENGINE_PARAMETER
 #define DECLATE_ENGINE_PARAMETER
 #define PASS_ENGINE_PARAMETER
 
