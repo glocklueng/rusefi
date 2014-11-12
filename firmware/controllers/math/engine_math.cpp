@@ -227,10 +227,11 @@ void FuelSchedule::addFuelEvents(trigger_shape_s *s,
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 			float angle = baseAngle + 1.0 * i * 720 / engineConfiguration->cylindersCount;
 
-			for (int j = 0; j < engineConfiguration->cylindersCount; j++) {
-				io_pin_e pin = INJECTOR_PIN_BY_INDEX(j);
-				registerInjectionEvent(s, pin, angle, true PASS_ENGINE_PARAMETER);
-			}
+			/**
+			 * We do not need injector pin here because we will control all injectors
+			 * simultaniously
+			 */
+			registerInjectionEvent(s, IO_INVALID, angle, true PASS_ENGINE_PARAMETER);
 		}
 		break;
 	case IM_BATCH:
