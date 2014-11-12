@@ -182,7 +182,7 @@ void FuelSchedule::registerInjectionEvent(trigger_shape_s *s,
 		warning(OBD_PCM_Processor_Fault, "no_pin_inj #%d", (int) pin - (int) INJECTOR_1_OUTPUT + 1);
 	}
 
-	ActuatorEvent *ev = list->getNextActuatorEvent();
+	InjectionEvent *ev = list->getNextActuatorEvent();
 	OutputSignal *actuator = injectonSignals.add(pin);
 
 	efiAssertVoid(s->getSize() > 0, "uninitialized trigger_shape_s");
