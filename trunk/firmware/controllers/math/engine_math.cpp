@@ -218,7 +218,7 @@ void FuelSchedule::addFuelEvents(trigger_shape_s *s,
 	switch (mode) {
 	case IM_SEQUENTIAL:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
+			io_pin_e pin = INJECTOR_PIN_BY_INDEX(getCylinderId(engineConfiguration->firingOrder, i) - 1);
 			float angle = baseAngle + 1.0 * i * 720 / engineConfiguration->cylindersCount;
 			registerInjectionEvent(s, pin, angle, false PASS_ENGINE_PARAMETER);
 		}
@@ -228,7 +228,7 @@ void FuelSchedule::addFuelEvents(trigger_shape_s *s,
 			float angle = baseAngle + 1.0 * i * 720 / engineConfiguration->cylindersCount;
 
 			for (int j = 0; j < engineConfiguration->cylindersCount; j++) {
-				io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + j);
+				io_pin_e pin = INJECTOR_PIN_BY_INDEX(j);
 				registerInjectionEvent(s, pin, angle, true PASS_ENGINE_PARAMETER);
 			}
 		}
@@ -236,7 +236,7 @@ void FuelSchedule::addFuelEvents(trigger_shape_s *s,
 	case IM_BATCH:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 			int index = i % (engineConfiguration->cylindersCount / 2);
-			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + index);
+			io_pin_e pin = INJECTOR_PIN_BY_INDEX(index);
 			float angle = baseAngle + 1.0 * i * 720 / engineConfiguration->cylindersCount;
 			registerInjectionEvent(s, pin, angle, false PASS_ENGINE_PARAMETER);
 
