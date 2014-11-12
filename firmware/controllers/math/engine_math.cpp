@@ -174,7 +174,7 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 }
 
 void FuelSchedule::registerInjectionEvent(trigger_shape_s *s,
-		io_pin_e pin, float angle DECLATE_ENGINE_PARAMETER) {
+		io_pin_e pin, float angle, bool_t isSimultanious DECLATE_ENGINE_PARAMETER) {
 	ActuatorEventList *list = &events;
 
 	if (!isPinAssigned(pin)) {
@@ -184,6 +184,8 @@ void FuelSchedule::registerInjectionEvent(trigger_shape_s *s,
 
 	InjectionEvent *ev = list->getNextActuatorEvent();
 	OutputSignal *actuator = injectonSignals.add(pin);
+
+	ev->isSimultanious = isSimultanious;
 
 	efiAssertVoid(s->getSize() > 0, "uninitialized trigger_shape_s");
 
@@ -217,17 +219,17 @@ void FuelSchedule::addFuelEvents(trigger_shape_s *s,
 	case IM_SEQUENTIAL:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
-			float angle = baseAngle + i * 720.0 / engineConfiguration->cylindersCount;
-			registerInjectionEvent(s, pin, angle PASS_ENGINE_PARAMETER);
+			float angle = baseAngle + 1.0 * i * 720 / engineConfiguration->cylindersCount;
+			registerInjectionEvent(s, pin, angle, false PASS_ENGINE_PARAMETER);
 		}
 		break;
 	case IM_SIMULTANEOUS:
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-			float angle = baseAngle + i * 720.0 / engineConfiguration->cylindersCount;
+			float angle = baseAngle + 1.0 * i * 720 / engineConfiguration->cylindersCount;
 
 			for (int j = 0; j < engineConfiguration->cylindersCount; j++) {
 				io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + j);
-				registerInjectionEvent(s, pin, angle PASS_ENGINE_PARAMETER);
+				registerInjectionEvent(s, pin, angle, true PASS_ENGINE_PARAMETER);
 			}
 		}
 		break;
@@ -235,14 +237,14 @@ void FuelSchedule::addFuelEvents(trigger_shape_s *s,
 		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 			int index = i % (engineConfiguration->cylindersCount / 2);
 			io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + index);
-			float angle = baseAngle + i * 720.0 / engineConfiguration->cylindersCount;
-			registerInjectionEvent(s, pin, angle PASS_ENGINE_PARAMETER);
+			float angle = baseAngle + 1.0 * i * 720 / engineConfiguration->cylindersCount;
+			registerInjectionEvent(s, pin, angle, false PASS_ENGINE_PARAMETER);
 
 			/**
 			 * also fire the 2nd half of the injectors so that we can implement a batch mode on individual wires
 			 */
 			pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + index + (engineConfiguration->cylindersCount / 2));
-			registerInjectionEvent(s, pin, angle PASS_ENGINE_PARAMETER);
+			registerInjectionEvent(s, pin, angle, false PASS_ENGINE_PARAMETER);
 		}
 		break;
 	default:
