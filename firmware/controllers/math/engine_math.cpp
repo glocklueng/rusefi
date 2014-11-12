@@ -56,9 +56,9 @@ float fixAngle(engine_configuration_s const *engineConfiguration, float angle) {
 	efiAssert(engineConfiguration->engineCycle!=0, "engine cycle", NAN);
 	// I guess this implementation would be faster than 'angle % 720'
 	while (angle < 0)
-		angle += 720;
-	while (angle >= 720)
-		angle -= 720;
+		angle += engineConfiguration->engineCycle;
+	while (angle >= engineConfiguration->engineCycle)
+		angle -= engineConfiguration->engineCycle;
 	return angle;
 }
 
