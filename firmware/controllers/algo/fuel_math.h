@@ -20,6 +20,6 @@ float getCltCorrection(float clt DECLARE_ENGINE_PARAMETER_S);
 float getRunningFuel(float baseFuel, int rpm DECLARE_ENGINE_PARAMETER_S);
 float getCrankingFuel(Engine *engine);
 float getCrankingFuel3(engine_configuration_s *engineConfiguration, float coolantTemperature, uint32_t revolutionCounterSinceStart);
-float getFuelMs(int rpm DECLATE_ENGINE_PARAMETER);
+float getFuelMs(int rpm DECLARE_ENGINE_PARAMETER_S);
 
 #endif /* FUEL_MAP_H_ */
