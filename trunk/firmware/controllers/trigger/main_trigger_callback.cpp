@@ -78,7 +78,7 @@ static cyclic_buffer ignitionErrorDetection;
 
 static Logging logger;
 
-static ALWAYS_INLINE void handleFuelInjectionEvent(ActuatorEvent *event, int rpm DECLATE_ENGINE_PARAMETER) {
+static ALWAYS_INLINE void handleFuelInjectionEvent(InjectionEvent *event, int rpm DECLATE_ENGINE_PARAMETER) {
 	/**
 	 * todo: we do not really need to calculate fuel for each individual cylinder
 	 */
@@ -127,7 +127,7 @@ static ALWAYS_INLINE void handleFuel(uint32_t eventIndex, int rpm DECLATE_ENGINE
 		return;
 
 	for (int i = 0; i < source->size; i++) {
-		ActuatorEvent *event = &source->events[i];
+		InjectionEvent *event = &source->events[i];
 		if (event->position.eventIndex != eventIndex)
 			continue;
 		handleFuelInjectionEvent(event, rpm PASS_ENGINE_PARAMETER);
