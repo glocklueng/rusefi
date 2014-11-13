@@ -4,6 +4,7 @@ current binaries are always available at http://rusefi.com/build_server/
 *****************************************************************************
 *** Releases                                                              ***
 *****************************************************************************
+11/13/2014	r5227	ChibiOS/RT 2.6.6, better cold start logic, bugfixes, bugfixes, bugfixes...
 06/12/2014	r3477	Precise event scheduling, protocol selection 
 03/26/2014	r2413	C++, refactoring & improvements
 02/23/2013	r1777	trigger is now configurable via TunerStudio
