@@ -19,7 +19,7 @@ import javax.swing.*;
  * @see WavePanel
  */
 public class Launcher extends FrameHelper {
-    public static final int CONSOLE_VERSION = 20141107;
+    public static final int CONSOLE_VERSION = 20141112;
     public static final boolean SHOW_STIMULATOR = true;
     private final String port;
 
@@ -51,6 +51,7 @@ public class Launcher extends FrameHelper {
         }
 //        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
         tabbedPane.add("Messages", new MsgPanel(true).getContent());
+        tabbedPane.addTab("Buttons", new ButtonsPanel().getPanel());
 
 
         if (!LinkManager.isLogViewerMode(port))
