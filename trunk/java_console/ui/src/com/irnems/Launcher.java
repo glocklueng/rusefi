@@ -51,7 +51,6 @@ public class Launcher extends FrameHelper {
         }
 //        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
         tabbedPane.add("Messages", new MsgPanel(true).getContent());
-        tabbedPane.addTab("Buttons", new ButtonsPanel().getPanel());
 
 
         if (!LinkManager.isLogViewerMode(port))
