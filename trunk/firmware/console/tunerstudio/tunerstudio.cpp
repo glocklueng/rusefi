@@ -133,6 +133,11 @@ static void printStats(void) {
 	scheduleMsg(&logger, "engineCycle %d", offset);
 }
 
+static void setTsSpeed(int value) {
+	boardConfiguration->tunerStudioSerialSpeed = value;
+	printStats();
+}
+
 void tunerStudioWriteData(const uint8_t * buffer, int size) {
 	chSequentialStreamWrite(getTsSerialDevice(), buffer, size);
 }
@@ -472,6 +477,24 @@ void syncTunerStudioCopy(void) {
 	memcpy(&configWorkingCopy, &persistentState.persistentConfiguration, sizeof(persistent_config_s));
 }
 
+/**
+ * Adds size to the beginning of a packet and a crc32 at the end. Then send the packet.
+ */
+void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uint16_t size) {
+	// todo: max size validation
+	*(uint16_t *) crcIoBuffer = SWAP_UINT16(size + 1);   // packet size including command
+	*(uint8_t *) (crcIoBuffer + 2) = command;
+	if (size != 0)
+		memcpy(crcIoBuffer + 3, buf, size);
+	// CRC on whole packet
+	uint32_t crc = crc32((void *) (crcIoBuffer + 2), (uint32_t) (size + 1));
+	*(uint32_t *) (crcIoBuffer + 2 + 1 + size) = SWAP_UINT32(crc);
+
+//	scheduleMsg(&logger, "TunerStudio: CRC command %x size %d", command, size);
+
+	tunerStudioWriteData(crcIoBuffer, size + 2 + 1 + 4);      // with size, command and CRC
+}
+
 void startTunerStudioConnectivity(void) {
 	initLogging(&logger, "tuner studio");
 
@@ -500,26 +523,9 @@ void startTunerStudioConnectivity(void) {
 	syncTunerStudioCopy();
 
 	addConsoleAction("tsinfo", printStats);
+	addConsoleActionI("set_ts_speed", setTsSpeed);
 
 	chThdCreateStatic(TS_WORKING_AREA, sizeof(TS_WORKING_AREA), NORMALPRIO, tsThreadEntryPoint, NULL);
-}
-
-/**
- * Adds size to the beginning of a packet and a crc32 at the end. Then send the packet.
- */
-void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uint16_t size) {
-	// todo: max size validation
-	*(uint16_t *) crcIoBuffer = SWAP_UINT16(size + 1);   // packet size including command
-	*(uint8_t *) (crcIoBuffer + 2) = command;
-	if (size != 0)
-		memcpy(crcIoBuffer + 3, buf, size);
-	// CRC on whole packet
-	uint32_t crc = crc32((void *) (crcIoBuffer + 2), (uint32_t) (size + 1));
-	*(uint32_t *) (crcIoBuffer + 2 + 1 + size) = SWAP_UINT32(crc);
-
-//	scheduleMsg(&logger, "TunerStudio: CRC command %x size %d", command, size);
-
-	tunerStudioWriteData(crcIoBuffer, size + 2 + 1 + 4);      // with size, command and CRC
 }
 
 #endif /* EFI_TUNER_STUDIO */
