@@ -50,6 +50,8 @@ extern SerialUSBDriver SDU1;
 static SerialConfig tsSerialConfig = { 0, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 #endif /* EFI_PROD_CODE */
 
+EXTERN_ENGINE;
+
 #define MAX_PAGE_ID 0
 
 // in MS, that's 10 seconds
@@ -101,8 +103,6 @@ static int tsCounter = 0;
 extern TunerStudioOutputChannels tsOutputChannels;
 
 extern TunerStudioState tsState;
-
-EXTERN_ENGINE;
 
 static void printStats(void) {
 #if EFI_PROD_CODE
