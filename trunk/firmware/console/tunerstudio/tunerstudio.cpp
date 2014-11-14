@@ -46,10 +46,8 @@ extern SerialUSBDriver SDU1;
 #define CONSOLE_DEVICE &SDU1
 
 #define TS_SERIAL_UART_DEVICE &SD3
-//#define TS_SERIAL_SPEED 115200
-#define TS_SERIAL_SPEED 38400
 
-static SerialConfig tsSerialConfig = { TS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
+static SerialConfig tsSerialConfig = { 0, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 #endif /* EFI_PROD_CODE */
 
 #define MAX_PAGE_ID 0
@@ -104,15 +102,13 @@ extern TunerStudioOutputChannels tsOutputChannels;
 
 extern TunerStudioState tsState;
 
-extern engine_configuration_s *engineConfiguration;
-extern board_configuration_s *boardConfiguration;
-
+EXTERN_ENGINE;
 
 static void printStats(void) {
 #if EFI_PROD_CODE
 	if (!isSerialOverUart()) {
 		scheduleMsg(&logger, "TS RX on %s%d/TX on %s%d @%d", portname(TS_SERIAL_RX_PORT), TS_SERIAL_RX_PIN,
-				portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN, TS_SERIAL_SPEED);
+				portname(TS_SERIAL_TX_PORT), TS_SERIAL_TX_PIN, boardConfiguration->tunerStudioSerialSpeed);
 	}
 #endif /* EFI_PROD_CODE */
 	scheduleMsg(&logger, "TunerStudio total/error counter=%d/%d H=%d / O counter=%d size=%d / P=%d / B=%d", tsCounter, tsState.errorCounter, tsState.queryCommandCounter, tsState.outputChannelsCommandCounter,
@@ -495,6 +491,8 @@ void startTunerStudioConnectivity(void) {
 		print("TunerStudio over USART");
 		mySetPadMode("tunerstudio rx", TS_SERIAL_RX_PORT, TS_SERIAL_RX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
 		mySetPadMode("tunerstudio tx", TS_SERIAL_TX_PORT, TS_SERIAL_TX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
+
+		tsSerialConfig.speed = boardConfiguration->tunerStudioSerialSpeed;
 
 		sdStart(TS_SERIAL_UART_DEVICE, &tsSerialConfig);
 	}
