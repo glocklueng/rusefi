@@ -16,7 +16,7 @@ void setTestEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	setOperationMode(engineConfiguration, FOUR_STROKE_CRANK_SENSOR);
 
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
-	setConstantDwell(engineConfiguration, 6); // 50% duty cycle @ 5000 rpm
+	setConstantDwell(engineConfiguration, 3); // 50% duty cycle @ 5000 rpm
 
 	board_configuration_s *bc = &engineConfiguration->bc;
 	bc->malfunctionIndicatorPin = GPIO_UNASSIGNED;
@@ -33,5 +33,7 @@ void setTestEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	bc->logicAnalyzerPins[2] = GPIO_UNASSIGNED;
 	bc->logicAnalyzerPins[3] = GPIO_UNASSIGNED;
 
+	engineConfiguration->hasCltSensor = false;
+	engineConfiguration->hasIatSensor = false;
 
 }
