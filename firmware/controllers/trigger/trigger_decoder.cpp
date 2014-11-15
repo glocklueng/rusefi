@@ -126,7 +126,7 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 		return;
 	}
 
-	int64_t currentDuration = getCurrentGapDuration(nowNt);
+	currentDuration = getCurrentGapDuration(nowNt);
 	isFirstEvent = false;
 	efiAssertVoid(currentDuration >= 0, "decode: negative duration?");
 
