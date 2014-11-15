@@ -39,7 +39,7 @@ public:
 	/**
 	 * this could be a local variable, but it's better for debugging to have it as a field
 	 */
-	uint64_t currentDuration;
+	int64_t currentDuration;
 	uint64_t toothed_previous_time;
 
 	/**
