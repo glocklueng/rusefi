@@ -155,6 +155,7 @@ void initOutputPins(void) {
 
 	outputPinRegisterExt2("fan relay", FAN_RELAY, boardConfiguration->fanPin, &DEFAULT_OUTPUT);
 	outputPinRegisterExt2("o2 heater", O2_HEATER, boardConfiguration->o2heaterPin, &DEFAULT_OUTPUT);
+	outputPinRegisterExt2("trg_err", LED_TRIGGER_ERROR, boardConfiguration->triggerErrorPin, &boardConfiguration->triggerErrorPinMode);
 
 	initialLedsBlink();
 
