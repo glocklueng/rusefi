@@ -418,13 +418,20 @@ void printPending(void) {
 	 * we cannot output under syslock, we simply rotate which buffer is which
 	 */
 	char *temp = outputBuffer;
+
+	int expectedOutputSize = accumulatedSize;
 	outputBuffer = accumulationBuffer;
+
 	accumulationBuffer = temp;
 	accumulatedSize = 0;
+	accumulationBuffer[0] = 0;
 
 	unlockOutputBuffer();
 
-	if (efiStrlen(outputBuffer) > 0) {
+	int actualOutputBuffer = efiStrlen(outputBuffer);
+	efiAssertVoid(actualOutputBuffer == expectedOutputSize, "out constr");
+
+	if (actualOutputBuffer > 0) {
 		printWithLength(outputBuffer);
 	}
 }
