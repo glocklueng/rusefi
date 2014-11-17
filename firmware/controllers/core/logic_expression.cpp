@@ -182,7 +182,9 @@ float LECalculator::getValue(Engine *engine) {
 	return stack.pop();
 }
 
-LEElementPool::LEElementPool() {
+LEElementPool::LEElementPool(int size) {
+	pool = thepool;
+	this->size = size;
 	reset();
 }
 

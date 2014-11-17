@@ -57,12 +57,14 @@ public:
 
 class LEElementPool {
 public:
-	LEElementPool();
-	LEElement pool[LE_ELEMENT_POOL_SIZE];
+	LEElementPool(int size);
+	LEElement thepool[LE_ELEMENT_POOL_SIZE];
+	LEElement *pool;
 	LEElement *next();
 	void reset();
 private:
 	int index;
+	int size;
 };
 
 
