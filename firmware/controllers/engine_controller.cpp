@@ -159,7 +159,7 @@ uint64_t getTimeNowUs(void) {
 }
 
 uint64_t getTimeNowNt(void) {
-	return halTime.get(hal_lld_get_counter_value());
+	return halTime.get();
 }
 
 //uint64_t getHalTimer(void) {
