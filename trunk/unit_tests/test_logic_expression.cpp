@@ -42,15 +42,15 @@ static void testParsing(void) {
 	assertFalse(strEqualCaseInsensitive("hello", "HElo2"));
 
 	const char *ptr;
-	ptr = processToken("  hello  ", buffer);
+	ptr = getNextToken("  hello  ", buffer);
 	assertTrue(strEqual("hello", buffer));
 
-	ptr = processToken("hello", buffer);
+	ptr = getNextToken("hello", buffer);
 	assertTrue(strEqual("hello", buffer));
 
-	ptr = processToken("  hello  world ", buffer);
+	ptr = getNextToken("  hello  world ", buffer);
 	assertTrue(strEqual("hello", buffer));
-	ptr = processToken(ptr, buffer);
+	ptr = getNextToken(ptr, buffer);
 	assertTrue(strEqual("world", buffer));
 
 	assertTrue(isNumeric("123"));

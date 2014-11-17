@@ -202,7 +202,7 @@ bool isNumeric(const char* line) {
 	return line[0] >= '0' && line[0] <= '9';
 }
 
-const char *processToken(const char *line, char *buffer) {
+const char *getNextToken(const char *line, char *buffer) {
 	while (line[0] != 0 && line[0] == ' ') {
 		line++;
 	}
@@ -240,7 +240,7 @@ LEElement * parseExpression(LEElementPool *pool, const char * line) {
 	LEElement *last = NULL;
 
 	while (true) {
-		line = processToken(line, parsingBuffer);
+		line = getNextToken(line, parsingBuffer);
 
 		if (line == NULL) {
 			/**
