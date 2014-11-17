@@ -11,8 +11,8 @@
 #include <stdint.h>
 
 typedef struct State64 {
-	uint64_t currentBase;
-	uint32_t currentValue;
+	uint64_t highBits;
+	uint32_t lowBits;
 };
 
 void updateAndSet(State64 *state, uint32_t value);
