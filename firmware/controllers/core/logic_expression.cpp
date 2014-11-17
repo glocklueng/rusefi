@@ -25,9 +25,13 @@ LENameOrdinalPair * LE_FIRST = NULL;
  */
 static LENameOrdinalPair leAnd(LE_OPERATOR_AND, "and");
 static LENameOrdinalPair leOr(LE_OPERATOR_OR, "or");
+static LENameOrdinalPair leNot(LE_OPERATOR_NOT, "not");
+
 static LENameOrdinalPair leMore(LE_OPERATOR_MORE, ">");
 static LENameOrdinalPair leMoreOrEqual(LE_OPERATOR_MORE_OR_EQUAL, ">=");
-static LENameOrdinalPair leNot(LE_OPERATOR_NOT, "not");
+
+static LENameOrdinalPair leLess(LE_OPERATOR_LESS, "<");
+static LENameOrdinalPair leLessOrEquals(LE_OPERATOR_LESS_OR_EQUAL, "<=");
 
 LENameOrdinalPair::LENameOrdinalPair(le_action_e action, const char *name) {
 	this->action = action;
