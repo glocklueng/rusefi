@@ -18,32 +18,32 @@
  * In order for this to function, it's your responsibility to invoke offer() method at least once a second.
  */
 Overflow64Counter::Overflow64Counter() {
-	state.currentBase = 0;
-	state.currentValue = 0;
+	state.highBits = 0;
+	state.lowBits = 0;
 }
 
 /**
  * in order to have atomic writes this should be invoked within a critical section
  */
 void updateAndSet(State64 *state, uint32_t value) {
-	if (value < state->currentValue) {
+	if (value < state->lowBits) {
 		// new value less than previous value means there was an overflow in that 32 bit counter
-		state->currentBase += 0x100000000LL;
+		state->highBits += 0x100000000LL;
 	}
-	state->currentValue = value;
+	state->lowBits = value;
 }
 
 uint64_t Overflow64Counter::update(uint32_t value) {
 	updateAndSet(&state, value);
-	return state.currentBase + state.currentValue;
+	return state.highBits + state.lowBits;
 }
 
 uint64_t Overflow64Counter::get(uint32_t value) {
 	// this method is lock-free, only one thread is allowed to commit state
 	// these are local copies for thread-safery
 	// todo: this is still not atomic, so technically not thread safe.
-	uint32_t localValue = state.currentValue;
-	uint64_t localBase = state.currentBase;
+	uint32_t localValue = state.lowBits;
+	uint64_t localBase = state.highBits;
 	if (value < localValue) {
 		// new value less than previous value means there was an overflow in that 32 bit counter
 		localBase += 0x100000000LL;
