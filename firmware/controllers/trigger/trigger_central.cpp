@@ -199,9 +199,8 @@ static void triggerShapeInfo(Engine *engine) {
 
 #if EFI_PROD_CODE
 extern PwmConfig triggerSignal;
-#endif /* #if EFI_PROD_CODE */
-
 extern uint32_t maxLockTime;
+#endif /* #if EFI_PROD_CODE */
 
 static void triggerInfo(Engine *engine) {
 #if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
@@ -230,12 +229,10 @@ static void triggerInfo(Engine *engine) {
 			triggerCentral.triggerState.orderingErrorCounter,
 			triggerCentral.triggerState.getTotalRevolutionCounter(),
 			boolToString(engineConfiguration->directSelfStimulation));
-
-	scheduleMsg(&logger, "maxLockTime=%d", maxLockTime);
-
 #endif
 
 #if EFI_PROD_CODE
+	scheduleMsg(&logger, "maxLockTime=%d", maxLockTime);
 	scheduleMsg(&logger, "primary trigger simulator: %s %s freq=%d",
 			hwPortname(boardConfiguration->triggerSimulatorPins[0]),
 			pinModeToString(boardConfiguration->triggerSimulatorPinModes[0]),
