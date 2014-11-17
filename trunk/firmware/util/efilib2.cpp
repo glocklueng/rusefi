@@ -38,16 +38,30 @@ uint64_t Overflow64Counter::update(uint32_t value) {
 	return state.highBits + state.lowBits;
 }
 
+// todo: make this a macro? always inline?
 uint64_t Overflow64Counter::get(uint32_t value) {
-	// this method is lock-free, only one thread is allowed to commit state
+	/**
+	 * this method is lock-free and thread-safe, that's because the 'update' method
+	 * is atomic with a critical zone requirement.
+	 *
+	 * http://stackoverflow.com/questions/5162673/how-to-read-two-32bit-counters-as-a-64bit-integer-without-race-condition
+	 */
 	// these are local copies for thread-safery
 	// todo: this is still not atomic, so technically not thread safe.
-	uint32_t localValue = state.lowBits;
-	uint64_t localBase = state.highBits;
-	if (value < localValue) {
-		// new value less than previous value means there was an overflow in that 32 bit counter
-		localBase += 0x100000000LL;
+	uint64_t localH;
+	uint32_t localLow;
+	while (true) {
+		localH = state.highBits;
+		localLow = state.lowBits;
+		uint64_t localH2 = state.highBits;
+		if (localH == localH2)
+			break;
 	}
 
-	return localBase + value;
+	if (value < localLow) {
+		// new value less than previous value means there was an overflow in that 32 bit counter
+		localH += 0x100000000LL;
+	}
+
+	return localH + value;
 }
