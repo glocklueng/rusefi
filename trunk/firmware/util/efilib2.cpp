@@ -5,7 +5,15 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
+#if (EFI_PROD_CODE || EFI_SIMULATOR)
+ #include "main.h"
+ #define GET_VALUE() hal_lld_get_counter_value()
+#else
+ #define GET_VALUE() 0
+#endif
+
 #include "efilib2.h"
+
 
 /**
  * The main use-case of this class is to keep track of a 64-bit global number of CPU ticks from reset.
@@ -39,7 +47,7 @@ uint64_t Overflow64Counter::update(uint32_t value) {
 }
 
 // todo: make this a macro? always inline?
-uint64_t Overflow64Counter::get(uint32_t value) {
+uint64_t Overflow64Counter::get() {
 	/**
 	 * this method is lock-free and thread-safe, that's because the 'update' method
 	 * is atomic with a critical zone requirement.
@@ -57,6 +65,10 @@ uint64_t Overflow64Counter::get(uint32_t value) {
 		if (localH == localH2)
 			break;
 	}
+	/**
+	 * We need to take current counter after making a local 64 bit snapshot
+	 */
+	uint32_t value = GET_VALUE();
 
 	if (value < localLow) {
 		// new value less than previous value means there was an overflow in that 32 bit counter

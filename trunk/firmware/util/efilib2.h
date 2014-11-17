@@ -22,7 +22,7 @@ class Overflow64Counter
   public:
 	Overflow64Counter();
 
-	uint64_t get(uint32_t value);
+	uint64_t get();
 	uint64_t update(uint32_t value);
 
 	State64 state;
