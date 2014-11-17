@@ -5,8 +5,8 @@
  * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
+#include "main.h"
 #if (EFI_PROD_CODE || EFI_SIMULATOR)
- #include "main.h"
  #define GET_VALUE() hal_lld_get_counter_value()
 #else
  #define GET_VALUE() 0
