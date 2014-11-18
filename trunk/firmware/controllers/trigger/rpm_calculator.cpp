@@ -184,7 +184,7 @@ static char rpmBuffer[10];
  */
 static void onTdcCallback(void) {
 	itoa10(rpmBuffer, getRpm());
-	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, (char*) rpmBuffer, "");
+	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, (char*) rpmBuffer);
 }
 
 /**
