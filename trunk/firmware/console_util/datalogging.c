@@ -121,7 +121,11 @@ void appendFast(Logging *logging, const char *text) {
 //		c = *s++;
 //		*logging->linePointer++ = c;
 //	} while (c != '\0');
-	int extraLen = efiStrlen(text);
+	register const char *s;
+	for (s = text; *s; ++s)
+		;
+	int extraLen = (s - text);
+
 	strcpy(logging->linePointer, text);
 	logging->linePointer += extraLen;
 }
