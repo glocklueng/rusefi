@@ -42,6 +42,7 @@ static histogram_s waveChartHisto;
 #endif
 
 EXTERN_ENGINE;
+extern uint32_t maxLockTime;
 
 /**
  * This is the number of events in the digital chart which would be displayed
@@ -92,13 +93,14 @@ bool_t WaveChart::isWaveChartFull() {
 }
 
 static void printStatus(void) {
-	scheduleIntValue(&logger, "chart", engineConfiguration->isDigitalChartEnabled);
-	scheduleIntValue(&logger, "chartsize", engineConfiguration->digitalChartSize);
+	scheduleMsg(&logger, "digital chart: %s", boolToString(engineConfiguration->isDigitalChartEnabled));
+	scheduleMsg(&logger, "chartsize=%d", engineConfiguration->digitalChartSize);
 }
 
 static void setChartActive(int value) {
 	engineConfiguration->isDigitalChartEnabled = value;
 	printStatus();
+	maxLockTime = 0;
 }
 
 void setChartSize(int newSize) {
