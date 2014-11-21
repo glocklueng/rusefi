@@ -55,9 +55,6 @@ EXTERN_ENGINE;
 
 int waveChartUsedSize;
 
-static int isChartActive = true;
-//static int isChartActive = false;
-
 //#define DEBUG_WAVE 1
 
 #if DEBUG_WAVE
@@ -95,12 +92,12 @@ bool_t WaveChart::isWaveChartFull() {
 }
 
 static void printStatus(void) {
-	scheduleIntValue(&logger, "chart", isChartActive);
+	scheduleIntValue(&logger, "chart", engineConfiguration->isDigitalChartEnabled);
 	scheduleIntValue(&logger, "chartsize", engineConfiguration->digitalChartSize);
 }
 
 static void setChartActive(int value) {
-	isChartActive = value;
+	engineConfiguration->isDigitalChartEnabled = value;
 	printStatus();
 }
 
@@ -133,7 +130,7 @@ void WaveChart::publishChart() {
 	scheduleSimpleMsg(&debugLogging, "IT'S TIME", strlen(l->buffer));
 #endif
 	bool isFullLog = getFullLog();
-	if (isChartActive && isFullLog) {
+	if (engineConfiguration->isDigitalChartEnabled && isFullLog) {
 		scheduleLogging(&logging);
 	}
 }
@@ -144,7 +141,7 @@ static char timeBuffer[10];
  * @brief	Register an event for digital sniffer
  */
 void WaveChart::addWaveChartEvent3(const char *name, const char * msg) {
-	if(!isChartActive) {
+	if(!engineConfiguration->isDigitalChartEnabled) {
 		return;
 	}
 
@@ -219,7 +216,7 @@ void showWaveChartHistogram(void) {
 void initWaveChart(WaveChart *chart) {
 	initLogging(&logger, "wave info");
 
-	if (!isChartActive) {
+	if (!engineConfiguration->isDigitalChartEnabled) {
 		printMsg(&logger, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! chart disabled");
 	}
 
