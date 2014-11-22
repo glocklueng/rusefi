@@ -16,7 +16,10 @@
 
 EXTERN_ENGINE;
 
+#if EFI_PROD_CODE
 static THD_WORKING_AREA(aeThreadStack, UTILITY_THREAD_STACK_SIZE);
+#endif
+
 static AccelEnrichmemnt instance;
 
 void AccelEnrichmemnt::updateDiffEnrichment(engine_configuration_s *engineConfiguration, float engineLoad) {
