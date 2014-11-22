@@ -152,7 +152,6 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-const char *getPinName(io_pin_e io_pin);
 io_pin_e getPinByName(const char *name);
 
 void setDefaultPinState(io_pin_e pin, pin_output_mode_e *defaultState);
