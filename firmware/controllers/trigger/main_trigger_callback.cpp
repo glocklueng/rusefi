@@ -117,9 +117,6 @@ static ALWAYS_INLINE void handleFuelInjectionEvent(InjectionEvent *event, int rp
 
 	float delayMs = getOneDegreeTimeMs(rpm) * event->position.angleOffset;
 
-//	if (isCranking())
-//		scheduleMsg(&logger, "crankingFuel=%f for CLT=%fC", fuelMs, getCoolantTemperature());
-
 	if (event->isSimultanious) {
 		if (fuelMs < 0) {
 			firmwareError("duration cannot be negative: %d", fuelMs);
