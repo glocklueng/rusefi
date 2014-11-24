@@ -53,6 +53,7 @@
 #include "LocalVersionHolder.h"
 #include "event_queue.h"
 #include "engine.h"
+#include "efilib2.h"
 
 EXTERN_ENGINE
 ;
@@ -313,7 +314,7 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex, Eng
 		warning(OBD_Camshaft_Position_Sensor_Circuit_Range_Performance, "noisy trigger");
 		return;
 	}
-	if (rpm > engine->engineConfiguration->rpmHardLimit) {
+	if (rpm > engineConfiguration->rpmHardLimit) {
 		warning(OBD_PCM_Processor_Fault, "skipping stroke due to rpm=%d", rpm);
 		return;
 	}
@@ -327,6 +328,7 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex, Eng
 	if (eventIndex == 0) {
 		if (localVersion.isOld())
 			prepareOutputSignals(engine);
+		uint32_t beforeIgnitionMath = GET_TIMESTAMP();
 
 		/**
 		 * TODO: warning. there is a bit of a hack here, todo: improve.
@@ -368,6 +370,7 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex, Eng
 
 		initializeIgnitionActions(fixAngle(-advance PASS_ENGINE_PARAMETER), dwellAngle,
 				&engine->engineConfiguration2->ignitionEvents[revolutionIndex] PASS_ENGINE_PARAMETER);
+		engine->ignitionMathTime = GET_TIMESTAMP() - beforeIgnitionMath;
 	}
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());
