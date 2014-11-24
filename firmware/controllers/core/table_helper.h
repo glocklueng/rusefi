@@ -9,6 +9,7 @@
 
 #include <math.h>
 #include "error_handling.h"
+#include "interpolation.h"
 
 // 'random' value to be sure we are not treating any non-zero trash as TRUE
 #define MAGIC_TRUE_VALUE 153351512
