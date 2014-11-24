@@ -226,7 +226,7 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s const *engin
 	scheduleMsg(logger, "initializeTriggerShape()");
 #endif
 	const trigger_config_s *triggerConfig = &engineConfiguration->triggerConfig;
-	trigger_shape_s *triggerShape = &engine->engineConfiguration2->triggerShape;
+	trigger_shape_s *triggerShape = &engine->triggerShape;
 
 	setTriggerSynchronizationGap(triggerShape, 2);
 	triggerShape->useRiseEdge = true;

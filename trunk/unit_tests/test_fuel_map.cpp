@@ -160,7 +160,7 @@ void testAngleResolver(void) {
 
 	engineConfiguration->globalTriggerAngleOffset = 175;
 	assertTrue(engine->engineConfiguration2!=NULL);
-	trigger_shape_s * ts = &engine->engineConfiguration2->triggerShape;
+	trigger_shape_s * ts = &engine->triggerShape;
 
 	confgiureFordAspireTriggerShape(ts);
 

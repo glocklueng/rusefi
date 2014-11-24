@@ -45,8 +45,6 @@ public:
 	// todo: this should go, too
 	engine_configuration_s *engineConfiguration;
 
-	trigger_shape_s triggerShape;
-
 	FuelSchedule crankingInjectionEvents;
 	FuelSchedule injectionEvents;
 
