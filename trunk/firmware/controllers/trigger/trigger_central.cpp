@@ -212,7 +212,7 @@ extern uint32_t maxLockTime;
 static void triggerInfo(Engine *engine) {
 #if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 
-	trigger_shape_s *ts = &engineConfiguration2->triggerShape;
+	trigger_shape_s *ts = &engine->engineConfiguration2->triggerShape;
 
 	scheduleMsg(&logger, "Template %s/%d trigger %d", getConfigurationName(engineConfiguration->engineType),
 			engineConfiguration->engineType, engineConfiguration->triggerConfig.triggerType);
@@ -222,13 +222,12 @@ static void triggerInfo(Engine *engine) {
 	scheduleMsg(&logger, "trigger event counters %d/%d/%d/%d", triggerCentral.getHwEventCounter(0),
 			triggerCentral.getHwEventCounter(1), triggerCentral.getHwEventCounter(2),
 			triggerCentral.getHwEventCounter(3));
-	scheduleMsg(&logger, "expected cycle events %d/%d/%d", engineConfiguration2->triggerShape.expectedEventCount[0],
+	scheduleMsg(&logger, "expected cycle events %d/%d/%d", ts->expectedEventCount[0],
 			engineConfiguration2->triggerShape.expectedEventCount[1], ts->expectedEventCount[2]);
 
 	scheduleMsg(&logger, "trigger type=%d/need2ndChannel=%s", engineConfiguration->triggerConfig.triggerType,
 			boolToString(engineConfiguration->needSecondTriggerInput));
-	scheduleMsg(&logger, "expected duty #0=%f/#1=%f", engineConfiguration2->triggerShape.dutyCycle[0],
-			engineConfiguration2->triggerShape.dutyCycle[1]);
+	scheduleMsg(&logger, "expected duty #0=%f/#1=%f", ts->dutyCycle[0], ts->dutyCycle[1]);
 
 	scheduleMsg(&logger, "isError %s/total errors=%d ord_err=%d/total revolutions=%d/self=%s",
 			boolToString(isTriggerDecoderError()),
