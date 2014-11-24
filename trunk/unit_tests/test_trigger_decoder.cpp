@@ -294,10 +294,12 @@ static void testTriggerDecoder2(const char *msg, engine_type_e type, int synchPo
 
 	initSpeedDensity(ec);
 
-	assertEqualsM("synchPointIndex", synchPointIndex, eth.ec2.triggerShape.getTriggerShapeSynchPointIndex());
+	trigger_shape_s *t = &eth.ec2.triggerShape;
 
-	assertEqualsM("channel1duty", channel1duty, eth.ec2.triggerShape.dutyCycle[0]);
-	assertEqualsM("channel2duty", channel2duty, eth.ec2.triggerShape.dutyCycle[1]);
+	assertEqualsM("synchPointIndex", synchPointIndex, t->getTriggerShapeSynchPointIndex());
+
+	assertEqualsM("channel1duty", channel1duty, t->dutyCycle[0]);
+	assertEqualsM("channel2duty", channel2duty, t->dutyCycle[1]);
 }
 
 void testGY6_139QMB(void) {
