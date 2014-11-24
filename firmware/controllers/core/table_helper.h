@@ -27,7 +27,8 @@ private:
 
 class Table2D {
 public:
-	void init(int size, float *aTable, float bTable);
+	void init(int size, float *aTable, float *bTable);
+	void preCalc(float *bin, float *values);
 	int size;
 	float *aTable;
 	float *bTable;
