@@ -24,6 +24,14 @@ private:
 	int initialized;
 };
 
+class Table2D {
+public:
+	void init(int size, float *aTable, float bTable);
+	int size;
+	float *aTable;
+	float *bTable;
+};
+
 template<int RPM_BIN_SIZE, int LOAD_BIN_SIZE>
 void Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::init(float table[RPM_BIN_SIZE][LOAD_BIN_SIZE]) {
   for (int k = 0; k < LOAD_BIN_SIZE; k++) {
