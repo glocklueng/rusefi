@@ -122,7 +122,7 @@ static void registerSparkEvent(trigger_shape_s * s, IgnitionEventList *list, io_
 
 	event->advance = localAdvance;
 
-	findTriggerPosition(s, &event->dwellPosition, localAdvance - dwellPASS_ENGINE_PARAMETER);
+	findTriggerPosition(s, &event->dwellPosition, localAdvance - dwell PASS_ENGINE_PARAMETER);
 }
 
 void initializeIgnitionActions(float advance, float dwellAngle, engine_configuration2_s *engineConfiguration2,
@@ -290,7 +290,7 @@ int getEngineCycleEventCount(engine_configuration_s const *engineConfiguration, 
 void findTriggerPosition(trigger_shape_s * s, event_trigger_position_s *position,
 		float angleOffset DECLARE_ENGINE_PARAMETER_S) {
 
-	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffsetPASS_ENGINE_PARAMETER);
+	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset PASS_ENGINE_PARAMETER);
 
 	int engineCycleEventCount = getEngineCycleEventCount(engineConfiguration, s);
 
