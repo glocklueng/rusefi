@@ -221,7 +221,7 @@ void initializeSkippedToothTriggerShapeExt(trigger_shape_s *s, int totalTeethCou
  * External logger is needed because at this point our logger is not yet initialized
  */
 void initializeTriggerShape(Logging *logger, engine_configuration_s const *engineConfiguration,
-		engine_configuration2_s *engineConfiguration2, Engine *engine) {
+		Engine *engine) {
 #if EFI_PROD_CODE
 	scheduleMsg(logger, "initializeTriggerShape()");
 #endif
