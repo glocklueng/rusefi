@@ -368,7 +368,7 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex, Eng
 
 		// todo: add some check for dwell overflow? like 4 times 6 ms while engine cycle is less then that
 
-		initializeIgnitionActions(fixAngle(-advance PASS_ENGINE_PARAMETER), dwellAngle,
+		initializeIgnitionActions(-advance, dwellAngle,
 				&engine->engineConfiguration2->ignitionEvents[revolutionIndex] PASS_ENGINE_PARAMETER);
 		engine->ignitionMathTime = GET_TIMESTAMP() - beforeIgnitionMath;
 	}
