@@ -25,11 +25,14 @@
 #include "main.h"
 #include "signal_executor.h"
 #include "efiGpio.h"
+#include "engine.h"
 
 /**
  * Signal executors feed digital events right into WaveChart used by Sniffer tab of Dev Console
  */
 #include "rpm_calculator.h"
+
+EXTERN_ENGINE;
 
 #include "wave_chart.h"
 extern WaveChart waveChart;
@@ -40,7 +43,6 @@ static Logging logger;
 
 extern OutputPin outputs[IO_PIN_COUNT];
 extern pin_output_mode_e *pinDefaultState[IO_PIN_COUNT];
-
 
 void initSignalExecutor(void) {
 #if EFI_PROD_CODE || EFI_SIMULATOR
@@ -68,11 +70,14 @@ void turnPinHigh(io_pin_e pin) {
 	// sleep for the needed duration
 
 #if EFI_WAVE_CHART
-	// this is a performance optimization - array index is cheaper then invoking a method with 'switch'
-	const char *pinName = namedPinsArray[pin];
+	// explicit check here is a performance optimization to speed up no-chart mode
+	if (!engineConfiguration->isDigitalChartEnabled) {
+		// this is a performance optimization - array index is cheaper then invoking a method with 'switch'
+		const char *pinName = namedPinsArray[pin];
 //	dbgDurr = hal_lld_get_counter_value() - dbgStart;
 
-	addWaveChartEvent(pinName, WC_UP);
+		addWaveChartEvent(pinName, WC_UP);
+	}
 #endif /* EFI_WAVE_ANALYZER */
 //	dbgDurr = hal_lld_get_counter_value() - dbgStart;
 }
@@ -88,10 +93,12 @@ void turnPinLow(io_pin_e pin) {
 #endif /* EFI_DEFAILED_LOGGING */
 
 #if EFI_WAVE_CHART
-	// this is a performance optimization - array index is cheaper then invoking a method with 'switch'
-	const char *pinName = namedPinsArray[pin];
+	if (!engineConfiguration->isDigitalChartEnabled) {
+		// this is a performance optimization - array index is cheaper then invoking a method with 'switch'
+		const char *pinName = namedPinsArray[pin];
 
-	addWaveChartEvent(pinName, WC_DOWN);
+		addWaveChartEvent(pinName, WC_DOWN);
+	}
 #endif /* EFI_WAVE_ANALYZER */
 }
 
