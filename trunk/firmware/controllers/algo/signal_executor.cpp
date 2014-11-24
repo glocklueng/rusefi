@@ -38,6 +38,10 @@ extern WaveChart waveChart;
 static Logging logger;
 #endif
 
+extern OutputPin outputs[IO_PIN_COUNT];
+extern pin_output_mode_e *pinDefaultState[IO_PIN_COUNT];
+
+
 void initSignalExecutor(void) {
 #if EFI_PROD_CODE || EFI_SIMULATOR
 	initLogging(&logger, "s exec");
@@ -60,17 +64,8 @@ void turnPinHigh(io_pin_e pin) {
 #endif /* EFI_DEFAILED_LOGGING */
 	// turn the output level ACTIVE
 	// todo: this XOR should go inside the setOutputPinValue method
-	setOutputPinValue(pin, TRUE);
+	doSetOutputPinValue(pin, true);
 	// sleep for the needed duration
-
-#if EFI_PROD_CODE || EFI_SIMULATOR
-//	if (pin == SPARKOUT_1_OUTPUT || pin == SPARKOUT_3_OUTPUT) {
-//		time_t now = hTimeNow();
-//		float an = getCrankshaftAngle(now);
-//		scheduleMsg(&logger, "spark up%d %d", pin, now);
-//		scheduleMsg(&logger, "spark angle %d %f", (int)an, an);
-//	}
-#endif
 
 #if EFI_WAVE_CHART
 	// this is a performance optimization - array index is cheaper then invoking a method with 'switch'
@@ -84,8 +79,7 @@ void turnPinHigh(io_pin_e pin) {
 
 void turnPinLow(io_pin_e pin) {
 	// turn off the output
-	// todo: this XOR should go inside the setOutputPinValue method
-	setOutputPinValue(pin, false);
+	doSetOutputPinValue(pin, false);
 
 #if EFI_DEFAILED_LOGGING
 	systime_t after = hTimeNow();
