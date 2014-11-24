@@ -135,7 +135,7 @@ void TriggerCentral::handleShaftSignal(Engine *engine, trigger_event_e signal) {
 	}
 	previousShaftEventTimeNt = nowNt;
 
-	trigger_shape_s * triggerShape = &engine->engineConfiguration2->triggerShape;
+	trigger_shape_s * triggerShape = &engine->triggerShape;
 
 	/**
 	 * This invocation changes the state of triggerState
@@ -162,7 +162,7 @@ void TriggerCentral::handleShaftSignal(Engine *engine, trigger_event_e signal) {
 	}
 	reportEventToWaveChart(signal, triggerIndexForListeners);
 
-	if (triggerState.getCurrentIndex() >= engine->engineConfiguration2->triggerShape.shaftPositionEventCount) {
+	if (triggerState.getCurrentIndex() >= engine->triggerShape.shaftPositionEventCount) {
 		warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.getCurrentIndex());
 	} else {
 
@@ -196,7 +196,7 @@ extern board_configuration_s *boardConfiguration;
 
 static void triggerShapeInfo(Engine *engine) {
 #if EFI_PROD_CODE || EFI_SIMULATOR
-	trigger_shape_s *s = &engine->engineConfiguration2->triggerShape;
+	trigger_shape_s *s = &engine->triggerShape;
 	for (int i = 0; i < s->getSize(); i++) {
 		scheduleMsg(&logger, "event %d %f", i, s->eventAngles[i]);
 	}
@@ -212,7 +212,7 @@ extern uint32_t maxLockTime;
 static void triggerInfo(Engine *engine) {
 #if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 
-	trigger_shape_s *ts = &engine->engineConfiguration2->triggerShape;
+	trigger_shape_s *ts = &engine->triggerShape;
 
 	scheduleMsg(&logger, "Template %s/%d trigger %d", getConfigurationName(engineConfiguration->engineType),
 			engineConfiguration->engineType, engineConfiguration->triggerConfig.triggerType);
@@ -223,7 +223,7 @@ static void triggerInfo(Engine *engine) {
 			triggerCentral.getHwEventCounter(1), triggerCentral.getHwEventCounter(2),
 			triggerCentral.getHwEventCounter(3));
 	scheduleMsg(&logger, "expected cycle events %d/%d/%d", ts->expectedEventCount[0],
-			engineConfiguration2->triggerShape.expectedEventCount[1], ts->expectedEventCount[2]);
+			engine->triggerShape.expectedEventCount[1], ts->expectedEventCount[2]);
 
 	scheduleMsg(&logger, "trigger type=%d/need2ndChannel=%s", engineConfiguration->triggerConfig.triggerType,
 			boolToString(engineConfiguration->needSecondTriggerInput));

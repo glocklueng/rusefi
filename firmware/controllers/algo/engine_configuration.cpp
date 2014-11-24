@@ -586,11 +586,11 @@ void applyNonPersistentConfiguration(Logging * logger, Engine *engine) {
 	scheduleMsg(logger, "applyNonPersistentConfiguration()");
 #endif
 	initializeTriggerShape(logger, engineConfiguration, engine);
-	if (engine->engineConfiguration2->triggerShape.getSize() == 0) {
+	if (engine->triggerShape.getSize() == 0) {
 		firmwareError("triggerShape size is zero");
 		return;
 	}
-	if (engine->engineConfiguration2->triggerShape.shaftPositionEventCount == 0) {
+	if (engine->triggerShape.shaftPositionEventCount == 0) {
 		firmwareError("shaftPositionEventCount is zero");
 		return;
 	}
