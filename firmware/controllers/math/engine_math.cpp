@@ -288,7 +288,7 @@ void findTriggerPosition(trigger_shape_s * s, event_trigger_position_s *position
 
 	angleOffset = fixAngle(angleOffset + engineConfiguration->globalTriggerAngleOffset PASS_ENGINE_PARAMETER);
 
-	int engineCycleEventCount = getEngineCycleEventCount(engineConfiguration, s);
+	int engineCycleEventCount = getEngineCycleEventCount2(getOperationMode(engineConfiguration), s);
 
 	efiAssertVoid(engineCycleEventCount > 0, "engineCycleEventCount");
 
