@@ -359,8 +359,7 @@ void prepareOutputSignals(Engine *engine) {
 	engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
 
 	// todo: move this reset into decoder
-	engineConfiguration2->triggerShape.calculateTriggerSynchPoint(engineConfiguration,
-			&engineConfiguration->triggerConfig, engine);
+	engineConfiguration2->triggerShape.calculateTriggerSynchPoint(engineConfiguration, engine);
 
 	trigger_shape_s * ts = &engineConfiguration2->triggerShape;
 
