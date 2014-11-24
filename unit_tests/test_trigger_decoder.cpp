@@ -57,9 +57,9 @@ static void testDodgeNeonDecoder(void) {
 	EngineTestHelper eth(DODGE_NEON_1995);
 
 	engine_configuration_s *ec = eth.ec;
-	assertEquals(8, eth.ec2.triggerShape.getTriggerShapeSynchPointIndex());
-
 	trigger_shape_s * shape = &eth.ec2.triggerShape;
+	assertEquals(8, shape->getTriggerShapeSynchPointIndex());
+
 	TriggerState state;
 
 	assertFalseM("1 shaft_is_synchronized", state.shaft_is_synchronized);
@@ -116,9 +116,10 @@ static void test1995FordInline6TriggerDecoder(void) {
 	engine_configuration_s *engineConfiguration = eth.engine.engineConfiguration;
 	Engine *engine = &eth.engine;
 
-	assertEqualsM("triggerShapeSynchPointIndex", 0, eth.ec2.triggerShape.getTriggerShapeSynchPointIndex());
-
 	trigger_shape_s * shape = &eth.ec2.triggerShape;
+
+	assertEqualsM("triggerShapeSynchPointIndex", 0, shape->getTriggerShapeSynchPointIndex());
+
 	event_trigger_position_s position;
 	assertEqualsM("globalTriggerAngleOffset", 0, engineConfiguration->globalTriggerAngleOffset);
 	findTriggerPosition(shape, &position, 0 PASS_ENGINE_PARAMETER);
@@ -207,10 +208,10 @@ void testMazdaMianaNbDecoder(void) {
 	engine_configuration_s *ec = eth.ec;
 	Engine *engine = &eth.engine;
 	engine_configuration_s *engineConfiguration = ec;
-	assertEquals(11, eth.ec2.triggerShape.getTriggerShapeSynchPointIndex());
+	trigger_shape_s * shape = &eth.ec2.triggerShape;
+	assertEquals(11, shape->getTriggerShapeSynchPointIndex());
 
 	TriggerState state;
-	trigger_shape_s * shape = &eth.ec2.triggerShape;
 
 	int a = 0;
 	state.decodeTriggerEvent(shape, &ec->triggerConfig, SHAFT_PRIMARY_DOWN, a + 20);
