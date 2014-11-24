@@ -196,7 +196,7 @@ extern board_configuration_s *boardConfiguration;
 
 static void triggerShapeInfo(Engine *engine) {
 #if EFI_PROD_CODE || EFI_SIMULATOR
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
+	trigger_shape_s *s = &engine->engineConfiguration2->triggerShape;
 	for (int i = 0; i < s->getSize(); i++) {
 		scheduleMsg(&logger, "event %d %f", i, s->eventAngles[i]);
 	}
