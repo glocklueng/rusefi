@@ -602,8 +602,7 @@ void prepareShapes(Engine *engine) {
 	engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
 
 	// todo: looks like this is here only for unit tests. todo: remove
-	initializeIgnitionActions(0, 0, engineConfiguration2,
-			&engineConfiguration2->ignitionEvents[0] PASS_ENGINE_PARAMETER);
+	initializeIgnitionActions(0, 0, &engineConfiguration2->ignitionEvents[0] PASS_ENGINE_PARAMETER);
 }
 
 void setOperationMode(engine_configuration_s *engineConfiguration, operation_mode_e mode) {
