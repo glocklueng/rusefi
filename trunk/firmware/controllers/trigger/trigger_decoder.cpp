@@ -30,6 +30,7 @@
 
 #include "trigger_structure.h"
 #include "efiGpio.h"
+#include "engine.h"
 
 // todo: better name for this constant
 #define HELPER_PERIOD 100000
@@ -225,7 +226,7 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s const *engin
 	scheduleMsg(logger, "initializeTriggerShape()");
 #endif
 	const trigger_config_s *triggerConfig = &engineConfiguration->triggerConfig;
-	trigger_shape_s *triggerShape = &engineConfiguration2->triggerShape;
+	trigger_shape_s *triggerShape = &engine->engineConfiguration2->triggerShape;
 
 	setTriggerSynchronizationGap(triggerShape, 2);
 	triggerShape->useRiseEdge = true;
@@ -235,7 +236,7 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s const *engin
 	case TT_TOOTHED_WHEEL:
 		// todo: move to into configuration definition		engineConfiguration2->triggerShape.needSecondTriggerInput = false;
 
-		engineConfiguration2->triggerShape.isSynchronizationNeeded =
+		triggerShape->isSynchronizationNeeded =
 				engineConfiguration->triggerConfig.customIsSynchronizationNeeded;
 
 		initializeSkippedToothTriggerShapeExt(triggerShape, triggerConfig->customTotalToothCount,
@@ -304,9 +305,8 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s const *engin
 		;
 		return;
 	}
-	trigger_shape_s *s = &engineConfiguration2->triggerShape;
-	s->assignSize();
-	s->wave.checkSwitchTimes(s->getSize());
+	triggerShape->assignSize();
+	triggerShape->wave.checkSwitchTimes(triggerShape->getSize());
 }
 
 TriggerStimulatorHelper::TriggerStimulatorHelper() {
