@@ -218,7 +218,7 @@ static ALWAYS_INLINE void handleSparkEvent(uint32_t eventIndex, IgnitionEvent *i
 	 * TODO: improve precision
 	 */
 
-	findTriggerPosition(&engineConfiguration2->triggerShape, &iEvent->sparkPosition,
+	findTriggerPosition(&engine->engineConfiguration2->triggerShape, &iEvent->sparkPosition,
 			iEvent->advance PASS_ENGINE_PARAMETER);
 
 	if (iEvent->sparkPosition.eventIndex == eventIndex) {
