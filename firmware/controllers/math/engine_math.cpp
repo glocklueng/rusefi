@@ -115,39 +115,37 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 
 	list->resetEventList();
 
-	switch (engineConfiguration->ignitionMode) {
+	switch (CONFIG(ignitionMode)) {
 	case IM_ONE_COIL:
-		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
+		for (int i = 0; i < CONFIG(cylindersCount); i++) {
 			// todo: extract method
 			float localAdvance = advance
-					+ (float) engineConfiguration->engineCycle * i / engineConfiguration->cylindersCount;
+					+ (float) CONFIG(engineCycle) * i / CONFIG(cylindersCount);
 
 			registerSparkEvent(list, SPARKOUT_1_OUTPUT, localAdvance,
 					dwellAngle PASS_ENGINE_PARAMETER);
 		}
 		break;
 	case IM_WASTED_SPARK:
-		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
+		for (int i = 0; i < CONFIG(cylindersCount); i++) {
 			float localAdvance = advance
-					+ (float) engineConfiguration->engineCycle * i / engineConfiguration->cylindersCount;
+					+ (float) CONFIG(engineCycle) * i / CONFIG(cylindersCount);
 
-			int wastedIndex = i % (engineConfiguration->cylindersCount / 2);
+			int wastedIndex = i % (CONFIG(cylindersCount) / 2);
 
-			int id = getCylinderId(engineConfiguration->firingOrder, wastedIndex) - 1;
+			int id = getCylinderId(CONFIG(firingOrder), wastedIndex) - 1;
 			io_pin_e ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
 
-			registerSparkEvent(list, ioPin, localAdvance,
-					dwellAngle PASS_ENGINE_PARAMETER);
-
+			registerSparkEvent(list, ioPin, localAdvance, dwellAngle PASS_ENGINE_PARAMETER);
 		}
 
 		break;
 	case IM_INDIVIDUAL_COILS:
-		for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
+		for (int i = 0; i < CONFIG(cylindersCount); i++) {
 			float localAdvance = advance
-					+ (float) engineConfiguration->engineCycle * i / engineConfiguration->cylindersCount;
+					+ (float) CONFIG(engineCycle) * i / CONFIG(cylindersCount);
 
-			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
+			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(CONFIG(firingOrder), i) - 1);
 			registerSparkEvent(list, pin, localAdvance,
 					dwellAngle PASS_ENGINE_PARAMETER);
 		}
