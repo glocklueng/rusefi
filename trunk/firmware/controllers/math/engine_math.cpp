@@ -332,9 +332,8 @@ int getCylinderId(firing_order_e firingOrder, int index) {
 	return -1;
 }
 
-void prepareOutputSignals(Engine *engine) {
+void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F) {
 
-	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 	engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
 
 	// todo: move this reset into decoder

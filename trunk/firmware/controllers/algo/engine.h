@@ -110,6 +110,6 @@ void prepareShapes(Engine *engine);
 void resetConfigurationExt(Logging * logger, engine_type_e engineType,
 		Engine *engine);
 void applyNonPersistentConfiguration(Logging * logger, Engine *engine);
-void prepareOutputSignals(Engine *engine);
+void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F);
 
 #endif /* ENGINE_H_ */
