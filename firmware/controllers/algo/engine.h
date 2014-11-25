@@ -36,6 +36,9 @@ public:
 	Thermistor iat;
 	Thermistor clt;
 
+	float dwellAngle;
+	float advance;
+
 	trigger_shape_s triggerShape;
 
 	void onTriggerEvent(uint64_t nowNt);
