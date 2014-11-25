@@ -267,7 +267,7 @@ int getEngineCycleEventCount2(operation_mode_e mode, trigger_shape_s * s) {
 void findTriggerPosition(event_trigger_position_s *position,
 		float angleOffset DECLARE_ENGINE_PARAMETER_S) {
 
-	angleOffset += engineConfiguration->globalTriggerAngleOffset;
+	angleOffset += CONFIG(globalTriggerAngleOffset);
 	fixAngle(angleOffset);
 
 	/**
@@ -288,13 +288,11 @@ void findTriggerPosition(event_trigger_position_s *position,
 	float eventAngle;
 	while (true) {
 		middle = (left + right) / 2;
-
 		eventAngle = TRIGGER_SHAPE(eventAngles[middle]);
 
 		if (middle == left) {
 			break;
 		}
-
 		if (angleOffset < eventAngle) {
 			right = middle;
 		} else if (angleOffset > eventAngle) {
@@ -302,9 +300,7 @@ void findTriggerPosition(event_trigger_position_s *position,
 		} else {
 			break;
 		}
-
 	}
-
 
 	if (angleOffset < eventAngle) {
 		firmwareError("angle constraint violation in registerActuatorEventExt(): %f/%f", angleOffset, eventAngle);
