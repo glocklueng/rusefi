@@ -88,7 +88,7 @@ void setSingleCoilDwell(engine_configuration_s *engineConfiguration) {
 
 OutputSignalList injectonSignals CCM_OPTIONAL;
 
-static void registerSparkEvent(trigger_shape_s * s, IgnitionEventList *list, io_pin_e pin, float localAdvance,
+static void registerSparkEvent(IgnitionEventList *list, io_pin_e pin, float localAdvance,
 		float dwell DECLARE_ENGINE_PARAMETER_S) {
 
 	IgnitionEvent *event = list->getNextActuatorEvent();
@@ -120,7 +120,7 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 			float localAdvance = advance
 					+ (float) engineConfiguration->engineCycle * i / engineConfiguration->cylindersCount;
 
-			registerSparkEvent(&engine->triggerShape, list, SPARKOUT_1_OUTPUT, localAdvance,
+			registerSparkEvent(list, SPARKOUT_1_OUTPUT, localAdvance,
 					dwellAngle PASS_ENGINE_PARAMETER);
 		}
 		break;
@@ -134,7 +134,7 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 			int id = getCylinderId(engineConfiguration->firingOrder, wastedIndex) - 1;
 			io_pin_e ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
 
-			registerSparkEvent(&engine->triggerShape, list, ioPin, localAdvance,
+			registerSparkEvent(list, ioPin, localAdvance,
 					dwellAngle PASS_ENGINE_PARAMETER);
 
 		}
@@ -146,7 +146,7 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 					+ (float) engineConfiguration->engineCycle * i / engineConfiguration->cylindersCount;
 
 			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(engineConfiguration->firingOrder, i) - 1);
-			registerSparkEvent(&engine->triggerShape, list, pin, localAdvance,
+			registerSparkEvent(list, pin, localAdvance,
 					dwellAngle PASS_ENGINE_PARAMETER);
 		}
 		break;
