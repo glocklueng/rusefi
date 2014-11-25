@@ -256,14 +256,6 @@ float getSparkDwellMsT(int rpm DECLARE_ENGINE_PARAMETER_S) {
 	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
 }
 
-/**
- * Trigger event count equals engine cycle event count if we have a cam sensor.
- * Two trigger cycles make one engine cycle in case of a four stroke engine If we only have a cranksensor.
- */
-int getEngineCycleEventCount2(operation_mode_e mode, trigger_shape_s * s) {
-	return mode == FOUR_STROKE_CAM_SENSOR ? s->getSize() : 2 * s->getSize();
-}
-
 void findTriggerPosition(event_trigger_position_s *position,
 		float angleOffset DECLARE_ENGINE_PARAMETER_S) {
 
