@@ -289,9 +289,9 @@ void findTriggerPosition(trigger_shape_s * s, event_trigger_position_s *position
 			break;
 		}
 
-		if (angleOffset < s->eventAngles[middle]) {
+		if (angleOffset < TRIGGER_SHAPE(eventAngles[middle])) {
 			right = middle;
-		} else if (angleOffset > s->eventAngles[middle]) {
+		} else if (angleOffset > TRIGGER_SHAPE(eventAngles[middle])) {
 			left = middle;
 		} else {
 			break;
