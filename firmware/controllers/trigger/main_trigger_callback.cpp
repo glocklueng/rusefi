@@ -340,7 +340,7 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 
 	if (eventIndex == 0) {
 		if (localVersion.isOld())
-			prepareOutputSignals(engine);
+			prepareOutputSignals(PASS_ENGINE_PARAMETER_F);
 
 		engine->beforeIgnitionMath = GET_TIMESTAMP();
 		doSomeCalc(rpm PASS_ENGINE_PARAMETER);
