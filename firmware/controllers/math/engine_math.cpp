@@ -282,16 +282,19 @@ void findTriggerPosition(trigger_shape_s * s, event_trigger_position_s *position
 	 * Let's find the last trigger angle which is less or equal to the desired angle
 	 * todo: extract binary search as template method?
 	 */
+	float eventAngle;
 	while (true) {
 		middle = (left + right) / 2;
+
+		eventAngle = TRIGGER_SHAPE(eventAngles[middle]);
 
 		if (middle == left) {
 			break;
 		}
 
-		if (angleOffset < TRIGGER_SHAPE(eventAngles[middle])) {
+		if (angleOffset < eventAngle) {
 			right = middle;
-		} else if (angleOffset > TRIGGER_SHAPE(eventAngles[middle])) {
+		} else if (angleOffset > eventAngle) {
 			left = middle;
 		} else {
 			break;
@@ -299,7 +302,6 @@ void findTriggerPosition(trigger_shape_s * s, event_trigger_position_s *position
 
 	}
 
-	float eventAngle = s->eventAngles[middle];
 
 	if (angleOffset < eventAngle) {
 		firmwareError("angle constraint violation in registerActuatorEventExt(): %f/%f", angleOffset, eventAngle);
