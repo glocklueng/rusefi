@@ -31,7 +31,7 @@ EXTERN_ENGINE;
 
 static Map3D1616 advanceMap;
 
-float getBaseAdvance(int rpm, float engineLoad) {
+float getBaseAdvance(int rpm, float engineLoad DECLARE_ENGINE_PARAMETER_S) {
 	if (cisnan(engineLoad)) {
 		warning(OBD_PCM_Processor_Fault, "NaN engine load");
 		return NAN;
@@ -47,13 +47,13 @@ float getAdvance(int rpm, float engineLoad DECLARE_ENGINE_PARAMETER_S) {
 	if (isCrankingR(rpm)) {
 		angle = -engineConfiguration->crankingTimingAngle;
 	} else {
-		angle = getBaseAdvance(rpm, engineLoad);
+		angle = getBaseAdvance(rpm, engineLoad PASS_ENGINE_PARAMETER);
 	}
 	angle -= engineConfiguration->ignitionOffset;
 	fixAngle(angle);
 	return angle;
 }
 
-void prepareTimingMap(void) {
+void prepareTimingMap(DECLARE_ENGINE_PARAMETER_F) {
 	advanceMap.init(engineConfiguration->ignitionTable);
 }
