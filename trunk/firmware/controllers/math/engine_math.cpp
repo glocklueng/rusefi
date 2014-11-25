@@ -103,7 +103,7 @@ static void registerSparkEvent(trigger_shape_s * s, IgnitionEventList *list, io_
 
 	event->advance = localAdvance;
 
-	findTriggerPosition(s, &event->dwellPosition, localAdvance - dwell PASS_ENGINE_PARAMETER);
+	findTriggerPosition(&event->dwellPosition, localAdvance - dwell PASS_ENGINE_PARAMETER);
 }
 
 void initializeIgnitionActions(float advance, float dwellAngle,
@@ -178,7 +178,7 @@ void FuelSchedule::registerInjectionEvent(trigger_shape_s *s, io_pin_e pin, floa
 	}
 	ev->actuator = actuator;
 
-	findTriggerPosition(s, &ev->position, angle PASS_ENGINE_PARAMETER);
+	findTriggerPosition(&ev->position, angle PASS_ENGINE_PARAMETER);
 	hasEvents[ev->position.eventIndex] = true;
 }
 
@@ -264,7 +264,7 @@ int getEngineCycleEventCount2(operation_mode_e mode, trigger_shape_s * s) {
 	return mode == FOUR_STROKE_CAM_SENSOR ? s->getSize() : 2 * s->getSize();
 }
 
-void findTriggerPosition(trigger_shape_s * s, event_trigger_position_s *position,
+void findTriggerPosition(event_trigger_position_s *position,
 		float angleOffset DECLARE_ENGINE_PARAMETER_S) {
 
 	angleOffset += engineConfiguration->globalTriggerAngleOffset;
