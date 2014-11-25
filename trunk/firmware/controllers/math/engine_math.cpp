@@ -33,6 +33,8 @@
 EXTERN_ENGINE
 ;
 
+extern OutputPin outputs[IO_PIN_COUNT];
+
 /*
  * default Volumetric Efficiency
  */
