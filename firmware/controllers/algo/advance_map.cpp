@@ -27,8 +27,7 @@
 #include "engine_configuration.h"
 #include "engine_math.h"
 
-extern engine_configuration_s *engineConfiguration;
-//extern engine_configuration2_s *engineConfiguration2;
+EXTERN_ENGINE;
 
 static Map3D1616 advanceMap;
 
@@ -51,7 +50,7 @@ float getAdvance(int rpm, float engineLoad DECLARE_ENGINE_PARAMETER_S) {
 		angle = getBaseAdvance(rpm, engineLoad);
 	}
 	angle -= engineConfiguration->ignitionOffset;
-	angle = fixAngle(angle PASS_ENGINE_PARAMETER);
+	fixAngle(angle);
 	return angle;
 }
 
