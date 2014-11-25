@@ -70,7 +70,7 @@ void hwHandleShaftSignal(trigger_event_e signal) {
 		maxTriggerReentraint = triggerReentraint;
 	triggerReentraint++;
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 128, "lowstck#8");
-	triggerCentral.handleShaftSignal(engine, signal);
+	triggerCentral.handleShaftSignal(signal, engine, engine->engineConfiguration);
 	triggerReentraint--;
 }
 #endif /* EFI_PROD_CODE */
@@ -109,7 +109,7 @@ static ALWAYS_INLINE void reportEventToWaveChart(trigger_event_e ckpSignalType, 
 	}
 }
 
-void TriggerCentral::handleShaftSignal(Engine *engine, trigger_event_e signal) {
+void TriggerCentral::handleShaftSignal(trigger_event_e signal, Engine *engine, engine_configuration_s *engineConfiguration) {
 	efiAssertVoid(engine!=NULL, "configuration");
 
 	nowNt = getTimeNowNt();
@@ -140,7 +140,7 @@ void TriggerCentral::handleShaftSignal(Engine *engine, trigger_event_e signal) {
 	/**
 	 * This invocation changes the state of triggerState
 	 */
-	triggerState.decodeTriggerEvent(triggerShape, &engine->engineConfiguration->triggerConfig, signal, nowNt);
+	triggerState.decodeTriggerEvent(triggerShape, &engineConfiguration->triggerConfig, signal, nowNt);
 
 	if (!triggerState.shaft_is_synchronized) {
 		// we should not propagate event if we do not know where we are
@@ -171,7 +171,7 @@ void TriggerCentral::handleShaftSignal(Engine *engine, trigger_event_e signal) {
 		 */
 		for (int i = 0; i < triggerListeneres.currentListenersCount; i++) {
 			ShaftPositionListener listener = (ShaftPositionListener)triggerListeneres.callbacks[i];
-			(listener)(signal, triggerIndexForListeners, engine);
+			(listener)(signal, triggerIndexForListeners PASS_ENGINE_PARAMETER);
 		}
 
 	}

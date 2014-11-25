@@ -288,7 +288,7 @@ void showMainHistogram(void) {
  * This is the main trigger event handler.
  * Both injection and ignition are controlled from this method.
  */
-void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex, Engine *engine) {
+void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECLARE_ENGINE_PARAMETER_S) {
 	if (hasFirmwareError()) {
 		/**
 		 * In case on a major error we should not process any more events.
@@ -300,9 +300,6 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex, Eng
 	(void) ckpSignalType;
 	efiAssertVoid(eventIndex < 2 * engine->triggerShape.shaftPositionEventCount, "event index");
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 128, "lowstck#2");
-
-	// todo: remove these local variables soon?
-	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 
 	int rpm = getRpmE(engine);
 	if (rpm == 0) {
