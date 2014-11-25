@@ -56,9 +56,9 @@ float fixAngle(float angle DECLARE_ENGINE_PARAMETER_S) {
 	efiAssert(engineConfiguration->engineCycle != 0, "engine cycle", NAN);
 	// I guess this implementation would be faster than 'angle % 720'
 	while (angle < 0)
-		angle += engineConfiguration->engineCycle;
-	while (angle >= engineConfiguration->engineCycle)
-		angle -= engineConfiguration->engineCycle;
+		angle += CONFIG(engineCycle);
+	while (angle >= CONFIG(engineCycle))
+		angle -= CONFIG(engineCycle);
 	return angle;
 }
 
