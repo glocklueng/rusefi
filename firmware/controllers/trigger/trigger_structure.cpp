@@ -42,9 +42,6 @@ trigger_shape_s::trigger_shape_s() :
 	invertOnAdd = false;
 }
 
-void trigger_shape_s::assignSize() {
-}
-
 int trigger_shape_s::getSize() const {
 	return size;
 }
@@ -395,8 +392,6 @@ void configureHondaAccordCDDip(trigger_shape_s *s) {
 	s->addEvent(720.0f, T_SECONDARY, TV_HIGH);
 
 	s->isSynchronizationNeeded = false;
-
-	s->assignSize();
 }
 
 void configureHondaAccordCD(trigger_shape_s *s, bool with3rdSignal) {
@@ -444,6 +439,4 @@ void configureHondaAccordCD(trigger_shape_s *s, bool with3rdSignal) {
 		sb = addAccordPair(s, sb);
 		s->addEvent(i * 180.0f, T_PRIMARY, TV_LOW);
 	}
-
-	s->assignSize();
 }
