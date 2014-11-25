@@ -283,6 +283,10 @@ void showMainHistogram(void) {
 #endif
 }
 
+static void doSomeCalc(DECLARE_ENGINE_PARAMETER_F) {
+
+}
+
 /**
  * This is the main trigger event handler.
  * Both injection and ignition are controlled from this method.
@@ -324,8 +328,13 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 	if (eventIndex == 0) {
 		if (localVersion.isOld())
 			prepareOutputSignals(engine);
-		engine->beforeIgnitionMath = GET_TIMESTAMP();
 
+		engine->beforeIgnitionMath = GET_TIMESTAMP();
+		doSomeCalc(PASS_ENGINE_PARAMETER_F);
+		engine->ignitionMathTime = GET_TIMESTAMP() - engine->beforeIgnitionMath;
+
+
+		engine->beforeIgnitionSch = GET_TIMESTAMP();
 		/**
 		 * TODO: warning. there is a bit of a hack here, todo: improve.
 		 * currently output signals/times signalTimerUp from the previous revolutions could be
@@ -345,12 +354,7 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 			return;
 		}
 		float el = getEngineLoadT(PASS_ENGINE_PARAMETER_F);
-		float advance = getAdvance(rpm, el PASS_ENGINE_PARAMETER);
-
-		if (cisnan(advance)) {
-			// error should already be reported
-			return;
-		}
+		engine->advance = -getAdvance(rpm, el PASS_ENGINE_PARAMETER);
 
 		engine->dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
@@ -366,9 +370,13 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 
 		// todo: add some check for dwell overflow? like 4 times 6 ms while engine cycle is less then that
 
-		initializeIgnitionActions(-advance, engine->dwellAngle,
+		if (cisnan(engine->advance)) {
+			// error should already be reported
+			return;
+		}
+		initializeIgnitionActions(engine->advance, engine->dwellAngle,
 				&engine->engineConfiguration2->ignitionEvents[revolutionIndex] PASS_ENGINE_PARAMETER);
-		engine->ignitionMathTime = GET_TIMESTAMP() - engine->beforeIgnitionMath;
+		engine->ignitionSchTime = GET_TIMESTAMP() - engine->beforeIgnitionSch;
 	}
 
 	triggerEventsQueue.executeAll(getCrankEventCounter());

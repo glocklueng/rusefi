@@ -65,6 +65,9 @@ public:
 	uint32_t beforeIgnitionMath;
 	uint32_t ignitionMathTime;
 
+	uint32_t beforeIgnitionSch;
+	uint32_t ignitionSchTime;
+
 	uint32_t time2;
 	uint32_t time3;
 	uint32_t time4;
