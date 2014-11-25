@@ -156,7 +156,7 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 	}
 }
 
-void FuelSchedule::registerInjectionEvent(trigger_shape_s *s, io_pin_e pin, float angle,
+void FuelSchedule::registerInjectionEvent(io_pin_e pin, float angle,
 		bool_t isSimultanious DECLARE_ENGINE_PARAMETER_S) {
 	ActuatorEventList *list = &events;
 
@@ -170,7 +170,7 @@ void FuelSchedule::registerInjectionEvent(trigger_shape_s *s, io_pin_e pin, floa
 
 	ev->isSimultanious = isSimultanious;
 
-	efiAssertVoid(s->getSize() > 0, "uninitialized trigger_shape_s");
+	efiAssertVoid(TRIGGER_SHAPE(getSize()) > 0, "uninitialized trigger_shape_s");
 
 	if (ev == NULL) {
 		// error already reported
@@ -203,7 +203,7 @@ void FuelSchedule::addFuelEvents(trigger_shape_s *s, injection_mode_e mode DECLA
 			io_pin_e pin = INJECTOR_PIN_BY_INDEX(getCylinderId(engineConfiguration->firingOrder, i) - 1);
 			float angle = baseAngle
 					+ (float) engineConfiguration->engineCycle * i / engineConfiguration->cylindersCount;
-			registerInjectionEvent(s, pin, angle, false PASS_ENGINE_PARAMETER);
+			registerInjectionEvent(pin, angle, false PASS_ENGINE_PARAMETER);
 		}
 		break;
 	case IM_SIMULTANEOUS:
@@ -215,7 +215,7 @@ void FuelSchedule::addFuelEvents(trigger_shape_s *s, injection_mode_e mode DECLA
 			 * We do not need injector pin here because we will control all injectors
 			 * simultaniously
 			 */
-			registerInjectionEvent(s, IO_INVALID, angle, true PASS_ENGINE_PARAMETER);
+			registerInjectionEvent(IO_INVALID, angle, true PASS_ENGINE_PARAMETER);
 		}
 		break;
 	case IM_BATCH:
@@ -224,13 +224,13 @@ void FuelSchedule::addFuelEvents(trigger_shape_s *s, injection_mode_e mode DECLA
 			io_pin_e pin = INJECTOR_PIN_BY_INDEX(index);
 			float angle = baseAngle
 					+ i * (float) engineConfiguration->engineCycle / engineConfiguration->cylindersCount;
-			registerInjectionEvent(s, pin, angle, false PASS_ENGINE_PARAMETER);
+			registerInjectionEvent(pin, angle, false PASS_ENGINE_PARAMETER);
 
 			/**
 			 * also fire the 2nd half of the injectors so that we can implement a batch mode on individual wires
 			 */
 			pin = INJECTOR_PIN_BY_INDEX(index + (engineConfiguration->cylindersCount / 2));
-			registerInjectionEvent(s, pin, angle, false PASS_ENGINE_PARAMETER);
+			registerInjectionEvent(pin, angle, false PASS_ENGINE_PARAMETER);
 		}
 		break;
 	default:
