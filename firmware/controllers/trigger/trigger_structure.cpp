@@ -61,16 +61,16 @@ void trigger_shape_s::calculateTriggerSynchPoint(engine_configuration_s *engineC
 void trigger_shape_s::setTriggerShapeSynchPointIndex(engine_configuration_s *engineConfiguration, int triggerShapeSynchPointIndex, Engine *engine) {
 	this->triggerShapeSynchPointIndex = triggerShapeSynchPointIndex;
 
-	int engineCycleEventCount = getEngineCycleEventCount2(operationMode, this);
+	engine->engineCycleEventCount = getEngineCycleEventCount2(operationMode, this);
 
 	float firstAngle = getAngle(triggerShapeSynchPointIndex);
 
-	for (int i = 0; i < engineCycleEventCount; i++) {
+	for (int i = 0; i < engine->engineCycleEventCount; i++) {
 		if (i == 0) {
 			// explicit check for zero to avoid issues where logical zero is not exactly zero due to float nature
 			eventAngles[i] = 0;
 		} else {
-			float angle = getAngle((triggerShapeSynchPointIndex + i) % engineCycleEventCount) - firstAngle;
+			float angle = getAngle((triggerShapeSynchPointIndex + i) % engine->engineCycleEventCount) - firstAngle;
 			fixAngle(angle);
 			eventAngles[i] = angle;
 		}
