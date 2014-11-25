@@ -169,7 +169,11 @@ void TriggerCentral::handleShaftSignal(Engine *engine, trigger_event_e signal) {
 		/**
 		 * Here we invoke all the listeners - the main engine control logic is inside these listeners
 		 */
-		invokeIntIntVoidCallbacks(&triggerListeneres, signal, triggerIndexForListeners);
+		for (int i = 0; i < triggerListeneres.currentListenersCount; i++) {
+			ShaftPositionListener listener = (ShaftPositionListener)triggerListeneres.callbacks[i];
+			(listener)(signal, triggerIndexForListeners, engine);
+		}
+
 	}
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int afterCallback = hal_lld_get_counter_value();
