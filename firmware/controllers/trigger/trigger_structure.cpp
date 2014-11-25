@@ -43,7 +43,6 @@ trigger_shape_s::trigger_shape_s() :
 }
 
 void trigger_shape_s::assignSize() {
-	shaftPositionEventCount = getSize();
 }
 
 int trigger_shape_s::getSize() const {
@@ -84,7 +83,6 @@ void trigger_shape_s::setTriggerShapeSynchPointIndex(engine_configuration_s *eng
 void trigger_shape_s::reset(operation_mode_e operationMode) {
 	this->operationMode = operationMode;
 	size = 0;
-	shaftPositionEventCount = 0;
 	triggerShapeSynchPointIndex = 0;
 	memset(initialState, 0, sizeof(initialState));
 	memset(switchTimesBuffer, 0, sizeof(switchTimesBuffer));
