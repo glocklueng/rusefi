@@ -352,7 +352,7 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 			return;
 		}
 
-		float dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
+		engine->dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 
 		float maxAllowedDwellAngle = engineConfiguration->engineCycle / 2;
 
@@ -360,13 +360,13 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 			maxAllowedDwellAngle = engineConfiguration->engineCycle / engineConfiguration->cylindersCount / 1.1;
 		}
 
-		if (dwellAngle > maxAllowedDwellAngle) {
-			warning(OBD_PCM_Processor_Fault, "dwell angle too long: %f", dwellAngle);
+		if (engine->dwellAngle > maxAllowedDwellAngle) {
+			warning(OBD_PCM_Processor_Fault, "dwell angle too long: %f", engine->dwellAngle);
 		}
 
 		// todo: add some check for dwell overflow? like 4 times 6 ms while engine cycle is less then that
 
-		initializeIgnitionActions(-advance, dwellAngle,
+		initializeIgnitionActions(-advance, engine->dwellAngle,
 				&engine->engineConfiguration2->ignitionEvents[revolutionIndex] PASS_ENGINE_PARAMETER);
 		engine->ignitionMathTime = GET_TIMESTAMP() - engine->beforeIgnitionMath;
 	}
