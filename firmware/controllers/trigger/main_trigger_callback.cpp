@@ -283,8 +283,21 @@ void showMainHistogram(void) {
 #endif
 }
 
-static void doSomeCalc(DECLARE_ENGINE_PARAMETER_F) {
+static void doSomeCalc(int rpm DECLARE_ENGINE_PARAMETER_S) {
+	/**
+	 * Within one engine cycle all cylinders are fired with same timing advance.
+	 * todo: one day we can control cylinders individually
+	 */
+	float dwellMs = getSparkDwellMsT(rpm PASS_ENGINE_PARAMETER);
 
+	if (cisnan(dwellMs) || dwellMs < 0) {
+		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
+		return;
+	}
+	float el = getEngineLoadT(PASS_ENGINE_PARAMETER_F);
+	engine->advance = -getAdvance(rpm, el PASS_ENGINE_PARAMETER);
+
+	engine->dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 }
 
 /**
@@ -330,9 +343,8 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 			prepareOutputSignals(engine);
 
 		engine->beforeIgnitionMath = GET_TIMESTAMP();
-		doSomeCalc(PASS_ENGINE_PARAMETER_F);
+		doSomeCalc(rpm PASS_ENGINE_PARAMETER);
 		engine->ignitionMathTime = GET_TIMESTAMP() - engine->beforeIgnitionMath;
-
 
 		engine->beforeIgnitionSch = GET_TIMESTAMP();
 		/**
@@ -342,22 +354,6 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 		 * but we are already repurposing the output signals, but everything works because we
 		 * are not affecting that space in memory. todo: use two instances of 'ignitionSignals'
 		 */
-
-		/**
-		 * Within one engine cycle all cylinders are fired with same timing advance.
-		 * todo: one day we can control cylinders individually
-		 */
-		float dwellMs = getSparkDwellMsT(rpm PASS_ENGINE_PARAMETER);
-
-		if (cisnan(dwellMs) || dwellMs < 0) {
-			firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
-			return;
-		}
-		float el = getEngineLoadT(PASS_ENGINE_PARAMETER_F);
-		engine->advance = -getAdvance(rpm, el PASS_ENGINE_PARAMETER);
-
-		engine->dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
-
 		float maxAllowedDwellAngle = engineConfiguration->engineCycle / 2;
 
 		if (engineConfiguration->ignitionMode == IM_ONE_COIL) {
