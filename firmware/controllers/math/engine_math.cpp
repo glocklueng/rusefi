@@ -104,55 +104,23 @@ static void registerSparkEvent(IgnitionEventList *list, io_pin_e pin, float loca
 
 	event->advance = localAdvance;
 
-	findTriggerPosition(&event->dwellPosition, localAdvance - dwell PASS_ENGINE_PARAMETER);
+	findTriggerPosition(&event->dwellPosition, localAdvance - dwell
+			PASS_ENGINE_PARAMETER);
 }
 
-void initializeIgnitionActions(float advance, float dwellAngle,
-		IgnitionEventList *list DECLARE_ENGINE_PARAMETER_S) {
+void initializeIgnitionActions(float advance, float dwellAngle, IgnitionEventList *list DECLARE_ENGINE_PARAMETER_S) {
 
 	efiAssertVoid(engineConfiguration->cylindersCount > 0, "cylindersCount");
 
 	list->resetEventList();
 
-	switch (CONFIG(ignitionMode)) {
-	case IM_ONE_COIL:
-		for (int i = 0; i < CONFIG(cylindersCount); i++) {
-			float localAdvance = advance + ENGINE(angleExtra[i]);
-
-			registerSparkEvent(list, SPARKOUT_1_OUTPUT, localAdvance,
-					dwellAngle PASS_ENGINE_PARAMETER);
-		}
-		break;
-	case IM_WASTED_SPARK:
-		for (int i = 0; i < CONFIG(cylindersCount); i++) {
-			float localAdvance = advance + ENGINE(angleExtra[i]);
-
-			int wastedIndex = i % (CONFIG(cylindersCount) / 2);
-
-			int id = getCylinderId(CONFIG(firingOrder), wastedIndex) - 1;
-			io_pin_e ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
-
-			registerSparkEvent(list, ioPin, localAdvance, dwellAngle PASS_ENGINE_PARAMETER);
-		}
-
-		break;
-	case IM_INDIVIDUAL_COILS:
-		for (int i = 0; i < CONFIG(cylindersCount); i++) {
-			float localAdvance = advance + ENGINE(angleExtra[i]);
-
-			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(CONFIG(firingOrder), i) - 1);
-			registerSparkEvent(list, pin, localAdvance,
-					dwellAngle PASS_ENGINE_PARAMETER);
-		}
-		break;
-
-	default:
-		firmwareError("unsupported ignitionMode %d in initializeIgnitionActions()", engineConfiguration->ignitionMode);
+	for (int i = 0; i < CONFIG(cylindersCount); i++) {
+		float localAdvance = advance + ENGINE(angleExtra[i]);
+		registerSparkEvent(list, ENGINE(ignitionPin[i]), localAdvance, dwellAngle PASS_ENGINE_PARAMETER);
 	}
 }
 
-void FuelSchedule::registerInjectionEvent(io_pin_e pin, float angle,
-		bool_t isSimultanious DECLARE_ENGINE_PARAMETER_S) {
+void FuelSchedule::registerInjectionEvent(io_pin_e pin, float angle, bool_t isSimultanious DECLARE_ENGINE_PARAMETER_S) {
 	ActuatorEventList *list = &events;
 
 	if (!isSimultanious && !isPinAssigned(pin)) {
@@ -251,8 +219,7 @@ float getSparkDwellMsT(int rpm DECLARE_ENGINE_PARAMETER_S) {
 	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
 }
 
-void findTriggerPosition(event_trigger_position_s *position,
-		float angleOffset DECLARE_ENGINE_PARAMETER_S) {
+void findTriggerPosition(event_trigger_position_s *position, float angleOffset DECLARE_ENGINE_PARAMETER_S) {
 
 	angleOffset += CONFIG(globalTriggerAngleOffset);
 	fixAngle(angleOffset);
@@ -335,7 +302,29 @@ void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F) {
 	engine->triggerShape.calculateTriggerSynchPoint(engineConfiguration, engine);
 
 	for (int i = 0; i < CONFIG(cylindersCount); i++) {
-		ENGINE(angleExtra[i]) = (float) CONFIG(engineCycle) * i / CONFIG(cylindersCount);
+		ENGINE(angleExtra[i])= (float) CONFIG(engineCycle) * i / CONFIG(cylindersCount);
+
+		io_pin_e ioPin;
+
+		switch (CONFIG(ignitionMode)) {
+			case IM_ONE_COIL:
+			ioPin = SPARKOUT_1_OUTPUT;
+			break;
+			case IM_WASTED_SPARK:
+			{
+				int wastedIndex = i % (CONFIG(cylindersCount) / 2);
+				int id = getCylinderId(CONFIG(firingOrder), wastedIndex) - 1;
+				ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
+			}
+			break;
+			case IM_INDIVIDUAL_COILS:
+			ioPin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(CONFIG(firingOrder), i) - 1);
+			break;
+
+			default:
+			firmwareError("unsupported ignitionMode %d in initializeIgnitionActions()", engineConfiguration->ignitionMode);
+		}
+
 	}
 
 	injectonSignals.clear();
