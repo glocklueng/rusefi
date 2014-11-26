@@ -90,24 +90,6 @@ void setSingleCoilDwell(engine_configuration_s *engineConfiguration) {
 
 OutputSignalList injectonSignals CCM_OPTIONAL;
 
-static void registerSparkEvent(IgnitionEventList *list, io_pin_e pin, float localAdvance,
-		float dwell DECLARE_ENGINE_PARAMETER_S) {
-
-	// todo efiAssertVoid(list->size)
-	IgnitionEvent *event = &list->events[list->size++];
-
-	if (!isPinAssigned(pin)) {
-		// todo: extact method for this index math
-		warning(OBD_PCM_Processor_Fault, "no_pin_cl #%d", (int) pin - (int) SPARKOUT_1_OUTPUT + 1);
-	}
-	event->io_pin = pin;
-
-	event->advance = localAdvance;
-
-	findTriggerPosition(&event->dwellPosition, localAdvance - dwell
-			PASS_ENGINE_PARAMETER);
-}
-
 void initializeIgnitionActions(float advance, float dwellAngle, IgnitionEventList *list DECLARE_ENGINE_PARAMETER_S) {
 
 	efiAssertVoid(engineConfiguration->cylindersCount > 0, "cylindersCount");
@@ -116,7 +98,20 @@ void initializeIgnitionActions(float advance, float dwellAngle, IgnitionEventLis
 
 	for (int i = 0; i < CONFIG(cylindersCount); i++) {
 		float localAdvance = advance + ENGINE(angleExtra[i]);
-		registerSparkEvent(list, ENGINE(ignitionPin[i]), localAdvance, dwellAngle PASS_ENGINE_PARAMETER);
+		io_pin_e pin = ENGINE(ignitionPin[i]);
+
+		// todo efiAssertVoid(list->size)
+		IgnitionEvent *event = &list->events[list->size++];
+
+		if (!isPinAssigned(pin)) {
+			// todo: extact method for this index math
+			warning(OBD_PCM_Processor_Fault, "no_pin_cl #%d", (int) pin - (int) SPARKOUT_1_OUTPUT + 1);
+		}
+		event->io_pin = pin;
+		event->advance = localAdvance;
+
+		findTriggerPosition(&event->dwellPosition, localAdvance - dwellAngle
+				PASS_ENGINE_PARAMETER);
 	}
 }
 
