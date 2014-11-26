@@ -32,6 +32,8 @@
 #include "efiGpio.h"
 #include "engine.h"
 
+EXTERN_ENGINE;
+
 // todo: better name for this constant
 #define HELPER_PERIOD 100000
 
@@ -69,7 +71,7 @@ static trigger_value_e eventType[6] = { TV_LOW, TV_HIGH, TV_LOW, TV_HIGH, TV_LOW
  * This method changes the state of trigger_state_s data structure according to the trigger event
  */
 void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig,
-		trigger_event_e const signal, uint64_t nowNt) {
+		trigger_event_e const signal, uint64_t nowNt DECLARE_ENGINE_PARAMETER_S) {
 	(void) triggerConfig; // we might want this for logging?
 	efiAssertVoid(signal <= SHAFT_3RD_UP, "unexpected signal");
 
@@ -147,9 +149,9 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 		/**
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
 		 */
-		bool isDecodingError = eventCount[0] != triggerShape->expectedEventCount[0]
-				|| eventCount[1] != triggerShape->expectedEventCount[1]
-				|| eventCount[2] != triggerShape->expectedEventCount[2];
+		bool isDecodingError = eventCount[0] != TRIGGER_SHAPE(expectedEventCount[0])
+				|| eventCount[1] != TRIGGER_SHAPE(expectedEventCount[1])
+				|| eventCount[2] != TRIGGER_SHAPE(expectedEventCount[2]);
 
 		setOutputPinValue(LED_TRIGGER_ERROR, isDecodingError);
 		if (isDecodingError) {
@@ -301,7 +303,7 @@ TriggerStimulatorHelper::TriggerStimulatorHelper() {
 }
 
 void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * shape, int i,
-		trigger_config_s const*triggerConfig) {
+		trigger_config_s const*triggerConfig DECLARE_ENGINE_PARAMETER_S) {
 	int stateIndex = i % shape->getSize();
 
 	int loopIndex = i / shape->getSize();
@@ -315,19 +317,19 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * sh
 	if (primaryWheelState != newPrimaryWheelState) {
 		primaryWheelState = newPrimaryWheelState;
 		trigger_event_e s = primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN;
-		state->decodeTriggerEvent(shape, triggerConfig, s, time);
+		state->decodeTriggerEvent(shape, triggerConfig, s, time PASS_ENGINE_PARAMETER);
 	}
 
 	if (secondaryWheelState != newSecondaryWheelState) {
 		secondaryWheelState = newSecondaryWheelState;
 		trigger_event_e s = secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN;
-		state->decodeTriggerEvent(shape, triggerConfig, s, time);
+		state->decodeTriggerEvent(shape, triggerConfig, s, time PASS_ENGINE_PARAMETER);
 	}
 
 	if (thirdWheelState != new3rdWheelState) {
 		thirdWheelState = new3rdWheelState;
 		trigger_event_e s = thirdWheelState ? SHAFT_3RD_UP : SHAFT_3RD_DOWN;
-		state->decodeTriggerEvent(shape, triggerConfig, s, time);
+		state->decodeTriggerEvent(shape, triggerConfig, s, time PASS_ENGINE_PARAMETER);
 	}
 }
 
@@ -339,9 +341,9 @@ static void onFindIndex(TriggerState *state) {
 }
 
 static uint32_t doFindTrigger(TriggerStimulatorHelper *helper, trigger_shape_s * shape,
-		trigger_config_s const*triggerConfig, TriggerState *state) {
+		trigger_config_s const*triggerConfig, TriggerState *state DECLARE_ENGINE_PARAMETER_S) {
 	for (int i = 0; i < 4 * PWM_PHASE_MAX_COUNT; i++) {
-		helper->nextStep(state, shape, i, triggerConfig);
+		helper->nextStep(state, shape, i, triggerConfig PASS_ENGINE_PARAMETER);
 
 		if (state->shaft_is_synchronized)
 			return i;
@@ -356,14 +358,14 @@ static uint32_t doFindTrigger(TriggerStimulatorHelper *helper, trigger_shape_s *
  *
  * This function finds the index of synchronization event within trigger_shape_s
  */
-uint32_t findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*triggerConfig) {
+uint32_t findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s const*triggerConfig DECLARE_ENGINE_PARAMETER_S) {
 
 	TriggerState state;
 	errorDetection.clear();
 
 	TriggerStimulatorHelper helper;
 
-	uint32_t index = doFindTrigger(&helper, shape, triggerConfig, &state);
+	uint32_t index = doFindTrigger(&helper, shape, triggerConfig, &state PASS_ENGINE_PARAMETER);
 	if (index == EFI_ERROR_CODE) {
 		return index;
 	}
@@ -377,7 +379,7 @@ uint32_t findTriggerZeroEventIndex(trigger_shape_s * shape, trigger_config_s con
 	 */
 	state.cycleCallback = onFindIndex;
 	for (uint32_t i = index + 1; i <= index + 2 * shape->getSize(); i++) {
-		helper.nextStep(&state, shape, i, triggerConfig);
+		helper.nextStep(&state, shape, i, triggerConfig PASS_ENGINE_PARAMETER);
 	}
 	efiAssert(state.getTotalRevolutionCounter() == 3, "totalRevolutionCounter2", EFI_ERROR_CODE);
 

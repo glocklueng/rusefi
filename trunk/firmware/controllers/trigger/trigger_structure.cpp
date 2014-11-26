@@ -52,7 +52,7 @@ int trigger_shape_s::getTriggerShapeSynchPointIndex() {
 
 void trigger_shape_s::calculateTriggerSynchPoint(engine_configuration_s *engineConfiguration, Engine *engine) {
 	trigger_config_s const*triggerConfig = &engineConfiguration->triggerConfig;
-	setTriggerShapeSynchPointIndex(engineConfiguration, findTriggerZeroEventIndex(this, triggerConfig), engine);
+	setTriggerShapeSynchPointIndex(engineConfiguration, findTriggerZeroEventIndex(this, triggerConfig PASS_ENGINE_PARAMETER), engine);
 }
 
 void trigger_shape_s::setTriggerShapeSynchPointIndex(engine_configuration_s *engineConfiguration, int triggerShapeSynchPointIndex, Engine *engine) {
