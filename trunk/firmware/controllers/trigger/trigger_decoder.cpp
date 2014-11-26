@@ -70,7 +70,7 @@ static trigger_value_e eventType[6] = { TV_LOW, TV_HIGH, TV_LOW, TV_HIGH, TV_LOW
  * @brief Trigger decoding happens here
  * This method changes the state of trigger_state_s data structure according to the trigger event
  */
-void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigger_config_s const*triggerConfig,
+void TriggerState::decodeTriggerEvent(trigger_config_s const*triggerConfig,
 		trigger_event_e const signal, uint64_t nowNt DECLARE_ENGINE_PARAMETER_S) {
 	(void) triggerConfig; // we might want this for logging?
 	efiAssertVoid(signal <= SHAFT_3RD_UP, "unexpected signal");
@@ -87,15 +87,15 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 	eventCount[triggerWheel]++;
 	eventCountExt[signal]++;
 
-	int isLessImportant = (triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_UP)
-			|| (!triggerShape->useRiseEdge && signal != SHAFT_PRIMARY_DOWN);
+	int isLessImportant = (TRIGGER_SHAPE(useRiseEdge) && signal != SHAFT_PRIMARY_UP)
+			|| (!TRIGGER_SHAPE(useRiseEdge) && signal != SHAFT_PRIMARY_DOWN);
 
 	if (isLessImportant) {
 		/**
 		 * For less important events we simply increment the index.
 		 */
 		nextTriggerEvent(triggerWheel, nowNt);
-		if (triggerShape->gapBothDirections) {
+		if (TRIGGER_SHAPE(gapBothDirections)) {
 			toothed_previous_duration = getCurrentGapDuration(nowNt);
 			isFirstEvent = false;
 			toothed_previous_time = nowNt;
@@ -121,7 +121,7 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 
 	bool_t isSynchronizationPoint;
 
-	if (triggerShape->isSynchronizationNeeded) {
+	if (TRIGGER_SHAPE(isSynchronizationNeeded)) {
 #if ! EFI_PROD_CODE
 		if (printGapRatio) {
 
@@ -134,14 +134,14 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 
 #endif /* ! EFI_PROD_CODE */
 
-		isSynchronizationPoint = currentDuration > toothed_previous_duration * triggerShape->syncRatioFrom
-				&& currentDuration < toothed_previous_duration * triggerShape->syncRatioTo;
+		isSynchronizationPoint = currentDuration > toothed_previous_duration * TRIGGER_SHAPE(syncRatioFrom)
+				&& currentDuration < toothed_previous_duration * TRIGGER_SHAPE(syncRatioTo);
 
 	} else {
 		/**
 		 * in case of noise the counter could be above the expected number of events
 		 */
-		isSynchronizationPoint = !shaft_is_synchronized || (getCurrentIndex() >= triggerShape->getSize() - 1);
+		isSynchronizationPoint = !shaft_is_synchronized || (current_index >= TRIGGER_SHAPE(size) - 1);
 
 	}
 
@@ -162,15 +162,15 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 
 		if (isTriggerDecoderError()) {
 			warning(OBD_PCM_Processor_Fault, "trigger decoding issue. expected %d/%d/%d got %d/%d/%d",
-					triggerShape->expectedEventCount[0], triggerShape->expectedEventCount[1],
-					triggerShape->expectedEventCount[2], eventCount[0], eventCount[1], eventCount[2]);
+					TRIGGER_SHAPE(expectedEventCount[0]), TRIGGER_SHAPE(expectedEventCount[1]),
+					TRIGGER_SHAPE(expectedEventCount[2]), eventCount[0], eventCount[1], eventCount[2]);
 		}
 
 		shaft_is_synchronized = true;
 		// this call would update duty cycle values
 		nextTriggerEvent(triggerWheel, nowNt);
 
-		nextRevolution(triggerShape->getSize(), nowNt);
+		nextRevolution(TRIGGER_SHAPE(size), nowNt);
 	} else {
 		nextTriggerEvent(triggerWheel, nowNt);
 	}
@@ -317,19 +317,19 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, trigger_shape_s * sh
 	if (primaryWheelState != newPrimaryWheelState) {
 		primaryWheelState = newPrimaryWheelState;
 		trigger_event_e s = primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN;
-		state->decodeTriggerEvent(shape, triggerConfig, s, time PASS_ENGINE_PARAMETER);
+		state->decodeTriggerEvent(triggerConfig, s, time PASS_ENGINE_PARAMETER);
 	}
 
 	if (secondaryWheelState != newSecondaryWheelState) {
 		secondaryWheelState = newSecondaryWheelState;
 		trigger_event_e s = secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN;
-		state->decodeTriggerEvent(shape, triggerConfig, s, time PASS_ENGINE_PARAMETER);
+		state->decodeTriggerEvent(triggerConfig, s, time PASS_ENGINE_PARAMETER);
 	}
 
 	if (thirdWheelState != new3rdWheelState) {
 		thirdWheelState = new3rdWheelState;
 		trigger_event_e s = thirdWheelState ? SHAFT_3RD_UP : SHAFT_3RD_DOWN;
-		state->decodeTriggerEvent(shape, triggerConfig, s, time PASS_ENGINE_PARAMETER);
+		state->decodeTriggerEvent(triggerConfig, s, time PASS_ENGINE_PARAMETER);
 	}
 }
 
