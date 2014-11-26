@@ -101,9 +101,6 @@ void TriggerState::decodeTriggerEvent(
 		trigger_event_e const signal, uint64_t nowNt DECLARE_ENGINE_PARAMETER_S) {
 	efiAssertVoid(signal <= SHAFT_3RD_UP, "unexpected signal");
 
-	trigger_config_s const*triggerConfig = &engineConfiguration->triggerConfig;
-
-
 	trigger_wheel_e triggerWheel = eventIndex[signal];
 
 	if (curSignal == prevSignal) {
