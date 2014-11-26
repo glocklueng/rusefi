@@ -79,7 +79,7 @@ void hwHandleShaftSignal(trigger_event_e signal) {
 		maxTriggerReentraint = triggerReentraint;
 	triggerReentraint++;
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 128, "lowstck#8");
-	triggerCentral.handleShaftSignal(signal, engine, engine->engineConfiguration);
+	triggerCentral.handleShaftSignal(signal PASS_ENGINE_PARAMETER);
 	triggerReentraint--;
 	triggerDuration = GET_TIMESTAMP() - triggerHanlderEntryTime;
 	isInsideTriggerHandler = false;
@@ -122,8 +122,7 @@ static ALWAYS_INLINE void reportEventToWaveChart(trigger_event_e ckpSignalType, 
 	}
 }
 
-void TriggerCentral::handleShaftSignal(trigger_event_e signal, Engine *engine,
-		engine_configuration_s *engineConfiguration) {
+void TriggerCentral::handleShaftSignal(trigger_event_e signal DECLARE_ENGINE_PARAMETER_S) {
 	efiAssertVoid(engine!=NULL, "configuration");
 
 	nowNt = getTimeNowNt();
