@@ -52,17 +52,6 @@ bool_t isTriggerDecoderError(void) {
 	return errorDetection.sum(6) > 4;
 }
 
-static ALWAYS_INLINE bool noSynchronizationResetNeeded(TriggerState *shaftPositionState,
-		trigger_shape_s const *triggerShape) {
-	if (!shaftPositionState->shaft_is_synchronized) {
-		return true;
-	}
-	/**
-	 * in case of noise the counter could be above the expected number of events
-	 */
-	return shaftPositionState->getCurrentIndex() >= triggerShape->getSize() - 1;
-}
-
 float TriggerState::getTriggerDutyCycle(int index) {
 	float time = prevTotalTime[index];
 
@@ -147,7 +136,11 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 				&& currentDuration < toothed_previous_duration * triggerShape->syncRatioTo;
 
 	} else {
-		isSynchronizationPoint = noSynchronizationResetNeeded(this, triggerShape);
+		/**
+		 * in case of noise the counter could be above the expected number of events
+		 */
+		isSynchronizationPoint = !shaft_is_synchronized || (getCurrentIndex() >= triggerShape->getSize() - 1);
+
 	}
 
 	if (isSynchronizationPoint) {
