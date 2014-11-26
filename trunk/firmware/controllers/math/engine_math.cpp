@@ -111,7 +111,7 @@ void initializeIgnitionActions(float advance, float dwellAngle, IgnitionEventLis
 		event->advance = localAdvance;
 
 		findTriggerPosition(&event->dwellPosition, localAdvance - dwellAngle
-				PASS_ENGINE_PARAMETER);
+		PASS_ENGINE_PARAMETER);
 	}
 }
 
@@ -214,17 +214,13 @@ float getSparkDwellMsT(int rpm DECLARE_ENGINE_PARAMETER_S) {
 	return interpolate2d(rpm, engineConfiguration->sparkDwellBins, engineConfiguration->sparkDwell, DWELL_CURVE_SIZE);
 }
 
-void findTriggerPosition(event_trigger_position_s *position, float angleOffset DECLARE_ENGINE_PARAMETER_S) {
-
-	angleOffset += CONFIG(globalTriggerAngleOffset);
-	fixAngle(angleOffset);
-
+static int findAngleIndex(float angleOffset DECLARE_ENGINE_PARAMETER_S) {
 	/**
 	 * Here we rely on this to be pre-calculated, that's a performance optimization
 	 */
 	int engineCycleEventCount = engine->engineCycleEventCount;
 
-	efiAssertVoid(engineCycleEventCount > 0, "engineCycleEventCount");
+	efiAssert(engineCycleEventCount > 0, "engineCycleEventCount", 0);
 
 	uint32_t middle;
 	uint32_t left = 0;
@@ -234,29 +230,36 @@ void findTriggerPosition(event_trigger_position_s *position, float angleOffset D
 	 * Let's find the last trigger angle which is less or equal to the desired angle
 	 * todo: extract binary search as template method?
 	 */
-	float eventAngle;
 	while (true) {
 		middle = (left + right) / 2;
-		eventAngle = TRIGGER_SHAPE(eventAngles[middle]);
+		float eventAngle = TRIGGER_SHAPE(eventAngles[middle]);
 
 		if (middle == left) {
-			break;
+			return middle;
 		}
 		if (angleOffset < eventAngle) {
 			right = middle;
 		} else if (angleOffset > eventAngle) {
 			left = middle;
 		} else {
-			break;
+			return middle;
 		}
 	}
+}
 
+void findTriggerPosition(event_trigger_position_s *position, float angleOffset DECLARE_ENGINE_PARAMETER_S) {
+
+	angleOffset += CONFIG(globalTriggerAngleOffset);
+	fixAngle(angleOffset);
+
+	int index = findAngleIndex(angleOffset PASS_ENGINE_PARAMETER);
+	float eventAngle = TRIGGER_SHAPE(eventAngles[index]);
 	if (angleOffset < eventAngle) {
 		firmwareError("angle constraint violation in registerActuatorEventExt(): %f/%f", angleOffset, eventAngle);
 		return;
 	}
 
-	position->eventIndex = middle;
+	position->eventIndex = index;
 	position->eventAngle = eventAngle;
 	position->angleOffset = angleOffset - eventAngle;
 }
@@ -289,23 +292,22 @@ int getCylinderId(firing_order_e firingOrder, int index) {
 	return -1;
 }
 
-io_pin_e getIgnitionPinForIndex(int i  DECLARE_ENGINE_PARAMETER_S) {
+io_pin_e getIgnitionPinForIndex(int i DECLARE_ENGINE_PARAMETER_S) {
 	switch (CONFIG(ignitionMode)) {
-		case IM_ONE_COIL:
+	case IM_ONE_COIL:
 		return SPARKOUT_1_OUTPUT;
 		break;
-		case IM_WASTED_SPARK:
-		{
-			int wastedIndex = i % (CONFIG(cylindersCount) / 2);
-			int id = getCylinderId(CONFIG(firingOrder), wastedIndex) - 1;
-			return (io_pin_e) (SPARKOUT_1_OUTPUT + id);
-		}
+	case IM_WASTED_SPARK: {
+		int wastedIndex = i % (CONFIG(cylindersCount) / 2);
+		int id = getCylinderId(CONFIG(firingOrder), wastedIndex) - 1;
+		return (io_pin_e) (SPARKOUT_1_OUTPUT + id);
+	}
 		break;
-		case IM_INDIVIDUAL_COILS:
-			return (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(CONFIG(firingOrder), i) - 1);
+	case IM_INDIVIDUAL_COILS:
+		return (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(CONFIG(firingOrder), i) - 1);
 		break;
 
-		default:
+	default:
 		firmwareError("unsupported ignitionMode %d in initializeIgnitionActions()", engineConfiguration->ignitionMode);
 		return SPARKOUT_1_OUTPUT;
 	}
@@ -327,8 +329,8 @@ void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F) {
 	}
 
 	injectonSignals.clear();
-	engineConfiguration2->crankingInjectionEvents.addFuelEvents(
-			engineConfiguration->crankingInjectionMode PASS_ENGINE_PARAMETER);
+	engineConfiguration2->crankingInjectionEvents.addFuelEvents(engineConfiguration->crankingInjectionMode
+			PASS_ENGINE_PARAMETER);
 	engineConfiguration2->injectionEvents.addFuelEvents(engineConfiguration->injectionMode PASS_ENGINE_PARAMETER);
 }
 
