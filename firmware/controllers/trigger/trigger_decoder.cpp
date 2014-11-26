@@ -63,8 +63,8 @@ float TriggerState::getTriggerDutyCycle(int index) {
 static trigger_wheel_e eventIndex[6] = { T_PRIMARY, T_PRIMARY, T_SECONDARY, T_SECONDARY, T_CHANNEL_3, T_CHANNEL_3 };
 static trigger_value_e eventType[6] = { TV_LOW, TV_HIGH, TV_LOW, TV_HIGH, TV_LOW, TV_HIGH };
 
-#define getCurrentGapDuration(nowUs) \
-	(isFirstEvent ? 0 : (nowUs) - toothed_previous_time)
+#define getCurrentGapDuration(nowNt) \
+	(isFirstEvent ? 0 : (nowNt) - toothed_previous_time)
 
 #define nextTriggerEvent() \
  { \
@@ -78,6 +78,18 @@ static trigger_value_e eventType[6] = { TV_LOW, TV_HIGH, TV_LOW, TV_HIGH, TV_LOW
 		timeOfPreviousEventNt[triggerWheel] = nowNt; \
 	} \
 	current_index++; \
+}
+
+#define nextRevolution() { \
+	if (cycleCallback != NULL) { \
+		cycleCallback(this); \
+	} \
+	memcpy(prevTotalTime, totalTimeNt, sizeof(prevTotalTime)); \
+	prevCycleDuration = nowNt - startOfCycleNt; \
+	startOfCycleNt = nowNt; \
+	clear(); \
+	totalRevolutionCounter++; \
+	totalEventCountBase += TRIGGER_SHAPE(size); \
 }
 
 
@@ -185,7 +197,7 @@ void TriggerState::decodeTriggerEvent(trigger_config_s const*triggerConfig,
 		// this call would update duty cycle values
 		nextTriggerEvent();
 
-		nextRevolution(TRIGGER_SHAPE(size), nowNt);
+		nextRevolution();
 	} else {
 		nextTriggerEvent();
 	}
