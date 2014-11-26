@@ -66,6 +66,21 @@ static trigger_value_e eventType[6] = { TV_LOW, TV_HIGH, TV_LOW, TV_HIGH, TV_LOW
 #define getCurrentGapDuration(nowUs) \
 	(isFirstEvent ? 0 : (nowUs) - toothed_previous_time)
 
+#define nextTriggerEvent() \
+ { \
+	uint64_t prevTime = timeOfPreviousEventNt[triggerWheel]; \
+	if (prevTime != 0) { \
+		/* even event - apply the value*/ \
+		totalTimeNt[triggerWheel] += (nowNt - prevTime); \
+		timeOfPreviousEventNt[triggerWheel] = 0; \
+	} else { \
+		/* odd event - start accumulation */ \
+		timeOfPreviousEventNt[triggerWheel] = nowNt; \
+	} \
+	current_index++; \
+}
+
+
 /**
  * @brief Trigger decoding happens here
  * This method changes the state of trigger_state_s data structure according to the trigger event
@@ -94,7 +109,7 @@ void TriggerState::decodeTriggerEvent(trigger_config_s const*triggerConfig,
 		/**
 		 * For less important events we simply increment the index.
 		 */
-		nextTriggerEvent(triggerWheel, nowNt);
+		nextTriggerEvent();
 		if (TRIGGER_SHAPE(gapBothDirections)) {
 			toothed_previous_duration = getCurrentGapDuration(nowNt);
 			isFirstEvent = false;
@@ -168,11 +183,11 @@ void TriggerState::decodeTriggerEvent(trigger_config_s const*triggerConfig,
 
 		shaft_is_synchronized = true;
 		// this call would update duty cycle values
-		nextTriggerEvent(triggerWheel, nowNt);
+		nextTriggerEvent();
 
 		nextRevolution(TRIGGER_SHAPE(size), nowNt);
 	} else {
-		nextTriggerEvent(triggerWheel, nowNt);
+		nextTriggerEvent();
 	}
 
 	toothed_previous_duration = currentDuration;
