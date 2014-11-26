@@ -319,6 +319,7 @@ void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F) {
 			default:
 			firmwareError("unsupported ignitionMode %d in initializeIgnitionActions()", engineConfiguration->ignitionMode);
 		}
+		ENGINE(ignitionPin[i]) = ioPin;
 
 	}
 
