@@ -116,20 +116,26 @@ void TriggerState::decodeTriggerEvent(
 	int isLessImportant = (TRIGGER_SHAPE(useRiseEdge) && signal != SHAFT_PRIMARY_UP)
 			|| (!TRIGGER_SHAPE(useRiseEdge) && signal != SHAFT_PRIMARY_DOWN);
 
+	uint64_t currentDurationLong = getCurrentGapDuration(nowNt);
+
+//	if(currentDurationLong > 10 * US2NT(US_PER_SECOND)) {
+//		currentDuration = 10 * US2NT(US_PER_SECOND);
+//	} else
+	currentDuration = getCurrentGapDuration(nowNt);
+
 	if (isLessImportant) {
 		/**
 		 * For less important events we simply increment the index.
 		 */
 		nextTriggerEvent();
 		if (TRIGGER_SHAPE(gapBothDirections)) {
-			toothed_previous_duration = getCurrentGapDuration(nowNt);
+			toothed_previous_duration = currentDuration;
 			isFirstEvent = false;
 			toothed_previous_time = nowNt;
 		}
 		return;
 	}
 
-	currentDuration = getCurrentGapDuration(nowNt);
 	isFirstEvent = false;
 	efiAssertVoid(currentDuration >= 0, "decode: negative duration?");
 
