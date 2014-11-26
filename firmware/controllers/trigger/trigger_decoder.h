@@ -24,7 +24,6 @@ public:
 	uint64_t getTotalEventCounter();
 	uint64_t getStartOfRevolutionIndex();
 	void nextRevolution(int triggerEventCount, uint64_t nowUs);
-	void nextTriggerEvent(trigger_wheel_e triggerWheel, uint64_t nowNt);
 	void decodeTriggerEvent(trigger_config_s const*triggerConfig, trigger_event_e const signal, uint64_t nowUs DECLARE_ENGINE_PARAMETER_S);
 
 	float getTriggerDutyCycle(int index);

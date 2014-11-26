@@ -150,20 +150,6 @@ int TriggerState::getTotalRevolutionCounter() {
 	return totalRevolutionCounter;
 }
 
-void TriggerState::nextTriggerEvent(trigger_wheel_e triggerWheel, uint64_t nowNt) {
-	uint64_t prevTime = timeOfPreviousEventNt[triggerWheel];
-	if (prevTime != 0) {
-		// even event - apply the value
-		totalTimeNt[triggerWheel] += (nowNt - prevTime);
-		timeOfPreviousEventNt[triggerWheel] = 0;
-	} else {
-		// odd event - start accumulation
-		timeOfPreviousEventNt[triggerWheel] = nowNt;
-	}
-
-	current_index++;
-}
-
 void TriggerState::clear() {
 	memset(eventCount, 0, sizeof(eventCount));
 	memset(eventCountExt, 0, sizeof(eventCountExt));
