@@ -149,8 +149,6 @@ void TriggerCentral::handleShaftSignal(trigger_event_e signal, Engine *engine,
 	}
 	previousShaftEventTimeNt = nowNt;
 
-	trigger_shape_s * triggerShape = &engine->triggerShape;
-
 	/**
 	 * This invocation changes the state of triggerState
 	 */
@@ -172,12 +170,12 @@ void TriggerCentral::handleShaftSignal(trigger_event_e signal, Engine *engine,
 	} else {
 		bool isEven = triggerState.getTotalRevolutionCounter() & 1;
 
-		triggerIndexForListeners = triggerState.getCurrentIndex() + (isEven ? 0 : triggerShape->getSize());
+		triggerIndexForListeners = triggerState.getCurrentIndex() + (isEven ? 0 : TRIGGER_SHAPE(size));
 	}
 	reportEventToWaveChart(signal, triggerIndexForListeners);
 
-	if (triggerState.getCurrentIndex() >= engine->triggerShape.getSize()) {
-		warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.getCurrentIndex());
+	if (triggerState.current_index >= TRIGGER_SHAPE(size)) {
+		warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.current_index);
 	} else {
 
 		/**

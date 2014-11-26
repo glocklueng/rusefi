@@ -52,12 +52,12 @@ public:
 	uint32_t totalTriggerErrorCounter;
 	uint32_t orderingErrorCounter;
 
-private:
-	void clear();
 	/**
 	 * index within trigger revolution, from 0 to trigger event count
 	 */
 	uint32_t current_index;
+private:
+	void clear();
 	/**
 	 * Number of actual events within current trigger cycle
 	 * see trigger_shape_s
