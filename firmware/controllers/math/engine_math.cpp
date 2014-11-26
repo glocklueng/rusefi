@@ -117,9 +117,7 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 	switch (CONFIG(ignitionMode)) {
 	case IM_ONE_COIL:
 		for (int i = 0; i < CONFIG(cylindersCount); i++) {
-			// todo: extract method
-			float localAdvance = advance
-					+ (float) CONFIG(engineCycle) * i / CONFIG(cylindersCount);
+			float localAdvance = advance + ENGINE(angleExtra[i]);
 
 			registerSparkEvent(list, SPARKOUT_1_OUTPUT, localAdvance,
 					dwellAngle PASS_ENGINE_PARAMETER);
@@ -127,8 +125,7 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 		break;
 	case IM_WASTED_SPARK:
 		for (int i = 0; i < CONFIG(cylindersCount); i++) {
-			float localAdvance = advance
-					+ (float) CONFIG(engineCycle) * i / CONFIG(cylindersCount);
+			float localAdvance = advance + ENGINE(angleExtra[i]);
 
 			int wastedIndex = i % (CONFIG(cylindersCount) / 2);
 
@@ -141,8 +138,7 @@ void initializeIgnitionActions(float advance, float dwellAngle,
 		break;
 	case IM_INDIVIDUAL_COILS:
 		for (int i = 0; i < CONFIG(cylindersCount); i++) {
-			float localAdvance = advance
-					+ (float) CONFIG(engineCycle) * i / CONFIG(cylindersCount);
+			float localAdvance = advance + ENGINE(angleExtra[i]);
 
 			io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(CONFIG(firingOrder), i) - 1);
 			registerSparkEvent(list, pin, localAdvance,
@@ -337,6 +333,10 @@ void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F) {
 
 	// todo: move this reset into decoder
 	engine->triggerShape.calculateTriggerSynchPoint(engineConfiguration, engine);
+
+	for (int i = 0; i < CONFIG(cylindersCount); i++) {
+		ENGINE(angleExtra[i]) = (float) CONFIG(engineCycle) * i / CONFIG(cylindersCount);
+	}
 
 	injectonSignals.clear();
 	engineConfiguration2->crankingInjectionEvents.addFuelEvents(
