@@ -289,6 +289,29 @@ int getCylinderId(firing_order_e firingOrder, int index) {
 	return -1;
 }
 
+io_pin_e getIgnitionPinForIndex(int i  DECLARE_ENGINE_PARAMETER_S) {
+	switch (CONFIG(ignitionMode)) {
+		case IM_ONE_COIL:
+		return SPARKOUT_1_OUTPUT;
+		break;
+		case IM_WASTED_SPARK:
+		{
+			int wastedIndex = i % (CONFIG(cylindersCount) / 2);
+			int id = getCylinderId(CONFIG(firingOrder), wastedIndex) - 1;
+			return (io_pin_e) (SPARKOUT_1_OUTPUT + id);
+		}
+		break;
+		case IM_INDIVIDUAL_COILS:
+			return (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(CONFIG(firingOrder), i) - 1);
+		break;
+
+		default:
+		firmwareError("unsupported ignitionMode %d in initializeIgnitionActions()", engineConfiguration->ignitionMode);
+		return SPARKOUT_1_OUTPUT;
+	}
+
+}
+
 void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F) {
 
 	engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
@@ -299,27 +322,7 @@ void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F) {
 	for (int i = 0; i < CONFIG(cylindersCount); i++) {
 		ENGINE(angleExtra[i])= (float) CONFIG(engineCycle) * i / CONFIG(cylindersCount);
 
-		io_pin_e ioPin;
-
-		switch (CONFIG(ignitionMode)) {
-			case IM_ONE_COIL:
-			ioPin = SPARKOUT_1_OUTPUT;
-			break;
-			case IM_WASTED_SPARK:
-			{
-				int wastedIndex = i % (CONFIG(cylindersCount) / 2);
-				int id = getCylinderId(CONFIG(firingOrder), wastedIndex) - 1;
-				ioPin = (io_pin_e) (SPARKOUT_1_OUTPUT + id);
-			}
-			break;
-			case IM_INDIVIDUAL_COILS:
-			ioPin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + getCylinderId(CONFIG(firingOrder), i) - 1);
-			break;
-
-			default:
-			firmwareError("unsupported ignitionMode %d in initializeIgnitionActions()", engineConfiguration->ignitionMode);
-		}
-		ENGINE(ignitionPin[i]) = ioPin;
+		ENGINE(ignitionPin[i]) = getIgnitionPinForIndex(i PASS_ENGINE_PARAMETER);
 
 	}
 
