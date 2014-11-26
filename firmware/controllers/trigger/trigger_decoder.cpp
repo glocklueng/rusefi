@@ -118,10 +118,11 @@ void TriggerState::decodeTriggerEvent(
 
 	uint64_t currentDurationLong = getCurrentGapDuration(nowNt);
 
-//	if(currentDurationLong > 10 * US2NT(US_PER_SECOND)) {
-//		currentDuration = 10 * US2NT(US_PER_SECOND);
-//	} else
-	currentDuration = getCurrentGapDuration(nowNt);
+	/**
+	 * For performance reasons, we want to work with 32 bit values. If there has been more then
+	 * 10 seconds since previous trigger event we do not really care.
+	 */
+	currentDuration = currentDurationLong > 10 * US2NT(US_PER_SECOND_LL) ? 10 * US2NT(US_PER_SECOND_LL) : currentDurationLong;
 
 	if (isLessImportant) {
 		/**
