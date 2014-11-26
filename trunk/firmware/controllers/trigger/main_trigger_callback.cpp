@@ -100,13 +100,10 @@ static void endSimultaniousInjection(Engine *engine) {
 }
 
 static ALWAYS_INLINE void handleFuelInjectionEvent(InjectionEvent *event, int rpm DECLARE_ENGINE_PARAMETER_S) {
-engine->before5 = GET_TIMESTAMP();
-  /**
+	/**
 	 * todo: we do not really need to calculate fuel for each individual cylinder
 	 */
-	float fuelMs = 4;//getFuelMs(rpm PASS_ENGINE_PARAMETER) * engineConfiguration->globalFuelCorrection;
-	engine->time5 = GET_TIMESTAMP() - engine->before5;
-
+	float fuelMs = getFuelMs(rpm PASS_ENGINE_PARAMETER) * engineConfiguration->globalFuelCorrection;
 	if (cisnan(fuelMs)) {
 		warning(OBD_PCM_Processor_Fault, "NaN injection pulse");
 		return;
@@ -302,15 +299,11 @@ static void doSomeCalc(int rpm DECLARE_ENGINE_PARAMETER_S) {
 	engine->dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 }
 
-uint32_t mtBegin;
-uint32_t mtTotal;
-
 /**
  * This is the main trigger event handler.
  * Both injection and ignition are controlled from this method.
  */
 void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECLARE_ENGINE_PARAMETER_S) {
-	mtBegin = GET_TIMESTAMP();
 	if (hasFirmwareError()) {
 		/**
 		 * In case on a major error we should not process any more events.
@@ -388,17 +381,13 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 
 //	triggerEventsQueue.executeAll(getCrankEventCounter());
 
-//	handleFuel(eventIndex, rpm PASS_ENGINE_PARAMETER);
-//	handleSpark(eventIndex, rpm, &engine->engineConfiguration2->ignitionEvents[revolutionIndex] PASS_ENGINE_PARAMETER);
+	handleFuel(eventIndex, rpm PASS_ENGINE_PARAMETER);
+	handleSpark(eventIndex, rpm, &engine->engineConfiguration2->ignitionEvents[revolutionIndex] PASS_ENGINE_PARAMETER);
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0)
 	hsAdd(&mainLoopHisto, diff);
 #endif /* EFI_HISTOGRAMS */
-	mtTotal = GET_TIMESTAMP() - mtBegin;
-	if(mtTotal > 5000) {
-		mtTotal++;
-	}
 }
 
 #include "wave_chart.h"

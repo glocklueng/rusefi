@@ -122,9 +122,7 @@ bool isCranking(void) {
 }
 #endif
 
-
 extern uint32_t triggerHanlderEntryTime;
-uint32_t tt4;
 
 /**
  * @brief Shaft position callback used by RPM calculation logic.
@@ -145,12 +143,6 @@ void rpmShaftPositionCallback(trigger_event_e ckpSignalType, uint32_t index DECL
 		if (engineConfiguration->analogChartMode == AC_TRIGGER)
 			acAddData(getCrankshaftAngleNt(engine, nowNt), 1000 * ckpSignalType + index);
 #endif
-		tt4 = GET_TIMESTAMP() - triggerHanlderEntryTime;
-		if(tt4 > 2000) {
-			tt4++;
-		}
-
-
 		return;
 	}
 
@@ -179,11 +171,6 @@ void rpmShaftPositionCallback(trigger_event_e ckpSignalType, uint32_t index DECL
 	if (engineConfiguration->analogChartMode == AC_TRIGGER)
 		acAddData(getCrankshaftAngleNt(engine, nowNt), index);
 #endif
-	tt4 = GET_TIMESTAMP() - triggerHanlderEntryTime;
-	if(tt4 > 2000) {
-		tt4++;
-	}
-
 }
 
 static scheduling_s tdcScheduler[2];
@@ -242,7 +229,7 @@ void initRpmCalculator(Engine *engine) {
 
 	tdcScheduler[0].name = "tdc0";
 	tdcScheduler[1].name = "tdc1";
-//	addTriggerEventListener(tdcMarkCallback, "chart TDC mark", engine);
+	addTriggerEventListener(tdcMarkCallback, "chart TDC mark", engine);
 #endif
 
 	addTriggerEventListener(rpmShaftPositionCallback, "rpm reporter", engine);
