@@ -52,33 +52,8 @@ bool_t isTriggerDecoderError(void) {
 	return errorDetection.sum(6) > 4;
 }
 
-static ALWAYS_INLINE bool isSynchronizationGap(TriggerState *shaftPositionState, trigger_shape_s const *triggerShape,
-		const int currentDuration) {
-	if (!triggerShape->isSynchronizationNeeded) {
-		return false;
-	}
-
-#if ! EFI_PROD_CODE
-	if (printGapRatio) {
-
-		float gap = 1.0 * currentDuration / shaftPositionState->toothed_previous_duration;
-		print("current gap %f\r\n", gap);
-	}
-#else
-//	float gap = 1.0 * currentDuration / shaftPositionState->toothed_previous_duration;
-//	scheduleMsg(&logger, "gap=%f @ %d", gap, shaftPositionState->getCurrentIndex());
-
-#endif /* ! EFI_PROD_CODE */
-
-	return currentDuration > shaftPositionState->toothed_previous_duration * triggerShape->syncRatioFrom
-			&& currentDuration < shaftPositionState->toothed_previous_duration * triggerShape->syncRatioTo;
-}
-
 static ALWAYS_INLINE bool noSynchronizationResetNeeded(TriggerState *shaftPositionState,
 		trigger_shape_s const *triggerShape) {
-	if (triggerShape->isSynchronizationNeeded) {
-		return false;
-	}
 	if (!shaftPositionState->shaft_is_synchronized) {
 		return true;
 	}
@@ -153,7 +128,29 @@ void TriggerState::decodeTriggerEvent(trigger_shape_s const*triggerShape, trigge
 	}
 #endif
 
-	if (noSynchronizationResetNeeded(this, triggerShape) || isSynchronizationGap(this, triggerShape, currentDuration)) {
+	bool_t isSynchronizationPoint;
+
+	if (triggerShape->isSynchronizationNeeded) {
+#if ! EFI_PROD_CODE
+		if (printGapRatio) {
+
+			float gap = 1.0 * currentDuration / toothed_previous_duration;
+			print("current gap %f\r\n", gap);
+		}
+#else
+//	float gap = 1.0 * currentDuration / shaftPositionState->toothed_previous_duration;
+//	scheduleMsg(&logger, "gap=%f @ %d", gap, shaftPositionState->getCurrentIndex());
+
+#endif /* ! EFI_PROD_CODE */
+
+		isSynchronizationPoint = currentDuration > toothed_previous_duration * triggerShape->syncRatioFrom
+				&& currentDuration < toothed_previous_duration * triggerShape->syncRatioTo;
+
+	} else {
+		isSynchronizationPoint = noSynchronizationResetNeeded(this, triggerShape);
+	}
+
+	if (isSynchronizationPoint) {
 		/**
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
 		 */
@@ -218,8 +215,7 @@ void initializeSkippedToothTriggerShapeExt(trigger_shape_s *s, int totalTeethCou
 /**
  * External logger is needed because at this point our logger is not yet initialized
  */
-void initializeTriggerShape(Logging *logger, engine_configuration_s const *engineConfiguration,
-		Engine *engine) {
+void initializeTriggerShape(Logging *logger, engine_configuration_s const *engineConfiguration, Engine *engine) {
 #if EFI_PROD_CODE
 	scheduleMsg(logger, "initializeTriggerShape()");
 #endif
@@ -234,8 +230,7 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s const *engin
 	case TT_TOOTHED_WHEEL:
 		// todo: move to into configuration definition		engineConfiguration2->triggerShape.needSecondTriggerInput = false;
 
-		triggerShape->isSynchronizationNeeded =
-				engineConfiguration->triggerConfig.customIsSynchronizationNeeded;
+		triggerShape->isSynchronizationNeeded = engineConfiguration->triggerConfig.customIsSynchronizationNeeded;
 
 		initializeSkippedToothTriggerShapeExt(triggerShape, triggerConfig->customTotalToothCount,
 				triggerConfig->customSkippedToothCount, getOperationMode(engineConfiguration));
