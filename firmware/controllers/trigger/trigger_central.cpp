@@ -59,13 +59,14 @@ void addTriggerEventListener(ShaftPositionListener listener, const char *name, E
 	triggerCentral.addEventListener(listener, name, engine);
 }
 
+uint32_t triggerHanlderEntryTime;
+
 #if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 EXTERN_ENGINE
 ;
 
 int triggerReentraint = 0;
 int maxTriggerReentraint = 0;
-uint32_t triggerHanlderEntryTime;
 uint32_t triggerDuration;
 uint32_t triggerMaxDuration = 0;
 
