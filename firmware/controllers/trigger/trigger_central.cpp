@@ -170,7 +170,7 @@ void TriggerCentral::handleShaftSignal(trigger_event_e signal, Engine *engine,
 		// That's easy - trigger cycle matches engine cycle
 		triggerIndexForListeners = triggerState.getCurrentIndex();
 	} else {
-		bool isEven = (triggerState.getTotalRevolutionCounter() & 1) == 0;
+		bool isEven = triggerState.getTotalRevolutionCounter() & 1;
 
 		triggerIndexForListeners = triggerState.getCurrentIndex() + (isEven ? 0 : triggerShape->getSize());
 	}
