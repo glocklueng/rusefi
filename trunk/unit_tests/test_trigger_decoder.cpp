@@ -432,7 +432,7 @@ static void testRpmCalculator(void) {
 	assertEqualsM("queue size 3", 6, schedulingQueue.size());
 	assertEqualsM("ev 3", 259777, schedulingQueue.getForUnitText(0)->momentX);
 	assertEquals(259277, schedulingQueue.getForUnitText(1)->momentX);
-	assertEqualsM("ev 5", 261362, schedulingQueue.getForUnitText(2)->momentX);
+	assertEqualsM2("ev 5", 261362, schedulingQueue.getForUnitText(2)->momentX, 2);
 	assertEqualsM("3/3", 258333, schedulingQueue.getForUnitText(3)->momentX);
 	schedulingQueue.clear();
 
