@@ -458,7 +458,7 @@ static void testRpmCalculator(void) {
 	assertEqualsM("queue size 6", 6, schedulingQueue.size());
 	assertEqualsM("6/0", 286444, schedulingQueue.getForUnitText(0)->momentX);
 	assertEqualsM("6/1", 285944, schedulingQueue.getForUnitText(1)->momentX);
-	assertEqualsM("6/2", 288029, schedulingQueue.getForUnitText(2)->momentX);
+	assertEqualsM2("6/2", 288029, schedulingQueue.getForUnitText(2)->momentX, 1);
 	schedulingQueue.clear();
 
 	timeNow += 5000;
