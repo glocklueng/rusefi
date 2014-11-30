@@ -129,7 +129,8 @@ void startIdleThread(Engine *engine) {
 			boardConfiguration->idleValvePin,
 			IDLE_VALVE,
 			boardConfiguration->idleSolenoidFrequency,
-			boardConfiguration->idleSolenoidPwm);
+			boardConfiguration->idleSolenoidPwm,
+			applyPinState);
 
 	idleInit(&idle);
 	scheduleMsg(&logger, "initial idle %d", idle.value);
