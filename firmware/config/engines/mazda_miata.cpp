@@ -204,22 +204,6 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	setDefaultCrankingFuel(engineConfiguration);
 }
 
-void copyFuelTable(fuel_table_t const source, fuel_table_t destination) {
-	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
-		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
-			destination[k][r] = source[k][r];
-		}
-	}
-}
-
-void copyTimingTable(ignition_table_t const source, ignition_table_t destination) {
-	for (int k = 0; k < AD_LOAD_COUNT; k++) {
-		for (int r = 0; r < AD_RPM_COUNT; r++) {
-			destination[k][r] = source[k][r];
-		}
-	}
-}
-
 static void setMiata1994_common(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
 	commonMiataNa(engineConfiguration, boardConfiguration);
 	engineConfiguration->displacement = 1.839;
@@ -336,18 +320,8 @@ void setMiata1996(engine_configuration_s *engineConfiguration, board_configurati
 	commonMiataNa(engineConfiguration, boardConfiguration);
 	engineConfiguration->displacement = 1.839;
 
-	for (int k = 0; k < FUEL_LOAD_COUNT; k++) {
-		for (int r = 0; r < FUEL_RPM_COUNT; r++) {
-			engineConfiguration->fuelTable[k][r] = miata_maf_fuel_table[k][r];
-		}
-	}
-
-	// todo: extract an array16x16 type? extract a method?
-	for (int k = 0; k < AD_LOAD_COUNT; k++) {
-		for (int r = 0; r < AD_RPM_COUNT; r++) {
-			engineConfiguration->ignitionTable[k][r] = miata_maf_advance_table[k][r];
-		}
-	}
+	copyFuelTable(miata_maf_fuel_table, engineConfiguration->fuelTable);
+	copyTimingTable(miata_maf_advance_table, engineConfiguration->ignitionTable);
 
 	// upside down
 	boardConfiguration->triggerInputPins[0] = GPIOA_5;
