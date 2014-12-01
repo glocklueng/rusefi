@@ -550,4 +550,7 @@ void commonFrankensoAnalogInputs(engine_configuration_s *engineConfiguration);
 }
 #endif /* __cplusplus */
 
+void copyFuelTable(fuel_table_t const source, fuel_table_t destination);
+void copyTimingTable(ignition_table_t const source, ignition_table_t destination);
+
 #endif /* ENGINE_CONFIGURATION_H_ */
