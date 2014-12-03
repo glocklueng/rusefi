@@ -161,14 +161,20 @@ float atoff(const char *param) {
 	if (dotIndex == -1) {
 		// just an integer
 		int result = atoi(string);
+		if (absI(result) == ERROR_CODE)
+			return (float) NAN;
 		return (float) result;
 	}
 	// todo: this needs to be fixed
 	string[dotIndex] = 0;
 	int integerPart = atoi(string);
+	if (absI(integerPart) == ERROR_CODE)
+		return (float) NAN;
 	string += (dotIndex + 1);
 	int decimalLen = strlen(string);
 	int decimal = atoi(string);
+	if (absI(decimal) == ERROR_CODE)
+		return (float) NAN;
 	float divider = 1.0;
 	// todo: reuse 'pow10' function which we have anyway
 	for (int i = 0; i < decimalLen; i++) {
