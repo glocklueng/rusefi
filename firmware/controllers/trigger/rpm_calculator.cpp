@@ -62,7 +62,7 @@ RpmCalculator::RpmCalculator() {
 /**
  * @return true if there was a full shaft revolution within the last second
  */
-bool RpmCalculator::isRunning(void) {
+bool RpmCalculator::isRunning(DECLARE_ENGINE_PARAMETER_F) {
 	uint64_t nowNt = getTimeNowNt();
 	return nowNt - lastRpmEventTimeNt < US2NT(US_PER_SECOND);
 }
@@ -101,7 +101,7 @@ int RpmCalculator::rpm(DECLARE_ENGINE_PARAMETER_F) {
 	if (mockRpm != MOCK_UNDEFINED)
 	return mockRpm;
 #endif
-	if (!isRunning()) {
+	if (!isRunning(PASS_ENGINE_PARAMETER_F)) {
 		revolutionCounterSinceStart = 0;
 		return 0;
 	}
@@ -146,7 +146,7 @@ void rpmShaftPositionCallback(trigger_event_e ckpSignalType, uint32_t index DECL
 		return;
 	}
 
-	bool hadRpmRecently = rpmState->isRunning();
+	bool hadRpmRecently = rpmState->isRunning(PASS_ENGINE_PARAMETER_F);
 
 	if (hadRpmRecently) {
 		uint64_t diffNt = nowNt - rpmState->lastRpmEventTimeNt;
