@@ -147,7 +147,11 @@ bool isSameF(float v1, float v2) {
 	return absF(v1 - v2) < EPS;
 }
 
-// string to float
+/**
+ * string to float
+ * @return NAN in case of invalid string
+ * todo: explicit value for error code?
+ */
 float atoff(const char *param) {
 	uint32_t totallen = strlen(param);
 	if (totallen > sizeof(todofixthismesswithcopy) - 1)
