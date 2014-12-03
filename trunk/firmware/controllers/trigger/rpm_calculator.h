@@ -31,7 +31,7 @@ public:
 	int mockRpm;
 #endif
 	RpmCalculator();
-	bool isRunning(void);
+	bool isRunning(DECLARE_ENGINE_PARAMETER_F);
 	int rpm(DECLARE_ENGINE_PARAMETER_F);
 	void onNewEngineCycle();
 	uint32_t getRevolutionCounter(void);
