@@ -54,21 +54,21 @@ public class BracerParserTest {
     public void testSimpleBoolean() throws Exception {
         bracerParser.parse("true or false");
         assertEquals("1", bracerParser.evaluate());
-        assertEquals("1, 0, |", bracerParser.getRusEfi());
+        assertEquals("1 0 |", bracerParser.getRusEfi());
 
         bracerParser.parse("true > false");
         assertEquals("1", bracerParser.evaluate());
-        assertEquals("1, 0, >", bracerParser.getRusEfi());
+        assertEquals("1 0 >", bracerParser.getRusEfi());
 
         bracerParser.parse("(true > false)");
         assertEquals("1", bracerParser.evaluate());
-        assertEquals("1, 0, >", bracerParser.getRusEfi());
+        assertEquals("1 0 >", bracerParser.getRusEfi());
 
         bracerParser.parse("rpm > false");
-        assertEquals("rpm, 0, >", bracerParser.getRusEfi());
+        assertEquals("rpm 0 >", bracerParser.getRusEfi());
 
         bracerParser.parse("(rpm > false)");
-        assertEquals("rpm, 0, >", bracerParser.getRusEfi());
+        assertEquals("rpm 0 >", bracerParser.getRusEfi());
     }
 
     @Test
@@ -91,19 +91,19 @@ public class BracerParserTest {
     @Test
     public void testRusEfi() throws ParseException {
         bracerParser.parse("(time_since_boot < 4) | (rpm > 0)");
-        assertEquals("time_since_boot, 4, <, rpm, 0, >, |", bracerParser.getRusEfi());
+        assertEquals("time_since_boot 4 < rpm 0 > |", bracerParser.getRusEfi());
 
         bracerParser.parse("(fan and (coolant > fan_off_setting)) OR (coolant > fan_on_setting)");
-        assertEquals("fan, coolant, fan_off_setting, >, &, coolant, fan_on_setting, >, OR", bracerParser.getRusEfi());
+        assertEquals("fan coolant fan_off_setting > & coolant fan_on_setting > OR", bracerParser.getRusEfi());
 
         bracerParser.parse("(time_since_boot <= 4) | (rpm > 0)");
-        assertEquals("time_since_boot, 4, <=, rpm, 0, >, |", bracerParser.getRusEfi());
+        assertEquals("time_since_boot 4 <= rpm 0 > |", bracerParser.getRusEfi());
 
         bracerParser.parse("(time_since_boot <= 4) | (rpm > 0)");
-        assertEquals("time_since_boot, 4, <=, rpm, 0, >, |", bracerParser.getRusEfi());
+        assertEquals("time_since_boot 4 <= rpm 0 > |", bracerParser.getRusEfi());
 
         bracerParser.parse("(time_since_boot <= 4) OR (rpm > 0)");
-        assertEquals("time_since_boot, 4, <=, rpm, 0, >, OR", bracerParser.getRusEfi());
+        assertEquals("time_since_boot 4 <= rpm 0 > OR", bracerParser.getRusEfi());
     }
 
     @Test
@@ -111,6 +111,6 @@ public class BracerParserTest {
         bracerParser.parse("(((true | false) & not(false)) | (true | false))");
         assertEquals("1", bracerParser.evaluate());
 
-        assertEquals("1, 0, |, not, 0, &, 1, 0, |, |", bracerParser.getRusEfi());
+        assertEquals("1 0 | not 0 & 1 0 | |", bracerParser.getRusEfi());
     }
 }
