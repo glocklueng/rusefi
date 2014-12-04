@@ -367,10 +367,13 @@ public class BracerParser {
         List<String> list = new ArrayList<>(getStackRPN());
         ListIterator<String> li = list.listIterator(list.size());
         List<String> reverse = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
         while (li.hasPrevious()) {
-            reverse.add(li.previous());
+            if (sb.length() > 0)
+                sb.append(" ");
+            sb.append(li.previous());
         }
         String result = reverse.toString();
-        return result.substring(1, result.length() - 1);
+        return sb.toString();
     }
 }
