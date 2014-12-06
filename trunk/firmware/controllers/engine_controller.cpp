@@ -57,16 +57,6 @@
 #include "pin_repository.h"
 #include "pwm_generator.h"
 
-#define SYS_ELEMENT_POOL_SIZE 128
-#define UD_ELEMENT_POOL_SIZE 128
-
-static LECalculator calc;
-static LEElement sysElements[SYS_ELEMENT_POOL_SIZE];
-static LEElementPool sysPool(sysElements, SYS_ELEMENT_POOL_SIZE);
-
-static LEElement userElements[UD_ELEMENT_POOL_SIZE];
-static LEElementPool userPool(userElements, UD_ELEMENT_POOL_SIZE);
-
 static LEElement * acRelayLogic;
 static LEElement * fuelPumpLogic;
 static LEElement * radiatorFanLogic;
@@ -76,7 +66,10 @@ extern OutputPin outputs[IO_PIN_COUNT];
 extern pin_output_mode_e *pinDefaultState[IO_PIN_COUNT];
 extern bool hasFirmwareErrorFlag;
 
-static LEElement * fsioLogics[LE_COMMAND_COUNT] CCM_OPTIONAL;
+extern LEElementPool sysPool;
+extern LEElementPool userPool;
+
+
 static SimplePwm fsioPwm[LE_COMMAND_COUNT] CCM_OPTIONAL;
 
 persistent_config_container_s persistentState CCM_OPTIONAL;
@@ -201,6 +194,9 @@ static void cylinderCleanupControl(Engine *engine) {
 		scheduleMsg(&logger, "isCylinderCleanupMode %s", boolToString(newValue));
 	}
 }
+
+static LECalculator calc;
+extern LEElement * fsioLogics[LE_COMMAND_COUNT];
 
 static void handleFsio(Engine *engine, int index) {
 	if (boardConfiguration->fsioPins[index] == GPIO_UNASSIGNED)
@@ -420,10 +416,6 @@ static void setFloat(const char *offsetStr, const char *valueStr) {
 	scheduleMsg(&logger, "setting float @%d to %f", offset, value);
 }
 
-void parseUserFsio(void) {
-
-}
-
 static pin_output_mode_e d = OM_DEFAULT;
 
 void initEngineContoller(Engine *engine) {
@@ -522,21 +514,10 @@ void initEngineContoller(Engine *engine) {
 
 	addConsoleAction("analoginfo", printAnalogInfo);
 
-	parseUserFsio();
-
 	for (int i = 0; i < LE_COMMAND_COUNT; i++) {
 		brain_pin_e brainPin = boardConfiguration->fsioPins[i];
 
 		if (brainPin != GPIO_UNASSIGNED) {
-
-			const char *formula = boardConfiguration->le_formulas[i];
-			LEElement *logic = userPool.parseExpression(formula);
-			if (logic == NULL) {
-				warning(OBD_PCM_Processor_Fault, "parsing [%s]", formula);
-			}
-
-			fsioLogics[i] = logic;
-
 			//mySetPadMode2("user-defined", boardConfiguration->gpioPins[i], PAL_STM32_MODE_OUTPUT);
 
 			io_pin_e pin = (io_pin_e) ((int) GPIO_0 + i);
