@@ -52,6 +52,16 @@ static LECalculator evalCalc;
 static LEElement evalPoolElements[LE_EVAL_POOL_SIZE];
 static LEElementPool evalPool(evalPoolElements, LE_EVAL_POOL_SIZE);
 
+#define SYS_ELEMENT_POOL_SIZE 128
+#define UD_ELEMENT_POOL_SIZE 128
+
+static LEElement sysElements[SYS_ELEMENT_POOL_SIZE];
+LEElementPool sysPool(sysElements, SYS_ELEMENT_POOL_SIZE);
+
+static LEElement userElements[UD_ELEMENT_POOL_SIZE];
+LEElementPool userPool(userElements, UD_ELEMENT_POOL_SIZE);
+LEElement * fsioLogics[LE_COMMAND_COUNT] CCM_OPTIONAL;
+
 LENameOrdinalPair::LENameOrdinalPair(le_action_e action, const char *name) {
 	this->action = action;
 	this->name = name;
@@ -382,6 +392,24 @@ static void eval(char *line, Engine *engine) {
 	} else {
 		float result = evalCalc.getValue2(e, engine);
 		scheduleMsg(&logger, "Eval result: %f", result);
+	}
+}
+
+EXTERN_ENGINE;
+
+void parseUserFsio(DECLARE_ENGINE_PARAMETER_F) {
+	for (int i = 0; i < LE_COMMAND_COUNT; i++) {
+		brain_pin_e brainPin = boardConfiguration->fsioPins[i];
+
+		if (brainPin != GPIO_UNASSIGNED) {
+			const char *formula = boardConfiguration->le_formulas[i];
+			LEElement *logic = userPool.parseExpression(formula);
+			if (logic == NULL) {
+				warning(OBD_PCM_Processor_Fault, "parsing [%s]", formula);
+			}
+
+			fsioLogics[i] = logic;
+		}
 	}
 }
 
