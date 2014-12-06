@@ -271,7 +271,7 @@ float LECalculator::getValue(Engine *engine) {
 
 LEElementPool::LEElementPool(LEElement *pool, int size) {
 	this->pool = pool;
-	this->size = size;
+	this->capacity = capacity;
 	reset();
 }
 
@@ -279,8 +279,12 @@ void LEElementPool::reset() {
 	index = 0;
 }
 
+int LEElementPool::getSize() {
+	return index;
+}
+
 LEElement *LEElementPool::next() {
-	if (index == size - 1) {
+	if (index == capacity - 1) {
 		// todo: this should not be a fatal error, just an error
 		firmwareError("LE_ELEMENT_POOL_SIZE overflow");
 		return NULL;
