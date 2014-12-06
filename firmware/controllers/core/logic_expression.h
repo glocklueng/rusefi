@@ -69,9 +69,10 @@ public:
 	LEElement *next();
 	void reset();
 	LEElement * parseExpression(const char * line);
+	int getSize();
 private:
 	int index;
-	int size;
+	int capacity;
 };
 
 
