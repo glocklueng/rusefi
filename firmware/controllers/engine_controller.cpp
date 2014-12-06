@@ -57,11 +57,15 @@
 #include "pin_repository.h"
 #include "pwm_generator.h"
 
-#define LE_ELEMENT_POOL_SIZE 256
+#define SYS_ELEMENT_POOL_SIZE 128
+#define UD_ELEMENT_POOL_SIZE 128
 
 static LECalculator calc;
-static LEElement mainPool[LE_ELEMENT_POOL_SIZE];
-static LEElementPool lePool(mainPool, LE_ELEMENT_POOL_SIZE);
+static LEElement sysElements[SYS_ELEMENT_POOL_SIZE];
+static LEElementPool sysPool(sysElements, SYS_ELEMENT_POOL_SIZE);
+
+static LEElement userElements[UD_ELEMENT_POOL_SIZE];
+static LEElementPool userPool(userElements, UD_ELEMENT_POOL_SIZE);
 
 static LEElement * acRelayLogic;
 static LEElement * fuelPumpLogic;
@@ -198,7 +202,7 @@ static void cylinderCleanupControl(Engine *engine) {
 	}
 }
 
-static void handleGpio(Engine *engine, int index) {
+static void handleFsio(Engine *engine, int index) {
 	if (boardConfiguration->fsioPins[index] == GPIO_UNASSIGNED)
 		return;
 
@@ -251,7 +255,7 @@ static void onEvenyGeneralMilliseconds(Engine *engine) {
 	engine->updateSlowSensors();
 
 	for (int i = 0; i < LE_COMMAND_COUNT; i++) {
-		handleGpio(engine, i);
+		handleFsio(engine, i);
 	}
 
 #if EFI_FUEL_PUMP
@@ -326,6 +330,22 @@ static void printAnalogInfo(void) {
 
 static THD_WORKING_AREA(csThreadStack, UTILITY_THREAD_STACK_SIZE);	// declare thread stack
 
+static void showFsio(const char *msg, LEElement *element) {
+	scheduleMsg(&logger, "%s:", msg);
+	while (element != NULL) {
+		scheduleMsg(&logger, "action %d: fValue=%f iValue=%d", element->action, element->fValue, element->iValue);
+		element = element->next;
+	}
+	scheduleMsg(&logger, "<end>");
+}
+
+static void showFsioInfo(void) {
+	scheduleMsg(&logger, "sys used %d/user used %d", sysPool.getSize(), userPool.getSize());
+	showFsio("ac", acRelayLogic);
+	showFsio("fuel", fuelPumpLogic);
+
+}
+
 static void setFsioFrequency(int index, int frequency) {
 	index--;
 	if (index < 0 || index > LE_COMMAND_COUNT) {
@@ -398,6 +418,10 @@ static void setFloat(const char *offsetStr, const char *valueStr) {
 	float *ptr = (float *) (&((char *) engine->engineConfiguration)[offset]);
 	*ptr = value;
 	scheduleMsg(&logger, "setting float @%d to %f", offset, value);
+}
+
+void parseUserFsio(void) {
+
 }
 
 static pin_output_mode_e d = OM_DEFAULT;
@@ -489,14 +513,16 @@ void initEngineContoller(Engine *engine) {
 #endif
 
 #if EFI_FUEL_PUMP
-	fuelPumpLogic = lePool.parseExpression(FUEL_PUMP_LOGIC);
+	fuelPumpLogic = sysPool.parseExpression(FUEL_PUMP_LOGIC);
 #endif
 
-	acRelayLogic = lePool.parseExpression(AC_RELAY_LOGIC);
+	acRelayLogic = sysPool.parseExpression(AC_RELAY_LOGIC);
 
-	alternatorLogic = lePool.parseExpression(ALTERNATOR_LOGIC);
+	alternatorLogic = sysPool.parseExpression(ALTERNATOR_LOGIC);
 
 	addConsoleAction("analoginfo", printAnalogInfo);
+
+	parseUserFsio();
 
 	for (int i = 0; i < LE_COMMAND_COUNT; i++) {
 		brain_pin_e brainPin = boardConfiguration->fsioPins[i];
@@ -504,7 +530,7 @@ void initEngineContoller(Engine *engine) {
 		if (brainPin != GPIO_UNASSIGNED) {
 
 			const char *formula = boardConfiguration->le_formulas[i];
-			LEElement *logic = lePool.parseExpression(formula);
+			LEElement *logic = userPool.parseExpression(formula);
 			if (logic == NULL) {
 				warning(OBD_PCM_Processor_Fault, "parsing [%s]", formula);
 			}
@@ -532,5 +558,7 @@ void initEngineContoller(Engine *engine) {
 	addConsoleActionSS("set_int", (VoidCharPtrCharPtr) setInt);
 	addConsoleActionI("get_float", getFloat);
 	addConsoleActionI("get_int", getInt);
+
+	addConsoleAction("fsioinfo", showFsioInfo);
 	initEval(engine);
 }
