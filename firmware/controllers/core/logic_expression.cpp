@@ -397,6 +397,13 @@ static void eval(char *line, Engine *engine) {
 
 EXTERN_ENGINE;
 
+void initEval(Engine *engine) {
+	initLogging(&logger, "le");
+	addConsoleActionSP("eval", (VoidCharPtrVoidPtr) eval, engine);
+}
+
+#endif
+
 void parseUserFsio(DECLARE_ENGINE_PARAMETER_F) {
 	for (int i = 0; i < LE_COMMAND_COUNT; i++) {
 		brain_pin_e brainPin = boardConfiguration->fsioPins[i];
@@ -412,10 +419,3 @@ void parseUserFsio(DECLARE_ENGINE_PARAMETER_F) {
 		}
 	}
 }
-
-void initEval(Engine *engine) {
-	initLogging(&logger, "le");
-	addConsoleActionSP("eval", (VoidCharPtrVoidPtr) eval, engine);
-}
-
-#endif
