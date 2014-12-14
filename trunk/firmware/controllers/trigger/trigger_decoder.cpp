@@ -155,6 +155,8 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, uint64_t now
 
 	if (TRIGGER_SHAPE(isSynchronizationNeeded)) {
 #if ! EFI_PROD_CODE
+		// todo: replace printGapRatio with engineConfiguration->isPrintTriggerSynchDetails
+		// and merge these two sections
 		if (printGapRatio) {
 
 			float gap = 1.0 * currentDuration / toothed_previous_duration;
@@ -191,9 +193,11 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, uint64_t now
 		if (isDecodingError) {
 			totalTriggerErrorCounter++;
 			if (engineConfiguration->isPrintTriggerSynchDetails) {
+#if EFI_PROD_CODE
 				scheduleMsg(&logger, "error: synchronizationPoint @ index %d expected %d/%d/%d got %d/%d/%d", current_index,
 						TRIGGER_SHAPE(expectedEventCount[0]), TRIGGER_SHAPE(expectedEventCount[1]),
 											TRIGGER_SHAPE(expectedEventCount[2]), eventCount[0], eventCount[1], eventCount[2]);
+#endif /* EFI_PROD_CODE */
 			}
 		}
 
