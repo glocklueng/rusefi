@@ -28,10 +28,6 @@ static int can_write_not_ok = 0;
 static Logging logger;
 static THD_WORKING_AREA(canTreadStack, UTILITY_THREAD_STACK_SIZE);
 
-extern engine_configuration_s *engineConfiguration;
-extern engine_configuration2_s *engineConfiguration2;
-extern board_configuration_s *board_configuration;
-
 /*
  * 500KBaud
  * automatic wakeup
