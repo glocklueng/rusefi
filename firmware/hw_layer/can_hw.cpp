@@ -203,10 +203,10 @@ static msg_t canThread(void *arg) {
 static void canInfo(void) {
 	scheduleMsg(&logger, "CAN TX %s", hwPortname(boardConfiguration->canTxPin));
 	scheduleMsg(&logger, "CAN RX %s", hwPortname(boardConfiguration->canRxPin));
-	scheduleMsg(&logger, "type=%d canReadEnabled=%d canWriteEnabled=%d",
+	scheduleMsg(&logger, "type=%d canReadEnabled=%s canWriteEnabled=%s",
 			engineConfiguration->can_nbc_type,
-			engineConfiguration->canReadEnabled,
-			engineConfiguration->canWriteEnabled);
+			boolToString(engineConfiguration->canReadEnabled),
+			boolToString(engineConfiguration->canWriteEnabled));
 
 	scheduleMsg(&logger, "CAN rx count %d/tx ok %d/tx not ok %d", canReadCounter,
 			can_write_ok, can_write_not_ok);
