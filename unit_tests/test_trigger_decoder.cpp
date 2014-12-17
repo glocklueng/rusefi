@@ -19,6 +19,7 @@
 #include "event_queue.h"
 #include "algo.h"
 #include "trigger_mazda.h"
+#include "trigger_chrysler.h"
 
 #include "trigger_central.h"
 #include "main_trigger_callback.h"
@@ -532,7 +533,7 @@ void testTriggerDecoder(void) {
 	testTriggerDecoder3("miata 1994", MIATA_1994_DEVIATOR, 11, 0.2985, 0.3890, MIATA_NA_GAP);
 	testTriggerDecoder3("citroen", CITROEN_TU3JP, 0, 0.4833, 0.0, 2.9994);
 
-	testTriggerDecoder3("neon NGC", DODGE_NEON_2003, 5, 0.4861, 0.0, 2.9135);
+	testTriggerDecoder3("neon NGC", DODGE_NEON_2003, 5, 0.4861, 0.0, CHRYSLER_NGC_GAP);
 
 	testMazda323();
 
