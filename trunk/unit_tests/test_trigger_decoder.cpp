@@ -303,6 +303,10 @@ static void testTriggerDecoder2(const char *msg, engine_type_e type, int synchPo
 	assertEqualsM("channel2duty", channel2duty, t->dutyCycle[1]);
 }
 
+static void testTriggerDecoder3(const char *msg, engine_type_e type, int synchPointIndex, float channel1duty, float channel2duty) {
+	testTriggerDecoder2(msg, type, synchPointIndex, channel1duty, channel2duty);
+}
+
 void testGY6_139QMB(void) {
 	printf("*************************************************** testGY6_139QMB\r\n");
 
@@ -520,11 +524,11 @@ void testTriggerDecoder(void) {
 
 	testTriggerDecoder2("testMitsu", MITSU_4G93, 3, 0.3750, 0.3889);
 //	testTriggerDecoder2("miata 1990", MIATA_1990, 0, 0.6280, 0.0);
-	testTriggerDecoder2("miata 1994", MIATA_1994_DEVIATOR, 11, 0.2917, 0.3716);
+	testTriggerDecoder3("miata 1994", MIATA_1994_DEVIATOR, 11, 0.2917, 0.3716);
 	testTriggerDecoder2("citroen", CITROEN_TU3JP, 0, 0.4833, 0.0);
 
 	printGapRatio = true;
-	testTriggerDecoder2("neon NGC", DODGE_NEON_2003, 5, 0.4861, 0.0);
+	testTriggerDecoder3("neon NGC", DODGE_NEON_2003, 5, 0.4861, 0.0);
 	printGapRatio = false;
 
 	testMazda323();
