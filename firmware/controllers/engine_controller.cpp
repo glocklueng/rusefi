@@ -268,13 +268,13 @@ static void onEvenyGeneralMilliseconds(Engine *engine) {
 	}
 
 	if (boardConfiguration->fanPin != GPIO_UNASSIGNED) {
-		setPinState(FAN_RELAY, radiatorFanLogic, engine);
+//		setPinState(FAN_RELAY, radiatorFanLogic, engine);
 	}
 
 	updateErrorCodes();
 
 	// todo: migrate this to flex logic
-//	fanRelayControl();
+	fanRelayControl();
 
 	cylinderCleanupControl(engine);
 
