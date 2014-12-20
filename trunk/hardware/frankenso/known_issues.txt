@@ -49,6 +49,7 @@
 48)                  Make hidden text for component values align such that a picture can be caputured that displays the component values. 
 49)                  check VR against 1996 Miata's. 
 50)                  HIP9011 CS line needs to be pulled down, not pulled up
+51)                  CAN_RX line should be connected to PB12, not PD12
 
 For honda add-on / rewiring board
 -- Add 2A high side solinoid drive for VTec sol
