@@ -185,7 +185,6 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
 	config/stm32f4ems \
 	config/system \
 	config/engines \
-	config/boards \
 	config \
 	chibios/os/various \
 	ext \

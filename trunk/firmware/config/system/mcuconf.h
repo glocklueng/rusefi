@@ -30,7 +30,6 @@
 
 #define STM32F4xx_MCUCONF
 
-#include "boards.h"
 #include "efifeatures.h"
 #include "rusefi_enums.h"
 
