@@ -94,7 +94,9 @@ void setSingleCoilDwell(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->sparkDwell[7] = 0;
 }
 
+#if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 OutputSignalList injectonSignals CCM_OPTIONAL;
+#endif
 
 void initializeIgnitionActions(float advance, float dwellAngle, IgnitionEventList *list DECLARE_ENGINE_PARAMETER_S) {
 
@@ -119,6 +121,8 @@ void initializeIgnitionActions(float advance, float dwellAngle, IgnitionEventLis
 		findTriggerPosition(&event->dwellPosition, localAdvance - dwellAngle PASS_ENGINE_PARAMETER);
 	}
 }
+
+#if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 
 void FuelSchedule::registerInjectionEvent(io_pin_e pin, float angle, bool_t isSimultanious DECLARE_ENGINE_PARAMETER_S) {
 	ActuatorEventList *list = &events;
@@ -200,6 +204,8 @@ void FuelSchedule::addFuelEvents(injection_mode_e mode DECLARE_ENGINE_PARAMETER_
 		firmwareError("Unexpected injection mode %d", mode);
 	}
 }
+
+#endif
 
 /**
  * @return Spark dwell time, in milliseconds.
@@ -319,6 +325,8 @@ io_pin_e getIgnitionPinForIndex(int i DECLARE_ENGINE_PARAMETER_S) {
 
 }
 
+#if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
+
 void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F) {
 
 	engine_configuration2_s *engineConfiguration2 = engine->engineConfiguration2;
@@ -342,6 +350,8 @@ void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F) {
 			engineConfiguration->crankingInjectionMode PASS_ENGINE_PARAMETER);
 	engineConfiguration2->injectionEvents.addFuelEvents(engineConfiguration->injectionMode PASS_ENGINE_PARAMETER);
 }
+
+#endif
 
 void setFuelRpmBin(engine_configuration_s *engineConfiguration, float l, float r) {
 	setTableBin(engineConfiguration->fuelRpmBins, FUEL_RPM_COUNT, l, r);
