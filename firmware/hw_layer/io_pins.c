@@ -17,7 +17,7 @@
 #include "engine_configuration.h"
 #include "console_io.h"
 
-#if EFI_ENGINE_CONTROL
+#if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 #include "main_trigger_callback.h"
 #endif /* EFI_ENGINE_CONTROL */
 
