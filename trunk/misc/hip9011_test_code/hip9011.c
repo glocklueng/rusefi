@@ -1,5 +1,13 @@
 #include "stm32f4xx.h"
 
+/**
+ * SPI 2
+ *
+ * CS: PB12
+ *
+ */
+
+
 #define NO_DATA 0x0100
 
 #define RX_BUF_SIZE 128
@@ -95,6 +103,7 @@ int main(void)
             uart_putc(spi(data));
         }*/
 
+    	// LED on PD12 goes LOW
         GPIOD->BSRRL = GPIO_ODR_ODR_12;
         // delay
         for (i = 0; i < 10000; i++);
@@ -106,6 +115,7 @@ int main(void)
         // int/hold LOW
         GPIOB->BSRRL = GPIO_ODR_ODR_11;
 
+    	// LED on PD12 goes HIGH
         GPIOD->BSRRH = GPIO_ODR_ODR_12;
         // delay
         for (i = 0; i < 10000; i++);
@@ -121,7 +131,7 @@ uint16_t spi(uint16_t data)
 {
     volatile uint16_t i;
 
-    // Chip Select PD12
+    // Chip Select PB12 goes HIGH
     GPIOB->BSRRH = GPIO_ODR_ODR_12;
 
     for (i = 0; i < 10; i++);
@@ -134,6 +144,7 @@ uint16_t spi(uint16_t data)
 
     for (i = 0; i < 10; i++);
 
+    // Chip Select PB12 goes LOW
     GPIOB->BSRRL = GPIO_ODR_ODR_12;
 
     for (i = 0; i < 100; i++);
