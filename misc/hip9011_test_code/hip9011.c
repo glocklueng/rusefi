@@ -3,7 +3,12 @@
 /**
  * SPI 2
  *
- * CS: PB12
+ * Chip Select: PD11
+ *
+ *
+ * http://www.ti.com/lit/ds/symlink/tpic8101.pdf
+ * http://www.intersil.com/content/dam/Intersil/documents/an97/an9770.pdf
+ * http://e2e.ti.com/cfs-file/__key/telligent-evolution-components-attachments/00-26-01-00-00-42-36-40/TPIC8101-Training.pdf
  *
  */
 
@@ -37,10 +42,10 @@ int main(void)
     GPIOB->OTYPER |= GPIO_OTYPER_OT_11;
     GPIOB->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR11_1;
 
-    // PB12 / NSS
-    GPIOB->MODER |= GPIO_MODER_MODER12_0;
-    GPIOB->OTYPER |= GPIO_OTYPER_OT_12;
-    GPIOB->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR12_1;
+    // PD11 / Chip Select
+    GPIOD->MODER |= GPIO_MODER_MODER11_0;
+    GPIOD->OTYPER |= GPIO_OTYPER_OT_11;
+    GPIOD->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR11_1;
 
     // PB13 / SCK
     GPIOB->MODER |= GPIO_MODER_MODER13_1;
@@ -96,6 +101,9 @@ int main(void)
     uart_putc(spi(0b01001100));
     uart_putc(spi(0b11100001));
 
+    // SET_ADVANCED_MODE
+    uart_putc(spi(0b01110001));
+
     for (;;) {
         /*data = uart_getc();
 
@@ -108,9 +116,16 @@ int main(void)
         // delay
         for (i = 0; i < 10000; i++);
 
+        // BAND_PASS_CMD
         uart_putc(spi(0b00000000 | (40 & 0x3F)));
+        // Set the gain
         uart_putc(spi(0b10000000 | (49 & 0x3F)));
+        // Set the integration time constant
         uart_putc(spi(0b11000000 | (31 & 0x1F)));
+
+        // SET_ADVANCED_MODE
+        uart_putc(spi(0b01110001));
+
 
         // int/hold LOW
         GPIOB->BSRRL = GPIO_ODR_ODR_11;
@@ -131,8 +146,8 @@ uint16_t spi(uint16_t data)
 {
     volatile uint16_t i;
 
-    // Chip Select PB12 goes HIGH
-    GPIOB->BSRRH = GPIO_ODR_ODR_12;
+    // Chip Select PD11 goes HIGH
+    GPIOD->BSRRH = GPIO_ODR_ODR_11;
 
     for (i = 0; i < 10; i++);
 
@@ -144,8 +159,8 @@ uint16_t spi(uint16_t data)
 
     for (i = 0; i < 10; i++);
 
-    // Chip Select PB12 goes LOW
-    GPIOB->BSRRL = GPIO_ODR_ODR_12;
+    // Chip Select PD11 goes LOW
+    GPIOD->BSRRL = GPIO_ODR_ODR_11;
 
     for (i = 0; i < 100; i++);
 
