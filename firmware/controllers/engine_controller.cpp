@@ -87,8 +87,10 @@ static VirtualTimer everyMsTimer;
 
 static Logging logger;
 
+#if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 static engine_configuration2_s ec2 CCM_OPTIONAL;
 engine_configuration2_s * engineConfiguration2 = &ec2;
+#endif
 
 #if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 
