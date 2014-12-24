@@ -183,6 +183,8 @@ void initOutputPins(void) {
 	addConsoleActionS("get_pin_value", getPinValue);
 }
 
+#if EFI_GPIO
+
 static io_pin_e TO_BE_TURNED_OFF_ON_ERROR[] = { SPARKOUT_1_OUTPUT, SPARKOUT_2_OUTPUT, SPARKOUT_3_OUTPUT,
 		SPARKOUT_4_OUTPUT, SPARKOUT_5_OUTPUT, SPARKOUT_6_OUTPUT, SPARKOUT_7_OUTPUT, SPARKOUT_8_OUTPUT,
 		SPARKOUT_9_OUTPUT, SPARKOUT_10_OUTPUT, SPARKOUT_11_OUTPUT, SPARKOUT_12_OUTPUT,
@@ -202,4 +204,4 @@ void turnAllPinsOff(void) {
 		turnOutputPinOff(l);
 	}
 }
-
+#endif
