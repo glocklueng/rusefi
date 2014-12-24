@@ -110,7 +110,7 @@ Engine * engine = &_engine;
 
 static msg_t csThread(void) {
 	chRegSetThreadName("status");
-#if EFI_SHAFT_POSITION_INPUT
+#if EFI_SHAFT_POSITION_INPUT || defined(__DOXYGEN__)
 	while (true) {
 		int rpm = getRpm();
 		int is_cranking = isCrankingR(rpm);
@@ -490,7 +490,7 @@ void initEngineContoller(Engine *engine) {
 	}
 #endif /* EFI_WAVE_ANALYZER */
 
-#if EFI_SHAFT_POSITION_INPUT
+#if EFI_SHAFT_POSITION_INPUT || defined(__DOXYGEN__)
 	/**
 	 * there is an implicit dependency on the fact that 'tachometer' listener is the 1st listener - this case
 	 * other listeners can access current RPM value
