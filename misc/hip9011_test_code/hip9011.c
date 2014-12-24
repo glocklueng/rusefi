@@ -1,4 +1,4 @@
-#include "cmsis/stm32f4xx.h"
+#include "stm32f4xx.h"
 
 #define NO_DATA 0x0100
 
@@ -96,17 +96,21 @@ int main(void)
         }*/
 
         GPIOD->BSRRL = GPIO_ODR_ODR_12;
+        // delay
         for (i = 0; i < 10000; i++);
 
         uart_putc(spi(0b00000000 | (40 & 0x3F)));
         uart_putc(spi(0b10000000 | (49 & 0x3F)));
         uart_putc(spi(0b11000000 | (31 & 0x1F)));
 
+        // int/hold LOW
         GPIOB->BSRRL = GPIO_ODR_ODR_11;
 
         GPIOD->BSRRH = GPIO_ODR_ODR_12;
+        // delay
         for (i = 0; i < 10000; i++);
 
+        // int/hold HIGH
         GPIOB->BSRRH = GPIO_ODR_ODR_11;
     }
 
@@ -117,6 +121,7 @@ uint16_t spi(uint16_t data)
 {
     volatile uint16_t i;
 
+    // Chip Select PD12
     GPIOB->BSRRH = GPIO_ODR_ODR_12;
 
     for (i = 0; i < 10; i++);
