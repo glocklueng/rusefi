@@ -6,7 +6,7 @@
 #include "error_handling.h"
 #include "map.h"
 
-#if HAL_USE_ADC || defined(__DOXYGEN__)
+#if EFI_ANALOG_SENSORS || defined(__DOXYGEN__)
 
 extern engine_configuration_s * engineConfiguration;
 
