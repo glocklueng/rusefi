@@ -96,7 +96,6 @@ void setSingleCoilDwell(engine_configuration_s *engineConfiguration) {
 
 #if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 OutputSignalList injectonSignals CCM_OPTIONAL;
-#endif
 
 void initializeIgnitionActions(float advance, float dwellAngle, IgnitionEventList *list DECLARE_ENGINE_PARAMETER_S) {
 
@@ -121,8 +120,6 @@ void initializeIgnitionActions(float advance, float dwellAngle, IgnitionEventLis
 		findTriggerPosition(&event->dwellPosition, localAdvance - dwellAngle PASS_ENGINE_PARAMETER);
 	}
 }
-
-#if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 
 void FuelSchedule::registerInjectionEvent(io_pin_e pin, float angle, bool_t isSimultanious DECLARE_ENGINE_PARAMETER_S) {
 	ActuatorEventList *list = &events;
