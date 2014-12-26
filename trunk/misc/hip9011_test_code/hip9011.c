@@ -39,16 +39,19 @@ int main(void)
 
     // PB11 / INT/HOLD
     GPIOB->MODER |= GPIO_MODER_MODER11_0;
+	// open drain output
     GPIOB->OTYPER |= GPIO_OTYPER_OT_11;
     GPIOB->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR11_1;
 
     // PD11 / Chip Select
     GPIOD->MODER |= GPIO_MODER_MODER11_0;
+	// open drain output
     GPIOD->OTYPER |= GPIO_OTYPER_OT_11;
     GPIOD->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR11_1;
 
     // PB13 / SCK
     GPIOB->MODER |= GPIO_MODER_MODER13_1;
+	// open drain output
     GPIOB->OTYPER |= GPIO_OTYPER_OT_13;
     GPIOB->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR13_1;
     GPIOB->AFR[1] |= (0x05 << 20);
@@ -61,6 +64,7 @@ int main(void)
 
     // PB15 / MOSI
     GPIOB->MODER |= GPIO_MODER_MODER15_1;
+	// open drain output
     GPIOB->OTYPER |= GPIO_OTYPER_OT_15;
     GPIOB->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR15_1;
     GPIOB->AFR[1] |= (0x05 << 28);
