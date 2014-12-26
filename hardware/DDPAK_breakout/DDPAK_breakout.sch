@@ -29,32 +29,21 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:project_specific_libs
+LIBS:DDPAK_breakout-cache
 EELAYER 27 0
 EELAYER END
 $Descr A 11000 8500
 encoding utf-8
 Sheet 1 1
 Title "DDPAK breakout"
-Date "24 oct 2014"
-Rev "R0.1"
+Date "26 dec 2014"
+Rev "R0.2"
 Comp "rusEFI"
 Comment1 ""
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L IRGS14C40L Q1
-U 1 1 54499B8E
-P 6550 4100
-F 0 "Q1" H 6453 4350 70  0000 C CNN
-F 1 "IRGS14C40L" H 6350 3900 60  0001 C CNN
-F 2 "DPAK2" H 6550 4100 60  0001 C CNN
-F 3 "~" H 6550 4100 60  0000 C CNN
-	1    6550 4100
-	1    0    0    -1  
-$EndComp
 $Comp
 L R R2
 U 1 1 54499C42
@@ -78,10 +67,10 @@ F 3 "~" H 5600 4100 30  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	5850 4100 6350 4100
+	5850 4100 6450 4100
 Connection ~ 5900 4100
 Wire Wire Line
-	6750 4350 6750 4600
+	6750 4300 6750 4600
 Connection ~ 6750 4600
 $Comp
 L CONN_2 P2
@@ -131,4 +120,17 @@ Text Label 6750 3850 0    60   ~ 0
 HV
 Text Label 6000 4100 0    60   ~ 0
 SIG2
+$Comp
+L TIP121 Q1
+U 1 1 5498B4BA
+P 6650 4100
+F 0 "Q1" H 6600 3950 40  0000 R CNN
+F 1 "IRGS14C40L" H 6650 4250 40  0001 R CNN
+F 2 "m-pad-2.1-TO-263AB" H 6530 4205 29  0001 C CNN
+F 3 "~" H 6650 4100 60  0000 C CNN
+	1    6650 4100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 3850 6750 3900
 $EndSCHEMATC
