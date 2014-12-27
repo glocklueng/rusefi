@@ -14,8 +14,6 @@
 #include "rpm_calculator.h"
 #include "efiGpio.h"
 
-//extern LENameOrdinalPair * LE_FIRST;
-
 /**
  * Here we define all rusEfi-specific methods
  */

@@ -1,6 +1,6 @@
 /**
- * @file logic_expression.cpp
- * @brief Logical expressions handling logic
+ * @file fsio_core.cpp
+ * @brief core FSUI handling logic
  *
  * Here we parse and evaluate logical expressions in
  * http://en.wikipedia.org/wiki/Reverse_Polish_notation
@@ -17,7 +17,7 @@
 
 #if EFI_FSIO || defined(__DOXYGEN__)
 
-#include "logic_expression.h"
+#include <fsio_core.h>
 #include "le_functions.h"
 
 LENameOrdinalPair * LE_FIRST = NULL;

@@ -21,6 +21,7 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <fsio_core.h>
 #include "main.h"
 #include "trigger_central.h"
 #include "engine_controller.h"
@@ -52,7 +53,6 @@
 #include "ec2.h"
 #include "PwmTester.h"
 #include "engine.h"
-#include "logic_expression.h"
 #include "le_functions.h"
 #include "pin_repository.h"
 #include "pwm_generator.h"
@@ -275,6 +275,9 @@ static void showFsioInfo(void) {
 	}
 }
 
+/**
+ * set_fsio_setting 0 0.11
+ */
 static void setFsioSetting(float indexF, float value) {
 	int index = indexF;
 	if (index < 0 || index >= LE_COMMAND_COUNT) {

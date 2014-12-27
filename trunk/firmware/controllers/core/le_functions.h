@@ -8,8 +8,8 @@
 #ifndef LE_FUNCTIONS_H_
 #define LE_FUNCTIONS_H_
 
+#include "fsio_core.h"
 #include "engine.h"
-#include "logic_expression.h"
 
 /**
  * In human language that's
