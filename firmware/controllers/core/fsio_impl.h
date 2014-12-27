@@ -34,6 +34,7 @@ void setFsio(engine_configuration_s *engineConfiguration, int index, brain_pin_e
 void setFsioExt(engine_configuration_s *engineConfiguration, int index, brain_pin_e pin, const char * exp, int freq);
 
 void initFsioImpl(Engine *engine);
+void runFsio(void);
 void applyFsioConfiguration(DECLARE_ENGINE_PARAMETER_F);
 
 #endif /* LE_FUNCTIONS_H_ */
