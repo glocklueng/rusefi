@@ -1,5 +1,6 @@
 /**
- * @file le_functions.h
+ * @file fsio_impl.h
+ * @brief FSIO as it's used for GPIO
  *
  * @date Oct 5, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014

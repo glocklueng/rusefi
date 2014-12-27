@@ -18,7 +18,7 @@
 #if EFI_FSIO || defined(__DOXYGEN__)
 
 #include <fsio_core.h>
-#include "le_functions.h"
+#include <fsio_impl.h>
 
 LENameOrdinalPair * LE_FIRST = NULL;
 
