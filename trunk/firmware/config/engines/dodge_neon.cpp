@@ -20,7 +20,7 @@
 #include "engine_configuration.h"
 #include "thermistors.h"
 #include "engine_math.h"
-#include "le_functions.h"
+#include "fsio_impl.h"
 #if EFI_PROD_CODE
 #include "HIP9011.h"
 #endif

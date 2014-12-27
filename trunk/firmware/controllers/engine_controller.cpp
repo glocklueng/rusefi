@@ -21,8 +21,9 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <fsio_core.h>
 #include "main.h"
+#include "fsio_core.h"
+#include "fsio_impl.h"
 #include "trigger_central.h"
 #include "engine_controller.h"
 #include "idle_thread.h"
@@ -53,7 +54,6 @@
 #include "ec2.h"
 #include "PwmTester.h"
 #include "engine.h"
-#include "le_functions.h"
 #include "pin_repository.h"
 #include "pwm_generator.h"
 

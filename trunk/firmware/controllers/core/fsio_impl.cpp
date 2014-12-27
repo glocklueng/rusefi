@@ -1,5 +1,6 @@
 /**
- * @file le_functions.cpp
+ * @file fsio_impl.cpp
+ * @brief FSIO as it's used for GPIO
  *
  * @date Oct 5, 2014
  * @author Andrey Belomutskiy, (c) 2012-2014
@@ -9,7 +10,7 @@
 
 #if EFI_FSIO || defined(__DOXYGEN__)
 
-#include "le_functions.h"
+#include "fsio_impl.h"
 #include "allsensors.h"
 #include "rpm_calculator.h"
 #include "efiGpio.h"
