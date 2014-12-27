@@ -21,18 +21,14 @@
  */
 
 #include "main.h"
+#include "fsio_core.h"
 #include "engine_configuration.h"
 #include "allsensors.h"
 #include "interpolation.h"
 #include "trigger_decoder.h"
 #include "engine_math.h"
 #include "speed_density.h"
-#include "logic_expression.h"
-
-#if EFI_TUNER_STUDIO
 #include "tunerstudio.h"
-#endif
-
 #include "audi_aan.h"
 #include "bmw_e34.h"
 #include "dodge_neon.h"
