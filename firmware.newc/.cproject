@@ -26,7 +26,7 @@
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.debugging.format.45385409" name="Debug format" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.debugging.format"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.toolchain.name.1957907346" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.toolchain.name" value="Sourcery CodeBench Lite for ARM EABI" valueType="string"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.architecture.1246031326" name="Architecture" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.architecture" value="ilg.gnuarmeclipse.managedbuild.cross.option.architecture.arm" valueType="enumerated"/>
-							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.family.1091522544" name="ARM family" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.family" value="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.mcpu.cortex-m3" valueType="enumerated"/>
+							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.family.1091522544" name="ARM family" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.family" value="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.mcpu.cortex-m4" valueType="enumerated"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.instructionset.626810862" name="Instruction set" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.instructionset" value="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.instructionset.thumb" valueType="enumerated"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.command.prefix.1339159356" name="Prefix" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.command.prefix" value="arm-none-eabi-" valueType="string"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.command.c.2354483" name="C compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.command.c" value="gcc" valueType="string"/>
@@ -39,6 +39,8 @@
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.command.rm.1804740480" name="Remove command" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.command.rm" value="cs-rm" valueType="string"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.792712237" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.printsize.1913060082" name="Print size" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.printsize" value="true" valueType="boolean"/>
+							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.abi.17619031" name="Float ABI" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.abi" value="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.abi.softfp" valueType="enumerated"/>
+							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.unit.1287725454" name="FPU Type" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.unit" value="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.unit.fpv4spd16" valueType="enumerated"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="ilg.gnuarmeclipse.managedbuild.cross.targetPlatform.920767907" isAbstract="false" osList="all" superClass="ilg.gnuarmeclipse.managedbuild.cross.targetPlatform"/>
 							<builder buildPath="${workspace_loc:/firmware.newc}/Debug" id="ilg.gnuarmeclipse.managedbuild.cross.builder.2137117093" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="ilg.gnuarmeclipse.managedbuild.cross.builder"/>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.1587722559" name="Cross ARM GNU Assembler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler">
@@ -79,7 +81,7 @@
 									<listOptionValue builtIn="false" value="&quot;../russianefi/ckp&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../russianefi/adc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../config/system&quot;"/>
-									<listOptionValue builtIn="false" value="../config/stm32f4ems"/>
+									<listOptionValue builtIn="false" value="&quot;../config/stm32f4ems&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../splib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../chibios/os/kernel/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../chibios/boards/ST_STM32F4_DISCOVERY&quot;"/>
@@ -102,9 +104,10 @@
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.1472643596" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.816044947" name="Cross ARM C++ Compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler">
-								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.include.paths.2033499713" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.include.paths" valueType="includePath">
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.include.paths.2033499713" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;..&quot;"/>
-									<listOptionValue builtIn="false" value="../chibios/os/kernel/include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/hw_layer/stm32f4}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;../chibios/os/kernel/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../ext&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../ext_algo&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../chibios/os/various&quot;"/>
@@ -135,7 +138,7 @@
 									<listOptionValue builtIn="false" value="&quot;../russianefi/ckp&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../russianefi/adc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../config/system&quot;"/>
-									<listOptionValue builtIn="false" value="../config/stm32f4ems"/>
+									<listOptionValue builtIn="false" value="&quot;../config/stm32f4ems&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../splib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../chibios/os/kernel/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../chibios/boards/ST_STM32F4_DISCOVERY&quot;"/>
@@ -183,6 +186,9 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry excluding="hw_layer/stm32f0|chibios/os/hal/platforms/STM32/I2Cv2|chibios/os/hal/platforms/STM32/SPIv2|chibios/os/hal/platforms/STM32/USARTv2|chibios/os/ports/IAR|chibios/os/hal/platforms/STM32F0xx|chibios/os/hal/platforms/Win32|chibios/os/ports/GCC/ARMCMx/chcore_v6m.c|chibios/os/ports/GCC/SIMIA32|chibios/os/ports/IAR/ARMCMx/chcore_v6m.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
@@ -263,6 +269,9 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry excluding="hw_layer/stm32f0|chibios/os/hal/platforms/STM32/I2Cv2|chibios/os/hal/platforms/STM32/SPIv2|chibios/os/hal/platforms/STM32/USARTv2|chibios/os/ports/IAR|chibios/os/hal/platforms/STM32F0xx|chibios/os/hal/platforms/Win32|chibios/os/ports/GCC/ARMCMx/chcore_v6m.c|chibios/os/ports/GCC/SIMIA32|chibios/os/ports/IAR/ARMCMx/chcore_v6m.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
