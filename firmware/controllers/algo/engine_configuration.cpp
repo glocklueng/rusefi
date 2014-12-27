@@ -28,7 +28,6 @@
 #include "trigger_decoder.h"
 #include "engine_math.h"
 #include "speed_density.h"
-#include "tunerstudio.h"
 #include "audi_aan.h"
 #include "bmw_e34.h"
 #include "dodge_neon.h"
@@ -49,6 +48,10 @@
 #include "mitsubishi.h"
 #include "subaru.h"
 #include "test_engine.h"
+
+#if EFI_TUNER_STUDIO
+#include "tunerstudio.h"
+#endif
 
 //#define TS_DEFAULT_SPEED 115200
 #define TS_DEFAULT_SPEED 38400
