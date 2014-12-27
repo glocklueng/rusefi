@@ -357,7 +357,8 @@ void setDodgeNeonNGCEngineConfiguration(engine_configuration_s *engineConfigurat
 	/**
 	 * set_fsio_setting 0 0.11
 	 */
-// todo	setFsio(engineConfiguration, 0, GPIOE_5, "");
+	engineConfiguration->bc.fsio_setting[0] = 0.2;
+	setFsioExt(engineConfiguration, 0, GPIOE_5, "0 fsio_setting", 400);
 
 //	engineConfiguration->isCanEnabled = true;
 	boardConfiguration->canTxPin = GPIOB_6;
