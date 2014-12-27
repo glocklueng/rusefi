@@ -112,7 +112,5 @@ public:
 const char *getNextToken(const char *line, char *buffer);
 bool isNumeric(const char* line);
 le_action_e parseAction(const char * line);
-void initEval(Engine *engine);
-void parseUserFsio(DECLARE_ENGINE_PARAMETER_F);
 
 #endif /* LOGIC_EXPRESSION_H_ */

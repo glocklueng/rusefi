@@ -21,8 +21,8 @@
  */
 
 #include "main.h"
-#include "fsio_core.h"
 #include "engine_configuration.h"
+#include "fsio_impl.h"
 #include "allsensors.h"
 #include "interpolation.h"
 #include "trigger_decoder.h"
@@ -679,7 +679,7 @@ void applyNonPersistentConfiguration(Logging * logger, Engine *engine) {
 		return;
 	}
 	engine->engineCycleEventCount = engine->triggerShape.getLength();
-	parseUserFsio(PASS_ENGINE_PARAMETER_F);
+	applyFsioConfiguration(PASS_ENGINE_PARAMETER_F);
 }
 
 #if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)

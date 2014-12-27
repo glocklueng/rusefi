@@ -22,10 +22,11 @@
  */
 
 #include "main.h"
-#include "fsio_core.h"
-#include "fsio_impl.h"
+#include "engine_configuration.h"
 #include "trigger_central.h"
 #include "engine_controller.h"
+#include "fsio_core.h"
+#include "fsio_impl.h"
 #include "idle_thread.h"
 #include "rpm_calculator.h"
 #include "signal_executor.h"
@@ -37,7 +38,6 @@
 #include "injector_central.h"
 #include "ignition_central.h"
 #include "rfiutil.h"
-#include "engine_configuration.h"
 #include "engine_math.h"
 #include "wave_analyzer.h"
 #include "allsensors.h"
@@ -329,7 +329,7 @@ static void setUserOutput(const char *indexStr, const char *quotedLine, Engine *
 	scheduleMsg(&logger, "setting user out #%d to [%s]", index + 1, l);
 	strcpy(engine->engineConfiguration->bc.le_formulas[index], l);
 	// this would apply the changes
-	parseUserFsio(PASS_ENGINE_PARAMETER_F);
+	applyFsioConfiguration(PASS_ENGINE_PARAMETER_F);
 	showFsioInfo();
 }
 
@@ -609,5 +609,5 @@ void initEngineContoller(Engine *engine) {
 	addConsoleActionI("get_float", getFloat);
 	addConsoleActionI("get_int", getInt);
 
-	initEval(engine);
+	initFsioImpl(engine);
 }
