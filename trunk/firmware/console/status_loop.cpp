@@ -29,7 +29,7 @@
 #include "ec2.h"
 
 #include "adc_inputs.h"
-#if EFI_WAVE_ANALYZER
+#if EFI_WAVE_ANALYZER || defined(__DOXYGEN__)
 #include "wave_analyzer.h"
 #endif
 
@@ -54,7 +54,7 @@
 #include "engine.h"
 #include "lcd_controller.h"
 
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 // todo: move this logic to algo folder!
 #include "rtc_helper.h"
 #include "lcd_HD44780.h"
@@ -74,7 +74,7 @@ extern board_configuration_s *boardConfiguration;
 extern bool hasFirmwareErrorFlag;
 #define FULL_LOGGING_KEY "fl"
 
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 static Logging logger;
 
 static void setWarningEnabled(int value) {
@@ -83,25 +83,25 @@ static void setWarningEnabled(int value) {
 
 #endif /* EFI_PROD_CODE || EFI_SIMULATOR */
 
-#if EFI_FILE_LOGGING
+#if EFI_FILE_LOGGING || defined(__DOXYGEN__)
 static Logging fileLogger;
 #endif /* EFI_FILE_LOGGING */
 
 static void reportSensorF(const char *caption, float value, int precision) {
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 	debugFloat(&logger, caption, value, precision);
 #endif /* EFI_PROD_CODE || EFI_SIMULATOR */
 
-#if EFI_FILE_LOGGING
+#if EFI_FILE_LOGGING || defined(__DOXYGEN__)
 	debugFloat(&fileLogger, caption, value, precision);
 #endif /* EFI_FILE_LOGGING */
 }
 
 static void reportSensorI(const char *caption, int value) {
-#if EFI_PROD_CODE || EFI_SIMULATOR
+#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 	debugInt(&logger, caption, value);
 #endif /* EFI_PROD_CODE || EFI_SIMULATOR */
-#if EFI_FILE_LOGGING
+#if EFI_FILE_LOGGING || defined(__DOXYGEN__)
 	debugInt(&fileLogger, caption, value);
 #endif /* EFI_FILE_LOGGING */
 }
@@ -111,7 +111,7 @@ static const char* boolean2string(int value) {
 }
 
 void printSensors(Engine *engine) {
-#if EFI_FILE_LOGGING
+#if EFI_FILE_LOGGING || defined(__DOXYGEN__)
 	resetLogging(&fileLogger);
 #endif /* EFI_FILE_LOGGING */
 
@@ -135,10 +135,11 @@ void printSensors(Engine *engine) {
 	if (engineConfiguration->hasAfrSensor) {
 		reportSensorF("afr", getAfr(), 2);
 	}
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 	if (engineConfiguration->hasVehicleSpeedSensor) {
 		reportSensorF("vss", getVehicleSpeed(), 2);
 	}
-
+#endif /* EFI_PROD_CODE */
 	reportSensorF("vref", getVRef(engineConfiguration), 2);
 	reportSensorF("vbatt", getVBatt(engineConfiguration), 2);
 
@@ -155,7 +156,7 @@ void printSensors(Engine *engine) {
 
 //	debugFloat(&logger, "tch", getTCharge1(tps), 2);
 
-#if EFI_FILE_LOGGING
+#if EFI_FILE_LOGGING || defined(__DOXYGEN__)
 	appendPrintf(&fileLogger, "\r\n");
 	appendToLog(fileLogger.buffer);
 #endif /* EFI_FILE_LOGGING */
@@ -209,7 +210,7 @@ static void printStatus(void) {
  */
 static systime_t timeOfPreviousPrintVersion = (systime_t) -1;
 
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 static void printOutPin(const char *pinName, brain_pin_e hwPin) {
 	appendPrintf(&logger, "outpin%s%s@%s%s", DELIMETER, pinName, hwPortname(hwPin), DELIMETER);
 }
@@ -229,7 +230,7 @@ static void printInfo(Engine *engine, systime_t nowSeconds) {
 	appendPrintf(&logger, "rusEfiVersion%s%d@%s %s%s", DELIMETER, getRusEfiVersion(), VCS_VERSION,
 			getConfigurationName(engineConfiguration->engineType),
 			DELIMETER);
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 	printOutPin(WC_CRANK1, boardConfiguration->triggerInputPins[0]);
 	printOutPin(WC_CRANK2, boardConfiguration->triggerInputPins[1]);
 #if EFI_WAVE_ANALYZER || defined(__DOXYGEN__)
@@ -265,7 +266,7 @@ void updateDevConsoleState(Engine *engine) {
 //	checkIfShouldHalt();
 	printPending();
 
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 	// todo: unify with simulator!
 	if (hasFirmwareError()) {
 		printMsg(&logger, "firmware error: %s", errorMessageBuffer);
