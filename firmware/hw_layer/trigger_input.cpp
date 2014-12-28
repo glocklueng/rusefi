@@ -77,14 +77,14 @@ void initShaftPositionInputCapture(void) {
 
 	// todo: extract method!
 	// initialize primary Input Capture Unit pin
-	initWaveAnalyzerDriver(&primaryCrankInput, driver, getHwPort(boardConfiguration->triggerInputPins[0]),
-			getHwPin(boardConfiguration->triggerInputPins[0]));
+	initWaveAnalyzerDriver(&primaryCrankInput, driver, boardConfiguration->triggerInputPins[0]);
 	/**
 	 * Start primary Input Capture Unit using given configuration
 	 * @see shaft_icucfg for callback entry points
 	 */
 	shaft_icucfg.channel = ICU_CHANNEL_1;
 	print("initShaftPositionInputCapture 1 %s\r\n", hwPortname(boardConfiguration->triggerInputPins[0]));
+	// todo: reuse 'setWaveReaderMode' method here?
 	if (driver != NULL) {
 		icuStart(driver, &shaft_icucfg);
 		icuEnable(driver);
@@ -93,7 +93,7 @@ void initShaftPositionInputCapture(void) {
 	driver = getInputCaptureDriver(boardConfiguration->triggerInputPins[1]);
 	// initialize secondary Input Capture Unit pin
 	initWaveAnalyzerDriver(&secondaryCrankInput, getSecondaryInputCaptureDriver(),
-			getHwPort(boardConfiguration->triggerInputPins[1]), getHwPin(boardConfiguration->triggerInputPins[1]));
+			boardConfiguration->triggerInputPins[1]);
 	shaft_icucfg.channel = ICU_CHANNEL_1;
 	print("initShaftPositionInputCapture 2 %s\r\n", hwPortname(boardConfiguration->triggerInputPins[1]));
 	if (driver != NULL) {
