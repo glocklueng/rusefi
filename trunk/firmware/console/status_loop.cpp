@@ -62,6 +62,7 @@
 #include "pin_repository.h"
 #include "flash_main.h"
 #include "max31855.h"
+#include "vehicle_speed.h"
 #endif
 
 // this 'true' value is needed for simulator
@@ -133,6 +134,9 @@ void printSensors(Engine *engine) {
 	}
 	if (engineConfiguration->hasAfrSensor) {
 		reportSensorF("afr", getAfr(), 2);
+	}
+	if (engineConfiguration->hasVehicleSpeedSensor) {
+		reportSensorF("vss", getVehicleSpeed(), 2);
 	}
 
 	reportSensorF("vref", getVRef(engineConfiguration), 2);
@@ -476,7 +480,7 @@ void updateTunerStudioState(Engine *engine, TunerStudioOutputChannels *tsOutputC
 	tsOutputChannels->cylinder_cleanup_enabled = engineConfiguration->isCylinderCleanupEnabled;
 	tsOutputChannels->cylinder_cleanup_activated = engine->isCylinderCleanupMode;
 	tsOutputChannels->secondTriggerChannelEnabled = engineConfiguration->secondTriggerChannelEnabled;
-
+	tsOutputChannels->vehicleSpeedKph = getVehicleSpeed();
 	tsOutputChannels->isCltError = !isValidCoolantTemperature(getCoolantTemperature(engine));
 	tsOutputChannels->isIatError = !isValidIntakeAirTemperature(getIntakeAirTemperature(engine));
 #endif
