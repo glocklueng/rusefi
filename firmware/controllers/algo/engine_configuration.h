@@ -407,6 +407,7 @@ typedef struct {
 	 */
 	float fanOffTemperature;
 
+	// offset 960
 	brain_pin_e vehicleSpeedSensorInputPin;
 
 	/**
