@@ -45,4 +45,9 @@
 
 #define EFI_TUNER_STUDIO TRUE
 
+/**
+ * This is the size of the MemoryStream used by chvprintf
+ */
+#define INTERMEDIATE_LOGGING_BUFFER_SIZE 2000
+
 #endif /* EFIFEATURES_H_ */
