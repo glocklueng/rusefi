@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
  *         10/16/13
  */
 public class GccMapReader {
+    private static final Pattern p2 = Pattern.compile(".*0x(\\S*)(.*)");
+
     public static void main(String[] args) throws IOException {
         BufferedReader fr = new BufferedReader(new FileReader("rusefi.map"));
 
@@ -47,7 +49,6 @@ public class GccMapReader {
     private static List<Record> process(List<String> lines) {
         Pattern p1 = Pattern.compile(".*\\.bss\\.(\\S*).*0x.*0x(\\S*)(.*)");
 
-        Pattern p2 = Pattern.compile(".*0x(\\S*)(.*)");
 
         List<Record> result = new ArrayList<Record>();
         for (int i = 0; i < lines.size(); i++) {
@@ -61,13 +62,13 @@ public class GccMapReader {
             if (m1.matches()) {
                 parseSingleLine(result, line, m1, i);
             } else {
-                i = parseMultiLine(lines, p2, result, i, line);
+                i = parseMultiLine(lines, result, i, line);
             }
         }
         return result;
     }
 
-    private static int parseMultiLine(List<String> lines, Pattern p2, List<Record> result, int lineIndex, String line) {
+    private static int parseMultiLine(List<String> lines, List<Record> result, int lineIndex, String line) {
         debug("Multi-line " + line);
         String suffix = line;
         line = lines.get(++lineIndex);
@@ -85,6 +86,11 @@ public class GccMapReader {
         debug("Next line " + line);
 
         String name = prefix + "@" + suffix;
+
+        if (line.contains("ALIGN")) {
+            System.out.println("TODO: better handle " + line);
+            return lineIndex;
+        }
 
         int size;
         try {
