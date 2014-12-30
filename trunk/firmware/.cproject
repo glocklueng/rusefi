@@ -331,7 +331,7 @@
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.command.rm.615375876" name="Remove command" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.command.rm" value="cs-rm" valueType="string"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.1062383544" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.printsize.1716904876" name="Print size" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.printsize" value="true" valueType="boolean"/>
-							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.abi.542648601" name="Float ABI" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.abi" value="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.abi.softfp" valueType="enumerated"/>
+							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.abi.542648601" name="Float ABI" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.abi" value="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.abi.soft" valueType="enumerated"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.unit.1732001730" name="FPU Type" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.unit" value="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.fpu.unit.fpv4spd16" valueType="enumerated"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.optimization.lto.1668820449" name="Link-time optimizer (-flto)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.optimization.lto" value="true" valueType="boolean"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="ilg.gnuarmeclipse.managedbuild.cross.targetPlatform.1817810839" isAbstract="false" osList="all" superClass="ilg.gnuarmeclipse.managedbuild.cross.targetPlatform"/>
@@ -394,7 +394,7 @@
 									<listOptionValue builtIn="false" value="&quot;../chibios/os/ports/common/ARMCMx&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../chibios/os/ports/common/ARMCMx/CMSIS/include&quot;"/>
 								</option>
-								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.1875884188" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" useByScannerDiscovery="false" valueType="definedSymbols"/>
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.1875884188" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" useByScannerDiscovery="false"/>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.other.29365974" name="Other compiler flags" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.other" useByScannerDiscovery="true" value="-fgnu89-inline -c -Werror=type-limits" valueType="string"/>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.946574992" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
 							</tool>
@@ -451,7 +451,7 @@
 									<listOptionValue builtIn="false" value="&quot;../chibios/os/ports/common/ARMCMx&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../chibios/os/ports/common/ARMCMx/CMSIS/include&quot;"/>
 								</option>
-								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.defs.1198784382" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.defs" useByScannerDiscovery="false" valueType="definedSymbols"/>
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.defs.1198784382" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.defs" useByScannerDiscovery="false"/>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.other.1947947017" name="Other compiler flags" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.other" useByScannerDiscovery="true" value="-fgnu89-inline -c -Werror=type-limits" valueType="string"/>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.nortti.58453872" name="Do not use RTTI (-fno-rtti)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.nortti" useByScannerDiscovery="true" value="true" valueType="boolean"/>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.noexceptions.509603815" name="Do not use exceptions (-fno-exceptions)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.noexceptions" useByScannerDiscovery="true" value="true" valueType="boolean"/>
@@ -490,7 +490,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="rusefi.cpp|chibios/boards/ST_STM32F4_DISCOVERY|hw_layer/stm32f4|chibios/os/hal/platforms/STM32/USARTv1|chibios/os/hal/platforms/STM32/I2Cv1|chibios/os/hal/platforms/STM32/SPIv1|chibios/os/ports/GCC/ARMCMx/chcore_v7m.c|chibios/os/ports/GCC/ARMCMx/STM32F4xx|chibios/os/hal/platforms/STM32F4xx|config/stm32f4ems|chibios/boards/simulator|chibios/boards/OLIMEX_STM32_E407|chibios/os/ports/IAR|chibios/os/hal/platforms/Win32|chibios/os/ports/GCC/SIMIA32|chibios/os/ports/IAR/ARMCMx/chcore_v6m.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="util/LocalVersionHolder.cpp|util/histogram.c|util/data_buffer.c|util/cyclic_buffer.cpp|controllers/algo|controllers/system/SingleTimerExecutor.cpp|controllers/system/signal_executor_sleep.c|controllers/system/pwm_generator_logic.cpp|controllers/system/event_queue.cpp|chibios/ext/fatfs|config/engines|hw_layer/rtc_helper.c|hw_layer/mmc_card.c|hw_layer/neo6m.c|hw_layer/lcd|controllers/core|controllers/math|controllers/sensors|controllers/trigger|controllers/sensors/tps.cpp|controllers/sensors/thermistors.cpp|controllers/sensors/map.cpp|controllers/sensors/maf.cpp|controllers/sensors/ego.cpp|hw_layer/wave_analyzer_hw.c|hw_layer/vehicle_speed.cpp|hw_layer/trigger_input.cpp|hw_layer/stepper.cpp|hw_layer/pwm_generator.cpp|hw_layer/HIP9011.cpp|controllers/map_multiplier_thread.cpp|controllers/map_averaging.cpp|controllers/malfunction_indicator.cpp|controllers/lcd_controller.cpp|controllers/injector_central.cpp|console/tunerstudio|controllers/idle_thread.cpp|controllers/electronic_throttle.cpp|controllers/alternatorController.cpp|controllers/engine_controller.cpp|rusefi.cpp|chibios/boards/ST_STM32F4_DISCOVERY|hw_layer/stm32f4|chibios/os/hal/platforms/STM32/USARTv1|chibios/os/hal/platforms/STM32/I2Cv1|chibios/os/hal/platforms/STM32/SPIv1|chibios/os/ports/GCC/ARMCMx/chcore_v7m.c|chibios/os/ports/GCC/ARMCMx/STM32F4xx|chibios/os/hal/platforms/STM32F4xx|config/stm32f4ems|chibios/boards/simulator|chibios/boards/OLIMEX_STM32_E407|chibios/os/ports/IAR|chibios/os/hal/platforms/Win32|chibios/os/ports/GCC/SIMIA32|chibios/os/ports/IAR/ARMCMx/chcore_v6m.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -498,7 +498,7 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="firmware.newc.ilg.gnuarmeclipse.managedbuild.cross.target.elf.1546303019" name="Executable" projectType="ilg.gnuarmeclipse.managedbuild.cross.target.elf"/>
+		<project id="rusefi_firmware.org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.391826329" name="ARM Cross Target Application"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope"/>
