@@ -500,21 +500,27 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="firmware.newc.ilg.gnuarmeclipse.managedbuild.cross.target.elf.1546303019" name="Executable" projectType="ilg.gnuarmeclipse.managedbuild.cross.target.elf"/>
 	</storageModule>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.1741644682;ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.1741644682.;ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.321753119;ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.516094271">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.1741644682;ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.1741644682.;ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.360220425;ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.input.1520126933">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1034318602;ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1034318602.;ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.1375389811;ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.1472643596">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1034318602;ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1034318602.;ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.816044947;ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.input.238419844">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.release.1422617130;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.release.1422617130.;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.c.compiler.release.431693497;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.c.compiler.base.input.1479270851">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCWinManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.debug.1943399423;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.debug.1943399423.;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.assembler.debug.1465123421;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.assembler.base.input.1266531692">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCWinManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.debug.1943399423;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.debug.1943399423.;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.cpp.compiler.debug.866330458;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.cpp.compiler.base.input.1939416167">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCWinManagedMakePerProjectProfileCPP"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.release.1422617130;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.release.1422617130.;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.cpp.compiler.release.487461954;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.cpp.compiler.base.input.815685204">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCWinManagedMakePerProjectProfileCPP"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.debug.1943399423;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.debug.1943399423.;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.c.compiler.debug.1498722775;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.c.compiler.base.input.250064833">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCWinManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.release.1422617130;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.release.1422617130.;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.elf.assembler.release.1527944975;org.eclipse.cdt.cross.arm.gnu.sourcery.windows.assembler.base.input.1359572999">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.cross.arm.gnu.ARM_CS_GCCWinManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+	</storageModule>
 </cproject>
