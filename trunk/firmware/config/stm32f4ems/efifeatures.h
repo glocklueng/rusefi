@@ -97,6 +97,8 @@
 
 #define EFI_PWM TRUE
 
+#define EFI_VEHICLE_SPEED TRUE
+
 #define EFI_FUEL_PUMP TRUE
 
 #define EFI_ENGINE_EMULATOR TRUE
