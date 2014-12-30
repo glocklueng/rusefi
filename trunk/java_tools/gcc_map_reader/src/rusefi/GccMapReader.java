@@ -59,48 +59,67 @@ public class GccMapReader {
             Matcher m1 = p1.matcher(line);
 
             if (m1.matches()) {
-                debug("Single-line " + line);
-
-                String suffix = m1.group(1);
-                String sizeString = m1.group(2);
-                String prefix = m1.group(3);
-
-                String name = prefix + "@" + suffix;
-
-                int size = Integer.parseInt(sizeString, 16);
-
-                debug("Name " + name);
-                debug("size " + size);
-
-                result.add(new Record(size, name));
+                parseSingleLine(result, line, m1, i);
             } else {
-                debug("Multi-line " + line);
-                String suffix = line;
-                line = lines.get(++i);
-
-                Matcher m2 = p2.matcher(line);
-
-                if (!m2.matches()) {
-                    debug("Skipping " + line);
-                    continue;
-                }
-
-                String sizeString = m2.group(1);
-                String prefix = m2.group(2);
-
-                debug("Next line " + line);
-
-                String name = prefix + "@" + suffix;
-
-                int size = Integer.parseInt(sizeString, 16);
-
-                debug("Name " + name);
-                debug("size " + size);
-
-                result.add(new Record(size, name));
+                i = parseMultiLine(lines, p2, result, i, line);
             }
         }
         return result;
+    }
+
+    private static int parseMultiLine(List<String> lines, Pattern p2, List<Record> result, int lineIndex, String line) {
+        debug("Multi-line " + line);
+        String suffix = line;
+        line = lines.get(++lineIndex);
+
+        Matcher m2 = p2.matcher(line);
+
+        if (!m2.matches()) {
+            debug("Skipping " + line);
+            return lineIndex;
+        }
+
+        String sizeString = m2.group(1);
+        String prefix = m2.group(2);
+
+        debug("Next line " + line);
+
+        String name = prefix + "@" + suffix;
+
+        int size;
+        try {
+            size = Integer.parseInt(sizeString, 16);
+        } catch (NumberFormatException e) {
+            throw new IllegalStateException("While parsing @ " + lineIndex);
+        }
+
+        debug("Name " + name);
+        debug("size " + size);
+
+        result.add(new Record(size, name));
+        return lineIndex;
+    }
+
+    private static void parseSingleLine(List<Record> result, String line, Matcher m1, int lineIndex) {
+        debug("Single-line " + line);
+
+        String suffix = m1.group(1);
+        String sizeString = m1.group(2);
+        String prefix = m1.group(3);
+
+        String name = prefix + "@" + suffix;
+
+        int size;
+        try {
+            size = Integer.parseInt(sizeString, 16);
+        } catch (NumberFormatException e) {
+            throw new IllegalStateException("While parsing @ " + lineIndex);
+        }
+
+        debug("Name " + name);
+        debug("size " + size);
+
+        result.add(new Record(size, name));
     }
 
     private static void debug(String s) {
