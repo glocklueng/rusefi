@@ -46,4 +46,10 @@
 #define CONFIG_RESET_SWITCH_PORT GPIOD
 #define CONFIG_RESET_SWITCH_PIN 6
 
+/**
+ * This is the size of the MemoryStream used by chvprintf
+ */
+#define INTERMEDIATE_LOGGING_BUFFER_SIZE 256
+
+
 #endif /* EFIFEATURES_H_ */
