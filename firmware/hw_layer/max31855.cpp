@@ -1,5 +1,5 @@
 /**
- * @file max31855.c
+ * @file max31855.cpp
  * @brief MAX31855 Thermocouple-to-Digital Converter driver
  *
  *
@@ -13,11 +13,14 @@
  */
 
 #include "max31855.h"
-#include "pin_repository.h"
-#include "settings.h"
-#include "hardware.h"
 // that's for swap
 #include "tunerstudio_algo.h"
+
+#if EFI_PROD_CODE
+#include "hardware.h"
+#include "settings.h"
+#include "pin_repository.h"
+#endif /* EFI_PROD_CODE */
 
 #if EFI_MAX_31855
 
@@ -137,11 +140,10 @@ static void egtRead(void) {
 	}
 }
 
-void initMax31855(board_configuration_s *boardConfiguration) {
+void initMax31855(SPIDriver *drv, egt_cs_array_t max31855_cs) {
 	initLogging(&logger, "EGT");
 
-	driver = getSpiDevice(boardConfiguration->max31855spiDevice);
-
+	driver = drv;
 
 	addConsoleAction("egtinfo", (Void) showEgtInfo);
 
@@ -150,9 +152,9 @@ void initMax31855(board_configuration_s *boardConfiguration) {
 	turnOnSpi(SPI_DEVICE_3);
 
 	for (int i = 0; i < MAX31855_CS_COUNT; i++) {
-		if (boardConfiguration->max31855_cs[i] != GPIO_UNASSIGNED) {
+		if (max31855_cs[i] != GPIO_UNASSIGNED) {
 
-			initSpiCs(&spiConfig[i], boardConfiguration->max31855_cs[i]);
+			initSpiCs(&spiConfig[i], max31855_cs[i]);
 
 			spiConfig[i].cr1 = SPI_BaudRatePrescaler_8;
 		}
