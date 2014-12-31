@@ -29,7 +29,10 @@ static Logging logger;
 
 static SPIConfig spiConfig[MAX31855_CS_COUNT];
 
-static void showEgtInfo(board_configuration_s *boardConfiguration) {
+EXTERN_ENGINE;
+
+static void showEgtInfo(void) {
+#if EFI_PROD_CODE
 	printSpiState(&logger, boardConfiguration);
 
 	scheduleMsg(&logger, "EGT spi: %d", boardConfiguration->max31855spiDevice);
@@ -37,10 +40,9 @@ static void showEgtInfo(board_configuration_s *boardConfiguration) {
 	for (int i = 0; i < MAX31855_CS_COUNT; i++) {
 		if (boardConfiguration->max31855_cs[i] != GPIO_UNASSIGNED) {
 			scheduleMsg(&logger, "%d ETG @ %s", i, hwPortname(boardConfiguration->max31855_cs[i]));
-
 		}
-
 	}
+#endif
 }
 
 // bits D17 and D3 are always expected to be zero
@@ -141,7 +143,7 @@ void initMax31855(board_configuration_s *boardConfiguration) {
 	driver = getSpiDevice(boardConfiguration->max31855spiDevice);
 
 
-	addConsoleActionP("egtinfo", (VoidPtr) showEgtInfo, boardConfiguration);
+	addConsoleAction("egtinfo", (Void) showEgtInfo);
 
 	addConsoleAction("egtread", (Void) egtRead);
 
