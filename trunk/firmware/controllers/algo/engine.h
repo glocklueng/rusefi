@@ -85,7 +85,11 @@ public:
 	uint32_t before5;
 	uint32_t before6;
 
+	float sparkAtable[DWELL_CURVE_SIZE];
+	float sparkBtable[DWELL_CURVE_SIZE];
 
+	Table2D sparkTable;
+	void precalc(engine_configuration_s *engineConfiguration);
 
 	void updateSlowSensors();
 	void watchdog();

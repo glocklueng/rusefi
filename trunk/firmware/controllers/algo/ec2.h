@@ -48,12 +48,6 @@ public:
 
 	float fsioLastValue[LE_COMMAND_COUNT];
 
-	float sparkAtable[DWELL_CURVE_SIZE];
-	float sparkBtable[DWELL_CURVE_SIZE];
-
-	Table2D sparkTable;
-	void precalc(engine_configuration_s *engineConfiguration);
-
 	/**
 	 * We are alternating two event lists in order to avoid a potential issue around revolution boundary
 	 * when an event is scheduled within the next revolution.
