@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 
-void idleDebug(const char *msg, int value) {
+#include "efitime.h"
+
+void idleDebug(const char *msg, percent_t value) {
 	printf("%s\r\n", msg);
 }
