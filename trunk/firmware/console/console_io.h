@@ -35,7 +35,7 @@ void consoleOutputBuffer(const uint8_t *buf, int size);
 void startConsole(void (*console_line_callback_p)(char *));
 bool isSerialOverUart(void);
 
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || EFI_SIMULATOR
 bool isConsoleReady(void);
 #else
 #define isConsoleReady() true
