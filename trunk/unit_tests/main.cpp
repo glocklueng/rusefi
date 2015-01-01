@@ -138,8 +138,10 @@ int main(void) {
 
 	testFLStack();
 
+	testIdleController();
+
 	//	resizeMap();
-	printf("Success 20131216\r\n");
+	printf("Success 20150101\r\n");
 	return EXIT_SUCCESS;
 }
 

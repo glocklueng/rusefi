@@ -24,10 +24,13 @@ static int lastGoodValue = DEFAULT_IDLE_DUTY;
 EXTERN_ENGINE
 ;
 
-void idleInit(IdleValveState *idle DECLARE_ENGINE_PARAMETER_S) {
-	idle->value = DEFAULT_IDLE_DUTY;
-	setIdleRpm(idle, engineConfiguration->targetIdleRpm);
-	idle->timeOfLastIdleChange = 0;
+IdleValveState::IdleValveState() {
+	value = DEFAULT_IDLE_DUTY;
+	timeOfLastIdleChange = 0;
+}
+
+void IdleValveState::init(DECLARE_ENGINE_PARAMETER_F) {
+	setIdleRpm(this, engineConfiguration->targetIdleRpm);
 }
 
 void setIdleRpm(IdleValveState *idle, int targetRpm) {
@@ -64,36 +67,36 @@ static percent_t changeValue(IdleValveState *idle, int currentRpm, int now, cons
 /**
  * now - current time in milliseconds
  */
-percent_t getIdle(IdleValveState *idle, int currentRpm, efitimems_t now DECLARE_ENGINE_PARAMETER_S) {
+percent_t IdleValveState::getIdle(int currentRpm, efitimems_t now DECLARE_ENGINE_PARAMETER_S) {
 	if (currentRpm == 0 || isCranking()) {
-		return setNewValue(idle, currentRpm, now, "cranking value: ", DEFAULT_IDLE_DUTY);
+		return setNewValue(this, currentRpm, now, "cranking value: ", DEFAULT_IDLE_DUTY);
 	}
 
-	if (currentRpm < 0.7 * idle->targetRpmRangeLeft) {
-		return setNewValue(idle, currentRpm, now, "RPMs are seriously low: ", lastGoodValue);
+	if (currentRpm < 0.7 * targetRpmRangeLeft) {
+		return setNewValue(this, currentRpm, now, "RPMs are seriously low: ", lastGoodValue);
 	}
 
-	if (now - idle->timeOfLastIdleChange < IDLE_PERIOD) {
+	if (now - timeOfLastIdleChange < IDLE_PERIOD) {
 		// too soon to adjust anything - exiting
-		return idle->value;
+		return value;
 	}
 
-	if (currentRpm > idle->targetRpmRangeLeft && currentRpm < idle->targetRpmRangeRight) {
+	if (currentRpm > targetRpmRangeLeft && currentRpm < targetRpmRangeRight) {
 		// current RPM is good enough
 		// todo: need idle signal input
 		//lastGoodValue = idle->value;
-		return idle->value;
+		return value;
 	}
 
-	if (currentRpm >= idle->targetRpmRangeRight + 100)
-		return changeValue(idle, currentRpm, now, "idle control: rpm is too high: ", -IDLE_DECREASE_STEP PASS_ENGINE_PARAMETER);
+	if (currentRpm >= targetRpmRangeRight + 100)
+		return changeValue(this, currentRpm, now, "idle control: rpm is too high: ", -IDLE_DECREASE_STEP PASS_ENGINE_PARAMETER);
 
-	if (currentRpm >= idle->targetRpmRangeRight)
-		return changeValue(idle, currentRpm, now, "idle control: rpm is a bit too high: ", -IDLE_DECREASE_SMALL_STEP PASS_ENGINE_PARAMETER);
+	if (currentRpm >= targetRpmRangeRight)
+		return changeValue(this, currentRpm, now, "idle control: rpm is a bit too high: ", -IDLE_DECREASE_SMALL_STEP PASS_ENGINE_PARAMETER);
 
 	// we are here if RPM is low, let's see how low
-	if (currentRpm < idle->targetRpmRangeLeft - 100) {
-		return changeValue(idle, currentRpm, now, "idle control: RPMs are low: ", IDLE_INCREASE_STEP PASS_ENGINE_PARAMETER);
+	if (currentRpm < targetRpmRangeLeft - 100) {
+		return changeValue(this, currentRpm, now, "idle control: RPMs are low: ", IDLE_INCREASE_STEP PASS_ENGINE_PARAMETER);
 	}
-	return changeValue(idle, currentRpm, now, "idle control: RPMs are a bit low: ", IDLE_INCREASE_SMALL_STEP PASS_ENGINE_PARAMETER);
+	return changeValue(this, currentRpm, now, "idle control: RPMs are a bit low: ", IDLE_INCREASE_SMALL_STEP PASS_ENGINE_PARAMETER);
 }
