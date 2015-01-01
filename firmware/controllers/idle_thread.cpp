@@ -139,7 +139,7 @@ void startIdleThread(Engine *engine) {
 	startSimplePwmExt(&idleValvePwm, "Idle Valve", boardConfiguration->idleValvePin, IDLE_VALVE,
 			boardConfiguration->idleSolenoidFrequency, boardConfiguration->idleSolenoidPwm, applyIdleSolenoidPinState);
 
-	idleInit(&idle);
+	idle.init();
 	scheduleMsg(&logger, "initial idle %d", idle.value);
 
 	chThdCreateStatic(ivThreadStack, sizeof(ivThreadStack), NORMALPRIO, (tfunc_t) ivThread, NULL);

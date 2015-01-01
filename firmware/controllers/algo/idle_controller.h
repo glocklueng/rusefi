@@ -25,6 +25,10 @@
 
 class IdleValveState {
 public:
+	IdleValveState();
+	void init(DECLARE_ENGINE_PARAMETER_F);
+	percent_t getIdle(int currentRpm, efitimems_t now DECLARE_ENGINE_PARAMETER_S);
+
 	int time;
 
 	int targetRpmRangeLeft, targetRpmRangeRight;
@@ -33,8 +37,6 @@ public:
 	efitimems_t timeOfLastIdleChange;
 };
 
-void idleInit(IdleValveState *idle DECLARE_ENGINE_PARAMETER_S);
-percent_t getIdle(IdleValveState *idle, int currentRpm, efitimems_t now DECLARE_ENGINE_PARAMETER_S);
 void setIdleRpm(IdleValveState *idle, int targetRpm);
 
 void idleDebug(const char *msg, percent_t value);
