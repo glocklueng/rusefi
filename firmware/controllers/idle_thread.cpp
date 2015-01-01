@@ -56,8 +56,8 @@ int getIdleSwitch() {
 	return idleSwitchState;
 }
 
-void idleDebug(const char *msg, int value) {
-	printMsg(&logger, "%s%d", msg, value);
+void idleDebug(const char *msg, percent_t value) {
+	printMsg(&logger, "%s%f", msg, value);
 	scheduleLogging(&logger);
 }
 

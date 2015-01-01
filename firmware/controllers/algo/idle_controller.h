@@ -35,16 +35,6 @@ void idleInit(IdleValveState *idle DECLARE_ENGINE_PARAMETER_S);
 int getIdle(IdleValveState *idle, int currentRpm, efitimems_t now DECLARE_ENGINE_PARAMETER_S);
 void setIdleRpm(IdleValveState *idle, int targetRpm);
 
-void idleDebug(const char *msg, int value);
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
-
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+void idleDebug(const char *msg, percent_t value);
 
 #endif /* IDLE_CONTROLLER_H_ */
