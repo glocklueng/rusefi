@@ -72,16 +72,15 @@ static void setIdleControlEnabled(int value) {
 	showIdleInfo();
 }
 
-static void setIdleValvePwm(int value) {
-	// todo: change parameter type, maybe change parameter validation?
-	if (value < 1 || value > 999)
+static void setIdleValvePwm(percent_t value) {
+	if (value < 0.01 || value > 99.9)
 		return;
-	scheduleMsg(&logger, "setting idle valve PWM %d", value);
-	float f = 0.001 * value;
+	scheduleMsg(&logger, "setting idle valve PWM %f", value);
+	float f = 0.01 * value;
 	boardConfiguration->idleSolenoidPwm = f;
 	showIdleInfo();
 	/**
-	 * currently idle level is an integer per mil (0-1000 range), and PWM takes a float in the 0..1 range
+	 * currently idle level is an percent value (0-100 range), and PWM takes a float in the 0..1 range
 	 * todo: unify?
 	 */
 	idleValvePwm.setSimplePwmDutyCycle(f);
@@ -91,7 +90,7 @@ static msg_t ivThread(int param) {
 	(void) param;
 	chRegSetThreadName("IdleValve");
 
-	int currentIdleValve = -1;
+	percent_t currentIdleValve = -1;
 	while (true) {
 		chThdSleepMilliseconds(boardConfiguration->idleThreadPeriod);
 
@@ -104,7 +103,7 @@ static msg_t ivThread(int param) {
 
 		efitimems_t now = currentTimeMillis();
 
-		int newValue = getIdle(&idle, getRpm(), now PASS_ENGINE_PARAMETER);
+		percent_t newValue = getIdle(&idle, getRpm(), now PASS_ENGINE_PARAMETER);
 
 		if (currentIdleValve != newValue) {
 			currentIdleValve = newValue;
@@ -151,7 +150,7 @@ void startIdleThread(Engine *engine) {
 
 	addConsoleAction("idleinfo", showIdleInfo);
 	addConsoleActionI("set_idle_rpm", setIdleRpmAction);
-	addConsoleActionI("set_idle_pwm", setIdleValvePwm);
+	addConsoleActionF("set_idle_pwm", setIdleValvePwm);
 	addConsoleActionI("set_idle_enabled", (VoidInt) setIdleControlEnabled);
 }
 
