@@ -129,7 +129,9 @@ void FuelSchedule::registerInjectionEvent(io_pin_e pin, float angle, bool_t isSi
 	}
 
 	InjectionEvent *ev = list->add();
-	OutputSignal *actuator = injectonSignals.add(pin);
+	OutputSignal *actuator = injectonSignals.add();
+	initOutputSignal(actuator, pin);
+
 
 	ev->isSimultanious = isSimultanious;
 
@@ -341,7 +343,7 @@ void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F) {
 		triggerIndexByAngle[angle] = findAngleIndex(angle PASS_ENGINE_PARAMETER);
 	}
 
-	injectonSignals.clear();
+	injectonSignals.reset();
 	engineConfiguration2->crankingInjectionEvents.addFuelEvents(
 			engineConfiguration->crankingInjectionMode PASS_ENGINE_PARAMETER);
 	engineConfiguration2->injectionEvents.addFuelEvents(engineConfiguration->injectionMode PASS_ENGINE_PARAMETER);
