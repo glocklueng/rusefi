@@ -30,8 +30,8 @@
 class OutputSignalList {
 public:
 	OutputSignalList();
-	void clear();
-	OutputSignal * add(io_pin_e ioPin);
+	void reset();
+	OutputSignal * add();
 	int getSize();
 
 private:

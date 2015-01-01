@@ -21,10 +21,10 @@
 #include "OutputSignalList.h"
 
 OutputSignalList::OutputSignalList() {
-	clear();
+	reset();
 }
 
-void OutputSignalList::clear() {
+void OutputSignalList::reset() {
 	size = 0;
 }
 
@@ -33,16 +33,13 @@ int OutputSignalList::getSize() {
 }
 
 
-OutputSignal * OutputSignalList::add(io_pin_e ioPin) {
+OutputSignal * OutputSignalList::add(void) {
 	if (size == OUTPUT_SIGNAL_MAX_SIZE) {
-		firmwareError("Too many signals, adding %d", ioPin);
+		firmwareError("Too many signals, adding");
 		return NULL;
 	}
 
 	OutputSignal *signal = &signals[size++];
-
-	initOutputSignal(signal, ioPin);
-
 	return signal;
 }
 
