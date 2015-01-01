@@ -120,7 +120,7 @@ CSRC =	${PORTSRC} \
 CPPSRC = $(UTILSRC_CPP) \
 	$(CONTROLLERS_ALGO_SRC_CPP) \
 	$(PROJECT_DIR)/controllers/settings.cpp \
-	$(PROJECT_DIR)/emulation/analog_chart.cpp \
+	$(PROJECT_DIR)/development/analog_chart.cpp \
 	$(TRIGGER_SRC_CPP) \
 	$(TRIGGER_DECODERS_SRC_CPP) \
 	$(SYSTEMSRC_CPP) \
@@ -132,7 +132,7 @@ CPPSRC = $(UTILSRC_CPP) \
 	$(ENGINES_SRC_CPP) \
 	$(PROJECT_DIR)/simulator/rusEfiFunctionalTest.cpp \
 	$(PROJECT_DIR)/simulator/framework.cpp \
-	$(PROJECT_DIR)/emulation/trigger_emulator.cpp \
+	$(PROJECT_DIR)/development/trigger_emulator.cpp \
 	$(TEST_SRC_CPP)
 # C sources to be compiled in ARM mode regardless of the global setting.
 # NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
@@ -168,7 +168,7 @@ $(PORTINC) $(KERNINC) $(TESTINC) \
 	$(PROJECT_DIR)/ext_algo \
 	$(PROJECT_DIR)/controllers \
 	$(PROJECT_DIR)/hw_layer/algo \
-	$(PROJECT_DIR)/emulation \
+	$(PROJECT_DIR)/development \
 	$(PROJECT_DIR)/controllers/algo \
 	$(PROJECT_DIR)/controllers/core \
 	$(PROJECT_DIR)/controllers/math \
