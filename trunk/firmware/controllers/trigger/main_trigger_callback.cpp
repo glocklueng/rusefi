@@ -170,7 +170,7 @@ static ALWAYS_INLINE void handleFuel(uint32_t eventIndex, int rpm DECLARE_ENGINE
 		return;
 
 	for (int i = 0; i < source->size; i++) {
-		InjectionEvent *event = &source->events[i];
+		InjectionEvent *event = &source->elements[i];
 		if (event->position.eventIndex != eventIndex)
 			continue;
 		handleFuelInjectionEvent(event, rpm PASS_ENGINE_PARAMETER);
@@ -267,7 +267,7 @@ static ALWAYS_INLINE void handleSpark(uint32_t eventIndex, int rpm,
 
 //	scheduleSimpleMsg(&logger, "eventId spark ", eventIndex);
 	for (int i = 0; i < list->size; i++) {
-		IgnitionEvent *event = &list->events[i];
+		IgnitionEvent *event = &list->elements[i];
 		if (event->dwellPosition.eventIndex != eventIndex)
 			continue;
 		handleSparkEvent(eventIndex, event, rpm PASS_ENGINE_PARAMETER);
