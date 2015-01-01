@@ -4,8 +4,8 @@ UTIL_TEST_SRC = $(PROJECT_DIR)/util/crc.c \
 	$(PROJECT_DIR)/util/histogram.c \
 	$(PROJECT_DIR)/util/cli_registry.c
 
-UTILSRC = $(UTIL_TEST_SRC) 
-	
+UTILSRC = $(UTIL_TEST_SRC) \
+	$(PROJECT_DIR)/console_util/datalogging.c	 
 	
 UTILSRC_CPP = $(PROJECT_DIR)/util/cyclic_buffer.cpp \
 	$(PROJECT_DIR)/util/listener_array.cpp \

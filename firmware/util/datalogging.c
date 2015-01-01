@@ -32,7 +32,6 @@
 
 #include <stdbool.h>
 #include "main.h"
-#include "rfiutil.h"
 #include "chprintf.h"
 #include "chmtx.h"
 #include "memstreams.h"
