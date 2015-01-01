@@ -12,7 +12,6 @@
 #include "trigger_structure.h"
 #include "allsensors.h"
 #include "engine_math.h"
-#include "OutputSignalList.h"
 #include "ec2.h"
 #include "trigger_decoder.h"
 #include "engine_test_helper.h"
