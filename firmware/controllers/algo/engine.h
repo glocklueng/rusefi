@@ -33,6 +33,8 @@ public:
 	engine_configuration_s *engineConfiguration;
 	engine_configuration2_s *engineConfiguration2;
 
+	uint64_t stopEngineRequestTimeNt;
+
 	Thermistor iat;
 	Thermistor clt;
 

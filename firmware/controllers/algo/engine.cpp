@@ -45,6 +45,7 @@ Engine::Engine() {
 	lastTriggerEventTimeNt = 0;
 	isCylinderCleanupMode = false;
 	engineCycleEventCount = 0;
+	stopEngineRequestTimeNt = 0;
 }
 
 void Engine::init() {
