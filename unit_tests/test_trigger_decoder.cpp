@@ -418,7 +418,7 @@ static void testRpmCalculator(void) {
 	assertEqualsM("index #1", 15, eth.triggerCentral.triggerState.getCurrentIndex());
 
 	static MainTriggerCallback triggerCallbackInstance;
-	triggerCallbackInstance.init(&eth.engine, ec2);
+	triggerCallbackInstance.init(&eth.engine);
 	eth.triggerCentral.addEventListener(mainTriggerCallback, "main loop", &eth.engine);
 
 //	engine.rpmCalculator = &eth.rpmState;

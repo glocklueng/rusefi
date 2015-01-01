@@ -402,7 +402,7 @@ static void showTriggerHistogram(void) {
 #endif
 }
 
-void MainTriggerCallback::init(Engine *engine, engine_configuration2_s *engineConfiguration2) {
+void MainTriggerCallback::init(Engine *engine) {
 	efiAssertVoid(engine!=NULL, "engine NULL");
 	this->engine = engine;
 }
@@ -417,10 +417,10 @@ static void showMainInfo(Engine *engine) {
 #endif
 }
 
-void initMainEventListener(Engine *engine, engine_configuration2_s *engineConfiguration2) {
+void initMainEventListener(Engine *engine) {
 	efiAssertVoid(engine!=NULL, "null engine");
 
-	mainTriggerCallbackInstance.init(engine, engineConfiguration2);
+	mainTriggerCallbackInstance.init(engine);
 
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
 	addConsoleAction("performanceinfo", showTriggerHistogram);
