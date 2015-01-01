@@ -81,6 +81,7 @@ include $(PROJECT_DIR)/controllers/system/system.mk
 include $(PROJECT_DIR)/console/console.mk
 include $(PROJECT_DIR)/console/tunerstudio/tunerstudio.mk
 include $(PROJECT_DIR)/console_util/console_util.mk
+include $(PROJECT_DIR)/development/development.mk
 
 include $(CHIBIOS)/boards/simulator/board.mk
 include ${CHIBIOS}/os/hal/hal.mk
@@ -129,6 +130,7 @@ CPPSRC = $(UTILSRC_CPP) \
 	$(CONTROLLERS_SENSORS_SRC_CPP) \
 	$(CONTROLLERS_CORE_SRC_CPP) \
 	$(CONTROLLERS_MATH_SRC_CPP) \
+	$(DEV_SIMULATOR_SRC_CPP) \
 	$(ENGINES_SRC_CPP) \
 	$(PROJECT_DIR)/simulator/rusEfiFunctionalTest.cpp \
 	$(PROJECT_DIR)/simulator/framework.cpp \
