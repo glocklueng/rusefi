@@ -103,7 +103,7 @@ static msg_t ivThread(int param) {
 
 		efitimems_t now = currentTimeMillis();
 
-		percent_t newValue = getIdle(&idle, getRpm(), now PASS_ENGINE_PARAMETER);
+		percent_t newValue = idle.getIdle(getRpm(), now PASS_ENGINE_PARAMETER);
 
 		if (currentIdleValve != newValue) {
 			currentIdleValve = newValue;

@@ -11,7 +11,7 @@
 #define IDLE_CONTROLLER_H_
 
 // 60% duty cycle by default
-#define DEFAULT_IDLE_DUTY 600
+#define DEFAULT_IDLE_DUTY 60
 
 #define IDLE_PERIOD 1000
 

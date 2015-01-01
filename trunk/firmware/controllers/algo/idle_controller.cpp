@@ -42,8 +42,8 @@ void setIdleRpm(IdleValveState *idle, int targetRpm) {
  * @brief	sets new idle valve duty cycle: checks the bounds and reports new value
  */
 static percent_t setNewValue(IdleValveState *idle, int currentRpm, efitimems_t now, const char * msg, percent_t newValue) {
-	newValue = maxI(newValue, MIN_IDLE);
-	newValue = minI(newValue, MAX_IDLE);
+	newValue = maxF(newValue, MIN_IDLE);
+	newValue = minF(newValue, MAX_IDLE);
 
 	if (idle->value != newValue) {
 		idleDebug(msg, currentRpm);

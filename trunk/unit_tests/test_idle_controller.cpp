@@ -21,11 +21,17 @@ void testIdleController(void) {
 	Engine *engine = &eth.engine;
 	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 
+	engineConfiguration->targetIdleRpm = 1200;
+
 	is.init(PASS_ENGINE_PARAMETER_F);
 
 	efitimems_t time = 0;
 
-	//assertEquals(5, ge)
+	assertEquals(60, is.getIdle(900, time PASS_ENGINE_PARAMETER));
 
+	time += 2000;
+	assertEquals(60.5, is.getIdle(900, time PASS_ENGINE_PARAMETER));
 
+	time += 2000;
+	assertEquals(60.6, is.getIdle(1050, time PASS_ENGINE_PARAMETER));
 }
