@@ -10,3 +10,4 @@ DEV_SRC_CPP = development/trigger_emulator.cpp \
 	$(PROJECT_DIR)/development/wave_chart.cpp \
 	development/wave_analyzer.cpp
 	
+DEV_SIMULATOR_SRC_CPP = $(PROJECT_DIR)/development/wave_chart.cpp
