@@ -25,7 +25,6 @@
 #include "interpolation.h"
 #include "allsensors.h"
 #include "io_pins.h"
-#include "OutputSignalList.h"
 #include "trigger_decoder.h"
 #include "event_registry.h"
 #include "efiGpio.h"
