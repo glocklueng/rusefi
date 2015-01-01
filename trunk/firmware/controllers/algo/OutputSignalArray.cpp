@@ -20,26 +20,4 @@
 
 #include "OutputSignalList.h"
 
-OutputSignalList::OutputSignalList() {
-	reset();
-}
-
-void OutputSignalList::reset() {
-	size = 0;
-}
-
-int OutputSignalList::getSize() {
-	return size;
-}
-
-
-OutputSignal * OutputSignalList::add(void) {
-	if (size == OUTPUT_SIGNAL_MAX_SIZE) {
-		firmwareError("Too many signals, adding");
-		return NULL;
-	}
-
-	OutputSignal *signal = &signals[size++];
-	return signal;
-}
 
