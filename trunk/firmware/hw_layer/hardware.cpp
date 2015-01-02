@@ -90,7 +90,7 @@ void turnOnSpi(spi_device_e device) {
 				boardConfiguration->spi1misoPin,
 				boardConfiguration->spi1mosiPin,
 				EFI_SPI1_AF);
-#endif
+#endif /* STM32_SPI_USE_SPI1 */
 	}
 	if (device == SPI_DEVICE_2) {
 #if STM32_SPI_USE_SPI2
@@ -99,7 +99,7 @@ void turnOnSpi(spi_device_e device) {
 				boardConfiguration->spi2misoPin,
 				boardConfiguration->spi2mosiPin,
 				EFI_SPI2_AF);
-#endif
+#endif /* STM32_SPI_USE_SPI2 */
 	}
 	if (device == SPI_DEVICE_3) {
 #if STM32_SPI_USE_SPI3
@@ -108,7 +108,7 @@ void turnOnSpi(spi_device_e device) {
 				boardConfiguration->spi3misoPin,
 				boardConfiguration->spi3mosiPin,
 				EFI_SPI3_AF);
-#endif
+#endif /* STM32_SPI_USE_SPI3 */
 	}
 }
 
