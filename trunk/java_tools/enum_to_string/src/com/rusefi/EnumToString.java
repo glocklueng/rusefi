@@ -1,8 +1,8 @@
 package com.rusefi;
 
 import java.io.*;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * (c) Andrey Belomutskiy
@@ -11,7 +11,7 @@ import java.util.Set;
  */
 @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
 public class EnumToString {
-    private final static Set<String> currentValues = new HashSet<String>();
+    private final static Set<String> currentValues = new TreeSet<String>();
 
     private final static StringBuilder result = new StringBuilder();
     private final static StringBuilder header = new StringBuilder();
@@ -47,8 +47,10 @@ public class EnumToString {
     private static void process(String inFileName) throws IOException {
         BufferedReader reader;
 
-        result.append("// auto-generated from" + inFileName + "\r\n\r\n\r\n");
-        header.append("// auto-generated from" + inFileName + "\r\n\r\n\r\n");
+        String header = "// auto-generated from" + inFileName + "\r\n" +
+                "// by enum2string.jar tool\r\n\r\n";
+        result.append(header);
+        EnumToString.header.append(header);
 
         boolean isInsideEnum = false;
 
@@ -58,7 +60,7 @@ public class EnumToString {
 
         result.append("#include \"main.h\"\r\n");
         result.append("#include \"" + simpleFileName + "\"\r\n");
-        header.append("#include \"" + simpleFileName + "\"\r\n");
+        EnumToString.header.append("#include \"" + simpleFileName + "\"\r\n");
 
         reader = new BufferedReader(new FileReader(inFileName));
         String line;
@@ -74,7 +76,7 @@ public class EnumToString {
                 line = line.substring(1, line.length() - 1);
                 System.out.println("Ending enum " + line);
                 result.append(makeCode(line));
-                header.append(getMethodSignature(line) + ";\r\n");
+                EnumToString.header.append(getMethodSignature(line) + ";\r\n");
             } else {
                 line = line.replaceAll("//.+", "");
                 if (isInsideEnum) {
