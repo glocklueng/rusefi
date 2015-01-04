@@ -17,11 +17,17 @@ public class EnumToString {
     private final static StringBuilder header = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
+        if (args.length != 1) {
+            System.out.println("Please specify one parameter: path to firmware folder");
+            return;
+        }
+        String path = args[0];
+
         header.append("#ifndef _A_H_HEADER_\r\n");
         header.append("#define _A_H_HEADER_\r\n");
 
-        process("../../firmware/controllers/algo/io_pins.h");
-        process("../../firmware/controllers/algo/rusefi_enums.h");
+        process(path + File.separator + "controllers/algo/io_pins.h");
+        process(path + File.separator + "controllers/algo/rusefi_enums.h");
 
         header.append("#endif /*_A_H_HEADER_ */\r\n");
 
@@ -47,6 +53,7 @@ public class EnumToString {
         boolean isInsideEnum = false;
 
         File f = new File(inFileName);
+        System.out.println("Reading from " + inFileName);
         String simpleFileName = f.getName();
 
         result.append("#include \"main.h\"\r\n");
