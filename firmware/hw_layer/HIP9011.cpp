@@ -38,9 +38,12 @@
 
 extern pin_output_mode_e DEFAULT_OUTPUT;
 
+/**
+ * band index is only send to HIP chip on startup
+ */
 static int bandIndex;
-static int gainIndex;
-static int intergratorIndex = -1;
+static int currentGainIndex;
+static int currentIntergratorIndex = -1;
 
 /**
  * Int/Hold pin is controlled from scheduler callbacks which are set according to current RPM
@@ -154,7 +157,7 @@ static void showHipInfo(void) {
 
 	scheduleMsg(&logger, "band_index=%d gain_index=%d", bandIndex, GAIN_INDEX(boardConfiguration->hip9011Gain));
 
-	scheduleMsg(&logger, "integrator index=%d", INTEGRATOR_INDEX);
+	scheduleMsg(&logger, "integrator index=%d", currentIntergratorIndex);
 
 	scheduleMsg(&logger, "spi= int=%s CS=%s", hwPortname(boardConfiguration->hip9011IntHoldPin),
 			hwPortname(boardConfiguration->hip9011CsPin));
