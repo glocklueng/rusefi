@@ -41,9 +41,9 @@ void testTpsRateOfChange(void) {
 static void testHip9011lookup(void) {
 	print("************************************************** testHip9011lookup\r\n");
 
-	assertEquals(47746.5195, getRpmByAngleWindowAndTimeUs(40, 360));
-	assertEquals(3183.1013, getRpmByAngleWindowAndTimeUs(600, 360));
-	assertEquals(22918.3301, getRpmByAngleWindowAndTimeUs(600, 50));
+	assertEqualsM2("", 47746.5195, getRpmByAngleWindowAndTimeUs(40, 360), 0.1);
+	assertEqualsM2("", 3183.1013, getRpmByAngleWindowAndTimeUs(600, 360), 0.1);
+	assertEqualsM2("", 22918.3301, getRpmByAngleWindowAndTimeUs(600, 50), 0.1);
 }
 
 void testSensors(void) {
