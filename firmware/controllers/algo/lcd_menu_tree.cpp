@@ -43,7 +43,7 @@ void MenuTree::back(void) {
 
 void MenuTree::nextItem(void) {
 	if (current->next == NULL) {
-		// todo: go to first element
+		current = topVisible = current->topOfTheList;
 		return;
 	}
 	current = current->next;

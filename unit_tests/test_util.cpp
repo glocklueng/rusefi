@@ -401,7 +401,16 @@ void testMenuTree(void) {
 
 	tree.nextItem();
 	assertTrue(tree.topVisible == &miTopLevel3);
-	assertTrue(tree.current == &miTopLevel5);
+	assertTrueM("tl5", tree.current == &miTopLevel5);
+
+	tree.nextItem();
+	assertTrueM("tl1 t", tree.topVisible == &miTopLevel1);
+	assertTrueM("tl1 c", tree.current == &miTopLevel1);
+
+	tree.nextItem();
+	tree.nextItem();
+	tree.nextItem();
+	tree.nextItem();
 
 	tree.enterSubMenu();
 	assertTrue(tree.current == &miSubMenu5_1);
