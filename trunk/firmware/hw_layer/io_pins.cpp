@@ -45,6 +45,7 @@ void setDefaultPinState(io_pin_e pin, pin_output_mode_e *outputMode) {
 #if EFI_GPIO
 	pin_output_mode_e mode = *outputMode;
 	assertOMode(mode);
+	outputs[(int)pin].modePtr = outputMode;
 	pinDefaultState[pin] = outputMode;
 	setOutputPinValue(pin, FALSE); // initial state
 #endif

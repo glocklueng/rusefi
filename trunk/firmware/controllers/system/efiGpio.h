@@ -20,7 +20,7 @@ public:
 	GPIO_TypeDef *port;
 	int pin;
 #endif /* EFI_PROD_CODE */
-	pin_output_mode_e mode;
+	pin_output_mode_e *modePtr;
 	/**
 	 * we track current pin status so that we do not touch the actual hardware if we want to write new pin bit
 	 * which is same as current pin value. This maybe helps in case of status leds, but maybe it's a total over-engineering

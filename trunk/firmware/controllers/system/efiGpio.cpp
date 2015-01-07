@@ -10,6 +10,7 @@
 #include "efiGpio.h"
 #include "io_pins.h"
 
+pin_output_mode_e OUTPUT_MODE_DEFAULT = OM_DEFAULT;
 
 // todo: clean this mess, this should become 'static'/private
 OutputPin outputs[IO_PIN_COUNT];
@@ -90,7 +91,7 @@ const char *getPinName(io_pin_e io_pin) {
 }
 
 OutputPin::OutputPin() {
-	mode = OM_DEFAULT;
+	modePtr = &OUTPUT_MODE_DEFAULT;
 }
 
 extern uint32_t dbgStart;
