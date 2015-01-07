@@ -84,12 +84,12 @@ void outputPinRegisterExt2(const char *msg, io_pin_e ioPin, brain_pin_e brainPin
 	outputPinRegisterExt(msg, &outputs[(int)ioPin], hwPort, hwPin, outputMode);
 }
 
-void outputPinRegister(const char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin) {
-	outputPinRegisterExt(msg, &outputs[(int)ioPin], port, pin, &DEFAULT_OUTPUT);
+void outputPinRegister(const char *msg, OutputPin *output, GPIO_TypeDef *port, uint32_t pin) {
+	outputPinRegisterExt(msg, output, port, pin, &DEFAULT_OUTPUT);
 }
 
 void initPrimaryPins(void) {
-	outputPinRegister("LED_ERROR", LED_ERROR, LED_ERROR_PORT, LED_ERROR_PIN);
+	outputPinRegister("LED_ERROR", &outputs[(int)LED_ERROR], LED_ERROR_PORT, LED_ERROR_PIN);
 }
 
 static void getPinValue(const char *name) {
@@ -106,11 +106,11 @@ void initOutputPins(void) {
 	initLogging(&logger, "io_pins");
 
 #if EFI_WARNING_LED
-	outputPinRegister("warning", LED_WARNING, LED_WARNING_PORT, LED_WARNING_PIN);
-	outputPinRegister("is running status", LED_RUNNING, LED_RUNNING_STATUS_PORT, LED_RUNNING_STATUS_PIN);
+	outputPinRegister("warning", &outputs[(int)LED_WARNING], LED_WARNING_PORT, LED_WARNING_PIN);
+	outputPinRegister("is running status", &outputs[(int)LED_RUNNING], LED_RUNNING_STATUS_PORT, LED_RUNNING_STATUS_PIN);
 #endif /* EFI_WARNING_LED */
 
-	outputPinRegister("communication status 1", LED_COMMUNICATION_1, LED_COMMUNICATION_PORT, LED_COMMUNICATION_PIN);
+	outputPinRegister("communication status 1", &outputs[(int)LED_COMMUNICATION_1], LED_COMMUNICATION_PORT, LED_COMMUNICATION_PIN);
 
 	/**
 	 * want to make sure it's all zeros so that we can compare in initOutputPinExt() method
@@ -130,7 +130,7 @@ void initOutputPins(void) {
 //	outputPinRegister("spi CS3", SPI_CS_3, SPI_CS3_PORT, SPI_CS3_PIN);
 //	outputPinRegister("spi CS4", SPI_CS_4, SPI_CS4_PORT, SPI_CS4_PIN);
 #if HAL_USE_SPI || defined(__DOXYGEN__)
-	outputPinRegister("spi CS5", SPI_CS_SD_MODULE, SPI_SD_MODULE_PORT, SPI_SD_MODULE_PIN);
+	outputPinRegister("spi CS5", &outputs[(int)SPI_CS_SD_MODULE], SPI_SD_MODULE_PORT, SPI_SD_MODULE_PIN);
 #endif
 
 	// todo: should we move this code closer to the fuel pump logic?
