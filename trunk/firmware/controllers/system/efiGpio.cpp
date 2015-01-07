@@ -14,7 +14,6 @@ pin_output_mode_e OUTPUT_MODE_DEFAULT = OM_DEFAULT;
 
 // todo: clean this mess, this should become 'static'/private
 OutputPin outputs[IO_PIN_COUNT];
-pin_output_mode_e *pinDefaultState[IO_PIN_COUNT];
 
 int getOutputPinValue(io_pin_e pin) {
 	return getLogicPinValue(&outputs[pin]);

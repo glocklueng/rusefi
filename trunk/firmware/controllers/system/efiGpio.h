@@ -90,10 +90,10 @@ const char *getPinName(io_pin_e io_pin);
 #if EFI_PROD_CODE
 #define doSetOutputPinValue(pin, logicValue) {                                          \
 		if (outputs[(pin)].port != GPIO_NULL) {                                         \
-			efiAssertVoid(pinDefaultState[pin]!=NULL, "pin mode not initialized");      \
-			pin_output_mode_e mode = *pinDefaultState[pin];                             \
-			efiAssertVoid(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e");  \
 			OutputPin *output = &outputs[pin];                                          \
+			efiAssertVoid(output->modePtr!=NULL, "pin mode not initialized");           \
+			pin_output_mode_e mode = *output->modePtr;                                  \
+			efiAssertVoid(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e");  \
 			int eValue = getElectricalValue(logicValue, mode);                          \
 			setPinValue(output, eValue, logicValue);                                    \
 		}                                                                               \
