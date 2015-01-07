@@ -158,7 +158,6 @@ extern "C"
 
 io_pin_e getPinByName(const char *name);
 
-void setDefaultPinState(io_pin_e pin, pin_output_mode_e *defaultState);
 #if EFI_GPIO
  void turnAllPinsOff(void);
 #else

@@ -35,20 +35,6 @@ static GPIO_TypeDef *PORTS[] = { GPIOA, GPIOB, GPIOC, GPIOD, GPIOF};
 
 pin_output_mode_e DEFAULT_OUTPUT = OM_DEFAULT;
 
-inline static void assertOMode(pin_output_mode_e mode) {
-	// mode >= 0  is always true since that's an unsigned
-	efiAssertVoid(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e");
-}
-
-void setDefaultPinState(io_pin_e pin, pin_output_mode_e *outputMode) {
-#if EFI_GPIO
-	pin_output_mode_e mode = *outputMode;
-	assertOMode(mode);
-	outputs[(int)pin].modePtr = outputMode;
-	outputs[(int)pin].setValue(false); // initial state
-#endif
-}
-
 static void outputPinRegisterExt(const char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin,
 		pin_output_mode_e *outputMode) {
 #if EFI_GPIO
@@ -66,7 +52,7 @@ static void outputPinRegisterExt(const char *msg, io_pin_e ioPin, GPIO_TypeDef *
 
 	initOutputPinExt(msg, &outputs[ioPin], port, pin, mode);
 
-	setDefaultPinState(ioPin, outputMode);
+	outputs[(int)pin].setDefaultPinState(outputMode);
 #endif
 }
 
