@@ -352,16 +352,21 @@ static THD_WORKING_AREA(lcdThreadStack, UTILITY_THREAD_STACK_SIZE);
  */
 static THD_WORKING_AREA(comBlinkingStack, UTILITY_THREAD_STACK_SIZE);
 
+extern OutputPin errorLedPin;
+static OutputPin communicationPin;
+OutputPin checkEnginePin;
+
 static OutputPin *leds[] = { &outputs[(int)LED_WARNING], &outputs[(int)LED_RUNNING],
-		&outputs[(int)LED_ERROR],
-		&outputs[(int)LED_COMMUNICATION_1],
-		&outputs[(int)LED_EXT_1],
-		&outputs[(int)LED_CHECK_ENGINE] };
+		&errorLedPin,
+		&communicationPin,
+		&checkEnginePin };
 
 /**
  * This method would blink all the LEDs just to test them
  */
 static void initialLedsBlink(void) {
+	outputPinRegister("communication status 1", &communicationPin, LED_COMMUNICATION_PORT, LED_COMMUNICATION_PIN);
+
 	int size = sizeof(leds) / sizeof(leds[0]);
 	for (int i = 0; i < size; i++)
 		leds[i]->setValue(1);
@@ -393,12 +398,10 @@ static void comBlinkingThread(void *arg) {
 			delay = isConsoleReady() ? 100 : 33;
 		}
 
-		outputs[(int)LED_COMMUNICATION_1].setValue(0);
-		outputs[(int)LED_EXT_1].setValue(1);
+		communicationPin.setValue(0);
 		chThdSleepMilliseconds(delay);
 
-		outputs[(int)LED_COMMUNICATION_1].setValue(1);
-		outputs[(int)LED_EXT_1].setValue(0);
+		communicationPin.setValue(1);
 		chThdSleepMilliseconds(delay);
 	}
 }
