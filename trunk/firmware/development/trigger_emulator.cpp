@@ -24,6 +24,8 @@
 
 extern PwmConfig triggerSignal;
 
+extern OutputPin outputs[IO_PIN_COUNT];
+
 void initTriggerEmulator(Engine *engine) {
 
 	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
@@ -38,13 +40,13 @@ void initTriggerEmulator(Engine *engine) {
 
 #if EFI_PROD_CODE
 	// todo: refactor, make this a loop
-	outputPinRegisterExt2("distributor ch1", triggerSignal.outputPins[0], boardConfiguration->triggerSimulatorPins[0],
+	outputPinRegisterExt2("distributor ch1", &outputs[(int)triggerSignal.outputPins[0]], boardConfiguration->triggerSimulatorPins[0],
 			&boardConfiguration->triggerSimulatorPinModes[0]);
 
-	outputPinRegisterExt2("distributor ch2", triggerSignal.outputPins[1], boardConfiguration->triggerSimulatorPins[1],
+	outputPinRegisterExt2("distributor ch2", &outputs[(int)triggerSignal.outputPins[1]], boardConfiguration->triggerSimulatorPins[1],
 			&boardConfiguration->triggerSimulatorPinModes[1]);
 
-	outputPinRegisterExt2("distributor ch3", triggerSignal.outputPins[2], boardConfiguration->triggerSimulatorPins[2],
+	outputPinRegisterExt2("distributor ch3", &outputs[(int)triggerSignal.outputPins[2]], boardConfiguration->triggerSimulatorPins[2],
 			&boardConfiguration->triggerSimulatorPinModes[2]);
 #endif /* EFI_PROD_CODE */
 

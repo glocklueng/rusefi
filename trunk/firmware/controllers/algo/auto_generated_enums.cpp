@@ -81,18 +81,10 @@ case INJECTOR_9_OUTPUT:
   return "INJECTOR_9_OUTPUT";
 case IO_INVALID:
   return "IO_INVALID";
-case LED_CHECK_ENGINE:
-  return "LED_CHECK_ENGINE";
-case LED_COMMUNICATION_1:
-  return "LED_COMMUNICATION_1";
 case LED_DEBUG:
   return "LED_DEBUG";
 case LED_EMULATOR:
   return "LED_EMULATOR";
-case LED_ERROR:
-  return "LED_ERROR";
-case LED_EXT_1:
-  return "LED_EXT_1";
 case LED_EXT_2:
   return "LED_EXT_2";
 case LED_EXT_3:
