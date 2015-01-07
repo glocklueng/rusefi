@@ -355,8 +355,10 @@ static THD_WORKING_AREA(comBlinkingStack, UTILITY_THREAD_STACK_SIZE);
 extern OutputPin errorLedPin;
 static OutputPin communicationPin;
 OutputPin checkEnginePin;
+OutputPin warningPin;
+OutputPin runningPin;
 
-static OutputPin *leds[] = { &outputs[(int)LED_WARNING], &outputs[(int)LED_RUNNING],
+static OutputPin *leds[] = { &warningPin, &runningPin,
 		&errorLedPin,
 		&communicationPin,
 		&checkEnginePin };
@@ -366,6 +368,11 @@ static OutputPin *leds[] = { &outputs[(int)LED_WARNING], &outputs[(int)LED_RUNNI
  */
 static void initialLedsBlink(void) {
 	outputPinRegister("communication status 1", &communicationPin, LED_COMMUNICATION_PORT, LED_COMMUNICATION_PIN);
+
+#if EFI_WARNING_LED
+	outputPinRegister("warning", &warningPin, LED_WARNING_PORT, LED_WARNING_PIN);
+	outputPinRegister("is running status", &runningPin, LED_RUNNING_STATUS_PORT, LED_RUNNING_STATUS_PIN);
+#endif /* EFI_WARNING_LED */
 
 	int size = sizeof(leds) / sizeof(leds[0]);
 	for (int i = 0; i < size; i++)
@@ -413,9 +420,9 @@ static void errBlinkingThread(void *arg) {
 	while (TRUE) {
 		int delay = 33;
 		if (isTriggerDecoderError() || isIgnitionTimingError())
-			outputs[(int)LED_WARNING].setValue(1);
+			warningPin.setValue(1);
 		chThdSleepMilliseconds(delay);
-		outputs[(int)LED_WARNING].setValue(0);
+		warningPin.setValue(0);
 		chThdSleepMilliseconds(delay);
 	}
 #endif /* EFI_ENGINE_CONTROL */

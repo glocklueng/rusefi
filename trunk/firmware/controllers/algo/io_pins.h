@@ -62,12 +62,6 @@ typedef enum {
 	GPIO_15,
 
 	IO_INVALID,
-	LED_WARNING, // Orange on-board LED
-	LED_RUNNING, // Green on-board LED
-	LED_EXT_2, // external board LED
-	LED_EXT_3, // external board LED
-	LED_DEBUG,
-	LED_EMULATOR,
 
 	LED_TRIGGER_ERROR,
 
