@@ -35,13 +35,12 @@ static GPIO_TypeDef *PORTS[] = { GPIOA, GPIOB, GPIOC, GPIOD, GPIOF};
 
 pin_output_mode_e DEFAULT_OUTPUT = OM_DEFAULT;
 
-static void outputPinRegisterExt(const char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin,
+static void outputPinRegisterExt(const char *msg, OutputPin *output, GPIO_TypeDef *port, uint32_t pin,
 		pin_output_mode_e *outputMode) {
 #if EFI_GPIO
-	efiAssertVoid((int)ioPin < IO_PIN_COUNT, "io pin out of range");
 	if (port == GPIO_NULL) {
 		// that's for GRIO_NONE
-		outputs[ioPin].port = port;
+		output->port = port;
 		return;
 	}
 
@@ -50,9 +49,9 @@ static void outputPinRegisterExt(const char *msg, io_pin_e ioPin, GPIO_TypeDef *
 	PAL_MODE_OUTPUT_PUSHPULL :
 																				PAL_MODE_OUTPUT_OPENDRAIN;
 
-	initOutputPinExt(msg, &outputs[ioPin], port, pin, mode);
+	initOutputPinExt(msg, output, port, pin, mode);
 
-	outputs[(int)pin].setDefaultPinState(outputMode);
+	output->setDefaultPinState(outputMode);
 #endif
 }
 
@@ -82,11 +81,11 @@ void outputPinRegisterExt2(const char *msg, io_pin_e ioPin, brain_pin_e brainPin
 	GPIO_TypeDef *hwPort = getHwPort(brainPin);
 	int hwPin = getHwPin(brainPin);
 
-	outputPinRegisterExt(msg, ioPin, hwPort, hwPin, outputMode);
+	outputPinRegisterExt(msg, &outputs[(int)ioPin], hwPort, hwPin, outputMode);
 }
 
 void outputPinRegister(const char *msg, io_pin_e ioPin, GPIO_TypeDef *port, uint32_t pin) {
-	outputPinRegisterExt(msg, ioPin, port, pin, &DEFAULT_OUTPUT);
+	outputPinRegisterExt(msg, &outputs[(int)ioPin], port, pin, &DEFAULT_OUTPUT);
 }
 
 void initPrimaryPins(void) {
