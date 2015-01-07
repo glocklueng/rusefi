@@ -88,9 +88,8 @@ const char *getPinName(io_pin_e io_pin);
 #endif
 
 #if EFI_PROD_CODE
-#define doSetOutputPinValue(pin, logicValue) {                                          \
-		if (outputs[(pin)].port != GPIO_NULL) {                                         \
-			OutputPin *output = &outputs[pin];                                          \
+#define doSetOutputPinValue2(output, logicValue) {                                      \
+		if (output->port != GPIO_NULL) {                                                \
 			efiAssertVoid(output->modePtr!=NULL, "pin mode not initialized");           \
 			pin_output_mode_e mode = *output->modePtr;                                  \
 			efiAssertVoid(mode <= OM_OPENDRAIN_INVERTED, "invalid pin_output_mode_e");  \
@@ -99,14 +98,14 @@ const char *getPinName(io_pin_e io_pin);
 		}                                                                               \
     }
 #else
-		#define doSetOutputPinValue(pin, logicValue) {                                  \
+		#define doSetOutputPinValue2(output, logicValue) {                              \
 				pin_output_mode_e mode = OM_DEFAULT;                                    \
-				OutputPin *output = &outputs[pin];                                      \
 				int eValue = getElectricalValue(logicValue, mode);                      \
 				setPinValue(output, eValue, logicValue);                                \
 		}
 #endif
 
+#define doSetOutputPinValue(pin, logicValue) doSetOutputPinValue2((&outputs[pin]), logicValue)
 
 #ifdef __cplusplus
 }
