@@ -365,7 +365,7 @@ void testMenuTree(void) {
 
 	MenuItem miTopLevel1(tree.root, "top level 1");
 	MenuItem miTopLevel2(tree.root, "top level 2");
-	MenuItem miTopLevel3(tree.root, "top level 3");
+	MenuItem miTopLevel3(tree.root, LL_RPM);
 	MenuItem miTopLevel4(tree.root, "top level 4");
 	MenuItem miTopLevel5(tree.root, "top level 5");
 
