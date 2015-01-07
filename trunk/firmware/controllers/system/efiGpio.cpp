@@ -89,14 +89,17 @@ const char *getPinName(io_pin_e io_pin) {
 	}
 }
 
+OutputPin::OutputPin() {
+	mode = OM_DEFAULT;
+}
+
+extern uint32_t dbgStart;
+extern uint32_t dbgDurr;
 /**
  * @brief Sets the value according to current electrical settings
  *
  * This method costs about 85 ticks
  */
-extern uint32_t dbgStart;
-extern uint32_t dbgDurr;
-
 void setOutputPinValue(io_pin_e pin, int logicValue) {
 	doSetOutputPinValue(pin, logicValue);
 }

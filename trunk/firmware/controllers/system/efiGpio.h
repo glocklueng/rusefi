@@ -13,17 +13,20 @@
 /**
  * @brief   Single output pin reference and state
  */
-typedef struct {
+class OutputPin {
+public:
+	OutputPin();
 #if EFI_PROD_CODE
 	GPIO_TypeDef *port;
 	int pin;
 #endif /* EFI_PROD_CODE */
+	pin_output_mode_e mode;
 	/**
 	 * we track current pin status so that we do not touch the actual hardware if we want to write new pin bit
 	 * which is same as current pin value. This maybe helps in case of status leds, but maybe it's a total over-engineering
 	 */
 	int currentLogicValue;
-} OutputPin;
+};
 
 /**
  * it's a macro to be sure that stack is not used
