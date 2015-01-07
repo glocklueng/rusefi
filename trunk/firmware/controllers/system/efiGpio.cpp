@@ -93,6 +93,10 @@ OutputPin::OutputPin() {
 	modePtr = &OUTPUT_MODE_DEFAULT;
 }
 
+void OutputPin::setValue(int logicValue) {
+	doSetOutputPinValue2(this, logicValue);
+}
+
 extern uint32_t dbgStart;
 extern uint32_t dbgDurr;
 /**

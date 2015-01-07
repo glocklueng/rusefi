@@ -16,6 +16,7 @@
 class OutputPin {
 public:
 	OutputPin();
+	void setValue(int logicValue);
 #if EFI_PROD_CODE
 	GPIO_TypeDef *port;
 	int pin;

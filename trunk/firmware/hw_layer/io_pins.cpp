@@ -45,7 +45,7 @@ void setDefaultPinState(io_pin_e pin, pin_output_mode_e *outputMode) {
 	pin_output_mode_e mode = *outputMode;
 	assertOMode(mode);
 	outputs[(int)pin].modePtr = outputMode;
-	setOutputPinValue(pin, FALSE); // initial state
+	outputs[(int)pin].setValue(false); // initial state
 #endif
 }
 
