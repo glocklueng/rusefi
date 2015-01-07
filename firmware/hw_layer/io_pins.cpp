@@ -108,12 +108,6 @@ static void getPinValue(const char *name) {
 void initOutputPins(void) {
 	initLogging(&logger, "io_pins");
 
-#if EFI_WARNING_LED
-	outputPinRegister("warning", &outputs[(int)LED_WARNING], LED_WARNING_PORT, LED_WARNING_PIN);
-	outputPinRegister("is running status", &outputs[(int)LED_RUNNING], LED_RUNNING_STATUS_PORT, LED_RUNNING_STATUS_PIN);
-#endif /* EFI_WARNING_LED */
-
-
 	/**
 	 * want to make sure it's all zeros so that we can compare in initOutputPinExt() method
 	 */
