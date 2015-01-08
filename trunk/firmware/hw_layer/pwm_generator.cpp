@@ -17,9 +17,6 @@
 #include "pin_repository.h"
 #include "datalogging.h"
 
-static Logging logger;
-extern OutputPin outputs[IO_PIN_COUNT];
-
 /**
  * This method controls the actual hardware pins
  *
@@ -60,6 +57,5 @@ void startSimplePwmExt(PwmConfig *state, const char *msg, brain_pin_e brainPin, 
 }
 
 void initPwmGenerator(void) {
-	initLogging(&logger, "PWM gen");
 }
 
