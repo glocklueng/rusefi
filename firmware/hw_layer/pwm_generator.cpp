@@ -43,7 +43,7 @@ void startSimplePwm(PwmConfig *state, const char *msg, OutputPin *output, float 
 	state->outputPins[0] = output;
 
 	state->periodNt = US2NT(frequency2periodUs(frequency));
-	weComplexInit(msg, state, 2, switchTimes, 1, pinStates, NULL, stateChangeCallback);
+	state->weComplexInit(msg, 2, switchTimes, 1, pinStates, NULL, stateChangeCallback);
 }
 
 void startSimplePwmExt(PwmConfig *state, const char *msg, brain_pin_e brainPin, OutputPin *output, float frequency,
