@@ -20,15 +20,13 @@
 
 #include "main.h"
 #include "console_io.h"
-
-#if EFI_PROD_CODE
-#if HAL_USE_SERIAL_USB || defined(__DOXYGEN__)
-extern SerialUSBDriver SDU1;
-#endif
-#include "usbcfg.h"
-#include "usbconsole.h"
-#endif
 #include "rfiutil.h"
+
+#if HAL_USE_SERIAL_USB || defined(__DOXYGEN__)
+ #include "usbcfg.h"
+ #include "usbconsole.h"
+ extern SerialUSBDriver SDU1;
+#endif
 
 int lastWriteSize;
 int lastWriteActual;
@@ -127,14 +125,15 @@ bool isSerialOverUart(void) {
 static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 
 SerialDriver * getConsoleChannel(void) {
-#if HAL_USE_SERIAL_USB || defined(__DOXYGEN__)
+#if defined(EFI_CONSOLE_UART_DEVICE)
 	if (isSerialOverUart()) {
 		return (SerialDriver *) EFI_CONSOLE_UART_DEVICE;
-	} else {
-		return (SerialDriver *) &SDU1;
-	}
+#endif /* EFI_CONSOLE_UART_DEVICE */
+
+#if HAL_USE_SERIAL_USB || defined(__DOXYGEN__)
+	return (SerialDriver *) &SDU1;
 #else
-	return (SerialDriver *) EFI_CONSOLE_UART_DEVICE;
+	return NULL;
 #endif
 }
 
