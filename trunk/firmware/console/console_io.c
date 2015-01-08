@@ -120,14 +120,17 @@ bool isSerialOverUart(void) {
 	return is_serial_over_uart;
 }
 
-#if EFI_PROD_CODE || EFI_EGT
-
+#if EFI_USE_UART_FOR_CONSOLE || defined(__DOXYGEN__)
 static SerialConfig serialConfig = { SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
+#endif
+
+#if EFI_PROD_CODE || EFI_EGT || defined(__DOXYGEN__)
 
 SerialDriver * getConsoleChannel(void) {
-#if defined(EFI_CONSOLE_UART_DEVICE)
+#if defined(EFI_CONSOLE_UART_DEVICE) || defined(__DOXYGEN__)
 	if (isSerialOverUart()) {
 		return (SerialDriver *) EFI_CONSOLE_UART_DEVICE;
+	}
 #endif /* EFI_CONSOLE_UART_DEVICE */
 
 #if HAL_USE_SERIAL_USB || defined(__DOXYGEN__)
@@ -200,7 +203,7 @@ void consoleOutputBuffer(const uint8_t *buf, int size) {
 void startConsole(void (*console_line_callback_p)(char *)) {
 	console_line_callback = console_line_callback_p;
 
-#if EFI_PROD_CODE
+#if EFI_USE_UART_FOR_CONSOLE
 
 	palSetPadMode(CONSOLE_MODE_SWITCH_PORT, CONSOLE_MODE_SWITCH_PIN, PAL_MODE_INPUT_PULLUP);
 
@@ -221,6 +224,8 @@ void startConsole(void (*console_line_callback_p)(char *)) {
 
 		chEvtRegisterMask((EventSource *) chnGetEventSource(EFI_CONSOLE_UART_DEVICE), &consoleEventListener, 1);
 	}
+#else
+	is_serial_over_uart = false;
 #endif /* EFI_PROD_CODE */
 
 	chThdCreateStatic(consoleThreadStack, sizeof(consoleThreadStack), NORMALPRIO, consoleThreadThreadEntryPoint, NULL);
