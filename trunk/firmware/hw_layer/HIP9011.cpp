@@ -35,7 +35,8 @@
 
 #if EFI_HIP_9011 || defined(__DOXYGEN__)
 
-extern OutputPin outputs[IO_PIN_COUNT];
+static OutputPin intHold;
+static OutputPin hipCs;
 
 extern pin_output_mode_e DEFAULT_OUTPUT;
 
@@ -118,7 +119,7 @@ static void startIntegration(void) {
 		 * until we are done integrating
 		 */
 		isIntegrating = true;
-		doSetOutputPinValue(HIP9011_INT_HOLD, true);
+		intHold.setValue(true);
 	}
 }
 
@@ -128,7 +129,7 @@ static void endIntegration(void) {
 	 * engine cycle
 	 */
 	if (isIntegrating) {
-		doSetOutputPinValue(HIP9011_INT_HOLD, false);
+		intHold.setValue(false);
 		isIntegrating = false;
 
 		int integratorIndex = getIntegrationIndexByRpm(engine->rpmCalculator.rpmValue);
@@ -203,8 +204,8 @@ void initHip9011(void) {
 	spicfg.ssport = getHwPort(boardConfiguration->hip9011CsPin);
 	spicfg.sspad = getHwPin(boardConfiguration->hip9011CsPin);
 
-	outputPinRegisterExt2("hip int/hold", &outputs[(int)HIP9011_INT_HOLD], boardConfiguration->hip9011IntHoldPin, &DEFAULT_OUTPUT);
-	outputPinRegisterExt2("hip CS", &outputs[(int)SPI_CS_HIP9011], boardConfiguration->hip9011CsPin, &DEFAULT_OUTPUT);
+	outputPinRegisterExt2("hip int/hold", &intHold, boardConfiguration->hip9011IntHoldPin, &DEFAULT_OUTPUT);
+	outputPinRegisterExt2("hip CS", &hipCs, boardConfiguration->hip9011CsPin, &DEFAULT_OUTPUT);
 
 	scheduleMsg(&logger, "Starting HIP9011/TPIC8101 driver");
 	spiStart(driver, &spicfg);
