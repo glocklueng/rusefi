@@ -181,7 +181,7 @@ static void startIntegration(void) {
 		 * until we are done integrating
 		 */
 		isIntegrating = true;
-		turnPinHigh(HIP9011_INT_HOLD);
+		doSetOutputPinValue(HIP9011_INT_HOLD, true);
 	}
 }
 
@@ -191,7 +191,7 @@ static void endIntegration(void) {
 	 * engine cycle
 	 */
 	if (isIntegrating) {
-		turnPinLow(HIP9011_INT_HOLD);
+		doSetOutputPinValue(HIP9011_INT_HOLD, false);
 		isIntegrating = false;
 	}
 }
