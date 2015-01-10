@@ -1,13 +1,17 @@
 /*
- * mpu_util.h
+ * @file	mpu_util.h
  *
- *  Created on: Jan 8, 2015
- *      Author: Andrey
+ * @date Jan 8, 2015
+ * @author Andrey Belomutskiy, (c) 2012-2014
  */
 
 #ifndef CONFIG_STM32F1EGT_MPU_UTIL_H_
 #define CONFIG_STM32F1EGT_MPU_UTIL_H_
 
+#include "main.h"
+
 #define baseHardwareInit() {}
+
+void initSpiCs(SPIConfig *spiConfig, brain_pin_e csPin);
 
 #endif /* CONFIG_STM32F1EGT_MPU_UTIL_H_ */
