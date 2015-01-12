@@ -25,7 +25,10 @@
 #include "engine.h"
 #endif
 
+#if ! EFI_UNIT_TEST
 #include "analog_chart.h"
+#endif
+
 #include "efilib2.h"
 
 #if EFI_WAVE_CHART

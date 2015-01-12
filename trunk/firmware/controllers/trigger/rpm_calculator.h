@@ -80,13 +80,10 @@ void initRpmCalculator(Engine *engine);
 float getCrankshaftAngleNt(uint64_t timeNt DECLARE_ENGINE_PARAMETER_S);
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
-bool isCranking(void);
 
 int getRevolutionCounter(void);
+
+bool isCranking(void);
 
 #define isValidRpm(rpm) ((rpm) > 0 && (rpm) < UNREALISTIC_RPM)
 
@@ -96,6 +93,10 @@ int getRevolutionCounter(void);
 #define addWaveChartEvent(n, msg) {}
 #endif /* EFI_WAVE_CHART */
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 #ifdef __cplusplus
 }
