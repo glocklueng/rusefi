@@ -15,7 +15,6 @@
 #if EFI_SHAFT_POSITION_INPUT || defined(__DOXYGEN__)
 
 #include "rpm_calculator.h"
-#include "wave_chart.h"
 #include "trigger_central.h"
 #include "engine_configuration.h"
 #include "ec2.h"
@@ -30,9 +29,9 @@
 #include "efilib2.h"
 
 #if EFI_WAVE_CHART
+#include "wave_chart.h"
 extern WaveChart waveChart;
 #endif /* EFI_WAVE_CHART */
-
 
 EXTERN_ENGINE;
 
