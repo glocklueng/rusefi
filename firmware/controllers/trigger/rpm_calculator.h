@@ -12,6 +12,8 @@
 #include <global.h>
 #include "engine_configuration.h"
 
+#define TOP_DEAD_CENTER_MESSAGE "r"
+
 #define WC_DOWN "d"
 #define WC_UP "u"
 #define WC_CRANK1 "c1"
