@@ -123,8 +123,6 @@ bool isCranking(void) {
 }
 #endif
 
-extern uint32_t triggerHanlderEntryTime;
-
 /**
  * @brief Shaft position callback used by RPM calculation logic.
  *
