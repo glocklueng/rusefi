@@ -44,14 +44,11 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-void initOutputSignal(OutputSignal *signal, io_pin_e ioPin);
 void scheduleOutput(OutputSignal *signal, float delayMs, float durationMs);
-void initOutputSignalBase(OutputSignal *signal);
-void scheduleOutputBase(OutputSignal *signal, float delayMs, float durationMs);
 
 void initSignalExecutor(void);
 void initSignalExecutorImpl(void);
-void scheduleByAngle(int rpm, scheduling_s *timer, float angle, schfunc_t callback, void *param);
+void scheduleByAngle(int rpm, scheduling_s *timer, angle_t angle, schfunc_t callback, void *param);
 
 #ifdef __cplusplus
 }

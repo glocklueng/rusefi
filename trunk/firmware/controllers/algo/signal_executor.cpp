@@ -48,10 +48,6 @@ void initSignalExecutor(void) {
 	initSignalExecutorImpl();
 }
 
-void initOutputSignal(OutputSignal *signal, io_pin_e ioPin) {
-	NamedOutputPin *output = &outputs[(int)ioPin];
-}
-
 //uint32_t dbgStart;
 //uint32_t dbgDurr;
 
