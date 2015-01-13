@@ -354,7 +354,7 @@ static void showFuelInfo2(float rpm, float engineLoad, Engine *engine) {
 	scheduleMsg(&logger, "SD magic fuel %f", sdMath(engineConfiguration, 100, 100, 14.7, convertCelsiusToKelvin(20)));
 
 	scheduleMsg(&logger2, "algo=%s/pump=%s", getEngine_load_mode_e(engineConfiguration->algorithm),
-			boolToString(getLogicPinValue(&enginePins.fuelPumpRelay)));
+			boolToString(enginePins.fuelPumpRelay.getLogicValue()));
 
 	scheduleMsg(&logger2, "cranking fuel: %f", getCrankingFuel(engine));
 
@@ -515,9 +515,9 @@ void updateTunerStudioState(Engine *engine, TunerStudioOutputChannels *tsOutputC
 
 	tsOutputChannels->needBurn = getNeedToWriteConfiguration();
 	tsOutputChannels->hasSdCard = isSdCardAlive();
-	tsOutputChannels->isFuelPumpOn = getLogicPinValue(&enginePins.fuelPumpRelay);
-	tsOutputChannels->isFanOn = getLogicPinValue(&enginePins.fanRelay);
-	tsOutputChannels->isO2HeaterOn = getLogicPinValue(&enginePins.o2heater);
+	tsOutputChannels->isFuelPumpOn = enginePins.fuelPumpRelay.getLogicValue();
+	tsOutputChannels->isFanOn = enginePins.fanRelay.getLogicValue();
+	tsOutputChannels->isO2HeaterOn = enginePins.o2heater.getLogicValue();
 	tsOutputChannels->ignition_enabled = engineConfiguration->isIgnitionEnabled;
 	tsOutputChannels->injection_enabled = engineConfiguration->isInjectionEnabled;
 	tsOutputChannels->cylinder_cleanup_enabled = engineConfiguration->isCylinderCleanupEnabled;

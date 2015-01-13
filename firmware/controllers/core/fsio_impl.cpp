@@ -64,7 +64,7 @@ float getLEValue(Engine *engine, calc_stack_t *s, le_action_e action) {
 	efiAssert(engine!=NULL, "getLEValue", NAN);
 	switch (action) {
 	case LE_METHOD_FAN:
-		return getLogicPinValue(&enginePins.fanRelay);
+		return enginePins.fanRelay.getLogicValue();
 	case LE_METHOD_AC_TOGGLE:
 		return getAcToggle(engine);
 	case LE_METHOD_COOLANT:
@@ -177,7 +177,7 @@ static void setPinState(const char * msg, OutputPin *pin, LEElement *element, En
 		warning(OBD_PCM_Processor_Fault, "invalid expression for %s", msg);
 	} else {
 		int value = calc.getValue2(element, engine);
-		if (value != getLogicPinValue(pin)) {
+		if (value != pin->getLogicValue()) {
 			if (isRunningBenchTest())
 				return; // let's not mess with bench testing
 			scheduleMsg(&logger, "setting %s %s", msg, boolToString(value));

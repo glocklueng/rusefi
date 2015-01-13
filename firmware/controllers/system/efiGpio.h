@@ -23,6 +23,7 @@ public:
 	OutputPin();
 	void setValue(int logicValue);
 	void setDefaultPinState(pin_output_mode_e *defaultState);
+	bool_t getLogicValue();
 #if EFI_PROD_CODE
 	GPIO_TypeDef *port;
 	int pin;
@@ -68,7 +69,7 @@ typedef struct {
 
 #define setPinValue(outputPin, electricalValue, logicValue)                        \
   {                                                                                \
-    if (getLogicPinValue(outputPin) != (logicValue)) {                             \
+    if ((outputPin)->currentLogicValue != (logicValue)) {                          \
 	  palWritePad((outputPin)->port, (outputPin)->pin, (electricalValue));         \
 	  (outputPin)->currentLogicValue = (logicValue);                               \
     }                                                                              \
@@ -76,7 +77,7 @@ typedef struct {
 #else /* EFI_PROD_CODE */
 #define setPinValue(outputPin, electricalValue, logicValue)                        \
   {                                                                                \
-    if (getLogicPinValue(outputPin) != (logicValue)) {                             \
+    if ((outputPin)->currentLogicValue != (logicValue)) {                          \
 	  (outputPin)->currentLogicValue = (logicValue);                               \
     }                                                                              \
   }
