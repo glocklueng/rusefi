@@ -330,10 +330,10 @@ static void printTemperatureInfo(void) {
 		scheduleMsg(&logger, "IAT sensing error");
 	}
 
-	scheduleMsg(&logger, "fan=%s @ %s", boolToString(getLogicPinValue(&enginePins.fanRelay)),
+	scheduleMsg(&logger, "fan=%s @ %s", boolToString(enginePins.fanRelay.getLogicValue()),
 			hwPortname(boardConfiguration->fanPin));
 
-	scheduleMsg(&logger, "A/C relay=%s @ %s", boolToString(getLogicPinValue(&enginePins.acRelay)),
+	scheduleMsg(&logger, "A/C relay=%s @ %s", boolToString(enginePins.acRelay.getLogicValue()),
 			hwPortname(boardConfiguration->acRelayPin));
 
 

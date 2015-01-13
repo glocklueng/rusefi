@@ -98,6 +98,10 @@ void OutputPin::setValue(int logicValue) {
 	doSetOutputPinValue2(this, logicValue);
 }
 
+bool_t OutputPin::getLogicValue() {
+	return currentLogicValue;
+}
+
 void OutputPin::setDefaultPinState(pin_output_mode_e *outputMode) {
 #if EFI_GPIO
 	pin_output_mode_e mode = *outputMode;

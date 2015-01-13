@@ -104,7 +104,7 @@ static void getPinValue(const char *name) {
 		return;
 	}
 	OutputPin * outputPin = &outputs[pin];
-	int value = getLogicPinValue(outputPin);
+	int value = outputPin->getLogicValue();
 	scheduleMsg(&logger, "pin_value %s %d", name, value);
 }
 
