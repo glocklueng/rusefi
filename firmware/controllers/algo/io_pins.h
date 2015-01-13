@@ -14,8 +14,6 @@
 
 #define ENGINE_CHANNEL_COUNT 12
 
-#define NAMED_PIN_COUNT 24
-
 typedef enum {
 	INJECTOR_1,
 	INJECTOR_2,
@@ -97,8 +95,6 @@ typedef enum {
 //	LED_HUGE_20,
 
 } io_pin_e;
-
-#define IO_PIN_COUNT 24
 
 void initPrimaryPins(void);
 void initOutputPins(void);

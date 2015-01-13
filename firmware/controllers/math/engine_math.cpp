@@ -32,7 +32,7 @@
 EXTERN_ENGINE
 ;
 
-extern NamedOutputPin coils[IO_PIN_COUNT];
+extern NamedOutputPin coils[ENGINE_CHANNEL_COUNT];
 extern engine_pins_s enginePins;
 
 /**

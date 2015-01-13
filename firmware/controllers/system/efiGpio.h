@@ -51,7 +51,7 @@ typedef struct {
 	OutputPin alternatorField;
 	OutputPin errorLedPin;
 
-	NamedOutputPin injectors[IO_PIN_COUNT];
+	NamedOutputPin injectors[ENGINE_CHANNEL_COUNT];
 } engine_pins_s;
 
 /**

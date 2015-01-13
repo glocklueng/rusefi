@@ -66,7 +66,7 @@
 #endif
 
 extern engine_pins_s enginePins;
-extern NamedOutputPin coils[IO_PIN_COUNT];
+extern NamedOutputPin coils[ENGINE_CHANNEL_COUNT];
 
 // this 'true' value is needed for simulator
 static volatile bool fullLog = true;
