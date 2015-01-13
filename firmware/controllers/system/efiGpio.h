@@ -96,9 +96,9 @@ void setOutputPinValue(io_pin_e pin, int logicValue);
 const char *getPinName(io_pin_e io_pin);
 
 #if EFI_PROD_CODE
- #define isPinAssigned(pin) (outputs[(pin)].port != GPIO_NULL)
+ #define isPinAssigned(output) ((output)->port != GPIO_NULL)
 #else
- #define isPinAssigned(pin) (true)
+ #define isPinAssigned(output) (true)
 #endif
 
 #if EFI_PROD_CODE
