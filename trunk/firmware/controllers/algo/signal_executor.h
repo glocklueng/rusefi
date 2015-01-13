@@ -14,6 +14,7 @@
 #include "efifeatures.h"
 #include "io_pins.h"
 #include "scheduler.h"
+#include "efiGpio.h"
 
 #if EFI_PROD_CODE
 #include "datalogging.h"
@@ -28,7 +29,7 @@
  */
 typedef struct OutputSignal_struct OutputSignal;
 struct OutputSignal_struct {
-	io_pin_e io_pin;
+	NamedOutputPin *output;
 
 	/**
 	 * We are alternating instances so that events which extend into next revolution are not reused while
