@@ -97,16 +97,6 @@ void initPrimaryPins(void) {
 	outputPinRegister("LED_ERROR", &enginePins.errorLedPin, LED_ERROR_PORT, LED_ERROR_PIN);
 }
 
-static void getPinValue(const char *name) {
-	io_pin_e pin = getPinByName(name);
-	if (pin == IO_INVALID) {
-		return;
-	}
-	OutputPin * outputPin = &outputs[pin];
-	int value = outputPin->getLogicValue();
-	scheduleMsg(&logger, "pin_value %s %d", name, value);
-}
-
 void initOutputPins(void) {
 	initLogging(&logger, "io_pins");
 
@@ -168,8 +158,6 @@ void initOutputPins(void) {
 	 ledRegister(LED_HUGE_19, GPIOE, 3);
 	 ledRegister(LED_HUGE_20, GPIOE, 1);
 	 */
-
-	addConsoleActionS("get_pin_value", getPinValue);
 }
 
 #if EFI_GPIO
