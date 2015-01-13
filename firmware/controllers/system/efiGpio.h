@@ -84,19 +84,14 @@ typedef struct {
 #define getElectricalValue(logicalValue, mode) \
 	(logicalValue ? getElectricalValue1(mode) : getElectricalValue0(mode))
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
-
-void setOutputPinValue(io_pin_e pin, int logicValue);
-const char *getPinName(io_pin_e io_pin);
-
 #if EFI_PROD_CODE
  #define isPinAssigned(output) ((output)->port != GPIO_NULL)
 #else
  #define isPinAssigned(output) (true)
 #endif
+
+#define doSetOutputPinValue(pin, logicValue) doSetOutputPinValue2((&outputs[pin]), logicValue)
+
 
 #if EFI_PROD_CODE
 #define doSetOutputPinValue2(output, logicValue) {                                      \
@@ -116,11 +111,8 @@ const char *getPinName(io_pin_e io_pin);
 		}
 #endif
 
-#define doSetOutputPinValue(pin, logicValue) doSetOutputPinValue2((&outputs[pin]), logicValue)
 void outputPinRegisterExt2(const char *msg, OutputPin *output, brain_pin_e brainPin, pin_output_mode_e *outputMode);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+const char *getPinName(io_pin_e io_pin);
 
 #endif /* EFIGPIO_H_ */
