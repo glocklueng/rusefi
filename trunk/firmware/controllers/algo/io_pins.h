@@ -12,6 +12,8 @@
 
 #define GPIO_NULL NULL
 
+#define ENGINE_CHANNEL_COUNT 12
+
 #define NAMED_PIN_COUNT 24
 
 typedef enum {
