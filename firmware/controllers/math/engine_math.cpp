@@ -96,7 +96,7 @@ void setSingleCoilDwell(engine_configuration_s *engineConfiguration) {
 #if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 OutputSignalList injectonSignals CCM_OPTIONAL;
 
-void initializeIgnitionActions(float advance, float dwellAngle, IgnitionEventList *list DECLARE_ENGINE_PARAMETER_S) {
+void initializeIgnitionActions(angle_t advance, angle_t dwellAngle, IgnitionEventList *list DECLARE_ENGINE_PARAMETER_S) {
 	efiAssertVoid(engineConfiguration->cylindersCount > 0, "cylindersCount");
 
 	list->reset();
@@ -252,13 +252,12 @@ static int findAngleIndex(float angleOffset DECLARE_ENGINE_PARAMETER_S) {
 	}
 }
 
-void findTriggerPosition(event_trigger_position_s *position, float angleOffset DECLARE_ENGINE_PARAMETER_S) {
-
+void findTriggerPosition(event_trigger_position_s *position, angle_t angleOffset DECLARE_ENGINE_PARAMETER_S) {
 	angleOffset += CONFIG(globalTriggerAngleOffset);
 	fixAngle(angleOffset);
 
 	int index = triggerIndexByAngle[(int)angleOffset];
-	float eventAngle = TRIGGER_SHAPE(eventAngles[index]);
+	angle_t eventAngle = TRIGGER_SHAPE(eventAngles[index]);
 	if (angleOffset < eventAngle) {
 		firmwareError("angle constraint violation in registerActuatorEventExt(): %f/%f", angleOffset, eventAngle);
 		return;

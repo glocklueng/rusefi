@@ -96,8 +96,8 @@ public:
 	/**
 	 * ignition dwell duration as crankshaft angle
 	 */
-	float dwellAngle;
-	float advance;
+	angle_t dwellAngle;
+	angle_t advance;
 
 	bool_t clutchUpState;
 	bool_t clutchDownState;
