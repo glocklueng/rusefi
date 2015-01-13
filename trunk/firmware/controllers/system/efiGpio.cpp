@@ -16,10 +16,6 @@ pin_output_mode_e OUTPUT_MODE_DEFAULT = OM_DEFAULT;
 OutputPin outputs[IO_PIN_COUNT];
 engine_pins_s enginePins;
 
-int getOutputPinValue(io_pin_e pin) {
-	return getLogicPinValue(&outputs[pin]);
-}
-
 const char *namedPinsArray[NAMED_PIN_COUNT] = { "spa1", "spa2", "spa3", "spa4", "spa5", "spa6", "spa7", "spa8",
 		"spa9", "spa10", "spa11", "spa12", "inj1", "inj2", "inj3", "inj4", "inj5", "inj6", "inj7", "inj8", "inj9",
 		"inj10", "inj11", "inj12", };

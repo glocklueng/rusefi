@@ -149,6 +149,7 @@ static SimplePwm fsioPwm[LE_COMMAND_COUNT] CCM_OPTIONAL;
 
 static LECalculator calc;
 extern LEElement * fsioLogics[LE_COMMAND_COUNT];
+extern OutputPin outputs[IO_PIN_COUNT];
 
 static void handleFsio(Engine *engine, int index) {
 	if (boardConfiguration->fsioPins[index] == GPIO_UNASSIGNED)
@@ -165,9 +166,9 @@ static void handleFsio(Engine *engine, int index) {
 		fsioPwm[index].setSimplePwmDutyCycle(fvalue);
 	} else {
 		int value = (int) fvalue;
-		if (value != getOutputPinValue(pin)) {
+		if (value != outputs[(int)pin].getLogicValue()) {
 			//		scheduleMsg(&logger, "setting %s %s", getIo_pin_e(pin), boolToString(value));
-			setOutputPinValue(pin, value);
+			outputs[(int)pin].setValue(value);
 		}
 	}
 }
