@@ -51,8 +51,6 @@ void initSignalExecutor(void) {
 //uint32_t dbgStart;
 //uint32_t dbgDurr;
 
-extern const char *namedPinsArray[NAMED_PIN_COUNT];
-
 void turnPinHigh(NamedOutputPin *output) {
 	efiAssertVoid(output!=NULL, "NULL @ turnPinHigh");
 #if EFI_DEFAILED_LOGGING
