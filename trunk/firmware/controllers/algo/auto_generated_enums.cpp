@@ -5,14 +5,6 @@
 #include "io_pins.h"
 const char *getIo_pin_e(io_pin_e value){
 switch(value) {
-case AC_RELAY:
-  return "AC_RELAY";
-case ALTERNATOR_SWITCH:
-  return "ALTERNATOR_SWITCH";
-case FAN_RELAY:
-  return "FAN_RELAY";
-case FUEL_PUMP_RELAY:
-  return "FUEL_PUMP_RELAY";
 case GPIO_0:
   return "GPIO_0";
 case GPIO_1:
@@ -71,10 +63,6 @@ case INJECTOR_9_OUTPUT:
   return "INJECTOR_9_OUTPUT";
 case IO_INVALID:
   return "IO_INVALID";
-case MAIN_RELAY:
-  return "MAIN_RELAY";
-case O2_HEATER:
-  return "O2_HEATER";
 case SPARKOUT_10_OUTPUT:
   return "SPARKOUT_10_OUTPUT";
 case SPARKOUT_11_OUTPUT:
@@ -99,14 +87,6 @@ case SPARKOUT_8_OUTPUT:
   return "SPARKOUT_8_OUTPUT";
 case SPARKOUT_9_OUTPUT:
   return "SPARKOUT_9_OUTPUT";
-case SPI_CS_1:
-  return "SPI_CS_1";
-case SPI_CS_2:
-  return "SPI_CS_2";
-case SPI_CS_3:
-  return "SPI_CS_3";
-case SPI_CS_4:
-  return "SPI_CS_4";
   }
  return NULL;
 }

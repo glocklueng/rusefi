@@ -35,6 +35,15 @@ public:
 	int currentLogicValue;
 };
 
+typedef struct {
+	OutputPin mainRelay;
+	OutputPin fanRelay;
+	OutputPin acRelay;
+	OutputPin fuelPumpRelay;
+	OutputPin o2heater;
+	OutputPin alternatorField;
+} engine_pins_s;
+
 /**
  * it's a macro to be sure that stack is not used
  * @return 0 for OM_DEFAULT and OM_OPENDRAIN

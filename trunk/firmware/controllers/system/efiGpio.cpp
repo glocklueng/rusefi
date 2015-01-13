@@ -14,6 +14,7 @@ pin_output_mode_e OUTPUT_MODE_DEFAULT = OM_DEFAULT;
 
 // todo: clean this mess, this should become 'static'/private
 OutputPin outputs[IO_PIN_COUNT];
+engine_pins_s enginePins;
 
 int getOutputPinValue(io_pin_e pin) {
 	return getLogicPinValue(&outputs[pin]);
@@ -106,9 +107,6 @@ void OutputPin::setDefaultPinState(pin_output_mode_e *outputMode) {
 	setValue(false); // initial state
 }
 
-
-extern uint32_t dbgStart;
-extern uint32_t dbgDurr;
 /**
  * @brief Sets the value according to current electrical settings
  *

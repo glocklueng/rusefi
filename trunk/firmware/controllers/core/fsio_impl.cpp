@@ -32,6 +32,8 @@ static LENameOrdinalPair leFsioSsetting(LE_METHOD_FSIO_SETTING, "fsio_setting");
 
 #define LE_EVAL_POOL_SIZE 32
 
+extern engine_pins_s enginePins;
+
 static LECalculator evalCalc;
 static LEElement evalPoolElements[LE_EVAL_POOL_SIZE];
 static LEElementPool evalPool(evalPoolElements, LE_EVAL_POOL_SIZE);
@@ -62,7 +64,7 @@ float getLEValue(Engine *engine, calc_stack_t *s, le_action_e action) {
 	efiAssert(engine!=NULL, "getLEValue", NAN);
 	switch (action) {
 	case LE_METHOD_FAN:
-		return getOutputPinValue(FAN_RELAY);
+		return getLogicPinValue(&enginePins.fanRelay);
 	case LE_METHOD_AC_TOGGLE:
 		return getAcToggle(engine);
 	case LE_METHOD_COOLANT:
@@ -170,16 +172,16 @@ static void handleFsio(Engine *engine, int index) {
 	}
 }
 
-static void setPinState(io_pin_e ioPin, LEElement *element, Engine *engine) {
+static void setPinState(const char * msg, OutputPin *pin, LEElement *element, Engine *engine) {
 	if (element == NULL) {
-		warning(OBD_PCM_Processor_Fault, "invalid expression for %s", getIo_pin_e(ioPin));
+		warning(OBD_PCM_Processor_Fault, "invalid expression for %s", msg);
 	} else {
 		int value = calc.getValue2(element, engine);
-		if (value != getOutputPinValue(ioPin)) {
+		if (value != getLogicPinValue(pin)) {
 			if (isRunningBenchTest())
 				return; // let's not mess with bench testing
-			scheduleMsg(&logger, "setting %s %s", getIo_pin_e(ioPin), boolToString(value));
-			setOutputPinValue(ioPin, value);
+			scheduleMsg(&logger, "setting %s %s", msg, boolToString(value));
+			pin->setValue(value);
 		}
 	}
 }
@@ -286,7 +288,7 @@ void runFsio(void) {
 
 #if EFI_FUEL_PUMP
 	if (boardConfiguration->fuelPumpPin != GPIO_UNASSIGNED && engineConfiguration->isFuelPumpEnabled) {
-		setPinState(FUEL_PUMP_RELAY, fuelPumpLogic, engine);
+		setPinState("pump", &enginePins.fuelPumpRelay, fuelPumpLogic, engine);
 	}
 #endif
 
@@ -294,18 +296,21 @@ void runFsio(void) {
 	 * main relay is always on if ECU is on, that's a good enough initial implementation
 	 */
 	if (boardConfiguration->mainRelayPin != GPIO_UNASSIGNED)
-		setOutputPinValue(MAIN_RELAY, 1);
+		enginePins.mainRelay.setValue(true);
+
+	enginePins.o2heater.setValue(engine->rpmCalculator.isRunning());
+
 
 	if (boardConfiguration->acRelayPin != GPIO_UNASSIGNED) {
-		setPinState(AC_RELAY, acRelayLogic, engine);
+		setPinState("A/C", &enginePins.acRelay, acRelayLogic, engine);
 	}
 
 	if (boardConfiguration->alternatorControlPin != GPIO_UNASSIGNED) {
-		setPinState(ALTERNATOR_SWITCH, alternatorLogic, engine);
+		setPinState("alternator", &enginePins.alternatorField, alternatorLogic, engine);
 	}
 
 	if (boardConfiguration->fanPin != GPIO_UNASSIGNED) {
-//		setPinState(FAN_RELAY, radiatorFanLogic, engine);
+		setPinState("fan", &enginePins.fanRelay, radiatorFanLogic, engine);
 	}
 
 }
