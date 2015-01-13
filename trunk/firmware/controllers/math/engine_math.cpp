@@ -135,7 +135,7 @@ void FuelSchedule::registerInjectionEvent(io_pin_e pin, float angle, bool_t isSi
 
 	ev->isSimultanious = isSimultanious;
 
-	efiAssertVoid(TRIGGER_SHAPE(getSize()) > 0, "uninitialized trigger_shape_s");
+	efiAssertVoid(TRIGGER_SHAPE(getSize()) > 0, "uninitialized TriggerShape");
 
 	ev->actuator = actuator;
 
