@@ -257,7 +257,7 @@ static ALWAYS_INLINE void handleSpark(uint32_t eventIndex, int rpm,
 
 			float timeTillIgnitionUs = engine->rpmCalculator.oneDegreeUs * current->sparkPosition.angleOffset;
 			scheduleTask("spark 2down", sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow,
-					(void*) current->io_pin);
+					&outputs[(int)current->io_pin]);
 		}
 	}
 
