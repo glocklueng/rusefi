@@ -151,13 +151,52 @@ static LECalculator calc;
 extern LEElement * fsioLogics[LE_COMMAND_COUNT];
 extern OutputPin outputs[IO_PIN_COUNT];
 
+// that's crazy, but what's an alternative? we need const char *, a shared buffer would not work for pin repository
+static const char *getGpioPinName(int index) {
+switch (index) {
+case 0:
+  return "GPIO_0";
+case 1:
+  return "GPIO_1";
+case 10:
+  return "GPIO_10";
+case 11:
+  return "GPIO_11";
+case 12:
+  return "GPIO_12";
+case 13:
+  return "GPIO_13";
+case 14:
+  return "GPIO_14";
+case 15:
+  return "GPIO_15";
+case 2:
+  return "GPIO_2";
+case 3:
+  return "GPIO_3";
+case 4:
+  return "GPIO_4";
+case 5:
+  return "GPIO_5";
+case 6:
+  return "GPIO_6";
+case 7:
+  return "GPIO_7";
+case 8:
+  return "GPIO_8";
+case 9:
+  return "GPIO_9";
+}
+return NULL;
+}
+
+static OutputPin fsioPins[LE_COMMAND_COUNT];
+
 static void handleFsio(Engine *engine, int index) {
 	if (boardConfiguration->fsioPins[index] == GPIO_UNASSIGNED)
 		return;
 
 	bool_t isPwmMode = boardConfiguration->fsioFrequency[index] != 0;
-
-	io_pin_e pin = (io_pin_e) ((int) GPIO_0 + index);
 
 	float fvalue = calc.getValue2(fsioLogics[index], engine);
 	engine->engineConfiguration2->fsioLastValue[index] = fvalue;
@@ -166,9 +205,9 @@ static void handleFsio(Engine *engine, int index) {
 		fsioPwm[index].setSimplePwmDutyCycle(fvalue);
 	} else {
 		int value = (int) fvalue;
-		if (value != outputs[(int)pin].getLogicValue()) {
+		if (value != fsioPins[index].getLogicValue()) {
 			//		scheduleMsg(&logger, "setting %s %s", getIo_pin_e(pin), boolToString(value));
-			outputs[(int)pin].setValue(value);
+			fsioPins[index].setValue(value);
 		}
 	}
 }
@@ -339,13 +378,13 @@ void initFsioImpl(Engine *engine) {
 		if (brainPin != GPIO_UNASSIGNED) {
 			//mySetPadMode2("user-defined", boardConfiguration->gpioPins[i], PAL_STM32_MODE_OUTPUT);
 
-			io_pin_e pin = (io_pin_e) ((int) GPIO_0 + i);
+
 
 			int frequency = boardConfiguration->fsioFrequency[i];
 			if (frequency == 0) {
-				outputPinRegisterExt2(getPinName(pin), &outputs[(int)pin], boardConfiguration->fsioPins[i], &defa);
+				outputPinRegisterExt2(getGpioPinName(i), &fsioPins[i], boardConfiguration->fsioPins[i], &defa);
 			} else {
-				startSimplePwmExt(&fsioPwm[i], "FSIO", brainPin, &outputs[(int)pin], frequency, 0.5f, applyPinState);
+				startSimplePwmExt(&fsioPwm[i], "FSIO", brainPin, &fsioPins[i], frequency, 0.5f, applyPinState);
 			}
 		}
 	}
