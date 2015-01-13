@@ -94,22 +94,6 @@ typedef enum {
 //	LED_HUGE_19,
 //	LED_HUGE_20,
 
-	FUEL_PUMP_RELAY,
-	FAN_RELAY,
-	O2_HEATER,
-	AC_RELAY,
-
-	SPI_CS_1,
-	SPI_CS_2,
-	SPI_CS_3,
-	SPI_CS_4,
-
-	MAIN_RELAY,
-
-	/**
-	 * This output pin is used to turn alternator on or off
-	 */
-	ALTERNATOR_SWITCH,
 
 } io_pin_e;
 
