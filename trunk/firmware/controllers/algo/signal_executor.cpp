@@ -118,6 +118,7 @@ void turnPinHigh(NamedOutputPin *output) {
 }
 
 void turnPinLow(NamedOutputPin *output) {
+	efiAssertVoid(output!=NULL, "NULL turnPinLow");
 #if EFI_GPIO
 	// turn off the output
 	doSetOutputPinValue2(output, false);
