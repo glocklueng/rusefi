@@ -27,7 +27,6 @@ static Logging logger;
 
 static OutputPin sdCsPin;
 
-extern NamedOutputPin coils[ENGINE_CHANNEL_COUNT];
 extern engine_pins_s enginePins;
 
 #if defined(STM32F4XX)
@@ -169,7 +168,7 @@ void initOutputPins(void) {
  */
 void turnAllPinsOff(void) {
 	for (int i = 0; i < ENGINE_CHANNEL_COUNT; i++) {
-		coils[i].setValue(false);
+		enginePins.coils[i].setValue(false);
 		enginePins.injectors[i].setValue(false);
 	}
 }

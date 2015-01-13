@@ -66,7 +66,6 @@
 #endif
 
 extern engine_pins_s enginePins;
-extern NamedOutputPin coils[ENGINE_CHANNEL_COUNT];
 
 // this 'true' value is needed for simulator
 static volatile bool fullLog = true;
@@ -274,7 +273,7 @@ static void printInfo(Engine *engine, systime_t nowSeconds) {
 #endif
 
 	for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-		printOutPin(coils[i].name, boardConfiguration->ignitionPins[i]);
+		printOutPin(enginePins.coils[i].name, boardConfiguration->ignitionPins[i]);
 
 		printOutPin(enginePins.injectors[i].name, boardConfiguration->injectionPins[i]);
 	}
