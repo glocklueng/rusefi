@@ -59,8 +59,6 @@ typedef struct {
  */
 #define getElectricalValue1(mode) ((mode) == OM_DEFAULT || (mode) == OM_OPENDRAIN)
 
-#define getLogicPinValue(outputPin) ((outputPin)->currentLogicValue)
-
 /**
  * Sets the value of the pin. On this layer the value is assigned as is, without any conversion.
  */
@@ -94,7 +92,6 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-int getOutputPinValue(io_pin_e pin);
 void setOutputPinValue(io_pin_e pin, int logicValue);
 const char *getPinName(io_pin_e io_pin);
 
