@@ -44,7 +44,6 @@ extern WaveChart waveChart;
 static Logging logger;
 
 extern engine_pins_s enginePins;
-extern NamedOutputPin coils[ENGINE_CHANNEL_COUNT];
 
 static const char *sparkNames[ENGINE_CHANNEL_COUNT] = { "spa1", "spa2", "spa3", "spa4", "spa5", "spa6", "spa7", "spa8",
 		"spa9", "spa10", "spa11", "spa12"};
@@ -57,7 +56,7 @@ void initSignalExecutor(void) {
 	initSignalExecutorImpl();
 
 	for (int i = 0; i < ENGINE_CHANNEL_COUNT;i++) {
-		coils[i].name = sparkNames[i];
+		enginePins.coils[i].name = sparkNames[i];
 		enginePins.injectors[i].name = injectorNames[i];
 	}
 }

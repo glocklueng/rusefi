@@ -32,7 +32,6 @@
 EXTERN_ENGINE
 ;
 
-extern NamedOutputPin coils[ENGINE_CHANNEL_COUNT];
 extern engine_pins_s enginePins;
 
 /**
@@ -299,21 +298,21 @@ int getCylinderId(firing_order_e firingOrder, int index) {
 static NamedOutputPin * getIgnitionPinForIndex(int i DECLARE_ENGINE_PARAMETER_S) {
 	switch (CONFIG(ignitionMode)) {
 	case IM_ONE_COIL:
-		return &coils[0];
+		return &enginePins.coils[0];
 		break;
 	case IM_WASTED_SPARK: {
 		int wastedIndex = i % (CONFIG(cylindersCount) / 2);
 		int id = getCylinderId(CONFIG(firingOrder), wastedIndex);
-		return &coils[id];
+		return &enginePins.coils[id];
 	}
 		break;
 	case IM_INDIVIDUAL_COILS:
-		return &coils[getCylinderId(CONFIG(firingOrder), i)];
+		return &enginePins.coils[getCylinderId(CONFIG(firingOrder), i)];
 		break;
 
 	default:
 		firmwareError("unsupported ignitionMode %d in initializeIgnitionActions()", engineConfiguration->ignitionMode);
-		return &coils[0];
+		return &enginePins.coils[0];
 	}
 }
 

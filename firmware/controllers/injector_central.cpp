@@ -42,12 +42,11 @@ static bool_t isRunningBench = false;
 
 static int is_injector_enabled[MAX_INJECTOR_COUNT];
 
-extern NamedOutputPin coils[ENGINE_CHANNEL_COUNT];
 extern engine_pins_s enginePins;
 
 void initIgnitionCentral(void) {
 	for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
-		NamedOutputPin *output = &coils[i];
+		NamedOutputPin *output = &enginePins.coils[i];
 		outputPinRegisterExt2(output->name, output, boardConfiguration->ignitionPins[i], &boardConfiguration->ignitionPinMode);
 	}
 }
@@ -201,7 +200,7 @@ static void sparkbench2(const char *delayStr, const char *indexStr, const char *
 		return;
 	}
 	brain_pin_e b = boardConfiguration->ignitionPins[index - 1];
-	pinbench(delayStr, onTimeStr, offTimeStr, countStr, &coils[index - 1], b);
+	pinbench(delayStr, onTimeStr, offTimeStr, countStr, &enginePins.coils[index - 1], b);
 }
 
 /**
@@ -242,7 +241,7 @@ void initInjectorCentral(Engine *engine) {
 	for (int i = 0; i < engineConfiguration->cylindersCount; i++) {
 		io_pin_e pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + i);
 
-		NamedOutputPin *output = &coils[i];
+		NamedOutputPin *output = &enginePins.coils[i];
 
 		outputPinRegisterExt2(output->name, output, boardConfiguration->injectionPins[i],
 				&boardConfiguration->injectionPinMode);
