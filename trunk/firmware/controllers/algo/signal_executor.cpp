@@ -54,6 +54,7 @@ void initSignalExecutor(void) {
 extern const char *namedPinsArray[NAMED_PIN_COUNT];
 
 void turnPinHigh(NamedOutputPin *output) {
+	efiAssertVoid(output!=NULL, "NULL @ turnPinHigh");
 #if EFI_DEFAILED_LOGGING
 //	signal->hi_time = hTimeNow();
 #endif /* EFI_DEFAILED_LOGGING */
