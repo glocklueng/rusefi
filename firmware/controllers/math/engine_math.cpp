@@ -103,8 +103,7 @@ void initializeIgnitionActions(angle_t advance, angle_t dwellAngle, IgnitionEven
 
 	for (int i = 0; i < CONFIG(cylindersCount); i++) {
 		float localAdvance = advance + ENGINE(angleExtra[i]);
-		io_pin_e pin = ENGINE(ignitionPin[i]);
-		NamedOutputPin *output = &outputs[pin];
+		NamedOutputPin *output = ENGINE(ignitionPin[i]);
 
 		IgnitionEvent *event = list->add();
 
@@ -331,7 +330,7 @@ void prepareOutputSignals(DECLARE_ENGINE_PARAMETER_F) {
 	for (int i = 0; i < CONFIG(cylindersCount); i++) {
 		ENGINE(angleExtra[i])= (float) CONFIG(engineCycle) * i / CONFIG(cylindersCount);
 
-		ENGINE(ignitionPin[i]) = getIgnitionPinForIndex(i PASS_ENGINE_PARAMETER);
+		ENGINE(ignitionPin[i]) = &outputs[(int)getIgnitionPinForIndex(i PASS_ENGINE_PARAMETER)];
 
 	}
 
