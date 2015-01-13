@@ -49,6 +49,7 @@ typedef struct {
 	OutputPin fuelPumpRelay;
 	OutputPin o2heater;
 	OutputPin alternatorField;
+	OutputPin errorLedPin;
 } engine_pins_s;
 
 /**

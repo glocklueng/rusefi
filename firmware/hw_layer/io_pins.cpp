@@ -91,11 +91,10 @@ void outputPinRegister(const char *msg, OutputPin *output, GPIO_TypeDef *port, u
 	outputPinRegisterExt(msg, output, port, pin, &DEFAULT_OUTPUT);
 }
 
-OutputPin errorLedPin;
 extern OutputPin checkEnginePin;
 
 void initPrimaryPins(void) {
-	outputPinRegister("LED_ERROR", &errorLedPin, LED_ERROR_PORT, LED_ERROR_PIN);
+	outputPinRegister("LED_ERROR", &enginePins.errorLedPin, LED_ERROR_PORT, LED_ERROR_PIN);
 }
 
 static void getPinValue(const char *name) {

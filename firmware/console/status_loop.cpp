@@ -387,13 +387,13 @@ static THD_WORKING_AREA(lcdThreadStack, UTILITY_THREAD_STACK_SIZE);
  */
 static THD_WORKING_AREA(comBlinkingStack, UTILITY_THREAD_STACK_SIZE);
 
-extern OutputPin errorLedPin;
 static OutputPin communicationPin;
 OutputPin checkEnginePin;
 OutputPin warningPin;
 OutputPin runningPin;
+extern engine_pins_s enginePins;
 
-static OutputPin *leds[] = { &warningPin, &runningPin, &errorLedPin, &communicationPin, &checkEnginePin };
+static OutputPin *leds[] = { &warningPin, &runningPin, &enginePins.errorLedPin, &communicationPin, &checkEnginePin };
 
 /**
  * This method would blink all the LEDs just to test them
