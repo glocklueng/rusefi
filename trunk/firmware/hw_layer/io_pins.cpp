@@ -27,7 +27,7 @@ static Logging logger;
 
 static OutputPin sdCsPin;
 
-extern NamedOutputPin coils[IO_PIN_COUNT];
+extern NamedOutputPin coils[ENGINE_CHANNEL_COUNT];
 extern engine_pins_s enginePins;
 
 #if defined(STM32F4XX)

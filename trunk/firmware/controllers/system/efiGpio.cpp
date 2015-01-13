@@ -13,7 +13,7 @@
 pin_output_mode_e OUTPUT_MODE_DEFAULT = OM_DEFAULT;
 
 // todo: clean this mess, this should become 'static'/private
-NamedOutputPin coils[IO_PIN_COUNT];
+NamedOutputPin coils[ENGINE_CHANNEL_COUNT];
 engine_pins_s enginePins;
 
 NamedOutputPin::NamedOutputPin() : OutputPin() {

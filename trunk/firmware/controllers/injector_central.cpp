@@ -42,7 +42,7 @@ static bool_t isRunningBench = false;
 
 static int is_injector_enabled[MAX_INJECTOR_COUNT];
 
-extern NamedOutputPin coils[IO_PIN_COUNT];
+extern NamedOutputPin coils[ENGINE_CHANNEL_COUNT];
 extern engine_pins_s enginePins;
 
 void initIgnitionCentral(void) {
