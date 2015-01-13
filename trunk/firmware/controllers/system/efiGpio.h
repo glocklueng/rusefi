@@ -81,9 +81,6 @@ typedef struct {
   }
 #endif /* EFI_PROD_CODE */
 
-#define turnOutputPinOn(pin) setOutputPinValue((pin), true)
-#define turnOutputPinOff(pin) setOutputPinValue((pin), false)
-
 #define getElectricalValue(logicalValue, mode) \
 	(logicalValue ? getElectricalValue1(mode) : getElectricalValue0(mode))
 
