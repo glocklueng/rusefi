@@ -111,7 +111,7 @@ static void getPinValue(const char *name) {
 void initOutputPins(void) {
 	initLogging(&logger, "io_pins");
 
-	for(int i=0;i<IO_PIN_COUNT;i++)
+	for (int i = 0; i < IO_PIN_COUNT;i++)
 		outputs[i].name = getPinName((io_pin_e)i);
 
 	/**
