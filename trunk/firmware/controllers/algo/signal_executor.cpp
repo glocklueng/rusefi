@@ -41,7 +41,7 @@ extern WaveChart waveChart;
 
 static Logging logger;
 
-extern OutputPin outputs[IO_PIN_COUNT];
+extern NamedOutputPin outputs[IO_PIN_COUNT];
 
 void initSignalExecutor(void) {
 	initLogging(&logger, "s exec");
