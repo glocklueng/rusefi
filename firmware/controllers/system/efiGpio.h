@@ -50,6 +50,8 @@ typedef struct {
 	OutputPin o2heater;
 	OutputPin alternatorField;
 	OutputPin errorLedPin;
+
+	NamedOutputPin injectors[IO_PIN_COUNT];
 } engine_pins_s;
 
 /**
