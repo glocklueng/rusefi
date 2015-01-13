@@ -307,7 +307,7 @@ static NamedOutputPin * getIgnitionPinForIndex(int i DECLARE_ENGINE_PARAMETER_S)
 	}
 		break;
 	case IM_INDIVIDUAL_COILS:
-		return &enginePins.coils[getCylinderId(CONFIG(firingOrder), i)];
+		return &enginePins.coils[getCylinderId(CONFIG(firingOrder), i) - 1];
 		break;
 
 	default:
