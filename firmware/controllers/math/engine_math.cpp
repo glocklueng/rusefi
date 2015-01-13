@@ -104,14 +104,15 @@ void initializeIgnitionActions(angle_t advance, angle_t dwellAngle, IgnitionEven
 	for (int i = 0; i < CONFIG(cylindersCount); i++) {
 		float localAdvance = advance + ENGINE(angleExtra[i]);
 		io_pin_e pin = ENGINE(ignitionPin[i]);
+		NamedOutputPin *output = &outputs[pin];
 
 		IgnitionEvent *event = list->add();
 
-		if (!isPinAssigned(&outputs[(pin)])) {
+		if (!isPinAssigned(output)) {
 			// todo: extact method for this index math
-			warning(OBD_PCM_Processor_Fault, "no_pin_cl #%d", (int) pin - (int) SPARKOUT_1_OUTPUT + 1);
+			warning(OBD_PCM_Processor_Fault, "no_pin_cl #%s", output->name);
 		}
-		event->io_pin = pin;
+		event->output = output;
 		event->advance = localAdvance;
 
 		findTriggerPosition(&event->dwellPosition, localAdvance - dwellAngle PASS_ENGINE_PARAMETER);
