@@ -66,6 +66,7 @@
 #endif
 
 extern engine_pins_s enginePins;
+extern NamedOutputPin outputs[IO_PIN_COUNT];
 
 // this 'true' value is needed for simulator
 static volatile bool fullLog = true;
@@ -276,10 +277,10 @@ static void printInfo(Engine *engine, systime_t nowSeconds) {
 		// todo: extract method?
 		io_pin_e pin = (io_pin_e) ((int) SPARKOUT_1_OUTPUT + i);
 
-		printOutPin(getPinName(pin), boardConfiguration->ignitionPins[i]);
+		printOutPin(outputs[(int)pin].name, boardConfiguration->ignitionPins[i]);
 
 		pin = (io_pin_e) ((int) INJECTOR_1_OUTPUT + i);
-		printOutPin(getPinName(pin), boardConfiguration->injectionPins[i]);
+		printOutPin(outputs[(int)pin].name, boardConfiguration->injectionPins[i]);
 	}
 #endif
 
