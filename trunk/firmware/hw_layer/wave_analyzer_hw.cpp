@@ -44,7 +44,7 @@ static void icuWidthCallback(ICUDriver *driver) {
 	 int rowWidth = icuGetWidth(driver);
 	 */
 	WaveReaderHw * hw = findWaveReaderHw(driver);
-	invokeJustArgCallbacks(&hw->widthListeners);
+	hw->widthListeners.invokeJustArgCallbacks();
 }
 
 static void icuPeriordCallBack(ICUDriver *driver) {
@@ -55,7 +55,7 @@ static void icuPeriordCallBack(ICUDriver *driver) {
 	 */
 
 	WaveReaderHw * hw = findWaveReaderHw(driver);
-	invokeJustArgCallbacks(&hw->periodListeners);
+	hw->periodListeners.invokeJustArgCallbacks();
 }
 
 static uint32_t getAlternateFunctions(ICUDriver *driver) {

@@ -8,11 +8,6 @@
 #ifndef LISTENER_ARRAY_H_
 #define LISTENER_ARRAY_H_
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
-
 #define MAX_INT_LISTENER_COUNT 15
 
 typedef void (*IntListener)(int value);
@@ -26,6 +21,8 @@ typedef void (*ArgIntListener)(void *arg, int value);
 
 class IntListenerArray {
 public:
+	void registerCallback(IntListener handler, void *arg);
+	void invokeJustArgCallbacks();
 	int currentListenersCount;
 	IntListener callbacks[MAX_INT_LISTENER_COUNT];
 	void * args[MAX_INT_LISTENER_COUNT];
@@ -38,6 +35,12 @@ void invokeArgIntCallbacks(IntListenerArray *array, int value);
 void invokeIntIntCallbacks(IntListenerArray *array, int value, int value2);
 void invokeIntIntVoidCallbacks(IntListenerArray *array, int value, int value2);
 void clearCallbacks(IntListenerArray *array);
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 
 #ifdef __cplusplus
 }
