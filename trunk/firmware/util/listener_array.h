@@ -24,11 +24,12 @@ typedef void (*IntIntVoidListener)(int value1, int value2, void *arg);
 typedef void (*ArgListener)(void *arg);
 typedef void (*ArgIntListener)(void *arg, int value);
 
-typedef struct {
+class IntListenerArray {
+public:
 	int currentListenersCount;
 	IntListener callbacks[MAX_INT_LISTENER_COUNT];
 	void * args[MAX_INT_LISTENER_COUNT];
-} IntListenerArray;
+};
 
 void registerCallback(IntListenerArray *array, IntListener handler, void *arg);
 void invokeCallbacks(IntListenerArray *array, int value);
