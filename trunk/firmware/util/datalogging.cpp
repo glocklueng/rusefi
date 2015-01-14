@@ -147,24 +147,10 @@ void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
 		firmwareError("intermediateLoggingBufferInited not inited!");
 		return;
 	}
-	int is_locked = isLocked();
-	int icsr_vectactive = isIsrContext();
-	if (is_locked) {
-		vappendPrintfI(logging, fmt, arg);
-	} else {
-		if (icsr_vectactive == 0) {
-			chSysLock()
-			;
-			vappendPrintfI(logging, fmt, arg);
-			chSysUnlock()
-			;
-		} else {
-			chSysLockFromIsr()
-			;
-			vappendPrintfI(logging, fmt, arg);
-			chSysUnlockFromIsr()
-			;
-		}
+	int wasLocked = lockAnyContext();
+	vappendPrintfI(logging, fmt, arg);
+	if (wasLocked) {
+		unlockAnyContext();
 	}
 }
 
