@@ -10,12 +10,12 @@ HW_LAYER_EMS = $(HW_LAYER_EGT) \
 	$(PROJECT_DIR)/hw_layer/microsecond_timer.c \
 	$(PROJECT_DIR)/hw_layer/flash.c \
 	$(PROJECT_DIR)/hw_layer/rtc_helper.c \
-	$(PROJECT_DIR)/hw_layer/mmc_card.c \
 	$(PROJECT_DIR)/hw_layer/neo6m.c \
 	$(PROJECT_DIR)/hw_layer/wave_analyzer_hw.c
 
 HW_LAYER_EMS_CPP = $(HW_LAYER_EGT_CPP) \
 	$(PROJECT_DIR)/hw_layer/hardware.cpp \
+	$(PROJECT_DIR)/hw_layer/mmc_card.cpp \
 	$(PROJECT_DIR)/hw_layer/lcd/lcd_HD44780.cpp \
  	$(PROJECT_DIR)/hw_layer/adc_inputs.cpp \
 	$(PROJECT_DIR)/hw_layer/board_test.cpp \
