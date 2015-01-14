@@ -55,7 +55,7 @@ static FATFS MMC_FS;
 static Logging logger;
 
 // print FAT error function
-static void printError(char *str, FRESULT f_error) {
+static void printError(const char *str, FRESULT f_error) {
 	scheduleMsg(&logger, "FATfs Error \"%s\" %d", str, f_error);
 }
 
