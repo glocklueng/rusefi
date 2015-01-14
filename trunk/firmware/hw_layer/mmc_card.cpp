@@ -52,7 +52,7 @@ static bool fs_ready = false;
  */
 static FATFS MMC_FS;
 
-static Logging logger;
+static LoggingWithStorage logger;
 
 // print FAT error function
 static void printError(const char *str, FRESULT f_error) {

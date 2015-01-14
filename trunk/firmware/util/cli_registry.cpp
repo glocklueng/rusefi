@@ -27,7 +27,7 @@
 
 #if ! EFI_UNIT_TEST
 #include "eficonsole.h"
-static Logging logging;
+static LoggingWithStorage logging;
 #endif /* ! EFI_UNIT_TEST */
 
 static int consoleActionCount = 0;

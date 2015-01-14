@@ -29,7 +29,7 @@
 #include "console_io.h"
 #include "svnversion.h"
 
-static Logging logger;
+static LoggingWithStorage logger;
 
 static char fatalErrorMessage[200];
 

@@ -41,8 +41,6 @@ class Logging {
 public:
 	const char *name;
 	char SMALL_BUFFER[40];
-	// todo: explicitly default buffer externally so that we do not have default_buffer where we do not need it?
-	char DEFAULT_BUFFER[200];
 	/**
 	 * Zero-terminated buffer of pending debug message
 	 *
@@ -58,8 +56,10 @@ public:
 	volatile int isInitialized;
 };
 
-class LoggingWithStorage {
-
+class LoggingWithStorage : public Logging {
+public:
+	LoggingWithStorage();
+	char DEFAULT_BUFFER[200];
 };
 
 #ifdef __cplusplus
@@ -77,7 +77,7 @@ uint32_t remainingSize(Logging *logging);
 
 int isInitialized(Logging *logging);
 
-void initLogging(Logging *logging, const char *name);
+void initLogging(LoggingWithStorage *logging, const char *name);
 void initLoggingExt(Logging *logging, const char *name, char *buffer, int bufferSize);
 
 void debugInt(Logging *logging, const char *caption, int value);

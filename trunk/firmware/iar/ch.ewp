@@ -3208,7 +3208,7 @@
       <name>$PROJ_DIR$\..\util\data_buffer.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\util\datalogging.c</name>
+      <name>$PROJ_DIR$\..\util\datalogging.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\util\datalogging.h</name>
