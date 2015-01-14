@@ -120,7 +120,7 @@ extern "C" {
 #include "engine_emulator.h"
 #endif /* EFI_ENGINE_EMULATOR */
 
-static Logging logging;
+static LoggingWithStorage logging;
 
 int main_loop_started = FALSE;
 

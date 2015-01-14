@@ -20,7 +20,7 @@
 const char *PIN_USED[PIN_REPO_SIZE];
 static int initialized = FALSE;
 
-static Logging logger;
+static LoggingWithStorage logger;
 static int totalPinsUsed = 0;
 
 /**

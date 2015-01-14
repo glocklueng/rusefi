@@ -29,7 +29,7 @@
 extern board_configuration_s *boardConfiguration;
 extern engine_configuration_s *engineConfiguration;
 
-static Logging logging;
+static LoggingWithStorage logging;
 
 static SerialConfig GPSserialConfig = { GPS_SERIAL_SPEED, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 static THD_WORKING_AREA(gpsThreadStack, UTILITY_THREAD_STACK_SIZE);

@@ -184,7 +184,7 @@ int isInitialized(Logging *logging) {
 	return logging->isInitialized == MAGIC_LOGGING_FLAG;
 }
 
-void initLogging(Logging *logging, const char *name) {
+void initLogging(LoggingWithStorage *logging, const char *name) {
 	initLoggingExt(logging, name, logging->DEFAULT_BUFFER, sizeof(logging->DEFAULT_BUFFER));
 }
 
@@ -387,4 +387,8 @@ void initIntermediateLoggingBuffer(void) {
 
 	msObjectInit(&intermediateLoggingBuffer, intermediateLoggingBufferData, INTERMEDIATE_LOGGING_BUFFER_SIZE, 0);
 	intermediateLoggingBufferInited = TRUE;
+}
+
+LoggingWithStorage::LoggingWithStorage() {
+
 }
