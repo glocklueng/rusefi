@@ -26,7 +26,7 @@ static int totalPinsUsed = 0;
 /**
  * @deprecated - use hwPortname() instead
  */
-char *portname(GPIO_TypeDef* GPIOx) {
+const char *portname(GPIO_TypeDef* GPIOx) {
 	if (GPIOx == GPIOA)
 		return "PA";
 	if (GPIOx == GPIOB)
