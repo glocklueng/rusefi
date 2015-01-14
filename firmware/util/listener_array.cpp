@@ -15,6 +15,10 @@ void IntListenerArray::registerCallback(IntListener handler, void *arg) {
 	args[index] = arg;
 }
 
+void IntListenerArray::registerCallback(Void listener) {
+
+}
+
 void invokeCallbacks(IntListenerArray *array, int value) {
 	for (int i = 0; i < array->currentListenersCount; i++)
 		(array->callbacks[i])(value);
