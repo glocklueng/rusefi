@@ -138,6 +138,9 @@ static void vappendPrintfI(Logging *logging, const char *fmt, va_list arg) {
 	append(logging, (char *) intermediateLoggingBufferData);
 }
 
+/**
+ * this method acquires system lock to guard the shared intermediateLoggingBuffer memory stream
+ */
 void vappendPrintf(Logging *logging, const char *fmt, va_list arg) {
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 128, "lowstck#5b");
 	if (!intermediateLoggingBufferInited) {
@@ -274,7 +277,7 @@ void printLine(Logging *logging) {
 }
 
 void appendMsgPrefix(Logging *logging) {
-	appendPrintf(logging, "msg%s", DELIMETER);
+	append(logging, "msg" DELIMETER);
 }
 
 void appendMsgPostfix(Logging *logging) {
