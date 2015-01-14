@@ -1,5 +1,5 @@
 /**
- * @file    pin_repository.c
+ * @file    pin_repository.cpp
  * @brief   I/O pin registry code
  *
  * This job of this class is to make sure that we are not using same hardware pin for two

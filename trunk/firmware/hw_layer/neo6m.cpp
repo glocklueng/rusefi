@@ -1,5 +1,5 @@
 /**
- * @file	neo6m.c
+ * @file	neo6m.cpp
  * @brief	Ublox 6M hardware UART driver
  *
  * http://www.u-blox.com/en/gps-modules/pvt-modules/previous-generations/neo-6-family.html
