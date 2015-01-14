@@ -1,5 +1,5 @@
 /**
- * @file    eficonsole.c
+ * @file    eficonsole.cpp
  * @brief   Console package entry point code
  *
  *

@@ -1,5 +1,5 @@
 /**
- * @file	mmc_card.c
+ * @file	mmc_card.cpp
  *
  * @date Dec 28, 2013
  * @author Kot_dnz

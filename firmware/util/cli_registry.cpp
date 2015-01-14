@@ -1,5 +1,5 @@
 /**
- * @file    cli_registry.c
+ * @file    cli_registry.cpp
  * @brief   Command-line interface commands registry
  *
  * Here we have a data structure which holds all the dynamically-registered

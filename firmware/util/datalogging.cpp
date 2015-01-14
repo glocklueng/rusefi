@@ -1,5 +1,5 @@
 /**
- * @file    datalogging.c
+ * @file    datalogging.cpp
  * @brief   Buffered console output stream code
  *
  * Here we have a memory buffer and method related to
