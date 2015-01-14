@@ -32,6 +32,8 @@
 
 #include <stdbool.h>
 #include "main.h"
+
+#if ! EFI_UNIT_TEST
 #include "chprintf.h"
 #include "chmtx.h"
 #include "memstreams.h"
@@ -388,6 +390,8 @@ void initIntermediateLoggingBuffer(void) {
 	msObjectInit(&intermediateLoggingBuffer, intermediateLoggingBufferData, INTERMEDIATE_LOGGING_BUFFER_SIZE, 0);
 	intermediateLoggingBufferInited = TRUE;
 }
+
+#endif /* ! EFI_UNIT_TEST */
 
 LoggingWithStorage::LoggingWithStorage() {
 
