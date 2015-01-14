@@ -249,7 +249,7 @@ bool strEqual(const char *str1, const char *str2) {
  * @brief This function knows how to print a histogram_s summary
  */
 void printHistogram(Logging *logging, histogram_s *histogram) {
-#if EFI_HISTOGRAMS
+#if EFI_HISTOGRAMS && ! EFI_UNIT_TEST
 	int report[5];
 	int len = hsReport(histogram, report);
 
