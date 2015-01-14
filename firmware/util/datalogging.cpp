@@ -298,7 +298,12 @@ void printMsg(Logging *logger, const char *fmt, ...) {
 	printLine(logger);
 }
 
+/**
+ * this whole method is executed under syslock so that we can have multiple threads use the same shared buffer
+ * in order to reduce memory usage
+ */
 void scheduleMsg(Logging *logging, const char *fmt, ...) {
+	int wasLocked = lockAnyContext();
 	resetLogging(logging); // todo: is 'reset' really needed here?
 	appendMsgPrefix(logging);
 
@@ -309,6 +314,9 @@ void scheduleMsg(Logging *logging, const char *fmt, ...) {
 
 	appendMsgPostfix(logging);
 	scheduleLogging(logging);
+	if (wasLocked) {
+		unlockAnyContext();
+	}
 }
 
 void scheduleLogging(Logging *logging) {
