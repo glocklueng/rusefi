@@ -1,5 +1,5 @@
 /*
- * @file	wave_analyzer_hw.c
+ * @file	wave_analyzer_hw.cpp
  * @brief	Helper methods related to Input Capture Unit (ICU)
  *
  * @date Jun 23, 2013
