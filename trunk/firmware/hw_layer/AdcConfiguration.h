@@ -24,6 +24,8 @@ public:
 
 	adcsample_t samples[ADC_MAX_CHANNELS_COUNT * ADC_GRP1_BUF_DEPTH_SLOW];
 
+	int getAdcValueByHwChannel(int hwChannel);
+
 	adc_state values;
 private:
 	ADCConversionGroup* hwConfig;
