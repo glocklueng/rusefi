@@ -196,7 +196,7 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 		;
 		return;
 	}
-	adcStartConversionI(&ADC_FAST_DEVICE, &adcgrpcfg_fast, samples_fast, ADC_GRP1_BUF_DEPTH_FAST);
+	adcStartConversionI(&ADC_FAST_DEVICE, &adcgrpcfg_fast, fastAdc.samples, ADC_GRP1_BUF_DEPTH_FAST);
 	chSysUnlockFromIsr()
 	;
 	fastAdc.conversionCount++;
@@ -204,14 +204,14 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 }
 
 int getInternalAdcValue(adc_channel_e hwChannel) {
-	if (boardConfiguration->adcHwChannelEnabled[hwChannel] == ADC_FAST)
+	if (boardConfiguration->adcHwChannelEnabled[hwChannel] == ADC_FAST) {
 		return fastAdcValue;
+	}
 	if (boardConfiguration->adcHwChannelEnabled[hwChannel] != ADC_SLOW) {
 		warning(OBD_PCM_Processor_Fault, "ADC is off %d", hwChannel);
 	}
 
-	int internalIndex = slowAdc.internalAdcIndexByHardwareIndex[hwChannel];
-	return slowAdc.getAdcValueByIndex(internalIndex);
+	return slowAdc.getAdcValueByHwChannel(hwChannel);
 }
 
 static PWMConfig pwmcfg_slow = { PWM_FREQ_SLOW, PWM_PERIOD_SLOW, pwmpcb_slow, { {
@@ -373,6 +373,11 @@ int AdcDevice::size() {
 	return channelCount;
 }
 
+int AdcDevice::getAdcValueByHwChannel(int hwChannel) {
+	int internalIndex = internalAdcIndexByHardwareIndex[hwChannel];
+	return values.adc_data[internalIndex];
+}
+
 int AdcDevice::getAdcValueByIndex(int internalIndex) {
 	return values.adc_data[internalIndex];
 }
@@ -459,6 +464,9 @@ static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 
 //		newState.time = chimeNow();
 		for (int i = 0; i < slowAdc.size(); i++) {
+			/**
+			 * todo: No need to average since DEPTH is '1'
+			 */
 			int value = getAvgAdcValue(i, slowAdc.samples, ADC_GRP1_BUF_DEPTH_SLOW, slowAdc.size());
 			slowAdc.values.adc_data[i] = value;
 		}
@@ -474,7 +482,7 @@ static void adc_callback_fast(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 	if (adcp->state == ADC_COMPLETE) {
 		fastAdcValue = getAvgAdcValue(0, samples_fast, ADC_GRP1_BUF_DEPTH_FAST, fastAdc.size());
 
-		fastAdc.values.adc_data[0] = fastAdcValue;
+//		fastAdc.values.adc_data[0] = fastAdcValue;
 
 #if EFI_MAP_AVERAGING
 		mapAveragingCallback(fastAdcValue);
