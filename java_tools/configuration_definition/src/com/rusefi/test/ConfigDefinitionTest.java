@@ -1,9 +1,11 @@
 package com.rusefi.test;
 
 import com.rusefi.ConfigDefinition;
+import com.rusefi.ConfigField;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * (c) Andrey Belomutskiy
@@ -16,5 +18,14 @@ public class ConfigDefinitionTest {
         assertEquals("\t * abc\r\n", ConfigDefinition.packComment("abc"));
         assertEquals("\t * abc\r\n" +
                 "\t * vbn\r\n", ConfigDefinition.packComment("abc\\nvbn"));
+    }
+
+    @Test
+    public void testParseLine() {
+        assertNull(ConfigField.parse("int"));
+        {
+            ConfigField cf = ConfigField.parse("int;field");
+            assertEquals(cf.type, "int");
+        }
     }
 }
