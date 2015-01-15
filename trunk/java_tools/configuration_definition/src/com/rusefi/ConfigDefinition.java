@@ -42,7 +42,34 @@ public class ConfigDefinition {
         cHeader.write(message);
         cHeader.write("// begin\r\n");
 
+        ConfigStructure structure = null;
+
+
         while ((line = br.readLine()) != null) {
+            line = line.trim();
+            line = line.replaceAll("\\s+", " ");
+            /**
+             * we should ignore empty lines and comments
+             */
+            if (line.length() == 0 || line.startsWith("!"))
+                continue;
+
+            if (line.startsWith("struct ")) {
+                if (structure != null)
+                    throw new IllegalStateException("structure inside structure " + structure.name);
+                String name = line.split(" ")[1];
+                structure = new ConfigStructure(name);
+                System.out.println("Starting structure " + structure.name);
+                continue;
+            }
+
+            if (line.startsWith("end_struct")) {
+                System.out.println("Ending structure " + structure.name);
+                structure = null;
+                continue;
+            }
+
+
             processLine(cHeader, line);
 
         }
@@ -51,63 +78,34 @@ public class ConfigDefinition {
     }
 
     private static void processLine(BufferedWriter cHeader, String line) throws IOException {
-        line = line.trim();
-        line = line.replaceAll("\\s+", " ");
-        if (line.startsWith("!"))
-            return;
-        if (line.length() == 0)
-            return;
-
+        /**
+         * for example
+         * #define CLT_CURVE_SIZE 16
+         */
         if (line.startsWith("#define")) {
             processDefine(line);
             return;
         }
 
-        String[] a = line.split(";");
-        if (a.length != 2 && a.length != 3) {
-            System.err.println("Tow or three semicolon-separated elements expected");
+        ConfigField cf = ConfigField.parse(line);
+        if (cf == null)
             return;
-        }
-        String type = a[0];
-        String name = a[1];
-        String comment = a.length == 3 ? a[2] : "";
-        int arraySize = 1;
-        System.out.println("type " + type);
-        System.out.println("name " + name);
-        System.out.println("comment " + comment);
 
-        int elementSize = getElementSize(type);
-        String arraySizeAsText = "";
-
-        if (type.startsWith("array ")) {
-            a = type.split(" ");
-            type = a[1];
-            arraySizeAsText = a[2];
-            arraySize = getSize(arraySizeAsText);
-        }
-
-        String cEntry = getComment(comment);
-
-        if (arraySize == 1) {
-            // not an array
-            cEntry += "\t" + type + " " + name + ";\r\n";
-        } else {
-            cEntry += "\t" + type + " " + name + "[" + arraySizeAsText + "];\n";
-        }
+        String cEntry = cf.getText();
 
         cHeader.write(cEntry);
 
-        currentOffset += elementSize * arraySize;
+        currentOffset += cf.getSize();
     }
 
-    private static int getElementSize(String type) {
+    public static int getElementSize(String type) {
         if (type.equals("int16_t")) {
             return 2;
         }
         return 4;
     }
 
-    private static String getComment(String comment) {
+    public static String getComment(String comment) {
         return "\t/**\r\n" + packComment(comment) + "\t * offset " + currentOffset + "\r\n\t*/\r\n";
     }
 
@@ -121,7 +119,7 @@ public class ConfigDefinition {
         return result;
     }
 
-    private static int getSize(String s) {
+    public static int getSize(String s) {
         if (values.containsKey(s))
             return values.get(s);
         return Integer.parseInt(s);
