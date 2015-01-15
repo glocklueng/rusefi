@@ -345,21 +345,33 @@ typedef struct {
 	 * offset 330
 	*/
 	int16_t tpsMin;
-	// tpsMax value as 10 bit ADC value. Not Voltage!
-	int16_t tpsMax; // size 2, offset 332
+	/**
+	 * tpsMax value as 10 bit ADC value. Not Voltage!
+	 * offset 332
+	*/
+	int16_t tpsMax;
+	/**
+	 * offset 334
+	*/
 	int16_t analogChartMode;
-
 	/**
 	 * todo: finish implementation. These values are used for TPS disconnect detection
-	 */
+	 * offset 336
+	*/
 	int16_t tpsErrorLowValue;
+	/**
+	 * offset 338
+	*/
 	int16_t tpsErrorHighValue;
-
+	/**
+	 * offset 340
+	*/
 	float primingSquirtDurationMs;
 	/**
 	 * 360 for two-stroke
 	 * 720 for four-stroke
-	 */
+	 * offset 344
+	*/
 	int engineCycle;
 
 	cranking_parameters_s crankingSettings;
