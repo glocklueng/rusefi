@@ -50,9 +50,7 @@ bool printGapRatio = false;
 float actualSynchGap;
 #endif /* ! EFI_PROD_CODE */
 
-#if (EFI_PROD_CODE || EFI_SIMULATOR)
 static Logging * logger;
-#endif
 
 /**
  * @return TRUE is something is wrong with trigger decoding
