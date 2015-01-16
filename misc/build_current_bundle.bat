@@ -50,6 +50,8 @@ cp firmware/svnversion.h %folder%
 cp firmware/build/rusefi.hex %folder%
 cp firmware/build/rusefi.bin %folder%
 cp firmware/build/rusefi.elf %folder%
+cp misc/console_launcher/rusefi_console.exe %folder%
+
 
 cd temp
 zip -r rusefi_bundle.zip *
