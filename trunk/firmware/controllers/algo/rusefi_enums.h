@@ -99,7 +99,9 @@ typedef enum {
 
 	ACURA_RSX = 27,
 
-	ET_UNUSED = 28,
+	MAZDA_626 = 28,
+
+	ET_UNUSED = 29,
 
 	Force_4b_engine_type = ENUM_SIZE_HACK,
 } engine_type_e;

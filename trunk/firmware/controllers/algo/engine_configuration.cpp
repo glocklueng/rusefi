@@ -42,6 +42,7 @@
 #include "GY6_139QMB.h"
 #include "mazda_miata_nb.h"
 #include "mazda_323.h"
+#include "mazda_626.h"
 #include "saturn_ion.h"
 #include "MiniCooperR50.h"
 #include "mazda_miata.h"
@@ -645,6 +646,9 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType, Engine *e
 		break;
 	case MAZDA_323:
 		setMazda323EngineConfiguration(engineConfiguration);
+		break;
+	case MAZDA_626:
+		setMazda626EngineConfiguration(engineConfiguration);
 		break;
 	case SATURN_ION_2004:
 		setSaturnIonEngineConfiguration(engineConfiguration);
