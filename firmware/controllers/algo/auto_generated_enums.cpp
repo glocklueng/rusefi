@@ -46,6 +46,8 @@ case HONDA_ACCORD_CD_TWO_WIRES:
   return "HONDA_ACCORD_CD_TWO_WIRES";
 case MAZDA_323:
   return "MAZDA_323";
+case MAZDA_626:
+  return "MAZDA_626";
 case MAZDA_MIATA_NB:
   return "MAZDA_MIATA_NB";
 case MIATA_1990:
