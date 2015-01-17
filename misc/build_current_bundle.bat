@@ -18,6 +18,7 @@ cd ..
 
 echo Building java console
 cd java_console
+call ant clean
 call ant
 cd ..
 
