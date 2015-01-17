@@ -2,7 +2,7 @@
 
   (general
     (links 9)
-    (no_connects 2)
+    (no_connects 1)
     (area 127.762 54.935001 159.971429 77.470001)
     (thickness 1.6)
     (drawings 11)
@@ -64,7 +64,7 @@
     (aux_axis_origin 0 0)
     (visible_elements 7FFFFFFF)
     (pcbplotparams
-      (layerselection 3178497)
+      (layerselection 284983297)
       (usegerberextensions true)
       (excludeedgelayer true)
       (linewidth 0.150000)
@@ -86,9 +86,9 @@
       (subtractmaskfromsilk false)
       (outputformat 1)
       (mirror false)
-      (drillshape 1)
+      (drillshape 0)
       (scaleselection 1)
-      (outputdirectory ""))
+      (outputdirectory map_mpx_gerbers))
   )
 
   (net 0 "")
@@ -439,8 +439,8 @@
   (gr_line (start 129.54 59.944) (end 149.86 59.944) (angle 90) (layer Edge.Cuts) (width 0.1))
   (gr_line (start 129.54 76.2) (end 149.86 76.2) (angle 90) (layer Edge.Cuts) (width 0.1))
 
-  (segment (start 134.874 67.31) (end 136.398 67.31) (width 0.254) (layer F.Cu) (net 0) (status 400000))
-  (segment (start 136.398 67.31) (end 136.525 67.183) (width 0.254) (layer F.Cu) (net 0) (tstamp 54AEDC1C))
+  (segment (start 134.874 67.31) (end 136.398 67.31) (width 0.254) (layer F.Cu) (net 1))
+  (segment (start 136.398 67.31) (end 136.525 67.183) (width 0.254) (layer F.Cu) (net 1) (tstamp 54AEDC1C))
   (segment (start 131.318 67.818) (end 132.715 67.818) (width 0.254) (layer F.Cu) (net 1))
   (segment (start 133.223 67.31) (end 134.874 67.31) (width 0.254) (layer F.Cu) (net 1) (tstamp 54AED995))
   (segment (start 132.715 67.818) (end 133.223 67.31) (width 0.254) (layer F.Cu) (net 1) (tstamp 54AED993))
