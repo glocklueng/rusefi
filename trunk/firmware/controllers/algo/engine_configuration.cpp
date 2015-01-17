@@ -28,6 +28,8 @@
 #include "trigger_decoder.h"
 #include "engine_math.h"
 #include "speed_density.h"
+
+#include "acura_rsx.h"
 #include "audi_aan.h"
 #include "bmw_e34.h"
 #include "dodge_neon.h"
@@ -591,6 +593,9 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType, Engine *e
 	switch (engineType) {
 	case CUSTOM_ENGINE:
 		setCustomEngineConfiguration(engineConfiguration);
+		break;
+	case ACURA_RSX:
+		setAcuraRSX(engineConfiguration);
 		break;
 #if EFI_SUPPORT_DODGE_NEON || defined(__DOXYGEN__)
 	case DODGE_NEON_1995:

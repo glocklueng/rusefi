@@ -10,6 +10,8 @@
 #include "rusefi_enums.h"
 const char *getEngine_type_e(engine_type_e value){
 switch(value) {
+case ACURA_RSX:
+	return "ACURA_RSX";
 case AUDI_AAN:
   return "AUDI_AAN";
 case BMW_E34:
