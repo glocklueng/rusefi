@@ -77,7 +77,7 @@ bool Engine::stopPins() {
 }
 
 void Engine::watchdog() {
-	if(engine->isRunningPwmTest)
+	if (isRunningPwmTest)
 		return;
 	if (!isSpinning) {
 		if (!isRunningBenchTest() && stopPins()) {
