@@ -211,7 +211,7 @@ static void printState(Engine *engine) {
 	if (subscription[(int) RO_TOTAL_REVOLUTION_COUNTER])
 		debugInt(&logger, "ckp_c", getCrankEventCounter());
 	if (subscription[(int) RO_RUNNING_REVOLUTION_COUNTER])
-		triggerCentral.triggerState.runningRevolutionCounter;
+		debugInt(&logger, "ckp_r", triggerCentral.triggerState.runningRevolutionCounter);
 
 //	debugInt(&logger, "idl", getIdleSwitch());
 
