@@ -7,16 +7,19 @@ import com.rusefi.io.CommandQueue;
 import com.rusefi.io.InvocationConfirmationListener;
 import com.rusefi.trigger.TriggerShapeHolder;
 import com.rusefi.ui.widgets.UpDownImage;
+import com.sun.awt.AWTUtilities;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 1/17/2015
  */
 public class Wizard {
+    private final JPanel panel = new JPanel(new BorderLayout());
     private final JPanel content = new JPanel();
     private final JButton button = new JButton("Trigger Wizard");
 
@@ -48,7 +51,12 @@ public class Wizard {
             CommandQueue.getInstance().write(command, CommandQueue.DEFAULT_TIMEOUT, new InvocationConfirmationListener() {
                 @Override
                 public void onCommandConfirmation() {
-                    applyStep(nextStep);
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            applyStep(nextStep);
+                        }
+                    });
                 }
             });
 
@@ -85,7 +93,6 @@ public class Wizard {
     }
 
     public Component createPane() {
-        JPanel panel = new JPanel(new BorderLayout());
         panel.add(button, BorderLayout.NORTH);
 
         panel.add(content, BorderLayout.CENTER);
@@ -102,11 +109,11 @@ public class Wizard {
     }
 
     private void applyStep(WizardStep step) {
+        System.out.println(new Date() + " apply " + step);
         Component newContent = getContent(step);
         content.removeAll();
-        this.content.add(newContent);
-        UpDownImage.trueRepaint(content);
-//        UpDownImage.trueRepaint(content.getParent());
+        content.add(newContent);
+        UpDownImage.trueLayout(content);
     }
 
     private Component getContent(WizardStep step) {
