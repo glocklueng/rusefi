@@ -11,6 +11,7 @@ import com.rusefi.ui.widgets.UpDownImage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 1/17/2015
@@ -95,21 +96,20 @@ public class Wizard {
                 button.setEnabled(false);
 
                 applyStep(Wizard.this.TRIGGER_WIZARD_HELLO);
-
-
             }
         });
         return panel;
     }
 
     private void applyStep(WizardStep step) {
-        Component newContent = getNextContent(step);
+        Component newContent = getContent(step);
         content.removeAll();
         this.content.add(newContent);
         UpDownImage.trueRepaint(content);
+//        UpDownImage.trueRepaint(content.getParent());
     }
 
-    private Component getNextContent(WizardStep step) {
+    private Component getContent(WizardStep step) {
         Component newContent;
         if (step == null) {
             newContent = new JLabel("Wizard is done!");
@@ -121,23 +121,31 @@ public class Wizard {
     }
 
     private class WaitForZeroRpm extends WizardStepImpl {
-        public WaitForZeroRpm() {
-        }
+        private int counter;
 
         @Override
         public Component getContent() {
             double rpm = SensorCentral.getInstance().getValue(Sensor.RPM);
             if (rpm == 0) {
-                return getNextContent(nextStep);
+                return Wizard.this.getContent(nextStep);
             }
 
+            scheduleRepaint(1000, this);
 
-            if (rpm != 0) {
-                return new JLabel("Current RPM: " + rpm + ", please stop the engine");
-            }
-
-
-            return null;
+            return new JLabel("Current RPM: " + rpm + ", please stop the engine. Waiting " + counter++);
         }
+    }
+
+    private void scheduleRepaint(int timeoutMs, final WizardStep step) {
+        final AtomicReference<Timer> tHolder = new AtomicReference<>();
+        Timer t = new Timer(timeoutMs, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tHolder.get().stop();
+                applyStep(step);
+            }
+        });
+        tHolder.set(t);
+        t.start();
     }
 }
