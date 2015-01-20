@@ -174,7 +174,7 @@ int getTimeNowSeconds(void) {
 }
 
 static void cylinderCleanupControl(Engine *engine) {
-#if EFI_ENGINE_CONTROL
+#if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 	bool newValue;
 	if (engineConfiguration->isCylinderCleanupEnabled) {
 		newValue = isCrankingE(engine) && getTPS(PASS_ENGINE_PARAMETER_F) > CLEANUP_MODE_TPS;
@@ -198,8 +198,10 @@ static void onEvenyGeneralMilliseconds(Engine *engine) {
 		unlockAnyContext();
 	}
 
+#if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 	if (!engine->rpmCalculator.isRunning())
 		writeToFlashIfPending();
+#endif
 
 	engine->watchdog();
 	engine->updateSlowSensors();
@@ -359,17 +361,16 @@ void initEngineContoller(Logging *sharedLogger, Engine *engine) {
 #if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 	initInjectorCentral(engine);
 	initIgnitionCentral();
-#endif
-
-#if EFI_PWM_TESTER
-	initPwmTester();
-#endif
-
 	/**
 	 * This has to go after 'initInjectorCentral' and 'initInjectorCentral' in order to
 	 * properly detect un-assigned output pins
 	 */
 	prepareShapes(engine);
+#endif
+
+#if EFI_PWM_TESTER
+	initPwmTester();
+#endif
 
 	initMalfunctionCentral();
 
