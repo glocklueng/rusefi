@@ -174,6 +174,7 @@ int getTimeNowSeconds(void) {
 }
 
 static void cylinderCleanupControl(Engine *engine) {
+#if EFI_ENGINE_CONTROL
 	bool newValue;
 	if (engineConfiguration->isCylinderCleanupEnabled) {
 		newValue = isCrankingE(engine) && getTPS(PASS_ENGINE_PARAMETER_F) > CLEANUP_MODE_TPS;
@@ -184,6 +185,7 @@ static void cylinderCleanupControl(Engine *engine) {
 		engine->isCylinderCleanupMode = newValue;
 		scheduleMsg(&logger, "isCylinderCleanupMode %s", boolToString(newValue));
 	}
+#endif
 }
 
 static void onEvenyGeneralMilliseconds(Engine *engine) {
@@ -202,7 +204,9 @@ static void onEvenyGeneralMilliseconds(Engine *engine) {
 	engine->watchdog();
 	engine->updateSlowSensors();
 
+#if EFI_FSIO || defined(__DOXYGEN__)
 	runFsio();
+#endif
 
 	updateErrorCodes();
 
@@ -407,7 +411,11 @@ void initEngineContoller(Logging *sharedLogger, Engine *engine) {
 	addConsoleActionI("get_float", getFloat);
 	addConsoleActionI("get_int", getInt);
 
+#if EFI_FSIO || defined(__DOXYGEN__)
 	initFsioImpl(sharedLogger, engine);
+#endif
 
+#if EFI_HD44780_LCD || defined(__DOXYGEN__)
 	initLcdController();
+#endif
 }
