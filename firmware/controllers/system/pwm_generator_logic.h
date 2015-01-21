@@ -87,10 +87,11 @@ class SimplePwm : public PwmConfig {
 public:
 	SimplePwm();
 	void setSimplePwmDutyCycle(float dutyCycle);
-	int pinStates[2];
-	single_wave_s wave;
+	pin_state_t pinStates[2];
 	single_wave_s sr[1];
 	float _switchTimes[2];
+private:
+	single_wave_s waveInstance;
 };
 
 void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes,
