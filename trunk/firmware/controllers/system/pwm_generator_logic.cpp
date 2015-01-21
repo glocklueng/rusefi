@@ -18,8 +18,8 @@
 #define ITERATION_LIMIT 1000
 
 SimplePwm::SimplePwm() {
-	wave.init(pinStates);
-	sr[0] = wave;
+	waveInstance.init(pinStates);
+	sr[0] = waveInstance;
 	init(_switchTimes, sr);
 }
 
