@@ -46,7 +46,7 @@ public:
 	void init(float *switchTimes, single_wave_s *waves);
 
 	void weComplexInit(const char *msg,
-			int phaseCount, float *swithcTimes, int waveCount, int **pinStates,
+			int phaseCount, float *swithcTimes, int waveCount, pin_state_t **pinStates,
 			pwm_cycle_callback *cycleCallback,
 			pwm_gen_callback *callback);
 
@@ -95,6 +95,6 @@ private:
 };
 
 void copyPwmParameters(PwmConfig *state, int phaseCount, float *switchTimes,
-		int waveCount, int **pinStates);
+		int waveCount, pin_state_t **pinStates);
 
 #endif /* PWM_GENERATOR_LOGIC_H_ */
