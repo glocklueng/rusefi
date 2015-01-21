@@ -96,7 +96,7 @@ static void updateTriggerShapeIfNeeded(PwmConfig *state) {
 		applyNonPersistentConfiguration(logger, engine);
 
 		TriggerShape *s = &engine->triggerShape;
-		int *pinStates[PWM_PHASE_MAX_WAVE_PER_PWM] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates,
+		pin_state_t *pinStates[PWM_PHASE_MAX_WAVE_PER_PWM] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates,
 				s->wave.waves[2].pinStates };
 		copyPwmParameters(state, s->getSize(), s->wave.switchTimes, PWM_PHASE_MAX_WAVE_PER_PWM, pinStates);
 		state->safe.periodNt = -1; // this would cause loop re-initialization
@@ -137,7 +137,7 @@ void initTriggerEmulatorLogic(Logging *sharedLogger, Engine *engine) {
 
 	TriggerShape *s = &engine->triggerShape;
 	setTriggerEmulatorRPM(engineConfiguration->bc.triggerSimulatorFrequency, engine);
-	int *pinStates[PWM_PHASE_MAX_WAVE_PER_PWM] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates,
+	pin_state_t *pinStates[PWM_PHASE_MAX_WAVE_PER_PWM] = { s->wave.waves[0].pinStates, s->wave.waves[1].pinStates,
 			s->wave.waves[2].pinStates };
 	triggerSignal.weComplexInit("position sensor", s->getSize(), s->wave.switchTimes, PWM_PHASE_MAX_WAVE_PER_PWM,
 			pinStates, updateTriggerShapeIfNeeded, emulatorApplyPinState);
