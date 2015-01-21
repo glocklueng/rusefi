@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * (c) Andrey Belomutskiy
@@ -11,15 +12,18 @@ import java.util.Map;
  */
 public class ConfigDefinition {
     private static final String FILE_NAME = "rusefi_config.ini";
+    public static final String STRUCT = "struct ";
     private static Map<String, Integer> values = new HashMap<>();
-    private static int currentOffset;
+
+    private static Stack<ConfigStructure> stack = new Stack<>();
+    public static Map<String, ConfigStructure> types = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
-        currentOffset = 0;
         if (args.length != 1) {
             System.out.println("Please specify path to '" + FILE_NAME + "' file");
             return;
         }
+
         String path = args[0];
         String fullFileName = path + File.separator + FILE_NAME;
         System.out.println("Reading from " + fullFileName);
@@ -30,6 +34,9 @@ public class ConfigDefinition {
         BufferedReader br = new BufferedReader(new FileReader(fullFileName));
 
         processFile(br, cHeader, tsHeader);
+
+        if (!stack.isEmpty())
+            throw new IllegalStateException("Unclosed structure: " + stack.peek().name);
 
         cHeader.close();
         tsHeader.close();
@@ -42,9 +49,6 @@ public class ConfigDefinition {
         cHeader.write(message);
         cHeader.write("// begin\r\n");
 
-        ConfigStructure structure = null;
-
-
         while ((line = br.readLine()) != null) {
             line = line.trim();
             line = line.replaceAll("\\s+", " ");
@@ -54,30 +58,45 @@ public class ConfigDefinition {
             if (line.length() == 0 || line.startsWith("!"))
                 continue;
 
-            if (line.startsWith("struct ")) {
-                if (structure != null)
-                    throw new IllegalStateException("structure inside structure " + structure.name);
-                String name = line.split(" ")[1];
-                structure = new ConfigStructure(name);
+            if (line.startsWith(STRUCT)) {
+                line = line.substring(STRUCT.length());
+                String name;
+                String comment;
+                if(line.contains(" ")) {
+                    int index = line.indexOf(' ');
+                    name = line.substring(0, index);
+                    comment = line.substring(index + 1).trim();
+                } else {
+                    name = line;
+                    comment = null;
+                }
+                ConfigStructure structure = new ConfigStructure(name, comment);
+                stack.push(structure);
                 System.out.println("Starting structure " + structure.name);
                 continue;
             }
 
             if (line.startsWith("end_struct")) {
+                if (stack.isEmpty())
+                    throw new IllegalStateException("Unexpected end_struct");
+                ConfigStructure structure = stack.pop();
                 System.out.println("Ending structure " + structure.name);
-                structure = null;
+                structure.addAlignmentFill();
+
+                structure.write(cHeader);
+
                 continue;
             }
 
 
-            processLine(cHeader, line);
+            processLine(line);
 
         }
         cHeader.write("// end\r\n");
         cHeader.write(message);
     }
 
-    private static void processLine(BufferedWriter cHeader, String line) throws IOException {
+    private static void processLine(String line) throws IOException {
         /**
          * for example
          * #define CLT_CURVE_SIZE 16
@@ -91,21 +110,24 @@ public class ConfigDefinition {
         if (cf == null)
             return;
 
-        String cEntry = cf.getText();
-
-        cHeader.write(cEntry);
-
-        currentOffset += cf.getSize();
+        if (stack.isEmpty())
+            throw new IllegalStateException(cf.name + ": Not enclosed in a struct");
+        ConfigStructure structure = stack.peek();
+        structure.add(cf);
     }
 
     public static int getElementSize(String type) {
+        if(types.containsKey(type))
+            return types.get(type).totalSize;
+        if (type.equals(ConfigStructure.UINT8_T))
+            return 1;
         if (type.equals("int16_t")) {
             return 2;
         }
         return 4;
     }
 
-    public static String getComment(String comment) {
+    public static String getComment(String comment, int currentOffset) {
         return "\t/**\r\n" + packComment(comment) + "\t * offset " + currentOffset + "\r\n\t*/\r\n";
     }
 

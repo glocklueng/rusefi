@@ -27,5 +27,10 @@ public class ConfigDefinitionTest {
             ConfigField cf = ConfigField.parse("int;field");
             assertEquals(cf.type, "int");
         }
+        {
+            ConfigField cf = ConfigField.parse("array int 3;field");
+            assertEquals(cf.type, "int");
+            assertEquals(cf.arraySize, 3);
+        }
     }
 }
