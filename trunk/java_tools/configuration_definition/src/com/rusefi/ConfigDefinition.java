@@ -62,7 +62,7 @@ public class ConfigDefinition {
                 line = line.substring(STRUCT.length());
                 String name;
                 String comment;
-                if(line.contains(" ")) {
+                if (line.contains(" ")) {
                     int index = line.indexOf(' ');
                     name = line.substring(0, index);
                     comment = line.substring(index + 1).trim();
@@ -117,7 +117,7 @@ public class ConfigDefinition {
     }
 
     public static int getElementSize(String type) {
-        if(types.containsKey(type))
+        if (types.containsKey(type))
             return types.get(type).totalSize;
         if (type.equals(ConfigStructure.UINT8_T))
             return 1;
@@ -132,6 +132,8 @@ public class ConfigDefinition {
     }
 
     public static String packComment(String comment) {
+        if (comment == null)
+            return "";
         if (comment.trim().isEmpty())
             return "";
         String result = "";
