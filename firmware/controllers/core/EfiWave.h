@@ -19,7 +19,7 @@
  * todo: migrate to bit-array to same memory? but this would
  * this would some CPU cycles. see std::vector<bool>
  */
-typedef int pin_state_t;
+typedef int8_t pin_state_t;
 
 /**
  * @brief   PWM configuration for the specific output pin
