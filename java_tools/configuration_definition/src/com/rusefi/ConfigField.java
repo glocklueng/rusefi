@@ -12,7 +12,7 @@ public class ConfigField {
     public int arraySize;
     public int elementSize;
 
-    private ConfigField(String name, String comment) {
+    public ConfigField(String name, String comment) {
         this.name = name;
         this.comment = comment;
     }
@@ -38,8 +38,8 @@ public class ConfigField {
         } else {
             arraySize = 1;
         }
+        field.setType(type);
         field.arraySize = arraySize;
-        field.elementSize = ConfigDefinition.getElementSize(type);
 
         System.out.println("type " + type);
         System.out.println("name " + name);
@@ -52,8 +52,8 @@ public class ConfigField {
         return elementSize * arraySize;
     }
 
-    String getText() {
-        String cEntry = ConfigDefinition.getComment(comment);
+    String getText(int currentOffset) {
+        String cEntry = ConfigDefinition.getComment(comment, currentOffset);
 
         if (arraySize == 1) {
             // not an array
@@ -62,5 +62,20 @@ public class ConfigField {
             cEntry += "\t" + type + " " + name + "[" + arraySizeAsText + "];\n";
         }
         return cEntry;
+    }
+
+    @Override
+    public String toString() {
+        return "ConfigField{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", arraySize=" + arraySize +
+                ", elementSize=" + elementSize +
+                '}';
+    }
+
+    public void setType(String type) {
+        this.type = type;
+        elementSize = ConfigDefinition.getElementSize(type);
     }
 }
