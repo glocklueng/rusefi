@@ -108,7 +108,7 @@ public class ConfigDefinition {
 
         ConfigField cf = ConfigField.parse(line);
         if (cf == null)
-            return;
+            throw new IllegalStateException("Cannot process " + line);
 
         if (stack.isEmpty())
             throw new IllegalStateException(cf.name + ": Not enclosed in a struct");

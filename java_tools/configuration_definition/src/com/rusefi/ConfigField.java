@@ -8,6 +8,12 @@ import java.util.regex.Pattern;
  * 1/15/15
  */
 public class ConfigField {
+    private static final String typePattern = "([\\w\\d_]+)(\\[([\\w\\d]+)\\])?";
+    private static final String namePattern = "[[\\w\\d\\s_]]+";
+    private static final String commentPattern = "\\;(.*)";
+
+    private static final Pattern FIELD = Pattern.compile(typePattern + "\\s(" + namePattern + ")(" + commentPattern + ")?");
+
     public String type;
     public final String name;
     public final String comment;
@@ -21,32 +27,18 @@ public class ConfigField {
     }
 
     public static ConfigField parse(String line) {
-        String typePattern = "[\\w\\d\\s_]+";
-        String namePattern = "[[\\w\\d\\s_]]+";
-        String commentPattern = "\\;([\\w\\d\\s_]*)";
-
-        Pattern FIELD = Pattern.compile("(" + typePattern + ");(" + namePattern + ")(" + commentPattern + ")?");
         Matcher matcher = FIELD.matcher(line);
         if (!matcher.matches())
             return null;
 
-
-        String[] b = line.split(";");
-//        if (a.length != 2 && a.length != 3) {
-//            System.err.println("Tow or three semicolon-separated elements expected");
-//            return null;
-//        }
-
-        String name = matcher.group(2);
-        String comment = matcher.group(4);
+        String name = matcher.group(4);
+        String comment = matcher.group(6);
         ConfigField field = new ConfigField(name, comment);
         int arraySize;
 
         String type = matcher.group(1);
-        if (type.startsWith("array ")) {
-            String[] a = type.split(" ");
-            type = a[1];
-            field.arraySizeAsText = a[2];
+        if (matcher.group(3) != null) {
+            field.arraySizeAsText = matcher.group(3);
             arraySize = ConfigDefinition.getSize(field.arraySizeAsText);
         } else {
             arraySize = 1;
