@@ -349,9 +349,8 @@ typedef struct {
 	/**
 	 * offset 334
 	*/
-	analog_chart_e analogChartMode;
+	uint16_t analogChartMode;
 
-	uint8_t analogChartMode_fill;
 	/**
 	 * todo: finish implementation. These values are used for TPS disconnect detection
 	 * offset 336
