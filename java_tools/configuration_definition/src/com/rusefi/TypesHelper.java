@@ -31,6 +31,10 @@ public class TypesHelper {
             return "U32";
         if ("int32_t".equals(type) || "int".equals(type))
             return "S32";
+        if ("int16_t".equals(type))
+            return "S16";
+        if ("uint16_t".equals(type))
+            return "U16";
         return type;
     }
 }

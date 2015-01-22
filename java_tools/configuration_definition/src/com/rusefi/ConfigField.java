@@ -105,7 +105,6 @@ public class ConfigField {
             tsPosition += TypesHelper.getElementSize(type);
         } else if (arraySize != 1) {
             tsHeader.write("\t" + addTabsUpTo(name, LENGTH) + "\t\t= array, ");
-
             tsHeader.write(TypesHelper.convertToTs(type) + ",");
             tsHeader.write("\t" + tsPosition + ",");
             tsHeader.write("\t[" + arraySize + "],");
@@ -113,8 +112,13 @@ public class ConfigField {
 
             tsPosition += arraySize * elementSize;
 
+        } else {
+            tsHeader.write("\t" + addTabsUpTo(name, LENGTH) + "\t\t= scalar, ");
+            tsHeader.write(TypesHelper.convertToTs(type) + ",");
+            tsHeader.write("\t" + tsPosition + ",");
+            tsHeader.write("\t" + tsInfo);
+            tsPosition += elementSize;
         }
-
 
         tsHeader.write("\r\n");
 
