@@ -12,9 +12,9 @@ import java.util.regex.Pattern;
 public class ConfigField {
     private static final String typePattern = "([\\w\\d_]+)(\\[([\\w\\d]+)\\])?";
     private static final String namePattern = "[[\\w\\d\\s_]]+";
-    private static final String commentPattern = ";(.*)";
+    private static final String commentPattern = ";([^;]*)";
 
-    private static final Pattern FIELD = Pattern.compile(typePattern + "\\s(" + namePattern + ")(" + commentPattern + ")?");
+    private static final Pattern FIELD = Pattern.compile(typePattern + "\\s(" + namePattern + ")(" + commentPattern + ")?(;(.*))?");
 
     public String type;
     public final String name;
@@ -22,6 +22,7 @@ public class ConfigField {
     public String arraySizeAsText;
     public int arraySize;
     public int elementSize;
+    public String tsInfo;
 
     public ConfigField(String name, String comment) {
         this.name = name;
@@ -36,6 +37,7 @@ public class ConfigField {
         String name = matcher.group(4);
         String comment = matcher.group(6);
         ConfigField field = new ConfigField(name, comment);
+        field.tsInfo = matcher.group(8);
         int arraySize;
 
         String type = matcher.group(1);
