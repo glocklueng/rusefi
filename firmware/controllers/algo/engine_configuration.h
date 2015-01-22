@@ -386,16 +386,31 @@ typedef struct {
 	*/
 	MAP_sensor_config_s map;
 
-	// todo: merge with channel settings, use full-scale Thermistor here!
-	ThermistorConf cltThermistorConf; // size 40 (10*4), offset 336
-	ThermistorConf iatThermistorConf; // size 40, offset 376
-
-	float sparkDwellBins[DWELL_COUNT]; // offset 580
+	/**
+	 * todo: merge with channel settings, use full-scale Thermistor here!
+	 * offset 500
+	*/
+	ThermistorConf cltThermistorConf;
+	/**
+	 * offset 540
+	*/
+	ThermistorConf iatThermistorConf;
+	/**
+	 * offset 580
+	*/
+	float sparkDwellBins[DWELL_COUNT];
+	/**
+	 * offset 612
+	*/
 	float sparkDwell[DWELL_COUNT];
-
+	/**
+	 * offset 644
+	*/
 	float ignitionLoadBins[IGN_LOAD_COUNT];
+	/**
+	 * offset 708
+	*/
 	float ignitionRpmBins[IGN_RPM_COUNT];
-
 	/**
 	 * this value could be used to offset the whole ignition timing table by a constant
 	 * offset 772
