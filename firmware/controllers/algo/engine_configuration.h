@@ -61,6 +61,8 @@ typedef enum {
 	 * You would use this value if you want to see a detailed graph of your trigger events
 	 */
 	AC_TRIGGER = 1, AC_MAP = 2,
+
+	Internal_ForceMyEnumIntSize_analog_chart = ENUM_32_BITS,
 } analog_chart_e;
 
 typedef enum {
@@ -273,7 +275,7 @@ typedef struct {
 	// offset 6248
 	brain_pin_e joystickDPin;
 	// offset 6252
-	uint32_t analogChartMode;
+	analog_chart_e analogChartMode;
 	int unusedbs[6];
 
 	le_formula_t le_formulas[LE_COMMAND_COUNT];
