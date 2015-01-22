@@ -23,4 +23,14 @@ public class TypesHelper {
         }
         return 4;
     }
+
+    static String convertToTs(String type) {
+        if ("float".equals(type))
+            return "F32";
+        if ("uint32_t".equals(type))
+            return "U32";
+        if ("int32_t".equals(type) || "int".equals(type))
+            return "S32";
+        return type;
+    }
 }
