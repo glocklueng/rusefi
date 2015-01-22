@@ -1,5 +1,7 @@
 package com.rusefi;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -81,6 +83,26 @@ public class ConfigField {
 
     public void setType(String type) {
         this.type = type;
-        elementSize = ConfigDefinition.getElementSize(type);
+        elementSize = TypesHelper.getElementSize(type);
     }
+
+    public int writeTunerStudio(BufferedWriter tsHeader, int tsPosition) throws IOException {
+        tsHeader.write(name + "\t\t = ");
+
+        if (ConfigDefinition.tsBits.containsKey(type)) {
+            String bits = ConfigDefinition.tsBits.get(type);
+            tsHeader.write("bits,\t");
+            String type = ConfigDefinition.tsBitsType.get(this.type);
+            tsPosition += TypesHelper.getTsSize(type);
+            tsHeader.write(type);
+            tsHeader.write(bits);
+        }
+
+
+        tsHeader.write("\r\n");
+
+        return tsPosition;
+
+    }
+
 }

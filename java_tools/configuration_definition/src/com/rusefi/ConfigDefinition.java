@@ -13,10 +13,14 @@ import java.util.Stack;
 public class ConfigDefinition {
     private static final String FILE_NAME = "rusefi_config.ini";
     public static final String STRUCT = "struct ";
+    public static final String END_STRUCT = "end_struct";
+    public static final String BITS = "bits";
     private static Map<String, Integer> values = new HashMap<>();
 
     private static Stack<ConfigStructure> stack = new Stack<>();
     public static Map<String, ConfigStructure> types = new HashMap<>();
+    public static Map<String, String> tsBits = new HashMap<>();
+    public static Map<String, String> tsBitsType = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
         if (args.length != 1) {
@@ -59,41 +63,57 @@ public class ConfigDefinition {
                 continue;
 
             if (line.startsWith(STRUCT)) {
-                line = line.substring(STRUCT.length());
-                String name;
-                String comment;
-                if (line.contains(" ")) {
-                    int index = line.indexOf(' ');
-                    name = line.substring(0, index);
-                    comment = line.substring(index + 1).trim();
-                } else {
-                    name = line;
-                    comment = null;
-                }
-                ConfigStructure structure = new ConfigStructure(name, comment);
-                stack.push(structure);
-                System.out.println("Starting structure " + structure.name);
-                continue;
+                handleStartStructure(line);
+            } else if (line.startsWith(END_STRUCT)) {
+                handleEndStruct(cHeader, tsHeader);
+            } else if (line.startsWith(BITS + " ") || line.startsWith(BITS + "\t")) {
+                line = line.substring(BITS.length() + 1).trim();
+                int index = line.indexOf(' ');
+                String name = line.substring(0, index);
+                line = line.substring(index).trim();
+                index = line.indexOf(' ');
+                String bitsType = line.substring(0, index);
+
+                String tunerStudioLine = line.substring(index).trim();
+                tsBitsType.put(name, bitsType);
+                tsBits.put(name, tunerStudioLine);
+
+            } else {
+                processLine(line);
             }
-
-            if (line.startsWith("end_struct")) {
-                if (stack.isEmpty())
-                    throw new IllegalStateException("Unexpected end_struct");
-                ConfigStructure structure = stack.pop();
-                System.out.println("Ending structure " + structure.name);
-                structure.addAlignmentFill();
-
-                structure.write(cHeader);
-
-                continue;
-            }
-
-
-            processLine(line);
-
         }
         cHeader.write("// end\r\n");
         cHeader.write(message);
+    }
+
+    private static void handleStartStructure(String line) {
+        line = line.substring(STRUCT.length());
+        String name;
+        String comment;
+        if (line.contains(" ")) {
+            int index = line.indexOf(' ');
+            name = line.substring(0, index);
+            comment = line.substring(index + 1).trim();
+        } else {
+            name = line;
+            comment = null;
+        }
+        ConfigStructure structure = new ConfigStructure(name, comment);
+        stack.push(structure);
+        System.out.println("Starting structure " + structure.name);
+    }
+
+    private static void handleEndStruct(BufferedWriter cHeader, BufferedWriter tsHeader) throws IOException {
+        if (stack.isEmpty())
+            throw new IllegalStateException("Unexpected end_struct");
+        ConfigStructure structure = stack.pop();
+        System.out.println("Ending structure " + structure.name);
+        structure.addAlignmentFill();
+        structure.write(cHeader);
+
+        if (stack.isEmpty()) {
+            structure.writeTunerStudio(tsHeader, 0);
+        }
     }
 
     private static void processLine(String line) throws IOException {
@@ -114,17 +134,6 @@ public class ConfigDefinition {
             throw new IllegalStateException(cf.name + ": Not enclosed in a struct");
         ConfigStructure structure = stack.peek();
         structure.add(cf);
-    }
-
-    public static int getElementSize(String type) {
-        if (types.containsKey(type))
-            return types.get(type).totalSize;
-        if (type.equals(ConfigStructure.UINT8_T))
-            return 1;
-        if (type.equals("int16_t")) {
-            return 2;
-        }
-        return 4;
     }
 
     public static String getComment(String comment, int currentOffset) {

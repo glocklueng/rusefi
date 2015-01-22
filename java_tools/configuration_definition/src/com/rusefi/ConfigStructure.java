@@ -58,4 +58,11 @@ public class ConfigStructure {
 
         ConfigDefinition.types.put(name, this);
     }
+
+    public void writeTunerStudio(BufferedWriter tsHeader, int tsPosition) throws IOException {
+        for (ConfigField cf : fields) {
+            cf.writeTunerStudio(tsHeader, tsPosition);
+
+        }
+    }
 }
