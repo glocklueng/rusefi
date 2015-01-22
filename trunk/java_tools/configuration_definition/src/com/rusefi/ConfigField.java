@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class ConfigField {
     private static final String typePattern = "([\\w\\d_]+)(\\[([\\w\\d]+)\\])?";
     private static final String namePattern = "[[\\w\\d\\s_]]+";
-    private static final String commentPattern = "\\;(.*)";
+    private static final String commentPattern = ";(.*)";
 
     private static final Pattern FIELD = Pattern.compile(typePattern + "\\s(" + namePattern + ")(" + commentPattern + ")?");
 
