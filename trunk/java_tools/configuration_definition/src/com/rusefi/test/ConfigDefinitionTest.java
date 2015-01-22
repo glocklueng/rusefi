@@ -34,10 +34,11 @@ public class ConfigDefinitionTest {
             assertEquals(cf.name, "fie4_ld");
         }
         {
-            ConfigField cf = ConfigField.parse("int_8 fi_eld;comm_");
+            ConfigField cf = ConfigField.parse("int_8 fi_eld;comm_;ts");
             assertEquals(cf.type, "int_8");
             assertEquals(cf.name, "fi_eld");
             assertEquals(cf.comment, "comm_");
+            assertEquals(cf.tsInfo, "ts");
         }
         {
             ConfigField cf = ConfigField.parse("int[3] field");
