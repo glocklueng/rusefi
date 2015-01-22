@@ -15,6 +15,7 @@ public class ConfigField {
     private static final String commentPattern = ";([^;]*)";
 
     private static final Pattern FIELD = Pattern.compile(typePattern + "\\s(" + namePattern + ")(" + commentPattern + ")?(;(.*))?");
+    public static final int LENGTH = 24;
 
     public String type;
     public final String name;
@@ -89,21 +90,46 @@ public class ConfigField {
     }
 
     public int writeTunerStudio(BufferedWriter tsHeader, int tsPosition) throws IOException {
-        tsHeader.write(name + "\t\t = ");
-
         if (ConfigDefinition.tsBits.containsKey(type)) {
             String bits = ConfigDefinition.tsBits.get(type);
-            tsHeader.write("bits,\t");
+            tsHeader.write("\t" + addTabsUpTo(name, LENGTH) + "\t\t= ");
+            tsHeader.write("bits,");
             String type = ConfigDefinition.tsBitsType.get(this.type);
+            tsHeader.write("\t" + type + ",");
+            tsHeader.write("\t" + tsPosition + ",");
+            tsHeader.write("\t" + bits);
+
             tsPosition += TypesHelper.getTsSize(type);
-            tsHeader.write(type);
-            tsHeader.write(bits);
+        } else if (tsInfo == null) {
+            tsHeader.write(";skipping " + name + " offset " + tsPosition);
+            tsPosition += TypesHelper.getElementSize(type);
+        } else if (arraySize != 1) {
+            tsHeader.write("\t" + addTabsUpTo(name, LENGTH) + "\t\t= array, ");
+
+            tsHeader.write(TypesHelper.convertToTs(type) + ",");
+            tsHeader.write("\t" + tsPosition + ",");
+            tsHeader.write("\t[" + arraySize + "],");
+            tsHeader.write("\t" + tsInfo);
+
+            tsPosition += arraySize * elementSize;
+
         }
 
 
         tsHeader.write("\r\n");
 
         return tsPosition;
+
+    }
+
+    private String addTabsUpTo(String name, int length) {
+        StringBuilder result = new StringBuilder(name);
+        int currentLength = name.length();
+        while (currentLength < length) {
+            result.append("\t");
+            currentLength += 4;
+        }
+        return result.toString();
 
     }
 
