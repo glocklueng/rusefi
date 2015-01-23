@@ -146,9 +146,9 @@ void setCitroenBerlingoTU3JPConfiguration(engine_configuration_s *engineConfigur
 	 * MAP <BOSCH 0 261 230 057>
 	 */
 	engineConfiguration->map.sensor.hwChannel = EFI_ADC_1;
-	engineConfiguration->map.sensor.sensorType = MT_CUSTOM;
-	engineConfiguration->map.sensor.customValueAt0 = 10;
-	engineConfiguration->map.sensor.customValueAt5 = 110;
+	engineConfiguration->map.sensor.type = MT_CUSTOM;
+	engineConfiguration->map.sensor.valueAt0 = 10;
+	engineConfiguration->map.sensor.valueAt5 = 110;
 	/**
 	 * TPS <MAGNETI MARELLI>
 	 */

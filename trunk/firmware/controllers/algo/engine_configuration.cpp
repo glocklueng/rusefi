@@ -308,11 +308,11 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 
 	engineConfiguration->globalFuelCorrection = 1;
 
-	engineConfiguration->map.sensor.sensorType = MT_MPX4250;
+	engineConfiguration->map.sensor.type = MT_MPX4250;
 
-	engineConfiguration->baroSensor.sensorType = MT_CUSTOM;
-	engineConfiguration->baroSensor.customValueAt0 = 0;
-	engineConfiguration->baroSensor.customValueAt5 = 500;
+	engineConfiguration->baroSensor.type = MT_CUSTOM;
+	engineConfiguration->baroSensor.valueAt0 = 0;
+	engineConfiguration->baroSensor.valueAt5 = 500;
 
 	engineConfiguration->diffLoadEnrichmentCoef = 1;
 

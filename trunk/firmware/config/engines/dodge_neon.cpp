@@ -343,7 +343,7 @@ void setDodgeNeonNGCEngineConfiguration(engine_configuration_s *engineConfigurat
 
 	boardConfiguration->analogChartMode = AC_MAP;
 	boardConfiguration->isFastAdcEnabled = true;
-	engineConfiguration->map.sensor.sensorType = MT_DODGE_NEON_2003;
+	engineConfiguration->map.sensor.type = MT_DODGE_NEON_2003;
 
 #if EFI_HIP_9011 || defined(__DOXYGEN__)
 	setHip9011FrankensoPinout();
