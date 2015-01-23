@@ -4,14 +4,6 @@ package com.rusefi;
  * 1/22/15
  */
 public class TypesHelper {
-    static int getTsSize(String type) {
-        if (type.equals("S16") || type.equals("U16"))
-            return 2;
-        if (type.equals("S32") || type.equals("U32"))
-            return 4;
-        throw new IllegalArgumentException("Unexpeted TS bits type: " + type);
-    }
-
     public static int getElementSize(String type) {
         if (ConfigDefinition.structures.containsKey(type))
             return ConfigDefinition.structures.get(type).totalSize;

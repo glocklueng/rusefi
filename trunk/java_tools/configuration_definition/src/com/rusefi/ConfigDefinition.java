@@ -15,6 +15,7 @@ public class ConfigDefinition {
     public static final String STRUCT = "struct ";
     public static final String END_STRUCT = "end_struct";
     public static final String CUSTOM = "custom";
+    public static final String BIT = "bit";
     private static Map<String, Integer> values = new HashMap<>();
 
     private static Stack<ConfigStructure> stack = new Stack<>();
@@ -66,6 +67,13 @@ public class ConfigDefinition {
                 handleStartStructure(line);
             } else if (line.startsWith(END_STRUCT)) {
                 handleEndStruct(cHeader, tsHeader);
+            } else if (line.startsWith(BIT)) {
+                line = line.substring(BIT.length() + 1).trim();
+
+                ConfigField cf = new ConfigField(line, "");
+                cf.isBit = true;
+                stack.peek().add(cf);
+
             } else if (line.startsWith(CUSTOM + " ") || line.startsWith(CUSTOM + "\t")) {
                 line = line.substring(CUSTOM.length() + 1).trim();
                 int index = line.indexOf(' ');

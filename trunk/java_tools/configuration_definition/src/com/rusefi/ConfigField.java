@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
  * 1/15/15
  */
 public class ConfigField {
+    public static final ConfigField VOID = new ConfigField(null, null);
+
     private static final String typePattern = "([\\w\\d_]+)(\\[([\\w\\d]+)\\])?";
     private static final String namePattern = "[[\\w\\d\\s_]]+";
     private static final String commentPattern = ";([^;]*)";
@@ -24,6 +26,7 @@ public class ConfigField {
     public int arraySize;
     public int elementSize;
     public String tsInfo;
+    public boolean isBit;
 
     public ConfigField(String name, String comment) {
         this.name = name;
@@ -58,11 +61,20 @@ public class ConfigField {
         return field;
     }
 
-    int getSize() {
+    int getSize(ConfigField next) {
+        if (isBit && next.isBit)
+            return 0;
+        if (isBit)
+            return 4;
         return elementSize * arraySize;
     }
 
-    String getText(int currentOffset) {
+    String getText(int currentOffset, int bitIndex) {
+        if (isBit) {
+            String comment = "\t/** offset " + currentOffset + " bit " + bitIndex + " */\r\n";
+            return comment + "\tuint32_t " + name + " : 1;\r\n";
+        }
+
         String cEntry = ConfigDefinition.getComment(comment, currentOffset);
 
         if (arraySize == 1) {
@@ -100,7 +112,7 @@ public class ConfigField {
             tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH));
             int size = ConfigDefinition.tsCustomSize.get(type);
 //            tsHeader.write("\t" + size + ",");
-  //          tsHeader.write("\t" + tsPosition + ",");
+            //          tsHeader.write("\t" + tsPosition + ",");
             bits = bits.replaceAll("@OFFSET@", "" + tsPosition);
             tsHeader.write("\t = " + bits);
 
@@ -139,7 +151,5 @@ public class ConfigField {
             currentLength += 4;
         }
         return result.toString();
-
     }
-
 }
