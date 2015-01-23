@@ -1,7 +1,6 @@
 package com.rusefi;
 
 /**
- *
  * 1/22/15
  */
 public class TypesHelper {
@@ -14,8 +13,10 @@ public class TypesHelper {
     }
 
     public static int getElementSize(String type) {
-        if (ConfigDefinition.types.containsKey(type))
-            return ConfigDefinition.types.get(type).totalSize;
+        if (ConfigDefinition.structures.containsKey(type))
+            return ConfigDefinition.structures.get(type).totalSize;
+        if (ConfigDefinition.tsCustomSize.containsKey(type))
+            return ConfigDefinition.tsCustomSize.get(type);
         if (type.equals(ConfigStructure.UINT8_T))
             return 1;
         if (type.equals("int16_t") || type.equals("uint16_t")) {

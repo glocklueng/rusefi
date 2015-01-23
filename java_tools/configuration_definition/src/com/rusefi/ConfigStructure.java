@@ -55,8 +55,6 @@ public class ConfigStructure {
             add(fill);
         }
         totalSize += fillSize;
-
-        ConfigDefinition.types.put(name, this);
     }
 
     public int writeTunerStudio(String prefix, BufferedWriter tsHeader, int tsPosition) throws IOException {

@@ -90,7 +90,7 @@ public class ConfigField {
     }
 
     public int writeTunerStudio(String prefix, BufferedWriter tsHeader, int tsPosition) throws IOException {
-        ConfigStructure cs = ConfigDefinition.types.get(type);
+        ConfigStructure cs = ConfigDefinition.structures.get(type);
         if (cs != null) {
             return cs.writeTunerStudio(prefix + name + "_", tsHeader, tsPosition);
         }

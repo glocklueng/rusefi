@@ -14,11 +14,11 @@ public class ConfigDefinition {
     private static final String FILE_NAME = "rusefi_config.ini";
     public static final String STRUCT = "struct ";
     public static final String END_STRUCT = "end_struct";
-    public static final String BITS = "bits";
+    public static final String CUSTOM = "custom";
     private static Map<String, Integer> values = new HashMap<>();
 
     private static Stack<ConfigStructure> stack = new Stack<>();
-    public static Map<String, ConfigStructure> types = new HashMap<>();
+    public static Map<String, ConfigStructure> structures = new HashMap<>();
     public static Map<String, String> tsCustomLine = new HashMap<>();
     public static Map<String, Integer> tsCustomSize = new HashMap<>();
 
@@ -66,18 +66,18 @@ public class ConfigDefinition {
                 handleStartStructure(line);
             } else if (line.startsWith(END_STRUCT)) {
                 handleEndStruct(cHeader, tsHeader);
-            } else if (line.startsWith(BITS + " ") || line.startsWith(BITS + "\t")) {
-                line = line.substring(BITS.length() + 1).trim();
+            } else if (line.startsWith(CUSTOM + " ") || line.startsWith(CUSTOM + "\t")) {
+                line = line.substring(CUSTOM.length() + 1).trim();
                 int index = line.indexOf(' ');
                 String name = line.substring(0, index);
                 line = line.substring(index).trim();
                 index = line.indexOf(' ');
-                String bitsSize = line.substring(0, index);
+                String customSize = line.substring(0, index);
 
                 String tunerStudioLine = line.substring(index).trim();
                 int size;
                 try {
-                    size = Integer.parseInt(bitsSize);
+                    size = Integer.parseInt(customSize);
                 } catch (NumberFormatException e) {
                     throw new IllegalStateException("Size in " + line);
                 }
@@ -115,6 +115,9 @@ public class ConfigDefinition {
         ConfigStructure structure = stack.pop();
         System.out.println("Ending structure " + structure.name);
         structure.addAlignmentFill();
+
+        ConfigDefinition.structures.put(structure.name, structure);
+
         structure.write(cHeader);
 
         if (stack.isEmpty()) {
