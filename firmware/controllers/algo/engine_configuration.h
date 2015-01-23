@@ -289,13 +289,13 @@ typedef struct {
 	pin_output_mode_e o2heaterPinModeTodO;
 
 
-	unsigned int is_enabled_spi_1 : 1; // bit 0
-	unsigned int is_enabled_spi_2 : 1; // bit 1
-	unsigned int is_enabled_spi_3 : 1; // bit 2
-	unsigned int isSdCardEnabled : 1; // bit 3
-	unsigned int isFastAdcEnabled : 1; // bit 4
-	unsigned int isEngineControlEnabled : 1; // bit 5
-	unsigned int isHip9011Enabled : 1; // bit 6
+	uint32_t is_enabled_spi_1 : 1; // bit 0
+	uint32_t is_enabled_spi_2 : 1; // bit 1
+	uint32_t is_enabled_spi_3 : 1; // bit 2
+	uint32_t isSdCardEnabled : 1; // bit 3
+	uint32_t isFastAdcEnabled : 1; // bit 4
+	uint32_t isEngineControlEnabled : 1; // bit 5
+	uint32_t isHip9011Enabled : 1; // bit 6
 
 	brain_pin_e logicAnalyzerPins[LOGIC_ANALYZER_CHANNEL_COUNT];
 	/**
