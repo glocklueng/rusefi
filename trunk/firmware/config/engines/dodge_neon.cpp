@@ -105,7 +105,7 @@ void setDodgeNeon1995EngineConfiguration(engine_configuration_s *engineConfigura
 	engineConfiguration->cranking.rpm = 550;
 
 	// set_cranking_fuel 5
-	engineConfiguration->cranking.baseCrankingFuel = 5;
+	engineConfiguration->cranking.baseFuel = 5;
 
 	/**
 	 * that's 1995 config
@@ -201,7 +201,7 @@ void setDodgeNeonNGCEngineConfiguration(engine_configuration_s *engineConfigurat
 	 *
 	 * set_cranking_fuel 5
 	 */
-	engineConfiguration->cranking.baseCrankingFuel = 5;
+	engineConfiguration->cranking.baseFuel = 5;
 
 	/**
 	 * 77C

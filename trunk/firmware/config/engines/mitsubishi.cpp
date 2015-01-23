@@ -39,7 +39,7 @@ void setMitsubishiConfiguration(engine_configuration_s *engineConfiguration, boa
 	setWholeFuelMap(engineConfiguration, 3);
 
 	// set_cranking_fuel 4
-	engineConfiguration->cranking.baseCrankingFuel = 4;
+	engineConfiguration->cranking.baseFuel = 4;
 
 //	/**
 //	 * 29150 Ohm @ 40C

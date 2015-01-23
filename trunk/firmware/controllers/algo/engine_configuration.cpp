@@ -234,7 +234,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->crankingCycleCoef[7] = 0.5;
 	engineConfiguration->crankingCycleBins[7] = 77;
 
-	engineConfiguration->cranking.baseCrankingFuel = 5;
+	engineConfiguration->cranking.baseFuel = 5;
 
 	engineConfiguration->analogInputDividerCoefficient = 2;
 
