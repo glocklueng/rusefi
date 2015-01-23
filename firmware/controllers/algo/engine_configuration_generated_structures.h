@@ -72,16 +72,16 @@ typedef struct {
 	 * kPa value at zero volts
 	 * offset 0
 	*/
-	float customValueAt0;
+	float valueAt0;
 	/**
 	 * kPa value at 5 volts
 	 * offset 4
 	*/
-	float customValueAt5;
+	float valueAt5;
 	/**
 	 * offset 8
 	*/
-	air_pressure_sensor_type_e sensorType;
+	air_pressure_sensor_type_e type;
 	/**
 	 * offset 12
 	*/
