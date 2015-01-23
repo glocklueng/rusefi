@@ -59,9 +59,9 @@ public class ConfigStructure {
         ConfigDefinition.types.put(name, this);
     }
 
-    public int writeTunerStudio(BufferedWriter tsHeader, int tsPosition) throws IOException {
+    public int writeTunerStudio(String prefix, BufferedWriter tsHeader, int tsPosition) throws IOException {
         for (ConfigField cf : fields) {
-            tsPosition = cf.writeTunerStudio(tsHeader, tsPosition);
+            tsPosition = cf.writeTunerStudio(prefix, tsHeader, tsPosition);
         }
         return tsPosition;
     }

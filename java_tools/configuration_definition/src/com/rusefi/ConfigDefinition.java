@@ -112,7 +112,7 @@ public class ConfigDefinition {
         structure.write(cHeader);
 
         if (stack.isEmpty()) {
-            structure.writeTunerStudio(tsHeader, 0);
+            structure.writeTunerStudio("", tsHeader, 0);
         }
     }
 
