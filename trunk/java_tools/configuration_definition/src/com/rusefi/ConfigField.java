@@ -89,10 +89,15 @@ public class ConfigField {
         elementSize = TypesHelper.getElementSize(type);
     }
 
-    public int writeTunerStudio(BufferedWriter tsHeader, int tsPosition) throws IOException {
+    public int writeTunerStudio(String prefix, BufferedWriter tsHeader, int tsPosition) throws IOException {
+        ConfigStructure cs = ConfigDefinition.types.get(type);
+        if (cs != null) {
+            return cs.writeTunerStudio(prefix + name + "_", tsHeader, tsPosition);
+        }
+
         if (ConfigDefinition.tsBits.containsKey(type)) {
             String bits = ConfigDefinition.tsBits.get(type);
-            tsHeader.write("\t" + addTabsUpTo(name, LENGTH) + "\t\t= ");
+            tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH) + "\t\t= ");
             tsHeader.write("bits,");
             String type = ConfigDefinition.tsBitsType.get(this.type);
             tsHeader.write("\t" + type + ",");
@@ -101,10 +106,10 @@ public class ConfigField {
 
             tsPosition += TypesHelper.getTsSize(type);
         } else if (tsInfo == null) {
-            tsHeader.write(";skipping " + name + " offset " + tsPosition);
-            tsPosition += TypesHelper.getElementSize(type);
+            tsHeader.write(";skipping " + prefix + name + " offset " + tsPosition);
+            tsPosition += arraySize * TypesHelper.getElementSize(type);
         } else if (arraySize != 1) {
-            tsHeader.write("\t" + addTabsUpTo(name, LENGTH) + "\t\t= array, ");
+            tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH) + "\t\t= array, ");
             tsHeader.write(TypesHelper.convertToTs(type) + ",");
             tsHeader.write("\t" + tsPosition + ",");
             tsHeader.write("\t[" + arraySize + "],");
@@ -113,7 +118,7 @@ public class ConfigField {
             tsPosition += arraySize * elementSize;
 
         } else {
-            tsHeader.write("\t" + addTabsUpTo(name, LENGTH) + "\t\t= scalar, ");
+            tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH) + "\t\t= scalar, ");
             tsHeader.write(TypesHelper.convertToTs(type) + ",");
             tsHeader.write("\t" + tsPosition + ",");
             tsHeader.write("\t" + tsInfo);
