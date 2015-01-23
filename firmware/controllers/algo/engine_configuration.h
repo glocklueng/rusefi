@@ -271,13 +271,23 @@ typedef struct {
 	 * offset 336
 	*/
 	brain_pin_e canRxPin;
-
-
+	/**
+	 * offset 340
+	*/
 	brain_pin_e triggerSimulatorPins[TRIGGER_SIMULATOR_PIN_COUNT];
+	/**
+	 * offset 352
+	*/
 	pin_output_mode_e triggerSimulatorPinModes[TRIGGER_SIMULATOR_PIN_COUNT];
-
+	/**
+	 * offset 364
+	*/
 	brain_pin_e o2heaterPin;
+	/**
+	 * offset 368
+	*/
 	pin_output_mode_e o2heaterPinModeTodO;
+
 
 	unsigned int is_enabled_spi_1 : 1; // bit 0
 	unsigned int is_enabled_spi_2 : 1; // bit 1
