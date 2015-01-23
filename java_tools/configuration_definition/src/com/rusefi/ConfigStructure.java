@@ -16,6 +16,7 @@ public class ConfigStructure {
     private final List<ConfigField> fields = new ArrayList<>();
     private int currentOffset;
     public int totalSize;
+    private int bitIndex;
 
     public ConfigStructure(String name, String comment) {
         this.name = name;
@@ -28,13 +29,27 @@ public class ConfigStructure {
         }
         cHeader.write("typedef struct {\r\n");
 
-        for (ConfigField cf : fields) {
-            cHeader.write(cf.getText(currentOffset));
-            currentOffset += cf.getSize();
+        bitIndex = 0;
+        for (int i = 0; i < fields.size(); i++) {
+            ConfigField cf = fields.get(i);
+            cHeader.write(cf.getText(currentOffset, bitIndex));
+            ConfigField next = i == fields.size() - 1 ? ConfigField.VOID : fields.get(i + 1);
+            incrementBitIndex(cf, next);
+            currentOffset += cf.getSize(next);
         }
 
         cHeader.write("/** total size " + currentOffset + "*/\r\n");
         cHeader.write("} " + name + ";\r\n\r\n");
+    }
+
+    private void incrementBitIndex(ConfigField cf, ConfigField next) {
+        if (!cf.isBit) {
+            bitIndex = 0;
+            return;
+        }
+        bitIndex++;
+        if (bitIndex == 32)
+            throw new IllegalStateException("todo: too many bits, not supported");
     }
 
     public void add(ConfigField cf) {
@@ -42,8 +57,13 @@ public class ConfigStructure {
     }
 
     public void addAlignmentFill() {
-        for (ConfigField cf : fields)
-            totalSize += cf.getSize();
+        bitIndex = 0;
+        for (int i = 0; i < fields.size(); i++) {
+            ConfigField cf = fields.get(i);
+            ConfigField next = i == fields.size() - 1 ? ConfigField.VOID : fields.get(i + 1);
+            incrementBitIndex(cf, next);
+            totalSize += cf.getSize(next);
+        }
 
         int fillSize = totalSize % 4 == 0 ? 0 : 4 - (totalSize % 4);
 
