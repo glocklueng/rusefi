@@ -19,8 +19,8 @@ public class ConfigDefinition {
 
     private static Stack<ConfigStructure> stack = new Stack<>();
     public static Map<String, ConfigStructure> types = new HashMap<>();
-    public static Map<String, String> tsBits = new HashMap<>();
-    public static Map<String, String> tsBitsType = new HashMap<>();
+    public static Map<String, String> tsCustomLine = new HashMap<>();
+    public static Map<String, Integer> tsCustomSize = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
         if (args.length != 1) {
@@ -72,11 +72,17 @@ public class ConfigDefinition {
                 String name = line.substring(0, index);
                 line = line.substring(index).trim();
                 index = line.indexOf(' ');
-                String bitsType = line.substring(0, index);
+                String bitsSize = line.substring(0, index);
 
                 String tunerStudioLine = line.substring(index).trim();
-                tsBitsType.put(name, bitsType);
-                tsBits.put(name, tunerStudioLine);
+                int size;
+                try {
+                    size = Integer.parseInt(bitsSize);
+                } catch (NumberFormatException e) {
+                    throw new IllegalStateException("Size in " + line);
+                }
+                tsCustomSize.put(name, size);
+                tsCustomLine.put(name, tunerStudioLine);
 
             } else {
                 processLine(line);

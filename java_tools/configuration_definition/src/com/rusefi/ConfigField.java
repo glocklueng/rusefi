@@ -95,16 +95,16 @@ public class ConfigField {
             return cs.writeTunerStudio(prefix + name + "_", tsHeader, tsPosition);
         }
 
-        if (ConfigDefinition.tsBits.containsKey(type)) {
-            String bits = ConfigDefinition.tsBits.get(type);
-            tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH) + "\t\t= ");
-            tsHeader.write("bits,");
-            String type = ConfigDefinition.tsBitsType.get(this.type);
-            tsHeader.write("\t" + type + ",");
-            tsHeader.write("\t" + tsPosition + ",");
-            tsHeader.write("\t" + bits);
+        if (ConfigDefinition.tsCustomLine.containsKey(type)) {
+            String bits = ConfigDefinition.tsCustomLine.get(type);
+            tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH));
+            int size = ConfigDefinition.tsCustomSize.get(type);
+//            tsHeader.write("\t" + size + ",");
+  //          tsHeader.write("\t" + tsPosition + ",");
+            bits = bits.replaceAll("@OFFSET@", "" + tsPosition);
+            tsHeader.write("\t = " + bits);
 
-            tsPosition += TypesHelper.getTsSize(type);
+            tsPosition += size;
         } else if (tsInfo == null) {
             tsHeader.write(";skipping " + prefix + name + " offset " + tsPosition);
             tsPosition += arraySize * TypesHelper.getElementSize(type);
