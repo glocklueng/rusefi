@@ -390,11 +390,11 @@ typedef struct {
 	 * todo: merge with channel settings, use full-scale Thermistor here!
 	 * offset 500
 	*/
-	ThermistorConf cltThermistorConf;
+	ThermistorConf clt;
 	/**
 	 * offset 540
 	*/
-	ThermistorConf iatThermistorConf;
+	ThermistorConf iat;
 	/**
 	 * offset 580
 	*/
