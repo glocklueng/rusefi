@@ -70,13 +70,13 @@ void setCitroenBerlingoTU3JPConfiguration(engine_configuration_s *engineConfigur
 	engineConfiguration->injectionMode = IM_BATCH;
 	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
 	engineConfiguration->rpmHardLimit = 5000;
-	engineConfiguration->crankingSettings.crankingRpm = 600;
+	engineConfiguration->cranking.rpm = 600;
 
 	/**
 	* Cranking fuel setting
 	* TODO: they recomend using something like -40C for low point and +80C for high point
 	*/
-	engineConfiguration->crankingSettings.baseCrankingFuel = 15;
+	engineConfiguration->cranking.baseCrankingFuel = 15;
 
 	/**
 	 * Algorithm Alpha-N setting

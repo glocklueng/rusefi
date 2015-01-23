@@ -102,10 +102,10 @@ void setDodgeNeon1995EngineConfiguration(engine_configuration_s *engineConfigura
 	// set_rpm_hard_limit 4000
 	engineConfiguration->rpmHardLimit = 4000; // yes, 4k. let's play it safe for now
 	// set_cranking_rpm 550
-	engineConfiguration->crankingSettings.crankingRpm = 550;
+	engineConfiguration->cranking.rpm = 550;
 
 	// set_cranking_fuel 5
-	engineConfiguration->crankingSettings.baseCrankingFuel = 5;
+	engineConfiguration->cranking.baseCrankingFuel = 5;
 
 	/**
 	 * that's 1995 config
@@ -201,7 +201,7 @@ void setDodgeNeonNGCEngineConfiguration(engine_configuration_s *engineConfigurat
 	 *
 	 * set_cranking_fuel 5
 	 */
-	engineConfiguration->crankingSettings.baseCrankingFuel = 5;
+	engineConfiguration->cranking.baseCrankingFuel = 5;
 
 	/**
 	 * 77C

@@ -198,7 +198,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->iatThermistorConf.bias_resistor = 2700;
 
 	engineConfiguration->rpmHardLimit = 7000;
-	engineConfiguration->crankingSettings.crankingRpm = 550;
+	engineConfiguration->cranking.rpm = 550;
 
 	engineConfiguration->crankingFuelCoef[0] = 5; // base cranking fuel adjustment coefficient
 	engineConfiguration->crankingFuelBins[0] = -20; // temperature in C
@@ -234,7 +234,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 	engineConfiguration->crankingCycleCoef[7] = 0.5;
 	engineConfiguration->crankingCycleBins[7] = 77;
 
-	engineConfiguration->crankingSettings.baseCrankingFuel = 5;
+	engineConfiguration->cranking.baseCrankingFuel = 5;
 
 	engineConfiguration->analogInputDividerCoefficient = 2;
 

@@ -230,7 +230,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration) {
 
 //	scheduleMsg(&logger, "analogChartMode: %d", engineConfiguration->analogChartMode);
 
-	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->crankingSettings.crankingRpm);
+	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->cranking.rpm);
 
 	scheduleMsg(&logger, "analogInputDividerCoefficient: %f", engineConfiguration->analogInputDividerCoefficient);
 
@@ -407,13 +407,13 @@ static void printTemperatureInfo(void) {
 
 
 #if EFI_ANALOG_INPUTS
-	scheduleMsg(&logger, "base cranking fuel %f", engineConfiguration->crankingSettings.baseCrankingFuel);
+	scheduleMsg(&logger, "base cranking fuel %f", engineConfiguration->cranking.baseCrankingFuel);
 #endif /* EFI_ANALOG_INPUTS */
 #endif
 }
 
 static void setCrankingRpm(int value) {
-	engineConfiguration->crankingSettings.crankingRpm = value;
+	engineConfiguration->cranking.rpm = value;
 	doPrintConfiguration(engine);
 }
 
@@ -433,7 +433,7 @@ static void setRpmHardLimit(int value) {
 }
 
 static void setCrankingFuel(float timeMs) {
-	engineConfiguration->crankingSettings.baseCrankingFuel = timeMs;
+	engineConfiguration->cranking.baseCrankingFuel = timeMs;
 	printTemperatureInfo();
 }
 
