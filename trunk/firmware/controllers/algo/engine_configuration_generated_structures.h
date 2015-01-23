@@ -8,7 +8,7 @@ typedef struct {
 	 * Anything above 'crankingRpm' would be 'running'
 	 * offset 4
 	 */
-	int16_t crankingRpm;
+	int16_t rpm;
 	/**
 	 * need 4 byte alignment
 	 * offset 6

@@ -89,7 +89,7 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 	setThermistorConfiguration(&engineConfiguration->cltThermistorConf, -20, 18000, 23.8889, 2100, 48.8889, 1000);
 	engineConfiguration->cltThermistorConf.bias_resistor = 3300; // that's my custom resistor value!
 
-	engineConfiguration->crankingSettings.baseCrankingFuel = 3;
+	engineConfiguration->cranking.baseCrankingFuel = 3;
 
 //	engineConfiguration->ignitionPinMode = OM_INVERTED;
 
@@ -105,7 +105,7 @@ void setFordAspireEngineConfiguration(engine_configuration_s *engineConfiguratio
 
 	setDefaultAspireMaps(engineConfiguration);
 	// set_cranking_rpm 550
-	engineConfiguration->crankingSettings.crankingRpm = 550;
+	engineConfiguration->cranking.rpm = 550;
 	// set_cranking_charge_angle 70
 	engineConfiguration->crankingChargeAngle = 70;
 	// set_cranking_timing_angle 37
