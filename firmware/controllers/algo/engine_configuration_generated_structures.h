@@ -2,7 +2,7 @@ typedef struct {
 	/**
 	 * offset 0
 	 */
-	float baseCrankingFuel;
+	float baseFuel;
 	/**
 	 * This value controls what RPM values we consider 'cranking' (any RPM below 'crankingRpm')
 	 * Anything above 'crankingRpm' would be 'running'

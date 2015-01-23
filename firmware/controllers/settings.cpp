@@ -407,7 +407,7 @@ static void printTemperatureInfo(void) {
 
 
 #if EFI_ANALOG_INPUTS
-	scheduleMsg(&logger, "base cranking fuel %f", engineConfiguration->cranking.baseCrankingFuel);
+	scheduleMsg(&logger, "base cranking fuel %f", engineConfiguration->cranking.baseFuel);
 #endif /* EFI_ANALOG_INPUTS */
 #endif
 }
@@ -433,7 +433,7 @@ static void setRpmHardLimit(int value) {
 }
 
 static void setCrankingFuel(float timeMs) {
-	engineConfiguration->cranking.baseCrankingFuel = timeMs;
+	engineConfiguration->cranking.baseFuel = timeMs;
 	printTemperatureInfo();
 }
 
