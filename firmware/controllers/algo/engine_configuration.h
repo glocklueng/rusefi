@@ -94,36 +94,70 @@ typedef enum {
 
 #define HW_MAX_ADC_INDEX 16
 
+// WARNING: by default, our small enums are ONE BYTE. this one is made 4-byte with the 'ENUM_32_BITS' hack
+
 typedef struct {
-	// WARNING: by default, our small enums are ONE BYTE. this one is made 4-byte with the 'ENUM_32_BITS' hack
+	/**
+	 * offset 0
+	*/
 	brain_pin_e idleValvePin;
+	/**
+	 * offset 4
+	*/
 	pin_output_mode_e idleValvePinMode;
-
+	/**
+	 * offset 8
+	*/
 	brain_pin_e fuelPumpPin;
+	/**
+	 * offset 12
+	*/
 	pin_output_mode_e fuelPumpPinMode;
-
+	/**
+	 * offset 16
+	*/
 	brain_pin_e injectionPins[INJECTION_PIN_COUNT];
+	/**
+	 * offset 64
+	*/
 	pin_output_mode_e injectionPinMode;
-
+	/**
+	 * offset 68
+	*/
 	brain_pin_e ignitionPins[IGNITION_PIN_COUNT];
+	/**
+	 * offset 116
+	*/
 	pin_output_mode_e ignitionPinMode;
-
+	/**
+	 * offset 120
+	*/
 	brain_pin_e malfunctionIndicatorPin;
+	/**
+	 * offset 124
+	*/
 	pin_output_mode_e malfunctionIndicatorPinMode;
-
+	/**
+	 * offset 128
+	*/
 	brain_pin_e fanPin;
+	/**
+	 * offset 132
+	*/
 	pin_output_mode_e fanPinMode;
-
+	/**
+	 * offset 136
+	*/
 	brain_pin_e electronicThrottlePin1;
+	/**
+	 * offset 140
+	*/
 	pin_output_mode_e electronicThrottlePin1Mode;
 
 	/**
 	 * some cars have a switch to indicate that clutch pedal is all the way down
 	 */
 	brain_pin_e clutchDownPin;
-	/**
-	 * some cars have a switch to indicate that clutch pedal is all the way down
-	 */
 	pin_input_mode_e clutchDownPinMode;
 
 	brain_pin_e alternatorControlPin;
@@ -601,13 +635,22 @@ typedef struct {
 	 * offset 1316
 	*/
 	float afrRpmBins[FUEL_RPM_COUNT];
-
-	// the large tables are always in the end - that's related to TunerStudio paging implementation
-	fuel_table_t fuelTable; // size 1024
-	ignition_table_t ignitionTable; // size 1024
-
-	fuel_table_t veTable; // size 1024
-	fuel_table_t afrTable; // size 1024
+	/**
+	 * offset 1380
+	*/
+	fuel_table_t fuelTable;
+	/**
+	 * offset 2404
+	*/
+	ignition_table_t ignitionTable;
+	/**
+	 * offset 3428
+	*/
+	fuel_table_t veTable;
+	/**
+	 * offset 4452
+	*/
+	fuel_table_t afrTable;
 
 	board_configuration_s bc;
 
