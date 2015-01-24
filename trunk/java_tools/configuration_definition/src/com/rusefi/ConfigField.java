@@ -107,6 +107,9 @@ public class ConfigField {
             return cs.writeTunerStudio(prefix + name + "_", tsHeader, tsPosition);
         }
 
+        if (isBit)
+            return tsPosition;
+
         if (ConfigDefinition.tsCustomLine.containsKey(type)) {
             String bits = ConfigDefinition.tsCustomLine.get(type);
             tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH));
