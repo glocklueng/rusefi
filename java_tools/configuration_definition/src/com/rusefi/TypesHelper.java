@@ -5,6 +5,8 @@ package com.rusefi;
  */
 public class TypesHelper {
     public static int getElementSize(String type) {
+        if (type == null)
+            throw new NullPointerException("type");
         if (ConfigDefinition.structures.containsKey(type))
             return ConfigDefinition.structures.get(type).totalSize;
         if (ConfigDefinition.tsCustomSize.containsKey(type))
