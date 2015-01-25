@@ -23,11 +23,11 @@ import java.util.Date;
  *
  * @see AnyCommand
  */
-public class MsgPanel {
+public class MessagesPanel {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH_mm");
     private static final int MAX_SIZE = 50000;
 
-    private final JTextPane msg = new JTextPane();
+    private final JTextPane messages = new JTextPane();
     private boolean isPaused;
     private final Style bold;
     private final Style italic;
@@ -39,9 +39,9 @@ public class MsgPanel {
         }
     };
 
-    public MsgPanel(boolean needsRpmControl) {
+    public MessagesPanel(boolean needsRpmControl) {
         content.setBorder(BorderFactory.createLineBorder(Color.green));
-        JScrollPane pane = new JScrollPane(msg, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane pane = new JScrollPane(messages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         JPanel middlePanel = new JPanel(new BorderLayout());
         middlePanel.add(pane, BorderLayout.CENTER);
@@ -49,7 +49,7 @@ public class MsgPanel {
             middlePanel.add(new RecentCommands().getContent(), BorderLayout.EAST);
 
 
-        StyledDocument d = (StyledDocument) msg.getDocument();
+        StyledDocument d = (StyledDocument) messages.getDocument();
         bold = d.addStyle("StyleName", null);
         bold.addAttribute(StyleConstants.CharacterConstants.Bold, Boolean.TRUE);
 
@@ -71,7 +71,7 @@ public class MsgPanel {
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                Document d = msg.getDocument();
+                Document d = messages.getDocument();
                 clearMessages(d);
             }
         });
@@ -116,12 +116,12 @@ public class MsgPanel {
     }
 
     private void append(String line, Class clazz) {
-        Document d = msg.getDocument();
+        Document d = messages.getDocument();
         if (d.getLength() > MAX_SIZE)
             clearMessages(d);
         try {
             d.insertString(d.getLength(), line + "\r\n", getStyle(clazz));
-            msg.select(d.getLength(), d.getLength());
+            messages.select(d.getLength(), d.getLength());
         } catch (BadLocationException e) {
             throw new IllegalStateException(e);
         }

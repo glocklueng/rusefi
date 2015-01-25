@@ -44,7 +44,7 @@ public class RpmPanel {
 
         JPanel msgPanel = new JPanel(new BorderLayout());
         msgPanel.add(new AnyCommand(), BorderLayout.NORTH);
-        msgPanel.add(new MsgPanel(false).getContent(), BorderLayout.CENTER);
+        msgPanel.add(new MessagesPanel(false).getContent(), BorderLayout.CENTER);
 
 
         JComponent rpmPanel = new JPanel(new BorderLayout());

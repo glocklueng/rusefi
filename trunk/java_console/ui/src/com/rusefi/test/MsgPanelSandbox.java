@@ -1,11 +1,11 @@
 package com.rusefi.test;
 
 import com.rusefi.ui.FrameHelper;
-import com.rusefi.ui.MsgPanel;
+import com.rusefi.ui.MessagesPanel;
 
 public class MsgPanelSandbox extends FrameHelper {
     private MsgPanelSandbox() {
-        showFrame(new MsgPanel(true).getContent());
+        showFrame(new MessagesPanel(true).getContent());
 
     }
 
