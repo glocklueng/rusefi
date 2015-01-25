@@ -15,14 +15,24 @@ import java.awt.event.ActionListener;
  */
 public class AnyCommand extends JPanel {
     private static final int COMMAND_CONFIRMATION_TIMEOUT = 1000;
+    private final JTextField text;
 
     public AnyCommand() {
-//        setBorder(BorderFactory.createLineBorder(Color.PINK));
+        setBorder(BorderFactory.createLineBorder(Color.PINK));
         setLayout(new FlowLayout(FlowLayout.LEFT));
         add(new JLabel("Command: "));
-        final JTextField text = createCommandControl();
+        text = createCommandControl();
         add(text);
     }
+
+    public JTextField getText() {
+        return text;
+    }
+
+//    @Override
+//    public boolean requestFocusInWindow() {
+//        return text.requestFocusInWindow();
+//    }
 
     public static JTextField createCommandControl() {
         final JTextField text = new JTextField() {
