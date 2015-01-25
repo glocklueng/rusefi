@@ -26,7 +26,15 @@ public class MessagesPanel {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH_mm");
     private static final int MAX_SIZE = 50000;
 
-    private final JTextPane messages = new JTextPane();
+    private final AnyCommand anyCommand = new AnyCommand();
+    private final JTextPane messages = new JTextPane() {
+        @Override
+        public void setVisible(boolean aFlag) {
+            super.setVisible(aFlag);
+// todo: get focus on startup somehow
+//            anyCommand.getText().requestFocus();
+        }
+    };
     private boolean isPaused;
     private final Style bold;
     private final Style italic;
@@ -76,7 +84,7 @@ public class MessagesPanel {
 
         buttonPanel.add(resetButton);
         buttonPanel.add(pauseButton);
-        buttonPanel.add(new AnyCommand());
+        buttonPanel.add(anyCommand);
     }
 
     private void clearMessages(Document d) {
