@@ -54,7 +54,7 @@ public class Launcher extends FrameHelper {
             tabbedPane.add("ECU stimulation", stimulator.getPanel());
         }
 //        tabbedPane.addTab("live map adjustment", new Live3DReport().getControl());
-        tabbedPane.add("Messages", new MessagesPanel(true).getContent());
+        tabbedPane.add("Messages", new MessagesPane().getContent());
         tabbedPane.add("Wizards", new Wizard().createPane());
 
 
