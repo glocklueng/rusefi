@@ -160,16 +160,18 @@ void fanBench(void) {
 	needToRunBench = true;
 }
 
+extern OutputPin checkEnginePin;
+
 void milBench(void) {
-//	brainPin = boardConfiguration->malfunctionIndicatorPin;
-//	pinX = C;
-//
-//	delayMs = 0;
-//	onTime = 3000;
-//	offTime = 0;
-//	count = 1;
-//
-//	needToRunBench = true;
+  	brainPin = boardConfiguration->malfunctionIndicatorPin;
+	pinX = &checkEnginePin;
+	
+	delayMs = 0;
+	onTime = 3000;
+	offTime = 0;
+	count = 1;
+	
+	needToRunBench = true;
 }
 
 void fuelPumpBench(void) {
@@ -244,7 +246,7 @@ void initInjectorCentral(Engine *engine) {
 		outputPinRegisterExt2(output->name, output, boardConfiguration->injectionPins[i],
 				&boardConfiguration->injectionPinMode);
 	}
-
+	
 	printStatus();
 	addConsoleActionII("injector", setInjectorEnabled);
 
