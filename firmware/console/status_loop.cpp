@@ -452,6 +452,9 @@ static void initialLedsBlink(void) {
 }
 
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
+/**
+ * this thread has a lower-then-usual stack size so we cannot afford *print* methods here
+ */
 static void blinkingThread(void *arg) {
 	(void) arg;
 	chRegSetThreadName("communication blinking");
