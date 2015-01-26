@@ -149,41 +149,17 @@ static void fuelbench2(const char *delayStr, const char *indexStr, const char * 
 }
 
 void fanBench(void) {
-	brainPin = boardConfiguration->fanPin;
-	pinX = &enginePins.fanRelay;
-
-	delayMs = 0;
-	onTime = 3000;
-	offTime = 0;
-	count = 1;
-
-	needToRunBench = true;
+	pinbench("0", "3000", "0", "1", &enginePins.fanRelay, boardConfiguration->fanPin);
 }
 
 extern OutputPin checkEnginePin;
 
 void milBench(void) {
-  	brainPin = boardConfiguration->malfunctionIndicatorPin;
-	pinX = &checkEnginePin;
-	
-	delayMs = 0;
-	onTime = 3000;
-	offTime = 0;
-	count = 1;
-	
-	needToRunBench = true;
+	pinbench("0", "3000", "0", "1", &checkEnginePin, boardConfiguration->malfunctionIndicatorPin);
 }
 
 void fuelPumpBench(void) {
-	brainPin = boardConfiguration->fuelPumpPin;
-	pinX = &enginePins.fuelPumpRelay;
-
-	delayMs = 0;
-	onTime = 3000;
-	offTime = 0;
-	count = 1;
-
-	needToRunBench = true;
+	pinbench("0", "3000", "0", "1", &enginePins.fuelPumpRelay, boardConfiguration->fuelPumpPin);
 }
 
 // fuelbench 5 1000 2
