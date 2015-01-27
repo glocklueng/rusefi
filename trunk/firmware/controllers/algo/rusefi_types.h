@@ -59,4 +59,28 @@ typedef brain_pin_e egt_cs_array_t[MAX31855_CS_COUNT];
 #define MAP_ANGLE_SIZE 8
 #define MAP_WINDOW_SIZE 8
 
+#define DWELL_COUNT 8
+
+#define DWELL_CURVE_SIZE 8
+
+#define CRANKING_CURVE_SIZE 8
+
+#define CLT_CURVE_SIZE 16
+#define IAT_CURVE_SIZE 16
+#define VBAT_INJECTOR_CURVE_SIZE 8
+
+#define IGN_LOAD_COUNT 16
+#define IGN_RPM_COUNT 16
+
+// todo: merge these two types together?
+typedef float fuel_table_t[FUEL_LOAD_COUNT][FUEL_RPM_COUNT];
+typedef float ignition_table_t[IGN_LOAD_COUNT][IGN_RPM_COUNT];
+
+// todo: rename this structure one all tables migrated
+typedef struct {
+	float loadBins[IGN_LOAD_COUNT];
+	float rpmBins[IGN_RPM_COUNT];
+	ignition_table_t map;
+} full_i_table_s;
+
 #endif /* CONTROLLERS_ALGO_RUSEFI_TYPES_H_ */
