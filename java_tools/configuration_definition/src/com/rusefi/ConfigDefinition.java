@@ -24,16 +24,19 @@ public class ConfigDefinition {
     public static Map<String, Integer> tsCustomSize = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
-        if (args.length != 1) {
-            System.out.println("Please specify path to '" + FILE_NAME + "' file");
+        if (args.length != 2) {
+            System.out.println("Please specify path to '" + FILE_NAME + "' file and destination folder");
             return;
         }
 
         String path = args[0];
+        String dest = args[1];
         String fullFileName = path + File.separator + FILE_NAME;
         System.out.println("Reading from " + fullFileName);
+        String destCHeader = dest + File.separator + "engine_configuration_generated_structures.h";
+        System.out.println("Writing C header to " + destCHeader);
 
-        BufferedWriter cHeader = new BufferedWriter(new FileWriter("configuration.h_section"));
+        BufferedWriter cHeader = new BufferedWriter(new FileWriter(destCHeader));
         BufferedWriter tsHeader = new BufferedWriter(new FileWriter("configuration.ts_section"));
 
         BufferedReader br = new BufferedReader(new FileReader(fullFileName));
@@ -71,7 +74,18 @@ public class ConfigDefinition {
             } else if (line.startsWith(BIT)) {
                 line = line.substring(BIT.length() + 1).trim();
 
-                ConfigField cf = new ConfigField(line, "");
+                String bitName;
+                String comment;
+                if (!line.contains(";")) {
+                    bitName = line;
+                    comment = "";
+                } else {
+                    int index = line.indexOf(";");
+                    bitName = line.substring(0, index);
+                    comment = line.substring(index + 1);
+                }
+
+                ConfigField cf = new ConfigField(bitName, comment);
                 cf.isBit = true;
                 stack.peek().add(cf);
 
@@ -155,7 +169,7 @@ public class ConfigDefinition {
     }
 
     public static String getComment(String comment, int currentOffset) {
-        return "\t/**\r\n" + packComment(comment) + "\t * offset " + currentOffset + "\r\n\t*/\r\n";
+        return "\t/**\r\n" + packComment(comment) + "\t * offset " + currentOffset + "\r\n\t */\r\n";
     }
 
     public static String packComment(String comment) {
