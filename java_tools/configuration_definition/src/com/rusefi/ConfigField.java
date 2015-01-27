@@ -72,7 +72,7 @@ public class ConfigField {
     String getText(int currentOffset, int bitIndex) {
         if (isBit) {
             String comment = "\t/** offset " + currentOffset + " bit " + bitIndex + " */\r\n";
-            return comment + "\tuint32_t " + name + " : 1;\r\n";
+            return comment + "\tbool_t " + name + " : 1;\r\n";
         }
 
         String cEntry = ConfigDefinition.getComment(comment, currentOffset);
