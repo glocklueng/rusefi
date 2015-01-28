@@ -71,7 +71,7 @@ public class ConfigField {
 
     String getText(int currentOffset, int bitIndex) {
         if (isBit) {
-            String comment = "\t/**\r\n" + ConfigDefinition.packComment(this.comment) + "\toffset " + currentOffset + " bit " + bitIndex + " */\r\n";
+            String comment = "\t/**\r\n" + ConfigDefinition.packComment(this.comment, "\t") + "\toffset " + currentOffset + " bit " + bitIndex + " */\r\n";
             return comment + "\tbool_t " + name + " : 1;\r\n";
         }
 

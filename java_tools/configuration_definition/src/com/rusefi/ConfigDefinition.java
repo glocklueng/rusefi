@@ -169,17 +169,17 @@ public class ConfigDefinition {
     }
 
     public static String getComment(String comment, int currentOffset) {
-        return "\t/**\r\n" + packComment(comment) + "\t * offset " + currentOffset + "\r\n\t */\r\n";
+        return "\t/**\r\n" + packComment(comment, "\t") + "\t * offset " + currentOffset + "\r\n\t */\r\n";
     }
 
-    public static String packComment(String comment) {
+    public static String packComment(String comment, String linePrefix) {
         if (comment == null)
             return "";
         if (comment.trim().isEmpty())
             return "";
         String result = "";
         for (String line : comment.split("\\\\n")) {
-            result += "\t * " + line + "\r\n";
+            result += linePrefix + " * " + line + "\r\n";
         }
         return result;
     }
