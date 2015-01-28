@@ -28,7 +28,7 @@ public class ConfigStructure {
      */
     public void write(BufferedWriter cHeader) throws IOException {
         if (comment != null) {
-            cHeader.write("\t/**\r\n" + ConfigDefinition.packComment(comment, "\t") + "\r\n\t*/\r\n");
+            cHeader.write("/**\r\n" + ConfigDefinition.packComment(comment, "") + "\r\n*/\r\n");
         }
         cHeader.write("typedef struct {\r\n");
 
@@ -41,7 +41,7 @@ public class ConfigStructure {
             currentOffset += cf.getSize(next);
         }
 
-        cHeader.write("/** total size " + currentOffset + "*/\r\n");
+        cHeader.write("\t/** total size " + currentOffset + "*/\r\n");
         cHeader.write("} " + name + ";\r\n\r\n");
     }
 
