@@ -14,10 +14,10 @@ import static org.junit.Assert.assertNull;
 public class ConfigDefinitionTest {
     @Test
     public void testComment() {
-        assertEquals("", ConfigDefinition.packComment(""));
-        assertEquals("\t * abc\r\n", ConfigDefinition.packComment("abc"));
+        assertEquals("", ConfigDefinition.packComment("", "\t"));
+        assertEquals("\t * abc\r\n", ConfigDefinition.packComment("abc", "\t"));
         assertEquals("\t * abc\r\n" +
-                "\t * vbn\r\n", ConfigDefinition.packComment("abc\\nvbn"));
+                "\t * vbn\r\n", ConfigDefinition.packComment("abc\\nvbn", "\t"));
     }
 
     @Test

@@ -23,9 +23,12 @@ public class ConfigStructure {
         this.comment = comment;
     }
 
+    /**
+     * This method writes a C header version of a data structure
+     */
     public void write(BufferedWriter cHeader) throws IOException {
         if (comment != null) {
-            cHeader.write("\t/**\r\n" + ConfigDefinition.packComment(comment) + "\r\n\t*/\r\n");
+            cHeader.write("\t/**\r\n" + ConfigDefinition.packComment(comment, "\t") + "\r\n\t*/\r\n");
         }
         cHeader.write("typedef struct {\r\n");
 
