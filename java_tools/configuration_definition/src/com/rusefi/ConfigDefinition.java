@@ -12,7 +12,8 @@ import java.util.Stack;
  */
 public class ConfigDefinition {
     private static final String FILE_NAME = "rusefi_config.ini";
-    public static final String STRUCT = "struct ";
+    private static final String STRUCT_NO_PREFIX = "struct_no_prefix ";
+    private static final String STRUCT = "struct ";
     public static final String END_STRUCT = "end_struct";
     public static final String CUSTOM = "custom";
     public static final String BIT = "bit";
@@ -68,7 +69,9 @@ public class ConfigDefinition {
                 continue;
 
             if (line.startsWith(STRUCT)) {
-                handleStartStructure(line);
+                handleStartStructure(line.substring(STRUCT.length()), true);
+            } else if (line.startsWith(STRUCT_NO_PREFIX)) {
+                handleStartStructure(line.substring(STRUCT_NO_PREFIX.length()), false);
             } else if (line.startsWith(END_STRUCT)) {
                 handleEndStruct(cHeader, tsHeader);
             } else if (line.startsWith(BIT)) {
@@ -115,8 +118,7 @@ public class ConfigDefinition {
         cHeader.write(message);
     }
 
-    private static void handleStartStructure(String line) {
-        line = line.substring(STRUCT.length());
+    private static void handleStartStructure(String line, boolean withPrefix) {
         String name;
         String comment;
         if (line.contains(" ")) {
@@ -127,7 +129,7 @@ public class ConfigDefinition {
             name = line;
             comment = null;
         }
-        ConfigStructure structure = new ConfigStructure(name, comment);
+        ConfigStructure structure = new ConfigStructure(name, comment, withPrefix);
         stack.push(structure);
         System.out.println("Starting structure " + structure.name);
     }
