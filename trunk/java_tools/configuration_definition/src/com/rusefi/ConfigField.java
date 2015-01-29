@@ -47,7 +47,7 @@ public class ConfigField {
         String name = matcher.group(6);
         String comment = matcher.group(8);
         ConfigField field = new ConfigField(name, comment);
-        field.isIterate = "iterate".equals(matcher.group(5));
+        field.isIterate = "iterate".equalsIgnoreCase(matcher.group(5));
         field.tsInfo = matcher.group(10);
         int arraySize;
 
