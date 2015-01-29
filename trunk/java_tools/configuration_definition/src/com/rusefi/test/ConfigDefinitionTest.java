@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * (c) Andrey Belomutskiy
@@ -41,9 +42,10 @@ public class ConfigDefinitionTest {
             assertEquals(cf.tsInfo, "ts");
         }
         {
-            ConfigField cf = ConfigField.parse("int[3] field");
+            ConfigField cf = ConfigField.parse("int[3 iterate] field");
             assertEquals(cf.type, "int");
             assertEquals(cf.arraySize, 3);
+            assertTrue("isIterate", cf.isIterate);
         }
         {
             ConfigField cf = ConfigField.parse("int16_t crankingRpm;This,. value controls what RPM values we consider 'cranking' (any RPM below 'crankingRpm')\\nAnything above 'crankingRpm' would be 'running'");

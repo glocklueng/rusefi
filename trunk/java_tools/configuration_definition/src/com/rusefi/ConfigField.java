@@ -29,6 +29,7 @@ public class ConfigField {
     public int elementSize;
     public String tsInfo;
     public boolean isBit;
+    public boolean isIterate;
 
     public ConfigField(String name, String comment) {
         this.name = name;
@@ -46,6 +47,7 @@ public class ConfigField {
         String name = matcher.group(6);
         String comment = matcher.group(8);
         ConfigField field = new ConfigField(name, comment);
+        field.isIterate = "iterate".equals(matcher.group(5));
         field.tsInfo = matcher.group(10);
         int arraySize;
 
