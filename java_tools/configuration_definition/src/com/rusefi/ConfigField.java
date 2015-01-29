@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class ConfigField {
     public static final ConfigField VOID = new ConfigField(null, null);
 
-    private static final String typePattern = "([\\w\\d_]+)(\\[([\\w\\d]+)\\])?";
+    private static final String typePattern = "([\\w\\d_]+)(\\[([\\w\\d]+)(\\s)?\\])?";
     private static final String namePattern = "[[\\w\\d\\s_]]+";
     private static final String commentPattern = ";([^;]*)";
 
@@ -43,10 +43,10 @@ public class ConfigField {
         if (!matcher.matches())
             return null;
 
-        String name = matcher.group(4);
-        String comment = matcher.group(6);
+        String name = matcher.group(5);
+        String comment = matcher.group(7);
         ConfigField field = new ConfigField(name, comment);
-        field.tsInfo = matcher.group(8);
+        field.tsInfo = matcher.group(9);
         int arraySize;
 
         String type = matcher.group(1);

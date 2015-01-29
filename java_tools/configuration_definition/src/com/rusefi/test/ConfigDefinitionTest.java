@@ -26,7 +26,7 @@ public class ConfigDefinitionTest {
         {
             ConfigField cf = ConfigField.parse("int field");
             assertEquals(cf.type, "int");
-            assertEquals(cf.name, "field");
+            assertEquals("Name", cf.name, "field");
         }
         {
             ConfigField cf = ConfigField.parse("int_4 fie4_ld");
@@ -37,7 +37,7 @@ public class ConfigDefinitionTest {
             ConfigField cf = ConfigField.parse("int_8 fi_eld;comm_;ts");
             assertEquals(cf.type, "int_8");
             assertEquals(cf.name, "fi_eld");
-            assertEquals(cf.comment, "comm_");
+            assertEquals("Comment", cf.comment, "comm_");
             assertEquals(cf.tsInfo, "ts");
         }
         {
