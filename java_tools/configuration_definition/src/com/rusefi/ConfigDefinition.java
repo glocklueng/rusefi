@@ -167,7 +167,18 @@ public class ConfigDefinition {
         if (stack.isEmpty())
             throw new IllegalStateException(cf.name + ": Not enclosed in a struct");
         ConfigStructure structure = stack.peek();
-        structure.add(cf);
+
+        if (cf.isIterate) {
+            for (int i = 1; i <= cf.arraySize; i++) {
+                ConfigField element = new ConfigField(cf.name + i, cf.comment);
+                element.type = cf.type;
+                element.arraySize = 1;
+                element.tsInfo = cf.tsInfo;
+                structure.add(element);
+            }
+        } else {
+            structure.add(cf);
+        }
     }
 
     public static String getComment(String comment, int currentOffset) {
