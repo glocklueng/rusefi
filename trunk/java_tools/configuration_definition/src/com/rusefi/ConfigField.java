@@ -1,5 +1,7 @@
 package com.rusefi;
 
+import com.rusefi.test.ConfigDefinitionTest;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -33,6 +35,9 @@ public class ConfigField {
         this.comment = comment;
     }
 
+    /**
+     * @see ConfigDefinitionTest#testParseLine()
+     */
     public static ConfigField parse(String line) {
         Matcher matcher = FIELD.matcher(line);
         if (!matcher.matches())
