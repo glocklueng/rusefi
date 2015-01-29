@@ -13,14 +13,16 @@ public class ConfigStructure {
     public static final String UINT8_T = "uint8_t";
     public final String name;
     private final String comment;
+    public final boolean withPrefix;
     private final List<ConfigField> fields = new ArrayList<>();
     private int currentOffset;
     public int totalSize;
     private int bitIndex;
 
-    public ConfigStructure(String name, String comment) {
+    public ConfigStructure(String name, String comment, boolean withPrefix) {
         this.name = name;
         this.comment = comment;
+        this.withPrefix = withPrefix;
     }
 
     /**
