@@ -88,9 +88,8 @@ public class ConfigDefinition {
                     comment = line.substring(index + 1);
                 }
 
-                ConfigField cf = new ConfigField(bitName, comment);
-                cf.isBit = true;
-                stack.peek().add(cf);
+                ConfigField bitField = new ConfigField(bitName, comment, true, null, null, 0, null, false);
+                stack.peek().addBoth(bitField);
 
             } else if (line.startsWith(CUSTOM + " ") || line.startsWith(CUSTOM + "\t")) {
                 line = line.substring(CUSTOM.length() + 1).trim();
@@ -169,15 +168,14 @@ public class ConfigDefinition {
         ConfigStructure structure = stack.peek();
 
         if (cf.isIterate) {
+            structure.addC(cf);
             for (int i = 1; i <= cf.arraySize; i++) {
-                ConfigField element = new ConfigField(cf.name + i, cf.comment);
-                element.type = cf.type;
-                element.arraySize = 1;
-                element.tsInfo = cf.tsInfo;
-                structure.add(element);
+                ConfigField element = new ConfigField(cf.name + i, cf.comment, false, null,
+                        cf.type, 1, cf.tsInfo, false);
+                structure.addTs(element);
             }
         } else {
-            structure.add(cf);
+            structure.addBoth(cf);
         }
     }
 

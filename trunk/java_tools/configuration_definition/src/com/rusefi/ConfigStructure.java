@@ -14,7 +14,12 @@ public class ConfigStructure {
     public final String name;
     private final String comment;
     public final boolean withPrefix;
-    private final List<ConfigField> fields = new ArrayList<>();
+    /**
+     * We have two different collections because if 'array iterate' feature which is handled differently
+     * in C and TS
+     */
+    private final List<ConfigField> cFields = new ArrayList<>();
+    private final List<ConfigField> tsFields = new ArrayList<>();
     private int currentOffset;
     public int totalSize;
     private int bitIndex;
@@ -35,10 +40,10 @@ public class ConfigStructure {
         cHeader.write("typedef struct {\r\n");
 
         bitIndex = 0;
-        for (int i = 0; i < fields.size(); i++) {
-            ConfigField cf = fields.get(i);
+        for (int i = 0; i < cFields.size(); i++) {
+            ConfigField cf = cFields.get(i);
             cHeader.write(cf.getText(currentOffset, bitIndex));
-            ConfigField next = i == fields.size() - 1 ? ConfigField.VOID : fields.get(i + 1);
+            ConfigField next = i == cFields.size() - 1 ? ConfigField.VOID : cFields.get(i + 1);
             incrementBitIndex(cf, next);
             currentOffset += cf.getSize(next);
         }
@@ -57,15 +62,28 @@ public class ConfigStructure {
             throw new IllegalStateException("todo: too many bits, not supported");
     }
 
-    public void add(ConfigField cf) {
-        fields.add(cf);
+    public void addBoth(ConfigField cf) {
+        cFields.add(cf);
+        tsFields.add(cf);
+    }
+
+    public void addC(ConfigField cf) {
+        cFields.add(cf);
+    }
+
+    public void addTs(ConfigField cf) {
+        tsFields.add(cf);
     }
 
     public void addAlignmentFill() {
         bitIndex = 0;
-        for (int i = 0; i < fields.size(); i++) {
-            ConfigField cf = fields.get(i);
-            ConfigField next = i == fields.size() - 1 ? ConfigField.VOID : fields.get(i + 1);
+        /**
+         * we make alignment decision based on C fields since we expect interation and non-iteration fields
+         * to match in size
+         */
+        for (int i = 0; i < cFields.size(); i++) {
+            ConfigField cf = cFields.get(i);
+            ConfigField next = i == cFields.size() - 1 ? ConfigField.VOID : cFields.get(i + 1);
             incrementBitIndex(cf, next);
             totalSize += cf.getSize(next);
         }
@@ -73,18 +91,19 @@ public class ConfigStructure {
         int fillSize = totalSize % 4 == 0 ? 0 : 4 - (totalSize % 4);
 
         if (fillSize != 0) {
-            ConfigField fill = new ConfigField("alignmentFill", "need 4 byte alignment");
-            fill.arraySize = fillSize;
-            fill.setType(UINT8_T);
-            fill.arraySizeAsText = "" + fillSize;
-            add(fill);
+            ConfigField fill = new ConfigField("alignmentFill", "need 4 byte alignment", false,
+                    "" + fillSize,
+                    UINT8_T, fillSize, null, false);
+            addBoth(fill);
         }
         totalSize += fillSize;
     }
 
     public int writeTunerStudio(String prefix, BufferedWriter tsHeader, int tsPosition) throws IOException {
-        for (ConfigField cf : fields) {
-            tsPosition = cf.writeTunerStudio(prefix, tsHeader, tsPosition);
+        for (int i = 0; i < tsFields.size(); i++) {
+            ConfigField next = i == tsFields.size() - 1 ? ConfigField.VOID : tsFields.get(i + 1);
+            ConfigField cf = tsFields.get(i);
+            tsPosition = cf.writeTunerStudio(prefix, tsHeader, tsPosition, next);
         }
         return tsPosition;
     }
