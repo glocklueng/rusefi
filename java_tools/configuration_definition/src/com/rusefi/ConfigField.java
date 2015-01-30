@@ -2,8 +2,8 @@ package com.rusefi;
 
 import com.rusefi.test.ConfigDefinitionTest;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -89,7 +89,7 @@ public class ConfigField {
         return elementSize * arraySize;
     }
 
-    String getText(int currentOffset, int bitIndex) {
+    String getHeaderText(int currentOffset, int bitIndex) {
         if (isBit) {
             String comment = "\t/**\r\n" + ConfigDefinition.packComment(this.comment, "\t") + "\toffset " + currentOffset + " bit " + bitIndex + " */\r\n";
             return comment + "\tbool_t " + name + " : 1;\r\n";
@@ -116,7 +116,7 @@ public class ConfigField {
                 '}';
     }
 
-    public int writeTunerStudio(String prefix, BufferedWriter tsHeader, int tsPosition, ConfigField next) throws IOException {
+    public int writeTunerStudio(String prefix, Writer tsHeader, int tsPosition, ConfigField next, int bitIndex) throws IOException {
         ConfigStructure cs = ConfigDefinition.structures.get(type);
         if (cs != null) {
             String extraPrefix = cs.withPrefix ? name + "_" : "";
@@ -128,8 +128,7 @@ public class ConfigField {
             tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH));
             tsHeader.write("= bits,    U32,   ");
             tsHeader.write("\t" + tsPosition + ", [");
-//            tsHeader.write(isBit);
-
+            tsHeader.write(bitIndex + ":" + bitIndex);
             tsHeader.write("], \"false\", \"true\"");
 
             tsPosition += getSize(next);
@@ -139,8 +138,8 @@ public class ConfigField {
             String bits = ConfigDefinition.tsCustomLine.get(type);
             tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH));
             int size = ConfigDefinition.tsCustomSize.get(type);
-//            tsHeader.write("\t" + size + ",");
-            //          tsHeader.write("\t" + tsPosition + ",");
+//            tsHeader.headerWrite("\t" + size + ",");
+            //          tsHeader.headerWrite("\t" + tsPosition + ",");
             bits = bits.replaceAll("@OFFSET@", "" + tsPosition);
             tsHeader.write("\t = " + bits);
 
