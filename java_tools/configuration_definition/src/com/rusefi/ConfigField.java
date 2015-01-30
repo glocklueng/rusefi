@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * 1/15/15
  */
 public class ConfigField {
-    public static final ConfigField VOID = new ConfigField(null, null);
+    public static final ConfigField VOID = new ConfigField(null, null, false, null, null, 1, null, false);
 
     private static final String typePattern = "([\\w\\d_]+)(\\[([\\w\\d]+)(\\s([\\w\\d]+))?\\])?";
     private static final String namePattern = "[[\\w\\d\\s_]]+";
@@ -21,19 +21,32 @@ public class ConfigField {
     private static final Pattern FIELD = Pattern.compile(typePattern + "\\s(" + namePattern + ")(" + commentPattern + ")?(;(.*))?");
     public static final int LENGTH = 24;
 
-    public String type;
     public final String name;
     public final String comment;
-    public String arraySizeAsText;
-    public int arraySize;
-    public int elementSize;
-    public String tsInfo;
-    public boolean isBit;
-    public boolean isIterate;
+    public final boolean isBit;
+    public final String arraySizeAsText;
+    public final String type;
+    public final int arraySize;
 
-    public ConfigField(String name, String comment) {
+    public final String tsInfo;
+    public final int elementSize;
+    public final boolean isIterate;
+
+    public ConfigField(String name, String comment, boolean isBit, String arraySizeAsText, String type,
+                       int arraySize, String tsInfo, boolean isIterate) {
         this.name = name;
         this.comment = comment;
+        this.isBit = isBit;
+        this.arraySizeAsText = arraySizeAsText;
+        this.type = type;
+        if (type == null) {
+            elementSize = 0;
+        } else {
+            elementSize = TypesHelper.getElementSize(type);
+        }
+        this.arraySize = arraySize;
+        this.tsInfo = tsInfo;
+        this.isIterate = isIterate;
     }
 
     /**
@@ -46,21 +59,21 @@ public class ConfigField {
 
         String name = matcher.group(6);
         String comment = matcher.group(8);
-        ConfigField field = new ConfigField(name, comment);
-        field.isIterate = "iterate".equalsIgnoreCase(matcher.group(5));
-        field.tsInfo = matcher.group(10);
-        int arraySize;
-
         String type = matcher.group(1);
+        int arraySize;
+        String arraySizeAsText;
         if (matcher.group(3) != null) {
-            field.arraySizeAsText = matcher.group(3);
-            arraySize = ConfigDefinition.getSize(field.arraySizeAsText);
+            arraySizeAsText = matcher.group(3);
+            arraySize = ConfigDefinition.getSize(arraySizeAsText);
         } else {
             arraySize = 1;
+            arraySizeAsText = null;
         }
-        field.setType(type);
-        field.arraySize = arraySize;
+        String tsInfo = matcher.group(10);
 
+        boolean isIterate = "iterate".equalsIgnoreCase(matcher.group(5));
+        ConfigField field = new ConfigField(name, comment, false, arraySizeAsText, type, arraySize,
+                tsInfo, isIterate);
         System.out.println("type " + type);
         System.out.println("name " + name);
         System.out.println("comment " + comment);
@@ -103,22 +116,26 @@ public class ConfigField {
                 '}';
     }
 
-    public void setType(String type) {
-        this.type = type;
-        elementSize = TypesHelper.getElementSize(type);
-    }
-
-    public int writeTunerStudio(String prefix, BufferedWriter tsHeader, int tsPosition) throws IOException {
+    public int writeTunerStudio(String prefix, BufferedWriter tsHeader, int tsPosition, ConfigField next) throws IOException {
         ConfigStructure cs = ConfigDefinition.structures.get(type);
         if (cs != null) {
             String extraPrefix = cs.withPrefix ? name + "_" : "";
             return cs.writeTunerStudio(prefix + extraPrefix, tsHeader, tsPosition);
         }
 
-        if (isBit)
-            return tsPosition;
+        if (isBit) {
+            tsHeader.write(";");
+            tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH));
+            tsHeader.write("= bits,    U32,   ");
+            tsHeader.write("\t" + tsPosition + ", [");
+//            tsHeader.write(isBit);
 
-        if (ConfigDefinition.tsCustomLine.containsKey(type)) {
+            tsHeader.write("], \"false\", \"true\"");
+
+            tsPosition += getSize(next);
+
+
+        } else if (ConfigDefinition.tsCustomLine.containsKey(type)) {
             String bits = ConfigDefinition.tsCustomLine.get(type);
             tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH));
             int size = ConfigDefinition.tsCustomSize.get(type);
@@ -139,7 +156,6 @@ public class ConfigField {
             tsHeader.write("\t" + tsInfo);
 
             tsPosition += arraySize * elementSize;
-
         } else {
             tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH) + "\t\t= scalar, ");
             tsHeader.write(TypesHelper.convertToTs(type) + ",");
@@ -147,11 +163,8 @@ public class ConfigField {
             tsHeader.write("\t" + tsInfo);
             tsPosition += elementSize;
         }
-
         tsHeader.write("\r\n");
-
         return tsPosition;
-
     }
 
     private String addTabsUpTo(String name, int length) {
