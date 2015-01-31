@@ -124,7 +124,6 @@ public class ConfigField {
         }
 
         if (isBit) {
-            tsHeader.write(";");
             tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH));
             tsHeader.write("= bits,    U32,   ");
             tsHeader.write("\t" + tsPosition + ", [");
@@ -132,8 +131,6 @@ public class ConfigField {
             tsHeader.write("], \"false\", \"true\"");
 
             tsPosition += getSize(next);
-
-
         } else if (ConfigDefinition.tsCustomLine.containsKey(type)) {
             String bits = ConfigDefinition.tsCustomLine.get(type);
             tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH));
