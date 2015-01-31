@@ -11,7 +11,8 @@ import java.util.Stack;
  * 1/12/15
  */
 public class ConfigDefinition {
-    private static final String FILE_NAME = "rusefi_config.ini";
+    private static final String INPUT_FILE_NAME = "rusefi_config.ini";
+    private static final String TS_FILE_NAME = "rusefi.ini";
     private static final String STRUCT_NO_PREFIX = "struct_no_prefix ";
     private static final String STRUCT = "struct ";
     public static final String END_STRUCT = "end_struct";
@@ -28,17 +29,22 @@ public class ConfigDefinition {
     public static Map<String, Integer> tsCustomSize = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
-        if (args.length != 2) {
-            System.out.println("Please specify path to '" + FILE_NAME + "' file and destination folder");
+        if (args.length != 3) {
+            System.out.println("Please specify path to '" + INPUT_FILE_NAME + "' file, path to " + TS_FILE_NAME +
+                    " and destination folder");
             return;
         }
 
         String path = args[0];
-        String dest = args[1];
-        String fullFileName = path + File.separator + FILE_NAME;
+        String tsPath = args[1];
+        String dest = args[2];
+        String fullFileName = path + File.separator + INPUT_FILE_NAME;
         System.out.println("Reading from " + fullFileName);
         String destCHeader = dest + File.separator + "engine_configuration_generated_structures.h";
         System.out.println("Writing C header to " + destCHeader);
+
+        TsFileContent tsContent = readTsFile(tsPath);
+        System.out.println("Got " + tsContent.getPrefix().length() + "/" + tsContent.getPostfix().length() + " of " + TS_FILE_NAME);
 
         BufferedWriter cHeader = new BufferedWriter(new FileWriter(destCHeader));
 
@@ -47,19 +53,49 @@ public class ConfigDefinition {
         CharArrayWriter tunerStudioWriter = new CharArrayWriter();
         processFile(br, cHeader, tunerStudioWriter);
 
-        BufferedWriter tsHeader = new BufferedWriter(new FileWriter("configuration.ts_section"));
+        BufferedWriter tsHeader = new BufferedWriter(new FileWriter(TS_FILE_NAME));
+        tsHeader.write(tsContent.getPrefix());
 
         tsHeader.write("; " + CONFIG_DEFINITION_START + "\r\n");
         tsHeader.write("pageSize            = " + totalTsSize + "\r\n");
         tsHeader.write("page = 1\r\n");
         tsHeader.write(tunerStudioWriter.toString());
         tsHeader.write("; " + CONFIG_DEFINITION_END + "\r\n");
+        tsHeader.write(tsContent.getPostfix());
 
         if (!stack.isEmpty())
             throw new IllegalStateException("Unclosed structure: " + stack.peek().name);
 
         cHeader.close();
         tsHeader.close();
+    }
+
+    private static TsFileContent readTsFile(String tsPath) throws IOException {
+        BufferedReader r = new BufferedReader(new FileReader(tsPath + File.separator + TS_FILE_NAME));
+
+        StringBuilder prefix = new StringBuilder();
+        StringBuilder postfix = new StringBuilder();
+
+        boolean isBeforeStartTag = true;
+        boolean isAfterEndTag = false;
+        String line;
+        while ((line = r.readLine()) != null) {
+            if (line.contains(CONFIG_DEFINITION_START)) {
+                isBeforeStartTag = false;
+                continue;
+            }
+            if (line.contains(CONFIG_DEFINITION_END)) {
+                isAfterEndTag = true;
+                continue;
+            }
+
+            if (isBeforeStartTag)
+                prefix.append(line + "\r\n");
+
+            if (isAfterEndTag)
+                postfix.append(line + "\r\n");
+        }
+        return new TsFileContent(prefix.toString(), postfix.toString());
     }
 
     private static void processFile(BufferedReader br, BufferedWriter cHeader, Writer tsHeader) throws IOException {
