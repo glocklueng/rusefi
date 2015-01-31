@@ -13,7 +13,6 @@
 #include "speed_density.h"
 
 extern engine_configuration_s *engineConfiguration;
-extern engine_configuration2_s *engineConfiguration2;
 
 void testEngineMath(void) {
 	printf("*************************************************** testEngineMath\r\n");
