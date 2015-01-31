@@ -289,6 +289,7 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	// Frankenso low out #10: PE1<>PD3
 	// Frankenso low out #11: PB8
 	// Frankenso low out #12: PB7
+	boardConfiguration->fanPin = GPIO_UNASSIGNED;
 
 	boardConfiguration->injectionPins[0] = GPIOD_5;
 	boardConfiguration->injectionPins[2] = GPIOE_2;
