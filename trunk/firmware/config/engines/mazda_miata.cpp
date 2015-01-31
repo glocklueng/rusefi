@@ -231,7 +231,8 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 
 	common079721_2351(engineConfiguration, boardConfiguration);
 	setFrankenso_01_LCD(boardConfiguration);
-
+	engineConfiguration->displacement = 1.839;
+	engineConfiguration->algorithm = LM_MAF;
 
 //	boardConfiguration->triggerInputPins[0] = GPIOC_6; // 2G YEL/BLU
 //	boardConfiguration->triggerInputPins[1] = GPIOA_5; // 2E White CKP
