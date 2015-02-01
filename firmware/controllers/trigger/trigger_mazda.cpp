@@ -135,23 +135,27 @@ void configureMazdaProtegeLx(TriggerShape *s) {
 //	s->addEvent(a, T_SECONDARY, TV_LOW);
 //	s->addEvent(a + w, T_SECONDARY, TV_HIGH);
 
-	float z = 0.093;
+	float z = 0.093; // 67 deg
 
 	a = 180;
-	s->addEvent(a - z * 720, T_PRIMARY, TV_HIGH);
-	s->addEvent(a, T_PRIMARY, TV_LOW);
+	s->addEvent(a - z * 720, T_SECONDARY, TV_HIGH);
+	s->addEvent(a, T_SECONDARY, TV_LOW);
+
+	s->addEvent(a + 10, T_PRIMARY, TV_HIGH);
+	s->addEvent(a + 80, T_PRIMARY, TV_LOW);
+
 
 	a += 180;
-	s->addEvent(a - z * 720, T_PRIMARY, TV_HIGH);
-	s->addEvent(a, T_PRIMARY, TV_LOW);
+	s->addEvent(a - z * 720, T_SECONDARY, TV_HIGH);
+	s->addEvent(a, T_SECONDARY, TV_LOW);
 
 	a += 180;
-	s->addEvent(a - z * 720, T_PRIMARY, TV_HIGH);
-	s->addEvent(a, T_PRIMARY, TV_LOW);
+	s->addEvent(a - z * 720, T_SECONDARY, TV_HIGH);
+	s->addEvent(a, T_SECONDARY, TV_LOW);
 
 	a += 180;
-	s->addEvent(a - z * 720, T_PRIMARY, TV_HIGH);
-	s->addEvent(a, T_PRIMARY, TV_LOW);
+	s->addEvent(a - z * 720, T_SECONDARY, TV_HIGH);
+	s->addEvent(a, T_SECONDARY, TV_LOW);
 
 	s->isSynchronizationNeeded = false;
 }
