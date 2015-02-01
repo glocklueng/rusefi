@@ -195,6 +195,7 @@ static void common079721_2351(engine_configuration_s *engineConfiguration, board
 	engineConfiguration->mafAdcChannel = EFI_ADC_1;
 	engineConfiguration->tpsAdcChannel = EFI_ADC_3;
 	engineConfiguration->cltAdcChannel = EFI_ADC_11;
+
 }
 
 void setMiata1990(engine_configuration_s *engineConfiguration, board_configuration_s *boardConfiguration) {
@@ -234,6 +235,9 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	engineConfiguration->displacement = 1.839;
 	engineConfiguration->algorithm = LM_MAF;
 	boardConfiguration->tunerStudioSerialSpeed = 9600;
+
+	setFuelLoadBin(engineConfiguration, 1.2, 4.4);
+	setFuelRpmBin(engineConfiguration, 800, 7000);
 
 //	boardConfiguration->triggerInputPins[0] = GPIOC_6; // 2G YEL/BLU
 //	boardConfiguration->triggerInputPins[1] = GPIOA_5; // 2E White CKP
@@ -288,7 +292,7 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	// Frankenso low out #6: PE4
 	// Frankenso low out #7: PE0<>PD5 INJ 1&3
 	// Frankenso low out #8: PE2 INJ
-	// Frankenso low out #9: PB9
+	// Frankenso low out #9: PB9 IDLE
 	// Frankenso low out #10: PE1<>PD3
 	// Frankenso low out #11: PB8
 	// Frankenso low out #12: PB7
@@ -301,6 +305,9 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	setWholeFuelMap(engineConfiguration, 3);
 
 	setDefaultCrankingFuel(engineConfiguration);
+
+	boardConfiguration->idleSolenoidFrequency = 300;
+	boardConfiguration->idleValvePin = GPIOB_9;
 
 	boardConfiguration->malfunctionIndicatorPin = GPIOE_5;
 	boardConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
