@@ -231,7 +231,10 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	engineConfiguration->trigger.type = TT_FORD_ESCORT_GT;
 
 	common079721_2351(engineConfiguration, boardConfiguration);
+
 	setFrankenso_01_LCD(boardConfiguration);
+	setFrankenso0_1_joystick(engineConfiguration);
+
 	engineConfiguration->displacement = 1.839;
 	engineConfiguration->algorithm = LM_MAF;
 	boardConfiguration->tunerStudioSerialSpeed = 9600;
@@ -314,7 +317,6 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 
 	boardConfiguration->tunerStudioSerialSpeed = 9600;
 
-	setFrankenso0_1_joystick(engineConfiguration);
 }
 
 static void setMiata1994_common(engine_configuration_s *engineConfiguration,
