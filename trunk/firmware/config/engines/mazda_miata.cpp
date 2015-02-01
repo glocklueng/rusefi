@@ -299,7 +299,6 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 	// Frankenso low out #10: PE1<>PD3
 	// Frankenso low out #11: PB8
 	// Frankenso low out #12: PB7
-	boardConfiguration->fanPin = GPIO_UNASSIGNED;
 
 	boardConfiguration->injectionPins[0] = GPIOD_5;
 	boardConfiguration->injectionPins[1] = GPIOE_2;
@@ -317,6 +316,17 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration, board_configur
 
 	boardConfiguration->tunerStudioSerialSpeed = 9600;
 
+	commonFrankensoAnalogInputs(engineConfiguration);
+	setCommonNTCSensor(&engineConfiguration->clt);
+	engineConfiguration->clt.bias_resistor = 2700;
+	setCommonNTCSensor(&engineConfiguration->iat);
+	engineConfiguration->iat.bias_resistor = 2700;
+
+	engineConfiguration->tpsAdcChannel = EFI_ADC_2;
+//	engineConfiguration->map.sensor.hwChannel = EFI_ADC_4;
+	engineConfiguration->mafAdcChannel = EFI_ADC_0;
+	engineConfiguration->cltAdcChannel = EFI_ADC_12;
+	engineConfiguration->iatAdcChannel = EFI_ADC_11;
 }
 
 static void setMiata1994_common(engine_configuration_s *engineConfiguration,
