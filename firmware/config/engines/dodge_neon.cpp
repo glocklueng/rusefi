@@ -229,7 +229,7 @@ void setDodgeNeonNGCEngineConfiguration(engine_configuration_s *engineConfigurat
 	 * bosch 4G1139
 	 * http://forum.2gn.org/viewtopic.php?t=21657
 	 */
-	engineConfiguration->injectorFlow = 199;
+	engineConfiguration->injector.flow = 199;
 
 	// I want to start with a simple Alpha-N
 	engineConfiguration->algorithm = LM_ALPHA_N;

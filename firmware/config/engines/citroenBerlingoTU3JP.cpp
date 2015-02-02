@@ -104,7 +104,7 @@ void setCitroenBerlingoTU3JPConfiguration(engine_configuration_s *engineConfigur
 	// Frankenstein lo-side output #11: PB8
 	// Frankenstein lo-side output #12: PB9 Fuel pump
 
-	engineConfiguration->injectorFlow = 137; //SIEMENS DEKA VAZ20734
+	engineConfiguration->injector.flow = 137; //SIEMENS DEKA VAZ20734
 	boardConfiguration->injectionPins[0] = GPIOE_6;
 	boardConfiguration->injectionPins[1] = GPIOC_13;
 	boardConfiguration->injectionPins[2] = GPIO_UNASSIGNED;
