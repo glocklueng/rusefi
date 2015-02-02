@@ -39,6 +39,8 @@ rm -rf temp
 mkdir temp
 
 set folder=temp\snapshot_%date:~10%%date:~4,2%%date:~7,2%_%time:~0,2%%time:~3,2%_rusefi
+# this replaces spaces with 0s - that's needed before 10am
+set folder=%folder: =0%
 
 echo %folder%
 mkdir %folder%
