@@ -5,7 +5,13 @@
 # author spags  
 
 import numpy
-rpm_max_change = 20
+
+
+# todo: change the sccript so that we do not need to hard-code trigger sequence length?
+trigger_size = 10
+
+rpm_max_change = 15
+
 
 AC_HEADER = 'analog_chart,'
 
@@ -21,14 +27,14 @@ for line in fp:
     # todo: use '<EOT>:' tag
     line = line[35:]
 
-    if line.startswith('analog_chart,'):
+    if line.startswith(AC_HEADER):
         line = line.strip(AC_HEADER)
-        numbers = [float(n) for n in line.split('|')[:20]]
+        numbers = [float(n) for n in line.split('|')[:2 * trigger_size]]
                 
-        if abs(rpm-last_rpm) < 20:
+        if abs(rpm-last_rpm) < rpm_max_change:
             data[last_time] = numbers
         else:
-            print "RPM Variance to great", last_rpm, rpm
+            print "RPM Variance too great", last_rpm, rpm
         last_rpm = rpm
         
     elif line.startswith('time'):
