@@ -5,7 +5,6 @@
 # author spags  
 
 import numpy
-
 rpm_max_change = 20
 
 AC_HEADER = 'analog_chart,'
@@ -19,11 +18,12 @@ last_rpm = 0
 
 for line in fp:
     # Chuck the date
-    line = line[30:]
-    
+    # todo: use '<EOT>:' tag
+    line = line[35:]
+
     if line.startswith('analog_chart,'):
         line = line.strip(AC_HEADER)
-        numbers = [float(n) for n in line.split('|')[:24]]
+        numbers = [float(n) for n in line.split('|')[:20]]
                 
         if abs(rpm-last_rpm) < 20:
             data[last_time] = numbers
