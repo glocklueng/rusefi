@@ -54,7 +54,7 @@ float sdMath(engine_configuration_s *engineConfiguration, float VE, float MAP, f
 	}
 
 	float injectorFlowRate = cc_minute_to_gramm_second(engineConfiguration->injectorFlow);
-	float Vol = engineConfiguration->displacement / engineConfiguration->cylindersCount;
+	float Vol = engineConfiguration->specs.displacement / engineConfiguration->cylindersCount;
 	return (Vol * VE * MAP) / (AFR * injectorFlowRate * GAS_R * tempK);
 }
 
