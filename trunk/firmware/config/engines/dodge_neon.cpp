@@ -194,7 +194,7 @@ void setDodgeNeonNGCEngineConfiguration(engine_configuration_s *engineConfigurat
 	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
 	engineConfiguration->injectionMode = IM_SEQUENTIAL;
 	engineConfiguration->ignitionMode = IM_WASTED_SPARK;
-	engineConfiguration->displacement = 1.996;
+	engineConfiguration->specs.displacement = 1.996;
 	engineConfiguration->cylindersCount = 4;
 
 	/**

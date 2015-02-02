@@ -279,7 +279,7 @@ void setDefaultConfiguration(engine_configuration_s *engineConfiguration, board_
 
 	setOperationMode(engineConfiguration, FOUR_STROKE_CAM_SENSOR);
 	engineConfiguration->cylindersCount = 4;
-	engineConfiguration->displacement = 2;
+	engineConfiguration->specs.displacement = 2;
 	/**
 	 * By the way http://users.erols.com/srweiss/tableifc.htm has a LOT of data
 	 */
