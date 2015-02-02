@@ -9,8 +9,11 @@
 
 #include "main.h"
 #include "mazda_626.h"
+#include "engine_math.h"
+#include "honda_accord.h"
 
 void setMazda626EngineConfiguration(engine_configuration_s *engineConfiguration) {
+	board_configuration_s *boardConfiguration = &engineConfiguration->bc;
 	engineConfiguration->trigger.type = TT_FORD_ESCORT_GT_T;
 
 	setFrankenso_01_LCD(boardConfiguration);
