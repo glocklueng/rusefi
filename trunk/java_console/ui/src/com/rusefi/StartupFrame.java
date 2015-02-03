@@ -67,11 +67,11 @@ public class StartupFrame {
             final JPanel connectPanel = new JPanel(new FlowLayout());
             addPortSelection(ports, connectPanel);
             startupOptions.add(connectPanel);
-            startupOptions.add(new JSeparator());
+            startupOptions.add(new HorizontalLine());
         }
 
         final JButton buttonLogViewer = new JButton();
-        buttonLogViewer.setText("Use " + LinkManager.LOG_VIEWER);
+        buttonLogViewer.setText("Start " + LinkManager.LOG_VIEWER);
         buttonLogViewer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,15 +81,14 @@ public class StartupFrame {
         });
 
         startupOptions.add(buttonLogViewer);
+        startupOptions.add(new HorizontalLine());
 
         JPanel centerPanel = new JPanel(new FlowLayout());
         centerPanel.add(SimulatorHelper.createSimulatorComponent(this));
 
-        JPanel lowerPanel = new JPanel(new FlowLayout());
-        lowerPanel.add(new URLLabel(LINK_TEXT, URI));
         startupOptions.add(centerPanel);
-        startupOptions.add(new JSeparator());
-        startupOptions.add(lowerPanel);
+        startupOptions.add(new HorizontalLine());
+        startupOptions.add(new URLLabel(LINK_TEXT, URI));
 
         JPanel content = new JPanel(new BorderLayout());
         content.add(startupOptions, BorderLayout.WEST);
