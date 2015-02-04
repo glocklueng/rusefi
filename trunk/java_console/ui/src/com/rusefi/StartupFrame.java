@@ -8,12 +8,16 @@ import com.rusefi.ui.widgets.URLLabel;
 import jssc.SerialPortList;
 import org.putgemin.VerticalFlowLayout;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +32,8 @@ import java.util.List;
  */
 public class StartupFrame {
     // todo: figure out a better way to work with absolute path
-    public static final String APPICON_PNG = "../../appicon.png";
+    private static final String APPICON = "../../appicon.png";
+    private static final String LOGO = "../../logo.gif";
     private static final String LINK_TEXT = "rusEfi (c) 2012-2015";
     private static final String URI = "http://rusefi.com/?java_console";
 
@@ -49,7 +54,7 @@ public class StartupFrame {
     }
 
     public static void setAppIcon(JFrame frame) {
-        ImageIcon icon = loadIcon(APPICON_PNG);
+        ImageIcon icon = loadIcon(APPICON);
         if (icon != null)
             frame.setIconImage(icon.getImage());
     }
@@ -92,7 +97,13 @@ public class StartupFrame {
 
         JPanel content = new JPanel(new BorderLayout());
         content.add(startupOptions, BorderLayout.WEST);
-        content.add(new JLabel("Logo"), BorderLayout.EAST);
+
+        ImageIcon logoIcon = loadIcon(LOGO);
+        if (logoIcon != null) {
+            JLabel logo = new JLabel(logoIcon);
+            logo.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
+            content.add(logo, BorderLayout.EAST);
+        }
 
         frame.add(content);
         frame.pack();
