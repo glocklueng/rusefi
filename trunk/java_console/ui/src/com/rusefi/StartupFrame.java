@@ -27,8 +27,8 @@ import java.util.List;
  */
 public class StartupFrame {
     // todo: figure out a better way to work with absolute path
-    private static final String APPICON = "../../appicon.png";
-    private static final String LOGO = "../../logo.gif";
+    private static final String APPICON = "appicon.png";
+    private static final String LOGO = "logo.gif";
     private static final String LINK_TEXT = "rusEfi (c) 2012-2015";
     private static final String URI = "http://rusefi.com/?java_console";
 
