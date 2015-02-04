@@ -1,6 +1,5 @@
 package com.rusefi;
 
-import com.irnems.Launcher;
 import com.rusefi.io.LinkManager;
 import com.rusefi.io.tcp.TcpConnector;
 import com.rusefi.ui.UiUtils;
@@ -8,16 +7,12 @@ import com.rusefi.ui.widgets.URLLabel;
 import jssc.SerialPortList;
 import org.putgemin.VerticalFlowLayout;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
