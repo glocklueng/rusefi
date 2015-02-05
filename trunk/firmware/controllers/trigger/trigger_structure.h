@@ -73,8 +73,8 @@ public:
 	// todo: these two methods here, something could be improved
 	void clear();
 	void reset(operation_mode_e operationMode, bool needSecondTriggerInput);
-	void setTriggerSynchronizationGap2(float syncGapFrom, float syncRatioTo);
-	void setTriggerSynchronizationGap(float synchGap);
+	void setTriggerSynchronizationGap2(float syncRatioFrom, float syncRatioTo);
+	void setTriggerSynchronizationGap(float synchRatio);
 	int getSize() const;
 	multi_wave_s wave;
 
