@@ -77,6 +77,8 @@ void TriggerShape::setTriggerShapeSynchPointIndex(engine_configuration_s *engine
 
 void TriggerShape::clear() {
 	tdcPosition = 0;
+	setTriggerSynchronizationGap(2);
+	useRiseEdge = true;
 }
 
 void TriggerShape::reset(operation_mode_e operationMode, bool needSecondTriggerInput) {
