@@ -50,6 +50,7 @@ cp win32_functional_tests/build/rusefi_simulator.exe %folder%
 cp firmware/tunerstudio/rusefi.ini %folder%
 
 cp firmware/svnversion.h %folder%
+cp -r misc/install/openocd %folder% 
 cp firmware/build/rusefi.hex %folder%
 cp firmware/build/rusefi.bin %folder%
 cp firmware/build/rusefi.elf %folder%
