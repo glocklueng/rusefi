@@ -280,7 +280,6 @@ void multi_wave_s::checkSwitchTimes(int size) {
 
 void setToothedWheelConfiguration(TriggerShape *s, int total, int skipped,
 		engine_configuration_s const *engineConfiguration) {
-	s->isSynchronizationNeeded = (skipped != 0);
 
 	s->setTriggerSynchronizationGap(skipped + 1);
 
