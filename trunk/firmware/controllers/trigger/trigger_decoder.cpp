@@ -281,9 +281,6 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s const *engin
 	switch (triggerConfig->type) {
 
 	case TT_TOOTHED_WHEEL:
-		// todo: for toothed wheel isSynchronizationNeeded is a function of customSkippedToothCount I guess
-		triggerShape->isSynchronizationNeeded = engineConfiguration->trigger.customIsSynchronizationNeeded;
-
 		initializeSkippedToothTriggerShapeExt(triggerShape, triggerConfig->customTotalToothCount,
 				triggerConfig->customSkippedToothCount, getOperationMode(engineConfiguration));
 		break;
