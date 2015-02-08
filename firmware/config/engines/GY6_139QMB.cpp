@@ -33,7 +33,6 @@ void setGy6139qmbDefaultEngineConfiguration(
 	engineConfiguration->trigger.type = TT_TOOTHED_WHEEL;
 	engineConfiguration->trigger.customTotalToothCount = 8;
 	engineConfiguration->trigger.customSkippedToothCount = 1;
-	engineConfiguration->trigger.customNeedSecondTriggerInput = false;
 
 	boardConfiguration->injectionPins[0] = GPIOC_9;
 	boardConfiguration->ignitionPins[0] = GPIOC_8;

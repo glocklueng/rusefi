@@ -24,7 +24,6 @@ void setSachs(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->trigger.type = TT_TOOTHED_WHEEL;
 	engineConfiguration->trigger.customTotalToothCount = 1;
 	engineConfiguration->trigger.customSkippedToothCount = 0;
-	engineConfiguration->trigger.customNeedSecondTriggerInput = false;
 
 	engineConfiguration->hasIatSensor = false;
 	engineConfiguration->hasMapSensor = false;
