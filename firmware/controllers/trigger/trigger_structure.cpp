@@ -282,6 +282,8 @@ void setToothedWheelConfiguration(TriggerShape *s, int total, int skipped,
 		engine_configuration_s const *engineConfiguration) {
 	s->isSynchronizationNeeded = (skipped != 0);
 
+	s->setTriggerSynchronizationGap(skipped + 1);
+
 	s->totalToothCount = total;
 	s->skippedToothCount = skipped;
 	// todo: move to into configuration definition s->needSecondTriggerInput = false;
