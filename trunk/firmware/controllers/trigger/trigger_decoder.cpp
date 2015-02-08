@@ -234,6 +234,8 @@ void initializeSkippedToothTriggerShapeExt(TriggerShape *s, int totalTeethCount,
 	s->totalToothCount = totalTeethCount;
 	s->skippedToothCount = skippedCount;
 
+	s->isSynchronizationNeeded = (skippedCount != 0);
+
 	efiAssertVoid(s != NULL, "TriggerShape is NULL");
 	s->reset(operationMode, false);
 
