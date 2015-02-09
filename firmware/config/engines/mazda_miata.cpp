@@ -169,8 +169,8 @@ static void common079721_2351(engine_configuration_s *engineConfiguration, board
 
 	engineConfiguration->digitalChartSize = 150;
 
-	engineConfiguration->cylindersCount = 4;
-	engineConfiguration->firingOrder = FO_1_THEN_3_THEN_4_THEN2;
+	engineConfiguration->specs.cylindersCount = 4;
+	engineConfiguration->specs.firingOrder = FO_1_THEN_3_THEN_4_THEN2;
 
 	boardConfiguration->fuelPumpPin = GPIO_UNASSIGNED; // fuel pump is not controlled by ECU on this engine
 
