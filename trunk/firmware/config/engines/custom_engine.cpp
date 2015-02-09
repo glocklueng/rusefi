@@ -72,7 +72,7 @@ void setCustomEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	/**
 	 * We want to initialize all outputs for test
 	 */
-	engineConfiguration->cylindersCount = 12;
+	engineConfiguration->specs.cylindersCount = 12;
 
 	engineConfiguration->displayMode = DM_NONE;
 #else
