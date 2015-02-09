@@ -324,7 +324,7 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->iatAdcChannel = EFI_ADC_11;
 
 	// todo: 8.2 or 10k?
-	engineConfiguration->vbattDividerCoeff = ((float) (8.2 + 33)) / 8.2 * 2;
+	engineConfiguration->vbattDividerCoeff = ((float) (10 + 33)) / 10 * 2;
 
 	// end of Ford Escort GT config
 }
