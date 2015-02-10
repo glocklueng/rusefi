@@ -373,6 +373,7 @@ static void testRpmCalculator(void) {
 	engine_configuration_s *engineConfiguration = &eth.persistentConfig.engineConfiguration;
 
 	initThermistors(PASS_ENGINE_PARAMETER_F);
+	engine->updateSlowSensors();
 
 	engineConfiguration->trigger.customTotalToothCount = 8;
 	engineConfiguration->globalFuelCorrection = 3;
