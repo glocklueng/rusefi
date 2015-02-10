@@ -383,6 +383,7 @@ static void testRpmCalculator(void) {
 //	engine.engineConfiguration = eth.engine.engineConfiguration;
 	eth.engine.engineConfiguration->injector.lag = 0.0;
 
+	engine->updateSlowSensors();
 	timeNow = 0;
 	assertEquals(0, eth.engine.rpmCalculator.rpm(PASS_ENGINE_PARAMETER_F));
 
