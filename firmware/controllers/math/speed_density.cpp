@@ -60,13 +60,14 @@ float sdMath(engine_configuration_s *engineConfiguration, float VE, float MAP, f
 	float injectorFlowRate = cc_minute_to_gramm_second(engineConfiguration->injector.flow);
 	// todo: pre-calculate cylinder displacement to save one division
 	float cylinderDisplacement = engineConfiguration->specs.displacement / engineConfiguration->specs.cylindersCount;
+	float airMass = (cylinderDisplacement * VE * MAP) / (GAS_R * tempK);
 	/**
 	 * injection_pulse_duration = fuel_mass / injector_flow
 	 * fuel_mass = air_mass / target_afr
 	 *
 	 * injection_pulse_duration = (air_mass / target_afr) / injector_flow
 	 */
-	return (cylinderDisplacement * VE * MAP) / (GAS_R * tempK * AFR * injectorFlowRate);
+	return airMass / (AFR * injectorFlowRate);
 }
 
 /**
