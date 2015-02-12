@@ -142,7 +142,7 @@ static ALWAYS_INLINE void handleFuelInjectionEvent(InjectionEvent *event, int rp
 		scheduleTask("out down", sDown, (int) MS2US(delayMs) + MS2US(fuelMs), (schfunc_t) &endSimultaniousInjection, engine);
 
 	} else {
-		scheduleOutput(event->actuator, getTimeNowUs(), delayMs, fuelMs);
+		scheduleOutput(event->actuator, getTimeNowUs(), MS2US(delayMs), MS2US(fuelMs));
 	}
 }
 
