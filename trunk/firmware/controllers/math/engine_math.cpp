@@ -145,7 +145,6 @@ void FuelSchedule::registerInjectionEvent(OutputSignalList *sourceList, NamedOut
 }
 
 FuelSchedule::FuelSchedule() {
-	clear();
 }
 
 void FuelSchedule::clear() {
@@ -153,6 +152,7 @@ void FuelSchedule::clear() {
 }
 
 void FuelSchedule::addFuelEvents(OutputSignalList *sourceList, injection_mode_e mode DECLARE_ENGINE_PARAMETER_S) {
+	clear(); // this method is relatively heavy
 	sourceList->reset();
 
 	events.reset();
