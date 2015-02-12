@@ -22,10 +22,12 @@ void testIgnitionPlanning(void) {
 	assertEquals(IM_BATCH, engineConfiguration->injectionMode);
 }
 
-extern engine_configuration_s *engineConfiguration;
-
 void testEngineMath(void) {
 	printf("*************************************************** testEngineMath\r\n");
+
+	EngineTestHelper eth(FORD_ESCORT_GT);
+	Engine * engine = &eth.engine;
+	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 
 	engineConfiguration->rpmMultiplier = 0.5;
 
