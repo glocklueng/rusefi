@@ -265,6 +265,10 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration) {
 	// set_injection_offset 510
 	engineConfiguration->injectionAngle = 0;
 
+	engineConfiguration->crankingTimingAngle = 0;
+	engineConfiguration->crankingChargeAngle = 70;
+
+
 	setSingleCoilDwell(engineConfiguration);
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
 
