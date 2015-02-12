@@ -125,6 +125,11 @@ public:
 	Thermistor clt;
 
 	/**
+	 * Fuel injection duration for current engine cycle
+	 */
+	float fuelMs;
+
+	/**
 	 * ignition dwell duration as crankshaft angle
 	 */
 	angle_t dwellAngle;
