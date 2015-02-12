@@ -102,7 +102,7 @@ void initializeIgnitionActions(angle_t advance, angle_t dwellAngle,
 	list->reset();
 
 	for (int i = 0; i < CONFIG(specs.cylindersCount); i++) {
-		float localAdvance = advance + ENGINE(angleExtra[i]);
+		angle_t localAdvance = advance + ENGINE(angleExtra[i]);
 		NamedOutputPin *output = ENGINE(ignitionPin[i]);
 
 		IgnitionEvent *event = list->add();
