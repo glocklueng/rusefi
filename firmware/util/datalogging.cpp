@@ -162,13 +162,6 @@ void appendPrintf(Logging *logging, const char *fmt, ...) {
 	va_end(ap);
 }
 
-Logging::Logging() {
-}
-
-Logging::Logging(const char *name, char *buffer, int bufferSize) {
-	initLoggingExt(this, "settings control", buffer, bufferSize);
-}
-
 void initLoggingExt(Logging *logging, const char *name, char *buffer, int bufferSize) {
 	logging->name = name;
 	logging->buffer = buffer;
@@ -392,8 +385,14 @@ void initIntermediateLoggingBuffer(void) {
 
 #endif /* ! EFI_UNIT_TEST */
 
-LoggingWithStorage::LoggingWithStorage(const char *name) {
+Logging::Logging() {
+}
+
+Logging::Logging(char const *name, char *buffer, int bufferSize) {
 #if ! EFI_UNIT_TEST
-	initLoggingExt(this, name, DEFAULT_BUFFER, sizeof(DEFAULT_BUFFER));
+	initLoggingExt(this, "settings control", buffer, bufferSize);
 #endif /* ! EFI_UNIT_TEST */
+}
+
+LoggingWithStorage::LoggingWithStorage(const char *name) : Logging(name, DEFAULT_BUFFER, sizeof(DEFAULT_BUFFER))   {
 }
