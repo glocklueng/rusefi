@@ -106,6 +106,9 @@ typedef struct {
 
 	uint32_t beforeAdvance;
 	uint32_t advanceTime;
+
+	uint32_t beforeFuelCalc;
+	uint32_t fuelCalcTime;
 } monitoring_timestamps_s;
 
 class Engine {
