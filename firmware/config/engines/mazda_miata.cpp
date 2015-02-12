@@ -265,7 +265,7 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration) {
 	// set_injection_offset 510
 	engineConfiguration->injectionAngle = 0;
 
-	engineConfiguration->crankingTimingAngle = -10;
+	engineConfiguration->crankingTimingAngle = 10;
 	engineConfiguration->crankingChargeAngle = 70;
 
 	setWholeTimingTable(engineConfiguration, 10);
