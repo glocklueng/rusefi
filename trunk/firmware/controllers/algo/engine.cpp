@@ -53,7 +53,7 @@ Engine::Engine() {
 	isRunningPwmTest = false;
 }
 
-void Engine::precalc(engine_configuration_s *engineConfiguration) {
+void Engine::precalc() {
 	sparkTable.preCalc(engineConfiguration->sparkDwellBins,
 			engineConfiguration->sparkDwell);
 
