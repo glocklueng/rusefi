@@ -261,12 +261,14 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration) {
 	// set_global_trigger_offset_angle 659
 	engineConfiguration->globalTriggerAngleOffset = 0;
 	// set_ignition_offset 170
-	engineConfiguration->ignitionBaseAngle = 170;
+	engineConfiguration->ignitionBaseAngle = 0;
 	// set_injection_offset 510
 	engineConfiguration->injectionAngle = 0;
 
-	engineConfiguration->crankingTimingAngle = 0;
+	engineConfiguration->crankingTimingAngle = -10;
 	engineConfiguration->crankingChargeAngle = 70;
+
+	setWholeTimingTable(engineConfiguration, 10);
 
 
 	setSingleCoilDwell(engineConfiguration);
