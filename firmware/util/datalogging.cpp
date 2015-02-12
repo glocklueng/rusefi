@@ -162,6 +162,13 @@ void appendPrintf(Logging *logging, const char *fmt, ...) {
 	va_end(ap);
 }
 
+Logging::Logging() {
+}
+
+Logging::Logging(const char *name, char *buffer, int bufferSize) {
+	initLoggingExt(this, "settings control", buffer, bufferSize);
+}
+
 void initLoggingExt(Logging *logging, const char *name, char *buffer, int bufferSize) {
 	logging->name = name;
 	logging->buffer = buffer;
