@@ -55,6 +55,11 @@ void testMafLookup(void) {
 	setBosch0280218037(engineConfiguration);
 	engine->precalc();
 
+	assertEqualsM("@0", -34.5000, engine->mafDecodingLookup[0]);
+	assertEqualsM("@1", -33.7875, engine->mafDecodingLookup[1]);
+	assertEqualsM("@2", -33.0750, engine->mafDecodingLookup[2]);
+	assertEqualsM("@200", 313.8826, engine->mafDecodingLookup[200]);
+	assertEqualsM("@255", 738, engine->mafDecodingLookup[255]);
 }
 
 float getMap(void) {
