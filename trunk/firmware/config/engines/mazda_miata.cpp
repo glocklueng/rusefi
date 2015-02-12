@@ -259,11 +259,11 @@ void setFordEscortGt(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->map.sensor.type = MT_DENSO183;
 
 	// set_global_trigger_offset_angle 659
-	engineConfiguration->globalTriggerAngleOffset = 659;
+	engineConfiguration->globalTriggerAngleOffset = 680;
 	// set_ignition_offset 170
 	engineConfiguration->ignitionBaseAngle = 170;
 	// set_injection_offset 510
-	engineConfiguration->injectionAngle = 59;
+	engineConfiguration->injectionAngle = 38;
 
 	setSingleCoilDwell(engineConfiguration);
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
