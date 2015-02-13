@@ -12,8 +12,8 @@
 #include "engine_configuration.h"
 
 static int testIndex(const int expected, const float array[], int size, float value) {
-	int result = findIndex(array, size, value);
-	assertEquals(expected, result);
+	assertEquals(expected, findIndex(array, size, value));
+	assertEquals(expected, findIndex2(array, size, value));
 }
 
 void testFindIndex(void) {
