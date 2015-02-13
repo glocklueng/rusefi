@@ -80,7 +80,13 @@ int findIndex2(const float array[], unsigned size, float value) {
 	efiAssert(b + b == size, "Size not power of 2", -1);
 	for (; b; b >>= 1) {
 		unsigned j = i | b;
-		if (j < size && array[j] <= value)
+		/**
+		 * it should be
+		 * "if (j < size && array[j] <= value)"
+		 * but in our case size is always power of 2 thus size is always more then j
+		 */
+		// efiAssert(j < size, "size", 0);
+		if (array[j] <= value)
 			i = j;
 	}
 	return i || *array <= value ? i : -1;
