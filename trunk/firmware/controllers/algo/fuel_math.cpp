@@ -44,6 +44,7 @@
 EXTERN_ENGINE;
 
 static Map3D1616 fuelMap;
+static Map3D1616 fuelPhaseMap;
 
 float getBaseFuel(int rpm DECLARE_ENGINE_PARAMETER_S) {
 	if (engine->engineConfiguration->algorithm == LM_SPEED_DENSITY) {
@@ -121,6 +122,7 @@ float getInjectorLag(float vBatt DECLARE_ENGINE_PARAMETER_S) {
  */
 void prepareFuelMap(engine_configuration_s *engineConfiguration) {
 	fuelMap.init(engineConfiguration->fuelTable);
+	fuelPhaseMap.init(engineConfiguration->injectionPhase);
 }
 
 /**
