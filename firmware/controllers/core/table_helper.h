@@ -18,7 +18,7 @@ template<int RPM_BIN_SIZE, int LOAD_BIN_SIZE>
 class Map3D {
 public:
 	void init(float table[RPM_BIN_SIZE][LOAD_BIN_SIZE], float loadBins[LOAD_BIN_SIZE], float rpmBins[RPM_BIN_SIZE]);
-	float getValue(float x, float xBin[], float y, float yBin[]);
+	float getValue(float x, float rpm);
 	void setAll(float value);
 private:
 	float *pointers[LOAD_BIN_SIZE];
@@ -69,9 +69,9 @@ void Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::init(float table[RPM_BIN_SIZE][LOAD_BIN
 }
 
 template<int RPM_BIN_SIZE, int LOAD_BIN_SIZE>
-float Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::getValue(float x, float xBin[], float y, float yBin[]) {
+float Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::getValue(float x, float rpm) {
 	efiAssert(initialized == MAGIC_TRUE_VALUE, "map not initialized", NAN);
-	return interpolate3d(x, loadBins, LOAD_BIN_SIZE, y, rpmBins, RPM_BIN_SIZE, pointers);
+	return interpolate3d(x, loadBins, LOAD_BIN_SIZE, rpm, rpmBins, RPM_BIN_SIZE, pointers);
 }
 
 template<int RPM_BIN_SIZE, int LOAD_BIN_SIZE>

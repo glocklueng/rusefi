@@ -85,10 +85,8 @@ float getSpeedDensityFuel(Engine *engine, int rpm) {
 	float intakeC = engine->engineState.iat;
 	float tChargeK = convertCelsiusToKelvin(getTCharge(rpm, tps, coolantC, intakeC));
 	float map = getMap();
-	float VE = veMap.getValue(map, engineConfiguration->veLoadBins, rpm,
-			engineConfiguration->veRpmBins);
-	float AFR = afrMap.getValue(map, engineConfiguration->afrLoadBins, rpm,
-			engineConfiguration->afrRpmBins);
+	float VE = veMap.getValue(map, rpm);
+	float AFR = afrMap.getValue(map, rpm);
 
 	return sdMath(engine->engineConfiguration, VE, map, AFR, tChargeK) * 1000;
 }
