@@ -70,11 +70,14 @@ float interpolate(float x1, float y1, float x2, float y2, float x) {
 
 int findIndex2(const float array[], int size, float value) {
 	efiAssert(!cisnan(value), "NaN in findIndex", 0);
+	efiAssert(size > 1, "NaN in findIndex", 0);
+//	if (size <= 1)
+//		return size && *array <= value ? 0 : -1;
 
-	if (size <= 1)
-		return size && *array <= value ? 0 : -1;
 	unsigned i = 0;
-	unsigned b = 1 << int(log(float(size) - 1) / 0.69314718055994530942);
+	//unsigned b = 1 << int(log(float(size) - 1) / 0.69314718055994530942);
+	unsigned b = size >> 1; // in our case size is always a power of 2
+	efiAssert(b + b == size, "Size not power of 2", -1);
 	for (; b; b >>= 1) {
 		unsigned j = i | b;
 		if (j < size && array[j] <= value)

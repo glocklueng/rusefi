@@ -18,6 +18,7 @@ static int testIndex(const int expected, const float array[], int size, float va
 
 void testFindIndex(void) {
 	printf("*************************************************** testFindIndex\r\n");
+/*
 	{
 		// in real life we only use powers of 2 for sizes
 		float array5[] = { 1, 2, 3, 4, 5 };
@@ -32,6 +33,7 @@ void testFindIndex(void) {
 		testIndex(2, array5, size5, 3.1);
 
 	}
+*/
 	{
 		float array4[] = { 1, 2, 3, 4 };
 		const int size4 = 4;
