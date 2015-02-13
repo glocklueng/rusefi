@@ -16,7 +16,6 @@ static int testIndex(const int expected, const float array[], int size, float va
 	assertEquals(expected, result);
 }
 
-
 void testFindIndex(void) {
 	printf("*************************************************** testFindIndex\r\n");
 	{
