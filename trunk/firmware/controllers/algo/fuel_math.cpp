@@ -148,8 +148,7 @@ float getBaseTableFuel(engine_configuration_s *engineConfiguration, int rpm, flo
 		warning(OBD_PCM_Processor_Fault, "NaN engine load");
 		return NAN;
 	}
-	return fuelMap.getValue(engineLoad, engineConfiguration->fuelLoadBins, rpm,
-			engineConfiguration->fuelRpmBins);
+	return fuelMap.getValue(engineLoad, rpm);
 }
 
 #if EFI_ENGINE_CONTROL
