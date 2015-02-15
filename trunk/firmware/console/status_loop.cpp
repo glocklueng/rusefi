@@ -220,6 +220,13 @@ static void printState(Engine *engine) {
 #if EFI_SHAFT_POSITION_INPUT || defined(__DOXYGEN__)
 	printSensors(&logger, false, engine);
 
+	// todo: make SWO work
+//	char *msg = "hello\r\n";
+//	for(int i=0;i<strlen(msg);i++) {
+//		ITM_SendChar(msg[i]);
+//	}
+
+
 	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 
 	int rpm = getRpmE(engine);
