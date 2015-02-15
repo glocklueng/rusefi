@@ -539,10 +539,11 @@ void updateTunerStudioState(Engine *engine, TunerStudioOutputChannels *tsOutputC
 	// engine state
 	tsOutputChannels->rpm = rpm;
 	tsOutputChannels->coolant_temperature = coolant;
-	tsOutputChannels->intake_air_temperature = intake;
-	tsOutputChannels->throttle_positon = tps;
-	tsOutputChannels->mass_air_flow = getMaf();
-	tsOutputChannels->air_fuel_ratio = getAfr();
+	tsOutputChannels->intakeAirTemperature = intake;
+	tsOutputChannels->throttlePositon = tps;
+	tsOutputChannels->massAirFlowVoltage = getMaf();
+	tsOutputChannels->massAirFlowValue = getRealMaf();
+	tsOutputChannels->airFuelRatio = getAfr();
 	tsOutputChannels->v_batt = getVBatt(engineConfiguration);
 	tsOutputChannels->tpsADC = getTPS10bitAdc(PASS_ENGINE_PARAMETER_F);
 	tsOutputChannels->atmospherePressure = getBaroPressure();
