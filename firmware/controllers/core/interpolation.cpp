@@ -4,6 +4,7 @@
  *
  * @date Oct 17, 2013
  * @author Andrey Belomutskiy, (c) 2012-2015
+ * @author Dmitry Sidin, (c) 2015
  */
 
 #if DEBUG_FUEL
@@ -15,7 +16,21 @@
 #include "main.h"
 #include "interpolation.h"
 
-int needInterpolationLogging = TRUE;
+int needInterpolationLogging = true;
+
+#define BINARY_PERF true
+
+Logging * logger;
+
+#if BINARY_PERF
+
+static void testBinary(void) {
+
+}
+
+#endif
+
+
 
 FastInterpolation::FastInterpolation() {
 	init(0, 0, 1, 1);
@@ -266,3 +281,10 @@ void setTableValue(float bins[], float values[], int size, float key, float valu
 	values[index] = value;
 }
 
+void initInterpolation(Logging *sharedLogger) {
+	logger = sharedLogger;
+#if BINARY_PERF
+	addConsoleAction("binarytest", testBinary);
+#endif
+
+}
