@@ -41,6 +41,9 @@ static int addMafPoint(engine_configuration_s *e, int i, float kgHrValue, float 
 	return i + 1;
 }
 
+/**
+ * Hot-film air-mass meter, Type HFM 5
+ */
 void setBosch0280218037(engine_configuration_s *e) {
 	int i = 0;
 	i = addMafPoint(e, i, -34.5, 0);
