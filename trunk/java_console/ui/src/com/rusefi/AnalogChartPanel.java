@@ -1,6 +1,5 @@
 package com.rusefi;
 
-import com.rusefi.FileLog;
 import com.rusefi.config.Fields;
 import com.rusefi.ui.RpmModel;
 import com.rusefi.ui.UiUtils;
