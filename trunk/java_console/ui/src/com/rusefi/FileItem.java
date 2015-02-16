@@ -6,10 +6,10 @@ import java.io.File;
  * 4/7/14
  * (c) Andrey Belomutskiy
  */
-public class FIleItem {
+public class FileItem {
     private final File file;
 
-    public FIleItem(File file) {
+    public FileItem(File file) {
         this.file = file;
     }
 

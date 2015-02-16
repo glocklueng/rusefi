@@ -5,7 +5,7 @@ import com.rusefi.core.EngineState;
 import com.rusefi.file.FileUtils;
 import com.rusefi.ui.engine.EngineSnifferPanel;
 import com.rusefi.ui.util.UiUtils;
-import com.rusefi.FIleItem;
+import com.rusefi.FileItem;
 import com.rusefi.io.LinkManager;
 
 import javax.swing.*;
@@ -35,8 +35,8 @@ public class LogViewer extends JPanel {
     public static final String DEFAULT_LOG_LOCATION = "out";
     private final JLabel folderLabel = new JLabel();
     private final JLabel fileLabel = new JLabel();
-    private final DefaultListModel<FIleItem> fileListModel = new DefaultListModel<FIleItem>();
-    private final JList<FIleItem> fileList = new JList<FIleItem>(fileListModel);
+    private final DefaultListModel<FileItem> fileListModel = new DefaultListModel<FileItem>();
+    private final JList<FileItem> fileList = new JList<FileItem>(fileListModel);
     private final EngineSnifferPanel engineSnifferPanel;
     private String currentFolder;
     private static JPanel descPanel = new JPanel();
@@ -85,7 +85,7 @@ public class LogViewer extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    FIleItem selectedItem = fileList.getSelectedValue();
+                    FileItem selectedItem = fileList.getSelectedValue();
                     openFile(selectedItem.getFile());
                 }
             }
@@ -124,8 +124,8 @@ public class LogViewer extends JPanel {
             openFile(files[0]);
     }
 
-    private FIleItem getFileDesc(File file) {
-        return new FIleItem(file);
+    private FileItem getFileDesc(File file) {
+        return new FileItem(file);
     }
 
 
