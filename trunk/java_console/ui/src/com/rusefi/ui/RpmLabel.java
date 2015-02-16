@@ -1,7 +1,7 @@
 package com.rusefi.ui;
 
 import com.rusefi.io.LinkManager;
-import com.irnems.core.EngineTimeListener;
+import com.rusefi.core.EngineTimeListener;
 
 import javax.swing.*;
 import java.awt.*;
