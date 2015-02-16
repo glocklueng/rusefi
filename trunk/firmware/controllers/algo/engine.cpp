@@ -45,18 +45,31 @@ void Engine::onTriggerEvent(uint64_t nowNt) {
 	lastTriggerEventTimeNt = nowNt;
 }
 
+static void invokeEnginePreCalculate(void) {
+	engine->preCalculate();
+}
+
 Engine::Engine() {
 	lastTriggerEventTimeNt = 0;
 	isCylinderCleanupMode = false;
 	engineCycleEventCount = 0;
 	stopEngineRequestTimeNt = 0;
 	isRunningPwmTest = false;
+
+	configurationListeners.registerCallback(invokeEnginePreCalculate);
 }
 
-void Engine::precalc() {
+/**
+ * Here we have a bunch of stuff which should invoked after configuration change
+ * so that we can prepare some helper structures
+ */
+void Engine::preCalculate() {
 	sparkTable.preCalc(engineConfiguration->sparkDwellBins,
 			engineConfiguration->sparkDwell);
 
+	/**
+	 * Here we prepare a fast, index-based MAF lookup from a slower curve description
+	 */
 	for (int i = 0; i < MAF_DECODING_CACHE_SIZE; i++) {
 		float volts = i / MAF_DECODING_CACHE_MULT;
 		float maf = interpolate2d(volts, engineConfiguration->mafDecodingBins,

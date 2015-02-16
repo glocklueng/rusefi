@@ -196,11 +196,15 @@ public:
 	 */
 	float mafDecodingLookup[MAF_DECODING_CACHE_SIZE];
 
-	void precalc();
+	void preCalculate();
 
 	void updateSlowSensors();
 	void watchdog();
 
+	/**
+	 * here we have all the listeners which should be notified about a configuration
+	 * change
+	 */
 	IntListenerArray configurationListeners;
 
 	monitoring_timestamps_s m;
