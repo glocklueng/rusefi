@@ -45,7 +45,7 @@ void Engine::onTriggerEvent(uint64_t nowNt) {
 	lastTriggerEventTimeNt = nowNt;
 }
 
-static void invokeEnginePreCalculate(void) {
+static void invokeEnginePreCalculate(void *arg) {
 	engine->preCalculate();
 }
 
@@ -56,7 +56,7 @@ Engine::Engine() {
 	stopEngineRequestTimeNt = 0;
 	isRunningPwmTest = false;
 
-	configurationListeners.registerCallback(invokeEnginePreCalculate);
+	configurationListeners.registerCallback((Void)invokeEnginePreCalculate);
 }
 
 /**

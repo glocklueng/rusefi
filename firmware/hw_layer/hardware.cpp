@@ -174,7 +174,7 @@ static void calcFastAdcIndexes(void) {
 					-1 : fastAdc.internalAdcIndexByHardwareIndex[engineConfiguration->hipOutputChannel];
 }
 
-static void adcConfigListener(void) {
+static void adcConfigListener(void *arg) {
 	calcFastAdcIndexes();
 }
 
@@ -341,7 +341,7 @@ void initHardware(Logging *l, Engine *engine) {
 	initJoystick(sharedLogger);
 
 	calcFastAdcIndexes();
-	engine->configurationListeners.registerCallback(adcConfigListener);
+	engine->configurationListeners.registerCallback((Void)adcConfigListener);
 
 	printMsg(sharedLogger, "initHardware() OK!");
 }

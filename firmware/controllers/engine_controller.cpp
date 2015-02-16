@@ -46,6 +46,7 @@
 #include "malfunction_central.h"
 #include "engine.h"
 #include "algo.h"
+#include "LocalVersionHolder.h"
 
 #if HAL_USE_ADC || defined(__DOXYGEN__)
 #include "AdcConfiguration.h"
@@ -197,6 +198,8 @@ static void cylinderCleanupControl(Engine *engine) {
 #endif
 }
 
+static LocalVersionHolder versionForConfigurationListeners;
+
 static void onEvenyGeneralMilliseconds(Engine *engine) {
 #if EFI_PROD_CODE
 	/**
@@ -213,6 +216,10 @@ static void onEvenyGeneralMilliseconds(Engine *engine) {
 	if (!engine->rpmCalculator.isRunning())
 		writeToFlashIfPending();
 #endif
+
+	if(versionForConfigurationListeners.isOld()) {
+		engine->configurationListeners.invokeJustArgCallbacks();
+	}
 
 	engine->watchdog();
 	engine->updateSlowSensors();
