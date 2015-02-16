@@ -1,6 +1,6 @@
 package com.rusefi.ui.test;
 
-import com.rusefi.ui.EngineSnifferPanel;
+import com.rusefi.ui.engine.EngineSnifferPanel;
 import org.junit.Test;
 
 import java.util.Set;

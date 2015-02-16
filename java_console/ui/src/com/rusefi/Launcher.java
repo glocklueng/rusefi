@@ -5,7 +5,9 @@ import com.irnems.core.MessagesCentral;
 import com.rusefi.io.LinkManager;
 import com.rusefi.maintenance.VersionChecker;
 import com.rusefi.ui.*;
+import com.rusefi.ui.engine.EngineSnifferPanel;
 import com.rusefi.ui.storage.Node;
+import com.rusefi.ui.util.DefaultExceptionHandler;
 import jssc.SerialPortList;
 
 import javax.swing.*;
@@ -20,7 +22,7 @@ import static com.rusefi.ui.storage.PersistentConfiguration.getConfig;
  * (c) Andrey Belomutskiy 2013-2015
  *
  * @see StartupFrame
- * @see com.rusefi.ui.EngineSnifferPanel
+ * @see com.rusefi.ui.engine.EngineSnifferPanel
  */
 public class Launcher extends FrameHelper {
     public static final int CONSOLE_VERSION = 20150216;

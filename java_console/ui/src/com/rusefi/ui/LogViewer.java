@@ -3,7 +3,8 @@ package com.rusefi.ui;
 import com.rusefi.FileLog;
 import com.irnems.core.EngineState;
 import com.rusefi.file.FileUtils;
-import com.rusefi.ui.widgets.UpDownImage;
+import com.rusefi.ui.engine.EngineSnifferPanel;
+import com.rusefi.ui.util.UiUtils;
 import com.rusefi.FIleItem;
 import com.rusefi.io.LinkManager;
 
@@ -101,7 +102,7 @@ public class LogViewer extends JPanel {
         descPanel.removeAll();
         descPanel.add(new JLabel("Total digital charts: "));
         descPanel.add(new JLabel("" + ChartRepository.getInstance().getSize()));
-        UpDownImage.trueRepaint(descPanel);
+        UiUtils.trueRepaint(descPanel);
     }
 
     private void openFolder(String folderName) {

@@ -2,7 +2,7 @@ package com.rusefi.maintenance;
 
 import com.rusefi.FileLog;
 import com.rusefi.io.tcp.TcpConnector;
-import com.rusefi.ui.widgets.URLLabel;
+import com.rusefi.ui.util.URLLabel;
 
 import javax.swing.*;
 import java.awt.*;

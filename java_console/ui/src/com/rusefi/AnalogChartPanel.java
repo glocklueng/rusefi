@@ -2,11 +2,10 @@ package com.rusefi;
 
 import com.rusefi.config.Fields;
 import com.rusefi.ui.RpmModel;
-import com.rusefi.ui.UiUtils;
-import com.rusefi.ui.EngineSnifferPanel;
+import com.rusefi.ui.util.UiUtils;
+import com.rusefi.ui.engine.EngineSnifferPanel;
 import com.rusefi.ui.config.ConfigField;
-import com.rusefi.ui.widgets.URLLabel;
-import com.rusefi.ui.widgets.UpDownImage;
+import com.rusefi.ui.util.URLLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +43,7 @@ public class AnalogChartPanel {
 //                MessagesCentral.getConfig().postMessage(AnalogChartPanel.class, "chart arrived, len=" + message.length());
 
                 processValues();
-                UpDownImage.trueRepaint(analogChart);
+                UiUtils.trueRepaint(analogChart);
 
             }
         });
