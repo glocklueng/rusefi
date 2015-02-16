@@ -1,6 +1,6 @@
 package com.rusefi;
 
-import com.irnems.FileLog;
+import com.rusefi.FileLog;
 import com.rusefi.io.tcp.TcpConnector;
 import com.rusefi.ui.widgets.URLLabel;
 
