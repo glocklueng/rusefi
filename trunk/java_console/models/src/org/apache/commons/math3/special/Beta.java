@@ -62,7 +62,7 @@ public class Beta {
      * The coefficients of the series expansion of the Delta function. This function
      * is defined as follows
      * </p>
-     * <center>Δ(x) = log Γ(x) - (x - 0.5) log a + a - 0.5 log 2pi,</center>
+     * <center>Delta(x) = log Gamma(x) - (x - 0.5) log a + a - 0.5 log 2pi,</center>
      * <p>
      * see equation (23) in Didonato and Morris (1992). The series expansion,
      * which applies for x >= 10, reads
@@ -287,7 +287,7 @@ public class Beta {
     }
 
     /**
-     * Returns the value of log[Gamma(b) / Γ(a + b)] for a >= 0 and b >= 10. Based on
+     * Returns the value of log[Gamma(b) / Gamma(a + b)] for a >= 0 and b >= 10. Based on
      * the <em>NSWC Library of Mathematics Subroutines</em> double precision
      * implementation, {@code DLGDIV}. In
      * {@code BetaTest.testLogGammaMinusLogGammaSum()}, this private method is
@@ -329,7 +329,7 @@ public class Beta {
     }
 
     /**
-     * Returns the value of Delta(b) - Δ(a + b), with 0 <= a <= b and b => 10. Based
+     * Returns the value of Delta(b) - Delta(a + b), with 0 <= a <= b and b => 10. Based
      * on equations (26), (27) and (28) in Didonato and Morris (1992).
      *
      * @param a First argument.
