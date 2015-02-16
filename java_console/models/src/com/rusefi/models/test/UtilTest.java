@@ -1,4 +1,4 @@
-package com.irnems.models.test;
+package com.rusefi.models.test;
 
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ import static junit.framework.Assert.assertEquals;
 public class UtilTest {
     @Test
     public void testClosest() {
-        TreeMap<Integer, Object> map = new TreeMap<Integer, Object>();
+        TreeMap<Integer, Object> map = new TreeMap<>();
         map.put(0, "0");
         map.put(1, "1");
         map.put(10, "10");
@@ -24,6 +24,6 @@ public class UtilTest {
         assertEquals(0, findClosest(map, 0));
         assertEquals(1, findClosest(map, 1));
         assertEquals(1, findClosest(map, 3));
-        assertEquals(10, findClosest(map, 10));    }
-
+        assertEquals(10, findClosest(map, 10));
+    }
 }

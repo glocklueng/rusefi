@@ -1,6 +1,5 @@
 package com.rusefi;
 
-import com.rusefi.FileLog;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.FieldPosition;
