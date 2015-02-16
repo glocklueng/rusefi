@@ -1,4 +1,4 @@
-package com.rusefi;
+package com.rusefi.maintenance;
 
 import com.rusefi.FileLog;
 import com.rusefi.io.tcp.TcpConnector;

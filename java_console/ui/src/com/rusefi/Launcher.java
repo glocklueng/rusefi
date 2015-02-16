@@ -1,9 +1,9 @@
 package com.rusefi;
 
-import com.rusefi.FileLog;
 import com.irnems.core.EngineState;
 import com.irnems.core.MessagesCentral;
 import com.rusefi.io.LinkManager;
+import com.rusefi.maintenance.VersionChecker;
 import com.rusefi.ui.*;
 import com.rusefi.ui.storage.Node;
 import jssc.SerialPortList;
