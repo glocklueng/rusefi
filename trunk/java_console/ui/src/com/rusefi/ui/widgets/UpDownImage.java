@@ -3,7 +3,6 @@ package com.rusefi.ui.widgets;
 import com.irnems.core.Sensor;
 import com.irnems.core.SensorCentral;
 import com.irnems.waves.TimeAxisTranslator;
-import com.rusefi.ui.WavePanel;
 import com.rusefi.waves.WaveReport;
 import com.irnems.waves.ZoomProvider;
 import com.rusefi.waves.RevolutionLog;
@@ -22,7 +21,7 @@ import java.util.TreeMap;
  * Date: 6/23/13
  * (c) Andrey Belomutskiy
  *
- * @see WavePanel
+ * @see com.rusefi.ui.EngineSnifferPanel
  */
 public class UpDownImage extends JPanel {
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");

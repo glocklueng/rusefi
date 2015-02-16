@@ -20,7 +20,7 @@ import static com.rusefi.ui.storage.PersistentConfiguration.getConfig;
  * (c) Andrey Belomutskiy 2013-2015
  *
  * @see StartupFrame
- * @see WavePanel
+ * @see com.rusefi.ui.EngineSnifferPanel
  */
 public class Launcher extends FrameHelper {
     public static final int CONSOLE_VERSION = 20150216;
@@ -40,14 +40,14 @@ public class Launcher extends FrameHelper {
         FileLog.MAIN.logLine("Console " + CONSOLE_VERSION);
 
 
-        WavePanel wavePanel = new WavePanel(getConfig().getRoot().getChild("digital_sniffer"));
+        EngineSnifferPanel engineSnifferPanel = new EngineSnifferPanel(getConfig().getRoot().getChild("digital_sniffer"));
         if (LinkManager.isLogViewerMode(port))
-            tabbedPane.add("Log Viewer", new LogViewer(wavePanel));
+            tabbedPane.add("Log Viewer", new LogViewer(engineSnifferPanel));
 
         RpmPanel mainGauges = new RpmPanel(getConfig().getRoot().getChild("main_gauges"));
         tabbedPane.addTab("Main", mainGauges.createRpmPanel());
         tabbedPane.addTab("Gauges", new GaugesPanel().getContent());
-        tabbedPane.addTab("Engine Sniffer", wavePanel.getPanel());
+        tabbedPane.addTab("Engine Sniffer", engineSnifferPanel.getPanel());
         tabbedPane.addTab("Analog Sniffer", new AnalogChartPanel().getPanel());
 
         tabbedPane.addTab("LE controls", new FlexibleControls().getPanel());

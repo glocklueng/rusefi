@@ -30,7 +30,7 @@ import java.util.List;
  *
  * @see ChartStatusPanel status bar
  */
-public class WavePanel {
+public class EngineSnifferPanel {
     private static final int EFI_DEFAULT_CHART_SIZE = 180;
     public static final String CRANK1 = "c1";
     public static final Comparator<String> INSTANCE = new ImageOrderComparator();
@@ -66,7 +66,7 @@ public class WavePanel {
 
     private boolean isPaused;
 
-    public WavePanel(Node config) {
+    public EngineSnifferPanel(Node config) {
         LinkManager.engineState.registerStringValueAction("outpin", new EngineState.ValueCallback<String>() {
             @Override
             public void onUpdate(String value) {
