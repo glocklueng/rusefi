@@ -1,4 +1,4 @@
-package com.irnems.core.test;
+package com.rusefi.core.test;
 
 import com.rusefi.core.SensorCentral;
 import com.rusefi.core.EngineState;

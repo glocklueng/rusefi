@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class ResponseBufferTest {
     @Test
     public void testSingleLine() {
-        final AtomicReference<String> currentReference = new AtomicReference<String>();
+        final AtomicReference<String> currentReference = new AtomicReference<>();
 
         ResponseBuffer rb = new ResponseBuffer(new ResponseBuffer.ResponseListener() {
             public void onResponse(String response) {
