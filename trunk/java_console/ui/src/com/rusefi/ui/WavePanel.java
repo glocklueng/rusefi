@@ -15,7 +15,6 @@ import com.rusefi.waves.WaveChartParser;
 import com.rusefi.waves.WaveReport;
 
 import javax.swing.*;
-import javax.xml.bind.JAXBContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -118,7 +117,7 @@ public class WavePanel {
         buttonPanel.add(clearButton);
         buttonPanel.add(saveImageButton);
         buttonPanel.add(pauseButton);
-        buttonPanel.add(new RpmControl().setSize(2).getContent());
+        buttonPanel.add(new RpmLabel().setSize(2).getContent());
 
         JComponent command = new AnyCommand(config, "chartsize " + EFI_DEFAULT_CHART_SIZE).getContent();
         buttonPanel.add(command);
