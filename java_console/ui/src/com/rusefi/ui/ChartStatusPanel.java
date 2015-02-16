@@ -13,7 +13,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.util.Map;
 
 /**
- * Status bar at the bottom of Digital Sniffer - {@link WavePanel}
+ * Status bar at the bottom of Digital Sniffer - {@link EngineSnifferPanel}
  * <p/>
  * <p/>
  * Date: 12/26/13

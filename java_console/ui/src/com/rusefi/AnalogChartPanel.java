@@ -3,7 +3,7 @@ package com.rusefi;
 import com.rusefi.config.Fields;
 import com.rusefi.ui.RpmModel;
 import com.rusefi.ui.UiUtils;
-import com.rusefi.ui.WavePanel;
+import com.rusefi.ui.EngineSnifferPanel;
 import com.rusefi.ui.config.ConfigField;
 import com.rusefi.ui.widgets.URLLabel;
 import com.rusefi.ui.widgets.UpDownImage;
@@ -51,7 +51,7 @@ public class AnalogChartPanel {
 
         final JPanel upperPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-        JButton imageButton = new JButton(WavePanel.SAVE_IMAGE);
+        JButton imageButton = new JButton(EngineSnifferPanel.SAVE_IMAGE);
         imageButton.setMnemonic('s');
         upperPanel.add(imageButton);
         imageButton.addActionListener(new
@@ -70,7 +70,7 @@ public class AnalogChartPanel {
         final JButton pauseButton = new JButton("Pause");
         upperPanel.add(pauseButton);
 
-        upperPanel.add(new URLLabel(WavePanel.HELP_TEXT, HELP_URL));
+        upperPanel.add(new URLLabel(EngineSnifferPanel.HELP_TEXT, HELP_URL));
         pauseButton.addActionListener(new
                                               ActionListener() {
                                                   @Override
