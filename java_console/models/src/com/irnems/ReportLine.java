@@ -1,7 +1,7 @@
 package com.irnems;
 
-import com.irnems.models.MafValue;
-import com.irnems.models.RpmValue;
+import com.rusefi.models.MafValue;
+import com.rusefi.models.RpmValue;
 
 /**
  * @author Andrey Belomutskiy

@@ -1,7 +1,7 @@
 package com.rusefi.ui;
 
 import com.rusefi.FileLog;
-import com.irnems.core.EngineState;
+import com.rusefi.core.EngineState;
 import com.rusefi.file.FileUtils;
 import com.rusefi.ui.engine.EngineSnifferPanel;
 import com.rusefi.ui.util.UiUtils;

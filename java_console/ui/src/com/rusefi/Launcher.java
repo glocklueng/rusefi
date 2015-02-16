@@ -1,7 +1,7 @@
 package com.rusefi;
 
-import com.irnems.core.EngineState;
-import com.irnems.core.MessagesCentral;
+import com.rusefi.core.EngineState;
+import com.rusefi.core.MessagesCentral;
 import com.rusefi.io.LinkManager;
 import com.rusefi.maintenance.VersionChecker;
 import com.rusefi.ui.*;
