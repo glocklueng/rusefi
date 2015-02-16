@@ -217,7 +217,12 @@ static void onEvenyGeneralMilliseconds(Engine *engine) {
 		writeToFlashIfPending();
 #endif
 
-	if(versionForConfigurationListeners.isOld()) {
+	if (versionForConfigurationListeners.isOld()) {
+		/**
+		 * version change could happen for multiple reason and on different threads
+		 * in order to be sure which thread (and which stack) invokes the potentially heavy
+		 * listeners we invoke them from here.
+		 */
 		engine->configurationListeners.invokeJustArgCallbacks();
 	}
 
@@ -261,7 +266,7 @@ extern AdcDevice fastAdc;
 
 static void printAnalogChannelInfoExt(const char *name, adc_channel_e hwChannel, float adcVoltage) {
 #if HAL_USE_ADC || defined(__DOXYGEN__)
-	if(fastAdc.isHwUsed(hwChannel)) {
+	if (fastAdc.isHwUsed(hwChannel)) {
 		scheduleMsg(&logger, "fast enabled=%s", boolToString(boardConfiguration->isFastAdcEnabled));
 	}
 
