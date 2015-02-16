@@ -89,7 +89,8 @@ public class AnalogChartPanel {
         lowerPanel.setBorder(BorderFactory.createLineBorder(Color.white));
         content.add(lowerPanel, BorderLayout.SOUTH);
 
-        lowerPanel.add(new ConfigField(Fields.ANALOGCHARTFREQUENCY).getContent());
+        lowerPanel.add(new ConfigField(Fields.ANALOGCHARTMODE, "Sensor chart mode").getContent());
+        lowerPanel.add(new ConfigField(Fields.ANALOGCHARTFREQUENCY, "Every XXX engine cycles").getContent());
     }
 
     private void processValues() {
