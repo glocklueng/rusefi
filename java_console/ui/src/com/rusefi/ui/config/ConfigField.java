@@ -1,6 +1,7 @@
 package com.rusefi.ui.config;
 
 import com.rusefi.config.Field;
+import com.rusefi.config.FieldType;
 import com.rusefi.core.MessagesCentral;
 import com.rusefi.core.Pair;
 import com.rusefi.io.CommandQueue;
@@ -23,7 +24,7 @@ public class ConfigField {
         ConnectionStatus.INSTANCE.addListener(new ConnectionStatus.Listener() {
             @Override
             public void onConnectionStatus(boolean isConnected) {
-                CommandQueue.getInstance().write("get_int " + field.getOffset());
+                CommandQueue.getInstance().write(field.getType().getCommand() + " " + field.getOffset());
             }
         });
 
@@ -42,7 +43,7 @@ public class ConfigField {
         MessagesCentral.getInstance().addListener(new MessagesCentral.MessageListener() {
             @Override
             public void onMessage(Class clazz, String message) {
-                if (Field.isIntValueMessage(message)) {
+                if (Field.isIntValueMessage(message) || Field.isFloatValueMessage(message) ) {
                     Pair<Integer, ?> p = Field.parseResponse(message);
                     if (p != null && p.first == field.getOffset()) {
                         view.setText("" + p.second);

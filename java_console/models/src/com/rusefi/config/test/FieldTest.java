@@ -22,6 +22,12 @@ public class FieldTest {
             assertEquals(new Integer(768), p.first);
             assertEquals(21, p.second);
         }
+        {
+            Pair<Integer, ?> p = Field.parseResponse("float @808 is 1.00");
+            assertNotNull(p);
+            assertEquals(new Integer(808), p.first);
+            assertEquals(1.0, p.second);
+        }
     }
 }
 
