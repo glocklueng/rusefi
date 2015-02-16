@@ -1,7 +1,7 @@
 package com.irnems.ui.test;
 
 import com.rusefi.ui.FrameHelper;
-import com.rusefi.ui.EngineSnifferPanel;
+import com.rusefi.ui.engine.EngineSnifferPanel;
 import com.rusefi.ui.storage.PersistentConfiguration;
 
 import javax.swing.*;

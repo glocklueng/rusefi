@@ -1,4 +1,4 @@
-package com.rusefi.ui;
+package com.rusefi.ui.util;
 
 import com.rusefi.FileLog;
 
