@@ -1,10 +1,9 @@
-package com.irnems;
+package com.rusefi;
 
 import com.rusefi.models.Factory;
 import com.rusefi.models.MafValue;
 import com.rusefi.models.RpmValue;
 import com.rusefi.models.Utils;
-import com.rusefi.FileLog;
 
 import java.io.*;
 import java.util.*;

@@ -1,6 +1,6 @@
-package com.irnems.test;
+package com.rusefi.test;
 
-import com.irnems.Histograms;
+import com.rusefi.Histograms;
 import org.junit.Test;
 
 import java.util.Random;
@@ -8,7 +8,7 @@ import java.util.Random;
 import static junit.framework.Assert.assertEquals;
 
 /**
- * Created by pc on 12/18/13.
+ * 12/18/13
  */
 public class HistogramsTest {
 

@@ -1,6 +1,6 @@
 package com.rusefi.core;
 
-import com.irnems.core.test.ResponseBufferTest;
+import com.rusefi.core.test.ResponseBufferTest;
 import org.jetbrains.annotations.NotNull;
 
 /**
