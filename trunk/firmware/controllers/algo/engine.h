@@ -111,6 +111,10 @@ typedef struct {
 	uint32_t fuelCalcTime;
 } monitoring_timestamps_s;
 
+class Engine;
+
+typedef void (*configuration_callback_t)(Engine*);
+
 class Engine {
 public:
 	Engine();
@@ -197,6 +201,7 @@ public:
 	float mafDecodingLookup[MAF_DECODING_CACHE_SIZE];
 
 	void preCalculate();
+	void addConfigurationListener(configuration_callback_t callback);
 
 	void updateSlowSensors();
 	void watchdog();
