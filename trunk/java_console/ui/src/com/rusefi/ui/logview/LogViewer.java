@@ -1,11 +1,11 @@
-package com.rusefi.ui;
+package com.rusefi.ui.logview;
 
 import com.rusefi.FileLog;
 import com.rusefi.core.EngineState;
 import com.rusefi.file.FileUtils;
+import com.rusefi.ui.ChartRepository;
 import com.rusefi.ui.engine.EngineSnifferPanel;
 import com.rusefi.ui.util.UiUtils;
-import com.rusefi.FileItem;
 import com.rusefi.io.LinkManager;
 
 import javax.swing.*;

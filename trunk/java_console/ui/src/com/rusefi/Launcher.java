@@ -6,8 +6,11 @@ import com.rusefi.io.LinkManager;
 import com.rusefi.maintenance.VersionChecker;
 import com.rusefi.ui.*;
 import com.rusefi.ui.engine.EngineSnifferPanel;
+import com.rusefi.ui.fsio.FlexibleControls;
+import com.rusefi.ui.logview.LogViewer;
 import com.rusefi.ui.storage.Node;
 import com.rusefi.ui.util.DefaultExceptionHandler;
+import com.rusefi.ui.util.FrameHelper;
 import jssc.SerialPortList;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package com.rusefi;
+package com.rusefi.ui.logview;
 
 import java.io.File;
 
@@ -6,7 +6,7 @@ import java.io.File;
  * 4/7/14
  * (c) Andrey Belomutskiy
  */
-public class FileItem {
+class FileItem {
     private final File file;
 
     public FileItem(File file) {
