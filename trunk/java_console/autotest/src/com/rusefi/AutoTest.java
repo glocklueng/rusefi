@@ -39,6 +39,15 @@ public class AutoTest {
         assertWaveNull(msg, chart, WaveChart.SPARK_2);
         assertWave(true, msg, chart, WaveChart.SPARK_3, 0.194433, 0.005, x, x + 360);
         assertWaveNull(msg, chart, WaveChart.SPARK_4);
+
+        msg = "2003 Neon running";
+        IoUtil.changeRpm(2000);
+        chart = nextChart();
+        x = 120;
+        assertWave(true, msg, chart, WaveChart.SPARK_1, 0.13299999999999998, 0.005, x + 180, x + 540);
+        assertWaveNull(msg, chart, WaveChart.SPARK_2);
+        assertWave(true, msg, chart, WaveChart.SPARK_3, 0.13299999999999998, 0.005, x, x + 360);
+        assertWaveNull(msg, chart, WaveChart.SPARK_4);
     }
 
     private static void testMazdaProtege() {
