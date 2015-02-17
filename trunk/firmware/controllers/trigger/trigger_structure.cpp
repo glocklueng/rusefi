@@ -81,7 +81,7 @@ void TriggerShape::clear() {
 	useRiseEdge = true;
 
 	invertOnAdd = false;
-	gapBothDirections = true;
+	gapBothDirections = false;
 }
 
 void TriggerShape::reset(operation_mode_e operationMode, bool needSecondTriggerInput) {
