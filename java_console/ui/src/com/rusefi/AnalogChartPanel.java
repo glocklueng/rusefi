@@ -41,12 +41,17 @@ public class AnalogChartPanel {
 
         AnalogChartCentral.addListener(new AnalogChartCentral.AnalogChartListener() {
             @Override
-            public void onAnalogChart(String message) {
-                unpackValues(values, message);
-                if (!paused) {
-                    processValues();
-                    UiUtils.trueRepaint(canvas);
-                }
+            public void onAnalogChart(final String message) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        unpackValues(values, message);
+                        if (!paused) {
+                            processValues();
+                            UiUtils.trueRepaint(canvas);
+                        }
+                    }
+                });
             }
         });
 
