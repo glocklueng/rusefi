@@ -42,6 +42,7 @@ public class AnalogChartPanel {
         AnalogChartCentral.addListener(new AnalogChartCentral.AnalogChartListener() {
             @Override
             public void onAnalogChart(final String message) {
+                // this callback is invoked from the connectivity thread, need to handle in AWT for thread-safety
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
