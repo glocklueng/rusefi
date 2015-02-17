@@ -82,7 +82,8 @@ typedef struct {
 	egt_values_s egtValues;
 	float rpmAcceleration;
 	float massAirFlowValue;
-	int unused3[1];
+	float veValue;
+	//int unused3[1];
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */
