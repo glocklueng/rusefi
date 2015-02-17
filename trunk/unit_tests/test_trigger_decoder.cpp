@@ -309,7 +309,7 @@ static void testTriggerDecoder2(const char *msg, engine_type_e type, int synchPo
 static void testTriggerDecoder3(const char *msg, engine_type_e type, int synchPointIndex, float channel1duty, float channel2duty, float expectedGap) {
 	printGapRatio = true;
 	testTriggerDecoder2(msg, type, synchPointIndex, channel1duty, channel2duty);
-	assertEqualsM("actual gap ratio", expectedGap, actualSynchGap);
+	assertEqualsM2("actual gap ratio", expectedGap, actualSynchGap, 0.001);
 	printGapRatio = false;
 }
 
