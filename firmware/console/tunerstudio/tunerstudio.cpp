@@ -80,6 +80,13 @@ extern persistent_config_container_s persistentState;
 
 static efitimems_t previousWriteReportMs = 0;
 
+/**
+ * we use 'blockingFactor = 256' in rusefi.ini
+ * todo: should we just do (256 + CRC_WRAPPING_SIZE) ?
+ */
+
+static uint8_t crcIoBuffer[300];
+
 static int ts_serial_ready(void) {
 #if EFI_PROD_CODE
 	if (isSerialOverUart()) {
@@ -322,6 +329,7 @@ void handleBurnCommand(ts_response_format_e mode, uint16_t page) {
 }
 
 static TunerStudioReadRequest readRequest;
+static TunerStudioWriteChunkRequest writeChunkRequest;
 static short int pageIn;
 
 /**
@@ -340,11 +348,40 @@ static bool handlePlainCommand(uint8_t command) {
 		// todo: validate 'recieved' value
 		handlePageSelectCommand(TS_PLAIN, pageIn);
 		return true;
+	} else if (command == TS_BURN_COMMAND) {
+		scheduleMsg(tsLogger, "Got naked BURN");
+		uint16_t page;
+		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&page,
+				sizeof(page));
+		if (recieved != sizeof(page)) {
+			tunerStudioError("ERROR: Not enough for plain burn");
+			return true;
+		}
+		handleBurnCommand(TS_PLAIN, page);
+		return true;
+	} else if (command == TS_CHUNK_WRITE_COMMAND) {
+		scheduleMsg(tsLogger, "Got naked CHUNK_WRITE");
+		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&writeChunkRequest,
+				sizeof(writeChunkRequest));
+		if (recieved != sizeof(writeChunkRequest)) {
+			scheduleMsg(tsLogger, "ERROR: Not enough for plain chunk write header: %d", recieved);
+			tsState.errorCounter++;
+			return true;
+		}
+		recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&crcIoBuffer, writeChunkRequest.count);
+		if (recieved != writeChunkRequest.count) {
+			scheduleMsg(tsLogger, "ERROR: Not enough for plain chunk write content: %d while expecting %d", recieved, writeChunkRequest.count);
+			tsState.errorCounter++;
+			return true;
+		}
+
+		handleWriteChunkCommand(TS_PLAIN, writeChunkRequest.offset, writeChunkRequest.count, (uint8_t * )&crcIoBuffer);
+		return true;
 	} else if (command == TS_READ_COMMAND) {
 		//scheduleMsg(logger, "Got naked READ PAGE???");
 		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&readRequest, sizeof(readRequest));
 		if (recieved != sizeof(readRequest)) {
-			// todo: handler error
+			tunerStudioError("Not enough for plain read header");
 			return true;
 		}
 		handlePageReadCommand(TS_PLAIN, readRequest.page, readRequest.offset, readRequest.count);
@@ -377,13 +414,6 @@ static uint8_t secondByte;
 #define CRC_VALUE_SIZE 4
 // todo: double-check this
 #define CRC_WRAPPING_SIZE 7
-
-/**
- * we use 'blockingFactor = 256' in rusefi.ini
- * todo: should we just do (256 + CRC_WRAPPING_SIZE) ?
- */
-
-static uint8_t crcIoBuffer[300];
 
 static msg_t tsThreadEntryPoint(void *arg) {
 	(void) arg;
@@ -444,7 +474,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 		if (incomingPacketSize == 0 || incomingPacketSize > (sizeof(crcIoBuffer) - CRC_WRAPPING_SIZE)) {
 			scheduleMsg(tsLogger, "TunerStudio: invalid size: %d", incomingPacketSize);
-			tunerStudioError("ERROR: size");
+			tunerStudioError("ERROR: CRC header size");
 			sendErrorCode();
 			continue;
 		}
