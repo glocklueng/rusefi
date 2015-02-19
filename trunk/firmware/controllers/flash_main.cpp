@@ -56,12 +56,12 @@ void writeToFlashIfPending() {
 	// todo: technically we need a lock here, realistically we should be fine.
 	needToWriteConfiguration = false;
 	scheduleMsg(logger, "Writing pending configuration");
-	writeToFlash();
+	writeToFlashNow();
 }
 
 extern uint32_t maxLockTime;
 
-void writeToFlash(void) {
+void writeToFlashNow(void) {
 	scheduleMsg(logger, " !!!!!!!!!!!!!!!!!!!! BE SURE NOT WRITE WITH IGNITION ON !!!!!!!!!!!!!!!!!!!!");
 	persistentState.size = PERSISTENT_SIZE;
 	persistentState.version = FLASH_DATA_VERSION;
@@ -119,14 +119,21 @@ void readFromFlash(void) {
 
 static void rewriteConfig(Engine *engine) {
 	doResetConfiguration();
-	writeToFlash();
+	writeToFlashNow();
 }
 
 void initFlash(Logging *sharedLogger, Engine *engine) {
 	logger = sharedLogger;
 
 	addConsoleAction("readconfig", readFromFlash);
-	addConsoleAction("writeconfig", writeToFlash);
+	/**
+	 * This would write NOW (you should not be doing this while connected to real engine)
+	 */
+	addConsoleAction("writeconfig", writeToFlashNow);
+	/**
+	 * This would schedule write to flash once the engine is stopped
+	 */
+	addConsoleAction("burnconfig", setNeedToWriteConfiguration);
 	addConsoleAction("resetconfig", doResetConfiguration);
 	addConsoleActionP("rewriteconfig", (VoidPtr)rewriteConfig, engine);
 }
