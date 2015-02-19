@@ -185,11 +185,13 @@ void setCommonNTCSensor(ThermistorConf *thermistorConf) {
 
 static Logging *logger;
 
+#if EFI_PROD_CODE
 static void testCltByR(float resistance) {
 	Thermistor *thermistor = &engine->clt;
 	float kTemp = getKelvinTemperature(resistance, thermistor->config);
 	scheduleMsg(logger, "for R=%f we have %f", resistance, (kTemp - KELV));
 }
+#endif
 
 void initThermistors(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
 	efiAssertVoid(engine!=NULL, "e NULL initThermistors");
