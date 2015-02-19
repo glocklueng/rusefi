@@ -14,6 +14,10 @@
 #include "flash.h"
 #include "rusefi.h"
 
+#if EFI_TUNER_STUDIO || defined(__DOXYGEN__)
+#include "tunerstudio.h"
+#endif
+
 #if EFI_INTERNAL_FLASH
 
 #include "engine_controller.h"
@@ -130,10 +134,12 @@ void initFlash(Logging *sharedLogger, Engine *engine) {
 	 * This would write NOW (you should not be doing this while connected to real engine)
 	 */
 	addConsoleAction("writeconfig", writeToFlashNow);
+#if EFI_TUNER_STUDIO || defined(__DOXYGEN__)
 	/**
 	 * This would schedule write to flash once the engine is stopped
 	 */
-	addConsoleAction("burnconfig", setNeedToWriteConfiguration);
+	addConsoleAction("burnconfig", requestBurn);
+#endif
 	addConsoleAction("resetconfig", doResetConfiguration);
 	addConsoleActionP("rewriteconfig", (VoidPtr)rewriteConfig, engine);
 }
