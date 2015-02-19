@@ -131,6 +131,7 @@ void setThermistorConfiguration(ThermistorConf * tc, float tempC1, float r1, flo
 }
 
 void prepareThermistorCurve(ThermistorConf * config) {
+    efiAssertVoid(config!=NULL, "therm config");
 	float T1 = config->tempC_1 + KELV;
 	float T2 = config->tempC_2 + KELV;
 	float T3 = config->tempC_3 + KELV;
@@ -194,6 +195,7 @@ static void testCltByR(float resistance) {
 #endif
 
 void initThermistors(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
+	logger = sharedLogger;
 	efiAssertVoid(engine!=NULL, "e NULL initThermistors");
 	efiAssertVoid(engine->engineConfiguration2!=NULL, "e2 NULL initThermistors");
 	initThermistorCurve(&engine->clt, &engine->engineConfiguration->clt, engine->engineConfiguration->cltAdcChannel);
