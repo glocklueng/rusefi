@@ -18,12 +18,24 @@ import static com.rusefi.TestingUtils.*;
  */
 public class AutoTest {
     private static void mainTestBody() {
+        testMazda626();
         test2003DodgeNeon();
         testFordAspire();
         testMazdaProtege();
         test1995DodgeNeon();
         testFord6();
         testFordFiesta();
+    }
+
+    private static void testMazda626() {
+        sendCommand("set_engine_type 28");
+        WaveChart chart;
+        // time to change engine type
+        nextChart();
+        String msg = "Mazda 626";
+        IoUtil.changeRpm(200);
+        nextChart();
+
     }
 
     private static void test2003DodgeNeon() {
