@@ -34,7 +34,10 @@ public class AutoTest {
         nextChart();
         String msg = "Mazda 626";
         IoUtil.changeRpm(200);
-        nextChart();
+        chart = nextChart();
+
+        double x = 275;
+        assertWave("aspire default cranking ", chart, WaveChart.SPARK_1, 0.1944, x, x + 180, x + 360, x + 540);
 
     }
 
