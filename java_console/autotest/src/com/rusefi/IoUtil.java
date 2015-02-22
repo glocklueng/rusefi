@@ -59,10 +59,14 @@ public class IoUtil {
         return result;
     }
 
+    /**
+     * This method is blocking and waits for the next wave chart to arrive
+     * @return next wave chart in the I/O pipeline
+     */
     private static String getWaveChart() {
         final CountDownLatch waveChartLatch = new CountDownLatch(1);
 
-        final AtomicReference<String> result = new AtomicReference<String>();
+        final AtomicReference<String> result = new AtomicReference<>();
 
         LinkManager.engineState.registerStringValueAction(WaveReport.WAVE_CHART, new EngineState.ValueCallback<String>() {
             @Override
@@ -157,5 +161,13 @@ public class IoUtil {
         LinkManager.open();
 
         waitForFirstResponse();
+    }
+
+    static void sleep(int seconds) {
+        try {
+            Thread.sleep(seconds * 1000L);
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e);
+        }
     }
 }
