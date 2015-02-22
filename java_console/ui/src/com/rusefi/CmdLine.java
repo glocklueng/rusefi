@@ -2,7 +2,6 @@ package com.rusefi;
 
 import com.rusefi.core.EngineState;
 import com.rusefi.io.LinkManager;
-import com.sun.javaws.exceptions.ExitException;
 import jssc.SerialPortList;
 
 /**
