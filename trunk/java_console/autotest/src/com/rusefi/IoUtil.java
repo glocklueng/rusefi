@@ -22,6 +22,13 @@ import static com.rusefi.waves.WaveReport.isCloseEnough;
  *         3/19/14.
  */
 public class IoUtil {
+    private static final int CMD_TIMEOUT = 20;
+
+    /**
+     * Send a command and wait for the confirmation
+     *
+     * @throws IllegalStateException if command was not confirmed
+     */
     static void sendCommand(String command) {
         final CountDownLatch responseLatch = new CountDownLatch(1);
         long time = System.currentTimeMillis();
@@ -34,7 +41,7 @@ public class IoUtil {
                 responseLatch.countDown();
             }
         });
-        wait(responseLatch, 20);
+        wait(responseLatch, CMD_TIMEOUT);
         if (LinkManager.hasError())
             throw new IllegalStateException("IO error");
         FileLog.MAIN.logLine("Command [" + command + "] executed in " + (System.currentTimeMillis() - time));
@@ -167,6 +174,7 @@ public class IoUtil {
         waitForFirstResponse();
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     static void sleep(int seconds) {
         try {
             Thread.sleep(seconds * 1000L);
