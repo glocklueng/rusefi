@@ -75,6 +75,9 @@ public class LinkManager {
         return connector == LinkManager.VOID;
     }
 
+    /**
+     * todo: should this be merged into {@link #start(String)} ?
+     */
     public static void open() {
         if (connector == null)
             throw new NullPointerException("connector");
