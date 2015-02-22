@@ -170,7 +170,7 @@ public class IoUtil {
          * TCP connector is blocking
          */
         LinkManager.open();
-
+        LinkManager.engineState.registerStringValueAction(EngineState.RUS_EFI_VERSION_TAG, (EngineState.ValueCallback<String>) EngineState.ValueCallback.VOID);
         waitForFirstResponse();
     }
 
