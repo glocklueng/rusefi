@@ -10,6 +10,7 @@ import com.rusefi.io.tcp.TcpConnector;
 import com.rusefi.waves.WaveChart;
 import com.rusefi.waves.WaveChartParser;
 import com.rusefi.waves.WaveReport;
+import jssc.SerialPortList;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -181,5 +182,26 @@ public class IoUtil {
         } catch (InterruptedException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    /**
+     * @return null if no port located
+     */
+    static String getDefaultPort() {
+        String[] ports = SerialPortList.getPortNames();
+        if (ports.length == 0) {
+            System.out.println("Port not specified and no ports found");
+            return null;
+        }
+        String port = ports[ports.length - 1];
+        System.out.println("Using last of " + ports.length + " port(s)");
+        return port;
+    }
+
+    static void realHardwareConnect(String port) {
+        LinkManager.start(port);
+        LinkManager.open();
+        LinkManager.engineState.registerStringValueAction(EngineState.RUS_EFI_VERSION_TAG, (EngineState.ValueCallback<String>) EngineState.ValueCallback.VOID);
+        LinkManager.engineState.registerStringValueAction(EngineState.OUTPIN_TAG, (EngineState.ValueCallback<String>) EngineState.ValueCallback.VOID);
     }
 }
