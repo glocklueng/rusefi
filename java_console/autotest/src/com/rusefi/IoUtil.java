@@ -82,7 +82,7 @@ public class IoUtil {
         final AtomicReference<String> result = new AtomicReference<>();
 
         FileLog.MAIN.logLine("waiting for next chart");
-        LinkManager.engineState.registerStringValueAction(WaveReport.WAVE_CHART, new EngineState.ValueCallback<String>() {
+        LinkManager.engineState.replaceStringValueAction(WaveReport.WAVE_CHART, new EngineState.ValueCallback<String>() {
             @Override
             public void onUpdate(String value) {
                 waveChartLatch.countDown();
@@ -93,7 +93,7 @@ public class IoUtil {
         long waitStartTime = System.currentTimeMillis();
         wait(waveChartLatch, timeout);
         FileLog.MAIN.logLine("got next chart in " + (System.currentTimeMillis() - waitStartTime) + "ms");
-        LinkManager.engineState.removeAction(WaveReport.WAVE_CHART);
+        LinkManager.engineState.replaceStringValueAction(WaveReport.WAVE_CHART, (EngineState.ValueCallback<String>) EngineState.ValueCallback.VOID);
         if (result.get() == null)
             throw new IllegalStateException("Chart timeout: " + timeout);
         return result.get();
