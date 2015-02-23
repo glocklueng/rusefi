@@ -47,9 +47,9 @@ void setMazda626EngineConfiguration(engine_configuration_s *engineConfiguration)
 //	engineConfiguration->map.sensor.hwChannel = EFI_ADC_4;
 	engineConfiguration->mafAdcChannel = EFI_ADC_0;
 	engineConfiguration->cltAdcChannel = EFI_ADC_12;
-//	engineConfiguration->iatAdcChannel = EFI_ADC_11;
-//
-//	// todo: 8.2 or 10k?
-//	engineConfiguration->vbattDividerCoeff = ((float) (10 + 33)) / 10 * 2;
+	engineConfiguration->iatAdcChannel = EFI_ADC_11;
+
+	// todo: 8.2 or 10k?
+	engineConfiguration->vbattDividerCoeff = ((float) (10 + 33)) / 10 * 2;
 
 }
