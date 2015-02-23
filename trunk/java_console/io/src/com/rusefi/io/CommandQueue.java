@@ -83,7 +83,9 @@ public class CommandQueue {
     }
 
     private CommandQueue() {
-        new Thread(runnable, "Commands Queue").start();
+        Thread thread = new Thread(runnable, "Commands Queue");
+        thread.setDaemon(true);
+        thread.start();
         final MessagesCentral mc = MessagesCentral.getInstance();
         mc.addListener(new MessagesCentral.MessageListener() {
             @Override
