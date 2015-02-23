@@ -1,13 +1,23 @@
 rem
-rem This script would compule firmware, dev console and win32 simulator into a single bundle file
+rem This script would compile firmware, dev console and win32 simulator into a single bundle file
 rem This script depends on Cygwin tools: zip
 rem
 
+echo Hello rusEfi
+date
+
+echo Building win32 functional tests
+cd win32_functional_tests
+gcc -v
+make -v
+cd ..
+
+
+
 cd firmware
+date
 echo "CD to ${PWD}"
-
 echo Building firmware
-
 rm -fR .dep
 rm -fR build
 java -jar ../java_tools/version2header.jar
@@ -15,6 +25,7 @@ make
 if not exist build/rusefi.hex echo FAILED
 if not exist build/rusefi.hex exit -1
 cd ..
+
 
 echo Building java console
 cd java_console
@@ -60,3 +71,7 @@ cp misc/console_launcher/rusefi_console.exe %folder%
 cd temp
 zip -r rusefi_bundle.zip *
 cd ..
+
+date
+
+echo "DONE here"
