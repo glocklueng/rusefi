@@ -9,6 +9,7 @@ import static com.rusefi.AutoTest.*;
  */
 public class RealHwTest {
     public static void main(String[] args) {
+        FileLog.MAIN.start();
         String port;
         if (args.length == 1) {
             port = args[0];
