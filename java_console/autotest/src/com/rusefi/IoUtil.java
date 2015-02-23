@@ -31,12 +31,16 @@ public class IoUtil {
      * @throws IllegalStateException if command was not confirmed
      */
     static void sendCommand(String command) {
+        sendCommand(command, CommandQueue.DEFAULT_TIMEOUT);
+    }
+
+    static void sendCommand(String command, int timeoutMs) {
         final CountDownLatch responseLatch = new CountDownLatch(1);
         long time = System.currentTimeMillis();
         if (LinkManager.hasError())
             throw new IllegalStateException("IO error");
         FileLog.MAIN.logLine("Sending command [" + command + "]");
-        CommandQueue.getInstance().write(command, CommandQueue.DEFAULT_TIMEOUT, new InvocationConfirmationListener() {
+        CommandQueue.getInstance().write(command, timeoutMs, new InvocationConfirmationListener() {
             @Override
             public void onCommandConfirmation() {
                 responseLatch.countDown();
@@ -203,5 +207,6 @@ public class IoUtil {
         LinkManager.open();
         LinkManager.engineState.registerStringValueAction(EngineState.RUS_EFI_VERSION_TAG, (EngineState.ValueCallback<String>) EngineState.ValueCallback.VOID);
         LinkManager.engineState.registerStringValueAction(EngineState.OUTPIN_TAG, (EngineState.ValueCallback<String>) EngineState.ValueCallback.VOID);
+        LinkManager.engineState.registerStringValueAction(AverageAnglesUtil.KEY, (EngineState.ValueCallback<String>) EngineState.ValueCallback.VOID);
     }
 }
