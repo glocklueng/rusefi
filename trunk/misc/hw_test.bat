@@ -2,22 +2,21 @@
 cd ../firmware
 echo Compiling
 pwd
-rm -rf .dep/
-
-rm -rf build\rusefi.bin
-make
-
-
-cd build
-arm-none-eabi-size  --format=berkeley "rusefi.elf"
-echo Flashing
+call compile.bat
 pwd
-call ../flash_openocd
-cd ..
-
 
 cd ..
+
 echo Running some commands
 pwd
 
-java -cp java_console_binary\rusefi_console.jar com.rusefi.CmdLine "set_led_blinking_period 10"
+rem java -cp java_console_binary\rusefi_console.jar com.rusefi.CmdLine "set_led_blinking_period 10"
+
+cd java_console
+
+echo Running tests
+ant realtest
+
+IF NOT ERRORLEVEL echo ERROR DETECTED
+IF NOT ERRORLEVEL 0 EXIT /B 1
+
