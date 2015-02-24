@@ -36,6 +36,11 @@ void setCustomEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->iatAdcChannel = EFI_ADC_11;
 	engineConfiguration->afr.hwChannel = EFI_ADC_13;
 
+	setCommonNTCSensor(&engineConfiguration->clt);
+	engineConfiguration->clt.bias_resistor = 2700;
+	setCommonNTCSensor(&engineConfiguration->iat);
+	engineConfiguration->iat.bias_resistor = 2700;
+
 
 	/**
 	 * http://rusefi.com/wiki/index.php?title=Manual:Hardware_Frankenso_board
