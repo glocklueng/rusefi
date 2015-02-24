@@ -40,8 +40,8 @@ public class AutoTest {
 
     private static void setEngineType(int type) {
         currentEngineType = type;
-        sendCommand("set_engine_type " + type, 10000);
-        sleep(5);
+        sendCommand("set_engine_type " + type, 10000, 600);
+        sleep(10);
         sendCommand("enable self_stimulation");
     }
 
