@@ -1,5 +1,6 @@
 
 cd ../firmware
+call flash_erase
 echo Compiling
 pwd
 call compile.bat
