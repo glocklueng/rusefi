@@ -9,6 +9,7 @@
 
 #include "custom_engine.h"
 #include "honda_accord.h"
+#include "allsensors.h"
 
 void setCustomEngineConfiguration(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->trigger.type = TT_ONE_PLUS_ONE;
