@@ -40,13 +40,17 @@ public class IoUtil {
         if (LinkManager.hasError())
             throw new IllegalStateException("IO error");
         FileLog.MAIN.logLine("Sending command [" + command + "]");
+        final long begin = System.currentTimeMillis();
         CommandQueue.getInstance().write(command, timeoutMs, new InvocationConfirmationListener() {
             @Override
             public void onCommandConfirmation() {
                 responseLatch.countDown();
+                FileLog.MAIN.logLine("Got confirmation in " + (System.currentTimeMillis() - begin) + "ms");
             }
         });
-        wait(responseLatch, CMD_TIMEOUT);
+        wait(responseLatch, timeoutMs);
+        if (responseLatch.getCount() > 0)
+            FileLog.MAIN.logLine("No confirmation in " + timeoutMs);
         if (LinkManager.hasError())
             throw new IllegalStateException("IO error");
         FileLog.MAIN.logLine("Command [" + command + "] executed in " + (System.currentTimeMillis() - time));

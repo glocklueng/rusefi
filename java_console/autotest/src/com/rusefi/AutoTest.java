@@ -21,6 +21,7 @@ public class AutoTest {
     static int currentEngineType;
 
     static void mainTestBody() {
+        sendCommand("fl 1"); // just in case it was disabled
         testCitroenBerlingo();
         testMazda626();
         test2003DodgeNeon();
