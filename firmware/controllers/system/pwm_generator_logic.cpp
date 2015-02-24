@@ -26,7 +26,7 @@ SimplePwm::SimplePwm() {
 PwmConfig::PwmConfig() {
 	memset(&scheduling, 0, sizeof(scheduling));
 	scheduling.name = "PwmConfig";
-	periodNt = phaseCount = 0;
+	phaseCount = 0;
 	cycleCallback = NULL;
 	stateChangeCallback = NULL;
 }
