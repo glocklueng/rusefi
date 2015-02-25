@@ -358,6 +358,10 @@ static pin_output_mode_e defa = OM_DEFAULT;
 
 void initFsioImpl(Logging *sharedLogger, Engine *engine) {
 	logger = sharedLogger;
+	for (int i = 0; i < LE_COMMAND_COUNT; i++) {
+		fsioLogics[i] = NULL;
+	}
+
 
 #if EFI_FUEL_PUMP
 	fuelPumpLogic = sysPool.parseExpression(FUEL_PUMP_LOGIC);
