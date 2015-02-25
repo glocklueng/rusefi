@@ -260,13 +260,17 @@ float LECalculator::getValue(Engine *engine) {
 
 	stack.reset();
 
+	int counter = 0;
 	while (element != NULL) {
+		efiAssert(counter < 200, "FSIOcount", NAN); // just in case
+
 		bool_t isError = doJob(engine, element);
 		if (isError) {
 			// error already reported
 			return NAN;
 		}
 		element = element->next;
+		counter++;
 	}
 	if (stack.size() != 1) {
 		warning(OBD_PCM_Processor_Fault, "unexpected FSIO stack size: %d", stack.size());
