@@ -57,6 +57,8 @@ LENameOrdinalPair::LENameOrdinalPair(le_action_e action, const char *name) {
 LEElement::LEElement() {
 	action = LE_UNDEFINED;
 	next = NULL;
+	fValue = NAN;
+	iValue = 0;
 }
 
 //void LEElement::init(le_action_e action, int iValue) {
