@@ -357,6 +357,9 @@ LEElement *LEElementPool::parseExpression(const char * line) {
 		}
 
 		LEElement *n = next();
+		if (n == NULL) {
+			return first;
+		}
 
 		if (isNumeric(parsingBuffer)) {
 			n->init(LE_NUMERIC_VALUE, atoff(parsingBuffer));
