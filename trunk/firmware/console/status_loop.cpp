@@ -579,7 +579,9 @@ void updateTunerStudioState(Engine *engine, TunerStudioOutputChannels *tsOutputC
 	tsOutputChannels->cylinder_cleanup_enabled = engineConfiguration->isCylinderCleanupEnabled;
 	tsOutputChannels->cylinder_cleanup_activated = engine->isCylinderCleanupMode;
 	tsOutputChannels->secondTriggerChannelEnabled = engineConfiguration->secondTriggerChannelEnabled;
+#if EFI_VEHICLE_SPEED || defined(__DOXYGEN__)
 	tsOutputChannels->vehicleSpeedKph = getVehicleSpeed();
+#endif /* EFI_VEHICLE_SPEED */
 	tsOutputChannels->isCltError = !isValidCoolantTemperature(getCoolantTemperature(engine));
 	tsOutputChannels->isIatError = !isValidIntakeAirTemperature(getIntakeAirTemperature(engine));
 #endif
