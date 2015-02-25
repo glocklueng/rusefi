@@ -410,7 +410,7 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 static void showTriggerHistogram(void) {
 	printAllCallbacksHistogram();
 	showMainHistogram();
-#if EFI_PROD_CODE
+#if EFI_WAVE_CHART || defined(__DOXYGEN__)
 	showWaveChartHistogram();
 #endif
 }
