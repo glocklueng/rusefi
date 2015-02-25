@@ -4,6 +4,11 @@ call flash_erase
 echo Compiling
 pwd
 call compile.bat
+
+if not exist build/rusefi.bin echo FAILED TO COMPILE
+if not exist build/rusefi.bin exit -1
+
+
 pwd
 
 cd ..
