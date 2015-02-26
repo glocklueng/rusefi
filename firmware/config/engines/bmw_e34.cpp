@@ -65,6 +65,17 @@ void setBmwE34(engine_configuration_s *engineConfiguration) {
 
 	bc->triggerErrorPin = GPIOE_3;
 
+	engineConfiguration->clutchUpPin = GPIOD_3;
+	engineConfiguration->clutchUpPinMode = PI_PULLUP;
+
+	boardConfiguration->idleValvePin = GPIOC_13;
+	boardConfiguration->idleSolenoidFrequency = 300;
+
+	// turbocharger boost control solenoid: TODO output: GPIOE_6
+	// water injection #1 TODO GPIOD_7
+	// water injection #2 TODO GPIOE_2
+
+
 	/**
 	 * emulating the 60-0 trigger takes some resources, let's keep it slow by default
 	 * rpm 200
