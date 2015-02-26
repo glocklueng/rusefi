@@ -388,7 +388,7 @@ void initIntermediateLoggingBuffer(void) {
 
 Logging::Logging() {
 	name = NULL;
-	buffer = linePointer = NULL;
+	linePointer = buffer = linePointer = NULL;
 	bufferSize = 0;
 	isInitialized = false;
 }
