@@ -15,6 +15,9 @@
 #include "bmw_e34.h"
 
 void setBmwE34(engine_configuration_s *engineConfiguration) {
+	board_configuration_s * boardConfiguration = &engineConfiguration->bc;
+
+	boardConfiguration->tunerStudioThreadPeriod = 50;
 	engineConfiguration->rpmHardLimit = 6000;
 	setOperationMode(engineConfiguration, FOUR_STROKE_CRANK_SENSOR);
 
