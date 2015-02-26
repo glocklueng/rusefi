@@ -10,6 +10,7 @@
 
 IntListenerArray::IntListenerArray() {
 	currentListenersCount = 0;
+// todo	args = NULL;
 }
 
 void IntListenerArray::registerCallback(VoidInt handler, void *arg) {
