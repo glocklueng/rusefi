@@ -66,13 +66,13 @@ MenuItem::MenuItem(MenuItem * parent, lcd_line_e lcdLine, const char *text, Void
 	lastChild = NULL;
 	topOfTheList = NULL;
 	next = NULL;
+	index = 0;
 
 	// root element has NULL parent
 	if (parent != NULL) {
 		if (parent->firstChild == NULL) {
-			parent->firstChild = this;
-			index = 0;
 			topOfTheList = this;
+			parent->firstChild = this;
 		}
 		if (parent->lastChild != NULL) {
 			index = parent->lastChild->index + 1;
