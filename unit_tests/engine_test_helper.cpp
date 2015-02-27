@@ -13,10 +13,8 @@
 
 extern int timeNow;
 
-EngineTestHelper::EngineTestHelper(engine_type_e engineType) {
+EngineTestHelper::EngineTestHelper(engine_type_e engineType) : engine (&persistentConfig) {
 	ec = &persistentConfig.engineConfiguration;
-	this->engine.engineConfiguration = &persistentConfig.engineConfiguration;
-
 
 	engine_configuration_s *engineConfiguration = ec;
 

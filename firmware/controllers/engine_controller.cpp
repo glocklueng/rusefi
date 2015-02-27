@@ -92,7 +92,7 @@ engine_configuration2_s * engineConfiguration2 = &ec2;
 /**
  * todo: this should probably become 'static', i.e. private, and propagated around explicitly?
  */
-Engine _engine;
+Engine _engine(&persistentState.persistentConfiguration);
 Engine * engine = &_engine;
 #endif
 
