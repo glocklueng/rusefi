@@ -144,6 +144,10 @@ static const char* boolean2string(int value) {
 	return value ? "YES" : "NO";
 }
 
+EXTERN_ENGINE
+;
+
+
 void printSensors(Logging *log, bool fileFormat, Engine *engine) {
 	// current time, in milliseconds
 	int nowMs = currentTimeMillis();
@@ -188,17 +192,15 @@ void printSensors(Logging *log, bool fileFormat, Engine *engine) {
 	reportSensorF(log, fileFormat, "TP", "%", getTPS(PASS_ENGINE_PARAMETER_F), 2);
 
 	if (engineConfiguration->hasCltSensor) {
-		reportSensorF(log, fileFormat, "CLT", "C", getCoolantTemperature(engine), 2);
+		reportSensorF(log, fileFormat, "CLT", "C", getCoolantTemperature(PASS_ENGINE_PARAMETER_F), 2);
 	}
 
-	reportSensorF(log, fileFormat, "MAT", "C", getIntakeAirTemperature(engine), 2);
+	reportSensorF(log, fileFormat, "MAT", "C", getIntakeAirTemperature(PASS_ENGINE_PARAMETER_F), 2);
 
 //	debugFloat(&logger, "tch", getTCharge1(tps), 2);
 
 }
 
-EXTERN_ENGINE
-;
 
 void writeLogLine(void) {
 	if (!main_loop_started)
@@ -381,8 +383,7 @@ void updateDevConsoleState(Engine *engine) {
  * that would be 'show fuel for rpm 3500 maf 4.0'
  */
 
-static void showFuelInfo2(float rpm, float engineLoad, Engine *engine) {
-	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
+static void showFuelInfo2(float rpm, float engineLoad) {
 
 	float baseFuelMs = getBaseTableFuel(engineConfiguration, (int) rpm, engineLoad);
 
@@ -395,11 +396,11 @@ static void showFuelInfo2(float rpm, float engineLoad, Engine *engine) {
 
 #if EFI_ENGINE_CONTROL
 	scheduleMsg(&logger, "base cranking fuel %f", engineConfiguration->cranking.baseFuel);
-	scheduleMsg(&logger2, "cranking fuel: %f", getCrankingFuel(engine));
+	scheduleMsg(&logger2, "cranking fuel: %f", getCrankingFuel(PASS_ENGINE_PARAMETER_F));
 
 	if (engine->rpmCalculator.isRunning()) {
-		float iatCorrection = getIatCorrection(getIntakeAirTemperature(engine) PASS_ENGINE_PARAMETER);
-		float cltCorrection = getCltCorrection(getCoolantTemperature(engine) PASS_ENGINE_PARAMETER);
+		float iatCorrection = getIatCorrection(getIntakeAirTemperature(PASS_ENGINE_PARAMETER_F) PASS_ENGINE_PARAMETER);
+		float cltCorrection = getCltCorrection(getCoolantTemperature(PASS_ENGINE_PARAMETER_F) PASS_ENGINE_PARAMETER);
 		float injectorLag = getInjectorLag(getVBatt(engineConfiguration) PASS_ENGINE_PARAMETER);
 		scheduleMsg(&logger2, "rpm=%f engineLoad=%f", rpm, engineLoad);
 		scheduleMsg(&logger2, "baseFuel=%f", baseFuelMs);
@@ -414,8 +415,8 @@ static void showFuelInfo2(float rpm, float engineLoad, Engine *engine) {
 }
 
 #if EFI_ENGINE_CONTROL
-static void showFuelInfo(Engine *engine) {
-	showFuelInfo2((float) getRpmE(engine), getEngineLoadT(PASS_ENGINE_PARAMETER), engine);
+static void showFuelInfo(void) {
+	showFuelInfo2((float) getRpmE(engine), getEngineLoadT(PASS_ENGINE_PARAMETER));
 }
 #endif
 
@@ -537,8 +538,8 @@ void updateTunerStudioState(Engine *engine, TunerStudioOutputChannels *tsOutputC
 	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 
 	float tps = getTPS(PASS_ENGINE_PARAMETER_F);
-	float coolant = getCoolantTemperature(engine);
-	float intake = getIntakeAirTemperature(engine);
+	float coolant = getCoolantTemperature(PASS_ENGINE_PARAMETER_F);
+	float intake = getIntakeAirTemperature(PASS_ENGINE_PARAMETER_F);
 
 	float engineLoad = getEngineLoadT(PASS_ENGINE_PARAMETER);
 	float baseFuelMs = getBaseTableFuel(engineConfiguration, (int) rpm, engineLoad);
@@ -591,8 +592,8 @@ void updateTunerStudioState(Engine *engine, TunerStudioOutputChannels *tsOutputC
 #if EFI_VEHICLE_SPEED || defined(__DOXYGEN__)
 	tsOutputChannels->vehicleSpeedKph = getVehicleSpeed();
 #endif /* EFI_VEHICLE_SPEED */
-	tsOutputChannels->isCltError = !isValidCoolantTemperature(getCoolantTemperature(engine));
-	tsOutputChannels->isIatError = !isValidIntakeAirTemperature(getIntakeAirTemperature(engine));
+	tsOutputChannels->isCltError = !isValidCoolantTemperature(getCoolantTemperature(PASS_ENGINE_PARAMETER_F));
+	tsOutputChannels->isIatError = !isValidIntakeAirTemperature(getIntakeAirTemperature(PASS_ENGINE_PARAMETER_F));
 #endif /* EFI_PROD_CODE */
 
 	tsOutputChannels->clutchUpState = engine->clutchUpState;
@@ -603,7 +604,7 @@ void updateTunerStudioState(Engine *engine, TunerStudioOutputChannels *tsOutputC
 	tsOutputChannels->sparkDwell = getSparkDwellMsT(rpm PASS_ENGINE_PARAMETER);
 	tsOutputChannels->baseFuel = baseFuelMs;
 	tsOutputChannels->pulseWidthMs = getRunningFuel(baseFuelMs, rpm PASS_ENGINE_PARAMETER);
-	tsOutputChannels->crankingFuelMs = getCrankingFuel(engine);
+	tsOutputChannels->crankingFuelMs = getCrankingFuel(PASS_ENGINE_PARAMETER_F);
 }
 
 extern TunerStudioOutputChannels tsOutputChannels;
@@ -636,8 +637,8 @@ void initStatusLoop(Engine *engine) {
 #if EFI_PROD_CODE
 
 #if EFI_ENGINE_CONTROL
-	addConsoleActionFFP("fuelinfo2", (VoidFloatFloatVoidPtr) showFuelInfo2, engine);
-	addConsoleActionP("fuelinfo", (VoidPtr) showFuelInfo, engine);
+	addConsoleActionFF("fuelinfo2", (VoidFloatFloat) showFuelInfo2);
+	addConsoleAction("fuelinfo", showFuelInfo);
 #endif
 
 	subscription[(int) RO_TRG1_DUTY] = true;
