@@ -103,7 +103,8 @@ void Engine::init() {
 }
 
 static bool stopPin(NamedOutputPin *output) {
-	if (output->getLogicValue()) {
+	bool_t isInitialized = output->port != NULL;
+	if (isInitialized && output->getLogicValue()) {
 		output->setValue(false);
 		scheduleMsg(&logger, "turning off %s", output->name);
 		return true;
