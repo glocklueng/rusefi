@@ -451,7 +451,7 @@ void initEngineContoller(Logging *sharedLogger, Engine *engine) {
 	 * This has to go after 'initInjectorCentral' and 'initInjectorCentral' in order to
 	 * properly detect un-assigned output pins
 	 */
-	prepareShapes(engine);
+	prepareShapes(PASS_ENGINE_PARAMETER_F);
 #endif
 
 #if EFI_PWM_TESTER || defined(__DOXYGEN__)
