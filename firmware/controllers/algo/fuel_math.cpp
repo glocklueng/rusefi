@@ -74,7 +74,7 @@ float getRealMafFuel(float airSpeed, int rpm DECLARE_ENGINE_PARAMETER_S) {
 
 float getBaseFuel(int rpm DECLARE_ENGINE_PARAMETER_S) {
 	if (engineConfiguration->algorithm == LM_SPEED_DENSITY) {
-		return getSpeedDensityFuel(engine, rpm);
+		return getSpeedDensityFuel(rpm PASS_ENGINE_PARAMETER);
 	} else if (engineConfiguration->algorithm == LM_REAL_MAF) {
 		return getRealMafFuel(getRealMaf(PASS_ENGINE_PARAMETER_F), rpm PASS_ENGINE_PARAMETER);
 	} else {
