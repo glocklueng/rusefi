@@ -190,7 +190,7 @@ float getBaseTableFuel(engine_configuration_s *engineConfiguration, int rpm, flo
  * @return Duration of fuel injection while craning, in milliseconds
  */
 float getCrankingFuel(DECLARE_ENGINE_PARAMETER_F) {
-	return getCrankingFuel3(engine->engineConfiguration, getCoolantTemperature(PASS_ENGINE_PARAMETER_F),
+	return getCrankingFuel3(engineConfiguration, getCoolantTemperature(PASS_ENGINE_PARAMETER_F),
 			engine->rpmCalculator.getRevolutionCounterSinceStart());
 }
 #endif
