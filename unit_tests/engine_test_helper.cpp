@@ -43,7 +43,7 @@ EngineTestHelper::EngineTestHelper(engine_type_e engineType) {
 	initSpeedDensity(ec);
 
 	resetConfigurationExt(NULL, engineType PASS_ENGINE_PARAMETER);
-	prepareShapes(engine);
+	prepareShapes(PASS_ENGINE_PARAMETER_F);
 	engine->engineConfiguration->mafAdcChannel = (adc_channel_e)TEST_MAF_CHANNEL;
 }
 
