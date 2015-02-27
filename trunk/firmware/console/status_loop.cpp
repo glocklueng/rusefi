@@ -148,7 +148,7 @@ EXTERN_ENGINE
 ;
 
 
-void printSensors(Logging *log, bool fileFormat, Engine *engine) {
+void printSensors(Logging *log, bool fileFormat) {
 	// current time, in milliseconds
 	int nowMs = currentTimeMillis();
 	float sec = ((float) nowMs) / 1000;
@@ -207,7 +207,7 @@ void writeLogLine(void) {
 		return;
 #if EFI_FILE_LOGGING || defined(__DOXYGEN__)
 	resetLogging(&fileLogger);
-	printSensors(&fileLogger, true, engine);
+	printSensors(&fileLogger, true);
 
 	if (isSdCardAlive()) {
 		appendPrintf(&fileLogger, "\r\n");
@@ -219,7 +219,7 @@ void writeLogLine(void) {
 
 static void printState(Engine *engine) {
 #if EFI_SHAFT_POSITION_INPUT || defined(__DOXYGEN__)
-	printSensors(&logger, false, engine);
+	printSensors(&logger, false);
 
 	// todo: make SWO work
 //	char *msg = "hello\r\n";
