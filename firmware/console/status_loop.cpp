@@ -161,8 +161,6 @@ void printSensors(Logging *log, bool fileFormat) {
 	reportSensorF(log, fileFormat, "TRG_1_DUTY", "%", getTriggerDutyCycle(1), 2);
 #endif
 
-	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
-
 	if (engineConfiguration->hasMafSensor) {
 		reportSensorF(log, fileFormat, "maf", "V", getMaf(), 2);
 		reportSensorF(log, fileFormat, "mafr", "kg/hr", getRealMaf(), 2);
@@ -217,7 +215,7 @@ void writeLogLine(void) {
 #endif /* EFI_FILE_LOGGING */
 }
 
-static void printState(Engine *engine) {
+static void printState(void) {
 #if EFI_SHAFT_POSITION_INPUT || defined(__DOXYGEN__)
 	printSensors(&logger, false);
 
@@ -226,8 +224,6 @@ static void printState(Engine *engine) {
 //	for(int i=0;i<strlen(msg);i++) {
 //		ITM_SendChar(msg[i]);
 //	}
-
-	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 
 	int rpm = getRpmE(engine);
 	if (subscription[(int) RO_TOTAL_REVOLUTION_COUNTER])
@@ -287,9 +283,7 @@ static void printOutPin(const char *pinName, brain_pin_e hwPin) {
 }
 #endif /* EFI_PROD_CODE */
 
-static void printInfo(Engine *engine, systime_t nowSeconds) {
-	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
-
+static void printInfo(systime_t nowSeconds) {
 	/**
 	 * we report the version every 4 seconds - this way the console does not need to
 	 * request it and we will display it pretty soon
@@ -352,7 +346,7 @@ void updateDevConsoleState(Engine *engine) {
 	}
 
 	systime_t nowSeconds = getTimeNowSeconds();
-	printInfo(engine, nowSeconds);
+	printInfo(nowSeconds);
 
 #if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 	int currentCkpEventCounter = getCrankEventCounter();
@@ -366,7 +360,7 @@ void updateDevConsoleState(Engine *engine) {
 	chThdSleepMilliseconds(200);
 #endif
 
-	printState(engine);
+	printState();
 
 #if EFI_WAVE_ANALYZER
 	printWave(&logger);
@@ -511,13 +505,14 @@ static void blinkingThread(void *arg) {
 
 #endif /* EFI_PROD_CODE */
 
-static void lcdThread(Engine *engine) {
+static void lcdThread(void *arg) {
+	(void)arg;
 	chRegSetThreadName("lcd");
 	while (true) {
 #if EFI_HD44780_LCD
 		updateHD44780lcd(engine);
 #endif
-		chThdSleepMilliseconds(engine->engineConfiguration->bc.lcdThreadPeriod);
+		chThdSleepMilliseconds(engineConfiguration->bc.lcdThreadPeriod);
 	}
 }
 
@@ -528,14 +523,12 @@ static THD_WORKING_AREA(tsThreadStack, UTILITY_THREAD_STACK_SIZE);
 
 extern Map3D1616 veMap;
 
-void updateTunerStudioState(Engine *engine, TunerStudioOutputChannels *tsOutputChannels) {
+void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels DECLARE_ENGINE_PARAMETER_S) {
 #if EFI_SHAFT_POSITION_INPUT || defined(__DOXYGEN__)
 	int rpm = getRpmE(engine);
 #else
 	int rpm = 0;
 #endif
-
-	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 
 	float tps = getTPS(PASS_ENGINE_PARAMETER_F);
 	float coolant = getCoolantTemperature(PASS_ENGINE_PARAMETER_F);
@@ -615,7 +608,7 @@ static void tsStatusThread(Engine *engine) {
 	while (true) {
 #if EFI_TUNER_STUDIO
 		// sensor state for EFI Analytics Tuner Studio
-		updateTunerStudioState(engine, &tsOutputChannels);
+		updateTunerStudioState(&tsOutputChannels PASS_ENGINE_PARAMETER);
 #endif /* EFI_TUNER_STUDIO */
 		chThdSleepMilliseconds(boardConfiguration->tunerStudioThreadPeriod);
 	}
