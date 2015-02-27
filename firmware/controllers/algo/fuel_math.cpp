@@ -111,7 +111,7 @@ static int getNumberOfInjections(engine_configuration_s const *engineConfigurati
 float getFuelMs(int rpm DECLARE_ENGINE_PARAMETER_S) {
 	float theoreticalInjectionLength;
 	if (isCrankingR(rpm)) {
-		theoreticalInjectionLength = getCrankingFuel(engine)
+		theoreticalInjectionLength = getCrankingFuel(PASS_ENGINE_PARAMETER_F)
 				/ getNumberOfInjections(engineConfiguration, engineConfiguration->crankingInjectionMode);
 	} else {
 		float baseFuel = getBaseFuel(rpm PASS_ENGINE_PARAMETER);
@@ -189,8 +189,8 @@ float getBaseTableFuel(engine_configuration_s *engineConfiguration, int rpm, flo
 /**
  * @return Duration of fuel injection while craning, in milliseconds
  */
-float getCrankingFuel(Engine *engine) {
-	return getCrankingFuel3(engine->engineConfiguration, getCoolantTemperature(engine),
+float getCrankingFuel(DECLARE_ENGINE_PARAMETER_F) {
+	return getCrankingFuel3(engine->engineConfiguration, getCoolantTemperature(PASS_ENGINE_PARAMETER_F),
 			engine->rpmCalculator.getRevolutionCounterSinceStart());
 }
 #endif

@@ -108,7 +108,7 @@ bool isValidIntakeAirTemperature(float temperature) {
 /**
  * @return coolant temperature, in Celsius
  */
-float getCoolantTemperature(Engine * engine) {
+float getCoolantTemperature(DECLARE_ENGINE_PARAMETER_F) {
 	float temperature = getTemperatureC(&engine->clt);
 	if (!isValidCoolantTemperature(temperature)) {
 		efiAssert(engine->engineConfiguration!=NULL, "NULL engineConfiguration", NAN);
@@ -172,7 +172,7 @@ void prepareThermistorCurve(ThermistorConf * config) {
 /**
  * @return Celsius value
  */
-float getIntakeAirTemperature(Engine * engine) {
+float getIntakeAirTemperature(DECLARE_ENGINE_PARAMETER_F) {
 	float temperature = getTemperatureC(&engine->iat);
 	if (!isValidIntakeAirTemperature(temperature)) {
 		efiAssert(engine->engineConfiguration!=NULL, "NULL engineConfiguration", NAN);
