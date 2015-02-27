@@ -118,7 +118,7 @@ typedef void (*configuration_callback_t)(Engine*);
 
 class Engine {
 public:
-	Engine();
+	Engine(persistent_config_s *config);
 	void init();
 	RpmCalculator rpmCalculator;
 	engine_configuration_s *engineConfiguration;
