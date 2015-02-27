@@ -322,7 +322,7 @@ static THD_WORKING_AREA(csThreadStack, UTILITY_THREAD_STACK_SIZE);	// declare th
 static void getShort(int offset) {
 	if (isOutOfBounds(offset))
 		return;
-	uint16_t *ptr = (uint16_t *) (&((char *) engine->engineConfiguration)[offset]);
+	uint16_t *ptr = (uint16_t *) (&((char *) engineConfiguration)[offset]);
 	uint16_t value = *ptr;
 	/**
 	 * this response is part of dev console API
@@ -333,7 +333,7 @@ static void getShort(int offset) {
 static void setShort(const int offset, const int value) {
 	if (isOutOfBounds(offset))
 		return;
-	uint16_t *ptr = (uint16_t *) (&((char *) engine->engineConfiguration)[offset]);
+	uint16_t *ptr = (uint16_t *) (&((char *) engineConfiguration)[offset]);
 	*ptr = (uint16_t) value;
 	getShort(offset);
 }
@@ -341,7 +341,7 @@ static void setShort(const int offset, const int value) {
 static void getInt(int offset) {
 	if (isOutOfBounds(offset))
 		return;
-	int *ptr = (int *) (&((char *) engine->engineConfiguration)[offset]);
+	int *ptr = (int *) (&((char *) engineConfiguration)[offset]);
 	int value = *ptr;
 	/**
 	 * this response is part of dev console API
@@ -352,7 +352,7 @@ static void getInt(int offset) {
 static void setInt(const int offset, const int value) {
 	if (isOutOfBounds(offset))
 		return;
-	int *ptr = (int *) (&((char *) engine->engineConfiguration)[offset]);
+	int *ptr = (int *) (&((char *) engineConfiguration)[offset]);
 	*ptr = value;
 	getInt(offset);
 }
@@ -360,7 +360,7 @@ static void setInt(const int offset, const int value) {
 static void getFloat(int offset) {
 	if (isOutOfBounds(offset))
 		return;
-	float *ptr = (float *) (&((char *) engine->engineConfiguration)[offset]);
+	float *ptr = (float *) (&((char *) engineConfiguration)[offset]);
 	float value = *ptr;
 	/**
 	 * this response is part of dev console API
