@@ -51,7 +51,6 @@ void setMazda626EngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	setThermistorConfiguration(&engineConfiguration->iat, 20, 33000, 50, 9000, 90.0, 2700);
 
 	commonFrankensoAnalogInputs(engineConfiguration);
-	engineConfiguration->hasTpsSensor = false;
 //	engineConfiguration->map.sensor.hwChannel = EFI_ADC_4;
 	engineConfiguration->mafAdcChannel = EFI_ADC_0;
 
