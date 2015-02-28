@@ -62,8 +62,8 @@ typedef struct {
 
 void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F);
 void setMap(fuel_table_t table, float value);
-void setWholeFuelMap(engine_configuration_s *engineConfiguration, float value);
-void setWholeTimingTable(engine_configuration_s *engineConfiguration, float value);
+void setWholeFuelMap(float value DECLARE_ENGINE_PARAMETER_S);
+void setWholeTimingTable(float value DECLARE_ENGINE_PARAMETER_S);
 void setConstantDwell(engine_configuration_s *engineConfiguration, float dwellMs);
 void printFloatArray(const char *prefix, float array[], int size);
 

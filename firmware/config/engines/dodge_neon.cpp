@@ -113,8 +113,8 @@ void setDodgeNeon1995EngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	 */
 
 	// set_whole_fuel_map 9
-	setWholeFuelMap(engineConfiguration, 9);
-	setWholeTimingTable(engineConfiguration, 12);
+	setWholeFuelMap(9 PASS_ENGINE_PARAMETER);
+	setWholeTimingTable(12 PASS_ENGINE_PARAMETER);
 
 	// set_cranking_injection_mode 0
 	engineConfiguration->crankingInjectionMode = IM_SIMULTANEOUS;
@@ -216,9 +216,9 @@ void setDodgeNeonNGCEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	 *
 	 * set_whole_fuel_map 12
 	 */
-	//setWholeFuelMap(engineConfiguration, 12);
+	//setWholeFuelMap(12 PASS_ENGINE_PARAMETER);
 	copyFuelTable(alphaNfuel, engineConfiguration->fuelTable);
-	//setWholeTimingTable(engineConfiguration, 12);
+	//setWholeTimingTable(12 PASS_ENGINE_PARAMETER);
 	copyTimingTable(fromDyno, engineConfiguration->ignitionTable);
 
 	// set_cranking_charge_angle 70
