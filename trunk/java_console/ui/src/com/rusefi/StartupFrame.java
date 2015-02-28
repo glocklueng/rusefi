@@ -3,6 +3,7 @@ package com.rusefi;
 import com.rusefi.io.LinkManager;
 import com.rusefi.io.tcp.TcpConnector;
 import com.rusefi.maintenance.FirmwareFlasher;
+import com.rusefi.maintenance.ProcessStatusWindow;
 import com.rusefi.ui.util.HorizontalLine;
 import com.rusefi.ui.util.UiUtils;
 import com.rusefi.ui.util.URLLabel;
@@ -87,7 +88,7 @@ public class StartupFrame {
 
         leftPanel.add(SimulatorHelper.createSimulatorComponent(this));
 
-        if (FirmwareFlasher.isWindows()) {
+        if (ProcessStatusWindow.isWindows()) {
             leftPanel.add(new HorizontalLine());
             leftPanel.add(FirmwareFlasher.getContent());
         }
