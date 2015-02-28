@@ -7,7 +7,7 @@
 #ifndef CONFIG_ENGINES_CUSTOM_ENGINE_H_
 #define CONFIG_ENGINES_CUSTOM_ENGINE_H_
 
-#include "engine_configuration.h"
+#include "engine.h"
 
 void setCustomEngineConfiguration(DECLARE_ENGINE_PARAMETER_F);
 
