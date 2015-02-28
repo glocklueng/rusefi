@@ -36,7 +36,7 @@ EngineTestHelper::EngineTestHelper(engine_type_e engineType) : engine (&persiste
 	engine.engineConfiguration2 = &ec2;
 
 	Engine *engine = &this->engine;
-	prepareFuelMap(engine->engineConfiguration);
+	prepareFuelMap(PASS_ENGINE_PARAMETER_F);
 
 
 	initSpeedDensity(PASS_ENGINE_PARAMETER_F);
