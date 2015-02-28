@@ -78,6 +78,7 @@ void setBmwE34(DECLARE_ENGINE_PARAMETER_F) {
 
 	boardConfiguration->idleValvePin = GPIOC_13;
 	boardConfiguration->idleSolenoidFrequency = 300;
+	// set_idle_pwm 50
 	boardConfiguration->idleSolenoidPwm = 0.5;
 
 	// turbocharger boost control solenoid: TODO output: GPIOE_6
