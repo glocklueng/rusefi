@@ -112,15 +112,15 @@ void setMap(fuel_table_t table, float value) {
 	}
 }
 
-static void setWholeVEMap(engine_configuration_s *engineConfiguration, float value) {
+static void setWholeVEMap(float value DECLARE_ENGINE_PARAMETER_S) {
 	setMap(engineConfiguration->veTable, value);
 }
 
-void setWholeFuelMap(engine_configuration_s *engineConfiguration, float value) {
+void setWholeFuelMap(float value DECLARE_ENGINE_PARAMETER_S) {
 	setMap(engineConfiguration->fuelTable, value);
 }
 
-void setWholeTimingTable(engine_configuration_s *engineConfiguration, float value) {
+void setWholeTimingTable(float value DECLARE_ENGINE_PARAMETER_S) {
 	// todo: table helper?
 	for (int l = 0; l < IGN_LOAD_COUNT; l++) {
 		for (int r = 0; r < IGN_RPM_COUNT; r++) {
@@ -191,8 +191,8 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	setTableBin2(engineConfiguration->map.samplingWindow, MAP_ANGLE_SIZE, 50, 50, 1);
 
 	// set_whole_timing_map 3
-	setWholeFuelMap(engineConfiguration, 3);
-	setWholeVEMap(engineConfiguration, 0.8);
+	setWholeFuelMap(3 PASS_ENGINE_PARAMETER);
+	setWholeVEMap(0.8 PASS_ENGINE_PARAMETER);
 	setMap(engineConfiguration->afrTable, 14.7);
 
 	setMap(engineConfiguration->injectionPhase, -180);

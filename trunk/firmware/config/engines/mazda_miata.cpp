@@ -295,9 +295,9 @@ void setFordEscortGt(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->crankingTimingAngle = 3;
 	engineConfiguration->crankingChargeAngle = 70;
 
-	setWholeTimingTable(engineConfiguration, 10);
+	setWholeTimingTable(10 PASS_ENGINE_PARAMETER);
 	// set_whole_fuel_map 5
-	setWholeFuelMap(engineConfiguration, 5);
+	setWholeFuelMap(5 PASS_ENGINE_PARAMETER);
 
 	setSingleCoilDwell(engineConfiguration);
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
