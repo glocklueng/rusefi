@@ -633,7 +633,7 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType DECLARE_EN
 		setMiata1996(PASS_ENGINE_PARAMETER_F);
 		break;
 	case CITROEN_TU3JP:
-		setCitroenBerlingoTU3JPConfiguration(config);
+		setCitroenBerlingoTU3JPConfiguration(PASS_ENGINE_PARAMETER_F);
 		break;
 	case ROVER_V8:
 		setRoverv8(PASS_ENGINE_PARAMETER_F);
