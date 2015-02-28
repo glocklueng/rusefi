@@ -39,7 +39,7 @@ EngineTestHelper::EngineTestHelper(engine_type_e engineType) : engine (&persiste
 	prepareFuelMap(engine->engineConfiguration);
 
 
-	initSpeedDensity(&persistentConfig);
+	initSpeedDensity(PASS_ENGINE_PARAMETER_F);
 
 	resetConfigurationExt(NULL, engineType PASS_ENGINE_PARAMETER);
 	prepareShapes(PASS_ENGINE_PARAMETER_F);

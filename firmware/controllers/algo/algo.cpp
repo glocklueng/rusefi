@@ -32,7 +32,7 @@ EXTERN_ENGINE;
 void initDataStructures(DECLARE_ENGINE_PARAMETER_F) {
 	prepareFuelMap(engineConfiguration);
 	prepareTimingMap(PASS_ENGINE_PARAMETER_F);
-	initSpeedDensity(config);
+	initSpeedDensity(PASS_ENGINE_PARAMETER_F);
 }
 
 void initAlgo(Logging *sharedLogger, engine_configuration_s *engineConfiguration) {
