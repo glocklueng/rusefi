@@ -30,7 +30,7 @@
 EXTERN_ENGINE;
 
 void initDataStructures(DECLARE_ENGINE_PARAMETER_F) {
-	prepareFuelMap(engineConfiguration);
+	prepareFuelMap(PASS_ENGINE_PARAMETER_F);
 	prepareTimingMap(PASS_ENGINE_PARAMETER_F);
 	initSpeedDensity(PASS_ENGINE_PARAMETER_F);
 }
