@@ -55,8 +55,10 @@ uint64_t Overflow64Counter::get() {
 		uint64_t localH2 = state.highBits;
 		if (localH == localH2)
 			break;
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 		if (counter++ == 10000)
 			chDbgPanic("lock-free frozen");
+#endif /* EFI_PROD_CODE */
 	}
 	/**
 	 * We need to take current counter after making a local 64 bit snapshot
