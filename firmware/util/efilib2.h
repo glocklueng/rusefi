@@ -9,6 +9,7 @@
 #define EFILIB2_H_
 
 #include <stdint.h>
+#include "main.h"
 
 typedef struct {
 	volatile uint64_t highBits;
@@ -23,7 +24,9 @@ class Overflow64Counter
 	Overflow64Counter();
 
 	uint64_t get();
+#if EFI_UNIT_TEST
 	uint64_t update(uint32_t value);
+#endif
 
 	State64 state;
 };
