@@ -12,6 +12,7 @@
 #include "main.h"
 
 typedef struct {
+	// todo: would probably be better to keep the high bits as 32 bit field to be sure
 	volatile uint64_t highBits;
 	volatile uint32_t lowBits;
 } State64;
