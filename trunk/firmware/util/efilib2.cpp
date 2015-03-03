@@ -46,16 +46,17 @@ uint64_t Overflow64Counter::get() {
 	 *
 	 * http://stackoverflow.com/questions/5162673/how-to-read-two-32bit-counters-as-a-64bit-integer-without-race-condition
 	 */
-	// these are local copies for thread-safery
-	// todo: this is still not atomic, so technically not thread safe.
 	uint64_t localH;
 	uint32_t localLow;
+	int counter = 0;
 	while (true) {
 		localH = state.highBits;
 		localLow = state.lowBits;
 		uint64_t localH2 = state.highBits;
 		if (localH == localH2)
 			break;
+		if (counter++ == 10000)
+			chDbgPanic("lock-free frozen");
 	}
 	/**
 	 * We need to take current counter after making a local 64 bit snapshot
