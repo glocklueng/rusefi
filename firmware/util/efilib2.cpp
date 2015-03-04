@@ -42,7 +42,7 @@ uint64_t Overflow64Counter::update(uint32_t value) {
 
 // todo: make this a macro? always inline?
 uint64_t Overflow64Counter::get() {
-#if 1
+#if EFI_PROD_CODE
 	bool alreadyLocked = lockAnyContext();
 	uint64_t localH = state.highBits;
 	uint32_t localLow = state.lowBits;
