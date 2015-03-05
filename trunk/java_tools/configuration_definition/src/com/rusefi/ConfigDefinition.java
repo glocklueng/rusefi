@@ -10,8 +10,9 @@ import java.util.Stack;
  * (c) Andrey Belomutskiy
  * 1/12/15
  */
+@SuppressWarnings("StringConcatenationInsideStringBufferAppend")
 public class ConfigDefinition {
-    private static final String INPUT_FILE_NAME = "rusefi_config.ini";
+    private static final String INPUT_FILE_NAME = "rusefi_config.txt";
     private static final String TS_FILE_NAME = "rusefi.ini";
     private static final String STRUCT_NO_PREFIX = "struct_no_prefix ";
     private static final String STRUCT = "struct ";
