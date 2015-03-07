@@ -9,6 +9,7 @@ import jssc.SerialPort;
 import jssc.SerialPortException;
 
 import java.io.EOFException;
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Arrays;
 public class BinaryProtocolCmd {
     private static SerialPort serialPort;
 
-    public static void main(String[] args) throws SerialPortException, InterruptedException, EOFException {
+    public static void main(String[] args) throws SerialPortException, InterruptedException, IOException {
         if (args.length != 1) {
             System.out.println("Exactly one parameter expected");
             return;
@@ -43,6 +44,8 @@ public class BinaryProtocolCmd {
         ConfigurationImage image = new ConfigurationImage(14008);
 
         bp.readImage(image);
+
+        image.saveToFile("rusefi_configuration.bin");
 
     }
 
