@@ -76,6 +76,10 @@
 #include "console_io.h"
 #include "crc.h"
 
+#include <string.h>
+#include "engine_configuration.h"
+#include "svnversion.h"
+
 #if EFI_TUNER_STUDIO || defined(__DOXYGEN__)
 
 EXTERN_ENGINE
@@ -564,11 +568,6 @@ void startTunerStudioConnectivity(Logging *sharedLogger) {
 
 #endif /* EFI_TUNER_STUDIO */
 
-#include <string.h>
-#include "tunerstudio_configuration.h"
-#include "engine_configuration.h"
-#include "tunerstudio.h"
-#include "svnversion.h"
 
 #if EFI_TUNER_STUDIO
 
@@ -642,15 +641,6 @@ int tunerStudioHandleCrcCommand(uint8_t *data, int incomingPacketSize) {
 		return false;
 	}
 	return true;
-}
-
-void tsSendResponse(ts_response_format_e mode, const uint8_t * buffer, int size) {
-	if (mode == TS_CRC) {
-		tunerStudioWriteCrcPacket(TS_RESPONSE_OK, buffer, size);
-	} else {
-		if (size > 0)
-			tunerStudioWriteData(buffer, size);
-	}
 }
 
 /**
