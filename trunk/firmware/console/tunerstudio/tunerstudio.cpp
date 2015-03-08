@@ -354,77 +354,6 @@ static TunerStudioReadRequest readRequest;
 static TunerStudioWriteChunkRequest writeChunkRequest;
 static short int pageIn;
 
-/**
- * @return true if legacy command was processed, false otherwise
- */
-static bool handlePlainCommand(uint8_t command) {
-	if (command == TS_HELLO_COMMAND || command == TS_HELLO_COMMAND_DEPRECATED) {
-		scheduleMsg(tsLogger, "Got naked Query command");
-		handleQueryCommand(TS_PLAIN);
-		return true;
-	} else if (command == 't' || command == 'T') {
-		handleTestCommand();
-		return true;
-	} else if (command == TS_PAGE_COMMAND) {
-		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&pageIn, sizeof(pageIn));
-		// todo: validate 'recieved' value
-		handlePageSelectCommand(TS_PLAIN, pageIn);
-		return true;
-	} else if (command == TS_BURN_COMMAND) {
-		scheduleMsg(tsLogger, "Got naked BURN");
-		uint16_t page;
-		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&page,
-				sizeof(page));
-		if (recieved != sizeof(page)) {
-			tunerStudioError("ERROR: Not enough for plain burn");
-			return true;
-		}
-		handleBurnCommand(TS_PLAIN, page);
-		return true;
-	} else if (command == TS_CHUNK_WRITE_COMMAND) {
-		scheduleMsg(tsLogger, "Got naked CHUNK_WRITE");
-		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&writeChunkRequest,
-				sizeof(writeChunkRequest));
-		if (recieved != sizeof(writeChunkRequest)) {
-			scheduleMsg(tsLogger, "ERROR: Not enough for plain chunk write header: %d", recieved);
-			tsState.errorCounter++;
-			return true;
-		}
-		recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&crcReadBuffer, writeChunkRequest.count);
-		if (recieved != writeChunkRequest.count) {
-			scheduleMsg(tsLogger, "ERROR: Not enough for plain chunk write content: %d while expecting %d", recieved, writeChunkRequest.count);
-			tsState.errorCounter++;
-			return true;
-		}
-		currentPageId = writeChunkRequest.page;
-
-		handleWriteChunkCommand(TS_PLAIN, writeChunkRequest.offset, writeChunkRequest.count, (uint8_t * )&crcWriteBuffer);
-		return true;
-	} else if (command == TS_READ_COMMAND) {
-		//scheduleMsg(logger, "Got naked READ PAGE???");
-		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&readRequest, sizeof(readRequest));
-		if (recieved != sizeof(readRequest)) {
-			tunerStudioError("Not enough for plain read header");
-			return true;
-		}
-		handlePageReadCommand(TS_PLAIN, readRequest.page, readRequest.offset, readRequest.count);
-		return true;
-	} else if (command == TS_OUTPUT_COMMAND) {
-		//scheduleMsg(logger, "Got naked Channels???");
-		handleOutputChannelsCommand(TS_PLAIN);
-		return true;
-	} else if (command == TS_LEGACY_HELLO_COMMAND) {
-		tunerStudioDebug("ignoring LEGACY_HELLO_COMMAND");
-		return true;
-	} else if (command == TS_COMMAND_F) {
-		tunerStudioDebug("not ignoring F");
-		tunerStudioWriteData((const uint8_t *) PROTOCOL, strlen(PROTOCOL));
-		return true;
-	} else {
-		return false;
-	}
-}
-
 static bool isKnownCommand(char command) {
 	return command == TS_HELLO_COMMAND || command == TS_READ_COMMAND || command == TS_OUTPUT_COMMAND
 			|| command == TS_PAGE_COMMAND || command == TS_BURN_COMMAND || command == TS_SINGLE_WRITE_COMMAND
@@ -433,10 +362,6 @@ static bool isKnownCommand(char command) {
 
 static uint8_t firstByte;
 static uint8_t secondByte;
-
-#define CRC_VALUE_SIZE 4
-// todo: double-check this
-#define CRC_WRAPPING_SIZE 7
 
 static msg_t tsThreadEntryPoint(void *arg) {
 	(void) arg;
@@ -545,37 +470,6 @@ void syncTunerStudioCopy(void) {
 	memcpy(&configWorkingCopy, &persistentState.persistentConfiguration, sizeof(persistent_config_s));
 }
 
-void startTunerStudioConnectivity(Logging *sharedLogger) {
-	tsLogger = sharedLogger;
-
-	if (sizeof(engine_configuration_s) != getTunerStudioPageSize(0))
-		firmwareError("TS page size mismatch: %d/%d", sizeof(engine_configuration_s), getTunerStudioPageSize(0));
-
-	if (sizeof(TunerStudioOutputChannels) != TS_OUTPUT_SIZE)
-		firmwareError("TS outputs size mismatch: %d/%d", sizeof(TunerStudioOutputChannels), TS_OUTPUT_SIZE);
-
-	memset(&tsState, 0, sizeof(tsState));
-	syncTunerStudioCopy();
-
-	addConsoleAction("tsinfo", printTsStats);
-	addConsoleAction("reset_ts", resetTs);
-	addConsoleActionI("set_ts_speed", setTsSpeed);
-
-	chThdCreateStatic(tsThreadStack, sizeof(tsThreadStack), NORMALPRIO, tsThreadEntryPoint, NULL);
-}
-
-
-
-#endif /* EFI_TUNER_STUDIO */
-
-
-#if EFI_TUNER_STUDIO
-
-#if EFI_TUNER_STUDIO_VERBOSE
-extern Logging *tsLogger;
-#include "tunerstudio.h"
-#endif
-
 tunerstudio_counters_s tsState;
 TunerStudioOutputChannels tsOutputChannels;
 /**
@@ -589,6 +483,113 @@ short currentPageId;
 void tunerStudioError(const char *msg) {
 	tunerStudioDebug(msg);
 	tsState.errorCounter++;
+}
+
+/**
+ * Query with CRC takes place while re-establishing connection
+ * Query without CRC takes place on TunerStudio startup
+ */
+void handleQueryCommand(ts_response_format_e mode) {
+	tsState.queryCommandCounter++;
+#if EFI_TUNER_STUDIO_VERBOSE
+	scheduleMsg(tsLogger, "got S/H (queryCommand) mode=%d", mode);
+	printTsStats();
+#endif
+	tsSendResponse(mode, (const uint8_t *) TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
+}
+
+/**
+ * @brief 'Output' command sends out a snapshot of current values
+ */
+void handleOutputChannelsCommand(ts_response_format_e mode) {
+	tsState.outputChannelsCommandCounter++;
+	// this method is invoked too often to print any debug information
+	tsSendResponse(mode, (const uint8_t *) &tsOutputChannels, sizeof(TunerStudioOutputChannels));
+}
+
+void handleTestCommand(void) {
+	/**
+	 * this is NOT a standard TunerStudio command, this is my own
+	 * extension of the protocol to simplify troubleshooting
+	 */
+	tunerStudioDebug("got T (Test)");
+	tunerStudioWriteData((const uint8_t *)VCS_VERSION, sizeof(VCS_VERSION));
+	/**
+	 * Please note that this response is a magic constant used by dev console for protocol detection
+	 * @see EngineState#TS_PROTOCOL_TAG
+	 */
+	tunerStudioWriteData((const uint8_t *) " ts_p_alive\r\n", 8);
+}
+
+/**
+ * @return true if legacy command was processed, false otherwise
+ */
+bool handlePlainCommand(uint8_t command) {
+	if (command == TS_HELLO_COMMAND || command == TS_HELLO_COMMAND_DEPRECATED) {
+		scheduleMsg(tsLogger, "Got naked Query command");
+		handleQueryCommand(TS_PLAIN);
+		return true;
+	} else if (command == 't' || command == 'T') {
+		handleTestCommand();
+		return true;
+	} else if (command == TS_PAGE_COMMAND) {
+		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&pageIn, sizeof(pageIn));
+		// todo: validate 'recieved' value
+		handlePageSelectCommand(TS_PLAIN, pageIn);
+		return true;
+	} else if (command == TS_BURN_COMMAND) {
+		scheduleMsg(tsLogger, "Got naked BURN");
+		uint16_t page;
+		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&page,
+				sizeof(page));
+		if (recieved != sizeof(page)) {
+			tunerStudioError("ERROR: Not enough for plain burn");
+			return true;
+		}
+		handleBurnCommand(TS_PLAIN, page);
+		return true;
+	} else if (command == TS_CHUNK_WRITE_COMMAND) {
+		scheduleMsg(tsLogger, "Got naked CHUNK_WRITE");
+		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&writeChunkRequest,
+				sizeof(writeChunkRequest));
+		if (recieved != sizeof(writeChunkRequest)) {
+			scheduleMsg(tsLogger, "ERROR: Not enough for plain chunk write header: %d", recieved);
+			tsState.errorCounter++;
+			return true;
+		}
+		recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&crcReadBuffer, writeChunkRequest.count);
+		if (recieved != writeChunkRequest.count) {
+			scheduleMsg(tsLogger, "ERROR: Not enough for plain chunk write content: %d while expecting %d", recieved, writeChunkRequest.count);
+			tsState.errorCounter++;
+			return true;
+		}
+		currentPageId = writeChunkRequest.page;
+
+		handleWriteChunkCommand(TS_PLAIN, writeChunkRequest.offset, writeChunkRequest.count, (uint8_t * )&crcWriteBuffer);
+		return true;
+	} else if (command == TS_READ_COMMAND) {
+		//scheduleMsg(logger, "Got naked READ PAGE???");
+		int recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&readRequest, sizeof(readRequest));
+		if (recieved != sizeof(readRequest)) {
+			tunerStudioError("Not enough for plain read header");
+			return true;
+		}
+		handlePageReadCommand(TS_PLAIN, readRequest.page, readRequest.offset, readRequest.count);
+		return true;
+	} else if (command == TS_OUTPUT_COMMAND) {
+		//scheduleMsg(logger, "Got naked Channels???");
+		handleOutputChannelsCommand(TS_PLAIN);
+		return true;
+	} else if (command == TS_LEGACY_HELLO_COMMAND) {
+		tunerStudioDebug("ignoring LEGACY_HELLO_COMMAND");
+		return true;
+	} else if (command == TS_COMMAND_F) {
+		tunerStudioDebug("not ignoring F");
+		tunerStudioWriteData((const uint8_t *) PROTOCOL, strlen(PROTOCOL));
+		return true;
+	} else {
+		return false;
+	}
 }
 
 int tunerStudioHandleCrcCommand(uint8_t *data, int incomingPacketSize) {
@@ -643,41 +644,23 @@ int tunerStudioHandleCrcCommand(uint8_t *data, int incomingPacketSize) {
 	return true;
 }
 
-/**
- * Query with CRC takes place while re-establishing connection
- * Query without CRC takes place on TunerStudio startup
- */
-void handleQueryCommand(ts_response_format_e mode) {
-	tsState.queryCommandCounter++;
-#if EFI_TUNER_STUDIO_VERBOSE
-	scheduleMsg(tsLogger, "got S/H (queryCommand) mode=%d", mode);
-	printTsStats();
-#endif
-	tsSendResponse(mode, (const uint8_t *) TS_SIGNATURE, strlen(TS_SIGNATURE) + 1);
-}
+void startTunerStudioConnectivity(Logging *sharedLogger) {
+	tsLogger = sharedLogger;
 
-/**
- * @brief 'Output' command sends out a snapshot of current values
- */
-void handleOutputChannelsCommand(ts_response_format_e mode) {
-	tsState.outputChannelsCommandCounter++;
-	// this method is invoked too often to print any debug information
-	tsSendResponse(mode, (const uint8_t *) &tsOutputChannels, sizeof(TunerStudioOutputChannels));
-}
+	if (sizeof(engine_configuration_s) != getTunerStudioPageSize(0))
+		firmwareError("TS page size mismatch: %d/%d", sizeof(engine_configuration_s), getTunerStudioPageSize(0));
 
-void handleTestCommand(void) {
-	/**
-	 * this is NOT a standard TunerStudio command, this is my own
-	 * extension of the protocol to simplify troubleshooting
-	 */
-	tunerStudioDebug("got T (Test)");
-	tunerStudioWriteData((const uint8_t *)VCS_VERSION, sizeof(VCS_VERSION));
-	/**
-	 * Please note that this response is a magic constant used by dev console for protocol detection
-	 * @see EngineState#TS_PROTOCOL_TAG
-	 */
-	tunerStudioWriteData((const uint8_t *) " ts_p_alive\r\n", 8);
+	if (sizeof(TunerStudioOutputChannels) != TS_OUTPUT_SIZE)
+		firmwareError("TS outputs size mismatch: %d/%d", sizeof(TunerStudioOutputChannels), TS_OUTPUT_SIZE);
+
+	memset(&tsState, 0, sizeof(tsState));
+	syncTunerStudioCopy();
+
+	addConsoleAction("tsinfo", printTsStats);
+	addConsoleAction("reset_ts", resetTs);
+	addConsoleActionI("set_ts_speed", setTsSpeed);
+
+	chThdCreateStatic(tsThreadStack, sizeof(tsThreadStack), NORMALPRIO, tsThreadEntryPoint, NULL);
 }
 
 #endif
-
