@@ -97,7 +97,7 @@ extern persistent_config_container_s persistentState;
 
 static efitimems_t previousWriteReportMs = 0;
 
-static char crcReadBuffer[300];
+char crcReadBuffer[300];
 extern uint8_t crcWriteBuffer[300];
 
 static int ts_serial_ready(void) {
@@ -579,7 +579,7 @@ bool handlePlainCommand(uint8_t command) {
 		}
 		currentPageId = writeChunkRequest.page;
 
-		handleWriteChunkCommand(TS_PLAIN, writeChunkRequest.offset, writeChunkRequest.count, (uint8_t * )&crcWriteBuffer);
+		handleWriteChunkCommand(TS_PLAIN, writeChunkRequest.offset, writeChunkRequest.count, (uint8_t * )&crcReadBuffer);
 		return true;
 	} else if (command == TS_READ_COMMAND) {
 		//scheduleMsg(logger, "Got naked READ PAGE???");
