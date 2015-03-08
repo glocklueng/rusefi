@@ -34,7 +34,10 @@ static uint32_t accumulatedSize;
  */
 static char * outputBuffer;
 
-
+/**
+ * This method appends the content of this thread-local logger into the global buffer
+ * of logging content
+ */
 void scheduleLogging(Logging *logging) {
 	// this could be done without locking
 	int newLength = efiStrlen(logging->buffer);
