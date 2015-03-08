@@ -357,7 +357,8 @@ static short int pageIn;
 static bool isKnownCommand(char command) {
 	return command == TS_HELLO_COMMAND || command == TS_READ_COMMAND || command == TS_OUTPUT_COMMAND
 			|| command == TS_PAGE_COMMAND || command == TS_BURN_COMMAND || command == TS_SINGLE_WRITE_COMMAND
-			|| command == TS_LEGACY_HELLO_COMMAND || command == TS_CHUNK_WRITE_COMMAND;
+			|| command == TS_LEGACY_HELLO_COMMAND || command == TS_CHUNK_WRITE_COMMAND
+			|| command == TS_EXECUTE;
 }
 
 static uint8_t firstByte;
@@ -526,9 +527,11 @@ void handleTestCommand(void) {
 	tunerStudioWriteData((const uint8_t *) " ts_p_alive\r\n", 8);
 }
 
+extern CommandHandler console_line_callback;
+
 static void handleExecuteCommand(char *data, int incomingPacketSize) {
 	data[incomingPacketSize] = 0;
-
+	(console_line_callback)(data);
 }
 
 /**
