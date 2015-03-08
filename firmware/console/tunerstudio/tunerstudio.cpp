@@ -97,7 +97,7 @@ extern persistent_config_container_s persistentState;
 
 static efitimems_t previousWriteReportMs = 0;
 
-static uint8_t crcReadBuffer[300];
+static char crcReadBuffer[300];
 extern uint8_t crcWriteBuffer[300];
 
 static int ts_serial_ready(void) {
@@ -405,7 +405,7 @@ void runBinaryProtocolLoop(void) {
 			continue;
 		}
 
-		recieved = chnReadTimeout(getTsSerialDevice(), crcReadBuffer, 1, MS2ST(TS_READ_TIMEOUT));
+		recieved = chnReadTimeout(getTsSerialDevice(), (uint8_t*)crcReadBuffer, 1, MS2ST(TS_READ_TIMEOUT));
 		if (recieved != 1) {
 			tunerStudioError("ERROR: did not receive command");
 			continue;
@@ -449,7 +449,7 @@ void runBinaryProtocolLoop(void) {
 //		scheduleMsg(logger, "TunerStudio: P00-07 %x %x %x %x %x %x %x %x", crcIoBuffer[0], crcIoBuffer[1],
 //				crcIoBuffer[2], crcIoBuffer[3], crcIoBuffer[4], crcIoBuffer[5], crcIoBuffer[6], crcIoBuffer[7]);
 
-		int success = tunerStudioHandleCrcCommand(crcReadBuffer, incomingPacketSize);
+		int success = tunerStudioHandleCrcCommand((uint8_t*)crcReadBuffer, incomingPacketSize);
 		if (!success)
 			print("got unexpected TunerStudio command %x:%c\r\n", command, command);
 
@@ -524,6 +524,11 @@ void handleTestCommand(void) {
 	 * @see EngineState#TS_PROTOCOL_TAG
 	 */
 	tunerStudioWriteData((const uint8_t *) " ts_p_alive\r\n", 8);
+}
+
+static void handleExecuteCommand(uint8_t *data, int incomingPacketSize) {
+	data[incomingPacketSize] = 0;
+
 }
 
 /**
@@ -603,6 +608,8 @@ int tunerStudioHandleCrcCommand(uint8_t *data, int incomingPacketSize) {
 	if (command == TS_HELLO_COMMAND || command == TS_HELLO_COMMAND_DEPRECATED) {
 		tunerStudioDebug("got Query command");
 		handleQueryCommand(TS_CRC);
+	} else if (command == TS_EXECUTE) {
+		handleExecuteCommand(data, incomingPacketSize);
 	} else if (command == TS_OUTPUT_COMMAND) {
 		handleOutputChannelsCommand(TS_CRC);
 	} else if (command == TS_PAGE_COMMAND) {

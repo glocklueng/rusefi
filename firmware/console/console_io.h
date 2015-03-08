@@ -18,6 +18,8 @@
 #define FALSE 0
 #endif
 
+typedef void (*CommandHandler)(char *);
+
 #include "efifeatures.h"
 #include "datalogging.h"
 
@@ -36,14 +38,5 @@ bool isConsoleReady(void);
 #else
 #define isConsoleReady() true
 #endif
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
 
 #endif /* CONSOLE_IO_H_ */
