@@ -78,18 +78,6 @@
 
 #if EFI_TUNER_STUDIO || defined(__DOXYGEN__)
 
-#if EFI_PROD_CODE
-#include "pin_repository.h"
-#include "usbconsole.h"
-#include "map_averaging.h"
-extern SerialUSBDriver SDU1;
-#define CONSOLE_DEVICE &SDU1
-
-#define TS_SERIAL_UART_DEVICE &SD3
-
-static SerialConfig tsSerialConfig = { 0, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
-#endif /* EFI_PROD_CODE */
-
 EXTERN_ENGINE
 ;
 
@@ -99,19 +87,6 @@ extern short currentPageId;
 #define TS_READ_TIMEOUT 10000
 
 #define PROTOCOL  "001"
-
-BaseChannel * getTsSerialDevice(void) {
-#if EFI_PROD_CODE
-	if (isSerialOverUart()) {
-		// if console uses UART then TS uses USB
-		return (BaseChannel *) &SDU1;
-	} else {
-		return (BaseChannel *) TS_SERIAL_UART_DEVICE;
-	}
-#else
-	return (BaseChannel *) TS_SIMULATOR_PORT;
-#endif
-}
 
 Logging *tsLogger;
 
@@ -476,24 +451,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("tunerstudio thread");
 
-#if EFI_PROD_CODE
-	if (isSerialOverUart()) {
-		print("TunerStudio over USB serial");
-		/**
-		 * This method contains a long delay, that's the reason why this is not done on the main thread
-		 */
-		usb_serial_start();
-	} else {
-
-		print("TunerStudio over USART");
-		mySetPadMode("tunerstudio rx", TS_SERIAL_RX_PORT, TS_SERIAL_RX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
-		mySetPadMode("tunerstudio tx", TS_SERIAL_TX_PORT, TS_SERIAL_TX_PIN, PAL_MODE_ALTERNATE(TS_SERIAL_AF));
-
-		tsSerialConfig.speed = boardConfiguration->tunerStudioSerialSpeed;
-
-		sdStart(TS_SERIAL_UART_DEVICE, &tsSerialConfig);
-	}
-#endif /* EFI_PROD_CODE */
+	startTsPort();
 
 	int wasReady = false;
 	while (true) {
@@ -640,14 +598,6 @@ void startTunerStudioConnectivity(Logging *sharedLogger) {
 #include "engine_configuration.h"
 #include "tunerstudio.h"
 #include "svnversion.h"
-
-#ifndef FALSE
-#define FALSE 0
-#endif
-
-#ifndef TRUE
-#define TRUE (!FALSE)
-#endif
 
 #if EFI_TUNER_STUDIO
 
