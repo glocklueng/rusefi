@@ -9,26 +9,13 @@
 #define TUNERSTUDIO_H_
 
 #include "main.h"
+#include "tunerstudio_io.h"
 
 #if EFI_TUNER_STUDIO
 #include "tunerstudio_configuration.h"
 #include "engine.h"
 
 #include <stdint.h>
-
-#define TS_SIGNATURE "MShift v0.01"
-
-
-// response codes
-
-#define TS_RESPONSE_OK 0x00
-#define TS_RESPONSE_BURN_OK 0x04
-#define TS_RESPONSE_CRC_FAILURE 0x82
-
-typedef enum {
-	TS_PLAIN = 0,
-	TS_CRC = 1
-} ts_response_format_e;
 
 typedef struct {
 	int queryCommandCounter;

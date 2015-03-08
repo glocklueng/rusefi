@@ -70,7 +70,7 @@
 #include "main_trigger_callback.h"
 #include "flash_main.h"
 
-#include "tunerstudio_algo.h"
+#include "tunerstudio_io.h"
 #include "tunerstudio_configuration.h"
 #include "malfunction_central.h"
 #include "console_io.h"
@@ -636,7 +636,6 @@ void startTunerStudioConnectivity(Logging *sharedLogger) {
 #endif /* EFI_TUNER_STUDIO */
 
 #include <string.h>
-#include "tunerstudio_algo.h"
 #include "tunerstudio_configuration.h"
 #include "engine_configuration.h"
 #include "tunerstudio.h"
