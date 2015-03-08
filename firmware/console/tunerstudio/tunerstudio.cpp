@@ -449,7 +449,7 @@ void runBinaryProtocolLoop(void) {
 //		scheduleMsg(logger, "TunerStudio: P00-07 %x %x %x %x %x %x %x %x", crcIoBuffer[0], crcIoBuffer[1],
 //				crcIoBuffer[2], crcIoBuffer[3], crcIoBuffer[4], crcIoBuffer[5], crcIoBuffer[6], crcIoBuffer[7]);
 
-		int success = tunerStudioHandleCrcCommand((uint8_t*)crcReadBuffer, incomingPacketSize);
+		int success = tunerStudioHandleCrcCommand(crcReadBuffer, incomingPacketSize);
 		if (!success)
 			print("got unexpected TunerStudio command %x:%c\r\n", command, command);
 
@@ -526,7 +526,7 @@ void handleTestCommand(void) {
 	tunerStudioWriteData((const uint8_t *) " ts_p_alive\r\n", 8);
 }
 
-static void handleExecuteCommand(uint8_t *data, int incomingPacketSize) {
+static void handleExecuteCommand(char *data, int incomingPacketSize) {
 	data[incomingPacketSize] = 0;
 
 }
@@ -602,7 +602,7 @@ bool handlePlainCommand(uint8_t command) {
 	}
 }
 
-int tunerStudioHandleCrcCommand(uint8_t *data, int incomingPacketSize) {
+int tunerStudioHandleCrcCommand(char *data, int incomingPacketSize) {
 	char command = data[0];
 	data++;
 	if (command == TS_HELLO_COMMAND || command == TS_HELLO_COMMAND_DEPRECATED) {
