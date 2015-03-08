@@ -93,12 +93,8 @@ extern persistent_config_container_s persistentState;
 
 static efitimems_t previousWriteReportMs = 0;
 
-/**
- * we use 'blockingFactor = 256' in rusefi.ini
- * todo: should we just do (256 + CRC_WRAPPING_SIZE) ?
- */
-
-static uint8_t crcIoBuffer[300];
+static uint8_t crcReadBuffer[300];
+extern uint8_t crcWriteBuffer[300];
 
 static int ts_serial_ready(void) {
 #if EFI_PROD_CODE
@@ -390,7 +386,7 @@ static bool handlePlainCommand(uint8_t command) {
 			tsState.errorCounter++;
 			return true;
 		}
-		recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&crcIoBuffer, writeChunkRequest.count);
+		recieved = chSequentialStreamRead(getTsSerialDevice(), (uint8_t * )&crcReadBuffer, writeChunkRequest.count);
 		if (recieved != writeChunkRequest.count) {
 			scheduleMsg(tsLogger, "ERROR: Not enough for plain chunk write content: %d while expecting %d", recieved, writeChunkRequest.count);
 			tsState.errorCounter++;
@@ -398,7 +394,7 @@ static bool handlePlainCommand(uint8_t command) {
 		}
 		currentPageId = writeChunkRequest.page;
 
-		handleWriteChunkCommand(TS_PLAIN, writeChunkRequest.offset, writeChunkRequest.count, (uint8_t * )&crcIoBuffer);
+		handleWriteChunkCommand(TS_PLAIN, writeChunkRequest.offset, writeChunkRequest.count, (uint8_t * )&crcWriteBuffer);
 		return true;
 	} else if (command == TS_READ_COMMAND) {
 		//scheduleMsg(logger, "Got naked READ PAGE???");
@@ -480,20 +476,20 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 		uint32_t incomingPacketSize = firstByte * 256 + secondByte;
 
-		if (incomingPacketSize == 0 || incomingPacketSize > (sizeof(crcIoBuffer) - CRC_WRAPPING_SIZE)) {
+		if (incomingPacketSize == 0 || incomingPacketSize > (sizeof(crcReadBuffer) - CRC_WRAPPING_SIZE)) {
 			scheduleMsg(tsLogger, "TunerStudio: invalid size: %d", incomingPacketSize);
 			tunerStudioError("ERROR: CRC header size");
 			sendErrorCode();
 			continue;
 		}
 
-		recieved = chnReadTimeout(getTsSerialDevice(), crcIoBuffer, 1, MS2ST(TS_READ_TIMEOUT));
+		recieved = chnReadTimeout(getTsSerialDevice(), crcReadBuffer, 1, MS2ST(TS_READ_TIMEOUT));
 		if (recieved != 1) {
 			tunerStudioError("ERROR: did not receive command");
 			continue;
 		}
 
-		char command = crcIoBuffer[0];
+		char command = crcReadBuffer[0];
 		if (!isKnownCommand(command)) {
 			scheduleMsg(tsLogger, "unexpected command %x", command);
 			sendErrorCode();
@@ -502,7 +498,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 //		scheduleMsg(logger, "TunerStudio: reading %d+4 bytes(s)", incomingPacketSize);
 
-		recieved = chnReadTimeout(getTsSerialDevice(), (uint8_t * ) (crcIoBuffer + 1),
+		recieved = chnReadTimeout(getTsSerialDevice(), (uint8_t * ) (crcReadBuffer + 1),
 				incomingPacketSize + CRC_VALUE_SIZE - 1, MS2ST(TS_READ_TIMEOUT));
 		int expectedSize = incomingPacketSize + CRC_VALUE_SIZE - 1;
 		if (recieved != expectedSize) {
@@ -512,17 +508,17 @@ static msg_t tsThreadEntryPoint(void *arg) {
 			continue;
 		}
 
-		uint32_t expectedCrc = *(uint32_t*) (crcIoBuffer + incomingPacketSize);
+		uint32_t expectedCrc = *(uint32_t*) (crcReadBuffer + incomingPacketSize);
 
 		expectedCrc = SWAP_UINT32(expectedCrc);
 
-		uint32_t actualCrc = crc32(crcIoBuffer, incomingPacketSize);
+		uint32_t actualCrc = crc32(crcReadBuffer, incomingPacketSize);
 		if (actualCrc != expectedCrc) {
-			scheduleMsg(tsLogger, "TunerStudio: CRC %x %x %x %x", crcIoBuffer[incomingPacketSize + 0],
-					crcIoBuffer[incomingPacketSize + 1], crcIoBuffer[incomingPacketSize + 2],
-					crcIoBuffer[incomingPacketSize + 3]);
+			scheduleMsg(tsLogger, "TunerStudio: CRC %x %x %x %x", crcReadBuffer[incomingPacketSize + 0],
+					crcReadBuffer[incomingPacketSize + 1], crcReadBuffer[incomingPacketSize + 2],
+					crcReadBuffer[incomingPacketSize + 3]);
 
-			scheduleMsg(tsLogger, "TunerStudio: command %c actual CRC %x/expected %x", crcIoBuffer[0], actualCrc,
+			scheduleMsg(tsLogger, "TunerStudio: command %c actual CRC %x/expected %x", crcReadBuffer[0], actualCrc,
 					expectedCrc);
 			tunerStudioError("ERROR: CRC issue");
 			continue;
@@ -531,7 +527,7 @@ static msg_t tsThreadEntryPoint(void *arg) {
 //		scheduleMsg(logger, "TunerStudio: P00-07 %x %x %x %x %x %x %x %x", crcIoBuffer[0], crcIoBuffer[1],
 //				crcIoBuffer[2], crcIoBuffer[3], crcIoBuffer[4], crcIoBuffer[5], crcIoBuffer[6], crcIoBuffer[7]);
 
-		int success = tunerStudioHandleCrcCommand(crcIoBuffer, incomingPacketSize);
+		int success = tunerStudioHandleCrcCommand(crcReadBuffer, incomingPacketSize);
 		if (!success)
 			print("got unexpected TunerStudio command %x:%c\r\n", command, command);
 
@@ -543,24 +539,6 @@ static msg_t tsThreadEntryPoint(void *arg) {
 
 void syncTunerStudioCopy(void) {
 	memcpy(&configWorkingCopy, &persistentState.persistentConfiguration, sizeof(persistent_config_s));
-}
-
-/**
- * Adds size to the beginning of a packet and a crc32 at the end. Then send the packet.
- */
-void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uint16_t size) {
-	// todo: max size validation
-	*(uint16_t *) crcIoBuffer = SWAP_UINT16(size + 1);   // packet size including command
-	*(uint8_t *) (crcIoBuffer + 2) = command;
-	if (size != 0)
-		memcpy(crcIoBuffer + 3, buf, size);
-	// CRC on whole packet
-	uint32_t crc = crc32((void *) (crcIoBuffer + 2), (uint32_t) (size + 1));
-	*(uint32_t *) (crcIoBuffer + 2 + 1 + size) = SWAP_UINT32(crc);
-
-//	scheduleMsg(logger, "TunerStudio: CRC command %x size %d", command, size);
-
-	tunerStudioWriteData(crcIoBuffer, size + 2 + 1 + 4);      // with size, command and CRC
 }
 
 void startTunerStudioConnectivity(Logging *sharedLogger) {
