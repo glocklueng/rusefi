@@ -29,6 +29,7 @@ typedef struct {
 	int tsCounter;
 } tunerstudio_counters_s;
 
+bool handlePlainCommand(uint8_t command);
 int tunerStudioHandleCrcCommand(uint8_t *data, int incomingPacketSize);
 
 void handleTestCommand(void);

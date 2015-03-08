@@ -38,6 +38,10 @@ typedef enum {
 #define TS_CHUNK_WRITE_COMMAND 'C'
 #define TS_BURN_COMMAND 'B'
 
+#define CRC_VALUE_SIZE 4
+// todo: double-check this
+#define CRC_WRAPPING_SIZE (CRC_VALUE_SIZE + 3)
+
 BaseChannel * getTsSerialDevice(void);
 void startTsPort(void);
 
