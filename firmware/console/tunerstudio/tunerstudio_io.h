@@ -19,6 +19,7 @@
 
 #define TS_RESPONSE_OK 0x00
 #define TS_RESPONSE_BURN_OK 0x04
+#define TS_RESPONSE_COMMAND_OK 0x07
 #define TS_RESPONSE_CRC_FAILURE 0x82
 
 typedef enum {

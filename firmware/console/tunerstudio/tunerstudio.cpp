@@ -530,6 +530,7 @@ void handleTestCommand(void) {
 extern CommandHandler console_line_callback;
 
 static void handleExecuteCommand(char *data, int incomingPacketSize) {
+	tunerStudioWriteCrcPacket(TS_RESPONSE_COMMAND_OK, NULL, 0);
 	data[incomingPacketSize] = 0;
 	(console_line_callback)(data);
 }
