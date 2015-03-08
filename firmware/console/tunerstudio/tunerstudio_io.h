@@ -43,5 +43,6 @@ void startTsPort(void);
 
 void tunerStudioWriteData(const uint8_t * buffer, int size);
 void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uint16_t size);
+void tsSendResponse(ts_response_format_e mode, const uint8_t * buffer, int size);
 
 #endif /* CONSOLE_TUNERSTUDIO_TUNERSTUDIO_IO_H_ */

@@ -6,6 +6,7 @@
  */
 
 #include "main.h"
+#include "tunerstudio_io.h"
 #include "console_io.h"
 #include "engine.h"
 
@@ -87,5 +88,14 @@ void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uin
 //	scheduleMsg(logger, "TunerStudio: CRC command %x size %d", command, size);
 
 	tunerStudioWriteData(crcWriteBuffer, size + 2 + 1 + 4);      // with size, command and CRC
+}
+
+void tsSendResponse(ts_response_format_e mode, const uint8_t * buffer, int size) {
+	if (mode == TS_CRC) {
+		tunerStudioWriteCrcPacket(TS_RESPONSE_OK, buffer, size);
+	} else {
+		if (size > 0)
+			tunerStudioWriteData(buffer, size);
+	}
 }
 

@@ -33,7 +33,6 @@ int tunerStudioHandleCrcCommand(uint8_t *data, int incomingPacketSize);
 
 void handleTestCommand(void);
 void handleQueryCommand(ts_response_format_e mode);
-void tsSendResponse(ts_response_format_e mode, const uint8_t * buffer, int size);
 void handleOutputChannelsCommand(ts_response_format_e mode);
 
 char *getWorkingPageAddr(int pageIndex);
