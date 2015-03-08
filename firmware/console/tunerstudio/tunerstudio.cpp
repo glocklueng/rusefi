@@ -86,8 +86,6 @@ extern short currentPageId;
 // in MS, that's 10 seconds
 #define TS_READ_TIMEOUT 10000
 
-#define PROTOCOL  "001"
-
 Logging *tsLogger;
 
 extern persistent_config_s configWorkingCopy;
@@ -160,13 +158,6 @@ void printTsStats(void) {
 static void setTsSpeed(int value) {
 	boardConfiguration->tunerStudioSerialSpeed = value;
 	printTsStats();
-}
-
-void tunerStudioWriteData(const uint8_t * buffer, int size) {
-	int transferred = chSequentialStreamWrite(getTsSerialDevice(), buffer, size);
-	if (transferred != size) {
-		scheduleMsg(tsLogger, "!!! NOT ACCEPTED %d out of %d !!!", transferred, size);
-	}
 }
 
 void tunerStudioDebug(const char *msg) {
@@ -451,7 +442,9 @@ static msg_t tsThreadEntryPoint(void *arg) {
 	(void) arg;
 	chRegSetThreadName("tunerstudio thread");
 
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 	startTsPort();
+#endif
 
 	int wasReady = false;
 	while (true) {

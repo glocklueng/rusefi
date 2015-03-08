@@ -11,7 +11,9 @@
 
 EXTERN_ENGINE;
 
-#if EFI_PROD_CODE
+extern Logging *tsLogger;
+
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 #include "pin_repository.h"
 #include "usbconsole.h"
 #include "map_averaging.h"
@@ -22,21 +24,7 @@ extern SerialUSBDriver SDU1;
 
 static SerialConfig tsSerialConfig = { 0, 0, USART_CR2_STOP1_BITS | USART_CR2_LINEN, 0 };
 
-BaseChannel * getTsSerialDevice(void) {
-#if EFI_PROD_CODE
-	if (isSerialOverUart()) {
-		// if console uses UART then TS uses USB
-		return (BaseChannel *) &SDU1;
-	} else {
-		return (BaseChannel *) TS_SERIAL_UART_DEVICE;
-	}
-#else
-	return (BaseChannel *) TS_SIMULATOR_PORT;
-#endif
-}
-
 void startTsPort(void) {
-#if EFI_PROD_CODE
 	if (isSerialOverUart()) {
 		print("TunerStudio over USB serial");
 		/**
@@ -53,10 +41,26 @@ void startTsPort(void) {
 
 		sdStart(TS_SERIAL_UART_DEVICE, &tsSerialConfig);
 	}
-#endif /* EFI_PROD_CODE */
-
 }
 
 #endif /* EFI_PROD_CODE */
 
+BaseChannel * getTsSerialDevice(void) {
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
+	if (isSerialOverUart()) {
+		// if console uses UART then TS uses USB
+		return (BaseChannel *) &SDU1;
+	} else {
+		return (BaseChannel *) TS_SERIAL_UART_DEVICE;
+	}
+#else
+	return (BaseChannel *) TS_SIMULATOR_PORT;
+#endif
+}
 
+void tunerStudioWriteData(const uint8_t * buffer, int size) {
+	int transferred = chSequentialStreamWrite(getTsSerialDevice(), buffer, size);
+	if (transferred != size) {
+		scheduleMsg(tsLogger, "!!! NOT ACCEPTED %d out of %d !!!", transferred, size);
+	}
+}
