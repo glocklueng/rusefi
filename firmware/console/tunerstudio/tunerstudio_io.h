@@ -41,4 +41,7 @@ typedef enum {
 BaseChannel * getTsSerialDevice(void);
 void startTsPort(void);
 
+void tunerStudioWriteData(const uint8_t * buffer, int size);
+void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uint16_t size);
+
 #endif /* CONSOLE_TUNERSTUDIO_TUNERSTUDIO_IO_H_ */

@@ -44,7 +44,6 @@ void handlePageSelectCommand(ts_response_format_e mode, uint16_t pageId);
 void handlePageReadCommand(ts_response_format_e mode, uint16_t pageId, uint16_t offset, uint16_t count);
 void handleBurnCommand(ts_response_format_e mode, uint16_t page);
 
-void tunerStudioWriteData(const uint8_t * buffer, int size);
 void tunerStudioDebug(const char *msg);
 void tunerStudioError(const char *msg);
 
@@ -54,7 +53,6 @@ void requestBurn(void);
 
 void startTunerStudioConnectivity(Logging *sharedLogger);
 void syncTunerStudioCopy(void);
-void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uint16_t size);
 
 #if defined __GNUC__
 // GCC
