@@ -27,6 +27,12 @@ typedef enum {
 	TS_CRC = 1
 } ts_response_format_e;
 
+typedef struct {
+	BaseChannel * channel;
+	uint8_t *writeBuffer;
+	char crcReadBuffer[300];
+} ts_channel_s;
+
 #define TS_HELLO_COMMAND_DEPRECATED 'H'
 #define TS_HELLO_COMMAND 'S'
 #define TS_LEGACY_HELLO_COMMAND 'Q'
@@ -47,8 +53,8 @@ typedef enum {
 BaseChannel * getTsSerialDevice(void);
 void startTsPort(void);
 
-void tunerStudioWriteData(const uint8_t * buffer, int size);
-void tunerStudioWriteCrcPacket(const uint8_t command, const void *buf, const uint16_t size);
-void tsSendResponse(ts_response_format_e mode, const uint8_t * buffer, int size);
+void tunerStudioWriteData(ts_channel_s *tsChannel, const uint8_t * buffer, int size);
+void tunerStudioWriteCrcPacket(ts_channel_s *tsChannel, const uint8_t command, const void *buf, const uint16_t size);
+void tsSendResponse(ts_channel_s *tsChannel, ts_response_format_e mode, const uint8_t * buffer, int size);
 
 #endif /* CONSOLE_TUNERSTUDIO_TUNERSTUDIO_IO_H_ */
