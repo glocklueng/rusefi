@@ -11,13 +11,6 @@
 #include <ch.h>
 #include <hal.h>
 
-#ifndef TRUE
-#define TRUE 1
-#endif
-#ifndef FALSE
-#define FALSE 0
-#endif
-
 typedef void (*CommandHandler)(char *);
 
 #include "efifeatures.h"
@@ -30,7 +23,7 @@ SerialDriver * getConsoleChannel(void);
 
 void consolePutChar(int x);
 void consoleOutputBuffer(const uint8_t *buf, int size);
-void startConsole(Logging *sharedLogger, void (*console_line_callback_p)(char *));
+void startConsole(Logging *sharedLogger, CommandHandler console_line_callback_p);
 bool isSerialOverUart(void);
 
 #if EFI_PROD_CODE || EFI_SIMULATOR || EFI_EGT
