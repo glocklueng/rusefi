@@ -661,6 +661,13 @@ int tunerStudioHandleCrcCommand(ts_channel_s *tsChannel, char *data, int incomin
 	return true;
 }
 
+/**
+ * we use 'blockingFactor = 256' in rusefi.ini
+ * todo: should we just do (256 + CRC_WRAPPING_SIZE) ?
+ */
+
+static uint8_t tsCrcWriteBuffer[300];
+
 void startTunerStudioConnectivity(Logging *sharedLogger) {
 	tsLogger = sharedLogger;
 
@@ -678,7 +685,7 @@ void startTunerStudioConnectivity(Logging *sharedLogger) {
 	addConsoleActionI("set_ts_speed", setTsSpeed);
 
 	tsChannel.channel = getTsSerialDevice();
-//	tsChannel.writeBuffer
+	tsChannel.writeBuffer = tsCrcWriteBuffer;
 
 	chThdCreateStatic(tsThreadStack, sizeof(tsThreadStack), NORMALPRIO, tsThreadEntryPoint, NULL);
 }
