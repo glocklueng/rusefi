@@ -19,7 +19,6 @@ extern Logging *tsLogger;
  */
 
 uint8_t crcWriteBuffer[300];
-extern char crcReadBuffer[300];
 
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
 #include "pin_repository.h"
