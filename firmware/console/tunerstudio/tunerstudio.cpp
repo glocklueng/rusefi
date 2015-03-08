@@ -359,7 +359,7 @@ static bool isKnownCommand(char command) {
 	return command == TS_HELLO_COMMAND || command == TS_READ_COMMAND || command == TS_OUTPUT_COMMAND
 			|| command == TS_PAGE_COMMAND || command == TS_BURN_COMMAND || command == TS_SINGLE_WRITE_COMMAND
 			|| command == TS_LEGACY_HELLO_COMMAND || command == TS_CHUNK_WRITE_COMMAND
-			|| command == TS_EXECUTE;
+			|| command == TS_EXECUTE || command == TS_GET_TEXT;
 }
 
 static uint8_t firstByte;
