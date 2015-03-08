@@ -8,13 +8,13 @@
 #define CONSOLE_TUNERSTUDIO_TUNERSTUDIO_IO_H_
 
 #include "main.h"
-#include "usbconsole.h"
 
 #if EFI_PROD_CODE
+#include "usbconsole.h"
 #include "pin_repository.h"
 #endif
 
-
+#define PROTOCOL  "001"
 #define TS_SIGNATURE "MShift v0.01"
 
 #define TS_RESPONSE_OK 0x00
