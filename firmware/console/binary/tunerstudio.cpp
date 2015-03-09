@@ -116,7 +116,7 @@ static int ts_serial_ready(void) {
 #endif
 }
 
-static uint16_t BINARY_RESPONSE = SWAP_UINT16(BINARY_SWITCH_TAG);
+static uint16_t BINARY_RESPONSE = (uint16_t)SWAP_UINT16(BINARY_SWITCH_TAG);
 
 // this thread wants a bit extra stack
 static THD_WORKING_AREA(tsThreadStack, UTILITY_THREAD_STACK_SIZE + 200);
