@@ -17,7 +17,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 @SuppressWarnings("FieldCanBeLocal")
 public class CommandQueue {
-    private static final String CONFIRMATION_PREFIX = "confirmation_";
+    public static final String CONFIRMATION_PREFIX = "confirmation_";
     public static final int DEFAULT_TIMEOUT = 500;
     private static final int COMMAND_CONFIRMATION_TIMEOUT = 1000;
     private static final int SLOW_CONFIRMATION_TIMEOUT = 5000;
@@ -109,31 +109,12 @@ public class CommandQueue {
         });
     }
 
-    String unpackConfirmation(String message) {
-        String confirmation = message.substring(CONFIRMATION_PREFIX.length());
-        int index = confirmation.indexOf(":");
-        if (index < 0) {
-            return null;
-        }
-        String number = confirmation.substring(index + 1);
-        int length;
-        try {
-            length = Integer.parseInt(number);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-        if (length != index) {
-            return null;
-        }
-        return confirmation.substring(0, length);
-    }
-
     /**
      * this method handles command confirmations packed as
      * TODO: add example, todo: refactor method and add unit test
      */
     private void handleConfirmationMessage(final String message, MessagesCentral mc) {
-        String confirmation = unpackConfirmation(message);
+        String confirmation = LinkManager.unpackConfirmation(message);
         if (confirmation == null)
             mc.postMessage(CommandQueue.class, "Broken confirmation length: " + message);
         latestConfirmation = confirmation;

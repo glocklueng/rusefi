@@ -47,6 +47,11 @@ public class LinkManager {
         public String unpack(String packet) {
             return EngineState.unpackString(packet);
         }
+
+        @Override
+        public String unpackConfirmation(String message) {
+            return TcpConnector.doUnpackConfirmation(message);
+        }
     };
     public static EngineState engineState = new EngineState(new EngineState.EngineStateListenerImpl() {
         @Override
@@ -115,6 +120,10 @@ public class LinkManager {
 
     public static boolean hasError() {
         return connector.hasError();
+    }
+
+    public static String unpackConfirmation(String message) {
+        return connector.unpackConfirmation(message);
     }
 
     public static interface LinkStateListener {
