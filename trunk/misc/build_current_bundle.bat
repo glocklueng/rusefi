@@ -62,6 +62,7 @@ cp firmware/tunerstudio/rusefi.ini %folder%
 
 cp firmware/svnversion.h %folder%
 cp -r misc/install/openocd %folder% 
+cp java_console/rusefi.xml %folder%
 cp firmware/build/rusefi.hex %folder%
 cp firmware/build/rusefi.bin %folder%
 cp firmware/build/rusefi.elf %folder%
