@@ -4,6 +4,7 @@ import com.rusefi.FileLog;
 import com.rusefi.core.EngineState;
 import com.rusefi.io.LinkConnector;
 import com.rusefi.io.LinkManager;
+import com.rusefi.io.tcp.TcpConnector;
 
 /**
  * @author Andrey Belomutskiy
@@ -39,5 +40,10 @@ public class SerialConnector implements LinkConnector {
     public void send(String text) throws InterruptedException {
         String command = LinkManager.encodeCommand(text);
         PortHolder.getInstance().packAndSend(command);
+    }
+
+    @Override
+    public String unpackConfirmation(String message) {
+        return TcpConnector.doUnpackConfirmation(message);
     }
 }
