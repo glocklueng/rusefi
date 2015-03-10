@@ -109,30 +109,34 @@ public class CommandQueue {
         });
     }
 
-    /**
-     * this method handles command confirmations packed as
-     * TODO: add example, todo: refactor method and add unit test
-     */
-    private void handleConfirmationMessage(String message, MessagesCentral mc) {
+    String unpackConfirmation(String message) {
         String confirmation = message.substring(CONFIRMATION_PREFIX.length());
         int index = confirmation.indexOf(":");
         if (index < 0) {
-            mc.postMessage(CommandQueue.class, "Broken confirmation: " + confirmation);
-            return;
+            return null;
         }
         String number = confirmation.substring(index + 1);
         int length;
         try {
             length = Integer.parseInt(number);
         } catch (NumberFormatException e) {
-            mc.postMessage(CommandQueue.class, "Broken confirmation length: " + confirmation);
-            return;
+            return null;
         }
         if (length != index) {
-            mc.postMessage(CommandQueue.class, "Broken confirmation length: " + confirmation);
-            return;
+            return null;
         }
-        latestConfirmation = confirmation.substring(0, length);
+        return confirmation.substring(0, length);
+    }
+
+    /**
+     * this method handles command confirmations packed as
+     * TODO: add example, todo: refactor method and add unit test
+     */
+    private void handleConfirmationMessage(final String message, MessagesCentral mc) {
+        String confirmation = unpackConfirmation(message);
+        if (confirmation == null)
+            mc.postMessage(CommandQueue.class, "Broken confirmation length: " + message);
+        latestConfirmation = confirmation;
         mc.postMessage(CommandQueue.class, "got valid conf! " + latestConfirmation);
         synchronized (lock) {
             lock.notifyAll();
@@ -154,7 +158,8 @@ public class CommandQueue {
     /**
      * Non-blocking command request
      * Command is placed in the queue where it would be until it is confirmed
-     * @param command dev console command
+     *
+     * @param command   dev console command
      * @param timeoutMs retry timeout
      */
     public void write(String command, int timeoutMs, InvocationConfirmationListener listener) {
