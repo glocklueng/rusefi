@@ -98,7 +98,7 @@ public class LinkManager {
     public static void send(String command) throws InterruptedException {
         if (connector == null)
             throw new NullPointerException("connector");
-        connector.send(encodeCommand(command));
+        connector.send(command);
     }
 
     public static String encodeCommand(String command) {
