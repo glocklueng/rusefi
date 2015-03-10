@@ -200,10 +200,14 @@ public class BinaryProtocol {
         setController(image);
     }
 
-    public byte[] exchange(byte[] packet) throws SerialPortException, InterruptedException, EOFException {
+    public byte[] exchange(byte[] packet) {
         dropPending();
-        sendCrcPacket(packet);
-        return receivePacket();
+        try {
+            sendCrcPacket(packet);
+            return receivePacket();
+        } catch (SerialPortException | InterruptedException | EOFException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     public void writeData(byte[] content, Integer offset, int size, Logger logger) throws SerialPortException, EOFException, InterruptedException {
@@ -302,7 +306,7 @@ public class BinaryProtocol {
         serialPort.writeBytes(packet);
     }
 
-    public void sendTextCommand(String text) throws SerialPortException, EOFException, InterruptedException {
+    public void sendTextCommand(String text) {
         byte[] asBytes = text.getBytes();
         byte[] command = new byte[asBytes.length + 1];
         command[0] = 'E';
@@ -325,7 +329,7 @@ public class BinaryProtocol {
                 Thread.sleep(100);
             //        System.out.println(result);
             return new String(response, 1, response.length - 1);
-        } catch (SerialPortException | InterruptedException | EOFException e) {
+        } catch (InterruptedException e) {
             throw new IllegalStateException(e);
         }
     }
