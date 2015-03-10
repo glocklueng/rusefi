@@ -306,7 +306,12 @@ public class BinaryProtocol {
         serialPort.writeBytes(packet);
     }
 
-    public void sendTextCommand(String text) {
+    /**
+     * This method blocks until a confirmation is received
+     *
+     * @return true in case of timeout, false if got proper confirmation
+     */
+    public boolean sendTextCommand(String text) {
         byte[] asBytes = text.getBytes();
         byte[] command = new byte[asBytes.length + 1];
         command[0] = 'E';
@@ -317,7 +322,7 @@ public class BinaryProtocol {
             if (!checkResponseCode(response, RESPONSE_COMMAND_OK) || response.length != 1) {
                 continue;
             }
-            break;
+            return false;
         }
     }
 
