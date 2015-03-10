@@ -25,7 +25,7 @@ public class LinkManager {
         }
     });
     public static final String LOG_VIEWER = "log viewer";
-    private static final LinkConnector VOID = new LinkConnector() {
+    public static final LinkConnector VOID = new LinkConnector() {
         @Override
         public void connect(LinkStateListener listener) {
         }
@@ -45,7 +45,7 @@ public class LinkManager {
 
         @Override
         public String unpack(String packet) {
-            return packet;
+            return EngineState.unpackString(packet);
         }
     };
     public static EngineState engineState = new EngineState(new EngineState.EngineStateListenerImpl() {
@@ -55,7 +55,7 @@ public class LinkManager {
         }
     });
     public static boolean onlyUI = false;
-    private static LinkConnector connector;
+    public static LinkConnector connector;
 
     /**
      * This flag controls if mock controls are needed
