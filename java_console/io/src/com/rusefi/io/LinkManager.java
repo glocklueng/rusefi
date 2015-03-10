@@ -42,6 +42,11 @@ public class LinkManager {
         public boolean hasError() {
             return false;
         }
+
+        @Override
+        public String unpack(String packet) {
+            return packet;
+        }
     };
     public static EngineState engineState = new EngineState(new EngineState.EngineStateListenerImpl() {
         @Override
@@ -102,6 +107,10 @@ public class LinkManager {
 
     public static void restart() {
         connector.restart();
+    }
+
+    public static String unpack(String packet) {
+        return connector.unpack(packet);
     }
 
     public static boolean hasError() {
