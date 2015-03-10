@@ -36,7 +36,8 @@ public class SerialConnector implements LinkConnector {
     }
 
     @Override
-    public void send(String command) throws InterruptedException {
+    public void send(String text) throws InterruptedException {
+        String command = LinkManager.encodeCommand(text);
         PortHolder.getInstance().packAndSend(command);
     }
 }

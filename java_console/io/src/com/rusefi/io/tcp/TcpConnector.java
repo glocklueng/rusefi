@@ -112,7 +112,8 @@ public class TcpConnector implements LinkConnector {
     }
 
     @Override
-    public void send(String command) throws InterruptedException {
+    public void send(String text) throws InterruptedException {
+        String command = LinkManager.encodeCommand(text);
         FileLog.rlog("Writing " + command);
         try {
             writer.write(command + "\r\n");
