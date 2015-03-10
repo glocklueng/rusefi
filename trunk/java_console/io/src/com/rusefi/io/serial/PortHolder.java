@@ -130,7 +130,7 @@ public class PortHolder {
     private void doWriteCommand(@NotNull String command) throws SerialPortException {
         if (serialPort == null)
             throw new NullPointerException("serialPort");
-        serialPort.writeString(command + "\r\n");
+        serialPort.writeString(command + "\n");
     }
 
     public static PortHolder getInstance() {
