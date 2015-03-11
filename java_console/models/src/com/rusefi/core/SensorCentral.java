@@ -22,9 +22,9 @@ public class SensorCentral {
     public static final String RPM_KEY = "rpm";
     private static final SensorCentral INSTANCE = new SensorCentral();
 
-    private final Map<Sensor, Double> values = new EnumMap<Sensor, Double>(Sensor.class);
+    private final Map<Sensor, Double> values = new EnumMap<>(Sensor.class);
 
-    private final Map<Sensor, List<SensorListener>> allListeners = new EnumMap<Sensor, List<SensorListener>>(Sensor.class);
+    private final Map<Sensor, List<SensorListener>> allListeners = new EnumMap<>(Sensor.class);
 
     public static SensorCentral getInstance() {
         return INSTANCE;
@@ -73,6 +73,8 @@ public class SensorCentral {
     };
 
     public void setValue(double value, final Sensor sensor) {
+        Double oldValue = values.get(sensor);
+        boolean isUpdated = oldValue == null || !oldValue.equals(value);
         values.put(sensor, value);
         List<SensorListener> listeners;
         synchronized (allListeners) {
@@ -137,7 +139,8 @@ public class SensorCentral {
         };
 
         r.setDataValue(d, value);
-        TableUpdateHandler.getInstance().handleDataUpdate(r);
+        if (isUpdated)
+            TableUpdateHandler.getInstance().handleDataUpdate(r);
     }
 
     public static String getInternalAdcRepresentation(double value) {
