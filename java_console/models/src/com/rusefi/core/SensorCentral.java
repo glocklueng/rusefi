@@ -93,6 +93,11 @@ public class SensorCentral {
 
         LoggerData d = new LoggerData() {
             @Override
+            public String toString() {
+                return getName();
+            }
+
+            @Override
             public String getId() {
                 return sensor.getName();
             }
