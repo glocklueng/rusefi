@@ -256,11 +256,11 @@ void handleCrc32Check(ts_channel_s *tsChannel, ts_response_format_e mode, uint16
 
 	count = SWAP_UINT16(count);
 
-//	count = 14008;
+	count = 14008;
 
 	scheduleMsg(tsLogger, "CRC32 request: offset %d size %d", offset, count);
 
-	uint32_t crc = crc32((void *) getWorkingPageAddr(0), count);
+	uint32_t crc = SWAP_UINT32(crc32((void *) getWorkingPageAddr(0), count));
 
 	scheduleMsg(tsLogger, "CRC32 response: %x", crc);
 
