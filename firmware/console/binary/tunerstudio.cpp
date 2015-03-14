@@ -95,7 +95,7 @@ extern short currentPageId;
  * note the use-case where text console port is switched into
  * binary port
  */
-static LoggingWithStorage tsLogger("binary");
+LoggingWithStorage tsLogger("binary");
 
 extern persistent_config_s configWorkingCopy;
 extern persistent_config_container_s persistentState;
