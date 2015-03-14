@@ -123,7 +123,7 @@ static int ts_serial_ready(void) {
 static uint16_t BINARY_RESPONSE = (uint16_t)SWAP_UINT16(BINARY_SWITCH_TAG);
 
 // this thread wants a bit extra stack
-static THD_WORKING_AREA(tsThreadStack, UTILITY_THREAD_STACK_SIZE + 200);
+static THD_WORKING_AREA(tsThreadStack, 3 * UTILITY_THREAD_STACK_SIZE);
 
 extern TunerStudioOutputChannels tsOutputChannels;
 
