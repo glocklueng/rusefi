@@ -76,7 +76,8 @@ typedef struct {
 	unsigned int secondTriggerChannelEnabled : 1; // bit 10
 	unsigned int clutchUpState : 1; // bit 11
 	unsigned int clutchDownState : 1; // bit 12
-	unsigned int knockIndicator : 1; // bit 13
+	unsigned int knockEverIndicator : 1; // bit 13
+	unsigned int knockNowIndicator : 1; // bit 14
 	float vehicleSpeedKph;
 	unsigned int isTpsError : 1; // bit 0
 	unsigned int isCltError : 1; // bit 1
