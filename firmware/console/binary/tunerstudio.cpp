@@ -230,7 +230,7 @@ void handlePageSelectCommand(ts_channel_s *tsChannel, ts_response_format_e mode,
 void yellowMagic(int currentPageId, int  offset, int count) {
 	if(offset > 6200) {
 		scheduleMsg(&tsLogger, "applying soft change from %d length %d", offset, count);
-//		memcpy(engineConfiguration + offset, &configWorkingCopy.engineConfiguration + offset, count);
+		memcpy(((char*)engineConfiguration) + offset, ((char*)&configWorkingCopy.engineConfiguration) + offset, count);
 	}
 }
 
