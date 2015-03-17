@@ -1,9 +1,6 @@
 package com.rusefi.binaryprotocol;
 
-import com.rusefi.ConfigurationImage;
-import com.rusefi.ConfigurationImageDiff;
-import com.rusefi.Logger;
-import com.rusefi.Timeouts;
+import com.rusefi.*;
 import com.rusefi.core.Pair;
 import com.rusefi.io.DataListener;
 import com.rusefi.io.serial.SerialPortReader;
@@ -102,7 +99,7 @@ public class BinaryProtocol {
                 }
             } catch (SerialPortException | EOFException e) {
                 close();
-                System.out.println("exception: " + e);
+                FileLog.MAIN.logLine("exception: " + e);
                 return;
             } catch (InterruptedException e) {
                 throw new IllegalStateException(e);
