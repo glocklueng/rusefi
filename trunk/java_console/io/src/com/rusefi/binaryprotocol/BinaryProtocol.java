@@ -110,9 +110,11 @@ public class BinaryProtocol {
 
     private void dropPending() {
         synchronized (cbb) {
+            if (isClosed)
+                return;
             int pending = cbb.length();
             if (pending > 0) {
-                logger.error("Unexpected pending data: " + pending);
+                logger.error("Unexpected pending data: " + pending + " byte(s)");
                 cbb.get(new byte[pending]);
             }
             try {
@@ -267,10 +269,12 @@ public class BinaryProtocol {
         }
     }
 
-    private void close() {
+    public void close() {
         isClosed = true;
         try {
+            FileLog.MAIN.logLine("CLOSING PORT...");
             serialPort.closePort();
+            FileLog.MAIN.logLine("PORT CLOSED");
         } catch (SerialPortException e) {
             logger.error("Error closing port: " + e);
         }
