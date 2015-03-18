@@ -21,9 +21,10 @@ void setBmwE34(DECLARE_ENGINE_PARAMETER_F) {
 	board_configuration_s * boardConfiguration = &engineConfiguration->bc;
 
 	engineConfiguration->algorithm = LM_PLAIN_MAF;
+//	engineConfiguration->algorithm = LM_SPEED_DENSITY;
 	engineConfiguration->injector.flow = 750;
 
-	boardConfiguration->tunerStudioSerialSpeed = 9600;
+	boardConfiguration->tunerStudioSerialSpeed = 115200;
 	engineConfiguration->rpmHardLimit = 6000;
 	setOperationMode(engineConfiguration, FOUR_STROKE_CRANK_SENSOR);
 
