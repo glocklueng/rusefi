@@ -97,8 +97,14 @@ void setBmwE34(DECLARE_ENGINE_PARAMETER_F) {
 
 	engineConfiguration->map.sensor.type = MT_MPX4250;
 
-	engineConfiguration->hasCltSensor = false;
-	engineConfiguration->hasIatSensor = false;
+//	engineConfiguration->hasCltSensor = false;
+//	engineConfiguration->hasIatSensor = false;
+	engineConfiguration->hasCltSensor = true;
+	engineConfiguration->hasIatSensor = true;
+
+	setThermistorConfiguration(&engineConfiguration->clt, 13, 56000, 50, 9000, 90.0, 2700);
+	setThermistorConfiguration(&engineConfiguration->iat, 13, 56000, 50, 9000, 90.0, 2700);
+
 
 	/**
 	 * This saves a couple of ticks in trigger emulation methods
