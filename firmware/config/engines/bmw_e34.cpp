@@ -103,8 +103,11 @@ void setBmwE34(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->hasCltSensor = true;
 	engineConfiguration->hasIatSensor = true;
 
-	setThermistorConfiguration(&engineConfiguration->clt, 13, 56000, 50, 9000, 90.0, 2700);
-	setThermistorConfiguration(&engineConfiguration->iat, 13, 56000, 50, 9000, 90.0, 2700);
+	setThermistorConfiguration(&engineConfiguration->clt, -10, 9300, 20, 2500, 80, 335);
+	engineConfiguration->iat.bias_resistor = 2490;
+
+	setThermistorConfiguration(&engineConfiguration->iat, -10, 9300, 20, 2500, 80, 335);
+	engineConfiguration->clt.bias_resistor = 2490;
 
 
 	/**
