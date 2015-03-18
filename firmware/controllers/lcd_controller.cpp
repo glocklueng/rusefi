@@ -281,9 +281,9 @@ static void fillWithSpaces(void) {
 
 void updateHD44780lcd(Engine *engine) {
 	MenuItem *p = tree.topVisible;
-	int count = 0;
-	for (; count < tree.linesCount && p != NULL; count++) {
-		lcd_HD44780_set_position(count, 0);
+	int screenY = 0;
+	for (; screenY < tree.linesCount && p != NULL; screenY++) {
+		lcd_HD44780_set_position(screenY, 0);
 		char firstChar;
 		if (p == tree.current) {
 			if (p->callback != NULL) {
@@ -304,8 +304,8 @@ void updateHD44780lcd(Engine *engine) {
 		p = p->next;
 	}
 
-	for (; count < tree.linesCount; count++) {
-		lcd_HD44780_set_position(count, 0);
+	for (; screenY < tree.linesCount; screenY++) {
+		lcd_HD44780_set_position(screenY, 0);
 		fillWithSpaces();
 	}
 
