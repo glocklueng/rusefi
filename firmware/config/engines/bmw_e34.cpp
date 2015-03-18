@@ -13,6 +13,7 @@
 
 #include "global.h"
 #include "bmw_e34.h"
+#include "thermistors.h"
 
 EXTERN_ENGINE;
 
