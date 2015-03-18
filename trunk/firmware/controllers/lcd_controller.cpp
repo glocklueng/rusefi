@@ -188,7 +188,7 @@ static void lcdPrintf(const char *fmt, ...) {
 	lcd_HD44780_print_string(lcdLineBuffer);
 }
 
-static void showLine(lcd_line_e line) {
+static void showLine(lcd_line_e line, int screenY) {
 
 	switch (line) {
 	case LL_VERSION:
@@ -199,6 +199,12 @@ static void showLine(lcd_line_e line) {
 		return;
 	case LL_RPM:
 		lcdPrintf("RPM %d", getRpmE(engine));
+		{
+			int seconds = getTimeNowSeconds();
+			if (seconds < 10000) {
+				lcdPrintf("  %d", seconds);
+			}
+		}
 		return;
 	case LL_CLT_TEMPERATURE:
 		lcdPrintf("Coolant %f", getCoolantTemperature(PASS_ENGINE_PARAMETER_F));
@@ -298,7 +304,7 @@ void updateHD44780lcd(Engine *engine) {
 		if (p->lcdLine == LL_STRING) {
 			lcd_HD44780_print_string(p->text);
 		} else {
-			showLine(p->lcdLine);
+			showLine(p->lcdLine, screenY);
 		}
 		fillWithSpaces();
 		p = p->next;
