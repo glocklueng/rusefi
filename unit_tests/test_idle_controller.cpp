@@ -45,4 +45,7 @@ void testPidController(void) {
 	assertEquals(90, pid.getValue(14, 12, 0.1));
 
 
+	assertEquals(10, pid.getValue(14, 16, 0.1));
+
+
 }
