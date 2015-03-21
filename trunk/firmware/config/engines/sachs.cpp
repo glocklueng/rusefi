@@ -67,6 +67,7 @@ void setSachs(engine_configuration_s *engineConfiguration) {
 	// Frankenstein: low side - out #11: PB8
 	// Frankenstein: low side - out #12: PB9
 
-
+	boardConfiguration->triggerInputPins[0] = GPIOA_5;
+	boardConfiguration->triggerInputPins[1] = GPIOC_6;
 }
 
