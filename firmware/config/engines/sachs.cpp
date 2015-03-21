@@ -12,6 +12,7 @@
 #include "allsensors.h"
 
 void setSachs(engine_configuration_s *engineConfiguration) {
+	board_configuration_s * boardConfiguration = &engineConfiguration->bc;
 	engineConfiguration->specs.displacement = 0.1; // 100cc
 	engineConfiguration->specs.cylindersCount = 1;
 	engineConfiguration->engineCycle = 360;
