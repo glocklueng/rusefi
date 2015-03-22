@@ -63,6 +63,8 @@ public:
 	 */
 	float periodNt;
 
+	int dbgNestingLevel;
+
 	scheduling_s scheduling;
 
 	pwm_config_safe_state_s safe;
