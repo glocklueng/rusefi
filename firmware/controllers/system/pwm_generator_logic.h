@@ -79,7 +79,7 @@ public:
 	pwm_cycle_callback *cycleCallback;
 
 	/**
-	 * this main callback is invoked when it's time to switch level on amy of the output channels
+	 * this main callback is invoked when it's time to switch level on any of the output channels
 	 */
 	pwm_gen_callback *stateChangeCallback;
 };
