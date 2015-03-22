@@ -31,6 +31,7 @@ void setSachs(engine_configuration_s *engineConfiguration) {
 	engineConfiguration->hasBaroSensor = false;
 	engineConfiguration->hasAfrSensor = false;
 	engineConfiguration->hasCltSensor = false;
+	boardConfiguration->useSerialPort = false;
 
 	// Frankenstein analog input #1: PA1 adc1
 	// Frankenstein analog input #2: PA3 adc3 TPS
