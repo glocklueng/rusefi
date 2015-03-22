@@ -721,13 +721,11 @@ float getRpmMultiplier(operation_mode_e mode) {
 }
 
 void setOperationMode(engine_configuration_s *engineConfiguration, operation_mode_e mode) {
-	engineConfiguration->rpmMultiplier = getRpmMultiplier(mode);
+	engineConfiguration->operationMode = mode;
 }
 
 operation_mode_e getOperationMode(engine_configuration_s const *engineConfiguration) {
-	if (engineConfiguration->rpmMultiplier == 1)
-		return FOUR_STROKE_CRANK_SENSOR;
-	return FOUR_STROKE_CAM_SENSOR;
+	return engineConfiguration->operationMode;
 }
 
 void commonFrankensoAnalogInputs(engine_configuration_s *engineConfiguration) {
