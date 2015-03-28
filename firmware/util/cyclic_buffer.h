@@ -34,7 +34,7 @@ class cyclic_buffer
 
   public:
     void add(T value);
-    int get(int index);
+    T get(int index);
     T sum(int length);
     void setSize(int size);
     void clear();
@@ -108,8 +108,14 @@ void cyclic_buffer<T>::setSize(int size) {
 }
 
 template<typename T>
-int cyclic_buffer<T>::get(int index) {
-	return 0;
+T cyclic_buffer<T>::get(int index) {
+	while (index < 0) {
+		index += size;
+	}
+	while (index >= size) {
+		index -= size;
+	}
+	return elements[index];
 }
 
 template<typename T>
