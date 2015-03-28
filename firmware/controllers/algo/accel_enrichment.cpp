@@ -65,6 +65,9 @@ void initAccelEnrichment(Logging *sharedLogger) {
 	addConsoleActionF("set_decel_mult", setDecelMult);
 	addConsoleActionI("set_accel_len", setAccelLen);
 	addConsoleAction("accelinfo", accelInfo);
+
+	setAccelLen(engineConfiguration->accelLength);
+
 }
 #endif /* ! EFI_UNIT_TEST */
 
