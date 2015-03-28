@@ -71,8 +71,8 @@ void testCyclicBuffer(void) {
 		sb.add(3);
 		sb.add(4);
 
-		assertEquals(4, sb.max(3));
-		assertEquals(4, sb.max(113));
+		assertEquals(4, sb.maxValue(3));
+		assertEquals(4, sb.maxValue(113));
 	}
 
 }

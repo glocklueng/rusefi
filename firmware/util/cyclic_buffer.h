@@ -36,7 +36,7 @@ class cyclic_buffer
     void add(T value);
     T get(int index);
     T sum(int length);
-    T max(int length);
+    T maxValue(int length);
     void setSize(int size);
     int getSize();
     void clear();
@@ -126,7 +126,7 @@ T cyclic_buffer<T>::get(int index) {
 }
 
 template<typename T>
-T cyclic_buffer<T>::max(int length) {
+T cyclic_buffer<T>::maxValue(int length) {
 	if (length > count) {
 		length = count;
 	}
