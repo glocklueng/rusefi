@@ -549,6 +549,8 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 
 	boardConfiguration->tunerStudioSerialSpeed = TS_DEFAULT_SPEED;
 
+	boardConfiguration->idleStepperStep = GPIO_UNASSIGNED;
+	boardConfiguration->idleStepperDirection = GPIO_UNASSIGNED;
 
 	engineConfiguration->accelLength = 6;
 	engineConfiguration->accelEnrichmentThreshold = 5; // kPa
