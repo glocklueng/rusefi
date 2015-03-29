@@ -548,6 +548,11 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	boardConfiguration->isVerboseAlternator = false;
 
 	boardConfiguration->tunerStudioSerialSpeed = TS_DEFAULT_SPEED;
+
+
+	engineConfiguration->accelLength = 6;
+	engineConfiguration->accelEnrichmentThreshold = 5; // kPa
+//	engineConfiguration->accelEnrichmentMultiplier = 2;
 }
 
 void resetConfigurationExt(Logging * logger, engine_type_e engineType DECLARE_ENGINE_PARAMETER_S) {
