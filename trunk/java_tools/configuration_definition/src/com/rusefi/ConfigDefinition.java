@@ -30,7 +30,7 @@ public class ConfigDefinition {
     public static Map<String, Integer> tsCustomSize = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
-        if (args.length != 3) {
+        if (args.length != 4) {
             System.out.println("Please specify path to '" + INPUT_FILE_NAME + "' file, path to " + TS_FILE_NAME +
                     " and destination folder");
             return;
@@ -39,6 +39,7 @@ public class ConfigDefinition {
         String path = args[0];
         String tsPath = args[1];
         String dest = args[2];
+        String javaConsoleIoFolderPath = args[3];
         String fullFileName = path + File.separator + INPUT_FILE_NAME;
         System.out.println("Reading from " + fullFileName);
         String destCHeader = dest + File.separator + "engine_configuration_generated_structures.h";
@@ -70,6 +71,24 @@ public class ConfigDefinition {
 
         cHeader.close();
         tsHeader.close();
+
+        writeTsSizeForJavaConsole(totalTsSize, javaConsoleIoFolderPath);
+    }
+
+    private static void writeTsSizeForJavaConsole(int totalTsSize, String javaConsoleIoFolderPath) throws IOException {
+        String fileName = javaConsoleIoFolderPath + File.separator + "com" + File.separator + "rusefi" + File.separator + "TsPageSize.java";
+        File f = new File(fileName);
+
+        System.out.println("Writing for console to " + fileName);
+
+        FileWriter fw = new FileWriter(f);
+
+        fw.write("package com.rusefi;\r\n\r\n");
+        fw.write("public interface TsPageSize {\r\n");
+        fw.write("    int IMAGE_SIZE = " + totalTsSize + ";\n");
+        fw.write("}\n");
+
+        fw.close();
     }
 
     private static TsFileContent readTsFile(String tsPath) throws IOException {
