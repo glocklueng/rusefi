@@ -36,11 +36,11 @@ public class ConfigDefinition {
             return;
         }
 
-        String path = args[0];
+        String inputPath = args[0];
         String tsPath = args[1];
         String dest = args[2];
-        String javaConsoleIoFolderPath = args[3];
-        String fullFileName = path + File.separator + INPUT_FILE_NAME;
+        String javaConsolePath = args[3];
+        String fullFileName = inputPath + File.separator + INPUT_FILE_NAME;
         System.out.println("Reading from " + fullFileName);
         String destCHeader = dest + File.separator + "engine_configuration_generated_structures.h";
         System.out.println("Writing C header to " + destCHeader);
@@ -72,11 +72,22 @@ public class ConfigDefinition {
         cHeader.close();
         tsHeader.close();
 
-        writeTsSizeForJavaConsole(totalTsSize, javaConsoleIoFolderPath);
+        writeTsSizeForJavaConsole(totalTsSize, javaConsolePath);
+        processRomRaiderFile(inputPath);
     }
 
+    private static void processRomRaiderFile(String inputPath) {
+
+    }
+
+    // todo: re-implement using VariableRegistry and a template?
     private static void writeTsSizeForJavaConsole(int totalTsSize, String javaConsoleIoFolderPath) throws IOException {
-        String fileName = javaConsoleIoFolderPath + File.separator + "com" + File.separator + "rusefi" + File.separator + "TsPageSize.java";
+        String fileName = javaConsoleIoFolderPath +
+                File.separator + "io" +
+                File.separator + "src" +
+                File.separator + "com" +
+                File.separator + "rusefi" +
+                File.separator + "TsPageSize.java";
         File f = new File(fileName);
 
         System.out.println("Writing for console to " + fileName);
