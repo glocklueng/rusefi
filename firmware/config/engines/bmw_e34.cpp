@@ -36,6 +36,9 @@ void setBmwE34(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->injectionMode = IM_SIMULTANEOUS;
 	engineConfiguration->ignitionMode = IM_WASTED_SPARK;
 
+	boardConfiguration->triggerInputPins[0] = GPIOC_6;
+	boardConfiguration->triggerInputPins[1] = GPIOA_5;
+
 	engineConfiguration->ignMathCalculateAtIndex = 15;
 
 	setConstantDwell(engineConfiguration, 3); // a bit shorter dwell
