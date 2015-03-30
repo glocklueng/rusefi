@@ -21,6 +21,7 @@ public class ConfigDefinition {
     public static final String BIT = "bit";
     public static final String CONFIG_DEFINITION_START = "CONFIG_DEFINITION_START";
     public static final String CONFIG_DEFINITION_END = "CONFIG_DEFINITION_END";
+    private static final String ROM_RAIDER_XML = "rusefi.xml";
     private static Map<String, Integer> values = new HashMap<>();
     private static int totalTsSize;
 
@@ -45,15 +46,28 @@ public class ConfigDefinition {
         String destCHeader = dest + File.separator + "engine_configuration_generated_structures.h";
         System.out.println("Writing C header to " + destCHeader);
 
-        TsFileContent tsContent = readTsFile(tsPath);
-        System.out.println("Got " + tsContent.getPrefix().length() + "/" + tsContent.getPostfix().length() + " of " + TS_FILE_NAME);
-
         BufferedWriter cHeader = new BufferedWriter(new FileWriter(destCHeader));
 
         BufferedReader br = new BufferedReader(new FileReader(fullFileName));
 
         CharArrayWriter tunerStudioWriter = new CharArrayWriter();
         processFile(br, cHeader, tunerStudioWriter);
+
+        BufferedWriter tsHeader = writeTunerStudioFile(tsPath, tunerStudioWriter);
+
+        if (!stack.isEmpty())
+            throw new IllegalStateException("Unclosed structure: " + stack.peek().name);
+
+        cHeader.close();
+        tsHeader.close();
+
+        writeTsSizeForJavaConsole(totalTsSize, javaConsolePath);
+        processRomRaiderFile(inputPath, javaConsolePath);
+    }
+
+    private static BufferedWriter writeTunerStudioFile(String tsPath, CharArrayWriter tunerStudioWriter) throws IOException {
+        TsFileContent tsContent = readTsFile(tsPath);
+        System.out.println("Got " + tsContent.getPrefix().length() + "/" + tsContent.getPostfix().length() + " of " + TS_FILE_NAME);
 
         BufferedWriter tsHeader = new BufferedWriter(new FileWriter(tsPath + File.separator + TS_FILE_NAME));
         tsHeader.write(tsContent.getPrefix());
@@ -65,19 +79,22 @@ public class ConfigDefinition {
         tsHeader.write(tunerStudioWriter.toString());
         tsHeader.write("; " + CONFIG_DEFINITION_END + "\r\n");
         tsHeader.write(tsContent.getPostfix());
-
-        if (!stack.isEmpty())
-            throw new IllegalStateException("Unclosed structure: " + stack.peek().name);
-
-        cHeader.close();
-        tsHeader.close();
-
-        writeTsSizeForJavaConsole(totalTsSize, javaConsolePath);
-        processRomRaiderFile(inputPath);
+        return tsHeader;
     }
 
-    private static void processRomRaiderFile(String inputPath) {
+    private static void processRomRaiderFile(String inputPath, String javaConsolePath) throws IOException {
+        File inputFile = new File(inputPath + File.separator + ROM_RAIDER_XML);
 
+        File outputFile = new File(javaConsolePath + File.separator + ROM_RAIDER_XML);
+        BufferedReader fr = new BufferedReader(new FileReader(inputFile));
+        FileWriter fw = new FileWriter(outputFile);
+
+        String line;
+        while ((line = fr.readLine()) != null) {
+            line = VariableRegistry.INSTANCE.processLine(line);
+            fw.write(line + "\r\n");
+        }
+        fw.close();
     }
 
     // todo: re-implement using VariableRegistry and a template?

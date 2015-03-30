@@ -117,6 +117,10 @@ public class ConfigField {
     }
 
     public int writeTunerStudio(String prefix, Writer tsHeader, int tsPosition, ConfigField next, int bitIndex) throws IOException {
+        String nameWithPrefix = prefix + name;
+
+        VariableRegistry.INSTANCE.register(nameWithPrefix, tsPosition);
+
         ConfigStructure cs = ConfigDefinition.structures.get(type);
         if (cs != null) {
             String extraPrefix = cs.withPrefix ? name + "_" : "";
@@ -124,7 +128,7 @@ public class ConfigField {
         }
 
         if (isBit) {
-            tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH));
+            tsHeader.write("\t" + addTabsUpTo(nameWithPrefix, LENGTH));
             tsHeader.write("= bits,    U32,   ");
             tsHeader.write("\t" + tsPosition + ", [");
             tsHeader.write(bitIndex + ":" + bitIndex);
@@ -133,7 +137,7 @@ public class ConfigField {
             tsPosition += getSize(next);
         } else if (ConfigDefinition.tsCustomLine.containsKey(type)) {
             String bits = ConfigDefinition.tsCustomLine.get(type);
-            tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH));
+            tsHeader.write("\t" + addTabsUpTo(nameWithPrefix, LENGTH));
             int size = ConfigDefinition.tsCustomSize.get(type);
 //            tsHeader.headerWrite("\t" + size + ",");
             //          tsHeader.headerWrite("\t" + tsPosition + ",");
@@ -145,7 +149,7 @@ public class ConfigField {
             tsHeader.write(";skipping " + prefix + name + " offset " + tsPosition);
             tsPosition += arraySize * TypesHelper.getElementSize(type);
         } else if (arraySize != 1) {
-            tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH) + "\t\t= array, ");
+            tsHeader.write("\t" + addTabsUpTo(nameWithPrefix, LENGTH) + "\t\t= array, ");
             tsHeader.write(TypesHelper.convertToTs(type) + ",");
             tsHeader.write("\t" + tsPosition + ",");
             tsHeader.write("\t[" + arraySize + "],");
@@ -153,7 +157,7 @@ public class ConfigField {
 
             tsPosition += arraySize * elementSize;
         } else {
-            tsHeader.write("\t" + addTabsUpTo(prefix + name, LENGTH) + "\t\t= scalar, ");
+            tsHeader.write("\t" + addTabsUpTo(nameWithPrefix, LENGTH) + "\t\t= scalar, ");
             tsHeader.write(TypesHelper.convertToTs(type) + ",");
             tsHeader.write("\t" + tsPosition + ",");
             tsHeader.write("\t" + tsInfo);
