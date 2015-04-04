@@ -78,8 +78,8 @@ void setBmwE34(DECLARE_ENGINE_PARAMETER_F) {
 
 	boardConfiguration->fuelPumpPin = GPIOD_4;
 
-	boardConfiguration->idleValvePin = GPIOC_14;
-	boardConfiguration->idleValvePinMode = OM_INVERTED;
+	boardConfiguration->idle.solenoidPin = GPIOC_14;
+	boardConfiguration->idle.solenoidPinMode = OM_INVERTED;
 	boardConfiguration->idleSolenoidFrequency = 300;
 	// set_idle_pwm 50
 	boardConfiguration->idleSolenoidPwm = 0.5;
