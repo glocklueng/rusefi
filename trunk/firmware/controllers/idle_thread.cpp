@@ -62,7 +62,7 @@ static void showIdleInfo(void) {
 
 	} else {
 		scheduleMsg(logger, "idle valve freq=%d on %s", boardConfiguration->idleSolenoidFrequency,
-				hwPortname(boardConfiguration->idleValvePin));
+				hwPortname(boardConfiguration->idle.solenoidPin));
 	}
 }
 
@@ -152,7 +152,7 @@ void startIdleThread(Logging*sharedLogger, Engine *engine) {
 		/**
 		 * Start PWM for idleValvePin
 		 */
-		startSimplePwmExt(&idleValvePwm, "Idle Valve", boardConfiguration->idleValvePin, &idlePin,
+		startSimplePwmExt(&idleValvePwm, "Idle Valve", boardConfiguration->idle.solenoidPin, &idlePin,
 				boardConfiguration->idleSolenoidFrequency, boardConfiguration->idleSolenoidPwm,
 				applyIdleSolenoidPinState);
 	}

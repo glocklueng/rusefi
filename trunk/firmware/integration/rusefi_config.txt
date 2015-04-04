@@ -251,10 +251,14 @@ float injectionAngle;this is about deciding when the injector starts it's squirt
 	float diffLoadEnrichmentCoef;
 	
 air_pressure_sensor_config_s baroSensor;@see hasBaroSensor	
+
+struct idle_hardware_s
+	brain_pin_e solenoidPin;
+	pin_output_mode_e solenoidPinMode;
+end_struct
 	
 struct_no_prefix board_configuration_s
-	brain_pin_e idleValvePin;
-	pin_output_mode_e idleValvePinMode;
+	idle_hardware_s idle;
 
 	brain_pin_e fuelPumpPin;
 	pin_output_mode_e fuelPumpPinMode;

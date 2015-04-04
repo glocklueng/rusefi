@@ -430,8 +430,8 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 
 	boardConfiguration->mainRelayPin = GPIO_UNASSIGNED;
 	boardConfiguration->mainRelayPinMode = OM_DEFAULT;
-	boardConfiguration->idleValvePin = GPIO_UNASSIGNED;
-	boardConfiguration->idleValvePinMode = OM_DEFAULT;
+	boardConfiguration->idle.solenoidPin = GPIO_UNASSIGNED;
+	boardConfiguration->idle.solenoidPinMode = OM_DEFAULT;
 	boardConfiguration->fuelPumpPin = GPIO_UNASSIGNED;
 	boardConfiguration->fuelPumpPinMode = OM_DEFAULT;
 	boardConfiguration->electronicThrottlePin1 = GPIO_UNASSIGNED;
