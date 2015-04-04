@@ -21,6 +21,8 @@
 void outputPinRegister(const char *msg, OutputPin *output, GPIO_TypeDef *port, uint32_t pin);
 #endif /* __cplusplus */
 
+#define PORT_SIZE 16
+
 #ifdef __cplusplus
 extern "C"
 {
