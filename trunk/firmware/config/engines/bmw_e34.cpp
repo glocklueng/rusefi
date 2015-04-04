@@ -84,6 +84,8 @@ void setBmwE34(DECLARE_ENGINE_PARAMETER_F) {
 	// set_idle_pwm 50
 	boardConfiguration->idlePosition = 50;
 
+	boardConfiguration->sdCardCsPin = GPIO_UNASSIGNED;
+
 	// turbocharger boost control solenoid: TODO output: GPIOE_6
 	// water injection #1 TODO GPIOD_7
 	// water injection #2 TODO GPIOE_2
