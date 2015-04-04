@@ -280,7 +280,7 @@ void setDodgeNeonNGCEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	boardConfiguration->mainRelayPin = GPIOE_6;
 
 	boardConfiguration->idle.solenoidPin = GPIOC_13;
-	boardConfiguration->idleSolenoidFrequency = 300;
+	boardConfiguration->idle.solenoidFrequency = 300;
 
 	boardConfiguration->fuelPumpPin = GPIOE_3;
 	boardConfiguration->fuelPumpPinMode = OM_DEFAULT;

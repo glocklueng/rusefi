@@ -86,7 +86,7 @@ static void printOutputs(engine_configuration_s *engineConfiguration) {
 	}
 
 	scheduleMsg(&logger, "idlePin: mode %s @ %s freq=%d", getPin_output_mode_e(boardConfiguration->idle.solenoidPinMode),
-			hwPortname(boardConfiguration->idle.solenoidPin), boardConfiguration->idleSolenoidFrequency);
+			hwPortname(boardConfiguration->idle.solenoidPin), boardConfiguration->idle.solenoidFrequency);
 	scheduleMsg(&logger, "malfunctionIndicatorn: %s mode=%s", hwPortname(boardConfiguration->malfunctionIndicatorPin),
 			getPin_output_mode_e(boardConfiguration->malfunctionIndicatorPinMode));
 
@@ -308,7 +308,7 @@ void setEngineType(int value) {
 }
 
 static void setIdleSolenoidFrequency(int value) {
-	boardConfiguration->idleSolenoidFrequency = value;
+	boardConfiguration->idle.solenoidFrequency = value;
 }
 
 static void setInjectionPinMode(int value) {

@@ -255,17 +255,19 @@ air_pressure_sensor_config_s baroSensor;@see hasBaroSensor
 struct idle_hardware_s
 	brain_pin_e solenoidPin;
 	pin_output_mode_e solenoidPinMode;
+
+	int solenoidFrequency;;"Hz",      1,      0,       0, 3000,      0
+
+	brain_pin_e stepperDirectionPin;
+	brain_pin_e stepperStepPin; 
+
 end_struct
 	
 struct_no_prefix board_configuration_s
 	idle_hardware_s idle;
 
-	int idleSolenoidFrequency;;"Hz",      1,      0,       0, 3000,      0
 
-	brain_pin_e idleStepperDirection;
-	brain_pin_e idleStepperStep; 
-
-	float idleSolenoidPwm;value between 0 and 1;"%", 1, 0, 0, 100, 0
+	float idlePosition;value between 0 and 1;"%", 1, 0, 0, 100, 0
 
 	brain_pin_e fuelPumpPin;
 	pin_output_mode_e fuelPumpPinMode;

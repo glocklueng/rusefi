@@ -358,9 +358,9 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->hasBaroSensor = false;
 	engineConfiguration->isDigitalChartEnabled = true;
 
-	boardConfiguration->idleSolenoidFrequency = 200;
+	boardConfiguration->idle.solenoidFrequency = 200;
 	// set_idle_position 50
-	boardConfiguration->idleSolenoidPwm = 0.5;
+	boardConfiguration->idlePosition = 0.5;
 	engineConfiguration->targetIdleRpm = 1200;
 //	engineConfiguration->idleMode = IM_AUTO;
 	engineConfiguration->idleMode = IM_MANUAL;
@@ -568,8 +568,8 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 
 	boardConfiguration->tunerStudioSerialSpeed = TS_DEFAULT_SPEED;
 
-	boardConfiguration->idleStepperStep = GPIO_UNASSIGNED;
-	boardConfiguration->idleStepperDirection = GPIO_UNASSIGNED;
+	boardConfiguration->idle.stepperStepPin = GPIO_UNASSIGNED;
+	boardConfiguration->idle.stepperDirectionPin = GPIO_UNASSIGNED;
 
 	engineConfiguration->accelLength = 6;
 	engineConfiguration->accelEnrichmentThreshold = 5; // kPa

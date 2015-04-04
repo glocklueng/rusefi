@@ -180,7 +180,7 @@ static void setHondaAccordConfigurationCommon(DECLARE_ENGINE_PARAMETER_F) {
 	setFrankenso_01_LCD(boardConfiguration);
 
 
-	boardConfiguration->idleSolenoidFrequency = 500;
+	boardConfiguration->idle.solenoidFrequency = 500;
 }
 
 void setHondaAccordConfigurationTwoWires(DECLARE_ENGINE_PARAMETER_F) {
