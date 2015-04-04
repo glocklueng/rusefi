@@ -57,11 +57,11 @@ void idleDebug(const char *msg, percent_t value) {
 
 static void showIdleInfo(void) {
 	scheduleMsg(logger, "idleMode=%s position=%f isStepper=%s", getIdle_mode_e(engineConfiguration->idleMode),
-			boardConfiguration->idleSolenoidPwm, boolToString(boardConfiguration->useStepperIdle));
+			boardConfiguration->idlePosition, boolToString(boardConfiguration->useStepperIdle));
 	if (boardConfiguration->useStepperIdle) {
 
 	} else {
-		scheduleMsg(logger, "idle valve freq=%d on %s", boardConfiguration->idleSolenoidFrequency,
+		scheduleMsg(logger, "idle valve freq=%d on %s", boardConfiguration->idle.solenoidFrequency,
 				hwPortname(boardConfiguration->idle.solenoidPin));
 	}
 }
@@ -76,7 +76,7 @@ static void setIdleValvePwm(percent_t value) {
 		return;
 	scheduleMsg(logger, "setting idle valve PWM %f", value);
 	float f = 0.01 * value;
-	boardConfiguration->idleSolenoidPwm = f;
+	boardConfiguration->idlePosition = f;
 	showIdleInfo();
 	/**
 	 * currently idle level is an percent value (0-100 range), and PWM takes a float in the 0..1 range
@@ -147,13 +147,13 @@ void startIdleThread(Logging*sharedLogger, Engine *engine) {
 	logger = sharedLogger;
 
 	if (boardConfiguration->useStepperIdle) {
-		iacMotor.initialize(boardConfiguration->idleStepperStep, boardConfiguration->idleStepperDirection);
+		iacMotor.initialize(boardConfiguration->idle.stepperStepPin, boardConfiguration->idle.stepperDirectionPin);
 	} else {
 		/**
 		 * Start PWM for idleValvePin
 		 */
 		startSimplePwmExt(&idleValvePwm, "Idle Valve", boardConfiguration->idle.solenoidPin, &idlePin,
-				boardConfiguration->idleSolenoidFrequency, boardConfiguration->idleSolenoidPwm,
+				boardConfiguration->idle.solenoidFrequency, boardConfiguration->idlePosition,
 				applyIdleSolenoidPinState);
 	}
 

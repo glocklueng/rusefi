@@ -80,9 +80,9 @@ void setBmwE34(DECLARE_ENGINE_PARAMETER_F) {
 
 	boardConfiguration->idle.solenoidPin = GPIOC_14;
 	boardConfiguration->idle.solenoidPinMode = OM_INVERTED;
-	boardConfiguration->idleSolenoidFrequency = 300;
+	boardConfiguration->idle.solenoidFrequency = 300;
 	// set_idle_pwm 50
-	boardConfiguration->idleSolenoidPwm = 0.5;
+	boardConfiguration->idlePosition = 0.5;
 
 	// turbocharger boost control solenoid: TODO output: GPIOE_6
 	// water injection #1 TODO GPIOD_7
