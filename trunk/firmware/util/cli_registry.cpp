@@ -37,9 +37,9 @@ static TokenCallback consoleActions[CONSOLE_MAX_ACTIONS];
 #define SECURE_LINE_PREFIX "sec!"
 #define SECURE_LINE_PREFIX_LENGTH 4
 
-//void resetConsoleActions(void) {
-//	consoleActionCount = 0;
-//}
+void resetConsoleActions(void) {
+	consoleActionCount = 0;
+}
 
 static void doAddAction(const char *token, action_type_e type, Void callback, void *param) {
 	efiAssertVoid(consoleActionCount < CONSOLE_MAX_ACTIONS, "Too many console actions");
