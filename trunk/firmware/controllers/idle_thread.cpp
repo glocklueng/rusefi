@@ -47,7 +47,7 @@ static SimplePwm idleValvePwm;
 static StepperMotor iacMotor;
 
 /**
- * Idle level calculation algorithm lives in idle_controller.c
+ * Idle level calculation algorithm lives in idle_controller.cpp
  */
 static IdleValveState idleMath;
 
@@ -56,10 +56,14 @@ void idleDebug(const char *msg, percent_t value) {
 }
 
 static void showIdleInfo(void) {
-	scheduleMsg(logger, "idleMode=%s duty=%f", getIdle_mode_e(engineConfiguration->idleMode),
-			boardConfiguration->idleSolenoidPwm);
-	scheduleMsg(logger, "idle valve freq=%d on %s", boardConfiguration->idleSolenoidFrequency,
-			hwPortname(boardConfiguration->idleValvePin));
+	scheduleMsg(logger, "idleMode=%s position=%f isStepper=%s", getIdle_mode_e(engineConfiguration->idleMode),
+			boardConfiguration->idleSolenoidPwm, boolToString(boardConfiguration->useStepperIdle));
+	if (boardConfiguration->useStepperIdle) {
+
+	} else {
+		scheduleMsg(logger, "idle valve freq=%d on %s", boardConfiguration->idleSolenoidFrequency,
+				hwPortname(boardConfiguration->idleValvePin));
+	}
 }
 
 static void setIdleControlEnabled(int value) {
@@ -82,7 +86,7 @@ static void setIdleValvePwm(percent_t value) {
 }
 
 static void setIdleValvePosition(int position) {
-	if(boardConfiguration->useStepperIdle) {
+	if (boardConfiguration->useStepperIdle) {
 		iacMotor.targetPosition = position;
 	} else {
 		setIdleValvePwm(position);
@@ -149,9 +153,9 @@ void startIdleThread(Logging*sharedLogger, Engine *engine) {
 		 * Start PWM for idleValvePin
 		 */
 		startSimplePwmExt(&idleValvePwm, "Idle Valve", boardConfiguration->idleValvePin, &idlePin,
-				boardConfiguration->idleSolenoidFrequency, boardConfiguration->idleSolenoidPwm, applyIdleSolenoidPinState);
+				boardConfiguration->idleSolenoidFrequency, boardConfiguration->idleSolenoidPwm,
+				applyIdleSolenoidPinState);
 	}
-
 
 	idleMath.init();
 	scheduleMsg(logger, "initial idle %d", idleMath.value);
@@ -165,7 +169,8 @@ void startIdleThread(Logging*sharedLogger, Engine *engine) {
 				getInputMode(boardConfiguration->clutchDownPinMode));
 
 	if (engineConfiguration->clutchUpPin != GPIO_UNASSIGNED)
-		mySetPadMode2("clutch up switch", engineConfiguration->clutchUpPin, getInputMode(engineConfiguration->clutchUpPinMode));
+		mySetPadMode2("clutch up switch", engineConfiguration->clutchUpPin,
+				getInputMode(engineConfiguration->clutchUpPinMode));
 
 	addConsoleAction("idleinfo", showIdleInfo);
 	addConsoleActionI("set_idle_rpm", setIdleRpmAction);
