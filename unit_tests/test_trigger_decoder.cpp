@@ -397,7 +397,10 @@ static void testRpmCalculator(void) {
 	eth.triggerCentral.handleShaftSignal(SHAFT_PRIMARY_UP PASS_ENGINE_PARAMETER);
 	assertEqualsM("index #2", 0, eth.triggerCentral.triggerState.getCurrentIndex());
 	assertEqualsM("queue size", 6, schedulingQueue.size());
-	assertEqualsM("ev 1", 246444, schedulingQueue.getForUnitText(0)->momentX);
+	scheduling_s *ev1 = schedulingQueue.getForUnitText(0);
+	assertEquals((float)(uint64_t)ev1->callback, (float)((uint64_t)&turnPinLow));
+
+	assertEqualsM("ev 1", 246444, ev1->momentX);
 	assertEqualsM("ev 2", 245944, schedulingQueue.getForUnitText(1)->momentX);
 	schedulingQueue.clear();
 
