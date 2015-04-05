@@ -109,13 +109,6 @@ end_struct
 
 injector_s injector
 
-
-float[CLT_CURVE_SIZE] cltFuelCorrBins;;"C",        1,     0,   -100.0,    250.0,  2
-float[CLT_CURVE_SIZE] cltFuelCorr;;"%",      1,     0,      0.0,    500.0,   2
-
-float[IAT_CURVE_SIZE] iatFuelCorrBins;;"C",        1,     0,   -100.0,    250.0,   2
-float[IAT_CURVE_SIZE] iatFuelCorr;;"%",      1,     0,      0.0,    500.0,   2
-
 int16_t directSelfStimulation;Should the trigger emulator push data right into trigger input, eliminating the need for physical jumper wires?\nPS: Funny name, right? :)\ntodo: make this a bit on some bit field
 
 int16_t tpsMin;todo: extract these two fields into a structure\ntodo: we need two sets of TPS parameters - modern ETBs have two sensors;"ADC",      1,     0,    0, 1023,      0
@@ -415,7 +408,6 @@ end_struct
 custom le_formula_t 200 array, U08, @OFFSET@, [200],"char", 1, 0, 0.0, 3.0, 2
 	
 board_configuration_s bc;
-le_formula_t[LE_COMMAND_COUNT iterate] le_formulas;
 bit hasMapSensor;@see isMapAveragingEnabled
 	bit hasIatSensor
 	bit hasBaroSensor
@@ -455,13 +447,6 @@ bit hasMapSensor;@see isMapAveragingEnabled
 
 
 	uint32_t digitalChartSize;;"count",      1,      0,       0, 300,      0
-
-
-	float[CRANKING_CURVE_SIZE] crankingFuelCoef;;"%",      1,     0,      0.0,    700.0,   2
-	float[CRANKING_CURVE_SIZE] crankingFuelBins;;"C",        1,     0,    -80.0,    170.0,  2
-
-	float[CRANKING_CURVE_SIZE] crankingCycleCoef;;"%",      1,     0,      0.0,    500.0,   2
-	float[CRANKING_CURVE_SIZE] crankingCycleBins;;"C",        1,     0,    -80.0,    170.0,  2
 
 	float ignitionDwellForCrankingMs;;"ms",        1,     0,    0, 200,     1
 
@@ -503,12 +488,25 @@ custom pin_input_mode_e 4 scalar, F32,	@OFFSET@,	"ms", 1, 0, 0, 200, 1
 	float accelEnrichmentThreshold;;"roc",        1,     0,    0, 200,     3
 	float accelEnrichmentMultiplier;;"coeff",        1,     0,    0, 200,     3
 
-	le_formula_t timingMultiplier;
-	le_formula_t timingAdditive;
-
 end_struct
 
 engine_configuration_s engineConfiguration;
+
+le_formula_t[LE_COMMAND_COUNT iterate] le_formulas;
+	le_formula_t timingMultiplier;
+	le_formula_t timingAdditive;
+
+float[CLT_CURVE_SIZE] cltFuelCorrBins;;"C",        1,     0,   -100.0,    250.0,  2
+float[CLT_CURVE_SIZE] cltFuelCorr;;"%",      1,     0,      0.0,    500.0,   2
+
+float[IAT_CURVE_SIZE] iatFuelCorrBins;;"C",        1,     0,   -100.0,    250.0,   2
+float[IAT_CURVE_SIZE] iatFuelCorr;;"%",      1,     0,      0.0,    500.0,   2
+
+	float[CRANKING_CURVE_SIZE] crankingFuelCoef;;"%",      1,     0,      0.0,    700.0,   2
+	float[CRANKING_CURVE_SIZE] crankingFuelBins;;"C",        1,     0,    -80.0,    170.0,  2
+
+	float[CRANKING_CURVE_SIZE] crankingCycleCoef;;"%",      1,     0,      0.0,    500.0,   2
+	float[CRANKING_CURVE_SIZE] crankingCycleBins;;"C",        1,     0,    -80.0,    170.0,  2
 
 float[IAT_CURVE_SIZE] iatIdleCorrBins;;"C",        1,     0,   -100.0,    250.0,  2
 float[IAT_CURVE_SIZE] iatIdleCorr;;"%",      1,     0,      0.0,    500.0,   2
