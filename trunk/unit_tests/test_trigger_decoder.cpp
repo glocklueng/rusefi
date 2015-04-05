@@ -60,7 +60,6 @@ static void testDodgeNeonDecoder(void) {
 	EngineTestHelper eth(DODGE_NEON_1995);
 	EXPAND_EngineTestHelper;
 
-	engine_configuration_s *ec = eth.ec;
 	TriggerShape * shape = &eth.engine.triggerShape;
 	assertEquals(8, shape->getTriggerShapeSynchPointIndex());
 
@@ -315,6 +314,7 @@ extern EventQueue schedulingQueue;
 extern int mockTps;
 
 static void testStartupFuelPumping(void) {
+	printf("*************************************************** testStartupFuelPumping\r\n");
 	EngineTestHelper eth(FORD_INLINE_6_1995);
 	EXPAND_EngineTestHelper;
 
@@ -405,6 +405,7 @@ static void testRpmCalculator(void) {
 	timeNow += 5000; // 5ms
 	eth.triggerCentral.handleShaftSignal(SHAFT_PRIMARY_UP PASS_ENGINE_PARAMETER);
 
+	assertEquals(4.5, eth.engine.dwellAngle);
 	assertEqualsM("fuel", 3.03, eth.engine.fuelMs);
 	assertEqualsM("one degree", 111.1111, eth.engine.rpmCalculator.oneDegreeUs);
 	IgnitionEventList *ilist = &eth.engine.engineConfiguration2->ignitionEvents[0];
@@ -534,6 +535,6 @@ void testTriggerDecoder(void) {
 
 	testMazda323();
 
-	testRpmCalculator();
 	testStartupFuelPumping();
+	testRpmCalculator();
 }
