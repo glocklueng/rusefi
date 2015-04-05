@@ -360,6 +360,8 @@ static void assertREquals(void *expected, void *actual) {
 	assertEquals((float)(uint64_t)expected, (float)(uint64_t)actual);
 }
 
+extern engine_pins_s enginePins;
+
 static void testRpmCalculator(void) {
 	printf("*************************************************** testRpmCalculator\r\n");
 
@@ -403,6 +405,7 @@ static void testRpmCalculator(void) {
 	assertEqualsM("queue size", 6, schedulingQueue.size());
 	scheduling_s *ev1 = schedulingQueue.getForUnitText(0);
 	assertREquals((void*)ev1->callback, (void*)turnPinLow);
+	assertREquals((void*)&enginePins.coils[0], ev1->param);
 
 	assertEqualsM("ev 1", 246444, ev1->momentX);
 	assertEqualsM("ev 2", 245944, schedulingQueue.getForUnitText(1)->momentX);
