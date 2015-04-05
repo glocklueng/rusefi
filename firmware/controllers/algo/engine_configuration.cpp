@@ -149,8 +149,10 @@ static void initTemperatureCurve(int size, float *bins, float *values) {
  */
 void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	board_configuration_s *boardConfiguration = &engineConfiguration->bc;
+	// technically these regions currently overlap, but I will reset all individually for readability
 	memset(engineConfiguration, 0, sizeof(engine_configuration_s));
 	memset(boardConfiguration, 0, sizeof(board_configuration_s));
+	memset(&persistentState.persistentConfiguration, 0, sizeof(persistentState.persistentConfiguration));
 
 	boardConfiguration->mafSensorType = Bosch0280218037;
 	setBosch0280218037(engineConfiguration);
