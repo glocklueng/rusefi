@@ -203,11 +203,11 @@ void printConfiguration(engine_configuration_s *engineConfiguration) {
 
 	printFloatArray("Y bin: ", config->fuelLoadBins, FUEL_LOAD_COUNT);
 
-	printFloatArray("CLT: ", engineConfiguration->cltFuelCorr, CLT_CURVE_SIZE);
-	printFloatArray("CLT bins: ", engineConfiguration->cltFuelCorrBins, CLT_CURVE_SIZE);
+	printFloatArray("CLT: ", config->cltFuelCorr, CLT_CURVE_SIZE);
+	printFloatArray("CLT bins: ", config->cltFuelCorrBins, CLT_CURVE_SIZE);
 
-	printFloatArray("IAT: ", engineConfiguration->iatFuelCorr, IAT_CURVE_SIZE);
-	printFloatArray("IAT bins: ", engineConfiguration->iatFuelCorrBins, IAT_CURVE_SIZE);
+	printFloatArray("IAT: ", config->iatFuelCorr, IAT_CURVE_SIZE);
+	printFloatArray("IAT bins: ", config->iatFuelCorrBins, IAT_CURVE_SIZE);
 
 	printFloatArray("vBatt: ", engineConfiguration->injector.battLagCorr, VBAT_INJECTOR_CURVE_SIZE);
 	printFloatArray("vBatt bins: ", engineConfiguration->injector.battLagCorrBins, VBAT_INJECTOR_CURVE_SIZE);
