@@ -406,6 +406,7 @@ static void testRpmCalculator(void) {
 	eth.triggerCentral.handleShaftSignal(SHAFT_PRIMARY_UP PASS_ENGINE_PARAMETER);
 
 	assertEqualsM("fuel", 3.03, eth.engine.fuelMs);
+	assertEqualsM("one degree", 111.1111, eth.engine.rpmCalculator.oneDegreeUs);
 
 	assertEqualsM("index #2", 0, eth.triggerCentral.triggerState.getCurrentIndex());
 	assertEqualsM("queue size", 6, schedulingQueue.size());
