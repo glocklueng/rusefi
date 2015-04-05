@@ -43,6 +43,10 @@ EXTERN_ENGINE
 // todo: better name for this constant
 #define HELPER_PERIOD 100000
 
+
+#define NO_LEFT_FILTER -1
+#define NO_RIGHT_FILTER 1000
+
 static cyclic_buffer<int> errorDetection;
 
 #if ! EFI_PROD_CODE
@@ -232,14 +236,14 @@ float getEngineCycle(operation_mode_e operationMode) {
 }
 
 void addSkippedToothTriggerEvents(trigger_wheel_e wheel, TriggerShape *s, int totalTeethCount, int skippedCount,
-		operation_mode_e operationMode) {
+		operation_mode_e operationMode, float filterLeft, float filterRight) {
 	float toothWidth = 0.5;
 	float engineCycle = getEngineCycle(operationMode);
 
 	for (int i = 0; i < totalTeethCount - skippedCount - 1; i++) {
 		float angleDown = engineCycle / totalTeethCount * (i + toothWidth);
 		float angleUp = engineCycle / totalTeethCount * (i + 1);
-		s->addEvent(angleDown, wheel, TV_HIGH);
+		s->addEvent(angleDown, wheel, TV_HIGH, filterLeft, filterRight);
 		s->addEvent(angleUp, wheel, TV_LOW);
 	}
 
@@ -262,7 +266,7 @@ void initializeSkippedToothTriggerShapeExt(TriggerShape *s, int totalTeethCount,
 	efiAssertVoid(s != NULL, "TriggerShape is NULL");
 	s->reset(operationMode, false);
 
-	addSkippedToothTriggerEvents(T_PRIMARY, s, totalTeethCount, skippedCount, operationMode);
+	addSkippedToothTriggerEvents(T_PRIMARY, s, totalTeethCount, skippedCount, operationMode, NO_LEFT_FILTER, NO_RIGHT_FILTER);
 }
 
 static void configureOnePlusOne(TriggerShape *s, operation_mode_e operationMode) {
@@ -341,7 +345,6 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s const *engin
 	case TT_ONE_PLUS_TOOTHED_WHEEL_60_2:
 		configureOnePlus60_2(triggerShape, engineConfiguration->operationMode);
 		break;
-
 
 	case TT_MAZDA_SOHC_4:
 		configureMazdaProtegeSOHC(triggerShape);
