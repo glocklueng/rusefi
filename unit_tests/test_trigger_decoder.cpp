@@ -293,8 +293,6 @@ static void testTriggerDecoder2(const char *msg, engine_type_e type, int synchPo
 	EngineTestHelper eth(type);
 	EXPAND_EngineTestHelper;
 
-	engine_configuration_s *ec = eth.ec;
-
 	initSpeedDensity(PASS_ENGINE_PARAMETER_F);
 
 	TriggerShape *t = &eth.engine.triggerShape;
@@ -361,6 +359,7 @@ static void assertREquals(void *expected, void *actual) {
 }
 
 extern engine_pins_s enginePins;
+extern bool_t debugSignalExecutor;
 
 static void testRpmCalculator(void) {
 	printf("*************************************************** testRpmCalculator\r\n");
@@ -399,8 +398,15 @@ static void testRpmCalculator(void) {
 //	engine.rpmCalculator = &eth.rpmState;
 	prepareTimingMap(PASS_ENGINE_PARAMETER_F);
 
+	assertEqualsM("queue size", 0, schedulingQueue.size());
+
+	debugSignalExecutor = true;
+
 	timeNow += 5000; // 5ms
 	eth.triggerCentral.handleShaftSignal(SHAFT_PRIMARY_UP PASS_ENGINE_PARAMETER);
+
+	assertEqualsM("fuel", 3.03, eth.engine.fuelMs);
+
 	assertEqualsM("index #2", 0, eth.triggerCentral.triggerState.getCurrentIndex());
 	assertEqualsM("queue size", 6, schedulingQueue.size());
 	scheduling_s *ev1 = schedulingQueue.getForUnitText(0);
