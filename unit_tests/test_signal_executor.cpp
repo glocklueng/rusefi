@@ -21,7 +21,7 @@ bool_t debugSignalExecutor = false;
 void scheduleTask(const char *msg, scheduling_s *scheduling, int delayUs,
 		schfunc_t callback, void *param) {
 	if (debugSignalExecutor) {
-		printf("scheduleTask %d", delayUs);
+		printf("scheduleTask %d\r\n", delayUs);
 	}
 	scheduleByTime(msg, scheduling, getTimeNowUs() + delayUs, callback, param);
 }
@@ -29,7 +29,7 @@ void scheduleTask(const char *msg, scheduling_s *scheduling, int delayUs,
 void scheduleByTime(const char *prefix, scheduling_s *scheduling,
 		efitimeus_t time, schfunc_t callback, void *param) {
 	if (debugSignalExecutor) {
-		printf("scheduleByTime %d", time);
+		printf("scheduleByTime %d\r\n", time);
 	}
 	schedulingQueue.insertTask(scheduling, time, callback, param);
 }
