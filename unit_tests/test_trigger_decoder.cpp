@@ -407,6 +407,10 @@ static void testRpmCalculator(void) {
 
 	assertEqualsM("fuel", 3.03, eth.engine.fuelMs);
 	assertEqualsM("one degree", 111.1111, eth.engine.rpmCalculator.oneDegreeUs);
+	IgnitionEventList *ilist = &eth.engine.engineConfiguration2->ignitionEvents[0];
+	assertEqualsM("size", 6, ilist->size);
+	assertEqualsM("dwell angle", 0, ilist->elements[0].dwellPosition.eventAngle);
+	assertEqualsM("dwell offset", 8.5, ilist->elements[0].dwellPosition.angleOffset);
 
 	assertEqualsM("index #2", 0, eth.triggerCentral.triggerState.getCurrentIndex());
 	assertEqualsM("queue size", 6, schedulingQueue.size());
