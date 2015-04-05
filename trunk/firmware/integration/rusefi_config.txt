@@ -506,23 +506,6 @@ custom pin_input_mode_e 4 scalar, F32,	@OFFSET@,	"ms", 1, 0, 0, 200, 1
 	le_formula_t timingMultiplier;
 	le_formula_t timingAdditive;
 
-
-fuel_table_t fuelTable;
-float[FUEL_LOAD_COUNT] fuelLoadBins;;"V",	   1,      0,      0.0,  300.0,   2
-float[FUEL_RPM_COUNT] fuelRpmBins;RPM is float and not integer in order to use unified methods for interpolation;"RPM",	   1,      0,      0.0,  25500.0,   2
-
-ignition_table_t ignitionTable;
-float[IGN_LOAD_COUNT] ignitionLoadBins;;"Load",   1,   0.0,        0,  300.0,   2
-float[IGN_RPM_COUNT] ignitionRpmBins;;"RPM",	   1,   0.0,        0,  18000.0, 2
-
-ve_table_t veTable;
-float[FUEL_LOAD_COUNT] veLoadBins;;"%",	1,   0.0,        0,  300.0,   2
-float[FUEL_RPM_COUNT] veRpmBins;;"RPM",	   1,   0.0,        0,  18000.0, 2
-
-afr_table_t afrTable;		
-float[FUEL_LOAD_COUNT] afrLoadBins;;"%",	1,   0.0,        0,  300.0,   2
-float[FUEL_RPM_COUNT] afrRpmBins;;"RPM",	   1,   0.0,        0,  18000.0, 2
-
 end_struct
 
 engine_configuration_s engineConfiguration;
@@ -540,6 +523,22 @@ float[IGN_RPM_COUNT] ignitionIatCorrRpmBins;;"RPM",	   1,   0.0,        0,  1800
 fuel_table_t injectionPhase;
 float[FUEL_LOAD_COUNT] injPhaseLoadBins;;"Load",   1,   0.0,        0,  300.0,   2
 float[FUEL_RPM_COUNT] injPhaseRpmBins;;"RPM",	   1,   0.0,        0,  18000.0, 2
+
+fuel_table_t fuelTable;
+float[FUEL_LOAD_COUNT] fuelLoadBins;;"V",	   1,      0,      0.0,  300.0,   2
+float[FUEL_RPM_COUNT] fuelRpmBins;RPM is float and not integer in order to use unified methods for interpolation;"RPM",	   1,      0,      0.0,  25500.0,   2
+
+ignition_table_t ignitionTable;
+float[IGN_LOAD_COUNT] ignitionLoadBins;;"Load",   1,   0.0,        0,  300.0,   2
+float[IGN_RPM_COUNT] ignitionRpmBins;;"RPM",	   1,   0.0,        0,  18000.0, 2
+
+ve_table_t veTable;
+float[FUEL_LOAD_COUNT] veLoadBins;;"%",	1,   0.0,        0,  300.0,   2
+float[FUEL_RPM_COUNT] veRpmBins;;"RPM",	   1,   0.0,        0,  18000.0, 2
+
+afr_table_t afrTable;		
+float[FUEL_LOAD_COUNT] afrLoadBins;;"%",	1,   0.0,        0,  300.0,   2
+float[FUEL_RPM_COUNT] afrRpmBins;;"RPM",	   1,   0.0,        0,  18000.0, 2
 
 ! ve_table_t ve2Table;
 ! float[FUEL_LOAD_COUNT] ve2LoadBins;;"%",	1,   0.0,        0,  300.0,   2

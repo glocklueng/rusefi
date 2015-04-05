@@ -113,24 +113,24 @@ void setMap(fuel_table_t table, float value) {
 }
 
 static void setWholeVEMap(float value DECLARE_ENGINE_PARAMETER_S) {
-	setMap(engineConfiguration->veTable, value);
+	setMap(config->veTable, value);
 }
 
 void setWholeFuelMap(float value DECLARE_ENGINE_PARAMETER_S) {
-	setMap(engineConfiguration->fuelTable, value);
+	setMap(config->fuelTable, value);
 }
 
 void setFuelTablesLoadBin(float minValue, float maxValue DECLARE_ENGINE_PARAMETER_S) {
 	setTableBin2(config->injPhaseLoadBins, FUEL_LOAD_COUNT, minValue, maxValue, 1);
-	setTableBin2(engineConfiguration->veLoadBins, FUEL_LOAD_COUNT, minValue, maxValue, 1);
-	setTableBin2(engineConfiguration->afrLoadBins, FUEL_LOAD_COUNT, minValue, maxValue, 1);
+	setTableBin2(config->veLoadBins, FUEL_LOAD_COUNT, minValue, maxValue, 1);
+	setTableBin2(config->afrLoadBins, FUEL_LOAD_COUNT, minValue, maxValue, 1);
 }
 
 void setWholeTimingTable(float value DECLARE_ENGINE_PARAMETER_S) {
 	// todo: table helper?
 	for (int l = 0; l < IGN_LOAD_COUNT; l++) {
 		for (int r = 0; r < IGN_RPM_COUNT; r++) {
-			engineConfiguration->ignitionTable[l][r] = value;
+			config->ignitionTable[l][r] = value;
 		}
 	}
 }
@@ -218,7 +218,7 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 
 	// set_whole_timing_map 3
 	setWholeFuelMap(3 PASS_ENGINE_PARAMETER);
-	setMap(engineConfiguration->afrTable, 14.7);
+	setMap(config->afrTable, 14.7);
 
 	setDefaultVETable(PASS_ENGINE_PARAMETER_F);
 
