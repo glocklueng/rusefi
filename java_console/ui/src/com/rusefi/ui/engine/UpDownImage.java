@@ -44,7 +44,7 @@ public class UpDownImage extends JPanel {
     }
 
     public void setToolTip() {
-        UiUtils.setTwoLineToolTip(this, "Channel " + name, "Physical pin: " + pin);
+        UiUtils.setTwoLineToolTip(this, "Channel " + NameUtil.getUiName(name), "Physical pin: " + pin);
     }
 
     public void setZoomProvider(ZoomProvider zoomProvider) {
@@ -124,7 +124,7 @@ public class UpDownImage extends JPanel {
         g2.setColor(Color.black);
 
         int line = 0;
-        g.drawString(name, 5, ++line * LINE_SIZE);
+        g.drawString(NameUtil.getUiName(name), 5, ++line * LINE_SIZE);
         g.drawString("Tick length: " + duration + "; count=" + wr.getList().size(), 5, ++line * LINE_SIZE);
         g.drawString("Total seconds: " + (duration / WaveReport.SYS_TICKS_PER_MS / 000.0), 5, ++line * LINE_SIZE);
         g.drawString(FORMAT.format(new Date(lastUpdateTime)), 5, ++line * LINE_SIZE);
