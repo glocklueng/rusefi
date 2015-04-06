@@ -2,18 +2,16 @@ package com.rusefi.ui.engine;
 
 import com.rusefi.core.Sensor;
 import com.rusefi.core.SensorCentral;
-import com.rusefi.waves.TimeAxisTranslator;
 import com.rusefi.ui.util.UiUtils;
+import com.rusefi.waves.RevolutionLog;
+import com.rusefi.waves.TimeAxisTranslator;
 import com.rusefi.waves.WaveReport;
 import com.rusefi.waves.ZoomProvider;
-import com.rusefi.waves.RevolutionLog;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * This is a renderer of an individual {@link WaveReport} - this makes a simple Logical Analyzer
@@ -23,6 +21,7 @@ import java.util.TreeMap;
  * (c) Andrey Belomutskiy
  *
  * @see EngineSnifferPanel
+ * @see WaveReport
  */
 public class UpDownImage extends JPanel {
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
@@ -38,15 +37,6 @@ public class UpDownImage extends JPanel {
     private TimeAxisTranslator translator;
     private RevolutionLog time2rpm = RevolutionLog.parseRevolutions(null);
     private String pin = "";
-
-    private static final Map<String, Sensor> name2sensor = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-
-    static {
-        name2sensor.put("inj1", Sensor.INJECTOR_1_DWELL);
-        name2sensor.put("inj2", Sensor.INJECTOR_2_DWELL);
-        name2sensor.put("inj3", Sensor.INJECTOR_3_DWELL);
-        name2sensor.put("inj4", Sensor.INJECTOR_4_DWELL);
-    }
 
     public UpDownImage(final String name) {
         this(WaveReport.MOCK, name);
@@ -106,7 +96,7 @@ public class UpDownImage extends JPanel {
     }
 
     private void propagateDwellIntoSensor(WaveReport wr) {
-        Sensor sensor = name2sensor.get(name);
+        Sensor sensor = NameUtil.name2sensor.get(name);
         if (sensor == null)
             return;
 
