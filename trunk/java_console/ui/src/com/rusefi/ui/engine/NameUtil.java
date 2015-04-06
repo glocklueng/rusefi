@@ -23,6 +23,10 @@ public class NameUtil {
     static String getUiName(String name) {
         if (name.charAt(0) == 't')
             return "Trigger #" + name.substring(1);
+        if (name.charAt(0) == 'c')
+            return "Coil #" + name.substring(1);
+        if (name.charAt(0) == 'i')
+            return "Injector #" + name.substring(1);
         return name;
     }
 
