@@ -16,9 +16,9 @@
 
 #define WC_DOWN "d"
 #define WC_UP "u"
-#define WC_CRANK1 "c1"
-#define WC_CRANK2 "c2"
-#define WC_CRANK3 "c3"
+#define CRANK1 "c1"
+#define CRANK2 "c2"
+#define CRANK3 "c3"
 
 #define NOISY_RPM -1
 #define UNREALISTIC_RPM 30000
