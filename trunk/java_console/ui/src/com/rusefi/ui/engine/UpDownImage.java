@@ -10,6 +10,10 @@ import com.rusefi.waves.ZoomProvider;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -37,6 +41,13 @@ public class UpDownImage extends JPanel {
     private TimeAxisTranslator translator;
     private RevolutionLog time2rpm = RevolutionLog.parseRevolutions(null);
     private String pin = "";
+    private long mouseEnterTime;
+    private Timer repaintTimer = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            UiUtils.trueRepaint(UpDownImage.this);
+        }
+    });
 
     public UpDownImage(final String name) {
         this(WaveReport.MOCK, name);
@@ -56,6 +67,14 @@ public class UpDownImage extends JPanel {
         setWaveReport(wr, null);
         setOpaque(true);
         translator = createTranslator();
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                mouseEnterTime = System.currentTimeMillis();
+                UiUtils.trueRepaint(UpDownImage.this);
+                repaintTimer.restart();
+            }
+        });
     }
 
     public UpDownImage setTranslator(TimeAxisTranslator translator) {
@@ -124,7 +143,19 @@ public class UpDownImage extends JPanel {
         g2.setColor(Color.black);
 
         int line = 0;
-        g.drawString(NameUtil.getUiName(name), 5, ++line * LINE_SIZE);
+        boolean justEntered = System.currentTimeMillis() - mouseEnterTime < 1000;
+        Font f = getFont();
+        if (justEntered) {
+            g.setFont(f.deriveFont(Font.BOLD, f.getSize() * 3));
+            g.setColor(Color.red);
+        }
+        g.drawString(NameUtil.getUiName(name), 5, ++line * LINE_SIZE + (justEntered ? 30 : 0));
+        if (justEntered) {
+            // revert font & color
+            g.setFont(f);
+            g.setColor(Color.black);
+        }
+
         g.drawString("Tick length: " + duration + "; count=" + wr.getList().size(), 5, ++line * LINE_SIZE);
         g.drawString("Total seconds: " + (duration / WaveReport.SYS_TICKS_PER_MS / 000.0), 5, ++line * LINE_SIZE);
         g.drawString(FORMAT.format(new Date(lastUpdateTime)), 5, ++line * LINE_SIZE);
