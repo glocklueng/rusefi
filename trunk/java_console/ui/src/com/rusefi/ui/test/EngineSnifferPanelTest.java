@@ -27,11 +27,11 @@ public class EngineSnifferPanelTest {
         names.add(name);
 
         name = "inj1";
-        assertEquals(1, EngineSnifferPanel.getInsertIndex(name, names));
+        assertEquals(0, EngineSnifferPanel.getInsertIndex(name, names));
         names.add(name);
 
 
-        assertEquals(1, EngineSnifferPanel.getInsertIndex("spa1", names));
+        assertEquals(0, EngineSnifferPanel.getInsertIndex("spa1", names));
     }
 }
 
