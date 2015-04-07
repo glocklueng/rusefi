@@ -236,9 +236,8 @@ float getEngineCycle(operation_mode_e operationMode) {
 }
 
 void addSkippedToothTriggerEvents(trigger_wheel_e wheel, TriggerShape *s, int totalTeethCount, int skippedCount,
-		operation_mode_e operationMode, float filterLeft, float filterRight) {
+		float engineCycle, float filterLeft, float filterRight) {
 	float toothWidth = 0.5;
-	float engineCycle = getEngineCycle(operationMode);
 
 	for (int i = 0; i < totalTeethCount - skippedCount - 1; i++) {
 		float angleDown = engineCycle / totalTeethCount * (i + toothWidth);
@@ -266,7 +265,7 @@ void initializeSkippedToothTriggerShapeExt(TriggerShape *s, int totalTeethCount,
 	efiAssertVoid(s != NULL, "TriggerShape is NULL");
 	s->reset(operationMode, false);
 
-	addSkippedToothTriggerEvents(T_PRIMARY, s, totalTeethCount, skippedCount, operationMode, NO_LEFT_FILTER, NO_RIGHT_FILTER);
+	addSkippedToothTriggerEvents(T_PRIMARY, s, totalTeethCount, skippedCount, getEngineCycle(operationMode), NO_LEFT_FILTER, NO_RIGHT_FILTER);
 }
 
 static void configureOnePlusOne(TriggerShape *s, operation_mode_e operationMode) {
@@ -290,9 +289,9 @@ static void configureOnePlus60_2(TriggerShape *s, operation_mode_e operationMode
 	int skippedCount = 2;
 
 	s->addEvent(2, T_PRIMARY, TV_HIGH);
-	addSkippedToothTriggerEvents(T_SECONDARY, s, totalTeethCount, skippedCount, operationMode, 2, 20);
+	addSkippedToothTriggerEvents(T_SECONDARY, s, totalTeethCount, skippedCount, getEngineCycle(operationMode), 2, 20);
 	s->addEvent(20, T_PRIMARY, TV_LOW);
-	addSkippedToothTriggerEvents(T_SECONDARY, s, totalTeethCount, skippedCount, operationMode, 20, NO_RIGHT_FILTER);
+	addSkippedToothTriggerEvents(T_SECONDARY, s, totalTeethCount, skippedCount, getEngineCycle(operationMode), 20, NO_RIGHT_FILTER);
 
 	s->isSynchronizationNeeded = false;
 }
