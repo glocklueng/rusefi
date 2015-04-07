@@ -82,5 +82,9 @@ void setSachs(engine_configuration_s *engineConfiguration) {
 
 	boardConfiguration->fuelPumpPin = GPIOE_6;
 
+	setFuelRpmBin(800, 15000 PASS_ENGINE_PARAMETER);
+	setTimingRpmBin(800, 15000 PASS_ENGINE_PARAMETER);
+
+
 }
 
