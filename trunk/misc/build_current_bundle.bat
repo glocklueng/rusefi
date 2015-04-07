@@ -69,9 +69,7 @@ cp firmware/svnversion.h %folder%
 cp -r misc/install/openocd %folder% 
 cp java_console/rusefi.xml %folder%
 cp firmware/deliver/rusefi_release.* %folder%
-cp firmware/deliver/rusefi_debug.hex %folder%
-cp firmware/deliver/rusefi_debug.bin %folder%
-cp firmware/deliver/rusefi_debug.elf %folder%
+cp firmware/deliver/rusefi_debug.* %folder%
 cp misc/console_launcher/rusefi_console.exe %folder%
 
 
