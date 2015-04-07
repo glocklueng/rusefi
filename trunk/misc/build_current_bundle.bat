@@ -21,9 +21,14 @@ echo Building firmware
 rm -fR .dep
 rm -fR build
 java -jar ../java_tools/version2header.jar
-make
-if not exist build/rusefi.hex echo FAILED
-if not exist build/rusefi.hex exit -1
+
+call clean_compile_two_versions.bat
+if not exist deliver/rusefi_release.hex echo FAILED RELEASE
+if not exist deliver/rusefi_release.hex exit -1
+
+if not exist deliver/rusefi_debug.hex echo FAILED DEBUG
+if not exist deliver/rusefi_debug.hex exit -1
+
 cd ..
 
 
@@ -63,9 +68,10 @@ cp firmware/tunerstudio/rusefi.ini %folder%
 cp firmware/svnversion.h %folder%
 cp -r misc/install/openocd %folder% 
 cp java_console/rusefi.xml %folder%
-cp firmware/build/rusefi.hex %folder%
-cp firmware/build/rusefi.bin %folder%
-cp firmware/build/rusefi.elf %folder%
+cp firmware/deliver/rusefi_release.* %folder%
+cp firmware/deliver/rusefi_debug.hex %folder%
+cp firmware/deliver/rusefi_debug.bin %folder%
+cp firmware/deliver/rusefi_debug.elf %folder%
 cp misc/console_launcher/rusefi_console.exe %folder%
 
 
