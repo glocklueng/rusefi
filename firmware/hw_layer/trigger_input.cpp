@@ -22,9 +22,6 @@ static WaveReaderHw primaryCrankInput;
 static WaveReaderHw secondaryCrankInput;
 
 EXTERN_ENGINE;
-extern engine_configuration_s *engineConfiguration;
-extern engine_configuration2_s *engineConfiguration2;
-extern board_configuration_s *boardConfiguration;
 
 /**
  * that's hardware timer input capture IRQ entry point
