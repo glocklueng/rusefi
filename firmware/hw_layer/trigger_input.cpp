@@ -58,35 +58,24 @@ static void shaft_icu_period_callback(ICUDriver *icup) {
 static ICUConfig shaft_icucfg = { ICU_INPUT_ACTIVE_LOW, 100000, /* 100kHz ICU clock frequency.   */
 shaft_icu_width_callback, shaft_icu_period_callback };
 
-void initShaftPositionInputCapture(void) {
-
-
-	primaryCrankDriver = getInputCaptureDriver(boardConfiguration->triggerInputPins[0]);
-
-	// todo: extract method!
-	// initialize primary Input Capture Unit pin
-	turnOnCapturePin(boardConfiguration->triggerInputPins[0]);
-	/**
-	 * Start primary Input Capture Unit using given configuration
-	 * @see shaft_icucfg for callback entry points
-	 */
+static ICUDriver *turnOnTriggerInputPin(brain_pin_e hwPin) {
+	// configure pin
+	turnOnCapturePin(hwPin);
 	shaft_icucfg.channel = ICU_CHANNEL_1;
-	print("initShaftPositionInputCapture 1 %s\r\n", hwPortname(boardConfiguration->triggerInputPins[0]));
+
+	ICUDriver *driver = getInputCaptureDriver(hwPin);
+	print("initShaftPositionInputCapture %s\r\n", hwPortname(hwPin));
 	// todo: reuse 'setWaveReaderMode' method here?
-	if (primaryCrankDriver != NULL) {
-		efiIcuStart(primaryCrankDriver, &shaft_icucfg);
-		icuEnable(primaryCrankDriver);
+	if (driver != NULL) {
+		efiIcuStart(driver, &shaft_icucfg);
+		icuEnable(driver);
 	}
+	return driver;
+}
 
-	ICUDriver *secondaryDriver = getInputCaptureDriver(boardConfiguration->triggerInputPins[1]);
-	// initialize secondary Input Capture Unit pin
-	turnOnCapturePin(boardConfiguration->triggerInputPins[1]);
-	shaft_icucfg.channel = ICU_CHANNEL_1;
-	print("initShaftPositionInputCapture 2 %s\r\n", hwPortname(boardConfiguration->triggerInputPins[1]));
-	if (secondaryDriver != NULL) {
-		efiIcuStart(secondaryDriver, &shaft_icucfg);
-		icuEnable(secondaryDriver);
-	}
+void turnOnTriggerInputPins(void) {
+	primaryCrankDriver = turnOnTriggerInputPin(boardConfiguration->triggerInputPins[0]);
+	turnOnTriggerInputPin(boardConfiguration->triggerInputPins[1]);
 
 	print("crank input disabled\r\n");
 }

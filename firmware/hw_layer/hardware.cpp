@@ -278,7 +278,7 @@ void initHardware(Logging *l, Engine *engine) {
 	// todo: figure out better startup logic
 	initTriggerCentral(sharedLogger, engine);
 
-	initShaftPositionInputCapture();
+	turnOnTriggerInputPins();
 #endif /* EFI_SHAFT_POSITION_INPUT */
 
 #if HAL_USE_SPI || defined(__DOXYGEN__)
