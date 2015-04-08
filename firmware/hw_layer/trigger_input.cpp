@@ -80,4 +80,8 @@ void turnOnTriggerInputPins(void) {
 	print("crank input disabled\r\n");
 }
 
+void turnOffTriggerInputPins(void) {
+
+}
+
 #endif /* EFI_SHAFT_POSITION_INPUT */

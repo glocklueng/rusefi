@@ -10,5 +10,6 @@
 #define CRANK_INPUT_H_
 
 void turnOnTriggerInputPins(void);
+void turnOffTriggerInputPins(void);
 
 #endif /* CRANK_INPUT_H_ */
