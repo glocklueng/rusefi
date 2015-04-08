@@ -27,7 +27,7 @@ typedef struct {
 	IntListenerArray periodListeners;
 } WaveReaderHw;
 
-void initWaveAnalyzerDriver(WaveReaderHw *hw, brain_pin_e brainPin);
+WaveReaderHw *initWaveAnalyzerDriver(brain_pin_e brainPin);
 void startInputDriver(WaveReaderHw *hw, bool isActiveHigh);
 ICUDriver * getInputCaptureDriver(brain_pin_e hwPin);
 
