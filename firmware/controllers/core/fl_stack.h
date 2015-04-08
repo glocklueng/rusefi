@@ -21,7 +21,8 @@ public:
 	T pop();
 	T get(int index);
 	bool_t remove(T value);
-	int size();bool isEmpty();
+	int size();
+	bool isEmpty();
 private:
 	int currentSize;
 	T values[MAXSIZE];
@@ -30,6 +31,7 @@ private:
 template<typename T, int MAXSIZE>
 FLStack<T, MAXSIZE>::FLStack() {
 	reset();
+	memset(values, 0, sizeof(values));
 }
 
 template<typename T, int MAXSIZE>
