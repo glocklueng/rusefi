@@ -109,26 +109,19 @@ void TriggerCentral::resetCounters() {
 
 static char shaft_signal_msg_index[15];
 
-static ALWAYS_INLINE void reportEventToWaveChart(trigger_event_e ckpSignalType, int index) {
+static bool_t isUpEvent[6] = { false, true, false, true, false, true };
+static const char *eventId[6] = { CRANK1, CRANK1, CRANK2, CRANK2, CRANK3, CRANK3 };
+
+static ALWAYS_INLINE void reportEventToWaveChart(trigger_event_e ckpSignalType, int index DECLARE_ENGINE_PARAMETER_S) {
 	itoa10(&shaft_signal_msg_index[2], index);
-	if (ckpSignalType == SHAFT_PRIMARY_UP) {
-		shaft_signal_msg_index[0] = 'u';
-		addWaveChartEvent(CRANK1, (char* ) shaft_signal_msg_index);
-	} else if (ckpSignalType == SHAFT_PRIMARY_DOWN) {
-		shaft_signal_msg_index[0] = 'd';
-		addWaveChartEvent(CRANK1, (char* ) shaft_signal_msg_index);
-	} else if (ckpSignalType == SHAFT_SECONDARY_UP) {
-		shaft_signal_msg_index[0] = 'u';
-		addWaveChartEvent(CRANK2, (char* ) shaft_signal_msg_index);
-	} else if (ckpSignalType == SHAFT_SECONDARY_DOWN) {
-		shaft_signal_msg_index[0] = 'd';
-		addWaveChartEvent(CRANK2, (char* ) shaft_signal_msg_index);
-	} else if (ckpSignalType == SHAFT_3RD_UP) {
-		shaft_signal_msg_index[0] = 'u';
-		addWaveChartEvent(CRANK3, (char* ) shaft_signal_msg_index);
-	} else if (ckpSignalType == SHAFT_3RD_DOWN) {
-		shaft_signal_msg_index[0] = 'd';
-		addWaveChartEvent(CRANK3, (char* ) shaft_signal_msg_index);
+	bool_t isUp = isUpEvent[(int) ckpSignalType];
+	shaft_signal_msg_index[0] = isUp ? 'u' : 'd';
+
+	addWaveChartEvent(eventId[(int )ckpSignalType], (char* ) shaft_signal_msg_index);
+	if (engineConfiguration->useOnlyFrontForTrigger) {
+		// let's add the opposite event right away
+		shaft_signal_msg_index[0] = isUp ? 'd' : 'u';
+		addWaveChartEvent(eventId[(int )ckpSignalType], (char* ) shaft_signal_msg_index);
 	}
 }
 
@@ -181,7 +174,7 @@ void TriggerCentral::handleShaftSignal(trigger_event_e signal DECLARE_ENGINE_PAR
 
 		triggerIndexForListeners = triggerState.getCurrentIndex() + (isEven ? 0 : TRIGGER_SHAPE(size));
 	}
-	reportEventToWaveChart(signal, triggerIndexForListeners);
+	reportEventToWaveChart(signal, triggerIndexForListeners PASS_ENGINE_PARAMETER);
 
 	if (triggerState.current_index >= TRIGGER_SHAPE(size)) {
 		warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.current_index);
