@@ -143,7 +143,7 @@ static void reportSensorI(Logging *log, bool fileFormat, const char *caption, co
 EXTERN_ENGINE
 ;
 
-void printSensors(Logging *log, bool fileFormat) {
+static void printSensors(Logging *log, bool fileFormat) {
 	// current time, in milliseconds
 	int nowMs = currentTimeMillis();
 	float sec = ((float) nowMs) / 1000;
