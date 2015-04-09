@@ -371,6 +371,9 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 			maxAllowedDwellAngle = engineConfiguration->engineCycle / engineConfiguration->specs.cylindersCount / 1.1;
 		}
 
+		if (engine->dwellAngle == 0) {
+			warning(OBD_PCM_Processor_Fault, "dwell is zero?");
+		}
 		if (engine->dwellAngle > maxAllowedDwellAngle) {
 			warning(OBD_PCM_Processor_Fault, "dwell angle too long: %f", engine->dwellAngle);
 		}
