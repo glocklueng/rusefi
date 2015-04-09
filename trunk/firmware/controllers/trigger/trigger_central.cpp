@@ -236,12 +236,10 @@ void triggerInfo(Engine *engine) {
 
 	TriggerShape *ts = &engine->triggerShape;
 
-	scheduleMsg(logger, "Template %s (%d) trigger %s (%d) useRiseEdge=%s onlyFront=%s", getConfigurationName(engineConfiguration->engineType),
-			engineConfiguration->engineType, getTrigger_type_e(engineConfiguration->trigger.type),
-			engineConfiguration->trigger.type,
-			boolToString(TRIGGER_SHAPE(useRiseEdge)),
-			boolToString(engineConfiguration->useOnlyFrontForTrigger)
-	);
+	scheduleMsg(logger, "Template %s (%d) trigger %s (%d) useRiseEdge=%s onlyFront=%s",
+			getConfigurationName(engineConfiguration->engineType), engineConfiguration->engineType,
+			getTrigger_type_e(engineConfiguration->trigger.type), engineConfiguration->trigger.type,
+			boolToString(TRIGGER_SHAPE(useRiseEdge)), boolToString(engineConfiguration->useOnlyFrontForTrigger));
 
 	scheduleMsg(logger, "trigger#1 event counters up=%d/down=%d", triggerCentral.getHwEventCounter(0),
 			triggerCentral.getHwEventCounter(1));
@@ -269,14 +267,10 @@ void triggerInfo(Engine *engine) {
 #endif
 
 #if EFI_PROD_CODE
-	scheduleMsg(logger, "sn=%s ignitionMathTime=%d schTime=%d injectonSchTime=%d zeroTestTime=%d advanceTime=%d triggerMaxDuration=%d",
-			boolToString(ts->isSynchronizationNeeded),
-			engine->m.ignitionMathTime,
-			engine->m.ignitionSchTime,
-			engine->m.injectonSchTime,
-			engine->m.zeroTestTime,
-			engine->m.advanceTime,
-			triggerMaxDuration);
+	scheduleMsg(logger,
+			"sn=%s ignitionMathTime=%d schTime=%d injectonSchTime=%d zeroTestTime=%d advanceTime=%d triggerMaxDuration=%d",
+			boolToString(ts->isSynchronizationNeeded), engine->m.ignitionMathTime, engine->m.ignitionSchTime,
+			engine->m.injectonSchTime, engine->m.zeroTestTime, engine->m.advanceTime, triggerMaxDuration);
 
 	triggerMaxDuration = 0;
 
@@ -288,7 +282,6 @@ void triggerInfo(Engine *engine) {
 			hwPortname(boardConfiguration->triggerSimulatorPins[0]),
 			getPin_output_mode_e(boardConfiguration->triggerSimulatorPinModes[0]),
 			boardConfiguration->triggerSimulatorFrequency);
-
 
 	if (engine->triggerShape.needSecondTriggerInput) {
 		scheduleMsg(logger, "secondary trigger input: %s", hwPortname(boardConfiguration->triggerInputPins[1]));
