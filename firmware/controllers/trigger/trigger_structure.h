@@ -102,6 +102,8 @@ public:
 	uint32_t getLength() const;
 	int getSize() const;
 
+	int getTriggerShapeSynchPointIndex();
+
 	void calculateTriggerSynchPoint(DECLARE_ENGINE_PARAMETER_F);
 
 	void setTriggerShapeSynchPointIndex(engine_configuration_s *engineConfiguration, int triggerShapeSynchPointIndex, Engine *engine);
