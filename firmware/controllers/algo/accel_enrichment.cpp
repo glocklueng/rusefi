@@ -166,7 +166,7 @@ void initAccelEnrichment(Logging *sharedLogger) {
 	addConsoleActionF("set_decel_multiplier", setDecelMult);
 	addConsoleAction("accelinfo", accelInfo);
 
-	setMapAccelLen(engineConfiguration->mapAccelLength);
-	setTpsAccelLen(engineConfiguration->tpsAccelLength);
+	mapInstance.cb.setSize(engineConfiguration->mapAccelLength);
+	tpsInstance.cb.setSize(engineConfiguration->tpsAccelLength);
 }
 #endif /* ! EFI_UNIT_TEST */
