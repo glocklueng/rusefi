@@ -62,7 +62,7 @@ void AccelEnrichmemnt::reset() {
 	currentValue = NAN;
 }
 
-void AccelEnrichmemnt::onNewValue(float currentValue) {
+void AccelEnrichmemnt::onNewValue(float currentValue DECLARE_ENGINE_PARAMETER_S) {
 	if (!cisnan(this->currentValue)) {
 		delta = currentValue - this->currentValue;
 		FuelSchedule *fs = &engine->engineConfiguration2->injectionEvents;
@@ -73,11 +73,11 @@ void AccelEnrichmemnt::onNewValue(float currentValue) {
 }
 
 void AccelEnrichmemnt::onEngineCycleTps(DECLARE_ENGINE_PARAMETER_F) {
-	onNewValue(getTPS(PASS_ENGINE_PARAMETER_F));
+	onNewValue(getTPS(PASS_ENGINE_PARAMETER_F) PASS_ENGINE_PARAMETER);
 }
 
 void AccelEnrichmemnt::onEngineCycle(DECLARE_ENGINE_PARAMETER_F) {
-	onNewValue(getEngineLoadT(PASS_ENGINE_PARAMETER_F));
+	onNewValue(getEngineLoadT(PASS_ENGINE_PARAMETER_F) PASS_ENGINE_PARAMETER);
 }
 
 AccelEnrichmemnt::AccelEnrichmemnt() {

@@ -34,7 +34,7 @@ public:
 
 private:
 	float currentValue;
-	void onNewValue(float currentValue);
+	void onNewValue(float currentValue DECLARE_ENGINE_PARAMETER_S);
 };
 
 void initAccelEnrichment(Logging *sharedLogger);
