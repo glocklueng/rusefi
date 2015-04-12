@@ -21,8 +21,7 @@ public:
 	void updateDiffEnrichment(engine_configuration_s *engineConfiguration,
 			float engineLoad);
 	float getMapEnrichment(DECLARE_ENGINE_PARAMETER_F);
-	float getTpsEnrichment(DECLARE_ENGINE_PARAMETER_F);
-//	float getDiffEnrichment(void);
+	floatms_t getTpsEnrichment(DECLARE_ENGINE_PARAMETER_F);
 
 	void onEngineCycle(DECLARE_ENGINE_PARAMETER_F);
 	void onEngineCycleTps(DECLARE_ENGINE_PARAMETER_F);

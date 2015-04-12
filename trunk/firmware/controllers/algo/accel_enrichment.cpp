@@ -37,7 +37,7 @@ void AccelEnrichmemnt::updateDiffEnrichment(engine_configuration_s *engineConfig
 //	return diffEnrichment;
 //}
 
-float AccelEnrichmemnt::getTpsEnrichment(DECLARE_ENGINE_PARAMETER_F) {
+floatms_t AccelEnrichmemnt::getTpsEnrichment(DECLARE_ENGINE_PARAMETER_F) {
 	float d = cb.maxValue(cb.getSize());
 	if (d > engineConfiguration->tpsAccelEnrichmentThreshold) {
 		return d * engineConfiguration->tpsAccelEnrichmentMultiplier;
