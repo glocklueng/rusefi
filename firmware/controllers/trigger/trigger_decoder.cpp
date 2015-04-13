@@ -181,7 +181,8 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, uint64_t now
 		/**
 		 * in case of noise the counter could be above the expected number of events
 		 */
-		isSynchronizationPoint = !shaft_is_synchronized || (current_index >= TRIGGER_SHAPE(size) - 1);
+		int d = engineConfiguration->useOnlyFrontForTrigger ? 2 : 1;
+		isSynchronizationPoint = !shaft_is_synchronized || (current_index >= TRIGGER_SHAPE(size) - d);
 
 	}
 
@@ -484,7 +485,10 @@ DECLARE_ENGINE_PARAMETER_S) {
 	 * todo: add a comment why are we doing '2 * shape->getSize()' here?
 	 */
 	state.cycleCallback = onFindIndex;
-	for (uint32_t i = index + 1; i <= index + 2 * shape->getSize(); i++) {
+
+	int startIndex = engineConfiguration->useOnlyFrontForTrigger ? index + 2 : index + 1;
+
+	for (uint32_t i = startIndex; i <= index + 2 * shape->getSize(); i++) {
 		helper.nextStep(&state, shape, i, triggerConfig PASS_ENGINE_PARAMETER);
 		if (engineConfiguration->useOnlyFrontForTrigger)
 			i++;
