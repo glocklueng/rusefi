@@ -75,7 +75,7 @@ cp misc/console_launcher/rusefi_console.exe %folder%
 
 cd temp
 zip -r rusefi_bundle.zip *
-zip rusefi_console.zip ../java_console_binary/rusefi_console.jar ../java_console/rusefi.xml
+zip rusefi_console.zip %folder%/rusefi_console.jar %folder%/rusefi.xml
 cd ..                                                             
 
 date
