@@ -54,7 +54,8 @@ cd ..
 rm -rf temp
 mkdir temp
 
-set folder=temp\snapshot_%date:~10%%date:~4,2%%date:~7,2%_%time:~0,2%%time:~3,2%_rusefi
+set folder_name=snapshot_%date:~10%%date:~4,2%%date:~7,2%_%time:~0,2%%time:~3,2%_rusefi
+set folder=temp\%folder_name%
 # this replaces spaces with 0s - that's needed before 10am
 set folder=%folder: =0%
 
@@ -75,7 +76,9 @@ cp misc/console_launcher/rusefi_console.exe %folder%
 
 cd temp
 zip -r rusefi_bundle.zip *
-zip rusefi_console.zip ../%folder%/rusefi_console.jar ../%folder%/rusefi.xml
+cd %folder_name%
+zip ../rusefi_console.zip rusefi_console.jar rusefi.xml
+cd ..
 cd ..                                                             
 
 date
