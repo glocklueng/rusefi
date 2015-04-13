@@ -19,7 +19,7 @@ void setTestEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	trigger_config_s *triggerConfig = &engineConfiguration->trigger;
 	triggerConfig->customTotalToothCount = 60;
 	triggerConfig->customSkippedToothCount = 0;
-//	engineConfiguration->useOnlyFrontForTrigger = true;
+	engineConfiguration->useOnlyFrontForTrigger = true;
 
 	setOperationMode(engineConfiguration, FOUR_STROKE_CRANK_SENSOR);
 
