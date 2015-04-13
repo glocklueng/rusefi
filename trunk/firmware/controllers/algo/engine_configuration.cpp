@@ -725,7 +725,7 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType DECLARE_EN
 		firmwareError("Unexpected engine type: %d", engineType);
 	}
 	// todo: eliminate triggerShape.operationMode?
-	if (engineConfiguration->operationMode != engine->triggerShape.operationMode)
+	if (engineConfiguration->operationMode != engine->triggerShape.getOperationMode())
 		firmwareError("operationMode mismatch");
 	applyNonPersistentConfiguration(logger PASS_ENGINE_PARAMETER);
 
