@@ -40,14 +40,16 @@ typedef struct {
 	bool_t isSimultanious;
 } InjectionEvent;
 
-typedef struct IgnitionEvent_struct IgnitionEvent;
+//class IgnitionEvent;
 
-struct IgnitionEvent_struct {
+class IgnitionEvent {
+public:
+	IgnitionEvent();
 	NamedOutputPin *output;
 	scheduling_s signalTimerUp;
 	scheduling_s signalTimerDown;
-	event_trigger_position_s dwellPosition;
 	float advance;
+	event_trigger_position_s dwellPosition;
 	event_trigger_position_s sparkPosition;
 	IgnitionEvent *next;
 	char *name;
