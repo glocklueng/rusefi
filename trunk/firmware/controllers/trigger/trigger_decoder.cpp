@@ -43,7 +43,6 @@ EXTERN_ENGINE
 // todo: better name for this constant
 #define HELPER_PERIOD 100000
 
-
 #define NO_LEFT_FILTER -1
 #define NO_RIGHT_FILTER 1000
 
@@ -121,7 +120,6 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, uint64_t now
 
 	eventCount[triggerWheel]++;
 	eventCountExt[signal]++;
-
 
 	uint64_t currentDurationLong = getCurrentGapDuration(nowNt);
 
@@ -235,8 +233,7 @@ float getEngineCycle(operation_mode_e operationMode) {
 }
 
 void addSkippedToothTriggerEvents(trigger_wheel_e wheel, TriggerShape *s, int totalTeethCount, int skippedCount,
-		float offset,
-		float engineCycle, float filterLeft, float filterRight) {
+		float offset, float engineCycle, float filterLeft, float filterRight) {
 	float toothWidth = 0.5;
 
 	for (int i = 0; i < totalTeethCount - skippedCount - 1; i++) {
@@ -255,7 +252,6 @@ void initializeSkippedToothTriggerShapeExt(TriggerShape *s, int totalTeethCount,
 		operation_mode_e operationMode) {
 	efiAssertVoid(totalTeethCount > 0, "totalTeethCount is zero");
 
-
 	s->totalToothCount = totalTeethCount;
 	s->skippedToothCount = skippedCount;
 
@@ -265,7 +261,8 @@ void initializeSkippedToothTriggerShapeExt(TriggerShape *s, int totalTeethCount,
 	efiAssertVoid(s != NULL, "TriggerShape is NULL");
 	s->reset(operationMode, false);
 
-	addSkippedToothTriggerEvents(T_PRIMARY, s, totalTeethCount, skippedCount, 0, getEngineCycle(operationMode), NO_LEFT_FILTER, NO_RIGHT_FILTER);
+	addSkippedToothTriggerEvents(T_PRIMARY, s, totalTeethCount, skippedCount, 0, getEngineCycle(operationMode),
+			NO_LEFT_FILTER, NO_RIGHT_FILTER);
 }
 
 static void configureOnePlusOne(TriggerShape *s, operation_mode_e operationMode) {
@@ -293,7 +290,8 @@ static void configureOnePlus60_2(TriggerShape *s, operation_mode_e operationMode
 	s->addEvent(20, T_PRIMARY, TV_LOW);
 	addSkippedToothTriggerEvents(T_SECONDARY, s, totalTeethCount, skippedCount, 0, 360, 20, NO_RIGHT_FILTER);
 
-	addSkippedToothTriggerEvents(T_SECONDARY, s, totalTeethCount, skippedCount, 360, 360, NO_LEFT_FILTER, NO_RIGHT_FILTER);
+	addSkippedToothTriggerEvents(T_SECONDARY, s, totalTeethCount, skippedCount, 360, 360, NO_LEFT_FILTER,
+			NO_RIGHT_FILTER);
 
 	s->isSynchronizationNeeded = false;
 }
@@ -398,21 +396,25 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s const *engin
 }
 
 TriggerStimulatorHelper::TriggerStimulatorHelper() {
-	primaryWheelState = false;
-	secondaryWheelState = false;
-	thirdWheelState = false;
 }
 
 void TriggerStimulatorHelper::nextStep(TriggerState *state, TriggerShape * shape, int i,
 		trigger_config_s const*triggerConfig DECLARE_ENGINE_PARAMETER_S) {
 	int stateIndex = i % shape->getSize();
+	int prevIndex = (stateIndex + shape->getSize() - 1 ) % shape->getSize();
+
 
 	int loopIndex = i / shape->getSize();
 
 	int time = (int) (HELPER_PERIOD * (loopIndex + shape->wave.getSwitchTime(stateIndex)));
 
+	bool_t primaryWheelState = shape->wave.getChannelState(0, prevIndex);
 	bool newPrimaryWheelState = shape->wave.getChannelState(0, stateIndex);
+
+	bool_t secondaryWheelState = shape->wave.getChannelState(1, prevIndex);
 	bool newSecondaryWheelState = shape->wave.getChannelState(1, stateIndex);
+
+	bool_t thirdWheelState = shape->wave.getChannelState(2, prevIndex);
 	bool new3rdWheelState = shape->wave.getChannelState(2, stateIndex);
 
 	if (primaryWheelState != newPrimaryWheelState) {
@@ -460,7 +462,7 @@ static uint32_t doFindTrigger(TriggerStimulatorHelper *helper, TriggerShape * sh
  * This function finds the index of synchronization event within TriggerShape
  */
 uint32_t findTriggerZeroEventIndex(TriggerShape * shape, trigger_config_s const*triggerConfig
-		DECLARE_ENGINE_PARAMETER_S) {
+DECLARE_ENGINE_PARAMETER_S) {
 
 	// todo: should this variable be declared 'static' to reduce stack usage?
 	TriggerState state;
@@ -484,6 +486,8 @@ uint32_t findTriggerZeroEventIndex(TriggerShape * shape, trigger_config_s const*
 	state.cycleCallback = onFindIndex;
 	for (uint32_t i = index + 1; i <= index + 2 * shape->getSize(); i++) {
 		helper.nextStep(&state, shape, i, triggerConfig PASS_ENGINE_PARAMETER);
+		if (engineConfiguration->useOnlyFrontForTrigger)
+			i++;
 	}
 	efiAssert(state.getTotalRevolutionCounter() == 3, "totalRevolutionCounter2", EFI_ERROR_CODE);
 
