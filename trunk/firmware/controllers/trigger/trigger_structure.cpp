@@ -39,10 +39,16 @@ TriggerShape::TriggerShape() :
 	useRiseEdge = false;
 	gapBothDirections = false;
 	isSynchronizationNeeded = false;
+	// todo: reuse 'clear' method?
 	invertOnAdd = false;
 	tdcPosition = 0;
 	skippedToothCount = totalToothCount = 0;
 	syncRatioFrom = syncRatioTo = 0;
+	memset(frontOnlyIndexes, 0, sizeof(frontOnlyIndexes));
+	memset(isFrontEvent, 0, sizeof(isFrontEvent));
+	memset(triggerIndexByAngle, 0, sizeof(triggerIndexByAngle));
+
+
 }
 
 int TriggerShape::getSize() const {
@@ -99,9 +105,6 @@ void TriggerShape::reset(operation_mode_e operationMode, bool needSecondTriggerI
 	memset(initialState, 0, sizeof(initialState));
 	memset(switchTimesBuffer, 0, sizeof(switchTimesBuffer));
 	memset(expectedEventCount, 0, sizeof(expectedEventCount));
-	memset(frontOnlyIndexes, 0, sizeof(frontOnlyIndexes));
-	memset(isFrontEvent, 0, sizeof(isFrontEvent));
-	memset(triggerIndexByAngle, 0, sizeof(triggerIndexByAngle));
 	wave.reset();
 	previousAngle = 0;
 }
