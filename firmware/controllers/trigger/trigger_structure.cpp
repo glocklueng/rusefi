@@ -44,11 +44,10 @@ TriggerShape::TriggerShape() :
 	tdcPosition = 0;
 	skippedToothCount = totalToothCount = 0;
 	syncRatioFrom = syncRatioTo = 0;
+	memset(eventAngles, 0, sizeof(eventAngles));
 	memset(frontOnlyIndexes, 0, sizeof(frontOnlyIndexes));
 	memset(isFrontEvent, 0, sizeof(isFrontEvent));
 	memset(triggerIndexByAngle, 0, sizeof(triggerIndexByAngle));
-
-
 }
 
 int TriggerShape::getSize() const {
