@@ -293,6 +293,12 @@ void triggerInfo(Engine *engine) {
 			engine->m.ignitionMathTime, engine->m.ignitionSchTime,
 			engine->m.injectonSchTime);
 
+	scheduleMsg(logger, "mapTime=%d/hipTime=%d/rpmTime=%d",
+			engine->m.mapAveragingCbTime,
+			engine->m.hipCbTime,
+			engine->m.rpmCbTime);
+
+
 	scheduleMsg(logger, "maxLockTime=%d / maxTriggerReentraint=%d", maxLockTime, maxTriggerReentraint);
 	scheduleMsg(logger, "maxEventQueueTime=%d", maxEventQueueTime);
 
