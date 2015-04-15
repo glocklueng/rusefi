@@ -484,7 +484,9 @@ custom pin_input_mode_e 4 scalar, F32,	@OFFSET@,	"ms", 1, 0, 0, 200, 1
 	float alternatorControlIFactor;
 	float alternatorControlDFactor;
 	int idleStepperTotalSteps;;"count",      1,      0,       5, 3000,      0
-	int[136] unused3;
+	brain_pin_e stepperEnablePin;
+
+	int[135] unused3;
 
 	int tpsAccelLength;;"len",        1,     0,    1, 200,     3
 	float tpsAccelEnrichmentThreshold;;"roc",        1,     0,    0, 200,     3
