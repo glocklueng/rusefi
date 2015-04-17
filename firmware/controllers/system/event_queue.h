@@ -11,6 +11,9 @@
 #ifndef EVENT_SCHEDULER_H_
 #define EVENT_SCHEDULER_H_
 
+/**
+ * this is a large value which is expected to be larger than any real time
+ */
 #define EMPTY_QUEUE 0x0FFFFFFFFFFFFFFFLL
 
 #define QUEUE_LENGTH_LIMIT 1000

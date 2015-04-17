@@ -62,7 +62,6 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_t 
  */
 uint64_t EventQueue::getNextEventTime(uint64_t nowX) {
 	scheduling_s * current;
-	// this is a large value which is expected to be larger than any real time
 	uint64_t nextTimeUs = EMPTY_QUEUE;
 
 	int counter = 0;
@@ -82,11 +81,10 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowX) {
 			uint64_t aBitInTheFuture = nowX + lateDelay;
 			return aBitInTheFuture;
 		} else {
-			if (current->momentX < nextTimeUs)
-				nextTimeUs = current->momentX;
+			return current->momentX;
 		}
 	}
-	return nextTimeUs;
+	return EMPTY_QUEUE;
 }
 
 // static scheduling_s * longScheduling;
