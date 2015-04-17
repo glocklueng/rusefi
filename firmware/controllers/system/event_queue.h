@@ -49,7 +49,7 @@ public:
 	/**
 	 * O(size)
 	 */
-	void insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_t callback, void *param);
+	bool_t insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_t callback, void *param);
 
 	int executeAll(uint64_t now);
 
