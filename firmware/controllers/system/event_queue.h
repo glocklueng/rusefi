@@ -43,6 +43,9 @@ class EventQueue {
 public:
 	EventQueue();
 
+	/**
+	 * O(size)
+	 */
 	void insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_t callback, void *param);
 
 	int executeAll(uint64_t now);
@@ -56,6 +59,9 @@ public:
 	void assertListIsSorted();
 private:
 	bool checkIfPending(scheduling_s *scheduling);
+	/**
+	 * this list is sorted
+	 */
 	scheduling_s *head;
 	uint64_t lateDelay;
 };
