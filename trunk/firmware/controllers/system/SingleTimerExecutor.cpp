@@ -77,7 +77,9 @@ void Executor::scheduleByTime(scheduling_s *scheduling, efitimeus_t timeUs, schf
 	bool_t needToResetTimer = queue.insertTask(scheduling, US2NT(timeUs), callback, param);
 	if (!reentrantFlag) {
 		doExecute();
-		scheduleTimerCallback();
+		if (needToResetTimer) {
+			scheduleTimerCallback();
+		}
 		unlockAnyContext();
 	}
 }
