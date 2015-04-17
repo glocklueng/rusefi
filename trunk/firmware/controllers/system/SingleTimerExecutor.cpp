@@ -74,9 +74,10 @@ void Executor::scheduleByTime(scheduling_s *scheduling, efitimeus_t timeUs, schf
 		// this would guard the queue and disable interrupts
 		lockAnyContext();
 	}
-	queue.insertTask(scheduling, US2NT(timeUs), callback, param);
+	bool_t needToResetTimer = queue.insertTask(scheduling, US2NT(timeUs), callback, param);
 	if (!reentrantFlag) {
 		doExecute();
+		scheduleTimerCallback();
 		unlockAnyContext();
 	}
 }
@@ -89,6 +90,7 @@ void Executor::schedule(scheduling_s *scheduling, uint64_t nowUs, int delayUs, s
 void Executor::onTimerCallback() {
 	lockAnyContext();
 	doExecute();
+	scheduleTimerCallback();
 	unlockAnyContext();
 }
 
@@ -122,14 +124,14 @@ void Executor::doExecute() {
 		firmwareError("Someone has stolen my lock");
 		return;
 	}
-	uint64_t nowNt = getTimeNowNt();
 	reentrantFlag = false;
+}
+
+void Executor::scheduleTimerCallback() {
 	/**
-	 * 'executeAll' is potentially invoking heavy callbacks, let's grab fresh time value?
+	 * Let's grab fresh time value
 	 */
-	/**
-	 * Let's set up the timer for the next execution
-	 */
+	uint64_t nowNt = getTimeNowNt();
 	nextEventTimeNt = queue.getNextEventTime(nowNt);
 	efiAssertVoid(nextEventTimeNt > nowNt, "setTimer constraint");
 	if (nextEventTimeNt == EMPTY_QUEUE)
