@@ -25,16 +25,18 @@ bool EventQueue::checkIfPending(scheduling_s *scheduling) {
 	return assertNotInList<scheduling_s>(head, scheduling);
 }
 
-void EventQueue::insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_t callback, void *param) {
+/**
+ * @return true if inserted into the head of the list
+ */
+bool_t EventQueue::insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_t callback, void *param) {
 #if EFI_UNIT_TEST
 	assertListIsSorted();
 #endif
-	if (callback == NULL)
-		firmwareError("NULL callback");
+	efiAssert(callback != NULL, "NULL callback", false);
 
 	int alreadyPending = checkIfPending(scheduling);
 	if (alreadyPending)
-		return;
+		return false;
 
 	scheduling->momentX = timeX;
 	scheduling->callback = callback;
@@ -42,6 +44,10 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_t 
 
 	if (head == NULL || timeX < head->momentX) {
 		LL_PREPEND(head, scheduling);
+#if EFI_UNIT_TEST
+		assertListIsSorted();
+#endif
+		return true;
 	} else {
 		scheduling_s *insertPosition = head;
 		while (insertPosition->next != NULL && insertPosition->next->momentX < timeX) {
@@ -50,10 +56,11 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_t 
 
 		scheduling->next = insertPosition->next;
 		insertPosition->next = scheduling;
-	}
 #if EFI_UNIT_TEST
-	assertListIsSorted();
+		assertListIsSorted();
 #endif
+		return false;
+	}
 }
 
 /**
@@ -113,6 +120,12 @@ int EventQueue::executeAll(uint64_t now) {
 			executionCounter++;
 			LL_DELETE(head, current);
 			LL_PREPEND(executionList, current);
+		} else {
+			/**
+			 * The list is sorted. Once we find one action in the future, all the remaining ones
+			 * are also in the future.
+			 */
+			break;
 		}
 	}
 #if EFI_UNIT_TEST
