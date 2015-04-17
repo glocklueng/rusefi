@@ -34,7 +34,6 @@ extern schfunc_t globalTimerCallback;
  * these fields are global in order to facilitate debugging
  */
 static uint64_t nextEventTimeNt = 0;
-static uint64_t hwAlarmTime = 0;
 
 uint32_t beforeHwSetTimer;
 uint32_t hwSetTimerTime;
@@ -138,7 +137,7 @@ void Executor::scheduleTimerCallback() {
 	efiAssertVoid(nextEventTimeNt > nowNt, "setTimer constraint");
 	if (nextEventTimeNt == EMPTY_QUEUE)
 		return; // no pending events in the queue
-	hwAlarmTime = NT2US(nextEventTimeNt - nowNt);
+	int32_t hwAlarmTime = NT2US((int32_t)nextEventTimeNt - (int32_t)nowNt);
 	beforeHwSetTimer = GET_TIMESTAMP();
 	setHardwareUsTimer(hwAlarmTime == 0 ? 1 : hwAlarmTime);
 	hwSetTimerTime = GET_TIMESTAMP() - beforeHwSetTimer;
