@@ -56,13 +56,9 @@ void EventQueue::insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_t 
 #endif
 }
 
-//void EventQueue::insertTask(scheduling_s *scheduling, int delayUs, schfunc_t callback, void *param) {
-//	insertTask(scheduling, getTimeNowUs(), delayUs, callback, param);
-//}
-
 /**
  * On this layer it does not matter which units are used - us, ms ot nt.
- * Get the timestamp of the soonest pending action
+ * @return Get the timestamp of the soonest pending action, skipping all the actions in the past
  */
 uint64_t EventQueue::getNextEventTime(uint64_t nowX) {
 	scheduling_s * current;
