@@ -74,12 +74,13 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowX) {
 		}
 		if (current->momentX <= nowX) {
 			/**
+			 * We are here if action timestamp is in the past
+			 *
 			 * looks like we end up here after 'writeconfig' (which freezes the firmware) - we are late
 			 * for the next scheduled event
 			 */
-			uint64_t mock = nowX + lateDelay;
-			if (mock < nextTimeUs)
-				nextTimeUs = mock;
+			uint64_t aBitInTheFuture = nowX + lateDelay;
+			return aBitInTheFuture;
 		} else {
 			if (current->momentX < nextTimeUs)
 				nextTimeUs = current->momentX;
