@@ -100,6 +100,7 @@ static void startAveraging(void *arg) {
 	turnPinHigh(&mapAveragingPin);
 }
 
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 /**
  * This method is invoked from ADC callback.
  * @note This method is invoked OFTEN, this method is a potential bottle-next - the implementation should be
@@ -145,13 +146,16 @@ void mapAveragingCallback(adcsample_t adcValue) {
 	chSysUnlockFromIsr()
 	;
 }
+#endif
 
 static void endAveraging(void *arg) {
 	(void) arg;
 	bool wasLocked = lockAnyContext();
 	isAveraging = false;
 	// with locking we would have a consistent state
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 	v_averagedMapValue = adcToVoltsDivided(mapAccumulator / mapMeasurementsCounter);
+#endif
 	if (!wasLocked)
 		chSysUnlockFromIsr()
 	;
