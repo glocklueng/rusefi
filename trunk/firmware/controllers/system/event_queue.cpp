@@ -16,6 +16,12 @@
 #include "efitime.h"
 #include "efilib2.h"
 
+scheduling_s::scheduling_s() {
+	callback = NULL;
+	next = NULL;
+//	isScheduled = false;
+}
+
 EventQueue::EventQueue() {
 	head = NULL;
 	setLateDelay(100);
