@@ -367,6 +367,12 @@ void requestBurn(void) {
 	incrementGlobalConfigurationVersion();
 }
 
+static void sendResponseCode(ts_response_format_e mode, ts_channel_s *tsChannel, const uint8_t responseCode) {
+	if (mode == TS_CRC) {
+		tunerStudioWriteCrcPacket(tsChannel, responseCode, NULL, 0);
+	}
+}
+
 /**
  * 'Burn' command is a command to commit the changes
  */
@@ -387,7 +393,7 @@ void handleBurnCommand(ts_channel_s *tsChannel, ts_response_format_e mode, uint1
 	memcpy(&persistentState.persistentConfiguration, &configWorkingCopy, sizeof(persistent_config_s));
 
 	requestBurn();
-	tunerStudioWriteCrcPacket(tsChannel, TS_RESPONSE_BURN_OK, NULL, 0);
+	sendResponseCode(mode, tsChannel, TS_RESPONSE_BURN_OK);
 	scheduleMsg(&tsLogger, "BURN in %dms", currentTimeMillis() - nowMs);
 }
 
@@ -475,6 +481,7 @@ void runBinaryProtocolLoop(ts_channel_s *tsChannel, bool_t isConsoleRedirect) {
 			scheduleMsg(&tsLogger, "Got only %d bytes while expecting %d for command %c", recieved,
 					expectedSize, command);
 			tunerStudioError("ERROR: not enough bytes in stream");
+			sendResponseCode(TS_CRC, tsChannel, TS_RESPONSE_UNDERRUN);
 			continue;
 		}
 
