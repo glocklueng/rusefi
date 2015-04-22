@@ -62,7 +62,8 @@ public class ConfigDefinition {
         tsHeader.close();
 
         writeTsSizeForJavaConsole(totalTsSize, javaConsolePath);
-        processRomRaiderFile(inputPath, javaConsolePath);
+        processTextTemplate(inputPath + File.separator + ROM_RAIDER_XML, javaConsolePath + File.separator + ROM_RAIDER_XML);
+        processTextTemplate(inputPath + File.separator + "Fields.java", javaConsolePath + File.separator + "models/src/com/rusefi/config/Fields.java");
     }
 
     private static BufferedWriter writeTunerStudioFile(String tsPath, CharArrayWriter tunerStudioWriter) throws IOException {
@@ -82,10 +83,10 @@ public class ConfigDefinition {
         return tsHeader;
     }
 
-    private static void processRomRaiderFile(String inputPath, String javaConsolePath) throws IOException {
-        File inputFile = new File(inputPath + File.separator + ROM_RAIDER_XML);
+    private static void processTextTemplate(String inputFileName, String outputFileName) throws IOException {
+        File inputFile = new File(inputFileName);
 
-        File outputFile = new File(javaConsolePath + File.separator + ROM_RAIDER_XML);
+        File outputFile = new File(outputFileName);
         BufferedReader fr = new BufferedReader(new FileReader(inputFile));
         FileWriter fw = new FileWriter(outputFile);
 
