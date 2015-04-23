@@ -250,6 +250,8 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 
 	engineConfiguration->rpmHardLimit = 7000;
 	engineConfiguration->cranking.rpm = 550;
+	engineConfiguration->cutFuelOnHardLimit = true;
+	engineConfiguration->cutSparkOnHardLimit = true;
 
 	engineConfiguration->noAccelAfterHardLimitPeriodSecs = 3;
 
