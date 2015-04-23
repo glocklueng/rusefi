@@ -376,7 +376,7 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->hasIatSensor = true;
 	engineConfiguration->hasCltSensor = true;
 	engineConfiguration->hasBaroSensor = false;
-	engineConfiguration->isDigitalChartEnabled = true;
+	engineConfiguration->isEngineChartEnabled = true;
 
 	engineConfiguration->useOnlyFrontForTrigger = false;
 
@@ -407,10 +407,10 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->idleStepperTotalSteps = 150;
 
 #if EFI_PROD_CODE
-	engineConfiguration->digitalChartSize = 300;
+	engineConfiguration->engineChartSize = 300;
 #else
 	// need more events for automated test
-	engineConfiguration->digitalChartSize = 400;
+	engineConfiguration->engineChartSize = 400;
 #endif
 
 	engineConfiguration->engineCycle = 720;
