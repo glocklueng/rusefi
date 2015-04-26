@@ -35,6 +35,10 @@ OutputPin::OutputPin() {
 #endif
 }
 
+bool_t OutputPin::isInitialized() {
+	return port != NULL;
+}
+
 void OutputPin::setValue(int logicValue) {
 	doSetOutputPinValue2(this, logicValue);
 }
