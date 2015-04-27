@@ -25,6 +25,8 @@ void setTestEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->useOnlyFrontForTrigger = true;
 
 
+	setWholeIatCorrTimingTable(0);
+
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
 	setConstantDwell(3 PASS_ENGINE_PARAMETER); // 50% duty cycle @ 5000 rpm
 
