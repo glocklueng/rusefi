@@ -132,7 +132,7 @@ void setFuelTablesLoadBin(float minValue, float maxValue DECLARE_ENGINE_PARAMETE
 void setTimingMap(ignition_table_t map, float value) {
 	for (int l = 0; l < IGN_LOAD_COUNT; l++) {
 		for (int r = 0; r < IGN_RPM_COUNT; r++) {
-			config->ignitionTable[l][r] = value;
+			map[l][r] = value;
 		}
 	}
 }
