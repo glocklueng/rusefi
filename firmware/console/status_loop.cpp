@@ -568,11 +568,10 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels DECLARE_
 	tsOutputChannels->tpsAccelFuel = engine->tpsAccelEnrichment.getTpsEnrichment(PASS_ENGINE_PARAMETER_F);
 	tsOutputChannels->deltaTps = engine->tpsAccelEnrichment.getDelta();
 	tsOutputChannels->triggerErrorsCounter = triggerCentral.triggerState.totalTriggerErrorCounter;
-	tsOutputChannels->isTriggerError = isTriggerErrorNow();
-
 
 	tsOutputChannels->checkEngine = hasErrorCodes();
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
+	tsOutputChannels->isTriggerError = isTriggerErrorNow();
 
 #if EFI_MAX_31855 || defined(__DOXYGEN__)
 	for (int i = 0; i < EGT_CHANNEL_COUNT; i++)
