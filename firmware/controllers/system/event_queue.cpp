@@ -19,6 +19,7 @@
 scheduling_s::scheduling_s() {
 	callback = NULL;
 	next = NULL;
+	param = NULL;
 	isScheduled = false;
 }
 
@@ -149,7 +150,7 @@ int EventQueue::executeAll(uint64_t now) {
 		uint32_t before = GET_TIMESTAMP();
 		current->isScheduled = false;
 		current->callback(current->param);
-		// even with overflow it's safe to substract here
+		// even with overflow it's safe to subtract here
 		lastEventQueueTime = GET_TIMESTAMP() - before;
 		if (lastEventQueueTime > maxEventQueueTime)
 			maxEventQueueTime = lastEventQueueTime;
