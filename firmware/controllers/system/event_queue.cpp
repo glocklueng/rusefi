@@ -124,7 +124,9 @@ int EventQueue::executeAll(uint64_t now) {
 		}
 		if (current->momentX <= now) {
 			executionCounter++;
-			LL_DELETE(head, current);
+			efiAssert(head == current, "removing from head", -1);
+			//LL_DELETE(head, current);
+			head = head->next;
 			LL_PREPEND(executionList, current);
 		} else {
 			/**
