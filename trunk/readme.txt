@@ -4,6 +4,7 @@ current binaries are always available at http://rusefi.com/build_server/
 *****************************************************************************
 *** Releases                                                              ***
 *****************************************************************************
+04/26/2015	r7938	vehicle speed sensor, stepper idle valve, lots of improvements
 11/13/2014	r5327	ChibiOS/RT 2.6.6, better cold start logic, bugfixes, bugfixes, bugfixes...
 06/12/2014	r3477	Precise event scheduling, protocol selection 
 03/26/2014	r2413	C++, refactoring & improvements
