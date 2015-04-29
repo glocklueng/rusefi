@@ -16,6 +16,7 @@
 #include "trigger_central.h"
 #include "fuel_math.h"
 #include "engine_math.h"
+#include "advance_map.h"
 
 #if EFI_PROD_CODE
 #include "injector_central.h"
@@ -165,6 +166,7 @@ void Engine::watchdog() {
  */
 void Engine::periodicFastCallback(DECLARE_ENGINE_PARAMETER_F) {
 	int rpm = rpmCalculator.rpmValue;
+	float engineLoad = getEngineLoadT(PASS_ENGINE_PARAMETER_F);
 
 	engineState.sparkDwell = getSparkDwellMsT(rpm PASS_ENGINE_PARAMETER);
 	dwellAngle = engineState.sparkDwell / getOneDegreeTimeMs(rpm);
@@ -173,6 +175,7 @@ void Engine::periodicFastCallback(DECLARE_ENGINE_PARAMETER_F) {
 	engine->engineState.cltFuelCorrection = getCltCorrection(engine->engineState.clt PASS_ENGINE_PARAMETER);
 
 	engine->engineState.injectionAngle = getInjectionAngle(rpm PASS_ENGINE_PARAMETER);
+	engine->engineState.timingAdvance = getAdvance(rpm, engineLoad PASS_ENGINE_PARAMETER);
 }
 
 StartupFuelPumping::StartupFuelPumping() {
