@@ -159,6 +159,10 @@ void Engine::watchdog() {
 #endif
 }
 
+/**
+ * The idea of this method is to execute all heavy calculations in a lower-priority thread,
+ * so that trigger event handler/IO scheduler tasks are faster. Th
+ */
 void Engine::periodicFastCallback(DECLARE_ENGINE_PARAMETER_F) {
 	int rpm = rpmCalculator.rpmValue;
 

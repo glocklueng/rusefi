@@ -283,7 +283,7 @@ static void ignitionCalc(int rpm DECLARE_ENGINE_PARAMETER_S) {
 	 * Within one engine cycle all cylinders are fired with same timing advance.
 	 * todo: one day we can control cylinders individually?
 	 */
-	float dwellMs = getSparkDwellMsT(rpm PASS_ENGINE_PARAMETER);
+	float dwellMs = ENGINE(engineState.sparkDwell);
 
 	if (cisnan(dwellMs) || dwellMs < 0) {
 		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
@@ -292,7 +292,6 @@ static void ignitionCalc(int rpm DECLARE_ENGINE_PARAMETER_S) {
 	float el = getEngineLoadT(PASS_ENGINE_PARAMETER_F);
 	engine->advance = -getAdvance(rpm, el PASS_ENGINE_PARAMETER);
 
-	engine->dwellAngle = dwellMs / getOneDegreeTimeMs(rpm);
 }
 
 extern OutputSignalList runningInjectonSignals CCM_OPTIONAL;
