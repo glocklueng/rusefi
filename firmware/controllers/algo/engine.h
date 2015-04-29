@@ -86,6 +86,9 @@ public:
 
 	angle_t mapAveragingStart;
 	angle_t mapAveragingDuration;
+
+	float sparkDwell;
+	float timingAdvance;
 };
 
 class RpmCalculator;
