@@ -15,6 +15,7 @@
 #include "trigger_decoder.h"
 #include "engine_test_helper.h"
 #include "efiGpio.h"
+#include "advance_map.h"
 
 extern float testMafValue;
 
@@ -70,6 +71,7 @@ void testFuelMap(void) {
 
 	// because all the correction tables are zero
 	printf("*************************************************** getRunningFuel 1\r\n");
+	prepareTimingMap(PASS_ENGINE_PARAMETER_F);
 	eth.engine.periodicFastCallback(PASS_ENGINE_PARAMETER_F);
 	float baseFuel = getBaseTableFuel(eth.engine.engineConfiguration, 5, getEngineLoadT(PASS_ENGINE_PARAMETER_F));
 	assertEqualsM("base fuel", 5.05, getRunningFuel(baseFuel, 5 PASS_ENGINE_PARAMETER));
