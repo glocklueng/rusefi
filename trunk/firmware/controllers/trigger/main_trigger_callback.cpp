@@ -289,9 +289,8 @@ static void ignitionCalc(int rpm DECLARE_ENGINE_PARAMETER_S) {
 		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 		return;
 	}
-	float el = getEngineLoadT(PASS_ENGINE_PARAMETER_F);
-	engine->advance = -getAdvance(rpm, el PASS_ENGINE_PARAMETER);
-
+	// todo: eliminate this field
+	engine->advance = -ENGINE(engineState.timingAdvance);
 }
 
 extern OutputSignalList runningInjectonSignals CCM_OPTIONAL;

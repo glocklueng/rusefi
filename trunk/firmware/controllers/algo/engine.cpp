@@ -169,6 +169,7 @@ void Engine::periodicFastCallback(DECLARE_ENGINE_PARAMETER_F) {
 	float engineLoad = getEngineLoadT(PASS_ENGINE_PARAMETER_F);
 
 	engineState.sparkDwell = getSparkDwellMsT(rpm PASS_ENGINE_PARAMETER);
+	// todo: move this field to engineState
 	dwellAngle = engineState.sparkDwell / getOneDegreeTimeMs(rpm);
 
 	engine->engineState.iatFuelCorrection = getIatCorrection(engine->engineState.iat PASS_ENGINE_PARAMETER);
