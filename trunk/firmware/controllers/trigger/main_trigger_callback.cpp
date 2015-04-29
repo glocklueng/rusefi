@@ -437,7 +437,7 @@ static void showMainInfo(Engine *engine) {
 	float el = getEngineLoadT(PASS_ENGINE_PARAMETER_F);
 	scheduleMsg(logger, "rpm %d engine_load %f", rpm, el);
 	scheduleMsg(logger, "fuel %fms timing %f", getFuelMs(rpm PASS_ENGINE_PARAMETER),
-			getAdvance(rpm, el PASS_ENGINE_PARAMETER));
+			engine->engineState.timingAdvance);
 #endif
 }
 
