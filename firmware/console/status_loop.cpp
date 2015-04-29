@@ -249,7 +249,7 @@ static void printState(void) {
 	debugFloat(&logger, "fuel_lag", engine->injectorLagMs, 2);
 	debugFloat(&logger, "fuel", getFuelMs(rpm PASS_ENGINE_PARAMETER), 2);
 
-	debugFloat(&logger, "timing", getAdvance(rpm, engineLoad PASS_ENGINE_PARAMETER), 2);
+	debugFloat(&logger, "timing", engine->engineState.timingAdvance, 2);
 
 //		float map = getMap();
 
