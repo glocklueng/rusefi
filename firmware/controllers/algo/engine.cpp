@@ -171,6 +171,8 @@ void Engine::periodicFastCallback(DECLARE_ENGINE_PARAMETER_F) {
 
 	engine->engineState.iatFuelCorrection = getIatCorrection(engine->engineState.iat PASS_ENGINE_PARAMETER);
 	engine->engineState.cltFuelCorrection = getCltCorrection(engine->engineState.clt PASS_ENGINE_PARAMETER);
+
+	engine->engineState.injectionAngle = getInjectionAngle(rpm PASS_ENGINE_PARAMETER);
 }
 
 StartupFuelPumping::StartupFuelPumping() {
