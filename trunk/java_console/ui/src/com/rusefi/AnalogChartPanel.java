@@ -1,6 +1,7 @@
 package com.rusefi;
 
 import com.rusefi.config.Fields;
+import com.rusefi.ui.RpmLabel;
 import com.rusefi.ui.RpmModel;
 import com.rusefi.ui.config.EnumConfigField;
 import com.rusefi.ui.util.UiUtils;
@@ -57,7 +58,7 @@ public class AnalogChartPanel {
             }
         });
 
-        final JPanel upperPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+        final JPanel upperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
 
         JButton clearButton = new JButton(CLEAR.getMessage());
         clearButton.setMnemonic('c');
@@ -86,6 +87,7 @@ public class AnalogChartPanel {
 
         final JButton pauseButton = new JButton(PAUSE.getMessage());
         upperPanel.add(pauseButton);
+        upperPanel.add(new RpmLabel(2).getContent());
 
         upperPanel.add(new URLLabel(EngineSnifferPanel.HELP_TEXT, HELP_URL));
         pauseButton.addActionListener(new
@@ -98,13 +100,13 @@ public class AnalogChartPanel {
                                               }
         );
 
-        upperPanel.setBorder(BorderFactory.createLineBorder(Color.white));
+//        upperPanel.setBorder(BorderFactory.createLineBorder(Color.orange));
         content.add(upperPanel, BorderLayout.NORTH);
 
         content.add(canvas, BorderLayout.CENTER);
 
         final JPanel lowerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
-        lowerPanel.setBorder(BorderFactory.createLineBorder(Color.white));
+        lowerPanel.setBorder(BorderFactory.createLineBorder(Color.cyan));
         content.add(lowerPanel, BorderLayout.SOUTH);
 
         lowerPanel.add(new EnumConfigField(Fields.SENSOR_SNIFFER_MODE, "Mode", "Off", "Trigger", "MAP").getContent());
