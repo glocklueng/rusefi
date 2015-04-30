@@ -179,7 +179,7 @@ void FuelSchedule::addFuelEvents(injection_mode_e mode DECLARE_ENGINE_PARAMETER_
 
 			/**
 			 * We do not need injector pin here because we will control all injectors
-			 * simultaniously
+			 * simultaneously
 			 */
 			registerInjectionEvent(NULL, angle, true PASS_ENGINE_PARAMETER);
 		}
