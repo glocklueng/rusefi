@@ -42,7 +42,7 @@ public class Launcher {
     public static int defaultFontSize;
 
     private static Frame staticFrame;
-    private final TableEditor tableEditor = new TableEditor();
+    private final TableEditorPane tableEditor = new TableEditorPane();
 
     FrameHelper frame = new FrameHelper() {
         @Override
@@ -84,7 +84,7 @@ public class Launcher {
         tabbedPane.addTab("Main", mainGauges.createRpmPanel());
         tabbedPane.addTab("Gauges", new GaugesPanel().getContent());
         tabbedPane.addTab("Engine Sniffer", engineSnifferPanel.getPanel());
-        tabbedPane.addTab("Sensor Sniffer", new AnalogChartPanel().getPanel());
+        tabbedPane.addTab("Sensor Sniffer", new SensorSnifferPane().getPanel());
 
 
 //        tabbedPane.addTab("LE controls", new FlexibleControls().getPanel());

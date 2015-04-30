@@ -43,7 +43,6 @@ public class EngineSnifferPanel {
     public static final Comparator<String> INSTANCE = new NameUtil.ImageOrderComparator();
     private static final String HELP_URL = "http://rusefi.com/wiki/index.php?title=Manual:DevConsole#Digital_Chart";
     public static final String HELP_TEXT = "Click here for online help";
-    public static final String SAVE_IMAGE = "save image";
 
     private final JPanel chartPanel = new JPanel(new BorderLayout());
     private final JPanel panel = new JPanel(new BorderLayout());
@@ -101,8 +100,7 @@ public class EngineSnifferPanel {
             }
         });
 
-        JButton saveImageButton = new JButton(SAVE_IMAGE);
-        saveImageButton.setMnemonic('s');
+        JButton saveImageButton = UiUtils.createSaveImageButton();
         saveImageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
