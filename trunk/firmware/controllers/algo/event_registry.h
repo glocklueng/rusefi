@@ -33,7 +33,7 @@ public:
 class InjectionEvent {
 public:
 	event_trigger_position_s injectionStart;
-	OutputSignal *actuator;
+	OutputSignal actuator;
 	/**
 	 * This is a performance optimization - it's more efficient to handle all
 	 * injectors together if that's the case
