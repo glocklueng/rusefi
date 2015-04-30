@@ -24,7 +24,7 @@ import static com.rusefi.ui.util.LocalizedMessages.RESUME;
  * Date: 12/21/13
  * Andrey Belomutskiy (c) 2012-2013
  */
-public class AnalogChartPanel {
+public class SensorSnifferPane {
     private static final String HELP_URL = "http://rusefi.com/wiki/index.php?title=Manual:DevConsole#Analog_Chart";
 
     private final TreeMap<Double, Double> values = new TreeMap<>();
@@ -39,9 +39,8 @@ public class AnalogChartPanel {
 
     private boolean paused = false;
 
-    public AnalogChartPanel() {
-
-        AnalogChartCentral.addListener(new AnalogChartCentral.AnalogChartListener() {
+    public SensorSnifferPane() {
+        SensorSnifferCentral.addListener(new SensorSnifferCentral.AnalogChartListener() {
             @Override
             public void onAnalogChart(final String message) {
                 // this callback is invoked from the connectivity thread, need to handle in AWT for thread-safety
@@ -71,10 +70,9 @@ public class AnalogChartPanel {
         });
         upperPanel.add(clearButton);
 
-        JButton imageButton = new JButton(EngineSnifferPanel.SAVE_IMAGE);
-        imageButton.setMnemonic('s');
-        upperPanel.add(imageButton);
-        imageButton.addActionListener(new ActionListener() {
+        JButton saveImageButton = UiUtils.createSaveImageButton();
+        upperPanel.add(saveImageButton);
+        saveImageButton.addActionListener(new ActionListener() {
                                           @Override
                                           public void actionPerformed(ActionEvent e) {
                                               int rpm = RpmModel.getInstance().getValue();
