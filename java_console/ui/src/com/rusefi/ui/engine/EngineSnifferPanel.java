@@ -64,12 +64,12 @@ public class EngineSnifferPanel {
         }
     };
 
-    JScrollPane pane = new JScrollPane(imagePanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    private final JScrollPane pane = new JScrollPane(imagePanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
     private final ZoomControl zoomControl = new ZoomControl();
     private final EngineSnifferStatusPanel statusPanel = new EngineSnifferStatusPanel(zoomControl.getZoomProvider());
     private final UpDownImage crank = createImage(NameUtil.CRANK1);
-    private ChartScrollControl scrollControl;
+    private final ChartScrollControl scrollControl;
 
     private boolean isPaused;
 
@@ -120,16 +120,16 @@ public class EngineSnifferPanel {
             }
         });
 
-        JPanel topButtons = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-        topButtons.add(clearButton);
-        topButtons.add(saveImageButton);
-        topButtons.add(pauseButton);
-        topButtons.add(new RpmLabel().setSize(2).getContent());
+        JPanel upperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        upperPanel.add(clearButton);
+        upperPanel.add(saveImageButton);
+        upperPanel.add(pauseButton);
+        upperPanel.add(new RpmLabel(2).getContent());
 
         JComponent command = new AnyCommand(config, "chartsize " + EFI_DEFAULT_CHART_SIZE, true).getContent();
-        topButtons.add(command);
+        upperPanel.add(command);
 
-        topButtons.add(zoomControl);
+        upperPanel.add(zoomControl);
 
         scrollControl = ChartRepository.getInstance().createControls(new ChartRepository.ChartRepositoryListener() {
             @Override
@@ -137,9 +137,10 @@ public class EngineSnifferPanel {
                 displayChart(chart);
             }
         });
-        topButtons.add(scrollControl.getContent());
+        if (LinkManager.isLogViewer())
+            upperPanel.add(scrollControl.getContent());
 
-        topButtons.add(new URLLabel(HELP_TEXT, HELP_URL));
+        upperPanel.add(new URLLabel(HELP_TEXT, HELP_URL));
 
         JPanel lowerButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
         lowerButtons.add(new BitConfigField(Fields.isDigitalChartEnabled, "Collect Engine Data").getContent());
@@ -149,7 +150,7 @@ public class EngineSnifferPanel {
         bottomPanel.add(lowerButtons, BorderLayout.NORTH);
         bottomPanel.add(statusPanel.infoPanel, BorderLayout.SOUTH);
 
-        chartPanel.add(topButtons, BorderLayout.NORTH);
+        chartPanel.add(upperPanel, BorderLayout.NORTH);
         chartPanel.add(pane, BorderLayout.CENTER);
         chartPanel.add(bottomPanel, BorderLayout.SOUTH);
 
