@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SizeSelectorPanel extends JPanel {
-    private static final int WIDTH = 9;
+    private static final int WIDTH = 7;
     private static final int HEIGHT = 3;
 
     private List<Element> elements = new ArrayList<>();
@@ -19,26 +19,31 @@ public class SizeSelectorPanel extends JPanel {
     private int selectedRow = 1;
     private int selectedColumn = 1;
 
-
-    public SizeSelectorPanel() {
-        super(new GridLayout(WIDTH, HEIGHT));
+    public SizeSelectorPanel(final SizeSelectorListener sizeSelectorListener) {
+        super(new GridLayout(HEIGHT, WIDTH));
 
         MouseListener listener = new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                if (e.getSource() instanceof Element) {
-                    Element selected = (Element) e.getSource();
-                    selectedColumn = selected.column;
-                    selectedRow = selected.row;
-                    UiUtils.trueLayout(SizeSelectorPanel.this);
-                    UiUtils.trueRepaint(SizeSelectorPanel.this);
-                    System.out.println(selectedColumn + " r=" + selectedRow);
-                }
+                Element selected = (Element) e.getSource();
+                selectedColumn = selected.column;
+                selectedRow = selected.row;
+                UiUtils.trueLayout(SizeSelectorPanel.this);
+                UiUtils.trueRepaint(SizeSelectorPanel.this);
+                System.out.println(selectedColumn + " r=" + selectedRow);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // close the menu
+                MenuSelectionManager.defaultManager().clearSelectedPath();
+                Element selected = (Element) e.getSource();
+                sizeSelectorListener.onSelected(selected.row, selected.column);
             }
         };
 //        addMouseListener(listener);
-        for (int c = 0; c < WIDTH; c++) {
-            for (int r = 0; r < HEIGHT; r++) {
+        for (int r = 0; r < HEIGHT; r++) {
+            for (int c = 0; c < WIDTH; c++) {
                 Element e = new Element(r, c);
                 e.addMouseListener(listener);
                 elements.add(e);
@@ -68,5 +73,9 @@ public class SizeSelectorPanel extends JPanel {
             g.setColor(isSelected ? Color.black : Color.white);
             g.drawOval(5, 5, 15, 15);
         }
+    }
+
+    interface SizeSelectorListener {
+        void onSelected(int row, int column);
     }
 }
