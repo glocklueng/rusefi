@@ -294,6 +294,11 @@ static void ignitionCalc(int rpm DECLARE_ENGINE_PARAMETER_S) {
 }
 
 /**
+ * this field is used as an Expression in IAR debugger
+ */
+uint32_t *cyccnt = (uint32_t*)&DWT_CYCCNT;
+
+/**
  * This is the main trigger event handler.
  * Both injection and ignition are controlled from this method.
  */
