@@ -22,6 +22,7 @@
  */
 
 #include "main.h"
+#include <nvic.h>
 
 #if !EFI_PROD_CODE && !EFI_SIMULATOR
 
