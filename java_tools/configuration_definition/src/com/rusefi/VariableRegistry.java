@@ -31,9 +31,13 @@ public class VariableRegistry extends TreeMap<String, String> {
         return line;
     }
 
+    public void register(String var, String value) {
+        System.out.println("Registering " + var + " as " + value);
+        put(var, value);
+    }
+
     public void register(String var, int i) {
-        System.out.println("Registering " + var + " as " + i);
-        put(var, Integer.toString(i));
-        put(var + "_hex", Integer.toString(i, 16));
+        register(var, Integer.toString(i));
+        register(var + "_hex", Integer.toString(i, 16));
     }
 }

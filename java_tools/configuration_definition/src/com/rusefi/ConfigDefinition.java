@@ -17,7 +17,8 @@ public class ConfigDefinition {
     private static final String STRUCT_NO_PREFIX = "struct_no_prefix ";
     private static final String STRUCT = "struct ";
     public static final String END_STRUCT = "end_struct";
-    public static final String CUSTOM = "custom";
+    private static final String CUSTOM = "custom";
+    private static final String DEFINE = "define";
     public static final String BIT = "bit";
     public static final String CONFIG_DEFINITION_START = "CONFIG_DEFINITION_START";
     public static final String CONFIG_DEFINITION_END = "CONFIG_DEFINITION_END";
@@ -189,7 +190,14 @@ public class ConfigDefinition {
                 ConfigField bitField = new ConfigField(bitName, comment, true, null, null, 0, null, false);
                 stack.peek().addBoth(bitField);
 
-            } else if (line.startsWith(CUSTOM + " ") || line.startsWith(CUSTOM + "\t")) {
+            } else if (startsWithToken(line, DEFINE)) {
+                line = line.substring(DEFINE.length() + 1).trim();
+                int index = line.indexOf(' ');
+                String name = line.substring(0, index);
+                line = line.substring(index).trim();
+                VariableRegistry.INSTANCE.register(name, line);
+
+            } else if (startsWithToken(line, CUSTOM)) {
                 line = line.substring(CUSTOM.length() + 1).trim();
                 int index = line.indexOf(' ');
                 String name = line.substring(0, index);
@@ -198,6 +206,7 @@ public class ConfigDefinition {
                 String customSize = line.substring(0, index);
 
                 String tunerStudioLine = line.substring(index).trim();
+                tunerStudioLine = VariableRegistry.INSTANCE.processLine(tunerStudioLine);
                 int size;
                 try {
                     size = Integer.parseInt(customSize);
@@ -213,6 +222,10 @@ public class ConfigDefinition {
         }
         cHeader.write("// end\r\n");
         cHeader.write(message);
+    }
+
+    private static boolean startsWithToken(String line, String token) {
+        return line.startsWith(token + " ") || line.startsWith(token + "\t");
     }
 
     private static void handleStartStructure(String line, boolean withPrefix) {
