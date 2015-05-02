@@ -187,9 +187,9 @@ static void pwmpcb_fast(PWMDriver *pwmp) {
 #endif
 }
 
-int getInternalAdcValue(adc_channel_e hwChannel) {
+int getInternalAdcValue(const char *msg, adc_channel_e hwChannel) {
 	if (hwChannel == EFI_ADC_NONE) {
-		warning(OBD_PCM_Processor_Fault, "ADC: should not be asking for NONE");
+		warning(OBD_PCM_Processor_Fault, "ADC: should not be asking for NONE %s", msg);
 		return -1;
 	}
 
@@ -404,7 +404,7 @@ void AdcDevice::addChannel(adc_channel_e hwChannel) {
 }
 
 static void printAdcValue(adc_channel_e channel) {
-	int value = getAdcValue(channel);
+	int value = getAdcValue("print", channel);
 	float volts = adcToVoltsDivided(value);
 	scheduleMsg(&logger, "adc voltage : %f", volts);
 }
