@@ -18,6 +18,7 @@
 #include "pin_repository.h"
 #include "engine_math.h"
 #include "board_test.h"
+#include "engine_controller.h"
 
 static adc_channel_mode_e adcHwChannelEnabled[HW_MAX_ADC_INDEX];
 
@@ -465,12 +466,15 @@ static void adc_callback_slow(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 	}
 }
 
+static char errorMsgBuff[10];
+
 static void addChannel(const char *name, adc_channel_e setting, adc_channel_mode_e mode) {
 	if (setting == EFI_ADC_NONE) {
 		return;
 	}
 	if (adcHwChannelEnabled[setting] != ADC_OFF) {
-		firmwareError("ADC mapping error: input for %s already used?", name);
+		getPinNameByAdcChannel(setting, errorMsgBuff);
+		firmwareError("ADC mapping error: input %s for %s already used?", errorMsgBuff, name);
 	}
 
 	adcHwChannelEnabled[setting] = mode;
