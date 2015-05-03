@@ -75,6 +75,7 @@ cp misc/console_launcher/rusefi_console.exe %folder%
 
 
 cd temp
+for /d /r . %d in (.svn) do @if exist "%d" rd /s/q "%d"
 zip -r rusefi_bundle.zip *
 cd %folder_name%
 zip ../rusefi_console.zip rusefi_console.jar rusefi.xml
