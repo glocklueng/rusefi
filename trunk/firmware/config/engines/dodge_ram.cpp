@@ -46,5 +46,13 @@ void setDodgeRam1996(DECLARE_ENGINE_PARAMETER_F) {
 
 	engineConfiguration->engineChartSize = 450;
 
+	// set_cranking_fuel 7
+	engineConfiguration->cranking.baseFuel = 7;
+
+	// set_global_trigger_offset_angle -50
+	engineConfiguration->globalTriggerAngleOffset = -50;
+
+
+
 	engineConfiguration->vbattAdcChannel = EFI_ADC_NONE; // todo: conflict with what?
 }
