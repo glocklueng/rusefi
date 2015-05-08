@@ -16,14 +16,14 @@ public class ConfigDefinition {
     private static final String TS_FILE_NAME = "rusefi.ini";
     private static final String STRUCT_NO_PREFIX = "struct_no_prefix ";
     private static final String STRUCT = "struct ";
-    public static final String END_STRUCT = "end_struct";
+    private static final String END_STRUCT = "end_struct";
     private static final String CUSTOM = "custom";
     private static final String DEFINE = "#define";
-    public static final String BIT = "bit";
-    public static final String CONFIG_DEFINITION_START = "CONFIG_DEFINITION_START";
-    public static final String CONFIG_DEFINITION_END = "CONFIG_DEFINITION_END";
+    private static final String BIT = "bit";
+    private static final String CONFIG_DEFINITION_START = "CONFIG_DEFINITION_START";
+    private static final String CONFIG_DEFINITION_END = "CONFIG_DEFINITION_END";
     private static final String ROM_RAIDER_XML = "rusefi.xml";
-    private static Map<String, Integer> values = new HashMap<>();
+    private static final String ENGINE_CONFIGURATION_GENERATED_STRUCTURES_H = "engine_configuration_generated_structures.h";
     private static int totalTsSize;
 
     private static Stack<ConfigStructure> stack = new Stack<>();
@@ -40,11 +40,11 @@ public class ConfigDefinition {
 
         String inputPath = args[0];
         String tsPath = args[1];
-        String dest = args[2];
+        String headerDestinationFolder = args[2];
         String javaConsolePath = args[3];
         String fullFileName = inputPath + File.separator + INPUT_FILE_NAME;
         System.out.println("Reading from " + fullFileName);
-        String destCHeader = dest + File.separator + "engine_configuration_generated_structures.h";
+        String destCHeader = headerDestinationFolder + File.separator + ENGINE_CONFIGURATION_GENERATED_STRUCTURES_H;
         System.out.println("Writing C header to " + destCHeader);
 
         BufferedWriter cHeader = new BufferedWriter(new FileWriter(destCHeader));
@@ -61,6 +61,9 @@ public class ConfigDefinition {
 
         cHeader.close();
         tsHeader.close();
+
+        VariableRegistry.INSTANCE.writeNumericsToFile(headerDestinationFolder);
+
 
         writeTsSizeForJavaConsole(totalTsSize, javaConsolePath);
         processTextTemplate(inputPath + File.separator + ROM_RAIDER_XML, javaConsolePath + File.separator + ROM_RAIDER_XML);
@@ -302,8 +305,8 @@ public class ConfigDefinition {
     }
 
     public static int getSize(String s) {
-        if (values.containsKey(s))
-            return values.get(s);
+        if (VariableRegistry.INSTANCE.intValues.containsKey(s))
+            return VariableRegistry.INSTANCE.intValues.get(s);
         return Integer.parseInt(s);
     }
 
@@ -312,13 +315,5 @@ public class ConfigDefinition {
         String name = line.substring(0, index);
         line = line.substring(index).trim();
         VariableRegistry.INSTANCE.register(name, line);
-
-        try {
-            int value = Integer.parseInt(line);
-            System.out.println("key [" + name + "] value: " + value);
-            values.put(name, value);
-        } catch (NumberFormatException e) {
-            System.out.println("Not an integer: " + line);
-        }
     }
 }
