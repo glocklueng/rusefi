@@ -18,7 +18,7 @@ public class ConfigDefinition {
     private static final String STRUCT = "struct ";
     public static final String END_STRUCT = "end_struct";
     private static final String CUSTOM = "custom";
-    private static final String DEFINE = "define";
+    private static final String DEFINE = "#define";
     public static final String BIT = "bit";
     public static final String CONFIG_DEFINITION_START = "CONFIG_DEFINITION_START";
     public static final String CONFIG_DEFINITION_END = "CONFIG_DEFINITION_END";
@@ -190,13 +190,6 @@ public class ConfigDefinition {
                 ConfigField bitField = new ConfigField(bitName, comment, true, null, null, 0, null, false);
                 stack.peek().addBoth(bitField);
 
-            } else if (startsWithToken(line, DEFINE)) {
-                line = line.substring(DEFINE.length() + 1).trim();
-                int index = line.indexOf(' ');
-                String name = line.substring(0, index);
-                line = line.substring(index).trim();
-                VariableRegistry.INSTANCE.register(name, line);
-
             } else if (startsWithToken(line, CUSTOM)) {
                 line = line.substring(CUSTOM.length() + 1).trim();
                 int index = line.indexOf(' ');
@@ -267,7 +260,7 @@ public class ConfigDefinition {
          * for example
          * #define CLT_CURVE_SIZE 16
          */
-        if (line.startsWith("#define")) {
+        if (startsWithToken(line, DEFINE)) {
             processDefine(line);
             return;
         }
@@ -315,10 +308,17 @@ public class ConfigDefinition {
     }
 
     private static void processDefine(String line) {
-        String a[] = line.split(" ");
-        String key = a[1];
-        int value = Integer.parseInt(a[2]);
-        System.out.println("k [" + key + "] value: " + value);
-        values.put(key, value);
+        int index = line.indexOf(' ');
+        String name = line.substring(0, index);
+        line = line.substring(index).trim();
+        VariableRegistry.INSTANCE.register(name, line);
+
+        try {
+            int value = Integer.parseInt(line);
+            System.out.println("k [" + name + "] value: " + value);
+            values.put(name, value);
+        } catch (NumberFormatException e) {
+            System.out.println("Not an integer: " + line);
+        }
     }
 }
