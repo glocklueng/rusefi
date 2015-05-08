@@ -261,7 +261,7 @@ public class ConfigDefinition {
          * #define CLT_CURVE_SIZE 16
          */
         if (startsWithToken(line, DEFINE)) {
-            processDefine(line);
+            processDefine(line.substring(DEFINE.length()).trim());
             return;
         }
 
@@ -315,7 +315,7 @@ public class ConfigDefinition {
 
         try {
             int value = Integer.parseInt(line);
-            System.out.println("k [" + name + "] value: " + value);
+            System.out.println("key [" + name + "] value: " + value);
             values.put(name, value);
         } catch (NumberFormatException e) {
             System.out.println("Not an integer: " + line);
