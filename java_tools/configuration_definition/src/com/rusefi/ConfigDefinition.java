@@ -254,7 +254,7 @@ public class ConfigDefinition {
         if (stack.isEmpty()) {
             totalTsSize = structure.writeTunerStudio("", tsHeader, 0);
             tsHeader.write("; total TS size = " + totalTsSize + "\r\n");
-            VariableRegistry.INSTANCE.register("total_config_size", totalTsSize);
+            VariableRegistry.INSTANCE.register("TOTAL_CONFIG_SIZE", totalTsSize);
         }
     }
 

@@ -23,6 +23,7 @@ public class VariableRegistry extends TreeMap<String, String> {
     StringBuilder numbericDefinitions = new StringBuilder();
 
     private VariableRegistry() {
+        super(String.CASE_INSENSITIVE_ORDER);
     }
 
     public String processLine(String line) {
