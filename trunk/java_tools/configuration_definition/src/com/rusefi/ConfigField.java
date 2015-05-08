@@ -119,7 +119,7 @@ public class ConfigField {
     public int writeTunerStudio(String prefix, Writer tsHeader, int tsPosition, ConfigField next, int bitIndex) throws IOException {
         String nameWithPrefix = prefix + name;
 
-        VariableRegistry.INSTANCE.register(nameWithPrefix, tsPosition);
+        VariableRegistry.INSTANCE.register(nameWithPrefix + "_offset", tsPosition);
 
         ConfigStructure cs = ConfigDefinition.structures.get(type);
         if (cs != null) {
