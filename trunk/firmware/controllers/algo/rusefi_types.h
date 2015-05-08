@@ -50,6 +50,8 @@ typedef brain_pin_e egt_cs_array_t[EGT_CHANNEL_COUNT];
 typedef float fuel_table_t[FUEL_LOAD_COUNT][FUEL_RPM_COUNT];
 typedef float ignition_table_t[IGN_LOAD_COUNT][IGN_RPM_COUNT];
 
+typedef float baro_corr_table_t[BARO_CORR_SIZE][BARO_CORR_SIZE];
+
 // todo: rename this structure one all tables migrated
 typedef struct {
 	float loadBins[IGN_LOAD_COUNT];

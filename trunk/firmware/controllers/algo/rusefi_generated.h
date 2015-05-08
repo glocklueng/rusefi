@@ -638,8 +638,9 @@
 #define baroCorrBins_offset_hex 674
 #define baroCorr_offset 1668
 #define baroCorr_offset_hex 684
-#define unused3_offset 1684
-#define unused3_offset_hex 694
+#define baroCorrTable_offset 1684
+#define baroCorrTable_offset_hex 694
+#define unused3_offset 1748
 #define tpsAccelLength_offset 2184
 #define tpsAccelLength_offset_hex 888
 #define tpsAccelEnrichmentThreshold_offset 2188
