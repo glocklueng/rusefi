@@ -711,4 +711,4 @@
 #define afrTable_offset_hex 3738
 #define afrLoadBins_offset 15160
 #define afrRpmBins_offset 15224
-#define total_config_size 15288
+#define TOTAL_CONFIG_SIZE 15288
