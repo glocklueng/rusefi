@@ -61,6 +61,10 @@ custom fuel_table_t	1024 array,   F32,   @OFFSET@, [16x16],"ms",      1,     0, 
 custom ve_table_t 1024 array,   F32,   @OFFSET@, [16x16],"%", 1, 0, 0, 999.0, 2
 custom afr_table_t 1024 array,   F32,   @OFFSET@, [16x16],"deg",	   1,     0,        0,  25.0,     2 
 
+! todo support table size multiplocation
+custom baro_corr_table_t 64 array,   F32,   @OFFSET@, [@@BARO_CORR_SIZE@@x@@BARO_CORR_SIZE@@],"%", 1, 0, 0, 999.0, 2
+
+
 ! please note that 1024 here is 4 * IGN_LOAD_COUNT * IGN_RPM_COUNT  
 custom ignition_table_t	1024 array,   F32,   @OFFSET@, [16x16],"deg",	   1,     0,     -360,  360,    2
 
@@ -513,8 +517,8 @@ int mapAveragingSchedulingAtIndex;
 float[BARO_CORR_SIZE] baroCorrBins;
 float[BARO_CORR_SIZE] baroCorr;
 
-
-	int[125] unused3;
+baro_corr_table_t baroCorrTable;
+	int[109] unused3;
 
 	int tpsAccelLength;;"len",        1,     0,    1, 200,     3
 	float tpsAccelEnrichmentThreshold;;"roc",        1,     0,    0, 200,     3
