@@ -112,7 +112,7 @@ void setDefaultVETable(DECLARE_ENGINE_PARAMETER_F) {
 	afrMap.setAll(14.7);
 
 	setRpmTableBin(engineConfiguration->baroCorrRpmBins, BARO_CORR_SIZE);
-	setTableBin2(engineConfiguration->baroCorrLoadBins, BARO_CORR_SIZE, 75, 105, 1);
+	setTableBin2(engineConfiguration->baroCorrPressureBins, BARO_CORR_SIZE, 75, 105, 1);
 	memcpy(engineConfiguration->baroCorrTable, default_baro_corr, sizeof(default_baro_corr));
 }
 
@@ -120,5 +120,5 @@ void initSpeedDensity(DECLARE_ENGINE_PARAMETER_F) {
 	veMap.init(config->veTable, config->veLoadBins, config->veRpmBins);
 //	ve2Map.init(engineConfiguration->ve2Table, engineConfiguration->ve2LoadBins, engineConfiguration->ve2RpmBins);
 	afrMap.init(config->afrTable, config->afrLoadBins, config->afrRpmBins);
-	baroCorrMap.init(engineConfiguration->baroCorrTable, engineConfiguration->baroCorrLoadBins, engineConfiguration->baroCorrRpmBins);
+	baroCorrMap.init(engineConfiguration->baroCorrTable, engineConfiguration->baroCorrPressureBins, engineConfiguration->baroCorrRpmBins);
 }
