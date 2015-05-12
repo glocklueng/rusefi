@@ -343,7 +343,7 @@ static void printAnalogInfo(void) {
 
 	printAnalogChannelInfo("A/C sw", engineConfiguration->acSwitchAdc);
 	printAnalogChannelInfo("HIP9011", engineConfiguration->hipOutputChannel);
-	printAnalogChannelInfoExt("Vbatt", engineConfiguration->vbattAdcChannel, getVBatt(engineConfiguration),
+	printAnalogChannelInfoExt("Vbatt", engineConfiguration->vbattAdcChannel, getVoltage("vbatt", engineConfiguration->vbattAdcChannel),
 			engineConfiguration->vbattDividerCoeff);
 }
 
