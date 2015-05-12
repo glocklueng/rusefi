@@ -2,9 +2,7 @@ package com.rusefi.io.tcp;
 
 import com.rusefi.FileLog;
 import com.rusefi.core.EngineState;
-import com.rusefi.io.CommandQueue;
-import com.rusefi.io.LinkConnector;
-import com.rusefi.io.LinkManager;
+import com.rusefi.io.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -19,8 +17,8 @@ public class TcpConnector implements LinkConnector {
     public final static int DEFAULT_PORT = 29001;
     public static final String LOCALHOST = "localhost";
     private final int port;
-    private BufferedWriter writer;
     private boolean withError;
+    private OutputStream os;
 
     public TcpConnector(String port) {
         try {
@@ -89,11 +87,12 @@ public class TcpConnector implements LinkConnector {
         BufferedInputStream stream;
         try {
             Socket socket = new Socket(LOCALHOST, port);
-            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            os = socket.getOutputStream();
             stream = new BufferedInputStream(socket.getInputStream());
         } catch (IOException e) {
             throw new IllegalStateException("Failed to connect to simulator", e);
         }
+//        listener.onConnectionEstablished();
 
         final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
@@ -136,8 +135,8 @@ public class TcpConnector implements LinkConnector {
         String command = LinkManager.encodeCommand(text);
         FileLog.MAIN.logLine("Writing " + command);
         try {
-            writer.write(command + "\n");
-            writer.flush();
+            os.write((command + "\n").getBytes());
+            os.flush();
         } catch (IOException e) {
             withError = true;
             System.err.println("err in send");
