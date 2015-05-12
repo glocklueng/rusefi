@@ -89,7 +89,8 @@ typedef struct {
 	int triggerErrorsCounter;
 	float currentMapAccelDelta;
 	float tpsAccelFuel;
-	int unused3[16];
+	float baroCorrection;
+	int unused3[15];
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */
