@@ -85,7 +85,7 @@ bool_t hasBaroSensor(DECLARE_ENGINE_PARAMETER_F) {
 }
 
 float getBaroPressure(DECLARE_ENGINE_PARAMETER_F) {
-	float voltage = getVoltageDivided("map", engineConfiguration->baroSensor.hwChannel);
+	float voltage = getVoltageDivided("baro", engineConfiguration->baroSensor.hwChannel);
 	return decodePressure(voltage, &engineConfiguration->baroSensor);
 }
 
