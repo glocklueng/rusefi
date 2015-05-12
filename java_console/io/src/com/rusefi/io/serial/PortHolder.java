@@ -49,7 +49,7 @@ public class PortHolder {
         return result;
     }
 
-    public boolean open(String port, final DataListener listener) {
+    private boolean open(String port, final DataListener listener) {
         SerialPort serialPort = new SerialPort(port);
         try {
             FileLog.MAIN.logLine("Opening " + port + " @ " + BAUD_RATE);
