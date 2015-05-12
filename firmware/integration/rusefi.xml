@@ -68,7 +68,7 @@
 
     <table type="3D" name="Baro Correction" storageaddress="@@baroCorrTable_offset_hex@@" sizex="@@BARO_CORR_SIZE@@" sizey="@@BARO_CORR_SIZE@@" storagetype="float" endian="big">
       <scaling units="Pressure" expression="x" to_byte="x" format="0.00" fineincrement=".1" coarseincrement="1" />
-      <table type="X Axis" storageaddress="@@baroCorrLoadBins_offset_hex@@" storagetype="float" endian="big">
+      <table type="X Axis" storageaddress="@@baroCorrPressureBins_offset_hex@@" storagetype="float" endian="big">
           <scaling units="kPa" expression="x" to_byte="x" format="0.00" fineincrement=".1" coarseincrement="1" />
       </table>
       <table type="Y Axis" storageaddress="@@baroCorrRpmBins_offset_hex@@" storagetype="float" endian="big">
