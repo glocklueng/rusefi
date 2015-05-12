@@ -561,7 +561,7 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels DECLARE_
 	tsOutputChannels->vBatt = getVBatt(engineConfiguration);
 	tsOutputChannels->tpsADC = getTPS10bitAdc(PASS_ENGINE_PARAMETER_F);
 #if EFI_ANALOG_SENSORS || defined(__DOXYGEN__)
-	tsOutputChannels->atmospherePressure = getBaroPressure();
+	tsOutputChannels->baroPressure = getBaroPressure();
 #endif /* EFI_ANALOG_SENSORS */
 	tsOutputChannels->manifold_air_pressure = getMap();
 	tsOutputChannels->engineLoad = engineLoad;

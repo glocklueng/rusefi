@@ -38,7 +38,7 @@ typedef struct {
 	float vBatt; // size 4, offset 28
 	short int tpsADC; // size 2, offset 32
 	short int alignment; // size 2, offset 34
-	float atmospherePressure; // size 4, offset 36
+	float baroPressure; // size 4, offset 36
 	float manifold_air_pressure; // size 4, offset 40
 	float crankingFuelMs;
 	/**
