@@ -19,8 +19,8 @@ public class TcpConnector implements LinkConnector {
     public static final String LOCALHOST = "localhost";
     private final int port;
     private boolean withError;
-    private OutputStream os;
     private BufferedInputStream stream;
+    private IoStream ioStream;
 
     public TcpConnector(String port) {
         try {
@@ -88,41 +88,27 @@ public class TcpConnector implements LinkConnector {
         FileLog.MAIN.logLine("Connecting to " + port);
         try {
             Socket socket = new Socket(LOCALHOST, port);
-            os = socket.getOutputStream();
+            OutputStream os = socket.getOutputStream();
             stream = new BufferedInputStream(socket.getInputStream());
+            ioStream = new TcpIoStream(os, stream);
         } catch (IOException e) {
             throw new IllegalStateException("Failed to connect to simulator", e);
         }
 //        listener.onConnectionEstablished();
 
-        InputStreamReader is = new InputStreamReader(stream);
-
-        LinkManager.IO_EXECUTOR.execute(new Runnable() {
+        final ResponseBuffer rb = new ResponseBuffer(new ResponseBuffer.ResponseListener() {
             @Override
-            public void run() {
-                Thread.currentThread().setName("TCP connector loop");
-                FileLog.MAIN.logLine("Running TCP connection loop");
-
-                ResponseBuffer rb = new ResponseBuffer(new ResponseBuffer.ResponseListener() {
-                    @Override
-                    public void onResponse(String line) {
-                        LinkManager.engineState.processNewData(line + "\r\n");
-                    }
-                });
-
-                byte b[] = new byte[1];
-                while (true) {
-                    try {
-                        stream.read(b);
-                        rb.append(new String(b));
-                    } catch (IOException e) {
-                        System.err.println("End of connection");
-                        return;
-                    }
-                }
+            public void onResponse(String line) {
+                LinkManager.engineState.processNewData(line + "\r\n");
             }
         });
 
+        ioStream.addEventListener(new DataListener() {
+            @Override
+            public void onDataArrived(byte[] freshData) {
+                rb.append(new String(freshData));
+            }
+        });
     }
 
     @Override
@@ -145,8 +131,7 @@ public class TcpConnector implements LinkConnector {
         String command = LinkManager.encodeCommand(text);
         FileLog.MAIN.logLine("Writing " + command);
         try {
-            os.write((command + "\n").getBytes());
-            os.flush();
+            ioStream.write((command + "\n").getBytes());
         } catch (IOException e) {
             withError = true;
             System.err.println("err in send");
