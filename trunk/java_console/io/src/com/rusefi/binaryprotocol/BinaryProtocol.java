@@ -61,7 +61,7 @@ public class BinaryProtocol {
                 }
             }
         };
-        this.stream.addEventListener(listener);
+        stream.addEventListener(listener);
     }
 
     public BinaryProtocol(Logger logger, SerialPort serialPort) {

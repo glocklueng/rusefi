@@ -2,6 +2,7 @@ package com.rusefi.io.tcp;
 
 import com.rusefi.FileLog;
 import com.rusefi.core.EngineState;
+import com.rusefi.core.ResponseBuffer;
 import com.rusefi.io.*;
 
 import java.io.*;
@@ -19,6 +20,7 @@ public class TcpConnector implements LinkConnector {
     private final int port;
     private boolean withError;
     private OutputStream os;
+    private BufferedInputStream stream;
 
     public TcpConnector(String port) {
         try {
@@ -84,7 +86,6 @@ public class TcpConnector implements LinkConnector {
     @Override
     public void connect(LinkManager.LinkStateListener listener) {
         FileLog.MAIN.logLine("Connecting to " + port);
-        BufferedInputStream stream;
         try {
             Socket socket = new Socket(LOCALHOST, port);
             os = socket.getOutputStream();
@@ -94,17 +95,26 @@ public class TcpConnector implements LinkConnector {
         }
 //        listener.onConnectionEstablished();
 
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        InputStreamReader is = new InputStreamReader(stream);
 
         LinkManager.IO_EXECUTOR.execute(new Runnable() {
             @Override
             public void run() {
                 Thread.currentThread().setName("TCP connector loop");
                 FileLog.MAIN.logLine("Running TCP connection loop");
+
+                ResponseBuffer rb = new ResponseBuffer(new ResponseBuffer.ResponseListener() {
+                    @Override
+                    public void onResponse(String line) {
+                        LinkManager.engineState.processNewData(line + "\r\n");
+                    }
+                });
+
+                byte b[] = new byte[1];
                 while (true) {
                     try {
-                        String line = reader.readLine();
-                        LinkManager.engineState.processNewData(line + "\r\n");
+                        stream.read(b);
+                        rb.append(new String(b));
                     } catch (IOException e) {
                         System.err.println("End of connection");
                         return;
