@@ -170,7 +170,6 @@ void prepareVoidConfiguration(engine_configuration_s *activeConfiguration) {
  * and the settings saves in flash memory.
  */
 void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
-	board_configuration_s *boardConfiguration = &engineConfiguration->bc;
 	// technically these regions currently overlap, but I will reset all individually for readability
 	memset(engineConfiguration, 0, sizeof(engine_configuration_s));
 	memset(boardConfiguration, 0, sizeof(board_configuration_s));
@@ -611,8 +610,6 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType DECLARE_EN
 #endif /* */
 	engineConfiguration->engineType = engineType;
 	engineConfiguration->headerMagicValue = HEADER_MAGIC_NUMBER;
-
-	board_configuration_s *boardConfiguration = &engineConfiguration->bc;
 
 	/**
 	 * And override them with engine-specific defaults
