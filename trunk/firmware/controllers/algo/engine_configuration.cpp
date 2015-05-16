@@ -701,7 +701,7 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType DECLARE_EN
 		setRoverv8(PASS_ENGINE_PARAMETER_F);
 		break;
 	case SUBARU_2003_WRX:
-		setSubaru2003Wrx(engineConfiguration);
+		setSubaru2003Wrx(PASS_ENGINE_PARAMETER_F);
 		break;
 	case BMW_E34:
 		setBmwE34(PASS_ENGINE_PARAMETER_F);
