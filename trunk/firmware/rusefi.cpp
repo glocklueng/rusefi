@@ -168,7 +168,7 @@ void swo_init() {
 //     *((volatile unsigned *)(ITM_BASE + 0x40304)) = 0x00000100; // Formatter and Flush Control Register
 }
 
-static engine_configuration_s activeConfiguration;
+engine_configuration_s activeConfiguration;
 
 static void rememberCurrentConfiguration(void) {
 	memcpy(&activeConfiguration, engineConfiguration, sizeof(engine_configuration_s));
