@@ -204,7 +204,7 @@ void applyNewHardwareSettings(void) {
 #endif /* EFI_SHAFT_POSITION_INPUT */
 }
 
-void initHardware(Logging *l, Engine *engine) {
+void initHardware(Logging *l) {
 	sharedLogger = l;
 	engine_configuration_s *engineConfiguration = engine->engineConfiguration;
 	efiAssertVoid(engineConfiguration!=NULL, "engineConfiguration");

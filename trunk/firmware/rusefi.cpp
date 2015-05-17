@@ -208,7 +208,7 @@ void runRusEfi(void) {
 	/**
 	 * Initialize hardware drivers
 	 */
-	initHardware(&sharedLogger, engine);
+	initHardware(&sharedLogger);
 
 	initStatusLoop(engine);
 	/**

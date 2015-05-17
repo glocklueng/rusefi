@@ -45,7 +45,7 @@ void unlockSpi(void);
 #if EFI_PROD_CODE
 #include "engine.h"
 void applyNewHardwareSettings(void);
-void initHardware(Logging *logging, Engine *engine);
+void initHardware(Logging *logging);
 #endif /* EFI_PROD_CODE */
 
 #endif /* __cplusplus */
