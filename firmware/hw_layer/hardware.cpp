@@ -7,20 +7,20 @@
  */
 
 #include "main.h"
+#include "adc_inputs.h"
+#include "can_hw.h"
+#include "console_io.h"
 #include "hardware.h"
-#include "pin_repository.h"
 #include "io_pins.h"
+#include "pin_repository.h"
 #include "rtc_helper.h"
 #include "rfiutil.h"
-#include "console_io.h"
-
-#include "adc_inputs.h"
+#include "injector_central.h"
 #include "vehicle_speed.h"
 
 #include "trigger_input.h"
 #include "eficonsole.h"
 #include "max31855.h"
-#include "can_hw.h"
 
 #if EFI_PROD_CODE
 #include "AdcConfiguration.h"
@@ -200,8 +200,13 @@ extern engine_configuration_s activeConfiguration;
 
 void applyNewHardwareSettings(void) {
 #if EFI_SHAFT_POSITION_INPUT || defined(__DOXYGEN__)
-	applyNewTriggerInputPins(&activeConfiguration);
+	applyNewTriggerInputPins();
 #endif /* EFI_SHAFT_POSITION_INPUT */
+	stopInjectionPins();
+	stopIgnitionPins();
+
+	startInjectionPins();
+	startIgnitionPins();
 }
 
 void initHardware(Logging *l) {
