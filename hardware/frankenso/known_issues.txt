@@ -85,6 +85,15 @@
 84)                  add humidity sensor perhaps HIH6120-021-001 or DHT11
 85) RESOLVED IN R0.4 Add 2 more hi/low drivers
 
+
+
+  )                  route unused stm32 pins (D3 PC13 etc) to unused connector pins
+  )                  cheaper battery holder - through-hole (need to find out footprint)
+  )                  remove some/all EGT?
+  )                  idle valve SMD diode?
+  )                  silkscreen for analog inputs - PA1/PC1/etc?
+
+
 For honda add-on / rewiring board
 -- Add 2A high side solinoid drive for VTec sol
 -- Add 3rd VR chip for 3rd signal
