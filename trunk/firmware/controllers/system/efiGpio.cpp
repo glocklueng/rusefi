@@ -51,6 +51,10 @@ bool_t OutputPin::getLogicValue() {
 	return currentLogicValue;
 }
 
+void OutputPin::unregister() {
+	port = NULL;
+}
+
 void OutputPin::setDefaultPinState(pin_output_mode_e *outputMode) {
 #if EFI_GPIO
 	pin_output_mode_e mode = *outputMode;
