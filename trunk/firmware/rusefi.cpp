@@ -176,6 +176,7 @@ static void rememberCurrentConfiguration(void) {
 
 void applyNewConfiguration() {
 	applyNewHardwareSettings();
+	rememberCurrentConfiguration();
 }
 
 void runRusEfi(void) {
