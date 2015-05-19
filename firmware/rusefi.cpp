@@ -174,7 +174,7 @@ static void rememberCurrentConfiguration(void) {
 	memcpy(&activeConfiguration, engineConfiguration, sizeof(engine_configuration_s));
 }
 
-void applyNewConfiguration() {
+void applyNewConfiguration(void) {
 	applyNewHardwareSettings();
 	rememberCurrentConfiguration();
 }
