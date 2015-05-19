@@ -52,11 +52,13 @@ bool_t OutputPin::getLogicValue() {
 }
 
 void OutputPin::unregister() {
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 	port = NULL;
+#endif
 }
 
 void OutputPin::setDefaultPinState(pin_output_mode_e *outputMode) {
-#if EFI_GPIO
+#if EFI_GPIO || defined(__DOXYGEN__)
 	pin_output_mode_e mode = *outputMode;
 	assertOMode(mode);
 	this->modePtr = outputMode;
