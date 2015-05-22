@@ -80,7 +80,9 @@ float getKelvinTemperature(float resistance, ThermistorConf *thermistor) {
 float getResistance(Thermistor *thermistor) {
 	float voltage = getVoltageDivided("term", thermistor->channel);
 	efiAssert(thermistor->config != NULL, "thermistor config is null", NAN);
-	float resistance = getR2InVoltageDividor(voltage, _5_VOLTS, thermistor->config->bias_resistor);
+	thermistor_conf_s *tc = &thermistor->config->config;
+
+	float resistance = getR2InVoltageDividor(voltage, _5_VOLTS, tc->bias_resistor);
 	return resistance;
 }
 
@@ -120,8 +122,9 @@ float getCoolantTemperature(DECLARE_ENGINE_PARAMETER_F) {
 	return temperature;
 }
 
-void setThermistorConfiguration(ThermistorConf * tc, float tempC1, float r1, float tempC2, float r2, float tempC3,
+void setThermistorConfiguration(ThermistorConf * thermistor, float tempC1, float r1, float tempC2, float r2, float tempC3,
 		float r3) {
+	thermistor_conf_s *tc = &thermistor->config;
 	tc->tempC_1 = tempC1;
 	tc->resistance_1 = r1;
 
@@ -134,19 +137,20 @@ void setThermistorConfiguration(ThermistorConf * tc, float tempC1, float r1, flo
 
 void prepareThermistorCurve(ThermistorConf * config) {
 	efiAssertVoid(config!=NULL, "therm config");
-	float T1 = config->tempC_1 + KELV;
-	float T2 = config->tempC_2 + KELV;
-	float T3 = config->tempC_3 + KELV;
+	thermistor_conf_s *tc = &config->config;
+	float T1 = tc->tempC_1 + KELV;
+	float T2 = tc->tempC_2 + KELV;
+	float T3 = tc->tempC_3 + KELV;
 	scheduleMsg(logger, "T1=%..100000f/T2=%..100000f/T3=%..100000f", T1, T2, T3);
 
-	float L1 = logf(config->resistance_1);
-	if (L1 == config->resistance_1) {
+	float L1 = logf(tc->resistance_1);
+	if (L1 == tc->resistance_1) {
 		firmwareError("log is broken?");
 	}
-	float L2 = logf(config->resistance_2);
-	float L3 = logf(config->resistance_3);
-	scheduleMsg(logger, "R1=%..100000f/R2=%..100000f/R3=%..100000f", config->resistance_1, config->resistance_2,
-			config->resistance_3);
+	float L2 = logf(tc->resistance_2);
+	float L3 = logf(tc->resistance_3);
+	scheduleMsg(logger, "R1=%..100000f/R2=%..100000f/R3=%..100000f", tc->resistance_1, tc->resistance_2,
+			tc->resistance_3);
 	scheduleMsg(logger, "L1=%..100000f/L2=%..100000f/L3=%..100000f", L1, L2, L3);
 
 	float Y1 = 1 / T1;
