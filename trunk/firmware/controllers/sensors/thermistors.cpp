@@ -51,7 +51,8 @@ float convertResistanceToKelvinTemperature(float resistance, ThermistorConf *the
 		return 0.0f;
 	}
 	float logR = logf(resistance);
-	return 1 / (thermistor->s_h_a + thermistor->s_h_b * logR + thermistor->s_h_c * logR * logR * logR);
+	thermistor_curve_s * curve = &thermistor->curve;
+	return 1 / (curve->s_h_a + curve->s_h_b * logR + curve->s_h_c * logR * logR * logR);
 }
 
 float convertCelsiustoF(float tempC) {
@@ -164,12 +165,14 @@ void prepareThermistorCurve(ThermistorConf * config) {
 
 	scheduleMsg(logger, "U2=%..100000f/U3=%..100000f", U2, U3);
 
-	config->s_h_c = (U3 - U2) / (L3 - L2) * pow(L1 + L2 + L3, -1);
-	config->s_h_b = U2 - config->s_h_c * (L1 * L1 + L1 * L2 + L2 * L2);
-	config->s_h_a = Y1 - (config->s_h_b + L1 * L1 * config->s_h_c) * L1;
+	thermistor_curve_s * curve = &config->curve;
 
-	scheduleMsg(logger, "s_h_c=%..100000f/s_h_b=%..100000f/s_h_a=%..100000f", config->s_h_c, config->s_h_b,
-			config->s_h_a);
+	curve->s_h_c = (U3 - U2) / (L3 - L2) * pow(L1 + L2 + L3, -1);
+	curve->s_h_b = U2 - curve->s_h_c * (L1 * L1 + L1 * L2 + L2 * L2);
+	curve->s_h_a = Y1 - (curve->s_h_b + L1 * L1 * curve->s_h_c) * L1;
+
+	scheduleMsg(logger, "s_h_c=%..100000f/s_h_b=%..100000f/s_h_a=%..100000f", curve->s_h_c, curve->s_h_b,
+			curve->s_h_a);
 
 }
 
