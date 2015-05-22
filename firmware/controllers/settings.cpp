@@ -383,8 +383,9 @@ static void printThermistor(const char *msg, Thermistor *thermistor) {
 			tc->tempC_2, tc->resistance_2,
 			tc->tempC_3, tc->resistance_3);
 
+	thermistor_curve_s * curve = &thermistor->config->curve;
 	scheduleMsg(&logger, "bias resistor=%fK A=%..100000f B=%..100000f C=%..100000f", tc->bias_resistor / 1000,
-			thermistor->config->s_h_a, thermistor->config->s_h_b, thermistor->config->s_h_c);
+			curve->s_h_a, curve->s_h_b, curve->s_h_c);
 	scheduleMsg(&logger, "==============================");
 }
 
