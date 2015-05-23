@@ -97,7 +97,7 @@ void testSensors(void) {
 		assertEquals(0.001, curve->s_h_b);
 		assertEquals(0.0, curve->s_h_c);
 
-		float t = getKelvinTemperature(2100, curve);
+		float t = getKelvinTemperature(&tc, 2100, curve);
 		assertEquals(75 + KELV, t);
 	}
 
@@ -110,7 +110,7 @@ void testSensors(void) {
 		assertEqualsM("A", 0.0009, curve->s_h_a);
 		assertEqualsM("B", 0.0003, curve->s_h_b);
 		assertEquals(0.0, curve->s_h_c);
-		float t = getKelvinTemperature(38000, curve);
+		float t = getKelvinTemperature(&tc, 38000, curve);
 		assertEquals(-2.7983, t - KELV);
 	}
 }

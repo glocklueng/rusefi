@@ -45,7 +45,7 @@ float getVoutInVoltageDividor(float Vin, float r1, float r2) {
 	return r2 * Vin / (r1 + r2);
 }
 
-float getKelvinTemperature(float resistance, thermistor_curve_s * curve) {
+float getKelvinTemperature(ThermistorConf *config, float resistance, thermistor_curve_s * curve) {
 	efiAssert(curve != NULL, "thermistor pointer is NULL", NAN);
 
 	if (resistance <= 0) {
@@ -85,7 +85,7 @@ float getTemperatureC(ThermistorConf *config, thermistor_curve_s * curve) {
 	}
 	float resistance = getResistance(config);
 
-	float kelvinTemperature = getKelvinTemperature(resistance, curve);
+	float kelvinTemperature = getKelvinTemperature(config, resistance, curve);
 	return convertKelvinToCelcius(kelvinTemperature);
 }
 
@@ -196,7 +196,7 @@ void setCommonNTCSensor(ThermistorConf *thermistorConf) {
 
 #if EFI_PROD_CODE
 static void testCltByR(float resistance) {
-	float kTemp = getKelvinTemperature(resistance, &engine->engineState.cltCurve.curve);
+	float kTemp = getKelvinTemperature(&engineConfiguration->clt, resistance, &engine->engineState.cltCurve.curve);
 	scheduleMsg(logger, "for R=%f we have %f", resistance, (kTemp - KELV));
 
 	prepareThermistorCurve(&engineConfiguration->clt, &engine->engineState.cltCurve.curve);
@@ -221,6 +221,7 @@ void initThermistors(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
 }
 
 ThermistorMath::ThermistorMath() {
+	memset(&currentConfig, 0, sizeof(currentConfig));
 
 }
 
