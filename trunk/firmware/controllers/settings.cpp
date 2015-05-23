@@ -368,7 +368,7 @@ static void setOM(int value) {
 static char pinNameBuffer[16];
 
 static void printThermistor(const char *msg, Thermistor *thermistor, thermistor_curve_s * curve) {
-	adc_channel_e adcChannel = thermistor->channel;
+	adc_channel_e adcChannel = thermistor->config->adcChannel;
 	float voltage = getVoltageDivided("term", adcChannel);
 	float r = getResistance(thermistor);
 
