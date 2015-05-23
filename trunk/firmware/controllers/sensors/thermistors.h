@@ -39,8 +39,6 @@ bool isValidCoolantTemperature(float temperature);
 float getIntakeAirTemperature(DECLARE_ENGINE_PARAMETER_F);
 bool isValidIntakeAirTemperature(float temperature);
 
-float convertResistanceToKelvinTemperature(float resistance,
-		thermistor_curve_s * curve);
 void setThermistorConfiguration(ThermistorConf * tc, float temp1, float r1, float temp2, float r2, float temp3,
 		float r3);
 void prepareThermistorCurve(ThermistorConf * config, thermistor_curve_s * curve);
