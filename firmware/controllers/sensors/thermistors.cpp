@@ -70,7 +70,7 @@ float convertKelvinToFahrenheit(float kelvin) {
 }
 
 float getResistance(Thermistor *thermistor) {
-	float voltage = getVoltageDivided("term", thermistor->channel);
+	float voltage = getVoltageDivided("term", thermistor->config->adcChannel);
 	efiAssert(thermistor->config != NULL, "thermistor config is null", NAN);
 	thermistor_conf_s *tc = &thermistor->config->config;
 
@@ -179,11 +179,10 @@ float getIntakeAirTemperature(DECLARE_ENGINE_PARAMETER_F) {
 	return temperature;
 }
 
-static void initThermistorCurve(Thermistor * t, ThermistorConf *config, adc_channel_e channel,
+static void initThermistorCurve(Thermistor * t, ThermistorConf *config,
 		thermistor_curve_s * curve) {
 	prepareThermistorCurve(config, curve);
 	t->config = config;
-	t->channel = channel;
 }
 
 void setDodgeSensor(ThermistorConf *thermistorConf) {
@@ -207,7 +206,7 @@ static void testCltByR(float resistance) {
 	float kTemp = getKelvinTemperature(resistance, &engine->engineState.cltCurve.curve);
 	scheduleMsg(logger, "for R=%f we have %f", resistance, (kTemp - KELV));
 
-	initThermistorCurve(&engine->clt, &engineConfiguration->clt, engineConfiguration->clt.adcChannel,
+	initThermistorCurve(&engine->clt, &engineConfiguration->clt,
 			&engine->engineState.cltCurve.curve);
 
 }
@@ -217,9 +216,9 @@ void initThermistors(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
 	logger = sharedLogger;
 	efiAssertVoid(engine!=NULL, "e NULL initThermistors");
 	efiAssertVoid(engine->engineConfiguration2!=NULL, "e2 NULL initThermistors");
-	initThermistorCurve(&engine->clt, &engineConfiguration->clt, engineConfiguration->clt.adcChannel,
+	initThermistorCurve(&engine->clt, &engineConfiguration->clt,
 			&engine->engineState.cltCurve.curve);
-	initThermistorCurve(&engine->iat, &engineConfiguration->iat, engineConfiguration->iat.adcChannel,
+	initThermistorCurve(&engine->iat, &engineConfiguration->iat,
 			&engine->engineState.iatCurve.curve);
 
 #if EFI_PROD_CODE
