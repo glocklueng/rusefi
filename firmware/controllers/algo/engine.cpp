@@ -76,10 +76,6 @@ Engine::Engine(persistent_config_s *config) {
 	knockNow = false;
 	knockEver = false;
 
-	iat.config = NULL;
-
-	clt.config = NULL;
-
 	injectorLagMs = fuelMs = 0;
 	clutchDownState = clutchUpState = false;
 	memset(&m, 0, sizeof(m));
