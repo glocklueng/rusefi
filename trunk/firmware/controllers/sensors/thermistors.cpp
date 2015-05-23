@@ -207,7 +207,7 @@ static void testCltByR(float resistance) {
 	float kTemp = getKelvinTemperature(resistance, &engine->engineState.cltCurve.curve);
 	scheduleMsg(logger, "for R=%f we have %f", resistance, (kTemp - KELV));
 
-	initThermistorCurve(&engine->clt, &engineConfiguration->clt, engineConfiguration->cltAdcChannel,
+	initThermistorCurve(&engine->clt, &engineConfiguration->clt, engineConfiguration->clt.adcChannel,
 			&engine->engineState.cltCurve.curve);
 
 }
@@ -217,9 +217,9 @@ void initThermistors(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
 	logger = sharedLogger;
 	efiAssertVoid(engine!=NULL, "e NULL initThermistors");
 	efiAssertVoid(engine->engineConfiguration2!=NULL, "e2 NULL initThermistors");
-	initThermistorCurve(&engine->clt, &engineConfiguration->clt, engineConfiguration->cltAdcChannel,
+	initThermistorCurve(&engine->clt, &engineConfiguration->clt, engineConfiguration->clt.adcChannel,
 			&engine->engineState.cltCurve.curve);
-	initThermistorCurve(&engine->iat, &engineConfiguration->iat, engineConfiguration->iatAdcChannel,
+	initThermistorCurve(&engine->iat, &engineConfiguration->iat, engineConfiguration->iat.adcChannel,
 			&engine->engineState.iatCurve.curve);
 
 #if EFI_PROD_CODE
