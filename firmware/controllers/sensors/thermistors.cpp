@@ -45,11 +45,11 @@ float getVoutInVoltageDividor(float Vin, float r1, float r2) {
 	return r2 * Vin / (r1 + r2);
 }
 
-float convertResistanceToKelvinTemperature(float resistance, thermistor_curve_s * curve) {
+float getKelvinTemperature(float resistance, thermistor_curve_s * curve) {
 	efiAssert(curve != NULL, "thermistor pointer is NULL", NAN);
 
 	if (resistance <= 0) {
-		//warning("Invalid resistance in convertResistanceToKelvinTemperature=", resistance);
+		//warning("Invalid resistance in getKelvinTemperature=", resistance);
 		return 0.0f;
 	}
 	float logR = logf(resistance);
@@ -67,11 +67,6 @@ float convertFtoCelsius(float tempF) {
 float convertKelvinToFahrenheit(float kelvin) {
 	float tempC = convertKelvinToCelcius(kelvin);
 	return convertCelsiustoF(tempC);
-}
-
-float getKelvinTemperature(float resistance, thermistor_curve_s * curve) {
-	// todo: inline thid method
-	return convertResistanceToKelvinTemperature(resistance, curve);
 }
 
 float getResistance(Thermistor *thermistor) {
