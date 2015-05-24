@@ -117,7 +117,8 @@ static void showHipInfo(void) {
 	}
 
 	printSpiState(logger, boardConfiguration);
-	scheduleMsg(logger, "bore=%fmm freq=%fkHz", engineConfiguration->cylinderBore, getBand());
+	scheduleMsg(logger, "bore=%fmm freq=%fkHz PaSDO=%d", engineConfiguration->cylinderBore, getBand(),
+			engineConfiguration->hip9011PrescalerAndSDO);
 
 	scheduleMsg(logger, "band_index=%d gain %f/index=%d", currentBandIndex, boardConfiguration->hip9011Gain, currentGainIndex);
 	scheduleMsg(logger, "integrator index=%d hip_threshold=%f totalKnockEventsCount=%d", currentIntergratorIndex,
@@ -192,6 +193,11 @@ static void intHoldCallback(trigger_event_e ckpEventType, uint32_t index DECLARE
 	engine->m.hipCbTime = GET_TIMESTAMP() - engine->m.beforeHipCb;
 }
 
+static void setPrescalerAndSDO(int value) {
+	engineConfiguration->hip9011PrescalerAndSDO = value;
+	scheduleMsg(logger, "Reboot to apply %d", value);
+}
+
 static void setBand(float value) {
 	engineConfiguration->knockBandCustom = value;
 	showHipInfo();
@@ -255,8 +261,19 @@ void hipAdcCallback(adcsample_t value) {
 static bool_t needToInit = true;
 
 static void hipStartupCode(void) {
+//	D[4:1] = 0000 : 4 MHz
+//	D[4:1] = 0001 : 5 MHz
+//	D[4:1] = 0010 : 6 MHz
+//	D[4:1] = 0011 ; 8 MHz
+//	D[4:1] = 0100 ; 10 MHz
+//	D[4:1] = 0101 ; 12 MHz
+//	D[4:1] = 0110 : 16 MHz
+//	D[4:1] = 0111 : 20 MHz
+//	D[4:1] = 1000 : 24 MHz
+
+
 	// '0' for 4MHz
-	SPI_SYNCHRONOUS(SET_PRESCALER_CMD + 0);
+	SPI_SYNCHRONOUS(SET_PRESCALER_CMD + engineConfiguration->hip9011PrescalerAndSDO);
 
 	chThdSleepMilliseconds(10);
 
@@ -331,6 +348,7 @@ void initHip9011(Logging *sharedLogger) {
 
 	addConsoleActionF("set_gain", setGain);
 	addConsoleActionF("set_band", setBand);
+	addConsoleActionI("set_hip_prescalerandsdo", setPrescalerAndSDO);
 	chThdCreateStatic(hipTreadStack, sizeof(hipTreadStack), NORMALPRIO, (tfunc_t) hipThread, NULL);
 }
 
