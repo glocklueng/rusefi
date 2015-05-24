@@ -9,6 +9,9 @@
 
 #include "main.h"
 #include "vw.h"
+#include "custom_engine.h"
+
+EXTERN_ENGINE;
 
 void setVwAba(DECLARE_ENGINE_PARAMETER_F) {
 	setCustomEngineConfiguration(PASS_ENGINE_PARAMETER_F);
