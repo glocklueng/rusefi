@@ -159,7 +159,8 @@ MAP_sensor_config_s map;@see hasMapSensor\n@see isMapAveragingEnabled
 ThermistorConf clt;todo: merge with channel settings, use full-scale Thermistor here!
 ThermistorConf iat;
 	
-	float[3] unused;
+	float[2] unused;
+	int hip9011PrescalerAndSDO;
 	float knockBandCustom;
 
 

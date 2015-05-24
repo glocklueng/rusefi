@@ -108,6 +108,8 @@
 #define iat_adcChannel_offset 316
 #define unused_offset 320
 #define unused_offset_hex 140
+#define hip9011PrescalerAndSDO_offset 328
+#define hip9011PrescalerAndSDO_offset_hex 148
 #define knockBandCustom_offset 332
 #define sparkDwellBins_offset 336
 #define sparkDwellBins_offset_hex 150
