@@ -84,6 +84,7 @@ void setDefaultAlternatorParameters(void) {
 
 	boardConfiguration->alternatorControlPin = GPIO_UNASSIGNED;
 	boardConfiguration->alternatorControlPinMode = OM_DEFAULT;
+	boardConfiguration->targetVBatt = 14;
 
 	engineConfiguration->alternatorOffset = 0;
 	engineConfiguration->alternatorControlPFactor = 30;
