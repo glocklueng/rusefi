@@ -59,6 +59,7 @@
 #include "sachs.h"
 #include "gm_2_2.h"
 #include "dodge_ram.h"
+#include "vw.h"
 
 EXTERN_ENGINE;
 
@@ -690,6 +691,9 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType DECLARE_EN
 		break;
 	case DODGE_RAM:
 		setDodgeRam1996(PASS_ENGINE_PARAMETER_F);
+		break;
+	case VW_ABA:
+		setVwAba(PASS_ENGINE_PARAMETER_F);
 		break;
 	case TEST_ENGINE:
 		setTestEngineConfiguration(PASS_ENGINE_PARAMETER_F);

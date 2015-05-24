@@ -171,6 +171,8 @@ const char* getConfigurationName(engine_type_e engineType) {
 		return "BMWe34";
 	case TEST_ENGINE:
 		return "Test";
+	case VW_ABA:
+		return "VW_ABA";
 	case SACHS:
 		return "SACHS";
 	case GM_2_2:
