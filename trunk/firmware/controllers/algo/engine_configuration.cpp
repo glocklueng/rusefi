@@ -29,6 +29,7 @@
 #include "engine_math.h"
 #include "speed_density.h"
 #include "advance_map.h"
+#include "alternatorController.h"
 
 #include "custom_engine.h"
 #include "acura_rsx.h"
@@ -167,8 +168,8 @@ void prepareVoidConfiguration(engine_configuration_s *activeConfiguration) {
 	boardConfiguration->acRelayPin = GPIO_UNASSIGNED;
 	boardConfiguration->acRelayPinMode = OM_DEFAULT;
 
-	boardConfiguration->alternatorControlPin = GPIO_UNASSIGNED;
-	boardConfiguration->alternatorControlPinMode = OM_DEFAULT;
+	setDefaultAlternatorParameters();
+
 	boardConfiguration->mainRelayPin = GPIO_UNASSIGNED;
 	boardConfiguration->mainRelayPinMode = OM_DEFAULT;
 	boardConfiguration->idle.solenoidPin = GPIO_UNASSIGNED;
@@ -390,10 +391,6 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 
 	engineConfiguration->HD44780width = 20;
 	engineConfiguration->HD44780height = 4;
-
-	engineConfiguration->alternatorOffset = 0;
-	engineConfiguration->alternatorControlPFactor = 30;
-	boardConfiguration->alternatorDT = 100;
 
 	engineConfiguration->vRefAdcChannel = EFI_ADC_NONE;
 	engineConfiguration->vbattAdcChannel = EFI_ADC_NONE;
