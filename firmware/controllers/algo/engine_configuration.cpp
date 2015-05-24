@@ -29,7 +29,9 @@
 #include "engine_math.h"
 #include "speed_density.h"
 #include "advance_map.h"
+#if EFI_PROD_CODE
 #include "alternatorController.h"
+#endif
 
 #include "custom_engine.h"
 #include "acura_rsx.h"
@@ -168,7 +170,9 @@ void prepareVoidConfiguration(engine_configuration_s *activeConfiguration) {
 	boardConfiguration->acRelayPin = GPIO_UNASSIGNED;
 	boardConfiguration->acRelayPinMode = OM_DEFAULT;
 
+#if EFI_PROD_CODE
 	setDefaultAlternatorParameters();
+#endif
 
 	boardConfiguration->mainRelayPin = GPIO_UNASSIGNED;
 	boardConfiguration->mainRelayPinMode = OM_DEFAULT;
