@@ -23,11 +23,11 @@ typedef struct {
 	// todo: would one listener be enough?
 	IntListenerArray widthListeners;
 	IntListenerArray periodListeners;
-} WaveReaderHw;
+} digital_input_s;
 
 void turnOnCapturePin(brain_pin_e brainPin);
-WaveReaderHw *initWaveAnalyzerDriver(brain_pin_e brainPin);
-void startInputDriver(WaveReaderHw *hw, bool isActiveHigh);
+digital_input_s *initWaveAnalyzerDriver(brain_pin_e brainPin);
+void startInputDriver(digital_input_s *hw, bool isActiveHigh);
 ICUDriver * getInputCaptureDriver(brain_pin_e hwPin);
 
 #endif

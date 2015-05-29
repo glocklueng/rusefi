@@ -54,7 +54,7 @@ void initVehicleSpeed(Logging *l) {
 	logger = l;
 	if (boardConfiguration->vehicleSpeedSensorInputPin == GPIO_UNASSIGNED)
 		return;
-	WaveReaderHw* vehicleSpeedInput = initWaveAnalyzerDriver(boardConfiguration->vehicleSpeedSensorInputPin);
+	digital_input_s* vehicleSpeedInput = initWaveAnalyzerDriver(boardConfiguration->vehicleSpeedSensorInputPin);
 	startInputDriver(vehicleSpeedInput, true);
 
 	vehicleSpeedInput->widthListeners.registerCallback((VoidInt) vsAnaWidthCallback, NULL);
