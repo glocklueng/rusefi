@@ -15,7 +15,7 @@
 
 #include "datalogging.h"
 
-#include "wave_analyzer_hw.h"
+#include "digital_input_hw.h"
 #include "wave_chart.h"
 
 #define WA_CHANNEL_1 "input1"
