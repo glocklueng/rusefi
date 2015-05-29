@@ -10,7 +10,7 @@
 #if EFI_VEHICLE_SPEED || defined(__DOXYGEN__)
 
 #include "engine.h"
-#include "wave_analyzer_hw.h"
+#include "digital_input_hw.h"
 #include "pin_repository.h"
 
 EXTERN_ENGINE
