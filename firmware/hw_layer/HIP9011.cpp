@@ -58,8 +58,6 @@ static int settingUpdateCount = 0;
 static int totalKnockEventsCount = 0;
 static int currentPrescaler;
 
-static efitimeus_t timeOfLastKnockEvent = 0;
-
 /**
  * Int/Hold pin is controlled from scheduler callbacks which are set according to current RPM
  *
@@ -226,9 +224,10 @@ void hipAdcCallback(adcsample_t value) {
 	if (state == WAITING_FOR_ADC_TO_SKIP) {
 		state = WAITING_FOR_RESULT_ADC;
 	} else if (state == WAITING_FOR_RESULT_ADC) {
-		if (adcToVoltsDivided(value) > engineConfiguration->hipThreshold) {
+		bool isKnockNow = adcToVoltsDivided(value) > engineConfiguration->hipThreshold;
+		engine->setKnockNow(isKnockNow);
+		if (isKnockNow) {
 			totalKnockEventsCount++;
-			timeOfLastKnockEvent = getTimeNowUs();
 		}
 
 		int integratorIndex = getIntegrationIndexByRpm(engine->rpmCalculator.rpmValue);
