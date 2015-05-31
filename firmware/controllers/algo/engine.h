@@ -204,6 +204,8 @@ public:
 	 */
 	bool_t knockEver;
 
+	efitimeus_t timeOfLastKnockEvent;
+
 	/**
 	 * are we running any kind of functional test? this affect
 	 * some areas

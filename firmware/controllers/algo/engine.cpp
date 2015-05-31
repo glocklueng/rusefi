@@ -130,8 +130,11 @@ bool_t Engine::stopPins() {
 }
 
 void Engine::setKnockNow(bool_t isKnockNow) {
-	engine->knockNow = isKnockNow;
-	engine->knockEver |= isKnockNow;
+	this->knockNow = isKnockNow;
+	knockEver |= isKnockNow;
+	if (isKnockNow) {
+		timeOfLastKnockEvent = getTimeNowUs();
+	}
 }
 
 void Engine::watchdog() {
