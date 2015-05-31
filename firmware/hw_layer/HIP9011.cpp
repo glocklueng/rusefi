@@ -63,7 +63,7 @@ static efitimeus_t timeOfLastKnockEvent = 0;
 /**
  * Int/Hold pin is controlled from scheduler callbacks which are set according to current RPM
  *
- * The following state make sure that we only have SPI communication while not integrating and that we take
+ * The following state makes sure that we only have SPI communication while not integrating and that we take
  * a good ADC reading after integrating.
  *
  * Once integtation window is over, we wait for the 2nd ADC callback and then initiate SPI communication if needed
@@ -119,7 +119,10 @@ static void showHipInfo(void) {
 	}
 
 	printSpiState(logger, boardConfiguration);
-	scheduleMsg(logger, "bore=%fmm freq=%fkHz PaSDO=%d", engineConfiguration->cylinderBore, getBand(),
+	scheduleMsg(logger, "enabled=%s state=%d bore=%fmm freq=%fkHz PaSDO=%d",
+			boolToString(boardConfiguration->isHip9011Enabled),
+			state,
+			engineConfiguration->cylinderBore, getBand(),
 			engineConfiguration->hip9011PrescalerAndSDO);
 
 	scheduleMsg(logger, "band_index=%d gain %f/index=%d", currentBandIndex, boardConfiguration->hip9011Gain, currentGainIndex);
