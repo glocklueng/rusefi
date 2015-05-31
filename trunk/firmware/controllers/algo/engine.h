@@ -280,6 +280,7 @@ public:
 	monitoring_timestamps_s m;
 
 	void setKnockNow(bool_t isKnockNow);
+	void printKnockState(void);
 
 private:
 	/**
