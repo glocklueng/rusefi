@@ -129,6 +129,11 @@ bool_t Engine::stopPins() {
 	return result;
 }
 
+void Engine::setKnockNow(bool_t isKnockNow) {
+	engine->knockNow = isKnockNow;
+	engine->knockEver |= isKnockNow;
+}
+
 void Engine::watchdog() {
 #if EFI_ENGINE_CONTROL
 	if (isRunningPwmTest)
