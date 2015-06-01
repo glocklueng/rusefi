@@ -230,11 +230,7 @@ void hipAdcCallback(adcsample_t value) {
 	} else if (state == WAITING_FOR_RESULT_ADC) {
 		float hipValue = adcToVoltsDivided(value);
 		hipValueMax = maxF(hipValue, hipValueMax);
-		bool isKnockNow = hipValue > engineConfiguration->knockVThreshold;
-		engine->setKnockNow(isKnockNow);
-		if (isKnockNow) {
-			totalKnockEventsCount++;
-		}
+		engine->knockLogic(hipValue);
 
 		int integratorIndex = getIntegrationIndexByRpm(engine->rpmCalculator.rpmValue);
 		int gainIndex = getHip9011GainIndex(boardConfiguration->hip9011Gain);
