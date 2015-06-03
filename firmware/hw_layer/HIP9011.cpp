@@ -150,8 +150,12 @@ void setHip9011FrankensoPinout(void) {
 
 	boardConfiguration->hip9011Gain = 1;
 	engineConfiguration->knockVThreshold = 4;
+	engineConfiguration->maxKnockSubDeg = 20;
 
-	engineConfiguration->hipOutputChannel = EFI_ADC_10; // PC0
+
+	if (!boardConfiguration->useTpicAdvancedMode) {
+	    engineConfiguration->hipOutputChannel = EFI_ADC_10; // PC0
+	}
 }
 
 static void startIntegration(void) {
@@ -309,6 +313,13 @@ static void hipStartupCode(void) {
 	SPI_SYNCHRONOUS(SET_BAND_PASS_CMD + currentBandIndex);
 
 	chThdSleepMilliseconds(10);
+
+	if (boardConfiguration->useTpicAdvancedMode) {
+		// enable advanced mode for digital integrator output
+		SPI_SYNCHRONOUS(SET_ADVANCED_MODE);
+
+    	chThdSleepMilliseconds(10);
+	}
 
 	/**
 	 * Let's restart SPI to switch it from synchronous mode into
