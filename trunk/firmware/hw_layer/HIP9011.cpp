@@ -59,6 +59,11 @@ static int totalKnockEventsCount = 0;
 static int currentPrescaler;
 static float hipValueMax = 0;
 
+static unsigned char tx_buff[1];
+static unsigned char rx_buff[1];
+static int nonZeroResponse = 0;
+static char pinNameBuffer[16];
+
 /**
  * Int/Hold pin is controlled from scheduler callbacks which are set according to current RPM
  *
@@ -87,10 +92,6 @@ SPI_CR1_MSTR |
 //SPI_CR1_BR_1 // 5MHz
 		SPI_CR1_CPHA | SPI_CR1_BR_0 | SPI_CR1_BR_1 | SPI_CR1_BR_2 };
 
-static unsigned char tx_buff[1];
-static unsigned char rx_buff[1];
-static int nonZeroResponse = 0;
-
 #define SPI_SYNCHRONOUS(value) \
 	spiSelect(driver); \
 	tx_buff[0] = value; \
@@ -103,8 +104,6 @@ static SPIDriver *driver = &SPID2;
 
 EXTERN_ENGINE
 ;
-
-static char pinNameBuffer[16];
 
 static float getBand(void) {
 	return engineConfiguration->knockBandCustom == 0 ?
