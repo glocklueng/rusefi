@@ -58,6 +58,7 @@ static int settingUpdateCount = 0;
 static int totalKnockEventsCount = 0;
 static int currentPrescaler;
 static float hipValueMax = 0;
+static int spiCount = 0;
 
 static unsigned char tx_buff[1];
 static unsigned char rx_buff[1];
@@ -124,16 +125,16 @@ static void showHipInfo(void) {
 			engineConfiguration->hip9011PrescalerAndSDO);
 
 	scheduleMsg(logger, "band_index=%d gain %f/index=%d", currentBandIndex, boardConfiguration->hip9011Gain, currentGainIndex);
-	scheduleMsg(logger, "integrator index=%d hip_threshold=%f totalKnockEventsCount=%d", currentIntergratorIndex,
-			engineConfiguration->knockVThreshold, totalKnockEventsCount);
+	scheduleMsg(logger, "integrator index=%d knockVThreshold=%f knockCount=%d maxKnockSubDeg=%f",
+	            currentIntergratorIndex, engineConfiguration->knockVThreshold,
+	            engine->knockCount, engineConfiguration->maxKnockSubDeg);
 
 	scheduleMsg(logger, "spi= IntHold@%s response count=%d", hwPortname(boardConfiguration->hip9011IntHoldPin),
 			nonZeroResponse);
 	scheduleMsg(logger, "CS@%s updateCount=%d", hwPortname(boardConfiguration->hip9011CsPin), settingUpdateCount);
 
-	scheduleMsg(logger, "hip output=%fv@%s/max=%f", getVoltageDivided("hip", engineConfiguration->hipOutputChannel),
-			getPinNameByAdcChannel(engineConfiguration->hipOutputChannel, pinNameBuffer),
-			hipValueMax);
+	scheduleMsg(logger, "hip v@%s spiCount=%d adv=%d",
+			getPinNameByAdcChannel(engineConfiguration->hipOutputChannel, pinNameBuffer), spiCount, boardConfiguration->useTpicAdvancedMode);
 	hipValueMax = 0;
 	engine->printKnockState();
 }
