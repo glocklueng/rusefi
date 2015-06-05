@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * This is an immutable model of an individual field
  * (c) Andrey Belomutskiy
  * 1/15/15
  */
@@ -124,7 +125,7 @@ public class ConfigField {
         ConfigStructure cs = ConfigDefinition.structures.get(type);
         if (cs != null) {
             String extraPrefix = cs.withPrefix ? name + "_" : "";
-            return cs.writeTunerStudio(prefix + extraPrefix, tsHeader, tsPosition);
+            return cs.writeTunerStudio(new FieldIterator(), prefix + extraPrefix, tsHeader, tsPosition);
         }
 
         if (isBit) {

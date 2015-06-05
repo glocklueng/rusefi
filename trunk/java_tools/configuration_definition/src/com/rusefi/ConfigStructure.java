@@ -1,5 +1,6 @@
 package com.rusefi;
 
+import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class ConfigStructure {
     private final List<ConfigField> tsFields = new ArrayList<>();
     private int currentOffset;
     public int totalSize;
-    private int bitIndex;
+    BitState bitState = new BitState();
 
     public ConfigStructure(String name, String comment, boolean withPrefix) {
         this.name = name;
@@ -31,7 +32,7 @@ public class ConfigStructure {
     }
 
     public void addAlignmentFill() {
-        bitIndex = 0;
+        bitState.reset();
         /**
          * we make alignment decision based on C fields since we expect interation and non-iteration fields
          * to match in size
@@ -39,7 +40,7 @@ public class ConfigStructure {
         for (int i = 0; i < cFields.size(); i++) {
             ConfigField cf = cFields.get(i);
             ConfigField next = i == cFields.size() - 1 ? ConfigField.VOID : cFields.get(i + 1);
-            incrementBitIndex(cf, next);
+            bitState.incrementBitIndex(cf, next);
             totalSize += cf.getSize(next);
         }
 
@@ -63,13 +64,13 @@ public class ConfigStructure {
         }
         cHeader.write("typedef struct {\r\n");
 
-        bitIndex = 0;
+        bitState.reset();
         for (int i = 0; i < cFields.size(); i++) {
             ConfigField cf = cFields.get(i);
-            cHeader.write(cf.getHeaderText(currentOffset, bitIndex));
+            cHeader.write(cf.getHeaderText(currentOffset, bitState.get()));
             ConfigField next = i == cFields.size() - 1 ? ConfigField.VOID : cFields.get(i + 1);
 
-            incrementBitIndex(cf, next);
+            bitState.incrementBitIndex(cf, next);
             currentOffset += cf.getSize(next);
         }
 
@@ -77,26 +78,21 @@ public class ConfigStructure {
         cHeader.write("} " + name + ";\r\n\r\n");
     }
 
-    public int writeTunerStudio(String prefix, Writer tsHeader, int tsPosition) throws IOException {
-        bitIndex = 0;
+    public int writeTunerStudio(FieldIterator fieldIterator, String prefix, Writer tsHeader, int tsPosition) throws IOException {
+        fieldIterator.bitState.reset();
         for (int i = 0; i < tsFields.size(); i++) {
             ConfigField next = i == tsFields.size() - 1 ? ConfigField.VOID : tsFields.get(i + 1);
             ConfigField cf = tsFields.get(i);
-            tsPosition = cf.writeTunerStudio(prefix, tsHeader, tsPosition, next, bitIndex);
+            tsPosition = cf.writeTunerStudio(prefix, tsHeader, tsPosition, next, fieldIterator.bitState.get());
 
-            incrementBitIndex(cf, next);
+            fieldIterator.bitState.incrementBitIndex(cf, next);
         }
         return tsPosition;
     }
 
-    private void incrementBitIndex(ConfigField cf, ConfigField next) {
-        if (!cf.isBit) {
-            bitIndex = 0;
-            return;
-        }
-        bitIndex++;
-        if (bitIndex == 32)
-            throw new IllegalStateException("todo: too many bits, not supported");
+
+    public void writeJavaFields(String prefix, CharArrayWriter javaFieldsWriter, int tsPosition) {
+//        for (ConfigField : )
     }
 
     public void addBoth(ConfigField cf) {
