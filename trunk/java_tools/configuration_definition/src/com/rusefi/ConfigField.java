@@ -125,7 +125,7 @@ public class ConfigField {
         ConfigStructure cs = ConfigDefinition.structures.get(type);
         if (cs != null) {
             String extraPrefix = cs.withPrefix ? name + "_" : "";
-            return cs.writeTunerStudio(new FieldIterator(), prefix + extraPrefix, tsHeader, tsPosition);
+            return cs.writeTunerStudio(prefix + extraPrefix, tsHeader, tsPosition);
         }
 
         if (isBit) {
@@ -162,7 +162,7 @@ public class ConfigField {
             tsHeader.write(TypesHelper.convertToTs(type) + ",");
             tsHeader.write("\t" + tsPosition + ",");
             tsHeader.write("\t" + tsInfo);
-            tsPosition += elementSize;
+            tsPosition += arraySize * elementSize;
         }
         tsHeader.write("\r\n");
         return tsPosition;
@@ -176,5 +176,9 @@ public class ConfigField {
             currentLength += 4;
         }
         return result.toString();
+    }
+
+    public int writeJavaFields(String prefix, Writer javaFieldsWriter, int tsPosition, ConfigField next, int i) {
+        return 0;
     }
 }
