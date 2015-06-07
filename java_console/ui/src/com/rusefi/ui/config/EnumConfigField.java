@@ -21,6 +21,8 @@ public class EnumConfigField extends BaseConfigField {
 
     public EnumConfigField(final Field field, String caption, final String... options) {
         super(field);
+        if (options == null)
+            throw new NullPointerException("options for " + field);
 
         int ordinal = 0;
         for (String option : options) {
