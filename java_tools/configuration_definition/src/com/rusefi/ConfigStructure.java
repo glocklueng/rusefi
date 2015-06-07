@@ -78,8 +78,8 @@ public class ConfigStructure {
         cHeader.write("} " + name + ";\r\n\r\n");
     }
 
-    public int writeTunerStudio(FieldIterator fieldIterator, String prefix, Writer tsHeader, int tsPosition) throws IOException {
-        fieldIterator.bitState.reset();
+    public int writeTunerStudio(String prefix, Writer tsHeader, int tsPosition) throws IOException {
+        FieldIterator fieldIterator = new FieldIterator();
         for (int i = 0; i < tsFields.size(); i++) {
             ConfigField next = i == tsFields.size() - 1 ? ConfigField.VOID : tsFields.get(i + 1);
             ConfigField cf = tsFields.get(i);
@@ -91,8 +91,16 @@ public class ConfigStructure {
     }
 
 
-    public void writeJavaFields(String prefix, CharArrayWriter javaFieldsWriter, int tsPosition) {
-//        for (ConfigField : )
+    public int writeJavaFields(String prefix, Writer javaFieldsWriter, int tsPosition) throws IOException {
+        FieldIterator fieldIterator = new FieldIterator();
+        for (int i = 0; i < tsFields.size(); i++) {
+            ConfigField next = i == tsFields.size() - 1 ? ConfigField.VOID : tsFields.get(i + 1);
+            ConfigField cf = tsFields.get(i);
+            tsPosition = cf.writeJavaFields(prefix, javaFieldsWriter, tsPosition, next, fieldIterator.bitState.get());
+
+            fieldIterator.bitState.incrementBitIndex(cf, next);
+        }
+        return tsPosition;
     }
 
     public void addBoth(ConfigField cf) {

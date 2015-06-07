@@ -255,11 +255,11 @@ public class ConfigDefinition {
         structure.headerWrite(cHeader);
 
         if (stack.isEmpty()) {
-            totalTsSize = structure.writeTunerStudio(new FieldIterator(), "", tsHeader, 0);
+            totalTsSize = structure.writeTunerStudio("", tsHeader, 0);
             tsHeader.write("; total TS size = " + totalTsSize + "\r\n");
             VariableRegistry.INSTANCE.register("TOTAL_CONFIG_SIZE", totalTsSize);
 
-            structure.writeJavaFields("", javaFieldsWriter, 0);
+//            structure.writeJavaFields("", javaFieldsWriter, 0);
         }
     }
 
