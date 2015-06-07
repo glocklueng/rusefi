@@ -57,6 +57,11 @@ public class ConfigDefinition {
 
         processFile(br, cHeader, tsWriter, javaFieldsWriter);
 
+        BufferedWriter javaFields = new BufferedWriter(new FileWriter(tsPath + File.separator + "Fields.java"));
+        javaFields.write(javaFieldsWriter.toString());
+        javaFields.close();
+
+
         BufferedWriter tsHeader = writeTunerStudioFile(tsPath, tsWriter.toString());
 
         if (!stack.isEmpty())
@@ -259,7 +264,7 @@ public class ConfigDefinition {
             tsHeader.write("; total TS size = " + totalTsSize + "\r\n");
             VariableRegistry.INSTANCE.register("TOTAL_CONFIG_SIZE", totalTsSize);
 
-//            structure.writeJavaFields("", javaFieldsWriter, 0);
+            structure.writeJavaFields("", javaFieldsWriter, 0);
         }
     }
 

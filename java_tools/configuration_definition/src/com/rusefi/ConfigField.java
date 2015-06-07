@@ -134,9 +134,13 @@ public class ConfigField {
             tsHeader.write("\t" + tsPosition + ", [");
             tsHeader.write(bitIndex + ":" + bitIndex);
             tsHeader.write("], \"false\", \"true\"");
+            tsHeader.write("\r\n");
 
             tsPosition += getSize(next);
-        } else if (ConfigDefinition.tsCustomLine.containsKey(type)) {
+            return tsPosition;
+        }
+
+        if (ConfigDefinition.tsCustomLine.containsKey(type)) {
             String bits = ConfigDefinition.tsCustomLine.get(type);
             tsHeader.write("\t" + addTabsUpTo(nameWithPrefix, LENGTH));
             int size = ConfigDefinition.tsCustomSize.get(type);
@@ -148,7 +152,7 @@ public class ConfigField {
             tsPosition += size;
         } else if (tsInfo == null) {
             tsHeader.write(";skipping " + prefix + name + " offset " + tsPosition);
-            tsPosition += arraySize * TypesHelper.getElementSize(type);
+            tsPosition += arraySize * elementSize;
         } else if (arraySize != 1) {
             tsHeader.write("\t" + addTabsUpTo(nameWithPrefix, LENGTH) + "\t\t= array, ");
             tsHeader.write(TypesHelper.convertToTs(type) + ",");
@@ -178,7 +182,31 @@ public class ConfigField {
         return result.toString();
     }
 
-    public int writeJavaFields(String prefix, Writer javaFieldsWriter, int tsPosition, ConfigField next, int i) {
-        return 0;
+    public int writeJavaFields(String prefix, Writer javaFieldsWriter, int tsPosition, ConfigField next, int bitIndex) throws IOException {
+        ConfigStructure cs = ConfigDefinition.structures.get(type);
+        if (cs != null) {
+            String extraPrefix = cs.withPrefix ? name + "_" : "";
+            return cs.writeJavaFields(prefix + extraPrefix, javaFieldsWriter, tsPosition);
+        }
+
+        String nameWithPrefix = prefix + name;
+
+        if (isBit) {
+            javaFieldsWriter.write("public static final Field ");
+            javaFieldsWriter.write(nameWithPrefix.toUpperCase());
+            javaFieldsWriter.write(" = new Field(");
+            javaFieldsWriter.append(tsPosition + ", FieldType.BIT, " + bitIndex + ")");
+
+            javaFieldsWriter.write("\r\n");
+
+
+
+            tsPosition += getSize(next);
+            return tsPosition;
+        }
+
+        tsPosition += arraySize * elementSize;
+
+        return tsPosition;
     }
 }

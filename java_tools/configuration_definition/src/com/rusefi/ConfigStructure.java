@@ -90,7 +90,6 @@ public class ConfigStructure {
         return tsPosition;
     }
 
-
     public int writeJavaFields(String prefix, Writer javaFieldsWriter, int tsPosition) throws IOException {
         FieldIterator fieldIterator = new FieldIterator();
         for (int i = 0; i < tsFields.size(); i++) {
