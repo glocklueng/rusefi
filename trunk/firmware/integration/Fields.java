@@ -11,7 +11,7 @@ public class Fields {
     public static final Field ENGINECHARTSIZE = new Field(@@engineChartSize_offset@@, FieldType.INT);
     public static final Field ISENGINECHARTENABLED = new Field(@@isEngineChartEnabled_offset@@, FieldType.BIT, 5);
     public static final Field TRIGGER_TYPE = new Field(@@trigger_type_offset@@, FieldType.INT, @@trigger_type_e_enum@@);
-    public static final Field ALGORITHM = new Field(@@algorithm_offset@@, FieldType.INT, @@algo_enum@@);
+    public static final Field ALGORITHM = new Field(@@algorithm_offset@@, FieldType.INT, @@engine_load_mode_e_enum@@);
     
     public static final Field GLOBALTRIGGERANGLEOFFSET = new Field(@@globalTriggerAngleOffset_offset@@, FieldType.FLOAT);
     
