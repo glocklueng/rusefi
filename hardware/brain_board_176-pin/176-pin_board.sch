@@ -19,7 +19,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "176 STM32 board"
-Date "23 jan 2015"
+Date "8 jun 2015"
 Rev "R0.1"
 Comp "rusEFI by DAECU and artelectro"
 Comment1 ""
@@ -749,6 +749,8 @@ F 0 "FB1" H 3175 950 60  0000 C CNN
 F 1 "FILTER" H 3175 1025 60  0000 C CNN
 F 2 "SM0805" H 3175 1125 60  0001 C CNN
 F 3 "" H 3175 1125 60  0000 C CNN
+F 4 "Murata,BLM21PG221SN1D" H 3175 1125 60  0001 C CNN "mfg,mfg#"
+F 5 "DIGI,490-1054-6-ND" H 3175 1125 60  0001 C CNN "vend1,vend1#"
 	1    3175 1125
 	1    0    0    -1  
 $EndComp
