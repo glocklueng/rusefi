@@ -1,0 +1,2 @@
+1)                  on the back, battery holder overlaps five caps and one resistor
+2) RESOLVED IN R0.1 FB1 BOM missing.
