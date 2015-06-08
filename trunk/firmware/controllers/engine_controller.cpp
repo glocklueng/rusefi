@@ -350,7 +350,7 @@ static void printAnalogInfo(void) {
 
 static THD_WORKING_AREA(csThreadStack, UTILITY_THREAD_STACK_SIZE);	// declare thread stack
 
-#define isOutOfBounds(offset) ((offset<0) || (offset) >= sizeof(engine_configuration_s))
+#define isOutOfBounds(offset) ((offset<0) || (offset) >= (int) sizeof(engine_configuration_s))
 
 static void getShort(int offset) {
 	if (isOutOfBounds(offset))
