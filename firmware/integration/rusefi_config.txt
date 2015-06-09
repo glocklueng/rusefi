@@ -327,8 +327,8 @@ struct_no_prefix board_configuration_s
 	brain_pin_e fanPin;
 	pin_output_mode_e fanPinMode;
 
-int unuseddddd1;
-int unuseddddd2;
+float mapFrequency0Kpa;;"Hz",      1,      0,       0, 100000,      2
+float mapFrequency100Kpa;;"Hz",      1,      0,       0, 100000,      2
 brain_pin_e clutchDownPin;some cars have a switch to indicate that clutch pedal is all the way down
 	pin_input_mode_e clutchDownPinMode;
 

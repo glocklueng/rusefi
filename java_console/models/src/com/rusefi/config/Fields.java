@@ -1,6 +1,6 @@
 package com.rusefi.config;
 
-// this file was generated automatically by ConfigDefinition.jar Mon Jun 08 20:15:19 EDT 2015
+// this file was generated automatically by ConfigDefinition.jar Mon Jun 08 20:56:29 EDT 2015
 public class Fields {
 	public static final Field ENGINETYPE = new Field(0, FieldType.INT);
 	public static final Field HEADERMAGICVALUE = new Field(4, FieldType.INT);
@@ -139,8 +139,8 @@ public class Fields {
 	public static final Field MALFUNCTIONINDICATORPINMODE = new Field(764, FieldType.INT);
 	public static final Field FANPIN = new Field(768, FieldType.INT, brain_pin_e);
 	public static final Field FANPINMODE = new Field(772, FieldType.INT);
-	public static final Field UNUSEDDDDD1 = new Field(776, FieldType.INT);
-	public static final Field UNUSEDDDDD2 = new Field(780, FieldType.INT);
+	public static final Field MAPFREQUENCY0KPA = new Field(776, FieldType.FLOAT);
+	public static final Field MAPFREQUENCY100KPA = new Field(780, FieldType.FLOAT);
 	public static final Field CLUTCHDOWNPIN = new Field(784, FieldType.INT, brain_pin_e);
 	public static final Field CLUTCHDOWNPINMODE = new Field(788, FieldType.INT);
 	public static final Field ALTERNATORCONTROLPIN = new Field(792, FieldType.INT, brain_pin_e);
