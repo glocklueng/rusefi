@@ -58,7 +58,10 @@ public class ConfigDefinition {
         processFile(br, cHeader, tsWriter, javaFieldsWriter);
 
         BufferedWriter javaFields = new BufferedWriter(new FileWriter(tsPath + File.separator + "Fields.java"));
+        javaFields.write("package com.rusefi.config;\r\n\r\n");
+        javaFields.write("public class Fields {\r\n");
         javaFields.write(javaFieldsWriter.toString());
+        javaFields.write("}\r\n");
         javaFields.close();
 
 

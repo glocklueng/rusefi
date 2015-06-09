@@ -4,6 +4,8 @@ import com.rusefi.test.ConfigDefinitionTest;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +22,8 @@ public class ConfigField {
     private static final String commentPattern = ";([^;]*)";
 
     private static final Pattern FIELD = Pattern.compile(typePattern + "\\s(" + namePattern + ")(" + commentPattern + ")?(;(.*))?");
+    private static final Set<String> javaEnums = new HashSet<>();
+
     public static final int LENGTH = 24;
 
     public final String name;
@@ -192,21 +196,42 @@ public class ConfigField {
         String nameWithPrefix = prefix + name;
 
         if (isBit) {
-            javaFieldsWriter.write("public static final Field ");
-            javaFieldsWriter.write(nameWithPrefix.toUpperCase());
-            javaFieldsWriter.write(" = new Field(");
-            javaFieldsWriter.append(tsPosition + ", FieldType.BIT, " + bitIndex + ")");
-
-            javaFieldsWriter.write("\r\n");
-
-
-
+            writeJavaFieldName(javaFieldsWriter, nameWithPrefix, tsPosition);
+            javaFieldsWriter.append("FieldType.BIT, " + bitIndex + ");\r\n");
             tsPosition += getSize(next);
             return tsPosition;
+        }
+
+
+        if (arraySize != 1) {
+            // todo: array support
+        } else if (TypesHelper.isFloat(type)) {
+            writeJavaFieldName(javaFieldsWriter, nameWithPrefix, tsPosition);
+            javaFieldsWriter.write("FieldType.FLOAT);\r\n");
+        } else {
+            String enumOptions = VariableRegistry.INSTANCE.get(type + "_enum");
+
+            if (enumOptions != null && !javaEnums.contains(type)) {
+                javaEnums.add(type);
+                javaFieldsWriter.write("\tpublic static final String[] " + type + " = {" + enumOptions + "};\r\n");
+            }
+
+            writeJavaFieldName(javaFieldsWriter, nameWithPrefix, tsPosition);
+            javaFieldsWriter.write("FieldType.INT");
+            if (enumOptions != null) {
+                javaFieldsWriter.write(", " + type);
+            }
+            javaFieldsWriter.write(");\r\n");
         }
 
         tsPosition += arraySize * elementSize;
 
         return tsPosition;
+    }
+
+    private void writeJavaFieldName(Writer javaFieldsWriter, String nameWithPrefix, int tsPosition) throws IOException {
+        javaFieldsWriter.write("\tpublic static final Field ");
+        javaFieldsWriter.write(nameWithPrefix.toUpperCase());
+        javaFieldsWriter.write(" = new Field(" + tsPosition + ", ");
     }
 }

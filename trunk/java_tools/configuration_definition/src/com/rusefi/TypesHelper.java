@@ -19,8 +19,9 @@ public class TypesHelper {
         return 4;
     }
 
+
     static String convertToTs(String type) {
-        if ("float".equals(type))
+        if (isFloat(type))
             return "F32";
         if ("uint32_t".equals(type))
             return "U32";
@@ -31,5 +32,9 @@ public class TypesHelper {
         if ("uint16_t".equals(type))
             return "U16";
         return type;
+    }
+
+    public static boolean isFloat(String type) {
+        return "float".equals(type);
     }
 }
