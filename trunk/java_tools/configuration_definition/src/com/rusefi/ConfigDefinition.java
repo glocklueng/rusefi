@@ -24,6 +24,7 @@ public class ConfigDefinition {
     private static final String CONFIG_DEFINITION_END = "CONFIG_DEFINITION_END";
     private static final String ROM_RAIDER_XML = "rusefi.xml";
     private static final String ENGINE_CONFIGURATION_GENERATED_STRUCTURES_H = "engine_configuration_generated_structures.h";
+    private static final String FIELDS_JAVA = "models/src/com/rusefi/config/Fields.java";
     private static int totalTsSize;
 
     private static Stack<ConfigStructure> stack = new Stack<>();
@@ -57,8 +58,9 @@ public class ConfigDefinition {
 
         processFile(br, cHeader, tsWriter, javaFieldsWriter);
 
-        BufferedWriter javaFields = new BufferedWriter(new FileWriter(tsPath + File.separator + "Fields.java"));
+        BufferedWriter javaFields = new BufferedWriter(new FileWriter(javaConsolePath + File.separator + FIELDS_JAVA));
         javaFields.write("package com.rusefi.config;\r\n\r\n");
+        javaFields.write("// this file was generated automatically by ConfigDefinition.jar " + new Date() + "\r\n");
         javaFields.write("public class Fields {\r\n");
         javaFields.write(javaFieldsWriter.toString());
         javaFields.write("}\r\n");
@@ -78,7 +80,6 @@ public class ConfigDefinition {
 
         writeTsSizeForJavaConsole(totalTsSize, javaConsolePath);
         processTextTemplate(inputPath + File.separator + ROM_RAIDER_XML, javaConsolePath + File.separator + ROM_RAIDER_XML);
-        processTextTemplate(inputPath + File.separator + "Fields.java", javaConsolePath + File.separator + "models/src/com/rusefi/config/Fields.java");
     }
 
     private static BufferedWriter writeTunerStudioFile(String tsPath, String fieldsSection) throws IOException {
