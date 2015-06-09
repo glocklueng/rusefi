@@ -18,8 +18,9 @@ EXTERN_ENGINE;
 static Logging *logger;
 
 static FastInterpolation customMap;
-static efitick_t digitalMapDiff = 0;
 static efitick_t prevWidthTimeNt = 0;
+
+static float mapFreq = 0;
 
 /**
  * @brief	MAP value decoded for a 1.83 Honda sensor
@@ -89,6 +90,10 @@ float getMapByVoltage(float voltage DECLARE_ENGINE_PARAMETER_S) {
  * @return Manifold Absolute Pressure, in kPa
  */
 float getRawMap(DECLARE_ENGINE_PARAMETER_F) {
+	if (engineConfiguration->hasFrequencyReportingMapSensor) {
+		return interpolate(boardConfiguration->mapFrequency0Kpa, 0, boardConfiguration->mapFrequency100Kpa, 100, mapFreq);
+	}
+
 	float voltage = getVoltageDivided("map", engineConfiguration->map.sensor.hwChannel);
 	return getMapByVoltage(voltage PASS_ENGINE_PARAMETER);
 }
@@ -130,8 +135,6 @@ static void applyConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	mapDecoder = getDecoder(engineConfiguration->map.sensor.type);
 }
 
-static float mapFreq = 0;
-
 static void digitalMapWidthCallback(void) {
 	efitick_t nowNt = getTimeNowNt();
 
@@ -143,16 +146,15 @@ static void digitalMapWidthCallback(void) {
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
 static void printMAPInfo(void) {
 #if EFI_ANALOG_SENSORS || defined(__DOXYGEN__)
-
-	scheduleMsg(logger, "map type=%d/%s MAP=%fkPa", engineConfiguration->map.sensor.type,
-			getAir_pressure_sensor_type_e(engineConfiguration->map.sensor.type),
-			getMap());
-
 	scheduleMsg(logger, "instant value=%fkPa", getRawMap());
 
 	if (engineConfiguration->hasFrequencyReportingMapSensor) {
 		scheduleMsg(logger, "instant value=%fHz @ %s", mapFreq, hwPortname(boardConfiguration->frequencyReportingMapInputPin));
 	} else {
+		scheduleMsg(logger, "map type=%d/%s MAP=%fkPa", engineConfiguration->map.sensor.type,
+				getAir_pressure_sensor_type_e(engineConfiguration->map.sensor.type),
+				getMap());
+
 		if (engineConfiguration->map.sensor.type == MT_CUSTOM) {
 			scheduleMsg(logger, "at0=%f at5=%f", engineConfiguration->map.sensor.valueAt0,
 					engineConfiguration->map.sensor.valueAt5);
