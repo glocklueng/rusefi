@@ -543,7 +543,7 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	boardConfiguration->boardTestModeJumperPin = GPIOB_0;
 
 	boardConfiguration->canDeviceMode = CD_USE_CAN2;
-	boardConfiguration->canTxPin = GPIOB_0;
+	boardConfiguration->canTxPin = GPIOB_6;
 	boardConfiguration->canRxPin = GPIOB_12;
 
 	// set this to SPI_DEVICE_3 to enable stimulation
