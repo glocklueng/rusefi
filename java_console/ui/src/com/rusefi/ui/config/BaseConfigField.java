@@ -9,7 +9,7 @@ import com.rusefi.ui.ConnectionStatus;
 import javax.swing.*;
 import java.awt.*;
 
-class BaseConfigField {
+abstract class BaseConfigField {
     protected final JLabel status = new JLabel("P");
     protected final JPanel panel = new JPanel(new BorderLayout());
 
