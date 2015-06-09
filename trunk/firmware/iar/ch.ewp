@@ -2530,6 +2530,12 @@
       <name>$PROJ_DIR$\..\controllers\map_averaging.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\controllers\obd2.cpp</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\controllers\obd2.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\controllers\obd2viaCAN.c</name>
     </file>
     <file>
@@ -2695,6 +2701,12 @@
       <name>$PROJ_DIR$\..\hw_layer\can_hw.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\hw_layer\digital_input_hw.cpp</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\digital_input_hw.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\hw_layer\flash.c</name>
     </file>
     <file>
@@ -2795,12 +2807,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\vehicle_speed.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\hw_layer\digital_input_hw.cpp</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\hw_layer\digital_input_hw.h</name>
     </file>
   </group>
   <group>

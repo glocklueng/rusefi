@@ -33,20 +33,27 @@ void obdOnCanPacketRx(CANRxFrame *rx) {
 		return;
 	}
 	scheduleMsg(&logger, "Got OBD message");
-	if (rx->data8[0] == 2 && rx->data8[1] == 1 && rx->data8[2] == OBD_SUPPORTED_PIDS_REQUEST) {
+	if (rx->data8[0] == 2 && rx->data8[1] == OBD_CURRENT_DATA && rx->data8[2] == PID_SUPPORTED_PIDS_REQUEST) {
 		scheduleMsg(&logger, "Got lookup request");
 
 		commonTxInit(OBD_TEST_RESPONSE);
 		txmsg.data8[0] = 6; // 6 bytes
 		txmsg.data8[1] = 0x41; // mode 1
-		txmsg.data8[2] = OBD_SUPPORTED_PIDS_REQUEST;
+		txmsg.data8[2] = PID_SUPPORTED_PIDS_REQUEST;
 
-		setTxBit(3, 31 - PID_COOLANT_TEMP);
+		setTxBit(3, 8 - PID_COOLANT_TEMP);
+
+		setTxBit(4, 16 - PID_RPM);
+		setTxBit(4, 16 - PID_TIMING_ADVANCE);
+		setTxBit(4, 16 - PID_INTAKE_TEMP);
+
+		setTxBit(5, 24 - PID_THROTTLE);
+
 		sendMessage();
+	} else if (rx->data8[0] == 1 && rx->data8[1] == OBD_STORED_DIAGNOSTIC_TROUBLE_CODES) {
+		scheduleMsg(&logger, "Got stored DTC request");
 
 	}
-
-
 }
 
 
