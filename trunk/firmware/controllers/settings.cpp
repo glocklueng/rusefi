@@ -391,27 +391,6 @@ static void printThermistor(const char *msg, ThermistorConf *config, ThermistorM
 	scheduleMsg(&logger, "==============================");
 }
 
-#if EFI_PROD_CODE || defined(__DOXYGEN__)
-static void printMAPInfo(void) {
-#if EFI_ANALOG_SENSORS || defined(__DOXYGEN__)
-	scheduleMsg(&logger, "map type=%d/%s raw=%f MAP=%f", engineConfiguration->map.sensor.type,
-			getAir_pressure_sensor_type_e(engineConfiguration->map.sensor.type),
-
-			getRawMap(), getMap());
-	if (engineConfiguration->map.sensor.type == MT_CUSTOM) {
-		scheduleMsg(&logger, "at0=%f at5=%f", engineConfiguration->map.sensor.valueAt0,
-				engineConfiguration->map.sensor.valueAt5);
-	}
-
-	scheduleMsg(&logger, "baro type=%d value=%f", engineConfiguration->baroSensor.type, getBaroPressure());
-	if (engineConfiguration->baroSensor.type == MT_CUSTOM) {
-		scheduleMsg(&logger, "min=%f max=%f", engineConfiguration->baroSensor.valueAt0,
-				engineConfiguration->baroSensor.valueAt5);
-	}
-#endif /* EFI_ANALOG_SENSORS */
-}
-#endif /* EFI_PROD_CODE */
-
 static void printTPSInfo(void) {
 #if (EFI_PROD_CODE && HAL_USE_ADC) || defined(__DOXYGEN__)
 	if (!engineConfiguration->hasTpsSensor) {
@@ -935,7 +914,6 @@ static void printAllInfo(void) {
 	scheduleMsg(&logger, "waveChartUsedSize=%d", waveChartUsedSize);
 #endif
 #if EFI_PROD_CODE
-	printMAPInfo();
 	scheduleMsg(&logger, "console mode jumper: %s", boolToString(!GET_CONSOLE_MODE_VALUE()));
 	scheduleMsg(&logger, "board test mode jumper: %s", boolToString(GET_BOARD_TEST_MODE_VALUE()));
 #endif
@@ -1061,7 +1039,6 @@ void initSettings(engine_configuration_s *engineConfiguration) {
 
 	addConsoleActionSS("set", setValue);
 
-	addConsoleAction("mapinfo", printMAPInfo);
 #if HAL_USE_ADC || defined(__DOXYGEN__)
 	addConsoleActionSS("set_analog_input_pin", setAnalogInputPin);
 #endif
