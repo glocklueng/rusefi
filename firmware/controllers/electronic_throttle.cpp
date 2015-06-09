@@ -61,7 +61,7 @@ static msg_t etbThread(void *arg) {
 
 		if (tps != prevTps) {
 			prevTps = tps;
-			scheduleMsg(&logger, "tps=%d", (int) tps);
+//			scheduleMsg(&logger, "tps=%d", (int) tps);
 		}
 
 		// this thread is activated 10 times per second
