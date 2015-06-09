@@ -1,6 +1,7 @@
 package com.rusefi.ui;
 
 import com.rusefi.config.Fields;
+import com.rusefi.ui.config.BitConfigField;
 import com.rusefi.ui.config.ConfigField;
 import com.rusefi.ui.config.EnumConfigField;
 import com.rusefi.ui.util.UiUtils;
@@ -19,6 +20,13 @@ public class SettingsTab {
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.TRIGGERINPUTPINS2, "trigger #2 input").getContent()));
 //        panel.add(UiUtils.wrap(new EnumConfigField(Fields.TRIGGERINPUTPINS3, "trigger #3 input").getContent()));
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.INJECTIONPINS1, "injector #1").getContent()));
+
+
+        panel.add(UiUtils.wrap(new BitConfigField(Fields.ISCANENABLED, "CAN enabled").getContent()));
+        panel.add(UiUtils.wrap(new BitConfigField(Fields.CANREADENABLED, "CAN read").getContent()));
+        panel.add(UiUtils.wrap(new BitConfigField(Fields.CANWRITEENABLED, "CAN write").getContent()));
+        panel.add(UiUtils.wrap(new EnumConfigField(Fields.CANTXPIN, "CAN TX").getContent()));
+        panel.add(UiUtils.wrap(new EnumConfigField(Fields.CANRXPIN, "CAN RX").getContent()));
 
 
         panel.add(UiUtils.wrap(new ConfigField(Fields.GLOBALFUELCORRECTION, "fuel corr").getContent()));
