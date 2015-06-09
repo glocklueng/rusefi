@@ -260,9 +260,9 @@
 #define fanPin_offset_hex 300
 #define fanPinMode_offset 772
 #define fanPinMode_offset_hex 304
-#define unuseddddd1_offset 776
-#define unuseddddd1_offset_hex 308
-#define unuseddddd2_offset 780
+#define mapFrequency0Kpa_offset 776
+#define mapFrequency0Kpa_offset_hex 308
+#define mapFrequency100Kpa_offset 780
 #define clutchDownPin_offset 784
 #define clutchDownPin_offset_hex 310
 #define clutchDownPinMode_offset 788
