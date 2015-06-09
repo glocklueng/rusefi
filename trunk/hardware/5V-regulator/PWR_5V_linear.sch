@@ -58,8 +58,8 @@ $Descr A 11000 8500
 encoding utf-8
 Sheet 1 1
 Title "Adjustable Linear Regulator"
-Date "8 jun 2015"
-Rev ".01"
+Date "9 jun 2015"
+Rev "R.01"
 Comp "rusEFI.com"
 Comment1 ""
 Comment2 ""
@@ -395,4 +395,30 @@ Connection ~ 7850 6700
 Wire Wire Line
 	7450 6850 7450 6900
 Connection ~ 9050 6450
+$Comp
+L CONN_1 P1003
+U 1 1 5576AFB8
+P 9050 7000
+F 0 "P1003" H 9130 7000 40  0000 L CNN
+F 1 "CONN_1" H 9050 7055 30  0001 C CNN
+F 2 "SIL-1" V 2430 2900 60  0001 C CNN
+F 3 "" H 9050 7000 60  0001 C CNN
+F 4 "DO NOT POPULATE,DNP" V 2430 2900 60  0001 C CNN "mfg,mfg#"
+F 5 "DO NOT POPULATE,DNP" V 2430 2900 60  0001 C CNN "vend1,vend1#"
+	1    9050 7000
+	0    -1   1    0   
+$EndComp
+$Comp
+L CONN_1 P1004
+U 1 1 5576B0BE
+P 8800 7000
+F 0 "P1004" H 8880 7000 40  0000 L CNN
+F 1 "CONN_1" H 8800 7055 30  0001 C CNN
+F 2 "SIL-1" V 2180 2900 60  0001 C CNN
+F 3 "" H 8800 7000 60  0001 C CNN
+F 4 "DO NOT POPULATE,DNP" V 2180 2900 60  0001 C CNN "mfg,mfg#"
+F 5 "DO NOT POPULATE,DNP" V 2180 2900 60  0001 C CNN "vend1,vend1#"
+	1    8800 7000
+	0    -1   1    0   
+$EndComp
 $EndSCHEMATC
