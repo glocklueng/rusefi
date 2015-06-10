@@ -28,12 +28,8 @@ extern CANTxFrame txmsg;
 
 static LoggingWithStorage logger("obd2");
 
-void obdOnCanPacketRx(CANRxFrame *rx) {
-	if (rx->SID != OBD_TEST_REQUEST) {
-		return;
-	}
-	scheduleMsg(&logger, "Got OBD message");
-	if (rx->data8[0] == 2 && rx->data8[1] == OBD_CURRENT_DATA && rx->data8[2] == PID_SUPPORTED_PIDS_REQUEST) {
+static void handleGetDataRequest(CANRxFrame *rx) {
+	if (rx->data8[2] == PID_SUPPORTED_PIDS_REQUEST) {
 		scheduleMsg(&logger, "Got lookup request");
 
 		commonTxInit(OBD_TEST_RESPONSE);
@@ -41,6 +37,7 @@ void obdOnCanPacketRx(CANRxFrame *rx) {
 		txmsg.data8[1] = 0x41; // mode 1
 		txmsg.data8[2] = PID_SUPPORTED_PIDS_REQUEST;
 
+		setTxBit(3, 8 - PID_ENGINE_LOAD);
 		setTxBit(3, 8 - PID_COOLANT_TEMP);
 
 		setTxBit(4, 16 - PID_RPM);
@@ -50,10 +47,55 @@ void obdOnCanPacketRx(CANRxFrame *rx) {
 		setTxBit(5, 24 - PID_THROTTLE);
 
 		sendMessage();
-	} else if (rx->data8[0] == 1 && rx->data8[1] == OBD_STORED_DIAGNOSTIC_TROUBLE_CODES) {
-		scheduleMsg(&logger, "Got stored DTC request");
+	} else if (rx->data8[2] == PID_COOLANT_TEMP) {
+		scheduleMsg(&logger, "Got CLT request");
 
+		int clt = 67; // todo: use real value
+
+		commonTxInit(OBD_TEST_RESPONSE);
+		txmsg.data8[0] = 3; // 3 bytes
+		txmsg.data8[1] = 0x41; // mode 1
+		txmsg.data8[2] = PID_COOLANT_TEMP;
+		txmsg.data8[3] = clt + 40;
+		sendMessage();
+	} else if (rx->data8[2] == PID_RPM) {
+		scheduleMsg(&logger, "Got CLT request");
+	} else if (rx->data8[2] == PID_TIMING_ADVANCE) {
+		scheduleMsg(&logger, "Got timing request");
+	} else if (rx->data8[2] == PID_SPEED) {
+		scheduleMsg(&logger, "Got speed request");
+		commonTxInit(OBD_TEST_RESPONSE);
+		txmsg.data8[0] = 3; // 3 bytes
+		txmsg.data8[1] = 0x41; // mode 1
+		txmsg.data8[2] = PID_INTAKE_MAP;
+		txmsg.data8[3] = 123; // todo: real speed
+		sendMessage();
+	} else if (rx->data8[2] == PID_FUEL_PRESSURE) {
+		scheduleMsg(&logger, "Got fuel pressure request");
+	} else if (rx->data8[2] == PID_INTAKE_MAP) {
+		scheduleMsg(&logger, "Got MAP request");
+		commonTxInit(OBD_TEST_RESPONSE);
+		txmsg.data8[0] = 3; // 3 bytes
+		txmsg.data8[1] = 0x41; // mode 1
+		txmsg.data8[2] = PID_INTAKE_MAP;
+		txmsg.data8[3] = 46; // todo: real MAP
+		sendMessage();
+	} else {
+		scheduleMsg(&logger, "Got unhandled request");
 	}
+
 }
 
+void obdOnCanPacketRx(CANRxFrame *rx) {
+	if (rx->SID != OBD_TEST_REQUEST) {
+		return;
+	}
+	if (rx->data8[0] == 2 && rx->data8[1] == OBD_CURRENT_DATA) {
+		handleGetDataRequest(rx);
+	} else if (rx->data8[0] == 1 && rx->data8[1] == OBD_STORED_DIAGNOSTIC_TROUBLE_CODES) {
+		scheduleMsg(&logger, "Got stored DTC request");
+	} else {
+		scheduleMsg(&logger, "Got unhandled OBD message");
+	}
+}
 
