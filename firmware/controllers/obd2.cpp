@@ -2,6 +2,7 @@
  * @file obd2.cpp
  *
  * ISO 15765-4
+ * http://en.wikipedia.org/wiki/OBD-II_PIDs
  *
  * @date Jun 9, 2015
  * @author Andrey Belomutskiy, (c) 2012-2015
