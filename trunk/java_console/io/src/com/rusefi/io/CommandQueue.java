@@ -21,6 +21,11 @@ public class CommandQueue {
     private static final int COMMAND_CONFIRMATION_TIMEOUT = 1000;
     public static final int SLOW_CONFIRMATION_TIMEOUT = 5000;
     private final Object lock = new Object();
+    /**
+     * One complex use-case is when we send out a bunch of commands and then we need to handle all the configurations
+     * correctly
+     * TODO: TTL for confirmations?
+     */
     private Set<String> pendingConfirmations = Collections.synchronizedSet(new HashSet<String>());
 
     private static final CommandQueue instance = new CommandQueue();
