@@ -270,7 +270,7 @@ void findTriggerPosition(event_trigger_position_s *position, angle_t angleOffset
 	int index = TRIGGER_SHAPE(triggerIndexByAngle[(int)angleOffset]);
 	angle_t eventAngle = TRIGGER_SHAPE(eventAngles[index]);
 	if (angleOffset < eventAngle) {
-		warning(OBD_PCM_Processor_Fault, "angle constraint violation in registerActuatorEventExt(): %f/%f", angleOffset, eventAngle);
+		warning(OBD_PCM_Processor_Fault, "angle constraint violation in findTriggerPosition(): %f/%f", angleOffset, eventAngle);
 		return;
 	}
 
