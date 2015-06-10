@@ -84,7 +84,7 @@ static void setShortValue(CANTxFrame *txmsg, int value, int offset) {
 }
 
 void setTxBit(int offset, int index) {
-	txmsg.data8[offset] = txmsg.data8[offset] || (1 << index);
+	txmsg.data8[offset] = txmsg.data8[offset] | (1 << index);
 }
 
 void commonTxInit(int eid) {
