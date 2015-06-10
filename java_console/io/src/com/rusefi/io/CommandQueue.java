@@ -4,8 +4,7 @@ import com.rusefi.FileLog;
 import com.rusefi.core.MessagesCentral;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -20,9 +19,9 @@ public class CommandQueue {
     public static final String CONFIRMATION_PREFIX = "confirmation_";
     public static final int DEFAULT_TIMEOUT = 500;
     private static final int COMMAND_CONFIRMATION_TIMEOUT = 1000;
-    private static final int SLOW_CONFIRMATION_TIMEOUT = 5000;
+    public static final int SLOW_CONFIRMATION_TIMEOUT = 5000;
     private final Object lock = new Object();
-    private String latestConfirmation;
+    private Set<String> pendingConfirmations = Collections.synchronizedSet(new HashSet<String>());
 
     private static final CommandQueue instance = new CommandQueue();
     private final BlockingQueue<MethodInvocation> pendingCommands = new LinkedBlockingQueue<>();
@@ -77,18 +76,19 @@ public class CommandQueue {
      */
     private void sendCommand(final MethodInvocation pair) throws InterruptedException {
         int counter = 0;
-        latestConfirmation = null;
         String command = pair.getText();
 
-        while (!command.equals(latestConfirmation)) {
+        while (!pendingConfirmations.contains(command)) {
             counter++;
             LinkManager.send(command);
             synchronized (lock) {
                 lock.wait(pair.getTimeout());
             }
         }
-        if (command.equals(latestConfirmation))
+        if (pendingConfirmations.contains(command)) {
             pair.listener.onCommandConfirmation();
+            pendingConfirmations.remove(command);
+        }
 
         if (counter != 1)
             MessagesCentral.getInstance().postMessage(CommandQueue.class, "Took " + counter + " attempts");
@@ -116,8 +116,8 @@ public class CommandQueue {
         String confirmation = LinkManager.unpackConfirmation(message);
         if (confirmation == null)
             mc.postMessage(CommandQueue.class, "Broken confirmation length: " + message);
-        latestConfirmation = confirmation;
-        mc.postMessage(CommandQueue.class, "got valid conf! " + latestConfirmation);
+        pendingConfirmations.add(confirmation);
+        mc.postMessage(CommandQueue.class, "got valid conf! " + confirmation + " p=" + pendingCommands.size());
         synchronized (lock) {
             lock.notifyAll();
         }
@@ -173,6 +173,14 @@ public class CommandQueue {
 
         public int getTimeout() {
             return timeoutMs;
+        }
+
+        @Override
+        public String toString() {
+            return "MethodInvocation{" +
+                    "timeoutMs=" + timeoutMs +
+                    ", text='" + text + '\'' +
+                    '}';
         }
     }
 

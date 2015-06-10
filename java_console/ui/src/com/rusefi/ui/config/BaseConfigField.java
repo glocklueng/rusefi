@@ -21,7 +21,7 @@ abstract class BaseConfigField {
             @Override
             public void onConnectionStatus(boolean isConnected) {
                 CommandQueue.getInstance().write(field.getCommand(),
-                        CommandQueue.DEFAULT_TIMEOUT,
+                        CommandQueue.SLOW_CONFIRMATION_TIMEOUT,
                         InvocationConfirmationListener.VOID,
                         false);
             }
