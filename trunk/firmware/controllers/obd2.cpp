@@ -60,7 +60,16 @@ static void handleGetDataRequest(CANRxFrame *rx) {
 		txmsg.data8[3] = clt + 40;
 		sendMessage();
 	} else if (rx->data8[2] == PID_RPM) {
-		scheduleMsg(&logger, "Got CLT request");
+		scheduleMsg(&logger, "Got RPM request");
+		unsigned int rpm = 2000*4; //	rotation/min.	((A*256)+B)/4 todo: use real value
+		commonTxInit(OBD_TEST_RESPONSE);
+		txmsg.data8[0] = 4; // 4 bytes
+		txmsg.data8[1] = 0x41; // mode 1
+		txmsg.data8[2] = PID_RPM;
+		txmsg.data8[3] = ((rpm>>8) & 0xFF);
+		txmsg.data8[4] = ((rpm) & 0xFF);
+		sendMessage();
+		
 	} else if (rx->data8[2] == PID_TIMING_ADVANCE) {
 		scheduleMsg(&logger, "Got timing request");
 	} else if (rx->data8[2] == PID_SPEED) {
