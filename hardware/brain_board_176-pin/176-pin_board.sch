@@ -19,8 +19,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "176 STM32 board"
-Date "10 jun 2015"
-Rev "R0.1"
+Date "11 jun 2015"
+Rev "R0.2"
 Comp "rusEFI by DAECU and artelectro"
 Comment1 ""
 Comment2 ""
@@ -2328,8 +2328,6 @@ Text Label 1250 2575 2    60   ~ 0
 PH1
 Text Label 1250 1975 2    60   ~ 0
 PH0
-Text Label 11950 4050 2    60   ~ 0
-BYPASS_REG
 Text Label 1275 6025 2    60   ~ 0
 PDR_ON
 $Comp
@@ -2957,30 +2955,19 @@ Wire Wire Line
 $Comp
 L GND #PWR083
 U 1 1 557811F5
-P 525 5875
-F 0 "#PWR083" H 525 5875 30  0001 C CNN
-F 1 "GND" H 525 5805 30  0001 C CNN
-F 2 "" H 525 5875 60  0001 C CNN
-F 3 "" H 525 5875 60  0001 C CNN
-	1    525  5875
+P 825 5875
+F 0 "#PWR083" H 825 5875 30  0001 C CNN
+F 1 "GND" H 825 5805 30  0001 C CNN
+F 2 "" H 825 5875 60  0001 C CNN
+F 3 "" H 825 5875 60  0001 C CNN
+	1    825  5875
 	1    0    0    -1  
 $EndComp
 Text Label 825  5825 0    60   ~ 0
 BYPASS_REG
-$Comp
-L TEST W1
-U 1 1 55781822
-P 725 5825
-F 0 "W1" H 725 5885 40  0000 C CNN
-F 1 "TEST" H 725 5755 40  0001 C CNN
-F 2 "SIL-2" H 725 5825 60  0001 C CNN
-F 3 "" H 725 5825 60  0000 C CNN
-	1    725  5825
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
-	525  5825 525  5875
+	825  5825 825  5875
 Wire Wire Line
 	825  5825 1275 5825
-Connection ~ 925  5825
+NoConn ~ 11950 4050
 $EndSCHEMATC
