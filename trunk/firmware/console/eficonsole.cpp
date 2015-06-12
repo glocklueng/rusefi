@@ -128,16 +128,19 @@ static void sayHello(void) {
  */
 static void cmd_threads(void) {
 #if CH_DBG_THREADS_PROFILING || defined(__DOXYGEN__)
-	static const char *states[] = { THD_STATE_NAMES };
-	Thread *tp;
-
-	print("    addr    stack prio refs     state time\r\n");
-	tp = chRegFirstThread();
-	do {
-		print("%.8lx [%.8lx] %4lu %4lu %9s %lu %s\r\n", (uint32_t) tp, 0, (uint32_t) tp->p_prio,
-				(uint32_t) (0), states[tp->p_state], (uint32_t) tp->p_time, tp->p_name);
-		tp = chRegNextThread(tp);
-	} while (tp != NULL);
+  static const char *states[] = { THD_STATE_NAMES };
+  Thread *tp;
+  
+  scheduleMsg(&logger, "    addr    stack prio refs     state time");
+  tp = chRegFirstThread();
+  while (tp != NULL) {    
+    scheduleMsg(&logger, "%.8lx [%.8lx] %4lu %4lu %9s %lu %s", (uint32_t) tp, 0, (uint32_t) tp->p_prio,
+		(uint32_t) (0), states[tp->p_state], (uint32_t) tp->p_time, tp->p_name);
+    tp = chRegNextThread(tp);
+  } 
+  
+#else
+  scheduleMsg(&logger, "CH_DBG_THREADS_PROFILING is not enabled");
 #endif
 }
 
