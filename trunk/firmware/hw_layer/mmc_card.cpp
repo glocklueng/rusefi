@@ -251,7 +251,7 @@ bool isSdCardAlive(void) {
 }
 
 void initMmcCard(void) {
-	addConsoleAction("sdstat", sdStatistics);
+	addConsoleAction("sdinfo", sdStatistics);
 	if (!boardConfiguration->isSdCardEnabled) {
 		return;
 	}
