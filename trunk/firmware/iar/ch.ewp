@@ -2808,6 +2808,12 @@
     <file>
       <name>$PROJ_DIR$\..\hw_layer\vehicle_speed.h</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\wbo.cpp</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\hw_layer\wbo.h</name>
+    </file>
   </group>
   <group>
     <name>os</name>
