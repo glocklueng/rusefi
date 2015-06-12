@@ -43,6 +43,7 @@ typedef enum {
 	LE_METHOD_VBATT = 109,
 	LE_METHOD_AC_TOGGLE = 110,
 	LE_METHOD_FSIO_SETTING = 111,
+	LE_METHOD_KNOCK = 112,
 
 	Force_4b_le_action = ENUM_32_BITS,
 
