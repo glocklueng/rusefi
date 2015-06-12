@@ -175,6 +175,9 @@ void prepareVoidConfiguration(engine_configuration_s *activeConfiguration) {
 	setDefaultAlternatorParameters();
 #endif
 
+	boardConfiguration->wboHeaterPin = GPIO_UNASSIGNED;
+	boardConfiguration->wboPumpPin = GPIO_UNASSIGNED;
+
 	boardConfiguration->mainRelayPin = GPIO_UNASSIGNED;
 	boardConfiguration->mainRelayPinMode = OM_DEFAULT;
 	boardConfiguration->idle.solenoidPin = GPIO_UNASSIGNED;

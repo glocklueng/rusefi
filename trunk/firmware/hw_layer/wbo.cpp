@@ -6,5 +6,10 @@
  */
 
 #include "main.h"
+#include "engine.h"
 
+EXTERN_ENGINE;
 
+void initWboController(void) {
+
+}
