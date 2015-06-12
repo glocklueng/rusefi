@@ -8,8 +8,6 @@
 #ifndef HW_LAYER_WBO_H_
 #define HW_LAYER_WBO_H_
 
-
-
-
+void initWboController(void);
 
 #endif /* HW_LAYER_WBO_H_ */

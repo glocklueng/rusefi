@@ -307,8 +307,11 @@
 #define etbPFactor_offset 876
 #define etbIFactor_offset 880
 #define etbIFactor_offset_hex 370
-#define unusedADC_offset 884
-#define unusedADC_offset_hex 374
+#define wboHeaterPin_offset 884
+#define wboHeaterPin_offset_hex 374
+#define wboPumpPin_offset 888
+#define wboPumpPin_offset_hex 378
+#define unusedADC_offset 892
 #define triggerInputPins1_offset 920
 #define triggerInputPins1_offset_hex 398
 #define triggerInputPins2_offset 924

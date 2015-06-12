@@ -361,8 +361,9 @@ custom adc_channel_mode_e 4 bits,    U32,   @OFFSET@, [0:1], "Off", "Slow", "Fas
 float etbPFactor;
 float etbIFactor;
 
-	float[9] unusedADC;
-
+	brain_pin_e wboHeaterPin;
+	brain_pin_e wboPumpPin;
+	float[7] unusedADC;
 
 	brain_input_pin_e[3 iterate] triggerInputPins;
 	brain_pin_e mainRelayPin;

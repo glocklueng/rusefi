@@ -37,6 +37,7 @@
 #include "trigger_central.h"
 #include "svnversion.h"
 #include "engine_configuration.h"
+#include "wbo.h"
 #endif
 
 #if EFI_SPEED_DENSITY
@@ -370,6 +371,8 @@ void initHardware(Logging *l) {
 
 	calcFastAdcIndexes();
 	engine->addConfigurationListener(adcConfigListener);
+
+	initWboController();
 
 	printMsg(sharedLogger, "initHardware() OK!");
 }
