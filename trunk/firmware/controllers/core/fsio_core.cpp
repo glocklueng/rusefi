@@ -239,6 +239,9 @@ bool_t LECalculator::doJob(Engine *engine, LEElement *element) {
 		}
 	}
 		break;
+	case LE_METHOD_KNOCK:
+		stack.push(engine->knockCount);
+		break;
 	case LE_UNDEFINED:
 		warning(OBD_PCM_Processor_Fault, "FSIO undefined action");
 		return true;
