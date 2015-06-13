@@ -16,13 +16,6 @@
 #if EFI_RTC || defined(__DOXYGEN__)
 static LoggingWithStorage logger("RTC");
 
-static void date_help(void) {
-	scheduleMsg(&logger, "Usage: date_help");
-	scheduleMsg(&logger, "       date_get");
-	scheduleMsg(&logger, "       date_set N");
-	scheduleMsg(&logger, "where N is time in seconds sins Unix epoch - see http://www.epochconverter.com");
-}
-
 #endif /* EFI_RTC */
 
 void date_set_tm(struct tm *timp) {
@@ -97,7 +90,7 @@ void dateToString(char *lcd_str) {
 }
 
 #if EFI_RTC || defined(__DOXYGEN__)
-static void date_get(void) {
+void printDateTime(void) {
 	static time_t unix_time;
 	struct tm timp;
 	
@@ -116,12 +109,12 @@ static void date_get(void) {
 	}
 }
 
-static void date_set(const char *strDate) {
+void setDateTime(const char *strDate) {
 	if (strlen(strDate) > 0) {
 		time_t unix_time = (double) atoff(strDate);
 		if (unix_time > 0) {
 			rtcSetTimeUnixSec(&RTCD1, unix_time);
-			date_get();
+			printDateTime();
 			return;
 		}
 	}
@@ -134,9 +127,6 @@ void initRtc(void) {
 	printMsg(&logger, "initRtc()");
 
 	// yes, it's my begin time  and we always start from this one 1391894433 - 2014-02-08 21:20:03
-	rtcSetTimeUnixSec(&RTCD1, 1391894433);
-	addConsoleAction("date_get", date_get);
-	addConsoleActionS("date_set", date_set);
-	addConsoleAction("date_help", date_help);
+//	rtcSetTimeUnixSec(&RTCD1, 1391894433);
 #endif
 }
