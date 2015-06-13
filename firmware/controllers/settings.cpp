@@ -23,6 +23,7 @@
 #include "efiGpio.h"
 #include "engine_math.h"
 #include "alternatorController.h"
+#include "rtc_helper.h"
 
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
 #include "rusefi.h"
@@ -923,13 +924,25 @@ static void setInjectorLag(float value) {
 	engineConfiguration->injector.lag = value;
 }
 
+static void getValue(const char *paramStr) {
+	if (strEqualCaseInsensitive(paramStr, "todo")) {
+		scheduleMsg(&logger, "something");
+	}
+
+#if EFI_RTC || defined(__DOXYGEN__)
+	else if (strEqualCaseInsensitive(paramStr, "date")) {
+		printDateTime();
+	}
+#endif
+}
+
 static void setValue(const char *paramStr, const char *valueStr) {
 	float valueF = atoff(valueStr);
 	int valueI = atoi(valueStr);
 
 	if (strEqualCaseInsensitive(paramStr, "vsscoeff")) {
 		engineConfiguration->vehicleSpeedCoef = valueF;
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 	} else if (strEqualCaseInsensitive(paramStr, "alt_t")) {
 		if (valueI > 10) {
 			engineConfiguration->alternatorDT = valueI;
@@ -946,6 +959,10 @@ static void setValue(const char *paramStr, const char *valueStr) {
 		engineConfiguration->step1timing = valueI;
 	} else if (strEqualCaseInsensitive(paramStr, "targetvbatt")) {
 		engineConfiguration->targetVBatt = valueF;
+#if EFI_RTC || defined(__DOXYGEN__)
+	} else if (strEqualCaseInsensitive(paramStr, "date")) {
+		setDateTime(valueStr);
+#endif
 	}
 }
 
@@ -1038,6 +1055,7 @@ void initSettings(engine_configuration_s *engineConfiguration) {
 	addConsoleActionS("set_main_relay_pin", setMainRelayPin);
 
 	addConsoleActionSS("set", setValue);
+	addConsoleActionS("get", getValue);
 
 #if HAL_USE_ADC || defined(__DOXYGEN__)
 	addConsoleActionSS("set_analog_input_pin", setAnalogInputPin);
