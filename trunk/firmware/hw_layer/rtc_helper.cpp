@@ -1,5 +1,5 @@
 /**
- * @file rtc_helper.c
+ * @file rtc_helper.cpp
  * @brief Real Time Clock helper
  *
  * @date Feb 5, 2014
@@ -13,8 +13,8 @@
 #include "chrtclib.h"
 #include "rtc_helper.h"
 
-#if EFI_RTC
-static Logging logger;
+#if EFI_RTC || defined(__DOXYGEN__)
+static LoggingWithStorage logger("RTC");
 
 static void date_help(void) {
 	scheduleMsg(&logger, "Usage: date_help");
@@ -27,20 +27,20 @@ static void date_help(void) {
 
 void date_set_tm(struct tm *timp) {
 	(void)timp;
-#if EFI_RTC
+#if EFI_RTC || defined(__DOXYGEN__)
 	rtcSetTimeTm(&RTCD1, timp);
 #endif /* EFI_RTC */
 }
 
 void date_get_tm(struct tm *timp) {
 	(void)timp;
-#if EFI_RTC
+#if EFI_RTC || defined(__DOXYGEN__)
 	rtcGetTimeTm(&RTCD1, timp);
 #endif /* EFI_RTC */
 }
 
 void dateToString(char *lcd_str) {
-#if EFI_RTC
+#if EFI_RTC || defined(__DOXYGEN__)
 	// todo:
 	// re-implement this along the lines of 	chvprintf("%04u-%02u-%02u %02u:%02u:%02u\r\n", timp.tm_year + 1900, timp.tm_mon + 1, timp.tm_mday, timp.tm_hour,
 	// timp.tm_min, timp.tm_sec);
@@ -96,7 +96,7 @@ void dateToString(char *lcd_str) {
 #endif /* EFI_RTC */
 }
 
-#if EFI_RTC
+#if EFI_RTC || defined(__DOXYGEN__)
 static void date_get(void) {
 	static time_t unix_time;
 	struct tm timp;
@@ -116,7 +116,7 @@ static void date_get(void) {
 	}
 }
 
-static void date_set(char *strDate) {
+static void date_set(const char *strDate) {
 	if (strlen(strDate) > 0) {
 		time_t unix_time = (double) atoff(strDate);
 		if (unix_time > 0) {
@@ -130,8 +130,7 @@ static void date_set(char *strDate) {
 #endif /* EFI_RTC */
 
 void initRtc(void) {
-#if EFI_RTC
-	initLogging(&logger, "rtc");
+#if EFI_RTC || defined(__DOXYGEN__)
 	printMsg(&logger, "initRtc()");
 
 	// yes, it's my begin time  and we always start from this one 1391894433 - 2014-02-08 21:20:03

@@ -2782,7 +2782,7 @@
       <name>$PROJ_DIR$\..\hw_layer\pwm_generator.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\hw_layer\rtc_helper.c</name>
+      <name>$PROJ_DIR$\..\hw_layer\rtc_helper.cpp</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\hw_layer\rtc_helper.h</name>
