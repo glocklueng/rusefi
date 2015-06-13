@@ -58,6 +58,7 @@ static int settingUpdateCount = 0;
 static int totalKnockEventsCount = 0;
 static int currentPrescaler;
 static float hipValueMax = 0;
+static float knockVolts = 0;
 static int spiCount = 0;
 
 static unsigned char tx_buff[1];
@@ -133,7 +134,8 @@ static void showHipInfo(void) {
 			nonZeroResponse);
 	scheduleMsg(logger, "CS@%s updateCount=%d", hwPortname(boardConfiguration->hip9011CsPin), settingUpdateCount);
 
-	scheduleMsg(logger, "hip v@%s spiCount=%d adv=%d",
+	scheduleMsg(logger, "hip %fv@%s spiCount=%d adv=%d",
+			knockVolts,
 			getPinNameByAdcChannel(engineConfiguration->hipOutputChannel, pinNameBuffer), spiCount, boardConfiguration->useTpicAdvancedMode);
 	hipValueMax = 0;
 	engine->printKnockState();
@@ -242,9 +244,9 @@ void hipAdcCallback(adcsample_t value) {
 	if (state == WAITING_FOR_ADC_TO_SKIP) {
 		state = WAITING_FOR_RESULT_ADC;
 	} else if (state == WAITING_FOR_RESULT_ADC) {
-		float hipValue = adcToVoltsDivided(value);
-		hipValueMax = maxF(hipValue, hipValueMax);
-		engine->knockLogic(hipValue);
+		knockVolts = adcToVoltsDivided(value);
+		hipValueMax = maxF(knockVolts, hipValueMax);
+		engine->knockLogic(knockVolts);
 
 		int integratorIndex = getIntegrationIndexByRpm(engine->rpmCalculator.rpmValue);
 		int gainIndex = getHip9011GainIndex(boardConfiguration->hip9011Gain);
