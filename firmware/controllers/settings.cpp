@@ -23,9 +23,9 @@
 #include "efiGpio.h"
 #include "engine_math.h"
 #include "alternatorController.h"
-#include "rtc_helper.h"
 
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
+#include "rtc_helper.h"
 #include "rusefi.h"
 #include "pin_repository.h"
 #include "hardware.h"
