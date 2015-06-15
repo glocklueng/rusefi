@@ -134,9 +134,11 @@ static void showHipInfo(void) {
 			nonZeroResponse);
 	scheduleMsg(logger, "CS@%s updateCount=%d", hwPortname(boardConfiguration->hip9011CsPin), settingUpdateCount);
 
-	scheduleMsg(logger, "hip %fv@%s spiCount=%d adv=%d",
+	scheduleMsg(logger, "hip %fv@%s/max=%f spiCount=%d adv=%d",
 			knockVolts,
-			getPinNameByAdcChannel(engineConfiguration->hipOutputChannel, pinNameBuffer), spiCount, boardConfiguration->useTpicAdvancedMode);
+			getPinNameByAdcChannel(engineConfiguration->hipOutputChannel, pinNameBuffer),
+			hipValueMax,
+			spiCount, boardConfiguration->useTpicAdvancedMode);
 	hipValueMax = 0;
 	engine->printKnockState();
 }
