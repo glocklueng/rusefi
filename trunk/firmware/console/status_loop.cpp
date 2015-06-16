@@ -181,6 +181,10 @@ static void printSensors(Logging *log, bool fileFormat) {
 		reportSensorF(log, fileFormat, "vss", "kph", getVehicleSpeed(), 2);
 	}
 #endif /* EFI_PROD_CODE */
+
+	reportSensorF(log, fileFormat, "ks", "count", engine->knockCount, 0);
+
+
 //	reportSensorF(log, fileFormat, "vref", "V", getVRef(engineConfiguration), 2);
 	reportSensorF(log, fileFormat, "vbatt", "V", getVBatt(PASS_ENGINE_PARAMETER_F), 2);
 
@@ -606,7 +610,7 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels DECLARE_
 	tsOutputChannels->isIatError = !isValidIntakeAirTemperature(getIntakeAirTemperature(PASS_ENGINE_PARAMETER_F));
 #endif /* EFI_PROD_CODE */
 
-	tsOutputChannels->knockNowIndicator = engine->knockNow;
+	tsOutputChannels->knockNowIndicator = engine->knockCount > 0;
 	tsOutputChannels->knockEverIndicator = engine->knockEver;
 
 	tsOutputChannels->clutchUpState = engine->clutchUpState;
