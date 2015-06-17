@@ -12,6 +12,7 @@ LIBS:art-electro-ic
 LIBS:STM32F407IGT6
 LIBS:art-electro-power
 LIBS:art-electro-max
+LIBS:crystal(mc306)
 LIBS:176-pin_board-cache
 EELAYER 27 0
 EELAYER END
@@ -19,7 +20,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "176 STM32 board"
-Date "11 jun 2015"
+Date "14 jun 2015"
 Rev "R0.2"
 Comp "rusEFI by DAECU and artelectro"
 Comment1 ""
@@ -2033,17 +2034,6 @@ Wire Wire Line
 Text Notes 500  2325 0    60   ~ 0
 8MHz
 $Comp
-L CRYSTAL X2
-U 1 1 52F266A3
-P 12675 9350
-F 0 "X2" H 12675 9500 60  0000 C CNN
-F 1 "CRYSTAL" H 12675 9200 60  0000 C CNN
-F 2 "MC-306" H 12675 9350 60  0001 C CNN
-F 3 "" H 12675 9350 60  0000 C CNN
-	1    12675 9350
-	0    -1   -1   0   
-$EndComp
-$Comp
 L C C21
 U 1 1 52F266B6
 P 13125 9050
@@ -2970,4 +2960,15 @@ Wire Wire Line
 Wire Wire Line
 	825  5825 1275 5825
 NoConn ~ 11950 4050
+$Comp
+L CRYSTAL(MC306) X2
+U 1 1 557D6DA5
+P 12675 9350
+F 0 "X2" H 12675 9500 60  0000 C CNN
+F 1 "CRYSTAL(MC306)" H 12675 9200 60  0000 C CNN
+F 2 "~" H 12675 9350 60  0000 C CNN
+F 3 "~" H 12675 9350 60  0000 C CNN
+	1    12675 9350
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC
