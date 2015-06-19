@@ -143,7 +143,7 @@
 #define vbattAdcChannel_offset 472
 #define fanOnTemperature_offset 476
 #define fanOffTemperature_offset 480
-#define ususedBla_offset 484
+#define fuelLevelSensor_offset 484
 #define vehicleSpeedCoef_offset 488
 #define canNbcType_offset 492
 #define canSleepPeriod_offset 496
@@ -311,7 +311,11 @@
 #define wboHeaterPin_offset_hex 374
 #define wboPumpPin_offset 888
 #define wboPumpPin_offset_hex 378
-#define unusedADC_offset 892
+#define fuelLevelEmptyTankVoltage_offset 892
+#define fuelLevelFullTankVoltage_offset 896
+#define fuelLevelFullTankVoltage_offset_hex 380
+#define unusedADC_offset 900
+#define unusedADC_offset_hex 384
 #define triggerInputPins1_offset 920
 #define triggerInputPins1_offset_hex 398
 #define triggerInputPins2_offset 924

@@ -219,7 +219,8 @@ adc_channel_e vbattAdcChannel;
 float fanOnTemperature;Cooling fan turn-on temperature threshold, in Celsuis;"*C",    1,      0,       0,  1000.0,        2
 float fanOffTemperature;Cooling fan turn-off temperature threshold, in Celsuis;"*C",    1,      0,       0,  1000.0,        2
 
-int ususedBla;
+adc_channel_e fuelLevelSensor;
+
 float vehicleSpeedCoef;This coefficient translates vehicle speed input frequency (in Hz) into vehicle speed, km/h;"coef",    1,      0,    0.01,  2000.0,        2
 
 custom can_nbc_e 4 bits, U32, @OFFSET@, [0:1], "BMW", "FIAT", "VAG" , "INVALID"
@@ -363,7 +364,9 @@ float etbIFactor;
 
 	brain_pin_e wboHeaterPin;
 	brain_pin_e wboPumpPin;
-	float[7] unusedADC;
+	float fuelLevelEmptyTankVoltage;
+	float fuelLevelFullTankVoltage;
+	float[5] unusedADC;
 
 	brain_input_pin_e[3 iterate] triggerInputPins;
 	brain_pin_e mainRelayPin;

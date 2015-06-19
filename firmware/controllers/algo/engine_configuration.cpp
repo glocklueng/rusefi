@@ -485,6 +485,10 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->knockDetectionWindowStart = 35;
 	engineConfiguration->knockDetectionWindowEnd = 135;
 
+	engineConfiguration->fuelLevelSensor = EFI_ADC_NONE;
+	boardConfiguration->fuelLevelEmptyTankVoltage = 0;
+	boardConfiguration->fuelLevelFullTankVoltage = 5;
+
 	engineConfiguration->hipOutputChannel = EFI_ADC_NONE;
 
 	/**
