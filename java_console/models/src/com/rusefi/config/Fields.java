@@ -1,6 +1,6 @@
 package com.rusefi.config;
 
-// this file was generated automatically by ConfigDefinition.jar Sat Jun 13 11:35:16 EDT 2015
+// this file was generated automatically by ConfigDefinition.jar Fri Jun 19 18:20:56 EDT 2015
 public class Fields {
 	public static final Field ENGINETYPE = new Field(0, FieldType.INT);
 	public static final Field HEADERMAGICVALUE = new Field(4, FieldType.INT);
@@ -62,7 +62,7 @@ public class Fields {
 	public static final Field VBATTADCCHANNEL = new Field(472, FieldType.INT);
 	public static final Field FANONTEMPERATURE = new Field(476, FieldType.FLOAT);
 	public static final Field FANOFFTEMPERATURE = new Field(480, FieldType.FLOAT);
-	public static final Field USUSEDBLA = new Field(484, FieldType.INT);
+	public static final Field FUELLEVELSENSOR = new Field(484, FieldType.INT);
 	public static final Field VEHICLESPEEDCOEF = new Field(488, FieldType.FLOAT);
 	public static final Field CANNBCTYPE = new Field(492, FieldType.INT);
 	public static final Field CANSLEEPPERIOD = new Field(496, FieldType.INT);
@@ -168,6 +168,8 @@ public class Fields {
 	public static final Field ETBIFACTOR = new Field(880, FieldType.FLOAT);
 	public static final Field WBOHEATERPIN = new Field(884, FieldType.INT, brain_pin_e);
 	public static final Field WBOPUMPPIN = new Field(888, FieldType.INT, brain_pin_e);
+	public static final Field FUELLEVELEMPTYTANKVOLTAGE = new Field(892, FieldType.FLOAT);
+	public static final Field FUELLEVELFULLTANKVOLTAGE = new Field(896, FieldType.FLOAT);
 	public static final String[] brain_input_pin_e = {"INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "PA5", "INVALID", "INVALID", "PA8", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "PC6", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "PE5", "INVALID", "PE7", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "NONE", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID"};
 	public static final Field TRIGGERINPUTPINS1 = new Field(920, FieldType.INT, brain_input_pin_e);
 	public static final Field TRIGGERINPUTPINS2 = new Field(924, FieldType.INT, brain_input_pin_e);

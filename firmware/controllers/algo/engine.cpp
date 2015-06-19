@@ -41,6 +41,13 @@ void Engine::updateSlowSensors() {
 	engineState.iat = getIntakeAirTemperature(PASS_ENGINE_PARAMETER_F);
 	engineState.clt = getCoolantTemperature(PASS_ENGINE_PARAMETER_F);
 
+	if (engineConfiguration->fuelLevelSensor != EFI_ADC_NONE) {
+		float fuelLevelVoltage = getVoltageDivided("fuel", engineConfiguration->fuelLevelSensor);
+		engineState.fuelLevel = interpolate(boardConfiguration->fuelLevelEmptyTankVoltage, 0,
+				boardConfiguration->fuelLevelFullTankVoltage, 100,
+				fuelLevelVoltage);
+	}
+
 	injectorLagMs = getInjectorLag(getVBatt(PASS_ENGINE_PARAMETER_F) PASS_ENGINE_PARAMETER);
 }
 

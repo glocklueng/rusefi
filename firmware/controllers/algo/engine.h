@@ -89,6 +89,8 @@ public:
 	float iat;
 	float clt;
 
+	percent_t fuelLevel;
+
 	ThermistorMath iatCurve;
 	ThermistorMath cltCurve;
 
