@@ -579,6 +579,7 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels DECLARE_
 	tsOutputChannels->pedalPosition = getPedalPosition(PASS_ENGINE_PARAMETER_F);
 	tsOutputChannels->knockCount = engine->knockCount;
 	tsOutputChannels->injectorDutyCycle = getInjectorDutyCycle(rpm PASS_ENGINE_PARAMETER);
+	tsOutputChannels->fuelLevel = engine->engineState.fuelLevel;
 
 	tsOutputChannels->checkEngine = hasErrorCodes();
 #if EFI_PROD_CODE || defined(__DOXYGEN__)

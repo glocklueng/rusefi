@@ -93,7 +93,8 @@ typedef struct {
 	float pedalPosition;
 	float injectorDutyCycle;
 	int knockCount;
-	int unused3[12];
+	float fuelLevel;
+	int unused3[11];
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */

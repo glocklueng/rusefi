@@ -322,6 +322,7 @@ static void printAnalogChannelInfo(const char *name, adc_channel_e hwChannel) {
 
 static void printAnalogInfo(void) {
 	printAnalogChannelInfo("hip9011", engineConfiguration->hipOutputChannel);
+	printAnalogChannelInfo("fuel gauge", engineConfiguration->fuelLevelSensor);
 	printAnalogChannelInfo("TPS", engineConfiguration->tpsAdcChannel);
 	printAnalogChannelInfo("pPS", engineConfiguration->pedalPositionChannel);
 	printAnalogChannelInfo("CLT", engineConfiguration->clt.adcChannel);
