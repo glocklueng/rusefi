@@ -11,7 +11,7 @@
 
 #include "engine.h"
 
-#define FLASH_DATA_VERSION 8300
+#define FLASH_DATA_VERSION 8370
 
 void readFromFlash(void);
 void initFlash(Logging *sharedLogger, Engine *engine);
