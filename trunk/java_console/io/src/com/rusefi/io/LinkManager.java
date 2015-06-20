@@ -124,6 +124,9 @@ public class LinkManager {
 
         void onConnectionFailed();
 
+        /**
+         * This method is invoked once we have connection & configuration from controller
+         */
         void onConnectionEstablished();
     }
 }

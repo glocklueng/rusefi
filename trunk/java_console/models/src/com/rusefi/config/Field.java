@@ -3,7 +3,7 @@ package com.rusefi.config;
 import com.rusefi.core.Pair;
 
 /**
- * @see com.rusefi.config.Fields
+ * @see Fields
  */
 
 public class Field {
