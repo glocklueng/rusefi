@@ -364,8 +364,8 @@ float etbIFactor;
 
 	brain_pin_e wboHeaterPin;
 	brain_pin_e wboPumpPin;
-	float fuelLevelEmptyTankVoltage;
-	float fuelLevelFullTankVoltage;
+	float fuelLevelEmptyTankVoltage;;"V",      1,      0,       0,10,      2
+	float fuelLevelFullTankVoltage;;"V",      1,      0,       0,10,      2
 	float[5] unusedADC;
 
 	brain_input_pin_e[3 iterate] triggerInputPins;
