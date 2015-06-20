@@ -148,11 +148,13 @@ static void printSensors(Logging *log, bool fileFormat) {
 	float sec = ((float) nowMs) / 1000;
 	reportSensorF(log, fileFormat, "time", "", sec, 3);
 
+	int rpm = 0;
 #if EFI_SHAFT_POSITION_INPUT || defined(__DOXYGEN__)
-	reportSensorI(log, fileFormat, "rpm", "RPM", getRpmE(engine));
+	rpm = getRpmE(engine);
+	reportSensorI(log, fileFormat, "rpm", "RPM", rpm);
 
-	reportSensorF(log, fileFormat, "TRG_0_DUTY", "%", getTriggerDutyCycle(0), 2);
-	reportSensorF(log, fileFormat, "TRG_1_DUTY", "%", getTriggerDutyCycle(1), 2);
+//	reportSensorF(log, fileFormat, "TRG_0_DUTY", "%", getTriggerDutyCycle(0), 2);
+//	reportSensorF(log, fileFormat, "TRG_1_DUTY", "%", getTriggerDutyCycle(1), 2);
 #endif
 
 	if (hasMafSensor()) {
@@ -189,6 +191,12 @@ static void printSensors(Logging *log, bool fileFormat) {
 	reportSensorF(log, fileFormat, "vbatt", "V", getVBatt(PASS_ENGINE_PARAMETER_F), 2);
 
 	reportSensorF(log, fileFormat, "TP", "%", getTPS(PASS_ENGINE_PARAMETER_F), 2);
+
+	if (fileFormat) {
+		reportSensorF(log, fileFormat, "tpsacc", "ms", engine->tpsAccelEnrichment.getTpsEnrichment(PASS_ENGINE_PARAMETER_F), 2);
+		reportSensorF(log, fileFormat, "advance", "deg", engine->tpsAccelEnrichment.getTpsEnrichment(PASS_ENGINE_PARAMETER_F), 2);
+		reportSensorF(log, fileFormat, "advance", "deg", getFuelMs(rpm PASS_ENGINE_PARAMETER), 2);
+	}
 
 	if (engineConfiguration->hasCltSensor) {
 		reportSensorF(log, fileFormat, "CLT", "C", getCoolantTemperature(PASS_ENGINE_PARAMETER_F), 2);

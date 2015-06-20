@@ -92,7 +92,7 @@ static void incLogFileName(void) {
 	UINT result = 0;
 	if (err != FR_OK && err != FR_EXIST) {
 			logFileIndex = 1;
-			scheduleMsg(&logger, "Not found or error");
+			scheduleMsg(&logger, "%s: not found or error: %d", LOG_INDEX_FILENAME, err);
 	} else {
 		f_read(&FDCurrFile, (void*)data, sizeof(data), &result);
 
