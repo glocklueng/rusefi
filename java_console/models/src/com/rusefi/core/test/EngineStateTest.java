@@ -2,7 +2,7 @@ package com.rusefi.core.test;
 
 import com.rusefi.core.SensorCentral;
 import com.rusefi.core.EngineState;
-import com.rusefi.io.LinkManager;
+import com.rusefi.io.LinkConnector;
 import org.junit.Test;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -39,11 +39,10 @@ public class EngineStateTest {
                     rpmResult.set(Integer.parseInt(value));
             }
         });
-        es.processNewData("line:7:");
-        es.processNewData(SensorCentral.RPM_KEY + SEPARATOR);
+        es.processNewData("line:7:", LinkConnector.VOID);
+        es.processNewData(SensorCentral.RPM_KEY + SEPARATOR, LinkConnector.VOID);
         assertEquals(0, rpmResult.get());
-        LinkManager.connector = LinkManager.VOID;
-        es.processNewData("600\r");
+        es.processNewData("600\r", LinkConnector.VOID);
         assertEquals(600, rpmResult.get());
     }
 }
