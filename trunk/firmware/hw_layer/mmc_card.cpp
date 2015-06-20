@@ -64,6 +64,7 @@ static void printError(const char *str, FRESULT f_error) {
 static FIL FDLogFile;
 static FIL FDCurrFile;
 static int logFileIndex = 1;
+static char logName[15];
 
 static int totalLoggedBytes = 0;
 
@@ -77,8 +78,9 @@ static void printMmcPinout(void) {
 
 static void sdStatistics(void) {
 	printMmcPinout();
-	scheduleMsg(&logger, "SD enabled: %s", boolToString(boardConfiguration->isSdCardEnabled));
-	scheduleMsg(&logger, "fs_ready=%d totalLoggedBytes=%d", fs_ready, totalLoggedBytes);
+	scheduleMsg(&logger, "SD enabled: %s [%s]", boolToString(boardConfiguration->isSdCardEnabled),
+			logName);
+	scheduleMsg(&logger, "fs_ready=%d totalLoggedBytes=%d %d", fs_ready, totalLoggedBytes, logFileIndex);
 }
 
 static void incLogFileName(void) {
@@ -97,6 +99,7 @@ static void incLogFileName(void) {
 		scheduleMsg(&logger, "Got content [%s] size %d", data, result);
 		f_close(&FDCurrFile);
 		if (result < 5) {
+                      data[result] = 0;
 			logFileIndex = atoi(data);
 			if (absI(logFileIndex) == ERROR_CODE) {
 				logFileIndex = 1;
@@ -116,7 +119,6 @@ static void incLogFileName(void) {
 	unlockSpi();
 }
 
-
 /**
  * @brief Create a new file with the specified name
  *
@@ -126,7 +128,11 @@ static void incLogFileName(void) {
 static void createLogFile(void) {
 	lockSpi(SPI_NONE);
 	memset(&FDLogFile, 0, sizeof(FIL));						// clear the memory
-	FRESULT err = f_open(&FDLogFile, "rusefi.log", FA_OPEN_ALWAYS | FA_WRITE);				// Create new file
+	strcpy(logName, "rus");
+	char *ptr = itoa10(&logName[3], logFileIndex);
+	strcat(ptr, ".log");
+
+	FRESULT err = f_open(&FDLogFile, logName, FA_OPEN_ALWAYS | FA_WRITE);				// Create new file
 	if (err != FR_OK && err != FR_EXIST) {
 		unlockSpi();
 		printError("FS mount failed", err);	// else - show error
@@ -257,6 +263,7 @@ static void MMCmount(void) {
 	// if Ok - mount FS now
 	memset(&MMC_FS, 0, sizeof(FATFS));
 	if (f_mount(0, &MMC_FS) == FR_OK) {
+		incLogFileName();
 		createLogFile();
 		scheduleMsg(&logger, "MMC/SD mounted!");
 	}
@@ -291,6 +298,7 @@ bool isSdCardAlive(void) {
 }
 
 void initMmcCard(void) {
+	logName[0] = 0;
 	addConsoleAction("sdinfo", sdStatistics);
 	if (!boardConfiguration->isSdCardEnabled) {
 		return;
