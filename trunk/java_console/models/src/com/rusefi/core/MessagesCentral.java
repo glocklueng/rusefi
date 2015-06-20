@@ -2,7 +2,7 @@ package com.rusefi.core;
 
 import com.rusefi.FileLog;
 import com.rusefi.io.serial.PortHolder;
-import com.rusefi.io.serial.PortHolderListener;
+import com.rusefi.io.serial.CommunicationLoggingListener;
 
 import javax.swing.*;
 import java.util.List;
@@ -19,7 +19,7 @@ public class MessagesCentral {
     private final List<MessageListener> listeners = new CopyOnWriteArrayList<>();
 
     private MessagesCentral() {
-        PortHolder.getInstance().portHolderListener = new PortHolderListener() {
+        PortHolder.communicationLoggingListener = new CommunicationLoggingListener() {
             @Override
             public void onPortHolderMessage(Class clazz, String message) {
                 postMessage(clazz, message);

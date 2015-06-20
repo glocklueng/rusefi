@@ -1,6 +1,5 @@
 package com.rusefi;
 
-import com.rusefi.io.LinkManager;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
@@ -49,8 +48,6 @@ public enum FileLog {
     }
 
     private FileOutputStream openLog() throws FileNotFoundException {
-        if (LinkManager.onlyUI)
-            return null;
         String date = getDate();
         createFolderIfNeeded();
         currentLogName = name() + "_rfi_report_" + date + ".csv";
