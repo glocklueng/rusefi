@@ -52,7 +52,7 @@ public class PortHolder {
             if (!opened)
                 FileLog.MAIN.logLine("not opened!");
             setupPort(serialPort, BAUD_RATE);
-//            serialPort.addEventListener(new SerialPortReader(serialPort, communicationLoggingListener));
+//            serialPort.setDataListener(new SerialPortReader(serialPort, communicationLoggingListener));
         } catch (SerialPortException e) {
             FileLog.MAIN.logLine("ERROR " + e.getMessage());
             return false;
@@ -73,18 +73,6 @@ public class PortHolder {
         bp = new BinaryProtocol(FileLog.LOGGER, new SerialIoStream(serialPort, FileLog.LOGGER));
 
         return bp.connect(listener);
-
-//
-//        try {
-//            FileLog.rlog("PortHolder: test command");
-//            /**
-//             * Let's make sure we have not connected to Tuner Studio port?
-//             * @see EngineState#TS_PROTOCOL_TAG
-//             */
-//            doWriteCommand("test");
-//        } catch (SerialPortException e) {
-//            return false;
-//        }
     }
 
     public static void setupPort(SerialPort serialPort, int baudRate) throws SerialPortException {
@@ -114,29 +102,6 @@ public class PortHolder {
      */
     public void packAndSend(final String command) throws InterruptedException {
         bp.doSend(command);
-
-
-//        long now = System.currentTimeMillis();
-//
-//        synchronized (portLock) {
-//            while (serialPort == null) {
-//                if (System.currentTimeMillis() - now > 3 * MINUTE)
-//                    communicationLoggingListener.onPortHolderMessage(PortHolder.class, "Looks like connection is gone :(");
-//                portLock.wait(MINUTE);
-//            }
-//            // we are here only when serialPort!=null, that means we have a connection
-//            try {
-//                doWriteCommand(command);
-//            } catch (SerialPortException e) {
-//                throw new IllegalStateException(e);
-//            }
-//        }
-    }
-
-    private void doWriteCommand(@NotNull String command) throws SerialPortException {
-        if (serialPort == null)
-            throw new NullPointerException("serialPort");
-        serialPort.writeBytes((command + "\n").getBytes());
     }
 
     public static PortHolder getInstance() {
