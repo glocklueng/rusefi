@@ -100,8 +100,9 @@ public class Table1D extends TableWithData {
                     selectCellAt(highlightY + 1);
                 }
             } else if (getAxisParent().getType() == Settings.TABLE_2D) {
+                Table2D axisParent = (Table2D) getAxisParent();
                 if (data[highlightY].isSelected()) {
-                    getAxisParent().selectCellAt(highlightY);
+                    axisParent.selectCellAt(highlightY);
                 }
             }
         } else if (type == Settings.TABLE_X_AXIS && data[highlightY].isSelected()) {
