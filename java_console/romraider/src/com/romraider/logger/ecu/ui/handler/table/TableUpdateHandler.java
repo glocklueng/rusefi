@@ -116,11 +116,6 @@ public final class TableUpdateHandler implements DataUpdateHandler {
                     }
 
                     @Override
-                    public EcuDataType getDataType() {
-                        throw new UnsupportedOperationException();
-                    }
-
-                    @Override
                     public boolean isSelected() {
                         throw new UnsupportedOperationException();
                     }

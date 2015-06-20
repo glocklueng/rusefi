@@ -152,27 +152,27 @@ public class Rom extends DefaultMutableTreeNode implements Serializable  {
             progress.update("Populating tables...", 50 + currProgress);
 
             Table table = tableNodes.get(i).getTable();
-            try {
+//            try {
                 // if storageaddress has not been set (or is set to 0) omit table
                 if (table.getStorageAddress() != 0) {
-                    try {
+   //                 try {
                         table.populateTable(binData, this.getRomID().getRamOffset());
                         TableUpdateHandler.getInstance().registerTable(table);
 
                         if (null != table.getName() && table.getName().equalsIgnoreCase("Checksum Fix")){
                             setEditStamp(binData, table.getStorageAddress());
                         }
-                    } catch (IndexOutOfBoundsException iex) {
-                        LOGGER.error(table.getName() +
-                                " type " + table.getType() + " start " +
-                                table.getStorageAddress() + " " + binData.length + " filesize", iex);
-
-                        // table storage address extends beyond end of file
-                        JOptionPane.showMessageDialog(SwingUtilities.windowForComponent(table), "Storage address for table \"" + table.getName() +
-                                "\" is out of bounds.\nPlease check ECU definition file.", "ECU Definition Error", JOptionPane.ERROR_MESSAGE);
-                        tableNodes.removeElementAt(i);
-                        i--;
-                    }
+//                    } catch (IndexOutOfBoundsException iex) {
+//                        LOGGER.error(table.getName() +
+//                                " type " + table.getType() + " start " +
+//                                table.getStorageAddress() + " " + binData.length + " filesize", iex);
+//
+//                        // table storage address extends beyond end of file
+//                        JOptionPane.showMessageDialog(SwingUtilities.windowForComponent(table), "Storage address for table \"" + table.getName() +
+//                                "\" is out of bounds.\nPlease check ECU definition file.", "ECU Definition Error", JOptionPane.ERROR_MESSAGE);
+//                        tableNodes.removeElementAt(i);
+//                        i--;
+//                    }
 
                 } else {
                     tableNodes.removeElementAt(i);
@@ -180,12 +180,12 @@ public class Rom extends DefaultMutableTreeNode implements Serializable  {
                     i--;
                 }
 
-            } catch (NullPointerException ex) {
-                LOGGER.error("Error Populating Table", ex);
-                JOptionPane.showMessageDialog(SwingUtilities.windowForComponent(table), "There was an error loading table " + table.getName(), "ECU Definition Error", JOptionPane.ERROR_MESSAGE);
-                tableNodes.removeElementAt(i);
-                i--;
-            }
+//            } catch (NullPointerException ex) {
+//                LOGGER.error("Error Populating Table", ex);
+//                JOptionPane.showMessageDialog(SwingUtilities.windowForComponent(table), "There was an error loading table " + table.getName(), "ECU Definition Error", JOptionPane.ERROR_MESSAGE);
+//                tableNodes.removeElementAt(i);
+//                i--;
+//            }
         }
     }
 
