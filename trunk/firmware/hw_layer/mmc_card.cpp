@@ -23,6 +23,8 @@
 #include "engine_configuration.h"
 #include "status_loop.h"
 
+#define LOG_INDEX_FILENAME "index.txt"
+
 extern board_configuration_s *boardConfiguration;
 
 #define PUSHPULLDELAY 500
@@ -60,6 +62,8 @@ static void printError(const char *str, FRESULT f_error) {
 }
 
 static FIL FDLogFile;
+static FIL FDCurrFile;
+static int logFileIndex = 1;
 
 static int totalLoggedBytes = 0;
 
@@ -76,6 +80,42 @@ static void sdStatistics(void) {
 	scheduleMsg(&logger, "SD enabled: %s", boolToString(boardConfiguration->isSdCardEnabled));
 	scheduleMsg(&logger, "fs_ready=%d totalLoggedBytes=%d", fs_ready, totalLoggedBytes);
 }
+
+static void incLogFileName(void) {
+	lockSpi(SPI_NONE);
+	memset(&FDCurrFile, 0, sizeof(FIL));						// clear the memory
+	FRESULT err = f_open(&FDCurrFile, LOG_INDEX_FILENAME, FA_READ);				// This file has the index for next log file name
+
+	char data[10];
+	UINT result = 0;
+	if (err != FR_OK && err != FR_EXIST) {
+			logFileIndex = 1;
+			scheduleMsg(&logger, "Not found or error");
+	} else {
+		f_read(&FDCurrFile, (void*)data, sizeof(data), &result);
+
+		scheduleMsg(&logger, "Got content [%s] size %d", data, result);
+		f_close(&FDCurrFile);
+		if (result < 5) {
+			logFileIndex = atoi(data);
+			if (absI(logFileIndex) == ERROR_CODE) {
+				logFileIndex = 1;
+			} else {
+				logFileIndex++; // next file would use next file name
+			}
+		} else {
+			logFileIndex = 1;
+		}
+	}
+
+	err = f_open(&FDCurrFile, LOG_INDEX_FILENAME, FA_OPEN_ALWAYS | FA_WRITE);
+	itoa10(data, logFileIndex);
+	f_write(&FDCurrFile, (void*)data, strlen(data), &result);
+	f_close(&FDCurrFile);
+	scheduleMsg(&logger, "Done %d", logFileIndex);
+	unlockSpi();
+}
+
 
 /**
  * @brief Create a new file with the specified name
@@ -273,6 +313,7 @@ void initMmcCard(void) {
 	addConsoleActionS("appendToLog", appendToLog);
 	addConsoleAction("umountsd", MMCumount);
 	addConsoleActionS("ls", ff_cmd_dir);
+	addConsoleAction("incfilename", incLogFileName);
 }
 
 #endif /* EFI_FILE_LOGGING */
