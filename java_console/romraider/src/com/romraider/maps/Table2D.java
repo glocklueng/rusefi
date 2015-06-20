@@ -43,7 +43,12 @@ import com.romraider.editor.ecu.ECUEditorManager;
 import com.romraider.util.SettingsManager;
 import com.rusefi.Launcher;
 
-public class Table2D extends Table {
+/**
+ * A better implementation would be a composition of
+ */
+
+public class Table2D extends TableWithData {
+    public static final String TYPE_2D = "2D";
     private static final long serialVersionUID = -7684570967109324784L;
     private Table1D axis = new Table1D();
     private JLabel axisLabel;

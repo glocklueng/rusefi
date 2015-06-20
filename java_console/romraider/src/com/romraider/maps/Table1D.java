@@ -25,7 +25,10 @@ import javax.swing.JLabel;
 
 import com.romraider.Settings;
 
-public class Table1D extends Table {
+public class Table1D extends TableWithData {
+    public static final String TYPE_1D = "1D";
+    public static final String TYPE_X_AXIS = "X Axis";
+    public static final String TYPE_Y_AXIS = "Y Axis";
     private static final long serialVersionUID = -8747180767803835631L;
     private Table axisParent = null;
 
@@ -236,7 +239,7 @@ public class Table1D extends Table {
 
     @Override
     public boolean equals(Object other) {
-        try {
+    //    try {
             if(null == other) {
                 return false;
             }
@@ -273,10 +276,10 @@ public class Table1D extends Table {
             }
 
             return true;
-        } catch(Exception ex) {
-            // TODO: Log Exception.
-            return false;
-        }
+//        } catch(Exception ex) {
+//            // TODO: Log Exception.
+//            return false;
+//        }
     }
 
     boolean ec = false;

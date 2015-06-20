@@ -51,6 +51,7 @@ import com.rusefi.Launcher;
 
 public class Table3D extends Table {
 
+    public static final String TYPE_3D = "3D";
     private static final long serialVersionUID = 3103448753263606599L;
     private Table1D xAxis = new Table1D();
     private Table1D yAxis = new Table1D();

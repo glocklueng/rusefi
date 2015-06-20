@@ -65,7 +65,7 @@ public abstract class Table extends JPanel implements Serializable {
     protected int type;
     protected String category = "Other";
     protected String description = Settings.BLANK;
-    protected Vector<Scale> scales = new Vector<Scale>();
+    protected Vector<Scale> scales = new Vector<>();
     protected Scale curScale;
 
     protected int storageAddress;
@@ -441,10 +441,6 @@ public abstract class Table extends JPanel implements Serializable {
         return data;
     }
 
-    public void setData(DataCell[] data) {
-        this.data = data;
-    }
-
     public void populateTable(byte[] input, int romRamOffset) throws ArrayIndexOutOfBoundsException, IndexOutOfBoundsException {
         // temporarily remove lock
         boolean tempLock = locked;
@@ -493,10 +489,6 @@ public abstract class Table extends JPanel implements Serializable {
 
     public int getType() {
         return type;
-    }
-
-    public DataCell getDataCell(int location) {
-        return data[location];
     }
 
     public void setType(int type) {
@@ -997,10 +989,6 @@ public abstract class Table extends JPanel implements Serializable {
         return binData;
     }
 
-    public boolean isBeforeRam() {
-        return beforeRam;
-    }
-
     public void setBeforeRam(boolean beforeRam) {
         this.beforeRam = beforeRam;
     }
@@ -1114,27 +1102,7 @@ public abstract class Table extends JPanel implements Serializable {
         horizontalInterpolate();
     }
 
-    public void horizontalInterpolate() {
-        int[] coords = { getDataSize(), 0};
-        DataCell[] tableData = getData();
-
-        int y;
-        for (y = 0; y < getDataSize(); y++) {
-            if (tableData[y].isSelected()) {
-                if (y < coords[0])
-                    coords[0] = y;
-                if (y > coords[1])
-                    coords[1] = y;
-            }
-        }
-        if (coords[1] - coords[0] > 1) {
-            double diff = (tableData[coords[0]].getRealValue() - tableData[coords[1]].getRealValue()) / (coords[1] - coords[0]);
-            if (Math.abs(diff) > 0) {
-                for (y = coords[0] + 1; y < coords[1]; y++)
-                    data[y].setRealValue(String.valueOf(tableData[y - 1].getRealValue() - diff));
-            }
-        }
-    }
+    public abstract void horizontalInterpolate();
 
     public void interpolate() {
         horizontalInterpolate();
