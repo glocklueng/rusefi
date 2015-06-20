@@ -19,24 +19,25 @@
 
 package com.romraider.logger.ecu.ui.handler.table;
 
-import static com.romraider.util.ParamChecker.isNullOrEmpty;
-import static java.util.Collections.synchronizedMap;
-
-import java.util.*;
-
 import com.romraider.logger.ecu.comms.query.Response;
 import com.romraider.logger.ecu.comms.query.ResponseImpl;
 import com.romraider.logger.ecu.definition.EcuDataConvertor;
-import com.romraider.logger.ecu.definition.EcuDataType;
 import com.romraider.logger.ecu.definition.LoggerData;
-import com.romraider.logger.ecu.ui.handler.DataUpdateHandler;
 import com.romraider.maps.Table;
 import com.romraider.maps.Table2D;
 import com.romraider.maps.Table3D;
 import com.rusefi.core.Sensor;
 import com.rusefi.core.SensorCentral;
 
-public final class TableUpdateHandler implements DataUpdateHandler {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import static com.romraider.util.ParamChecker.isNullOrEmpty;
+import static java.util.Collections.synchronizedMap;
+
+public final class TableUpdateHandler {
     private static final TableUpdateHandler INSTANCE = new TableUpdateHandler();
     private final Map<String, List<Table>> tableMap = synchronizedMap(new TreeMap<String, List<Table>>(String.CASE_INSENSITIVE_ORDER));
 
@@ -137,11 +138,9 @@ public final class TableUpdateHandler implements DataUpdateHandler {
         tableMap.clear();
     }
 
-    @Override
     public void registerData(LoggerData loggerData) {
     }
 
-    @Override
     public void handleDataUpdate(Response response) {
         for (LoggerData loggerData : response.getData()) {
             List<Table> tables = tableMap.get(loggerData.getId());
@@ -155,15 +154,12 @@ public final class TableUpdateHandler implements DataUpdateHandler {
         }
     }
 
-    @Override
     public void deregisterData(LoggerData loggerData) {
     }
 
-    @Override
     public void cleanUp() {
     }
 
-    @Override
     public void reset() {
     }
 
