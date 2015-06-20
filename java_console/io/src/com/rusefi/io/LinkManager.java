@@ -115,7 +115,7 @@ public class LinkManager {
     }
 
     public static interface LinkStateListener {
-        public static final LinkStateListener VOID = new LinkStateListener() {
+        LinkStateListener VOID = new LinkStateListener() {
             @Override
             public void onConnectionFailed() {
             }
