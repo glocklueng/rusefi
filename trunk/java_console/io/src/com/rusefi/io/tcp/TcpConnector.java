@@ -2,10 +2,8 @@ package com.rusefi.io.tcp;
 
 import com.rusefi.FileLog;
 import com.rusefi.binaryprotocol.BinaryProtocol;
-import com.rusefi.core.EngineState;
 import com.rusefi.core.ResponseBuffer;
 import com.rusefi.io.*;
-import com.rusefi.io.serial.SerialIoStream;
 
 import java.io.*;
 import java.net.Socket;
@@ -92,14 +90,14 @@ public class TcpConnector implements LinkConnector {
         final ResponseBuffer rb = new ResponseBuffer(new ResponseBuffer.ResponseListener() {
             @Override
             public void onResponse(String line) {
-                LinkManager.engineState.processNewData(line + "\r\n");
+                LinkManager.engineState.processNewData(line + "\r\n", LinkManager.ENCODER);
             }
         });
 
         DataListener listener1 = new DataListener() {
             @Override
             public void onDataArrived(byte[] freshData) {
-                rb.append(new String(freshData));
+                rb.append(new String(freshData), LinkManager.ENCODER);
             }
         };
 //        ioStream.addEventListener(listener1);

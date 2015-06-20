@@ -13,6 +13,13 @@ import java.util.concurrent.*;
  *         3/3/14
  */
 public class LinkManager {
+    public static LinkDecoder ENCODER = new LinkDecoder() {
+        @Override
+        public String unpack(String packedLine) {
+            return LinkManager.unpack(packedLine);
+        }
+    };
+
     public final static Executor IO_EXECUTOR = Executors.newSingleThreadExecutor(new ThreadFactory() {
         @Override
         public Thread newThread(@NotNull Runnable r) {
@@ -23,34 +30,6 @@ public class LinkManager {
         }
     });
     public static final String LOG_VIEWER = "log viewer";
-    public static final LinkConnector VOID = new LinkConnector() {
-        @Override
-        public void connect(LinkStateListener listener) {
-        }
-
-        @Override
-        public void send(String command) throws InterruptedException {
-        }
-
-        @Override
-        public void restart() {
-        }
-
-        @Override
-        public boolean hasError() {
-            return false;
-        }
-
-        @Override
-        public String unpack(String packet) {
-            return EngineState.unpackString(packet);
-        }
-
-        @Override
-        public String unpackConfirmation(String message) {
-            return message;
-        }
-    };
     public static final LinkedBlockingQueue<Runnable> COMMUNICATION_QUEUE = new LinkedBlockingQueue<>();
     public static final ExecutorService COMMUNICATION_EXECUTOR = new ThreadPoolExecutor(1, 1,
             0L, TimeUnit.MILLISECONDS,
@@ -79,7 +58,7 @@ public class LinkManager {
     public static void start(String port) {
         FileLog.MAIN.logLine("Starting " + port);
         if (isLogViewerMode(port)) {
-            connector = LinkManager.VOID;
+            connector = LinkConnector.VOID;
         } else if (TcpConnector.isTcpPort(port)) {
             connector = new TcpConnector(port);
             isStimulationMode = true;
@@ -93,7 +72,7 @@ public class LinkManager {
     }
 
     public static boolean isLogViewer() {
-        return connector == LinkManager.VOID;
+        return connector == LinkConnector.VOID;
     }
 
     /**
