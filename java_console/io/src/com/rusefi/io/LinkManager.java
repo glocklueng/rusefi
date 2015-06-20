@@ -69,7 +69,6 @@ public class LinkManager {
             FileLog.MAIN.logLine(fullLine);
         }
     });
-    public static boolean onlyUI = false;
     public static LinkConnector connector;
 
     /**
