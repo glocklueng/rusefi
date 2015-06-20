@@ -72,14 +72,6 @@ public class TcpConnector implements LinkConnector {
         }
     }
 
-    public static int parseIntWithReason(String number, String reason) {
-        try {
-            return Integer.parseInt(number);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Unexpected [" + number + "] for " + reason, e);
-        }
-    }
-
     /**
      * this implementation is blocking
      * @param listener
