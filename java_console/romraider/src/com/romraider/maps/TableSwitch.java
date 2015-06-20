@@ -89,40 +89,6 @@ public class TableSwitch extends Table {
         }
         add(radioPanel, BorderLayout.CENTER);
 
-        // Validate the ROM image checksums.
-        // if the result is >0: position of failed checksum
-        // if the result is  0: all the checksums matched
-        // if the result is -1: all the checksums have been previously disabled
-        if (super.getName().contains("Checksum Fix")) {
-            int result = validateRomChecksum(input, getStorageAddress(), dataSize);
-            String message = String.format(
-                    "Checksum No. %d is invalid in table: %s%n" +
-                    "The ROM image may be corrupt or it has been %n" +
-                    "hex edited manually.%n" +
-                    "The checksum can be corrected when the ROM is saved.",
-                    result, super.getName());
-            if (result > 0) {
-                showMessageDialog(this,
-                        message,
-                        "ERROR - Checksums Failed",
-                        WARNING_MESSAGE);
-                setButtonsUnselected(buttonGroup);
-            }
-            else if (result == -1){
-                message = "All Checksums are disabled.";
-                showMessageDialog(this,
-                        message,
-                        "Warning - Checksum Status",
-                        INFORMATION_MESSAGE);
-                getButtonByText(buttonGroup, "on").setSelected(true);
-            }
-            else {
-                getButtonByText(buttonGroup, "off").setSelected(true);
-                locked = false;
-            }
-            return;
-        }
-
         // Validate XML switch definition data against the ROM data to select
         // the appropriate switch setting or throw an error if there is a
         // mismatch and disable this table's editing ability.
