@@ -27,7 +27,7 @@ public interface LinkConnector extends LinkDecoder {
 
         @Override
         public String unpack(String packet) {
-            return EngineState.unpackString(packet);
+            return LinkDecoder.TEXT_PROTOCOL_DECODER.unpack(packet);
         }
 
         @Override
