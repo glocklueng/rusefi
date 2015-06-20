@@ -48,6 +48,7 @@ import com.romraider.Settings;
 
 public class TableSwitch extends Table {
 
+    public static final String TYPE_SWITCH = "Switch";
     private static final long serialVersionUID = -4887718305447362308L;
     private final ButtonGroup buttonGroup = new ButtonGroup();
     private final Map<String, byte[]> switchStates = new HashMap<String, byte[]>();
@@ -62,8 +63,14 @@ public class TableSwitch extends Table {
     }
 
     @Override
+    public void horizontalInterpolate() {
+
+    }
+
+    @Override
     public void setDataSize(int size) {
-        if (dataSize == 0) dataSize = size;
+        if (dataSize == 0)
+            dataSize = size;
     }
 
     @Override
@@ -72,7 +79,7 @@ public class TableSwitch extends Table {
     }
 
     @Override
-    public void populateTable(byte[] input, int romRamOffset) throws ArrayIndexOutOfBoundsException, IndexOutOfBoundsException  {
+    public void populateTable(byte[] input, int romRamOffset) {
         JPanel radioPanel = new JPanel(new GridLayout(0, 1));
         radioPanel.add(new JLabel("  " + getName()));
         for (String stateName : switchStates.keySet()) {
