@@ -14,5 +14,12 @@ public interface LinkDecoder {
         }
     };
 
+    LinkDecoder VOID = new LinkDecoder() {
+        @Override
+        public String unpack(String packet) {
+            return packet;
+        }
+    };
+
     String unpack(String packet);
 }
