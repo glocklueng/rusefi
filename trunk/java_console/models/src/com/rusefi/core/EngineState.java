@@ -59,7 +59,7 @@ public class EngineState {
     public EngineState(@NotNull final EngineStateListener listener) {
         buffer = new ResponseBuffer(new ResponseBuffer.ResponseListener() {
             public void onResponse(String message) {
-                String response = LinkManager.unpack(message);
+                String response = message;
                 if (response != null) {
                     int i = response.indexOf(FileLog.END_OF_TIMESTAND_TAG);
                     if (i != -1)
