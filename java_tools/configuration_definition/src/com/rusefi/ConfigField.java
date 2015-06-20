@@ -232,6 +232,7 @@ public class ConfigField {
     private void writeJavaFieldName(Writer javaFieldsWriter, String nameWithPrefix, int tsPosition) throws IOException {
         javaFieldsWriter.write("\tpublic static final Field ");
         javaFieldsWriter.write(nameWithPrefix.toUpperCase());
-        javaFieldsWriter.write(" = new Field(" + tsPosition + ", ");
+        javaFieldsWriter.write(" = new Field(\"" + nameWithPrefix.toUpperCase() + "\", "
+                + tsPosition + ", ");
     }
 }
