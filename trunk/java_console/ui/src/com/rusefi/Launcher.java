@@ -1,5 +1,6 @@
 package com.rusefi;
 
+import com.rusefi.binaryprotocol.BinaryProtocol;
 import com.rusefi.core.EngineState;
 import com.rusefi.core.MessagesCentral;
 import com.rusefi.io.LinkManager;
@@ -156,6 +157,9 @@ public class Launcher {
         root.setProperty("version", CONSOLE_VERSION);
         root.setProperty(TAB_INDEX, tabbedPane.getSelectedIndex());
         getConfig().save();
+        BinaryProtocol bp = BinaryProtocol.instance;
+        if (bp != null && !bp.isClosed)
+            bp.close(); // it could be that serial driver wants to be closed explicitly
         System.exit(0);
     }
 
