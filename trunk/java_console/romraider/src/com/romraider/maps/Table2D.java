@@ -52,7 +52,6 @@ public class Table2D extends Table {
     private CopySelection2DWorker copySelection2DWorker;
 
     public Table2D() {
-        super();
         verticalOverhead += 18;
     }
 

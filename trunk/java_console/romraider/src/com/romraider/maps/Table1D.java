@@ -29,10 +29,6 @@ public class Table1D extends Table {
     private static final long serialVersionUID = -8747180767803835631L;
     private Table axisParent = null;
 
-    public Table1D() {
-        super();
-    }
-
     public void setAxisParent(Table axisParent) {
         this.axisParent = axisParent;
     }
@@ -52,7 +48,7 @@ public class Table1D extends Table {
     }
 
     @Override
-    public void populateTable(byte[] input, int romRamOffset) throws ArrayIndexOutOfBoundsException, IndexOutOfBoundsException  {
+    public void populateTable(byte[] input, int romRamOffset)  {
         centerLayout.setRows(1);
         centerLayout.setColumns(this.getDataSize());
 

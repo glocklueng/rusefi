@@ -54,7 +54,6 @@ public class TableSwitch extends Table {
     private int dataSize = 0;
 
     public TableSwitch() {
-        super();
         storageType = 1;
         type = Settings.TABLE_SWITCH;
         locked = true;

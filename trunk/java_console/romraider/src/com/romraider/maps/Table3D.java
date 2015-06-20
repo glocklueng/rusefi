@@ -67,7 +67,6 @@ public class Table3D extends Table {
     CopySelection3DWorker copySelection3DWorker;
 
     public Table3D() {
-        super();
         verticalOverhead += 39;
         horizontalOverhead += 10;
     }

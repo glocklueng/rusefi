@@ -117,7 +117,7 @@ public abstract class Table extends JPanel implements Serializable {
 
     private Table compareTable = null;
 
-    public Table() {
+    protected Table() {
         scales.clear();
         scales.add(new Scale());
 
