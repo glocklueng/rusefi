@@ -1,7 +1,6 @@
 package com.rusefi;
 
 import com.romraider.editor.ecu.ECUEditor;
-import com.romraider.util.SettingsManager;
 import com.rusefi.binaryprotocol.BinaryProtocol;
 import com.rusefi.binaryprotocol.BinaryProtocolCmd;
 import com.rusefi.ui.util.UiUtils;
@@ -34,8 +33,8 @@ public class TableEditorPane extends JPanel {
             if (instance == null)
                 throw new NullPointerException("instance");
             ConfigurationImage image = instance.getController();
-            ECUEditor.openImage(image.getFileContent(), SettingsManager.getSettings().getEcuDefinitionFiles().elementAt(0),
-                    "rusEfi");
+            byte[] fileContent = image.getFileContent();
+            ECUEditor.openImage(fileContent);
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
