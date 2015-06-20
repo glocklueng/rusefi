@@ -44,7 +44,7 @@ import com.romraider.util.SettingsManager;
 import com.rusefi.Launcher;
 
 /**
- * A better implementation would be a composition of
+ * A better implementation would be a composition of two Table1D - one for axis another one for data
  */
 
 public class Table2D extends TableWithData {
@@ -456,59 +456,3 @@ public class Table2D extends TableWithData {
     }
 }
 
-class CopySelection2DWorker extends SwingWorker<Void, Void> {
-    Table2D table;
-    Table extendedTable;
-
-    public CopySelection2DWorker(Table2D table)
-    {
-        this.table = table;
-    }
-
-    @Override
-    protected Void doInBackground() throws Exception {
-        table.getAxis().copySelection();
-        return null;
-    }
-
-    @Override
-    public void done() {
-        Window ancestorWindow = SwingUtilities.getWindowAncestor(table);
-        if(null != ancestorWindow) {
-            ancestorWindow.setCursor(null);
-        }
-        table.setCursor(null);
-        Launcher.getFrame().setCursor(null);
-    }
-}
-
-class CopyTable2DWorker extends SwingWorker<Void, Void> {
-    Table2D table;
-
-    public CopyTable2DWorker(Table2D table)
-    {
-        this.table = table;
-    }
-
-    @Override
-    protected Void doInBackground() throws Exception {
-        String tableHeader = table.getSettings().getTable2DHeader();
-        StringBuffer output = new StringBuffer(tableHeader);
-        output.append(table.getTableAsString());
-
-        //copy to clipboard
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(output.toString()), null);
-        return null;
-
-    }
-
-    @Override
-    public void done() {
-        Window ancestorWindow = SwingUtilities.getWindowAncestor(table);
-        if(null != ancestorWindow) {
-            ancestorWindow.setCursor(null);
-        }
-        table.setCursor(null);
-        Launcher.getFrame().setCursor(null);
-    }
-}

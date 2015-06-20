@@ -382,7 +382,6 @@ public class Table3D extends Table {
         yAxis.refreshCompare();
     }
 
-    @Override
     public Dimension getFrameSize() {
         int height = verticalOverhead + cellHeight * data[0].length;
         int width = horizontalOverhead + data.length * cellWidth;

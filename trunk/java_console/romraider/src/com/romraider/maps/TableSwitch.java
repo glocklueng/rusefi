@@ -68,6 +68,16 @@ public class TableSwitch extends Table {
     }
 
     @Override
+    public void increment(double increment) {
+
+    }
+
+    @Override
+    public void multiply(double factor) {
+
+    }
+
+    @Override
     public void setDataSize(int size) {
         if (dataSize == 0)
             dataSize = size;
@@ -156,7 +166,7 @@ public class TableSwitch extends Table {
 
     @Override
     public byte[] saveFile(byte[] input) {
-        if (!super.getName().contains("Checksum Fix")) {
+
             if (!locked) {
                 JRadioButton selectedButton = getSelectedButton(buttonGroup);
                 System.arraycopy(
@@ -166,7 +176,7 @@ public class TableSwitch extends Table {
                         getStorageAddress() - ramOffset,
                         dataSize);
             }
-        }
+
         return input;
     }
 
@@ -178,7 +188,6 @@ public class TableSwitch extends Table {
         return switchStates.get(key);
     }
 
-    @Override
     public Dimension getFrameSize() {
         int height = verticalOverhead + 75;
         int width = horizontalOverhead;
