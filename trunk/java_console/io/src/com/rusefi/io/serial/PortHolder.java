@@ -2,6 +2,7 @@ package com.rusefi.io.serial;
 
 import com.rusefi.FileLog;
 import com.rusefi.binaryprotocol.BinaryProtocol;
+import com.rusefi.io.CommunicationLoggingHolder;
 import com.rusefi.io.DataListener;
 import com.rusefi.io.LinkManager;
 import jssc.SerialPort;
@@ -22,8 +23,6 @@ public class PortHolder {
     private static PortHolder instance = new PortHolder();
     private final Object portLock = new Object();
 
-    // todo: rename class & move field to not-serial-specific class
-    public static PortHolderListener portHolderListener = PortHolderListener.VOID;
     private BinaryProtocol bp;
 
     private PortHolder() {
@@ -33,7 +32,7 @@ public class PortHolder {
     private SerialPort serialPort;
 
     boolean openPort(String port, DataListener dataListener, LinkManager.LinkStateListener listener) {
-        this.portHolderListener.onPortHolderMessage(SerialManager.class, "Opening port: " + port);
+        CommunicationLoggingHolder.communicationLoggingListener.onPortHolderMessage(SerialManager.class, "Opening port: " + port);
         if (port == null)
             return false;
         boolean result = open(port, dataListener);
@@ -53,7 +52,7 @@ public class PortHolder {
             if (!opened)
                 FileLog.MAIN.logLine("not opened!");
             setupPort(serialPort, BAUD_RATE);
-//            serialPort.addEventListener(new SerialPortReader(serialPort, portHolderListener));
+//            serialPort.addEventListener(new SerialPortReader(serialPort, communicationLoggingListener));
         } catch (SerialPortException e) {
             FileLog.MAIN.logLine("ERROR " + e.getMessage());
             return false;
@@ -122,7 +121,7 @@ public class PortHolder {
 //        synchronized (portLock) {
 //            while (serialPort == null) {
 //                if (System.currentTimeMillis() - now > 3 * MINUTE)
-//                    portHolderListener.onPortHolderMessage(PortHolder.class, "Looks like connection is gone :(");
+//                    communicationLoggingListener.onPortHolderMessage(PortHolder.class, "Looks like connection is gone :(");
 //                portLock.wait(MINUTE);
 //            }
 //            // we are here only when serialPort!=null, that means we have a connection

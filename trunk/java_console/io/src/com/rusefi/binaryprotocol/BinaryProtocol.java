@@ -7,6 +7,7 @@ import com.rusefi.io.CommandQueue;
 import com.rusefi.io.DataListener;
 import com.rusefi.io.IoStream;
 import com.rusefi.io.LinkManager;
+import com.rusefi.io.CommunicationLoggingHolder;
 import com.rusefi.io.serial.PortHolder;
 import com.rusefi.io.serial.SerialIoStream;
 import etch.util.CircularByteBuffer;
@@ -84,7 +85,7 @@ public class BinaryProtocol {
 
     public void doSend(final String command) throws InterruptedException {
         FileLog.MAIN.logLine("Sending [" + command + "]");
-        PortHolder.portHolderListener.onPortHolderMessage(PortHolder.class, "Sending [" + command + "]");
+        CommunicationLoggingHolder.communicationLoggingListener.onPortHolderMessage(PortHolder.class, "Sending [" + command + "]");
 
         Future f = LinkManager.COMMUNICATION_EXECUTOR.submit(new Runnable() {
             @Override
