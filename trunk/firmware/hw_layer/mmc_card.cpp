@@ -160,11 +160,13 @@ static void ff_cmd_dir(const char *pathx) {
 		scheduleMsg(&logger, "Error: No File system is mounted");
 		return;
 	}
+	lockSpi(SPI_NONE);
 
 	FRESULT res = f_opendir(&dir, path);
 
 	if (res != FR_OK) {
 		scheduleMsg(&logger, "Error opening directory %s", path);
+		unlockSpi();
 		return;
 	}
 
@@ -192,6 +194,7 @@ static void ff_cmd_dir(const char *pathx) {
 					fno.fname);
 		}
 	}
+	unlockSpi();
 }
 
 static int errorReported = FALSE; // this is used to report the error only once
