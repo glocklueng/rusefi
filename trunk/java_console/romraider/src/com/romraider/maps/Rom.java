@@ -55,7 +55,7 @@ public class Rom extends DefaultMutableTreeNode implements Serializable  {
     private static final Logger LOGGER = Logger.getLogger(Rom.class);
     private RomID romID = new RomID();
     private String fileName = "";
-    private final Vector<TableTreeNode> tableNodes = new Vector<TableTreeNode>();
+    private final Vector<TableTreeNode> tableNodes = new Vector<>();
     private byte[] binData;
     private boolean isAbstract = false;
 
@@ -112,35 +112,9 @@ public class Rom extends DefaultMutableTreeNode implements Serializable  {
         }
     }
 
-    public void addTableByName(Table table) {
-        boolean found = false;
-        String frameTitle = this.getFileName()+" - "+table.getName();
-
-        for (int i = 0; i < tableNodes.size(); i++) {
-            if (tableNodes.get(i).getTable().getName().equalsIgnoreCase(table.getName())) {
-                tableNodes.remove(i);
-                tableNodes.add(i, new TableTreeNode(new TableFrame(frameTitle, table)));
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            tableNodes.add(new TableTreeNode(new TableFrame(frameTitle, table)));
-        }
-    }
-
     public void removeTable(Table table) {
         for(int i = 0; i < tableNodes.size(); i++) {
             if(tableNodes.get(i).getTable().equals(table)) {
-                tableNodes.remove(i);
-                return;
-            }
-        }
-    }
-
-    public void removeTableByName(Table table) {
-        for(int i = 0; i < tableNodes.size(); i++) {
-            if(tableNodes.get(i).getTable().getName().equalsIgnoreCase(table.getName())) {
                 tableNodes.remove(i);
                 return;
             }
@@ -161,7 +135,7 @@ public class Rom extends DefaultMutableTreeNode implements Serializable  {
     }
 
     public List<Table> findTables(String regex) {
-        List<Table> result = new ArrayList<Table>();
+        List<Table> result = new ArrayList<>();
         for (TableTreeNode tableNode : tableNodes) {
             String name = tableNode.getTable().getName();
             if (name.matches(regex)) result.add(tableNode.getTable());
@@ -188,17 +162,6 @@ public class Rom extends DefaultMutableTreeNode implements Serializable  {
                         if (null != table.getName() && table.getName().equalsIgnoreCase("Checksum Fix")){
                             setEditStamp(binData, table.getStorageAddress());
                         }
-                    } catch (ArrayIndexOutOfBoundsException ex) {
-
-                        LOGGER.error(table.getName() +
-                                " type " + table.getType() + " start " +
-                                table.getStorageAddress() + " " + binData.length + " filesize", ex);
-
-                        // table storage address extends beyond end of file
-                        JOptionPane.showMessageDialog(SwingUtilities.windowForComponent(table), "Storage address for table \"" + table.getName() +
-                                "\" is out of bounds.\nPlease check ECU definition file.", "ECU Definition Error", JOptionPane.ERROR_MESSAGE);
-                        tableNodes.removeElementAt(i);
-                        i--;
                     } catch (IndexOutOfBoundsException iex) {
                         LOGGER.error(table.getName() +
                                 " type " + table.getType() + " start " +
@@ -260,8 +223,8 @@ public class Rom extends DefaultMutableTreeNode implements Serializable  {
     public String toString() {
         String output = "";
         output = output + "\n---- Rom ----" + romID.toString();
-        for (int i = 0; i < tableNodes.size(); i++) {
-            output = output + tableNodes.get(i).getTable();
+        for (TableTreeNode tableNode : tableNodes) {
+            output = output + tableNode.getTable();
         }
         output = output + "\n---- End Rom ----";
 
@@ -273,7 +236,7 @@ public class Rom extends DefaultMutableTreeNode implements Serializable  {
     }
 
     public Vector<Table> getTables() {
-        Vector<Table> tables = new Vector<Table>();
+        Vector<Table> tables = new Vector<>();
         for(TableTreeNode tableNode : tableNodes) {
             tables.add(tableNode.getTable());
         }
@@ -289,7 +252,7 @@ public class Rom extends DefaultMutableTreeNode implements Serializable  {
     }
 
     public byte[] saveFile() {
-        final List<TableTreeNode> checksumTables = new ArrayList<TableTreeNode>();
+        final List<TableTreeNode> checksumTables = new ArrayList<>();
         for (TableTreeNode tableNode : tableNodes) {
             tableNode.getTable().saveFile(binData);
             if (tableNode.getTable().getName().contains("Checksum Fix")) {
