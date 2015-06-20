@@ -104,7 +104,7 @@ public class TcpConnector implements LinkConnector {
 
         bp = new BinaryProtocol(FileLog.LOGGER, new TcpIoStream(os, stream));
 
-        boolean result = bp.connect(listener1);
+        boolean result = bp.connectAndReadConfiguration(listener1);
         if (result) {
             listener.onConnectionEstablished();
         } else {

@@ -113,7 +113,11 @@ public class BinaryProtocol {
         MessagesCentral.getInstance().postMessage(PortHolder.class, CommandQueue.CONFIRMATION_PREFIX + command);
     }
 
-    public boolean connect(DataListener listener) {
+    /**
+     * this method would switch controller to binary protocol and read configuration snapshot from controller
+     * @return true if everything fine
+     */
+    public boolean connectAndReadConfiguration(DataListener listener) {
         switchToBinaryProtocol();
         readImage(TsPageSize.IMAGE_SIZE);
         if (isClosed)

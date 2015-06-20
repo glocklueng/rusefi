@@ -32,7 +32,7 @@ import static com.rusefi.ui.storage.PersistentConfiguration.getConfig;
  * @see com.rusefi.StartupFrame
  */
 public class Launcher {
-    public static final int CONSOLE_VERSION = 20150616;
+    public static final int CONSOLE_VERSION = 20150617;
     public static final boolean SHOW_STIMULATOR = false;
     private static final String TAB_INDEX = "main_tab";
     protected static final String PORT_KEY = "port";
@@ -44,6 +44,7 @@ public class Launcher {
 
     private static Frame staticFrame;
     private final TableEditorPane tableEditor = new TableEditorPane();
+    private final SettingsTab settingsTab = new SettingsTab();
 
     FrameHelper frame = new FrameHelper() {
         @Override
@@ -99,7 +100,7 @@ public class Launcher {
         tabbedPane.addTab("Table Editor", tableEditor);
 //        tabbedPane.add("Wizards", new Wizard().createPane());
 
-        tabbedPane.add("Settings", new SettingsTab().createPane());
+        tabbedPane.add("Settings", settingsTab.createPane());
         tabbedPane.add("Bench Test", new BenchTestPane().getContent());
 
         if (!LinkManager.isLogViewerMode(port)) {
@@ -129,11 +130,11 @@ public class Launcher {
             @Override
             public void onConnectionEstablished() {
                 tableEditor.showContent();
+                settingsTab.showContent();
             }
         });
 
         LinkManager.engineState.registerStringValueAction(EngineState.RUS_EFI_VERSION_TAG, new EngineState.ValueCallback<String>() {
-
             @Override
             public void onUpdate(String firmwareVersion) {
                 Launcher.firmwareVersion.set(firmwareVersion);

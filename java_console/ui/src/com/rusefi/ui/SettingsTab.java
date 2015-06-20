@@ -1,5 +1,6 @@
 package com.rusefi.ui;
 
+import com.rusefi.TableEditorPane;
 import com.rusefi.config.Fields;
 import com.rusefi.ui.config.BitConfigField;
 import com.rusefi.ui.config.ConfigField;
@@ -12,8 +13,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SettingsTab {
     private final JPanel panel = new JPanel(new GridLayout(3, 3));
+    private final JPanel content = new JPanel(new BorderLayout());
 
     public SettingsTab() {
+        TableEditorPane.showLoadingMessage(content);
+   }
+
+    public Component createPane() {
+        return content;
+    }
+
+    public void showContent() {
+        content.removeAll();
+
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.ALGORITHM, "algorithm").getContent()));
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.TRIGGER_TYPE, "trigger type").getContent()));
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.TRIGGERINPUTPINS1, "trigger #1 input").getContent()));
@@ -33,9 +45,7 @@ public class SettingsTab {
         panel.add(UiUtils.wrap(new ConfigField(Fields.GLOBALTRIGGERANGLEOFFSET, "trig offset").getContent()));
 
         panel.add(UiUtils.wrap(RecentCommands.createButton(new AtomicBoolean(), "writeconfig")));
-    }
 
-    public Component createPane() {
-        return panel;
+        content.add(panel);
     }
 }

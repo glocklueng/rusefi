@@ -7,7 +7,6 @@ import com.rusefi.io.DataListener;
 import com.rusefi.io.LinkManager;
 import jssc.SerialPort;
 import jssc.SerialPortException;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -44,6 +43,9 @@ public class PortHolder {
         return result;
     }
 
+    /**
+     * @return true if everything fine
+     */
     private boolean open(String port, final DataListener listener) {
         SerialPort serialPort = new SerialPort(port);
         try {
@@ -72,7 +74,7 @@ public class PortHolder {
 
         bp = new BinaryProtocol(FileLog.LOGGER, new SerialIoStream(serialPort, FileLog.LOGGER));
 
-        return bp.connect(listener);
+        return bp.connectAndReadConfiguration(listener);
     }
 
     public static void setupPort(SerialPort serialPort, int baudRate) throws SerialPortException {
