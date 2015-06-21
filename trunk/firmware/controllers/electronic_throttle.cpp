@@ -56,6 +56,7 @@ static float prevTps;
 EXTERN_ENGINE;
 
 static msg_t etbThread(void *arg) {
+        UNUSED(arg);
 	while (TRUE) {
 		int tps = (int)getTPS();
 
