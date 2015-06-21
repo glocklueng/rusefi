@@ -53,7 +53,9 @@ int atoi(const char *string);
 #else
 #define cisnan isnan
 #endif
-
+  
+#define UNUSED(x) (void)(x)
+  
 int absI(int32_t value);
 float absF(float value);
 float efiRound(float value, float precision);
