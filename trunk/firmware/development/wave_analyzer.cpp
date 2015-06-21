@@ -138,6 +138,7 @@ static void initWave(const char *name, int index) {
 
 WaveReader::WaveReader() {
 	hw = NULL;
+	last_wave_high_widthUs = 0;
 }
 
 static void waTriggerEventListener(trigger_event_e ckpSignalType, uint32_t index DECLARE_ENGINE_PARAMETER_S) {
