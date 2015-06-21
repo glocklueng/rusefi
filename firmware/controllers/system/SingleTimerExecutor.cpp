@@ -128,6 +128,9 @@ void Executor::doExecute() {
 	reentrantFlag = false;
 }
 
+/**
+ * This method is always invoked under a lock
+ */
 void Executor::scheduleTimerCallback() {
 	/**
 	 * Let's grab fresh time value

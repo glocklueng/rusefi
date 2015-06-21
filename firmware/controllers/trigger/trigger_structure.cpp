@@ -272,10 +272,6 @@ void TriggerShape::addEvent(float angle, trigger_wheel_e const waveIndex, trigge
 		for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
 			single_wave_s *wave = &this->wave.waves[i];
 
-			if (wave == NULL) {
-				firmwareError("wave is NULL");
-				return;
-			}
 			if (wave->pinStates == NULL) {
 				firmwareError("wave pinStates is NULL");
 				return;
