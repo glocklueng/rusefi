@@ -134,6 +134,7 @@ void WaveChart::publishChartIfFull() {
 WaveChart::WaveChart() {
 	isInitialized = false;
 	startTimeNt = 0;
+	counter = 0;
 }
 
 void WaveChart::init() {

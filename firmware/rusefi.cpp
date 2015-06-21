@@ -269,8 +269,8 @@ void firmwareError(const char *errorMsg, ...) {
 		 * in case of simple error message let's reduce stack usage
 		 * because chvprintf might be causing an error
 		 */
-		strcpy((char*) errorMessageBuffer, errorMsg);
-
+		strncpy((char*) errorMessageBuffer, errorMsg, sizeof(errorMessageBuffer) - 1);
+		errorMessageBuffer[sizeof(errorMessageBuffer) - 1] = 0; // just to be sure
 	} else {
 		firmwareErrorMessageStream.eos = 0; // reset
 		va_list ap;
