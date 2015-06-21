@@ -8,6 +8,8 @@
  * default pinouts in case of SPI2 connected to MMC: PB13 - SCK, PB14 - MISO, PB15 - MOSI, PD4 - CS, 3.3v
  * default pinouts in case of SPI3 connected to MMC: PB3  - SCK, PB4  - MISO, PB5  - MOSI, PD4 - CS, 3.3v
  *
+ *
+ * todo: extract some logic into a controller file
  */
 
 #include "main.h"
@@ -24,6 +26,9 @@
 #include "status_loop.h"
 
 #define LOG_INDEX_FILENAME "index.txt"
+#define RUSEFI_LOG_PREFIX "rus"
+#define LS_RESPONSE "ls_result"
+#define FILE_LIST_MAX_COUNT 20
 
 extern board_configuration_s *boardConfiguration;
 
@@ -128,7 +133,7 @@ static void incLogFileName(void) {
 static void createLogFile(void) {
 	lockSpi(SPI_NONE);
 	memset(&FDLogFile, 0, sizeof(FIL));						// clear the memory
-	strcpy(logName, "rus");
+	strcpy(logName, RUSEFI_LOG_PREFIX);
 	char *ptr = itoa10(&logName[3], logFileIndex);
 	strcat(ptr, ".log");
 
@@ -150,7 +155,18 @@ static void createLogFile(void) {
 	unlockSpi();
 }
 
-static void ff_cmd_dir(const char *pathx) {
+static void removeFile(const char *pathx) {
+	if (!fs_ready) {
+		scheduleMsg(&logger, "Error: No File system is mounted");
+		return;
+	}
+	lockSpi(SPI_NONE);
+	f_unlink(pathx);
+
+	unlockSpi();
+}
+
+static void listDirectory(const char *pathx) {
 	char *path = (char *) pathx; // todo: fix this hack!
 	DIR dir;
 	FILINFO fno;
@@ -170,8 +186,10 @@ static void ff_cmd_dir(const char *pathx) {
 		return;
 	}
 
+	scheduleMsg(&logger, LS_RESPONSE);
+
 	int i = strlen(path);
-	for (;;) {
+	for (int count = 0;count < FILE_LIST_MAX_COUNT;) {
 		res = f_readdir(&dir, &fno);
 		if (res != FR_OK || fno.fname[0] == 0)
 			break;
@@ -187,11 +205,18 @@ static void ff_cmd_dir(const char *pathx) {
 				break;
 			path[i] = 0;
 		} else {
-			scheduleMsg(&logger, "%c%c%c%c%c %u/%02u/%02u %02u:%02u %9lu  %-12s", (fno.fattrib & AM_DIR) ? 'D' : '-',
-					(fno.fattrib & AM_RDO) ? 'R' : '-', (fno.fattrib & AM_HID) ? 'H' : '-',
-					(fno.fattrib & AM_SYS) ? 'S' : '-', (fno.fattrib & AM_ARC) ? 'A' : '-', (fno.fdate >> 9) + 1980,
-					(fno.fdate >> 5) & 15, fno.fdate & 31, (fno.ftime >> 11), (fno.ftime >> 5) & 63, fno.fsize,
-					fno.fname);
+			if ((fno.fattrib & AM_DIR) || strncmp(RUSEFI_LOG_PREFIX, fno.fname, sizeof(RUSEFI_LOG_PREFIX) - 1)) {
+				continue;
+			}
+			scheduleMsg(&logger, "logfile%lu:%s", fno.fsize, fno.fname);
+
+			count++;
+
+//			scheduleMsg(&logger, "%c%c%c%c%c %u/%02u/%02u %02u:%02u %9lu  %-12s", (fno.fattrib & AM_DIR) ? 'D' : '-',
+//					(fno.fattrib & AM_RDO) ? 'R' : '-', (fno.fattrib & AM_HID) ? 'H' : '-',
+//					(fno.fattrib & AM_SYS) ? 'S' : '-', (fno.fattrib & AM_ARC) ? 'A' : '-', (fno.fdate >> 9) + 1980,
+//					(fno.fdate >> 5) & 15, fno.fdate & 31, (fno.ftime >> 11), (fno.ftime >> 5) & 63, fno.fsize,
+//					fno.fname);
 		}
 	}
 	unlockSpi();
@@ -323,7 +348,8 @@ void initMmcCard(void) {
 	addConsoleAction("mountsd", MMCmount);
 	addConsoleActionS("appendToLog", appendToLog);
 	addConsoleAction("umountsd", MMCumount);
-	addConsoleActionS("ls", ff_cmd_dir);
+	addConsoleActionS("ls", listDirectory);
+	addConsoleActionS("del", removeFile);
 	addConsoleAction("incfilename", incLogFileName);
 }
 
