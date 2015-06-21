@@ -75,20 +75,15 @@ bool_t EventQueue::insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_
 
 /**
  * On this layer it does not matter which units are used - us, ms ot nt.
+ *
+ * This method is always invoked under a lock
  * @return Get the timestamp of the soonest pending action, skipping all the actions in the past
  */
 uint64_t EventQueue::getNextEventTime(uint64_t nowX) {
-	scheduling_s * current;
 	uint64_t nextTimeUs = EMPTY_QUEUE;
 
-	int counter = 0;
-	LL_FOREACH(head, current)
-	{
-		if (++counter > QUEUE_LENGTH_LIMIT) {
-			firmwareError("Is this list looped #2?");
-			return EMPTY_QUEUE;
-		}
-		if (current->momentX <= nowX) {
+	if (head != NULL) {
+		if (head->momentX <= nowX) {
 			/**
 			 * We are here if action timestamp is in the past
 			 *
@@ -98,7 +93,7 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowX) {
 			uint64_t aBitInTheFuture = nowX + lateDelay;
 			return aBitInTheFuture;
 		} else {
-			return current->momentX;
+			return head->momentX;
 		}
 	}
 	return EMPTY_QUEUE;
