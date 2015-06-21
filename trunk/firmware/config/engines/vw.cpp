@@ -17,7 +17,9 @@ void setVwAba(DECLARE_ENGINE_PARAMETER_F) {
 	setCustomEngineConfiguration(PASS_ENGINE_PARAMETER_F);
 
 	setOperationMode(engineConfiguration, FOUR_STROKE_CRANK_SENSOR);
-	engineConfiguration->trigger.type = TT_TOOTHED_WHEEL_60_2;
+//	engineConfiguration->trigger.type = TT_TOOTHED_WHEEL_60_2;
+	engineConfiguration->trigger.type = TT_60_2_VW;
+
 
 	//Base engine setting
 	engineConfiguration->specs.cylindersCount = 4;
