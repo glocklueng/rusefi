@@ -374,6 +374,11 @@ void initializeTriggerShape(Logging *logger, engine_configuration_s const *engin
 		setToothedWheelConfiguration(triggerShape, 60, 2, engineConfiguration->operationMode);
 		break;
 
+	case TT_60_2_VW:
+		setToothedWheelConfiguration(triggerShape, 60, 2, engineConfiguration->operationMode);
+		triggerShape->setTriggerSynchronizationGap(2);
+		break;
+
 	case TT_TOOTHED_WHEEL_36_1:
 		setToothedWheelConfiguration(triggerShape, 36, 1, engineConfiguration->operationMode);
 		break;

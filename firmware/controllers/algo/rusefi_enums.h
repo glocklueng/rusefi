@@ -137,6 +137,7 @@ typedef enum {
 	TT_ONE = 18,
 
 	TT_DODGE_RAM = 19,
+	TT_60_2_VW = 20,
 
 	Force_4b_trigger_type = ENUM_32_BITS,
 } trigger_type_e;
