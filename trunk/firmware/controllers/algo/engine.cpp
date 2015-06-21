@@ -83,6 +83,7 @@ Engine::Engine(persistent_config_s *config) {
 	knockNow = false;
 	knockEver = false;
 	knockCount = 0;
+	knockDebug = false;
 	timeOfLastKnockEvent = 0;
 	injectorLagMs = fuelMs = 0;
 	clutchDownState = clutchUpState = false;
