@@ -561,7 +561,7 @@ void initEngineContoller(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
 
 #if EFI_MALFUNCTION_INDICATOR || defined(__DOXYGEN__)
 	if (engineConfiguration->isMilEnabled) {
-		initMalfunctionIndicator(engine);
+		initMalfunctionIndicator();
 	}
 #endif /* EFI_MALFUNCTION_INDICATOR */
 
