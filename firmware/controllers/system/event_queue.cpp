@@ -23,6 +23,7 @@ scheduling_s::scheduling_s() {
 	next = NULL;
 	param = NULL;
 	isScheduled = false;
+	momentX = 0;
 }
 
 EventQueue::EventQueue() {
