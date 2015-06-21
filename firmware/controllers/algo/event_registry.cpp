@@ -26,6 +26,7 @@
 
 IgnitionEvent::IgnitionEvent() {
 	name = NULL;
+	next = NULL;
 }
 
 //void registerActuatorEventWhat(InjectionEventList *list, int eventIndex, OutputSignal *actuator, float angleOffset) {
