@@ -14,11 +14,7 @@ public class TableEditorPane extends JPanel {
 
     public TableEditorPane() {
         super(new BorderLayout());
-        showLoadingMessage(this);
-    }
-
-    public static void showLoadingMessage(JPanel panel) {
-        panel.add(new JLabel("Loading..."), BorderLayout.CENTER);
+        UiUtils.showLoadingMessage(this);
     }
 
     public void showContent() {
