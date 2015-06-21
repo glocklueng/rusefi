@@ -123,4 +123,8 @@ public class UiUtils {
             SwingUtilities.invokeAndWait(runnable);
         }
     }
+
+    public static void showLoadingMessage(JPanel panel) {
+        panel.add(new JLabel("Loading..."), BorderLayout.CENTER);
+    }
 }

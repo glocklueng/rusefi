@@ -1,6 +1,5 @@
 package com.rusefi.ui;
 
-import com.rusefi.TableEditorPane;
 import com.rusefi.config.Fields;
 import com.rusefi.ui.config.BitConfigField;
 import com.rusefi.ui.config.ConfigField;
@@ -16,7 +15,7 @@ public class SettingsTab {
     private final JPanel content = new JPanel(new BorderLayout());
 
     public SettingsTab() {
-        TableEditorPane.showLoadingMessage(content);
+        UiUtils.showLoadingMessage(content);
    }
 
     public Component createPane() {

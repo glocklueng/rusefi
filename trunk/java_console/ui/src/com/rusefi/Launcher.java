@@ -45,6 +45,7 @@ public class Launcher {
     private static Frame staticFrame;
     private final TableEditorPane tableEditor = new TableEditorPane();
     private final SettingsTab settingsTab = new SettingsTab();
+    private final LogsManager logsManager = new LogsManager();
 
     FrameHelper frame = new FrameHelper() {
         @Override
@@ -102,6 +103,7 @@ public class Launcher {
 
         tabbedPane.add("Settings", settingsTab.createPane());
         tabbedPane.add("Bench Test", new BenchTestPane().getContent());
+        tabbedPane.add("Logs Manager", logsManager.getContent());
 
         if (!LinkManager.isLogViewerMode(port)) {
             int selectedIndex = getConfig().getRoot().getIntProperty(TAB_INDEX, 2);
@@ -131,6 +133,7 @@ public class Launcher {
             public void onConnectionEstablished() {
                 tableEditor.showContent();
                 settingsTab.showContent();
+                logsManager.showContent();
             }
         });
 
