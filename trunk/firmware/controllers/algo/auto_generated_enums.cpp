@@ -125,6 +125,8 @@ case TT_ONE_PLUS_TOOTHED_WHEEL_60_2:
 	return "TT_ONE_PLUS_TOOTHED_WHEEL_60_2";
 case TT_ONE:
 	return "TT_ONE";
+case TT_60_2_VW:
+	return "TT_60_2_VW";
 case TT_DODGE_RAM:
 	return "TT_DODGE_RAM";
   }
