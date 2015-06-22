@@ -42,6 +42,7 @@ void hwHandleShaftSignal(trigger_event_e signal);
 float getTriggerDutyCycle(int index);
 void initTriggerCentral(Logging *sharedLogger, Engine *engine);
 void printAllCallbacksHistogram(void);
+void printAllTriggers();
 
 void addTriggerEventListener(ShaftPositionListener handler, const char *name, Engine *engine);
 int isSignalDecoderError(void);
