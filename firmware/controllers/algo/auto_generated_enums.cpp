@@ -10,6 +10,8 @@
 #include "rusefi_enums.h"
 const char *getTiming_mode_e(timing_mode_e value) {
 	switch(value) {
+	case Internal_ForceMyEnumIntSize_timing_mode:
+	  return "Internal_ForceMyEnumIntSize_timing_mode";
 	case TM_DYNAMIC:
 		return "TM_DYNAMIC";
 	case TM_FIXED:
