@@ -20,7 +20,7 @@ void setVwAba(DECLARE_ENGINE_PARAMETER_F) {
 //	engineConfiguration->trigger.type = TT_TOOTHED_WHEEL_60_2;
 	engineConfiguration->trigger.type = TT_60_2_VW;
 
-	engineConfiguration->mafAdcChannel = EFI_ADC_0;
+	engineConfiguration->mafAdcChannel = EFI_ADC_1;
 
 
 	//Base engine setting
