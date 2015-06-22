@@ -225,6 +225,7 @@ static void triggerShapeInfo(void) {
 #include <stdio.h>
 #include <stdlib.h>
 
+
 /**
  * This is used to generate trigger info which is later used by TODO to generate images for documentation
  */
@@ -244,15 +245,16 @@ void printAllTriggers() {
 		engine_configuration_s *engineConfiguration = &pc.engineConfiguration;
 		board_configuration_s *boardConfiguration = &engineConfiguration->bc;
 
+		engineConfiguration->engineCycle = 720;
 		engineConfiguration->trigger.type = tt;
 		engineConfiguration->operationMode = FOUR_STROKE_CAM_SENSOR;
 
-		TriggerShape s;
-		s.initializeTriggerShape(NULL PASS_ENGINE_PARAMETER);
+		TriggerShape *s = &engine->triggerShape;
+		s->initializeTriggerShape(NULL PASS_ENGINE_PARAMETER);
 
-		fprintf(fp, "TRIGGERTYPE %d %d\r\n", triggerId, s.getSize());
-		for (int i = 0; i < s.getSize(); i++) {
-			fprintf(fp, "event %d %f\r\n", i, s.eventAngles[i]);
+		fprintf(fp, "TRIGGERTYPE %d %d\r\n", triggerId, s->getSize());
+		for (int i = 0; i < s->getSize(); i++) {
+			fprintf(fp, "event %d %f\r\n", i, s->eventAngles[i]);
 		}
 
 	}
