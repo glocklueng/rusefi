@@ -122,7 +122,7 @@ public:
 
 	float baseTableFuel;
 
-	angle_t injectionAngle;
+	angle_t injectionOffset;
 };
 
 class RpmCalculator;

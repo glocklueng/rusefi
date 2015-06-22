@@ -282,9 +282,9 @@ void setFordEscortGt(DECLARE_ENGINE_PARAMETER_F) {
 	// set_global_trigger_offset_angle -40
 	engineConfiguration->globalTriggerAngleOffset = -40;
 	// set_ignition_offset 0
-	engineConfiguration->ignitionBaseAngle = 0;
+	engineConfiguration->ignitionOffset = 0;
 	// set_injection_offset 0
-	engineConfiguration->injectionAngle = 0;
+	engineConfiguration->injectionOffset = 0;
 
 	// todo: change to 15?
 	// set_cranking_timing_angle 3
