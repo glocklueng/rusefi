@@ -17,11 +17,12 @@
 #define TRIGGER_CHANNEL_COUNT 3
 
 class trigger_shape_helper {
-	pin_state_t pinStates[TRIGGER_CHANNEL_COUNT][PWM_PHASE_MAX_COUNT];
 public:
 	trigger_shape_helper();
 
 	single_wave_s waves[TRIGGER_CHANNEL_COUNT];
+private:
+	pin_state_t pinStates[TRIGGER_CHANNEL_COUNT][PWM_PHASE_MAX_COUNT];
 };
 
 class Engine;
