@@ -230,8 +230,22 @@ static void triggerShapeInfo(void) {
 void printAllTriggers() {
 
 	FILE * fp = fopen ("triggers.txt", "w+");
-	fprintf(fp, "%s %s %s %d", "We", "are", "in", 2012);
 
+	for (int triggerId = 1; triggerId < TT_UNUSED; triggerId++) {
+
+		engine_configuration_s ec;
+		ec.trigger.type = (trigger_type_e) triggerId;
+		ec.operationMode = FOUR_STROKE_CRANK_SENSOR;
+
+		TriggerShape s;
+		s.initializeTriggerShape(NULL, &ec);
+
+		fprintf(fp, "TRIGGERTYPE %d %d\r\n", triggerId, s.getSize());
+		for (int i = 0; i < s.getSize(); i++) {
+			fprintf(fp, "event %d %f\r\n", i, s.eventAngles[i]);
+		}
+
+	}
 	fclose(fp);
 }
 
