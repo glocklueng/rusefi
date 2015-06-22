@@ -228,6 +228,7 @@ void printConfiguration(engine_configuration_s *engineConfiguration) {
 
 	scheduleMsg(&logger, "=== cranking ===");
 	scheduleMsg(&logger, "crankingRpm: %d", engineConfiguration->cranking.rpm);
+	scheduleMsg(&logger, "cranking injection %s", getInjection_mode_e(engineConfiguration->crankingInjectionMode));
 
 	if (engineConfiguration->useConstantDwellDuringCranking) {
 		scheduleMsg(&logger, "ignitionDwellForCrankingMs=%f", engineConfiguration->ignitionDwellForCrankingMs);
@@ -244,11 +245,11 @@ void printConfiguration(engine_configuration_s *engineConfiguration) {
 	if (engineConfiguration->timingMode == TM_FIXED) {
 		scheduleMsg(&logger, "fixedModeTiming: %d", (int) engineConfiguration->fixedModeTiming);
 	}
-	scheduleMsg(&logger, "ignitionOffset=%f", engineConfiguration->ignitionBaseAngle);
+	scheduleMsg(&logger, "ignitionOffset=%f", engineConfiguration->ignitionOffset);
 
 	scheduleMsg(&logger, "=== injection ===");
 	scheduleMsg(&logger, "injection %s offset=%f/enabled=%s", getInjection_mode_e(engineConfiguration->injectionMode),
-			(double) engineConfiguration->injectionAngle, boolToString(engineConfiguration->isInjectionEnabled));
+			(double) engineConfiguration->injectionOffset, boolToString(engineConfiguration->isInjectionEnabled));
 
 	printOutputs(engineConfiguration);
 
@@ -336,13 +337,13 @@ static void setIdlePinMode(int value) {
 }
 
 static void setInjectionOffset(float value) {
-	engineConfiguration->injectionAngle = value;
+	engineConfiguration->injectionOffset = value;
 	doPrintConfiguration(engine);
 	incrementGlobalConfigurationVersion();
 }
 
 static void setIgnitionOffset(float value) {
-	engineConfiguration->ignitionBaseAngle = value;
+	engineConfiguration->ignitionOffset = value;
 	doPrintConfiguration(engine);
 	incrementGlobalConfigurationVersion();
 }

@@ -195,13 +195,13 @@ engine_load_mode_e algorithm;This setting controls which algorithm is used for E
 custom injection_mode_e 4 bits, U32, @OFFSET@, [0:1], "Simultaneous", "Sequential", "Batch", "INVALID"
 injection_mode_e crankingInjectionMode;
 injection_mode_e injectionMode;
-float injectionAngle;this is about deciding when the injector starts it's squirt;"deg",    1,      0.0,       0,  1000.0,        2
+float injectionOffset;this is about deciding when the injector starts it's squirt\nSee also injectionPhase map;"deg",    1,      0.0,       0,  1000.0,        2
 float crankingTimingAngle;;     "deg",    1,      0.0,    -360,     360,        2
 
 custom ignition_mode_e 4 bits,    U32,    @OFFSET@, [0:1], "One coil", "Individual Coils", "Wasted", "INVALID"
 ignition_mode_e ignitionMode;
 
-float ignitionBaseAngle;this value could be used to offset the whole ignition timing table by a constant;"RPM",    1,      0,       0,  3000.0,      0
+float ignitionOffset;this value could be used to offset the whole ignition timing table by a constant;"RPM",    1,      0,       0,  3000.0,      0
 
 custom timing_mode_e 4 bits, U32, @OFFSET@ [0:0], "dynamic", "fixed"
 timing_mode_e timingMode;

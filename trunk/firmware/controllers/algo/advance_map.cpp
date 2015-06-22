@@ -90,7 +90,7 @@ angle_t getAdvance(int rpm, float engineLoad DECLARE_ENGINE_PARAMETER_S) {
 	} else {
 		angle = getRunningAdvance(rpm, engineLoad PASS_ENGINE_PARAMETER);
 	}
-	angle -= engineConfiguration->ignitionBaseAngle;
+	angle -= engineConfiguration->ignitionOffset;
 	fixAngle(angle);
 	return angle;
 }

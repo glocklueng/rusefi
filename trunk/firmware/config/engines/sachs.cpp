@@ -24,7 +24,7 @@ void setSachs(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->engineChartSize = 400;
 
 	 // set_injection_offset 0
-	engineConfiguration->injectionAngle = 0;
+	engineConfiguration->injectionOffset = 0;
 
 
 	/**

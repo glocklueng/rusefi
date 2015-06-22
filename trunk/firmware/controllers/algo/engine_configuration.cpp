@@ -368,8 +368,8 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 
 	engineConfiguration->ignitionMode = IM_ONE_COIL;
 	engineConfiguration->globalTriggerAngleOffset = 0;
-	engineConfiguration->injectionAngle = 0;
-	engineConfiguration->ignitionBaseAngle = 0;
+	engineConfiguration->injectionOffset = 0;
+	engineConfiguration->ignitionOffset = 0;
 	engineConfiguration->overrideCrankingIgnition = true;
 	engineConfiguration->sensorChartFrequency = 20;
 

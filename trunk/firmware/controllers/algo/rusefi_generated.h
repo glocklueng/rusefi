@@ -131,10 +131,10 @@
 #define algorithm_offset 424
 #define crankingInjectionMode_offset 428
 #define injectionMode_offset 432
-#define injectionAngle_offset 436
+#define injectionOffset_offset 436
 #define crankingTimingAngle_offset 440
 #define ignitionMode_offset 444
-#define ignitionBaseAngle_offset 448
+#define ignitionOffset_offset 448
 #define timingMode_offset 452
 #define fixedModeTiming_offset 456
 #define globalTriggerAngleOffset_offset 460

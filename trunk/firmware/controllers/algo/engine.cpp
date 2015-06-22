@@ -220,7 +220,7 @@ void Engine::periodicFastCallback(DECLARE_ENGINE_PARAMETER_F) {
 
 	engine->engineState.baroCorrection = getBaroCorrection(PASS_ENGINE_PARAMETER_F);
 
-	engine->engineState.injectionAngle = getInjectionAngle(rpm PASS_ENGINE_PARAMETER);
+	engine->engineState.injectionOffset = getinjectionOffset(rpm PASS_ENGINE_PARAMETER);
 	engine->engineState.timingAdvance = getAdvance(rpm, engineLoad PASS_ENGINE_PARAMETER);
 
 	if (engineConfiguration->algorithm == LM_SPEED_DENSITY) {
