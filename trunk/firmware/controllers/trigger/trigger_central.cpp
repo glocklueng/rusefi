@@ -233,7 +233,7 @@ void printAllTriggers() {
 
 	FILE * fp = fopen ("triggers.txt", "w+");
 
-	for (int triggerId = 1; triggerId < 2; triggerId++) {
+	for (int triggerId = 1; triggerId < TT_UNUSED; triggerId++) {
 		trigger_type_e tt = (trigger_type_e) triggerId;
 
 		printf("Exporting %s\r\n", getTrigger_type_e(tt));
@@ -252,7 +252,7 @@ void printAllTriggers() {
 		TriggerShape *s = &engine->triggerShape;
 		s->initializeTriggerShape(NULL PASS_ENGINE_PARAMETER);
 
-		fprintf(fp, "TRIGGERTYPE %d %d\r\n", triggerId, s->getSize());
+		fprintf(fp, "TRIGGERTYPE %d %d %s\r\n", triggerId, s->getSize(), getTrigger_type_e(tt));
 		for (int i = 0; i < s->getSize(); i++) {
 			fprintf(fp, "event %d %f\r\n", i, s->eventAngles[i]);
 		}
