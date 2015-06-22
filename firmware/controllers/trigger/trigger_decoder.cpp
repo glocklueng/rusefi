@@ -314,7 +314,7 @@ void TriggerShape::initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMET
 #endif
 	const trigger_config_s *triggerConfig = &engineConfiguration->trigger;
 
-	triggerShape->clear();
+	clear();
 
 	switch (triggerConfig->type) {
 
@@ -409,7 +409,8 @@ void TriggerShape::initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMET
 		;
 		return;
 	}
-	triggerShape->wave.checkSwitchTimes(triggerShape->getSize());
+	wave.checkSwitchTimes(getSize());
+	calculateTriggerSynchPoint(PASS_ENGINE_PARAMETER_F);
 }
 
 TriggerStimulatorHelper::TriggerStimulatorHelper() {

@@ -14,8 +14,6 @@
 #include "EfiWave.h"
 #include "engine_configuration.h"
 
-class TriggerShape;
-
 #define TRIGGER_CHANNEL_COUNT 3
 
 class trigger_shape_helper {
@@ -114,10 +112,7 @@ public:
 
 	int getTriggerShapeSynchPointIndex();
 
-	void calculateTriggerSynchPoint(DECLARE_ENGINE_PARAMETER_F);
-
 private:
-
 	trigger_shape_helper h;
 
 	/**
@@ -147,6 +142,7 @@ private:
 	float getAngle(int phaseIndex) const;
 
 	int getCycleDuration() const;
+	void calculateTriggerSynchPoint(DECLARE_ENGINE_PARAMETER_F);
 };
 
 void setToothedWheelConfiguration(TriggerShape *s, int total, int skipped, operation_mode_e operationMode);
