@@ -252,69 +252,10 @@ public class Rom extends DefaultMutableTreeNode implements Serializable  {
     }
 
     public byte[] saveFile() {
-        final List<TableTreeNode> checksumTables = new ArrayList<>();
         for (TableTreeNode tableNode : tableNodes) {
             tableNode.getTable().saveFile(binData);
-            if (tableNode.getTable().getName().contains("Checksum Fix")) {
-                checksumTables.add(tableNode);
-            }
         }
 
-        if (checksumTables.size() == 1) {
-            final TableTreeNode checksum = checksumTables.get(0);
-            byte count = binData[checksum.getTable().getStorageAddress() + 207];
-            if (count == -1) {
-                count = 1;
-            }
-            else {
-                count++;
-            }
-            String currentDate = new SimpleDateFormat("yyMMdd").format(new Date());
-            String stamp = String.format("%s%02x", currentDate, count);
-            byte[] romStamp = asBytes(stamp);
-            System.arraycopy(
-                    romStamp,
-                    0,
-                    binData,
-                    checksum.getTable().getStorageAddress() + 204,
-                    4);
-            setEditStamp(binData, checksum.getTable().getStorageAddress());
-        }
-
-        for (TableTreeNode checksum : checksumTables) {
-            if (!checksum.getTable().isLocked()) {
-                calculateRomChecksum(
-                        binData,
-                        checksum.getTable().getStorageAddress(),
-                        checksum.getTable().getDataSize()
-                );
-            }
-            else if (checksum.getTable().isLocked() &&
-                    !checksum.getTable().isButtonSelected()) {
-                
-                Object[] options = {"Yes", "No"};
-                final String message = String.format(
-                        "One or more ROM image Checksums is invalid. " +
-                        "Calculate new Checksums?%n" +
-                        "(NOTE: this will only fix the Checksums it will NOT repair a corrupt ROM image)");
-                int answer = showOptionDialog(
-                        SwingUtilities.windowForComponent(checksum.getTable()),
-                        message,
-                        "Checksum Fix",
-                        DEFAULT_OPTION,
-                        QUESTION_MESSAGE,
-                        null,
-                        options,
-                        options[0]);
-                if (answer == 0) {
-                    calculateRomChecksum(
-                            binData,
-                            checksum.getTable().getStorageAddress(),
-                            checksum.getTable().getDataSize()
-                    );
-                }
-            }
-        }
         return binData;
     }
 
