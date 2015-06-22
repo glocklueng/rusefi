@@ -233,12 +233,18 @@ void printAllTriggers() {
 
 	for (int triggerId = 1; triggerId < TT_UNUSED; triggerId++) {
 
-		engine_configuration_s ec;
-		ec.trigger.type = (trigger_type_e) triggerId;
-		ec.operationMode = FOUR_STROKE_CRANK_SENSOR;
+		persistent_config_s pc;
+		Engine e(&pc);
+		Engine *engine = &e;
+		persistent_config_s *config = &pc;
+		engine_configuration_s *engineConfiguration = &pc.engineConfiguration;
+		board_configuration_s *boardConfiguration = &engineConfiguration->bc;
+
+		engineConfiguration->trigger.type = (trigger_type_e) triggerId;
+		engineConfiguration->operationMode = FOUR_STROKE_CRANK_SENSOR;
 
 		TriggerShape s;
-		s.initializeTriggerShape(NULL, &ec);
+		s.initializeTriggerShape(NULL PASS_ENGINE_PARAMETER);
 
 		fprintf(fp, "TRIGGERTYPE %d %d\r\n", triggerId, s.getSize());
 		for (int i = 0; i < s.getSize(); i++) {

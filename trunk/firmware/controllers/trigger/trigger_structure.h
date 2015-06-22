@@ -31,7 +31,7 @@ class Engine;
 class TriggerShape {
 public:
 	TriggerShape();
-	void initializeTriggerShape(Logging *logger, engine_configuration_s const *engineConfiguration);
+	void initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMETER_S);
 
 	bool_t isSynchronizationNeeded;
 	bool_t needSecondTriggerInput;
