@@ -141,6 +141,8 @@ case TT_60_2_VW:
 	return "TT_60_2_VW";
 case TT_DODGE_RAM:
 	return "TT_DODGE_RAM";
+case TT_UNUSED:
+	return "TT_UNUSED";
   }
  return NULL;
 }
