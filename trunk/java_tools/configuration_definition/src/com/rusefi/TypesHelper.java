@@ -19,7 +19,6 @@ public class TypesHelper {
         return 4;
     }
 
-
     static String convertToTs(String type) {
         if (isFloat(type))
             return "F32";
@@ -35,6 +34,6 @@ public class TypesHelper {
     }
 
     public static boolean isFloat(String type) {
-        return "float".equals(type);
+        return "float".equals(type) || type.equalsIgnoreCase("angle_t");
     }
 }
