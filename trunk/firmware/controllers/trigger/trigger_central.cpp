@@ -232,7 +232,7 @@ extern uint32_t hwSetTimerTime;
 extern int maxHowFarOff;
 extern uint32_t *cyccnt;
 
-void triggerInfo(Engine *engine) {
+void triggerInfo(void) {
 #if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 
 	TriggerShape *ts = &engine->triggerShape;
@@ -241,6 +241,11 @@ void triggerInfo(Engine *engine) {
 			getConfigurationName(engineConfiguration->engineType), engineConfiguration->engineType,
 			getTrigger_type_e(engineConfiguration->trigger.type), engineConfiguration->trigger.type,
 			boolToString(TRIGGER_SHAPE(useRiseEdge)), boolToString(engineConfiguration->useOnlyFrontForTrigger));
+
+	if (engineConfiguration->trigger.type == TT_TOOTHED_WHEEL) {
+		scheduleMsg(logger, "total %d/skipped %d", engineConfiguration->trigger.customTotalToothCount,
+				engineConfiguration->trigger.customSkippedToothCount);
+	}
 
 	scheduleMsg(logger, "trigger#1 event counters up=%d/down=%d", triggerCentral.getHwEventCounter(0),
 			triggerCentral.getHwEventCounter(1));
@@ -330,7 +335,7 @@ float getTriggerDutyCycle(int index) {
 static void resetRunningTriggerCounters() {
 	triggerCentral.resetCounters();
 #if EFI_PROD_CODE
-	triggerInfo(engine);
+	triggerInfo();
 #endif
 }
 
@@ -343,7 +348,7 @@ void initTriggerCentral(Logging *sharedLogger, Engine *engine) {
 #endif /* EFI_WAVE_CHART */
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
-	addConsoleActionP("triggerinfo", (VoidPtr) triggerInfo, engine);
+	addConsoleAction("triggerinfo", triggerInfo);
 	addConsoleActionP("trigger_shape_info", (VoidPtr) triggerShapeInfo, engine);
 	addConsoleAction("reset_trigger", resetRunningTriggerCounters);
 #endif

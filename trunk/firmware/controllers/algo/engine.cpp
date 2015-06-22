@@ -193,7 +193,7 @@ void Engine::watchdog() {
 	isSpinning = false;
 #if EFI_PROD_CODE || EFI_SIMULATOR
 	scheduleMsg(&logger, "engine has STOPPED");
-	triggerInfo(engine);
+	triggerInfo();
 #endif
 
 	stopPins();
