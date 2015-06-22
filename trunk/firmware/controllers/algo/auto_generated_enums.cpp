@@ -17,6 +17,7 @@ const char *getTiming_mode_e(timing_mode_e value) {
 	case TM_FIXED:
 		return "TM_FIXED";
 	}
+	return NULL;
 }
 
 const char *getEngine_type_e(engine_type_e value){
