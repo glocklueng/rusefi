@@ -30,7 +30,7 @@
 #include "trigger_gm.h"
 #include "trigger_bmw.h"
 #include "trigger_mitsubishi.h"
-
+#include "auto_generated_enums.h"
 #include "trigger_structure.h"
 #include "efiGpio.h"
 #include "engine.h"
@@ -49,7 +49,7 @@ EXTERN_ENGINE
 static cyclic_buffer<int> errorDetection;
 
 #if ! EFI_PROD_CODE
-bool printGapRatio = false;
+bool printTriggerDebug = false;
 float actualSynchGap;
 #endif /* ! EFI_PROD_CODE */
 
@@ -133,6 +133,14 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, uint64_t now
 			currentDurationLong > 10 * US2NT(US_PER_SECOND_LL) ? 10 * US2NT(US_PER_SECOND_LL) : currentDurationLong;
 
 	if (isLessImportant(signal)) {
+#if EFI_UNIT_TEST
+		if (printTriggerDebug) {
+			printf("%s isLessImportant %s\r\n",
+					getTrigger_type_e(engineConfiguration->trigger.type),
+					getTrigger_event_e(signal));
+		}
+#endif
+
 		/**
 		 * For less important events we simply increment the index.
 		 */
@@ -168,7 +176,7 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, uint64_t now
 #if EFI_PROD_CODE
 		if (engineConfiguration->isPrintTriggerSynchDetails) {
 #else
-		if (printGapRatio) {
+		if (printTriggerDebug) {
 #endif /* EFI_PROD_CODE */
 			float gap = 1.0 * currentDuration / toothed_previous_duration;
 #if EFI_PROD_CODE
@@ -188,7 +196,17 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, uint64_t now
 
 	}
 
+#if EFI_UNIT_TEST
+		if (printTriggerDebug) {
+			printf("%s isSynchronizationPoint=%d index=%d %s\r\n",
+					getTrigger_type_e(engineConfiguration->trigger.type),
+					isSynchronizationPoint, current_index,
+					getTrigger_event_e(signal));
+		}
+#endif
+
 	if (isSynchronizationPoint) {
+
 		/**
 		 * We can check if things are fine by comparing the number of events in a cycle with the expected number of event.
 		 */
@@ -344,7 +362,8 @@ void TriggerShape::initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMET
 		break;
 
 	case TT_GM_7X:
-		configureGmTriggerShape(triggerShape);
+		// todo: fix this configureGmTriggerShape(triggerShape);
+		configureFordAspireTriggerShape(triggerShape);
 		break;
 
 	case TT_MAZDA_DOHC_1_4:
@@ -427,13 +446,13 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, TriggerShape * shape
 	int time = (int) (HELPER_PERIOD * (loopIndex + shape->wave.getSwitchTime(stateIndex)));
 
 	bool_t primaryWheelState = shape->wave.getChannelState(0, prevIndex);
-	bool newPrimaryWheelState = shape->wave.getChannelState(0, stateIndex);
+	bool_t newPrimaryWheelState = shape->wave.getChannelState(0, stateIndex);
 
 	bool_t secondaryWheelState = shape->wave.getChannelState(1, prevIndex);
-	bool newSecondaryWheelState = shape->wave.getChannelState(1, stateIndex);
+	bool_t newSecondaryWheelState = shape->wave.getChannelState(1, stateIndex);
 
 	bool_t thirdWheelState = shape->wave.getChannelState(2, prevIndex);
-	bool new3rdWheelState = shape->wave.getChannelState(2, stateIndex);
+	bool_t new3rdWheelState = shape->wave.getChannelState(2, stateIndex);
 
 	if (primaryWheelState != newPrimaryWheelState) {
 		primaryWheelState = newPrimaryWheelState;

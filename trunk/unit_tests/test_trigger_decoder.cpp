@@ -30,7 +30,7 @@
 
 extern int timeNow;
 
-extern bool printGapRatio;
+extern bool printTriggerDebug;
 extern float actualSynchGap;
 
 extern "C" {
@@ -303,10 +303,10 @@ static void testTriggerDecoder2(const char *msg, engine_type_e type, int synchPo
 }
 
 static void testTriggerDecoder3(const char *msg, engine_type_e type, int synchPointIndex, float channel1duty, float channel2duty, float expectedGap) {
-	printGapRatio = true;
+	printTriggerDebug = true;
 	testTriggerDecoder2(msg, type, synchPointIndex, channel1duty, channel2duty);
 	assertEqualsM2("actual gap ratio", expectedGap, actualSynchGap, 0.001);
-	printGapRatio = false;
+	printTriggerDebug = false;
 }
 
 extern EventQueue schedulingQueue;
@@ -527,6 +527,8 @@ void testTriggerDecoder(void) {
 	testTriggerDecoder2("testFordEscortGt", FORD_ESCORT_GT, 0, 0.8096, 0.3844);
 	testTriggerDecoder2("testMiniCooper", MINI_COOPER_R50, 121, 0.5222, 0.4959);
 	testTriggerDecoder2("testRoverV8", ROVER_V8, 0, 0.4861, 0);
+
+	testTriggerDecoder2("SATURN_ION_2004", SATURN_ION_2004, 4, 0.5, 0.3841);
 
 	testTriggerDecoder2("test1+1", CUSTOM_ENGINE, 0, 0.7500, 0.2500);
 
