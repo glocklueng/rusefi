@@ -8,7 +8,7 @@
 #ifndef TRIGGER_STRUCTURE_H_
 #define TRIGGER_STRUCTURE_H_
 
-#include "global.h"
+#include "main.h"
 
 #include "rusefi_enums.h"
 #include "EfiWave.h"
@@ -31,6 +31,8 @@ class Engine;
 class TriggerShape {
 public:
 	TriggerShape();
+	void initializeTriggerShape(Logging *logger, engine_configuration_s const *engineConfiguration);
+
 	bool_t isSynchronizationNeeded;
 	bool_t needSecondTriggerInput;
 
