@@ -42,6 +42,9 @@ public class SettingsTab {
 
         panel.add(UiUtils.wrap(new ConfigField(Fields.GLOBALFUELCORRECTION, "fuel corr").getContent()));
         panel.add(UiUtils.wrap(new ConfigField(Fields.GLOBALTRIGGERANGLEOFFSET, "trig offset").getContent()));
+        panel.add(UiUtils.wrap(new ConfigField(Fields.CRANKING_BASEFUEL, "Cranking Fuel").getContent()));
+        panel.add(UiUtils.wrap(new ConfigField(Fields.IGNITIONOFFSET, "Ignition offset").getContent()));
+        panel.add(UiUtils.wrap(new ConfigField(Fields.CRANKINGTIMINGANGLE, "Cranking timing").getContent()));
 
         panel.add(UiUtils.wrap(RecentCommands.createButton(new AtomicBoolean(), "writeconfig")));
 
