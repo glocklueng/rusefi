@@ -1,6 +1,10 @@
 /**
  * @file	honda_accord.cpp
  *
+ * 1993 Honda Prelude 1993
+ * http://rusefi.com/wiki/index.php?title=Vehicle:Honda_Prelude_1993
+ * http://rusefi.com/forum/viewtopic.php?f=3&t=887
+ *
  * 1995 Honda Accord EX
  * http://rusefi.com/wiki/index.php?title=Vehicle:Honda_Accord_1995
  * http://rusefi.com/forum/viewtopic.php?f=3&t=621
