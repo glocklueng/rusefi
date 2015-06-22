@@ -306,12 +306,13 @@ static void configureOnePlus60_2(TriggerShape *s, operation_mode_e operationMode
 /**
  * External logger is needed because at this point our logger is not yet initialized
  */
-void initializeTriggerShape(Logging *logger, engine_configuration_s const *engineConfiguration, Engine *engine) {
+void TriggerShape::initializeTriggerShape(Logging *logger, engine_configuration_s const *engineConfiguration) {
+	TriggerShape *triggerShape = this;
+
 #if EFI_PROD_CODE
 	scheduleMsg(logger, "initializeTriggerShape()");
 #endif
 	const trigger_config_s *triggerConfig = &engineConfiguration->trigger;
-	TriggerShape *triggerShape = &engine->triggerShape;
 
 	triggerShape->clear();
 
