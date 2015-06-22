@@ -26,6 +26,7 @@
 #include "test_idle_controller.h"
 
 #include "test_signal_executor.h"
+#include "trigger_central.h"
 
 #include "test_util.h"
 
@@ -151,6 +152,8 @@ int main(void) {
 
 	//	resizeMap();
 	printf("Success 20150407\r\n");
+
+	printAllTriggers();
 	return EXIT_SUCCESS;
 }
 

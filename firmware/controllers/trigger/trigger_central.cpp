@@ -208,9 +208,9 @@ void printAllCallbacksHistogram(void) {
 EXTERN_ENGINE
 ;
 
-static void triggerShapeInfo(Engine *engine) {
+static void triggerShapeInfo(void) {
+#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 	TriggerShape *s = &engine->triggerShape;
-#if EFI_PROD_CODE || EFI_SIMULATOR
 	scheduleMsg(logger, "useRise=%s", boolToString(s->useRiseEdge));
 	scheduleMsg(logger, "gap from %f to %f", s->syncRatioFrom, s->syncRatioTo);
 
@@ -220,7 +220,25 @@ static void triggerShapeInfo(Engine *engine) {
 #endif
 }
 
-#if EFI_PROD_CODE
+#if EFI_UNIT_TEST || defined(__DOXYGEN__)
+#include <stdio.h>
+#include <stdlib.h>
+
+/**
+ * This is used to generate trigger info which is later used by TODO to generate images for documentation
+ */
+void printAllTriggers() {
+
+	FILE * fp = fopen ("triggers.txt", "w+");
+	fprintf(fp, "%s %s %s %d", "We", "are", "in", 2012);
+
+	fclose(fp);
+}
+
+#endif
+
+
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 extern PwmConfig triggerSignal;
 #endif /* #if EFI_PROD_CODE */
 
@@ -349,7 +367,7 @@ void initTriggerCentral(Logging *sharedLogger, Engine *engine) {
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
 	addConsoleAction("triggerinfo", triggerInfo);
-	addConsoleActionP("trigger_shape_info", (VoidPtr) triggerShapeInfo, engine);
+	addConsoleAction("trigger_shape_info", triggerShapeInfo);
 	addConsoleAction("reset_trigger", resetRunningTriggerCounters);
 #endif
 
