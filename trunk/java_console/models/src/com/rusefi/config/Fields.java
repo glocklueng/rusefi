@@ -1,6 +1,6 @@
 package com.rusefi.config;
 
-// this file was generated automatically by ConfigDefinition.jar Mon Jun 22 11:16:30 EDT 2015
+// this file was generated automatically by ConfigDefinition.jar Mon Jun 22 11:38:06 EDT 2015
 public class Fields {
 	public static final Field ENGINETYPE = new Field("ENGINETYPE", 0, FieldType.INT);
 	public static final Field HEADERMAGICVALUE = new Field("HEADERMAGICVALUE", 4, FieldType.INT);
@@ -50,10 +50,10 @@ public class Fields {
 	public static final Field ALGORITHM = new Field("ALGORITHM", 424, FieldType.INT, engine_load_mode_e);
 	public static final Field CRANKINGINJECTIONMODE = new Field("CRANKINGINJECTIONMODE", 428, FieldType.INT);
 	public static final Field INJECTIONMODE = new Field("INJECTIONMODE", 432, FieldType.INT);
-	public static final Field INJECTIONANGLE = new Field("INJECTIONANGLE", 436, FieldType.FLOAT);
+	public static final Field INJECTIONOFFSET = new Field("INJECTIONOFFSET", 436, FieldType.FLOAT);
 	public static final Field CRANKINGTIMINGANGLE = new Field("CRANKINGTIMINGANGLE", 440, FieldType.FLOAT);
 	public static final Field IGNITIONMODE = new Field("IGNITIONMODE", 444, FieldType.INT);
-	public static final Field IGNITIONBASEANGLE = new Field("IGNITIONBASEANGLE", 448, FieldType.FLOAT);
+	public static final Field IGNITIONOFFSET = new Field("IGNITIONOFFSET", 448, FieldType.FLOAT);
 	public static final Field TIMINGMODE = new Field("TIMINGMODE", 452, FieldType.INT);
 	public static final Field FIXEDMODETIMING = new Field("FIXEDMODETIMING", 456, FieldType.FLOAT);
 	public static final Field GLOBALTRIGGERANGLEOFFSET = new Field("GLOBALTRIGGERANGLEOFFSET", 460, FieldType.FLOAT);
