@@ -510,7 +510,7 @@ DECLARE_ENGINE_PARAMETER_S) {
 		if (engineConfiguration->useOnlyFrontForTrigger)
 			i++;
 	}
-	efiAssert(state.getTotalRevolutionCounter() == 3, "totalRevolutionCounter2", EFI_ERROR_CODE);
+	efiAssert(state.getTotalRevolutionCounter() == 3, "totalRevolutionCounter2 expected 3", EFI_ERROR_CODE);
 
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
 		shape->dutyCycle[i] = 1.0 * state.expectedTotalTime[i] / HELPER_PERIOD;

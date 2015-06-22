@@ -19,6 +19,7 @@
 #include "pwm_generator_logic.h"
 #include "efilib2.h"
 #include "settings.h"
+#include "auto_generated_enums.h"
 
 #include "rpm_calculator.h"
 #if EFI_PROD_CODE
@@ -231,7 +232,10 @@ void printAllTriggers() {
 
 	FILE * fp = fopen ("triggers.txt", "w+");
 
-	for (int triggerId = 1; triggerId < TT_UNUSED; triggerId++) {
+	for (int triggerId = 1; triggerId < 2; triggerId++) {
+		trigger_type_e tt = (trigger_type_e) triggerId;
+
+		printf("Exporting %s\r\n", getTrigger_type_e(tt));
 
 		persistent_config_s pc;
 		Engine e(&pc);
@@ -240,8 +244,8 @@ void printAllTriggers() {
 		engine_configuration_s *engineConfiguration = &pc.engineConfiguration;
 		board_configuration_s *boardConfiguration = &engineConfiguration->bc;
 
-		engineConfiguration->trigger.type = (trigger_type_e) triggerId;
-		engineConfiguration->operationMode = FOUR_STROKE_CRANK_SENSOR;
+		engineConfiguration->trigger.type = tt;
+		engineConfiguration->operationMode = FOUR_STROKE_CAM_SENSOR;
 
 		TriggerShape s;
 		s.initializeTriggerShape(NULL PASS_ENGINE_PARAMETER);
@@ -253,6 +257,7 @@ void printAllTriggers() {
 
 	}
 	fclose(fp);
+	printf("All triggers exported\r\n");
 }
 
 #endif
