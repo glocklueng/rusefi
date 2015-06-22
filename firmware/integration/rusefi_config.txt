@@ -195,20 +195,20 @@ engine_load_mode_e algorithm;This setting controls which algorithm is used for E
 custom injection_mode_e 4 bits, U32, @OFFSET@, [0:1], "Simultaneous", "Sequential", "Batch", "INVALID"
 injection_mode_e crankingInjectionMode;
 injection_mode_e injectionMode;
-float injectionOffset;this is about deciding when the injector starts it's squirt\nSee also injectionPhase map;"deg",    1,      0.0,       0,  1000.0,        2
-float crankingTimingAngle;;     "deg",    1,      0.0,    -360,     360,        2
+angle_t injectionOffset;this is about deciding when the injector starts it's squirt\nSee also injectionPhase map;"deg",    1,      0.0,       0,  1000.0,        2
+angle_t crankingTimingAngle;;     "deg",    1,      0.0,    -360,     360,        2
 
 custom ignition_mode_e 4 bits,    U32,    @OFFSET@, [0:1], "One coil", "Individual Coils", "Wasted", "INVALID"
 ignition_mode_e ignitionMode;
 
-float ignitionOffset;this value could be used to offset the whole ignition timing table by a constant;"RPM",    1,      0,       0,  3000.0,      0
+angle_t ignitionOffset;this value could be used to offset the whole ignition timing table by a constant;"RPM",    1,      0,       0,  3000.0,      0
 
 custom timing_mode_e 4 bits, U32, @OFFSET@ [0:0], "dynamic", "fixed"
 timing_mode_e timingMode;
 
-float fixedModeTiming;This value is used in 'fixed timing' mode, i.e. constant timing\nThis mode is useful for instance while adjusting distributor location;"RPM",    1,      0,       0,  3000.0,      0
+angle_t fixedModeTiming;This value is used in 'fixed timing' mode, i.e. constant timing\nThis mode is useful for instance while adjusting distributor location;"RPM",    1,      0,       0,  3000.0,      0
 
-float globalTriggerAngleOffset;This field is the angle between Top Dead Center (TDC) and the first trigger event.\nKnowing this angle allows us to control timing and other angles in reference to TDC.;"deg",    1,      0,       0,  720, 0
+angle_t globalTriggerAngleOffset;This field is the angle between Top Dead Center (TDC) and the first trigger event.\nKnowing this angle allows us to control timing and other angles in reference to TDC.;"deg",    1,      0,       0,  720, 0
 
 
 
