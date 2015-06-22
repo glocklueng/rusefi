@@ -8,6 +8,15 @@
 
 #include "main.h"
 #include "rusefi_enums.h"
+const char *getTiming_mode_e(timing_mode_e value) {
+	switch(value) {
+	case TM_DYNAMIC:
+		return "TM_DYNAMIC";
+	case TM_FIXED:
+		return "TM_FIXED";
+	}
+}
+
 const char *getEngine_type_e(engine_type_e value){
 switch(value) {
 case ACURA_RSX:
