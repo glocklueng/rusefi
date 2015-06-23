@@ -4,6 +4,7 @@ import com.rusefi.ui.engine.UpDownImage;
 import com.rusefi.ui.util.FrameHelper;
 import com.rusefi.ui.util.UiUtils;
 import com.rusefi.waves.EngineReport;
+import org.putgemin.VerticalFlowLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,7 @@ import java.util.List;
 public class TriggerImage {
 
     public static final String TRIGGERTYPE = "TRIGGERTYPE";
+    public static final String TRIGGERS = "triggers";
     private static int WIDTH = 320;
 
     public static void main(String[] args) throws IOException {
@@ -30,7 +32,7 @@ public class TriggerImage {
 
         FrameHelper f = new FrameHelper();
 
-        JPanel trigger = new JPanel(new BorderLayout()) {
+        JPanel trigger = new JPanel(new GridLayout(2, 1)) {
             @Override
             public Dimension getPreferredSize() {
                 return new Dimension(3 * WIDTH, 480);
@@ -80,48 +82,55 @@ public class TriggerImage {
             toShow.add(new Signal(s.signal, s.angle + 720 * 2));
 
 
-        double unusedDown = Double.NaN;
-        double prevUp = Double.NaN;
+        List<WaveState> waves = new ArrayList<>();
+        waves.add(new WaveState());
+        waves.add(new WaveState());
 
-        List<EngineReport.UpDown> list = new ArrayList<>();
-
-        for (Signal s: toShow) {
+        for (Signal s : toShow) {
             int waveIndex = s.signal / 1000;
+            int signal = s.signal % 1000;
 
-            if (waveIndex != 0)
+            if (waveIndex > 1) {
+                // TT_HONDA_ACCORD_CD
                 continue;
-
-            if (s.signal == 1) {
-                // down signal
-                if (Double.isNaN(prevUp)) {
-                    // we have down before up, we would need to use it later
-                    unusedDown = s.angle;
-                } else {
-                    EngineReport.UpDown ud = new EngineReport.UpDown((int) (WIDTH * prevUp), 0, (int) (WIDTH * s.angle), 0);
-                    list.add(ud);
-                }
-
-
-                prevUp = Double.NaN;
-            } else {
-                // up signal handling
-                prevUp = s.angle;
+//                throw new IllegalStateException(s.signal + " in " + name);
             }
+
+            WaveState waveState = waves.get(waveIndex);
+            waveState.handle(signal, s.angle);
         }
 
-//        if ()
+//        if (!Double.isNaN(unusedDown)) {
 
-        EngineReport re = new EngineReport(list);
+        //          prevUp -= 2 * 720; // this up is from the 3rd frame
+
+        // add at the start
+//            list.add(0, new EngineReport.UpDown(angleToTime(prevUp - 720), 0, angleToTime(unusedDown), 0));
+
+        // add at the end
+        //          list.add(0, new EngineReport.UpDown(angleToTime(prevUp + 2 * 720), 0, angleToTime(unusedDown + 3 * 720), 0));
+//        }
 
         trigger.removeAll();
 
-        UpDownImage upDownImage = new UpDownImage(re, "trigger");
-        upDownImage.showText = false;
-        trigger.add(upDownImage, BorderLayout.CENTER);
+        EngineReport re0 = new EngineReport(waves.get(0).list);
+        EngineReport re1 = new EngineReport(waves.get(1).list);
+
+        UpDownImage upDownImage0 = new UpDownImage(re0, "trigger");
+        upDownImage0.showText = false;
+        trigger.add(upDownImage0);
+
+        UpDownImage upDownImage1 = new UpDownImage(re1, "trigger");
+        upDownImage1.showText = false;
+        trigger.add(upDownImage1);
 
         UiUtils.trueLayout(trigger);
+        new File(TRIGGERS).mkdir();
+        UiUtils.saveImage(TRIGGERS + File.separator + "trigger_" + id + ".png", trigger);
+    }
 
-
+    private static int angleToTime(double prevUp) {
+        return (int) (WIDTH * prevUp);
     }
 
     private static class Signal {
@@ -129,9 +138,32 @@ public class TriggerImage {
         private final double angle;
 
         public Signal(int signal, double angle) {
-
             this.signal = signal;
             this.angle = angle;
+        }
+    }
+
+    private static class WaveState {
+        double unusedDown = Double.NaN;
+        double prevUp = Double.NaN;
+
+        List<EngineReport.UpDown> list = new ArrayList<>();
+
+        public void handle(int signal, double angle) {
+            if (signal == 1) {
+                // down signal
+                if (Double.isNaN(prevUp)) {
+                    // we have down before up, we would need to use it later
+                    unusedDown = angle;
+                } else {
+                    EngineReport.UpDown ud = new EngineReport.UpDown(angleToTime(prevUp), 0, angleToTime(angle), 0);
+                    list.add(ud);
+                }
+                prevUp = Double.NaN;
+            } else {
+                // up signal handling
+                prevUp = angle;
+            }
         }
     }
 }
