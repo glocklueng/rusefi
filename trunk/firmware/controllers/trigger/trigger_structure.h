@@ -69,6 +69,10 @@ public:
 	 */
 	uint32_t expectedEventCount[PWM_PHASE_MAX_WAVE_PER_PWM];
 
+#if EFI_UNIT_TEST
+	int events[PWM_PHASE_MAX_COUNT];
+#endif
+
 	multi_wave_s wave;
 
 	// todo: add a runtime validation which would verify that this field was set properly
