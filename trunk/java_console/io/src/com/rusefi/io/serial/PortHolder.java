@@ -102,8 +102,8 @@ public class PortHolder {
     /**
      * this method blocks till a connection is available
      */
-    public void packAndSend(final String command) throws InterruptedException {
-        bp.doSend(command);
+    public void packAndSend(final String command, boolean fireEvent) throws InterruptedException {
+        bp.doSend(command, fireEvent);
     }
 
     public static PortHolder getInstance() {

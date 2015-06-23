@@ -1,7 +1,5 @@
 package com.rusefi.io;
 
-import com.rusefi.core.EngineState;
-
 /**
  * @author Andrey Belomutskiy
  *         3/3/14
@@ -13,7 +11,7 @@ public interface LinkConnector extends LinkDecoder {
         }
 
         @Override
-        public void send(String command) throws InterruptedException {
+        public void send(String command, boolean fireEvent) throws InterruptedException {
         }
 
         @Override
@@ -38,7 +36,7 @@ public interface LinkConnector extends LinkDecoder {
 
     void connect(LinkManager.LinkStateListener listener);
 
-    void send(String command) throws InterruptedException;
+    void send(String command, boolean fireEvent) throws InterruptedException;
 
     void restart();
 

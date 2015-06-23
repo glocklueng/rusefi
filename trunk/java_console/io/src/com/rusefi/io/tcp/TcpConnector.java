@@ -129,8 +129,8 @@ public class TcpConnector implements LinkConnector {
     }
 
     @Override
-    public void send(String command) throws InterruptedException {
-        bp.doSend(command);
+    public void send(String command, boolean fireEvent) throws InterruptedException {
+        bp.doSend(command, fireEvent);
 //        String command = LinkManager.encodeCommand(text);
 //        FileLog.MAIN.logLine("Writing " + command);
 //        try {

@@ -83,9 +83,11 @@ public class BinaryProtocol {
         }
     }
 
-    public void doSend(final String command) throws InterruptedException {
+    public void doSend(final String command, boolean fireEvent) throws InterruptedException {
         FileLog.MAIN.logLine("Sending [" + command + "]");
-        CommunicationLoggingHolder.communicationLoggingListener.onPortHolderMessage(PortHolder.class, "Sending [" + command + "]");
+        if (fireEvent) {
+            CommunicationLoggingHolder.communicationLoggingListener.onPortHolderMessage(BinaryProtocol.class, "Sending [" + command + "]");
+        }
 
         Future f = LinkManager.COMMUNICATION_EXECUTOR.submit(new Runnable() {
             @Override
