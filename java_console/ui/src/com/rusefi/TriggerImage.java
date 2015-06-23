@@ -22,6 +22,12 @@ public class TriggerImage {
     public static final String TRIGGERTYPE = "TRIGGERTYPE";
     public static final String TRIGGERS = "triggers";
     private static int WIDTH = 320;
+    /**
+     * number of extra frames
+     */
+    private static int EXTRA_COUNT = 0;
+
+    private static int WAVE_COUNT = 2;
 
     public static void main(String[] args) throws IOException {
         if (args.length != 1) {
@@ -32,15 +38,14 @@ public class TriggerImage {
 
         FrameHelper f = new FrameHelper();
 
-        JPanel trigger = new JPanel(new GridLayout(2, 1)) {
+        TriggerPanel trigger = new TriggerPanel(new GridLayout(WAVE_COUNT, 1)) {
             @Override
             public Dimension getPreferredSize() {
-                return new Dimension(3 * WIDTH, 480);
+                return new Dimension((1 + EXTRA_COUNT) * WIDTH, 480);
             }
         };
 
         f.showFrame(trigger);
-
 
         BufferedReader br = new BufferedReader(new FileReader(path + File.separator + "triggers.txt"));
 
@@ -53,7 +58,7 @@ public class TriggerImage {
         }
     }
 
-    private static void readTrigger(BufferedReader br, String line, JPanel trigger) throws IOException {
+    private static void readTrigger(BufferedReader br, String line, TriggerPanel trigger) throws IOException {
         String[] tokens = line.split(" ");
         String id = tokens[1];
         String countStr = tokens[2];
@@ -76,11 +81,10 @@ public class TriggerImage {
         }
 
         List<Signal> toShow = new ArrayList<>(signals);
-        for (Signal s : signals)
-            toShow.add(new Signal(s.signal, s.angle + 720));
-        for (Signal s : signals)
-            toShow.add(new Signal(s.signal, s.angle + 720 * 2));
-
+        for (int i = 1; i<= EXTRA_COUNT; i++) {
+            for (Signal s : signals)
+                toShow.add(new Signal(s.signal, s.angle + i * 720));
+        }
 
         List<WaveState> waves = new ArrayList<>();
         waves.add(new WaveState());
@@ -124,6 +128,8 @@ public class TriggerImage {
         upDownImage1.showText = false;
         trigger.add(upDownImage1);
 
+        trigger.name = name;
+
         UiUtils.trueLayout(trigger);
         new File(TRIGGERS).mkdir();
         UiUtils.saveImage(TRIGGERS + File.separator + "trigger_" + id + ".png", trigger);
@@ -164,6 +170,27 @@ public class TriggerImage {
                 // up signal handling
                 prevUp = angle;
             }
+        }
+    }
+
+    private static class TriggerPanel extends JPanel {
+        public String name = "";
+
+        public TriggerPanel(LayoutManager layout) {
+            super(layout);
+        }
+
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+
+            g.setColor(Color.black);
+            Font f = g.getFont();
+            g.setFont(new Font(f.getName(), Font.BOLD, f.getSize() * 3));
+
+            int h = getHeight();
+
+            g.drawString(name, 0, (int) (h * 0.75));
         }
     }
 }
