@@ -63,6 +63,7 @@ static bool isSpiInitialized[5] = { false, false, false, false, false };
  * Only one consumer can use SPI bus at a given time
  */
 void lockSpi(spi_device_e device) {
+	efiAssertVoid(getRemainingStack(chThdSelf()) > 128, "lockSpi");
 	// todo: different locks for different SPI devices!
 	chMtxLock(&spiMtx);
 }
