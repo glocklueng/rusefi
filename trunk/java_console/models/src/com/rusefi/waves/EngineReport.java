@@ -13,7 +13,7 @@ import java.util.List;
  * Date: 6/23/13
  * (c) Andrey Belomutskiy
  *
- * @see com.rusefi.AnalogChartPanel.AnalogChart
+ * @see com.rusefi.EngineSnifferPanel.AnalogChart
  */
 public class EngineReport implements TimeAxisTranslator {
     public static final String ENGINE_CHART = "wave_chart";
@@ -151,7 +151,7 @@ public class EngineReport implements TimeAxisTranslator {
         public final int downTime;
         public final int downIndex;
 
-        UpDown(int upTime, int upIndex, int downTime, int downIndex) {
+        public UpDown(int upTime, int upIndex, int downTime, int downIndex) {
             this.upTime = upTime;
             this.upIndex = upIndex;
             this.downTime = downTime;
