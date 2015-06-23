@@ -254,7 +254,11 @@ void printAllTriggers() {
 
 		fprintf(fp, "TRIGGERTYPE %d %d %s\r\n", triggerId, s->getSize(), getTrigger_type_e(tt));
 		for (int i = 0; i < s->getSize(); i++) {
-			fprintf(fp, "event %d %d %f\r\n", i, s->events[i], s->eventAngles[i]);
+
+			int triggerDefinitionCoordinate = (s->getTriggerShapeSynchPointIndex() + i) % s->getLength();
+
+
+			fprintf(fp, "event %d %d %f\r\n", i, s->events[triggerDefinitionCoordinate], s->eventAngles[i]);
 		}
 
 	}
