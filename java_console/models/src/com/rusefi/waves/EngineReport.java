@@ -46,6 +46,12 @@ public class EngineReport implements TimeAxisTranslator {
         }
     }
 
+    public EngineReport(List<UpDown> list, int minTime, int maxTime) {
+        this.list = list;
+        this.minTime = minTime;
+        this.maxTime = maxTime;
+    }
+
     public static boolean isCloseEnough(double v1, double v2) {
         return isCloseEnough(v1, v2, RATIO);
     }
