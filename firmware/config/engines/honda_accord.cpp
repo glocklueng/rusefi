@@ -9,8 +9,8 @@
  * http://rusefi.com/wiki/index.php?title=Vehicle:Honda_Accord_1995
  * http://rusefi.com/forum/viewtopic.php?f=3&t=621
  *
- * engine_type 6
- * engine_type 17
+ * set_engine_type 6
+ * set_engine_type 17
  *
  * @date Jan 12, 2014
  * @author Andrey Belomutskiy, (c) 2012-2015

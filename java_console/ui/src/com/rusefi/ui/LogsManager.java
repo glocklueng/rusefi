@@ -2,6 +2,7 @@ package com.rusefi.ui;
 
 import com.rusefi.core.MessagesCentral;
 import com.rusefi.io.CommandQueue;
+import com.rusefi.io.InvocationConfirmationListener;
 import com.rusefi.ui.util.UiUtils;
 import org.jetbrains.annotations.NotNull;
 import org.putgemin.VerticalFlowLayout;
@@ -95,6 +96,7 @@ public class LogsManager {
     }
 
     private void listDirectory() {
-        CommandQueue.getInstance().write("ls /");
+        CommandQueue.getInstance().write("ls /", CommandQueue.DEFAULT_TIMEOUT, InvocationConfirmationListener.VOID,
+                false);
     }
 }
