@@ -32,7 +32,7 @@ abstract class BaseConfigField {
 
     private void requestInitialValue(Field field) {
         CommandQueue.getInstance().write(field.getCommand(),
-                CommandQueue.SLOW_CONFIRMATION_TIMEOUT,
+                CommandQueue.DEFAULT_TIMEOUT,
                 InvocationConfirmationListener.VOID,
                 false);
     }

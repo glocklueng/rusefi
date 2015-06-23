@@ -79,19 +79,31 @@ public class CommandQueue {
     /**
      * this method keeps retrying till a confirmation is received
      */
-    private void sendCommand(final MethodInvocation pair) throws InterruptedException {
+    private void sendCommand(final MethodInvocation commandRequest) throws InterruptedException {
         int counter = 0;
-        String command = pair.getText();
+        String command = commandRequest.getCommand();
 
         while (!pendingConfirmations.contains(command)) {
             counter++;
-            LinkManager.send(command);
+//            FileLog.MAIN.logLine("templog sending " + command + " " + System.currentTimeMillis() + " " + new Date());
+            LinkManager.send(command, commandRequest.fireEvent);
+            long now = System.currentTimeMillis();
             synchronized (lock) {
-                lock.wait(pair.getTimeout());
+                lock.wait(commandRequest.getTimeout());
+            }
+            long timeWaited = System.currentTimeMillis() - now;
+            if (!pendingConfirmations.contains(command) && timeWaited < commandRequest.getTimeout() / 2) {
+                /**
+                 * there could be a log of un-releated confirmations, we do not need to send out
+                 * a log of the same command
+                 */
+                long extraWaitTime = commandRequest.getTimeout() / 2 - timeWaited;
+//                FileLog.MAIN.logLine("templog extraWaitTime: " + extraWaitTime);
+                Thread.sleep(extraWaitTime);
             }
         }
         if (pendingConfirmations.contains(command)) {
-            pair.listener.onCommandConfirmation();
+            commandRequest.listener.onCommandConfirmation();
             pendingConfirmations.remove(command);
         }
 
@@ -122,7 +134,8 @@ public class CommandQueue {
         if (confirmation == null)
             mc.postMessage(CommandQueue.class, "Broken confirmation length: " + message);
         pendingConfirmations.add(confirmation);
-        mc.postMessage(CommandQueue.class, "got valid conf! " + confirmation + " p=" + pendingCommands.size());
+        mc.postMessage(CommandQueue.class, "got valid conf! " + confirmation + ", still pending: " + pendingCommands.size());
+//        FileLog.MAIN.logLine("templog got valid conf " + confirmation + " " + System.currentTimeMillis() + " " + new Date());
         synchronized (lock) {
             lock.notifyAll();
         }
@@ -158,22 +171,24 @@ public class CommandQueue {
                 cql.onCommand(command);
         }
 
-        pendingCommands.add(new MethodInvocation(command, timeoutMs, listener));
+        pendingCommands.add(new MethodInvocation(command, timeoutMs, listener, fireEvent));
     }
 
     static class MethodInvocation {
-        private final String text;
+        private final String command;
         private final int timeoutMs;
         private final InvocationConfirmationListener listener;
+        private final boolean fireEvent;
 
-        MethodInvocation(String text, int timeoutMs, InvocationConfirmationListener listener) {
-            this.text = text;
+        MethodInvocation(String command, int timeoutMs, InvocationConfirmationListener listener, boolean fireEvent) {
+            this.command = command;
             this.timeoutMs = timeoutMs;
             this.listener = listener;
+            this.fireEvent = fireEvent;
         }
 
-        public String getText() {
-            return text;
+        public String getCommand() {
+            return command;
         }
 
         public int getTimeout() {
@@ -184,7 +199,7 @@ public class CommandQueue {
         public String toString() {
             return "MethodInvocation{" +
                     "timeoutMs=" + timeoutMs +
-                    ", text='" + text + '\'' +
+                    ", command='" + command + '\'' +
                     '}';
         }
     }

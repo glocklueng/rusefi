@@ -88,10 +88,10 @@ public class LinkManager {
         open(LinkStateListener.VOID);
     }
 
-    public static void send(String command) throws InterruptedException {
+    public static void send(String command, boolean fireEvent) throws InterruptedException {
         if (connector == null)
             throw new NullPointerException("connector");
-        connector.send(command);
+        connector.send(command, fireEvent);
     }
 
     public static void restart() {
