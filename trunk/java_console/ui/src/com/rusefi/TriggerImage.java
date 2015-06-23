@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,20 +26,20 @@ public class TriggerImage {
     /**
      * number of extra frames
      */
-    private static int EXTRA_COUNT = 0;
+    private static int EXTRA_COUNT = 1;
 
     private static int WAVE_COUNT = 2;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InvocationTargetException, InterruptedException {
         if (args.length != 1) {
             System.out.println("Path to file expected");
             System.exit(-1);
         }
-        String path = args[0];
+        final String path = args[0];
 
         FrameHelper f = new FrameHelper();
 
-        TriggerPanel trigger = new TriggerPanel(new GridLayout(WAVE_COUNT, 1)) {
+        final TriggerPanel trigger = new TriggerPanel(new GridLayout(WAVE_COUNT, 1)) {
             @Override
             public Dimension getPreferredSize() {
                 return new Dimension((1 + EXTRA_COUNT) * WIDTH, 480);
@@ -47,6 +48,21 @@ public class TriggerImage {
 
         f.showFrame(trigger);
 
+
+        SwingUtilities.invokeAndWait(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    generateImages(path, trigger);
+                } catch (IOException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+        System.exit(-1);
+    }
+
+    private static void generateImages(String path, TriggerPanel trigger) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(path + File.separator + "triggers.txt"));
 
         String line;
@@ -60,10 +76,14 @@ public class TriggerImage {
 
     private static void readTrigger(BufferedReader br, String line, TriggerPanel trigger) throws IOException {
         String[] tokens = line.split(" ");
-        String id = tokens[1];
+        String idStr = tokens[1];
         String countStr = tokens[2];
         String name = tokens[3];
         int count = Integer.parseInt(countStr);
+        int id = Integer.parseInt(idStr);
+
+//        if (id != 4)
+//            return;
 
         System.out.println("id=" + id + ", count=" + count + ", name=" + name);
 
@@ -81,7 +101,7 @@ public class TriggerImage {
         }
 
         List<Signal> toShow = new ArrayList<>(signals);
-        for (int i = 1; i<= EXTRA_COUNT; i++) {
+        for (int i = 1; i <= 2 + EXTRA_COUNT; i++) {
             for (Signal s : signals)
                 toShow.add(new Signal(s.signal, s.angle + i * 720));
         }
@@ -103,22 +123,13 @@ public class TriggerImage {
             WaveState waveState = waves.get(waveIndex);
             waveState.handle(signal, s.angle);
         }
-
-//        if (!Double.isNaN(unusedDown)) {
-
-        //          prevUp -= 2 * 720; // this up is from the 3rd frame
-
-        // add at the start
-//            list.add(0, new EngineReport.UpDown(angleToTime(prevUp - 720), 0, angleToTime(unusedDown), 0));
-
-        // add at the end
-        //          list.add(0, new EngineReport.UpDown(angleToTime(prevUp + 2 * 720), 0, angleToTime(unusedDown + 3 * 720), 0));
-//        }
+        for (WaveState wave : waves)
+            wave.wrap();
 
         trigger.removeAll();
 
-        EngineReport re0 = new EngineReport(waves.get(0).list);
-        EngineReport re1 = new EngineReport(waves.get(1).list);
+        EngineReport re0 = new EngineReport(waves.get(0).list, 720, 720 * (1 + EXTRA_COUNT));
+        EngineReport re1 = new EngineReport(waves.get(1).list, 720, 720 * (1 + EXTRA_COUNT));
 
         UpDownImage upDownImage0 = new UpDownImage(re0, "trigger");
         upDownImage0.showText = false;
@@ -129,14 +140,16 @@ public class TriggerImage {
         trigger.add(upDownImage1);
 
         trigger.name = name;
+        trigger.id = id;
 
         UiUtils.trueLayout(trigger);
+        UiUtils.trueRepaint(trigger);
         new File(TRIGGERS).mkdir();
         UiUtils.saveImage(TRIGGERS + File.separator + "trigger_" + id + ".png", trigger);
     }
 
     private static int angleToTime(double prevUp) {
-        return (int) (WIDTH * prevUp);
+        return (int) (prevUp);
     }
 
     private static class Signal {
@@ -146,6 +159,14 @@ public class TriggerImage {
         public Signal(int signal, double angle) {
             this.signal = signal;
             this.angle = angle;
+        }
+
+        @Override
+        public String toString() {
+            return "Signal{" +
+                    "signal=" + signal +
+                    ", angle=" + angle +
+                    '}';
         }
     }
 
@@ -171,10 +192,23 @@ public class TriggerImage {
                 prevUp = angle;
             }
         }
+
+        public void wrap() {
+            if (!Double.isNaN(unusedDown)) {
+                list.add(0, new EngineReport.UpDown(angleToTime(prevUp), 0, angleToTime(unusedDown + 720 * (3 + EXTRA_COUNT)), 0));
+            }
+        }
+
+        public int getMaxTime() {
+            if (list.isEmpty())
+                return 0;
+            return list.get(list.size() - 1).downTime;
+        }
     }
 
     private static class TriggerPanel extends JPanel {
         public String name = "";
+        public int id;
 
         public TriggerPanel(LayoutManager layout) {
             super(layout);
@@ -191,6 +225,7 @@ public class TriggerImage {
             int h = getHeight();
 
             g.drawString(name, 0, (int) (h * 0.75));
+            g.drawString("#" + id, 0, (int) (h * 0.9));
         }
     }
 }

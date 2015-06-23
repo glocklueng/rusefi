@@ -258,6 +258,7 @@ public:
 	bool_t isCylinderCleanupMode;
 
 	/**
+	 * value of 'triggerShape.getLength()'
 	 * pre-calculating this value is a performance optimization
 	 */
 	int engineCycleEventCount;
