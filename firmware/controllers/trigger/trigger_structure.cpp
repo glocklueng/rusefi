@@ -244,6 +244,11 @@ void TriggerShape::addEvent(float angle, trigger_wheel_e const waveIndex, trigge
 		state = stateParam;
 	}
 
+#if EFI_UNIT_TEST
+	int signal = waveIndex * 1000 + stateParam;
+	events[size] = signal;
+#endif
+
 	float engineCycle = getEngineCycle(operationMode);
 
 	/**
