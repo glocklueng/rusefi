@@ -166,8 +166,7 @@ static void removeFile(const char *pathx) {
 	unlockSpi();
 }
 
-static void listDirectory(const char *pathx) {
-	char *path = (char *) pathx; // todo: fix this hack!
+static void listDirectory(const char *path) {
 	DIR dir;
 	FILINFO fno;
 	char *fn;
@@ -196,28 +195,17 @@ static void listDirectory(const char *pathx) {
 		if (fno.lfname[0] == '.')
 			continue;
 		fn = fno.lfname;
-		if (fno.fattrib & AM_DIR) {
-			// TODO: WHAT? WE ARE APPENDING FILE NAME TO PARAMETER??? WEIRD!!!
-			path[i++] = '/';
-			strcpy(&path[i], fn);
-			// res = ff_cmd_ls(path);
-			if (res != FR_OK)
-				break;
-			path[i] = 0;
-		} else {
-			if ((fno.fattrib & AM_DIR) || strncmp(RUSEFI_LOG_PREFIX, fno.fname, sizeof(RUSEFI_LOG_PREFIX) - 1)) {
-				continue;
-			}
-			scheduleMsg(&logger, "logfile%lu:%s", fno.fsize, fno.fname);
-
-			count++;
+		if ((fno.fattrib & AM_DIR) || strncmp(RUSEFI_LOG_PREFIX, fno.fname, sizeof(RUSEFI_LOG_PREFIX) - 1)) {
+			continue;
+		}
+		scheduleMsg(&logger, "logfile%lu:%s", fno.fsize, fno.fname);
+		count++;
 
 //			scheduleMsg(&logger, "%c%c%c%c%c %u/%02u/%02u %02u:%02u %9lu  %-12s", (fno.fattrib & AM_DIR) ? 'D' : '-',
 //					(fno.fattrib & AM_RDO) ? 'R' : '-', (fno.fattrib & AM_HID) ? 'H' : '-',
 //					(fno.fattrib & AM_SYS) ? 'S' : '-', (fno.fattrib & AM_ARC) ? 'A' : '-', (fno.fdate >> 9) + 1980,
 //					(fno.fdate >> 5) & 15, fno.fdate & 31, (fno.ftime >> 11), (fno.ftime >> 5) & 63, fno.fsize,
 //					fno.fname);
-		}
 	}
 	unlockSpi();
 }
