@@ -27,6 +27,7 @@ public class SettingsTab {
 
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.ALGORITHM, "algorithm").getContent()));
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.TRIGGER_TYPE, "trigger type").getContent()));
+        panel.add(new BitConfigField(Fields.USEONLYFRONTFORTRIGGER, "Only Front").getContent());
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.TRIGGERINPUTPINS1, "trigger #1 input").getContent()));
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.TRIGGERINPUTPINS2, "trigger #2 input").getContent()));
 //        panel.add(UiUtils.wrap(new EnumConfigField(Fields.TRIGGERINPUTPINS3, "trigger #3 input").getContent()));
