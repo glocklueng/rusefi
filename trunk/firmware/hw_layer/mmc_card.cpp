@@ -167,9 +167,6 @@ static void removeFile(const char *pathx) {
 }
 
 static void listDirectory(const char *path) {
-	DIR dir;
-	FILINFO fno;
-	char *fn;
 
 	if (!fs_ready) {
 		scheduleMsg(&logger, "Error: No File system is mounted");
@@ -177,6 +174,7 @@ static void listDirectory(const char *path) {
 	}
 	lockSpi(SPI_NONE);
 
+	DIR dir;
 	FRESULT res = f_opendir(&dir, path);
 
 	if (res != FR_OK) {
@@ -189,12 +187,12 @@ static void listDirectory(const char *path) {
 
 	int i = strlen(path);
 	for (int count = 0;count < FILE_LIST_MAX_COUNT;) {
+		FILINFO fno;
 		res = f_readdir(&dir, &fno);
 		if (res != FR_OK || fno.fname[0] == 0)
 			break;
 		if (fno.lfname[0] == '.')
 			continue;
-		fn = fno.lfname;
 		if ((fno.fattrib & AM_DIR) || strncmp(RUSEFI_LOG_PREFIX, fno.fname, sizeof(RUSEFI_LOG_PREFIX) - 1)) {
 			continue;
 		}
