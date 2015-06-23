@@ -96,7 +96,7 @@ public class LogsManager {
     }
 
     private void listDirectory() {
-        CommandQueue.getInstance().write("ls /", CommandQueue.DEFAULT_TIMEOUT, InvocationConfirmationListener.VOID,
-                false);
+//        CommandQueue.getInstance().write("ls /", CommandQueue.DEFAULT_TIMEOUT, InvocationConfirmationListener.VOID,
+//                false);
     }
 }
