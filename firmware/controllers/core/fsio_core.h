@@ -81,6 +81,8 @@ private:
 
 typedef FLStack<float, MAX_STACK_DEPTH> calc_stack_t;
 
+#define MAX_CALC_LOG 64
+
 class LECalculator {
 public:
 	LECalculator();
@@ -89,8 +91,11 @@ public:
 	void add(LEElement *element);
 	void reset();
 	void reset(LEElement *element);
-
+	le_action_e calcLogAction[MAX_CALC_LOG];
+	float calcLogValue[MAX_CALC_LOG];
+	int currentCalculationLogPosition;
 private:
+	void push(le_action_e action, float value);
 	bool_t doJob(Engine *engine, LEElement *element);
 	float pop(le_action_e action);
 	LEElement *first;
