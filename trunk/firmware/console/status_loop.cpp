@@ -567,7 +567,9 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels DECLARE_
 	tsOutputChannels->coolant_temperature = coolant;
 	tsOutputChannels->intakeAirTemperature = intake;
 	tsOutputChannels->throttlePositon = tps;
-	tsOutputChannels->massAirFlowVoltage = getMaf();
+	if (hasMafSensor()) {
+		tsOutputChannels->massAirFlowVoltage = getMaf();
+	}
 	tsOutputChannels->massAirFlowValue = getRealMaf();
 	tsOutputChannels->veValue = veMap.getValue(getMap(), rpm);
 	tsOutputChannels->airFuelRatio = getAfr();
