@@ -241,7 +241,7 @@ static void setPinState(const char * msg, OutputPin *pin, LEElement *element, En
 			}
 
 			for (int i = 0;i < calc.currentCalculationLogPosition;i++) {
-				scheduleMsg("calc %d: action %d value %f", i, calc.calcLogAction[i], calc.calcLogValue[i]);
+				scheduleMsg(logger, "calc %d: action %d value %f", i, calc.calcLogAction[i], calc.calcLogValue[i]);
 			}
 
 			scheduleMsg(logger, "setPin %s %s", msg, value ? "on" : "off");
