@@ -236,8 +236,14 @@ static void setPinState(const char * msg, OutputPin *pin, LEElement *element, En
 	} else {
 		int value = calc.getValue2(element, engine);
 		if (pin->isInitialized() && value != pin->getLogicValue()) {
-			if (isRunningBenchTest())
+			if (isRunningBenchTest()) {
 				return; // let's not mess with bench testing
+			}
+
+			for (int i = 0;i < calc.currentCalculationLogPosition;i++) {
+				scheduleMsg("calc %d: action %d value %f", i, calc.calcLogAction[i], calc.calcLogValue[i]);
+			}
+
 			scheduleMsg(logger, "setPin %s %s", msg, value ? "on" : "off");
 			pin->setValue(value);
 		}
