@@ -144,27 +144,6 @@ static void updateErrorCodes(void) {
 			OBD_Engine_Coolant_Temperature_Circuit_Malfunction);
 }
 
-//static void fanRelayControl(void) {
-//	if (boardConfiguration->fanPin == GPIO_UNASSIGNED)
-//		return;
-//
-//	int isCurrentlyOn = getLogicPinValue(&en);
-//	int newValue;
-//	if (isCurrentlyOn) {
-//		// if the fan is already on, we keep it on till the 'fanOff' temperature
-//		newValue = getCoolantTemperature(engine) > engineConfiguration->fanOffTemperature;
-//	} else {
-//		newValue = getCoolantTemperature(engine) > engineConfiguration->fanOnTemperature;
-//	}
-//
-//	if (isCurrentlyOn != newValue) {
-//		if (isRunningBenchTest())
-//			return; // let's not mess with bench testing
-//		scheduleMsg(&logger, "FAN relay: %s", newValue ? "ON" : "OFF");
-//		setOutputPinValue(FAN_RELAY, newValue);
-//	}
-//}
-
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
 Overflow64Counter halTime;
 
