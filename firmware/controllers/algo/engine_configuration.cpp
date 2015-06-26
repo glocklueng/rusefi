@@ -718,7 +718,7 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType DECLARE_EN
 		setSachs(PASS_ENGINE_PARAMETER_F);
 		break;
 	default:
-		firmwareError("Unexpected engine type: %d", engineType);
+		warning(OBD_PCM_Processor_Fault, "Unexpected engine type: %d", engineType);
 	}
 	applyNonPersistentConfiguration(logger PASS_ENGINE_PARAMETER);
 	// todo: eliminate triggerShape.operationMode?
