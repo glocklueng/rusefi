@@ -183,8 +183,7 @@ const char* getConfigurationName(engine_type_e engineType) {
 	case MAZDA_626:
 		return "Mazda626";
 	default:
-		firmwareError("Unexpected: engineType %d", engineType);
-		return NULL;
+		return "UnknownType";
 	}
 }
 
