@@ -187,3 +187,9 @@ void setHondaAccordConfigurationDip(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->trigger.type = TT_HONDA_ACCORD_CD_DIP;
 	setHondaAccordConfigurationCommon(PASS_ENGINE_PARAMETER_F);
 }
+
+void setHondaAccordConfiguration1_24(DECLARE_ENGINE_PARAMETER_F) {
+	engineConfiguration->engineType = HONDA_ACCORD_CD_DIP;
+	engineConfiguration->trigger.type = TT_HONDA_ACCORD_1_24;
+	setHondaAccordConfigurationCommon(PASS_ENGINE_PARAMETER_F);
+}

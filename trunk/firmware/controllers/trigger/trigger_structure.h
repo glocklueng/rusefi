@@ -153,6 +153,7 @@ private:
 void setToothedWheelConfiguration(TriggerShape *s, int total, int skipped, operation_mode_e operationMode);
 void configureHondaAccordCD(TriggerShape *s, bool withOneEventSignal, bool withFourEventSignal,
 		trigger_wheel_e const oneEventWave,
-		trigger_wheel_e const fourEventWave);
+		trigger_wheel_e const fourEventWave,
+		float d);
 
 #endif /* TRIGGER_STRUCTURE_H_ */
