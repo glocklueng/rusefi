@@ -39,6 +39,13 @@ void initEgoSensor(afr_sensor_s *sensor, ego_sensor_e type) {
 		sensor->v2 = 5;
 		sensor->value2 = 19.992;
 		break;
+		// technically 14Point7 and PLX use the same scale
+	case ES_PLX:
+		sensor->v1 = 0;
+		sensor->value1 = 10;
+		sensor->v2 = 5;
+		sensor->value2 = 20;
+		break;
 	case ES_NarrowBand:
 		sensor->v1 = 0.1;
 		sensor->value1 = 15;

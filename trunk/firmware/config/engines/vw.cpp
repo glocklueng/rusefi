@@ -10,6 +10,7 @@
 #include "main.h"
 #include "vw.h"
 #include "custom_engine.h"
+#include "ego.h"
 
 EXTERN_ENGINE;
 
@@ -38,7 +39,7 @@ void setVwAba(DECLARE_ENGINE_PARAMETER_F) {
 	boardConfiguration->ignitionPins[3] = GPIO_UNASSIGNED;
 	boardConfiguration->ignitionPinMode = OM_DEFAULT;
 
-
+	initEgoSensor(&engineConfiguration->afr, ES_PLX);
 }
 
 
