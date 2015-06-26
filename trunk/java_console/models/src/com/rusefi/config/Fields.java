@@ -1,6 +1,6 @@
 package com.rusefi.config;
 
-// this file was generated automatically by ConfigDefinition.jar Thu Jun 25 22:20:29 EDT 2015
+// this file was generated automatically by ConfigDefinition.jar Thu Jun 25 22:33:56 EDT 2015
 public class Fields {
 	public static final Field ENGINETYPE = new Field("ENGINETYPE", 0, FieldType.INT);
 	public static final Field HEADERMAGICVALUE = new Field("HEADERMAGICVALUE", 4, FieldType.INT);
@@ -19,7 +19,7 @@ public class Fields {
 	public static final Field MAP_SENSOR_VALUEAT0 = new Field("MAP_SENSOR_VALUEAT0", 240, FieldType.FLOAT);
 	public static final Field MAP_SENSOR_VALUEAT5 = new Field("MAP_SENSOR_VALUEAT5", 244, FieldType.FLOAT);
 	public static final Field MAP_SENSOR_TYPE = new Field("MAP_SENSOR_TYPE", 248, FieldType.INT);
-	public static final String[] adc_channel_e = {"PA0", "PA1", "PA2", "PA3", "PA4", "PA5", "PA6", "PA7", "PB0", "PB1", "PC0", "PC1", "PC2", "PC3", "PC4", "PC5"};
+	public static final String[] adc_channel_e = {"PA0", "PA1", "PA2", "PA3", "PA4", "PA5", "PA6", "PA7", "PB0", "PB1", "PC0", "PC1", "PC2", "PC3", "PC4", "PC5", "Disabled", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID"};
 	public static final Field MAP_SENSOR_HWCHANNEL = new Field("MAP_SENSOR_HWCHANNEL", 252, FieldType.INT, adc_channel_e);
 	public static final Field CLT_TEMPC_1 = new Field("CLT_TEMPC_1", 256, FieldType.FLOAT);
 	public static final Field CLT_TEMPC_2 = new Field("CLT_TEMPC_2", 260, FieldType.FLOAT);
