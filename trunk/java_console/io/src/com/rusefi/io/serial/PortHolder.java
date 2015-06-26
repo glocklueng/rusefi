@@ -103,6 +103,8 @@ public class PortHolder {
      * this method blocks till a connection is available
      */
     public void packAndSend(final String command, boolean fireEvent) throws InterruptedException {
+        if (bp == null)
+            throw new NullPointerException("bp");
         bp.doSend(command, fireEvent);
     }
 
