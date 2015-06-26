@@ -367,7 +367,8 @@ float etbIFactor;
 	brain_pin_e wboPumpPin;
 	float fuelLevelEmptyTankVoltage;;"V",      1,      0,       0,10,      2
 	float fuelLevelFullTankVoltage;;"V",      1,      0,       0,10,      2
-	float[5] unusedADC;
+	ego_sensor_e afr_type;AFR, WBO, EGO - whatever you like to call it;
+	float[4] unusedADC;
 
 	brain_input_pin_e[3 iterate] triggerInputPins;
 	brain_pin_e mainRelayPin;
@@ -457,6 +458,10 @@ custom fsio_setting_t 4 scalar,  F32,   @OFFSET@, 		"Val",	   1,	   0,       0, 
 #define sensor_chart_e_enum "none", "trigger", "MAP", "INVALID"
 custom sensor_chart_e 4 bits, S32, @OFFSET@, [0:1], @@sensor_chart_e_enum@@
 sensor_chart_e sensorChartMode;
+
+#define ego_sensor_e_enum "BPSX", "Innovate", "14Point7", "Narrow", "PLX"
+custom ego_sensor_e 4 bits, S32, @OFFSET@, [0:2], @@ego_sensor_e_enum@@
+
 maf_sensor_type_e mafSensorType;
 
 brain_input_pin_e vehicleSpeedSensorInputPin;

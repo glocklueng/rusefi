@@ -314,8 +314,10 @@
 #define fuelLevelEmptyTankVoltage_offset 892
 #define fuelLevelFullTankVoltage_offset 896
 #define fuelLevelFullTankVoltage_offset_hex 380
-#define unusedADC_offset 900
-#define unusedADC_offset_hex 384
+#define afr_type_offset 900
+#define afr_type_offset_hex 384
+#define unusedADC_offset 904
+#define unusedADC_offset_hex 388
 #define triggerInputPins1_offset 920
 #define triggerInputPins1_offset_hex 398
 #define triggerInputPins2_offset 924
