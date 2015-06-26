@@ -158,7 +158,7 @@ static void setHondaAccordConfigurationCommon(DECLARE_ENGINE_PARAMETER_F) {
 	boardConfiguration->injectionPins[2] = GPIOD_5;
 	boardConfiguration->injectionPins[3] = GPIOB_7;
 
-	boardConfiguration->ignitionPins[0] = GPIOE_14; // white wire
+	boardConfiguration->ignitionPins[0] = GPIOE_12; // white wire
 	boardConfiguration->ignitionPins[1] = GPIO_UNASSIGNED;
 	boardConfiguration->ignitionPins[2] = GPIO_UNASSIGNED;
 	boardConfiguration->ignitionPins[3] = GPIO_UNASSIGNED;
