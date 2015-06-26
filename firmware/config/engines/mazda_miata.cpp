@@ -275,7 +275,7 @@ void setFordEscortGt(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->map.sensor.type = MT_DENSO183;
 	engineConfiguration->map.sensor.hwChannel = EFI_ADC_4;
 
-	initEgoSensor(&engineConfiguration->afr, ES_BPSX_D1);
+	setEgoSensor(ES_BPSX_D1 PASS_ENGINE_PARAMETER);
 	engineConfiguration->afr.hwChannel = EFI_ADC_2;
 
 
@@ -456,7 +456,7 @@ void setMiata1994_s(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->acSwitchAdc = EFI_ADC_1; // PA1, W50 on Frankenso
 
 	engineConfiguration->afr.hwChannel = EFI_ADC_3;
-	initEgoSensor(&engineConfiguration->afr, ES_Innovate_MTX_L);
+	setEgoSensor(ES_Innovate_MTX_L PASS_ENGINE_PARAMETER);
 
 	/**
 	 * This board has PE0<>PD5 & PE1<>PD3 rewired in order to avoid Discovery issue

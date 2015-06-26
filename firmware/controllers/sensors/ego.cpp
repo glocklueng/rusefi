@@ -14,7 +14,7 @@ float getAfr(DECLARE_ENGINE_PARAMETER_F) {
 	return interpolate(sensor->v1, sensor->value1, sensor->v2, sensor->value2, volts);
 }
 
-void initEgoSensor(afr_sensor_s *sensor, ego_sensor_e type) {
+static void initEgoSensor(afr_sensor_s *sensor, ego_sensor_e type) {
 
 	switch (type) {
 	case ES_BPSX_D1:
@@ -56,4 +56,9 @@ void initEgoSensor(afr_sensor_s *sensor, ego_sensor_e type) {
 		firmwareError("Unexpected EGO %d", type);
 		break;
 	}
+}
+
+void setEgoSensor(ego_sensor_e type DECLARE_ENGINE_PARAMETER_S) {
+	boardConfiguration->afr_type = type;
+	initEgoSensor(&engineConfiguration->afr, type);
 }
