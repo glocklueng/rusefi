@@ -93,7 +93,7 @@ static void setHondaAccordConfigurationCommon(DECLARE_ENGINE_PARAMETER_F) {
 	 * Inp1/ADC12 PC2: CLT
 	 * Inp2/ADC11 PC1: AIT/IAT
 	 * Inp3/ADC0 PA0: MAP
-	 * Inp4/ADC13 PC3: AFR
+	 * Inp4/ADC13 PC3: AFR green wire
 	 * Inp6/ADC1 PA1: TPS
 	 * Inp12/ADC14 PC4: VBatt
 	 */
@@ -101,14 +101,13 @@ static void setHondaAccordConfigurationCommon(DECLARE_ENGINE_PARAMETER_F) {
 	/**
 	 * wideband O2 Sensor
 	 */
-// todo	engineConfiguration->afr.hwChannel = EFI_ADC_13;
-	engineConfiguration->afr.hwChannel = EFI_ADC_NONE;
+	engineConfiguration->afr.hwChannel = EFI_ADC_13;
 
 	/**
 	 * VBatt
 	 */
 	engineConfiguration->vbattAdcChannel = EFI_ADC_14;
-	engineConfiguration->vbattDividerCoeff = ((float) (8.2 + 33)) / 8.2 * 2;
+	engineConfiguration->vbattDividerCoeff = ((float) (10 + 39)) / 10 * 2;
 
 	//	todo engineConfiguration->afr.hwChannel = 14;
 
@@ -159,13 +158,14 @@ static void setHondaAccordConfigurationCommon(DECLARE_ENGINE_PARAMETER_F) {
 	boardConfiguration->injectionPins[2] = GPIOD_5;
 	boardConfiguration->injectionPins[3] = GPIOB_7;
 
-//	boardConfiguration->ignitionPins[0] = GPIOE_4; // white wire
+	boardConfiguration->ignitionPins[0] = GPIOE_14; // white wire
 	boardConfiguration->ignitionPins[1] = GPIO_UNASSIGNED;
 	boardConfiguration->ignitionPins[2] = GPIO_UNASSIGNED;
 	boardConfiguration->ignitionPins[3] = GPIO_UNASSIGNED;
 
 
 	setFrankenso_01_LCD(boardConfiguration);
+	setFrankenso0_1_joystick(engineConfiguration);
 
 	boardConfiguration->idle.solenoidFrequency = 500;
 }
