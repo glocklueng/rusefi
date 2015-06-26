@@ -444,13 +444,14 @@ void configureHondaAccordCDDip(TriggerShape *s) {
 	s->isSynchronizationNeeded = false;
 }
 
-void configureHondaAccordCD(TriggerShape *s, bool withOneEventSignal) {
+void configureHondaAccordCD(TriggerShape *s, bool withOneEventSignal, bool withFourEventSignal,
+		trigger_wheel_e const oneEventWave,
+		trigger_wheel_e const fourEventWave) {
 	s->reset(FOUR_STROKE_CAM_SENSOR, true);
 
-	trigger_wheel_e const oneEventWave = T_CHANNEL_3;
-
-	bool withFourEventSignal = true;
-	trigger_wheel_e const fourEventWave = T_PRIMARY;
+//	trigger_wheel_e const oneEventWave = T_CHANNEL_3;
+//	bool withFourEventSignal = true;
+//	trigger_wheel_e const fourEventWave = T_PRIMARY;
 
 	float sb = 5.0f;
 

@@ -404,11 +404,11 @@ void TriggerShape::initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMET
 		break;
 
 	case TT_HONDA_ACCORD_CD_TWO_WIRES:
-		configureHondaAccordCD(triggerShape, false);
+		configureHondaAccordCD(triggerShape, false, true, T_CHANNEL_3, T_PRIMARY);
 		break;
 
 	case TT_HONDA_ACCORD_CD:
-		configureHondaAccordCD(triggerShape, true);
+		configureHondaAccordCD(triggerShape, true, true, T_CHANNEL_3, T_PRIMARY);
 		break;
 
 	case TT_HONDA_ACCORD_CD_DIP:
