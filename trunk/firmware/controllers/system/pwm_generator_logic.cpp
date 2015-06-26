@@ -188,10 +188,6 @@ void PwmConfig::weComplexInit(const char *msg, int phaseCount, float *switchTime
 		firmwareError("too many phases in PWM");
 		return;
 	}
-	if (switchTimes[phaseCount - 1] != 1) {
-		firmwareError("last switch time has to be 1");
-		return;
-	}
 	efiAssertVoid(waveCount > 0, "waveCount should be positive");
 	checkSwitchTimes2(phaseCount, switchTimes);
 
