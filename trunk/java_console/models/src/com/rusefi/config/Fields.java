@@ -1,6 +1,6 @@
 package com.rusefi.config;
 
-// this file was generated automatically by ConfigDefinition.jar Mon Jun 22 11:38:06 EDT 2015
+// this file was generated automatically by ConfigDefinition.jar Thu Jun 25 22:20:29 EDT 2015
 public class Fields {
 	public static final Field ENGINETYPE = new Field("ENGINETYPE", 0, FieldType.INT);
 	public static final Field HEADERMAGICVALUE = new Field("HEADERMAGICVALUE", 4, FieldType.INT);
@@ -19,7 +19,8 @@ public class Fields {
 	public static final Field MAP_SENSOR_VALUEAT0 = new Field("MAP_SENSOR_VALUEAT0", 240, FieldType.FLOAT);
 	public static final Field MAP_SENSOR_VALUEAT5 = new Field("MAP_SENSOR_VALUEAT5", 244, FieldType.FLOAT);
 	public static final Field MAP_SENSOR_TYPE = new Field("MAP_SENSOR_TYPE", 248, FieldType.INT);
-	public static final Field MAP_SENSOR_HWCHANNEL = new Field("MAP_SENSOR_HWCHANNEL", 252, FieldType.INT);
+	public static final String[] adc_channel_e = {"PA0", "PA1", "PA2", "PA3", "PA4", "PA5", "PA6", "PA7", "PB0", "PB1", "PC0", "PC1", "PC2", "PC3", "PC4", "PC5"};
+	public static final Field MAP_SENSOR_HWCHANNEL = new Field("MAP_SENSOR_HWCHANNEL", 252, FieldType.INT, adc_channel_e);
 	public static final Field CLT_TEMPC_1 = new Field("CLT_TEMPC_1", 256, FieldType.FLOAT);
 	public static final Field CLT_TEMPC_2 = new Field("CLT_TEMPC_2", 260, FieldType.FLOAT);
 	public static final Field CLT_TEMPC_3 = new Field("CLT_TEMPC_3", 264, FieldType.FLOAT);
@@ -27,7 +28,7 @@ public class Fields {
 	public static final Field CLT_RESISTANCE_2 = new Field("CLT_RESISTANCE_2", 272, FieldType.FLOAT);
 	public static final Field CLT_RESISTANCE_3 = new Field("CLT_RESISTANCE_3", 276, FieldType.FLOAT);
 	public static final Field CLT_BIAS_RESISTOR = new Field("CLT_BIAS_RESISTOR", 280, FieldType.FLOAT);
-	public static final Field CLT_ADCCHANNEL = new Field("CLT_ADCCHANNEL", 284, FieldType.INT);
+	public static final Field CLT_ADCCHANNEL = new Field("CLT_ADCCHANNEL", 284, FieldType.INT, adc_channel_e);
 	public static final Field IAT_TEMPC_1 = new Field("IAT_TEMPC_1", 288, FieldType.FLOAT);
 	public static final Field IAT_TEMPC_2 = new Field("IAT_TEMPC_2", 292, FieldType.FLOAT);
 	public static final Field IAT_TEMPC_3 = new Field("IAT_TEMPC_3", 296, FieldType.FLOAT);
@@ -35,7 +36,7 @@ public class Fields {
 	public static final Field IAT_RESISTANCE_2 = new Field("IAT_RESISTANCE_2", 304, FieldType.FLOAT);
 	public static final Field IAT_RESISTANCE_3 = new Field("IAT_RESISTANCE_3", 308, FieldType.FLOAT);
 	public static final Field IAT_BIAS_RESISTOR = new Field("IAT_BIAS_RESISTOR", 312, FieldType.FLOAT);
-	public static final Field IAT_ADCCHANNEL = new Field("IAT_ADCCHANNEL", 316, FieldType.INT);
+	public static final Field IAT_ADCCHANNEL = new Field("IAT_ADCCHANNEL", 316, FieldType.INT, adc_channel_e);
 	public static final Field STEP1RPM = new Field("STEP1RPM", 320, FieldType.INT);
 	public static final Field STEP1TIMING = new Field("STEP1TIMING", 324, FieldType.INT);
 	public static final Field HIP9011PRESCALERANDSDO = new Field("HIP9011PRESCALERANDSDO", 328, FieldType.INT);
@@ -59,10 +60,10 @@ public class Fields {
 	public static final Field GLOBALTRIGGERANGLEOFFSET = new Field("GLOBALTRIGGERANGLEOFFSET", 460, FieldType.FLOAT);
 	public static final Field ANALOGINPUTDIVIDERCOEFFICIENT = new Field("ANALOGINPUTDIVIDERCOEFFICIENT", 464, FieldType.FLOAT);
 	public static final Field VBATTDIVIDERCOEFF = new Field("VBATTDIVIDERCOEFF", 468, FieldType.FLOAT);
-	public static final Field VBATTADCCHANNEL = new Field("VBATTADCCHANNEL", 472, FieldType.INT);
+	public static final Field VBATTADCCHANNEL = new Field("VBATTADCCHANNEL", 472, FieldType.INT, adc_channel_e);
 	public static final Field FANONTEMPERATURE = new Field("FANONTEMPERATURE", 476, FieldType.FLOAT);
 	public static final Field FANOFFTEMPERATURE = new Field("FANOFFTEMPERATURE", 480, FieldType.FLOAT);
-	public static final Field FUELLEVELSENSOR = new Field("FUELLEVELSENSOR", 484, FieldType.INT);
+	public static final Field FUELLEVELSENSOR = new Field("FUELLEVELSENSOR", 484, FieldType.INT, adc_channel_e);
 	public static final Field VEHICLESPEEDCOEF = new Field("VEHICLESPEEDCOEF", 488, FieldType.FLOAT);
 	public static final Field CANNBCTYPE = new Field("CANNBCTYPE", 492, FieldType.INT);
 	public static final Field CANSLEEPPERIOD = new Field("CANSLEEPPERIOD", 496, FieldType.INT);
@@ -72,7 +73,7 @@ public class Fields {
 	public static final Field FIRMWAREVERSION = new Field("FIRMWAREVERSION", 512, FieldType.INT);
 	public static final Field HD44780WIDTH = new Field("HD44780WIDTH", 516, FieldType.INT);
 	public static final Field HD44780HEIGHT = new Field("HD44780HEIGHT", 520, FieldType.INT);
-	public static final Field TPSADCCHANNEL = new Field("TPSADCCHANNEL", 524, FieldType.INT);
+	public static final Field TPSADCCHANNEL = new Field("TPSADCCHANNEL", 524, FieldType.INT, adc_channel_e);
 	public static final Field OVERRIDECRANKINGIGNITION = new Field("OVERRIDECRANKINGIGNITION", 528, FieldType.INT);
 	public static final Field SENSORCHARTFREQUENCY = new Field("SENSORCHARTFREQUENCY", 532, FieldType.INT);
 	public static final String[] trigger_type_e = {"custom toothed wheel", "ford aspire", "dodge neon", "Miata NA", "Miata NB", "GM_7X", "Cooper", "Mazda SOHC 4", "60/2", "36/1", "Accord CD", "MITSU", "ACCORD 2", "ACCORD DIP", "Neon 2003", "MAZDA D 1+4", "1+1", "1+60/2", "Single Tooth", "Dodge Ram 1+16", "60/2 VW", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID"};
@@ -89,17 +90,17 @@ public class Fields {
 	public static final Field PEDALPOSITIONMIN = new Field("PEDALPOSITIONMIN", 572, FieldType.INT);
 	public static final Field PEDALPOSITIONMAX = new Field("PEDALPOSITIONMAX", 574, FieldType.INT);
 	public static final Field MAXKNOCKSUBDEG = new Field("MAXKNOCKSUBDEG", 576, FieldType.FLOAT);
-	public static final Field MAFADCCHANNEL = new Field("MAFADCCHANNEL", 580, FieldType.INT);
-	public static final Field AFR_HWCHANNEL = new Field("AFR_HWCHANNEL", 584, FieldType.INT);
+	public static final Field MAFADCCHANNEL = new Field("MAFADCCHANNEL", 580, FieldType.INT, adc_channel_e);
+	public static final Field AFR_HWCHANNEL = new Field("AFR_HWCHANNEL", 584, FieldType.INT, adc_channel_e);
 	public static final Field AFR_V1 = new Field("AFR_V1", 588, FieldType.FLOAT);
 	public static final Field AFR_VALUE1 = new Field("AFR_VALUE1", 592, FieldType.FLOAT);
 	public static final Field AFR_V2 = new Field("AFR_V2", 596, FieldType.FLOAT);
 	public static final Field AFR_VALUE2 = new Field("AFR_VALUE2", 600, FieldType.FLOAT);
-	public static final Field PEDALPOSITIONCHANNEL = new Field("PEDALPOSITIONCHANNEL", 604, FieldType.INT);
+	public static final Field PEDALPOSITIONCHANNEL = new Field("PEDALPOSITIONCHANNEL", 604, FieldType.INT, adc_channel_e);
 	public static final Field BAROSENSOR_VALUEAT0 = new Field("BAROSENSOR_VALUEAT0", 608, FieldType.FLOAT);
 	public static final Field BAROSENSOR_VALUEAT5 = new Field("BAROSENSOR_VALUEAT5", 612, FieldType.FLOAT);
 	public static final Field BAROSENSOR_TYPE = new Field("BAROSENSOR_TYPE", 616, FieldType.INT);
-	public static final Field BAROSENSOR_HWCHANNEL = new Field("BAROSENSOR_HWCHANNEL", 620, FieldType.INT);
+	public static final Field BAROSENSOR_HWCHANNEL = new Field("BAROSENSOR_HWCHANNEL", 620, FieldType.INT, adc_channel_e);
 	public static final String[] brain_pin_e = {"PA0", "PA1", "PA2", "PA3", "PA4", "PA5", "PA6", "PA7", "PA8", "PA9", "PA10", "PA11", "PA12", "PA13", "PA14", "PA15", "PB0", "PB1", "PB2", "PB3", "PB4", "PB5", "PB6", "PB7", "PB8", "PB9", "PB10", "PB11", "PB12", "PB13", "PB14", "PB15", "PC0", "PC1", "PC2", "PC3", "PC4", "PC5", "PC6", "PC7", "PC8", "PC9", "PC10", "PC11", "PC12", "PC13", "PC14", "PC15", "PD0", "PD1", "PD2", "PD3", "PD4", "PD5", "PD6", "PD7", "PD8", "PD9", "PD10", "PD11", "PD12", "PD13", "PD14", "PD15", "PE0", "PE1", "PE2", "PE3", "PE4", "PE5", "PE6", "PE7", "PE8", "PE9", "PE10", "PE11", "PE12", "PE13", "PE14", "PE15", "NONE", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID"};
 	public static final Field IDLE_SOLENOIDPIN = new Field("IDLE_SOLENOIDPIN", 624, FieldType.INT, brain_pin_e);
 	public static final Field IDLE_SOLENOIDPINMODE = new Field("IDLE_SOLENOIDPINMODE", 628, FieldType.INT);
@@ -353,7 +354,7 @@ public class Fields {
 	public static final Field CUTFUELONHARDLIMIT = new Field("CUTFUELONHARDLIMIT", 1496, FieldType.BIT, 16);
 	public static final Field CUTSPARKONHARDLIMIT = new Field("CUTSPARKONHARDLIMIT", 1496, FieldType.BIT, 17);
 	public static final Field HASFREQUENCYREPORTINGMAPSENSOR = new Field("HASFREQUENCYREPORTINGMAPSENSOR", 1496, FieldType.BIT, 18);
-	public static final Field HIPOUTPUTCHANNEL = new Field("HIPOUTPUTCHANNEL", 1500, FieldType.INT);
+	public static final Field HIPOUTPUTCHANNEL = new Field("HIPOUTPUTCHANNEL", 1500, FieldType.INT, adc_channel_e);
 	public static final Field IDLEMODE = new Field("IDLEMODE", 1504, FieldType.INT);
 	public static final Field ISINJECTIONENABLED = new Field("ISINJECTIONENABLED", 1508, FieldType.BIT, 0);
 	public static final Field ISIGNITIONENABLED = new Field("ISIGNITIONENABLED", 1508, FieldType.BIT, 1);
@@ -372,13 +373,13 @@ public class Fields {
 	public static final Field USEONLYFRONTFORTRIGGER = new Field("USEONLYFRONTFORTRIGGER", 1508, FieldType.BIT, 14);
 	public static final Field ENGINECHARTSIZE = new Field("ENGINECHARTSIZE", 1512, FieldType.INT);
 	public static final Field TARGETIDLERPM = new Field("TARGETIDLERPM", 1516, FieldType.INT);
-	public static final Field ACSWITCHADC = new Field("ACSWITCHADC", 1520, FieldType.INT);
+	public static final Field ACSWITCHADC = new Field("ACSWITCHADC", 1520, FieldType.INT, adc_channel_e);
 	public static final Field IGNMATHCALCULATEATINDEX = new Field("IGNMATHCALCULATEATINDEX", 1524, FieldType.INT);
 	public static final Field ACCUTOFFLOWRPM = new Field("ACCUTOFFLOWRPM", 1528, FieldType.INT);
 	public static final Field ACCUTOFFHIGHRPM = new Field("ACCUTOFFHIGHRPM", 1530, FieldType.INT);
 	public static final Field ACIDLERPMBUMP = new Field("ACIDLERPMBUMP", 1532, FieldType.INT);
 	public static final Field UNUSEDSHORT = new Field("UNUSEDSHORT", 1534, FieldType.INT);
-	public static final Field VREFADCCHANNEL = new Field("VREFADCCHANNEL", 1536, FieldType.INT);
+	public static final Field VREFADCCHANNEL = new Field("VREFADCCHANNEL", 1536, FieldType.INT, adc_channel_e);
 	public static final Field KNOCKDETECTIONWINDOWSTART = new Field("KNOCKDETECTIONWINDOWSTART", 1540, FieldType.FLOAT);
 	public static final Field KNOCKDETECTIONWINDOWEND = new Field("KNOCKDETECTIONWINDOWEND", 1544, FieldType.FLOAT);
 	public static final Field IDLESTEPPERREACTIONTIME = new Field("IDLESTEPPERREACTIONTIME", 1548, FieldType.FLOAT);
@@ -399,7 +400,7 @@ public class Fields {
 	public static final Field FSIOINPUTMODES14 = new Field("FSIOINPUTMODES14", 1608, FieldType.INT);
 	public static final Field FSIOINPUTMODES15 = new Field("FSIOINPUTMODES15", 1612, FieldType.INT);
 	public static final Field FSIOINPUTMODES16 = new Field("FSIOINPUTMODES16", 1616, FieldType.INT);
-	public static final Field EXTERNALKNOCKSENSEADC = new Field("EXTERNALKNOCKSENSEADC", 1620, FieldType.INT);
+	public static final Field EXTERNALKNOCKSENSEADC = new Field("EXTERNALKNOCKSENSEADC", 1620, FieldType.INT, adc_channel_e);
 	public static final Field IDLESTEPPERTOTALSTEPS = new Field("IDLESTEPPERTOTALSTEPS", 1636, FieldType.INT);
 	public static final Field STEPPERENABLEPIN = new Field("STEPPERENABLEPIN", 1640, FieldType.INT, brain_pin_e);
 	public static final Field NOACCELAFTERHARDLIMITPERIODSECS = new Field("NOACCELAFTERHARDLIMITPERIODSECS", 1644, FieldType.FLOAT);

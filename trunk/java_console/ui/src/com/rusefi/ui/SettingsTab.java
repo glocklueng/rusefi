@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SettingsTab {
-    private final JPanel panel = new JPanel(new GridLayout(5, 3));
+    private final JPanel panel = new JPanel(new GridLayout(6, 3));
     private final JPanel content = new JPanel(new BorderLayout());
 
     public SettingsTab() {
@@ -34,6 +34,8 @@ public class SettingsTab {
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.INJECTIONPINS1, "injector #1").getContent()));
 
         panel.add(UiUtils.wrap(new BitConfigField(Fields.ISSDCARDENABLED, "SD card enabled").getContent()));
+
+        panel.add(UiUtils.wrap(new EnumConfigField(Fields.AFR_HWCHANNEL, "AFR channel").getContent()));
 
         panel.add(UiUtils.wrap(new BitConfigField(Fields.ISCANENABLED, "CAN enabled").getContent()));
         panel.add(UiUtils.wrap(new BitConfigField(Fields.CANREADENABLED, "CAN read").getContent()));
