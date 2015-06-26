@@ -99,9 +99,10 @@ static void setHondaAccordConfigurationCommon(DECLARE_ENGINE_PARAMETER_F) {
 	 */
 
 	/**
-	 * D14/W10 O2 Sensor
+	 * wideband O2 Sensor
 	 */
-	engineConfiguration->afr.hwChannel = EFI_ADC_13;
+// todo	engineConfiguration->afr.hwChannel = EFI_ADC_13;
+	engineConfiguration->afr.hwChannel = EFI_ADC_NONE;
 
 	/**
 	 * VBatt
@@ -113,25 +114,21 @@ static void setHondaAccordConfigurationCommon(DECLARE_ENGINE_PARAMETER_F) {
 
 
 	/**
-	 * MAP D17/W5
+	 * MAP D17/W5 blue wire
 	 */
 	engineConfiguration->map.sensor.hwChannel = EFI_ADC_0;
-
-
 	/**
-	 * TPS D11/W11
-	 */
-	engineConfiguration->tpsAdcChannel = EFI_ADC_1;
-
-	/**
-	 * IAT D15/W7
+	 * IAT D15/W7 green wire
 	 */
 	engineConfiguration->iat.adcChannel = EFI_ADC_11;
-
 	/**
-	 * CLT D13/W9
+	 * CLT D13/W9 yellow wire
 	 */
 	engineConfiguration->clt.adcChannel = EFI_ADC_12;
+	/**
+	 * TPS D11/W11 blue wire
+	 */
+	engineConfiguration->tpsAdcChannel = EFI_ADC_1;
 
 
 	/**
@@ -141,33 +138,34 @@ static void setHondaAccordConfigurationCommon(DECLARE_ENGINE_PARAMETER_F) {
 	// Frankenso low out #2: PE5
 	// Frankenso low out #3: PD7
 	// Frankenso low out #4: PC13
-	// Frankenso low out #5: PE3
-	// Frankenso low out #6: PE4
-	// Frankenso low out #7: PE1 (do not use with discovery!)
-	// Frankenso low out #8: PE2
-	// Frankenso low out #9: PB9
-	// Frankenso low out #10: PE0 (do not use with discovery!)
-	// Frankenso low out #11: PB8
-	// Frankenso low out #12: PB7
+	// Frankenso low out #5: PE3 Fuel Relay
+	// Frankenso low out #6: PE4 radiator fan - blue wire
+	// Frankenso low out #7: PD3 idle air valve solenoid - green wire
+	// Frankenso low out #8: PE2 MIL - white wire
+	// Frankenso low out #9: PB9 Injector #2
+	// Frankenso low out #10: PD5 Injector #3
+	// Frankenso low out #11: PB8 injector #1
+	// Frankenso low out #12: PB7 injector #4
+	boardConfiguration->fuelPumpPin = GPIOE_3;
+	boardConfiguration->fuelPumpPinMode = OM_DEFAULT;
+	boardConfiguration->malfunctionIndicatorPin = GPIOE_2;
+	boardConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
+	boardConfiguration->fanPin = GPIOE_4; // blue wire
 
-	boardConfiguration->idle.solenoidPin = GPIOE_5;
-	boardConfiguration->o2heaterPin = GPIOC_13;
+	boardConfiguration->idle.solenoidPin = GPIOD_3; // green wire
 
 	boardConfiguration->injectionPins[0] = GPIOB_8;
 	boardConfiguration->injectionPins[1] = GPIOB_9;
-	boardConfiguration->injectionPins[2] = GPIOE_1;
+	boardConfiguration->injectionPins[2] = GPIOD_5;
 	boardConfiguration->injectionPins[3] = GPIOB_7;
 
-	boardConfiguration->ignitionPins[0] = GPIOE_4;
+//	boardConfiguration->ignitionPins[0] = GPIOE_4; // white wire
 	boardConfiguration->ignitionPins[1] = GPIO_UNASSIGNED;
 	boardConfiguration->ignitionPins[2] = GPIO_UNASSIGNED;
 	boardConfiguration->ignitionPins[3] = GPIO_UNASSIGNED;
 
-	boardConfiguration->fuelPumpPin = GPIOE_3;
-	boardConfiguration->fuelPumpPinMode = OM_DEFAULT;
 
 	setFrankenso_01_LCD(boardConfiguration);
-
 
 	boardConfiguration->idle.solenoidFrequency = 500;
 }
