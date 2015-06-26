@@ -644,7 +644,7 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType DECLARE_EN
 		setHondaAccordConfigurationThreeWires(PASS_ENGINE_PARAMETER_F);
 		break;
 	case HONDA_ACCORD_CD_TWO_WIRES:
-		setHondaAccordConfigurationTwoWires(PASS_ENGINE_PARAMETER_F);
+		setHondaAccordConfiguration1_24(PASS_ENGINE_PARAMETER_F);
 		break;
 	case HONDA_ACCORD_CD_DIP:
 		setHondaAccordConfigurationDip(PASS_ENGINE_PARAMETER_F);

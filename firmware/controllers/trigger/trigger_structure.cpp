@@ -446,14 +446,15 @@ void configureHondaAccordCDDip(TriggerShape *s) {
 
 void configureHondaAccordCD(TriggerShape *s, bool withOneEventSignal, bool withFourEventSignal,
 		trigger_wheel_e const oneEventWave,
-		trigger_wheel_e const fourEventWave) {
+		trigger_wheel_e const fourEventWave,
+		float prefix) {
 	s->reset(FOUR_STROKE_CAM_SENSOR, true);
 
 //	trigger_wheel_e const oneEventWave = T_CHANNEL_3;
 //	bool withFourEventSignal = true;
 //	trigger_wheel_e const fourEventWave = T_PRIMARY;
 
-	float sb = 5.0f;
+	float sb = 5.0f + prefix;
 
 	float tdcWidth = 0.1854 * 720 / 4;
 
@@ -471,25 +472,25 @@ void configureHondaAccordCD(TriggerShape *s, bool withOneEventSignal, bool withF
 	sb = addAccordPair(s, sb, T_SECONDARY);
 	sb = addAccordPair(s, sb, T_SECONDARY);
 	if (withFourEventSignal) {
-		s->addEvent(1 * 180.0f - tdcWidth, fourEventWave, TV_HIGH);
+		s->addEvent(1 * 180.0f + prefix - tdcWidth, fourEventWave, TV_HIGH);
 	}
 	sb = addAccordPair(s, sb, T_SECONDARY);
 	if (withFourEventSignal) {
-		s->addEvent(1 * 180.0f, fourEventWave, TV_LOW);
+		s->addEvent(1 * 180.0f + prefix, fourEventWave, TV_LOW);
 	}
 
 	sb = addAccordPair(s, sb, T_SECONDARY);
-	sb = addAccordPair(s, sb, T_SECONDARY);
+	sb = addAccordPair(s, sb,T_SECONDARY);
 	sb = addAccordPair(s, sb, T_SECONDARY);
 	sb = addAccordPair(s, sb, T_SECONDARY);
 	sb = addAccordPair(s, sb, T_SECONDARY);
 
 	if (withFourEventSignal) {
-		s->addEvent(2 * 180.0f - tdcWidth, fourEventWave, TV_HIGH);
+		s->addEvent(2 * 180.0f + prefix - tdcWidth, fourEventWave, TV_HIGH);
 	}
 	sb = addAccordPair(s, sb, T_SECONDARY);
 	if (withFourEventSignal) {
-		s->addEvent(2 * 180.0f, fourEventWave, TV_LOW);
+		s->addEvent(2 * 180.0f + prefix, fourEventWave, TV_LOW);
 	}
 
 	for (int i = 3; i <= 4; i++) {
@@ -500,11 +501,11 @@ void configureHondaAccordCD(TriggerShape *s, bool withOneEventSignal, bool withF
 		sb = addAccordPair(s, sb, T_SECONDARY);
 
 		if (withFourEventSignal) {
-			s->addEvent(i * 180.0f - tdcWidth, fourEventWave, TV_HIGH);
+			s->addEvent(i * 180.0f + prefix - tdcWidth, fourEventWave, TV_HIGH);
 		}
 		sb = addAccordPair(s, sb, T_SECONDARY);
 		if (withFourEventSignal) {
-			s->addEvent(i * 180.0f, fourEventWave, TV_LOW);
+			s->addEvent(i * 180.0f + prefix, fourEventWave, TV_LOW);
 		}
 	}
 }
