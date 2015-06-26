@@ -39,7 +39,7 @@ void setVwAba(DECLARE_ENGINE_PARAMETER_F) {
 	boardConfiguration->ignitionPins[3] = GPIO_UNASSIGNED;
 	boardConfiguration->ignitionPinMode = OM_DEFAULT;
 
-	initEgoSensor(&engineConfiguration->afr, ES_PLX);
+	setEgoSensor(ES_PLX PASS_ENGINE_PARAMETER);
 }
 
 
