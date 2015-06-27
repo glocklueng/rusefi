@@ -244,6 +244,9 @@ static const char * action2String(le_action_e action) {
 			return "fan_off";
 		case LE_METHOD_FAN:
 			return "fan";
+		default: {
+			// this is here to make compiler happy
+		}
 	}
 	itoa10(buffer, (int)action);
 	return buffer;
