@@ -17,6 +17,18 @@ EXTERN_ENGINE;
 void setVwAba(DECLARE_ENGINE_PARAMETER_F) {
 	setCustomEngineConfiguration(PASS_ENGINE_PARAMETER_F);
 
+	setWholeTimingTable(20 PASS_ENGINE_PARAMETER);
+	engineConfiguration->cranking.baseFuel = 12;
+	// set_cranking_timing_angle 0
+	engineConfiguration->crankingTimingAngle = 20;
+
+	// set_whole_fuel_map 12
+	setWholeFuelMap(12 PASS_ENGINE_PARAMETER);
+
+	// set_global_trigger_offset_angle 90
+	engineConfiguration->globalTriggerAngleOffset = 90;
+
+
 	setOperationMode(engineConfiguration, FOUR_STROKE_CRANK_SENSOR);
 //	engineConfiguration->trigger.type = TT_TOOTHED_WHEEL_60_2;
 	engineConfiguration->trigger.type = TT_60_2_VW;
