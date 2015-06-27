@@ -50,6 +50,10 @@ TriggerShape::TriggerShape() :
 	memset(frontOnlyIndexes, 0, sizeof(frontOnlyIndexes));
 	memset(isFrontEvent, 0, sizeof(isFrontEvent));
 	memset(triggerIndexByAngle, 0, sizeof(triggerIndexByAngle));
+#if EFI_UNIT_TEST
+	memset(&events, 0, sizeof(events));
+#endif
+
 }
 
 int TriggerShape::getSize() const {
