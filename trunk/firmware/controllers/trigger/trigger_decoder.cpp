@@ -43,9 +43,6 @@ EXTERN_ENGINE
 // todo: better name for this constant
 #define HELPER_PERIOD 100000
 
-#define NO_LEFT_FILTER -1
-#define NO_RIGHT_FILTER 1000
-
 static cyclic_buffer<int> errorDetection;
 
 #if ! EFI_PROD_CODE
@@ -395,8 +392,7 @@ void TriggerShape::initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMET
 		break;
 
 	case TT_60_2_VW:
-		setToothedWheelConfiguration(triggerShape, 60, 2, engineConfiguration->operationMode);
-		triggerShape->setTriggerSynchronizationGap2(1.8, 4);
+		setVwConfiguration(triggerShape);
 		break;
 
 	case TT_TOOTHED_WHEEL_36_1:
