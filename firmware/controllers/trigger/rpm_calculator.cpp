@@ -112,7 +112,7 @@ int RpmCalculator::rpm(DECLARE_ENGINE_PARAMETER_F) {
 		revolutionCounterSinceStart = 0;
 		if (rpmValue != 0) {
 			rpmValue = 0;
-			//scheduleMsg(logger, )
+			scheduleMsg(logger, "rpm=0 since not running");
 		}
 	}
 	return rpmValue;
