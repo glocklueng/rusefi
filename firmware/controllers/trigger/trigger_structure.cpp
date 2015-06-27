@@ -27,6 +27,7 @@
 EXTERN_ENGINE;
 
 trigger_shape_helper::trigger_shape_helper() {
+	memset(&pinStates, 0, sizeof(pinStates));
 	for (int i = 0; i < TRIGGER_CHANNEL_COUNT; i++) {
 		waves[i].init(pinStates[i]);
 	}
