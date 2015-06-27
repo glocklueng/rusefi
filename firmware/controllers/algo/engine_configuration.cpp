@@ -145,6 +145,9 @@ void setWholeIatCorrTimingTable(float value DECLARE_ENGINE_PARAMETER_S) {
 	setTimingMap(config->ignitionIatCorrTable, value);
 }
 
+/**
+ * See also crankingTimingAngle
+ */
 void setWholeTimingTable(angle_t value DECLARE_ENGINE_PARAMETER_S) {
 	setTimingMap(config->ignitionTable, value);
 }
