@@ -1,14 +1,14 @@
 package com.rusefi;
 
-import com.rusefi.FileLog;
-import org.apache.commons.math3.stat.descriptive.moment.Mean;
-import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
+import sun.plugin.util.UIUtil;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
 
 /**
  * 2/15/2015
@@ -21,7 +21,11 @@ public class AverageAnglesUtil {
     private static int currentRpm = -1;
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("a.csv"));
+        runUtil("a.csv", Logger.CONSOLE);
+   }
+
+    public static String runUtil(String fileName, Logger logger) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
 
         String line;
 
@@ -38,7 +42,7 @@ public class AverageAnglesUtil {
                 if (f.length > 3 && f[2].equals("rpm")) {
 
                     currentRpm = Integer.parseInt(f[3]);
-                    System.out.println("New rpm " + currentRpm);
+                    logger.info("New rpm " + currentRpm);
                 }
                 continue;
             }
@@ -51,10 +55,11 @@ public class AverageAnglesUtil {
             line = p[0];
 
             aa.add(currentRpm, line);
-            System.out.println(line);
+            logger.info(line);
         }
 
-        aa.printReport(System.out);
-
-   }
+        String report = aa.getReport();
+        System.out.println(report);
+        return report;
+    }
 }
