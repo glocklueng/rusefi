@@ -12,6 +12,9 @@
 #include "trigger_structure.h"
 #include "engine_configuration.h"
 
+#define NO_LEFT_FILTER -1
+#define NO_RIGHT_FILTER 1000
+
 class TriggerState;
 
 typedef void (*TriggerStateCallback)(TriggerState *);

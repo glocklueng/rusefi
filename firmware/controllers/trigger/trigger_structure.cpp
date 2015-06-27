@@ -335,6 +335,35 @@ void multi_wave_s::checkSwitchTimes(int size) {
 	checkSwitchTimes2(size, switchTimes);
 }
 
+void setVwConfiguration(TriggerShape *s) {
+	efiAssertVoid(s != NULL, "TriggerShape is NULL");
+	operation_mode_e operationMode = FOUR_STROKE_CRANK_SENSOR;
+
+	s->useRiseEdge = true;
+
+	initializeSkippedToothTriggerShapeExt(s, 60, 2,
+			operationMode);
+
+	s->isSynchronizationNeeded = true;
+
+	s->reset(operationMode, false);
+
+	int totalTeethCount = 60;
+	int skippedCount = 2;
+
+	float engineCycle = getEngineCycle(operationMode);
+	float toothWidth = 0.5;
+
+	addSkippedToothTriggerEvents(T_PRIMARY, s, 60, 2, toothWidth, 0, engineCycle,
+			NO_LEFT_FILTER, 690);
+
+	float angleDown = engineCycle / totalTeethCount * (totalTeethCount - skippedCount - 1 + (1 - toothWidth) );
+	s->addEvent(0 + angleDown + 12, T_PRIMARY, TV_HIGH, NO_LEFT_FILTER, NO_RIGHT_FILTER);
+	s->addEvent(0 + engineCycle, T_PRIMARY, TV_LOW, NO_LEFT_FILTER, NO_RIGHT_FILTER);
+
+	s->setTriggerSynchronizationGap2(1.6, 4);
+}
+
 void setToothedWheelConfiguration(TriggerShape *s, int total, int skipped,
 		operation_mode_e operationMode) {
 #if EFI_ENGINE_CONTROL
