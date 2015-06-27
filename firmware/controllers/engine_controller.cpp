@@ -509,7 +509,7 @@ void initEngineContoller(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
 	 * there is an implicit dependency on the fact that 'tachometer' listener is the 1st listener - this case
 	 * other listeners can access current RPM value
 	 */
-	initRpmCalculator(engine);
+	initRpmCalculator(sharedLogger, engine);
 #endif /* EFI_SHAFT_POSITION_INPUT */
 
 // multiple issues with this	initMapAdjusterThread();

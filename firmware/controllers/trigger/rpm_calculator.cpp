@@ -110,7 +110,10 @@ int RpmCalculator::rpm(DECLARE_ENGINE_PARAMETER_F) {
 #endif
 	if (!isRunning(PASS_ENGINE_PARAMETER_F)) {
 		revolutionCounterSinceStart = 0;
-		rpmValue = 0;
+		if (rpmValue != 0) {
+			rpmValue = 0;
+			//scheduleMsg(logger, )
+		}
 	}
 	return rpmValue;
 }
@@ -233,7 +236,8 @@ float getCrankshaftAngleNt(uint64_t timeNt DECLARE_ENGINE_PARAMETER_S) {
 	return rpm == 0 ? NAN : timeSinceZeroAngleNt / getOneDegreeTimeNt(rpm);
 }
 
-void initRpmCalculator(Engine *engine) {
+void initRpmCalculator(Logging *sharedLogger, Engine *engine) {
+	logger = sharedLogger;
 #if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 
 //	tdcScheduler[0].name = "tdc0";
