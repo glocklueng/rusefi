@@ -210,8 +210,8 @@ void setDodgeNeonNGCEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	setFrankenso_01_LCD(boardConfiguration);
 	setFrankenso0_1_joystick(engineConfiguration);
 
-	// set_global_trigger_offset_angle 50
-	engineConfiguration->globalTriggerAngleOffset = 50;
+	// set_global_trigger_offset_angle 38
+	engineConfiguration->globalTriggerAngleOffset = 38;
 	// set_injection_offset 0
 	engineConfiguration->injectionOffset = 0;
 
