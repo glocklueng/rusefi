@@ -33,7 +33,7 @@ static LENameOrdinalPair leOr2(LE_OPERATOR_OR, "|");
 static LENameOrdinalPair leNot(LE_OPERATOR_NOT, "not");
 
 static LENameOrdinalPair leAdd(LE_OPERATOR_ADDITION, "+");
-static LENameOrdinalPair leSub(LE_OPERATOR_SUBSTRACTION, "-");
+static LENameOrdinalPair leSub(LE_OPERATOR_SUBTRACTION, "-");
 static LENameOrdinalPair leMul(LE_OPERATOR_MULTIPLICATION, "*");
 static LENameOrdinalPair leDiv(LE_OPERATOR_DIVISION, "/");
 
@@ -178,7 +178,7 @@ bool_t LECalculator::doJob(Engine *engine, LEElement *element) {
 		push(element->action, v1 + v2);
 	}
 		break;
-	case LE_OPERATOR_SUBSTRACTION: {
+	case LE_OPERATOR_SUBTRACTION: {
 		// elements on stack are in reverse order
 		float v2 = pop(LE_OPERATOR_MORE);
 		float v1 = pop(LE_OPERATOR_MORE);
