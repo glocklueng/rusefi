@@ -47,8 +47,9 @@ void Engine::updateSlowSensors() {
 				boardConfiguration->fuelLevelFullTankVoltage, 100,
 				fuelLevelVoltage);
 	}
+	float vBatt = hasVBatt(PASS_ENGINE_PARAMETER_F) ? getVBatt(PASS_ENGINE_PARAMETER_F) : 12;
 
-	injectorLagMs = getInjectorLag(getVBatt(PASS_ENGINE_PARAMETER_F) PASS_ENGINE_PARAMETER);
+	injectorLagMs = getInjectorLag(vBatt PASS_ENGINE_PARAMETER);
 }
 
 void Engine::onTriggerEvent(efitick_t nowNt) {
@@ -187,12 +188,18 @@ void Engine::watchdog() {
 	 * todo: better watch dog implementation should be implemented - see
 	 * http://sourceforge.net/p/rusefi/tickets/96/
 	 */
-	if (nowNt - lastTriggerEventTimeNt < US2NT(250000LL)) {
+	efitick_t timeSinceLastTriggerEvent = nowNt - lastTriggerEventTimeNt;
+	if (timeSinceLastTriggerEvent < US2NT(250000LL)) {
 		return;
 	}
 	isSpinning = false;
 #if EFI_PROD_CODE || EFI_SIMULATOR
 	scheduleMsg(&logger, "engine has STOPPED");
+	scheduleMsg(&logger, "templog engine has STOPPED [%x][%x] [%x][%x] %d",
+			(int)(nowNt >> 32), (int)nowNt,
+			(int)(lastTriggerEventTimeNt >> 32), (int)lastTriggerEventTimeNt,
+			(int)timeSinceLastTriggerEvent
+			);
 	triggerInfo();
 #endif
 

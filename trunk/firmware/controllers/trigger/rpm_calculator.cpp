@@ -37,6 +37,9 @@ extern WaveChart waveChart;
 
 EXTERN_ENGINE;
 
+uint64_t notRunnintNow;
+uint64_t notRunningPrev;
+
 static Logging * logger;
 
 RpmCalculator::RpmCalculator() {
@@ -65,8 +68,12 @@ bool RpmCalculator::isRunning(DECLARE_ENGINE_PARAMETER_F) {
 			return false;
 		}
 	}
-
-	return nowNt - lastRpmEventTimeNt < US2NT(US_PER_SECOND_LL);
+	bool_t result = nowNt - lastRpmEventTimeNt < US2NT(US_PER_SECOND_LL);
+	if (!result) {
+		notRunnintNow = nowNt;
+		notRunningPrev = lastRpmEventTimeNt;
+	}
+	return result;
 }
 
 void RpmCalculator::setRpmValue(int value) {
@@ -112,7 +119,10 @@ int RpmCalculator::rpm(DECLARE_ENGINE_PARAMETER_F) {
 		revolutionCounterSinceStart = 0;
 		if (rpmValue != 0) {
 			rpmValue = 0;
-			scheduleMsg(logger, "rpm=0 since not running");
+			scheduleMsg(logger, "templog rpm=0 since not running [%x][%x] [%x][%x]",
+					(int)(notRunnintNow >> 32), (int)notRunnintNow,
+					(int)(notRunningPrev >> 32), (int)notRunningPrev
+);
 		}
 	}
 	return rpmValue;
