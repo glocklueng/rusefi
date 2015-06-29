@@ -38,7 +38,7 @@ bool EventQueue::checkIfPending(scheduling_s *scheduling) {
 /**
  * @return true if inserted into the head of the list
  */
-bool_t EventQueue::insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_t callback, void *param) {
+bool_t EventQueue::insertTask(scheduling_s *scheduling, efitime_t timeX, schfunc_t callback, void *param) {
 #if EFI_UNIT_TEST
 	assertListIsSorted();
 #endif
@@ -79,8 +79,8 @@ bool_t EventQueue::insertTask(scheduling_s *scheduling, uint64_t timeX, schfunc_
  * This method is always invoked under a lock
  * @return Get the timestamp of the soonest pending action, skipping all the actions in the past
  */
-uint64_t EventQueue::getNextEventTime(uint64_t nowX) {
-	uint64_t nextTimeUs = EMPTY_QUEUE;
+efitime_t EventQueue::getNextEventTime(efitime_t nowX) {
+	efitime_t nextTimeUs = EMPTY_QUEUE;
 
 	if (head != NULL) {
 		if (head->momentX <= nowX) {
@@ -90,7 +90,7 @@ uint64_t EventQueue::getNextEventTime(uint64_t nowX) {
 			 * looks like we end up here after 'writeconfig' (which freezes the firmware) - we are late
 			 * for the next scheduled event
 			 */
-			uint64_t aBitInTheFuture = nowX + lateDelay;
+			efitime_t aBitInTheFuture = nowX + lateDelay;
 			return aBitInTheFuture;
 		} else {
 			return head->momentX;
@@ -107,7 +107,7 @@ uint32_t lastEventQueueTime;
  * Invoke all pending actions prior to specified timestamp
  * @return number of executed actions
  */
-int EventQueue::executeAll(uint64_t now) {
+int EventQueue::executeAll(efitime_t now) {
 	scheduling_s * current, *tmp;
 
 	scheduling_s * executionList = NULL;

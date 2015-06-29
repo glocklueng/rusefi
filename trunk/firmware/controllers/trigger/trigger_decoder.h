@@ -24,9 +24,9 @@ public:
 	TriggerState();
 	int getCurrentIndex();
 	int getTotalRevolutionCounter();
-	uint64_t getTotalEventCounter();
-	uint64_t getStartOfRevolutionIndex();
-	void decodeTriggerEvent(trigger_event_e const signal, uint64_t nowUs DECLARE_ENGINE_PARAMETER_S);
+	efitime_t getTotalEventCounter();
+	efitime_t getStartOfRevolutionIndex();
+	void decodeTriggerEvent(trigger_event_e const signal, efitime_t nowUs DECLARE_ENGINE_PARAMETER_S);
 
 	float getTriggerDutyCycle(int index);
 	TriggerStateCallback cycleCallback;
@@ -41,7 +41,7 @@ public:
 	 * this could be a local variable, but it's better for debugging to have it as a field
 	 */
 	uint32_t currentDuration;
-	uint64_t toothed_previous_time;
+	efitime_t toothed_previous_time;
 
 	/**
 	 * Here we accumulate the amount of time this signal was ON within current trigger cycle
@@ -75,11 +75,11 @@ private:
 	trigger_event_e curSignal;
 	trigger_event_e prevSignal;
 	uint32_t eventCountExt[2 * PWM_PHASE_MAX_WAVE_PER_PWM];
-	uint64_t timeOfPreviousEventNt[PWM_PHASE_MAX_WAVE_PER_PWM];
-	uint64_t totalEventCountBase;
+	efitime_t timeOfPreviousEventNt[PWM_PHASE_MAX_WAVE_PER_PWM];
+	efitime_t totalEventCountBase;
 	uint32_t totalRevolutionCounter;
 	bool isFirstEvent;
-	uint64_t prevCycleDuration;
+	efitime_t prevCycleDuration;
 	efitick_t startOfCycleNt;
 };
 

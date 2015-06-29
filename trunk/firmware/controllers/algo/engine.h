@@ -179,7 +179,7 @@ public:
 	/**
 	 * this is about 'stopengine' command
 	 */
-	uint64_t stopEngineRequestTimeNt;
+	efitick_t stopEngineRequestTimeNt;
 
 	AccelEnrichmemnt mapAccelEnrichment;
 	AccelEnrichmemnt tpsAccelEnrichment;

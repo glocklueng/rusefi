@@ -35,17 +35,17 @@ WaveChart waveChart;
 static histogram_s triggerCallback;
 
 // we need this initial to have not_running at first invocation
-static volatile uint64_t previousShaftEventTimeNt = (efitimems_t) -10 * US2NT(US_PER_SECOND_LL);
+static volatile efitime_t previousShaftEventTimeNt = (efitimems_t) -10 * US2NT(US_PER_SECOND_LL);
 
 TriggerCentral triggerCentral;
 
 static Logging *logger;
 
-uint64_t getCrankEventCounter() {
+efitime_t getCrankEventCounter() {
 	return triggerCentral.triggerState.getTotalEventCounter();
 }
 
-uint64_t getStartOfRevolutionIndex() {
+efitime_t getStartOfRevolutionIndex() {
 	return triggerCentral.triggerState.getStartOfRevolutionIndex();
 }
 

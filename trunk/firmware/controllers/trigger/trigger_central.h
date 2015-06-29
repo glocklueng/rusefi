@@ -36,8 +36,8 @@ private:
 #endif
 
 void triggerInfo(void);
-uint64_t getCrankEventCounter(void);
-uint64_t getStartOfRevolutionIndex(void);
+efitime_t getCrankEventCounter(void);
+efitime_t getStartOfRevolutionIndex(void);
 void hwHandleShaftSignal(trigger_event_e signal);
 float getTriggerDutyCycle(int index);
 void initTriggerCentral(Logging *sharedLogger, Engine *engine);
