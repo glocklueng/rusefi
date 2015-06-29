@@ -60,7 +60,7 @@ public:
 	 * This is a performance optimization: let's pre-calulate this each time RPM changes
 	 */
 	volatile floatus_t oneDegreeUs;
-	volatile uint64_t lastRpmEventTimeNt;
+	volatile efitime_t lastRpmEventTimeNt;
 private:
 	/**
 	 * This counter is incremented with each revolution of one of the shafts. Could be
@@ -87,7 +87,7 @@ void rpmShaftPositionCallback(trigger_event_e ckpSignalType, uint32_t index DECL
  */
 void initRpmCalculator(Logging *sharedLogger, Engine *engine);
 
-float getCrankshaftAngleNt(uint64_t timeNt DECLARE_ENGINE_PARAMETER_S);
+float getCrankshaftAngleNt(efitime_t timeNt DECLARE_ENGINE_PARAMETER_S);
 #endif
 
 

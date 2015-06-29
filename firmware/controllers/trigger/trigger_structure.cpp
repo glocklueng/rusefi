@@ -174,7 +174,7 @@ int TriggerState::getCurrentIndex() {
 	return current_index;
 }
 
-uint64_t TriggerState::getStartOfRevolutionIndex() {
+efitime_t TriggerState::getStartOfRevolutionIndex() {
 	return totalEventCountBase;
 }
 
@@ -184,7 +184,7 @@ void TriggerState::resetRunningCounters() {
 	runningOrderingErrorCounter = 0;
 }
 
-uint64_t TriggerState::getTotalEventCounter() {
+efitime_t TriggerState::getTotalEventCounter() {
 	return totalEventCountBase + current_index;
 }
 

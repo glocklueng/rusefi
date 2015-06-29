@@ -97,7 +97,7 @@ bool_t WaveChart::isStartedTooLongAgo() {
 	 * engineChartSize/20 is the longest meaningful chart.
 	 *
 	 */
-	uint64_t chartDurationNt = getTimeNowNt() - startTimeNt;
+	efitime_t chartDurationNt = getTimeNowNt() - startTimeNt;
 	return startTimeNt != 0 && NT2US(chartDurationNt) > engineConfiguration->engineChartSize * 1000000 / 20;
 }
 

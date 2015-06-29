@@ -38,8 +38,8 @@ extern WaveChart waveChart;
 EXTERN_ENGINE
 ;
 
-uint64_t notRunnintNow;
-uint64_t notRunningPrev;
+efitime_t notRunnintNow;
+efitime_t notRunningPrev;
 
 static Logging * logger;
 
@@ -51,7 +51,7 @@ RpmCalculator::RpmCalculator() {
 	setRpmValue(0);
 
 	// we need this initial to have not_running at first invocation
-	lastRpmEventTimeNt = (uint64_t) -10 * US2NT(US_PER_SECOND_LL);
+	lastRpmEventTimeNt = (efitime_t) -10 * US2NT(US_PER_SECOND_LL);
 	revolutionCounterSinceStart = 0;
 	revolutionCounterSinceBoot = 0;
 
@@ -172,7 +172,7 @@ void rpmShaftPositionCallback(trigger_event_e ckpSignalType,
 	bool hadRpmRecently = rpmState->isRunning(PASS_ENGINE_PARAMETER_F);
 
 	if (hadRpmRecently) {
-		uint64_t diffNt = nowNt - rpmState->lastRpmEventTimeNt;
+		efitime_t diffNt = nowNt - rpmState->lastRpmEventTimeNt;
 		/**
 		 * Four stroke cycle is two crankshaft revolutions
 		 *
@@ -240,8 +240,8 @@ int getRevolutionCounter() {
 /**
  * @return Current crankshaft angle, 0 to 720 for four-stroke
  */
-float getCrankshaftAngleNt(uint64_t timeNt DECLARE_ENGINE_PARAMETER_S) {
-	uint64_t timeSinceZeroAngleNt = timeNt
+float getCrankshaftAngleNt(efitime_t timeNt DECLARE_ENGINE_PARAMETER_S) {
+	efitime_t timeSinceZeroAngleNt = timeNt
 			- engine->rpmCalculator.lastRpmEventTimeNt;
 
 	/**

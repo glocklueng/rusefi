@@ -75,7 +75,7 @@ static trigger_value_e eventType[6] = { TV_LOW, TV_HIGH, TV_LOW, TV_HIGH, TV_LOW
 
 #define nextTriggerEvent() \
  { \
-	uint64_t prevTime = timeOfPreviousEventNt[triggerWheel]; \
+	efitime_t prevTime = timeOfPreviousEventNt[triggerWheel]; \
 	if (prevTime != 0) { \
 		/* even event - apply the value*/ \
 		totalTimeNt[triggerWheel] += (nowNt - prevTime); \
@@ -105,7 +105,7 @@ static trigger_value_e eventType[6] = { TV_LOW, TV_HIGH, TV_LOW, TV_HIGH, TV_LOW
  * @brief Trigger decoding happens here
  * This method changes the state of trigger_state_s data structure according to the trigger event
  */
-void TriggerState::decodeTriggerEvent(trigger_event_e const signal, uint64_t nowNt DECLARE_ENGINE_PARAMETER_S) {
+void TriggerState::decodeTriggerEvent(trigger_event_e const signal, efitime_t nowNt DECLARE_ENGINE_PARAMETER_S) {
 	efiAssertVoid(signal <= SHAFT_3RD_UP, "unexpected signal");
 
 	trigger_wheel_e triggerWheel = eventIndex[signal];
@@ -120,7 +120,7 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, uint64_t now
 	eventCount[triggerWheel]++;
 	eventCountExt[signal]++;
 
-	uint64_t currentDurationLong = getCurrentGapDuration(nowNt);
+	efitime_t currentDurationLong = getCurrentGapDuration(nowNt);
 
 	/**
 	 * For performance reasons, we want to work with 32 bit values. If there has been more then
