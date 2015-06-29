@@ -187,6 +187,9 @@ void Engine::watchdog() {
 	 *
 	 * todo: better watch dog implementation should be implemented - see
 	 * http://sourceforge.net/p/rusefi/tickets/96/
+	 *
+	 * note that the result of this subtraction could be negative, that would happen if
+	 * we have a trigger event between the time we've invoked 'getTimeNow' and here
 	 */
 	efitick_t timeSinceLastTriggerEvent = nowNt - lastTriggerEventTimeNt;
 	if (timeSinceLastTriggerEvent < US2NT(250000LL)) {
