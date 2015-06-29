@@ -96,7 +96,7 @@ void onLockHook(void) {
 }
 
 void onUnlockHook(void) {
-	uint64_t t = GET_TIMESTAMP() - lastLockTime;
+	uint32_t t = GET_TIMESTAMP() - lastLockTime;
 	if (t > maxLockTime) {
 		maxLockTime = t;
 	}

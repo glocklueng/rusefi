@@ -185,7 +185,7 @@ void WaveChart::addWaveChartEvent3(const char *name, const char * msg) {
 	int beforeCallback = hal_lld_get_counter_value();
 #endif
 
-	uint64_t nowNt = getTimeNowNt();
+	efitick_t nowNt = getTimeNowNt();
 
 	bool alreadyLocked = lockOutputBuffer(); // we have multiple threads writing to the same output buffer
 

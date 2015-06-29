@@ -80,7 +80,7 @@ private:
 	uint32_t totalRevolutionCounter;
 	bool isFirstEvent;
 	uint64_t prevCycleDuration;
-	uint64_t startOfCycleNt;
+	efitick_t startOfCycleNt;
 };
 
 class TriggerStimulatorHelper {

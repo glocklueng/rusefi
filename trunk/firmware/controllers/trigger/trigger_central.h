@@ -28,7 +28,7 @@ public:
 	int getHwEventCounter(int index);
 	void resetCounters();
 	TriggerState triggerState;
-	uint64_t nowNt;
+	efitick_t nowNt;
 private:
 	IntListenerArray triggerListeneres;
 	int hwEventCounters[HW_EVENT_TYPES];

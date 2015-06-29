@@ -116,7 +116,7 @@ void Executor::doExecute() {
 		/**
 		 * It's worth noting that that the actions might be adding new actions into the queue
 		 */
-		uint64_t nowNt = getTimeNowNt();
+		efitick_t nowNt = getTimeNowNt();
 		shouldExecute = queue.executeAll(nowNt);
 		totalExecuted += shouldExecute;
 	}
@@ -135,7 +135,7 @@ void Executor::scheduleTimerCallback() {
 	/**
 	 * Let's grab fresh time value
 	 */
-	uint64_t nowNt = getTimeNowNt();
+	efitick_t nowNt = getTimeNowNt();
 	nextEventTimeNt = queue.getNextEventTime(nowNt);
 	efiAssertVoid(nextEventTimeNt > nowNt, "setTimer constraint");
 	if (nextEventTimeNt == EMPTY_QUEUE)
