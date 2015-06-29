@@ -40,11 +40,11 @@ extern bool printTriggerDebug;
 
 int timeNow = 0;
 
-uint64_t getTimeNowUs(void) {
+efitimeus_t getTimeNowUs(void) {
 	return timeNow;
 }
 
-uint64_t getTimeNowNt(void) {
+efitick_t getTimeNowNt(void) {
 	return getTimeNowUs() * US_TO_NT_MULTIPLIER;
 }
 
