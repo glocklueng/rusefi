@@ -635,7 +635,7 @@ void resetConfigurationExt(Logging * logger, engine_type_e engineType DECLARE_EN
 #endif /* EFI_SUPPORT_FORD_ASPIRE */
 #if EFI_SUPPORT_FORD_FIESTA || defined(__DOXYGEN__)
 	case FORD_FIESTA:
-		setFordFiestaDefaultEngineConfiguration(engineConfiguration);
+		setFordFiestaDefaultEngineConfiguration(PASS_ENGINE_PARAMETER_F);
 		break;
 #endif /* EFI_SUPPORT_FORD_FIESTA */
 #if EFI_SUPPORT_NISSAN_PRIMERA || defined(__DOXYGEN__)
