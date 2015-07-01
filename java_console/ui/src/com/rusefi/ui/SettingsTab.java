@@ -37,6 +37,7 @@ public class SettingsTab {
 
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.AFR_HWCHANNEL, "AFR channel").getContent()));
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.MAFADCCHANNEL, "MAF channel").getContent()));
+        panel.add(UiUtils.wrap(new EnumConfigField(Fields.PEDALPOSITIONCHANNEL, "Pedal channel").getContent()));
 
         panel.add(UiUtils.wrap(new BitConfigField(Fields.ISCANENABLED, "CAN enabled").getContent()));
         panel.add(UiUtils.wrap(new BitConfigField(Fields.CANREADENABLED, "CAN read").getContent()));
