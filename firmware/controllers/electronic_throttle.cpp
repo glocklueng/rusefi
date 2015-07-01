@@ -31,6 +31,7 @@
 #include "pwm_generator.h"
 #include "pwm_generator_logic.h"
 #include "pid.h"
+#include "engine_controller.h"
 
 #if EFI_ELECTRONIC_THROTTLE_BODY || defined(__DOXYGEN__)
 
@@ -81,6 +82,15 @@ static void setThrottleConsole(int level) {
 	print("st = %f\r\n", dc);
 }
 
+static void showEthInfo(void) {
+	static char pinNameBuffer[16];
+
+	scheduleMsg(&logger, "pedal=%f %d/%d @", getPedalPosition(), engineConfiguration->pedalPositionMin, engineConfiguration->pedalPositionMax,
+			getPinNameByAdcChannel(engineConfiguration->pedalPositionChannel, pinNameBuffer));
+
+	scheduleMsg(&logger, "etbControlPin1=%s", hwPortname(boardConfiguration->etbControlPin1));
+}
+
 void initElectronicThrottle(void) {
 	// these two lines are controlling direction
 //	outputPinRegister("etb1", ELECTRONIC_THROTTLE_CONTROL_1, ETB_CONTROL_LINE_1_PORT, ETB_CONTROL_LINE_1_PIN);
@@ -101,6 +111,8 @@ void initElectronicThrottle(void) {
 			applyPinState);
 
 	addConsoleActionI("e", setThrottleConsole);
+
+	addConsoleAction("ethinfo", showEthInfo);
 	chThdCreateStatic(etbTreadStack, sizeof(etbTreadStack), NORMALPRIO, (tfunc_t) etbThread, NULL);
 }
 #endif /* EFI_ELECTRONIC_THROTTLE_BODY */
