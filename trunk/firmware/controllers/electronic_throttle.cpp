@@ -54,20 +54,28 @@ static Pid pid(10, 0, 0, 1, 90);
 
 static float prevTps;
 
+static float currentEtbDuty;
+
 EXTERN_ENGINE;
 
 static msg_t etbThread(void *arg) {
         UNUSED(arg);
-	while (TRUE) {
-		int tps = (int)getTPS();
+	while (true) {
+		float pedal = getPedalPosition(PASS_ENGINE_PARAMETER_F);
+		float tps = getTPS();
 
-		if (tps != prevTps) {
-			prevTps = tps;
+		currentEtbDuty = pid.getValue(pedal, getTPS(), 1);
+
+		etbPwmUp.setSimplePwmDutyCycle(currentEtbDuty / 100);
+
+
+//		if (tps != prevTps) {
+//			prevTps = tps;
 //			scheduleMsg(&logger, "tps=%d", (int) tps);
-		}
+//		}
 
 		// this thread is activated 10 times per second
-		chThdSleepMilliseconds(100);
+		chThdSleepMilliseconds(boardConfiguration->etbDT);
 	}
 #if defined __GNUC__
 	return -1;
@@ -89,6 +97,23 @@ static void showEthInfo(void) {
 			getPinNameByAdcChannel(engineConfiguration->pedalPositionChannel, pinNameBuffer));
 
 	scheduleMsg(&logger, "etbControlPin1=%s", hwPortname(boardConfiguration->etbControlPin1));
+	scheduleMsg(&logger, "etb P=%f I=%f D=%f", boardConfiguration->etbPFactor,
+			boardConfiguration->etbIFactor,
+			0);
+}
+
+static void apply(void) {
+	pid.updateFactors(boardConfiguration->etbPFactor, boardConfiguration->etbIFactor, 0);
+}
+
+static void setEtbPFactor(float value) {
+	boardConfiguration->etbPFactor = value;
+	apply();
+}
+
+static void setEtbIFactor(float value) {
+	boardConfiguration->etbIFactor = value;
+	apply();
 }
 
 void initElectronicThrottle(void) {
@@ -113,7 +138,21 @@ void initElectronicThrottle(void) {
 	addConsoleActionI("e", setThrottleConsole);
 
 	addConsoleAction("ethinfo", showEthInfo);
+
+	addConsoleActionF("set_etb_p", setEtbPFactor);
+	addConsoleActionF("set_etb_i", setEtbIFactor);
+
+	apply();
+
 	chThdCreateStatic(etbTreadStack, sizeof(etbTreadStack), NORMALPRIO, (tfunc_t) etbThread, NULL);
 }
+
+void setDefaultEtbParameters(void) {
+	engineConfiguration->pedalPositionMax = 6;
+	boardConfiguration->etbPFactor = 10;
+	boardConfiguration->etbIFactor = 0;
+	boardConfiguration->etbDT = 100;
+}
+
 #endif /* EFI_ELECTRONIC_THROTTLE_BODY */
 
