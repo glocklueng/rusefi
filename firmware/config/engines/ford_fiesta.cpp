@@ -34,8 +34,6 @@ void setFordFiestaDefaultEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 //	boardConfiguration->clutchUpPin
 	boardConfiguration->etbControlPin1 = GPIOD_3;
 	engineConfiguration->pedalPositionChannel = EFI_ADC_1;
-	engineConfiguration->pedalPositionMax = 6;
-
 }
 
 #endif /* EFI_SUPPORT_FORD_FIESTA */

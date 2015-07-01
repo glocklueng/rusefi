@@ -30,6 +30,7 @@
 #include "speed_density.h"
 #include "advance_map.h"
 #if EFI_PROD_CODE
+#include "electronic_throttle.h"
 #include "alternatorController.h"
 #endif
 
@@ -176,6 +177,7 @@ void prepareVoidConfiguration(engine_configuration_s *activeConfiguration) {
 
 #if EFI_PROD_CODE
 	setDefaultAlternatorParameters();
+	setDefaultEtbParameters();
 #endif
 
 	boardConfiguration->wboHeaterPin = GPIO_UNASSIGNED;
