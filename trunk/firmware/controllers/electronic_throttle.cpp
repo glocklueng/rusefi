@@ -50,7 +50,7 @@ static OutputPin output1;
 static SimplePwm etbPwmDown;
 static OutputPin output2;
 
-static Pid pid(10, 0, 0, 1, 90);
+static Pid pid(10, 0, 0, 0, 100);
 
 static float prevTps;
 
@@ -96,10 +96,14 @@ static void showEthInfo(void) {
 	scheduleMsg(&logger, "pedal=%f %d/%d @", getPedalPosition(), engineConfiguration->pedalPositionMin, engineConfiguration->pedalPositionMax,
 			getPinNameByAdcChannel(engineConfiguration->pedalPositionChannel, pinNameBuffer));
 
-	scheduleMsg(&logger, "etbControlPin1=%s", hwPortname(boardConfiguration->etbControlPin1));
-	scheduleMsg(&logger, "etb P=%f I=%f D=%f", boardConfiguration->etbPFactor,
+	scheduleMsg(&logger, "tsp=%f", getTPS());
+
+	scheduleMsg(&logger, "etbControlPin1=%s duty=%f", hwPortname(boardConfiguration->etbControlPin1),
+			currentEtbDuty);
+	scheduleMsg(&logger, "etb P=%f I=%f D=%f dT=%d", boardConfiguration->etbPFactor,
 			boardConfiguration->etbIFactor,
-			0);
+			0.0,
+			boardConfiguration->etbDT);
 }
 
 static void apply(void) {
@@ -109,11 +113,20 @@ static void apply(void) {
 static void setEtbPFactor(float value) {
 	boardConfiguration->etbPFactor = value;
 	apply();
+	showEthInfo();
 }
 
 static void setEtbIFactor(float value) {
 	boardConfiguration->etbIFactor = value;
 	apply();
+	showEthInfo();
+}
+
+void setDefaultEtbParameters(void) {
+	engineConfiguration->pedalPositionMax = 6;
+	boardConfiguration->etbPFactor = 10;
+	boardConfiguration->etbIFactor = 0;
+	boardConfiguration->etbDT = 100;
 }
 
 void initElectronicThrottle(void) {
@@ -128,7 +141,7 @@ void initElectronicThrottle(void) {
 			ETB_FREQ,
 			0.80,
 			applyPinState);
-	startSimplePwmExt(&etbPwmUp, "etb2",
+	startSimplePwmExt(&etbPwmDown, "etb2",
 			boardConfiguration->etbControlPin2,
 			&output2,
 			ETB_FREQ,
@@ -145,13 +158,6 @@ void initElectronicThrottle(void) {
 	apply();
 
 	chThdCreateStatic(etbTreadStack, sizeof(etbTreadStack), NORMALPRIO, (tfunc_t) etbThread, NULL);
-}
-
-void setDefaultEtbParameters(void) {
-	engineConfiguration->pedalPositionMax = 6;
-	boardConfiguration->etbPFactor = 10;
-	boardConfiguration->etbIFactor = 0;
-	boardConfiguration->etbDT = 100;
 }
 
 #endif /* EFI_ELECTRONIC_THROTTLE_BODY */
