@@ -368,7 +368,8 @@ float etbIFactor;
 	float fuelLevelEmptyTankVoltage;;"V",      1,      0,       0,10,      2
 	float fuelLevelFullTankVoltage;;"V",      1,      0,       0,10,      2
 	ego_sensor_e afr_type;AFR, WBO, EGO - whatever you like to call it;
-	float[4] unusedADC;
+	int etbDT;
+	float[3] unusedADC;
 
 	brain_input_pin_e[3 iterate] triggerInputPins;
 	brain_pin_e mainRelayPin;
