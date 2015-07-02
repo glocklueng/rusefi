@@ -58,7 +58,7 @@ static int settingUpdateCount = 0;
 static int totalKnockEventsCount = 0;
 static int currentPrescaler;
 static float hipValueMax = 0;
-static float knockVolts = 0;
+float knockVolts = 0;
 static int spiCount = 0;
 
 static unsigned char tx_buff[1];
