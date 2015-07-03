@@ -459,8 +459,8 @@
 #define fsioFrequency16_offset 1270
 #define hip9011CsPin_offset 1272
 #define hip9011IntHoldPin_offset 1276
-#define unused113234_offset 1280
-#define unused113234_offset_hex 500
+#define hip9011IntHoldPinMode_offset 1280
+#define hip9011IntHoldPinMode_offset_hex 500
 #define fsio_setting1_offset 1284
 #define fsio_setting1_offset_hex 504
 #define fsio_setting2_offset 1288

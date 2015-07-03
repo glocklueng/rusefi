@@ -1,6 +1,6 @@
 package com.rusefi.config;
 
-// this file was generated automatically by ConfigDefinition.jar Fri Jun 26 18:53:23 EDT 2015
+// this file was generated automatically by ConfigDefinition.jar Fri Jul 03 10:52:25 EDT 2015
 public class Fields {
 	public static final Field ENGINETYPE = new Field("ENGINETYPE", 0, FieldType.INT);
 	public static final Field HEADERMAGICVALUE = new Field("HEADERMAGICVALUE", 4, FieldType.INT);
@@ -173,6 +173,7 @@ public class Fields {
 	public static final Field FUELLEVELFULLTANKVOLTAGE = new Field("FUELLEVELFULLTANKVOLTAGE", 896, FieldType.FLOAT);
 	public static final String[] ego_sensor_e = {"BPSX", "Innovate", "14Point7", "Narrow", "PLX"};
 	public static final Field AFR_TYPE = new Field("AFR_TYPE", 900, FieldType.INT, ego_sensor_e);
+	public static final Field ETBDT = new Field("ETBDT", 904, FieldType.INT);
 	public static final String[] brain_input_pin_e = {"INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "PA5", "INVALID", "INVALID", "PA8", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "PC6", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "PE5", "INVALID", "PE7", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "NONE", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID", "INVALID"};
 	public static final Field TRIGGERINPUTPINS1 = new Field("TRIGGERINPUTPINS1", 920, FieldType.INT, brain_input_pin_e);
 	public static final Field TRIGGERINPUTPINS2 = new Field("TRIGGERINPUTPINS2", 924, FieldType.INT, brain_input_pin_e);
@@ -282,7 +283,7 @@ public class Fields {
 	public static final Field FSIOFREQUENCY16 = new Field("FSIOFREQUENCY16", 1270, FieldType.INT);
 	public static final Field HIP9011CSPIN = new Field("HIP9011CSPIN", 1272, FieldType.INT, brain_pin_e);
 	public static final Field HIP9011INTHOLDPIN = new Field("HIP9011INTHOLDPIN", 1276, FieldType.INT, brain_pin_e);
-	public static final Field UNUSED113234 = new Field("UNUSED113234", 1280, FieldType.INT);
+	public static final Field HIP9011INTHOLDPINMODE = new Field("HIP9011INTHOLDPINMODE", 1280, FieldType.INT);
 	public static final Field FSIO_SETTING1 = new Field("FSIO_SETTING1", 1284, FieldType.INT);
 	public static final Field FSIO_SETTING2 = new Field("FSIO_SETTING2", 1288, FieldType.INT);
 	public static final Field FSIO_SETTING3 = new Field("FSIO_SETTING3", 1292, FieldType.INT);
