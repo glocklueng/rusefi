@@ -50,7 +50,7 @@ static OutputPin output1;
 static SimplePwm etbPwmDown;
 static OutputPin output2;
 
-static Pid pid(10, 0, 0, 0, 100);
+static Pid pid(1, 0, 0, 0, 100);
 
 static float prevTps;
 
@@ -124,8 +124,8 @@ static void setEtbIFactor(float value) {
 
 void setDefaultEtbParameters(void) {
 	engineConfiguration->pedalPositionMax = 6;
-	boardConfiguration->etbPFactor = 10;
-	boardConfiguration->etbIFactor = 0;
+	boardConfiguration->etbPFactor = 1;
+	boardConfiguration->etbIFactor = 0.5;
 	boardConfiguration->etbDT = 100;
 }
 
