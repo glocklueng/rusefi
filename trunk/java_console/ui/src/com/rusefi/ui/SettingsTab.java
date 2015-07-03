@@ -35,6 +35,10 @@ public class SettingsTab {
 
         panel.add(UiUtils.wrap(new BitConfigField(Fields.ISSDCARDENABLED, "SD card enabled").getContent()));
 
+        panel.add(UiUtils.wrap(new EnumConfigField(Fields.HIP9011INTHOLDPIN, "int/hold pin").getContent()));
+        panel.add(UiUtils.wrap(new EnumConfigField(Fields.HIP9011INTHOLDPINMODE, "int/hold pin mode").getContent()));
+
+
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.AFR_HWCHANNEL, "AFR channel").getContent()));
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.MAFADCCHANNEL, "MAF channel").getContent()));
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.PEDALPOSITIONCHANNEL, "Pedal channel").getContent()));
