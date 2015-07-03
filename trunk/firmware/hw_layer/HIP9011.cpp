@@ -155,6 +155,7 @@ void setHip9011FrankensoPinout(void) {
 	boardConfiguration->isHip9011Enabled = true;
 	boardConfiguration->hip9011CsPin = GPIOD_0;
 	boardConfiguration->hip9011IntHoldPin = GPIOB_11;
+	boardConfiguration->hip9011IntHoldPinMode = OM_DEFAULT;
 	boardConfiguration->is_enabled_spi_2 = true;
 
 	boardConfiguration->hip9011Gain = 1;
@@ -382,7 +383,8 @@ void initHip9011(Logging *sharedLogger) {
 	spicfg.ssport = getHwPort(boardConfiguration->hip9011CsPin);
 	spicfg.sspad = getHwPin(boardConfiguration->hip9011CsPin);
 
-	outputPinRegisterExt2("hip int/hold", &intHold, boardConfiguration->hip9011IntHoldPin, &DEFAULT_OUTPUT);
+	outputPinRegisterExt2("hip int/hold", &intHold, boardConfiguration->hip9011IntHoldPin,
+			&boardConfiguration->hip9011IntHoldPinMode);
 	outputPinRegisterExt2("hip CS", &hipCs, boardConfiguration->hip9011CsPin, &DEFAULT_OUTPUT);
 
 	scheduleMsg(logger, "Starting HIP9011/TPIC8101 driver");
