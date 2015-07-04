@@ -99,6 +99,7 @@
 98)                   silkscreen for analog inputs - PA1/PC1/etc?
 99)                   Swap brain board for 176 pin brain board. 
 100) RESOLVED IN R0.5 update TPIC chip for 100k's, 3.3nF, and DNP 1M. 
+101)                  connector middle mounting holes - need a 5.5mm diameter area for screw head on the back
 
 For honda add-on / rewiring board
 -- Add 2A high side solinoid drive for VTec sol
