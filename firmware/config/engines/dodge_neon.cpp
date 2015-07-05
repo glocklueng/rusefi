@@ -337,15 +337,15 @@ void setDodgeNeonNGCEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	/**
 	 * Frankenso analog #1 PC2 ADC12 CLT
 	 * Frankenso analog #2 PC1 ADC11 IAT
-	 * Frankenso analog #3 PA0 ADC0
+	 * Frankenso analog #3 PA0 ADC0 MAP
 	 * Frankenso analog #4 PC3 ADC13
-	 * Frankenso analog #5 PA2 ADC2
+	 * Frankenso analog #5 PA2 ADC2 TPS
 	 * Frankenso analog #6 PA1 ADC1
 	 * Frankenso analog #7 PA4 ADC4 WBO AFR
 	 * Frankenso analog #8 PA3 ADC3
 	 * Frankenso analog #9 PA7 ADC7
-	 * Frankenso analog #10 PA6 ADC6 MAP
-	 * Frankenso analog #11 PC5 ADC15 TPS
+	 * Frankenso analog #10 PA6 ADC6
+	 * Frankenso analog #11 PC5 ADC15
 	 * Frankenso analog #12 PC4 ADC14 VBatt
 	 */
 
@@ -357,14 +357,14 @@ void setDodgeNeonNGCEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->iat.config.bias_resistor = 10000;
 
 	/**
-	 * MAP PA6
+	 * MAP PA0
 	 */
-	engineConfiguration->map.sensor.hwChannel = EFI_ADC_6; // PA6
+	engineConfiguration->map.sensor.hwChannel = EFI_ADC_0; // PA0
 
 	/**
 	 * TPS
 	 */
-	engineConfiguration->tpsAdcChannel = EFI_ADC_15;
+	engineConfiguration->tpsAdcChannel = EFI_ADC_2;
 	engineConfiguration->tpsMin = 125; // convert 12to10 bit (ADC/4)
 	engineConfiguration->tpsMax = 625; // convert 12to10 bit (ADC/4)
 
