@@ -134,6 +134,10 @@ void initElectronicThrottle(void) {
 //	outputPinRegister("etb1", ELECTRONIC_THROTTLE_CONTROL_1, ETB_CONTROL_LINE_1_PORT, ETB_CONTROL_LINE_1_PIN);
 //	outputPinRegister("etb2", ELECTRONIC_THROTTLE_CONTROL_2, ETB_CONTROL_LINE_2_PORT, ETB_CONTROL_LINE_2_PIN);
 
+	if (!hasPedalPositionSensor()) {
+		return;
+	}
+
 	// this line used for PWM
 	startSimplePwmExt(&etbPwmUp, "etb1",
 			boardConfiguration->etbControlPin1,
