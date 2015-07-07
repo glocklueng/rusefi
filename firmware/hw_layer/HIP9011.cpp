@@ -63,7 +63,7 @@ static int spiCount = 0;
 
 static unsigned char tx_buff[1];
 static unsigned char rx_buff[1];
-static int nonZeroResponse = 0;
+static int correctResponse = 0;
 static char pinNameBuffer[16];
 static float currentAngleWindowWidth;
 
@@ -100,7 +100,7 @@ SPI_CR1_MSTR |
 	tx_buff[0] = value; \
 	spiExchange(driver, 1, tx_buff, rx_buff); \
 	spiUnselect(driver); \
-	if (rx_buff[0] != 0) nonZeroResponse++;
+	if (rx_buff[0] == value) correctResponse++;
 
 // todo: make this configurable
 static SPIDriver *driver = &SPID2;
@@ -132,7 +132,7 @@ static void showHipInfo(void) {
 	            engine->knockCount, engineConfiguration->maxKnockSubDeg);
 
 	scheduleMsg(logger, "spi= IntHold@%s response count=%d", hwPortname(boardConfiguration->hip9011IntHoldPin),
-			nonZeroResponse);
+			correctResponse);
 	scheduleMsg(logger, "CS@%s updateCount=%d", hwPortname(boardConfiguration->hip9011CsPin), settingUpdateCount);
 
 	scheduleMsg(logger, "hip %fv/last=%f@%s/max=%f spiCount=%d adv=%d",
