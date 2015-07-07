@@ -31,6 +31,7 @@ cd %RUSEFI_GIT_PATH%
 git config --global user.email "russianefi@gmail.com"
 git config --global user.name "rusEfi"
 
+git pull
 git add *
 git commit -a -m "auto-sync"
 git push --repo https://rusefi:PASSWORD@github.com/rusefi/rusefi
