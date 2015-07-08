@@ -361,6 +361,11 @@ void setDodgeNeonNGCEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	 */
 	engineConfiguration->map.sensor.hwChannel = EFI_ADC_0; // PA0
 
+//	rev 0.1 green board
+//	engineConfiguration->map.sensor.hwChannel = EFI_ADC_6; // PA6
+//	engineConfiguration->tpsAdcChannel = EFI_ADC_15; // PC5
+
+
 	/**
 	 * TPS
 	 */
