@@ -51,7 +51,6 @@ LIBS:itead_hc-0X_bluetooth
 LIBS:joystick_SKRHAAE010
 LIBS:STM32F407IGT6
 LIBS:slc_oem
-LIBS:PWR_5V_linear-cache
 EELAYER 27 0
 EELAYER END
 $Descr A 11000 8500
