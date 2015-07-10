@@ -81,6 +81,7 @@ findcyg . -name '.svn' > folders_to_delete.txt
 echo "Deleting .svn"
 xargs rm  -rf < folders_to_delete.txt
 echo "Deleted .svn"
+rm -rf folders_to_delete.txt
 
 echo "Building bundle"
 pwd
