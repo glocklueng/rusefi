@@ -96,12 +96,21 @@ SPI_CR1_MSTR |
 //SPI_CR1_BR_1 // 5MHz
 		SPI_CR1_CPHA | SPI_CR1_BR_0 | SPI_CR1_BR_1 | SPI_CR1_BR_2 };
 
+static void checkResponse(void) {
+	if (tx_buff[0] == rx_buff[0]) {
+		correctResponse++;
+	} else {
+		invalidResponse++;
+	}
+}
+
+// this macro is only used on startup
 #define SPI_SYNCHRONOUS(value) \
 	spiSelect(driver); \
 	tx_buff[0] = value; \
 	spiExchange(driver, 1, tx_buff, rx_buff); \
 	spiUnselect(driver); \
-	if (rx_buff[0] == value) correctResponse++;
+	checkResponse();
 
 // todo: make this configurable
 static SPIDriver *driver = &SPID2;
@@ -240,10 +249,13 @@ static void setGain(float value) {
 	showHipInfo();
 }
 
+/**
+ * this is the end of the non-synchronous exchange
+ */
 static void endOfSpiExchange(SPIDriver *spip) {
 	spiUnselectI(driver);
 	state = READY_TO_INTEGRATE;
-	if (tx_buff[0] != rx_buff[0]) invalidResponse++;
+	checkResponse();
 }
 
 static int getBandIndex(void) {
