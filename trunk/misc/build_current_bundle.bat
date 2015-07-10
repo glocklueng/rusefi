@@ -77,12 +77,21 @@ cp misc/console_launcher/rusefi_console.exe %folder%
 cd temp
 echo TODO remove .svn folders
 rem for /d /r . %d in (.svn) do @if exist "%d" rd /s/q "%d"
+echo "Building bundle"
+pwd
 zip -r rusefi_bundle.zip *
+echo "Bundle ready"
+
 cd %folder_name%
+echo "Building only console"
+pwd
 zip ../rusefi_console.zip rusefi_console.jar rusefi.xml
+echo "only console ready"
+
+echo "Changin folder"
 cd ..
 cd ..                                                             
-
-date
+pwd
+date /t
 
 echo "DONE here"
