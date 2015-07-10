@@ -76,7 +76,9 @@ cp misc/console_launcher/rusefi_console.exe %folder%
 
 cd temp
 echo TODO remove .svn folders
-for /d /r . %d in (.svn) do @if exist "%d" rd /s/q "%d"
+find . -name '.svn' > folders_to_delete.txt
+for /f %i in (folders_to_delete.txt) do del %i
+#for /d /r . %d in (.svn) do @if exist "%d" rd /s/q "%d"
 echo "Building bundle"
 pwd
 zip -r rusefi_bundle.zip *
