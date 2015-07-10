@@ -1,5 +1,5 @@
 /**
- * @file	console_io.c
+ * @file	console_io.cpp
  *
  * @date Dec 29, 2012
  * @author Andrey Belomutskiy, (c) 2012-2015
@@ -22,6 +22,10 @@
 #include "console_io.h"
 #include "rfiutil.h"
 #include "tunerstudio.h"
+
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+#include "rusEfiFunctionalTest.h"
+#endif
 
 #if HAL_USE_SERIAL_USB || defined(__DOXYGEN__)
 #include "usbcfg.h"
@@ -192,6 +196,9 @@ static msg_t consoleThreadThreadEntryPoint(void *arg) {
 		(console_line_callback)(trimmed);
 
 		if (consoleInBinaryMode) {
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+			logMsg("Switching to binary mode\r\n");
+#endif
 			// switch to binary protocol
 			runBinaryProtocolLoop(&binaryConsole, true);
 		}

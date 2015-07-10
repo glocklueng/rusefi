@@ -81,6 +81,9 @@
 #include "svnversion.h"
 #include "loggingcentral.h"
 #include "status_loop.h"
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+#include "rusEfiFunctionalTest.h"
+#endif
 
 #if EFI_TUNER_STUDIO || defined(__DOXYGEN__)
 
@@ -89,7 +92,7 @@ EXTERN_ENGINE
 
 extern short currentPageId;
 
-// in MS, that's 3 seconds
+// that's 3 seconds
 #define TS_READ_TIMEOUT MS2ST(3000)
 
 /**
@@ -429,6 +432,11 @@ void runBinaryProtocolLoop(ts_channel_s *tsChannel, bool_t isConsoleRedirect) {
 		tsState.tsCounter++;
 
 		int recieved = chnReadTimeout(tsChannel->channel, &firstByte, 1, TS_READ_TIMEOUT);
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+			logMsg("recieved %d\r\n", recieved);
+#endif
+
+
 		if (recieved != 1) {
 //			tunerStudioError("ERROR: no command");
 			continue;
@@ -471,6 +479,11 @@ void runBinaryProtocolLoop(ts_channel_s *tsChannel, bool_t isConsoleRedirect) {
 			sendErrorCode(tsChannel);
 			continue;
 		}
+
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+			logMsg("command %c\r\n", command);
+#endif
+
 
 //		scheduleMsg(logger, "TunerStudio: reading %d+4 bytes(s)", incomingPacketSize);
 
@@ -588,14 +601,23 @@ extern CommandHandler console_line_callback;
 static void handleGetText(ts_channel_s *tsChannel) {
 	int outputSize;
 	char *output = swapOutputBuffers(&outputSize);
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+			logMsg("get test sending [%d]\r\n", outputSize);
+#endif
 
 	tunerStudioWriteCrcPacket(tsChannel, TS_RESPONSE_COMMAND_OK, output, outputSize);
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+			logMsg("sent [%d]\r\n", outputSize);
+#endif
 }
 
 static void handleExecuteCommand(ts_channel_s *tsChannel, char *data, int incomingPacketSize) {
 	tunerStudioWriteCrcPacket(tsChannel, TS_RESPONSE_COMMAND_OK, NULL, 0);
 	data[incomingPacketSize] = 0;
 	char *trimmed = efiTrim(data);
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+			logMsg("execute [%s]\r\n", trimmed);
+#endif
 	(console_line_callback)(trimmed);
 }
 

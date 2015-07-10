@@ -9,6 +9,9 @@
 #include "tunerstudio_io.h"
 #include "console_io.h"
 #include "engine.h"
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+#include "rusEfiFunctionalTest.h"
+#endif
 
 EXTERN_ENGINE;
 
@@ -61,8 +64,17 @@ BaseChannel * getTsSerialDevice(void) {
 
 void tunerStudioWriteData(ts_channel_s *tsChannel, const uint8_t * buffer, int size) {
         efiAssertVoid(getRemainingStack(chThdSelf()) > 64, "tunerStudioWriteData");
-	int transferred = chSequentialStreamWrite(tsChannel->channel, buffer, size);
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+			logMsg("chSequentialStreamWrite [%d]\r\n", size);
+#endif
+	int transferred = chnWriteTimeout(tsChannel->channel, buffer, size, BINARY_IO_TIMEOUT);
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+			logMsg("transferred [%d]\r\n", transferred);
+#endif
 	if (transferred != size) {
+#if EFI_SIMULATOR || defined(__DOXYGEN__)
+			logMsg("!!! NOT ACCEPTED %d out of %d !!!", transferred, size);
+#endif
 		scheduleMsg(&tsLogger, "!!! NOT ACCEPTED %d out of %d !!!", transferred, size);
 	}
 }
