@@ -64,6 +64,7 @@ static int spiCount = 0;
 static unsigned char tx_buff[1];
 static unsigned char rx_buff[1];
 static int correctResponse = 0;
+static int invalidResponse = 0;
 static char pinNameBuffer[16];
 static float currentAngleWindowWidth;
 
@@ -131,8 +132,8 @@ static void showHipInfo(void) {
 	            currentIntergratorIndex, engineConfiguration->knockVThreshold,
 	            engine->knockCount, engineConfiguration->maxKnockSubDeg);
 
-	scheduleMsg(logger, "spi= IntHold@%s response count=%d", hwPortname(boardConfiguration->hip9011IntHoldPin),
-			correctResponse);
+	scheduleMsg(logger, "spi= IntHold@%s response count=%d incorrect response=%d", hwPortname(boardConfiguration->hip9011IntHoldPin),
+			correctResponse, invalidResponse);
 	scheduleMsg(logger, "CS@%s updateCount=%d", hwPortname(boardConfiguration->hip9011CsPin), settingUpdateCount);
 
 	scheduleMsg(logger, "hip %fv/last=%f@%s/max=%f spiCount=%d adv=%d",
@@ -242,6 +243,7 @@ static void setGain(float value) {
 static void endOfSpiExchange(SPIDriver *spip) {
 	spiUnselectI(driver);
 	state = READY_TO_INTEGRATE;
+	if (tx_buff[0] != rx_buff[0]) invalidResponse++;
 }
 
 static int getBandIndex(void) {
