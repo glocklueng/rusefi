@@ -142,6 +142,17 @@ void onFatalError(const char *msg, const char * file, int line) {
 	exit(-1);
 }
 
+void logMsg(const char *format, ...) {
+	FILE * fp;
+	fp = fopen ("simulator.log", "a");
+
+	va_list(args);
+	va_start(args, format);
+	vfprintf(fp, format, args);
+
+	fclose(fp);
+}
+
 static time_t timeOfPreviousWarning = -10;
 
 // todo: re-use primary firmware implementation?

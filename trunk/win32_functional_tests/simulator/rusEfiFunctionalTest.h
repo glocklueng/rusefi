@@ -15,6 +15,7 @@ extern "C"
 
 void rusEfiFunctionalTest(void);
 void printPendingMessages(void);
+void logMsg(const char *fmt, ...);
 
 #ifdef __cplusplus
 }
