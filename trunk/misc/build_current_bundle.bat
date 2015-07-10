@@ -76,9 +76,12 @@ cp misc/console_launcher/rusefi_console.exe %folder%
 
 cd temp
 echo TODO remove .svn folders
-find . -name '.svn' > folders_to_delete.txt
-for /f %i in (folders_to_delete.txt) do del %i
-#for /d /r . %d in (.svn) do @if exist "%d" rd /s/q "%d"
+echo "Please copy find.exe to findcyg.exe in cygwin folder"
+findcyg . -name '.svn' > folders_to_delete.txt
+echo "Deleting .svn"
+`for /f %i in (folders_to_delete.txt) do del %i`
+echo "Deleted .svn"
+rem #for /d /r . %d in (.svn) do @if exist "%d" rd /s/q "%d"
 echo "Building bundle"
 pwd
 zip -r rusefi_bundle.zip *
