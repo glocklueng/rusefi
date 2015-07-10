@@ -79,9 +79,9 @@ echo TODO remove .svn folders
 echo "Please copy find.exe to findcyg.exe in cygwin folder"
 findcyg . -name '.svn' > folders_to_delete.txt
 echo "Deleting .svn"
-`for /f %i in (folders_to_delete.txt) do del %i`
+xargs rm  -rf < folders_to_delete.txt
 echo "Deleted .svn"
-rem #for /d /r . %d in (.svn) do @if exist "%d" rd /s/q "%d"
+
 echo "Building bundle"
 pwd
 zip -r rusefi_bundle.zip *
