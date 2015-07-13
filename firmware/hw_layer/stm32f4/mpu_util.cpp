@@ -311,10 +311,10 @@ void initSpiModule(SPIDriver *driver, brain_pin_e sck, brain_pin_e miso,
 		int mosiMode,
 		int misoMode) {
 
-	mySetPadMode2("SPI clock", sck,	PAL_MODE_ALTERNATE(getSpiAf(driver)));
+	mySetPadMode2("SPI clock", sck,	PAL_MODE_ALTERNATE(getSpiAf(driver)) + sckMode);
 
-	mySetPadMode2("SPI master out", mosi, PAL_MODE_ALTERNATE(getSpiAf(driver)));
-	mySetPadMode2("SPI master in ", miso, PAL_MODE_ALTERNATE(getSpiAf(driver)));
+	mySetPadMode2("SPI master out", mosi, PAL_MODE_ALTERNATE(getSpiAf(driver)) + mosiMode);
+	mySetPadMode2("SPI master in ", miso, PAL_MODE_ALTERNATE(getSpiAf(driver)) + misoMode);
 }
 
 void initSpiCs(SPIConfig *spiConfig, brain_pin_e csPin) {
