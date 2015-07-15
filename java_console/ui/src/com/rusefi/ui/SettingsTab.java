@@ -65,5 +65,6 @@ public class SettingsTab {
         panel.add(UiUtils.wrap(RecentCommands.createButton(new AtomicBoolean(), "writeconfig")));
 
         content.add(panel);
+        UiUtils.trueLayout(content);
     }
 }
