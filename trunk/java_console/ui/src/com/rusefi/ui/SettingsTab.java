@@ -24,6 +24,7 @@ public class SettingsTab {
 
     public void showContent() {
         content.removeAll();
+        panel.removeAll();
 
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.ALGORITHM, "algorithm").getContent()));
         panel.add(UiUtils.wrap(new EnumConfigField(Fields.TRIGGER_TYPE, "trigger type").getContent()));
