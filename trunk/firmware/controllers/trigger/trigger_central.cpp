@@ -27,10 +27,10 @@
 #include "pin_repository.h"
 #endif
 
-#if EFI_WAVE_CHART
-#include "wave_chart.h"
+#if EFI_ENGINE_SNIFFER
+#include "engine_sniffer.h"
 WaveChart waveChart;
-#endif /* EFI_WAVE_CHART */
+#endif /* EFI_ENGINE_SNIFFER */
 
 static histogram_s triggerCallback;
 
@@ -157,11 +157,6 @@ void TriggerCentral::handleShaftSignal(trigger_event_e signal DECLARE_ENGINE_PAR
 	 */
 	triggerState.decodeTriggerEvent(signal, nowNt PASS_ENGINE_PARAMETER);
 
-	if (!triggerState.shaft_is_synchronized) {
-		// we should not propagate event if we do not know where we are
-		return;
-	}
-
 	/**
 	 * If we only have a crank position sensor with four stroke, here we are extending crank revolutions with a 360 degree
 	 * cycle into a four stroke, 720 degrees cycle.
@@ -176,6 +171,11 @@ void TriggerCentral::handleShaftSignal(trigger_event_e signal DECLARE_ENGINE_PAR
 		triggerIndexForListeners = triggerState.getCurrentIndex() + (isEven ? 0 : TRIGGER_SHAPE(size));
 	}
 	reportEventToWaveChart(signal, triggerIndexForListeners PASS_ENGINE_PARAMETER);
+
+	if (!triggerState.shaft_is_synchronized) {
+		// we should not propagate event if we do not know where we are
+		return;
+	}
 
 	if (triggerState.current_index >= TRIGGER_SHAPE(size)) {
 		warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d", triggerState.current_index);
@@ -392,9 +392,9 @@ void initTriggerCentral(Logging *sharedLogger, Engine *engine) {
 	logger = sharedLogger;
 	strcpy((char*) shaft_signal_msg_index, "x_");
 
-#if EFI_WAVE_CHART
+#if EFI_ENGINE_SNIFFER
 	initWaveChart(&waveChart);
-#endif /* EFI_WAVE_CHART */
+#endif /* EFI_ENGINE_SNIFFER */
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
 	addConsoleAction("triggerinfo", triggerInfo);
