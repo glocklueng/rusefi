@@ -166,7 +166,7 @@ void rpmShaftPositionCallback(trigger_event_e ckpSignalType,
 
 #if EFI_ANALOG_CHART || defined(__DOXYGEN__)
 	angle_t crankAngle = NAN;
-	int signal;
+	int signal = -1;
 	if (boardConfiguration->sensorChartMode == SC_TRIGGER) {
 		crankAngle = getCrankshaftAngleNt(nowNt PASS_ENGINE_PARAMETER);
 		signal = 1000 * ckpSignalType + index;
