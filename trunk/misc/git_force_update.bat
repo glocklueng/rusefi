@@ -2,7 +2,7 @@
 echo going to Root of SVN project
 cd ..
 
-set RUSEFI_GIT_PATH=..\rusefi.github\rusefi
+set RUSEFI_GIT_PATH=..\rusefi.git
 
 cd %RUSEFI_GIT_PATH%
 
