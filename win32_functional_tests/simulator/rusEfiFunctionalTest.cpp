@@ -17,7 +17,7 @@
 #include "datalogging.h"
 #include "algo.h"
 #include "rpm_calculator.h"
-#include "wave_chart.h"
+#include "engine_sniffer.h"
 #include "status_loop.h"
 #include "trigger_emulator_algo.h"
 #include "main_trigger_callback.h"
@@ -92,9 +92,11 @@ void rusEfiFunctionalTest(void) {
 
 	initRpmCalculator(&sharedLogger, engine);
 
-#if EFI_ANALOG_CHART
+#if EFI_ANALOG_CHART || defined(__DOXYGEN__)
 	initSensorChart();
 #endif /* EFI_ANALOG_CHART */
+
+	initTriggerCentral(&sharedLogger, engine);
 
 	initTriggerEmulator(&sharedLogger, engine);
 
@@ -103,8 +105,6 @@ void rusEfiFunctionalTest(void) {
 #endif /* EFI_MAP_AVERAGING */
 
 	initMainEventListener(&sharedLogger, engine);
-
-	initTriggerCentral(&sharedLogger, engine);
 
 	startStatusThreads(engine);
 
