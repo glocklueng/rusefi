@@ -196,6 +196,8 @@ void prepareVoidConfiguration(engine_configuration_s *activeConfiguration) {
 	boardConfiguration->o2heaterPin = GPIO_UNASSIGNED;
 
 	boardConfiguration->tachOutputPin = GPIO_UNASSIGNED;
+	engineConfiguration->tachPulseDuractionMs = 4;
+	engineConfiguration->tachPulseTriggerIndex = 4;
 
 	boardConfiguration->malfunctionIndicatorPin = GPIO_UNASSIGNED;
 	boardConfiguration->malfunctionIndicatorPinMode = OM_DEFAULT;
