@@ -9,10 +9,7 @@ import eu.hansolo.steelseries.tools.ColorDef;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.util.Hashtable;
@@ -23,10 +20,6 @@ import java.util.Hashtable;
  */
 
 public class SensorGauge {
-    public static Component createGauge(final Sensor sensor) {
-        return createGauge(sensor, GaugeChangeListener.VOID);
-    }
-
     public static Component createGauge(Sensor sensor, GaugeChangeListener listener) {
         JPanelWithListener wrapper = new JPanelWithListener(new BorderLayout());
 
@@ -66,7 +59,7 @@ public class SensorGauge {
         gauge.setValue(sensor.translateValue(SensorCentral.getInstance().getValue(sensor)));
         gauge.setLcdDecimals(2);
 
-        gauge.addMouseListener(new MouseAdapter() {
+        MouseListener mouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e)) {
@@ -75,7 +68,10 @@ public class SensorGauge {
                     handleDoubleClick(e, gauge, sensor);
                 }
             }
-        });
+        };
+        gauge.addMouseListener(mouseListener);
+        wrapper.removeAllMouseListeners();
+        wrapper.addMouseListener(mouseListener);
         wrapper.removeAll();
         wrapper.add(gauge, BorderLayout.CENTER);
         UiUtils.trueRepaint(wrapper.getParent());
