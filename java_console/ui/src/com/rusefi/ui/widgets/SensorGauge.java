@@ -81,11 +81,11 @@ public class SensorGauge {
 
     private static void showPopupMenu(MouseEvent e, JPanelWithListener wrapper, GaugeChangeListener listener) {
         JPopupMenu pm = new JPopupMenu();
-        fillGaugeItems(pm, wrapper, listener);
+        fillGaugeMenuItems(pm, wrapper, listener);
         pm.show(e.getComponent(), e.getX(), e.getY());
     }
 
-    private static void fillGaugeItems(JPopupMenu popupMenu, final JPanelWithListener wrapper, final GaugeChangeListener listener) {
+    private static void fillGaugeMenuItems(JPopupMenu popupMenu, final JPanelWithListener wrapper, final GaugeChangeListener listener) {
         for (final SensorCategory sc : SensorCategory.values()) {
             JMenuItem cmi = new JMenu(sc.getName());
             popupMenu.add(cmi);
@@ -116,7 +116,6 @@ public class SensorGauge {
         };
         ds.content.add(createGauge(sensor, listener), BorderLayout.CENTER);
         ds.content.add(ds.mockControlPanel, BorderLayout.SOUTH);
-
 
         ds.frame.add(ds.content);
         ds.show(e);
