@@ -212,7 +212,7 @@ public class GaugesPanel {
             String gaugeName = config.getProperty(getKey(i), DEFAULT_LAYOUT[i].name());
             Sensor sensor = lookup(i, gaugeName);
             final int currentGaugeIndex = i;
-            gauges.add(SensorGauge.createGauge(sensor, new SensorGauge.GaugeChangeListener() {
+            gauges.add(GaugesGridElement.createGauge(sensor, new SensorGauge.GaugeChangeListener() {
                 @Override
                 public void onSensorChange(Sensor sensor) {
                     config.setProperty(getKey(currentGaugeIndex), sensor.name());

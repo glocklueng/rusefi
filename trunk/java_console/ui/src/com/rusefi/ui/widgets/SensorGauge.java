@@ -3,6 +3,7 @@ package com.rusefi.ui.widgets;
 import com.rusefi.core.Sensor;
 import com.rusefi.core.SensorCategory;
 import com.rusefi.core.SensorCentral;
+import com.rusefi.ui.GaugesPanel;
 import com.rusefi.ui.util.UiUtils;
 import eu.hansolo.steelseries.gauges.Radial;
 import eu.hansolo.steelseries.tools.ColorDef;
@@ -14,6 +15,7 @@ import java.awt.event.*;
 /**
  * Date: 7/9/14
  * (c) Andrey Belomutskiy 2012-2014
+ * @see GaugesPanel
  */
 
 public class SensorGauge {
