@@ -38,7 +38,8 @@ void testCrc(void) {
 
 	const char * line = "AbcDEFGF";
 	c = crc32(line, sizeof(line));
-	assertEqualsM("crc32 line", 0x76DE4300, c);
+	printf("crc32(line)=%x\r\n", c);
+	assertEqualsM("crc32 line", 0x76de42e7, c);
 }
 
 static cyclic_buffer<int> sb;
