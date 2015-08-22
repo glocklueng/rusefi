@@ -10,9 +10,6 @@ import eu.hansolo.steelseries.tools.ColorDef;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DecimalFormat;
-import java.text.Format;
-import java.util.Hashtable;
 
 /**
  * Date: 7/9/14
@@ -20,6 +17,9 @@ import java.util.Hashtable;
  */
 
 public class SensorGauge {
+    private static final String HINT_LINE_1 = "Double-click to detach";
+    private static final String HINT_LINE_2 = "Right-click to change";
+
     public static Component createGauge(Sensor sensor, GaugeChangeListener listener) {
         JPanelWithListener wrapper = new JPanelWithListener(new BorderLayout());
 
@@ -47,7 +47,8 @@ public class SensorGauge {
     private static void createGaugeBody(final Sensor sensor, final JPanelWithListener wrapper, final GaugeChangeListener listener) {
         final Radial gauge = createRadial(sensor.getName(), sensor.getUnits(), sensor.getMaxValue(), sensor.getMinValue());
 
-        UiUtils.setTwoLineToolTip(gauge, "Double-click to detach", "Right-click to change");
+        UiUtils.setTwoLineToolTip(gauge, HINT_LINE_1, HINT_LINE_2);
+        UiUtils.setTwoLineToolTip(wrapper, HINT_LINE_1, HINT_LINE_2);
 
         gauge.setBackgroundColor(sensor.getColor());
 
@@ -120,18 +121,6 @@ public class SensorGauge {
         ds.frame.add(ds.content);
         ds.show(e);
     }
-
-    final static Hashtable<Integer, JComponent> SLIDER_LABELS = new Hashtable<>();
-
-    static {
-        Format f = new DecimalFormat("0.0");
-        for (int i = 0; i <= 50; i += 5) {
-            JLabel label = new JLabel(f.format(i * 0.1));
-            label.setFont(label.getFont().deriveFont(Font.PLAIN));
-            SLIDER_LABELS.put(i, label);
-        }
-    }
-
 
     public static Radial createRadial(String title, String units, double maxValue, double minValue) {
 //        final Section[] SECTIONS =
