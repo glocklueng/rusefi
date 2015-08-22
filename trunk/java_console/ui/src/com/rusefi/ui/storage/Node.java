@@ -63,6 +63,10 @@ public class Node {
         config.put(key, "" + value);
     }
 
+    public void setBoolProperty(String key, boolean b) {
+        setProperty(key, "" + b);
+    }
+
     public String getProperty(String key, String defaultValue) {
         String value = (String) config.get(key);
         return value == null ? defaultValue : value;
