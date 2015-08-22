@@ -41,9 +41,9 @@ void testCrc(void) {
 	printf("crc32(line)=%x\r\n", c);
 	assertEqualsM("crc32 line", 0x4775a7b1, c);
 
-//	c = crc32(line, 1);
-//	c = crc32inc(line + 1, c, sizeof(line) - 1);
-//	assertEqualsM("crc32 line inc", 0x4775a7b1, c);
+	c = crc32(line, 1);
+	c = crc32inc(line + 1, c, 8 - 1);
+	assertEqualsM("crc32 line inc", 0x4775a7b1, c);
 }
 
 static cyclic_buffer<int> sb;
