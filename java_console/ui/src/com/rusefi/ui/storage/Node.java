@@ -40,6 +40,10 @@ public class Node {
         }
     }
 
+    public boolean getBoolProperty(String key) {
+        return getBoolProperty(key, false);
+    }
+
     public boolean getBoolProperty(String key, boolean defaultValue) {
         String value = (String) config.get(key);
         if (value == null)
