@@ -117,6 +117,8 @@ static void accelInfo() {
 
 //	scheduleMsg(logger, "TPS accel length=%d", tpsInstance.cb.getSize());
 	scheduleMsg(logger, "TPS accel th=%f/mult=%f", engineConfiguration->tpsAccelEnrichmentThreshold, engineConfiguration->tpsAccelEnrichmentMultiplier);
+
+	scheduleMsg(logger, "added to wall=%f/sucked=%f", engineConfiguration->addedToWallCoef, engineConfiguration->suckedOffCoef);
 }
 
 static void setMapAccelThr(float value) {
