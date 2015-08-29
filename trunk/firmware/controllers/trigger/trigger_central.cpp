@@ -228,7 +228,8 @@ static void triggerShapeInfo(void) {
 #define TRIGGERS_FILE_NAME "triggers.txt"
 
 /**
- * This is used to generate trigger info which is later used by TODO to generate images for documentation
+ * This is used to generate trigger info which is later used by TriggerImage java class
+ * to generate images for documentation
  */
 void printAllTriggers() {
 
