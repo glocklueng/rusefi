@@ -22,7 +22,7 @@ public class WaveState {
     }
 
     public void handle(WaveState.trigger_value_e signal, double angle) {
-        if (signal == trigger_value_e.TV_HIGH) {
+        if (signal == trigger_value_e.TV_LOW) {
             // down signal
             if (Double.isNaN(prevUp)) {
                 // we have down before up, we would need to use it later
