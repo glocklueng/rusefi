@@ -52,7 +52,7 @@ TriggerShape::TriggerShape() :
 	memset(isFrontEvent, 0, sizeof(isFrontEvent));
 	memset(triggerIndexByAngle, 0, sizeof(triggerIndexByAngle));
 #if EFI_UNIT_TEST || defined(__DOXYGEN__)
-	memset(&events, 0, sizeof(events));
+	memset(&triggerSignals, 0, sizeof(triggerSignals));
 #endif
 }
 
@@ -251,7 +251,7 @@ void TriggerShape::addEvent(float angle, trigger_wheel_e const waveIndex, trigge
 
 #if EFI_UNIT_TEST || defined(__DOXYGEN__)
 	int signal = waveIndex * 1000 + stateParam;
-	events[size] = signal;
+	triggerSignals[size] = signal;
 #endif
 
 	float engineCycle = getEngineCycle(operationMode);
