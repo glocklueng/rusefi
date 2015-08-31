@@ -21,6 +21,7 @@ public class SensorLiveGraph extends JPanel {
     private static final int COUNT = 30;
     private static final String SENSOR_TYPE = "sensor";
     private static final String PERIOD = "period";
+    private static final String USE_AUTO_SCALE = "auto_scale";
 
     private final LinkedList<Double> values = new LinkedList<>();
     private final Node config;
@@ -28,6 +29,7 @@ public class SensorLiveGraph extends JPanel {
     @NotNull
     private ChangePeriod period = ChangePeriod._100;
     private Sensor sensor;
+    private boolean autoScale;
 
     public SensorLiveGraph(Node config, final Sensor defaultSensor, JMenuItem extraItem) {
         this.config = config;
@@ -39,6 +41,7 @@ public class SensorLiveGraph extends JPanel {
         thread.setDaemon(true);
         thread.start();
         period = ChangePeriod.lookup(config.getProperty(PERIOD));
+        autoScale = config.getBoolProperty(USE_AUTO_SCALE);
 
         MouseListener mouseListener = new MouseAdapter() {
             @Override
@@ -86,6 +89,16 @@ public class SensorLiveGraph extends JPanel {
         addChangeSensorItems(pm);
         pm.add(new JSeparator());
         addChangePeriodItems(pm);
+        final JCheckBoxMenuItem as = new JCheckBoxMenuItem("Auto scale");
+        as.setSelected(autoScale);
+        as.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                autoScale = as.isSelected();
+                config.setBoolProperty(USE_AUTO_SCALE, autoScale);
+            }
+        });
+        pm.add(as);
 
         pm.add(extraItem);
         pm.show(e.getComponent(), e.getX(), e.getY());
@@ -179,21 +192,15 @@ public class SensorLiveGraph extends JPanel {
             return; // it's hopeless
         g.setColor(Color.black);
 
-        double minValue = Double.MAX_VALUE;
-        double maxValue = -Double.MAX_VALUE;
-        for (double value : values) {
-            minValue = Math.min(minValue, value);
-            maxValue = Math.max(maxValue, value);
-        }
-
-        if (minValue == maxValue) { // double equals should work here, should it?
-            minValue = 0.9 * maxValue - 1;
-            maxValue = 1.1 * maxValue + 1;
+        double minValue;
+        double maxValue;
+        if (autoScale) {
+            VisibleRange getVisibleRange = new VisibleRange().invoke();
+            minValue = getVisibleRange.getMinValue();
+            maxValue = getVisibleRange.getMaxValue();
         } else {
-            // expand the range just a bit for borders
-            double diff = maxValue - minValue;
-            minValue -= 0.05 * diff;
-            maxValue += 0.05 * diff;
+            minValue = sensor.getMinValue();
+            maxValue = sensor.getMaxValue();
         }
 
         int index = 0;
@@ -226,5 +233,38 @@ public class SensorLiveGraph extends JPanel {
         String sensorName = sensor.getName() + " ";
         int nameWidth = g.getFontMetrics().stringWidth(sensorName);
         g.drawString(sensorName, d.width - nameWidth, g.getFont().getSize());
+    }
+
+    private class VisibleRange {
+        private double minValue;
+        private double maxValue;
+
+        public double getMinValue() {
+            return minValue;
+        }
+
+        public double getMaxValue() {
+            return maxValue;
+        }
+
+        public VisibleRange invoke() {
+            minValue = Double.MAX_VALUE;
+            maxValue = -Double.MAX_VALUE;
+            for (double value : values) {
+                minValue = Math.min(minValue, value);
+                maxValue = Math.max(maxValue, value);
+            }
+
+            if (minValue == maxValue) { // double equals should work here, should it?
+                minValue = 0.9 * maxValue - 1;
+                maxValue = 1.1 * maxValue + 1;
+            } else {
+                // expand the range just a bit for borders
+                double diff = maxValue - minValue;
+                minValue -= 0.05 * diff;
+                maxValue += 0.05 * diff;
+            }
+            return this;
+        }
     }
 }
