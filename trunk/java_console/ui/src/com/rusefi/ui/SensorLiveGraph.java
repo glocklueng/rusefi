@@ -20,10 +20,13 @@ import java.util.LinkedList;
 public class SensorLiveGraph extends JPanel {
     private static final int COUNT = 30;
     private static final String SENSOR_TYPE = "sensor";
+    private static final String PERIOD = "period";
 
     private final LinkedList<Double> values = new LinkedList<>();
     private final Node config;
     private final JMenuItem extraItem;
+    @NotNull
+    private ChangePeriod period = ChangePeriod._100;
     private Sensor sensor;
 
     public SensorLiveGraph(Node config, final Sensor defaultSensor, JMenuItem extraItem) {
@@ -35,6 +38,7 @@ public class SensorLiveGraph extends JPanel {
         Thread thread = new Thread(createRunnable());
         thread.setDaemon(true);
         thread.start();
+        period = ChangePeriod.lookup(config.getProperty(PERIOD));
 
         MouseListener mouseListener = new MouseAdapter() {
             @Override
@@ -59,7 +63,7 @@ public class SensorLiveGraph extends JPanel {
             public void run() {
                 while (true) {
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(period.getMs());
                     } catch (InterruptedException e) {
                         throw new IllegalStateException(e);
                     }
@@ -79,6 +83,64 @@ public class SensorLiveGraph extends JPanel {
     private void showPopupMenu(MouseEvent e) {
         JPopupMenu pm = new JPopupMenu();
 
+        addChangeSensorItems(pm);
+        pm.add(new JSeparator());
+        addChangePeriodItems(pm);
+
+        pm.add(extraItem);
+        pm.show(e.getComponent(), e.getX(), e.getY());
+    }
+
+    enum ChangePeriod {
+        _3000(3000, "3 seconds"),
+        _1000(1000, "1 second"),
+        _200(200, "second / 5"),
+        _100(100, "second / 10"),
+        _50(50, "second / 20"),;
+
+        private final int ms;
+        private final String text;
+
+        ChangePeriod(int ms, String text) {
+            this.ms = ms;
+            this.text = text;
+        }
+
+        public int getMs() {
+            return ms;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public static ChangePeriod lookup(String value) {
+            for (ChangePeriod cp : ChangePeriod.values()) {
+                if ((cp.getMs() + "").equals(value))
+                    return cp;
+            }
+            return ChangePeriod._200;
+        }
+    }
+
+    private void addChangePeriodItems(JPopupMenu pm) {
+        JMenuItem mi = new JMenu("Refresh period");
+        pm.add(mi);
+        for (final ChangePeriod cp : ChangePeriod.values()) {
+            JCheckBoxMenuItem i = new JCheckBoxMenuItem(cp.getText());
+            i.setSelected(cp == period);
+            i.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    period = cp;
+                    config.setProperty(PERIOD, period.getMs());
+                }
+            });
+            mi.add(i);
+        }
+    }
+
+    private void addChangeSensorItems(JPopupMenu pm) {
         for (final SensorCategory sc : SensorCategory.values()) {
             JMenuItem cmi = new JMenu(sc.getName());
             pm.add(cmi);
@@ -94,8 +156,6 @@ public class SensorLiveGraph extends JPanel {
                 cmi.add(mi);
             }
         }
-        pm.add(extraItem);
-        pm.show(e.getComponent(), e.getX(), e.getY());
     }
 
     private synchronized void setSensor(Sensor sensor) {
