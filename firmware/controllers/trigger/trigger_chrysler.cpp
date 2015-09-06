@@ -210,13 +210,13 @@ void configureNeon2003TriggerShape(TriggerShape *s) {
 
 void configureDodgeStratusTriggerShape(TriggerShape *s) {
 	s->reset(FOUR_STROKE_CAM_SENSOR, false);
+	s->isSynchronizationNeeded = true;
+
+	s->tdcPosition = 510;
 
 	float w = 7;
 	float g = 20;
 	s->setTriggerSynchronizationGap2(CHRYSLER_NGC6_GAP - 0.5, CHRYSLER_NGC6_GAP + 0.5);
-
-	s->isSynchronizationNeeded = true;
-
 
 	float base = 0;
 	float angle = base + 120.0 - w;
