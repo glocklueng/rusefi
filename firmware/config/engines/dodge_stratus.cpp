@@ -1,6 +1,8 @@
 /**
  * @file dodge_stratus.cpp
  *
+ * set_engine_type 33
+ *
  * @date Sep 5, 2015
  * @author Andrey Belomutskiy, (c) 2012-2015
  */
