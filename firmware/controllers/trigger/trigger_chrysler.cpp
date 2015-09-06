@@ -213,7 +213,7 @@ void configureDodgeStratusTriggerShape(TriggerShape *s) {
 
 	float w = 7;
 	float g = 20;
-	s->setTriggerSynchronizationGap(CHRYSLER_NGC6_GAP);
+	s->setTriggerSynchronizationGap2(CHRYSLER_NGC6_GAP - 0.5, CHRYSLER_NGC6_GAP + 0.5);
 
 	s->isSynchronizationNeeded = true;
 
@@ -222,6 +222,38 @@ void configureDodgeStratusTriggerShape(TriggerShape *s) {
 	float angle = base + 120.0 - w;
 	s->addEvent(angle, T_PRIMARY, TV_HIGH);
 	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+
+	base += 120;
+	// 3 teeth
+	angle = base + 120.0 - w;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+	angle += g;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+	angle += g;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+
+	base += 120;
+	// 2 teeth
+	angle = base + 120.0 - w;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+	angle += g;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+
+	base += 120;
+	// just one
+	angle = base + 120.0 - w;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+
+	base += 120;
+	angle = base + 120.0 - w;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
 	angle += g;
 	s->addEvent(angle, T_PRIMARY, TV_HIGH);
 	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
@@ -229,31 +261,9 @@ void configureDodgeStratusTriggerShape(TriggerShape *s) {
 	s->addEvent(angle, T_PRIMARY, TV_HIGH);
 	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
 
-	base += 120;
-	angle = base + 120.0 - w;
-	s->addEvent(angle, T_PRIMARY, TV_HIGH);
-	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
-	angle += g;
-	s->addEvent(angle, T_PRIMARY, TV_HIGH);
-	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
 
 	base += 120;
-	angle = base + 120.0 - w;
-	s->addEvent(angle, T_PRIMARY, TV_HIGH);
-	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
-
-	base += 120;
-	angle = base + 120.0 - w;
-	s->addEvent(angle, T_PRIMARY, TV_HIGH);
-	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
-
-	base += 120;
-	angle = base + 120.0 - w;
-	s->addEvent(angle, T_PRIMARY, TV_HIGH);
-	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
-
-
-	base += 120;
+	// just one again
 	angle = base + 120.0 - w;
 	s->addEvent(angle, T_PRIMARY, TV_HIGH);
 	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
