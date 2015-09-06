@@ -32,7 +32,7 @@ void configureNeon2003TriggerShape(TriggerShape *s) {
 	s->gapBothDirections = true;
 
 	// are these non-default values really needed here now that the gap is finally precise?
-	s->setTriggerSynchronizationGap2(0.5 * CHRYSLER_NGC_GAP, 1.5 * CHRYSLER_NGC_GAP);
+	s->setTriggerSynchronizationGap2(0.5 * CHRYSLER_NGC4_GAP, 1.5 * CHRYSLER_NGC4_GAP);
 
 	s->useOnlyPrimaryForSync = true;
 
@@ -206,6 +206,57 @@ void configureNeon2003TriggerShape(TriggerShape *s) {
 	s->addEvent(720.0, T_PRIMARY, TV_LOW);
 
 	}
+}
+
+void configureDodgeStratusTriggerShape(TriggerShape *s) {
+	s->reset(FOUR_STROKE_CAM_SENSOR, false);
+
+	float w = 7;
+	float g = 20;
+	s->setTriggerSynchronizationGap(CHRYSLER_NGC6_GAP);
+
+	s->isSynchronizationNeeded = true;
+
+
+	float base = 0;
+	float angle = base + 120.0 - w;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+	angle += g;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+	angle += g;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+
+	base += 120;
+	angle = base + 120.0 - w;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+	angle += g;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+
+	base += 120;
+	angle = base + 120.0 - w;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+
+	base += 120;
+	angle = base + 120.0 - w;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+
+	base += 120;
+	angle = base + 120.0 - w;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
+
+
+	base += 120;
+	angle = base + 120.0 - w;
+	s->addEvent(angle, T_PRIMARY, TV_HIGH);
+	s->addEvent(angle + w, T_PRIMARY, TV_LOW);
 }
 
 void configureNeon1995TriggerShape(TriggerShape *s) {
