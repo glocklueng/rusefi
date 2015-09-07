@@ -34,7 +34,7 @@
 #include "engine.h"
 #include "engine_math.h"
 
-#if EFI_ANALOG_CHART
+#if EFI_ANALOG_CHART || defined(__DOXYGEN__)
 #include <sensor_chart.h>
 #endif /* EFI_ANALOG_CHART */
 
@@ -260,7 +260,7 @@ void initMapAveraging(Logging *sharedLogger, Engine *engine) {
 
 #else
 
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 
 float getMap(void) {
 #if EFI_ANALOG_SENSORS || defined(__DOXYGEN__)
