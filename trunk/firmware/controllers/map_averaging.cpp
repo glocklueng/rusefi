@@ -181,9 +181,7 @@ static void mapAveragingCallback(trigger_event_e ckpEventType, uint32_t index DE
 	measurementsPerRevolution = measurementsPerRevolutionCounter;
 	measurementsPerRevolutionCounter = 0;
 
-	angle_t currentAngle = TRIGGER_SHAPE(eventAngles[index]);
-
-	angle_t samplingStart = ENGINE(engineState.mapAveragingStart) - currentAngle;
+	angle_t samplingStart = ENGINE(engineState.mapAveragingStart[0]);
 	fixAngle(samplingStart);
 
 	angle_t samplingDuration = ENGINE(engineState.mapAveragingDuration);
