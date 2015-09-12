@@ -47,6 +47,11 @@ public:
 	float dutyCycle[PWM_PHASE_MAX_WAVE_PER_PWM];
 
 	/**
+	 * These angles are in event coordinates - with synchronization point located at angle zero.
+	 * These values are pre-calculated for performance reasons.
+	 */
+	angle_t eventAngles[PWM_PHASE_MAX_COUNT];
+	/**
 	 * this cache allows us to find a close-enough (with one degree precision) trigger wheel index by
 	 * given angle with fast constant speed. That's a performance optimization for event scheduling.
 	 */
@@ -100,12 +105,6 @@ public:
 	// tood: maybe even automate this flag calculation?
 	int initialState[PWM_PHASE_MAX_WAVE_PER_PWM];
 
-	/**
-	 * These angles are in event coordinates - with synchronization point located at angle zero.
-	 * These values are pre-calculated for performance reasons.
-	 */
-	float eventAngles[PWM_PHASE_MAX_COUNT];
-
 	int8_t isFrontEvent[PWM_PHASE_MAX_COUNT];
 	/**
 	 * this table translates trigger definition index into 'front-only' index. This translation is not so trivial
@@ -124,8 +123,8 @@ public:
 	 */
 	int size;
 
-	void addEvent(float angle, trigger_wheel_e const waveIndex, trigger_value_e const state);
-	void addEvent(float angle, trigger_wheel_e const waveIndex, trigger_value_e const stateParam, float filterLeft, float filterRight);
+	void addEvent(angle_t angle, trigger_wheel_e const waveIndex, trigger_value_e const state);
+	void addEvent(angle_t angle, trigger_wheel_e const waveIndex, trigger_value_e const stateParam, float filterLeft, float filterRight);
 	operation_mode_e getOperationMode();
 
 	// todo: these two methods here, something could be improved
