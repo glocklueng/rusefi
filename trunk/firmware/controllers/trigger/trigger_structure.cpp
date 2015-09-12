@@ -239,7 +239,7 @@ operation_mode_e TriggerShape::getOperationMode() {
 	return operationMode;
 }
 
-#if EFI_UNIT_TEST
+#if EFI_UNIT_TEST || defined(__DOXYGEN__)
 extern bool printTriggerDebug;
 #endif
 
@@ -248,7 +248,7 @@ void TriggerShape::addEvent(float angle, trigger_wheel_e const waveIndex, trigge
 
 	efiAssertVoid(waveIndex!= T_SECONDARY || needSecondTriggerInput, "secondary needed or not?");
 
-#if EFI_UNIT_TEST
+#if EFI_UNIT_TEST || defined(__DOXYGEN__)
 	if (printTriggerDebug) {
 		printf("addEvent %f\r\n", angle);
 	}
