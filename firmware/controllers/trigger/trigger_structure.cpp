@@ -153,6 +153,7 @@ TriggerState::TriggerState() {
 	shaft_is_synchronized = false;
 	toothed_previous_time = 0;
 	toothed_previous_duration = 0;
+	durationBeforePrevious = 0;
 
 	totalRevolutionCounter = 0;
 	totalTriggerErrorCounter = 0;

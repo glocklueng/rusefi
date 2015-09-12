@@ -248,6 +248,7 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, efitime_t no
 		;
 	}
 
+	durationBeforePrevious = toothed_previous_duration;
 	toothed_previous_duration = currentDuration;
 	toothed_previous_time = nowNt;
 }
