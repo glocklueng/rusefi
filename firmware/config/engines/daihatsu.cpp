@@ -16,6 +16,6 @@ void setDaihatsu(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->trigger.type = TT_36_2_2_2;
 
 	engineConfiguration->specs.cylindersCount = 3;
-	engineConfiguration->specs.firingOrder = FO_1_THEN_2_THEN_3_THEN_4_THEN_5_THEN_6;
+	engineConfiguration->specs.firingOrder = FO_1_2_3;
 
 }
