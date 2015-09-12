@@ -179,7 +179,7 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, efitime_t no
 		isSynchronizationPoint = currentDuration > toothed_previous_duration * TRIGGER_SHAPE(syncRatioFrom) &&
 				currentDuration < toothed_previous_duration * TRIGGER_SHAPE(syncRatioTo) &&
 				toothed_previous_duration > durationBeforePrevious * TRIGGER_SHAPE(secondSyncRatioFrom) &&
-true //				toothed_previous_duration < durationBeforePrevious * TRIGGER_SHAPE(secondSyncRatioTo)
+				toothed_previous_duration < durationBeforePrevious * TRIGGER_SHAPE(secondSyncRatioTo)
 				;
 
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
