@@ -27,6 +27,9 @@ private:
 
 class Engine;
 
+/**
+ * @brief Trigger shape has all the fields needed to describe and decode trigger signal.
+ */
 class TriggerShape {
 public:
 	TriggerShape();
@@ -35,14 +38,17 @@ public:
 	bool_t isSynchronizationNeeded;
 	bool_t needSecondTriggerInput;
 
-	int totalToothCount;
-	int skippedToothCount;
+//	int totalToothCount;
+//	int skippedToothCount;
 
+	/**
+	 * duty cycle for each individual trigger channel
+	 */
 	float dutyCycle[PWM_PHASE_MAX_WAVE_PER_PWM];
 
 	/**
 	 * this cache allows us to find a close-enough (with one degree precision) trigger wheel index by
-	 * given angle with fast constant speed
+	 * given angle with fast constant speed. That's a performance optimization for event scheduling.
 	 */
 	int triggerIndexByAngle[720];
 
@@ -67,6 +73,9 @@ public:
 	 */
 	bool_t useRiseEdge;
 
+	/**
+	 * In case of a multi-channel trigger, do we want to sync based on primary channel only?
+	 */
 	bool_t useOnlyPrimaryForSync;
 	/**
 	 * Should we measure gaps with events of both kinds?
@@ -97,9 +106,6 @@ public:
 	 */
 	float eventAngles[PWM_PHASE_MAX_COUNT];
 
-	uint32_t timeOfLastEvent[PWM_PHASE_MAX_COUNT];
-	float instantRpmValue[PWM_PHASE_MAX_COUNT];
-
 	int8_t isFrontEvent[PWM_PHASE_MAX_COUNT];
 	/**
 	 * this table translates trigger definition index into 'front-only' index. This translation is not so trivial
@@ -107,6 +113,9 @@ public:
 	 */
 	int frontOnlyIndexes[PWM_PHASE_MAX_COUNT];
 
+	/**
+	 * This is a pretty questionable option which is considered by 'addEvent' method
+	 */
 	bool_t invertOnAdd;
 	/**
 	 * Total count of shaft events per CAM or CRANK shaft revolution.
@@ -143,6 +152,7 @@ private:
 	 */
 	int triggerShapeSynchPointIndex;
 	/**
+	 * Working buffer for 'wave' instance
 	 * Values are in the 0..1 range
 	 */
 	float switchTimesBuffer[PWM_PHASE_MAX_COUNT];
