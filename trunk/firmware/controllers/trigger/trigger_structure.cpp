@@ -45,7 +45,7 @@ TriggerShape::TriggerShape() :
 	// todo: reuse 'clear' method?
 	invertOnAdd = false;
 	tdcPosition = 0;
-	skippedToothCount = totalToothCount = 0;
+//	skippedToothCount = totalToothCount = 0;
 	syncRatioFrom = syncRatioTo = 0;
 	secondSyncRatioFrom = 0.000001;
 	secondSyncRatioTo = 100000;
