@@ -48,6 +48,7 @@ TriggerShape::TriggerShape() :
 	skippedToothCount = totalToothCount = 0;
 	syncRatioFrom = syncRatioTo = 0;
 	secondSyncRatioFrom = 0.000001;
+	secondSyncRatioTo = 100000;
 	memset(eventAngles, 0, sizeof(eventAngles));
 	memset(frontOnlyIndexes, 0, sizeof(frontOnlyIndexes));
 	memset(isFrontEvent, 0, sizeof(isFrontEvent));
