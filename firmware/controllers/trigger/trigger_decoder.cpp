@@ -281,7 +281,7 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, efitime_t no
 		// todo: angle diff should be pre-calculated
 		fixAngle(angleDiff);
 
-		float r = (angleDiff / 360.0) / (NT2US(time) / 60000000.0);
+		float r = (angleDiff / 360.0) / time * US_TO_NT_MULTIPLIER * 60000000.0;
 
 #if EFI_SENSOR_CHART || defined(__DOXYGEN__)
 		scAddData(currentAngle, r);
