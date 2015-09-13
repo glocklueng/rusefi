@@ -42,7 +42,6 @@
 #include "sensor_chart.h"
 #endif
 
-extern TriggerCentral triggerCentral;
 static OutputPin triggerDecoderErrorPin;
 
 EXTERN_ENGINE
@@ -483,7 +482,7 @@ void TriggerShape::initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMET
 		return;
 	}
 	wave.checkSwitchTimes(getSize());
-	calculateTriggerSynchPoint(&triggerCentral.triggerState PASS_ENGINE_PARAMETER);
+	calculateTriggerSynchPoint(&engine->triggerCentral.triggerState PASS_ENGINE_PARAMETER);
 }
 
 TriggerStimulatorHelper::TriggerStimulatorHelper() {
