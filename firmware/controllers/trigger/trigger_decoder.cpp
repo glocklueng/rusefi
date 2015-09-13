@@ -558,7 +558,7 @@ DECLARE_ENGINE_PARAMETER_S) {
     efiAssert(getRemainingStack(chThdSelf()) > 128, "findPos", -1);
 #endif
 	errorDetection.clear();
-	efiAssert(s != NULL, "NULL state", -1);
+	efiAssert(state != NULL, "NULL state", -1);
 
 	state->reset();
 
