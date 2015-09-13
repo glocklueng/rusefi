@@ -36,11 +36,13 @@
 #include "efiGpio.h"
 #include "engine.h"
 #include "engine_math.h"
+#include "trigger_central.h"
 
 #if EFI_SENSOR_CHART || defined(__DOXYGEN__)
 #include "sensor_chart.h"
 #endif
 
+extern TriggerCentral triggerCentral;
 static OutputPin triggerDecoderErrorPin;
 
 EXTERN_ENGINE
@@ -481,7 +483,7 @@ void TriggerShape::initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMET
 		return;
 	}
 	wave.checkSwitchTimes(getSize());
-	calculateTriggerSynchPoint(PASS_ENGINE_PARAMETER_F);
+	calculateTriggerSynchPoint(&triggerCentral.triggerState PASS_ENGINE_PARAMETER);
 }
 
 TriggerStimulatorHelper::TriggerStimulatorHelper() {
@@ -544,23 +546,19 @@ static uint32_t doFindTrigger(TriggerStimulatorHelper *helper, TriggerShape * sh
 	return EFI_ERROR_CODE;
 }
 
-// todo: reuse trigger central state here to reduce RAM usage?
-static TriggerState st;
-
 /**
  * Trigger shape is defined in a way which is convenient for trigger shape definition
  * On the other hand, trigger decoder indexing begins from synchronization event.
  *
  * This function finds the index of synchronization event within TriggerShape
  */
-uint32_t findTriggerZeroEventIndex(TriggerShape * shape, trigger_config_s const*triggerConfig
+uint32_t findTriggerZeroEventIndex(TriggerState *state, TriggerShape * shape, trigger_config_s const*triggerConfig
 DECLARE_ENGINE_PARAMETER_S) {
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
     efiAssert(getRemainingStack(chThdSelf()) > 128, "findPos", -1);
 #endif
 	errorDetection.clear();
-
-	TriggerState *state = &st;
+	efiAssert(s != NULL, "NULL state", -1);
 
 	state->reset();
 
