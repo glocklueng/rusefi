@@ -365,6 +365,7 @@ static void configureOnePlus60_2(TriggerShape *s, operation_mode_e operationMode
  * External logger is needed because at this point our logger is not yet initialized
  */
 void TriggerShape::initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMETER_S) {
+        efiAssertVoid(getRemainingStack(chThdSelf()) > 256, "init t");
 	TriggerShape *triggerShape = this;
 
 #if EFI_PROD_CODE
@@ -543,6 +544,9 @@ static uint32_t doFindTrigger(TriggerStimulatorHelper *helper, TriggerShape * sh
 	return EFI_ERROR_CODE;
 }
 
+// todo: reuse trigger central state here to reduce RAM usage?
+static TriggerState state;
+
 /**
  * Trigger shape is defined in a way which is convenient for trigger shape definition
  * On the other hand, trigger decoder indexing begins from synchronization event.
@@ -551,10 +555,10 @@ static uint32_t doFindTrigger(TriggerStimulatorHelper *helper, TriggerShape * sh
  */
 uint32_t findTriggerZeroEventIndex(TriggerShape * shape, trigger_config_s const*triggerConfig
 DECLARE_ENGINE_PARAMETER_S) {
-
-	// todo: should this variable be declared 'static' to reduce stack usage?
-	TriggerState state;
+    efiAssert(getRemainingStack(chThdSelf()) > 128, "findPos", -1);
 	errorDetection.clear();
+
+	state.reset();
 
 	// todo: should this variable be declared 'static' to reduce stack usage?
 	TriggerStimulatorHelper helper;
