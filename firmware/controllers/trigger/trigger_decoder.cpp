@@ -545,7 +545,7 @@ static uint32_t doFindTrigger(TriggerStimulatorHelper *helper, TriggerShape * sh
 }
 
 // todo: reuse trigger central state here to reduce RAM usage?
-static TriggerState state;
+static TriggerState st;
 
 /**
  * Trigger shape is defined in a way which is convenient for trigger shape definition
@@ -560,16 +560,18 @@ DECLARE_ENGINE_PARAMETER_S) {
 #endif
 	errorDetection.clear();
 
-	state.reset();
+	TriggerState *state = &st;
+
+	state->reset();
 
 	// todo: should this variable be declared 'static' to reduce stack usage?
 	TriggerStimulatorHelper helper;
 
-	uint32_t index = doFindTrigger(&helper, shape, triggerConfig, &state PASS_ENGINE_PARAMETER);
+	uint32_t index = doFindTrigger(&helper, shape, triggerConfig, state PASS_ENGINE_PARAMETER);
 	if (index == EFI_ERROR_CODE) {
 		return index;
 	}
-	efiAssert(state.getTotalRevolutionCounter() == 1, "totalRevolutionCounter", EFI_ERROR_CODE);
+	efiAssert(state->getTotalRevolutionCounter() == 1, "totalRevolutionCounter", EFI_ERROR_CODE);
 
 	/**
 	 * Now that we have just located the synch point, we can simulate the whole cycle
@@ -577,19 +579,19 @@ DECLARE_ENGINE_PARAMETER_S) {
 	 *
 	 * todo: add a comment why are we doing '2 * shape->getSize()' here?
 	 */
-	state.cycleCallback = onFindIndex;
+	state->cycleCallback = onFindIndex;
 
 	int startIndex = engineConfiguration->useOnlyFrontForTrigger ? index + 2 : index + 1;
 
 	for (uint32_t i = startIndex; i <= index + 2 * shape->getSize(); i++) {
-		helper.nextStep(&state, shape, i, triggerConfig PASS_ENGINE_PARAMETER);
+		helper.nextStep(state, shape, i, triggerConfig PASS_ENGINE_PARAMETER);
 		if (engineConfiguration->useOnlyFrontForTrigger)
 			i++;
 	}
-	efiAssert(state.getTotalRevolutionCounter() == 3, "totalRevolutionCounter2 expected 3", EFI_ERROR_CODE);
+	efiAssert(state->getTotalRevolutionCounter() == 3, "totalRevolutionCounter2 expected 3", EFI_ERROR_CODE);
 
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
-		shape->dutyCycle[i] = 1.0 * state.expectedTotalTime[i] / HELPER_PERIOD;
+		shape->dutyCycle[i] = 1.0 * state->expectedTotalTime[i] / HELPER_PERIOD;
 	}
 
 	return index % shape->getSize();
