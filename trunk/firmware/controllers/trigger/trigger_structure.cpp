@@ -67,6 +67,7 @@ int TriggerShape::getTriggerShapeSynchPointIndex() {
 }
 
 void TriggerShape::calculateTriggerSynchPoint(DECLARE_ENGINE_PARAMETER_F) {
+        efiAssertVoid(getRemainingStack(chThdSelf()) > 256, "calc s");
 	trigger_config_s const*triggerConfig = &engineConfiguration->trigger;
 
 	triggerShapeSynchPointIndex = findTriggerZeroEventIndex(this, triggerConfig PASS_ENGINE_PARAMETER);
@@ -151,6 +152,10 @@ void multi_wave_s::setSwitchTime(int index, float value) {
 }
 
 TriggerState::TriggerState() {
+	reset();
+}
+
+void TriggerState::reset() {
 	cycleCallback = NULL;
 	shaft_is_synchronized = false;
 	toothed_previous_time = 0;
