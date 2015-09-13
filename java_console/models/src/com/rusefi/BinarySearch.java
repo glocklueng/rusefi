@@ -1,41 +1,29 @@
 package com.rusefi;
 
-import java.util.Arrays;
-
 public class BinarySearch {
-
     public static int binarySearch(double target, double[] angles) {
-        int javaResult = Arrays.binarySearch(angles, 0, angles.length, target);
-
         System.out.println("Testing " + target);
 
-        if (1 == 1) {
-            if (javaResult < 0)
-                return -2 - javaResult;
-            if (target == angles[0])
-                return 0;
-            return javaResult;
-        }
-
-        int middle;
         int left = 0;
         int right = angles.length - 1;
 
-        while (true) {
-            middle = (left + right) / 2;
-            System.out.println("l=" + left + ", m=" + middle + ", r=" + right);
-            double angle = angles[middle];
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            double midVal = angles[mid];
 
-            if (middle == left) {
-                return middle;
-            }
-            if (target < angle) {
-                right = middle;
-            } else if (target > angle) {
-                left = middle;
-            } else {
-                return middle;
+            if (midVal < target)
+                left = mid + 1;  // Neither val is NaN, thisVal is smaller
+            else if (midVal > target)
+                right = mid - 1; // Neither val is NaN, thisVal is larger
+            else {
+                if (midVal == target)     // Values are equal
+                    return mid;             // Key found
+                else if (midVal < target) // (-0.0, 0.0) or (!NaN, NaN)
+                    left = mid + 1;
+                else                        // (0.0, -0.0) or (NaN, !NaN)
+                    right = mid - 1;
             }
         }
+        return left - 1;
     }
 }
