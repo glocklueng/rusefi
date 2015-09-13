@@ -460,8 +460,8 @@ void testTriggerDecoder(void) {
 
 		TriggerShape *t = &eth.engine.triggerShape;
 		assertEquals(56, t->eventAngles[1]);
-		assertEquals(0, t->triggerIndexByAngle[56]);
-		assertEquals(1, t->triggerIndexByAngle[57]);
+		assertEqualsM("index at 0", 0, t->triggerIndexByAngle[56]);
+		assertEqualsM("index at 1", 1, t->triggerIndexByAngle[57]);
 
 		assertEquals(270, t->eventAngles[5]);
 		assertEqualsM("index at 269", 4, t->triggerIndexByAngle[269]);
