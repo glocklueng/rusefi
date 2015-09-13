@@ -67,7 +67,9 @@ int TriggerShape::getTriggerShapeSynchPointIndex() {
 }
 
 void TriggerShape::calculateTriggerSynchPoint(DECLARE_ENGINE_PARAMETER_F) {
-        efiAssertVoid(getRemainingStack(chThdSelf()) > 256, "calc s");
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
+	efiAssertVoid(getRemainingStack(chThdSelf()) > 256, "calc s");
+#endif
 	trigger_config_s const*triggerConfig = &engineConfiguration->trigger;
 
 	triggerShapeSynchPointIndex = findTriggerZeroEventIndex(this, triggerConfig PASS_ENGINE_PARAMETER);

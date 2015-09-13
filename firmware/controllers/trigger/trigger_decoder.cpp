@@ -164,7 +164,7 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, efitime_t no
 	bool_t isPrimary = triggerWheel == T_PRIMARY;
 
 	if (isLessImportant(signal)) {
-#if EFI_UNIT_TEST
+#if EFI_UNIT_TEST || defined(__DOXYGEN__)
 		if (printTriggerDebug) {
 			printf("%s isLessImportant %s\r\n",
 					getTrigger_type_e(engineConfiguration->trigger.type),
@@ -189,7 +189,7 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, efitime_t no
 	isFirstEvent = false;
 // todo: skip a number of signal from the beginning
 
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 //	scheduleMsg(&logger, "from %f to %f %d %d", triggerConfig->syncRatioFrom, triggerConfig->syncRatioTo, currentDuration, shaftPositionState->toothed_previous_duration);
 //	scheduleMsg(&logger, "ratio %f", 1.0 * currentDuration/ shaftPositionState->toothed_previous_duration);
 #else
@@ -235,7 +235,7 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, efitime_t no
 
 	}
 
-#if EFI_UNIT_TEST
+#if EFI_UNIT_TEST || defined(__DOXYGEN__)
 		if (printTriggerDebug) {
 			printf("%s isSynchronizationPoint=%d index=%d %s\r\n",
 					getTrigger_type_e(engineConfiguration->trigger.type),
@@ -258,7 +258,7 @@ void TriggerState::decodeTriggerEvent(trigger_event_e const signal, efitime_t no
 			lastDecodingErrorTime = getTimeNowNt();
 			totalTriggerErrorCounter++;
 			if (engineConfiguration->isPrintTriggerSynchDetails) {
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
 				scheduleMsg(logger, "error: synchronizationPoint @ index %d expected %d/%d/%d got %d/%d/%d", currentCycle.current_index,
 						TRIGGER_SHAPE(expectedEventCount[0]), TRIGGER_SHAPE(expectedEventCount[1]),
 						TRIGGER_SHAPE(expectedEventCount[2]), currentCycle.eventCount[0], currentCycle.eventCount[1], currentCycle.eventCount[2]);
@@ -365,12 +365,12 @@ static void configureOnePlus60_2(TriggerShape *s, operation_mode_e operationMode
  * External logger is needed because at this point our logger is not yet initialized
  */
 void TriggerShape::initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMETER_S) {
-        efiAssertVoid(getRemainingStack(chThdSelf()) > 256, "init t");
-	TriggerShape *triggerShape = this;
-
-#if EFI_PROD_CODE
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
+	efiAssertVoid(getRemainingStack(chThdSelf()) > 256, "init t");
 	scheduleMsg(logger, "initializeTriggerShape()");
 #endif
+	TriggerShape *triggerShape = this;
+
 	const trigger_config_s *triggerConfig = &engineConfiguration->trigger;
 
 	clear();
@@ -555,7 +555,9 @@ static TriggerState state;
  */
 uint32_t findTriggerZeroEventIndex(TriggerShape * shape, trigger_config_s const*triggerConfig
 DECLARE_ENGINE_PARAMETER_S) {
+#if EFI_PROD_CODE || defined(__DOXYGEN__)
     efiAssert(getRemainingStack(chThdSelf()) > 128, "findPos", -1);
+#endif
 	errorDetection.clear();
 
 	state.reset();
@@ -598,7 +600,7 @@ void initTriggerDecoderLogger(Logging *sharedLogger) {
 }
 
 void initTriggerDecoder(void) {
-#if (EFI_PROD_CODE || EFI_SIMULATOR)
+#if (EFI_PROD_CODE || EFI_SIMULATOR) || defined(__DOXYGEN__)
 	outputPinRegisterExt2("trg_err", &triggerDecoderErrorPin, boardConfiguration->triggerErrorPin, &boardConfiguration->triggerErrorPinMode);
 #endif
 }
