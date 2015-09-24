@@ -508,18 +508,6 @@ static void onFindIndex(TriggerState *state) {
 	}
 }
 
-static uint32_t doFindTrigger(TriggerStimulatorHelper *helper, TriggerShape * shape,
-		trigger_config_s const*triggerConfig, TriggerState *state DECLARE_ENGINE_PARAMETER_S) {
-	for (int i = 0; i < 4 * PWM_PHASE_MAX_COUNT; i++) {
-		helper->nextStep(state, shape, i, triggerConfig PASS_ENGINE_PARAMETER);
-
-		if (state->shaft_is_synchronized)
-			return i;
-	}
-	firmwareError("findTriggerZeroEventIndex() failed");
-	return EFI_ERROR_CODE;
-}
-
 /**
  * Trigger shape is defined in a way which is convenient for trigger shape definition
  * On the other hand, trigger decoder indexing begins from synchronization event.
@@ -539,7 +527,7 @@ DECLARE_ENGINE_PARAMETER_S) {
 	// todo: should this variable be declared 'static' to reduce stack usage?
 	TriggerStimulatorHelper helper;
 
-	uint32_t index = doFindTrigger(&helper, shape, triggerConfig, state PASS_ENGINE_PARAMETER);
+	uint32_t index = helper.doFindTrigger(shape, triggerConfig, state PASS_ENGINE_PARAMETER);
 	if (index == EFI_ERROR_CODE) {
 		return index;
 	}

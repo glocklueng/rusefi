@@ -69,6 +69,16 @@ void TriggerStimulatorHelper::assertSyncPositionAndSetDutyCycle(uint32_t index, 
 	for (int i = 0; i < PWM_PHASE_MAX_WAVE_PER_PWM; i++) {
 		shape->dutyCycle[i] = 1.0 * state->expectedTotalTime[i] / SIMULATION_CYCLE_PERIOD;
 	}
-
 }
 
+uint32_t TriggerStimulatorHelper::doFindTrigger(TriggerShape * shape,
+		trigger_config_s const*triggerConfig, TriggerState *state DECLARE_ENGINE_PARAMETER_S) {
+	for (int i = 0; i < 4 * PWM_PHASE_MAX_COUNT; i++) {
+		nextStep(state, shape, i, triggerConfig PASS_ENGINE_PARAMETER);
+
+		if (state->shaft_is_synchronized)
+			return i;
+	}
+	firmwareError("findTriggerZeroEventIndex() failed");
+	return EFI_ERROR_CODE;
+}
