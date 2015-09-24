@@ -14,6 +14,10 @@
 class TriggerStimulatorHelper {
 public:
 	TriggerStimulatorHelper();
+
+	uint32_t doFindTrigger(TriggerShape * shape,
+			trigger_config_s const*triggerConfig, TriggerState *state DECLARE_ENGINE_PARAMETER_S);
+
 	void nextStep(TriggerState *state, TriggerShape * shape, int i, trigger_config_s const*triggerConfig DECLARE_ENGINE_PARAMETER_S);
 
 	void assertSyncPositionAndSetDutyCycle(uint32_t index, TriggerState *state, TriggerShape * shape,
