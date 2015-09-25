@@ -67,6 +67,10 @@ bool_t isTriggerDecoderError(void) {
 	return errorDetection.sum(6) > 4;
 }
 
+bool_t TriggerState::isValidIndex(DECLARE_ENGINE_PARAMETER_F) {
+	return currentCycle.current_index < TRIGGER_SHAPE(size);
+}
+
 float TriggerState::getTriggerDutyCycle(int index) {
 	float time = prevTotalTime[index];
 

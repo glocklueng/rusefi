@@ -132,9 +132,6 @@ void TriggerCentral::handleShaftSignal(trigger_event_e signal DECLARE_ENGINE_PAR
 
 	nowNt = getTimeNowNt();
 
-	efiAssertVoid(engine->engineConfiguration!=NULL, "engineConfiguration");
-	efiAssertVoid(engine->engineConfiguration2!=NULL, "engineConfiguration2");
-
 	engine->onTriggerEvent(nowNt);
 
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
@@ -178,7 +175,7 @@ void TriggerCentral::handleShaftSignal(trigger_event_e signal DECLARE_ENGINE_PAR
 		return;
 	}
 
-	if (triggerState.currentCycle.current_index >= TRIGGER_SHAPE(size)) {
+	if (!triggerState.isValidIndex()) {
 		warning(OBD_PCM_Processor_Fault, "unexpected eventIndex=%d while size %d", triggerState.currentCycle.current_index, TRIGGER_SHAPE(size));
 	} else {
 
