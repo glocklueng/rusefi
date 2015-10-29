@@ -35,8 +35,8 @@ trigger_shape_helper::trigger_shape_helper() {
 
 TriggerShape::TriggerShape() :
 		wave(switchTimesBuffer, NULL) {
-	initialize(OM_NONE, false);
 	clear();
+	initialize(OM_NONE, false);
 	wave.waves = h.waves;
 	// todo: false here, true in clear() what a mess!
 	useRiseEdge = false;
