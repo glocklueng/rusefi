@@ -29,13 +29,13 @@ void initializeIgnitionActions(angle_t advance, angle_t dwellAngle,
  * I guess this implementation would be faster than 'angle % engineCycle'
  */
 #define fixAngle(angle)                     \
-	if (CONFIG(engineCycle) == 0) {         \
+	if (CONFIG(engineCycleDuration) == 0) {         \
        firmwareError("zero engineCycle");   \
     }                                       \
 	while (angle < 0)                       \
-		angle += CONFIG(engineCycle);       \
-	while (angle >= CONFIG(engineCycle))    \
-		angle -= CONFIG(engineCycle);
+		angle += CONFIG(engineCycleDuration);       \
+	while (angle >= CONFIG(engineCycleDuration))    \
+		angle -= CONFIG(engineCycleDuration);
 
 /**
  * @return time needed to rotate crankshaft by one degree, in milliseconds.
