@@ -18,6 +18,7 @@ public class BinaryProtocolServer {
     private static final int PROXY_PORT = 2390;
 
     public static void start() {
+        FileLog.MAIN.logLine("BinaryProtocolServer on " + PROXY_PORT);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -39,7 +40,7 @@ public class BinaryProtocolServer {
                 } catch (IOException e) {
                 }
             }
-        };  
+        };
         new Thread(runnable, "BinaryProtocolServer").start();
     }
 
