@@ -83,6 +83,7 @@ public class Launcher {
         ConnectionWatchdog.start();
 
         tabbedPane.addTab("Gauges", new GaugesPanel(getConfig().getRoot().getChild("gauges")).getContent());
+        tabbedPane.addTab("Formulas", new FormulasPane().getContent());
         tabbedPane.addTab("Engine Sniffer", engineSnifferPanel.getPanel());
         tabbedPane.addTab("Sensor Sniffer", new SensorSnifferPane(getConfig().getRoot().getChild("sensor_sniffer")).getPanel());
 
