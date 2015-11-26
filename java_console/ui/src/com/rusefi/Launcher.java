@@ -81,7 +81,6 @@ public class Launcher {
             tabbedPane.add("Log Viewer", new LogViewer(engineSnifferPanel));
 
         ConnectionWatchdog.start();
-        BinaryProtocolServer.start();
 
         tabbedPane.addTab("Gauges", new GaugesPanel(getConfig().getRoot().getChild("gauges")).getContent());
         tabbedPane.addTab("Engine Sniffer", engineSnifferPanel.getPanel());
@@ -134,6 +133,7 @@ public class Launcher {
                 tableEditor.showContent();
                 settingsTab.showContent();
                 logsManager.showContent();
+                BinaryProtocolServer.start();
             }
         });
 
