@@ -85,7 +85,7 @@ typedef struct {
 	egt_values_s egtValues;
 	float rpmAcceleration;
 	float massAirFlowValue;
-	float veValue;
+	float veValue; // current volumetric efficiency
 	float deltaTps;
 	int triggerErrorsCounter;
 	float currentMapAccelDelta;
