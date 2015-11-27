@@ -552,6 +552,7 @@ static void lcdThread(void *arg) {
 extern WallFuel wallFuel;
 
 extern fuel_Map3D_t veMap;
+extern fuel_Map3D_t afrMap;
 
 void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels DECLARE_ENGINE_PARAMETER_S) {
 #if EFI_SHAFT_POSITION_INPUT || defined(__DOXYGEN__)
@@ -579,6 +580,7 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels DECLARE_
     tsOutputChannels->massAirFlowValue = hasMafSensor() ? getRealMaf() : 0;
           
 	tsOutputChannels->veValue = veMap.getValue(getMap(), rpm);
+	tsOutputChannels->currentTargetAfr = afrMap.getValue(getMap(), rpm);
 	tsOutputChannels->airFuelRatio = getAfr();
 	if (hasVBatt(PASS_ENGINE_PARAMETER_F)) {
 		tsOutputChannels->vBatt = getVBatt(PASS_ENGINE_PARAMETER_F);
