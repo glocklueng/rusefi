@@ -29,16 +29,40 @@ public class FormulasPane {
     }
 
     private void updateFormula() {
-        SensorCentral sc = SensorCentral.getInstance();
-        double clt = sc.getValue(Sensor.CLT);
-        double iat = sc.getValue(Sensor.IAT);
-        double tps = sc.getValue(Sensor.TPS);
-        double map = sc.getValue(Sensor.MAP);
 
-        String tCharge = "$Tcharge=f(CLT=" + String.format("%.1f", clt) + "C,IAT=" + String.format("%.1f", iat)
-                + "C,TPS=99\\%)=123C$";
+        String IAT = oneDecimal(Sensor.IAT);
+        String MAP = oneDecimal(Sensor.MAP);
+        String T_CHARGE = oneDecimal(Sensor.T_CHARGE);
 
-        String page = tCharge + "\r\n";
+        double rpm = SensorCentral.getInstance().getValue(Sensor.RPM);
+        String RPM = "" + (int) rpm;
+        String VE = oneDecimal(Sensor.CURRENT_VE);
+        String TARGET_AFR = oneDecimal(Sensor.TARGET_AFR);
+        String tpsStr = oneDecimal(Sensor.TPS);
+
+        String tCharge = "$Tcharge=f(CLT=" + oneDecimal(Sensor.CLT) + "C,IAT=" + IAT
+                + "C,TPS=" + tpsStr + "\\%, RPM = " + RPM + ")=" + T_CHARGE + "C$";
+
+
+        String rpm_map = "RPM=" + RPM + ",MAP=" + MAP + "kPa";
+        String mCharge = "$Airmass (g/cyl) =\\frac{(V_Cylinder = " + "xxx" + "L) " +
+                "* (VE(" + rpm_map + ")  = " + VE + "\\%) " +
+                "* (MAP = " + MAP + "Kpa)" +
+                "}{" +
+                "(GAS_R = 0.28705) * ((Tcharge = " + T_CHARGE + "C) + 273.15)} = " +
+                "xxx" +
+                "$";
+
+        String injTime = "$Injection_Time (ms) = \\frac{" +
+                "($Airmass = " + "xxx" + ")" +
+                "}{" +
+                "(TargetAFR (" + rpm_map + ") = " + TARGET_AFR + ")" +
+                " * (injectorFlow = yyy cc/min)}$";
+
+        String newLine = "\r\n \\\\ ";
+        String page = tCharge + newLine + newLine + newLine +
+                mCharge + newLine + newLine + newLine +
+                injTime + newLine;
 
         TeXFormula formula = new TeXFormula(page);
         TeXIcon icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
@@ -51,6 +75,14 @@ public class FormulasPane {
 
         centerProxy.removeAll();
         centerProxy.add(label, BorderLayout.CENTER);
+    }
+
+    private String oneDecimal(Sensor sensor) {
+        return oneDecimal(SensorCentral.getInstance().getValue(sensor));
+    }
+
+    private String oneDecimal(double ve) {
+        return String.format("%.1f", ve);
     }
 
     public JPanel getContent() {
