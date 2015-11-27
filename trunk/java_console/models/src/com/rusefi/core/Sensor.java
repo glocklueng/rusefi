@@ -96,6 +96,7 @@ public enum Sensor {
     temperatureFuelCorrection(SensorCategory.OPERATIONS, FieldType.FLOAT, 164, BackgroundColor.MUD, 0, 5),
     wallFuelCorrection(SensorCategory.OPERATIONS, FieldType.FLOAT, 168, BackgroundColor.MUD),
     idlePosition(SensorCategory.OPERATIONS, FieldType.FLOAT, 172, BackgroundColor.MUD),
+    TARGET_AFR(SensorCategory.OPERATIONS, FieldType.FLOAT, 116, BackgroundColor.MUD),
 
     INJ_1_2_DELTA("inj 1-2 delta", SensorCategory.SNIFFING),
     INJ_3_4_DELTA("inj 3-4 delta", SensorCategory.SNIFFING),
