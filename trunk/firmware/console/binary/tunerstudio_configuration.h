@@ -102,7 +102,8 @@ typedef struct {
 	floatms_t wallFuelCorrection;
 	float idlePosition;
 	float currentTargetAfr;
-	int unused3[4];
+	float chargeAirMass;
+	int unused3[3];
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */
