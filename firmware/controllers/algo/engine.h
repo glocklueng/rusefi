@@ -90,6 +90,8 @@ public:
 	float iat;
 	float clt;
 
+	float airMass;
+
 	/**
 	 * that's fuel in tank - just a gauge
 	 */
