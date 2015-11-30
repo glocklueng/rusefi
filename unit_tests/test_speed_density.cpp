@@ -29,6 +29,8 @@ void testSpeedDensity(void) {
 
 	float airMass = getAirMass(eth.ec, 0.92, 98, 293.16);
 
+	assertEquals(0.9371, airMass);
+
 	// 0.01414 sec or 14.14 ms
 	assertEquals(0.01414, sdMath(eth.ec, airMass, 12.5));
 }
