@@ -1,7 +1,11 @@
 package com.rusefi.ui;
 
+import com.rusefi.ConfigurationImage;
+import com.rusefi.binaryprotocol.BinaryProtocol;
+import com.rusefi.config.Fields;
 import com.rusefi.core.Sensor;
 import com.rusefi.core.SensorCentral;
+import com.rusefi.ui.config.ConfigField;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
@@ -30,6 +34,15 @@ public class FormulasPane {
 
     private void updateFormula() {
 
+        BinaryProtocol bp = BinaryProtocol.instance;
+        if (bp == null)
+            return;
+        ConfigurationImage ci = bp.getController();
+        if (ci == null)
+            return;
+
+
+
         String IAT = oneDecimal(Sensor.IAT);
         String MAP = oneDecimal(Sensor.MAP);
         String T_CHARGE = oneDecimal(Sensor.T_CHARGE);
@@ -39,25 +52,31 @@ public class FormulasPane {
         String VE = oneDecimal(Sensor.CURRENT_VE);
         String TARGET_AFR = oneDecimal(Sensor.TARGET_AFR);
         String tpsStr = oneDecimal(Sensor.TPS);
+        String chargeAirMass = String.format("%.3fgm", SensorCentral.getInstance().getValue(Sensor.CHARGE_AIR_MASS));
+
+        float displacement = (Float) ConfigField.getValue(ci, Fields.DISPLACEMENT);
+        int cylinderCount = (int) ConfigField.getValue(ci, Fields.CYLINDERSCOUNT);
+        String cylinderDisplacement = oneDecimal(displacement / cylinderCount);
+        String injectorFlow = oneDecimal((float)ConfigField.getValue(ci, Fields.INJECTOR_FLOW));
 
         String tCharge = "$Tcharge=f(CLT=" + oneDecimal(Sensor.CLT) + "C,IAT=" + IAT
                 + "C,TPS=" + tpsStr + "\\%, RPM = " + RPM + ")=" + T_CHARGE + "C$";
 
-
         String rpm_map = "RPM=" + RPM + ",MAP=" + MAP + "kPa";
-        String mCharge = "$Airmass (g/cyl) =\\frac{(V_Cylinder = " + "xxx" + "L) " +
+        String mCharge = "$Airmass (g/cyl) =\\frac{(V_Cylinder = " + cylinderDisplacement + "L) " +
                 "* (VE(" + rpm_map + ")  = " + VE + "\\%) " +
                 "* (MAP = " + MAP + "Kpa)" +
                 "}{" +
                 "(GAS_R = 0.28705) * ((Tcharge = " + T_CHARGE + "C) + 273.15)} = " +
-                "xxx" +
+                chargeAirMass +
                 "$";
 
         String injTime = "$Injection_Time (ms) = \\frac{" +
-                "($Airmass = " + "xxx" + ")" +
+                "($Airmass = " + chargeAirMass + ")" +
                 "}{" +
                 "(TargetAFR (" + rpm_map + ") = " + TARGET_AFR + ")" +
-                " * (injectorFlow = yyy cc/min)}$";
+                " * (injectorFlow = " + injectorFlow + " cc/min)" +
+                "} = " + "yyy" + "ms$";
 
         String newLine = "\r\n \\\\ ";
         String page = tCharge + newLine + newLine + newLine +
