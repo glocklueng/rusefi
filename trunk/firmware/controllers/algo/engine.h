@@ -129,7 +129,14 @@ public:
 	float currentVE;
 	float targerAFR;
 
+	/**
+	 * pre-calculated value from simple fuel lookup
+	 */
 	float baseTableFuel;
+	/**
+	 * fuel regardless of fuel logic mode
+	 */
+	float baseFuel;
 
 	angle_t injectionOffset;
 };
