@@ -654,6 +654,7 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels DECLARE_
 	tsOutputChannels->baseFuel = baseFuelMs;
 	tsOutputChannels->pulseWidthMs = ENGINE(actualLastInjection);
 	tsOutputChannels->crankingFuelMs = getCrankingFuel(PASS_ENGINE_PARAMETER_F);
+	tsOutputChannels->chargeAirMass = engine->engineState.airMass;
 }
 
 extern TunerStudioOutputChannels tsOutputChannels;
