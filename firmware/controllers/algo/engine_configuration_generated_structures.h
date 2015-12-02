@@ -1,4 +1,4 @@
-// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Tue Dec 01 20:16:27 EST 2015
+// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Tue Dec 01 20:29:19 EST 2015
 // begin
 #include "rusefi_types.h"
 typedef struct {
@@ -1439,7 +1439,11 @@ typedef struct {
 	/**
 	 * offset 2224
 	 */
-	int unused[198];
+	brain_pin_e configResetPin;
+	/**
+	 * offset 2228
+	 */
+	int unused[197];
 	/** total size 3016*/
 } engine_configuration_s;
 
@@ -1588,4 +1592,4 @@ typedef struct {
 } persistent_config_s;
 
 // end
-// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Tue Dec 01 20:16:27 EST 2015
+// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Tue Dec 01 20:29:19 EST 2015
