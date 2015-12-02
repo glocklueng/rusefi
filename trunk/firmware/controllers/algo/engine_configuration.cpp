@@ -232,7 +232,7 @@ void prepareVoidConfiguration(engine_configuration_s *activeConfiguration) {
 	boardConfiguration->ignitionPinMode = OM_DEFAULT;
 }
 
-void setDefaultBasePins(void) {
+void setDefaultBasePins(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->fatalErrorPin = GPIOD_14;
 	engineConfiguration->warninigPin = GPIOD_13;
 }
@@ -568,7 +568,7 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 
 	engineConfiguration->communicationPin = GPIOD_15;
 	engineConfiguration->runningPin = GPIOD_12;
-	setDefaultBasePins();
+	setDefaultBasePins(PASS_ENGINE_PARAMETER_F);
 	engineConfiguration->binarySerialTxPin = GPIOC_10;
 	engineConfiguration->binarySerialRxPin = GPIOC_11;
 	engineConfiguration->consoleSerialTxPin = GPIOC_10;
