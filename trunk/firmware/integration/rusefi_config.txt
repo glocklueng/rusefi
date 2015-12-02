@@ -621,6 +621,12 @@ baro_corr_table_t baroCorrTable;
 	float mapAccelEnrichmentThreshold;;"roc",        1,     0,    0, 200,     3
 	float mapAccelEnrichmentMultiplier;;"coeff",        1,     0,    0, 200,     3
 
+
+	brain_pin_e fatalErrorPin;
+	brain_pin_e warninigPin; 
+	int[198] unused;
+	
+
 end_struct
 
 engine_configuration_s engineConfiguration;
