@@ -29,11 +29,10 @@ import static com.rusefi.ui.storage.PersistentConfiguration.getConfig;
  * (c) Andrey Belomutskiy 2013-2015
  *
  * @see StartupFrame
- * @see com.rusefi.ui.engine.EngineSnifferPanel
- * @see com.rusefi.StartupFrame
+ * @see EngineSnifferPanel
  */
 public class Launcher {
-    public static final int CONSOLE_VERSION = 20151201;
+    public static final int CONSOLE_VERSION = 20151202;
     public static final boolean SHOW_STIMULATOR = false;
     private static final String TAB_INDEX = "main_tab";
     protected static final String PORT_KEY = "port";
