@@ -5,6 +5,9 @@
  * 4 wire IAC
  * 8 pin HEI module
  *
+ * set_engine_type 37
+ *
+ *
  * @date Dec 20, 2015
  * @author Andrey Belomutskiy, (c) 2012-2015
  */
