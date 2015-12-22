@@ -14,6 +14,7 @@
  */
 
 #include "chevrolet_c20_1973.h"
+#include "engine_math.h"
 
 EXTERN_ENGINE;
 
