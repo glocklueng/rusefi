@@ -36,6 +36,8 @@ void set1973c20(DECLARE_ENGINE_PARAMETER_F) {
 	engineConfiguration->trigger.customTotalToothCount = 8;
 	engineConfiguration->trigger.customSkippedToothCount = 0;
 
+	engineConfiguration->rpmHardLimit = 5000;
+	setAlgorithm(LM_SPEED_DENSITY PASS_ENGINE_PARAMETER);
 
 
 }
