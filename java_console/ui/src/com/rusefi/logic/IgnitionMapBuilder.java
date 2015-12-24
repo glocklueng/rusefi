@@ -5,7 +5,6 @@ package com.rusefi.logic;
  * 12/24/2015
  */
 public class IgnitionMapBuilder {
-
     public enum ChamberStyle {
         OPEN_CHAMBER(33),
         CLOSED_CHAMBER(28),
@@ -24,7 +23,29 @@ public class IgnitionMapBuilder {
     }
 
 
-    public static double getTopAdvanceForBore(ChamberStyle style) {
-        return style.advance;
+    public static double getTopAdvanceForBore(ChamberStyle style, int octane, double compression) {
+        int octaneCorrection;
+        if ( octane <= 90) {
+            octaneCorrection = -2;
+        } else if (octane < 94) {
+            octaneCorrection = -1;
+        } else {
+            octaneCorrection = 0;
+        }
+
+        int compressionCorrection;
+        if (compression <= 9) {
+            compressionCorrection = 2;
+        } else if (compression <= 10) {
+            compressionCorrection = 1;
+        } else if (compression <= 11) {
+            compressionCorrection = 0;
+        } else {
+            // compression ratio above 11
+            compressionCorrection = -2;
+        }
+
+
+        return style.advance + octaneCorrection + compressionCorrection;
     }
 }
