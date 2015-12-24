@@ -23,7 +23,7 @@ public class IgnitionMapBuilder {
     }
 
 
-    public static double getTopAdvanceForBore(ChamberStyle style, int octane, double compression) {
+    public static double getTopAdvanceForBore(ChamberStyle style, int octane, double compression, double bore) {
         int octaneCorrection;
         if ( octane <= 90) {
             octaneCorrection = -2;
@@ -45,7 +45,15 @@ public class IgnitionMapBuilder {
             compressionCorrection = -2;
         }
 
+        double result = style.advance + octaneCorrection + compressionCorrection + getBoreCorrection(bore);
+        return round10(result);
+    }
 
-        return style.advance + octaneCorrection + compressionCorrection;
+    public static double round10(double result) {
+        return ((int)(result * 10)) / 10.0;
+    }
+
+    public static double getBoreCorrection(double bore) {
+        return (bore - 4 * 25.4) / 25.4 * 6;
     }
 }
