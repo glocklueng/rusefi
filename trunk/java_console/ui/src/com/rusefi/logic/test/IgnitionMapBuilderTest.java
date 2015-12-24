@@ -3,6 +3,8 @@ package com.rusefi.logic.test;
 import com.rusefi.logic.IgnitionMapBuilder;
 import org.junit.Test;
 
+import static com.rusefi.logic.IgnitionMapBuilder.ChamberStyle.*;
+import static com.rusefi.logic.IgnitionMapBuilder.getTopAdvanceForBore;
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -12,8 +14,9 @@ import static junit.framework.Assert.assertEquals;
 public class IgnitionMapBuilderTest {
     @Test
     public void testIgnitionMapBuilder() {
-        assertEquals(33.0, IgnitionMapBuilder.getTopAdvanceForBore(IgnitionMapBuilder.ChamberStyle.OPEN_CHAMBER));
+        assertEquals(35.0, getTopAdvanceForBore(OPEN_CHAMBER, 98, 8));
+        assertEquals(33.0, getTopAdvanceForBore(OPEN_CHAMBER, 98, 11));
 
-        assertEquals(22.0, IgnitionMapBuilder.getTopAdvanceForBore(IgnitionMapBuilder.ChamberStyle.SWITL_TUMBLE));
+        assertEquals(22.0, getTopAdvanceForBore(SWITL_TUMBLE, 89, 9));
     }
 }
