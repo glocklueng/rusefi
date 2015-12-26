@@ -29,8 +29,8 @@ void setMazda626EngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 
 	engineConfiguration->injectionMode = IM_BATCH;
 
-	// chartsize 150
-	engineConfiguration->engineChartSize = 150;
+	// chartsize 450
+	engineConfiguration->engineChartSize = 450;
 
 	boardConfiguration->sensorChartMode = SC_TRIGGER;
 	engineConfiguration->sensorChartFrequency = 2;
