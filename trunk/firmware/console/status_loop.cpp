@@ -602,13 +602,14 @@ void updateTunerStudioState(TunerStudioOutputChannels *tsOutputChannels DECLARE_
 	tsOutputChannels->knockCount = engine->knockCount;
 	tsOutputChannels->knockLevel = engine->knockVolts;
 	tsOutputChannels->injectorDutyCycle = getInjectorDutyCycle(rpm PASS_ENGINE_PARAMETER);
-	tsOutputChannels->fuelLevel = engine->engineState.fuelLevel;
+	tsOutputChannels->fuelTankGauge = engine->engineState.fuelTankGauge;
 	tsOutputChannels->hasFatalError = hasFirmwareError();
 	tsOutputChannels->totalTriggerErrorCounter = engine->triggerCentral.triggerState.totalTriggerErrorCounter;
 	tsOutputChannels->wallFuelAmount = wallFuel.getWallFuel(0);
 
 	tsOutputChannels->iatCorrection = ENGINE(engineState.iatFuelCorrection);
 	tsOutputChannels->cltCorrection = ENGINE(engineState.cltFuelCorrection);
+	tsOutputChannels->runningFuel = ENGINE(engineState.runningFuel);
 
 	tsOutputChannels->wallFuelCorrection = engine->wallFuelCorrection;
 

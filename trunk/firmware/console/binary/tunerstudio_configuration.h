@@ -94,7 +94,7 @@ typedef struct {
 	float pedalPosition;
 	float injectorDutyCycle;
 	int knockCount;
-	float fuelLevel;
+	float fuelTankGauge;
 	float knockLevel;
 	int totalTriggerErrorCounter;
 	float wallFuelAmount; // 160
@@ -104,7 +104,8 @@ typedef struct {
 	float currentTargetAfr;
 	float chargeAirMass;
 	float cltCorrection;
-	int unused3[2];
+	float runningFuel;
+	int unused3[1];
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */
