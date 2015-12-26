@@ -96,7 +96,7 @@ public:
 	/**
 	 * that's fuel in tank - just a gauge
 	 */
-	percent_t fuelLevel;
+	percent_t fuelTankGauge;
 
 	ThermistorMath iatCurve;
 	ThermistorMath cltCurve;
@@ -138,6 +138,11 @@ public:
 	 * fuel regardless of fuel logic mode
 	 */
 	float baseFuel;
+
+	/**
+	 * Fuel with CLT, IAT and TPS acceleration corrections.
+	 */
+	float runningFuel;
 
 	float tpsAccelEnrich;
 
