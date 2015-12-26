@@ -85,11 +85,11 @@ typedef struct {
 	egt_values_s egtValues;
 	float rpmAcceleration;
 	float massAirFlowValue;
-	float veValue; // current volumetric efficiency
+	float veValue; // current volumetric efficiency, offset 112
 	float deltaTps;
 	int triggerErrorsCounter;
 	float currentMapAccelDelta;
-	float tpsAccelFuel;
+	float tpsAccelFuel; // offset 128
 	float baroCorrection;
 	float pedalPosition;
 	float injectorDutyCycle;
@@ -97,13 +97,14 @@ typedef struct {
 	float fuelLevel;
 	float knockLevel;
 	int totalTriggerErrorCounter;
-	float wallFuelAmount;
-	float totalFuelCorrection;
-	floatms_t wallFuelCorrection;
+	float wallFuelAmount; // 160
+	float iatCorrection; // 164
+	floatms_t wallFuelCorrection; // 168
 	float idlePosition;
 	float currentTargetAfr;
 	float chargeAirMass;
-	int unused3[3];
+	float cltCorrection;
+	int unused3[2];
 } TunerStudioOutputChannels;
 
 #endif /* TUNERSTUDIO_CONFIGURATION_H_ */

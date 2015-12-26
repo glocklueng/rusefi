@@ -139,6 +139,8 @@ public:
 	 */
 	float baseFuel;
 
+	float tpsAccelEnrich;
+
 	angle_t injectionOffset;
 };
 
@@ -207,7 +209,6 @@ public:
 	 * Fuel injection duration for current engine cycle, without wall wetting
 	 */
 	floatms_t fuelMs;
-	float totalFuelCorrection;
 	floatms_t wallFuelCorrection;
 
 	/**
