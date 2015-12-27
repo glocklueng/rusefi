@@ -413,8 +413,8 @@ void setDodgeNeonNGCEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	boardConfiguration->vehicleSpeedSensorInputPin = GPIOA_8;
 	engineConfiguration->hasVehicleSpeedSensor = true;
 
-	engineConfiguration->fanOnTemperature = 85;
-	engineConfiguration->fanOffTemperature = 80;
+	engineConfiguration->fanOnTemperature = 92;
+	engineConfiguration->fanOffTemperature = 89;
 
 //	boardConfiguration->tunerStudioSerialSpeed = 9600;
 	boardConfiguration->tunerStudioSerialSpeed = 19200;
