@@ -26,7 +26,8 @@ public class TS2C {
             System.out.println("Four parameters expected: ");
             System.out.println("  INPUT_MSQ_FILE NAME LOAD_SECTION_NAME RPM_SECTION_NAME TABLE_NAME");
             System.out.println("for example");
-            System.out.println("  currenttune.msq ignitionLoadBins ignitionRpmBins veTable");
+            // section names are needed in order to generate comments about cell content
+            System.out.println("  currenttune.msq veLoadBins veRpmBins veTable");
             System.exit(-1);
         }
         String fileName = args[0];
