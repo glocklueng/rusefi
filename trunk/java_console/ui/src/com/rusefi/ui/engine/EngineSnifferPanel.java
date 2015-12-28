@@ -274,6 +274,22 @@ public class EngineSnifferPanel {
     }
 
     private UpDownImage createImage(final String name) {
+        Color signalBody = Color.lightGray;
+        Color signalBorder = Color.blue;
+        if (name.startsWith("t")) {
+            // trigger
+        } else if (name.startsWith("c")) {
+            // coil
+            signalBody = Color.darkGray;
+        } else if (name.startsWith("HIP")) {
+            signalBody = Color.white;
+        } else if (name.startsWith("i")) {
+            // injection
+            signalBody = Color.green;
+        } else {
+            signalBody = Color.gray;
+        }
+
         UpDownImage image = new UpDownImage(name) {
             @Override
             protected boolean isShowTdcLabel() {
@@ -283,6 +299,8 @@ public class EngineSnifferPanel {
                 return name.equals(images.lastKey());
             }
         };
+        image.setSignalBody(signalBody);
+        image.setSignalBorder(signalBorder);
         image.addMouseMotionListener(statusPanel.motionAdapter);
         return image;
     }
