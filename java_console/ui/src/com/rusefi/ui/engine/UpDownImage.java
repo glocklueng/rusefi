@@ -192,7 +192,17 @@ public class UpDownImage extends JPanel {
             int x = translator.timeToScreen(time, d.width, zoomProvider);
             g2.setColor(ENGINE_CYCLE_COLOR);
             g2.drawLine(x, 0, x, d.height);
+
+            if (isShowTdcLabel()) {
+                g2.rotate(Math.PI / 2);
+                g2.drawString("#1 TDC", 0, -x - 3);
+                g2.rotate(-Math.PI / 2);
+            }
         }
+    }
+
+    protected boolean isShowTdcLabel() {
+        return false;
     }
 
     private static final BasicStroke LONG_STROKE = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 10.0f,
