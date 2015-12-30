@@ -3,6 +3,7 @@
  *
  * toyota aristo
  * https://en.wikipedia.org/wiki/Lexus_GS
+ * http://rusefi.com/forum/viewtopic.php?f=15&t=969
  *
  * set_engine_type 38
  *
