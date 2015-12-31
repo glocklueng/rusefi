@@ -616,8 +616,8 @@ baro_corr_table_t baroCorrTable;
 	
 	int engineLoadAccelLength;;"len",        1,     0,    1, 200,     3
 	
-	float decelEnleanmentThreshold;;"roc",        1,     0,    0, 200,     3
-	float decelEnleanmentMultiplier;;"coeff",        1,     0,    0, 200,     3
+	float engineLoadDecelEnleanmentThreshold;;"roc",        1,     0,    0, 200,     3
+	float engineLoadDecelEnleanmentMultiplier;;"coeff",        1,     0,    0, 200,     3
 	float engineLoadAccelEnrichmentThreshold;;"roc",        1,     0,    0, 200,     3
 	float engineLoadAccelEnrichmentMultiplier;;"coeff",        1,     0,    0, 200,     3
 
@@ -626,7 +626,9 @@ baro_corr_table_t baroCorrTable;
 	brain_pin_e warninigPin; 
 	brain_pin_e configResetPin;
 	uint32_t uartConsoleSerialSpeed;;"BPs",      1,      0,       0,1000000,      0
-	int[196] unused;
+	float tpsDecelEnrichmentThreshold;;"roc",        1,     0,    0, 200,     3
+	float tpsDecelEnrichmentMultiplier;;"coeff",        1,     0,    0, 200,     3
+	int[194] unused;
 	
 
 end_struct
