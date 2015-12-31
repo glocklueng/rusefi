@@ -147,12 +147,12 @@ static void setTpsAccelMult(float value) {
 }
 
 static void setTpsDecelThr(float value) {
-	engineConfiguration->tpsDecelEnrichmentThreshold = value;
+	engineConfiguration->tpsDecelEnleanmentThreshold = value;
 	accelInfo();
 }
 
 static void setTpsDecelMult(float value) {
-	engineConfiguration->tpsDecelEnrichmentMultiplier = value;
+	engineConfiguration->tpsDecelEnleanmentMultiplier = value;
 	accelInfo();
 }
 
