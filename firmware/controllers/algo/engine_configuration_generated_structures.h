@@ -1,4 +1,4 @@
-// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Dec 31 12:46:57 EST 2015
+// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Dec 31 16:50:15 EST 2015
 // begin
 #include "rusefi_types.h"
 typedef struct {
@@ -1414,11 +1414,11 @@ typedef struct {
 	/**
 	 * offset 2200
 	 */
-	float decelEnleanmentThreshold;
+	float engineLoadDecelEnleanmentThreshold;
 	/**
 	 * offset 2204
 	 */
-	float decelEnleanmentMultiplier;
+	float engineLoadDecelEnleanmentMultiplier;
 	/**
 	 * offset 2208
 	 */
@@ -1446,7 +1446,15 @@ typedef struct {
 	/**
 	 * offset 2232
 	 */
-	int unused[196];
+	float tpsDecelEnrichmentThreshold;
+	/**
+	 * offset 2236
+	 */
+	float tpsDecelEnrichmentMultiplier;
+	/**
+	 * offset 2240
+	 */
+	int unused[194];
 	/** total size 3016*/
 } engine_configuration_s;
 
@@ -1595,4 +1603,4 @@ typedef struct {
 } persistent_config_s;
 
 // end
-// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Dec 31 12:46:57 EST 2015
+// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Dec 31 16:50:15 EST 2015
