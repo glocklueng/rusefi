@@ -726,8 +726,8 @@
 #define warninigPin_offset 2220
 #define configResetPin_offset 2224
 #define uartConsoleSerialSpeed_offset 2228
-#define tpsDecelEnrichmentThreshold_offset 2232
-#define tpsDecelEnrichmentMultiplier_offset 2236
+#define tpsDecelEnleanmentThreshold_offset 2232
+#define tpsDecelEnleanmentMultiplier_offset 2236
 #define unused_offset 2240
 #define le_formulas1_offset 3016
 #define le_formulas2_offset 3216

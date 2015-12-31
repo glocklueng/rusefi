@@ -1,4 +1,4 @@
-// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Dec 31 16:50:15 EST 2015
+// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Dec 31 17:15:37 EST 2015
 // begin
 #include "rusefi_types.h"
 typedef struct {
@@ -1289,6 +1289,7 @@ typedef struct {
 	 */
 	float suckedOffCoef;
 	/**
+	 * TODO make suckedOffCoef an array by RPM
 	 * offset 1836
 	 */
 	float unused71[7];
@@ -1297,6 +1298,7 @@ typedef struct {
 	 */
 	float addedToWallCoef;
 	/**
+	 * TODO make addedToWallCoef an array by RPM
 	 * offset 1868
 	 */
 	float unused72[7];
@@ -1446,11 +1448,11 @@ typedef struct {
 	/**
 	 * offset 2232
 	 */
-	float tpsDecelEnrichmentThreshold;
+	float tpsDecelEnleanmentThreshold;
 	/**
 	 * offset 2236
 	 */
-	float tpsDecelEnrichmentMultiplier;
+	float tpsDecelEnleanmentMultiplier;
 	/**
 	 * offset 2240
 	 */
@@ -1603,4 +1605,4 @@ typedef struct {
 } persistent_config_s;
 
 // end
-// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Dec 31 16:50:15 EST 2015
+// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Dec 31 17:15:37 EST 2015
