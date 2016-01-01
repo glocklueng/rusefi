@@ -396,14 +396,14 @@ void setDodgeNeonNGCEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 
 	float t = 0.5;
 
-	engineConfiguration->knockNoiseBins[0] = 2.1 + t; // 800
-	engineConfiguration->knockNoiseBins[1] = 2.1 + t; // 1700
-	engineConfiguration->knockNoiseBins[2] = 2.2 + t; // 2600
-	engineConfiguration->knockNoiseBins[3] = 2.2 + t; // 3400
-	engineConfiguration->knockNoiseBins[4] = 2.3 + t; // 4300
-	engineConfiguration->knockNoiseBins[5] = 2.7 + t; // 5200
-	engineConfiguration->knockNoiseBins[6] = 3.1 + t; // 6100
-	engineConfiguration->knockNoiseBins[7] = 3.3 + t; // 7000
+	engineConfiguration->knockNoise[0] = 2.1 + t; // 800
+	engineConfiguration->knockNoise[1] = 2.1 + t; // 1700
+	engineConfiguration->knockNoise[2] = 2.2 + t; // 2600
+	engineConfiguration->knockNoise[3] = 2.2 + t; // 3400
+	engineConfiguration->knockNoise[4] = 2.3 + t; // 4300
+	engineConfiguration->knockNoise[5] = 2.7 + t; // 5200
+	engineConfiguration->knockNoise[6] = 3.1 + t; // 6100
+	engineConfiguration->knockNoise[7] = 3.3 + t; // 7000
 
 
 	engineConfiguration->cylinderBore = 87.5;
