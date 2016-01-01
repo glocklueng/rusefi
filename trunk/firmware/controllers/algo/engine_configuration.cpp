@@ -334,7 +334,7 @@ void setDefaultConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	setFuelTablesLoadBin(10, 160 PASS_ENGINE_PARAMETER);
 	setDefaultIatTimingCorrection(PASS_ENGINE_PARAMETER_F);
 
-	initEngineNoiseTable();
+	initEngineNoiseTable(PASS_ENGINE_PARAMETER_F);
 
 	setThermistorConfiguration(&engineConfiguration->clt, 0, 9500, 23.8889, 2100, 48.8889, 1000);
 	engineConfiguration->clt.config.bias_resistor = 1500;
