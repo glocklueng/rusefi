@@ -93,6 +93,8 @@ public:
 
 	float airMass;
 
+	float engineNoiseHipLevel;
+
 	/**
 	 * that's fuel in tank - just a gauge
 	 */
