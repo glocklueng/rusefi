@@ -97,6 +97,7 @@ Engine::Engine(persistent_config_s *config) {
 
 EngineState::EngineState() {
 	advance = dwellAngle = 0;
+	engineNoiseHipLevel = 0;
 }
 
 /**
