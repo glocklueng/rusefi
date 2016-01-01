@@ -83,6 +83,8 @@ private:
 class EngineState {
 public:
 	EngineState();
+	void periodicFastCallback(DECLARE_ENGINE_PARAMETER_F);
+
 	/**
 	 * WIP: accessing these values here would be a performance optimization since log() function needed for
 	 * thermistor logic is relatively heavy
@@ -223,8 +225,8 @@ public:
 	 */
 	floatms_t actualLastInjection;
 
-
 	void periodicFastCallback(DECLARE_ENGINE_PARAMETER_F);
+	void updateSlowSensors(DECLARE_ENGINE_PARAMETER_F);
 
 	bool_t clutchUpState;
 	bool_t clutchDownState;
@@ -314,7 +316,6 @@ public:
 	void preCalculate();
 	void addConfigurationListener(configuration_callback_t callback);
 
-	void updateSlowSensors();
 	void watchdog();
 
 	/**
