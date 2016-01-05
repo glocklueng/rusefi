@@ -40,8 +40,21 @@ public class FuelAutoTune {
         }
     }
 
+    public static class Result {
+
+        private final double[][] kgbcRES;
+
+        public Result(double[][] kgbcRES) {
+            this.kgbcRES = kgbcRES;
+        }
+
+        public double[][] getKgbcRES() {
+            return kgbcRES;
+        }
+    }
+
     // void MainWindow::calckGBC(double STEP)
-    public static void process(boolean smooth, Collection<stDataOnline> dataECU, double STEP) {
+    public static Result process(boolean smooth, Collection<stDataOnline> dataECU, double STEP) {
         double kgbcSQ[][] = new double[SIZE][SIZE];
         double kgbcSQsum = 0;
         double kgbcSQsumLast = 0;
@@ -183,7 +196,7 @@ public class FuelAutoTune {
             if (minK > 4) {
                 //updateTablekGBC();
                 //ui->statusBar->showMessage(QString::number(kgbcSQsum), 500);
-                return;
+                return new Result(kgbcRES);
             }
             kgbcSQsumLastTotal = kgbcSQsum;
             //ui->statusBar->showMessage(QString::number(gbcSQsum));
