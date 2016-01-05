@@ -9,6 +9,10 @@ import java.util.Collection;
 public class FuelAutoTune {
     private static final int SIZE = 16;
 
+    private static boolean isLogEnabled() {
+        return true;
+    }
+
 //    private static final int TEMP_CORR = 39;
 
 
@@ -112,7 +116,6 @@ public class FuelAutoTune {
         int gMinRT = 20; // todo: what is this?
 
         while (true) {
-
             for (int r = 0; r < SIZE; r++) {
                 for (int c = 0; c < SIZE; c++) {
                     if (bkGBC[r][c] < gMinRT)
@@ -131,7 +134,7 @@ public class FuelAutoTune {
                         }
                         kgbcSQsumLast = kgbcSQsum;
                         for (stDataOnline dataPoint : dataECU) {
-                            double targetAFR = 14.7; // todo: target AFR? is this target AFR or not?
+                            // double targetAFR = 14.7; // todo: target AFR? is this target AFR or not?
                             double corrInit = 1; // addGbcTwatINIT_190[dataPoint.twat + 40];
                             double corrRes = 1; //addGbcTwatRES_190[dataPoint.twat + 40];
                             double tpsCorrInit = 1; //ktgbcINIT[dataPoint.THR_RT_16][dataPoint.RPM_RT_32()];
@@ -139,7 +142,10 @@ public class FuelAutoTune {
 
                             double ALF = dataPoint.AFR / 14.7;
                             double tmp = (dataPoint.AFR / 14.7 - ALF * (kgbcRES[dataPoint.PRESS_RT_32()][dataPoint.RPM_RT_32()] * tpsCorrRes * corrRes) /
-                                            (kgbcINIT[dataPoint.PRESS_RT_32()][dataPoint.RPM_RT_32()] * tpsCorrInit * corrInit));
+                                    (kgbcINIT[dataPoint.PRESS_RT_32()][dataPoint.RPM_RT_32()] * tpsCorrInit * corrInit));
+
+                            if (isLogEnabled())
+                                log(r + "/" + c + ": tmp=" + tmp);
 
                             kgbcSQ[dataPoint.PRESS_RT_32()][dataPoint.RPM_RT_32()] += tmp * tmp;
                         }
@@ -185,6 +191,7 @@ public class FuelAutoTune {
                         if (mink > 4) {
 //                            updateTablekGBC();
 //                            ui -> statusBar -> showMessage(QString::number (kgbcSQsum), 500);
+                            log("break " + c + "/" + r);
                             break;
                         }
                     }
@@ -196,6 +203,7 @@ public class FuelAutoTune {
             if (minK > 4) {
                 //updateTablekGBC();
                 //ui->statusBar->showMessage(QString::number(kgbcSQsum), 500);
+                log("return " + minK);
                 return new Result(kgbcRES);
             }
             kgbcSQsumLastTotal = kgbcSQsum;
@@ -203,6 +211,10 @@ public class FuelAutoTune {
             //updateTableGBC();
 
         }
+    }
+
+    private static void log(String s) {
+        System.out.println(s);
     }
 
 }
