@@ -18,6 +18,13 @@ import java.lang.reflect.InvocationTargetException;
  * 3/7/2015
  */
 public class UploadChanges {
+    private static final StatusWindow wnd = new StatusWindow();
+
+    static {
+        wnd.getFrame().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        wnd.getFrame().setTitle("rusEfi bin upload");
+        wnd.getFrameHelper().initFrame(wnd.getContent(), false);
+    }
     public static final Logger logger = createUiLogger();
 
     public static void main(String[] args) throws SerialPortException, InvocationTargetException, InterruptedException {
@@ -57,15 +64,17 @@ public class UploadChanges {
         final BinaryProtocol bp = new BinaryProtocol(logger, serialPort);
         bp.setController(ci1);
 
-        scheduleBurn(ci2, bp);
+        scheduleUpload(ci2, bp);
     }
 
-    public static void scheduleBurn(final ConfigurationImage newVersion, final BinaryProtocol bp) {
+    public static void scheduleUpload(final ConfigurationImage newVersion, final BinaryProtocol bp) {
+        JFrame frame = wnd.getFrame();
+        frame.setVisible(true);
         LinkManager.COMMUNICATION_EXECUTOR.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    BinaryProtocol.instance.burnChanges(newVersion, logger);
+                    BinaryProtocol.instance.uploadChanges(newVersion, logger);
                 } catch (InterruptedException | EOFException | SerialPortException e) {
                     logger.error("Error: " + e);
                     throw new IllegalStateException(e);
@@ -80,9 +89,6 @@ public class UploadChanges {
     }
 
     private static Logger createUiLogger() {
-        final StatusWindow wnd = new StatusWindow();
-        wnd.showFrame("rusEfi bin upload");
-
         return new Logger() {
             @Override
             public void trace(final String msg) {
