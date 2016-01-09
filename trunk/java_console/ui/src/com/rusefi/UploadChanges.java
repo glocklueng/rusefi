@@ -4,14 +4,18 @@ import com.rusefi.binaryprotocol.BinaryProtocol;
 import com.rusefi.io.ConfigurationImageFile;
 import com.rusefi.io.LinkManager;
 import com.rusefi.io.serial.PortHolder;
+import com.rusefi.ui.RecentCommands;
+import com.rusefi.ui.SettingsTab;
 import com.rusefi.ui.StatusWindow;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.EOFException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * (c) Andrey Belomutskiy 2013-2015
@@ -24,7 +28,12 @@ public class UploadChanges {
         wnd.getFrame().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         wnd.getFrame().setTitle("rusEfi bin upload");
         wnd.getFrameHelper().initFrame(wnd.getContent(), false);
+
+        JPanel bottomPanel = new JPanel(new FlowLayout());
+        bottomPanel.add(RecentCommands.createButton(new AtomicBoolean(), SettingsTab.WRITECONFIG));
+        wnd.getContent().add(bottomPanel, BorderLayout.SOUTH);
     }
+    
     public static final Logger logger = createUiLogger();
 
     public static void main(String[] args) throws SerialPortException, InvocationTargetException, InterruptedException {
