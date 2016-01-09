@@ -122,7 +122,7 @@ float interpolateMsg(const char *msg, float x1, float y1, float x2, float y2, fl
 }
 
 float interpolate(float x1, float y1, float x2, float y2, float x) {
-	interpolateMsg("", x1, y1, x2, y2, x);
+	return interpolateMsg("", x1, y1, x2, y2, x);
 }
 
 int findIndex2(const float array[], unsigned size, float value) {
