@@ -2,13 +2,12 @@ package com.rusefi.ui;
 
 import com.rusefi.BinarySearch;
 import com.rusefi.FileLog;
+import com.rusefi.autotune.FuelAutoTune;
 import com.rusefi.binaryprotocol.BinaryProtocol;
-import com.rusefi.config.Field;
 import com.rusefi.config.Fields;
 import com.rusefi.core.Sensor;
 import com.rusefi.core.SensorCentral;
 import com.rusefi.ui.config.BaseConfigField;
-import com.rusefi.ui.util.UiUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +20,7 @@ import java.util.List;
 /**
  * (c) Andrey Belomutskiy 2013-2016
  * 1/9/2016
+ * @see FuelAutoTune
  */
 public class FuelTunePane {
     private final JPanel content = new JPanel(new BorderLayout());
@@ -29,12 +29,20 @@ public class FuelTunePane {
     private final double veLoadBins[] = new double[Fields.FUEL_LOAD_COUNT];
     private final double veRpmBins[] = new double[Fields.FUEL_RPM_COUNT];
 
-
     public FuelTunePane() {
         final JLabel incomingBufferSize = new JLabel();
 
+        JButton runLogic = new JButton("one iteration");
+        runLogic.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                doJob();
+            }
+        });
+
         JPanel topPanel = new JPanel(new FlowLayout());
         topPanel.add(incomingBufferSize);
+        topPanel.add(runLogic);
 
         Timer timer = new Timer(300, new ActionListener() {
             @Override
@@ -50,6 +58,19 @@ public class FuelTunePane {
 
         content.add(topPanel, BorderLayout.NORTH);
 //        UiUtils.trueLayout(content.getParent());
+    }
+
+    private void doJob() {
+        double veTable[][] = new double[Fields.FUEL_LOAD_COUNT][Fields.FUEL_RPM_COUNT];
+        loadMap(veTable, Fields.VETABLE.getOffset());
+
+        List<FuelAutoTune.stDataOnline> data = new ArrayList<>();
+        synchronized (incomingDataPoints) {
+            for (FuelDataPoint point : incomingDataPoints)
+                data.add(point.asDataOnline());
+        }
+
+        FuelAutoTune.process(false, data, 0.1, 14.7);
     }
 
     public void showContent() {
@@ -74,6 +95,12 @@ public class FuelTunePane {
 
         loadArray(veLoadBins, Fields.VETABLE.getOffset() + Fields.FUEL_RPM_COUNT * Fields.FUEL_LOAD_COUNT * 4);
         loadArray(veRpmBins, Fields.VETABLE.getOffset() + Fields.FUEL_RPM_COUNT * Fields.FUEL_LOAD_COUNT * 4 + Fields.FUEL_LOAD_COUNT * 4);
+    }
+
+    private void loadMap(double[][] map, int offset) {
+        for (int engineLoadIndex = 0;engineLoadIndex < map.length; engineLoadIndex++) {
+            loadArray(map[engineLoadIndex], offset + engineLoadIndex * 4 * Fields.FUEL_RPM_COUNT);
+        }
     }
 
     private void loadArray(double[] array, int offset) {
@@ -104,6 +131,10 @@ public class FuelTunePane {
             this.afr = afr;
             rpmIndex = BinarySearch.binarySearch(rpm, veRpmBins);
             engineLoadIndex = BinarySearch.binarySearch(engineLoad, veLoadBins);
+        }
+
+        public FuelAutoTune.stDataOnline asDataOnline() {
+            return new FuelAutoTune.stDataOnline(afr, rpmIndex, engineLoadIndex);
         }
     }
 }
