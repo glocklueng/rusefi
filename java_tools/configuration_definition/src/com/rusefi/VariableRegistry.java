@@ -20,7 +20,8 @@ public class VariableRegistry extends TreeMap<String, String> {
 
     public Map<String, Integer> intValues = new HashMap<>();
 
-    StringBuilder numbericDefinitions = new StringBuilder();
+    private final StringBuilder cNumbericDefinitions = new StringBuilder();
+    private final StringBuilder javaNumbericDefinitions = new StringBuilder();
 
     private VariableRegistry() {
         super(String.CASE_INSENSITIVE_ORDER);
@@ -57,7 +58,8 @@ public class VariableRegistry extends TreeMap<String, String> {
             if (intValues.containsKey(var))
                 throw new IllegalStateException("Not allowed to redefine: " + var);
             intValues.put(var, intValue);
-            numbericDefinitions.append("#define " + var + " " + intValue + "\r\n");
+            cNumbericDefinitions.append("#define " + var + " " + intValue + "\r\n");
+            javaNumbericDefinitions.append("\tpublic static final int " + var + " = " + intValue + ";\r\n");
         } catch (NumberFormatException e) {
             System.out.println("Not an integer: " + value);
         }
@@ -73,7 +75,11 @@ public class VariableRegistry extends TreeMap<String, String> {
         System.out.println("Writing to " + fileName);
         BufferedWriter cHeader = new BufferedWriter(new FileWriter(fileName));
 
-        cHeader.write(numbericDefinitions.toString());
+        cHeader.write(cNumbericDefinitions.toString());
         cHeader.close();
+    }
+
+    public String getJavaConstants() {
+        return javaNumbericDefinitions.toString();
     }
 }
