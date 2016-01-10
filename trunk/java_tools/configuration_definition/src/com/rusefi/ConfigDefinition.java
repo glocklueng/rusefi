@@ -63,6 +63,7 @@ public class ConfigDefinition {
         javaFields.write("package com.rusefi.config;\r\n\r\n");
         javaFields.write("// this file " + MESSAGE + "\r\n");
         javaFields.write("public class Fields {\r\n");
+        javaFields.write(VariableRegistry.INSTANCE.getJavaConstants());
         javaFields.write(javaFieldsWriter.toString());
         javaFields.write("}\r\n");
         javaFields.close();
