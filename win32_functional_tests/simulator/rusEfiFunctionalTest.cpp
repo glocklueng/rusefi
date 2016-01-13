@@ -85,8 +85,6 @@ void rusEfiFunctionalTest(void) {
 	resetConfigurationExt(NULL, FORD_ESCORT_GT PASS_ENGINE_PARAMETER);
 	prepareShapes(PASS_ENGINE_PARAMETER_F);
 
-	initSensors(&sharedLogger PASS_ENGINE_PARAMETER);
-
 	initAlgo(&sharedLogger, engineConfiguration);
 	commonInitEngineController();
 
@@ -107,12 +105,6 @@ void rusEfiFunctionalTest(void) {
 	initMainEventListener(&sharedLogger, engine);
 
 	startStatusThreads(engine);
-
-#if EFI_TUNER_STUDIO
-	if (engineConfiguration->isTunerStudioEnabled) {
-		startTunerStudioConnectivity();
-	}
-#endif
 
 	initPeriodicEvents(PASS_ENGINE_PARAMETER_F);
 }
