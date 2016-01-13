@@ -470,11 +470,6 @@ void commonInitEngineController(DECLARE_ENGINE_PARAMETER_F) {
 	initSettings(engineConfiguration);
 #endif
 
-}
-
-void initEngineContoller(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
-	addConsoleAction("analoginfo", printAnalogInfo);
-	commonInitEngineController();
 #if EFI_TUNER_STUDIO || defined(__DOXYGEN__)
 	if (engineConfiguration->isTunerStudioEnabled) {
 		startTunerStudioConnectivity();
@@ -484,8 +479,21 @@ void initEngineContoller(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
 	if (hasFirmwareError()) {
 		return;
 	}
-
 	initSensors(sharedLogger PASS_ENGINE_PARAMETER_F);
+
+#if EFI_FSIO || defined(__DOXYGEN__)
+	initFsioImpl(sharedLogger PASS_ENGINE_PARAMETER);
+#endif
+}
+
+void initEngineContoller(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
+	addConsoleAction("analoginfo", printAnalogInfo);
+	commonInitEngineController();
+
+	if (hasFirmwareError()) {
+		return;
+	}
+
 
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
 	initPwmGenerator();
@@ -574,10 +582,6 @@ void initEngineContoller(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
 
 #if EFI_PROD_CODE
 	addConsoleAction("reset_accel", resetAccel);
-#endif
-
-#if EFI_FSIO || defined(__DOXYGEN__)
-	initFsioImpl(sharedLogger PASS_ENGINE_PARAMETER);
 #endif
 
 #if EFI_HD44780_LCD || defined(__DOXYGEN__)
