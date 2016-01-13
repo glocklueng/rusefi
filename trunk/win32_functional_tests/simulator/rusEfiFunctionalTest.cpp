@@ -86,7 +86,7 @@ void rusEfiFunctionalTest(void) {
 	prepareShapes(PASS_ENGINE_PARAMETER_F);
 
 	initAlgo(&sharedLogger, engineConfiguration);
-	commonInitEngineController();
+	commonInitEngineController(&sharedLogger);
 
 	initRpmCalculator(&sharedLogger, engine);
 
