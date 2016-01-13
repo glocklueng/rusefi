@@ -182,7 +182,7 @@ void setFordEscortGt(DECLARE_ENGINE_PARAMETER_F) {
 	 * set_fsio_setting 0 5000
 	 */
 	engineConfiguration->bc.fsio_setting[0] = 5000;
-	// set_fsio_expression 0 "rpm 0 fsio_setting >"
+	// set_fsio_expression 1 "rpm 0 fsio_setting >"
 	setFsioExt(0, GPIOE_3, "rpm 0 fsio_setting >", 150 PASS_ENGINE_PARAMETER);
 
 	// end of Ford Escort GT config
