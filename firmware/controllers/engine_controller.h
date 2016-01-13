@@ -15,8 +15,8 @@
 #include "engine.h"
 
 char * getPinNameByAdcChannel(adc_channel_e hwChannel, char *buffer);
-void initConfigActions(void);
 void initPeriodicEvents(DECLARE_ENGINE_PARAMETER_F);
 void initEngineContoller(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S);
+void commonInitEngineController(DECLARE_ENGINE_PARAMETER_F);
 
 #endif /* ENGINE_STATUS_H_ */

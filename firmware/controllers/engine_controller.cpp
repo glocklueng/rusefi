@@ -443,7 +443,7 @@ static void setFloat(const char *offsetStr, const char *valueStr) {
 	getFloat(offset);
 }
 
-void initConfigActions(void) {
+static void initConfigActions(void) {
 	addConsoleActionSS("set_float", (VoidCharPtrCharPtr) setFloat);
 	addConsoleActionII("set_int", (VoidIntInt) setInt);
 	addConsoleActionII("set_short", (VoidIntInt) setShort);
@@ -462,14 +462,19 @@ static void getKnockInfo(void) {
 	engine->printKnockState();
 }
 
-void initEngineContoller(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
-	addConsoleAction("analoginfo", printAnalogInfo);
+// this method is used by real firmware and simulator
+void commonInitEngineController(DECLARE_ENGINE_PARAMETER_F) {
 	initConfigActions();
 #if EFI_PROD_CODE
 	// todo: this is a mess, remove code duplication with simulator
 	initSettings(engineConfiguration);
 #endif
 
+}
+
+void initEngineContoller(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
+	addConsoleAction("analoginfo", printAnalogInfo);
+	commonInitEngineController();
 #if EFI_TUNER_STUDIO || defined(__DOXYGEN__)
 	if (engineConfiguration->isTunerStudioEnabled) {
 		startTunerStudioConnectivity();
@@ -567,7 +572,6 @@ void initEngineContoller(Logging *sharedLogger DECLARE_ENGINE_PARAMETER_S) {
 
 	initAccelEnrichment(sharedLogger);
 
-	initConfigActions();
 #if EFI_PROD_CODE
 	addConsoleAction("reset_accel", resetAccel);
 #endif
