@@ -1,5 +1,7 @@
 package com.rusefi.ui;
 
+import com.romraider.maps.Scale;
+import com.romraider.maps.Table3D;
 import com.rusefi.BinarySearch;
 import com.rusefi.FileLog;
 import com.rusefi.autotune.FuelAutoTune;
@@ -57,6 +59,25 @@ public class FuelTunePane {
         timer.start();
 
         content.add(topPanel, BorderLayout.NORTH);
+
+        Table3D veTable = new Table3D();
+        // todo: which one is which?
+        veTable.setSizeX(Fields.FUEL_LOAD_COUNT);
+        veTable.setSizeY(Fields.FUEL_RPM_COUNT);
+        veTable.getXAxis().setDataSize(Fields.FUEL_LOAD_COUNT);
+        veTable.getYAxis().setDataSize(Fields.FUEL_RPM_COUNT);
+
+        veTable.getXAxis().setAxisParent(veTable);
+        veTable.getYAxis().setAxisParent(veTable);
+
+        content.add(veTable, BorderLayout.CENTER);
+        veTable.setBorder(BorderFactory.createLineBorder(Color.red));
+        veTable.addScale(new Scale());
+        veTable.getXAxis().addScale(new Scale());
+        veTable.getYAxis().addScale(new Scale());
+        veTable.populateTable(new byte[256 * 4], 0);
+        veTable.drawTable();
+
 //        UiUtils.trueLayout(content.getParent());
     }
 
