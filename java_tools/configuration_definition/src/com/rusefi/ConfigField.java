@@ -23,6 +23,7 @@ public class ConfigField {
 
     private static final Pattern FIELD = Pattern.compile(typePattern + "\\s(" + namePattern + ")(" + commentPattern + ")?(;(.*))?");
     private static final Set<String> javaEnums = new HashSet<>();
+    private static final String BOOLEAN_TYPE = "bool";
 
     public static final int LENGTH = 24;
 
@@ -97,7 +98,7 @@ public class ConfigField {
     String getHeaderText(int currentOffset, int bitIndex) {
         if (isBit) {
             String comment = "\t/**\r\n" + ConfigDefinition.packComment(this.comment, "\t") + "\toffset " + currentOffset + " bit " + bitIndex + " */\r\n";
-            return comment + "\tbool_t " + name + " : 1;\r\n";
+            return comment + "\t" + BOOLEAN_TYPE + " " + name + " : 1;\r\n";
         }
 
         String cEntry = ConfigDefinition.getComment(comment, currentOffset);
