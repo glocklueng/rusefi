@@ -275,6 +275,7 @@ public:
 	/**
 	 * pre-calculated reference to which output pin should be used for
 	 * given sequence index within engine cycle
+	 * todo: update documentation
 	 */
 	int ignitionPin[IGNITION_PIN_COUNT];
 
