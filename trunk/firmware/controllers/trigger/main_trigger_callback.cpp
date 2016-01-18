@@ -356,25 +356,24 @@ static ALWAYS_INLINE void scheduleIgnitionAndFuelEvents(int rpm, int revolutionI
 
 	IgnitionEventList *list = &engine->engineConfiguration2->ignitionEvents[revolutionIndex];
 
-	if (cisnan(engine->engineState.advance)) {
+	if (cisnan(ENGINE(engineState.timingAdvance))) {
 		// error should already be reported
 		list->reset(); // reset is needed to clear previous ignition schedule
 		return;
 	}
-	initializeIgnitionActions(engine->engineState.advance, engine->engineState.dwellAngle, list PASS_ENGINE_PARAMETER);
+	initializeIgnitionActions(-ENGINE(engineState.timingAdvance), ENGINE(engineState.dwellAngle), list PASS_ENGINE_PARAMETER);
 	engine->m.ignitionSchTime = GET_TIMESTAMP() - engine->m.beforeIgnitionSch;
 
-	engine->m.beforeInjectonSch = GET_TIMESTAMP();
+	ENGINE(m.beforeInjectonSch) = GET_TIMESTAMP();
 
 	if (isCrankingR(rpm)) {
 		ENGINE(engineConfiguration2)->crankingInjectionEvents.addFuelEvents(
 				engineConfiguration->crankingInjectionMode PASS_ENGINE_PARAMETER);
 	} else {
 		ENGINE(engineConfiguration2)->injectionEvents.addFuelEvents(
-				engineConfiguration->injectionMode PASS_ENGINE_PARAMETER);
+				CONFIG(injectionMode) PASS_ENGINE_PARAMETER);
 	}
-	engine->m.injectonSchTime = GET_TIMESTAMP() - engine->m.beforeInjectonSch;
-
+	ENGINE(m.injectonSchTime) = GET_TIMESTAMP() - ENGINE(m.beforeInjectonSch);
 }
 
 /**
