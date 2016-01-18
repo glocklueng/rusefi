@@ -161,10 +161,10 @@ static ALWAYS_INLINE void handleFuelInjectionEvent(bool limitedFuel, InjectionEv
 }
 
 static ALWAYS_INLINE void handleFuel(bool limitedFuel, uint32_t eventIndex, int rpm DECLARE_ENGINE_PARAMETER_S) {
-	if (!isInjectionEnabled(engine->engineConfiguration))
+	if (!isInjectionEnabled(engineConfiguration))
 		return;
 	efiAssertVoid(getRemainingStack(chThdSelf()) > 128, "lowstck#3");
-	efiAssertVoid(eventIndex < engine->triggerShape.getLength(), "handleFuel/event index");
+	efiAssertVoid(eventIndex < ENGINE(triggerShape.getLength()), "handleFuel/event index");
 
 	/**
 	 * Ignition events are defined by addFuelEvents() according to selected
@@ -172,17 +172,17 @@ static ALWAYS_INLINE void handleFuel(bool limitedFuel, uint32_t eventIndex, int 
 	 */
 	FuelSchedule *fs =
 	isCrankingR(rpm) ?
-			&ENGINE(engineConfiguration2)->crankingInjectionEvents : &engine->engineConfiguration2->injectionEvents;
+			&ENGINE(engineConfiguration2)->crankingInjectionEvents : &ENGINE(engineConfiguration2)->injectionEvents;
 
 	InjectionEventList *source = &fs->injectionEvents;
 
 	if (!fs->hasEvents[eventIndex])
 		return;
 
-	engine->tpsAccelEnrichment.onEngineCycleTps(PASS_ENGINE_PARAMETER_F);
+	ENGINE(tpsAccelEnrichment.onEngineCycleTps(PASS_ENGINE_PARAMETER_F));
 
-	engine->engineLoadAccelEnrichment.onEngineCycle(PASS_ENGINE_PARAMETER_F);
-	ENGINE(fuelMs) = getFuelMs(rpm PASS_ENGINE_PARAMETER) * engineConfiguration->globalFuelCorrection;
+	ENGINE(engineLoadAccelEnrichment.onEngineCycle(PASS_ENGINE_PARAMETER_F));
+	ENGINE(fuelMs) = getFuelMs(rpm PASS_ENGINE_PARAMETER) * CONFIG(globalFuelCorrection);
 
 	for (int i = 0; i < source->size; i++) {
 		InjectionEvent *event = &source->elements[i];
@@ -195,13 +195,13 @@ static ALWAYS_INLINE void handleFuel(bool limitedFuel, uint32_t eventIndex, int 
 static ALWAYS_INLINE void handleSparkEvent(bool limitedSpark, uint32_t eventIndex, IgnitionEvent *iEvent,
 		int rpm DECLARE_ENGINE_PARAMETER_S) {
 
-	float dwellMs = engine->engineState.sparkDwell;
+	float dwellMs = ENGINE(engineState.sparkDwell);
 	if (cisnan(dwellMs) || dwellMs < 0) {
 		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 		return;
 	}
 
-	floatus_t chargeDelayUs = engine->rpmCalculator.oneDegreeUs * iEvent->dwellPosition.angleOffset;
+	floatus_t chargeDelayUs = ENGINE(rpmCalculator.oneDegreeUs) * iEvent->dwellPosition.angleOffset;
 	int isIgnitionError = chargeDelayUs < 0;
 	ignitionErrorDetection.add(isIgnitionError);
 	if (isIgnitionError) {
@@ -246,7 +246,7 @@ static ALWAYS_INLINE void handleSparkEvent(bool limitedSpark, uint32_t eventInde
 		/**
 		 * Spark should be fired before the next trigger event - time-based delay is best precision possible
 		 */
-		float timeTillIgnitionUs = engine->rpmCalculator.oneDegreeUs * iEvent->sparkPosition.angleOffset;
+		float timeTillIgnitionUs = ENGINE(rpmCalculator.oneDegreeUs) * iEvent->sparkPosition.angleOffset;
 
 		scheduleTask("spark1 down", sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, iEvent->output);
 	} else {
@@ -263,7 +263,7 @@ static ALWAYS_INLINE void handleSparkEvent(bool limitedSpark, uint32_t eventInde
 
 static ALWAYS_INLINE void handleSpark(bool limitedSpark, uint32_t eventIndex, int rpm,
 		IgnitionEventList *list DECLARE_ENGINE_PARAMETER_S) {
-	if (!isValidRpm(rpm) || !engineConfiguration->isIgnitionEnabled)
+	if (!isValidRpm(rpm) || !CONFIG(isIgnitionEnabled))
 		return; // this might happen for instance in case of a single trigger event after a pause
 
 	/**
@@ -382,7 +382,7 @@ static ALWAYS_INLINE void scheduleIgnitionAndFuelEvents(int rpm, int revolutionI
  * Both injection and ignition are controlled from this method.
  */
 void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECLARE_ENGINE_PARAMETER_S) {
-	engine->m.beforeMainTrigger = GET_TIMESTAMP();
+	ENGINE(m.beforeMainTrigger) = GET_TIMESTAMP();
 	if (hasFirmwareError()) {
 		/**
 		 * In case on a major error we should not process any more events.
@@ -426,15 +426,15 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 
 	efiAssertVoid(!CONFIG(useOnlyFrontForTrigger) || CONFIG(ignMathCalculateAtIndex) % 2 == 0, "invalid ignMathCalculateAtIndex");
 
-	if (eventIndex == engineConfiguration->ignMathCalculateAtIndex) {
-		if (engineConfiguration->externalKnockSenseAdc != EFI_ADC_NONE) {
+	if (eventIndex == CONFIG(ignMathCalculateAtIndex)) {
+		if (CONFIG(externalKnockSenseAdc) != EFI_ADC_NONE) {
 			float externalKnockValue = getVoltageDivided("knock", engineConfiguration->externalKnockSenseAdc);
 			engine->knockLogic(externalKnockValue);
 		}
 
-		engine->m.beforeIgnitionMath = GET_TIMESTAMP();
+		ENGINE(m.beforeIgnitionMath) = GET_TIMESTAMP();
 		ignitionMathCalc(rpm PASS_ENGINE_PARAMETER);
-		engine->m.ignitionMathTime = GET_TIMESTAMP() - engine->m.beforeIgnitionMath;
+		ENGINE(m.ignitionMathTime) = GET_TIMESTAMP() - ENGINE(m.beforeIgnitionMath);
 	}
 
 	if (eventIndex == 0) {
@@ -460,7 +460,7 @@ void mainTriggerCallback(trigger_event_e ckpSignalType, uint32_t eventIndex DECL
 #endif /* EFI_HISTOGRAMS */
 
 	if (eventIndex == 0) {
-		engine->m.mainTriggerCallbackTime = GET_TIMESTAMP() - engine->m.beforeMainTrigger;
+		ENGINE(m.mainTriggerCallbackTime) = GET_TIMESTAMP() - ENGINE(m.beforeMainTrigger);
 	}
 }
 
