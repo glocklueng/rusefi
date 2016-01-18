@@ -315,8 +315,6 @@ static ALWAYS_INLINE void ignitionMathCalc(int rpm DECLARE_ENGINE_PARAMETER_S) {
 		firmwareError("invalid dwell: %f at %d", dwellMs, rpm);
 		return;
 	}
-	// todo: eliminate this field
-	engine->engineState.advance = -ENGINE(engineState.timingAdvance);
 }
 
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
@@ -361,7 +359,7 @@ static ALWAYS_INLINE void scheduleIgnitionAndFuelEvents(int rpm, int revolutionI
 		list->reset(); // reset is needed to clear previous ignition schedule
 		return;
 	}
-	initializeIgnitionActions(-ENGINE(engineState.timingAdvance), ENGINE(engineState.dwellAngle), list PASS_ENGINE_PARAMETER);
+	initializeIgnitionActions(ENGINE(engineState.timingAdvance), ENGINE(engineState.dwellAngle), list PASS_ENGINE_PARAMETER);
 	engine->m.ignitionSchTime = GET_TIMESTAMP() - engine->m.beforeIgnitionSch;
 
 	ENGINE(m.beforeInjectonSch) = GET_TIMESTAMP();
