@@ -357,7 +357,7 @@ void updateDevConsoleState(Engine *engine) {
 #endif
 
 #if (EFI_PROD_CODE && HAL_USE_ADC) || defined(__DOXYGEN__)
-	pokeAdcInputs();
+	printFullAdcReportIfNeeded();
 #endif
 
 	if (!fullLog) {
