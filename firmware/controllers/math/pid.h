@@ -13,7 +13,7 @@
 class Pid {
 
 public:
-	Pid(pid_s *pid, float pFactor, float iFactor, float dFactor, float minResult, float maxResult);
+	Pid(pid_s *pid, float minResult, float maxResult);
 	float getValue(float target, float input, float dTime);
 	void updateFactors(float pFactor, float iFactor, float dFactor);
 	void reset(void);

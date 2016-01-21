@@ -55,7 +55,7 @@ static OutputPin outputDirectionOpen CCM_OPTIONAL;
 static OutputPin outputDirectionClose CCM_OPTIONAL;
 
 static pid_s etbS;
-static Pid pid(&etbS, 1, 0, 0, 0, 100);
+static Pid pid(&etbS, 0, 100);
 
 static float prevTps;
 

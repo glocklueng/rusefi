@@ -9,11 +9,8 @@
 
 #include "pid.h"
 
-Pid::Pid(pid_s *pid, float pFactor, float iFactor, float dFactor, float minResult, float maxResult) {
+Pid::Pid(pid_s *pid, float minResult, float maxResult) {
 	this->pid = pid;
-	pid->pFactor = pFactor;
-	pid->iFactor = iFactor;
-	pid->dFactor = dFactor;
 	this->minResult = minResult;
 	this->maxResult = maxResult;
 
