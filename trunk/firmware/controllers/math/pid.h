@@ -22,9 +22,7 @@ public:
 	float getIntegration(void);
 	float getD(void);
 private:
-	float pFactor;
-	float iFactor;
-	float dFactor;
+	pid_s *pid;
 	float minResult;
 	float maxResult;
 
