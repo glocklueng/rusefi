@@ -39,7 +39,8 @@ void testIdleController(void) {
 
 void testPidController(void) {
 	print("******************************************* testPidController\r\n");
-	Pid pid(50, 0.5, 0, 10, 90);
+	pid_s pidS;
+	Pid pid(&pidS, 50, 0.5, 0, 10, 90);
 
 	assertEquals(90, pid.getValue(14, 12, 0.1));
 
