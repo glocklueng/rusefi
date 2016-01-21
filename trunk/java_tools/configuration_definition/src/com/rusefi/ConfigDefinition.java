@@ -172,6 +172,8 @@ public class ConfigDefinition {
         String message = "// this section " + MESSAGE + "\r\n";
         cHeader.write(message);
         cHeader.write("// begin\r\n");
+        cHeader.write("#ifndef ENGINE_CONFIGURATION_GENERATED_H_\r\n");
+        cHeader.write("#define ENGINE_CONFIGURATION_GENERATED_H_\r\n");
         cHeader.write("#include \"rusefi_types.h\"\n");
 
         while ((line = br.readLine()) != null) {
@@ -229,6 +231,7 @@ public class ConfigDefinition {
                 processLine(line);
             }
         }
+        cHeader.write("#endif\r\n");
         cHeader.write("// end\r\n");
         cHeader.write(message);
     }
