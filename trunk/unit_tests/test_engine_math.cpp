@@ -70,7 +70,7 @@ void testIgnitionMapGenerator(void) {
 
     assertEqualsM2("2400", 34.2, getInitialAdvance(2400, 40, 36), 0.1);
     assertEqualsM2("4400", 41.9, getInitialAdvance(4400, 40, 36), 0.1);
-    assertEqualsM2("20@800", 14.2, getInitialAdvance(800, 20, 36), 0.1);
+    assertEqualsM2("20@800", 14.2, getInitialAdvance(800, 20, 36), 0.2);
 }
 
 void testMafLookup(void) {
