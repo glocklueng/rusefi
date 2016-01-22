@@ -271,7 +271,7 @@ void setDodgeNeonNGCEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	copyTimingTable(fromODB, config->ignitionTable);
 
 	//copyFuelTable(veDodgeNeon2003Table, config->veTable);
-	setMap(config->veTable, 0.5);
+	setMap(config->veTable, 50);
 
 	// set_cranking_charge_angle 70
 	engineConfiguration->crankingChargeAngle = 70;
