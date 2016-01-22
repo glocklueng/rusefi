@@ -35,6 +35,7 @@ static THD_WORKING_AREA(alternatorControlThreadStack, UTILITY_THREAD_STACK_SIZE)
 static float currentAltDuty;
 
 static LocalVersionHolder parametersVersion;
+extern TunerStudioOutputChannels tsOutputChannels;
 
 static msg_t AltCtrlThread(int param) {
 	UNUSED(param);
@@ -51,6 +52,8 @@ static msg_t AltCtrlThread(int param) {
 			scheduleMsg(logger, "alt duty: %f/vbatt=%f/p=%f/i=%f/d=%f int=%f", currentAltDuty, getVBatt(PASS_ENGINE_PARAMETER_F),
 					altPid.getP(), altPid.getI(), altPid.getD(), altPid.getIntegration());
 		}
+
+		tsOutputChannels.debugFloatField = currentAltDuty;
 
 		alternatorControl.setSimplePwmDutyCycle(currentAltDuty / 100);
 	}
