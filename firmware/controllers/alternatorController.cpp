@@ -34,11 +34,16 @@ static THD_WORKING_AREA(alternatorControlThreadStack, UTILITY_THREAD_STACK_SIZE)
 
 static float currentAltDuty;
 
+static LocalVersionHolder parametersVersion;
+
 static msg_t AltCtrlThread(int param) {
-        UNUSED(param);
+	UNUSED(param);
 	chRegSetThreadName("AlternatorController");
 	while (true) {
-		int dt = maxI(20, engineConfiguration->alternatorDT);
+		if (parametersVersion.isOld())
+			altPid.reset();
+
+		int dt = maxI(10, engineConfiguration->alternatorDT);
 		chThdSleepMilliseconds(dt);
 
 		currentAltDuty = engineConfiguration->alternatorOffset + altPid.getValue(engineConfiguration->targetVBatt, getVBatt(PASS_ENGINE_PARAMETER_F), 1);
@@ -54,9 +59,6 @@ static msg_t AltCtrlThread(int param) {
 #endif
 }
 
-static void applySettings(void) {
-	altPid.updateFactors(engineConfiguration->alternatorControl.pFactor, 0, 0);
-}
 
 void showAltInfo(void) {
 	scheduleMsg(logger, "alt=%s @%s t=%dms", boolToString(engineConfiguration->isAlternatorControlEnabled),
@@ -71,7 +73,7 @@ void showAltInfo(void) {
 void setAltPFactor(float p) {
 	engineConfiguration->alternatorControl.pFactor = p;
 	scheduleMsg(logger, "setAltPid: %f", p);
-	applySettings();
+	altPid.reset();
 	showAltInfo();
 }
 
@@ -107,10 +109,6 @@ void initAlternatorCtrl(Logging *sharedLogger) {
 			ALTERNATOR_VALVE_PWM_FREQUENCY, 0.1, applyAlternatorPinState);
 	chThdCreateStatic(alternatorControlThreadStack, sizeof(alternatorControlThreadStack), LOWPRIO,
 			(tfunc_t) AltCtrlThread, NULL);
-
-	addConsoleActionF("set_alt_p", setAltPFactor);
-
-	applySettings();
 }
 
 #endif /* EFI_ALTERNATOR_CONTROL */
