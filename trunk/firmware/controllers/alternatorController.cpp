@@ -15,6 +15,7 @@
 #include "pin_repository.h"
 #include "voltage.h"
 #include "pid.h"
+#include "LocalVersionHolder.h"
 
 #if EFI_ALTERNATOR_CONTROL || defined(__DOXYGEN__)
 
@@ -34,15 +35,19 @@ static THD_WORKING_AREA(alternatorControlThreadStack, UTILITY_THREAD_STACK_SIZE)
 
 static float currentAltDuty;
 
+#if ! EFI_UNIT_TEST || defined(__DOXYGEN__)
 static LocalVersionHolder parametersVersion;
 extern TunerStudioOutputChannels tsOutputChannels;
+#endif
 
 static msg_t AltCtrlThread(int param) {
 	UNUSED(param);
 	chRegSetThreadName("AlternatorController");
 	while (true) {
+#if ! EFI_UNIT_TEST || defined(__DOXYGEN__)
 		if (parametersVersion.isOld())
 			altPid.reset();
+#endif
 
 		int dt = maxI(10, engineConfiguration->alternatorDT);
 		chThdSleepMilliseconds(dt);
@@ -53,7 +58,9 @@ static msg_t AltCtrlThread(int param) {
 					altPid.getP(), altPid.getI(), altPid.getD(), altPid.getIntegration());
 		}
 
+#if ! EFI_UNIT_TEST || defined(__DOXYGEN__)
 		tsOutputChannels.debugFloatField = currentAltDuty;
+#endif
 
 		alternatorControl.setSimplePwmDutyCycle(currentAltDuty / 100);
 	}
