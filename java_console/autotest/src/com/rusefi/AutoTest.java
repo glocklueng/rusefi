@@ -255,7 +255,7 @@ public class AutoTest {
         sendComplexCommand("set_cranking_rpm 500");
         IoUtil.changeRpm(200);
         sendCommand("set_mock_vbatt_voltage 2.2");
-        
+
         double x;
         chart = nextChart();
         assertEquals(12, SensorCentral.getInstance().getValue(Sensor.VBATT));
@@ -349,12 +349,11 @@ public class AutoTest {
         // switching to Speed Density
         if (!TestingUtils.isRealHardware)
             sendCommand("set_mock_maf_voltage 2");
-        if (!TestingUtils.isRealHardware)
-            sendCommand("set_mock_map_voltage 1");
+        sendCommand("set_mock_map_voltage 1");
         sendComplexCommand("set_algorithm 3");
         nextChart();
         chart = nextChart();
-        assertEquals(1, SensorCentral.getInstance().getValue(Sensor.MAP));
+        assertEquals(69.12, SensorCentral.getInstance().getValue(Sensor.MAP));
         //assertEquals(1, SensorCentral.getInstance().getValue(Sensor.));
         x = 8.88;
         assertWaveFall(msg + " fuel SD #1", chart, EngineChart.INJECTOR_1, 0.329, x + 180);
