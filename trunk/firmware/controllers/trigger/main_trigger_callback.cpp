@@ -103,7 +103,7 @@ static void endSimultaniousInjection(Engine *engine) {
 
 extern WallFuel wallFuel;
 
-static ALWAYS_INLINE void handleFuelInjectionEvent(bool limitedFuel, InjectionEvent *event,
+static ALWAYS_INLINE void handleFuelInjectionEvent(int eventIndex, bool limitedFuel, InjectionEvent *event,
 		int rpm DECLARE_ENGINE_PARAMETER_S) {
 	if (limitedFuel)
 		return; // todo: move this check up
@@ -130,6 +130,8 @@ static ALWAYS_INLINE void handleFuelInjectionEvent(bool limitedFuel, InjectionEv
 
 	floatus_t injectionStartDelayUs = ENGINE(rpmCalculator.oneDegreeUs) * event->injectionStart.angleOffset;
 
+	OutputSignal *signal = &ENGINE(engineConfiguration2)->injectionEvents.actuators[eventIndex];
+
 	if (event->isSimultanious) {
 		if (injectionDuration < 0) {
 			firmwareError("duration cannot be negative: %d", injectionDuration);
@@ -144,7 +146,6 @@ static ALWAYS_INLINE void handleFuelInjectionEvent(bool limitedFuel, InjectionEv
 		 * 'scheduleOutput' is currently only used for injection, so maybe it should be
 		 * changed into 'scheduleInjection' and unified? todo: think about it.
 		 */
-		OutputSignal *signal = &event->actuator;
 		efiAssertVoid(signal!=NULL, "signal is NULL");
 		int index = getRevolutionCounter() % 2;
 		scheduling_s * sUp = &signal->signalTimerUp[index];
@@ -155,7 +156,7 @@ static ALWAYS_INLINE void handleFuelInjectionEvent(bool limitedFuel, InjectionEv
 					(schfunc_t) &endSimultaniousInjection, engine);
 
 	} else {
-		scheduleOutput(&event->actuator, getTimeNowUs(), injectionStartDelayUs, MS2US(injectionDuration));
+		scheduleOutput(signal, getTimeNowUs(), injectionStartDelayUs, MS2US(injectionDuration), event->output);
 	}
 }
 
@@ -185,7 +186,7 @@ static ALWAYS_INLINE void handleFuel(bool limitedFuel, uint32_t eventIndex, int 
 		InjectionEvent *event = &source->elements[i];
 		if (event->injectionStart.eventIndex != eventIndex)
 			continue;
-		handleFuelInjectionEvent(limitedFuel, event, rpm PASS_ENGINE_PARAMETER);
+		handleFuelInjectionEvent(i, limitedFuel, event, rpm PASS_ENGINE_PARAMETER);
 	}
 }
 

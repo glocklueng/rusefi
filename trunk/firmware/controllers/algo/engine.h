@@ -44,6 +44,9 @@ public:
 	void addFuelEvents(injection_mode_e mode DECLARE_ENGINE_PARAMETER_S);
 
 	InjectionEventList injectionEvents;
+
+	OutputSignal actuators[MAX_INJECTION_OUTPUT_COUNT];
+
 	/**
 	 * This is a performance optimization for https://sourceforge.net/p/rusefi/tickets/64/
 	 * TODO: better data structure? better algorithm?
