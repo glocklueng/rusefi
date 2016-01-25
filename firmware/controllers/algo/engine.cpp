@@ -86,6 +86,7 @@ void Engine::addConfigurationListener(configuration_callback_t callback) {
 }
 
 Engine::Engine(persistent_config_s *config) {
+	init(config);
 	/**
 	 * it's important for fixAngle() that engineCycle field never has zero
 	 */
@@ -98,12 +99,9 @@ Engine::Engine(persistent_config_s *config) {
 	isTestMode = false;
 	isSpinning = false;
 	adcToVoltageInputDividerCoefficient = NAN;
-	this->config = config;
-	engineConfiguration = &config->engineConfiguration;
 	engineConfiguration2 = NULL;
 	engineState.iat = engineState.clt = NAN;
 	memset(&ignitionPin, 0, sizeof(ignitionPin));
-	memset(config, 0, sizeof(persistent_config_s));
 
 	knockNow = false;
 	knockEver = false;
@@ -181,6 +179,9 @@ void Engine::preCalculate() {
 }
 
 void Engine::init(persistent_config_s *config) {
+	this->config = config;
+	engineConfiguration = &config->engineConfiguration;
+	memset(config, 0, sizeof(persistent_config_s));
 }
 
 static bool stopPin(NamedOutputPin *output) {
