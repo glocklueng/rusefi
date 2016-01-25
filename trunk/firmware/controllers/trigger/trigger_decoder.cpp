@@ -527,6 +527,10 @@ void TriggerShape::initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMET
 		return;
 	}
 	wave.checkSwitchTimes(getSize());
+	/**
+	 * this instance is used only to initialize 'this' TriggerShape instance
+	 * #192 BUG real hardware trigger events could be coming even while we are initializing trigger
+	 */
 	TriggerState state;
 	state.reset();
 	calculateTriggerSynchPoint(&state PASS_ENGINE_PARAMETER);
