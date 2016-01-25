@@ -527,6 +527,8 @@ void TriggerShape::initializeTriggerShape(Logging *logger DECLARE_ENGINE_PARAMET
 	}
 	wave.checkSwitchTimes(getSize());
 	calculateTriggerSynchPoint(&engine->triggerCentral.triggerState PASS_ENGINE_PARAMETER);
+	TriggerState *t = &engine->triggerCentral.triggerState;
+	t->reset();
 }
 
 static void onFindIndex(TriggerState *state) {
