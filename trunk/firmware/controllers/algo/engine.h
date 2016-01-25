@@ -45,8 +45,6 @@ public:
 
 	InjectionEventList injectionEvents;
 
-	OutputSignal actuators[MAX_INJECTION_OUTPUT_COUNT];
-
 	/**
 	 * This is a performance optimization for https://sourceforge.net/p/rusefi/tickets/64/
 	 * TODO: better data structure? better algorithm?
@@ -74,6 +72,8 @@ public:
 #if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
 	FuelSchedule injectionEvents;
 #endif
+
+	OutputSignal fuelActuators[MAX_INJECTION_OUTPUT_COUNT];
 
 	float fsioLastValue[LE_COMMAND_COUNT];
 
