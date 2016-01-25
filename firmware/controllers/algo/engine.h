@@ -69,7 +69,6 @@ public:
 	engine_configuration2_s();
 
 #if EFI_ENGINE_CONTROL || defined(__DOXYGEN__)
-	FuelSchedule crankingInjectionEvents;
 	FuelSchedule injectionEvents;
 #endif
 
