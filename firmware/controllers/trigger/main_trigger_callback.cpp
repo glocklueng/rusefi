@@ -130,7 +130,7 @@ static ALWAYS_INLINE void handleFuelInjectionEvent(int eventIndex, bool limitedF
 
 	floatus_t injectionStartDelayUs = ENGINE(rpmCalculator.oneDegreeUs) * event->injectionStart.angleOffset;
 
-	OutputSignal *signal = &ENGINE(engineConfiguration2)->injectionEvents.actuators[eventIndex];
+	OutputSignal *signal = &ENGINE(engineConfiguration2)->fuelActuators[eventIndex];
 
 	if (event->isSimultanious) {
 		if (injectionDuration < 0) {
