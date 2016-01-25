@@ -169,9 +169,7 @@ static ALWAYS_INLINE void handleFuel(bool limitedFuel, uint32_t eventIndex, int 
 	 * Ignition events are defined by addFuelEvents() according to selected
 	 * fueling strategy
 	 */
-	FuelSchedule *fs =
-	isCrankingR(rpm) ?
-			&ENGINE(engineConfiguration2)->crankingInjectionEvents : &ENGINE(engineConfiguration2)->injectionEvents;
+	FuelSchedule *fs = &ENGINE(engineConfiguration2)->injectionEvents;
 
 	InjectionEventList *source = &fs->injectionEvents;
 
@@ -363,13 +361,10 @@ static ALWAYS_INLINE void scheduleIgnitionAndFuelEvents(int rpm, int revolutionI
 
 	ENGINE(m.beforeInjectonSch) = GET_TIMESTAMP();
 
-	if (isCrankingR(rpm)) {
-		ENGINE(engineConfiguration2)->crankingInjectionEvents.addFuelEvents(
-				engineConfiguration->crankingInjectionMode PASS_ENGINE_PARAMETER);
-	} else {
-		ENGINE(engineConfiguration2)->injectionEvents.addFuelEvents(
-				CONFIG(injectionMode) PASS_ENGINE_PARAMETER);
-	}
+	injection_mode_e mode = isCrankingR(rpm) ? CONFIG(crankingInjectionMode) : CONFIG(injectionMode);
+
+	ENGINE(engineConfiguration2)->injectionEvents.addFuelEvents(
+			mode PASS_ENGINE_PARAMETER);
 	ENGINE(m.injectonSchTime) = GET_TIMESTAMP() - ENGINE(m.beforeInjectonSch);
 }
 
