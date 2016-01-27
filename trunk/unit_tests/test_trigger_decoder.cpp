@@ -140,18 +140,18 @@ void test1995FordInline6TriggerDecoder(void) {
 	eth.engine.triggerCentral.addEventListener(mainTriggerCallback, "main loop", &eth.engine);
 
 	eth.engine.periodicFastCallback(PASS_ENGINE_PARAMETER_F);
-//	eth.fireTriggerEvents(48);
-//	assertEquals(2000, eth.engine.rpmCalculator.rpmValue);
-//	eth.engine.periodicFastCallback(PASS_ENGINE_PARAMETER_F);
-//	eth.fireTriggerEvents(48);
+	eth.fireTriggerEvents(48);
+	assertEquals(2000, eth.engine.rpmCalculator.rpmValue);
+	eth.engine.periodicFastCallback(PASS_ENGINE_PARAMETER_F);
+	eth.fireTriggerEvents(48);
 
 	IgnitionEventList *ecl = &eth.ec2.ignitionEvents[0];
 	assertEqualsM("ignition events size", 6, ecl->size);
 	assertEqualsM("event index", 0, ecl->elements[0].dwellPosition.eventIndex);
-	assertEqualsM("angle offset#1", 0, ecl->elements[0].dwellPosition.angleOffset);
+	assertEqualsM("angle offset#1", 7, ecl->elements[0].dwellPosition.angleOffset);
 
 	assertEqualsM("event index", 10, ecl->elements[5].dwellPosition.eventIndex);
-	assertEqualsM("angle offset#2", 0, ecl->elements[5].dwellPosition.angleOffset);
+	assertEqualsM("angle offset#2", 7, ecl->elements[5].dwellPosition.angleOffset);
 
 	TriggerState state;
 
@@ -291,6 +291,7 @@ extern engine_pins_s enginePins;
 void testRpmCalculator(void) {
 	printf("*************************************************** testRpmCalculator\r\n");
 	timeNow = 0;
+	schedulingQueue.clear();
 
 	EngineTestHelper eth(FORD_INLINE_6_1995);
 	EXPAND_EngineTestHelper;
