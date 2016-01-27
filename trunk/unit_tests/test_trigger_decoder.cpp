@@ -107,7 +107,7 @@ static void assertTriggerPosition(event_trigger_position_s *position, int eventI
 	assertEqualsM("angleOffset", angleOffset, position->angleOffset);
 }
 
-static void test1995FordInline6TriggerDecoder(void) {
+void test1995FordInline6TriggerDecoder(void) {
 	printf("*************************************************** test1995FordInline6TriggerDecoder\r\n");
 
 	assertEqualsM("triggerIndex ", 0, getTheAngle(FORD_INLINE_6_1995));
