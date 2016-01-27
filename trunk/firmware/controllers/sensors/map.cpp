@@ -110,7 +110,7 @@ float getMapByVoltage(float voltage DECLARE_ENGINE_PARAMETER_S) {
 #if EFI_ENABLE_MOCK_ADC || defined(__DOXYGEN__)
 	int mapChannel = engineConfiguration->map.sensor.hwChannel;
 	if (engine->engineState.mockAdcState.hasMockAdc[mapChannel])
-		voltage = adcToVoltsDivided(engine->engineState.mockAdcState.getMockAdcValue(mapChannel));
+		voltage = adcToVolts(engine->engineState.mockAdcState.getMockAdcValue(mapChannel) * engineConfiguration->analogInputDividerCoefficient);
 #endif
 
 	// todo: migrate to mapDecoder once parameter listeners are ready
