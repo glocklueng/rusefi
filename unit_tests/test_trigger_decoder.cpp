@@ -290,6 +290,7 @@ extern engine_pins_s enginePins;
 
 void testRpmCalculator(void) {
 	printf("*************************************************** testRpmCalculator\r\n");
+	timeNow = 0;
 
 	EngineTestHelper eth(FORD_INLINE_6_1995);
 	EXPAND_EngineTestHelper;
