@@ -146,7 +146,7 @@ void test1995FordInline6TriggerDecoder(void) {
 	eth.fireTriggerEvents(48);
 
 	IgnitionEventList *ecl = &eth.ec2.ignitionEvents[0];
-	assertEqualsM("ignition events size", 6, ecl->size);
+	assertEqualsM("ford inline ignition events size", 6, ecl->size);
 	assertEqualsM("event index", 0, ecl->elements[0].dwellPosition.eventIndex);
 	assertEqualsM("angle offset#1", 7, ecl->elements[0].dwellPosition.angleOffset);
 
@@ -302,6 +302,7 @@ void testRpmCalculator(void) {
 
 	efiAssertVoid(eth.engine.engineConfiguration!=NULL, "null config in engine");
 
+	// this is needed to have valid CLT and IAT. todo: extract method
 	initThermistors(NULL PASS_ENGINE_PARAMETER);
 	engine->updateSlowSensors(PASS_ENGINE_PARAMETER_F);
 
@@ -342,7 +343,8 @@ void testRpmCalculator(void) {
 
 	eth.engine.periodicFastCallback(PASS_ENGINE_PARAMETER_F);
 
-	assertEquals(0, eth.engine.engineConfiguration2->injectionEvents->injectionEvents.elements[0].injectionStart.angleOffset);
+	InjectionEvent *ie0 = &eth.engine.engineConfiguration2->injectionEvents->injectionEvents.elements[0];
+	assertEquals(0, ie0->injectionStart.angleOffset);
 
 	eth.engine.triggerCentral.handleShaftSignal(SHAFT_PRIMARY_UP PASS_ENGINE_PARAMETER);
 	assertEquals(1500, eth.engine.rpmCalculator.rpmValue);
@@ -350,7 +352,7 @@ void testRpmCalculator(void) {
 	assertEqualsM("dwell", 4.5, eth.engine.engineState.dwellAngle);
 	assertEqualsM("fuel", 3.03, eth.engine.fuelMs);
 	assertEqualsM("one degree", 111.1111, eth.engine.rpmCalculator.oneDegreeUs);
-	assertEqualsM("size", 6, ilist->size);
+	assertEqualsM("size #2", 6, ilist->size);
 	assertEqualsM("dwell angle", 0, ilist->elements[0].dwellPosition.eventAngle);
 	assertEqualsM("dwell offset", 0, ilist->elements[0].dwellPosition.angleOffset);
 
