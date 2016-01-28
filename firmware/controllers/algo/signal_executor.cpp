@@ -117,7 +117,7 @@ int getRevolutionCounter(void);
  *
  */
 void scheduleOutput(OutputSignal *signal, efitimeus_t nowUs, float delayUs, float durationUs, NamedOutputPin *output) {
-#if EFI_GPIO
+#if EFI_GPIO || defined(__DOXYGEN__)
 	if (durationUs < 0) {
 		warning(OBD_PCM_Processor_Fault, "duration cannot be negative: %d", durationUs);
 		return;
@@ -131,6 +131,9 @@ void scheduleOutput(OutputSignal *signal, efitimeus_t nowUs, float delayUs, floa
 	int index = getRevolutionCounter() % 2;
 	scheduling_s * sUp = &signal->signalTimerUp[index];
 	scheduling_s * sDown = &signal->signalTimerDown[index];
+#if EFI_UNIT_TEST || defined(__DOXYGEN__)
+	printf("scheduling output %s\r\n", output->name);
+#endif
 
 	scheduleByTime("out up", sUp, nowUs + (int) delayUs, (schfunc_t) &turnPinHigh, output);
 	scheduleByTime("out down", sDown, nowUs + (int) (delayUs + durationUs), (schfunc_t) &turnPinLow, output);

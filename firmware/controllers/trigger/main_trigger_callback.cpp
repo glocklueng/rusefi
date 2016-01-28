@@ -151,6 +151,10 @@ static ALWAYS_INLINE void handleFuelInjectionEvent(int eventIndex, bool limitedF
 					(schfunc_t) &endSimultaniousInjection, engine);
 
 	} else {
+#if EFI_UNIT_TEST || defined(__DOXYGEN__)
+	printf("scheduling injection delay=%f injectionDuration=%f\r\n", injectionStartDelayUs, injectionDuration);
+#endif
+
 		scheduleOutput(signal, getTimeNowUs(), injectionStartDelayUs, MS2US(injectionDuration), event->output);
 	}
 }
@@ -221,6 +225,9 @@ static ALWAYS_INLINE void handleSparkEvent(bool limitedSpark, uint32_t eventInde
 	 * The start of charge is always within the current trigger event range, so just plain time-based scheduling
 	 */
 	if (!limitedSpark) {
+#if EFI_UNIT_TEST || defined(__DOXYGEN__)
+	printf("spark charge delay=%f\r\n", chargeDelayUs);
+#endif
 		/**
 		 * Note how we do not check if spark is limited or not while scheduling 'spark down'
 		 * This way we make sure that coil dwell started while spark was enabled would fire and not burn
@@ -241,7 +248,11 @@ static ALWAYS_INLINE void handleSparkEvent(bool limitedSpark, uint32_t eventInde
 		 */
 		float timeTillIgnitionUs = ENGINE(rpmCalculator.oneDegreeUs) * iEvent->sparkPosition.angleOffset;
 
-		scheduleTask("spark1 down", sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, iEvent->output);
+#if EFI_UNIT_TEST || defined(__DOXYGEN__)
+	printf("spark delay=%f angle=%f\r\n", timeTillIgnitionUs, iEvent->sparkPosition.angleOffset);
+#endif
+
+	scheduleTask("spark1 down", sDown, (int) timeTillIgnitionUs, (schfunc_t) &turnPinLow, iEvent->output);
 	} else {
 		/**
 		 * Spark should be scheduled in relation to some future trigger event, this way we get better firing precision
