@@ -327,6 +327,10 @@ void Engine::periodicFastCallback(DECLARE_ENGINE_PARAMETER_F) {
 
 	engineState.periodicFastCallback(PASS_ENGINE_PARAMETER_F);
 
+	engine->m.beforeFuelCalc = GET_TIMESTAMP();
+	ENGINE(fuelMs) = getFuelMs(rpm PASS_ENGINE_PARAMETER) * engineConfiguration->globalFuelCorrection;
+	engine->m.fuelCalcTime = GET_TIMESTAMP() - engine->m.beforeFuelCalc;
+
 //	prepareFuelSchedule(PASS_ENGINE_PARAMETER_F);
 }
 

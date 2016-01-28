@@ -318,9 +318,6 @@ uint32_t *cyccnt = (uint32_t*) &DWT->CYCCNT;
 #endif
 
 static ALWAYS_INLINE void scheduleIgnitionAndFuelEvents(int rpm, int revolutionIndex DECLARE_ENGINE_PARAMETER_S) {
-	engine->m.beforeFuelCalc = GET_TIMESTAMP();
-	ENGINE(fuelMs) = getFuelMs(rpm PASS_ENGINE_PARAMETER) * engineConfiguration->globalFuelCorrection;
-	engine->m.fuelCalcTime = GET_TIMESTAMP() - engine->m.beforeFuelCalc;
 
 	engine->m.beforeIgnitionSch = GET_TIMESTAMP();
 	/**

@@ -343,7 +343,7 @@ void testRpmCalculator(void) {
 
 	eth.engine.periodicFastCallback(PASS_ENGINE_PARAMETER_F);
 
-	assertEqualsM("fuel #1", 0, eth.engine.fuelMs);
+	assertEqualsM("fuel #1", 3.03, eth.engine.fuelMs);
 	InjectionEvent *ie0 = &eth.engine.engineConfiguration2->injectionEvents->injectionEvents.elements[0];
 	assertEqualsM("injection angle", 0, ie0->injectionStart.angleOffset);
 
