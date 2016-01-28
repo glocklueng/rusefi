@@ -344,6 +344,9 @@ void testRpmCalculator(void) {
 	int st = timeNow;
 	assertEqualsM("st value", 485000, st);
 
+	// todo: why is this required here? we already have one 'prepareOutputSignals' in constructor, what's wrong with it?
+	prepareOutputSignals(PASS_ENGINE_PARAMETER_F);
+
 	eth.engine.periodicFastCallback(PASS_ENGINE_PARAMETER_F);
 
 	assertEqualsM("fuel #1", 3.03, eth.engine.fuelMs);
