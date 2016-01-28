@@ -96,7 +96,7 @@ bool isCranking(void);
 #define isValidRpm(rpm) ((rpm) > 0 && (rpm) < UNREALISTIC_RPM)
 
 #if EFI_ENGINE_SNIFFER
-#define addWaveChartEvent(name, msg) waveChart.addWaveChartEvent3((name), (msg))
+#define addWaveChartEvent(name, msg) waveChart.addEvent3((name), (msg))
  #else
 #define addWaveChartEvent(n, msg) {}
 #endif /* EFI_ENGINE_SNIFFER */
