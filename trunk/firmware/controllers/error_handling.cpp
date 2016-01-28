@@ -57,7 +57,7 @@ static MemoryStream warningStream;
  * @returns TRUE in case there are too many warnings
  */
 int warning(obd_code_e code, const char *fmt, ...) {
-        UNUSED(code);
+	UNUSED(code);
   
 	int now = getTimeNowSeconds();
 	if (absI(now - timeOfPreviousWarning) < 10 || !warningEnabled)
