@@ -152,7 +152,7 @@ static ALWAYS_INLINE void handleFuelInjectionEvent(int eventIndex, bool limitedF
 
 	} else {
 #if EFI_UNIT_TEST || defined(__DOXYGEN__)
-	printf("scheduling injection delay=%f injectionDuration=%f\r\n", injectionStartDelayUs, injectionDuration);
+		printf("scheduling injection angle=%f/delay=%f injectionDuration=%f\r\n", event->injectionStart.angleOffset, injectionStartDelayUs, injectionDuration);
 #endif
 
 		scheduleOutput(signal, getTimeNowUs(), injectionStartDelayUs, MS2US(injectionDuration), event->output);
