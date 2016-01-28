@@ -1,6 +1,6 @@
 package com.rusefi.config;
 
-// this file was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Fri Jan 22 12:32:32 EST 2016
+// this file was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Jan 28 16:07:54 EST 2016
 public class Fields {
 	public static final int LE_COMMAND_LENGTH = 200;
 	public static final int TS_FILE_VERSION = 20160122;
@@ -31,8 +31,8 @@ public class Fields {
 	public static final int engineConfiguration_offset_hex = 0;
 	public static final int engineType_offset = 0;
 	public static final int engineType_offset_hex = 0;
-	public static final int unusedOffset4_offset = 4;
-	public static final int unusedOffset4_offset_hex = 4;
+	public static final int engineSnifferRpmThreshold_offset = 4;
+	public static final int engineSnifferRpmThreshold_offset_hex = 4;
 	public static final int injector_offset = 8;
 	public static final int injector_offset_hex = 8;
 	public static final int injector_flow_offset = 8;
@@ -131,7 +131,7 @@ public class Fields {
 	public static final int firingOrder_offset = 408;
 	public static final int firingOrder_offset_hex = 198;
 	public static final int cylinderBore_offset = 412;
-	public static final int unused34234_offset = 416;
+	public static final int sensorSnifferRpmThreshold_offset = 416;
 	public static final int rpmHardLimit_offset = 420;
 	public static final int algorithm_offset = 424;
 	public static final int crankingInjectionMode_offset = 428;
@@ -800,7 +800,7 @@ public class Fields {
 	public static final int afrRpmBins_offset = 16024;
 	public static final int TOTAL_CONFIG_SIZE = 16088;
 	public static final Field ENGINETYPE = Field.create("ENGINETYPE", 0, FieldType.INT);
-	public static final Field UNUSEDOFFSET4 = Field.create("UNUSEDOFFSET4", 4, FieldType.INT);
+	public static final Field ENGINESNIFFERRPMTHRESHOLD = Field.create("ENGINESNIFFERRPMTHRESHOLD", 4, FieldType.INT);
 	public static final Field INJECTOR_FLOW = Field.create("INJECTOR_FLOW", 8, FieldType.FLOAT);
 	public static final Field INJECTOR_LAG = Field.create("INJECTOR_LAG", 12, FieldType.FLOAT);
 	public static final Field DIRECTSELFSTIMULATION = Field.create("DIRECTSELFSTIMULATION", 80, FieldType.BIT, 0);
@@ -842,7 +842,7 @@ public class Fields {
 	public static final Field CYLINDERSCOUNT = Field.create("CYLINDERSCOUNT", 404, FieldType.INT);
 	public static final Field FIRINGORDER = Field.create("FIRINGORDER", 408, FieldType.INT);
 	public static final Field CYLINDERBORE = Field.create("CYLINDERBORE", 412, FieldType.FLOAT);
-	public static final Field UNUSED34234 = Field.create("UNUSED34234", 416, FieldType.INT);
+	public static final Field SENSORSNIFFERRPMTHRESHOLD = Field.create("SENSORSNIFFERRPMTHRESHOLD", 416, FieldType.INT);
 	public static final Field RPMHARDLIMIT = Field.create("RPMHARDLIMIT", 420, FieldType.INT);
 	public static final String[] engine_load_mode_e = {"MAF", "Alpha-N/TPS", "MAP", "SPEED DENSITY"};
 	public static final Field ALGORITHM = Field.create("ALGORITHM", 424, FieldType.INT, engine_load_mode_e);
