@@ -318,6 +318,9 @@ void testRpmCalculator(void) {
 	timeNow = 0;
 	assertEquals(0, eth.engine.rpmCalculator.getRpm(PASS_ENGINE_PARAMETER_F));
 
+	assertEquals(4, engine->triggerShape.triggerIndexByAngle[240]);
+	assertEquals(4, engine->triggerShape.triggerIndexByAngle[241]);
+
 	eth.fireTriggerEvents(48);
 
 	assertEqualsM("RPM", 1500, eth.engine.rpmCalculator.getRpm(PASS_ENGINE_PARAMETER_F));
@@ -398,6 +401,9 @@ void testRpmCalculator(void) {
 	assertEqualsM2("ev 5", st + 14277, schedulingQueue.getForUnitText(2)->momentX, 2);
 	assertEqualsM("3/3", st + 14777, schedulingQueue.getForUnitText(3)->momentX);
 	schedulingQueue.clear();
+
+	assertEquals(5, engine->triggerShape.triggerIndexByAngle[240]);
+	assertEquals(5, engine->triggerShape.triggerIndexByAngle[241]);
 
 	timeNow += 5000;
 	assertEqualsM("Size 4.1", 6, engine->engineConfiguration2->injectionEvents->eventsCount);
