@@ -400,11 +400,18 @@ void testRpmCalculator(void) {
 	schedulingQueue.clear();
 
 	timeNow += 5000;
+	assertEqualsM("Size 4.1", 6, engine->engineConfiguration2->injectionEvents->eventsCount);
+	assertFalseM("No squirts expected 4.1", engine->engineConfiguration2->injectionEvents->hasEvents[4]);
 	eth.engine.triggerCentral.handleShaftSignal(SHAFT_PRIMARY_DOWN PASS_ENGINE_PARAMETER);
+	assertEqualsM("queue size 4.1", 0, schedulingQueue.size());
+
 	timeNow += 5000; // 5ms
 	eth.engine.triggerCentral.handleShaftSignal(SHAFT_PRIMARY_UP PASS_ENGINE_PARAMETER);
+	assertEqualsM("queue size 4.2", 6, schedulingQueue.size());
+
 	timeNow += 5000; // 5ms
 	eth.engine.triggerCentral.handleShaftSignal(SHAFT_PRIMARY_UP PASS_ENGINE_PARAMETER);
+	assertEqualsM("queue size 4.3", 6, schedulingQueue.size());
 
 	assertEqualsM("dwell", 4.5, eth.engine.engineState.dwellAngle);
 	assertEqualsM("fuel", 3.03, eth.engine.fuelMs);
