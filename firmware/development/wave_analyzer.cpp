@@ -158,7 +158,7 @@ static THD_FUNCTION(waThread, arg) {
 	while (TRUE) {
 		chThdSleepSeconds(CHART_RESET_DELAY);
 
-		waveChart.publishChartIfFull();
+		waveChart.publishIfFull();
 	}
 #endif /* EFI_ENGINE_SNIFFER */
 }

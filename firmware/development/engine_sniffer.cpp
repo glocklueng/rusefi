@@ -73,13 +73,13 @@ static uint32_t skipUntilEngineCycle = 0;
 
 #if ! EFI_UNIT_TEST || defined(__DOXYGEN__)
 extern WaveChart waveChart;
-static void resetWaveChartNow(void) {
+static void resetNow(void) {
 	skipUntilEngineCycle = engine->rpmCalculator.getRevolutionCounter() + 3;
-	waveChart.resetWaveChart();
+	waveChart.reset();
 }
 #endif
 
-void WaveChart::resetWaveChart() {
+void WaveChart::reset() {
 #if DEBUG_WAVE
 	scheduleSimpleMsg(&debugLogging, "reset while at ", counter);
 #endif /* DEBUG_WAVE */
@@ -102,7 +102,7 @@ bool WaveChart::isStartedTooLongAgo() {
 	return startTimeNt != 0 && NT2US(chartDurationNt) > engineConfiguration->engineChartSize * 1000000 / 20;
 }
 
-bool WaveChart::isWaveChartFull() {
+bool WaveChart::isFull() {
 	return counter >= engineConfiguration->engineChartSize;
 }
 
@@ -125,10 +125,10 @@ void setChartSize(int newSize) {
 	printStatus();
 }
 
-void WaveChart::publishChartIfFull() {
-	if (isWaveChartFull() || isStartedTooLongAgo()) {
-		publishChart();
-		resetWaveChart();
+void WaveChart::publishIfFull() {
+	if (isFull() || isStartedTooLongAgo()) {
+		publish();
+		reset();
 	}
 }
 
@@ -141,10 +141,10 @@ WaveChart::WaveChart() {
 void WaveChart::init() {
 	initLoggingExt(&logging, "wave chart", WAVE_LOGGING_BUFFER, sizeof(WAVE_LOGGING_BUFFER));
 	isInitialized = true;
-	resetWaveChart();
+	reset();
 }
 
-void WaveChart::publishChart() {
+void WaveChart::publish() {
 	appendPrintf(&logging, DELIMETER);
 	waveChartUsedSize = loggingSize(&logging);
 #if DEBUG_WAVE
@@ -162,7 +162,7 @@ static char timeBuffer[10];
 /**
  * @brief	Register an event for digital sniffer
  */
-void WaveChart::addWaveChartEvent3(const char *name, const char * msg) {
+void WaveChart::addEvent3(const char *name, const char * msg) {
 	if (skipUntilEngineCycle != 0 && engine->rpmCalculator.getRevolutionCounter() < skipUntilEngineCycle)
 		return;
 	efiAssertVoid(name!=NULL, "WC: NULL name");
@@ -178,7 +178,7 @@ void WaveChart::addWaveChartEvent3(const char *name, const char * msg) {
 #if DEBUG_WAVE
 	scheduleSimpleMsg(&debugLogging, "current", chart->counter);
 #endif
-	if (isWaveChartFull()) {
+	if (isFull()) {
 		return;
 	}
 
@@ -265,7 +265,7 @@ void initWaveChart(WaveChart *chart) {
 	addConsoleActionI("chartsize", setChartSize);
 	addConsoleActionI("chart", setChartActive);
 #if ! EFI_UNIT_TEST || defined(__DOXYGEN__)
-	addConsoleAction("reset_engine_chart", resetWaveChartNow);
+	addConsoleAction("reset_engine_chart", resetNow);
 #endif
 }
 
