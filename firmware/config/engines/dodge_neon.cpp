@@ -466,6 +466,9 @@ void setDodgeNeonNGCEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 	boardConfiguration->isSdCardEnabled = false;
 	boardConfiguration->manIdlePosition = 40; // set_idle_pwm 40
 
+	engineConfiguration->engineSnifferRpmThreshold = 3000;
+	engineConfiguration->sensorSnifferRpmThreshold = 3000;
+
 	// end of setDodgeNeonNGCEngineConfiguration
 }
 
