@@ -73,12 +73,12 @@ void turnPinHigh(NamedOutputPin *output) {
 #endif
 #if EFI_ENGINE_SNIFFER || defined(__DOXYGEN__)
 	// explicit check here is a performance optimization to speed up no-chart mode
-	if (CONFIG(isEngineChartEnabled)) {
+	if (ENGINE(isEngineChartEnabled)) {
 		// this is a performance optimization - array index is cheaper then invoking a method with 'switch'
 		const char *pinName = output->name;
 //	dbgDurr = hal_lld_get_counter_value() - dbgStart;
 
-		addWaveChartEvent(pinName, WC_UP);
+		addEngineSniffferEvent(pinName, WC_UP);
 	}
 #endif /* EFI_ENGINE_SNIFFER */
 //	dbgDurr = hal_lld_get_counter_value() - dbgStart;
@@ -98,11 +98,11 @@ void turnPinLow(NamedOutputPin *output) {
 #endif /* EFI_DEFAILED_LOGGING */
 
 #if EFI_ENGINE_SNIFFER || defined(__DOXYGEN__)
-	if (CONFIG(isEngineChartEnabled)) {
+	if (ENGINE(isEngineChartEnabled)) {
 		// this is a performance optimization - array index is cheaper then invoking a method with 'switch'
 		const char *pinName = output->name;
 
-		addWaveChartEvent(pinName, WC_DOWN);
+		addEngineSniffferEvent(pinName, WC_DOWN);
 	}
 #endif /* EFI_ENGINE_SNIFFER */
 }
