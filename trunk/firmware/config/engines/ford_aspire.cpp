@@ -148,6 +148,9 @@ void setFordAspireEngineConfiguration(DECLARE_ENGINE_PARAMETER_F) {
 //	engineConfiguration->iat.adcChannel =
 
 	engineConfiguration->map.sensor.type = MT_DENSO183;
+
+	engineConfiguration->engineSnifferRpmThreshold = 3000;
+	engineConfiguration->sensorSnifferRpmThreshold = 3000;
 }
 
 #endif /* EFI_SUPPORT_FORD_ASPIRE */
