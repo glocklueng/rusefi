@@ -222,7 +222,7 @@ static char rpmBuffer[10];
  */
 static void onTdcCallback(void) {
 	itoa10(rpmBuffer, getRpmE(engine));
-	addWaveChartEvent(TOP_DEAD_CENTER_MESSAGE, (char* ) rpmBuffer);
+	addEngineSniffferEvent(TOP_DEAD_CENTER_MESSAGE, (char* ) rpmBuffer);
 }
 
 /**
@@ -232,8 +232,7 @@ static void tdcMarkCallback(trigger_event_e ckpSignalType,
 		uint32_t index0 DECLARE_ENGINE_PARAMETER_S) {
 	(void) ckpSignalType;
 	bool isTriggerSynchronizationPoint = index0 == 0;
-	if (isTriggerSynchronizationPoint
-			&& engineConfiguration->isEngineChartEnabled) {
+	if (isTriggerSynchronizationPoint && ENGINE(isEngineChartEnabled)) {
 		int revIndex2 = engine->rpmCalculator.getRevolutionCounter() % 2;
 		int rpm = getRpmE(engine);
 		// todo: use event-based scheduling, not just time-based scheduling

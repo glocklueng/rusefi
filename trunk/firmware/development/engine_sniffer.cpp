@@ -39,7 +39,7 @@
 #if EFI_HISTOGRAMS || defined(__DOXYGEN__)
 #include "rfiutil.h"
 #include "histogram.h"
-static histogram_s waveChartHisto;
+static histogram_s engineSnifferHisto;
 #endif
 
 EXTERN_ENGINE
@@ -152,7 +152,7 @@ void WaveChart::publish() {
 	scheduleSimpleMsg(&debugLogging, "IT'S TIME", strlen(l->buffer));
 #endif
 	bool isFullLog = getFullLog();
-	if (engineConfiguration->isEngineChartEnabled && isFullLog) {
+	if (ENGINE(isEngineChartEnabled) && isFullLog) {
 		scheduleLogging(&logging);
 	}
 }
@@ -166,7 +166,7 @@ void WaveChart::addEvent3(const char *name, const char * msg) {
 	if (skipUntilEngineCycle != 0 && engine->rpmCalculator.getRevolutionCounter() < skipUntilEngineCycle)
 		return;
 	efiAssertVoid(name!=NULL, "WC: NULL name");
-	if (!engineConfiguration->isEngineChartEnabled) {
+	if (!ENGINE(isEngineChartEnabled)) {
 		return;
 	}
 
@@ -229,7 +229,7 @@ void WaveChart::addEvent3(const char *name, const char * msg) {
 #if EFI_HISTOGRAMS && EFI_PROD_CODE
 	int64_t diff = hal_lld_get_counter_value() - beforeCallback;
 	if (diff > 0) {
-		hsAdd(&waveChartHisto, diff);
+		hsAdd(&engineSnifferHisto, diff);
 	}
 #endif /* EFI_HISTOGRAMS */
 
@@ -237,16 +237,11 @@ void WaveChart::addEvent3(const char *name, const char * msg) {
 
 void showWaveChartHistogram(void) {
 #if (EFI_HISTOGRAMS && EFI_PROD_CODE) || defined(__DOXYGEN__)
-	printHistogram(&logger, &waveChartHisto);
+	printHistogram(&logger, &engineSnifferHisto);
 #endif
 }
 
 void initWaveChart(WaveChart *chart) {
-
-	if (!engineConfiguration->isEngineChartEnabled) {
-		printMsg(&logger, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! chart disabled");
-	}
-
 	/**
 	 * constructor does not work because we need specific initialization order
 	 */
@@ -259,7 +254,7 @@ void initWaveChart(WaveChart *chart) {
 #endif
 
 #if EFI_HISTOGRAMS || defined(__DOXYGEN__)
-	initHistogram(&waveChartHisto, "wave chart");
+	initHistogram(&engineSnifferHisto, "wave chart");
 #endif /* EFI_HISTOGRAMS */
 
 	addConsoleActionI("chartsize", setChartSize);

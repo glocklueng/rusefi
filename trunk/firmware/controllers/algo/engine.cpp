@@ -59,6 +59,10 @@ int MockAdcState::getMockAdcValue(int hwChannel) {
  * See also periodicFastCallback
  */
 void Engine::updateSlowSensors(DECLARE_ENGINE_PARAMETER_F) {
+	int rpm = rpmCalculator.rpmValue;
+	isEngineChartEnabled = CONFIG(isEngineChartEnabled) && rpm < CONFIG(engineSnifferRpmThreshold);
+	sensorChartMode = rpm < CONFIG(engineSnifferRpmThreshold) ? boardConfiguration->sensorChartMode : SC_OFF;
+
 	engineState.iat = getIntakeAirTemperature(PASS_ENGINE_PARAMETER_F);
 	engineState.clt = getCoolantTemperature(PASS_ENGINE_PARAMETER_F);
 
@@ -88,6 +92,8 @@ void Engine::addConfigurationListener(configuration_callback_t callback) {
 
 Engine::Engine(persistent_config_s *config) {
 	init(config);
+	isEngineChartEnabled = false;
+	sensorChartMode = SC_OFF;
 	/**
 	 * it's important for fixAngle() that engineCycle field never has zero
 	 */
