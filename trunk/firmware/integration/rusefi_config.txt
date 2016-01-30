@@ -630,7 +630,8 @@ baro_corr_table_t baroCorrTable;
 	uint32_t uartConsoleSerialSpeed;;"BPs",      1,      0,       0,1000000,      0
 	float tpsDecelEnleanmentThreshold;;"roc",        1,     0,    0, 200,     3
 	float tpsDecelEnleanmentMultiplier;;"coeff",        1,     0,    0, 200,     3
-	int[194] unused;
+	float slowAdcAlpha;;"coeff",        1,     0,    0, 200,     3
+	int[193] unused;
 	
 
 end_struct
