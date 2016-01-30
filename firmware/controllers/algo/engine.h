@@ -162,6 +162,9 @@ public:
 	 */
 	floatms_t runningFuel;
 
+	/**
+	 * TPS acceleration: extra fuel amount
+	 */
 	floatms_t tpsAccelEnrich;
 
 	angle_t injectionOffset;
