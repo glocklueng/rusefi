@@ -1,6 +1,6 @@
 package com.rusefi.config;
 
-// this file was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Jan 28 16:07:54 EST 2016
+// this file was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Fri Jan 29 20:39:58 EST 2016
 public class Fields {
 	public static final int LE_COMMAND_LENGTH = 200;
 	public static final int TS_FILE_VERSION = 20160122;
@@ -734,7 +734,8 @@ public class Fields {
 	public static final int uartConsoleSerialSpeed_offset = 2228;
 	public static final int tpsDecelEnleanmentThreshold_offset = 2232;
 	public static final int tpsDecelEnleanmentMultiplier_offset = 2236;
-	public static final int unused_offset = 2240;
+	public static final int slowAdcAlpha_offset = 2240;
+	public static final int unused_offset = 2244;
 	public static final int le_formulas1_offset = 3016;
 	public static final int le_formulas2_offset = 3216;
 	public static final int le_formulas3_offset = 3416;
@@ -1258,6 +1259,7 @@ public class Fields {
 	public static final Field UARTCONSOLESERIALSPEED = Field.create("UARTCONSOLESERIALSPEED", 2228, FieldType.INT);
 	public static final Field TPSDECELENLEANMENTTHRESHOLD = Field.create("TPSDECELENLEANMENTTHRESHOLD", 2232, FieldType.FLOAT);
 	public static final Field TPSDECELENLEANMENTMULTIPLIER = Field.create("TPSDECELENLEANMENTMULTIPLIER", 2236, FieldType.FLOAT);
+	public static final Field SLOWADCALPHA = Field.create("SLOWADCALPHA", 2240, FieldType.FLOAT);
 	public static final Field LE_FORMULAS1 = Field.create("LE_FORMULAS1", 3016, FieldType.INT);
 	public static final Field LE_FORMULAS2 = Field.create("LE_FORMULAS2", 3216, FieldType.INT);
 	public static final Field LE_FORMULAS3 = Field.create("LE_FORMULAS3", 3416, FieldType.INT);
