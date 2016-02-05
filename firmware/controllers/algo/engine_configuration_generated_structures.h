@@ -1475,11 +1475,6 @@ typedef struct {
 	 * offset 2246
 	 */
 	int unused[192];
-	/**
-	 * need 4 byte alignment
-	 * offset 3014
-	 */
-	uint8_t alignmentFill[2];
 	/** total size 3016*/
 } engine_configuration_s;
 
