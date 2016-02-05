@@ -1,4 +1,4 @@
-// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Feb 04 22:34:53 EST 2016
+// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Feb 04 23:55:22 EST 2016
 // begin
 #ifndef ENGINE_CONFIGURATION_GENERATED_H_
 #define ENGINE_CONFIGURATION_GENERATED_H_
@@ -1472,7 +1472,7 @@ typedef struct {
 	 */
 	debug_mode_e debugMode;
 	/**
-	 * offset 2246
+	 * offset 2248
 	 */
 	int unused[192];
 	/** total size 3016*/
@@ -1624,4 +1624,4 @@ typedef struct {
 
 #endif
 // end
-// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Feb 04 22:34:53 EST 2016
+// this section was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Thu Feb 04 23:55:22 EST 2016
