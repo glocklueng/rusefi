@@ -10,7 +10,8 @@
 #include "pid.h"
 #include "math.h"
 
-Pid::Pid() : Pid(NULL, NAN, NAN) {
+Pid::Pid() {
+    init(NULL, NAN, NAN);
 }
 
 Pid::Pid(pid_s *pid, float minResult, float maxResult) {
@@ -83,7 +84,12 @@ float Pid::getOffset(void) {
 }
 
 #if EFI_PROD_CODE || EFI_SIMULATOR
-void Pid::postState(TunerStudioOutputChannels tsOutputChannels) {
-
+void Pid::postState(TunerStudioOutputChannels *tsOutputChannels) {
+	tsOutputChannels->debugFloatField2 = getIntegration();
+	tsOutputChannels->debugFloatField3 = getPrevError();
+	tsOutputChannels->debugFloatField4 = getI();
+	tsOutputChannels->debugFloatField5 = getD();
+	tsOutputChannels->debugIntField1 = getP();
+	tsOutputChannels->debugIntField2 = getOffset();
 }
 #endif

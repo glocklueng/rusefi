@@ -31,7 +31,7 @@ public:
 	float getIntegration(void);
 	float getPrevError(void);
 #if EFI_PROD_CODE || EFI_SIMULATOR
-	void postState(TunerStudioOutputChannels tsOutputChannels);
+	void postState(TunerStudioOutputChannels *tsOutputChannels);
 #endif
 private:
 	pid_s *pid;
