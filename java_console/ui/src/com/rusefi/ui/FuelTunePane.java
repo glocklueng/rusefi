@@ -6,9 +6,12 @@ import com.romraider.maps.Table;
 import com.romraider.maps.Table3D;
 import com.romraider.xml.RomAttributeParser;
 import com.rusefi.BinarySearch;
+import com.rusefi.ConfigurationImage;
 import com.rusefi.FileLog;
+import com.rusefi.UploadChanges;
 import com.rusefi.autotune.FuelAutoTune;
 import com.rusefi.binaryprotocol.BinaryProtocol;
+import com.rusefi.config.Field;
 import com.rusefi.config.Fields;
 import com.rusefi.core.Sensor;
 import com.rusefi.core.SensorCentral;
@@ -40,6 +43,8 @@ public class FuelTunePane {
     private final float veRpmBins[] = new float[Fields.FUEL_RPM_COUNT];
     private final Table3D veTable = new Table3D();
     private final Table3D changeMap = new Table3D();
+    private final JButton upload = new JButton("Upload");
+    private byte[] newVeMap;
 
     public FuelTunePane() {
         final JLabel incomingBufferSize = new JLabel();
@@ -51,10 +56,23 @@ public class FuelTunePane {
                 doJob();
             }
         });
+        upload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                byte[] newVeMap = FuelTunePane.this.newVeMap;
+                BinaryProtocol bp = BinaryProtocol.instance;
+                if (newVeMap == null || bp == null)
+                    return;
+                ConfigurationImage ci = bp.getController().clone();
+                System.arraycopy(newVeMap, 0, ci.getContent(), Fields.VETABLE.getOffset(), newVeMap.length);
+                UploadChanges.scheduleUpload(ci);
+            }
+        });
 
         JPanel topPanel = new JPanel(new FlowLayout());
         topPanel.add(incomingBufferSize);
         topPanel.add(runLogic);
+        topPanel.add(upload);
 
         Timer timer = new Timer(300, new ActionListener() {
             @Override
@@ -68,8 +86,8 @@ public class FuelTunePane {
         });
         timer.start();
 
+        upload.setEnabled(false);
         content.add(topPanel, BorderLayout.NORTH);
-
 
         JPanel rightPanel = new JPanel(new GridLayout(2, 1));
         rightPanel.add(changeMap);
@@ -85,6 +103,7 @@ public class FuelTunePane {
     }
 
     private static void loadData(Table table, byte[] content, int offset) {
+        table.reset();
         table.setStorageAddress(offset);
         table.setStorageType(Settings.STORAGE_TYPE_FLOAT);
         table.populateTable(content, 0);
@@ -121,10 +140,10 @@ public class FuelTunePane {
         // todo: move this away from AWT thread
         FuelAutoTune.Result a = FuelAutoTune.process(false, data, 0.1, 14.7, veTable);
 
-        float output[][] = a.getKgbcRES();
-        byte[] o = toByteArray(output);
+        newVeMap = toByteArray(a.getKgbcRES());
 
-        loadData(changeMap, o, 0);
+        loadData(changeMap, newVeMap, 0);
+        upload.setEnabled(true);
     }
 
     private byte[] toByteArray(float[][] output) {
