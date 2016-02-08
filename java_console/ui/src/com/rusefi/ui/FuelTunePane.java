@@ -2,7 +2,9 @@ package com.rusefi.ui;
 
 import com.romraider.Settings;
 import com.romraider.maps.Scale;
+import com.romraider.maps.Table;
 import com.romraider.maps.Table3D;
+import com.romraider.xml.RomAttributeParser;
 import com.rusefi.BinarySearch;
 import com.rusefi.FileLog;
 import com.rusefi.autotune.FuelAutoTune;
@@ -16,6 +18,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -78,6 +84,13 @@ public class FuelTunePane {
         initTable(changeMap);
     }
 
+    private static void loadData(Table table, byte[] content, int offset) {
+        table.setStorageAddress(offset);
+        table.setStorageType(Settings.STORAGE_TYPE_FLOAT);
+        table.populateTable(content, 0);
+        table.drawTable();
+    }
+
     private void initTable(Table3D table) {
         // todo: which one is which?
         table.setSizeX(Fields.FUEL_LOAD_COUNT);
@@ -108,19 +121,25 @@ public class FuelTunePane {
         // todo: move this away from AWT thread
         FuelAutoTune.Result a = FuelAutoTune.process(false, data, 0.1, 14.7, veTable);
 
+        float output[][] = a.getKgbcRES();
+        byte[] o = toByteArray(output);
 
-        changeMap.setStorageAddress(0);
-        changeMap.setStorageType(Settings.STORAGE_TYPE_FLOAT);
-        changeMap.populateTable(new byte[4 * 16 * 16], 0);
+        loadData(changeMap, o, 0);
+    }
 
-        for (int i = 0; i < 16; i++) {
-            for (int rpmIndex = 0; rpmIndex < 16; rpmIndex++) {
-                changeMap.get3dData()[i][rpmIndex].setBinValue(a.getKgbcRES()[i][rpmIndex]);
+    private byte[] toByteArray(float[][] output) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            for (int loadIndex = 0; loadIndex < Fields.FUEL_LOAD_COUNT; loadIndex++) {
+                for (int rpmIndex = 0; rpmIndex < Fields.FUEL_RPM_COUNT; rpmIndex++) {
+                    byte[] b4 = RomAttributeParser.floatToByte(output[loadIndex][rpmIndex], Settings.ENDIAN_BIG);
+                    baos.write(b4);
+                }
             }
+            return baos.toByteArray();
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
         }
-
-        changeMap.drawTable();
-
     }
 
     public void showContent() {
@@ -143,18 +162,20 @@ public class FuelTunePane {
             }
         });
 
-        loadArray(veLoadBins, Fields.VETABLE.getOffset() + Fields.FUEL_RPM_COUNT * Fields.FUEL_LOAD_COUNT * 4);
-        loadArray(veRpmBins, Fields.VETABLE.getOffset() + Fields.FUEL_RPM_COUNT * Fields.FUEL_LOAD_COUNT * 4 + Fields.FUEL_LOAD_COUNT * 4);
+        int veLoadOffset = Fields.VETABLE.getOffset() + Fields.FUEL_RPM_COUNT * Fields.FUEL_LOAD_COUNT * 4;
+        loadArray(veLoadBins, veLoadOffset);
+        int veRpmOffset = Fields.VETABLE.getOffset() + Fields.FUEL_RPM_COUNT * Fields.FUEL_LOAD_COUNT * 4 + Fields.FUEL_LOAD_COUNT * 4;
+        loadArray(veRpmBins, veRpmOffset);
 
         BinaryProtocol bp = BinaryProtocol.instance;
 
         byte[] content = bp.getController().getContent();
-        veTable.setStorageAddress(Fields.VETABLE.getOffset());
-        veTable.setStorageType(Settings.STORAGE_TYPE_FLOAT);
-        veTable.populateTable(content, 0);
-        veTable.drawTable();
+        loadData(veTable.getXAxis(), content, veRpmOffset);
+        loadData(veTable.getYAxis(), content, veLoadOffset);
+        loadData(veTable, content, Fields.VETABLE.getOffset());
 
-//        UiUtils.trueLayout(content.getParent());
+        loadData(changeMap.getXAxis(), content, veRpmOffset);
+        loadData(changeMap.getYAxis(), content, veLoadOffset);
     }
 
     private void loadMap(float[][] map, int offset) {
