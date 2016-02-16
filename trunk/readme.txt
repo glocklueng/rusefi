@@ -5,6 +5,7 @@ current binaries are always available at http://rusefi.com/build_server/
 
 | Release date  | Revision  | Details |
 | ------------  | --------- | ------- |
+| 02/15/2016	| r9600     | automatic warm-up fuel correction, performance improvements
 | 08/31/2015	| r8725     | acceleration fuel correction, console improvements
 | 07/06/2015	| r8554     | more CAN, better console, bugfixes, performance
 | 04/26/2015	| r7938	    | vehicle speed sensor, stepper idle valve, lots of improvements
