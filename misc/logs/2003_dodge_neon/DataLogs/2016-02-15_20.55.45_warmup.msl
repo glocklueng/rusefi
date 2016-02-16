@@ -1,6 +1,6 @@
 "MShift v0.01: Bowling & Grippo MS1 Base Code MShift v0.01"
 "Capture Date: Mon Feb 15 20:55:46 EST 2016"
-Time	RPM	CLT	IAT	TPS	MAF	MAP	AFR	vBatt	Load	ignAdv	Knock	speed	dRPM	airMass	pedal	trg err	fuel: pulse	fuel: base	fuel: VE	fuel: EL delta	fuel: tps delta	fuel: tpsAccel	fuel: IAT corr	fuel: wall corr ms	fuel: wall amount	baroCorrection	cltCorrection	debug f1	debug f2	debug f3	debug f4	debug f5	debug i1	debug i2	debug i3	tCharge
+Time	RPM	CLT	IAT	TPS	MAF	MAP	AFR	vBatt	Load	ignAdv	Knock	speed	dRPM	airMass	pedal	trg err	fuel: pulse	fuel: base	fuel: VE	fuel: EL delta	fuel: tps delta	fuel: tpsAccel	fuel: IAT corr	fuel: wall corr ms	fuel: wall amount	baroCorrection	cltCorrection	pwm_duty	integration	PrevError	I_Factor	D_Factor	P_factor	offset	debug i3	tCharge
 	RPM	°C	°C	%	V	MAP	AFR	V	%	deg	Volts	kph	dRpm	Kg/h	%	counter	ms	ms	ratio	%	ratio	ms	%	ms	ms	%	%	val	val	val	val	val	val	val	val	T
 63.610	0	54.31	4.16	0.00	0.00	101.8	20.00	13.16	101.9	14.00	0.00	0.00	NaN	0.000	0.000	0	0.000	8.01	50.000	0.000	0.000	0.000	1.000	0.000	0.000	1.000	1.000	0.0000	0.0000	0.0000	0.0000	0.0000	0	0	0	41.771
 63.790	0	54.31	4.16	0.00	0.00	101.7	20.00	13.16	101.7	14.00	0.00	0.00	NaN	0.000	0.000	0	0.000	8.00	50.000	0.000	0.000	0.000	1.000	0.000	0.000	1.000	1.000	0.0000	0.0000	0.0000	0.0000	0.0000	0	0	0	41.771
