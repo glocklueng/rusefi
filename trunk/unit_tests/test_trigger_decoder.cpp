@@ -553,7 +553,7 @@ void testTriggerDecoder(void) {
 		assertEqualsM("index for 668", 11, t->triggerIndexByAngle[668]);
 
 
-		eth.persistentConfig.engineConfiguration.useOnlyFrontForTrigger = false;
+		eth.persistentConfig.engineConfiguration.useOnlyRisingEdgeForTrigger = false;
 		eth.persistentConfig.engineConfiguration.bc.sensorChartMode = SC_DETAILED_RPM;
 		applyNonPersistentConfiguration(NULL PASS_ENGINE_PARAMETER);
 
@@ -574,8 +574,8 @@ void testTriggerDecoder(void) {
 		EngineTestHelper eth(DODGE_NEON_2003);
 		EXPAND_EngineTestHelper;
 
-		printf("!!!!!!!!!!!!!!!!!! Now trying with only front events !!!!!!!!!!!!!!!!!\r\n");
-		engineConfiguration->useOnlyFrontForTrigger = true;
+		printf("!!!!!!!!!!!!!!!!!! Now trying with only rising edges !!!!!!!!!!!!!!!!!\r\n");
+		engineConfiguration->useOnlyRisingEdgeForTrigger = true;
 
 		applyNonPersistentConfiguration(NULL PASS_ENGINE_PARAMETER);
 		prepareShapes(PASS_ENGINE_PARAMETER_F);
