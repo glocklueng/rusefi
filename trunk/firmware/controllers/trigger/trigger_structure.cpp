@@ -169,8 +169,8 @@ void TriggerState::reset() {
 	totalTriggerErrorCounter = 0;
 	orderingErrorCounter = 0;
 	currentDuration = 0;
-	curSignal = SHAFT_PRIMARY_DOWN;
-	prevSignal = SHAFT_PRIMARY_DOWN;
+	curSignal = SHAFT_PRIMARY_FALLING;
+	prevSignal = SHAFT_PRIMARY_FALLING;
 	prevCycleDuration = 0;
 	startOfCycleNt = 0;
 
