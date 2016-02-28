@@ -94,7 +94,7 @@ void TriggerShape::calculateTriggerSynchPoint(TriggerState *state DECLARE_ENGINE
 			int triggerDefinitionIndex = triggerDefinitionCoordinate >= size ? triggerDefinitionCoordinate - size : triggerDefinitionCoordinate;
 			float angle = getAngle(triggerDefinitionCoordinate) - firstAngle;
 			fixAngle(angle);
-			if (engineConfiguration->useOnlyFrontForTrigger) {
+			if (engineConfiguration->useOnlyRisingEdgeForTrigger) {
 				if (isFrontEvent[triggerDefinitionIndex]) {
 					frontOnlyIndex += 2;
 					eventAngles[frontOnlyIndex] = angle;
@@ -289,7 +289,7 @@ void TriggerShape::addEvent(angle_t angle, trigger_wheel_e const waveIndex, trig
 
 #if EFI_PROD_CODE || defined(__DOXYGEN__)
 // todo: PASS_ENGINE?
-	if (!engineConfiguration->useOnlyFrontForTrigger || stateParam == TV_RISE) {
+	if (!engineConfiguration->useOnlyRisingEdgeForTrigger || stateParam == TV_RISE) {
 		expectedEventCount[waveIndex]++;
 	}
 #endif

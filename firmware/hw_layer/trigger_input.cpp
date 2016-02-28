@@ -59,7 +59,7 @@ static void shaft_icu_period_callback(ICUDriver *icup) {
 	//	icucnt_t last_period = icuGetPeriod(icup); so far we are fine with system time
 	trigger_event_e signal =
 			isPrimary ? SHAFT_PRIMARY_DOWN : SHAFT_SECONDARY_DOWN;
-	if (CONFIG(useOnlyFrontForTrigger))
+	if (CONFIG(useOnlyRisingEdgeForTrigger))
 		return;
 	hwHandleShaftSignal(signal);
 }
@@ -80,10 +80,10 @@ static ICUDriver *turnOnTriggerInputPin(brain_pin_e hwPin) {
 	// todo: reuse 'setWaveReaderMode' method here?
 	if (driver != NULL) {
 		// todo: once http://forum.chibios.org/phpbb/viewtopic.php?f=16&t=1757 is fixed
-//		bool needWidthCallback = !CONFIG(useOnlyFrontForTrigger) || TRIGGER_SHAPE(useRiseEdge);
+//		bool needWidthCallback = !CONFIG(useOnlyRisingEdgeForTrigger) || TRIGGER_SHAPE(useRiseEdge);
 //		shaft_icucfg.width_cb = needWidthCallback ? shaft_icu_width_callback : NULL;
 
-//		bool needPeriodCallback = !CONFIG(useOnlyFrontForTrigger) || !TRIGGER_SHAPE(useRiseEdge);
+//		bool needPeriodCallback = !CONFIG(useOnlyRisingEdgeForTrigger) || !TRIGGER_SHAPE(useRiseEdge);
 //		shaft_icucfg.period_cb = needPeriodCallback ? shaft_icu_period_callback : NULL;
 
 		efiIcuStart(driver, &shaft_icucfg);
