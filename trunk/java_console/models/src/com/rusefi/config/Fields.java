@@ -1,6 +1,6 @@
 package com.rusefi.config;
 
-// this file was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Sat Feb 27 22:02:38 EST 2016
+// this file was generated automatically by ConfigDefinition.jar based on rusefi_config.txt Sun Feb 28 00:51:58 EST 2016
 public class Fields {
 	public static final int LE_COMMAND_LENGTH = 200;
 	public static final int TS_FILE_VERSION = 20160122;
@@ -366,6 +366,7 @@ public class Fields {
 	public static final int useLcdScreen_offset = 1000;
 	public static final int startConsoleInBinaryMode_offset = 1000;
 	public static final int useWarmupPidAfr_offset = 1000;
+	public static final int onOffAlternatorLogic_offset = 1000;
 	public static final int logicAnalyzerPins1_offset = 1004;
 	public static final int logicAnalyzerPins2_offset = 1008;
 	public static final int logicAnalyzerPins3_offset = 1012;
@@ -1024,6 +1025,7 @@ public class Fields {
 	public static final Field USELCDSCREEN = Field.create("USELCDSCREEN", 1000, FieldType.BIT, 12);
 	public static final Field STARTCONSOLEINBINARYMODE = Field.create("STARTCONSOLEINBINARYMODE", 1000, FieldType.BIT, 13);
 	public static final Field USEWARMUPPIDAFR = Field.create("USEWARMUPPIDAFR", 1000, FieldType.BIT, 14);
+	public static final Field ONOFFALTERNATORLOGIC = Field.create("ONOFFALTERNATORLOGIC", 1000, FieldType.BIT, 15);
 	public static final Field LOGICANALYZERPINS1 = Field.create("LOGICANALYZERPINS1", 1004, FieldType.INT, brain_input_pin_e);
 	public static final Field LOGICANALYZERPINS2 = Field.create("LOGICANALYZERPINS2", 1008, FieldType.INT, brain_input_pin_e);
 	public static final Field LOGICANALYZERPINS3 = Field.create("LOGICANALYZERPINS3", 1012, FieldType.INT, brain_input_pin_e);
