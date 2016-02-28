@@ -56,7 +56,7 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, TriggerShape * shape
 
 void TriggerStimulatorHelper::assertSyncPositionAndSetDutyCycle(uint32_t index, TriggerState *state, TriggerShape * shape,
 		trigger_config_s const*triggerConfig DECLARE_ENGINE_PARAMETER_S) {
-	int startIndex = engineConfiguration->useOnlyFrontForTrigger ? index + 2 : index + 1;
+	int startIndex = engineConfiguration->useOnlyRisingEdgeForTrigger ? index + 2 : index + 1;
 
 	for (uint32_t i = startIndex; i <= index + 2 * shape->getSize(); i++) {
 		nextStep(state, shape, i, triggerConfig PASS_ENGINE_PARAMETER);

@@ -39,7 +39,7 @@ EXTERN_ENGINE
 ;
 
 static void fireShaftSignal(trigger_event_e signal) {
-	if (!engineConfiguration->useOnlyFrontForTrigger || isRisingEdge[(int) signal])
+	if (!engineConfiguration->useOnlyRisingEdgeForTrigger || isRisingEdge[(int) signal])
 		hwHandleShaftSignal(signal);
 }
 
