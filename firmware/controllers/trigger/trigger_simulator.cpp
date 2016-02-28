@@ -37,19 +37,19 @@ void TriggerStimulatorHelper::nextStep(TriggerState *state, TriggerShape * shape
 
 	if (primaryWheelState != newPrimaryWheelState) {
 		primaryWheelState = newPrimaryWheelState;
-		trigger_event_e s = primaryWheelState ? SHAFT_PRIMARY_UP : SHAFT_PRIMARY_DOWN;
+		trigger_event_e s = primaryWheelState ? SHAFT_PRIMARY_RISING : SHAFT_PRIMARY_FALLING;
 		state->decodeTriggerEvent(s, time PASS_ENGINE_PARAMETER);
 	}
 
 	if (secondaryWheelState != newSecondaryWheelState) {
 		secondaryWheelState = newSecondaryWheelState;
-		trigger_event_e s = secondaryWheelState ? SHAFT_SECONDARY_UP : SHAFT_SECONDARY_DOWN;
+		trigger_event_e s = secondaryWheelState ? SHAFT_SECONDARY_RISING : SHAFT_SECONDARY_FALLING;
 		state->decodeTriggerEvent(s, time PASS_ENGINE_PARAMETER);
 	}
 
 	if (thirdWheelState != new3rdWheelState) {
 		thirdWheelState = new3rdWheelState;
-		trigger_event_e s = thirdWheelState ? SHAFT_3RD_UP : SHAFT_3RD_DOWN;
+		trigger_event_e s = thirdWheelState ? SHAFT_3RD_RISING : SHAFT_3RD_FALLING;
 		state->decodeTriggerEvent(s, time PASS_ENGINE_PARAMETER);
 	}
 }

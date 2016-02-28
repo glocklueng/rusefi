@@ -54,7 +54,7 @@ void TriggerCentral::addEventListener(ShaftPositionListener listener, const char
  * @brief Adds a trigger event listener
  *
  * Trigger event listener would be invoked on each trigger event. For example, for a 60/2 wheel
- * that would be 116 events: 58 SHAFT_PRIMARY_UP and 58 SHAFT_PRIMARY_DOWN events.
+ * that would be 116 events: 58 SHAFT_PRIMARY_RISING and 58 SHAFT_PRIMARY_FALLING events.
  */
 void addTriggerEventListener(ShaftPositionListener listener, const char *name, Engine *engine) {
 	engine->triggerCentral.addEventListener(listener, name, engine);

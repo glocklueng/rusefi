@@ -122,7 +122,7 @@ static trigger_wheel_e eventIndex[6] = { T_PRIMARY, T_PRIMARY, T_SECONDARY, T_SE
  * @param nowNt current time
  */
 void TriggerState::decodeTriggerEvent(trigger_event_e const signal, efitime_t nowNt DECLARE_ENGINE_PARAMETER_S) {
-	efiAssertVoid(signal <= SHAFT_3RD_UP, "unexpected signal");
+	efiAssertVoid(signal <= SHAFT_3RD_RISING, "unexpected signal");
 
 	trigger_wheel_e triggerWheel = eventIndex[signal];
 
