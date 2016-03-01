@@ -3,6 +3,7 @@ package com.rusefi;
 import com.rusefi.binaryprotocol.BinaryProtocol;
 import com.rusefi.core.EngineState;
 import com.rusefi.core.MessagesCentral;
+import com.rusefi.io.ConnectionStatus;
 import com.rusefi.io.ConnectionWatchdog;
 import com.rusefi.io.LinkManager;
 import com.rusefi.io.serial.PortHolder;
@@ -52,7 +53,17 @@ public class Launcher {
             Font f = g.getFont();
             g.setFont(new Font(f.getName(), f.getStyle(), f.getSize() * 4));
             Dimension d = getSize();
-            String text = ConnectionStatus.INSTANCE.isConnected() ? "" : "Not connected";
+            String text;
+            switch (ConnectionStatus.INSTANCE.getValue()) {
+                case NOT_CONNECTED:
+                    text = "Not connected";
+                    break;
+                case LOADING:
+                    text = "Loading";
+                    break;
+                default:
+                    text = "";
+            }
             int labelWidth = g.getFontMetrics().stringWidth(text);
             g.drawString(text, (d.width - labelWidth) / 2, d.height / 2);
         }
