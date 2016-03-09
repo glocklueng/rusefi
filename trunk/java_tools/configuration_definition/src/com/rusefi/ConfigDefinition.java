@@ -32,6 +32,7 @@ public class ConfigDefinition {
     public static Map<String, ConfigStructure> structures = new HashMap<>();
     public static Map<String, String> tsCustomLine = new HashMap<>();
     public static Map<String, Integer> tsCustomSize = new HashMap<>();
+    public static StringBuilder settingContextHelp = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
         if (args.length != 4) {
@@ -95,6 +96,10 @@ public class ConfigDefinition {
         tsHeader.write("pageSize            = " + totalTsSize + "\r\n");
         tsHeader.write("page = 1\r\n");
         tsHeader.write(fieldsSection);
+        if (settingContextHelp.length() > 0) {
+            tsHeader.write("[SettingContextHelp]\r\n");
+            tsHeader.write(settingContextHelp.toString() + "\r\n\r\n");
+        }
         tsHeader.write("; " + CONFIG_DEFINITION_END + "\r\n");
         tsHeader.write(tsContent.getPostfix());
         return tsHeader;

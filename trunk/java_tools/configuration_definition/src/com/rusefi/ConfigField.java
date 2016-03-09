@@ -26,7 +26,12 @@ public class ConfigField {
     private static final String BOOLEAN_TYPE = "bool";
 
     public static final int LENGTH = 24;
+    private static final char TS_COMMENT_TAG = '+';
 
+    /**
+     * field name without structure name
+     * @see #writeJavaFields prefix parameter for structure name
+     */
     public final String name;
     public final String comment;
     public final boolean isBit;
@@ -97,11 +102,11 @@ public class ConfigField {
 
     String getHeaderText(int currentOffset, int bitIndex) {
         if (isBit) {
-            String comment = "\t/**\r\n" + ConfigDefinition.packComment(this.comment, "\t") + "\toffset " + currentOffset + " bit " + bitIndex + " */\r\n";
+            String comment = "\t/**\r\n" + ConfigDefinition.packComment(getCommentContent(), "\t") + "\toffset " + currentOffset + " bit " + bitIndex + " */\r\n";
             return comment + "\t" + BOOLEAN_TYPE + " " + name + " : 1;\r\n";
         }
 
-        String cEntry = ConfigDefinition.getComment(comment, currentOffset);
+        String cEntry = ConfigDefinition.getComment(getCommentContent(), currentOffset);
 
         if (arraySize == 1) {
             // not an array
@@ -196,6 +201,10 @@ public class ConfigField {
 
         String nameWithPrefix = prefix + name;
 
+        if (comment != null && comment.startsWith(TS_COMMENT_TAG + "")) {
+            ConfigDefinition.settingContextHelp.append("\t" + nameWithPrefix + " = \"" + getCommentContent() + "\"\r\n");
+        }
+
         if (isBit) {
             writeJavaFieldName(javaFieldsWriter, nameWithPrefix, tsPosition);
             javaFieldsWriter.append("FieldType.BIT, " + bitIndex + ");\r\n");
@@ -235,5 +244,11 @@ public class ConfigField {
         javaFieldsWriter.write(nameWithPrefix.toUpperCase());
         javaFieldsWriter.write(" = Field.create(\"" + nameWithPrefix.toUpperCase() + "\", "
                 + tsPosition + ", ");
+    }
+
+    public String getCommentContent() {
+        if (comment == null || comment.isEmpty())
+            return comment;
+        return comment.charAt(0) == TS_COMMENT_TAG ? comment.substring(1) : comment;
     }
 }
