@@ -183,7 +183,7 @@ static void setDecelMult(float value) {
 }
 
 static void setTpsAccelLen(int length) {
-	if (len < 1) {
+	if (length < 1) {
 		scheduleMsg(logger, "Length should be positive");
 		return;
 	}
@@ -192,7 +192,7 @@ static void setTpsAccelLen(int length) {
 }
 
 void setEngineLoadAccelLen(int length) {
-	if (len < 1) {
+	if (length < 1) {
 		scheduleMsg(logger, "Length should be positive");
 		return;
 	}
