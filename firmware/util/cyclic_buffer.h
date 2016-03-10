@@ -44,10 +44,10 @@ class cyclic_buffer
     int getSize();
     int getCount();
     void clear();
+    volatile T elements[CB_MAX_SIZE];
 
   private:
     void baseC(int size);
-    volatile T elements[CB_MAX_SIZE];
     volatile int currentIndex;
     /**
      * number of elements added into this buffer, would be eventually bigger then size
