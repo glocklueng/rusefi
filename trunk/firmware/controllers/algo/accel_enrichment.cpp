@@ -63,7 +63,7 @@ floatms_t WallFuel::getWallFuel(int injectorIndex) {
 	return wallFuel[injectorIndex];
 }
 
-float AccelEnrichmemnt::getMaxDelta() {
+float AccelEnrichmemnt::getMaxDelta(DECLARE_ENGINE_PARAMETER_F) {
 	if (cb.getCount() == 0)
 		return 0; // no recent data
 	return cb.maxValue(cb.getSize());
@@ -71,7 +71,7 @@ float AccelEnrichmemnt::getMaxDelta() {
 
 // todo: eliminate code duplication between these two methods! Some pointer magic would help.
 floatms_t AccelEnrichmemnt::getTpsEnrichment(DECLARE_ENGINE_PARAMETER_F) {
-	float d = getMaxDelta();
+	float d = getMaxDelta(PASS_ENGINE_PARAMETER_F);
 	if (d > engineConfiguration->tpsAccelEnrichmentThreshold) {
 		return d * engineConfiguration->tpsAccelEnrichmentMultiplier;
 	}
@@ -82,7 +82,7 @@ floatms_t AccelEnrichmemnt::getTpsEnrichment(DECLARE_ENGINE_PARAMETER_F) {
 }
 
 float AccelEnrichmemnt::getEngineLoadEnrichment(DECLARE_ENGINE_PARAMETER_F) {
-	float d = getMaxDelta();
+	float d = getMaxDelta(PASS_ENGINE_PARAMETER_F);
 	if (d > engineConfiguration->engineLoadAccelEnrichmentThreshold) {
 		return d * engineConfiguration->engineLoadAccelEnrichmentMultiplier;
 	}
