@@ -123,9 +123,10 @@ void setFordEscortGt(DECLARE_ENGINE_PARAMETER_F) {
 	setEgoSensor(ES_Innovate_MTX_L PASS_ENGINE_PARAMETER);
 	engineConfiguration->afr.hwChannel = EFI_ADC_2; // Frankenso analog #5
 
-	// set_idle_position 35
-	boardConfiguration->manIdlePosition = 35;
+	// set_idle_position 10
+	boardConfiguration->manIdlePosition = 10;
 
+	setWholeIatCorrTimingTable(0 PASS_ENGINE_PARAMETER);
 
 
 	// set_global_trigger_offset_angle -37
