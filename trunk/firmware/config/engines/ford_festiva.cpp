@@ -239,6 +239,12 @@ void setFordEscortGt(DECLARE_ENGINE_PARAMETER_F) {
 	config->ignitionRpmBins[15] = 7000;
 	copyTimingTable(racingFestivaIgnitionTable, config->ignitionTable);
 
+	//	boardConfiguration->useWarmupPidAfr = true;
+		engineConfiguration->warmupAfrPid.pFactor = -0.2;
+		engineConfiguration->warmupAfrPid.iFactor = -0.0005;
+	//	engineConfiguration->warmupAfrPid.dFactor = -0.02;
+		engineConfiguration->debugMode = WARMUP_ENRICH;
+
 	// end of Ford Escort GT config
 }
 
