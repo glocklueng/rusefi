@@ -85,6 +85,7 @@ float Map3D<RPM_BIN_SIZE, LOAD_BIN_SIZE>::getValue(float x, float rpm) {
 		warning(OBD_PCM_Processor_Fault, "%s: x is NaN", name);
 		return NAN;
 	}
+	// todo: we have a bit of a mess: in TunerStudio, RPM is X-axis
 	return interpolate3d(x, loadBins, LOAD_BIN_SIZE, rpm, rpmBins, RPM_BIN_SIZE, pointers);
 }
 
