@@ -68,11 +68,15 @@ float AccelEnrichmemnt::getMaxDelta(DECLARE_ENGINE_PARAMETER_F) {
 	int len = minI(cb.getSize(), cb.getCount());
 	if (len < 2)
 		return 0;
-	float maxValue = cb.elements[0] - cb.elements[len - 1];
+	int ci = cb.currentIndex - 1;
+	float maxValue = cb.get(ci) - cb.get(ci - 1);
 //	int resultIndex = 0;
 
-	for (int i = 1; i<len;i++) {
-		float v = cb.elements[i] - cb.elements[i - 1];
+	// todo: 'get' method is maybe a bit heavy because of the branching
+	// todo: this could be optimized with some careful magic
+
+	for (int i = 1; i<len - 1;i++) {
+		float v = cb.get(ci +- i) - cb.get(ci - i - 1);
 		if (v > maxValue) {
 			maxValue = v;
 //			resultIndex = i;
