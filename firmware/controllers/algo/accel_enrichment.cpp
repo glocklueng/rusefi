@@ -26,9 +26,16 @@
 #include "engine_state.h"
 #include "engine_math.h"
 #include "signal_executor.h"
+#if !EFI_UNIT_TEST
+#include "tunerstudio_configuration.h"
+extern TunerStudioOutputChannels tsOutputChannels;
+#endif
 
 EXTERN_ENGINE
 ;
+
+
+tps_tps_Map3D_t tpsTpsMap("tpsTps");
 
 static Logging *logger = NULL;
 
@@ -95,9 +102,25 @@ float AccelEnrichmemnt::getMaxDelta(DECLARE_ENGINE_PARAMETER_F) {
 
 // todo: eliminate code duplication between these two methods! Some pointer magic would help.
 floatms_t AccelEnrichmemnt::getTpsEnrichment(DECLARE_ENGINE_PARAMETER_F) {
-	float d = getMaxDelta(PASS_ENGINE_PARAMETER_F);
+	int index = getMaxDeltaIndex(PASS_ENGINE_PARAMETER_F);
+
+//	FuelSchedule *fs = engine->engineConfiguration2->injectionEvents;
+	float tpsTo = cb.get(index);
+	float tpsFrom = cb.get(index - 1);
+	float d = tpsTo - tpsFrom;
+
+	float deltaMult = tpsTpsMap.getValue(tpsFrom, tpsTo);
+
+
+#if !EFI_UNIT_TEST
+	if (engineConfiguration->debugMode == DBG_TPS_ACCEL) {
+		tsOutputChannels.debugFloatField1 = tpsFrom;
+		tsOutputChannels.debugFloatField2 = tpsTo;
+	}
+#endif
+
 	if (d > engineConfiguration->tpsAccelEnrichmentThreshold) {
-		return d * engineConfiguration->tpsAccelEnrichmentMultiplier;
+		return deltaMult;
 	}
 	if (d < -engineConfiguration->tpsDecelEnleanmentThreshold) {
 		return d * engineConfiguration->tpsDecelEnleanmentMultiplier;
@@ -222,6 +245,7 @@ void updateAccelParameters() {
 
 void initAccelEnrichment(Logging *sharedLogger) {
 	logger = sharedLogger;
+	tpsTpsMap.init(config->tpsTpsAccelTable, config->tpsTpsAccelFromRpmBins, config->tpsTpsAccelToRpmBins);
 	addConsoleActionI("set_tps_accel_len", setTpsAccelLen);
 	addConsoleActionF("set_tps_accel_threshold", setTpsAccelThr);
 	addConsoleActionF("set_tps_accel_multiplier", setTpsAccelMult);
