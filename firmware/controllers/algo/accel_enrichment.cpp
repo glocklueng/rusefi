@@ -140,7 +140,7 @@ float AccelEnrichmemnt::getEngineLoadEnrichment(DECLARE_ENGINE_PARAMETER_F) {
 	FuelSchedule *fs = engine->engineConfiguration2->injectionEvents;
 	float d = (cb.get(index) - (cb.get(index - 1))) * fs->eventsCount;
 
-	float result;
+	float result = 0;
 	int distance = 0;
 	float taper = 0;
 	if (d > engineConfiguration->engineLoadAccelEnrichmentThreshold) {
