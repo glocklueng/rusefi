@@ -26,7 +26,7 @@
 #include "engine_state.h"
 #include "engine_math.h"
 #include "signal_executor.h"
-#if !EFI_UNIT_TEST
+#if !EFI_UNIT_TEST || defined(__DOXYGEN__)
 #include "tunerstudio_configuration.h"
 extern TunerStudioOutputChannels tsOutputChannels;
 #endif
@@ -121,7 +121,7 @@ floatms_t AccelEnrichmemnt::getTpsEnrichment(DECLARE_ENGINE_PARAMETER_F) {
 		result = 0;
 	}
 
-#if !EFI_UNIT_TEST
+#if !EFI_UNIT_TEST || defined(__DOXYGEN__)
 	if (engineConfiguration->debugMode == DBG_TPS_ACCEL) {
 		tsOutputChannels.debugFloatField1 = tpsFrom;
 		tsOutputChannels.debugFloatField2 = tpsTo;
@@ -135,14 +135,36 @@ floatms_t AccelEnrichmemnt::getTpsEnrichment(DECLARE_ENGINE_PARAMETER_F) {
 }
 
 float AccelEnrichmemnt::getEngineLoadEnrichment(DECLARE_ENGINE_PARAMETER_F) {
-	float d = getMaxDelta(PASS_ENGINE_PARAMETER_F);
+	int index = getMaxDeltaIndex(PASS_ENGINE_PARAMETER_F);
+
+	FuelSchedule *fs = engine->engineConfiguration2->injectionEvents;
+	float d = (cb.get(index) - (cb.get(index - 1))) * fs->eventsCount;
+
+	float result;
+	int distance = 0;
+	float taper = 0;
 	if (d > engineConfiguration->engineLoadAccelEnrichmentThreshold) {
-		return d * engineConfiguration->engineLoadAccelEnrichmentMultiplier;
+
+		int distance = cb.currentIndex - index;
+		if (distance <= 0) // checking if indexes are out of order due to circular buffer nature
+			distance += minI(cb.getCount(), cb.getSize());
+
+		taper = interpolate2d(distance, engineConfiguration->mapAccelTaperBins, engineConfiguration->mapAccelTaperMult, MAP_ACCEL_TAPER);
+
+		result = taper * d * engineConfiguration->engineLoadAccelEnrichmentMultiplier;
+	} else if (d < -engineConfiguration->engineLoadDecelEnleanmentThreshold) {
+		result = d * engineConfiguration->engineLoadAccelEnrichmentMultiplier;
 	}
-	if (d < -engineConfiguration->engineLoadDecelEnleanmentThreshold) {
-		return d * engineConfiguration->engineLoadAccelEnrichmentMultiplier;
+
+#if ! EFI_UNIT_TEST || defined(__DOXYGEN__)
+	if (engineConfiguration->debugMode == DBG_EL_ACCEL) {
+		tsOutputChannels.debugIntField1 = distance;
+		tsOutputChannels.debugFloatField1 = result;
+		tsOutputChannels.debugFloatField2 = taper;
+
 	}
-	return 0;
+#endif
+	return result;
 }
 
 void AccelEnrichmemnt::reset() {
