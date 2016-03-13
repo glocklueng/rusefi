@@ -111,14 +111,13 @@ floatms_t AccelEnrichmemnt::getTpsEnrichment(DECLARE_ENGINE_PARAMETER_F) {
 
 	float deltaMult = tpsTpsMap.getValue(tpsFrom, tpsTo);
 
-
-	float result;
+	floatms_t extraFuel;
 	if (d > engineConfiguration->tpsAccelEnrichmentThreshold) {
-		result = deltaMult;
+		extraFuel = deltaMult;
 	} else if (d < -engineConfiguration->tpsDecelEnleanmentThreshold) {
-		result= d * engineConfiguration->tpsDecelEnleanmentMultiplier;
+		extraFuel = d * engineConfiguration->tpsDecelEnleanmentMultiplier;
 	} else {
-		result = 0;
+		extraFuel = 0;
 	}
 
 #if !EFI_UNIT_TEST || defined(__DOXYGEN__)
@@ -126,12 +125,12 @@ floatms_t AccelEnrichmemnt::getTpsEnrichment(DECLARE_ENGINE_PARAMETER_F) {
 		tsOutputChannels.debugFloatField1 = tpsFrom;
 		tsOutputChannels.debugFloatField2 = tpsTo;
 		tsOutputChannels.debugFloatField3 = deltaMult;
-		tsOutputChannels.debugFloatField4 = result;
+		tsOutputChannels.debugFloatField4 = extraFuel;
 	}
 #endif
 
 
-	return result;
+	return extraFuel;
 }
 
 float AccelEnrichmemnt::getEngineLoadEnrichment(DECLARE_ENGINE_PARAMETER_F) {
