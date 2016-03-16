@@ -97,7 +97,11 @@ void RpmCalculator::assignRpmValue(int value) {
 void RpmCalculator::setRpmValue(int value DECLARE_ENGINE_PARAMETER_S) {
 	assignRpmValue(value);
 	if (previousRpmValue == 0 && rpmValue > 0) {
-
+		/**
+		 * this would make sure that we have good numbers for first cranking revolution
+		 * #275 cranking could be improved
+		 */
+		engine->periodicFastCallback(PASS_ENGINE_PARAMETER_F);
 	}
 }
 
