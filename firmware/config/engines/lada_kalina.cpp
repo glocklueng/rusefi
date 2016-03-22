@@ -18,7 +18,10 @@ void setLadaKalina(DECLARE_ENGINE_PARAMETER_F) {
 	setCustomEngineConfiguration(PASS_ENGINE_PARAMETER_F);
 
 	setOperationMode(engineConfiguration, FOUR_STROKE_CRANK_SENSOR);
-	engineConfiguration->trigger.type = TT_60_2_VW;
+	engineConfiguration->trigger.type = TT_TOOTHED_WHEEL_60_2;
+
+	boardConfiguration->triggerInputPins[0] = GPIOA_5;
+	boardConfiguration->triggerInputPins[1] = GPIO_UNASSIGNED;
 
 
 	// starter relay solenoid
@@ -28,6 +31,6 @@ void setLadaKalina(DECLARE_ENGINE_PARAMETER_F) {
 	 */
 	engineConfiguration->bc.fsio_setting[0] = 500;
 	// set_fsio_expression 1 "rpm 0 fsio_setting <"
-	setFsioExt(0, GPIOE_3, "rpm 0 fsio_setting <", 150 PASS_ENGINE_PARAMETER);
+	setFsioExt(0, GPIOE_3, "rpm 0 fsio_setting <", 0 PASS_ENGINE_PARAMETER);
 
 }
