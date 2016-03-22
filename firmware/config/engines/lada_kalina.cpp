@@ -23,6 +23,22 @@ void setLadaKalina(DECLARE_ENGINE_PARAMETER_F) {
 	boardConfiguration->triggerInputPins[0] = GPIOA_5;
 	boardConfiguration->triggerInputPins[1] = GPIO_UNASSIGNED;
 
+	engineConfiguration->globalTriggerAngleOffset = 114;
+
+	boardConfiguration->ignitionPins[0] = GPIOE_14;
+	boardConfiguration->ignitionPins[1] = GPIOC_7;
+	boardConfiguration->ignitionPins[2] = GPIOC_9;
+	boardConfiguration->ignitionPins[3] = GPIOE_12;
+
+	boardConfiguration->useStepperIdle = true;
+	boardConfiguration->fuelPumpPin = GPIOC_13;
+	boardConfiguration->mainRelayPin = GPIOD_7;
+
+	boardConfiguration->idle.stepperDirectionPin = GPIOE_15;
+	boardConfiguration->idle.stepperStepPin = GPIOE_13;
+	engineConfiguration->stepperEnablePin = GPIOE_11;
+
+
 
 	// starter relay solenoid
 	/**
