@@ -19,6 +19,9 @@ typedef EventListener event_listener_t;
 typedef Thread thread_t;
 #define THD_WORKING_AREA WORKING_AREA
 #define THD_FUNCTION(tname, arg) void tname(void *arg)
+#define MSG_OK RDY_OK
+#define eventflags_t flagsmask_t
+
 
 #define US_TO_NT_MULTIPLIER 100
 
