@@ -43,7 +43,7 @@ static msg_t console_thread(void *arg) {
 
 	(void) arg;
 	while (!chThdShouldTerminate()) {
-		Thread *tp = chMsgWait();
+		thread_t *tp = chMsgWait();
 		puts((char *) chMsgGet(tp));
 		fflush(stdout);
 		chMsgRelease(tp, RDY_OK);
