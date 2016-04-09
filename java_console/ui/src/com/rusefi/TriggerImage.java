@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * This utility produces images of trigger signals supported by rusEfi
  *
- * 06235/15
+ * 06/23/15
  * (c) Andrey Belomutskiy 2013-2016
  */
 public class TriggerImage {
