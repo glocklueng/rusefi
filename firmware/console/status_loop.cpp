@@ -509,7 +509,11 @@ static void blinkingThread(void *arg) {
 	(void) arg;
 	chRegSetThreadName("communication blinking");
 
-	initialLedsBlink();
+	if (!hasFirmwareError()) {
+		// make sure we do not turn the fatal LED off if already have
+		// fatal error by now
+		initialLedsBlink();
+	}
 
 	while (true) {
 		int delayMs = isConsoleReady() ? 3 * blinkingPeriod : blinkingPeriod;
