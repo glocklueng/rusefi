@@ -16,6 +16,7 @@ EXTERN_ENGINE;
 void setMiataNA_1_6_Configuration(DECLARE_ENGINE_PARAMETER_F) {
 	setCustomEngineConfiguration(PASS_ENGINE_PARAMETER_F);
 
+	engineConfiguration->trigger.type = TT_MAZDA_MIATA_NA;
 
 	engineConfiguration->specs.cylindersCount = 4;
 	engineConfiguration->specs.firingOrder = FO_1_THEN_3_THEN_4_THEN2;
