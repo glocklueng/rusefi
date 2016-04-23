@@ -47,10 +47,16 @@ void MenuTree::nextItem(void) {
 		topVisible = topVisible->next;
 }
 
+/**
+ * This constructor created a menu item and associates a callback with it
+ */
 MenuItem::MenuItem(MenuItem * parent, const char *text, VoidCallback callback) {
 	baseConstructor(parent, LL_STRING, text, callback);
 }
 
+/**
+ * Looks like this constructor is used to create
+ */
 MenuItem::MenuItem(MenuItem * parent, const char *text) {
 	baseConstructor(parent, LL_STRING, text, NULL);
 }
