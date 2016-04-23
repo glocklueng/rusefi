@@ -61,6 +61,9 @@ MenuItem::MenuItem(MenuItem * parent, const char *text) {
 	baseConstructor(parent, LL_STRING, text, NULL);
 }
 
+/**
+ * This constructor is used for lines with dynamic content
+ */
 MenuItem::MenuItem(MenuItem * parent, lcd_line_e lcdLine)  {
 	baseConstructor(parent, lcdLine, NULL, NULL);
 }
